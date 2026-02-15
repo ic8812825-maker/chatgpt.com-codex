@@ -1,7 +1,11 @@
 # Branch policy
 
-This project is intended to live in a single dedicated branch:
+Adaptive Lock Expansion (ALE) must use only one dedicated branch:
 
 - `ale`
 
-No other project branches should be used for ALE.
+## GitHub repository
+
+Repository: `https://github.com/ic8812825-maker/chatgpt.com-codex`
+
+The `ale` branch has been created and published to GitHub for ALE development.
