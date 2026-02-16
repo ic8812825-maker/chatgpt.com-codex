@@ -1,75 +1,119 @@
 #ifndef ALE_DO_UI_RIGHT_RIGHTPANEL_MQH_INCLUDED
 #define ALE_DO_UI_RIGHT_RIGHTPANEL_MQH_INCLUDED
 
+#include <Controls\Dialog.mqh>
+#include <Controls\Button.mqh>
+
 #include "../../state/SystemState.mqh"
 #include "../../state/DualState.mqh"
+#include "../left/common/UI_Button.mqh"
 #include "RightTabs.mqh"
 
-void RightPanel_EnsureRectangle(const string name,const int x,const int y,const int w,const int h,const color bg)
+class CRightPanelDialog : public CAppDialog
   {
-   if(ObjectFind(0,name)<0)
-      ObjectCreate(0,name,OBJ_RECTANGLE_LABEL,0,0,0);
+private:
+   CButton m_buttons[12];
+   bool    m_initialized;
 
-   ObjectSetInteger(0,name,OBJPROP_XDISTANCE,x);
-   ObjectSetInteger(0,name,OBJPROP_YDISTANCE,y);
-   ObjectSetInteger(0,name,OBJPROP_XSIZE,w);
-   ObjectSetInteger(0,name,OBJPROP_YSIZE,h);
-   ObjectSetInteger(0,name,OBJPROP_BGCOLOR,bg);
-   ObjectSetInteger(0,name,OBJPROP_COLOR,clrDimGray);
-   ObjectSetInteger(0,name,OBJPROP_BORDER_TYPE,BORDER_FLAT);
-   ObjectSetInteger(0,name,OBJPROP_SELECTABLE,false);
-   ObjectSetInteger(0,name,OBJPROP_HIDDEN,true);
-   ObjectSetInteger(0,name,OBJPROP_ZORDER,1);
-  }
+public:
+            CRightPanelDialog() : m_initialized(false) {}
 
-void RightPanel_EnsureButton(const string name,const int x,const int y,const int w,const int h)
-  {
-   if(ObjectFind(0,name)<0)
-      ObjectCreate(0,name,OBJ_BUTTON,0,0,0);
+   bool     Init(const int x1,const int y1,const int x2,const int y2)
+     {
+      if(!Create(0,"ALE_RightPanel",0,x1,y1,x2,y2))
+         return(false);
 
-   ObjectSetInteger(0,name,OBJPROP_XDISTANCE,x);
-   ObjectSetInteger(0,name,OBJPROP_YDISTANCE,y);
-   ObjectSetInteger(0,name,OBJPROP_XSIZE,w);
-   ObjectSetInteger(0,name,OBJPROP_YSIZE,h);
-   ObjectSetInteger(0,name,OBJPROP_BGCOLOR,clrWhiteSmoke);
-   ObjectSetInteger(0,name,OBJPROP_COLOR,clrBlack);
-   ObjectSetInteger(0,name,OBJPROP_BORDER_COLOR,clrSilver);
-   ObjectSetInteger(0,name,OBJPROP_SELECTABLE,false);
-   ObjectSetInteger(0,name,OBJPROP_HIDDEN,true);
-   ObjectSetInteger(0,name,OBJPROP_ZORDER,3);
-   ObjectSetString(0,name,OBJPROP_TEXT,"");
-  }
+      const int margin=10;
+      const int spacing=6;
+      const int rows=2;
+      const int cols=6;
+      const int h=24;
+      const int width=(x2-x1)-margin*2-spacing*(cols-1);
+      const int w=(width>0 ? width/cols : 1);
+
+      for(int r=0; r<rows; r++)
+        {
+         for(int c=0; c<cols; c++)
+           {
+            const int idx=r*cols+c;
+            const int bx=x1+margin+c*(w+spacing);
+            const int by=y1+margin+r*(h+spacing);
+            const string name=StringFormat("ALE_RightBtn_%d_%d",r,c);
+
+            if(!UI_Button_Create(m_buttons[idx],0,name,0,bx,by,bx+w,by+h,""))
+               return(false);
+
+            Add(m_buttons[idx]);
+           }
+        }
+
+      Run();
+      m_initialized=true;
+      return(true);
+     }
+
+   void     UpdateLayout(const int x1,const int y1,const int x2,const int y2)
+     {
+      if(!m_initialized)
+         return;
+
+      Move(x1,y1,x2,y2);
+
+      const int margin=10;
+      const int spacing=6;
+      const int rows=2;
+      const int cols=6;
+      const int h=24;
+      const int width=(x2-x1)-margin*2-spacing*(cols-1);
+      const int w=(width>0 ? width/cols : 1);
+
+      for(int r=0; r<rows; r++)
+        {
+         for(int c=0; c<cols; c++)
+           {
+            const int idx=r*cols+c;
+            const int bx=x1+margin+c*(w+spacing);
+            const int by=y1+margin+r*(h+spacing);
+            m_buttons[idx].Move(bx,by,bx+w,by+h);
+           }
+        }
+     }
+
+   void     Shutdown(const int reason)
+     {
+      if(m_initialized)
+         Destroy(reason);
+      m_initialized=false;
+     }
+  };
+
+CRightPanelDialog g_right_panel;
 
 void RightPanel_Render(const SystemState &system_state,const DualState &dual_state)
   {
    const int chart_w=(int)ChartGetInteger(0,CHART_WIDTH_IN_PIXELS,0);
    const int chart_h=(int)ChartGetInteger(0,CHART_HEIGHT_IN_PIXELS,0);
 
-   const int panel_x=chart_w/2;
-   const int panel_y=0;
-   const int panel_w=chart_w-panel_x;
-   const int panel_h=chart_h;
+   const int x1=chart_w/2;
+   const int y1=0;
+   const int x2=chart_w;
+   const int y2=chart_h;
 
-   RightPanel_EnsureRectangle("ALE_RightPanel",panel_x,panel_y,panel_w,panel_h,clrAliceBlue);
+   static bool created=false;
+   if(!created)
+      created=g_right_panel.Init(x1,y1,x2,y2);
+   else
+      g_right_panel.UpdateLayout(x1,y1,x2,y2);
+  }
 
-   const int margin=10;
-   const int spacing=6;
-   const int rows=2;
-   const int cols=6;
-   const int btn_h=24;
-   const int available_w=panel_w-margin*2-spacing*(cols-1);
-   const int btn_w=(available_w>0 ? available_w/cols : 1);
+void RightPanel_OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
+  {
+   g_right_panel.ChartEvent(id,lparam,dparam,sparam);
+  }
 
-   for(int row=0; row<rows; row++)
-     {
-      for(int col=0; col<cols; col++)
-        {
-         const string name=StringFormat("ALE_RightBtn_%d_%d",row,col);
-         const int x=panel_x+margin+col*(btn_w+spacing);
-         const int y=panel_y+margin+row*(btn_h+spacing);
-         RightPanel_EnsureButton(name,x,y,btn_w,btn_h);
-        }
-     }
+void RightPanel_Destroy(const int reason)
+  {
+   g_right_panel.Shutdown(reason);
   }
 
 #endif // ALE_DO_UI_RIGHT_RIGHTPANEL_MQH_INCLUDED

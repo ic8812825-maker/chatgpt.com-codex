@@ -16,6 +16,8 @@ int OnInit()
 
 void OnDeinit(const int reason)
   {
+   LeftPanel_Destroy(reason);
+   RightPanel_Destroy(reason);
   }
 
 void OnTick()
@@ -30,4 +32,10 @@ void OnTick()
    ALE_Recalculate(system_state,dual_state,input_snapshot);
    LeftPanel_Render(system_state,dual_state);
    RightPanel_Render(system_state,dual_state);
+  }
+
+void OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
+  {
+   LeftPanel_OnChartEvent(id,lparam,dparam,sparam);
+   RightPanel_OnChartEvent(id,lparam,dparam,sparam);
   }
