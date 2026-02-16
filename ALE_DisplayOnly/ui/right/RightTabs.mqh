@@ -1,49 +1,35 @@
 #ifndef ALE_DO_UI_RIGHT_RIGHTTABS_MQH_INCLUDED
 #define ALE_DO_UI_RIGHT_RIGHTTABS_MQH_INCLUDED
 
-#include <Controls\TabControl.mqh>
-
 #include "../../state/SystemState.mqh"
 #include "../../state/DualState.mqh"
 
 class CRightTabsControl
   {
 private:
-   CTabControl m_tabs;
-   bool        m_initialized;
+   bool m_initialized;
 
 public:
             CRightTabsControl() : m_initialized(false) {}
 
    bool     Init(const int x1,const int y1,const int x2,const int y2)
      {
-      if(m_initialized)
-         return(true);
-
-      if(!m_tabs.Create(0,"ALE_RightTabs",0,x1,y1,x2,y2))
-         return(false);
-
       m_initialized=true;
       return(true);
      }
 
    void     UpdateLayout(const int x1,const int y1,const int x2,const int y2)
      {
-      if(!m_initialized)
-         return;
-      m_tabs.Move(x1,y1,x2,y2);
+      // No-op: TabControl is not available in this terminal build.
      }
 
    void     OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
      {
-      if(m_initialized)
-         m_tabs.ChartEvent(id,lparam,dparam,sparam);
+      // No-op placeholder.
      }
 
    void     Shutdown(const int reason)
      {
-      if(m_initialized)
-         m_tabs.Destroy(reason);
       m_initialized=false;
      }
   };

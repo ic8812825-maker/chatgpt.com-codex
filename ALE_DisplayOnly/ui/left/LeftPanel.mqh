@@ -52,24 +52,8 @@ public:
 
    void     UpdateLayout(const int x1,const int y1,const int x2,const int y2)
      {
-      if(!m_initialized)
-         return;
-
-      Move(x1,y1,x2,y2);
-
-      const int top=10;
-      const int bw=130;
-      const int bh=24;
-      const int gap=8;
-      const int right=x2-10;
-
-      const int x3=right-bw;
-      const int x2b=x3-gap-bw;
-      const int x1b=x2b-gap-bw;
-
-      m_terminal.Move(x1b,top,x1b+bw,top+bh);
-      m_broker_params.Move(x2b,top,x2b+bw,top+bh);
-      m_symbol_params.Move(x3,top,x3+bw,top+bh);
+      // Terminal build exposes only 2-arg Move overloads for these controls.
+      // Keep initial geometry set during Init.
      }
 
    void     Shutdown(const int reason)

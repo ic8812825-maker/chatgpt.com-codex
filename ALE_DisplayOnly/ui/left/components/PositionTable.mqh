@@ -22,7 +22,7 @@ public:
          m_initialized=true;
         }
       else
-         m_table.Move(x1,y1,x2,y2);
+         m_table.Move(x1,y1);
 
       return(true);
      }

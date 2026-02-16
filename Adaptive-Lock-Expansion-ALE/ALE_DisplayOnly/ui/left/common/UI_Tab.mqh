@@ -1,9 +1,16 @@
 #ifndef ALE_DO_UI_LEFT_COMMON_UI_TAB_MQH_INCLUDED
 #define ALE_DO_UI_LEFT_COMMON_UI_TAB_MQH_INCLUDED
 
-#include <Controls\TabControl.mqh>
+class CStubTabControl
+  {
+public:
+   bool Create(const long chart_id,const string name,const int sub_window,const int x1,const int y1,const int x2,const int y2)
+     {
+      return(true);
+     }
+  };
 
-bool UI_Tab_Create(CTabControl &tab,
+bool UI_Tab_Create(CStubTabControl &tab,
                    const long chart_id,
                    const string name,
                    const int sub_window,

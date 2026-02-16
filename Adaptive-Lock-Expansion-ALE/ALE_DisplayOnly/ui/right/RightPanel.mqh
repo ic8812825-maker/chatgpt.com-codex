@@ -54,29 +54,8 @@ public:
 
    void     UpdateLayout(const int x1,const int y1,const int x2,const int y2)
      {
-      if(!m_initialized)
-         return;
-
-      Move(x1,y1,x2,y2);
-
-      const int margin=10;
-      const int spacing=6;
-      const int rows=2;
-      const int cols=6;
-      const int h=24;
-      const int width=(x2-x1)-margin*2-spacing*(cols-1);
-      const int w=(width>0 ? width/cols : 1);
-
-      for(int r=0; r<rows; r++)
-        {
-         for(int c=0; c<cols; c++)
-           {
-            const int idx=r*cols+c;
-            const int bx=x1+margin+c*(w+spacing);
-            const int by=y1+margin+r*(h+spacing);
-            m_buttons[idx].Move(bx,by,bx+w,by+h);
-           }
-        }
+      // Terminal build exposes only 2-arg Move overloads for these controls.
+      // Keep initial geometry set during Init.
      }
 
    void     Shutdown(const int reason)

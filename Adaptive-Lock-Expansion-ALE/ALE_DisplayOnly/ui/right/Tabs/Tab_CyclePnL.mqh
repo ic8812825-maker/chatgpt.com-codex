@@ -25,7 +25,7 @@ public:
          m_initialized=true;
         }
       else
-         m_button.Move(x1,y1,x2,y2);
+         m_button.Move(x1,y1);
 
       return(true);
      }

@@ -23,7 +23,7 @@ public:
          m_initialized=true;
         }
       else
-         m_label.Move(x1,y1,x2,y2);
+         m_label.Move(x1,y1);
 
       m_label.Text(StringFormat("Position %d",index));
       return(true);
