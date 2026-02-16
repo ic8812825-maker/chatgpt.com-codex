@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_SUCCESS_SUCCESSDISPATCHER_MQH__
-#define __ALE_DisplayOnly_SUCCESS_SUCCESSDISPATCHER_MQH__
+#ifndef ALE_DO_SUCCESS_SUCCESSDISPATCHER_MQH_INCLUDED
+#define ALE_DO_SUCCESS_SUCCESSDISPATCHER_MQH_INCLUDED
 
 #include "SuccessFactory.mqh"
 #include "SuccessLogger.mqh"
@@ -10,4 +10,4 @@ void SuccessDispatcher_Dispatch(const SuccessCode code,const string message)
    SuccessLogger_Log(ctx);
   }
 
-#endif // __ALE_DisplayOnly_SUCCESS_SUCCESSDISPATCHER_MQH__
+#endif // ALE_DO_SUCCESS_SUCCESSDISPATCHER_MQH_INCLUDED

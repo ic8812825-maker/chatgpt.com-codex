@@ -1,9 +1,9 @@
-#ifndef __ALE_DisplayOnly_TESTS_TEST_INVARIANTS_MQH__
-#define __ALE_DisplayOnly_TESTS_TEST_INVARIANTS_MQH__
+#ifndef ALE_DO_TESTS_TEST_INVARIANTS_MQH_INCLUDED
+#define ALE_DO_TESTS_TEST_INVARIANTS_MQH_INCLUDED
 
 bool Test_Invariants_Run()
   {
    return(true);
   }
 
-#endif // __ALE_DisplayOnly_TESTS_TEST_INVARIANTS_MQH__
+#endif // ALE_DO_TESTS_TEST_INVARIANTS_MQH_INCLUDED

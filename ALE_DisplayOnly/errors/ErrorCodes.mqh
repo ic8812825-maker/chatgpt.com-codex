@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_ERRORS_ERRORCODES_MQH__
-#define __ALE_DisplayOnly_ERRORS_ERRORCODES_MQH__
+#ifndef ALE_DO_ERRORS_ERRORCODES_MQH_INCLUDED
+#define ALE_DO_ERRORS_ERRORCODES_MQH_INCLUDED
 
 enum ErrorCode
   {
@@ -7,4 +7,4 @@ enum ErrorCode
    ERROR_UNKNOWN = 1
   };
 
-#endif // __ALE_DisplayOnly_ERRORS_ERRORCODES_MQH__
+#endif // ALE_DO_ERRORS_ERRORCODES_MQH_INCLUDED

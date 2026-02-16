@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_BOOK_VIRTUALPOSITION_MQH__
-#define __ALE_DisplayOnly_BOOK_VIRTUALPOSITION_MQH__
+#ifndef ALE_DO_BOOK_VIRTUALPOSITION_MQH_INCLUDED
+#define ALE_DO_BOOK_VIRTUALPOSITION_MQH_INCLUDED
 
 struct VirtualPosition
   {
@@ -7,4 +7,4 @@ struct VirtualPosition
    double volume;
   };
 
-#endif // __ALE_DisplayOnly_BOOK_VIRTUALPOSITION_MQH__
+#endif // ALE_DO_BOOK_VIRTUALPOSITION_MQH_INCLUDED

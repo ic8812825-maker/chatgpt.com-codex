@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_CORE_ALE_TYPES_MQH__
-#define __ALE_DisplayOnly_CORE_ALE_TYPES_MQH__
+#ifndef ALE_DO_CORE_ALE_TYPES_MQH_INCLUDED
+#define ALE_DO_CORE_ALE_TYPES_MQH_INCLUDED
 
 enum ALE_Side
   {
@@ -7,4 +7,4 @@ enum ALE_Side
    ALE_SIDE_SELL = 1
   };
 
-#endif // __ALE_DisplayOnly_CORE_ALE_TYPES_MQH__
+#endif // ALE_DO_CORE_ALE_TYPES_MQH_INCLUDED

@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH__
-#define __ALE_DisplayOnly_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH__
+#ifndef ALE_DO_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH_INCLUDED
+#define ALE_DO_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH_INCLUDED
 
 #include "../common/FlowSnapshot.mqh"
 #include "../common/FlowContext.mqh"
@@ -21,4 +21,4 @@ FlowSnapshot Flow_BUY_Compute(const FlowContext &ctx,const FlowSnapshot &previou
    return(next_snapshot);
   }
 
-#endif // __ALE_DisplayOnly_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH__
+#endif // ALE_DO_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH_INCLUDED

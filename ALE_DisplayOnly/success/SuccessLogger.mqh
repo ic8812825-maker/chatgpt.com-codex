@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_SUCCESS_SUCCESSLOGGER_MQH__
-#define __ALE_DisplayOnly_SUCCESS_SUCCESSLOGGER_MQH__
+#ifndef ALE_DO_SUCCESS_SUCCESSLOGGER_MQH_INCLUDED
+#define ALE_DO_SUCCESS_SUCCESSLOGGER_MQH_INCLUDED
 
 #include "SuccessContext.mqh"
 
@@ -8,4 +8,4 @@ void SuccessLogger_Log(const SuccessContext &ctx)
    Print("Success: ",ctx.message);
   }
 
-#endif // __ALE_DisplayOnly_SUCCESS_SUCCESSLOGGER_MQH__
+#endif // ALE_DO_SUCCESS_SUCCESSLOGGER_MQH_INCLUDED

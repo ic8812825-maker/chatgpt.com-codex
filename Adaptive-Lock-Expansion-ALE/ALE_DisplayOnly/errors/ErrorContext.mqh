@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_ERRORS_ERRORCONTEXT_MQH__
-#define __ALE_DisplayOnly_ERRORS_ERRORCONTEXT_MQH__
+#ifndef ALE_DO_ERRORS_ERRORCONTEXT_MQH_INCLUDED
+#define ALE_DO_ERRORS_ERRORCONTEXT_MQH_INCLUDED
 
 #include "ErrorCodes.mqh"
 
@@ -9,4 +9,4 @@ struct ErrorContext
    string message;
   };
 
-#endif // __ALE_DisplayOnly_ERRORS_ERRORCONTEXT_MQH__
+#endif // ALE_DO_ERRORS_ERRORCONTEXT_MQH_INCLUDED

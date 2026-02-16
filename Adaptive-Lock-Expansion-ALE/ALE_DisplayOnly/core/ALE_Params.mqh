@@ -1,9 +1,9 @@
-#ifndef __ALE_DisplayOnly_CORE_ALE_PARAMS_MQH__
-#define __ALE_DisplayOnly_CORE_ALE_PARAMS_MQH__
+#ifndef ALE_DO_CORE_ALE_PARAMS_MQH_INCLUDED
+#define ALE_DO_CORE_ALE_PARAMS_MQH_INCLUDED
 
 struct ALE_Params
   {
    double placeholder;
   };
 
-#endif // __ALE_DisplayOnly_CORE_ALE_PARAMS_MQH__
+#endif // ALE_DO_CORE_ALE_PARAMS_MQH_INCLUDED

@@ -1,8 +1,8 @@
-#ifndef __ALE_DisplayOnly_UI_LEFT_COMMON_UI_TABLE_MQH__
-#define __ALE_DisplayOnly_UI_LEFT_COMMON_UI_TABLE_MQH__
+#ifndef ALE_DO_UI_LEFT_COMMON_UI_TABLE_MQH_INCLUDED
+#define ALE_DO_UI_LEFT_COMMON_UI_TABLE_MQH_INCLUDED
 
 void UI_Table_Draw(const string name)
   {
   }
 
-#endif // __ALE_DisplayOnly_UI_LEFT_COMMON_UI_TABLE_MQH__
+#endif // ALE_DO_UI_LEFT_COMMON_UI_TABLE_MQH_INCLUDED

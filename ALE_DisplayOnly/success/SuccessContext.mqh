@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_SUCCESS_SUCCESSCONTEXT_MQH__
-#define __ALE_DisplayOnly_SUCCESS_SUCCESSCONTEXT_MQH__
+#ifndef ALE_DO_SUCCESS_SUCCESSCONTEXT_MQH_INCLUDED
+#define ALE_DO_SUCCESS_SUCCESSCONTEXT_MQH_INCLUDED
 
 #include "SuccessCodes.mqh"
 
@@ -9,4 +9,4 @@ struct SuccessContext
    string message;
   };
 
-#endif // __ALE_DisplayOnly_SUCCESS_SUCCESSCONTEXT_MQH__
+#endif // ALE_DO_SUCCESS_SUCCESSCONTEXT_MQH_INCLUDED

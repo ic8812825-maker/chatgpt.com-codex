@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWCONTEXT_MQH__
-#define __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWCONTEXT_MQH__
+#ifndef ALE_DO_CORE_FLOW_COMMON_FLOWCONTEXT_MQH_INCLUDED
+#define ALE_DO_CORE_FLOW_COMMON_FLOWCONTEXT_MQH_INCLUDED
 
 #include "GeometryContext.mqh"
 #include "MarginContext.mqh"
@@ -13,4 +13,4 @@ struct FlowContext
    double signal_strength;
   };
 
-#endif // __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWCONTEXT_MQH__
+#endif // ALE_DO_CORE_FLOW_COMMON_FLOWCONTEXT_MQH_INCLUDED

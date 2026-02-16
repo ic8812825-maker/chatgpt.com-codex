@@ -1,9 +1,9 @@
-#ifndef __ALE_DisplayOnly_STATE_ANCHORSTATE_MQH__
-#define __ALE_DisplayOnly_STATE_ANCHORSTATE_MQH__
+#ifndef ALE_DO_STATE_ANCHORSTATE_MQH_INCLUDED
+#define ALE_DO_STATE_ANCHORSTATE_MQH_INCLUDED
 
 struct AnchorState
   {
    double anchor_price;
   };
 
-#endif // __ALE_DisplayOnly_STATE_ANCHORSTATE_MQH__
+#endif // ALE_DO_STATE_ANCHORSTATE_MQH_INCLUDED

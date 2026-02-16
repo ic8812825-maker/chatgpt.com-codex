@@ -1,9 +1,9 @@
-#ifndef __ALE_DisplayOnly_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH__
-#define __ALE_DisplayOnly_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH__
+#ifndef ALE_DO_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH_INCLUDED
+#define ALE_DO_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH_INCLUDED
 
 double Geometry_ComputeVolume(const double value)
   {
    return(value);
   }
 
-#endif // __ALE_DisplayOnly_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH__
+#endif // ALE_DO_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH_INCLUDED

@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_CORE_FSM_FSM_STATE_MQH__
-#define __ALE_DisplayOnly_CORE_FSM_FSM_STATE_MQH__
+#ifndef ALE_DO_CORE_FSM_FSM_STATE_MQH_INCLUDED
+#define ALE_DO_CORE_FSM_FSM_STATE_MQH_INCLUDED
 
 enum FSM_StateId
   {
@@ -20,4 +20,4 @@ struct FSM_Transition
    FSM_StateId to;
   };
 
-#endif // __ALE_DisplayOnly_CORE_FSM_FSM_STATE_MQH__
+#endif // ALE_DO_CORE_FSM_FSM_STATE_MQH_INCLUDED

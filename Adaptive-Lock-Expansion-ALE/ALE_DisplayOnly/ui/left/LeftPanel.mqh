@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_UI_LEFT_LEFTPANEL_MQH__
-#define __ALE_DisplayOnly_UI_LEFT_LEFTPANEL_MQH__
+#ifndef ALE_DO_UI_LEFT_LEFTPANEL_MQH_INCLUDED
+#define ALE_DO_UI_LEFT_LEFTPANEL_MQH_INCLUDED
 
 #include "../../state/SystemState.mqh"
 #include "../../state/DualState.mqh"
@@ -69,4 +69,4 @@ void LeftPanel_Render(const SystemState &system_state,const DualState &dual_stat
    LeftPanel_EnsureButton("ALE_LeftBtn_SymbolParams","Параметры Инструмента",b3_x,top_y,btn_w,btn_h);
   }
 
-#endif // __ALE_DisplayOnly_UI_LEFT_LEFTPANEL_MQH__
+#endif // ALE_DO_UI_LEFT_LEFTPANEL_MQH_INCLUDED

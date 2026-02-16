@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_ERRORS_ERRORLOGGER_MQH__
-#define __ALE_DisplayOnly_ERRORS_ERRORLOGGER_MQH__
+#ifndef ALE_DO_ERRORS_ERRORLOGGER_MQH_INCLUDED
+#define ALE_DO_ERRORS_ERRORLOGGER_MQH_INCLUDED
 
 #include "ErrorContext.mqh"
 
@@ -8,4 +8,4 @@ void ErrorLogger_Log(const ErrorContext &ctx)
    Print("Error: ",ctx.message);
   }
 
-#endif // __ALE_DisplayOnly_ERRORS_ERRORLOGGER_MQH__
+#endif // ALE_DO_ERRORS_ERRORLOGGER_MQH_INCLUDED

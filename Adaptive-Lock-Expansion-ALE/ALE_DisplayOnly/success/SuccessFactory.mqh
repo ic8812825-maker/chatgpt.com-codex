@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_SUCCESS_SUCCESSFACTORY_MQH__
-#define __ALE_DisplayOnly_SUCCESS_SUCCESSFACTORY_MQH__
+#ifndef ALE_DO_SUCCESS_SUCCESSFACTORY_MQH_INCLUDED
+#define ALE_DO_SUCCESS_SUCCESSFACTORY_MQH_INCLUDED
 
 #include "SuccessContext.mqh"
 
@@ -11,4 +11,4 @@ SuccessContext SuccessFactory_Create(const SuccessCode code,const string message
    return(ctx);
   }
 
-#endif // __ALE_DisplayOnly_SUCCESS_SUCCESSFACTORY_MQH__
+#endif // ALE_DO_SUCCESS_SUCCESSFACTORY_MQH_INCLUDED

@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_CORE_ALE_DUALCYCLEENGINE_MQH__
-#define __ALE_DisplayOnly_CORE_ALE_DUALCYCLEENGINE_MQH__
+#ifndef ALE_DO_CORE_ALE_DUALCYCLEENGINE_MQH_INCLUDED
+#define ALE_DO_CORE_ALE_DUALCYCLEENGINE_MQH_INCLUDED
 
 #include "flow/buy/Flow_BUY_Engine.mqh"
 #include "flow/sell/Flow_SELL_Engine.mqh"
@@ -16,4 +16,4 @@ void ALE_RunDualCycle(const FlowContext &buy_ctx,
    sell_out=Flow_SELL_Compute(sell_ctx,input_snapshot);
   }
 
-#endif // __ALE_DisplayOnly_CORE_ALE_DUALCYCLEENGINE_MQH__
+#endif // ALE_DO_CORE_ALE_DUALCYCLEENGINE_MQH_INCLUDED

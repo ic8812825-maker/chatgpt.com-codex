@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_CORE_ALE_CORE_MQH__
-#define __ALE_DisplayOnly_CORE_ALE_CORE_MQH__
+#ifndef ALE_DO_CORE_ALE_CORE_MQH_INCLUDED
+#define ALE_DO_CORE_ALE_CORE_MQH_INCLUDED
 
 #include "ALE_DualCycleEngine.mqh"
 #include "ALE_Params.mqh"
@@ -24,4 +24,4 @@ void ALE_Recalculate(SystemState &system_state,DualState &dual_state,const FlowS
    system_state.fsm_state=fsm.next;
   }
 
-#endif // __ALE_DisplayOnly_CORE_ALE_CORE_MQH__
+#endif // ALE_DO_CORE_ALE_CORE_MQH_INCLUDED

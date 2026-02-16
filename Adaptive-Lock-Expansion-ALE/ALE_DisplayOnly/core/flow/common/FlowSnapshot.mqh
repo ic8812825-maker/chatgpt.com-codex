@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH__
-#define __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH__
+#ifndef ALE_DO_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH_INCLUDED
+#define ALE_DO_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH_INCLUDED
 
 // Immutable DTO: only plain data, no methods/calculations/references.
 struct FlowSnapshot
@@ -8,4 +8,4 @@ struct FlowSnapshot
    long version;
   };
 
-#endif // __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH__
+#endif // ALE_DO_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH_INCLUDED

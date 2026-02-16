@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_STATE_DUALSTATE_MQH__
-#define __ALE_DisplayOnly_STATE_DUALSTATE_MQH__
+#ifndef ALE_DO_STATE_DUALSTATE_MQH_INCLUDED
+#define ALE_DO_STATE_DUALSTATE_MQH_INCLUDED
 
 #include "../core/flow/common/FlowSnapshot.mqh"
 #include "../core/ALE_Types.mqh"
@@ -11,4 +11,4 @@ struct DualState
    ALE_Side active_side;
   };
 
-#endif // __ALE_DisplayOnly_STATE_DUALSTATE_MQH__
+#endif // ALE_DO_STATE_DUALSTATE_MQH_INCLUDED

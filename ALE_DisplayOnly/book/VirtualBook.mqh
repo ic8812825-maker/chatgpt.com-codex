@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_BOOK_VIRTUALBOOK_MQH__
-#define __ALE_DisplayOnly_BOOK_VIRTUALBOOK_MQH__
+#ifndef ALE_DO_BOOK_VIRTUALBOOK_MQH_INCLUDED
+#define ALE_DO_BOOK_VIRTUALBOOK_MQH_INCLUDED
 
 #include "VirtualPosition.mqh"
 
@@ -9,4 +9,4 @@ struct VirtualBook
    int items_total;
   };
 
-#endif // __ALE_DisplayOnly_BOOK_VIRTUALBOOK_MQH__
+#endif // ALE_DO_BOOK_VIRTUALBOOK_MQH_INCLUDED

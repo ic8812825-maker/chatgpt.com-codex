@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_ERRORS_ERRORDISPATCHER_MQH__
-#define __ALE_DisplayOnly_ERRORS_ERRORDISPATCHER_MQH__
+#ifndef ALE_DO_ERRORS_ERRORDISPATCHER_MQH_INCLUDED
+#define ALE_DO_ERRORS_ERRORDISPATCHER_MQH_INCLUDED
 
 #include "ErrorFactory.mqh"
 #include "ErrorLogger.mqh"
@@ -10,4 +10,4 @@ void ErrorDispatcher_Dispatch(const ErrorCode code,const string message)
    ErrorLogger_Log(ctx);
   }
 
-#endif // __ALE_DisplayOnly_ERRORS_ERRORDISPATCHER_MQH__
+#endif // ALE_DO_ERRORS_ERRORDISPATCHER_MQH_INCLUDED

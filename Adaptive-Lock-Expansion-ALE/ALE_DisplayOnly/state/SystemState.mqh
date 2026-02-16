@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_STATE_SYSTEMSTATE_MQH__
-#define __ALE_DisplayOnly_STATE_SYSTEMSTATE_MQH__
+#ifndef ALE_DO_STATE_SYSTEMSTATE_MQH_INCLUDED
+#define ALE_DO_STATE_SYSTEMSTATE_MQH_INCLUDED
 
 #include "../book/VirtualBook.mqh"
 #include "../core/ALE_Params.mqh"
@@ -14,4 +14,4 @@ struct SystemState
    FSM_StateId fsm_state;
   };
 
-#endif // __ALE_DisplayOnly_STATE_SYSTEMSTATE_MQH__
+#endif // ALE_DO_STATE_SYSTEMSTATE_MQH_INCLUDED

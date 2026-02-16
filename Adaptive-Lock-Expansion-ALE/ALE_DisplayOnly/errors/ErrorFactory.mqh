@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_ERRORS_ERRORFACTORY_MQH__
-#define __ALE_DisplayOnly_ERRORS_ERRORFACTORY_MQH__
+#ifndef ALE_DO_ERRORS_ERRORFACTORY_MQH_INCLUDED
+#define ALE_DO_ERRORS_ERRORFACTORY_MQH_INCLUDED
 
 #include "ErrorContext.mqh"
 
@@ -11,4 +11,4 @@ ErrorContext ErrorFactory_Create(const ErrorCode code,const string message)
    return(ctx);
   }
 
-#endif // __ALE_DisplayOnly_ERRORS_ERRORFACTORY_MQH__
+#endif // ALE_DO_ERRORS_ERRORFACTORY_MQH_INCLUDED

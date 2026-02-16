@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_STATE_STATEFACTORY_MQH__
-#define __ALE_DisplayOnly_STATE_STATEFACTORY_MQH__
+#ifndef ALE_DO_STATE_STATEFACTORY_MQH_INCLUDED
+#define ALE_DO_STATE_STATEFACTORY_MQH_INCLUDED
 
 #include "SystemState.mqh"
 #include "DualState.mqh"
@@ -16,4 +16,4 @@ DualState StateFactory_CreateDualState()
    return(state);
   }
 
-#endif // __ALE_DisplayOnly_STATE_STATEFACTORY_MQH__
+#endif // ALE_DO_STATE_STATEFACTORY_MQH_INCLUDED

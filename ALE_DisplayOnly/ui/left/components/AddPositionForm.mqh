@@ -1,5 +1,5 @@
-#ifndef __ALE_DisplayOnly_UI_LEFT_COMPONENTS_ADDPOSITIONFORM_MQH__
-#define __ALE_DisplayOnly_UI_LEFT_COMPONENTS_ADDPOSITIONFORM_MQH__
+#ifndef ALE_DO_UI_LEFT_COMPONENTS_ADDPOSITIONFORM_MQH_INCLUDED
+#define ALE_DO_UI_LEFT_COMPONENTS_ADDPOSITIONFORM_MQH_INCLUDED
 
 #include "../../../state/SystemState.mqh"
 
@@ -7,4 +7,4 @@ void AddPositionForm_Render(const SystemState &system_state)
   {
   }
 
-#endif // __ALE_DisplayOnly_UI_LEFT_COMPONENTS_ADDPOSITIONFORM_MQH__
+#endif // ALE_DO_UI_LEFT_COMPONENTS_ADDPOSITIONFORM_MQH_INCLUDED

@@ -1,9 +1,9 @@
-#ifndef __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWMATH_MQH__
-#define __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWMATH_MQH__
+#ifndef ALE_DO_CORE_FLOW_COMMON_FLOWMATH_MQH_INCLUDED
+#define ALE_DO_CORE_FLOW_COMMON_FLOWMATH_MQH_INCLUDED
 
 double FlowMath_Normalize(const double value)
   {
    return(value);
   }
 
-#endif // __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWMATH_MQH__
+#endif // ALE_DO_CORE_FLOW_COMMON_FLOWMATH_MQH_INCLUDED
