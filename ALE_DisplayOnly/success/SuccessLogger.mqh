@@ -3,9 +3,13 @@
 
 #include "SuccessContext.mqh"
 
-void SuccessLogger_Log(const SuccessContext &ctx)
+class CSuccessLogger
   {
-   Print("Success: ",ctx.message);
-  }
+public:
+   static void Log(const SuccessContext &ctx)
+     {
+      Print("Success: ",ctx.message);
+     }
+  };
 
 #endif // ALE_DO_SUCCESS_SUCCESSLOGGER_MQH_INCLUDED

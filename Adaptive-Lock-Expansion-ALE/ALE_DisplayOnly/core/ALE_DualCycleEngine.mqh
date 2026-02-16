@@ -6,14 +6,18 @@
 #include "fsm/FSM_Compute.mqh"
 #include "invariants/Invariant_Validator.mqh"
 
-void ALE_RunDualCycle(const FlowContext &buy_ctx,
-                      const FlowContext &sell_ctx,
-                      const FlowSnapshot &input_snapshot,
-                      FlowSnapshot &buy_out,
-                      FlowSnapshot &sell_out)
+class CALEDualCycleEngine
   {
-   buy_out=Flow_BUY_Compute(buy_ctx,input_snapshot);
-   sell_out=Flow_SELL_Compute(sell_ctx,input_snapshot);
-  }
+public:
+   static void RunDualCycle(const FlowContext &buy_ctx,
+                            const FlowContext &sell_ctx,
+                            const FlowSnapshot &input_snapshot,
+                            FlowSnapshot &buy_out,
+                            FlowSnapshot &sell_out)
+     {
+      buy_out=CFlowBuyEngine::Compute(buy_ctx,input_snapshot);
+      sell_out=CFlowSellEngine::Compute(sell_ctx,input_snapshot);
+     }
+  };
 
 #endif // ALE_DO_CORE_ALE_DUALCYCLEENGINE_MQH_INCLUDED

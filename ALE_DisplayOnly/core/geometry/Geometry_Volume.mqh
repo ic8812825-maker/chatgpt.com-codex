@@ -1,9 +1,13 @@
 #ifndef ALE_DO_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH_INCLUDED
 #define ALE_DO_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH_INCLUDED
 
-double Geometry_ComputeVolume(const double value)
+class CGeometryVolume
   {
-   return(value);
-  }
+public:
+   static double Compute(const double value)
+     {
+      return(value);
+     }
+  };
 
 #endif // ALE_DO_CORE_GEOMETRY_GEOMETRY_VOLUME_MQH_INCLUDED

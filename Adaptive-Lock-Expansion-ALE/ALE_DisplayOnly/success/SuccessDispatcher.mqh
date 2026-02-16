@@ -4,10 +4,14 @@
 #include "SuccessFactory.mqh"
 #include "SuccessLogger.mqh"
 
-void SuccessDispatcher_Dispatch(const SuccessCode code,const string message)
+class CSuccessDispatcher
   {
-   SuccessContext ctx=SuccessFactory_Create(code,message);
-   SuccessLogger_Log(ctx);
-  }
+public:
+   static void Dispatch(const SuccessCode code,const string message)
+     {
+      SuccessContext ctx=CSuccessFactory::Create(code,message);
+      CSuccessLogger::Log(ctx);
+     }
+  };
 
 #endif // ALE_DO_SUCCESS_SUCCESSDISPATCHER_MQH_INCLUDED

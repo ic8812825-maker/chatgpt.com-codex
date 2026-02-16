@@ -1,11 +1,13 @@
 #ifndef ALE_DO_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH_INCLUDED
 #define ALE_DO_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH_INCLUDED
 
-// Immutable DTO: only plain data, no methods/calculations/references.
-struct FlowSnapshot
+class FlowSnapshot
   {
+public:
    double metric;
-   long version;
+   long   version;
+
+            FlowSnapshot() : metric(0.0), version(0) {}
   };
 
 #endif // ALE_DO_CORE_FLOW_COMMON_FLOWSNAPSHOT_MQH_INCLUDED

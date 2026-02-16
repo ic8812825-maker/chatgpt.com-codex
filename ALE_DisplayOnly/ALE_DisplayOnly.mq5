@@ -29,7 +29,7 @@ void OnTick()
    input_snapshot.metric=0.0;
    input_snapshot.version=0;
 
-   ALE_Recalculate(system_state,dual_state,input_snapshot);
+   CALECore::Recalculate(system_state,dual_state,input_snapshot);
    LeftPanel_Render(system_state,dual_state);
    RightPanel_Render(system_state,dual_state);
   }

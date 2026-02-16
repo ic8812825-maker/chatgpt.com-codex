@@ -5,9 +5,13 @@
 #include "Invariant_Margin.mqh"
 #include "Invariant_Ordering.mqh"
 
-bool Invariant_ValidateAll()
+class CInvariantValidator
   {
-   return(Invariant_CheckGeometry() && Invariant_CheckMargin() && Invariant_CheckOrdering());
-  }
+public:
+   static bool ValidateAll()
+     {
+      return(CInvariantGeometry::Check() && CInvariantMargin::Check() && CInvariantOrdering::Check());
+     }
+  };
 
 #endif // ALE_DO_CORE_INVARIANTS_INVARIANT_VALIDATOR_MQH_INCLUDED

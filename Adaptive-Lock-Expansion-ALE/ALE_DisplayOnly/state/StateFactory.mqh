@@ -4,16 +4,20 @@
 #include "SystemState.mqh"
 #include "DualState.mqh"
 
-SystemState StateFactory_CreateSystemState()
+class CStateFactory
   {
-   SystemState state;
-   return(state);
-  }
+public:
+   static SystemState CreateSystemState()
+     {
+      SystemState state;
+      return(state);
+     }
 
-DualState StateFactory_CreateDualState()
-  {
-   DualState state;
-   return(state);
-  }
+   static DualState CreateDualState()
+     {
+      DualState state;
+      return(state);
+     }
+  };
 
 #endif // ALE_DO_STATE_STATEFACTORY_MQH_INCLUDED

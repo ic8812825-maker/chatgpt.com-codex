@@ -3,10 +3,13 @@
 
 #include "ErrorCodes.mqh"
 
-struct ErrorContext
+class ErrorContext
   {
+public:
    ErrorCode code;
-   string message;
+   string    message;
+
+             ErrorContext() : code(ERROR_NONE), message("") {}
   };
 
 #endif // ALE_DO_ERRORS_ERRORCONTEXT_MQH_INCLUDED

@@ -5,12 +5,15 @@
 #include "MarginContext.mqh"
 #include "ExecutionContext.mqh"
 
-struct FlowContext
+class FlowContext
   {
+public:
    GeometryContext geometry;
-   MarginContext margin;
+   MarginContext   margin;
    ExecutionContext execution;
-   double signal_strength;
+   double          signal_strength;
+
+                   FlowContext() : signal_strength(0.0) {}
   };
 
 #endif // ALE_DO_CORE_FLOW_COMMON_FLOWCONTEXT_MQH_INCLUDED

@@ -1,9 +1,10 @@
 #ifndef ALE_DO_BOOK_VIRTUALPOSITION_MQH_INCLUDED
 #define ALE_DO_BOOK_VIRTUALPOSITION_MQH_INCLUDED
 
-struct VirtualPosition
+class VirtualPosition
   {
-   long ticket;
+public:
+   long   ticket;
    double volume;
   };
 

@@ -9,16 +9,20 @@
 #include "../../margin/Margin_Calc.mqh"
 #include "Flow_BUY_Rules.mqh"
 
-FlowSnapshot Flow_BUY_Compute(const FlowContext &ctx,const FlowSnapshot &previous_snapshot)
+class CFlowBuyEngine
   {
-   FlowSnapshot next_snapshot=previous_snapshot;
-   const double distance=Geometry_ComputeDistance(ctx.geometry.market_price,ctx.geometry.anchor_price);
-   const double volume=Geometry_ComputeVolume(ctx.signal_strength);
-   const double margin=Margin_CalcRequired(volume);
+public:
+   static FlowSnapshot Compute(const FlowContext &ctx,const FlowSnapshot &previous_snapshot)
+     {
+      FlowSnapshot next_snapshot=previous_snapshot;
+      const double distance=CGeometryDistance::Compute(ctx.geometry.market_price,ctx.geometry.anchor_price);
+      const double volume=CGeometryVolume::Compute(ctx.signal_strength);
+      const double margin=CMarginCalc::Required(volume);
 
-   next_snapshot.metric=FlowMath_Normalize(distance+margin);
-   next_snapshot.version=previous_snapshot.version+1;
-   return(next_snapshot);
-  }
+      next_snapshot.metric=CFlowMath::Normalize(distance+margin);
+      next_snapshot.version=previous_snapshot.version+1;
+      return(next_snapshot);
+     }
+  };
 
 #endif // ALE_DO_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH_INCLUDED

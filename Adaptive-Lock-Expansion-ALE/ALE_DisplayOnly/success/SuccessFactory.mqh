@@ -3,12 +3,16 @@
 
 #include "SuccessContext.mqh"
 
-SuccessContext SuccessFactory_Create(const SuccessCode code,const string message)
+class CSuccessFactory
   {
-   SuccessContext ctx;
-   ctx.code=code;
-   ctx.message=message;
-   return(ctx);
-  }
+public:
+   static SuccessContext Create(const SuccessCode code,const string message)
+     {
+      SuccessContext ctx;
+      ctx.code=code;
+      ctx.message=message;
+      return(ctx);
+     }
+  };
 
 #endif // ALE_DO_SUCCESS_SUCCESSFACTORY_MQH_INCLUDED

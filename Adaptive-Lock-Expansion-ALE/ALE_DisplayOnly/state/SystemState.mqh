@@ -6,12 +6,15 @@
 #include "../core/fsm/FSM_State.mqh"
 #include "AnchorState.mqh"
 
-struct SystemState
+class SystemState
   {
-   VirtualBook book;
-   AnchorState anchor;
-   ALE_Params params;
-   FSM_StateId fsm_state;
+public:
+   VirtualBook  book;
+   AnchorState  anchor;
+   ALE_Params   params;
+   FSM_StateId  fsm_state;
+
+               SystemState() : fsm_state(FSM_STATE_IDLE) {}
   };
 
 #endif // ALE_DO_STATE_SYSTEMSTATE_MQH_INCLUDED

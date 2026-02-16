@@ -3,10 +3,13 @@
 
 #include "SuccessCodes.mqh"
 
-struct SuccessContext
+class SuccessContext
   {
+public:
    SuccessCode code;
-   string message;
+   string      message;
+
+               SuccessContext() : code(SUCCESS_NONE), message("") {}
   };
 
 #endif // ALE_DO_SUCCESS_SUCCESSCONTEXT_MQH_INCLUDED

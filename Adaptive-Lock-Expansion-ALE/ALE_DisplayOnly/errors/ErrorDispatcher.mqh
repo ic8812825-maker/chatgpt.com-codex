@@ -4,10 +4,14 @@
 #include "ErrorFactory.mqh"
 #include "ErrorLogger.mqh"
 
-void ErrorDispatcher_Dispatch(const ErrorCode code,const string message)
+class CErrorDispatcher
   {
-   ErrorContext ctx=ErrorFactory_Create(code,message);
-   ErrorLogger_Log(ctx);
-  }
+public:
+   static void Dispatch(const ErrorCode code,const string message)
+     {
+      ErrorContext ctx=CErrorFactory::Create(code,message);
+      CErrorLogger::Log(ctx);
+     }
+  };
 
 #endif // ALE_DO_ERRORS_ERRORDISPATCHER_MQH_INCLUDED

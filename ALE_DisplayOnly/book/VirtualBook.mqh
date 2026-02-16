@@ -3,10 +3,13 @@
 
 #include "VirtualPosition.mqh"
 
-struct VirtualBook
+class VirtualBook
   {
+public:
    VirtualPosition items[];
-   int items_total;
+   int             items_total;
+
+                     VirtualBook() : items_total(0) {}
   };
 
 #endif // ALE_DO_BOOK_VIRTUALBOOK_MQH_INCLUDED

@@ -3,9 +3,13 @@
 
 #include "ErrorContext.mqh"
 
-void ErrorLogger_Log(const ErrorContext &ctx)
+class CErrorLogger
   {
-   Print("Error: ",ctx.message);
-  }
+public:
+   static void Log(const ErrorContext &ctx)
+     {
+      Print("Error: ",ctx.message);
+     }
+  };
 
 #endif // ALE_DO_ERRORS_ERRORLOGGER_MQH_INCLUDED
