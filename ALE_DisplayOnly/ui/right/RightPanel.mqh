@@ -104,15 +104,23 @@ void RightPanel_Render(const SystemState &system_state,const DualState &dual_sta
       created=g_right_panel.Init(x1,y1,x2,y2);
    else
       g_right_panel.UpdateLayout(x1,y1,x2,y2);
+
+   const int tabs_x1=x1+10;
+   const int tabs_y1=y1+70;
+   const int tabs_x2=x2-10;
+   const int tabs_y2=y2-10;
+   RightTabs_Render(system_state,dual_state,tabs_x1,tabs_y1,tabs_x2,tabs_y2);
   }
 
 void RightPanel_OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
   {
    g_right_panel.ChartEvent(id,lparam,dparam,sparam);
+   RightTabs_OnChartEvent(id,lparam,dparam,sparam);
   }
 
 void RightPanel_Destroy(const int reason)
   {
+   RightTabs_Destroy(reason);
    g_right_panel.Shutdown(reason);
   }
 

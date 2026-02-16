@@ -1,8 +1,13 @@
 #ifndef ALE_DO_UI_LEFT_COMMON_UI_ICONS_MQH_INCLUDED
 #define ALE_DO_UI_LEFT_COMMON_UI_ICONS_MQH_INCLUDED
 
-void UI_Icons_Draw(const string name)
+class CUIIcons
   {
-  }
+public:
+   bool Draw(const string name,const int x,const int y)
+     {
+      return(true);
+     }
+  };
 
 #endif // ALE_DO_UI_LEFT_COMMON_UI_ICONS_MQH_INCLUDED
