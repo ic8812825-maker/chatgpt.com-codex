@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWCONTEXT_MQH__
+#define __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWCONTEXT_MQH__
 
 #include "GeometryContext.mqh"
 #include "MarginContext.mqh"
@@ -11,3 +12,5 @@ struct FlowContext
    ExecutionContext execution;
    double signal_strength;
   };
+
+#endif // __ALE_DisplayOnly_CORE_FLOW_COMMON_FLOWCONTEXT_MQH__

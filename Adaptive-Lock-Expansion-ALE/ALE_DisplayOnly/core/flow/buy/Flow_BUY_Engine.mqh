@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALE_DisplayOnly_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH__
+#define __ALE_DisplayOnly_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH__
 
 #include "../common/FlowSnapshot.mqh"
 #include "../common/FlowContext.mqh"
@@ -19,3 +20,5 @@ FlowSnapshot Flow_BUY_Compute(const FlowContext &ctx,const FlowSnapshot &previou
    next_snapshot.version=previous_snapshot.version+1;
    return(next_snapshot);
   }
+
+#endif // __ALE_DisplayOnly_CORE_FLOW_BUY_FLOW_BUY_ENGINE_MQH__

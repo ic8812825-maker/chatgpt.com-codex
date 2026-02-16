@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALE_DisplayOnly_CORE_FSM_FSM_STATE_MQH__
+#define __ALE_DisplayOnly_CORE_FSM_FSM_STATE_MQH__
 
 enum FSM_StateId
   {
@@ -18,3 +19,5 @@ struct FSM_Transition
    FSM_StateId from;
    FSM_StateId to;
   };
+
+#endif // __ALE_DisplayOnly_CORE_FSM_FSM_STATE_MQH__

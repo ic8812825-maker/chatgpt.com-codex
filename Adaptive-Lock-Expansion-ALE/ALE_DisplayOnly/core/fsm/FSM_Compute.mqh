@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALE_DisplayOnly_CORE_FSM_FSM_COMPUTE_MQH__
+#define __ALE_DisplayOnly_CORE_FSM_FSM_COMPUTE_MQH__
 
 #include "FSM_State.mqh"
 #include "FSM_SafeRules.mqh"
@@ -23,3 +24,5 @@ FSM_DTO FSM_ComputeState(const SystemState &system_state,const FlowSnapshot &sna
 
    return(dto);
   }
+
+#endif // __ALE_DisplayOnly_CORE_FSM_FSM_COMPUTE_MQH__

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALE_DisplayOnly_CORE_FSM_FSM_SAFERULES_MQH__
+#define __ALE_DisplayOnly_CORE_FSM_FSM_SAFERULES_MQH__
 
 #include "../flow/common/FlowSnapshot.mqh"
 
@@ -13,3 +14,5 @@ bool FSM_ShouldEnterSafeMode(const FlowSnapshot &snapshot)
   {
    return(snapshot.metric<0.0);
   }
+
+#endif // __ALE_DisplayOnly_CORE_FSM_FSM_SAFERULES_MQH__

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALE_DisplayOnly_STATE_SYSTEMSTATE_MQH__
+#define __ALE_DisplayOnly_STATE_SYSTEMSTATE_MQH__
 
 #include "../book/VirtualBook.mqh"
 #include "../core/ALE_Params.mqh"
@@ -12,3 +13,5 @@ struct SystemState
    ALE_Params params;
    FSM_StateId fsm_state;
   };
+
+#endif // __ALE_DisplayOnly_STATE_SYSTEMSTATE_MQH__

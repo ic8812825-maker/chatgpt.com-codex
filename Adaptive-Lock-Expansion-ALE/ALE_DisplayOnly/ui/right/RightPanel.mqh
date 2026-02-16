@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALE_DisplayOnly_UI_RIGHT_RIGHTPANEL_MQH__
+#define __ALE_DisplayOnly_UI_RIGHT_RIGHTPANEL_MQH__
 
 #include "../../state/SystemState.mqh"
 #include "../../state/DualState.mqh"
@@ -70,3 +71,5 @@ void RightPanel_Render(const SystemState &system_state,const DualState &dual_sta
         }
      }
   }
+
+#endif // __ALE_DisplayOnly_UI_RIGHT_RIGHTPANEL_MQH__

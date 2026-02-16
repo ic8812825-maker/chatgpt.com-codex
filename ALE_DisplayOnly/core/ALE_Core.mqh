@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALE_DisplayOnly_CORE_ALE_CORE_MQH__
+#define __ALE_DisplayOnly_CORE_ALE_CORE_MQH__
 
 #include "ALE_DualCycleEngine.mqh"
 #include "ALE_Params.mqh"
@@ -22,3 +23,5 @@ void ALE_Recalculate(SystemState &system_state,DualState &dual_state,const FlowS
    const FSM_DTO fsm=FSM_ComputeState(system_state,input_snapshot);
    system_state.fsm_state=fsm.next;
   }
+
+#endif // __ALE_DisplayOnly_CORE_ALE_CORE_MQH__
