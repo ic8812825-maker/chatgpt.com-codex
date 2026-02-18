@@ -59,20 +59,20 @@ public:
 
             CBrokerTab() : m_initialized(false) {}
 
-   bool     Init(CAppDialog &dlg,const int x,const int y)
+   bool     Init(CAppDialog *dlg,const int x,const int y)
      {
       if(m_initialized)
          return(true);
 
       if(!m_title.Create(0,"ALE_Broker_Title",0,x,y,x+250,y+20)) return(false);
       m_title.Text("Broker parameters");
-      if(!UI_Input_Create(m_leverage,0,"ALE_Broker_Leverage",0,x,y+24,x+220,y+44,"0")) return(false);
-      if(!UI_Input_Create(m_stop_out,0,"ALE_Broker_StopOut",0,x,y+50,x+220,y+70,"0")) return(false);
-      if(!UI_Input_Create(m_margin_call,0,"ALE_Broker_MarginCall",0,x,y+76,x+220,y+96,"0")) return(false);
+      if(!UI_Input_Create(&m_leverage,0,"ALE_Broker_Leverage",0,x,y+24,x+220,y+44,"0")) return(false);
+      if(!UI_Input_Create(&m_stop_out,0,"ALE_Broker_StopOut",0,x,y+50,x+220,y+70,"0")) return(false);
+      if(!UI_Input_Create(&m_margin_call,0,"ALE_Broker_MarginCall",0,x,y+76,x+220,y+96,"0")) return(false);
       if(!UI_Button_Create(m_reset,0,"ALE_Broker_Reset",0,x,y+106,x+100,y+130,"Сбросить")) return(false);
       if(!UI_Button_Create(m_save,0,"ALE_Broker_Save",0,x+120,y+106,x+220,y+130,"Сохранить")) return(false);
 
-      dlg.Add(m_title); dlg.Add(m_leverage); dlg.Add(m_stop_out); dlg.Add(m_margin_call); dlg.Add(m_reset); dlg.Add(m_save);
+      dlg->Add(m_title); dlg->Add(m_leverage); dlg->Add(m_stop_out); dlg->Add(m_margin_call); dlg->Add(m_reset); dlg->Add(m_save);
       LoadFromTerminal();
       m_initialized=true;
       return(true);
@@ -115,23 +115,23 @@ public:
 
             CSymbolTab() : m_initialized(false) {}
 
-   bool     Init(CAppDialog &dlg,const int x,const int y)
+   bool     Init(CAppDialog *dlg,const int x,const int y)
      {
       if(m_initialized)
          return(true);
 
       if(!m_title.Create(0,"ALE_Symbol_Title",0,x,y,x+250,y+20)) return(false);
       m_title.Text("Symbol parameters");
-      if(!UI_Input_Create(m_point,0,"ALE_Symbol_Point",0,x,y+24,x+220,y+44,"0")) return(false);
-      if(!UI_Input_Create(m_tick_size,0,"ALE_Symbol_TickSize",0,x,y+50,x+220,y+70,"0")) return(false);
-      if(!UI_Input_Create(m_tick_value,0,"ALE_Symbol_TickValue",0,x,y+76,x+220,y+96,"0")) return(false);
-      if(!UI_Input_Create(m_vol_min,0,"ALE_Symbol_VolMin",0,x,y+102,x+220,y+122,"0")) return(false);
-      if(!UI_Input_Create(m_vol_max,0,"ALE_Symbol_VolMax",0,x,y+128,x+220,y+148,"0")) return(false);
-      if(!UI_Input_Create(m_vol_step,0,"ALE_Symbol_VolStep",0,x,y+154,x+220,y+174,"0")) return(false);
+      if(!UI_Input_Create(&m_point,0,"ALE_Symbol_Point",0,x,y+24,x+220,y+44,"0")) return(false);
+      if(!UI_Input_Create(&m_tick_size,0,"ALE_Symbol_TickSize",0,x,y+50,x+220,y+70,"0")) return(false);
+      if(!UI_Input_Create(&m_tick_value,0,"ALE_Symbol_TickValue",0,x,y+76,x+220,y+96,"0")) return(false);
+      if(!UI_Input_Create(&m_vol_min,0,"ALE_Symbol_VolMin",0,x,y+102,x+220,y+122,"0")) return(false);
+      if(!UI_Input_Create(&m_vol_max,0,"ALE_Symbol_VolMax",0,x,y+128,x+220,y+148,"0")) return(false);
+      if(!UI_Input_Create(&m_vol_step,0,"ALE_Symbol_VolStep",0,x,y+154,x+220,y+174,"0")) return(false);
       if(!UI_Button_Create(m_reset,0,"ALE_Symbol_Reset",0,x,y+184,x+100,y+208,"Сбросить")) return(false);
       if(!UI_Button_Create(m_save,0,"ALE_Symbol_Save",0,x+120,y+184,x+220,y+208,"Сохранить")) return(false);
 
-      dlg.Add(m_title); dlg.Add(m_point); dlg.Add(m_tick_size); dlg.Add(m_tick_value); dlg.Add(m_vol_min); dlg.Add(m_vol_max); dlg.Add(m_vol_step); dlg.Add(m_reset); dlg.Add(m_save);
+      dlg->Add(m_title); dlg->Add(m_point); dlg->Add(m_tick_size); dlg->Add(m_tick_value); dlg->Add(m_vol_min); dlg->Add(m_vol_max); dlg->Add(m_vol_step); dlg->Add(m_reset); dlg->Add(m_save);
       LoadFromSymbol();
       m_initialized=true;
       return(true);
@@ -195,7 +195,7 @@ public:
 
             CTerminalTab() : m_initialized(false),m_auto_price_buy(true),m_auto_price_sell(true) {}
 
-   bool     Init(CAppDialog &dlg,const int x,const int y)
+   bool     Init(CAppDialog *dlg,const int x,const int y)
      {
       if(m_initialized)
          return(true);
@@ -203,17 +203,17 @@ public:
       if(!m_title.Create(0,"ALE_Terminal_Title",0,x,y,x+320,y+20)) return(false);
       m_title.Text("Terminal / Virtual Position Panel");
 
-      if(!UI_Input_Create(m_price_buy,0,"ALE_Terminal_PriceBuy",0,x,y+24,x+95,y+44,"0")) return(false);
-      if(!UI_Input_Create(m_lot_buy,0,"ALE_Terminal_LotBuy",0,x+100,y+24,x+165,y+44,"0.01")) return(false);
-      if(!UI_Input_Create(m_comment_buy,0,"ALE_Terminal_CommentBuy",0,x+170,y+24,x+320,y+44,"")) return(false);
+      if(!UI_Input_Create(&m_price_buy,0,"ALE_Terminal_PriceBuy",0,x,y+24,x+95,y+44,"0")) return(false);
+      if(!UI_Input_Create(&m_lot_buy,0,"ALE_Terminal_LotBuy",0,x+100,y+24,x+165,y+44,"0.01")) return(false);
+      if(!UI_Input_Create(&m_comment_buy,0,"ALE_Terminal_CommentBuy",0,x+170,y+24,x+320,y+44,"")) return(false);
       if(!UI_Button_Create(m_type_buy,0,"ALE_Terminal_TypeBuy",0,x,y+48,x+90,y+72,"BUY")) return(false);
       if(!UI_Button_Create(m_auto_buy,0,"ALE_Terminal_AutoBuy",0,x+95,y+48,x+130,y+72,"A")) return(false);
       if(!UI_Button_Create(m_clear_buy,0,"ALE_Terminal_ClearBuy",0,x+135,y+48,x+220,y+72,"Очистить")) return(false);
       if(!UI_Button_Create(m_add_buy,0,"ALE_Terminal_AddBuy",0,x+225,y+48,x+320,y+72,"Добавить")) return(false);
 
-      if(!UI_Input_Create(m_price_sell,0,"ALE_Terminal_PriceSell",0,x,y+86,x+95,y+106,"0")) return(false);
-      if(!UI_Input_Create(m_lot_sell,0,"ALE_Terminal_LotSell",0,x+100,y+86,x+165,y+106,"0.01")) return(false);
-      if(!UI_Input_Create(m_comment_sell,0,"ALE_Terminal_CommentSell",0,x+170,y+86,x+320,y+106,"")) return(false);
+      if(!UI_Input_Create(&m_price_sell,0,"ALE_Terminal_PriceSell",0,x,y+86,x+95,y+106,"0")) return(false);
+      if(!UI_Input_Create(&m_lot_sell,0,"ALE_Terminal_LotSell",0,x+100,y+86,x+165,y+106,"0.01")) return(false);
+      if(!UI_Input_Create(&m_comment_sell,0,"ALE_Terminal_CommentSell",0,x+170,y+86,x+320,y+106,"")) return(false);
       if(!UI_Button_Create(m_type_sell,0,"ALE_Terminal_TypeSell",0,x,y+110,x+90,y+134,"SELL")) return(false);
       if(!UI_Button_Create(m_auto_sell,0,"ALE_Terminal_AutoSell",0,x+95,y+110,x+130,y+134,"A")) return(false);
       if(!UI_Button_Create(m_clear_sell,0,"ALE_Terminal_ClearSell",0,x+135,y+110,x+220,y+134,"Очистить")) return(false);
@@ -222,10 +222,10 @@ public:
       if(!m_info.Create(0,"ALE_Terminal_Info",0,x,y+142,x+340,y+162)) return(false);
       m_info.Text("Positions: 0 / 100");
 
-      dlg.Add(m_title);
-      dlg.Add(m_price_buy); dlg.Add(m_lot_buy); dlg.Add(m_comment_buy); dlg.Add(m_type_buy); dlg.Add(m_auto_buy); dlg.Add(m_clear_buy); dlg.Add(m_add_buy);
-      dlg.Add(m_price_sell); dlg.Add(m_lot_sell); dlg.Add(m_comment_sell); dlg.Add(m_type_sell); dlg.Add(m_auto_sell); dlg.Add(m_clear_sell); dlg.Add(m_add_sell);
-      dlg.Add(m_info);
+      dlg->Add(m_title);
+      dlg->Add(m_price_buy); dlg->Add(m_lot_buy); dlg->Add(m_comment_buy); dlg->Add(m_type_buy); dlg->Add(m_auto_buy); dlg->Add(m_clear_buy); dlg->Add(m_add_buy);
+      dlg->Add(m_price_sell); dlg->Add(m_lot_sell); dlg->Add(m_comment_sell); dlg->Add(m_type_sell); dlg->Add(m_auto_sell); dlg->Add(m_clear_sell); dlg->Add(m_add_sell);
+      dlg->Add(m_info);
 
       m_initialized=true;
       return(true);
@@ -244,12 +244,13 @@ public:
       m_info.Text(StringFormat("Positions: %d / 100",manager.Count()));
      }
 
-   void     AddPosition(const int stream,const ENUM_ORDER_TYPE type,CEdit &price_edit,CEdit &lot_edit,CEdit &comment_edit)
+   void     AddPosition(const int stream,const ENUM_ORDER_TYPE type,CEdit *price_edit,CEdit *lot_edit,CEdit *comment_edit)
      {
       string error="";
-      const double price=StringToDouble(price_edit.Text());
-      const double lot=StringToDouble(lot_edit.Text());
-      if(!manager.Add(stream,type,price,lot,comment_edit.Text(),error))
+      if(price_edit==NULL || lot_edit==NULL || comment_edit==NULL) return;
+      const double price=StringToDouble(price_edit->Text());
+      const double lot=StringToDouble(lot_edit->Text());
+      if(!manager.Add(stream,type,price,lot,comment_edit->Text(),&error))
          MessageBox(error,"VPP",MB_OK);
      }
   };
@@ -262,16 +263,16 @@ private:
 public:
             CALEBridge() : m_manager(NULL) {}
 
-   void     Bind(CVirtualPositionManager &manager)
+   void     Bind(CVirtualPositionManager *manager)
      {
-      m_manager=&manager;
+      m_manager=manager;
      }
 
    int      Count() const
      {
       if(m_manager==NULL)
          return(0);
-      return(m_manager.Count());
+      return(m_manager->Count());
      }
   };
 
@@ -302,11 +303,11 @@ public:
       if(!UI_Button_Create(m_tab_symbol,0,"ALE_Tab_Symbol",0,215,8,320,30,"Инструмент")) return(false);
 
       Add(m_tab_terminal); Add(m_tab_broker); Add(m_tab_symbol);
-      m_terminal_tab.Init(*this,10,40);
-      m_broker_tab.Init(*this,10,40);
-      m_symbol_tab.Init(*this,10,40);
+      m_terminal_tab.Init(this,10,40);
+      m_broker_tab.Init(this,10,40);
+      m_symbol_tab.Init(this,10,40);
 
-      m_ale_bridge.Bind(m_terminal_tab.manager);
+      m_ale_bridge.Bind(&m_terminal_tab.manager);
       Run();
       m_initialized=true;
       return(true);
@@ -327,10 +328,10 @@ public:
      }
   };
 
-CVirtualPanel &LeftPanel_Instance()
+CVirtualPanel *LeftPanel_Instance()
   {
    static CVirtualPanel panel;
-   return(panel);
+   return(&panel);
   }
 
 void LeftPanel_Render(const SystemState &system_state,const DualState &dual_state)
@@ -340,19 +341,19 @@ void LeftPanel_Render(const SystemState &system_state,const DualState &dual_stat
 
    static bool created=false;
    if(!created)
-      created=LeftPanel_Instance().Init(0,0,chart_w/2,chart_h);
+      created=LeftPanel_Instance()->Init(0,0,chart_w/2,chart_h);
 
-   LeftPanel_Instance().Render(system_state,dual_state);
+   LeftPanel_Instance()->Render(system_state,dual_state);
   }
 
 void LeftPanel_OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
   {
-   LeftPanel_Instance().ChartEvent(id,lparam,dparam,sparam);
+   LeftPanel_Instance()->ChartEvent(id,lparam,dparam,sparam);
   }
 
 void LeftPanel_Destroy(const int reason)
   {
-   LeftPanel_Instance().Shutdown(reason);
+   LeftPanel_Instance()->Shutdown(reason);
   }
 
 #endif // ALE_DO_UI_LEFT_LEFTPANEL_MQH_INCLUDED

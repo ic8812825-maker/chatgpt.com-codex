@@ -42,7 +42,7 @@ public:
       return(ArraySize(m_positions));
      }
 
-   const VirtualPosition &At(const int index) const
+   VirtualPosition At(const int index) const
      {
       return(m_positions[index]);
      }
@@ -52,21 +52,21 @@ public:
                        const double price,
                        const double volume,
                        const string comment,
-                       string &error)
+                       string *error)
      {
       if(price<=0.0)
         {
-         error="Цена должна быть > 0";
+         if(error!=NULL) *error="Цена должна быть > 0";
          return(false);
         }
       if(!IsVolumeValid(volume))
         {
-         error="Некорректный лот";
+         if(error!=NULL) *error="Некорректный лот";
          return(false);
         }
       if(Count()>=100)
         {
-         error="Достигнут лимит 100 позиций";
+         if(error!=NULL) *error="Достигнут лимит 100 позиций";
          return(false);
         }
 
@@ -103,23 +103,23 @@ public:
       return(true);
      }
 
-   bool            Edit(const int id,const double price,const double volume,const string comment,string &error)
+   bool            Edit(const int id,const double price,const double volume,const string comment,string *error)
      {
       if(price<=0.0)
         {
-         error="Цена должна быть > 0";
+         if(error!=NULL) *error="Цена должна быть > 0";
          return(false);
         }
       if(!IsVolumeValid(volume))
         {
-         error="Некорректный лот";
+         if(error!=NULL) *error="Некорректный лот";
          return(false);
         }
 
       const int idx=FindIndexById(id);
       if(idx<0)
         {
-         error="Позиция не найдена";
+         if(error!=NULL) *error="Позиция не найдена";
          return(false);
         }
 

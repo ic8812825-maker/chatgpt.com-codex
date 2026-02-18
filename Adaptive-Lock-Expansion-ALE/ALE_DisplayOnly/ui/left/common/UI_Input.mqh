@@ -3,7 +3,7 @@
 
 #include <Controls\Edit.mqh>
 
-bool UI_Input_Create(CEdit &input,
+bool UI_Input_Create(CEdit *edit,
                      const long chart_id,
                      const string name,
                      const int sub_window,
@@ -13,10 +13,13 @@ bool UI_Input_Create(CEdit &input,
                      const int y2,
                      const string value)
   {
-   if(!input.Create(chart_id,name,sub_window,x1,y1,x2,y2))
+   if(edit==NULL)
       return(false);
 
-   input.Text(value);
+   if(!edit.Create(chart_id,name,sub_window,x1,y1,x2,y2))
+      return(false);
+
+   edit.Text(value);
    return(true);
   }
 
