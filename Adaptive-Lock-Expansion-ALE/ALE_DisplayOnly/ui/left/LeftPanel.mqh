@@ -59,7 +59,7 @@ public:
 
             CBrokerTab() : m_initialized(false) {}
 
-   bool     Init(CAppDialog *dlg,const int x,const int y)
+   bool     Init(CAppDialog &dlg,const int x,const int y)
      {
       if(m_initialized)
          return(true);
@@ -72,7 +72,7 @@ public:
       if(!UI_Button_Create(m_reset,0,"ALE_Broker_Reset",0,x,y+106,x+100,y+130,"Сбросить")) return(false);
       if(!UI_Button_Create(m_save,0,"ALE_Broker_Save",0,x+120,y+106,x+220,y+130,"Сохранить")) return(false);
 
-      dlg->Add(m_title); dlg->Add(m_leverage); dlg->Add(m_stop_out); dlg->Add(m_margin_call); dlg->Add(m_reset); dlg->Add(m_save);
+      dlg.Add(m_title); dlg.Add(m_leverage); dlg.Add(m_stop_out); dlg.Add(m_margin_call); dlg.Add(m_reset); dlg.Add(m_save);
       LoadFromTerminal();
       m_initialized=true;
       return(true);
@@ -115,7 +115,7 @@ public:
 
             CSymbolTab() : m_initialized(false) {}
 
-   bool     Init(CAppDialog *dlg,const int x,const int y)
+   bool     Init(CAppDialog &dlg,const int x,const int y)
      {
       if(m_initialized)
          return(true);
@@ -131,7 +131,7 @@ public:
       if(!UI_Button_Create(m_reset,0,"ALE_Symbol_Reset",0,x,y+184,x+100,y+208,"Сбросить")) return(false);
       if(!UI_Button_Create(m_save,0,"ALE_Symbol_Save",0,x+120,y+184,x+220,y+208,"Сохранить")) return(false);
 
-      dlg->Add(m_title); dlg->Add(m_point); dlg->Add(m_tick_size); dlg->Add(m_tick_value); dlg->Add(m_vol_min); dlg->Add(m_vol_max); dlg->Add(m_vol_step); dlg->Add(m_reset); dlg->Add(m_save);
+      dlg.Add(m_title); dlg.Add(m_point); dlg.Add(m_tick_size); dlg.Add(m_tick_value); dlg.Add(m_vol_min); dlg.Add(m_vol_max); dlg.Add(m_vol_step); dlg.Add(m_reset); dlg.Add(m_save);
       LoadFromSymbol();
       m_initialized=true;
       return(true);
@@ -195,7 +195,7 @@ public:
 
             CTerminalTab() : m_initialized(false),m_auto_price_buy(true),m_auto_price_sell(true) {}
 
-   bool     Init(CAppDialog *dlg,const int x,const int y)
+   bool     Init(CAppDialog &dlg,const int x,const int y)
      {
       if(m_initialized)
          return(true);
@@ -222,10 +222,10 @@ public:
       if(!m_info.Create(0,"ALE_Terminal_Info",0,x,y+142,x+340,y+162)) return(false);
       m_info.Text("Positions: 0 / 100");
 
-      dlg->Add(m_title);
-      dlg->Add(m_price_buy); dlg->Add(m_lot_buy); dlg->Add(m_comment_buy); dlg->Add(m_type_buy); dlg->Add(m_auto_buy); dlg->Add(m_clear_buy); dlg->Add(m_add_buy);
-      dlg->Add(m_price_sell); dlg->Add(m_lot_sell); dlg->Add(m_comment_sell); dlg->Add(m_type_sell); dlg->Add(m_auto_sell); dlg->Add(m_clear_sell); dlg->Add(m_add_sell);
-      dlg->Add(m_info);
+      dlg.Add(m_title);
+      dlg.Add(m_price_buy); dlg.Add(m_lot_buy); dlg.Add(m_comment_buy); dlg.Add(m_type_buy); dlg.Add(m_auto_buy); dlg.Add(m_clear_buy); dlg.Add(m_add_buy);
+      dlg.Add(m_price_sell); dlg.Add(m_lot_sell); dlg.Add(m_comment_sell); dlg.Add(m_type_sell); dlg.Add(m_auto_sell); dlg.Add(m_clear_sell); dlg.Add(m_add_sell);
+      dlg.Add(m_info);
 
       m_initialized=true;
       return(true);
@@ -256,21 +256,19 @@ public:
 class CALEBridge
   {
 private:
-   CVirtualPositionManager *m_manager;
+   int m_count;
 
 public:
-            CALEBridge() : m_manager(NULL) {}
+            CALEBridge() : m_count(0) {}
 
    void     Bind(CVirtualPositionManager &manager)
      {
-      m_manager=GetPointer(manager);
+      m_count=manager.Count();
      }
 
    int      Count() const
      {
-      if(m_manager==NULL)
-         return(0);
-      return(m_manager.Count());
+      return(m_count);
      }
   };
 
@@ -301,9 +299,9 @@ public:
       if(!UI_Button_Create(m_tab_symbol,0,"ALE_Tab_Symbol",0,215,8,320,30,"Инструмент")) return(false);
 
       Add(m_tab_terminal); Add(m_tab_broker); Add(m_tab_symbol);
-      m_terminal_tab.Init(this,10,40);
-      m_broker_tab.Init(this,10,40);
-      m_symbol_tab.Init(this,10,40);
+      m_terminal_tab.Init(*this,10,40);
+      m_broker_tab.Init(*this,10,40);
+      m_symbol_tab.Init(*this,10,40);
 
       m_ale_bridge.Bind(m_terminal_tab.manager);
       Run();
