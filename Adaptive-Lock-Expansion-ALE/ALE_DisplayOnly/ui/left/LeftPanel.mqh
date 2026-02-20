@@ -324,10 +324,10 @@ public:
      }
   };
 
-CVirtualPanel &LeftPanel_Instance()
+CVirtualPanel *LeftPanel_Instance()
   {
    static CVirtualPanel panel;
-   return(panel);
+   return(GetPointer(panel));
   }
 
 void LeftPanel_Render(const SystemState &system_state,const DualState &dual_state)
@@ -337,19 +337,19 @@ void LeftPanel_Render(const SystemState &system_state,const DualState &dual_stat
 
    static bool created=false;
    if(!created)
-      created=LeftPanel_Instance().Init(0,0,chart_w/2,chart_h);
+      created=LeftPanel_Instance()->Init(0,0,chart_w/2,chart_h);
 
-   LeftPanel_Instance().Render(system_state,dual_state);
+   LeftPanel_Instance()->Render(system_state,dual_state);
   }
 
 void LeftPanel_OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
   {
-   LeftPanel_Instance().ChartEvent(id,lparam,dparam,sparam);
+   LeftPanel_Instance()->ChartEvent(id,lparam,dparam,sparam);
   }
 
 void LeftPanel_Destroy(const int reason)
   {
-   LeftPanel_Instance().Shutdown(reason);
+   LeftPanel_Instance()->Shutdown(reason);
   }
 
 #endif // ALE_DO_UI_LEFT_LEFTPANEL_MQH_INCLUDED
