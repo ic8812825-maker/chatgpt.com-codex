@@ -10,9 +10,15 @@
 #include "ui/right/RightPanel.mqh"
 
 bool g_timer_started=false;
+bool g_is_rendering=false;
 
 void RenderPanels()
   {
+   if(g_is_rendering)
+      return;
+
+   g_is_rendering=true;
+
    SystemState system_state;
    DualState dual_state;
    FlowSnapshot input_snapshot;
@@ -23,7 +29,8 @@ void RenderPanels()
    CALECore::Recalculate(system_state,dual_state,input_snapshot);
    LeftPanel_Render(system_state,dual_state);
    RightPanel_Render(system_state,dual_state);
-   ChartRedraw(0);
+
+   g_is_rendering=false;
   }
 
 int OnInit()
@@ -68,9 +75,6 @@ void OnChartEvent(const int id,const long &lparam,const double &dparam,const str
    LeftPanel_OnChartEvent(id,lparam,dparam,sparam);
    RightPanel_OnChartEvent(id,lparam,dparam,sparam);
 
-   if(id==CHARTEVENT_CHART_CHANGE ||
-      id==CHARTEVENT_CLICK ||
-      id==CHARTEVENT_OBJECT_CLICK ||
-      id==CHARTEVENT_KEYDOWN)
+   if(id==CHARTEVENT_CHART_CHANGE)
       RenderPanels();
   }
