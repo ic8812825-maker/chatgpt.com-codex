@@ -8,6 +8,7 @@ class CVirtualPositionManager
 private:
    VirtualPosition m_positions[];
    int             m_next_id;
+   string          m_last_error;
 
    bool            IsVolumeValid(const double volume) const
      {
@@ -35,7 +36,12 @@ private:
      }
 
 public:
-                   CVirtualPositionManager() : m_next_id(1) {}
+                   CVirtualPositionManager() : m_next_id(1),m_last_error("") {}
+
+   string          LastError() const
+     {
+      return(m_last_error);
+     }
 
    int             Count() const
      {
@@ -51,22 +57,22 @@ public:
                        const ENUM_ORDER_TYPE type,
                        const double price,
                        const double volume,
-                       const string comment,
-                       string &error)
+                       const string comment)
      {
+      m_last_error="";
       if(price<=0.0)
         {
-         error="Цена должна быть > 0";
+         m_last_error="Цена должна быть > 0";
          return(false);
         }
       if(!IsVolumeValid(volume))
         {
-         error="Некорректный лот";
+         m_last_error="Некорректный лот";
          return(false);
         }
       if(Count()>=100)
         {
-         error="Достигнут лимит 100 позиций";
+         m_last_error="Достигнут лимит 100 позиций";
          return(false);
         }
 
@@ -103,23 +109,24 @@ public:
       return(true);
      }
 
-   bool            Edit(const int id,const double price,const double volume,const string comment,string &error)
+   bool            Edit(const int id,const double price,const double volume,const string comment)
      {
+      m_last_error="";
       if(price<=0.0)
         {
-         error="Цена должна быть > 0";
+         m_last_error="Цена должна быть > 0";
          return(false);
         }
       if(!IsVolumeValid(volume))
         {
-         error="Некорректный лот";
+         m_last_error="Некорректный лот";
          return(false);
         }
 
       const int idx=FindIndexById(id);
       if(idx<0)
         {
-         error="Позиция не найдена";
+         m_last_error="Позиция не найдена";
          return(false);
         }
 
