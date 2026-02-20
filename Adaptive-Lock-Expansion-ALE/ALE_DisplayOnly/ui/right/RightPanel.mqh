@@ -72,6 +72,8 @@ void RightPanel_Render(const SystemState &system_state,const DualState &dual_sta
   {
    const int chart_w=(int)ChartGetInteger(0,CHART_WIDTH_IN_PIXELS,0);
    const int chart_h=(int)ChartGetInteger(0,CHART_HEIGHT_IN_PIXELS,0);
+   if(chart_w<200 || chart_h<120)
+      return;
 
    const int x1=chart_w/2;
    const int y1=0;

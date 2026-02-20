@@ -334,6 +334,9 @@ void LeftPanel_Render(const SystemState &system_state,const DualState &dual_stat
   {
    const int chart_w=(int)ChartGetInteger(0,CHART_WIDTH_IN_PIXELS,0);
    const int chart_h=(int)ChartGetInteger(0,CHART_HEIGHT_IN_PIXELS,0);
+   if(chart_w<200 || chart_h<120)
+      return;
+
    CVirtualPanel *panel=LeftPanel_Instance();
    if(CheckPointer(panel)==POINTER_INVALID)
       return;
