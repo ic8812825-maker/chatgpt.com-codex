@@ -334,22 +334,31 @@ void LeftPanel_Render(const SystemState &system_state,const DualState &dual_stat
   {
    const int chart_w=(int)ChartGetInteger(0,CHART_WIDTH_IN_PIXELS,0);
    const int chart_h=(int)ChartGetInteger(0,CHART_HEIGHT_IN_PIXELS,0);
+   CVirtualPanel *panel=LeftPanel_Instance();
+   if(CheckPointer(panel)==POINTER_INVALID)
+      return;
 
    static bool created=false;
    if(!created)
-      created=LeftPanel_Instance()->Init(0,0,chart_w/2,chart_h);
+      created=panel.Init(0,0,chart_w/2,chart_h);
 
-   LeftPanel_Instance()->Render(system_state,dual_state);
+   panel.Render(system_state,dual_state);
   }
 
 void LeftPanel_OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
   {
-   LeftPanel_Instance()->ChartEvent(id,lparam,dparam,sparam);
+   CVirtualPanel *panel=LeftPanel_Instance();
+   if(CheckPointer(panel)==POINTER_INVALID)
+      return;
+   panel.ChartEvent(id,lparam,dparam,sparam);
   }
 
 void LeftPanel_Destroy(const int reason)
   {
-   LeftPanel_Instance()->Shutdown(reason);
+   CVirtualPanel *panel=LeftPanel_Instance();
+   if(CheckPointer(panel)==POINTER_INVALID)
+      return;
+   panel.Shutdown(reason);
   }
 
 #endif // ALE_DO_UI_LEFT_LEFTPANEL_MQH_INCLUDED
