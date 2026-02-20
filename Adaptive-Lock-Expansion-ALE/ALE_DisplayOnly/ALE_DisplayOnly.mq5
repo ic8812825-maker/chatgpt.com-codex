@@ -10,6 +10,9 @@
 #include "ui/right/RightPanel.mqh"
 
 bool g_is_rendering=false;
+SystemState g_system_state;
+DualState   g_dual_state;
+int         g_snapshot_version=0;
 
 void RenderPanels()
   {
@@ -18,16 +21,20 @@ void RenderPanels()
 
    g_is_rendering=true;
 
-   SystemState system_state;
-   DualState dual_state;
    FlowSnapshot input_snapshot;
+   MqlTick tick;
 
-   input_snapshot.metric=0.0;
-   input_snapshot.version=0;
+   if(SymbolInfoTick(_Symbol,tick))
+      input_snapshot.metric=tick.bid;
+   else
+      input_snapshot.metric=0.0;
+   input_snapshot.version=g_snapshot_version++;
 
-   CALECore::Recalculate(system_state,dual_state,input_snapshot);
-   LeftPanel_Render(system_state,dual_state);
-   RightPanel_Render(system_state,dual_state);
+   if(input_snapshot.metric>0.0)
+      CALECore::Recalculate(g_system_state,g_dual_state,input_snapshot);
+
+   LeftPanel_Render(g_system_state,g_dual_state);
+   RightPanel_Render(g_system_state,g_dual_state);
 
    g_is_rendering=false;
   }
