@@ -9,18 +9,7 @@
 #include "ui/left/LeftPanel.mqh"
 #include "ui/right/RightPanel.mqh"
 
-int OnInit()
-  {
-   return(INIT_SUCCEEDED);
-  }
-
-void OnDeinit(const int reason)
-  {
-   LeftPanel_Destroy(reason);
-   RightPanel_Destroy(reason);
-  }
-
-void OnTick()
+void RenderPanels()
   {
    SystemState system_state;
    DualState dual_state;
@@ -34,8 +23,35 @@ void OnTick()
    RightPanel_Render(system_state,dual_state);
   }
 
+int OnInit()
+  {
+   EventSetTimer(1);
+   RenderPanels();
+   return(INIT_SUCCEEDED);
+  }
+
+void OnDeinit(const int reason)
+  {
+   EventKillTimer();
+   LeftPanel_Destroy(reason);
+   RightPanel_Destroy(reason);
+  }
+
+void OnTick()
+  {
+   RenderPanels();
+  }
+
+void OnTimer()
+  {
+   RenderPanels();
+  }
+
 void OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
   {
    LeftPanel_OnChartEvent(id,lparam,dparam,sparam);
    RightPanel_OnChartEvent(id,lparam,dparam,sparam);
+
+   if(id==CHARTEVENT_CHART_CHANGE)
+      RenderPanels();
   }
