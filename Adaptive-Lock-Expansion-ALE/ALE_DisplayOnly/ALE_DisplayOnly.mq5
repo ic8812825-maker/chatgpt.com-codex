@@ -9,7 +9,6 @@
 #include "ui/left/LeftPanel.mqh"
 #include "ui/right/RightPanel.mqh"
 
-bool g_timer_started=false;
 bool g_is_rendering=false;
 
 void RenderPanels()
@@ -35,18 +34,7 @@ void RenderPanels()
 
 int OnInit()
   {
-   ResetLastError();
-   EventSetMillisecondTimer(250);
-   g_timer_started=(GetLastError()==0);
-   if(!g_timer_started)
-     {
-      ResetLastError();
-      EventSetTimer(1);
-      g_timer_started=(GetLastError()==0);
-     }
-
-   if(!g_timer_started)
-      PrintFormat("ALE_DisplayOnly: timer setup failed, err=%d",GetLastError());
+   EventSetTimer(1);
 
    RenderPanels();
    return(INIT_SUCCEEDED);
@@ -55,7 +43,6 @@ int OnInit()
 void OnDeinit(const int reason)
   {
    EventKillTimer();
-   g_timer_started=false;
    LeftPanel_Destroy(reason);
    RightPanel_Destroy(reason);
   }
