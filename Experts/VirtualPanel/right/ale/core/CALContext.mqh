@@ -11,30 +11,29 @@ enum ENUM_ALE_STATE
    ALE_STATE_SAFE=5
 };
 
+enum ENUM_ALE_FLOW
+{
+   ALE_FLOW_BUY=1,
+   ALE_FLOW_SELL=-1
+};
+
 struct CALContext
 {
-   ENUM_ALE_STATE state_buy;
-   ENUM_ALE_STATE state_sell;
-   double net_delta_buy;
-   double net_delta_sell;
-   double pnl_buy;
-   double pnl_sell;
-   double exposure_buy;
-   double exposure_sell;
-   double worst_dd_buy;
-   double worst_dd_sell;
-   double margin_buy;
-   double margin_sell;
+   double net_delta;
+   double pnl;
+   double exposure;
+   double drawdown;
+   double margin;
+   ENUM_ALE_STATE state;
 
    void Reset()
    {
-      state_buy=ALE_STATE_IDLE;
-      state_sell=ALE_STATE_IDLE;
-      net_delta_buy=0.0; net_delta_sell=0.0;
-      pnl_buy=0.0; pnl_sell=0.0;
-      exposure_buy=0.0; exposure_sell=0.0;
-      worst_dd_buy=0.0; worst_dd_sell=0.0;
-      margin_buy=0.0; margin_sell=0.0;
+      net_delta=0.0;
+      pnl=0.0;
+      exposure=0.0;
+      drawdown=0.0;
+      margin=0.0;
+      state=ALE_STATE_IDLE;
    }
 };
 

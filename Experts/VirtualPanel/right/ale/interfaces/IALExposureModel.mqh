@@ -1,11 +1,14 @@
 #ifndef __IALEXPOSUREMODEL_MQH__
 #define __IALEXPOSUREMODEL_MQH__
 
+#include "..\\positions\\CALPositionBook.mqh"
+
 class IALExposureModel
 {
 public:
-   virtual double DeltaSurface(const int direction,const double price,const double center) const=0;
-   virtual double GammaProfile(const int direction,const double curvature) const=0;
+   virtual void Recalculate(const CALPositionBook &book,const double price)=0;
+   virtual double DeltaSurface() const=0;
+   virtual double GammaProfile() const=0;
 };
 
 #endif

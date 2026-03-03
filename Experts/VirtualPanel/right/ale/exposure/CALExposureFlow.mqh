@@ -1,18 +1,54 @@
 #ifndef __CALEXPOSUREFLOW_MQH__
 #define __CALEXPOSUREFLOW_MQH__
 
-class CALExposureFlow
+#include "CALDeltaSurface.mqh"
+#include "CALGammaProfile.mqh"
+#include "CALConvexityAnalyzer.mqh"
+#include "..\core\CALContext.mqh"
+#include "..\interfaces\IALExposureModel.mqh"
+#include "..\\positions\\CALPositionBook.mqh"
+
+class CALExposureFlow : public IALExposureModel
 {
 private:
-   double m_buy_exposure;
-   double m_sell_exposure;
+   int m_direction;
+   double m_exposure;
+   double m_delta_surface;
+   double m_gamma_profile;
+   double m_convexity;
+
+   CALDeltaSurface m_delta_model;
+   CALGammaProfile m_gamma_model;
+   CALConvexityAnalyzer m_convexity_model;
+
 public:
-   void Reset(){ m_buy_exposure=0.0; m_sell_exposure=0.0; }
-   void UpdateBuy(const double lots,const double price){ m_buy_exposure=lots*price; }
-   void UpdateSell(const double lots,const double price){ m_sell_exposure=lots*price; }
-   double BuyExposure() const { return m_buy_exposure; }
-   double SellExposure() const { return m_sell_exposure; }
-   CALExposureFlow(){ Reset(); }
+   void Init(const int direction)
+   {
+      m_direction=direction;
+      m_exposure=0.0;
+      m_delta_surface=0.0;
+      m_gamma_profile=0.0;
+      m_convexity=0.0;
+   }
+
+   virtual void Recalculate(const CALPositionBook &book,const double price)
+   {
+      m_exposure=book.TotalLot()*price;
+      if(m_direction==ALE_FLOW_BUY)
+         m_delta_surface=m_delta_model.DeltaForBuy(price,price);
+      else
+         m_delta_surface=m_delta_model.DeltaForSell(price,price);
+
+      m_gamma_profile=(m_direction==ALE_FLOW_BUY ? m_gamma_model.GammaForBuy(book.TotalLot()) : m_gamma_model.GammaForSell(book.TotalLot()));
+      m_convexity=(m_direction==ALE_FLOW_BUY ? m_convexity_model.ConvexityBuy(m_gamma_profile,m_delta_surface) : m_convexity_model.ConvexitySell(m_gamma_profile,m_delta_surface));
+   }
+
+   double Exposure() const { return m_exposure; }
+   virtual double DeltaSurface() const { return m_delta_surface; }
+   virtual double GammaProfile() const { return m_gamma_profile; }
+   double Convexity() const { return m_convexity; }
+
+   CALExposureFlow(){ Init(ALE_FLOW_BUY); }
 };
 
 #endif

@@ -4,16 +4,13 @@
 class CALDeltaTracker
 {
 private:
-   double m_net_delta_buy;
-   double m_net_delta_sell;
-   double m_tail_slope_buy;
-   double m_tail_slope_sell;
+   double m_net_delta;
+   double m_tail_slope;
 public:
-   void Reset(){ m_net_delta_buy=0.0; m_net_delta_sell=0.0; m_tail_slope_buy=0.0; m_tail_slope_sell=0.0; }
-   void UpdateBuy(const double delta,const double slope){ m_net_delta_buy=delta; m_tail_slope_buy=slope; }
-   void UpdateSell(const double delta,const double slope){ m_net_delta_sell=delta; m_tail_slope_sell=slope; }
-   double NetDeltaBuy() const { return m_net_delta_buy; }
-   double NetDeltaSell() const { return m_net_delta_sell; }
+   void Reset(){ m_net_delta=0.0; m_tail_slope=0.0; }
+   void Update(const double delta,const double slope){ m_net_delta=delta; m_tail_slope=slope; }
+   double NetDelta() const { return m_net_delta; }
+   double TailSlope() const { return m_tail_slope; }
    CALDeltaTracker(){ Reset(); }
 };
 
