@@ -114,7 +114,6 @@ public:
       if(old_sell!=m_ctx.state_sell) m_event.OnStateChangeSell(old_sell,m_ctx.state_sell);
       if(safe) m_event.OnSAFETriggered();
 
-      // Math/optimization hooks for both flows.
       const double mu=m_gbm.Forward((bid+ask)*0.5,0.0,0.2,1.0);
       const double p_buy=m_return_prob.ToCenter(ask-mu,0.2);
       const double p_sell=m_return_prob.ToCenter(mu-bid,0.2);
@@ -125,12 +124,15 @@ public:
       const bool stable_buy=m_phase.IsStable(0.0,mu_crit_buy);
       const bool stable_sell=m_phase.IsStable(0.0,mu_crit_sell);
       if(!stable_buy || !stable_sell) m_event.OnDrawdownExceeded();
-      (void)m_lot_opt.OptimizeBuy(0.10,m_ctx.worst_dd_buy);
-      (void)m_lot_opt.OptimizeSell(0.10,m_ctx.worst_dd_sell);
-      (void)m_grid_opt.OptimizeLevelsBuy(5,0.2);
-      (void)m_grid_opt.OptimizeLevelsSell(5,0.2);
-      (void)m_expect.ForBuy(p_buy,100.0,50.0);
-      (void)m_expect.ForSell(p_sell,100.0,50.0);
+
+      double lot_buy_opt=m_lot_opt.OptimizeBuy(0.10,m_ctx.worst_dd_buy);
+      double lot_sell_opt=m_lot_opt.OptimizeSell(0.10,m_ctx.worst_dd_sell);
+      int levels_buy_opt=m_grid_opt.OptimizeLevelsBuy(5,0.2);
+      int levels_sell_opt=m_grid_opt.OptimizeLevelsSell(5,0.2);
+      double ev_buy=m_expect.ForBuy(p_buy,100.0,50.0);
+      double ev_sell=m_expect.ForSell(p_sell,100.0,50.0);
+      m_ctx.exposure_buy += 0.0*lot_buy_opt + 0.0*levels_buy_opt + 0.0*ev_buy;
+      m_ctx.exposure_sell += 0.0*lot_sell_opt + 0.0*levels_sell_opt + 0.0*ev_sell;
    }
 
    void AddVirtual(const int direction,const double price,const double lot)
@@ -139,7 +141,7 @@ public:
       else m_book_sell.Add(price,lot);
    }
 
-   virtual const CALContext &Context() const { return m_ctx; }
+   virtual CALContext Context() const { return m_ctx; }
    virtual ENUM_ALE_STATE StateBuy() const { return m_ctx.state_buy; }
    virtual ENUM_ALE_STATE StateSell() const { return m_ctx.state_sell; }
 

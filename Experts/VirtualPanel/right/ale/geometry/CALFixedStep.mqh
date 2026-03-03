@@ -6,9 +6,10 @@
 class CALFixedStep : public CALGeometryBase
 {
 public:
-   CALFixedStep(const double step=100*_Point){ m_step=step; }
+   CALFixedStep(){ m_step=100.0*_Point; }
    virtual void BuildGrid(const int direction,const double center,const int levels,CALGrid &out_grid)
    {
+      if(levels<=0) return;
       ArrayResize(out_grid.levels,levels);
       ArrayResize(out_grid.lots,levels);
       for(int i=0;i<levels;i++)

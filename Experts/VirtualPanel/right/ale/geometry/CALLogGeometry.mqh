@@ -8,10 +8,11 @@ class CALLogGeometry : public CALGeometryBase
 private:
    double m_base;
 public:
-   CALLogGeometry(){ m_base=1.2; m_step=50*_Point; }
+   CALLogGeometry(){ m_base=1.2; m_step=50.0*_Point; }
    void SetBase(const double base){ m_base=(base>1.0?base:1.2); }
    virtual void BuildGrid(const int direction,const double center,const int levels,CALGrid &out_grid)
    {
+      if(levels<=0) return;
       ArrayResize(out_grid.levels,levels);
       ArrayResize(out_grid.lots,levels);
       for(int i=0;i<levels;i++)

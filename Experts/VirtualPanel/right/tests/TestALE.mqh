@@ -11,7 +11,7 @@ bool TestALE_DualFlowIntegration()
    ale.AddVirtual(-1,1.1010,0.10);
    ale.OnPriceUpdate(1.1005,1.1007);
 
-   const CALContext &ctx=ale.Context();
+   CALContext ctx=ale.Context();
    if(ctx.state_buy==ALE_STATE_IDLE || ctx.state_sell==ALE_STATE_IDLE) return false;
    if(ctx.net_delta_buy<0.0 || ctx.net_delta_sell>0.0) return false;
    return true;
