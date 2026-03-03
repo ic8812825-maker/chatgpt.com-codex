@@ -16,7 +16,7 @@ void DeleteByPrefix(const string prefix)
 
 void EnsureLabel(const string name,const int x,const int y,const int w,const string text,const color clr=clrWhite)
 {
-   if(ObjectFind(0,name)<0)
+   if(ObjectFind(0,name) < 0)
       ObjectCreate(0,name,OBJ_LABEL,0,0,0);
 
    ObjectSetInteger(0,name,OBJPROP_CORNER,CORNER);
