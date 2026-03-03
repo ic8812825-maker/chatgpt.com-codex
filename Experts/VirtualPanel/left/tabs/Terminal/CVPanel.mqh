@@ -63,8 +63,14 @@ private:
    int last_active_index;
 
    EFsmState fsm_state;
+   bool m_visible; // текущее состояние видимости
    EVirtualEventType last_event;
-
+   int m_x;
+   int m_y;
+   int m_w;
+   int m_h;
+   int table_label_y;
+   int table_row_y;
    string RowName(const string prefix,const int row) const
    {
       return prefix+IntegerToString(row);
@@ -177,8 +183,24 @@ private:
    }
 
 public:
-   int Init();
+   int Init(const int x,const int y,const int width,const int height);
    void Deinit();
+   
+  void SetVisible(const bool visible)
+    {
+        m_visible = visible;
+
+        if(!m_visible)
+        {
+            DeleteByPrefix("vp_"); // скрываем все объекты панели
+            return;
+        }
+        RenderTable(); // если видим, рисуем таблицу заново
+        CreateAddPanel(); // заново создаём элементы добавления
+        ChartRedraw(0);
+    }
+
+    bool IsVisible() const { return m_visible; }  
 
    void OnTimer();
    void OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam);
@@ -232,10 +254,16 @@ public:
 
    bool OnPseudoTick();
    void ResetButtonState(string name);
+   void AutoLayout();
 };
 
-int CVPanel::Init()
-{
+int CVPanel::Init(const int x,const int y,const int width,const int height)
+{  
+   m_x = x;
+   m_y = y;
+   m_w = width;
+   m_h = height;
+   m_visible = true;
    count=0;
    next_id=1;
    active_index=-1;
@@ -271,6 +299,12 @@ int CVPanel::Init()
 
    fsm_state=FSM_IDLE;
    last_event=VP_EVENT_NONE;
+   
+   const int add_panel_height = 2 * (ROW_H + VP_BLOCK_GAP);
+   const int dynamic_table_y  = ADD_ROW_Y + add_panel_height + VP_TABLE_GAP;
+   
+   table_label_y = dynamic_table_y;
+   table_row_y   = dynamic_table_y + ROW_H;
 
    price_digits=(int)SymbolInfoInteger(_Symbol,SYMBOL_DIGITS);
    if(price_digits<=0) price_digits=5;
@@ -281,6 +315,7 @@ int CVPanel::Init()
    RenderTable();
    SetAddDirButtons();
    SetAddPriceColor();
+   m_visible = true; // изначально видим
 
    EventSetTimer(VP_DEFAULT_TIMER_SEC);
    ChartRedraw(0);
@@ -292,12 +327,16 @@ void CVPanel::Deinit()
    EventKillTimer();
    update_in_progress=false;
    ui_dirty=false;
+   pick_mode=false;
+   pick_flow=0;
+   buy_flow_pick_mode=false;
+   sell_flow_pick_mode=false;
    DeleteByPrefix("vp_");
    ChartRedraw(0);
 }
 
 void CVPanel::OnTimer()
-{
+{  AutoLayout();
    if(update_in_progress) return;
    if(!ui_dirty && !AutoPriceNeedsRefresh()) return;
 
@@ -308,6 +347,17 @@ void CVPanel::OnTimer()
    update_in_progress=false;
 }
 
+void CVPanel::AutoLayout()
+{
+   int chart_w = (int)ChartGetInteger(0,CHART_WIDTH_IN_PIXELS);
+   int chart_h = (int)ChartGetInteger(0,CHART_HEIGHT_IN_PIXELS);
+
+   if(m_x + m_w > chart_w)
+      m_x = chart_w - m_w - 5;
+
+   if(m_y + m_h > chart_h)
+      m_y = chart_h - m_h - 5;
+}
 void CVPanel::OnChartEvent(const int id,const long &lparam,const double &dparam,const string &sparam)
 {
    if(id==CHARTEVENT_MOUSE_MOVE)
@@ -488,7 +538,8 @@ void CVPanel::DeletePosition(int index)
    else if(active_index>index) active_index--;
    last_active_index=-1;
    UpdateFsm();
-   EmitEvent(VP_CLOSED,-1);
+   EmitEvent(VP_CLOSED,index);
+   ui_dirty=true;
 }
 
 void CVPanel::SetActiveIndex(int index) { active_index=index; }
@@ -567,68 +618,94 @@ void CVPanel::ClearAddInputs()
    SetAddDirButtons();
    SetAddPriceColor();
 }
-
 void CVPanel::CreateAddPanel()
 {
-   int x=X0;
-   int y_label=ADD_LABEL_Y;
-   int y_row=ADD_ROW_Y;
+   int x = m_x;
+   int y = m_y;
 
-   // BUY Flow
-   EnsureLabel("vp_buy_flow_lbl",x,y_label-8,120,"BUY Flow",clrLime);
-   EnsureLabel("vp_buy_flow_lbl_price",x,y_label,COL_W_PRICE,"Price",clrSilver);
-   EnsureLabel("vp_buy_flow_lbl_dir",x+COL_W_PRICE,y_label,COL_W_DIR,"Dir",clrSilver);
-   EnsureLabel("vp_buy_flow_lbl_lot",x+COL_W_PRICE+COL_W_DIR,y_label,COL_W_LOT,"Lot",clrSilver);
-   EnsureLabel("vp_buy_flow_lbl_comment",x+COL_W_PRICE+COL_W_DIR+COL_W_LOT,y_label,COL_W_COMMENT,"Comment",clrSilver);
+   // --- ширина панели (enterprise safe) ---
+   const int min_width = 400;
+   int w = MathMax(m_w, min_width);
 
-   int cx=x;
-   EnsureEdit("vp_buy_flow_price",cx,y_row,COL_W_PRICE-COL_W_PICK,ROW_H,""); cx+=COL_W_PRICE-COL_W_PICK;
-   EnsureButton("vp_buy_flow_pick",cx,y_row,COL_W_PICK,ROW_H,"🎯"); cx+=COL_W_PICK;
-   int dir_w=COL_W_DIR/2;
-   EnsureButton("vp_buy_flow_buy",cx,y_row,dir_w,ROW_H,"BUY"); cx+=dir_w;
-   EnsureButton("vp_buy_flow_sell",cx,y_row,dir_w,ROW_H,"SELL"); cx+=dir_w;
-   EnsureEdit("vp_buy_flow_lot",cx,y_row,COL_W_LOT,ROW_H,DoubleToString(DEFAULT_LOT,2)); cx+=COL_W_LOT;
-   EnsureEdit("vp_buy_flow_comment",cx,y_row,COL_W_COMMENT,ROW_H,""); cx+=COL_W_COMMENT;
-   EnsureButton("vp_buy_flow_btn",cx,y_row,COL_W_BTN,ROW_H,"✔"); cx+=COL_W_BTN;
-   EnsureButton("vp_buy_flow_clear",cx,y_row,COL_W_BTN,ROW_H,"🧹");
+   const int gap   = 4;
+   const int row_h = 18;
 
-   // SELL Flow
-   y_label=ADD_LABEL_Y+ROW_H+10;
-   y_row=ADD_ROW_Y+ROW_H+10;
-   EnsureLabel("vp_sell_flow_lbl",x,y_label-8,120,"SELL Flow",clrTomato);
-   EnsureLabel("vp_sell_flow_lbl_price",x,y_label,COL_W_PRICE,"Price",clrSilver);
-   EnsureLabel("vp_sell_flow_lbl_dir",x+COL_W_PRICE,y_label,COL_W_DIR,"Dir",clrSilver);
-   EnsureLabel("vp_sell_flow_lbl_lot",x+COL_W_PRICE+COL_W_DIR,y_label,COL_W_LOT,"Lot",clrSilver);
-   EnsureLabel("vp_sell_flow_lbl_comment",x+COL_W_PRICE+COL_W_DIR+COL_W_LOT,y_label,COL_W_COMMENT,"Comment",clrSilver);
+   // --- Авто-смещение от верхних кнопок ---
+   const int button_y = 10;
+   const int button_height = 22;
+   int y_offset = button_y + button_height + gap;
 
-   cx=x;
-   EnsureEdit("vp_sell_flow_price",cx,y_row,COL_W_PRICE-COL_W_PICK,ROW_H,""); cx+=COL_W_PRICE-COL_W_PICK;
-   EnsureButton("vp_sell_flow_pick",cx,y_row,COL_W_PICK,ROW_H,"🎯"); cx+=COL_W_PICK;
-   dir_w=COL_W_DIR/2;
-   EnsureButton("vp_sell_flow_sell",cx,y_row,dir_w,ROW_H,"SELL"); cx+=dir_w;
-   EnsureButton("vp_sell_flow_buy",cx,y_row,dir_w,ROW_H,"BUY"); cx+=dir_w;
-   EnsureEdit("vp_sell_flow_lot",cx,y_row,COL_W_LOT,ROW_H,DoubleToString(DEFAULT_LOT,2)); cx+=COL_W_LOT;
-   EnsureEdit("vp_sell_flow_comment",cx,y_row,COL_W_COMMENT,ROW_H,""); cx+=COL_W_COMMENT;
-   EnsureButton("vp_sell_flow_btn",cx,y_row,COL_W_BTN,ROW_H,"✔"); cx+=COL_W_BTN;
-   EnsureButton("vp_sell_flow_clear",cx,y_row,COL_W_BTN,ROW_H,"🧹");
+   // --- Колонки ---
+   int col_price   = w * 25 / 100;
+   int col_dir     = w * 15 / 100;
+   int col_lot     = w * 10 / 100;
+   int col_comment = w * 35 / 100;
+   int col_btn     = w * 11 / 100;
+   int col_pick    = w * 6  / 100;
 
-   // compatibility hidden fields (legacy helpers)
-   EnsureEdit("vp_add_price",-1000,-1000,1,1,"");
-   EnsureEdit("vp_add_lot",-1000,-1000,1,1,DoubleToString(DEFAULT_LOT,2));
-   EnsureEdit("vp_add_comment",-1000,-1000,1,1,"");
+   // --- Метки слева ---
+   int lbl_x = x - 90;
+   EnsureLabel("vp_buy_flow_lbl", lbl_x, y_offset, 85, "BUY Flow", clrLime);
+   EnsureLabel("vp_sell_flow_lbl", lbl_x, y_offset + 3*row_h + gap, 85, "SELL Flow", clrTomato);
+
+   // ================= BUY =================
+   int y_buy_label = y_offset;
+   int y_buy_col   = y_buy_label + row_h;
+   int y_buy_row   = y_buy_col + row_h;
+
+   EnsureLabel("vp_buy_flow_lbl_price", x, y_buy_col, col_price, "Price", clrSilver);
+   EnsureLabel("vp_buy_flow_lbl_dir", x+col_price, y_buy_col, col_dir, "Dir", clrSilver);
+   EnsureLabel("vp_buy_flow_lbl_lot", x+col_price+col_dir, y_buy_col, col_lot, "Lot", clrSilver);
+   EnsureLabel("vp_buy_flow_lbl_comment", x+col_price+col_dir+col_lot, y_buy_col, col_comment, "Comment", clrSilver);
+
+   int cx = x;
+   EnsureEdit("vp_buy_flow_price", cx, y_buy_row, col_price-col_pick, row_h, ""); cx += col_price-col_pick;
+   EnsureButton("vp_buy_flow_pick", cx, y_buy_row, col_pick, row_h, "🎯"); cx += col_pick;
+
+   int dir_w = col_dir / 2;
+   EnsureButton("vp_buy_flow_buy", cx, y_buy_row, dir_w, row_h, "BUY"); cx += dir_w;
+   EnsureButton("vp_buy_flow_sell", cx, y_buy_row, dir_w, row_h, "SELL"); cx += dir_w;
+
+   EnsureEdit("vp_buy_flow_lot", cx, y_buy_row, col_lot, row_h, DoubleToString(DEFAULT_LOT,2)); cx += col_lot;
+   EnsureEdit("vp_buy_flow_comment", cx, y_buy_row, col_comment, row_h, ""); cx += col_comment;
+
+   EnsureButton("vp_buy_flow_btn", cx, y_buy_row, col_btn, row_h, "✔"); cx += col_btn;
+   EnsureButton("vp_buy_flow_clear", cx, y_buy_row, col_btn, row_h, "🧹");
+
+   // ================= SELL =================
+   int y_sell_row = y_buy_row + row_h + gap;
+
+   cx = x;
+   EnsureEdit("vp_sell_flow_price", cx, y_sell_row, col_price-col_pick, row_h, ""); cx += col_price-col_pick;
+   EnsureButton("vp_sell_flow_pick", cx, y_sell_row, col_pick, row_h, "🎯"); cx += col_pick;
+
+   dir_w = col_dir / 2;
+   EnsureButton("vp_sell_flow_sell", cx, y_sell_row, dir_w, row_h, "SELL"); cx += dir_w;
+   EnsureButton("vp_sell_flow_buy", cx, y_sell_row, dir_w, row_h, "BUY"); cx += dir_w;
+
+   EnsureEdit("vp_sell_flow_lot", cx, y_sell_row, col_lot, row_h, DoubleToString(DEFAULT_LOT,2)); cx += col_lot;
+   EnsureEdit("vp_sell_flow_comment", cx, y_sell_row, col_comment, row_h, ""); cx += col_comment;
+
+   EnsureButton("vp_sell_flow_btn", cx, y_sell_row, col_btn, row_h, "✔"); cx += col_btn;
+   EnsureButton("vp_sell_flow_clear", cx, y_sell_row, col_btn, row_h, "🧹");
+
+   // --- Legacy ---
+   EnsureEdit("vp_add_price", -1000, -1000, 1, 1, "");
+   EnsureEdit("vp_add_lot", -1000, -1000, 1, 1, DoubleToString(DEFAULT_LOT,2));
+   EnsureEdit("vp_add_comment", -1000, -1000, 1, 1, "");
 }
 
 void CVPanel::CreateTableHeader()
 {
-   int x=X0;
-   EnsureLabel("vp_tbl_lbl_id",x,TABLE_LABEL_Y,COL_W_ID,"ID",clrSilver); x+=COL_W_ID;
-   EnsureLabel("vp_tbl_lbl_dir",x,TABLE_LABEL_Y,COL_W_DIR,"Dir",clrSilver); x+=COL_W_DIR;
-   EnsureLabel("vp_tbl_lbl_price",x,TABLE_LABEL_Y,COL_W_PRICE,"Price",clrSilver); x+=COL_W_PRICE;
-   EnsureLabel("vp_tbl_lbl_lot",x,TABLE_LABEL_Y,COL_W_LOT,"Lot",clrSilver); x+=COL_W_LOT;
-   EnsureLabel("vp_tbl_lbl_comment",x,TABLE_LABEL_Y,COL_W_COMMENT,"Comment",clrSilver); x+=COL_W_COMMENT;
-   EnsureLabel("vp_tbl_lbl_edit",x,TABLE_LABEL_Y,COL_W_BTN,"✏️",clrSilver); x+=COL_W_BTN;
-   EnsureLabel("vp_tbl_lbl_save",x,TABLE_LABEL_Y,COL_W_BTN,"✔️",clrSilver); x+=COL_W_BTN;
-   EnsureLabel("vp_tbl_lbl_del",x,TABLE_LABEL_Y,COL_W_BTN,"❌",clrSilver);
+   int x=m_x;
+   EnsureLabel("vp_tbl_lbl_id",x,table_label_y,COL_W_ID,"ID",clrSilver); x+=COL_W_ID;
+   EnsureLabel("vp_tbl_lbl_dir",x,table_label_y,COL_W_DIR,"Dir",clrSilver); x+=COL_W_DIR;
+   EnsureLabel("vp_tbl_lbl_price",x,table_label_y,COL_W_PRICE,"Price",clrSilver); x+=COL_W_PRICE;
+   EnsureLabel("vp_tbl_lbl_lot",x,table_label_y,COL_W_LOT,"Lot",clrSilver); x+=COL_W_LOT;
+   EnsureLabel("vp_tbl_lbl_comment",x,table_label_y,COL_W_COMMENT,"Comment",clrSilver); x+=COL_W_COMMENT;
+   EnsureLabel("vp_tbl_lbl_edit",x,table_label_y,COL_W_BTN,"✏️",clrSilver); x+=COL_W_BTN;
+   EnsureLabel("vp_tbl_lbl_save",x,table_label_y,COL_W_BTN,"✔️",clrSilver); x+=COL_W_BTN;
+   EnsureLabel("vp_tbl_lbl_del",x,table_label_y,COL_W_BTN,"❌",clrSilver);
 }
 
 void CVPanel::CreateRow(int row)
@@ -638,11 +715,20 @@ void CVPanel::CreateRow(int row)
    const int dir=positions[row].dir;
    const int flow_code=row_flow[row];
    const int flow_idx=FlowIndexForRow(row,flow_code);
-   const int buy_count=FlowCount(1);
-   const int visual_row=(flow_code==1 ? flow_idx : (buy_count+1+flow_idx));
+   if(flow_idx < 0) return;
 
-   int y=TABLE_ROW_Y+ROW_H*visual_row;
-   int x=X0;
+   const int buy_count=FlowCount(1);
+
+   int dynamic_gap = (count > 10) ? 0 : 1;
+
+   int visual_row;
+   if(flow_code==1)
+      visual_row = flow_idx;
+   else
+      visual_row = buy_count + dynamic_gap + flow_idx;
+
+   int y = table_row_y + TABLE_ROW_STEP * visual_row;
+   int x=m_x;
 
    string name_id=RowFieldName(row,"id");
    EnsureEdit(name_id,x,y,COL_W_ID,ROW_H,IntegerToString(positions[row].id));
@@ -688,10 +774,10 @@ void CVPanel::RenderTable()
       if(row_flow[i]==1)
          CreateRow(i);
 
-   const int sep_y=TABLE_ROW_Y+ROW_H*FlowCount(1)-2;
-   EnsureLabel("vp_tbl_sec_buy",X0,TABLE_ROW_Y-16,160,"BUY Flow",clrLime);
-   EnsureLabel("vp_tbl_sep_line",X0,sep_y,COL_W_ID+COL_W_DIR+COL_W_PRICE+COL_W_LOT+COL_W_COMMENT+COL_W_BTN*3,"---   ---   ---   ---   ---   ---   ---   ---",clrSilver);
-   EnsureLabel("vp_tbl_sec_sell",X0,sep_y+4,160,"SELL Flow",clrTomato);
+   const int sep_y = table_row_y + TABLE_ROW_STEP * FlowCount(1) + 1;
+   EnsureLabel("vp_tbl_sec_buy",m_x,table_row_y-16,160,"BUY Flow",clrLime);
+   EnsureLabel("vp_tbl_sep_line",m_x,sep_y,COL_W_ID+COL_W_DIR+COL_W_PRICE+COL_W_LOT+COL_W_COMMENT+COL_W_BTN*3,"---   ---   ---   ---   ---   ---   ---   ---",clrSilver);
+   EnsureLabel("vp_tbl_sec_sell",m_x,sep_y+4,160,"SELL Flow",clrTomato);
 
    for(int j=0;j<count;j++)
       if(row_flow[j]==2)
@@ -901,8 +987,18 @@ void CVPanel::SetAddPriceColor()
 
 bool CVPanel::ParsePositiveNumber(string text,double &value)
 {
+   StringTrimLeft(text);
+   StringTrimRight(text);
+
+   if(text=="")
+      return false;
+
    value=StringToDouble(text);
-   return (value>0.0);
+
+   if(value<=0.0 || !MathIsValidNumber(value))
+      return false;
+
+   return true;
 }
 
 void CVPanel::MarkEditError(string name)
@@ -931,11 +1027,11 @@ void CVPanel::ClearEditError(string name)
 
 void CVPanel::SetAddDirButtons()
 {
-   SetAddDirButtonStyle("vp_buy_flow_buy",true,clrGreen,clrLime);
-   SetAddDirButtonStyle("vp_buy_flow_sell",true,clrRed,clrRed);
+   SetAddDirButtonStyle("vp_buy_flow_buy",  buy_flow_dir==DIR_BUY,  clrGreen, clrLime);
+   SetAddDirButtonStyle("vp_buy_flow_sell", buy_flow_dir==DIR_SELL, clrRed,   clrRed);
 
-   SetAddDirButtonStyle("vp_sell_flow_sell",true,clrRed,clrRed);
-   SetAddDirButtonStyle("vp_sell_flow_buy",true,clrGreen,clrLime);
+   SetAddDirButtonStyle("vp_sell_flow_sell", sell_flow_dir==DIR_SELL, clrRed,   clrRed);
+   SetAddDirButtonStyle("vp_sell_flow_buy",  sell_flow_dir==DIR_BUY,  clrGreen, clrLime);
 }
 
 void CVPanel::SetAddDirButtonStyle(string name,bool active,color bg,color border)
