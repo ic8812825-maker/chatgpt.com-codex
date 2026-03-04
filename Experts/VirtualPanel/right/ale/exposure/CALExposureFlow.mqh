@@ -4,7 +4,6 @@
 #include "CALDeltaSurface.mqh"
 #include "CALGammaProfile.mqh"
 #include "CALConvexityAnalyzer.mqh"
-#include "..\\core\\CALContext.mqh"
 #include "..\\interfaces\\IALExposureModel.mqh"
 #include "..\\positions\\CALPositionBook.mqh"
 
@@ -35,16 +34,13 @@ public:
 
    virtual void Recalculate(const CALPositionBook &book,const double price)
    {
-      const double contract_size=100000.0;
+      const double contract_size=1.0;
       m_exposure=book.TotalAbsLot()*price;
       m_pnl=book.PnLAtPrice(price,contract_size);
 
-      // I1 + I2
       m_delta_surface=m_delta_model.DeltaFromBook(book);
       const double dp=1.0;
-      const double delta_l=m_delta_surface;
-      const double delta_r=m_delta_surface;
-      m_gamma_profile=m_gamma_model.FromDeltaSurface(delta_l,delta_r,dp);
+      m_gamma_profile=m_gamma_model.FromDeltaSurface(m_delta_surface,m_delta_surface,dp);
 
       if(m_direction==ALE_FLOW_BUY)
          m_convexity=m_convexity_model.ConvexityBuy(m_gamma_profile,m_delta_surface);

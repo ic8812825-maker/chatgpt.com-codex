@@ -20,17 +20,13 @@ enum ENUM_ALE_FLOW
 struct CALStreamContext
 {
    ENUM_ALE_STATE state;
-
    double net_delta;
    double pnl;
    double exposure;
-
    double worst_dd;
    double margin;
-
    double gamma;
    double convexity;
-
    bool safe_active;
 
    void Reset()

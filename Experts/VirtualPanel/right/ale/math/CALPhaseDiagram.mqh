@@ -4,7 +4,6 @@
 class CALPhaseDiagram
 {
 public:
-   // SAFE boundary: DD = K - lambda*|Delta|
    double CriticalDD(const double k,const double lambda,const double delta_abs) const
    {
       return k - lambda*delta_abs;
@@ -15,7 +14,10 @@ public:
       return dd > CriticalDD(k,lambda,delta_abs);
    }
 
-   bool IsStable(const double mu,const double mu_crit) const { return mu<mu_crit; }
+   bool IsStable(const double mu,const double mu_crit) const
+   {
+      return mu<mu_crit;
+   }
 };
 
 #endif

@@ -10,24 +10,46 @@ private:
    int m_direction;
 public:
    void Init(const int direction){ m_direction=direction; ArrayResize(m_positions,0); }
+
    bool Add(const double price,const double lot)
    {
-      if(lot<=0.0) return false;
+      if(price<=0.0 || lot<=0.0 || !MathIsValidNumber(price) || !MathIsValidNumber(lot))
+         return false;
       const int n=ArraySize(m_positions);
       ArrayResize(m_positions,n+1);
       m_positions[n].Init(price,lot,m_direction);
       return true;
    }
+
    void Recalc(const double bid,const double ask,const double contract_size)
    {
-      for(int i=0;i<ArraySize(m_positions);i++) m_positions[i].UpdatePnL(bid,ask,contract_size);
+      for(int i=0;i<ArraySize(m_positions);i++)
+         m_positions[i].UpdatePnL(bid,ask,contract_size);
    }
-   int Size() const { return ArraySize(m_positions); }
-   double TotalPnL() const { double s=0.0; for(int i=0;i<ArraySize(m_positions);i++) s+=m_positions[i].pnl; return s; }
-   double TotalLot() const { double s=0.0; for(int i=0;i<ArraySize(m_positions);i++) s+=m_positions[i].lot; return s; }
-   double TotalAbsLot() const { double s=0.0; for(int i=0;i<ArraySize(m_positions);i++) s+=MathAbs(m_positions[i].lot); return s; }
 
-   // Invariant I1 helper: exact linear PnL at arbitrary price.
+   int Size() const { return ArraySize(m_positions); }
+
+   double TotalPnL() const
+   {
+      double s=0.0;
+      for(int i=0;i<ArraySize(m_positions);i++) s+=m_positions[i].pnl;
+      return s;
+   }
+
+   double TotalLot() const
+   {
+      double s=0.0;
+      for(int i=0;i<ArraySize(m_positions);i++) s+=m_positions[i].lot;
+      return s;
+   }
+
+   double TotalAbsLot() const
+   {
+      double s=0.0;
+      for(int i=0;i<ArraySize(m_positions);i++) s+=MathAbs(m_positions[i].lot);
+      return s;
+   }
+
    double PnLAtPrice(const double p,const double contract_size) const
    {
       double s=0.0;

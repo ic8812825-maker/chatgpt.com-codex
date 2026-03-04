@@ -5,7 +5,6 @@
 #include "..\\core\\CALContext.mqh"
 #include "..\\exposure\\CALExposureFlow.mqh"
 #include "..\\math\\CALReturnProbability.mqh"
-#include "..\\math\\CALGBMModel.mqh"
 #include "CALWorstCase.mqh"
 #include "CALMarginModel.mqh"
 #include "CALDrawdownModel.mqh"
@@ -38,7 +37,6 @@ private:
    CALDrawdownModel m_dd;
    CALSafeMode m_safe;
    CALReturnProbability m_prob;
-   CALGBMModel m_gbm;
 public:
    void Init(const int direction){ m_direction=direction; }
 
@@ -52,12 +50,12 @@ public:
       return (m_direction==ALE_FLOW_BUY ? m_safe.TriggerBuy(drawdown,limit) : m_safe.TriggerSell(drawdown,limit));
    }
 
-   CALRiskReport Evaluate(const CALStreamContext &ctx,const CALExposureFlow &exposure,const double price,const double lots,const double leverage,const double contract_size,const double peak_equity)
+   CALRiskReport Evaluate(const CALStreamContext &ctx,const CALExposureFlow &exposure,const double price,const double lots,const double leverage,const double contract_size,const double equity)
    {
       CALRiskReport report;
       report.Reset();
 
-      report.worst_dd=CalculateDD(ctx.pnl,peak_equity);
+      report.worst_dd=CalculateDD(ctx.pnl,equity);
       report.margin=(m_direction==ALE_FLOW_BUY ? m_margin.MarginBuy(price,lots,leverage,contract_size) : m_margin.MarginSell(price,lots,leverage,contract_size));
 
       const double p_min=price*0.90;
@@ -65,19 +63,17 @@ public:
       const double pnl_min=ctx.pnl + exposure.DeltaSurface()*(p_min-price);
       const double pnl_max=ctx.pnl + exposure.DeltaSurface()*(p_max-price);
       const double dd_wc=(m_direction==ALE_FLOW_BUY ? m_worst.EvaluateBuy(pnl_min,pnl_max) : m_worst.EvaluateSell(pnl_min,pnl_max));
-      report.worst_dd=MathMax(report.worst_dd,dd_wc/(MathAbs(peak_equity)+1e-8));
+      report.worst_dd=MathMax(report.worst_dd,dd_wc/(MathAbs(equity)+1e-8));
 
       const double mu=0.0;
       const double sigma=0.2;
       report.dd_probability=m_prob.HitLevelGBM(price,p_min,mu,sigma);
 
-      const double equity=MathMax(1e-8,peak_equity+ctx.pnl);
-      report.stress_ratio=report.margin/equity;
+      const double dd_max=0.30;
+      report.stress_ratio=report.worst_dd/(dd_max+1e-8);
 
-      report.safe_triggered=m_safe.Evaluate(report.margin,report.worst_dd,ctx.net_delta,ctx.gamma)
-                           || report.dd_probability>0.8
-                           || report.stress_ratio>0.7
-                           || SAFE(report.worst_dd,0.25);
+      const bool phase_safe=m_safe.Evaluate(report.margin,report.worst_dd,ctx.net_delta,ctx.gamma);
+      report.safe_triggered=(report.stress_ratio>1.0) || (report.dd_probability>0.8) || (report.worst_dd>dd_max) || phase_safe;
       return report;
    }
 

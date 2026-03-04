@@ -14,8 +14,6 @@ private:
    CALContext m_context;
    CALEvent m_last_event;
 
-   double m_global_margin_limit;
-
    void SyncContext()
    {
       m_context.buy=m_buy_stream.Context();
@@ -29,12 +27,15 @@ public:
       m_sell_stream.Init(ALE_FLOW_SELL);
       m_context.Reset();
       m_last_event.Reset();
-      m_global_margin_limit=2.0;
    }
 
    bool CheckGlobalSAFE() const
    {
-      return (m_context.buy.margin + m_context.sell.margin > m_global_margin_limit);
+      // Global SAFE as disjunction + aggregate stress checks.
+      if(m_context.buy.safe_active || m_context.sell.safe_active) return true;
+      if(m_context.buy.margin + m_context.sell.margin > 2.0) return true;
+      if(m_context.buy.worst_dd + m_context.sell.worst_dd > 0.60) return true;
+      return false;
    }
 
    virtual void OnPriceUpdate(const double price)
@@ -56,7 +57,6 @@ public:
 
       const ENUM_ALE_STATE new_buy=m_buy_stream.State();
       const ENUM_ALE_STATE new_sell=m_sell_stream.State();
-
       if(old_buy!=new_buy) m_last_event.OnStateChangeBuy(old_buy,new_buy);
       if(old_sell!=new_sell) m_last_event.OnStateChangeSell(old_sell,new_sell);
       if(m_context.buy.safe_active || m_context.sell.safe_active) m_last_event.OnSAFETriggered();

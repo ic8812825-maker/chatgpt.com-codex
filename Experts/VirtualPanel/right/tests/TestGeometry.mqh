@@ -17,7 +17,7 @@ bool TestGeometry_BuySellGrids()
 
    if(ArraySize(buy_grid.levels)!=4 || ArraySize(sell_grid.levels)!=4) return false;
 
-   // I5 symmetry around center for fixed-step mirror geometry.
+   // I5 symmetry
    const double center=1.1000;
    for(int i=0;i<4;i++)
    {
@@ -26,10 +26,10 @@ bool TestGeometry_BuySellGrids()
       if(!NearEq(d_buy,-d_sell,1e-8)) return false;
    }
 
-   // step-R check
+   // step consistency
    if(!NearEq(buy_grid.levels[1]-buy_grid.levels[0],buy_grid.levels[2]-buy_grid.levels[1],1e-12)) return false;
 
-   // log-geometry check
+   // log geometry growth
    CALLogGeometry log_geo;
    CALGrid log_grid;
    log_geo.SetBase(1.5);

@@ -4,7 +4,7 @@
 class CALWorstCase
 {
 public:
-   // I4 closed-form at segment endpoints.
+   // I4 closed-form over linear segment endpoint values.
    double DrawdownFromEndpoints(const double pnl_min,const double pnl_max) const
    {
       return MathMax(-pnl_min,-pnl_max);

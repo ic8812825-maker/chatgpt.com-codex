@@ -4,10 +4,10 @@
 class CALMarginModel
 {
 public:
-   // I3
+   // I3: dMargin/d|lot| > 0
    double MarginFromLots(const double abs_lot,const double contract_size,const double margin_rate) const
    {
-      return MathAbs(abs_lot)*contract_size*MathMax(0.0,margin_rate);
+      return MathAbs(abs_lot)*MathMax(contract_size,0.0)*MathMax(margin_rate,0.0);
    }
 
    double MarginBuy(const double price,const double lots,const double leverage,const double contract_size) const

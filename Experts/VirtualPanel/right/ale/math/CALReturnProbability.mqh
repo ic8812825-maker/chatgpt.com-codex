@@ -11,7 +11,7 @@ public:
       return MathExp(-0.5*z*z);
    }
 
-   // Pr(hit L) = exp(-(2*mu/sigma^2)*ln(P/L))
+   // GBM hitting probability approximation with drift.
    double HitLevelGBM(const double p,const double l,const double mu,const double sigma) const
    {
       if(p<=0.0 || l<=0.0 || sigma<=0.0) return 0.0;
