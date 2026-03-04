@@ -9,69 +9,85 @@
 class CALEngine : public IALEngine
 {
 private:
-   CBuyEngine m_buy;
-   CSellEngine m_sell;
+   CBuyEngine m_buy_stream;
+   CSellEngine m_sell_stream;
    CALEvent m_last_event;
+
+   double m_global_margin_limit;
+   double m_global_drawdown_limit;
+
+   CALContext BuildContextSnapshot() const
+   {
+      CALContext ctx;
+      ctx.Reset();
+      ctx.buy=m_buy_stream.Context();
+      ctx.sell=m_sell_stream.Context();
+      return ctx;
+   }
 
 public:
    virtual void Init()
    {
-      m_buy.Init(ALE_FLOW_BUY);
-      m_sell.Init(ALE_FLOW_SELL);
+      m_buy_stream.Init(ALE_FLOW_BUY);
+      m_sell_stream.Init(ALE_FLOW_SELL);
       m_last_event.Reset();
+      m_global_margin_limit=100000.0;
+      m_global_drawdown_limit=0.50;
+   }
+
+   bool CheckGlobalSAFE() const
+   {
+      const CALContext ctx=BuildContextSnapshot();
+      if(ctx.buy.margin + ctx.sell.margin > m_global_margin_limit)
+         return true;
+      if(ctx.buy.worst_dd + ctx.sell.worst_dd > m_global_drawdown_limit)
+         return true;
+      return false;
    }
 
    virtual void OnPriceUpdate(const double bid,const double ask)
    {
-      const ENUM_ALE_STATE old_buy=m_buy.State();
-      const ENUM_ALE_STATE old_sell=m_sell.State();
+      const ENUM_ALE_STATE old_buy=m_buy_stream.State();
+      const ENUM_ALE_STATE old_sell=m_sell_stream.State();
 
-      m_buy.Process(bid,ask);
-      m_sell.Process(bid,ask);
+      m_buy_stream.Process(bid,ask);
+      m_sell_stream.Process(bid,ask);
 
-      const ENUM_ALE_STATE new_buy=m_buy.State();
-      const ENUM_ALE_STATE new_sell=m_sell.State();
+      const ENUM_ALE_STATE new_buy=m_buy_stream.State();
+      const ENUM_ALE_STATE new_sell=m_sell_stream.State();
 
       if(old_buy!=new_buy)
          m_last_event.OnStateChangeBuy(old_buy,new_buy);
       if(old_sell!=new_sell)
          m_last_event.OnStateChangeSell(old_sell,new_sell);
 
-      const CALContext buy_ctx=m_buy.Context();
-      const CALContext sell_ctx=m_sell.Context();
-      if(buy_ctx.state==ALE_STATE_SAFE || sell_ctx.state==ALE_STATE_SAFE)
+      const CALContext ctx=BuildContextSnapshot();
+      if(ctx.buy.state==ALE_STATE_SAFE || ctx.sell.state==ALE_STATE_SAFE)
          m_last_event.OnSAFETriggered();
-      if(buy_ctx.drawdown>0.25 || sell_ctx.drawdown>0.25)
+      if(CheckGlobalSAFE())
+         m_last_event.OnSAFETriggeredGlobal();
+      if(ctx.buy.worst_dd>0.25 || ctx.sell.worst_dd>0.25)
          m_last_event.OnDrawdownExceeded();
    }
 
    bool BuildGrid(const int flow,const double center,const int levels,CALGrid &out_grid)
    {
-      if(flow==ALE_FLOW_BUY) return m_buy.BuildGrid(center,levels,out_grid);
-      if(flow==ALE_FLOW_SELL) return m_sell.BuildGrid(center,levels,out_grid);
+      if(flow==ALE_FLOW_BUY) return m_buy_stream.BuildGrid(center,levels,out_grid);
+      if(flow==ALE_FLOW_SELL) return m_sell_stream.BuildGrid(center,levels,out_grid);
       return false;
    }
 
    void AddVirtual(const int flow,const double price,const double lot)
    {
-      if(flow==ALE_FLOW_BUY) m_buy.AddVirtual(price,lot);
-      if(flow==ALE_FLOW_SELL) m_sell.AddVirtual(price,lot);
+      if(flow==ALE_FLOW_BUY) m_buy_stream.AddVirtual(price,lot);
+      if(flow==ALE_FLOW_SELL) m_sell_stream.AddVirtual(price,lot);
    }
 
-   virtual CALContext Context(const int flow) const
-   {
-      if(flow==ALE_FLOW_BUY) return m_buy.Context();
-      if(flow==ALE_FLOW_SELL) return m_sell.Context();
-
-      CALContext empty_ctx;
-      empty_ctx.Reset();
-      return empty_ctx;
-   }
-
-   virtual ENUM_ALE_STATE State(const int flow) const
-   {
-      return Context(flow).state;
-   }
+   virtual double NetDeltaBuy() const { return m_buy_stream.Context().net_delta; }
+   virtual double NetDeltaSell() const { return m_sell_stream.Context().net_delta; }
+   virtual ENUM_ALE_STATE StateBuy() const { return m_buy_stream.State(); }
+   virtual ENUM_ALE_STATE StateSell() const { return m_sell_stream.State(); }
+   virtual CALContext Context() const { return BuildContextSnapshot(); }
 
    CALEvent LastEvent() const { return m_last_event; }
 

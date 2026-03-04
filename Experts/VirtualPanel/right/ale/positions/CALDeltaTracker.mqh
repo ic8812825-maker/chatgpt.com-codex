@@ -1,17 +1,22 @@
 #ifndef __CALDELTATRACKER_MQH__
 #define __CALDELTATRACKER_MQH__
 
+#include "CALPositionBook.mqh"
+
 class CALDeltaTracker
 {
-private:
-   double m_net_delta;
-   double m_tail_slope;
 public:
-   void Reset(){ m_net_delta=0.0; m_tail_slope=0.0; }
-   void Update(const double delta,const double slope){ m_net_delta=delta; m_tail_slope=slope; }
-   double NetDelta() const { return m_net_delta; }
-   double TailSlope() const { return m_tail_slope; }
-   CALDeltaTracker(){ Reset(); }
+   double CalculateNetDelta(const CALPositionBook &book,const int direction) const
+   {
+      return (direction==ALE_FLOW_BUY ? book.TotalLot() : -book.TotalLot());
+   }
+
+   double CalculateTailSlope(const CALPositionBook &book) const
+   {
+      const int n=book.Size();
+      if(n<=1) return 0.0;
+      return book.TotalLot()/n;
+   }
 };
 
 #endif

@@ -9,7 +9,8 @@ enum ENUM_ALE_EVENT_TYPE
    ALE_EVENT_STATE_CHANGE_BUY=1,
    ALE_EVENT_STATE_CHANGE_SELL=2,
    ALE_EVENT_DRAWDOWN_EXCEEDED=3,
-   ALE_EVENT_SAFE_TRIGGERED=4
+   ALE_EVENT_SAFE_TRIGGERED=4,
+   ALE_EVENT_SAFE_TRIGGERED_GLOBAL=5
 };
 
 class CALEvent
@@ -25,6 +26,7 @@ public:
    void OnStateChangeSell(const ENUM_ALE_STATE from_state,const ENUM_ALE_STATE to_state){ m_type=ALE_EVENT_STATE_CHANGE_SELL; m_from_state=from_state; m_to_state=to_state; m_message="SELL state changed"; }
    void OnDrawdownExceeded(){ m_type=ALE_EVENT_DRAWDOWN_EXCEEDED; m_message="Drawdown exceeded"; }
    void OnSAFETriggered(){ m_type=ALE_EVENT_SAFE_TRIGGERED; m_message="SAFE triggered"; }
+   void OnSAFETriggeredGlobal(){ m_type=ALE_EVENT_SAFE_TRIGGERED_GLOBAL; m_message="Global SAFE triggered"; }
    ENUM_ALE_EVENT_TYPE Type() const { return m_type; }
    ENUM_ALE_STATE FromState() const { return m_from_state; }
    ENUM_ALE_STATE ToState() const { return m_to_state; }

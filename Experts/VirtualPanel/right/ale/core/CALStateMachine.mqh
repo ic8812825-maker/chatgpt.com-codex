@@ -3,6 +3,15 @@
 
 #include "CALContext.mqh"
 
+enum ENUM_ALE_SIGNAL
+{
+   ALE_SIGNAL_NONE=0,
+   ALE_SIGNAL_PRICE_MOVE=1,
+   ALE_SIGNAL_DRAWDOWN_EXCEEDED=2,
+   ALE_SIGNAL_HARVEST_REACHED=3,
+   ALE_SIGNAL_SAFE_TRIGGERED=4
+};
+
 class CALStateMachine
 {
 private:
@@ -11,33 +20,35 @@ public:
    void Reset(){ m_state=ALE_STATE_IDLE; }
    ENUM_ALE_STATE State() const { return m_state; }
 
-   void Update(CALContext &ctx,const bool safe_trigger)
+   ENUM_ALE_STATE Transition(const ENUM_ALE_SIGNAL signal)
    {
-      if(safe_trigger)
+      if(signal==ALE_SIGNAL_SAFE_TRIGGERED)
       {
          m_state=ALE_STATE_SAFE;
-         ctx.state=m_state;
-         return;
+         return m_state;
       }
 
-      if(ctx.drawdown>0.25)
+      if(signal==ALE_SIGNAL_DRAWDOWN_EXCEEDED)
       {
          m_state=ALE_STATE_RESET;
-      }
-      else if(MathAbs(ctx.pnl)<0.0000001)
-      {
-         m_state=ALE_STATE_BASE;
-      }
-      else if(ctx.pnl<0.0)
-      {
-         m_state=ALE_STATE_EXPANSION;
-      }
-      else
-      {
-         m_state=ALE_STATE_HARVEST;
+         return m_state;
       }
 
-      ctx.state=m_state;
+      if(signal==ALE_SIGNAL_HARVEST_REACHED)
+      {
+         m_state=ALE_STATE_HARVEST;
+         return m_state;
+      }
+
+      if(signal==ALE_SIGNAL_PRICE_MOVE)
+      {
+         if(m_state==ALE_STATE_IDLE)
+            m_state=ALE_STATE_BASE;
+         else if(m_state==ALE_STATE_BASE)
+            m_state=ALE_STATE_EXPANSION;
+      }
+
+      return m_state;
    }
 
    CALStateMachine(){ Reset(); }

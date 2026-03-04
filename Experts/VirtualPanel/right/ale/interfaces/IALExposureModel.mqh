@@ -7,6 +7,7 @@ class IALExposureModel
 {
 public:
    virtual void Recalculate(const CALPositionBook &book,const double price)=0;
+   virtual double Exposure() const=0;
    virtual double DeltaSurface() const=0;
    virtual double GammaProfile() const=0;
 };

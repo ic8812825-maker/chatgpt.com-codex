@@ -4,8 +4,8 @@
 #include "CALDeltaSurface.mqh"
 #include "CALGammaProfile.mqh"
 #include "CALConvexityAnalyzer.mqh"
-#include "..\core\CALContext.mqh"
-#include "..\interfaces\IALExposureModel.mqh"
+#include "..\\core\\CALContext.mqh"
+#include "..\\interfaces\\IALExposureModel.mqh"
 #include "..\\positions\\CALPositionBook.mqh"
 
 class CALExposureFlow : public IALExposureModel
@@ -39,11 +39,14 @@ public:
       else
          m_delta_surface=m_delta_model.DeltaForSell(price,price);
 
-      m_gamma_profile=(m_direction==ALE_FLOW_BUY ? m_gamma_model.GammaForBuy(book.TotalLot()) : m_gamma_model.GammaForSell(book.TotalLot()));
-      m_convexity=(m_direction==ALE_FLOW_BUY ? m_convexity_model.ConvexityBuy(m_gamma_profile,m_delta_surface) : m_convexity_model.ConvexitySell(m_gamma_profile,m_delta_surface));
+      m_gamma_profile=m_gamma_model.FromDeltaSurface(m_delta_surface);
+      if(m_direction==ALE_FLOW_BUY)
+         m_convexity=m_convexity_model.ConvexityBuy(m_gamma_profile,m_delta_surface);
+      else
+         m_convexity=m_convexity_model.ConvexitySell(m_gamma_profile,m_delta_surface);
    }
 
-   double Exposure() const { return m_exposure; }
+   virtual double Exposure() const { return m_exposure; }
    virtual double DeltaSurface() const { return m_delta_surface; }
    virtual double GammaProfile() const { return m_gamma_profile; }
    double Convexity() const { return m_convexity; }

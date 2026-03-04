@@ -9,6 +9,20 @@
 #include "CALDrawdownModel.mqh"
 #include "CALSafeMode.mqh"
 
+struct CALRiskReport
+{
+   double worst_dd;
+   double margin;
+   bool safe_triggered;
+
+   void Reset()
+   {
+      worst_dd=0.0;
+      margin=0.0;
+      safe_triggered=false;
+   }
+};
+
 class CALRiskEngine : public IALRiskModel
 {
 private:
@@ -30,29 +44,23 @@ public:
       return (m_direction==ALE_FLOW_BUY ? m_safe.TriggerBuy(drawdown,limit) : m_safe.TriggerSell(drawdown,limit));
    }
 
-
-   double MarginBuy(const double price,const double lots,const double leverage,const double contract_size) const
+   CALRiskReport Evaluate(const CALStreamContext &ctx,const CALExposureFlow &exposure,const double price,const double lots,const double leverage,const double contract_size,const double peak_equity)
    {
-      return m_margin.MarginBuy(price,lots,leverage,contract_size);
-   }
+      CALRiskReport report;
+      report.Reset();
 
-   double MarginSell(const double price,const double lots,const double leverage,const double contract_size) const
-   {
-      return m_margin.MarginSell(price,lots,leverage,contract_size);
-   }
-
-   double WorstBuy(const double pnl,const double shock) const { return m_worst.EvaluateBuy(pnl,shock); }
-   double WorstSell(const double pnl,const double shock) const { return m_worst.EvaluateSell(pnl,shock); }
-
-   void Evaluate(CALContext &ctx,const CALExposureFlow &exposure,const double price,const double lots,const double leverage,const double contract_size,const double peak_equity)
-   {
-      ctx.drawdown=CalculateDD(ctx.pnl,peak_equity);
-      ctx.margin=(m_direction==ALE_FLOW_BUY ? m_margin.MarginBuy(price,lots,leverage,contract_size) : m_margin.MarginSell(price,lots,leverage,contract_size));
+      report.worst_dd=CalculateDD(ctx.pnl,peak_equity);
+      report.margin=(m_direction==ALE_FLOW_BUY ? m_margin.MarginBuy(price,lots,leverage,contract_size) : m_margin.MarginSell(price,lots,leverage,contract_size));
 
       const double worst=(m_direction==ALE_FLOW_BUY ? m_worst.EvaluateBuy(ctx.pnl,MathAbs(exposure.Convexity())) : m_worst.EvaluateSell(ctx.pnl,MathAbs(exposure.Convexity())));
-      if(worst<ctx.pnl) ctx.drawdown=MathMax(ctx.drawdown,MathAbs(worst)/(MathAbs(peak_equity)+1e-8));
+      if(worst<ctx.pnl)
+         report.worst_dd=MathMax(report.worst_dd,MathAbs(worst)/(MathAbs(peak_equity)+1e-8));
 
-      if(exposure.Convexity()<0.0) ctx.drawdown=MathMax(ctx.drawdown,0.30);
+      if(exposure.Convexity()<0.0)
+         report.worst_dd=MathMax(report.worst_dd,0.30);
+
+      report.safe_triggered=SAFE(report.worst_dd,0.25) || report.margin<=0.0 || exposure.Convexity()<0.0;
+      return report;
    }
 
    CALRiskEngine(){ Init(ALE_FLOW_BUY); }

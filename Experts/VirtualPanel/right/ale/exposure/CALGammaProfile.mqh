@@ -4,8 +4,10 @@
 class CALGammaProfile
 {
 public:
-   double GammaForBuy(const double curvature) const { return MathMax(0.0,curvature); }
-   double GammaForSell(const double curvature) const { return MathMax(0.0,curvature); }
+   double FromDeltaSurface(const double delta_surface) const
+   {
+      return MathMax(0.0,MathAbs(delta_surface));
+   }
 };
 
 #endif

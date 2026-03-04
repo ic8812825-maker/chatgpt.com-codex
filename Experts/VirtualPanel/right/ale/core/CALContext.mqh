@@ -17,24 +17,39 @@ enum ENUM_ALE_FLOW
    ALE_FLOW_SELL=-1
 };
 
-struct CALContext
+struct CALStreamContext
 {
+   ENUM_ALE_STATE state;
    double net_delta;
    double pnl;
    double exposure;
-   double drawdown;
+   double worst_dd;
    double margin;
-   ENUM_ALE_STATE state;
 
    void Reset()
    {
+      state=ALE_STATE_IDLE;
       net_delta=0.0;
       pnl=0.0;
       exposure=0.0;
-      drawdown=0.0;
+      worst_dd=0.0;
       margin=0.0;
-      state=ALE_STATE_IDLE;
    }
+};
+
+struct CALContext
+{
+   CALStreamContext buy;
+   CALStreamContext sell;
+
+   void Reset()
+   {
+      buy.Reset();
+      sell.Reset();
+   }
+
+   double NetDeltaTotal() const { return buy.net_delta+sell.net_delta; }
+   double NetExposureTotal() const { return buy.exposure+sell.exposure; }
 };
 
 #endif

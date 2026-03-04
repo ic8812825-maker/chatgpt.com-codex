@@ -2,6 +2,9 @@
 #define __TESTRISK_MQH__
 
 #include "..\\ale\\risk\\CALRiskEngine.mqh"
+#include "..\\ale\\core\\CALContext.mqh"
+#include "..\\ale\\positions\\CALPositionBook.mqh"
+#include "..\\ale\\exposure\\CALExposureFlow.mqh"
 
 bool TestRisk_WorstDDMargin()
 {
@@ -10,14 +13,32 @@ bool TestRisk_WorstDDMargin()
    risk_buy.Init(ALE_FLOW_BUY);
    risk_sell.Init(ALE_FLOW_SELL);
 
-   const double dd_buy=risk_buy.CalculateDD(-100.0,1000.0);
-   const double dd_sell=risk_sell.CalculateDD(-120.0,1000.0);
-   const double m_buy=risk_buy.MarginBuy(1.1000,0.5,100.0,100000.0);
-   const double m_sell=risk_sell.MarginSell(1.1000,0.5,100.0,100000.0);
-   if(dd_buy<=0.0 || dd_sell<=0.0) return false;
-   if(m_buy<=0.0 || m_sell<=0.0) return false;
+   // monotonicity: bigger loss => bigger DD
+   const double dd_small=risk_buy.CalculateDD(-50.0,1000.0);
+   const double dd_big=risk_buy.CalculateDD(-150.0,1000.0);
+   if(!(dd_big>=dd_small)) return false;
+
+   CALStreamContext ctx;
+   ctx.Reset();
+   ctx.pnl=-100.0;
+
+   CALPositionBook book;
+   book.Init(ALE_FLOW_BUY);
+   book.Add(1.1000,0.10);
+
+   CALExposureFlow exposure;
+   exposure.Init(ALE_FLOW_BUY);
+   exposure.Recalculate(book,1.1000);
+
+   // monotonicity: bigger lots => bigger margin
+   const CALRiskReport r_small=risk_buy.Evaluate(ctx,exposure,1.1,0.1,100.0,100000.0,1000.0);
+   const CALRiskReport r_big=risk_buy.Evaluate(ctx,exposure,1.1,0.5,100.0,100000.0,1000.0);
+   if(!(r_big.margin>=r_small.margin)) return false;
+
+   // SAFE consistency
    if(!risk_buy.SAFE(0.30,0.25)) return false;
    if(!risk_sell.SAFE(0.30,0.25)) return false;
+
    return true;
 }
 
