@@ -13,6 +13,7 @@ class CALExposureFlow : public IALExposureModel
 private:
    int m_direction;
    double m_exposure;
+   double m_pnl;
    double m_delta_surface;
    double m_gamma_profile;
    double m_convexity;
@@ -26,6 +27,7 @@ public:
    {
       m_direction=direction;
       m_exposure=0.0;
+      m_pnl=0.0;
       m_delta_surface=0.0;
       m_gamma_profile=0.0;
       m_convexity=0.0;
@@ -33,13 +35,17 @@ public:
 
    virtual void Recalculate(const CALPositionBook &book,const double price)
    {
-      m_exposure=book.TotalLot()*price;
-      if(m_direction==ALE_FLOW_BUY)
-         m_delta_surface=m_delta_model.DeltaForBuy(price,price);
-      else
-         m_delta_surface=m_delta_model.DeltaForSell(price,price);
+      const double contract_size=100000.0;
+      m_exposure=book.TotalAbsLot()*price;
+      m_pnl=book.PnLAtPrice(price,contract_size);
 
-      m_gamma_profile=m_gamma_model.FromDeltaSurface(m_delta_surface);
+      // I1 + I2
+      m_delta_surface=m_delta_model.DeltaFromBook(book);
+      const double dp=1.0;
+      const double delta_l=m_delta_surface;
+      const double delta_r=m_delta_surface;
+      m_gamma_profile=m_gamma_model.FromDeltaSurface(delta_l,delta_r,dp);
+
       if(m_direction==ALE_FLOW_BUY)
          m_convexity=m_convexity_model.ConvexityBuy(m_gamma_profile,m_delta_surface);
       else
@@ -50,8 +56,7 @@ public:
    virtual double DeltaSurface() const { return m_delta_surface; }
    virtual double GammaProfile() const { return m_gamma_profile; }
    double Convexity() const { return m_convexity; }
-
-   CALExposureFlow(){ Init(ALE_FLOW_BUY); }
+   double PnL() const { return m_pnl; }
 };
 
 #endif

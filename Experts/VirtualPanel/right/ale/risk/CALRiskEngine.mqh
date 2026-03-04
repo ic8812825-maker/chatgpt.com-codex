@@ -4,6 +4,8 @@
 #include "..\\interfaces\\IALRiskModel.mqh"
 #include "..\\core\\CALContext.mqh"
 #include "..\\exposure\\CALExposureFlow.mqh"
+#include "..\\math\\CALReturnProbability.mqh"
+#include "..\\math\\CALGBMModel.mqh"
 #include "CALWorstCase.mqh"
 #include "CALMarginModel.mqh"
 #include "CALDrawdownModel.mqh"
@@ -13,12 +15,16 @@ struct CALRiskReport
 {
    double worst_dd;
    double margin;
+   double dd_probability;
+   double stress_ratio;
    bool safe_triggered;
 
    void Reset()
    {
       worst_dd=0.0;
       margin=0.0;
+      dd_probability=0.0;
+      stress_ratio=0.0;
       safe_triggered=false;
    }
 };
@@ -31,6 +37,8 @@ private:
    CALMarginModel m_margin;
    CALDrawdownModel m_dd;
    CALSafeMode m_safe;
+   CALReturnProbability m_prob;
+   CALGBMModel m_gbm;
 public:
    void Init(const int direction){ m_direction=direction; }
 
@@ -52,14 +60,24 @@ public:
       report.worst_dd=CalculateDD(ctx.pnl,peak_equity);
       report.margin=(m_direction==ALE_FLOW_BUY ? m_margin.MarginBuy(price,lots,leverage,contract_size) : m_margin.MarginSell(price,lots,leverage,contract_size));
 
-      const double worst=(m_direction==ALE_FLOW_BUY ? m_worst.EvaluateBuy(ctx.pnl,MathAbs(exposure.Convexity())) : m_worst.EvaluateSell(ctx.pnl,MathAbs(exposure.Convexity())));
-      if(worst<ctx.pnl)
-         report.worst_dd=MathMax(report.worst_dd,MathAbs(worst)/(MathAbs(peak_equity)+1e-8));
+      const double p_min=price*0.90;
+      const double p_max=price*1.10;
+      const double pnl_min=ctx.pnl + exposure.DeltaSurface()*(p_min-price);
+      const double pnl_max=ctx.pnl + exposure.DeltaSurface()*(p_max-price);
+      const double dd_wc=(m_direction==ALE_FLOW_BUY ? m_worst.EvaluateBuy(pnl_min,pnl_max) : m_worst.EvaluateSell(pnl_min,pnl_max));
+      report.worst_dd=MathMax(report.worst_dd,dd_wc/(MathAbs(peak_equity)+1e-8));
 
-      if(exposure.Convexity()<0.0)
-         report.worst_dd=MathMax(report.worst_dd,0.30);
+      const double mu=0.0;
+      const double sigma=0.2;
+      report.dd_probability=m_prob.HitLevelGBM(price,p_min,mu,sigma);
 
-      report.safe_triggered=SAFE(report.worst_dd,0.25) || report.margin<=0.0 || exposure.Convexity()<0.0;
+      const double equity=MathMax(1e-8,peak_equity+ctx.pnl);
+      report.stress_ratio=report.margin/equity;
+
+      report.safe_triggered=m_safe.Evaluate(report.margin,report.worst_dd,ctx.net_delta,ctx.gamma)
+                           || report.dd_probability>0.8
+                           || report.stress_ratio>0.7
+                           || SAFE(report.worst_dd,0.25);
       return report;
    }
 

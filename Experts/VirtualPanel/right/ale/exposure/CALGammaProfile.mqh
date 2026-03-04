@@ -4,9 +4,11 @@
 class CALGammaProfile
 {
 public:
-   double FromDeltaSurface(const double delta_surface) const
+   // I2: piecewise-constant gamma derived from delta surface changes.
+   double FromDeltaSurface(const double delta_left,const double delta_right,const double dp) const
    {
-      return MathMax(0.0,MathAbs(delta_surface));
+      if(MathAbs(dp)<1e-12) return 0.0;
+      return (delta_right-delta_left)/dp;
    }
 };
 

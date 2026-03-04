@@ -8,14 +8,14 @@ class CALDeltaTracker
 public:
    double CalculateNetDelta(const CALPositionBook &book,const int direction) const
    {
-      return (direction==ALE_FLOW_BUY ? book.TotalLot() : -book.TotalLot());
+      const double d=book.Delta();
+      return (direction==ALE_FLOW_BUY ? MathAbs(d) : -MathAbs(d));
    }
 
-   double CalculateTailSlope(const CALPositionBook &book) const
+   double CalculateTailSlope(const CALPositionBook &book,const double dp) const
    {
-      const int n=book.Size();
-      if(n<=1) return 0.0;
-      return book.TotalLot()/n;
+      if(MathAbs(dp)<1e-12) return 0.0;
+      return book.Delta()/dp;
    }
 };
 

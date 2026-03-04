@@ -4,8 +4,21 @@
 class CALWorstCase
 {
 public:
-   double EvaluateBuy(const double pnl,const double shock) const { return pnl - MathAbs(shock); }
-   double EvaluateSell(const double pnl,const double shock) const { return pnl - MathAbs(shock); }
+   // I4 closed-form at segment endpoints.
+   double DrawdownFromEndpoints(const double pnl_min,const double pnl_max) const
+   {
+      return MathMax(-pnl_min,-pnl_max);
+   }
+
+   double EvaluateBuy(const double pnl_at_min,const double pnl_at_max) const
+   {
+      return DrawdownFromEndpoints(pnl_at_min,pnl_at_max);
+   }
+
+   double EvaluateSell(const double pnl_at_min,const double pnl_at_max) const
+   {
+      return DrawdownFromEndpoints(pnl_at_min,pnl_at_max);
+   }
 };
 
 #endif

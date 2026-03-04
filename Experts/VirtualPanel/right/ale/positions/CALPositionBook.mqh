@@ -12,6 +12,7 @@ public:
    void Init(const int direction){ m_direction=direction; ArrayResize(m_positions,0); }
    bool Add(const double price,const double lot)
    {
+      if(lot<=0.0) return false;
       const int n=ArraySize(m_positions);
       ArrayResize(m_positions,n+1);
       m_positions[n].Init(price,lot,m_direction);
@@ -24,6 +25,26 @@ public:
    int Size() const { return ArraySize(m_positions); }
    double TotalPnL() const { double s=0.0; for(int i=0;i<ArraySize(m_positions);i++) s+=m_positions[i].pnl; return s; }
    double TotalLot() const { double s=0.0; for(int i=0;i<ArraySize(m_positions);i++) s+=m_positions[i].lot; return s; }
+   double TotalAbsLot() const { double s=0.0; for(int i=0;i<ArraySize(m_positions);i++) s+=MathAbs(m_positions[i].lot); return s; }
+
+   // Invariant I1 helper: exact linear PnL at arbitrary price.
+   double PnLAtPrice(const double p,const double contract_size) const
+   {
+      double s=0.0;
+      for(int i=0;i<ArraySize(m_positions);i++)
+      {
+         const CALVirtualPosition &v=m_positions[i];
+         s += v.lot*v.direction*(p-v.price)*contract_size;
+      }
+      return s;
+   }
+
+   double Delta() const
+   {
+      double d=0.0;
+      for(int i=0;i<ArraySize(m_positions);i++) d+=m_positions[i].lot*m_positions[i].direction;
+      return d;
+   }
 };
 
 #endif

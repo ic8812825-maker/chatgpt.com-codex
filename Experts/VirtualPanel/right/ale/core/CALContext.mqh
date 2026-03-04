@@ -20,11 +20,18 @@ enum ENUM_ALE_FLOW
 struct CALStreamContext
 {
    ENUM_ALE_STATE state;
+
    double net_delta;
    double pnl;
    double exposure;
+
    double worst_dd;
    double margin;
+
+   double gamma;
+   double convexity;
+
+   bool safe_active;
 
    void Reset()
    {
@@ -34,6 +41,9 @@ struct CALStreamContext
       exposure=0.0;
       worst_dd=0.0;
       margin=0.0;
+      gamma=0.0;
+      convexity=0.0;
+      safe_active=false;
    }
 };
 
@@ -50,6 +60,7 @@ struct CALContext
 
    double NetDeltaTotal() const { return buy.net_delta+sell.net_delta; }
    double NetExposureTotal() const { return buy.exposure+sell.exposure; }
+   double TotalPnL() const { return buy.pnl+sell.pnl; }
 };
 
 #endif

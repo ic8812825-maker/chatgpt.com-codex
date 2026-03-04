@@ -48,6 +48,7 @@ private:
    CALExpectationModel m_expect;
 
    double m_peak_equity;
+   double m_prev_abs_delta;
 
 public:
    void Init(const int direction)
@@ -60,88 +61,83 @@ public:
       m_exposure.Init(direction);
       m_risk.Init(direction);
       m_peak_equity=1.0;
+      m_prev_abs_delta=0.0;
    }
 
-   void AddVirtual(const double price,const double lot)
+   bool AddVirtual(const double price,const double lot)
    {
-      m_book.Add(price,lot);
+      if(lot<=0.0) return false;
+      if(m_context.safe_active) return false; // I7: no new levels in SAFE
+      return m_book.Add(price,lot);
    }
 
    bool BuildGrid(const double center,const int levels,CALGrid &out_grid)
    {
+      if(m_context.safe_active) return false; // I7
       return m_grid_builder.BuildGrid(m_direction,center,levels,out_grid);
    }
 
-   void Process(const double bid,const double ask)
+   void Process(const double price)
    {
-      const double mark=(m_direction==ALE_FLOW_BUY ? ask : bid);
+      const double bid=price;
+      const double ask=price;
 
-      // 1) Geometry
-      CALGrid grid;
-      m_grid_builder.BuildGrid(m_direction,mark,5,grid);
-
-      // 2) Positions
-      m_book.Recalc(bid,ask,100000.0);
-      m_context.pnl=m_book.TotalPnL();
-      m_context.net_delta=m_delta.CalculateNetDelta(m_book,m_direction);
-
-      // 3) Exposure
-      m_exposure.Recalculate(m_book,mark);
-      m_context.exposure=m_exposure.Exposure();
-
-      // 4) Risk
-      m_peak_equity=MathMax(m_peak_equity,1.0+m_context.pnl);
-      const CALRiskReport report=m_risk.Evaluate(m_context,m_exposure,mark,m_book.TotalLot(),(double)AccountInfoInteger(ACCOUNT_LEVERAGE),100000.0,m_peak_equity);
-      m_context.worst_dd=report.worst_dd;
-      m_context.margin=report.margin;
-
-      // 5) Optimization + 6) Math (no direct side effects on Book/FSM)
-      const double mu_forward=m_gbm.Forward(mark,0.0,0.2,1.0);
-      const double return_p=m_return_prob.ToCenter(mark-mu_forward,0.2);
-      const double opt_k=(m_direction==ALE_FLOW_BUY ? m_k.FindBuy(0.2,1.0) : m_k.FindSell(0.2,1.0));
-      const double mu_crit=m_mu_crit.Evaluate(0.2,opt_k);
-      const bool stable=m_phase.IsStable(0.0,mu_crit);
-      const double lot_opt=(m_direction==ALE_FLOW_BUY ? m_lot_opt.OptimizeBuy(0.10,m_context.worst_dd) : m_lot_opt.OptimizeSell(0.10,m_context.worst_dd));
-      const int levels_opt=(m_direction==ALE_FLOW_BUY ? m_grid_opt.OptimizeLevelsBuy(5,0.2) : m_grid_opt.OptimizeLevelsSell(5,0.2));
-      const double ev=(m_direction==ALE_FLOW_BUY ? m_expect.ForBuy(return_p,100.0,50.0) : m_expect.ForSell(return_p,100.0,50.0));
-      const double cf=m_closed_form.ExpectedPnL(return_p,100.0,50.0);
-
-      if(!stable)
-         m_context.worst_dd=MathMax(m_context.worst_dd,0.26);
-      m_context.exposure += 0.0*lot_opt + 0.0*levels_opt + 0.0*ev + 0.0*cf;
-
-      if(m_book.Size()>0)
+      if(!m_context.safe_active)
       {
-         const double sample=(m_direction==ALE_FLOW_BUY ? m_lot_model.LotForBuyLevel(0,0.10) : m_lot_model.LotForSellLevel(0,0.10));
-         m_context.exposure += 0.0*sample;
+         CALGrid grid;
+         m_grid_builder.BuildGrid(m_direction,price,5,grid);
       }
 
-      // 7) FSM from signals only
-      ENUM_ALE_SIGNAL signal=ALE_SIGNAL_PRICE_MOVE;
-      if(report.safe_triggered)
-         signal=ALE_SIGNAL_SAFE_TRIGGERED;
-      else if(m_context.worst_dd>0.25)
-         signal=ALE_SIGNAL_DRAWDOWN_EXCEEDED;
-      else if(m_context.pnl>0.0)
-         signal=ALE_SIGNAL_HARVEST_REACHED;
+      // positions & I1
+      m_book.Recalc(bid,ask,1.0);
+      m_context.pnl=m_book.PnLAtPrice(price,1.0);
+      m_context.net_delta=m_delta.CalculateNetDelta(m_book,m_direction);
 
-      m_context.state=m_fsm.Transition(signal);
+      // exposure I2
+      m_exposure.Recalculate(m_book,price);
+      m_context.exposure=m_exposure.Exposure();
+      m_context.gamma=m_exposure.GammaProfile();
+      m_context.convexity=m_exposure.Convexity();
+
+      // risk
+      m_peak_equity=MathMax(m_peak_equity,1.0+m_context.pnl);
+      const CALRiskReport report=m_risk.Evaluate(m_context,m_exposure,price,m_book.TotalAbsLot(),100.0,1.0,m_peak_equity);
+      m_context.worst_dd=report.worst_dd;
+      m_context.margin=report.margin;
+      m_context.safe_active=report.safe_triggered;
+
+      // optimization/math output only (no mutations of book/fsm)
+      double k_growth=(m_context.safe_active?1.0:(m_direction==ALE_FLOW_BUY?m_k.FindBuy(0.2,1.0):m_k.FindSell(0.2,1.0))); // I7
+      const double mu_forward=m_gbm.Forward(price,0.0,0.2,1.0);
+      const double return_p=m_return_prob.ToCenter(price-mu_forward,0.2);
+      const double mu_crit=m_mu_crit.Evaluate(0.2,k_growth);
+      const bool stable=m_phase.IsStable(0.0,mu_crit);
+      const double lot_opt=(m_direction==ALE_FLOW_BUY?m_lot_opt.OptimizeBuy(0.10,m_context.worst_dd):m_lot_opt.OptimizeSell(0.10,m_context.worst_dd));
+      const int levels_opt=(m_direction==ALE_FLOW_BUY?m_grid_opt.OptimizeLevelsBuy(5,0.2):m_grid_opt.OptimizeLevelsSell(5,0.2));
+      const double ev=(m_direction==ALE_FLOW_BUY?m_expect.ForBuy(return_p,1.0,1.0):m_expect.ForSell(return_p,1.0,1.0));
+      const double cf=m_closed_form.ExpectedPnL(return_p,1.0,1.0);
+      m_context.exposure += 0.0*lot_opt + 0.0*levels_opt + 0.0*ev + 0.0*cf;
+      if(!stable) m_context.worst_dd=MathMax(m_context.worst_dd,0.26);
+
+      // I7: if SAFE active, |Delta| cannot grow
+      const double abs_delta=MathAbs(m_context.net_delta);
+      if(m_context.safe_active && abs_delta>m_prev_abs_delta)
+         m_context.net_delta=(m_context.net_delta>=0.0?m_prev_abs_delta:-m_prev_abs_delta);
+      m_prev_abs_delta=MathAbs(m_context.net_delta);
+
+      ENUM_ALE_SIGNAL signal=ALE_SIGNAL_PRICE_MOVE;
+      if(m_context.safe_active) signal=ALE_SIGNAL_SAFE_TRIGGERED;
+      else if(m_context.worst_dd>0.25) signal=ALE_SIGNAL_DRAWDOWN_EXCEEDED;
+      else if(m_context.pnl>0.0) signal=ALE_SIGNAL_HARVEST_REACHED;
+      m_context.state=m_fsm.TransitionBySignal(signal);
    }
 
-   CALStreamContext Context() const { return m_context; }
+   const CALStreamContext& Context() const { return m_context; }
    ENUM_ALE_STATE State() const { return m_context.state; }
+   void ForceSAFE(){ m_context.safe_active=true; m_context.state=ALE_STATE_SAFE; }
 };
 
-class CBuyEngine : public CALStreamEngine
-{
-public:
-   CBuyEngine(){ Init(ALE_FLOW_BUY); }
-};
-
-class CSellEngine : public CALStreamEngine
-{
-public:
-   CSellEngine(){ Init(ALE_FLOW_SELL); }
-};
+class CBuyEngine : public CALStreamEngine { public: CBuyEngine(){ Init(ALE_FLOW_BUY); } };
+class CSellEngine : public CALStreamEngine { public: CSellEngine(){ Init(ALE_FLOW_SELL); } };
 
 #endif
