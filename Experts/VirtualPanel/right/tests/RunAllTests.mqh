@@ -42,6 +42,7 @@ bool RunAllALETests(CALTestSummary &summary)
    all_ok = RunTestCase("TestALE_ReplayScenario_VShape",TestALE_ReplayScenario_VShape(),summary) && all_ok;
    all_ok = RunTestCase("TestALE_StateTraceMatcher",TestALE_StateTraceMatcher(),summary) && all_ok;
    all_ok = RunTestCase("TestALE_CSVExports",TestALE_CSVExports(),summary) && all_ok;
+   all_ok = RunTestCase("TestALE_SeparateBrainsAndCommonAggregation",TestALE_SeparateBrainsAndCommonAggregation(),summary) && all_ok;
    all_ok = RunTestCase("TestALE_BuyFlowIsolation",TestALE_BuyFlowIsolation(),summary) && all_ok;
    all_ok = RunTestCase("TestALE_SellFlowIsolation",TestALE_SellFlowIsolation(),summary) && all_ok;
 

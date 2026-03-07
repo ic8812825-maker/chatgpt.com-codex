@@ -95,3 +95,17 @@ def test_deterministic_runner_supports_vshape_and_state_trace_matcher():
     assert "ALE_REPLAY_VSHAPE" in text
     assert "ReplayWithExpectedTrace" in text
     assert "ExportAttachedVirtuals" in text
+
+
+def test_separate_brain_modules_exist():
+    assert (ALE_ROOT / "core/CALEngineBuy.mqh").exists()
+    assert (ALE_ROOT / "core/CALEngineSell.mqh").exists()
+    assert (ALE_ROOT / "core/CALEngineCommon.mqh").exists()
+
+
+def test_common_state_and_metrics_are_exposed_via_interface():
+    text = _read(ALE_ROOT / "interfaces/IALEngine.mqh")
+    assert "StateCommon" in text
+    assert "NetDeltaCommon" in text
+    assert "PnLCommon" in text
+    assert "SAFECommon" in text

@@ -8,9 +8,10 @@ enum ENUM_ALE_EVENT_TYPE
    ALE_EVENT_NONE=0,
    ALE_EVENT_STATE_CHANGE_BUY=1,
    ALE_EVENT_STATE_CHANGE_SELL=2,
-   ALE_EVENT_DRAWDOWN_EXCEEDED=3,
-   ALE_EVENT_SAFE_TRIGGERED=4,
-   ALE_EVENT_SAFE_TRIGGERED_GLOBAL=5
+   ALE_EVENT_STATE_CHANGE_COMMON=3,
+   ALE_EVENT_DRAWDOWN_EXCEEDED=4,
+   ALE_EVENT_SAFE_TRIGGERED=5,
+   ALE_EVENT_SAFE_TRIGGERED_GLOBAL=6
 };
 
 class CALEvent
@@ -24,6 +25,7 @@ public:
    void Reset(){ m_type=ALE_EVENT_NONE; m_from_state=ALE_STATE_IDLE; m_to_state=ALE_STATE_IDLE; m_message=""; }
    void OnStateChangeBuy(const ENUM_ALE_STATE from_state,const ENUM_ALE_STATE to_state){ m_type=ALE_EVENT_STATE_CHANGE_BUY; m_from_state=from_state; m_to_state=to_state; m_message="BUY state changed"; }
    void OnStateChangeSell(const ENUM_ALE_STATE from_state,const ENUM_ALE_STATE to_state){ m_type=ALE_EVENT_STATE_CHANGE_SELL; m_from_state=from_state; m_to_state=to_state; m_message="SELL state changed"; }
+   void OnStateChangeCommon(const ENUM_ALE_STATE from_state,const ENUM_ALE_STATE to_state){ m_type=ALE_EVENT_STATE_CHANGE_COMMON; m_from_state=from_state; m_to_state=to_state; m_message="COMMON state changed"; }
    void OnDrawdownExceeded(){ m_type=ALE_EVENT_DRAWDOWN_EXCEEDED; m_message="Drawdown exceeded"; }
    void OnSAFETriggered(){ m_type=ALE_EVENT_SAFE_TRIGGERED; m_message="SAFE triggered"; }
    void OnSAFETriggeredGlobal(){ m_type=ALE_EVENT_SAFE_TRIGGERED_GLOBAL; m_message="Global SAFE triggered"; }

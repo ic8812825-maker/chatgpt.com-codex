@@ -39,5 +39,6 @@ def test_risk_engine_uses_configurable_thresholds():
 def test_engine_propagates_config_to_both_flows():
     text = _read("ale/core/CALEngine.mqh")
 
-    assert "m_buy_stream.SetRiskConfig(m_cfg)" in text
-    assert "m_sell_stream.SetRiskConfig(m_cfg)" in text
+    assert "m_buy_brain.SetRiskConfig(m_cfg)" in text
+    assert "m_sell_brain.SetRiskConfig(m_cfg)" in text
+    assert "m_common_brain.SetRiskConfig(m_cfg)" in text

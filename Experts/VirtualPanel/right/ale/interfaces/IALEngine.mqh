@@ -11,10 +11,20 @@ public:
 
    virtual double NetDeltaBuy() const=0;
    virtual double NetDeltaSell() const=0;
+   virtual double NetDeltaCommon() const=0;
+
    virtual double PnLBuy() const=0;
    virtual double PnLSell() const=0;
+   virtual double PnLCommon() const=0;
+
+   virtual double ExposureCommon() const=0;
+   virtual double MarginCommon() const=0;
+   virtual double WorstDDCommon() const=0;
+   virtual bool SAFECommon() const=0;
+
    virtual ENUM_ALE_STATE StateBuy() const=0;
    virtual ENUM_ALE_STATE StateSell() const=0;
+   virtual ENUM_ALE_STATE StateCommon() const=0;
    virtual CALContext Context() const=0;
 };
 

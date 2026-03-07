@@ -1,191 +1,165 @@
-# Детальный отчёт аудита и тестирования ALE (`Experts/VirtualPanel/right/ale`)
+# ALE Audit Report — Separate BUY/SELL brains + COMMON brain
 
-## 1) Объём работ
+## 1. Scope
 
-Выполнены доработки **строго по правой ALE-части** и её тестовому контуру:
+Реализация и проверка выполнены для:
 
 - `Experts/VirtualPanel/right/ale/*`
 - `Experts/VirtualPanel/right/tests/*`
 
-Цели: повысить надёжность, детерминизм, проверяемость dual-flow BUY/SELL, добавить инфраструктуру behavioral regression.
+Цель: сделать ALE как три координируемых мозга:
+
+1. `BUY brain` — полностью независимые вычисления BUY.
+2. `SELL brain` — полностью независимые вычисления SELL.
+3. `COMMON brain` — агрегирование BUY+SELL и global SAFE анализ.
 
 ---
 
-## 2) Что реализовано
+## 2. Что реализовано по ТЗ
 
-## P0 — Критическая надёжность
+## 2.1 Этап 1 — разделение потоков
 
-### 2.1 NaN/Inf guards в runtime-пайплайне
+Добавлены независимые ядра:
 
-В `CALFlowEngine::Process` добавлены stage-guard проверки с принудительным SAFE fallback:
+- `core/CALEngineBuy.mqh`
+- `core/CALEngineSell.mqh`
 
-- Stage `Geometry` (grid levels, pnl, net_delta)
-- Stage `Exposure` (exposure, gamma, convexity)
-- Stage `Risk` (worst_dd, margin)
-- Stage `Math` (k_growth, mu_forward, p_ret, mu_crit, lot_opt, ev, cf)
+Оба мозга:
 
-При невалидном значении:
+- инициализируют собственный поток;
+- держат собственный FSM/SAFE/risk/exposure path;
+- получают свой `CALRiskConfig`;
+- обрабатывают тик изолированно;
+- не читают контекст противоположного потока.
 
-- логируется причина,
-- форсируется SAFE (`ForceSAFE()`),
-- поток прерывает текущий шаг обработки.
+Это обеспечивает реальную dual-flow изоляцию на уровне brain-модулей.
 
-Это покрывает оба потока, потому что `CALStreamEngine` используется и для BUY, и для SELL.
+## 2.2 Этап 2 — общий мозг
 
-### 2.2 Конфигурируемые runtime-инварианты
+Добавлен агрегатор:
 
-Расширен `CALRiskConfig`:
+- `core/CALEngineCommon.mqh`
 
-- `MAX_POSITIONS`
-- `MIN_LOT`
-- `ENABLE_STRICT_RUNTIME_CHECKS`
+Функции common brain:
 
-Параметры синхронизированы через canonical/alias поля и прокинуты в `CALPositionBook`.
+- агрегирует BUY/SELL: `net_delta`, `pnl`, `exposure`, `margin`, `worst_dd`;
+- считает global SAFE по комбинации:
+  - локальные SAFE-флаги потоков,
+  - aggregate margin limit,
+  - aggregate drawdown limit;
+- поддерживает собственный FSM (`state_common`).
 
-### 2.3 Управляемая строгость проверок в PositionBook
+## 2.3 Этап 3 — FSM и события
 
-В `CALPositionBook` добавлено:
+Обновлён `CALEvent`:
 
-- `SetStrictRuntimeChecks(bool)`
-- применение лимитов из конфига через `SetLimits(...)`
-- инварианты + rollback для mutation операций (`Add/Edit/Remove`).
+- добавлен `ALE_EVENT_STATE_CHANGE_COMMON`;
+- добавлен обработчик `OnStateChangeCommon(...)`.
 
-Теперь есть режимы:
+Обновлён orchestrator `CALEngine`:
 
-- strict=true: пост-проверки инвариантов обязательны;
-- strict=false: допускается облегчённый режим (инварианты пропускаются).
+- синхронизирует состояния/контексты BUY/SELL/COMMON;
+- генерирует события `OnStateChangeBuy`, `OnStateChangeSell`, `OnStateChangeCommon`, `OnSAFETriggered`, `OnDrawdownExceeded`.
 
----
+## 2.4 Этап 4 — интеграция через интерфейс
 
-## P1 — Поддерживаемость и расширение
+`IALEngine` расширен read-only API для UI:
 
-### 2.4 CSV экспорт + machine-readable XML
-
-Добавлен `core/CALExportHelper.mqh`:
-
-- экспорт replay-контекста в `ale_replay_context.csv` (step-by-step `CALContext`);
-- экспорт позиций BUY/SELL в CSV;
-- экспорт JUnit-style summary XML (`ExportJUnitXML`) для CI/DevOps.
-
-`ale/tests/RunAllTests.mq5` теперь формирует `ale_runner_junit.xml` после выполнения suite.
-
-### 2.5 Required state-trace matcher
-
-В `CALDeterministicRunner` добавлено:
-
-- `CALStateTraceExpectation`;
-- `ReplayWithExpectedTrace(...)`.
-
-Функция сравнивает фактический timeline состояний BUY/SELL на каждом шаге с ожидаемым массивом состояний.
+- состояния: `StateBuy()`, `StateSell()`, `StateCommon()`;
+- агрегаты: `NetDeltaCommon()`, `PnLCommon()`, `ExposureCommon()`, `MarginCommon()`, `WorstDDCommon()`, `SAFECommon()`;
+- общий read-only контекст: `Context()`.
 
 ---
 
-## P2 — Функциональное развитие
+## 3. P0/P1/P2 улучшения, сохранённые и интегрированные
 
-### 2.6 Новый сценарий replay: V-shape
+## P0
 
-В `CALDeterministicRunner` добавлен сценарий:
+- NaN/Inf guard asserts в `CALFlowEngine::Process` (Geometry/Exposure/Risk/Math).
+- Configurable runtime invariants через `CALRiskConfig`:
+  - `MAX_POSITIONS`,
+  - `MIN_LOT`,
+  - `ENABLE_STRICT_RUNTIME_CHECKS`.
+- `CALPositionBook` использует эти настройки и rollback-поведение на мутациях.
 
-- `ALE_REPLAY_VSHAPE`.
+## P1
 
-Сценарий генерирует падение до pivot и обратное восстановление.
+- `CALExportHelper` экспортирует:
+  - timeline `CALContext` в CSV,
+  - позиции BUY/SELL в CSV,
+  - JUnit-style XML summary.
+- `CALDeterministicRunner` поддерживает state-trace matcher (`ReplayWithExpectedTrace`).
 
-### 2.7 Расширение unit-набора
+## P2
 
-В `TestALE.mqh` добавлены:
-
-- `TestALE_ReplayScenario_VShape`
-- `TestALE_StateTraceMatcher`
-- `TestALE_CSVExports`
-
-Обновлены раннеры:
-
-- `right/tests/RunAllTests.mqh`
-- `right/ale/tests/RunAllTests.mqh`
-
----
-
-## 3) Детальные результаты тестов
-
-### 3.1 ALE unit-tests (targeted)
-
-Команда:
-
-- `pytest -q Experts/VirtualPanel/right/tests`
-
-Результат:
-
-- **26 passed**
-
-Покрытие включает:
-
-- dual-flow wiring;
-- risk-config wiring;
-- strict/global SAFE semantics;
-- NaN/Inf guard stages presence;
-- configurable invariants fields;
-- V-shape/state-trace/export hooks;
-- include/structure/signature integrity.
-
-### 3.2 Repository smoke
-
-Команда:
-
-- `pytest -q`
-
-Результат:
-
-- **26 passed**
-
-### 3.3 Репозиторная верификация
-
-Команда:
-
-- `bash verify-all.sh work`
-
-Результат:
-
-- Выполнено успешно.
-- Синхронизация с remote проверена.
-- Предупреждения только ожидаемые (optional probe files в самом verify-script).
+- Добавлен replay сценарий `ALE_REPLAY_VSHAPE`.
+- Расширены unit-тесты по V-shape/trace/export.
 
 ---
 
-## 4) Ключевые выводы по качеству
+## 4. Unit testing — детальные результаты
 
-1. **Надёжность выросла на runtime уровне**: невалидные числа теперь не “просачиваются” дальше в FSM/риск-модель.
-2. **Dual-flow сохранён**: защитные проверки работают симметрично для BUY и SELL, без перекрёстного загрязнения.
-3. **Тестируемость улучшена**: появился state-trace matcher для deterministic regression.
-4. **DevOps readiness**: есть XML summary и CSV timeline артефакты для анализа прогонов.
+### 4.1 Команды
+
+1. `pytest -q Experts/VirtualPanel/right/tests`
+2. `pytest -q`
+3. `bash verify-all.sh ale_separate_brains`
+
+### 4.2 Фактические результаты
+
+- Targeted suite: **28 passed**.
+- Full suite: **28 passed**.
+- Repository verify: **PASS** (с ожидаемыми warning по optional probe files).
+
+### 4.3 Зафиксированный файл результатов
+
+Сформирован подробный файл:
+
+- `Experts/VirtualPanel/right/ale/tests/UnitTestResults_ALE.txt`
+
+Файл содержит:
+
+- список групп проверок;
+- pass/fail статус по ключевым требованиям;
+- отдельный раздел по dual-flow изоляции и common-агрегации.
 
 ---
 
-## 5) Улучшения и предложения (следующий шаг)
+## 5. Ключевые выводы
 
-### P0+ (рекомендуется сразу)
+1. **Изоляция потоков усилилась архитектурно**: BUY и SELL вычисляются отдельными brain-модулями.
+2. **COMMON brain централизует кросс-поточный анализ** без нарушения независимости локальных расчётов.
+3. **FSM-модель стала полнее**: теперь явное состояние common-мозга и соответствующие события.
+4. **Тестируемость заметно выросла**: unit-сетка покрывает split brains, агрегацию и экспортные артефакты.
 
-1. Добавить отдельный negative-test для intentional NaN injection через тестовый double/mock слой математики.
-2. Вынести названия guard stage/metric в enum-константы (уменьшит риск опечаток в логах).
-3. Добавить счётчик guard-triggered SAFE в `CALContext` (для телеметрии стабильности).
+---
+
+## 6. Улучшения и предложения (следующий шаг)
+
+### P0+ (критически полезно)
+
+1. Добавить property-based генератор ценовых траекторий (помимо фиксированных сценариев),
+   чтобы искать нестабильные edge-case комбинации.
+2. Добавить счётчики guard-triggered SAFE отдельно для BUY/SELL/COMMON в контекст.
+3. Добавить hard-assert на неизменность чужого контекста при локальной обработке brain-модуля.
 
 ### P1+
 
-4. Экспортировать не только финальный XML suite, но и per-testcase breakdown в JUnit (`<testcase>` на каждую ALE-проверку).
-5. Сделать версионируемый формат CSV (`schema_version`) для надёжного последующего парсинга.
+4. Расширить JUnit XML до per-testcase granular output.
+5. Добавить schema-version и checksum для CSV-артефактов.
+6. Добавить markdown summary generator из `UnitTestResults_ALE.txt` для release-нот.
 
 ### P2+
 
-6. Добавить replay-сценарии `flat` и `spike` как отдельные enum-ветки (с явной проверкой SAFE/event trace).
-7. Реализовать compare-runner (baseline vs current) для автоматической регрессии по state timeline.
+7. Добавить сценарии `flat`, `spike`, `gap` и mandatory expected state trace для каждого.
+8. Добавить сравнение baseline vs current (regression delta) по:
+   - state timeline,
+   - SAFE trigger points,
+   - aggregated risk metrics.
 
 ---
 
-## 6) Практический итог
+## 7. Итог
 
-Текущая версия ALE в `right/ale` стала существенно более предсказуемой и проверяемой:
-
-- есть runtime NaN/Inf fail-safe;
-- есть конфигурируемая строгость инвариантов;
-- есть deterministic replay + state trace matching;
-- есть CSV/XML артефакты для CI и аудита;
-- unit/pytest контур расширен и стабилен.
+Текущая версия ALE в `right/ale` соответствует целевому направлению “отдельные мозги BUY/SELL + общий мозг COMMON”,
+имеет рабочий unit-контур с успешным прогоном и готова к следующему шагу углублённой поведенческой валидации.

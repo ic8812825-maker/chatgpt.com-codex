@@ -43,15 +43,39 @@ struct CALStreamContext
    }
 };
 
+struct CALCommonContext
+{
+   ENUM_ALE_STATE state;
+   double net_delta;
+   double pnl;
+   double exposure;
+   double margin;
+   double worst_dd;
+   bool safe_active;
+
+   void Reset()
+   {
+      state=ALE_STATE_IDLE;
+      net_delta=0.0;
+      pnl=0.0;
+      exposure=0.0;
+      margin=0.0;
+      worst_dd=0.0;
+      safe_active=false;
+   }
+};
+
 struct CALContext
 {
    CALStreamContext buy;
    CALStreamContext sell;
+   CALCommonContext common;
 
    void Reset()
    {
       buy.Reset();
       sell.Reset();
+      common.Reset();
    }
 
    double NetDeltaTotal() const { return buy.net_delta+sell.net_delta; }

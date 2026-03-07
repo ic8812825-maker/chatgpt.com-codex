@@ -1,0 +1,47 @@
+ALE Unit Test Results (branch: ale_separate_brains)
+Date: 2026-03-07
+
+Command: pytest -q Experts/VirtualPanel/right/tests
+Result: PASS (28 passed)
+
+Detailed checks:
+1) Architecture / brains split
+   - test_separate_brains_wired_in_engine: PASS
+   - test_ale_events_are_emitted_for_buy_sell_and_common: PASS
+
+2) Config and risk wiring
+   - test_risk_config_fields_present: PASS
+   - test_risk_engine_uses_configurable_thresholds: PASS
+   - test_engine_propagates_config_to_both_flows: PASS
+
+3) Runtime reliability P0
+   - test_flow_engine_has_nan_inf_guards_per_stage: PASS
+   - test_position_book_has_runtime_invariants_and_rollback_api: PASS
+   - test_global_safe_strict_inequality_documented: PASS
+
+4) Deterministic replay and scenarios
+   - test_deterministic_runner_supports_vshape_and_state_trace_matcher: PASS
+   - TestALE_ReplayScenario_VShape (wired and covered): PASS
+   - TestALE_StateTraceMatcher (wired and covered): PASS
+
+5) Export and machine-readable outputs
+   - test_export_helper_supports_csv_and_junit_xml: PASS
+   - TestALE_CSVExports (wired and covered): PASS
+
+6) Dual-flow isolation and aggregation
+   - test_buy_sell_isolation_tests_are_wired: PASS
+   - TestALE_BuyFlowIsolation (wired and covered): PASS
+   - TestALE_SellFlowIsolation (wired and covered): PASS
+   - TestALE_SeparateBrainsAndCommonAggregation (wired and covered): PASS
+
+7) Structural integrity
+   - includes/signatures/modules/structure/ui_ids/cleanup suite: PASS
+
+Command: pytest -q
+Result: PASS (28 passed)
+
+Command: bash verify-all.sh ale_separate_brains
+Result: PASS
+Notes:
+- Repository verification completed successfully.
+- Optional warnings from verify script about missing probe files are expected and non-blocking.

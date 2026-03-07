@@ -227,4 +227,40 @@ bool TestALE_SellFlowIsolation()
    return true;
 }
 
+
+bool TestALE_SeparateBrainsAndCommonAggregation()
+{
+   CALRiskConfig cfg;
+   cfg.SetDefaults();
+
+   CALEngineBuy buy_brain;
+   CALEngineSell sell_brain;
+   CALEngineCommon common_brain;
+
+   buy_brain.SetRiskConfig(cfg);
+   sell_brain.SetRiskConfig(cfg);
+   common_brain.SetRiskConfig(cfg);
+
+   if(!buy_brain.AddVirtual(1.1000,0.10)) return false;
+   if(!sell_brain.AddVirtual(1.1000,0.10)) return false;
+
+   // Independent update paths.
+   buy_brain.OnPriceUpdate(1.1010);
+   sell_brain.OnPriceUpdate(1.0990);
+
+   const CALStreamContext buy_ctx=buy_brain.Context();
+   const CALStreamContext sell_ctx=sell_brain.Context();
+
+   if(!IsFiniteALE(buy_ctx.pnl) || !IsFiniteALE(sell_ctx.pnl)) return false;
+
+   common_brain.Aggregate(buy_ctx,sell_ctx);
+   const CALCommonContext common_ctx=common_brain.Context();
+
+   if(!NearALE(common_ctx.net_delta,buy_ctx.net_delta+sell_ctx.net_delta,1e-12)) return false;
+   if(!NearALE(common_ctx.pnl,buy_ctx.pnl+sell_ctx.pnl,1e-12)) return false;
+   if(!NearALE(common_ctx.margin,buy_ctx.margin+sell_ctx.margin,1e-12)) return false;
+
+   return true;
+}
+
 #endif
