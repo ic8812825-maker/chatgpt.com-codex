@@ -38,6 +38,7 @@ public:
    void SetRiskConfig(const CALRiskConfig &cfg)
    {
       m_cfg=cfg;
+      m_cfg.SyncAliases();
       m_buy_stream.SetRiskConfig(m_cfg);
       m_sell_stream.SetRiskConfig(m_cfg);
    }
@@ -48,8 +49,8 @@ public:
    {
       // Global SAFE as disjunction + aggregate stress checks.
       if(m_context.buy.safe_active || m_context.sell.safe_active) return true;
-      if(m_context.buy.margin + m_context.sell.margin > m_cfg.global_margin_limit) return true;
-      if(m_context.buy.worst_dd + m_context.sell.worst_dd > m_cfg.global_dd_sum_limit) return true;
+      if(m_context.buy.margin + m_context.sell.margin > m_cfg.GLOBAL_MARGIN_LIMIT) return true;
+      if(m_context.buy.worst_dd + m_context.sell.worst_dd > m_cfg.GLOBAL_DD_SUM_LIMIT) return true;
       return false;
    }
 
@@ -75,7 +76,7 @@ public:
       if(old_buy!=new_buy) m_last_event.OnStateChangeBuy(old_buy,new_buy);
       if(old_sell!=new_sell) m_last_event.OnStateChangeSell(old_sell,new_sell);
       if(m_context.buy.safe_active || m_context.sell.safe_active) m_last_event.OnSAFETriggered();
-      if(m_context.buy.worst_dd>m_cfg.dd_max || m_context.sell.worst_dd>m_cfg.dd_max) m_last_event.OnDrawdownExceeded();
+      if(m_context.buy.worst_dd>m_cfg.MAX_DRAWDOWN || m_context.sell.worst_dd>m_cfg.MAX_DRAWDOWN) m_last_event.OnDrawdownExceeded();
    }
 
    bool BuildGrid(const int flow,const double center,const int levels,CALGrid &out_grid)

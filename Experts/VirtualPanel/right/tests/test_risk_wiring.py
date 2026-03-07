@@ -11,15 +11,15 @@ def test_risk_config_fields_present():
     cfg = _read("ale/config/CALRiskConfig.mqh")
 
     for field in [
-        "dd_max",
-        "stress_limit",
-        "dd_prob_limit",
-        "global_margin_limit",
-        "global_dd_sum_limit",
-        "safe_alpha",
-        "safe_beta",
-        "safe_gamma",
-        "safe_k",
+        "MAX_DRAWDOWN",
+        "STRESS_LIMIT",
+        "DD_PROB_LIMIT",
+        "GLOBAL_MARGIN_LIMIT",
+        "GLOBAL_DD_SUM_LIMIT",
+        "SAFE_ALPHA",
+        "SAFE_BETA",
+        "SAFE_GAMMA",
+        "SAFE_K",
     ]:
         assert field in cfg, f"Missing field {field} in CALRiskConfig"
 
@@ -28,9 +28,9 @@ def test_risk_engine_uses_configurable_thresholds():
     text = _read("ale/risk/CALRiskEngine.mqh")
 
     assert "SetConfig(const CALRiskConfig &cfg)" in text
-    assert "m_cfg.dd_max" in text
-    assert "m_cfg.stress_limit" in text
-    assert "m_cfg.dd_prob_limit" in text
+    assert "m_cfg.MAX_DRAWDOWN" in text
+    assert "m_cfg.STRESS_LIMIT" in text
+    assert "m_cfg.DD_PROB_LIMIT" in text
 
 
 def test_engine_propagates_config_to_both_flows():

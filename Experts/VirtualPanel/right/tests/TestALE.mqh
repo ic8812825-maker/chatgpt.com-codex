@@ -68,8 +68,9 @@ bool PrepareRunner(CALDeterministicRunner &runner)
 {
    CALRiskConfig cfg;
    cfg.SetDefaults();
-   cfg.dd_max=0.35;
-   cfg.stress_limit=1.2;
+   cfg.MAX_DRAWDOWN=0.35;
+   cfg.STRESS_LIMIT=1.2;
+   cfg.SyncAliases();
    runner.Init(cfg);
    return runner.AttachVirtuals(1.1000,0.10,1.1000,0.10);
 }

@@ -55,9 +55,10 @@ bool TestRisk_ConfigThresholdsAffectSAFE()
 
    CALRiskConfig cfg;
    cfg.SetDefaults();
-   cfg.dd_max=0.05;
-   cfg.stress_limit=0.7;
-   cfg.dd_prob_limit=0.50;
+   cfg.MAX_DRAWDOWN=0.05;
+   cfg.STRESS_LIMIT=0.7;
+   cfg.DD_PROB_LIMIT=0.50;
+   cfg.SyncAliases();
    risk.SetConfig(cfg);
 
    CALStreamContext ctx;
@@ -77,13 +78,14 @@ bool TestRisk_ConfigThresholdsAffectSAFE()
    const CALRiskReport strict_rep=risk.Evaluate(ctx,exp,1.1000,0.2,100.0,100000.0,10000.0);
    if(!strict_rep.safe_triggered) return false;
 
-   cfg.dd_max=1.00;
-   cfg.stress_limit=2.0;
-   cfg.dd_prob_limit=1.00;
-   cfg.safe_alpha=0.0;
-   cfg.safe_beta=0.0;
-   cfg.safe_gamma=0.0;
-   cfg.safe_k=10.0;
+   cfg.MAX_DRAWDOWN=1.00;
+   cfg.STRESS_LIMIT=2.0;
+   cfg.DD_PROB_LIMIT=1.00;
+   cfg.SAFE_ALPHA=0.0;
+   cfg.SAFE_BETA=0.0;
+   cfg.SAFE_GAMMA=0.0;
+   cfg.SAFE_K=10.0;
+   cfg.SyncAliases();
    risk.SetConfig(cfg);
 
    const CALRiskReport loose_rep=risk.Evaluate(ctx,exp,1.1000,0.2,100.0,100000.0,10000.0);
@@ -99,6 +101,7 @@ bool TestRisk_ZeroEquityFinite()
 
    CALRiskConfig cfg;
    cfg.SetDefaults();
+   cfg.SyncAliases();
    risk.SetConfig(cfg);
 
    CALStreamContext ctx;
