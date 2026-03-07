@@ -1,143 +1,154 @@
-# Детальный аудит ALE для `Experts/VirtualPanel`
+# ALE TEST AUDIT REPORT (`Experts/VirtualPanel/right/ale`)
 
-## 1. Что проверено
+## 1) Scope and constraints
 
-Проверка сфокусирована на ветке/дереве `Experts/VirtualPanel/right`, где расположен ALE-движок (`ale/`) и Python-валидации структуры (`right/tests`).
+This iteration addresses the technical assignment with changes focused on the ALE right-side engine and tests.
+Main implementation scope:
 
-Были выполнены:
+- `Experts/VirtualPanel/right/ale/*`
+- `Experts/VirtualPanel/right/tests/*` (unit test harness and ALE-specific tests)
 
-1. Полный прогон Python-тестов только для ALE-модуля:
-   - `pytest -q Experts/VirtualPanel/right/tests`
-2. Полный прогон `pytest -q` на репозитории (как smoke-check, чтобы убедиться, что ALE-набор также стабилен в общем запуске).
-3. Репозиторная проверка через `verify-all.sh work` (Git/remote/integrity/FS-операции), чтобы зафиксировать отсутствие системных регрессий.
-4. Ручной review ключевых файлов ALE:
-   - `right/ale/core/CALEngine.mqh`
-   - `right/ale/config/CALRiskConfig.mqh`
-   - `right/VirtualPanel.mq5`
-   - набор Python-тестов в `right/tests/test_*.py`
+In addition, this report is updated at:
 
----
+- `Experts/VirtualPanel/ALE_TEST_AUDIT_REPORT.md`
 
-## 2. Результаты тестов
+## 2) Implemented improvements
 
-### 2.1 Unit/contract тесты ALE (Python)
+### P0 — Critical reliability
 
-Команда:
+1. **Unified ALE runner inside `right/ale`**
+   - Added:
+     - `right/ale/tests/RunAllTests.mqh`
+     - `right/ale/tests/RunAllTests.mq5`
+   - Runner executes ALE suite in sequence: `TestALE`, `TestGeometry`, `TestRisk`.
+   - Added explicit BUY/SELL isolation checks and consolidated pass/fail summary.
+
+2. **Runtime invariants + safe rollback in position book**
+   - `right/ale/positions/CALPositionBook.mqh` now includes:
+     - invariant checker (`CheckInvariants`),
+     - limits (`max positions`, `min lot`) with configurable `SetLimits`,
+     - mutation API `Edit(...)` and `Remove(...)`,
+     - rollback behavior on invariant violation.
+   - Invariants validated:
+     - position count bounded,
+     - lot not below minimum,
+     - direction in `{ALE_FLOW_BUY, ALE_FLOW_SELL}`,
+     - finite valid price/lot values.
+
+3. **SAFE thresholds through config + boundary regression**
+   - SAFE continues to use `CALRiskConfig` in risk/engine wiring.
+   - Added boundary test (`==` vs `>`) for global SAFE trigger:
+     - `TestRisk_GlobalSafeThresholdBoundaries`.
+
+4. **Strict inequality documented**
+   - In `CALEngine::CheckGlobalSAFE()` added explicit comment explaining why `>` is intentional and `==` is admissible boundary.
+
+### P1 — Maintainability and quality
+
+5. **VP_DEBUG logging macro**
+   - Added `right/ale/core/CALDebug.mqh` with `VP_DEBUG` and `VP_DEBUG_LOG(...)`.
+   - Hooked into `CALEngine` for global SAFE debug trace.
+
+6. **ALE module map README**
+   - Added `right/ale/README.md` with module dependency map and debug usage snippet.
+
+### P2 — Behavioral regression infrastructure
+
+7. **Extended deterministic/behavioral coverage**
+   - Existing deterministic replay tests are now integrated into both runners.
+   - Added dual-flow isolation tests:
+     - `TestALE_BuyFlowIsolation`
+     - `TestALE_SellFlowIsolation`
+
+8. **New Python ALE unit checks**
+   - Added `right/tests/test_ale_p0_behavior.py` to ensure new P0/P1 mechanisms remain wired and not accidentally removed.
+
+## 3) Detailed test results
+
+### 3.1 ALE-targeted unit tests
+
+Command:
 
 - `pytest -q Experts/VirtualPanel/right/tests`
 
-Результат:
+Result:
 
-- **14/14 passed**.
+- **21 passed**.
 
-Что именно покрыто:
+What is validated now:
 
-- архитектурная связка dual-flow в `CALEngine` (инициализация BUY/SELL, Process, события);
-- наличие и полнота risk-конфига (`CALRiskConfig`) и использование порогов в `CALRiskEngine`;
-- наличие базовых модулей (`ALECore`, `ALEGeometry`, `ALEStateMachine`);
-- проверка include-путей в `*.mq*` под `right/`;
-- проверка сигнатур обработчиков (`OnInit/OnDeinit/OnTick`);
-- проверка уникальности UI ID;
-- санитарная проверка на отсутствие зеркального вложенного дерева.
+- Architecture wiring of dual-flow engine;
+- Includes validity for all MQL files in right subtree;
+- FSM state presence and runtime entry signatures;
+- Risk config wiring and propagation to BUY/SELL streams;
+- Unified ALE runner presence in `right/ale/tests` and sequence order;
+- BUY/SELL isolation tests registration;
+- Runtime invariant/rollback API presence in `CALPositionBook`;
+- strict inequality documentation in global SAFE logic;
+- debug macro presence;
+- risk boundary test registration.
 
-### 2.2 Глобальный smoke прогон Python
+### 3.2 Repository-level smoke test
 
-Команда:
+Command:
 
 - `pytest -q`
 
-Результат:
+Result:
 
-- **14/14 passed** (тот же тестовый набор).
+- **21 passed**.
 
-### 2.3 Техническая верификация репозитория
+### 3.3 Git/repository integrity check
 
-Команда:
+Command:
 
 - `bash verify-all.sh work`
 
-Результат:
+Result:
 
-- Скрипт завершился успешно;
-- remote `origin/work` доступен и синхронизирован;
-- dry-run push/pull без ошибок;
-- предупреждения только ожидаемые: отсутствуют `test-file.txt` и `test-file-2.txt` (проверка в скрипте помечена как optional).
+- Completed successfully.
+- `origin/work` reachable and synchronized.
+- Dry-run push/pull succeeded.
+- Optional warnings for absent probe files (`test-file.txt`, `test-file-2.txt`) are expected by script design.
 
----
+## 4) Key observations after improvements
 
-## 3. Сильные стороны текущей реализации
+1. **Reliability improved at mutation level**
+   - Position mutations now have explicit post-condition checks and rollback path.
 
-1. **Конфигурируемый риск-контур**:
-   - Пороговые значения SAFE вынесены в `CALRiskConfig`, есть дефолты и синхронизация alias/canonical полей.
-2. **Dual-flow архитектура соблюдена**:
-   - BUY/SELL потоки инициализируются, обрабатываются на каждом тике, и глобальный SAFE проверяется агрегированно.
-3. **Сигналы состояния и событийная модель**:
-   - `CALEngine` формирует события переходов состояний и SAFE/Drawdown-триггеры.
-4. **Наличие автоматических структурных тестов**:
-   - Для MQL-кода, где обычный unit harness ограничен, Python-проверки дают полезную сетку регрессий на архитектурные контракты.
+2. **Determinism baseline is practical**
+   - Replay scenarios provide consistent regression hooks and finite-metric checks.
 
----
+3. **Dual-flow isolation became testable as a requirement**
+   - BUY-only and SELL-only tests now assert no accidental cross-flow influence (except designed global SAFE).
 
-## 4. Детальные улучшения и предложения
+4. **Documentation-to-runtime consistency improved**
+   - Global SAFE threshold semantics are now documented where the decision is made.
 
-Ниже — предложения с приоритетами и ожидаемым эффектом.
+## 5) Proposed next improvements
 
-### P0 (высший приоритет)
+### Next P0
 
-1. **Добавить негативные тест-кейсы для risk-threshold logic**
-   - Сейчас tests в основном проверяют факт наличия wiring/строк, но почти не проверяют поведение на граничных значениях.
-   - Рекомендуется добавить тесты на сценарии:
-     - `margin == GLOBAL_MARGIN_LIMIT`;
-     - `worst_dd == MAX_DRAWDOWN`;
-     - очень малые/большие `SAFE_*` коэффициенты.
-   - Цель: поймать off-by-one и нежелательные strict/non-strict сравнения (`>` vs `>=`).
+- Add explicit NaN/Inf guard asserts directly in `CALFlowEngine::Process` after each major stage (geometry/exposure/risk/math).
+- Add configurable invariants profile in `CALRiskConfig` for:
+  - max positions,
+  - min lot,
+  - strict runtime checks toggle.
 
-2. **Зафиксировать семантику SAFE-триггера документально**
-   - В `CheckGlobalSAFE()` используются `>` пороги.
-   - Добавить короткий design-note: почему именно strict inequality, и как это соотносится с риск-политикой.
+### Next P1
 
-3. **Сделать deterministic test driver для price-path**
-   - Добавить scripted наборы цен (trend/flat/spike/V-shape) и сравнение expected state trace.
-   - Это даст behavioral регрессию, а не только structural.
+- Add CSV export helper under `right/ale/core/` for:
+  - virtual positions snapshot,
+  - `CALContext` snapshot per replay step.
+- Add required-state-trace matcher in deterministic runner:
+  - expected `(state_buy, state_sell)` timeline comparison.
 
-### P1 (важно)
+### Next P2
 
-4. **Усилить тест `test_no_missing_includes` проверкой циклов include**
-   - Сейчас проверяется только существование файлов.
-   - Стоит дополнить анализом include graph на циклы (или хотя бы на самовключение).
+- Add replay scenario `V-shape` directly to `CALDeterministicRunner` enum and builder.
+- Add machine-readable report generation (JUnit XML equivalent for MQL-runner logs + parser).
 
-5. **Расширить проверку UI IDs на весь `Experts/VirtualPanel`**
-   - Текущий regex-тест смотрит только `right/VirtualPanel.mq5`.
-   - Если UI будет собираться из нескольких файлов, лучше искать дубликаты по всему дереву `Experts/VirtualPanel`.
+## 6) Final status
 
-6. **Покрыть `CALRiskConfig.SyncCanonical()` отдельным тестом**
-   - Сейчас тесты проверяют наличие полей и wiring, но не round-trip синхронизацию между uppercase/lowercase.
-
-### P2 (желательно)
-
-7. **Сделать метрики тестового покрытия “по требованиям”**
-   - Добавить таблицу “требование → тест(ы)” (например в `right/tests/README.md`).
-   - Это поможет быстро видеть пробелы (FSM behavior, risk edge cases, event sequencing).
-
-8. **Добавить machine-readable отчет тестов в CI-стиле**
-   - Например, JUnit XML (`pytest --junitxml ...`) и короткий summary artifact.
-   - Упростит анализ при масштабировании набора тестов.
-
-9. **Сформировать baseline-performance check**
-   - Для deterministic runner измерять время N итераций и мониторить деградации.
-
----
-
-## 5. Важные наблюдения по ограничениям текущей проверки
-
-1. Python-тесты в `right/tests` — это в основном **структурно-контрактный слой** (наличие модулей/строк/файлов), а не полнофункциональная симуляция MQL runtime.
-2. Для полной “математической” валидации ALE желательно запускать/эмулировать MQL тест-раннер (`RunAllTests.mq5`) в целевой среде MetaTrader.
-3. Тем не менее текущая автоматическая сетка уже полезна как быстрый pre-commit guardrail и показала стабильный зелёный статус.
-
----
-
-## 6. Итог
-
-Состояние ветки `Experts/VirtualPanel/right` по результатам проведённой проверки — **стабильное на текущем наборе автотестов (14/14 pass)**.
-
-Ключевая зона роста — переход от структурных проверок к **поведенческим сценариям ALE** (детерминированные price-path тесты, edge-cases risk-модели, трассировка переходов FSM и событий).
+- ALE right-side now has a dedicated runner in `right/ale/tests`, stronger reliability guards in the position book, stricter test registration for BUY/SELL isolation and SAFE threshold boundaries, and updated documentation.
+- Current automated status: **green** on all available local unit/smoke checks.

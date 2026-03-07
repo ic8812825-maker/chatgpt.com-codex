@@ -124,4 +124,43 @@ bool TestRisk_ZeroEquityFinite()
    return true;
 }
 
+
+bool TestRisk_GlobalSafeThresholdBoundaries()
+{
+   CALEngine ale;
+   ale.Init();
+
+   CALRiskConfig cfg;
+   cfg.SetDefaults();
+   cfg.MAX_DRAWDOWN=1.00;
+   cfg.STRESS_LIMIT=10.0;
+   cfg.DD_PROB_LIMIT=1.00;
+   cfg.GLOBAL_MARGIN_LIMIT=100.0;
+   cfg.GLOBAL_DD_SUM_LIMIT=1.00;
+   cfg.SyncAliases();
+   ale.SetRiskConfig(cfg);
+
+   if(!ale.AddVirtual(ALE_FLOW_BUY,1.1000,0.10)) return false;
+   if(!ale.AddVirtual(ALE_FLOW_SELL,1.1000,0.10)) return false;
+
+   ale.OnPriceUpdate(1.1000);
+   CALContext ctx=ale.Context();
+
+   // Boundary (==) should not trigger global SAFE by design (strict inequality).
+   cfg.GLOBAL_MARGIN_LIMIT=ctx.buy.margin+ctx.sell.margin;
+   cfg.GLOBAL_DD_SUM_LIMIT=ctx.buy.worst_dd+ctx.sell.worst_dd;
+   cfg.SyncAliases();
+   ale.SetRiskConfig(cfg);
+   if(ale.CheckGlobalSAFE()) return false;
+
+   // Tiny exceedance must trigger global SAFE.
+   cfg.GLOBAL_MARGIN_LIMIT=(ctx.buy.margin+ctx.sell.margin)-1e-8;
+   cfg.GLOBAL_DD_SUM_LIMIT=(ctx.buy.worst_dd+ctx.sell.worst_dd)-1e-8;
+   cfg.SyncAliases();
+   ale.SetRiskConfig(cfg);
+
+   if(!ale.CheckGlobalSAFE()) return false;
+   return true;
+}
+
 #endif

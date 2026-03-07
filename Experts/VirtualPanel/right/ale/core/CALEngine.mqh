@@ -6,6 +6,7 @@
 #include "CBuyEngine.mqh"
 #include "CSellEngine.mqh"
 #include "CALEvent.mqh"
+#include "CALDebug.mqh"
 
 class CALEngine : public IALEngine
 {
@@ -47,7 +48,8 @@ public:
 
    bool CheckGlobalSAFE() const
    {
-      // Global SAFE as disjunction + aggregate stress checks.
+      // Strict inequality (>) is intentional: threshold values themselves are still admissible.
+      // SAFE activates only when aggregate stress exceeds configured risk budget.
       if(m_context.buy.safe_active || m_context.sell.safe_active) return true;
       if(m_context.buy.margin + m_context.sell.margin > m_cfg.GLOBAL_MARGIN_LIMIT) return true;
       if(m_context.buy.worst_dd + m_context.sell.worst_dd > m_cfg.GLOBAL_DD_SUM_LIMIT) return true;
@@ -65,6 +67,7 @@ public:
 
       if(CheckGlobalSAFE())
       {
+         VP_DEBUG_LOG("Global SAFE triggered");
          m_buy_stream.ForceSAFE();
          m_sell_stream.ForceSAFE();
          SyncContext();

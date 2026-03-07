@@ -39,6 +39,8 @@ bool RunAllALETests(CALTestSummary &summary)
    all_ok = RunTestCase("TestALE_ReplayScenario_Uptrend",TestALE_ReplayScenario_Uptrend(),summary) && all_ok;
    all_ok = RunTestCase("TestALE_ReplayScenario_Oscillation",TestALE_ReplayScenario_Oscillation(),summary) && all_ok;
    all_ok = RunTestCase("TestALE_ReplayScenario_Crash",TestALE_ReplayScenario_Crash(),summary) && all_ok;
+   all_ok = RunTestCase("TestALE_BuyFlowIsolation",TestALE_BuyFlowIsolation(),summary) && all_ok;
+   all_ok = RunTestCase("TestALE_SellFlowIsolation",TestALE_SellFlowIsolation(),summary) && all_ok;
 
    all_ok = RunTestCase("TestGeometry_BuySellGrids",TestGeometry_BuySellGrids(),summary) && all_ok;
    all_ok = RunTestCase("TestGeometry_LogGridMonotonicity",TestGeometry_LogGridMonotonicity(),summary) && all_ok;
@@ -46,6 +48,7 @@ bool RunAllALETests(CALTestSummary &summary)
    all_ok = RunTestCase("TestRisk_WorstDDMargin",TestRisk_WorstDDMargin(),summary) && all_ok;
    all_ok = RunTestCase("TestRisk_ConfigThresholdsAffectSAFE",TestRisk_ConfigThresholdsAffectSAFE(),summary) && all_ok;
    all_ok = RunTestCase("TestRisk_ZeroEquityFinite",TestRisk_ZeroEquityFinite(),summary) && all_ok;
+   all_ok = RunTestCase("TestRisk_GlobalSafeThresholdBoundaries",TestRisk_GlobalSafeThresholdBoundaries(),summary) && all_ok;
 
    PrintFormat("[ALE TEST] total=%d passed=%d failed=%d",summary.total,summary.passed,summary.failed);
    return all_ok;

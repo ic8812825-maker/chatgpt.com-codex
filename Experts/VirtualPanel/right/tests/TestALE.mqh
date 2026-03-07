@@ -133,4 +133,43 @@ bool TestALE_ReplayScenario_Crash()
    return (res.worst_dd_buy>=0.0 && res.worst_dd_sell>=0.0);
 }
 
+
+bool TestALE_BuyFlowIsolation()
+{
+   CALEngine ale;
+   ale.Init();
+
+   if(!ale.AddVirtual(ALE_FLOW_BUY,1.1000,0.10)) return false;
+
+   for(int i=0;i<20;i++)
+      ale.OnPriceUpdate(1.1000+0.0002*i);
+
+   const CALContext ctx=ale.Context();
+   if(MathAbs(ctx.buy.net_delta)<=0.0) return false;
+
+   // SELL stream must remain untouched when no SELL virtuals were added.
+   if(MathAbs(ctx.sell.net_delta)>1e-12) return false;
+   if(MathAbs(ctx.sell.pnl)>1e-12) return false;
+   return true;
+}
+
+bool TestALE_SellFlowIsolation()
+{
+   CALEngine ale;
+   ale.Init();
+
+   if(!ale.AddVirtual(ALE_FLOW_SELL,1.1000,0.10)) return false;
+
+   for(int i=0;i<20;i++)
+      ale.OnPriceUpdate(1.1000-0.0002*i);
+
+   const CALContext ctx=ale.Context();
+   if(MathAbs(ctx.sell.net_delta)<=0.0) return false;
+
+   // BUY stream must remain untouched when no BUY virtuals were added.
+   if(MathAbs(ctx.buy.net_delta)>1e-12) return false;
+   if(MathAbs(ctx.buy.pnl)>1e-12) return false;
+   return true;
+}
+
 #endif
