@@ -2,11 +2,14 @@
 #define __CALRISKCONFIG_MQH__
 
 // CALRiskConfig
-// Centralized SAFE/risk thresholds for ALE dual-flow runtime.
-// Usage:
+// Centralized SAFE/risk thresholds and runtime safety invariants for ALE dual-flow runtime.
+// Usage example:
 //   CALRiskConfig cfg;
 //   cfg.SetDefaults();
 //   cfg.MAX_DRAWDOWN=0.25;
+//   cfg.MAX_POSITIONS=128;
+//   cfg.MIN_LOT=0.01;
+//   cfg.ENABLE_STRICT_RUNTIME_CHECKS=true;
 //   cfg.SyncAliases();
 //   engine.SetRiskConfig(cfg);
 struct CALRiskConfig
@@ -23,6 +26,11 @@ struct CALRiskConfig
    double SAFE_GAMMA;
    double SAFE_K;
 
+   // Runtime invariant controls (P0).
+   int MAX_POSITIONS;
+   double MIN_LOT;
+   bool ENABLE_STRICT_RUNTIME_CHECKS;
+
    // Backward-compatible aliases used by existing modules/tests.
    double dd_max;
    double stress_limit;
@@ -34,6 +42,10 @@ struct CALRiskConfig
    double safe_beta;
    double safe_gamma;
    double safe_k;
+
+   int max_positions;
+   double min_lot;
+   bool enable_strict_runtime_checks;
 
    void SetDefaults()
    {
@@ -47,6 +59,10 @@ struct CALRiskConfig
       SAFE_BETA=1.0;
       SAFE_GAMMA=1.0;
       SAFE_K=1.0;
+
+      MAX_POSITIONS=256;
+      MIN_LOT=0.01;
+      ENABLE_STRICT_RUNTIME_CHECKS=true;
 
       SyncAliases();
    }
@@ -64,6 +80,10 @@ struct CALRiskConfig
       safe_beta=SAFE_BETA;
       safe_gamma=SAFE_GAMMA;
       safe_k=SAFE_K;
+
+      max_positions=MAX_POSITIONS;
+      min_lot=MIN_LOT;
+      enable_strict_runtime_checks=ENABLE_STRICT_RUNTIME_CHECKS;
    }
 
    // Promote lowercase aliases to canonical uppercase fields.
@@ -79,6 +99,10 @@ struct CALRiskConfig
       SAFE_BETA=safe_beta;
       SAFE_GAMMA=safe_gamma;
       SAFE_K=safe_k;
+
+      MAX_POSITIONS=max_positions;
+      MIN_LOT=min_lot;
+      ENABLE_STRICT_RUNTIME_CHECKS=enable_strict_runtime_checks;
    }
 
    CALRiskConfig(){ SetDefaults(); }

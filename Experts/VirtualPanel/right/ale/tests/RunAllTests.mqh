@@ -44,6 +44,9 @@ bool RunAllALEBehaviorTests(CALE2ETestSummary &summary)
    all_ok = RunALETest("TestALE_ReplayScenario_Uptrend",TestALE_ReplayScenario_Uptrend(),summary) && all_ok;
    all_ok = RunALETest("TestALE_ReplayScenario_Oscillation",TestALE_ReplayScenario_Oscillation(),summary) && all_ok;
    all_ok = RunALETest("TestALE_ReplayScenario_Crash",TestALE_ReplayScenario_Crash(),summary) && all_ok;
+   all_ok = RunALETest("TestALE_ReplayScenario_VShape",TestALE_ReplayScenario_VShape(),summary) && all_ok;
+   all_ok = RunALETest("TestALE_StateTraceMatcher",TestALE_StateTraceMatcher(),summary) && all_ok;
+   all_ok = RunALETest("TestALE_CSVExports",TestALE_CSVExports(),summary) && all_ok;
 
    // Explicit BUY/SELL flow separation checks
    all_ok = RunALETest("TestALE_BuyFlowIsolation",TestALE_BuyFlowIsolation(),summary) && all_ok;

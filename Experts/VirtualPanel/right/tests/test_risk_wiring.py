@@ -20,6 +20,9 @@ def test_risk_config_fields_present():
         "SAFE_BETA",
         "SAFE_GAMMA",
         "SAFE_K",
+        "MAX_POSITIONS",
+        "MIN_LOT",
+        "ENABLE_STRICT_RUNTIME_CHECKS",
     ]:
         assert field in cfg, f"Missing field {field} in CALRiskConfig"
 

@@ -2,12 +2,14 @@
 #define __CALPOSITIONBOOK_MQH__
 
 #include "CALVirtualPosition.mqh"
-#include "..\core\CALContext.mqh"
+#include "..\\core\\CALContext.mqh"
 
 // ALE-side runtime invariants for virtual books (P0 safety layer).
 // Example:
 //   CALPositionBook book;
 //   book.Init(ALE_FLOW_BUY);
+//   book.SetLimits(256,0.01);
+//   book.SetStrictRuntimeChecks(true);
 //   book.Add(1.1000,0.10);
 //   book.Edit(0,1.1010,0.20);
 class CALPositionBook
@@ -17,6 +19,7 @@ private:
    int m_direction;
    int m_max_positions;
    double m_min_lot;
+   bool m_strict_runtime_checks;
 
    bool IsDirectionValid(const int direction) const
    {
@@ -25,6 +28,9 @@ private:
 
    bool CheckInvariants(const string op_name) const
    {
+      if(!m_strict_runtime_checks)
+         return true;
+
       if(!IsDirectionValid(m_direction))
       {
          PrintFormat("[ALE][BOOK][INVARIANT] %s failed: invalid direction=%d",op_name,m_direction);
@@ -68,6 +74,7 @@ public:
       m_direction=direction;
       m_max_positions=256;
       m_min_lot=0.01;
+      m_strict_runtime_checks=true;
       ArrayResize(m_positions,0);
    }
 
@@ -75,6 +82,11 @@ public:
    {
       if(max_positions>0) m_max_positions=max_positions;
       if(min_lot>0.0) m_min_lot=min_lot;
+   }
+
+   void SetStrictRuntimeChecks(const bool enabled)
+   {
+      m_strict_runtime_checks=enabled;
    }
 
    bool Add(const double price,const double lot)

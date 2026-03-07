@@ -6,11 +6,15 @@
 
 - `core/`
   - `CALEngine.mqh` — оркестратор dual-flow BUY/SELL, global SAFE, события.
-  - `CALFlowEngine.mqh` — потоковый движок одного направления.
-  - `CALDeterministicRunner.mqh` — детерминированный replay runner для behavioral-сценариев.
+  - `CALFlowEngine.mqh` — потоковый движок одного направления с NaN/Inf guard и SAFE fallback.
+  - `CALDeterministicRunner.mqh` — детерминированный replay runner, state-trace matcher и сценарии (`trend`, `flat`, `crash`, `V-shape`).
+  - `CALExportHelper.mqh` — CSV/XML экспорт (`CALContext` timeline, позиции, JUnit-like summary).
   - `CALContext.mqh` — контекст и state-модели потока/агрегата.
 - `config/`
-  - `CALRiskConfig.mqh` — централизованные пороги риска/SAFE.
+  - `CALRiskConfig.mqh` — централизованные пороги риска/SAFE + runtime invariants config:
+    - `MAX_POSITIONS`
+    - `MIN_LOT`
+    - `ENABLE_STRICT_RUNTIME_CHECKS`
 - `positions/`
   - `CALPositionBook.mqh` — хранение виртуальных позиций + runtime инварианты + rollback.
 - `geometry/`
@@ -26,7 +30,7 @@
 - `interfaces/`
   - контракты `IALEngine`, `IFSM`, `IALRiskModel`, и др.
 - `tests/`
-  - `RunAllTests.mqh/.mq5` — единый MQL runner ALE unit/behavior тестов.
+  - `RunAllTests.mqh/.mq5` — единый MQL runner ALE unit/behavior тестов и XML summary.
 
 ## Debug
 
@@ -35,4 +39,19 @@
 ```cpp
 #define VP_DEBUG 1
 #include "core/CALDebug.mqh"
+```
+
+## Пример deterministic replay + CSV
+
+```cpp
+CALRiskConfig cfg;
+cfg.SetDefaults();
+
+CALDeterministicRunner runner;
+runner.Init(cfg);
+runner.AttachVirtuals(1.1000,0.10,1.1000,0.10);
+
+CALReplayResult res;
+runner.ReplayScenario(ALE_REPLAY_VSHAPE,1.1000,0.0005,20,res);
+// ale_replay_context.csv будет записан автоматически внутри Replay().
 ```

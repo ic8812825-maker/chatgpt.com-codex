@@ -1,154 +1,191 @@
-# ALE TEST AUDIT REPORT (`Experts/VirtualPanel/right/ale`)
+# Детальный отчёт аудита и тестирования ALE (`Experts/VirtualPanel/right/ale`)
 
-## 1) Scope and constraints
+## 1) Объём работ
 
-This iteration addresses the technical assignment with changes focused on the ALE right-side engine and tests.
-Main implementation scope:
+Выполнены доработки **строго по правой ALE-части** и её тестовому контуру:
 
 - `Experts/VirtualPanel/right/ale/*`
-- `Experts/VirtualPanel/right/tests/*` (unit test harness and ALE-specific tests)
+- `Experts/VirtualPanel/right/tests/*`
 
-In addition, this report is updated at:
+Цели: повысить надёжность, детерминизм, проверяемость dual-flow BUY/SELL, добавить инфраструктуру behavioral regression.
 
-- `Experts/VirtualPanel/ALE_TEST_AUDIT_REPORT.md`
+---
 
-## 2) Implemented improvements
+## 2) Что реализовано
 
-### P0 — Critical reliability
+## P0 — Критическая надёжность
 
-1. **Unified ALE runner inside `right/ale`**
-   - Added:
-     - `right/ale/tests/RunAllTests.mqh`
-     - `right/ale/tests/RunAllTests.mq5`
-   - Runner executes ALE suite in sequence: `TestALE`, `TestGeometry`, `TestRisk`.
-   - Added explicit BUY/SELL isolation checks and consolidated pass/fail summary.
+### 2.1 NaN/Inf guards в runtime-пайплайне
 
-2. **Runtime invariants + safe rollback in position book**
-   - `right/ale/positions/CALPositionBook.mqh` now includes:
-     - invariant checker (`CheckInvariants`),
-     - limits (`max positions`, `min lot`) with configurable `SetLimits`,
-     - mutation API `Edit(...)` and `Remove(...)`,
-     - rollback behavior on invariant violation.
-   - Invariants validated:
-     - position count bounded,
-     - lot not below minimum,
-     - direction in `{ALE_FLOW_BUY, ALE_FLOW_SELL}`,
-     - finite valid price/lot values.
+В `CALFlowEngine::Process` добавлены stage-guard проверки с принудительным SAFE fallback:
 
-3. **SAFE thresholds through config + boundary regression**
-   - SAFE continues to use `CALRiskConfig` in risk/engine wiring.
-   - Added boundary test (`==` vs `>`) for global SAFE trigger:
-     - `TestRisk_GlobalSafeThresholdBoundaries`.
+- Stage `Geometry` (grid levels, pnl, net_delta)
+- Stage `Exposure` (exposure, gamma, convexity)
+- Stage `Risk` (worst_dd, margin)
+- Stage `Math` (k_growth, mu_forward, p_ret, mu_crit, lot_opt, ev, cf)
 
-4. **Strict inequality documented**
-   - In `CALEngine::CheckGlobalSAFE()` added explicit comment explaining why `>` is intentional and `==` is admissible boundary.
+При невалидном значении:
 
-### P1 — Maintainability and quality
+- логируется причина,
+- форсируется SAFE (`ForceSAFE()`),
+- поток прерывает текущий шаг обработки.
 
-5. **VP_DEBUG logging macro**
-   - Added `right/ale/core/CALDebug.mqh` with `VP_DEBUG` and `VP_DEBUG_LOG(...)`.
-   - Hooked into `CALEngine` for global SAFE debug trace.
+Это покрывает оба потока, потому что `CALStreamEngine` используется и для BUY, и для SELL.
 
-6. **ALE module map README**
-   - Added `right/ale/README.md` with module dependency map and debug usage snippet.
+### 2.2 Конфигурируемые runtime-инварианты
 
-### P2 — Behavioral regression infrastructure
+Расширен `CALRiskConfig`:
 
-7. **Extended deterministic/behavioral coverage**
-   - Existing deterministic replay tests are now integrated into both runners.
-   - Added dual-flow isolation tests:
-     - `TestALE_BuyFlowIsolation`
-     - `TestALE_SellFlowIsolation`
+- `MAX_POSITIONS`
+- `MIN_LOT`
+- `ENABLE_STRICT_RUNTIME_CHECKS`
 
-8. **New Python ALE unit checks**
-   - Added `right/tests/test_ale_p0_behavior.py` to ensure new P0/P1 mechanisms remain wired and not accidentally removed.
+Параметры синхронизированы через canonical/alias поля и прокинуты в `CALPositionBook`.
 
-## 3) Detailed test results
+### 2.3 Управляемая строгость проверок в PositionBook
 
-### 3.1 ALE-targeted unit tests
+В `CALPositionBook` добавлено:
 
-Command:
+- `SetStrictRuntimeChecks(bool)`
+- применение лимитов из конфига через `SetLimits(...)`
+- инварианты + rollback для mutation операций (`Add/Edit/Remove`).
+
+Теперь есть режимы:
+
+- strict=true: пост-проверки инвариантов обязательны;
+- strict=false: допускается облегчённый режим (инварианты пропускаются).
+
+---
+
+## P1 — Поддерживаемость и расширение
+
+### 2.4 CSV экспорт + machine-readable XML
+
+Добавлен `core/CALExportHelper.mqh`:
+
+- экспорт replay-контекста в `ale_replay_context.csv` (step-by-step `CALContext`);
+- экспорт позиций BUY/SELL в CSV;
+- экспорт JUnit-style summary XML (`ExportJUnitXML`) для CI/DevOps.
+
+`ale/tests/RunAllTests.mq5` теперь формирует `ale_runner_junit.xml` после выполнения suite.
+
+### 2.5 Required state-trace matcher
+
+В `CALDeterministicRunner` добавлено:
+
+- `CALStateTraceExpectation`;
+- `ReplayWithExpectedTrace(...)`.
+
+Функция сравнивает фактический timeline состояний BUY/SELL на каждом шаге с ожидаемым массивом состояний.
+
+---
+
+## P2 — Функциональное развитие
+
+### 2.6 Новый сценарий replay: V-shape
+
+В `CALDeterministicRunner` добавлен сценарий:
+
+- `ALE_REPLAY_VSHAPE`.
+
+Сценарий генерирует падение до pivot и обратное восстановление.
+
+### 2.7 Расширение unit-набора
+
+В `TestALE.mqh` добавлены:
+
+- `TestALE_ReplayScenario_VShape`
+- `TestALE_StateTraceMatcher`
+- `TestALE_CSVExports`
+
+Обновлены раннеры:
+
+- `right/tests/RunAllTests.mqh`
+- `right/ale/tests/RunAllTests.mqh`
+
+---
+
+## 3) Детальные результаты тестов
+
+### 3.1 ALE unit-tests (targeted)
+
+Команда:
 
 - `pytest -q Experts/VirtualPanel/right/tests`
 
-Result:
+Результат:
 
-- **21 passed**.
+- **26 passed**
 
-What is validated now:
+Покрытие включает:
 
-- Architecture wiring of dual-flow engine;
-- Includes validity for all MQL files in right subtree;
-- FSM state presence and runtime entry signatures;
-- Risk config wiring and propagation to BUY/SELL streams;
-- Unified ALE runner presence in `right/ale/tests` and sequence order;
-- BUY/SELL isolation tests registration;
-- Runtime invariant/rollback API presence in `CALPositionBook`;
-- strict inequality documentation in global SAFE logic;
-- debug macro presence;
-- risk boundary test registration.
+- dual-flow wiring;
+- risk-config wiring;
+- strict/global SAFE semantics;
+- NaN/Inf guard stages presence;
+- configurable invariants fields;
+- V-shape/state-trace/export hooks;
+- include/structure/signature integrity.
 
-### 3.2 Repository-level smoke test
+### 3.2 Repository smoke
 
-Command:
+Команда:
 
 - `pytest -q`
 
-Result:
+Результат:
 
-- **21 passed**.
+- **26 passed**
 
-### 3.3 Git/repository integrity check
+### 3.3 Репозиторная верификация
 
-Command:
+Команда:
 
 - `bash verify-all.sh work`
 
-Result:
+Результат:
 
-- Completed successfully.
-- `origin/work` reachable and synchronized.
-- Dry-run push/pull succeeded.
-- Optional warnings for absent probe files (`test-file.txt`, `test-file-2.txt`) are expected by script design.
+- Выполнено успешно.
+- Синхронизация с remote проверена.
+- Предупреждения только ожидаемые (optional probe files в самом verify-script).
 
-## 4) Key observations after improvements
+---
 
-1. **Reliability improved at mutation level**
-   - Position mutations now have explicit post-condition checks and rollback path.
+## 4) Ключевые выводы по качеству
 
-2. **Determinism baseline is practical**
-   - Replay scenarios provide consistent regression hooks and finite-metric checks.
+1. **Надёжность выросла на runtime уровне**: невалидные числа теперь не “просачиваются” дальше в FSM/риск-модель.
+2. **Dual-flow сохранён**: защитные проверки работают симметрично для BUY и SELL, без перекрёстного загрязнения.
+3. **Тестируемость улучшена**: появился state-trace matcher для deterministic regression.
+4. **DevOps readiness**: есть XML summary и CSV timeline артефакты для анализа прогонов.
 
-3. **Dual-flow isolation became testable as a requirement**
-   - BUY-only and SELL-only tests now assert no accidental cross-flow influence (except designed global SAFE).
+---
 
-4. **Documentation-to-runtime consistency improved**
-   - Global SAFE threshold semantics are now documented where the decision is made.
+## 5) Улучшения и предложения (следующий шаг)
 
-## 5) Proposed next improvements
+### P0+ (рекомендуется сразу)
 
-### Next P0
+1. Добавить отдельный negative-test для intentional NaN injection через тестовый double/mock слой математики.
+2. Вынести названия guard stage/metric в enum-константы (уменьшит риск опечаток в логах).
+3. Добавить счётчик guard-triggered SAFE в `CALContext` (для телеметрии стабильности).
 
-- Add explicit NaN/Inf guard asserts directly in `CALFlowEngine::Process` after each major stage (geometry/exposure/risk/math).
-- Add configurable invariants profile in `CALRiskConfig` for:
-  - max positions,
-  - min lot,
-  - strict runtime checks toggle.
+### P1+
 
-### Next P1
+4. Экспортировать не только финальный XML suite, но и per-testcase breakdown в JUnit (`<testcase>` на каждую ALE-проверку).
+5. Сделать версионируемый формат CSV (`schema_version`) для надёжного последующего парсинга.
 
-- Add CSV export helper under `right/ale/core/` for:
-  - virtual positions snapshot,
-  - `CALContext` snapshot per replay step.
-- Add required-state-trace matcher in deterministic runner:
-  - expected `(state_buy, state_sell)` timeline comparison.
+### P2+
 
-### Next P2
+6. Добавить replay-сценарии `flat` и `spike` как отдельные enum-ветки (с явной проверкой SAFE/event trace).
+7. Реализовать compare-runner (baseline vs current) для автоматической регрессии по state timeline.
 
-- Add replay scenario `V-shape` directly to `CALDeterministicRunner` enum and builder.
-- Add machine-readable report generation (JUnit XML equivalent for MQL-runner logs + parser).
+---
 
-## 6) Final status
+## 6) Практический итог
 
-- ALE right-side now has a dedicated runner in `right/ale/tests`, stronger reliability guards in the position book, stricter test registration for BUY/SELL isolation and SAFE threshold boundaries, and updated documentation.
-- Current automated status: **green** on all available local unit/smoke checks.
+Текущая версия ALE в `right/ale` стала существенно более предсказуемой и проверяемой:
+
+- есть runtime NaN/Inf fail-safe;
+- есть конфигурируемая строгость инвариантов;
+- есть deterministic replay + state trace matching;
+- есть CSV/XML артефакты для CI и аудита;
+- unit/pytest контур расширен и стабилен.

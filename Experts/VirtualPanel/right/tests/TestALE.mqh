@@ -70,6 +70,9 @@ bool PrepareRunner(CALDeterministicRunner &runner)
    cfg.SetDefaults();
    cfg.MAX_DRAWDOWN=0.35;
    cfg.STRESS_LIMIT=1.2;
+   cfg.MAX_POSITIONS=256;
+   cfg.MIN_LOT=0.01;
+   cfg.ENABLE_STRICT_RUNTIME_CHECKS=true;
    cfg.SyncAliases();
    runner.Init(cfg);
    return runner.AttachVirtuals(1.1000,0.10,1.1000,0.10);
@@ -133,6 +136,58 @@ bool TestALE_ReplayScenario_Crash()
    return (res.worst_dd_buy>=0.0 && res.worst_dd_sell>=0.0);
 }
 
+bool TestALE_ReplayScenario_VShape()
+{
+   CALDeterministicRunner runner;
+   if(!PrepareRunner(runner)) return false;
+
+   CALReplayResult res;
+   if(!runner.ReplayScenario(ALE_REPLAY_VSHAPE,1.1000,0.0006,18,res)) return false;
+   if(!res.ok || res.steps!=18) return false;
+   if(!IsFiniteALE(res.pnl_buy) || !IsFiniteALE(res.pnl_sell)) return false;
+   return (res.worst_dd_buy>=0.0 && res.worst_dd_sell>=0.0);
+}
+
+bool TestALE_StateTraceMatcher()
+{
+   CALDeterministicRunner runner;
+   if(!PrepareRunner(runner)) return false;
+
+   double prices[];
+   ArrayResize(prices,6);
+   prices[0]=1.1000;
+   prices[1]=1.1002;
+   prices[2]=1.0998;
+   prices[3]=1.1001;
+   prices[4]=1.1003;
+   prices[5]=1.1000;
+
+   CALStateTraceExpectation expected;
+   expected.Reset();
+   for(int i=0;i<ArraySize(prices);i++)
+      expected.Push(ALE_STATE_HARVEST,ALE_STATE_HARVEST);
+
+   CALReplayResult res;
+   if(!runner.ReplayWithExpectedTrace(prices,expected,res)) return false;
+   return (res.ok && res.steps==ArraySize(prices));
+}
+
+bool TestALE_CSVExports()
+{
+   CALDeterministicRunner runner;
+   if(!PrepareRunner(runner)) return false;
+
+   double buy_prices[]; double buy_lots[];
+   double sell_prices[]; double sell_lots[];
+   ArrayResize(buy_prices,1); ArrayResize(buy_lots,1);
+   ArrayResize(sell_prices,1); ArrayResize(sell_lots,1);
+   buy_prices[0]=1.1000; buy_lots[0]=0.10;
+   sell_prices[0]=1.1000; sell_lots[0]=0.10;
+
+   if(!runner.ExportAttachedVirtuals("ale_positions.csv",buy_prices,buy_lots,sell_prices,sell_lots)) return false;
+   if(!runner.ExportJUnitSummary("ale_runner_summary.xml",5,0)) return false;
+   return true;
+}
 
 bool TestALE_BuyFlowIsolation()
 {

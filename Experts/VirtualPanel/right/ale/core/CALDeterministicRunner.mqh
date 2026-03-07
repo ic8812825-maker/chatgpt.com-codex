@@ -2,13 +2,15 @@
 #define __CALDETERMINISTICRUNNER_MQH__
 
 #include "CALEngine.mqh"
+#include "CALExportHelper.mqh"
 
 enum ENUM_ALE_REPLAY_SCENARIO
 {
    ALE_REPLAY_UPTREND=0,
    ALE_REPLAY_DOWNTREND=1,
    ALE_REPLAY_OSCILLATION=2,
-   ALE_REPLAY_CRASH=3
+   ALE_REPLAY_CRASH=3,
+   ALE_REPLAY_VSHAPE=4
 };
 
 struct CALReplayResult
@@ -35,10 +37,32 @@ struct CALReplayResult
    }
 };
 
+struct CALStateTraceExpectation
+{
+   ENUM_ALE_STATE buy_states[];
+   ENUM_ALE_STATE sell_states[];
+
+   void Reset()
+   {
+      ArrayResize(buy_states,0);
+      ArrayResize(sell_states,0);
+   }
+
+   void Push(const ENUM_ALE_STATE buy_state,const ENUM_ALE_STATE sell_state)
+   {
+      const int n=ArraySize(buy_states);
+      ArrayResize(buy_states,n+1);
+      ArrayResize(sell_states,n+1);
+      buy_states[n]=buy_state;
+      sell_states[n]=sell_state;
+   }
+};
+
 class CALDeterministicRunner
 {
 private:
    CALEngine m_engine;
+   CALExportHelper m_export;
 
    bool IsFinite(const double v) const
    {
@@ -83,6 +107,17 @@ public:
          return;
       }
 
+      if(scenario==ALE_REPLAY_VSHAPE)
+      {
+         const int pivot=(count/2);
+         for(int v=0;v<count;v++)
+         {
+            if(v<=pivot) out_prices[v]=start-(step*v);
+            else out_prices[v]=start-(step*pivot)+(step*(v-pivot));
+         }
+         return;
+      }
+
       // ALE_REPLAY_CRASH
       for(int c=0;c<count;c++)
       {
@@ -99,6 +134,26 @@ public:
       return Replay(prices,out_result);
    }
 
+   bool ReplayWithExpectedTrace(const double &prices[],const CALStateTraceExpectation &expected,CALReplayResult &out_result)
+   {
+      out_result.Reset();
+      const int n=ArraySize(prices);
+      if(n<=0) return false;
+      if(ArraySize(expected.buy_states)!=n || ArraySize(expected.sell_states)!=n) return false;
+
+      for(int i=0;i<n;i++)
+      {
+         m_engine.OnPriceUpdate(prices[i]);
+         const CALContext ctx=m_engine.Context();
+
+         if(ctx.buy.state!=expected.buy_states[i]) return false;
+         if(ctx.sell.state!=expected.sell_states[i]) return false;
+         if(!IsFinite(ctx.buy.pnl) || !IsFinite(ctx.sell.pnl)) return false;
+      }
+
+      return Replay(prices,out_result);
+   }
+
    bool Replay(const double &prices[],CALReplayResult &out_result)
    {
       out_result.Reset();
@@ -106,18 +161,30 @@ public:
       if(n<=0)
          return false;
 
+      m_export.BeginReplayContextCSV("ale_replay_context.csv");
       for(int i=0;i<n;i++)
       {
          m_engine.OnPriceUpdate(prices[i]);
          const CALContext ctx=m_engine.Context();
+         m_export.AppendReplayStepCSV(i,ctx);
 
          if(!IsFinite(ctx.buy.pnl) || !IsFinite(ctx.sell.pnl))
+         {
+            m_export.EndReplayContextCSV();
             return false;
+         }
          if(!IsFinite(ctx.buy.net_delta) || !IsFinite(ctx.sell.net_delta))
+         {
+            m_export.EndReplayContextCSV();
             return false;
+         }
          if(!IsFinite(ctx.buy.worst_dd) || !IsFinite(ctx.sell.worst_dd))
+         {
+            m_export.EndReplayContextCSV();
             return false;
+         }
       }
+      m_export.EndReplayContextCSV();
 
       const CALContext final_ctx=m_engine.Context();
       out_result.ok=true;
@@ -129,6 +196,18 @@ public:
       out_result.worst_dd_buy=final_ctx.buy.worst_dd;
       out_result.worst_dd_sell=final_ctx.sell.worst_dd;
       return true;
+   }
+
+   bool ExportAttachedVirtuals(const string file_name,
+                               const double &buy_prices[],const double &buy_lots[],
+                               const double &sell_prices[],const double &sell_lots[])
+   {
+      return m_export.ExportPositionsCSV(file_name,buy_prices,buy_lots,sell_prices,sell_lots);
+   }
+
+   bool ExportJUnitSummary(const string file_name,const int total,const int failed)
+   {
+      return m_export.ExportJUnitXML(file_name,total,failed);
    }
 
    CALEngine Engine() const { return m_engine; }
