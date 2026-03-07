@@ -21,4 +21,4 @@ jobs:
         run: pip install pytest
 
       - name: Run ALE static runtime tests
-        run: pytest -v Experts/VirtualPanel/right/tests
+        run: pytest -v
