@@ -9,6 +9,7 @@
 #include "CALMarginModel.mqh"
 #include "CALDrawdownModel.mqh"
 #include "CALSafeMode.mqh"
+#include "..\\config\\CALRiskConfig.mqh"
 
 struct CALRiskReport
 {
@@ -37,8 +38,12 @@ private:
    CALDrawdownModel m_dd;
    CALSafeMode m_safe;
    CALReturnProbability m_prob;
+   CALRiskConfig m_cfg;
 public:
-   void Init(const int direction){ m_direction=direction; }
+   void Init(const int direction){ m_direction=direction; m_cfg.SetDefaults(); m_safe.SetParams(m_cfg.safe_alpha,m_cfg.safe_beta,m_cfg.safe_gamma,m_cfg.safe_k); }
+
+   void SetConfig(const CALRiskConfig &cfg){ m_cfg=cfg; m_safe.SetParams(m_cfg.safe_alpha,m_cfg.safe_beta,m_cfg.safe_gamma,m_cfg.safe_k); }
+   CALRiskConfig Config() const { return m_cfg; }
 
    virtual double CalculateDD(const double pnl,const double peak) const
    {
@@ -69,11 +74,12 @@ public:
       const double sigma=0.2;
       report.dd_probability=m_prob.HitLevelGBM(price,p_min,mu,sigma);
 
-      const double dd_max=0.30;
+      const double dd_max=(m_cfg.dd_max>0.0?m_cfg.dd_max:0.30);
       report.stress_ratio=report.worst_dd/(dd_max+1e-8);
 
       const bool phase_safe=m_safe.Evaluate(report.margin,report.worst_dd,ctx.net_delta,ctx.gamma);
-      report.safe_triggered=(report.stress_ratio>1.0) || (report.dd_probability>0.8) || (report.worst_dd>dd_max) || phase_safe;
+      const double stress_limit=(m_cfg.stress_limit>0.0?m_cfg.stress_limit:1.0);
+      report.safe_triggered=(report.stress_ratio>stress_limit) || (report.dd_probability>m_cfg.dd_prob_limit) || (report.worst_dd>dd_max) || phase_safe;
       return report;
    }
 

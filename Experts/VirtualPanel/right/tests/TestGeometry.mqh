@@ -39,4 +39,24 @@ bool TestGeometry_BuySellGrids()
    return true;
 }
 
+bool TestGeometry_LogGridMonotonicity()
+{
+   CALLogGeometry log_geo;
+   log_geo.SetBase(1.3);
+
+   CALGrid buy_grid;
+   log_geo.BuildGrid(ALE_FLOW_BUY,1.2000,5,buy_grid);
+   if(ArraySize(buy_grid.levels)!=5) return false;
+   for(int i=1;i<ArraySize(buy_grid.levels);i++)
+      if(!(buy_grid.levels[i]>buy_grid.levels[i-1])) return false;
+
+   CALGrid sell_grid;
+   log_geo.BuildGrid(ALE_FLOW_SELL,1.2000,5,sell_grid);
+   if(ArraySize(sell_grid.levels)!=5) return false;
+   for(int j=1;j<ArraySize(sell_grid.levels);j++)
+      if(!(sell_grid.levels[j]<sell_grid.levels[j-1])) return false;
+
+   return true;
+}
+
 #endif

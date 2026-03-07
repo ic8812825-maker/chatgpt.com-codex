@@ -64,6 +64,12 @@ public:
       m_prev_abs_delta=0.0;
    }
 
+
+   void SetRiskConfig(const CALRiskConfig &cfg)
+   {
+      m_risk.SetConfig(cfg);
+   }
+
    bool AddVirtual(const double price,const double lot)
    {
       if(lot<=0.0 || m_context.safe_active) return false;

@@ -3,6 +3,7 @@
 
 #include "..\\ale\\core\\CALEngine.mqh"
 #include "..\\ale\\core\\CALStateMachine.mqh"
+#include "..\\ale\\core\\CALDeterministicRunner.mqh"
 #include "..\\ale\\interfaces\\IMarketAdapter.mqh"
 
 class CMockMarketAdapter : public IMarketAdapter
@@ -61,6 +62,74 @@ bool TestALE_DualFlowIntegration()
    if(!NearALE(max_lot_zero,0.0,1e-12)) return false;
 
    return true;
+}
+
+bool PrepareRunner(CALDeterministicRunner &runner)
+{
+   CALRiskConfig cfg;
+   cfg.SetDefaults();
+   cfg.dd_max=0.35;
+   cfg.stress_limit=1.2;
+   runner.Init(cfg);
+   return runner.AttachVirtuals(1.1000,0.10,1.1000,0.10);
+}
+
+bool TestALE_DeterministicReplayHarness()
+{
+   CALDeterministicRunner runner;
+   if(!PrepareRunner(runner)) return false;
+
+   double prices[];
+   ArrayResize(prices,8);
+   prices[0]=1.1000;
+   prices[1]=1.1008;
+   prices[2]=1.1016;
+   prices[3]=1.1004;
+   prices[4]=1.0992;
+   prices[5]=1.1001;
+   prices[6]=1.0995;
+   prices[7]=1.1000;
+
+   CALReplayResult res;
+   if(!runner.Replay(prices,res)) return false;
+   if(!res.ok || res.steps!=8) return false;
+
+   if(!IsFiniteALE(res.pnl_buy) || !IsFiniteALE(res.pnl_sell)) return false;
+   if(!IsFiniteALE(res.worst_dd_buy) || !IsFiniteALE(res.worst_dd_sell)) return false;
+   return true;
+}
+
+bool TestALE_ReplayScenario_Uptrend()
+{
+   CALDeterministicRunner runner;
+   if(!PrepareRunner(runner)) return false;
+
+   CALReplayResult res;
+   if(!runner.ReplayScenario(ALE_REPLAY_UPTREND,1.1000,0.0002,16,res)) return false;
+   if(!res.ok || res.steps!=16) return false;
+   return IsFiniteALE(res.pnl_buy) && IsFiniteALE(res.pnl_sell);
+}
+
+bool TestALE_ReplayScenario_Oscillation()
+{
+   CALDeterministicRunner runner;
+   if(!PrepareRunner(runner)) return false;
+
+   CALReplayResult res;
+   if(!runner.ReplayScenario(ALE_REPLAY_OSCILLATION,1.1000,0.0005,20,res)) return false;
+   if(!res.ok || res.steps!=20) return false;
+   return IsFiniteALE(res.worst_dd_buy) && IsFiniteALE(res.worst_dd_sell);
+}
+
+bool TestALE_ReplayScenario_Crash()
+{
+   CALDeterministicRunner runner;
+   if(!PrepareRunner(runner)) return false;
+
+   CALReplayResult res;
+   if(!runner.ReplayScenario(ALE_REPLAY_CRASH,1.1000,0.0020,12,res)) return false;
+   if(!res.ok || res.steps!=12) return false;
+   return (res.worst_dd_buy>=0.0 && res.worst_dd_sell>=0.0);
 }
 
 #endif
