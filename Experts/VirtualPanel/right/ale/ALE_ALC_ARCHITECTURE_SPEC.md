@@ -1,149 +1,167 @@
-# ALE + ALC Architecture Specification (Implemented in this iteration)
+# ALE + ALC Stability Verification & Lock Algorithm Specification
 
-## 1. Problem Statement
+## 1) Objective
 
-Классический ALE-only pipeline (`geometry -> positions -> exposure -> risk -> optimization -> FSM`) не имеет структурной компрессии книги, что ведёт к росту depth, exposure, margin pressure и риск-эскалации.
+Ревизия вводит детальный алгоритм **Greedy Delta Matching + Geometry Rebuild** и интегрирует ALC в pipeline без разрушения ALE логики.
 
-## 2. ALC Layer
-
-Добавлен слой **ALC (Adaptive Lock Compression)** между `positions` и `exposure`.
+## 2) Pipeline Integration
 
 Новый pipeline:
 
 `geometry -> positions -> ALC compression -> exposure -> risk -> optimization -> FSM`
 
-## 3. Compression Type
+ALC расположен между `positions` и `exposure`.
 
-Используется **TYPE C — LOCK COMPRESSION**.
+## 3) Effective Delta
 
-В рамках текущей stream-local реализации compression применяет коэффициентное сжатие лотов книги (`alpha=0.5`) c сохранением относительной геометрии уровней.
 
-## 4. Trigger Conditions
+\[
+\Delta = \sum_i sign_i \cdot lot_i,\quad sign_i=\begin{cases}+1, & BUY\\-1,& SELL\end{cases}
+\]
 
-Compression trigger активируется при любом из условий:
+В коде effective delta вычисляется через `CALPositionBook::EffectiveDelta()` и используется в compression/risk.
 
-- `n > 8` (глубина структуры),
-- `margin_level < 200%`, где `margin_level = Equity / Margin * 100`,
-- `n >= max_levels` (`max_levels=30`),
-- SAFE-rescue path (`safe_active == true`).
+## 4) Greedy Delta Matching (Formal Pseudocode)
 
-## 5. Compression Coefficient
+```text
+Input:
+  BUY[]  - lots of buy positions
+  SELL[] - lots of sell positions
 
-- `alpha = 0.5`
-- `effective_exposure = exposure * alpha`
-- `delta_new = delta * alpha`
-- `margin_new = margin * alpha`
+1) Sort BUY descending by lot
+2) Sort SELL descending by lot
+3) i = 0, j = 0
+4) while i < len(BUY) and j < len(SELL):
+      L = min(BUY[i].lot, SELL[j].lot)
+      create lock_pair(BUY[i], SELL[j], L)
+      BUY[i].lot  -= L
+      SELL[j].lot -= L
+      if BUY[i].lot  == 0: i++
+      if SELL[j].lot == 0: j++
+5) Δ_before = sum(BUY_in) - sum(SELL_in)
+6) Δ_after  = sum(BUY_residual) - sum(SELL_residual)
 
-## 6. PnL Policy
-
-Compression не фиксирует PnL внешним close-all действием;
-PnL перераспределяется структурно вместе с лотами (пропорционально сжатию объёма).
-
-## 7. Max Levels Constraint
-
-- `max_levels = 30`
-- при достижении лимита новые уровни не добавляются,
-- запускается compression.
-
-## 8. SAFE Integration
-
-В SAFE режиме включён **Rescue Compression**:
-
-`SAFE -> ALC compression -> stabilization`
-
-## 9. Harvest Modes
-
-Поддерживаются:
-- `HARVEST_FULL` — принудительный SAFE обоих потоков,
-- `HARVEST_PARTIAL` — запуск stream compression без форсированного SAFE.
-
-## 10. Compression History
-
-Ведётся журнал событий компрессии:
-
-- `timestamp`
-- `levels_before`, `levels_after`
-- `delta_before`, `delta_after`
-- `margin_before`, `margin_after`
-
-## 11. Adaptive k
-
-`CALOptimalK` сохранён; в текущей итерации ALC интегрирован без изменения внешнего API `CALOptimalK`.
-Функциональная цель: `k = f(volatility, exposure, depth)` оставлена как точка следующей итерации.
-
-## 12. New Modules
-
-Добавлен каталог: `ale/compression/`
-
-- `CALCompressionEngine.mqh`
-- `CALLockCompression.mqh`
-- `CALCompressionHistory.mqh`
-- `CALCompressionScheduler.mqh`
-
-## 13. Main Compression API
-
-Текущий API в коде:
-
-```cpp
-bool ProcessCompression(CALPositionBook &book,
-                        CALStreamContext &ctx,
-                        const double equity,
-                        const bool safe_rescue);
+Invariant:
+  |Δ_after| <= |Δ_before|
 ```
 
-## 14. LOCK Compression Algebra
+## 5) Compression Trigger
 
-Базовые формулы:
+ALC trigger:
 
-- `L_i = L0 * k^i`
-- `V = Σ L_i`
-- `Δ = Σ sign_i * L_i`
-- `Δ_new = Δ * alpha`
+- `n > 8`
+- `margin_level < 200%`, где
+  \[
+  margin\_level = \frac{Equity}{Margin}\cdot 100
+  \]
+- `n >= max_levels`
+- SAFE rescue path
 
-Pair-lock reference form:
+## 6) Geometry Rebuild
 
-- `L_lock = min(B_i, S_j)`
-- `B_i_new = B_i - L_lock`
-- `S_j_new = S_j - L_lock`
+Чтобы не разрушать ALE геометрию после компрессии, выполняется rebuild:
 
-## 15. Optimization Objective
+\[
+L_i = L_0 \cdot k^i
+\]
 
-Компрессия направлена на уменьшение
+где `L0` вычисляется из сохранения суммарного объёма:
 
-`F = |Δ| + λ * Margin`
+\[
+\sum_{i=0}^{n-1}L_i = V_{total}
+\]
 
-## 16. Stability Intuition
+если `k!=1`:
 
-- Без ALC: `Risk ~ k^n`
-- С ALC: `Risk ~ alpha^m * k^n`
+\[
+L_0 = \frac{V_{total}}{\frac{k^n-1}{k-1}}
+\]
 
-где `m` — число компрессий.
+если `k=1`:
 
-## 17. Bounded Exposure Guardrails
+\[
+L_0 = V_{total}/n
+\]
 
-Система поддерживает bounded структуру при:
+Геометрический инвариант:
 
-- `alpha <= 0.5`
-- `n_max <= 30`
-- фазовом контроле `k*g < 1` + SAFE.
+\[
+|L_i - L_0 k^i| < \varepsilon
+\]
 
-## 18. FSM Extension
+## 7) Compression Policy
 
-В FSM добавлены:
+- `alpha = 0.5`
+- `effective_exposure_new = effective_exposure_old * alpha`
+- `margin_new = margin_old * alpha`
 
-- состояние `ALE_STATE_COMPRESSION`
-- сигнал `ALE_SIGNAL_COMPRESSION`
+PnL externally не фиксируется forced-close логикой; структура ребалансируется и затем пересчитывается на новой геометрии.
 
-## 19. Unit Test Targets (added)
+## 8) Stability & Risk Formulas
 
-Добавлены новые unit-test файлы:
+Без ALC:
 
-- `TestLockCompression.mqh`
-- `TestALCStability.mqh`
-- `TestCompressionMargin.mqh`
-- `TestCompressionPnL.mqh`
-- `TestCompressionTrigger.mqh`
+\[
+Risk \sim k^n
+\]
 
-## 20. Outcome
+С ALC:
 
-ALE расширен до **ALE + ALC**, где компрессия стала системным механизмом контроля depth/exposure/margin и стабилизации поведения при стрессовых состояниях.
+\[
+Risk \sim \alpha^m k^n
+\]
+
+Условие depth/margin устойчивости:
+
+\[
+Margin(n) = \sum_i \frac{lot_i\cdot contract\_size}{leverage}
+\]
+
+\[
+DD = \sum_i lot_i \cdot price\_distance_i
+\]
+
+margin collapse:
+
+\[
+Equity < Margin + DD
+\]
+
+оценка collapse probability:
+
+\[
+P_{collapse} \approx 1/n_{max}
+\]
+
+## 9) Safe Deposit
+
+Сценарная оценка:
+
+\[
+Deposit_{safe}(trend)=Margin_{req}+DD_{trend}+buffer
+\]
+
+buffer задаётся консервативным коэффициентом в тестовом анализе.
+
+## 10) New Verification Suite
+
+Добавлены unit targets:
+
+- `TestLockCompression`
+- `TestDeltaCalculation`
+- `TestGeometryPreservation`
+- `TestCompressionTrigger`
+- `TestCompressionMargin`
+- `TestALCStability`
+- `TestSafeDeposit`
+
+Каждый тест пишет отчёт в `tests/reports/*_report.md`.
+
+## 11) Final Report
+
+Генерируется `ALE_ALC_STABILITY_REPORT.md` с:
+
+- `n_max`
+- `P_collapse`
+- таблицей `Trend -> Required Deposit`
+- итоговым заключением.
