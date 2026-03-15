@@ -47,7 +47,7 @@ struct CALRiskConfig
       initial_equity=10000.0;
       growth_g=0.8;
 
-      min_margin_level=0.20;
+      min_margin_level=200.0;
       atr_limit=0.03;
       spread_limit=0.005;
       p_safe=0.10;

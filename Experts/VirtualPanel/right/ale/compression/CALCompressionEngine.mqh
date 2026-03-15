@@ -1,0 +1,103 @@
+#ifndef __CALCOMPRESSIONENGINE_MQH__
+#define __CALCOMPRESSIONENGINE_MQH__
+
+#include "CALLockCompression.mqh"
+#include "CALCompressionHistory.mqh"
+#include "CALCompressionScheduler.mqh"
+#include "..\\core\\CALContext.mqh"
+#include "..\\positions\\CALPositionBook.mqh"
+
+class CALCompressionEngine
+{
+private:
+   CALLockCompression m_lock;
+   CALCompressionHistory m_history;
+   CALCompressionScheduler m_scheduler;
+   double m_alpha;
+   int m_trigger_levels;
+   int m_max_levels;
+
+public:
+   CALCompressionEngine() : m_alpha(0.5), m_trigger_levels(8), m_max_levels(30) {}
+
+   void SetAlpha(const double alpha)
+   {
+      m_alpha=(alpha>0.0 && alpha<=1.0 ? alpha : 0.5);
+   }
+
+   void SetTriggerLevels(const int levels)
+   {
+      m_trigger_levels=(levels>0?levels:8);
+   }
+
+   void SetMaxLevels(const int levels)
+   {
+      m_max_levels=(levels>0?levels:30);
+   }
+
+   int MaxLevels() const { return m_max_levels; }
+   int HistorySize() const { return m_history.Size(); }
+   CALCompressionEvent LastEvent() const { return m_history.Last(); }
+   void SetScheduleEveryTicks(const int n){ m_scheduler.SetEveryTicks(n); }
+   void ResetHistory(){ m_history.Reset(); }
+
+   bool ShouldTrigger(const CALPositionBook &book,const double margin,const double equity,const bool safe_active) const
+   {
+      const int n=book.Size();
+      if(n>m_trigger_levels) return true;
+      if(n>=m_max_levels) return true;
+
+      if(margin>1e-12)
+      {
+         const double margin_level=(equity/margin)*100.0;
+         if(margin_level<200.0) return true;
+      }
+
+      if(safe_active) return true; // Rescue Compression inside SAFE
+      return false;
+   }
+
+   bool ProcessCompression(CALPositionBook &book,CALStreamContext &ctx,const double equity,const bool safe_rescue)
+   {
+      if(!m_scheduler.ShouldRun())
+         return false;
+
+      if(!ShouldTrigger(book,ctx.margin,equity,safe_rescue))
+         return false;
+
+      const int levels_before=book.Size();
+      const double delta_before=book.Delta();
+      const double margin_before=ctx.margin;
+
+      if(levels_before<=0)
+         return false;
+
+      if(levels_before>m_max_levels)
+         book.TrimTail(levels_before-m_max_levels);
+
+      const bool compressed=m_lock.Compress(book,m_alpha);
+      if(!compressed)
+         return false;
+
+      const int levels_after=book.Size();
+      const double delta_after=book.Delta();
+      const double margin_after=margin_before*m_alpha;
+
+      ctx.net_delta*=m_alpha;
+      ctx.exposure*=m_alpha;
+      ctx.margin=margin_after;
+
+      CALCompressionEvent ev;
+      ev.timestamp=(long)TimeCurrent();
+      ev.levels_before=levels_before;
+      ev.levels_after=levels_after;
+      ev.delta_before=delta_before;
+      ev.delta_after=delta_after;
+      ev.margin_before=margin_before;
+      ev.margin_after=margin_after;
+      m_history.Add(ev);
+      return true;
+   }
+};
+
+#endif

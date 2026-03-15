@@ -10,6 +10,7 @@
 #include "..\\positions\\CALPositionBook.mqh"
 #include "..\\positions\\CALDeltaTracker.mqh"
 #include "..\\positions\\CALLotModel.mqh"
+#include "..\\compression\\CALCompressionEngine.mqh"
 #include "..\\exposure\\CALExposureFlow.mqh"
 #include "..\\risk\\CALRiskEngine.mqh"
 #include "..\\math\\CALGBMModel.mqh"
@@ -33,6 +34,7 @@ private:
    CALFixedStep m_geometry;
    CALGridBuilder m_grid_builder;
    CALPositionBook m_book;
+   CALCompressionEngine m_compression;
    CALExposureFlow m_exposure;
    CALRiskEngine m_risk;
 
@@ -62,6 +64,9 @@ public:
       m_fsm.Reset();
       m_grid_builder.SetGeometry(m_geometry);
       m_book.Init(direction);
+      m_compression.SetAlpha(0.5);
+      m_compression.SetTriggerLevels(8);
+      m_compression.SetMaxLevels(30);
       m_exposure.Init(direction);
       m_risk.Init(direction,m_cfg);
       m_equity=m_cfg.initial_equity;
@@ -72,6 +77,11 @@ public:
    bool AddVirtual(const double price,const double lot)
    {
       if(lot<=0.0 || m_context.safe_active) return false;
+      if(m_book.Size()>=m_compression.MaxLevels())
+      {
+         RequestCompression(price,false);
+         return false;
+      }
       if(!m_lot_model.CanAddLevel(m_cum_volume,m_book.Size(),MathMax(1e-6,lot),m_cfg.growth_g)) return false;
       const bool ok=m_book.Add(price,lot);
       if(ok) m_cum_volume += MathAbs(lot);
@@ -84,11 +94,33 @@ public:
       return m_grid_builder.BuildGrid(m_direction,center,levels,out_grid);
    }
 
+   bool RequestCompression(const double price,const bool rescue)
+   {
+      m_context.pnl=m_book.PnLAtPrice(price,1.0);
+      m_context.net_delta=m_delta.CalculateNetDelta(m_book,m_direction);
+      m_exposure.Recalculate(m_book,price);
+      m_context.exposure=m_exposure.Exposure();
+
+      const bool compressed=m_compression.ProcessCompression(m_book,m_context,m_equity,rescue);
+      if(compressed)
+      {
+         m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_COMPRESSION);
+         m_context.net_delta=m_delta.CalculateNetDelta(m_book,m_direction);
+      }
+      return compressed;
+   }
+
+   bool PartialHarvest(const double price)
+   {
+      return RequestCompression(price,false);
+   }
+
    void Process(const double price)
    {
-      // STRICT PIPELINE: MarketTick -> Geometry -> Positions -> Exposure -> Risk -> Optimization
+      // STRICT PIPELINE: MarketTick -> Geometry -> Positions -> ALC Compression -> Exposure -> Risk -> Optimization
       if(m_context.safe_active)
       {
+         RequestCompression(price,true);
          m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_SAFE_TRIGGERED);
          return;
       }
@@ -98,6 +130,8 @@ public:
 
       m_context.pnl=m_book.PnLAtPrice(price,1.0);
       m_context.net_delta=m_delta.CalculateNetDelta(m_book,m_direction);
+
+      const bool compressed=RequestCompression(price,false);
 
       m_exposure.Recalculate(m_book,price);
       m_context.exposure=m_exposure.Exposure();
@@ -111,6 +145,7 @@ public:
 
       if(m_context.safe_active)
       {
+         RequestCompression(price,true);
          m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_SAFE_TRIGGERED);
          return;
       }
@@ -137,13 +172,19 @@ public:
          m_prev_abs_delta=abs_delta;
 
       ENUM_ALE_SIGNAL signal=ALE_SIGNAL_PRICE_MOVE;
-      if(m_context.pnl>=m_cfg.harvest_target) signal=ALE_SIGNAL_HARVEST_REACHED;
-      else if(m_context.worst_dd>m_cfg.dd_max*m_equity) signal=ALE_SIGNAL_DRAWDOWN_EXCEEDED;
+      if(compressed)
+         signal=ALE_SIGNAL_COMPRESSION;
+      else if(m_context.pnl>=m_cfg.harvest_target)
+         signal=ALE_SIGNAL_HARVEST_REACHED;
+      else if(m_context.worst_dd>m_cfg.dd_max*m_equity)
+         signal=ALE_SIGNAL_DRAWDOWN_EXCEEDED;
       m_context.state=m_fsm.TransitionBySignal(signal);
    }
 
    CALStreamContext Context() const { return m_context; }
    ENUM_ALE_STATE State() const { return m_context.state; }
+   int Levels() const { return m_book.Size(); }
+   int CompressionCount() const { return m_compression.HistorySize(); }
    void ForceSAFE(){ m_context.safe_active=true; m_context.state=ALE_STATE_SAFE; }
 };
 

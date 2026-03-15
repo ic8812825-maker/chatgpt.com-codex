@@ -66,13 +66,18 @@ public:
       return false;
    }
 
-   void Harvest(const ENUM_ALE_HARVEST_MODE mode)
+   void Harvest(const ENUM_ALE_HARVEST_MODE mode,const double price)
    {
       if(mode==ALE_HARVEST_FULL)
       {
          m_buy_stream.ForceSAFE();
          m_sell_stream.ForceSAFE();
+         return;
       }
+
+      // HARVEST_PARTIAL: run ALC compression without forcing SAFE
+      m_buy_stream.PartialHarvest(price);
+      m_sell_stream.PartialHarvest(price);
    }
 
    virtual void OnPriceUpdate(const double price)
@@ -86,14 +91,14 @@ public:
 
       if(CheckGlobalSAFE())
       {
-         Harvest(ALE_HARVEST_FULL);
+         Harvest(ALE_HARVEST_FULL,price);
          SyncContext();
          m_last_event.OnSAFETriggeredGlobal();
       }
 
       const double totalPnL=AggregatePnL();
-      if(totalPnL>m_cfg.harvest_target) Harvest(ALE_HARVEST_FULL);
-      else if(m_context.buy.pnl>m_cfg.cluster_target || m_context.sell.pnl>m_cfg.cluster_target) Harvest(ALE_HARVEST_PARTIAL);
+      if(totalPnL>m_cfg.harvest_target) Harvest(ALE_HARVEST_FULL,price);
+      else if(m_context.buy.pnl>m_cfg.cluster_target || m_context.sell.pnl>m_cfg.cluster_target) Harvest(ALE_HARVEST_PARTIAL,price);
       SyncContext();
 
       const ENUM_ALE_STATE new_buy=m_buy_stream.State();

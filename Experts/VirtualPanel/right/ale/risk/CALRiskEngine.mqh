@@ -96,7 +96,7 @@ public:
       const double denom=MathMax(1e-12,equity*m_cfg.dd_max);
       report.stress_ratio=report.worst_dd/denom;
 
-      const double margin_level=(equity>1e-12 ? (equity-report.margin)/equity : 0.0);
+      const double margin_level=(report.margin>1e-12 ? (equity/report.margin)*100.0 : 1e9);
       const double atr=MathAbs(price-p_min)/MathMax(1e-12,price);
       const double spread=MathAbs(price-pnl_min)-MathAbs(price-pnl_max);
       const double p_return=1.0-report.dd_probability;

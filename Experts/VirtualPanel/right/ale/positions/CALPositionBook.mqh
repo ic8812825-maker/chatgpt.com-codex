@@ -50,6 +50,33 @@ public:
       return s;
    }
 
+
+
+   bool ScaleLots(const double alpha)
+   {
+      if(alpha<=0.0 || alpha>1.0)
+         return false;
+      const int n=ArraySize(m_positions);
+      if(n<=0)
+         return false;
+
+      for(int i=0;i<n;i++)
+         m_positions[i].lot=MathMax(0.0,m_positions[i].lot*alpha);
+      return true;
+   }
+
+   bool TrimTail(const int count)
+   {
+      if(count<=0)
+         return false;
+      const int n=ArraySize(m_positions);
+      if(n<=0)
+         return false;
+
+      const int keep=MathMax(0,n-count);
+      ArrayResize(m_positions,keep);
+      return true;
+   }
    double PnLAtPrice(const double p,const double contract_size) const
    {
       double s=0.0;
