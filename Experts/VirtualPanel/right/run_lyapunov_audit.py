@@ -7,6 +7,13 @@ import random
 from pathlib import Path
 from statistics import mean
 
+
+def variance(xs):
+    if not xs:
+        return 0.0
+    m = sum(xs)/len(xs)
+    return sum((x-m)*(x-m) for x in xs)/len(xs)
+
 ROOT = Path(__file__).resolve().parent
 ALE_ROOT = ROOT / "ale"
 ART_DIR = ALE_ROOT / "lyapunov" / "artifacts"
@@ -195,6 +202,8 @@ def run():
                 "p_base": base_risk["p_collapse"],
                 "p_ctrl": ctrl_risk["p_collapse"],
                 "tail_delta_risk": base_risk["p_collapse"] - ctrl_risk["p_collapse"],
+                "dV_var": variance(dn),
+                "recovery_speed": ctrl_risk["activity_ratio"] - base_risk["activity_ratio"],
             }
         )
 
@@ -256,6 +265,16 @@ def run():
     ]
     for r in rows:
         lyap_md.append(f"| {r['mode']} | {r['p_base']:.4f} | {r['p_ctrl']:.4f} | {r['tail_delta_risk']:.4f} |")
+
+
+    lyap_md += [
+        "",
+        "## Additional metrics",
+        "| scenario | E[ΔV] | worst ΔV | ΔV variance | recovery speed |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for r in rows:
+        lyap_md.append(f"| {r['mode']} | {r['E_dV']:.6f} | {r['worst_dV']:.6f} | {r['dV_var']:.6f} | {r['recovery_speed']:.4f} |")
 
     lyap_md += ["", "## Graphs (generated)", f"- Heatmap: ![dV heatmap]({heatmap_path.relative_to(ROOT).as_posix()})"]
     for mode, p in plot_refs:

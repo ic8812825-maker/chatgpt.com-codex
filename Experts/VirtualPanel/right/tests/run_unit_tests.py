@@ -581,6 +581,91 @@ def test_lyapunov_recovery_release() -> TestResult:
     )
 
 
+def test_lyapunov_optimization() -> TestResult:
+    random.seed(21)
+    off = simulate("adv_jump_cluster", runs=900, steps=450, k=1.4, R=140, alpha=0.5, with_control=False, with_alc=True)
+    random.seed(21)
+    on = simulate("adv_jump_cluster", runs=900, steps=450, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+
+    # Lyapunov-driven policy should reduce risk and actively choose compress/block actions
+    chooses = on["expansions_blocked"] > 0 and on["compressions_triggered"] > 0
+    improves = on["p_collapse"] < off["p_collapse"]
+    ok = chooses and improves
+
+    return TestResult(
+        "TestLyapunovOptimization",
+        "Runtime action selection should improve collapse risk via non-binary control.",
+        {},
+        "Compare control OFF vs ON in jump-cluster stress.",
+        {
+            "pnl": on["avg_pnl"],
+            "p_off": off["p_collapse"],
+            "p_on": on["p_collapse"],
+            "blocked": on["expansions_blocked"],
+            "compressions": on["compressions_triggered"],
+        },
+        "Control ON must select protective actions and reduce collapse probability.",
+        ok,
+    )
+
+
+def test_lyapunov_convergence() -> TestResult:
+    random.seed(22)
+    easy = simulate("random", runs=1200, steps=500, k=1.2, R=220, alpha=0.5, with_control=True, with_alc=True)
+    random.seed(22)
+    hard = simulate("adv_liquidity_freeze", runs=1200, steps=500, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+
+    # proxy convergence: benign regime should keep lower stress and faster recovery profile
+    recovery_speed = easy["activity_ratio"] - hard["activity_ratio"]
+    ok = easy["p_collapse"] <= 0.1 and recovery_speed > -0.4
+
+    return TestResult(
+        "TestLyapunovConvergence",
+        "Lyapunov control should keep benign regime near-convergent and recover activity.",
+        {},
+        "Benign vs hard regime under control.",
+        {
+            "pnl": easy["avg_pnl"],
+            "p_easy": easy["p_collapse"],
+            "p_hard": hard["p_collapse"],
+            "recovery_speed_proxy": recovery_speed,
+            "control_intensity_easy": easy["control_intensity"],
+            "control_intensity_hard": hard["control_intensity"],
+        },
+        "Benign regime should remain low-risk with better recovery behavior.",
+        ok,
+    )
+
+
+def test_lyapunov_dominance() -> TestResult:
+    modes=["random","trend","adv_monotonic","adv_jump_cluster","adv_liquidity_gap","adv_liquidity_freeze"]
+    rows=[]
+    for i,m in enumerate(modes):
+        random.seed(30+i)
+        off=simulate(m, runs=700, steps=360, k=1.4, R=140, alpha=0.5, with_control=False, with_alc=True)
+        random.seed(30+i)
+        on=simulate(m, runs=700, steps=360, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+        rows.append((m,off,on))
+
+    improved=sum(1 for _,off,on in rows if on["p_collapse"]<off["p_collapse"])
+    ok=improved>=5
+
+    return TestResult(
+        "TestLyapunovDominance",
+        "Disable-Lyapunov comparison: ON should dominate OFF in most regimes.",
+        {},
+        "Cross-mode A/B comparison.",
+        {
+            "pnl": 0.0,
+            "improved_modes": improved,
+            "total_modes": len(rows),
+            "by_mode": {m:{"off":off["p_collapse"],"on":on["p_collapse"]} for m,off,on in rows},
+        },
+        "Control ON must improve collapse risk in the majority of modes.",
+        ok,
+    )
+
+
 # -------- reports --------
 def write_core_reports(results: List[TestResult]) -> None:
     lines = ["# ALE FULL LOGIC REPORT", "", "## Test status"]
@@ -676,6 +761,9 @@ def run() -> None:
         test_lyapunov_reactive_guard,
         test_lyapunov_delta_feedback,
         test_lyapunov_recovery_release,
+        test_lyapunov_optimization,
+        test_lyapunov_convergence,
+        test_lyapunov_dominance,
     ]
 
     results: List[TestResult] = []

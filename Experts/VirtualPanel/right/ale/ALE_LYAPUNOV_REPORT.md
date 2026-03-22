@@ -23,6 +23,16 @@ Dynamic quantile normalization + log compression + control/latency/compression t
 | adv_liquidity_gap | 0.9278 | 0.0000 | 0.9278 |
 | adv_liquidity_freeze | 0.9933 | 0.0000 | 0.9933 |
 
+## Additional metrics
+| scenario | E[ΔV] | worst ΔV | ΔV variance | recovery speed |
+|---|---:|---:|---:|---:|
+| random | 0.000251 | 0.055502 | 0.000062 | -0.6059 |
+| trend | 0.000421 | 0.057553 | 0.000035 | -0.6533 |
+| adv_monotonic | 0.000720 | 0.028037 | 0.000012 | -0.0454 |
+| adv_jump_cluster | 0.000618 | 0.053198 | 0.000028 | -0.9343 |
+| adv_liquidity_gap | 0.000730 | 0.066062 | 0.000041 | -0.7407 |
+| adv_liquidity_freeze | 0.000679 | 0.088587 | 0.000040 | -0.8099 |
+
 ## Graphs (generated)
 - Heatmap: ![dV heatmap](ale/lyapunov/artifacts/dV_heatmap.png)
 - random: ![random](ale/lyapunov/artifacts/V_random.png)

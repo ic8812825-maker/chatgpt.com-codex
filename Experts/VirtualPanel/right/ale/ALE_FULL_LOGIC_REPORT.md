@@ -14,3 +14,6 @@
 - TestLyapunovReactiveGuard: PASS
 - TestLyapunovDeltaFeedback: PASS
 - TestLyapunovRecoveryRelease: PASS
+- TestLyapunovOptimization: PASS
+- TestLyapunovConvergence: PASS
+- TestLyapunovDominance: PASS

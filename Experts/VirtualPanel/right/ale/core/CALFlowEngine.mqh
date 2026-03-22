@@ -27,6 +27,15 @@
 class CALStreamEngine
 {
 private:
+   enum ENUM_LYAP_ACTION
+   {
+      LYAP_ACT_HOLD=0,
+      LYAP_ACT_EXPAND=1,
+      LYAP_ACT_COMPRESS=2,
+      LYAP_ACT_PARTIAL_CLOSE=3,
+      LYAP_ACT_SAFE=4
+   };
+
    int m_direction;
    CALRiskConfig m_cfg;
    CALStateMachine m_fsm;
@@ -88,6 +97,9 @@ private:
       m_context.lyapunov_v=v;
       m_context.lyapunov_delta=dv;
 
+      // continuous control strength: dV↑ -> control↑
+      m_context.lyapunov_control_strength=CALLyapunovMetrics::Clamp01(0.65*v + 5.0*MathMax(0.0,dv));
+
       if(v>0.85 || dv>0.03) m_context.lyapunov_risk_level=3;
       else if(v>0.70 || dv>0.015) m_context.lyapunov_risk_level=2;
       else if(v>0.55 || dv>0.005) m_context.lyapunov_risk_level=1;
@@ -97,19 +109,82 @@ private:
       m_has_lyap_prev=true;
    }
 
+   double PredictDeltaVForAction(const CALLyapunovState &s,const ENUM_LYAP_ACTION action,const double strength,const double price) const
+   {
+      CALLyapunovState n=s;
+      const double e=MathMax(0.0,MathMin(1.0,strength));
+
+      if(action==LYAP_ACT_EXPAND)
+      {
+         n.exposure*=1.0 + 0.25*(1.0-e);
+         n.margin_usage*=1.0 + 0.20*(1.0-e);
+         n.depth+=1.0;
+      }
+      else if(action==LYAP_ACT_COMPRESS)
+      {
+         n.exposure*=1.0 - 0.55*e;
+         n.margin_usage*=1.0 - 0.40*e;
+         n.depth=MathMax(1.0,n.depth-1.0);
+         n.unrealized_loss*=1.0 - 0.20*e;
+      }
+      else if(action==LYAP_ACT_PARTIAL_CLOSE)
+      {
+         n.exposure*=1.0 - 0.35*e;
+         n.margin_usage*=1.0 - 0.25*e;
+         n.depth=MathMax(1.0,n.depth-0.5);
+      }
+      else if(action==LYAP_ACT_SAFE)
+      {
+         n.exposure*=0.40;
+         n.margin_usage*=0.55;
+         n.depth=MathMax(1.0,n.depth-2.0);
+         n.unrealized_loss*=0.75;
+      }
+
+      n.distance_to_be=MathMax(0.0,n.distance_to_be*(1.0-0.15*e));
+      n.tail_effect=CALLyapunovTailEffect::EstimateRiskProxy(n.margin_usage,n.depth,n.exposure);
+
+      return m_lyap.V(n)-m_context.lyapunov_v;
+   }
+
+   ENUM_LYAP_ACTION SelectLyapunovAction(const CALLyapunovState &s,const double price) const
+   {
+      const double u=m_context.lyapunov_control_strength;
+      ENUM_LYAP_ACTION actions[5]={LYAP_ACT_HOLD,LYAP_ACT_EXPAND,LYAP_ACT_COMPRESS,LYAP_ACT_PARTIAL_CLOSE,LYAP_ACT_SAFE};
+
+      ENUM_LYAP_ACTION best=LYAP_ACT_HOLD;
+      double best_dv=1e9;
+      for(int i=0;i<5;i++)
+      {
+         const ENUM_LYAP_ACTION a=actions[i];
+         if(a==LYAP_ACT_EXPAND && m_context.lyapunov_risk_level>=1) continue;
+         if(a==LYAP_ACT_HOLD && m_context.lyapunov_risk_level>=3) continue;
+
+         const double dv=PredictDeltaVForAction(s,a,u,price);
+         if(dv<best_dv)
+         {
+            best_dv=dv;
+            best=a;
+         }
+      }
+      return best;
+   }
+
    bool LyapunovAllowsExpansion() const
    {
-      if(m_context.lyapunov_risk_level>=3) return false;
-      if(m_context.lyapunov_risk_level>=2 && m_context.lyapunov_delta>0.0) return false;
-      return true;
+      return (m_context.lyapunov_risk_level==0 && m_context.lyapunov_delta<=0.0);
    }
 
    void ApplyLyapunovControl(const double price)
    {
       m_context.lyapunov_action_code=0;
+      const CALLyapunovState s=BuildLyapunovState(price);
+      const double u=m_context.lyapunov_control_strength;
+      const ENUM_LYAP_ACTION act=SelectLyapunovAction(s,price);
 
-      if(m_context.lyapunov_risk_level>=3)
+      if(act==LYAP_ACT_SAFE)
       {
+         m_compression.SetAlpha(MathMax(0.20,1.0-0.8*u));
          RequestCompression(price,true);
          m_context.safe_active=true;
          m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_LYAPUNOV_CRITICAL);
@@ -117,18 +192,31 @@ private:
          return;
       }
 
-      if(m_context.lyapunov_risk_level>=2)
+      if(act==LYAP_ACT_COMPRESS)
       {
+         m_compression.SetAlpha(MathMax(0.30,1.0-0.7*u));
          RequestCompression(price,false);
          m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_LYAPUNOV_GUARD);
          m_context.lyapunov_action_code=2;
          return;
       }
 
-      if(m_context.lyapunov_risk_level==1)
+      if(act==LYAP_ACT_PARTIAL_CLOSE)
       {
-         m_context.lyapunov_action_code=1;
+         m_compression.SetAlpha(MathMax(0.55,1.0-0.35*u));
+         RequestCompression(price,false);
+         m_context.lyapunov_action_code=4;
+         return;
       }
+
+      if(act==LYAP_ACT_EXPAND)
+      {
+         m_context.lyapunov_action_code=0;
+         return;
+      }
+
+      if(m_context.lyapunov_risk_level>=1)
+         m_context.lyapunov_action_code=1;
    }
 
 public:
@@ -195,7 +283,7 @@ public:
 
    void Process(const double price)
    {
-      // STRICT PIPELINE: MarketTick -> Geometry -> Positions -> ALC Compression -> Exposure -> Risk -> Optimization -> Lyapunov feedback
+      // STRICT PIPELINE: MarketTick -> Geometry -> Positions -> ALC Compression -> Exposure -> Risk -> Optimization -> Lyapunov action selection
       if(m_context.safe_active)
       {
          RequestCompression(price,true);
@@ -245,8 +333,8 @@ public:
       const double ev=(m_direction==ALE_FLOW_BUY?m_expect.ForBuy(p_ret,1.0,1.0):m_expect.ForSell(p_ret,1.0,1.0));
       const double cf=m_closed_form.ExpectedPnL(p_ret,1.0,1.0);
 
-      // Lyapunov guard can damp optimization aggressiveness
-      const double lyap_guard=(m_context.lyapunov_risk_level>=1 ? 0.5 : 1.0);
+      // non-binary damping from control strength
+      const double lyap_guard=MathMax(0.15,1.0-m_context.lyapunov_control_strength);
       m_context.exposure += 0.0*(lot_opt*lyap_guard + hedge_lot) + 0.0*levels_opt + 0.0*ev + 0.0*cf + 0.0*mu_crit;
       if(!stable) m_context.worst_dd=MathMax(m_context.worst_dd,m_cfg.dd_max);
 
@@ -255,9 +343,9 @@ public:
          m_prev_abs_delta=abs_delta;
 
       ENUM_ALE_SIGNAL signal=ALE_SIGNAL_PRICE_MOVE;
-      if(m_context.lyapunov_risk_level>=3)
+      if(m_context.lyapunov_action_code==3)
          signal=ALE_SIGNAL_LYAPUNOV_CRITICAL;
-      else if(m_context.lyapunov_risk_level>=2)
+      else if(m_context.lyapunov_action_code==2 || m_context.lyapunov_action_code==4)
          signal=ALE_SIGNAL_LYAPUNOV_GUARD;
       else if(compressed)
          signal=ALE_SIGNAL_COMPRESSION;

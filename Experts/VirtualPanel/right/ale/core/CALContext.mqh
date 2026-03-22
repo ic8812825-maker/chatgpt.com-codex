@@ -35,7 +35,8 @@ struct CALStreamContext
    double lyapunov_delta;
    double lyapunov_prev_v;
    int lyapunov_risk_level;   // 0=low 1=guard 2=high 3=critical
-   int lyapunov_action_code;  // 0=none 1=limit_expansion 2=compress 3=safe
+   int lyapunov_action_code;  // 0=none 1=limit_expansion 2=compress 3=safe 4=partial_close
+   double lyapunov_control_strength;
 
    void Reset()
    {
@@ -53,6 +54,7 @@ struct CALStreamContext
       lyapunov_prev_v=0.0;
       lyapunov_risk_level=0;
       lyapunov_action_code=0;
+      lyapunov_control_strength=0.0;
    }
 };
 

@@ -4,48 +4,69 @@
 
 Runtime-вычисление Lyapunov телеметрии встроено в `CALFlowEngine`:
 
-- формирование состояния: `BuildLyapunovState(...)`
-- расчет `V` и `ΔV`: `UpdateLyapunovTelemetry(...)`
-- принятие управляющего действия: `ApplyLyapunovControl(...)`
+- `BuildLyapunovState(...)`
+- `UpdateLyapunovTelemetry(...)`
 
-## 2) Где используется в runtime
+Там же рассчитывается непрерывная сила управления:
 
-Lyapunov используется вне `/lyapunov/` в ядре:
+- `lyapunov_control_strength = f(V, ΔV)`
 
-- `CALFlowEngine::AddVirtual(...)` — запрет expansion при высоком Lyapunov-риске
-- `CALFlowEngine::Process(...)` — Lyapunov guard/critical сигналы влияют на compression/SAFE
-- `CALRiskEngine::Evaluate(...)` — Lyapunov критичность участвует в SAFE-триггере
-- `CALCompressionEngine::ShouldTrigger(...)` — Lyapunov risk/delta ускоряют compression trigger
-- `CALStateMachine` — новые сигналы `ALE_SIGNAL_LYAPUNOV_GUARD/CRITICAL`
+## 2) Где выбирается действие, минимизирующее ΔV (КЛЮЧЕВОЕ)
 
-## 3) Feedback loop
+**Файл:** `Experts/VirtualPanel/right/ale/core/CALFlowEngine.mqh`  
+**Функция:** `SelectLyapunovAction(...)`
 
-Замкнутый контур управления:
+Логика:
 
-`state -> V/ΔV -> guard/critical action -> compression/SAFE/expansion gating -> new state`
+1. Генерируются кандидаты действий:
+   - `HOLD`, `EXPAND`, `COMPRESS`, `PARTIAL_CLOSE`, `SAFE`
+2. Для каждого кандидата вычисляется прогноз:
+   - `PredictDeltaVForAction(...)` -> `ΔV_pred = V_next - V_now`
+3. В runtime выбирается действие с минимальным `ΔV_pred`.
 
-Реакции:
+Это не пороговый `if(flag)`, а selection через objective `min ΔV`.
 
-- рост `V` / положительный `ΔV` -> усиление контроля
-- Lyapunov critical -> SAFE + rescue compression
-- снижение риска -> ослабление блокировок и восстановление активности
+## 3) Небинарное управление
 
-## 4) Согласование Python ↔ MQL
+В `CALFlowEngine` используется **небинарная** интенсивность:
 
-Слои приведены к общей концепции:
+- `lyapunov_control_strength` (0..1)
+- compression alpha масштабируется непрерывно: `alpha = 1 - k*strength`
+- expansion damping масштабируется непрерывно: `lyap_guard = 1 - strength`
 
-- единый набор факторов риска (drawdown, exposure, margin, depth, distance, loss)
-- учет control/latency/compression в улучшенной формуле
-- baseline vs improved сравнение в Python-аудите и отчетах
+Связь:
 
-## 5) Телеметрия
+- `ΔV` растет -> `control_strength` растет
+- `ΔV` снижается -> контроль ослабевает
 
-В `CALStreamContext` добавлены поля:
+## 4) Feedback loop
 
-- `lyapunov_v`
-- `lyapunov_delta`
-- `lyapunov_prev_v`
-- `lyapunov_risk_level`
-- `lyapunov_action_code`
+Замкнутый контур:
 
-Это позволяет трассировать, почему принято конкретное runtime-решение.
+`state -> V/ΔV -> action selection(min ΔV) -> runtime action -> new state`
+
+Где action влияет на:
+
+- expansion gating
+- compression/partial close
+- SAFE
+- FSM transitions (`ALE_SIGNAL_LYAPUNOV_GUARD/CRITICAL`)
+
+## 5) Где Lyapunov влияет вне `/lyapunov/`
+
+- `CALFlowEngine::AddVirtual(...)`
+- `CALFlowEngine::ApplyLyapunovControl(...)`
+- `CALFlowEngine::Process(...)`
+- `CALRiskEngine::Evaluate(...)`
+- `CALCompressionEngine::ShouldTrigger(...)`
+- `CALStateMachine::TransitionBySignal(...)`
+
+## 6) Проверка доминирования Lyapunov
+
+В тестах добавлены сценарии поведения (не только формулы):
+
+- `TestLyapunovOptimization`
+- `TestLyapunovConvergence`
+- `TestLyapunovDominance`
+
+Их цель: показать, что режим с Lyapunov-control меняет поведение и метрики (E[ΔV], collapse risk, recovery).
