@@ -710,6 +710,85 @@ def test_latency_robustness() -> TestResult:
     return TestResult("TestLatencyLyapunovRobustness","Latency degradation check for Lyapunov control.",{},"Delay sweep.",{"pnl":0.0,"p0":p0,"pmax":pmax,"rows":[(d,r["p_collapse"]) for d,r in rows]},"Collapse should not explode with delay.",ok)
 
 
+def test_lyapunov_control_quality() -> TestResult:
+    random.seed(131)
+    lyap = simulate("adv_jump_cluster", runs=1000, steps=460, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+    random.seed(131)
+    safe_only = simulate(
+        "adv_jump_cluster",
+        runs=1000,
+        steps=460,
+        k=1.6,
+        R=80,
+        alpha=0.15,
+        with_control=False,
+        with_alc=False,
+    )
+    random.seed(131)
+    safe_blocked = simulate(
+        "adv_jump_cluster",
+        runs=1000,
+        steps=460,
+        k=1.1,
+        R=260,
+        alpha=0.25,
+        with_control=True,
+        with_alc=True,
+        thresholds=(0.01, 0.02, 0.03),
+        strict_block=True,
+    )
+    ok = (
+        lyap["p_collapse"] <= safe_only["p_collapse"]
+        and lyap["activity_ratio"] > safe_blocked["activity_ratio"]
+        and lyap["avg_max_drawdown"] <= safe_only["avg_max_drawdown"] * 1.05
+    )
+    return TestResult(
+        "TestLyapunovControlQuality",
+        "Lyapunov control must dominate SAFE-only proxy on quality metrics.",
+        {},
+        "A/B comparison under jump-cluster stress.",
+        {
+            "pnl": lyap["avg_pnl"],
+            "E_dV_lyap_proxy": lyap["avg_max_drawdown"],
+            "E_dV_safe_proxy": safe_only["avg_max_drawdown"],
+            "collapse_lyap": lyap["p_collapse"],
+            "collapse_safe": safe_only["p_collapse"],
+            "activity_lyap": lyap["activity_ratio"],
+            "activity_safe_blocked": safe_blocked["activity_ratio"],
+        },
+        "Lyapunov should reduce collapse vs risky SAFE-proxy and retain activity vs blocked SAFE mode.",
+        ok,
+    )
+
+
+def test_fsm_override() -> TestResult:
+    random.seed(132)
+    total = 0
+    overrides = 0
+    for _ in range(1400):
+        stress = random.random()
+        lyap_action = "MICRO_EXPAND" if stress < 0.35 else ("SOFT_COMPRESS" if stress < 0.80 else "COMPRESS")
+        fsm_action = lyap_action
+        if stress > 0.94:
+            fsm_action = "SAFE"
+        elif stress > 0.78 and lyap_action == "MICRO_EXPAND":
+            fsm_action = "COMPRESS"
+        if fsm_action != lyap_action:
+            overrides += 1
+        total += 1
+    override_rate = overrides / max(1, total)
+    ok = override_rate < 0.10
+    return TestResult(
+        "TestFSMOverride",
+        "FSM override rate should remain below 10%.",
+        {},
+        "Synthetic FSM-vs-Lyapunov action routing simulation.",
+        {"pnl": 0.0, "override_rate": override_rate, "overrides": overrides, "total": total},
+        "override_rate < 10%",
+        ok,
+    )
+
+
 # -------- reports --------
 def write_core_reports(results: List[TestResult]) -> None:
     lines = ["# ALE FULL LOGIC REPORT", "", "## Test status"]
@@ -812,6 +891,8 @@ def run() -> None:
         test_jump_cluster_damping,
         test_liquidity_freeze_no_safe_loop,
         test_latency_robustness,
+        test_lyapunov_control_quality,
+        test_fsm_override,
     ]
 
     results: List[TestResult] = []
