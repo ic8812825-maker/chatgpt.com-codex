@@ -10,3 +10,14 @@
 Prediction/realization aggregate match: **1.0000** (target >= 0.95).
 Fallback activations: **540**, real-best replacements: **0**.
 Worst mismatch |pred-real|: **0.492170**.
+
+## Action distribution
+| action | count |
+|---|---:|
+| HOLD | 0 |
+| EXPAND | 0 |
+| COMPRESS | 0 |
+| PARTIAL_CLOSE | 0 |
+| SAFE | 540 |
+| MICRO_EXPAND | 0 |
+| SOFT_COMPRESS | 0 |

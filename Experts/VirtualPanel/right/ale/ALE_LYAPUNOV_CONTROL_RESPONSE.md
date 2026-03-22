@@ -14,3 +14,10 @@ Monotonicity pass ratio: **1.0000**.
 | 12 | 1.4425 | 0.0025 | 0.8710 |
 | 15 | 1.4400 | 0.0033 | 0.8921 |
 | 20 | 1.4300 | 0.0067 | 0.9100 |
+
+## ApplyLyapunovControl signal routing
+| signal | count |
+|---|---:|
+| LYAPUNOV_CRITICAL | 540 |
+| LYAPUNOV_GUARD | 0 |
+| PRICE_MOVE | 0 |
