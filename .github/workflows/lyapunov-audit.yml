@@ -20,3 +20,5 @@ jobs:
           python3 -m py_compile Experts/VirtualPanel/right/run_lyapunov_audit.py
       - name: Run full Lyapunov audit
         run: python3 Experts/VirtualPanel/right/true_control_audit.py
+      - name: Run ALE unit/stress test suite
+        run: python3 Experts/VirtualPanel/right/tests/run_unit_tests.py
