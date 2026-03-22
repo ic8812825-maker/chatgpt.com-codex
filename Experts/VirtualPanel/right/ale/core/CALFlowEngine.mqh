@@ -147,23 +147,91 @@ private:
       return m_lyap.V(n)-m_context.lyapunov_v;
    }
 
+
+
+   double PredictDeltaVTrajectory(const CALLyapunovState &s,const ENUM_LYAP_ACTION action,const double strength,const double price,const int horizon) const
+   {
+      CALLyapunovState cur=s;
+      double prev_v=m_context.lyapunov_v;
+      double sum_dv=0.0;
+      const int H=MathMax(1,horizon);
+
+      for(int h=0;h<H;h++)
+      {
+         CALLyapunovState nxt=cur;
+         const double e=MathMax(0.0,MathMin(1.0,strength));
+
+         if(action==LYAP_ACT_EXPAND)
+         {
+            nxt.exposure*=1.0 + 0.18*(1.0-e);
+            nxt.margin_usage*=1.0 + 0.12*(1.0-e);
+            nxt.depth+=0.8;
+         }
+         else if(action==LYAP_ACT_COMPRESS)
+         {
+            nxt.exposure*=1.0 - 0.45*e;
+            nxt.margin_usage*=1.0 - 0.35*e;
+            nxt.depth=MathMax(1.0,nxt.depth-0.9);
+            nxt.unrealized_loss*=1.0 - 0.18*e;
+         }
+         else if(action==LYAP_ACT_PARTIAL_CLOSE)
+         {
+            nxt.exposure*=1.0 - 0.28*e;
+            nxt.margin_usage*=1.0 - 0.20*e;
+            nxt.depth=MathMax(1.0,nxt.depth-0.4);
+         }
+         else if(action==LYAP_ACT_SAFE)
+         {
+            nxt.exposure*=0.45;
+            nxt.margin_usage*=0.60;
+            nxt.depth=MathMax(1.0,nxt.depth-1.5);
+            nxt.unrealized_loss*=0.80;
+         }
+
+         nxt.distance_to_be=MathMax(0.0,nxt.distance_to_be*(1.0-0.10*e));
+         nxt.tail_effect=CALLyapunovTailEffect::EstimateRiskProxy(nxt.margin_usage,nxt.depth,nxt.exposure);
+
+         const double v_next=m_lyap.V(nxt);
+         sum_dv += (v_next-prev_v);
+         prev_v=v_next;
+         cur=nxt;
+      }
+
+      return sum_dv;
+   }
+
    ENUM_LYAP_ACTION SelectLyapunovAction(const CALLyapunovState &s,const double price) const
    {
       const double u=m_context.lyapunov_control_strength;
+      const double lambda_v=0.35;
+      const double v_threshold=0.82;
       ENUM_LYAP_ACTION actions[5]={LYAP_ACT_HOLD,LYAP_ACT_EXPAND,LYAP_ACT_COMPRESS,LYAP_ACT_PARTIAL_CLOSE,LYAP_ACT_SAFE};
 
       ENUM_LYAP_ACTION best=LYAP_ACT_HOLD;
-      double best_dv=1e9;
+      double best_obj=1e9;
       for(int i=0;i<5;i++)
       {
          const ENUM_LYAP_ACTION a=actions[i];
          if(a==LYAP_ACT_EXPAND && m_context.lyapunov_risk_level>=1) continue;
-         if(a==LYAP_ACT_HOLD && m_context.lyapunov_risk_level>=3) continue;
 
-         const double dv=PredictDeltaVForAction(s,a,u,price);
-         if(dv<best_dv)
+         const double traj_dv=PredictDeltaVTrajectory(s,a,u,price,3);
+         const double one_step_dv=PredictDeltaVForAction(s,a,u,price);
+
+         CALLyapunovState n=s;
+         if(a==LYAP_ACT_EXPAND){ n.exposure*=1.12; n.margin_usage*=1.10; }
+         else if(a==LYAP_ACT_COMPRESS){ n.exposure*=0.70; n.margin_usage*=0.75; }
+         else if(a==LYAP_ACT_PARTIAL_CLOSE){ n.exposure*=0.82; n.margin_usage*=0.85; }
+         else if(a==LYAP_ACT_SAFE){ n.exposure*=0.45; n.margin_usage*=0.55; }
+         const double v_next=m_lyap.V(n);
+
+         double penalty=0.0;
+         if(v_next>v_threshold) penalty += 2.5*(v_next-v_threshold);
+         if(a==LYAP_ACT_EXPAND && m_context.lyapunov_delta>0.0) penalty += 0.15;
+
+         const double obj=traj_dv + 0.6*one_step_dv + lambda_v*v_next + penalty;
+         if(obj<best_obj)
          {
-            best_dv=dv;
+            best_obj=obj;
             best=a;
          }
       }
@@ -180,11 +248,14 @@ private:
       m_context.lyapunov_action_code=0;
       const CALLyapunovState s=BuildLyapunovState(price);
       const double u=m_context.lyapunov_control_strength;
+      const double expansion_limit=MathMax(0.0,1.0-u);
+      const double compression_force=MathMin(1.0,0.25 + 0.75*u);
+      const double partial_close_ratio=MathMin(0.85,0.10 + 0.60*u);
       const ENUM_LYAP_ACTION act=SelectLyapunovAction(s,price);
 
       if(act==LYAP_ACT_SAFE)
       {
-         m_compression.SetAlpha(MathMax(0.20,1.0-0.8*u));
+         m_compression.SetAlpha(MathMax(0.15,1.0-compression_force));
          RequestCompression(price,true);
          m_context.safe_active=true;
          m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_LYAPUNOV_CRITICAL);
@@ -194,7 +265,7 @@ private:
 
       if(act==LYAP_ACT_COMPRESS)
       {
-         m_compression.SetAlpha(MathMax(0.30,1.0-0.7*u));
+         m_compression.SetAlpha(MathMax(0.25,1.0-compression_force));
          RequestCompression(price,false);
          m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_LYAPUNOV_GUARD);
          m_context.lyapunov_action_code=2;
@@ -203,7 +274,7 @@ private:
 
       if(act==LYAP_ACT_PARTIAL_CLOSE)
       {
-         m_compression.SetAlpha(MathMax(0.55,1.0-0.35*u));
+         m_compression.SetAlpha(MathMax(0.45,1.0-partial_close_ratio));
          RequestCompression(price,false);
          m_context.lyapunov_action_code=4;
          return;
@@ -211,6 +282,7 @@ private:
 
       if(act==LYAP_ACT_EXPAND)
       {
+         if(expansion_limit<0.35){ m_context.lyapunov_action_code=1; return; }
          m_context.lyapunov_action_code=0;
          return;
       }

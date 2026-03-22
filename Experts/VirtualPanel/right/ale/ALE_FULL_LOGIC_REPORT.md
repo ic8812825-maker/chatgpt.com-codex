@@ -17,3 +17,7 @@
 - TestLyapunovOptimization: PASS
 - TestLyapunovConvergence: PASS
 - TestLyapunovDominance: PASS
+- TestTrendRunawayLyapunov: PASS
+- TestJumpClusterLyapunovDamping: PASS
+- TestLiquidityFreezeNoSafeLoop: PASS
+- TestLatencyLyapunovRobustness: PASS

@@ -648,7 +648,12 @@ def test_lyapunov_dominance() -> TestResult:
         rows.append((m,off,on))
 
     improved=sum(1 for _,off,on in rows if on["p_collapse"]<off["p_collapse"])
-    ok=improved>=5
+    rel=[]
+    for _,off,on in rows:
+        base=max(1e-9,off["p_collapse"])
+        rel.append((off["p_collapse"]-on["p_collapse"])/base)
+    avg_rel=sum(rel)/len(rel)
+    ok=(improved>=5) and (avg_rel>=0.10)
 
     return TestResult(
         "TestLyapunovDominance",
@@ -659,11 +664,50 @@ def test_lyapunov_dominance() -> TestResult:
             "pnl": 0.0,
             "improved_modes": improved,
             "total_modes": len(rows),
+            "avg_relative_improvement": avg_rel,
             "by_mode": {m:{"off":off["p_collapse"],"on":on["p_collapse"]} for m,off,on in rows},
         },
         "Control ON must improve collapse risk in the majority of modes.",
         ok,
     )
+
+
+def test_trend_runaway_lyapunov() -> TestResult:
+    random.seed(41)
+    off=simulate("trend", runs=900, steps=500, k=1.4, R=140, alpha=0.5, with_control=False, with_alc=True)
+    random.seed(41)
+    on=simulate("trend", runs=900, steps=500, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+    ok=on["p_collapse"]<off["p_collapse"] and on["control_intensity"]>0.0
+    return TestResult("TestTrendRunawayLyapunov","Trend runaway stabilization via Lyapunov control.",{},"Trend A/B.",{"pnl":on["avg_pnl"],"p_off":off["p_collapse"],"p_on":on["p_collapse"],"control_intensity":on["control_intensity"]},"Trend risk must reduce.",ok)
+
+
+def test_jump_cluster_damping() -> TestResult:
+    random.seed(42)
+    off=simulate("adv_jump_cluster", runs=900, steps=500, k=1.4, R=140, alpha=0.5, with_control=False, with_alc=True)
+    random.seed(42)
+    on=simulate("adv_jump_cluster", runs=900, steps=500, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+    ok=on["p_collapse"]<off["p_collapse"] and on["compressions_triggered"]>0
+    return TestResult("TestJumpClusterLyapunovDamping","Jump cluster damping under Lyapunov.",{},"Jump A/B.",{"pnl":on["avg_pnl"],"p_off":off["p_collapse"],"p_on":on["p_collapse"],"compressions":on["compressions_triggered"]},"Worst jump impact should be damped.",ok)
+
+
+def test_liquidity_freeze_no_safe_loop() -> TestResult:
+    random.seed(43)
+    s=simulate("adv_liquidity_freeze", runs=900, steps=500, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True, control_delay=8, spread_mult=10.0, slippage_mult=2.5)
+    ok=s["activity_ratio"]>0.10 and s["trades_executed"]>0
+    return TestResult("TestLiquidityFreezeNoSafeLoop","Control should avoid dead SAFE-loop under freeze.",{},"Freeze stress run.",{"pnl":s["avg_pnl"],"p_ctrl":s["p_collapse"],"activity_ratio":s["activity_ratio"],"trades_executed":s["trades_executed"]},"Activity must remain non-zero.",ok)
+
+
+def test_latency_robustness() -> TestResult:
+    delays=[0,2,5,8,12]
+    rows=[]
+    for d in delays:
+        random.seed(50+d)
+        s=simulate("adv_liquidity_freeze", runs=700, steps=420, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True, control_delay=d, spread_mult=8.0, slippage_mult=2.0)
+        rows.append((d,s))
+    p0=rows[0][1]["p_collapse"]
+    pmax=max(r[1]["p_collapse"] for r in rows)
+    ok=(pmax-p0)<=0.03
+    return TestResult("TestLatencyLyapunovRobustness","Latency degradation check for Lyapunov control.",{},"Delay sweep.",{"pnl":0.0,"p0":p0,"pmax":pmax,"rows":[(d,r["p_collapse"]) for d,r in rows]},"Collapse should not explode with delay.",ok)
 
 
 # -------- reports --------
@@ -764,6 +808,10 @@ def run() -> None:
         test_lyapunov_optimization,
         test_lyapunov_convergence,
         test_lyapunov_dominance,
+        test_trend_runaway_lyapunov,
+        test_jump_cluster_damping,
+        test_liquidity_freeze_no_safe_loop,
+        test_latency_robustness,
     ]
 
     results: List[TestResult] = []

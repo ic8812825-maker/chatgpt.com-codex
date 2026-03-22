@@ -70,3 +70,16 @@ Runtime-вычисление Lyapunov телеметрии встроено в `
 - `TestLyapunovDominance`
 
 Их цель: показать, что режим с Lyapunov-control меняет поведение и метрики (E[ΔV], collapse risk, recovery).
+
+
+## 7) Multi-step objective (Level 2)
+
+Добавлено multi-step прогнозирование:
+
+- `PredictDeltaVTrajectory(action, horizon=3)`
+
+Итоговая целевая функция выбора действия:
+
+- `objective = cumulative_ΔV + 0.6*ΔV_next + λ*V_next + penalty(V_next > threshold)`
+
+Это устраняет жадность одношагового выбора и вводит bounded-V constraint.
