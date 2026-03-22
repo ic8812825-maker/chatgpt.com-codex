@@ -1,17 +1,29 @@
-# TestCompressionTrigger
+# Test: TestCompressionTrigger
 
-- **Test description:** Compression trigger activation rule.
-- **Timestamp:** 2026-03-15T21:59:40.210778Z
+## Description
+Trigger logic.
 
-## Input parameters
-- `n`: `9`
-- `margin_level`: `150.0`
+## Input
+- depth: 10
+- margin_level: 145
 
-## Execution result
-- **status:** PASS
+## Execution
+Boolean check.
+- timestamp_utc: 2026-03-21T21:31:48.582027+00:00
 
-## Metrics
-- `triggered`: `True`
+## Results
+- levels_before: N/A
+- levels_after: N/A
+- delta_before: N/A
+- delta_after: N/A
+- margin_before: 145
+- margin_after: 145
+- pnl: 0.0
+- extra_metrics:
+  - triggered: True
+
+## Validation
+trigger true.
 
 ## Conclusion
-Trigger works for depth/margin thresholds.
+PASS

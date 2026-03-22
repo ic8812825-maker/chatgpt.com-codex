@@ -1,21 +1,27 @@
-# TestSafeDeposit
+# Test: TestSafeDeposit
 
-- **Test description:** Safe deposit estimation for trend scenarios.
-- **Timestamp:** 2026-03-15T21:59:40.211184Z
+## Description
+Deposit monotonic by trend.
 
-## Input parameters
-- `k`: `1.3`
-- `alpha`: `0.5`
-- `max_levels`: `30`
-- `R`: `120`
+## Input
 
-## Execution result
-- **status:** PASS
+## Execution
+Compute table.
+- timestamp_utc: 2026-03-22T09:15:46.923657+00:00
 
-## Metrics
-- `n_max`: `24`
-- `p_collapse`: `0.041666666666666664`
-- `table`: `[(1000, 52381.35287299894), (2000, 52382.79287299895), (3000, 52384.232872998946), (5000, 52387.11287299894), (10000, 52394.31287299895)]`
+## Results
+- levels_before: N/A
+- levels_after: N/A
+- delta_before: N/A
+- delta_after: N/A
+- margin_before: N/A
+- margin_after: N/A
+- pnl: 0.0
+- extra_metrics:
+  - safe_deposit_table: [(1000, 198.72025117100972), (2000, 2338.6537511628735), (3000, 35072.206928124135), (5000, 2348810.7355491156), (10000, 2362819.5470931465)]
+
+## Validation
+monotonic
 
 ## Conclusion
-Safe deposit table and stability metrics computed.
+PASS

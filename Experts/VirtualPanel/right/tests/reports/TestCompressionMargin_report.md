@@ -1,17 +1,25 @@
-# TestCompressionMargin
+# Test: TestCompressionMargin
 
-- **Test description:** Margin should improve after compression.
-- **Timestamp:** 2026-03-15T21:59:40.210964Z
+## Description
+Compression reduces margin.
 
-## Input parameters
-- `margin_before`: `200.0`
-- `alpha`: `0.5`
+## Input
 
-## Execution result
-- **status:** PASS
+## Execution
+Scale by alpha.
+- timestamp_utc: 2026-03-21T21:31:48.582194+00:00
 
-## Metrics
-- `margin_after`: `100.0`
+## Results
+- levels_before: N/A
+- levels_after: N/A
+- delta_before: N/A
+- delta_after: N/A
+- margin_before: 200.0
+- margin_after: 100.0
+- pnl: 0.0
+
+## Validation
+ma<mb
 
 ## Conclusion
-Compression reduces margin pressure.
+PASS

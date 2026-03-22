@@ -1,19 +1,27 @@
-# TestGeometryPreservation
+# Test: TestGeometryPreservation
 
-- **Test description:** After compression geometry must be rebuilt as L_i = L0 * k^i.
-- **Timestamp:** 2026-03-15T21:59:40.210677Z
+## Description
+L_i=L0*k^i.
 
-## Input parameters
-- `k`: `1.3`
-- `alpha`: `0.5`
-- `lots_before`: `[0.01, 0.013, 0.017, 0.022]`
+## Input
+- k: 1.3
+- L0: 0.01
 
-## Execution result
-- **status:** PASS
+## Execution
+Build levels.
+- timestamp_utc: 2026-03-21T21:31:48.581875+00:00
 
-## Metrics
-- `lots_after`: `[0.005010505899466623, 0.00651365766930661, 0.008467754970098593, 0.011008081461128172]`
-- `epsilon`: `1e-09`
+## Results
+- levels_before: 6
+- levels_after: 6
+- delta_before: N/A
+- delta_after: N/A
+- margin_before: N/A
+- margin_after: N/A
+- pnl: 0.0
+
+## Validation
+k preserved.
 
 ## Conclusion
-Geometry invariant preserved after rebuild.
+PASS

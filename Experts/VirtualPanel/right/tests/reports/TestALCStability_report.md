@@ -1,20 +1,25 @@
-# TestALCStability
+# Test: TestALCStability
 
-- **Test description:** Compare asymptotic risk with/without ALC compression factor.
-- **Timestamp:** 2026-03-15T21:59:40.211049Z
+## Description
+Asymptotic ALC risk reduction.
 
-## Input parameters
-- `k`: `1.3`
-- `alpha`: `0.5`
-- `n`: `30`
-- `m`: `4`
+## Input
 
-## Execution result
-- **status:** PASS
+## Execution
+Compare analytical terms.
+- timestamp_utc: 2026-03-21T21:31:48.582333+00:00
 
-## Metrics
-- `risk_no_alc`: `2619.995643649948`
-- `risk_alc`: `163.74972772812174`
+## Results
+- levels_before: N/A
+- levels_after: N/A
+- delta_before: N/A
+- delta_after: N/A
+- margin_before: 2619.995643649948
+- margin_after: 81.87486386406087
+- pnl: 0.0
+
+## Validation
+r1<r0
 
 ## Conclusion
-ALC factor decreases asymptotic risk surface value.
+PASS
