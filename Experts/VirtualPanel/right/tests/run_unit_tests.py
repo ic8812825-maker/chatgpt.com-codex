@@ -504,6 +504,83 @@ def test_safe_deposit() -> TestResult:
     return TestResult("TestSafeDeposit","Deposit monotonic by trend.",{},"Compute table.",{"pnl":0.0,"safe_deposit_table":rows},"monotonic",ok)
 
 
+def test_lyapunov_reactive_guard() -> TestResult:
+    random.seed(11)
+    no_ctrl = simulate("adv_jump_cluster", runs=1200, steps=500, k=1.4, R=140, alpha=0.5, with_control=False, with_alc=True)
+    random.seed(11)
+    ctrl = simulate("adv_jump_cluster", runs=1200, steps=500, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+
+    reacts = ctrl["compressions_triggered"] > 0 and ctrl["expansions_blocked"] > 0
+    risk_improves = ctrl["p_collapse"] <= no_ctrl["p_collapse"]
+    ok = reacts and risk_improves
+
+    return TestResult(
+        "TestLyapunovReactiveGuard",
+        "Control loop reacts to rising instability proxies (expansion blocking + compression).",
+        {},
+        "A/B on adversarial jump cluster.",
+        {
+            "pnl": ctrl["avg_pnl"],
+            "p_no_ctrl": no_ctrl["p_collapse"],
+            "p_ctrl": ctrl["p_collapse"],
+            "expansions_blocked": ctrl["expansions_blocked"],
+            "compressions_triggered": ctrl["compressions_triggered"],
+        },
+        "Must react and not worsen collapse probability.",
+        ok,
+    )
+
+
+def test_lyapunov_delta_feedback() -> TestResult:
+    random.seed(12)
+    low = simulate("random", runs=900, steps=420, k=1.25, R=180, alpha=0.5, with_control=True, with_alc=True)
+    random.seed(12)
+    high = simulate("adv_liquidity_freeze", runs=900, steps=420, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+
+    # In harder regime, control should intensify and block more expansions
+    ok = high["control_intensity"] >= low["control_intensity"] and high["expansions_blocked"] >= low["expansions_blocked"]
+    return TestResult(
+        "TestLyapunovDeltaFeedback",
+        "Feedback loop: worsening regime increases control intensity/blocks.",
+        {},
+        "Compare benign vs adversarial regime under control.",
+        {
+            "pnl": high["avg_pnl"],
+            "control_intensity_low": low["control_intensity"],
+            "control_intensity_high": high["control_intensity"],
+            "blocked_low": low["expansions_blocked"],
+            "blocked_high": high["expansions_blocked"],
+        },
+        "High-stress regime should trigger stronger control.",
+        ok,
+    )
+
+
+def test_lyapunov_recovery_release() -> TestResult:
+    random.seed(13)
+    stressed = simulate("adv_liquidity_gap", runs=900, steps=420, k=1.4, R=140, alpha=0.5, with_control=True, with_alc=True)
+    random.seed(13)
+    recovered = simulate("random", runs=900, steps=420, k=1.25, R=200, alpha=0.5, with_control=True, with_alc=True)
+
+    # recovery regime should reduce blocking pressure and preserve activity
+    ok = recovered["activity_ratio"] >= stressed["activity_ratio"] or recovered["control_intensity"] <= stressed["control_intensity"]
+    return TestResult(
+        "TestLyapunovRecoveryRelease",
+        "Feedback loop: when stress drops, control relaxes or activity recovers.",
+        {},
+        "Compare stressed vs recovery regime under control.",
+        {
+            "pnl": recovered["avg_pnl"],
+            "activity_stressed": stressed["activity_ratio"],
+            "activity_recovered": recovered["activity_ratio"],
+            "control_stressed": stressed["control_intensity"],
+            "control_recovered": recovered["control_intensity"],
+        },
+        "Control should not stay locked at stressed intensity after recovery.",
+        ok,
+    )
+
+
 # -------- reports --------
 def write_core_reports(results: List[TestResult]) -> None:
     lines = ["# ALE FULL LOGIC REPORT", "", "## Test status"]
@@ -596,6 +673,9 @@ def run() -> None:
         test_reality_stress_v2,
         test_adversarial_scenarios,
         test_safe_deposit,
+        test_lyapunov_reactive_guard,
+        test_lyapunov_delta_feedback,
+        test_lyapunov_recovery_release,
     ]
 
     results: List[TestResult] = []

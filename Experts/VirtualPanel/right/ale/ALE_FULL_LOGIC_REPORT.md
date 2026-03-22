@@ -11,3 +11,6 @@
 - TestRealityStressV2: PASS
 - TestAdversarialScenarios: PASS
 - TestSafeDeposit: PASS
+- TestLyapunovReactiveGuard: PASS
+- TestLyapunovDeltaFeedback: PASS
+- TestLyapunovRecoveryRelease: PASS

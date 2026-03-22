@@ -25,6 +25,7 @@ REQUIRED_REPORTS = [
     "Experts/VirtualPanel/right/ale/ALE_RISK_CONTROL_FINAL.md",
     "Experts/VirtualPanel/right/ale/ALE_FINAL_TRUTH.md",
     "Experts/VirtualPanel/right/ale/ALE_CONTROL_LYAPUNOV_AUDIT.md",
+    "Experts/VirtualPanel/right/ale/ALE_LYAPUNOV_CONTROL_INTEGRATION.md",
 ]
 
 

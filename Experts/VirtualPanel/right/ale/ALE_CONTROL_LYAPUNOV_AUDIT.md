@@ -3,12 +3,12 @@
 ## Control effect on ΔV and tail-risk
 | scenario | improved E[ΔV] | Δrisk | trades_executed | expansions_allowed | expansions_blocked | compressions_triggered |
 |---|---:|---:|---:|---:|---:|---:|
-| random | 0.000251 | 0.7167 | 79.216 | 29.609 | 49.608 | 55.569 |
-| trend | 0.000421 | 0.8022 | 94.665 | 32.834 | 61.831 | 69.011 |
-| adv_monotonic | 0.000720 | 0.0067 | 21.996 | 20.996 | 1.000 | 1.000 |
-| adv_jump_cluster | 0.000618 | 0.6722 | 350.870 | 22.769 | 328.101 | 332.608 |
-| adv_liquidity_gap | 0.000730 | 0.9278 | 153.072 | 40.547 | 112.525 | 121.233 |
-| adv_liquidity_freeze | 0.000679 | 0.9933 | 237.433 | 45.042 | 192.390 | 201.336 |
+| random | 0.000251 | 0.7167 | 79.513 | 29.829 | 49.684 | 55.873 |
+| trend | 0.000421 | 0.8022 | 88.719 | 31.052 | 57.666 | 63.971 |
+| adv_monotonic | 0.000720 | 0.0067 | 21.999 | 20.999 | 1.000 | 1.000 |
+| adv_jump_cluster | 0.000618 | 0.6722 | 344.516 | 22.599 | 321.918 | 326.065 |
+| adv_liquidity_gap | 0.000730 | 0.9278 | 149.961 | 39.322 | 110.639 | 119.175 |
+| adv_liquidity_freeze | 0.000679 | 0.9933 | 243.874 | 45.495 | 198.379 | 207.299 |
 
 ## Latency/slippage stress
 | delay | E[ΔV] | P(collapse) | activity_ratio | control_intensity |
