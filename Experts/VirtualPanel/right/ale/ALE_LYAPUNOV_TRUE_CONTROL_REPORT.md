@@ -3,8 +3,8 @@
 Consolidated true-control verification.
 
 - argmin(predicted)=argmin(real) aggregate: **1.0000**
-- fallback activations: **540**
-- fallback replacements to real-best: **0**
+- fallback activations: **514**
+- fallback replacements to real-best: **2**
 - monotonicity ΔV→control_strength: **1.0000**
 
 ## Mandatory reports generated
