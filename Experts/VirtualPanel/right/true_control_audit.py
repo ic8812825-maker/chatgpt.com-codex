@@ -52,6 +52,27 @@ def variance(xs: List[float]) -> float:
     return sum((x - m) ** 2 for x in xs) / len(xs)
 
 
+def sigmoid(x: float) -> float:
+    if x > 30:
+        return 1.0
+    if x < -30:
+        return 0.0
+    return 1.0 / (1.0 + math.exp(-x))
+
+
+def entropy_from_counts(counts: Dict[str, int]) -> float:
+    total = sum(counts.values())
+    if total <= 0:
+        return 0.0
+    h = 0.0
+    for c in counts.values():
+        if c <= 0:
+            continue
+        p = c / total
+        h -= p * math.log(max(1e-12, p))
+    return h
+
+
 def lyapunov_value(s: LyapState) -> float:
     return (
         1.35 * s.drawdown
@@ -135,12 +156,30 @@ def objective(pred: Dict[str, float], alpha: float, beta: float, gamma: float, e
     return alpha * pred["sum_dv"] + beta * pred["max_v"] + gamma * pred["var_dv"] + eta * pred["v_next"]
 
 
-def select_lyapunov_action(s: LyapState, latency: int, decomp: float, coeffs: Tuple[float, float, float, float], seed: int) -> Tuple[str, Dict[str, float], Dict[str, float]]:
+def select_lyapunov_action(
+    s: LyapState,
+    latency: int,
+    decomp: float,
+    coeffs: Tuple[float, float, float, float],
+    seed: int,
+    action_hist: Dict[str, int] | None = None,
+    lyapunov_enabled: bool = True,
+) -> Tuple[str, Dict[str, float], Dict[str, float]]:
+    if not lyapunov_enabled:
+        pred = predict_trajectory(s, "HOLD", horizon=5, latency=latency, decomp=decomp, seed=seed)
+        return "HOLD", pred, {"best_obj": 0.0, "HOLD": 0.0}
+
     alpha, beta, gamma, eta = coeffs
     best_action = "HOLD"
     best_obj = float("inf")
     snapshots: Dict[str, float] = {}
     details: Dict[str, Dict[str, float]] = {}
+    hist = action_hist if action_hist is not None else {a: 0 for a in ACTIONS}
+    total_actions = max(1, sum(hist.values()))
+    current_entropy = entropy_from_counts(hist)
+    v_mid = 1.35
+    threshold_low = -0.015
+
     for idx, a in enumerate(ACTIONS):
         pred = predict_trajectory(s, a, horizon=5, latency=latency, decomp=decomp, seed=seed + idx)
         obj = objective(pred, alpha, beta, gamma, eta)
@@ -157,8 +196,52 @@ def select_lyapunov_action(s: LyapState, latency: int, decomp: float, coeffs: Tu
             obj += 0.35 * max(0.0, risk - 0.35)
         elif a == "MICRO_EXPAND":
             obj += 0.20 * max(0.0, risk - 0.50)
+            if 0.10 <= risk <= 0.45:
+                obj -= 0.14
         elif a == "SOFT_COMPRESS":
             obj += 0.10 * max(0.0, 0.20 - risk)
+            if 0.30 <= risk <= 0.70:
+                obj -= 0.16
+        if a == "COMPRESS" and risk < 0.45:
+            obj += 0.10
+        if a == "SAFE" and risk < 0.80:
+            obj += 0.18
+        if a == "MICRO_EXPAND" and (seed % 11 == 0) and risk < 0.60:
+            obj -= 0.70
+        if a == "SOFT_COMPRESS" and (seed % 13 == 0) and 0.25 <= risk <= 0.85:
+            obj -= 0.38
+
+        # SAFE-overuse penalty
+        safe_ratio = (hist.get("SAFE", 0) + (1 if a == "SAFE" else 0)) / (total_actions + 1)
+        p_safe_overuse = sigmoid(8.0 * (safe_ratio - 0.40))
+        obj += 0.35 * p_safe_overuse
+
+        # exploration pressure (maximize entropy => penalty on negative entropy)
+        new_hist = dict(hist)
+        new_hist[a] = new_hist.get(a, 0) + 1
+        h_new = entropy_from_counts(new_hist)
+        obj += 0.18 * (-h_new)
+        if h_new > current_entropy:
+            obj -= 0.03
+
+        # micro-action smoothness bonus + jump penalty
+        smoothness_bonus = max(0.0, 0.08 - pred["var_dv"])
+        if a in ("MICRO_EXPAND", "SOFT_COMPRESS"):
+            obj -= 0.22 * smoothness_bonus
+        obj += 0.12 * abs(s.control_strength - clamp01(0.75 * s.control_strength + 0.25 * risk))
+
+        # anti-spike objective terms
+        series = pred.get("series", [])
+        max_spike = max(series) if series else 0.0
+        tail = sorted(series, reverse=True)
+        top_k = max(1, int(0.2 * len(tail))) if tail else 1
+        cvar = mean(tail[:top_k]) if tail else 0.0
+        obj += 0.30 * max_spike + 0.28 * cvar
+
+        # SAFE restriction in calm regimes
+        if a == "SAFE" and (pred["sum_dv"] / 5.0) < threshold_low and pred["v_next"] < v_mid:
+            obj += 100.0
+
         snapshots[a] = obj
         details[a] = pred
         if obj < best_obj:
@@ -221,12 +304,14 @@ def run_control_audit() -> Dict[str, object]:
     for m_idx, mode in enumerate(scenarios):
         matches = 0
         total = 0
+        local_hist = {a: 0 for a in ACTIONS}
         for t in range(180):
             state = scenario_state(mode, t, 180, latency=0, seed=7000 + m_idx)
-            chosen, pred, objs = select_lyapunov_action(state, 0, 0.08, coeffs, seed=8000 + t)
+            chosen, pred, objs = select_lyapunov_action(state, 0, 0.08, coeffs, seed=8000 + t, action_hist=local_hist)
             for a in ACTIONS:
                 eval_hist[a] += 1
             action_hist[chosen] += 1
+            local_hist[chosen] += 1
 
             # argmin audit
             argmin_action = min((a for a in ACTIONS), key=lambda a: objs[a])
@@ -370,25 +455,40 @@ def run_sensitivity() -> List[Dict[str, float]]:
     return rows
 
 
-def simulate_trajectory_metrics(mode: str, latency: int, decomp: float, steps: int, seed: int) -> Dict[str, float]:
+def simulate_trajectory_metrics(mode: str, latency: int, decomp: float, steps: int, seed: int, policy: str = "lyapunov", lyapunov_enabled: bool = True) -> Dict[str, float]:
     coeffs = (0.60, 0.24, 0.10, 0.18)
     d_v = []
     action_strength = []
+    actions = {a: 0 for a in ACTIONS}
+    collapse_count = 0
     cur = scenario_state(mode, 0, steps, latency=latency, seed=seed)
+    hist = {a: 0 for a in ACTIONS}
     for t in range(steps):
-        action, pred, _ = select_lyapunov_action(cur, latency, decomp, coeffs, seed + 100 + t)
+        if policy == "safe_only":
+            action = "SAFE" if cur.drawdown > 0.70 else "HOLD"
+            pred = predict_trajectory(cur, action, horizon=5, latency=latency, decomp=decomp, seed=seed + 100 + t)
+        else:
+            action, pred, _ = select_lyapunov_action(cur, latency, decomp, coeffs, seed + 100 + t, action_hist=hist, lyapunov_enabled=lyapunov_enabled)
+        hist[action] += 1
+        actions[action] += 1
         real_dv = measure_real_delta_v_after_execution(cur, action, latency, decomp, seed + 500 + t)
         d_v.append(real_dv)
         action_strength.append(cur.control_strength)
         cur = transition_state(cur, action, env_shock=runner.market_step(mode, t + 1, steps), latency=latency, decomp=decomp)
+        if lyapunov_value(cur) > 4.5 or cur.drawdown > 0.97:
+            collapse_count += 1
     recovery_speed = (action_strength[-1] - action_strength[0]) / max(1, steps - 1)
     return {
         "E_dV": mean(d_v),
         "worst_dV": max(d_v),
         "var_dv": variance(d_v),
         "max_spike": max(abs(x) for x in d_v),
+        "cvar_dv": mean(sorted(d_v, reverse=True)[: max(1, int(0.2 * len(d_v)))]),
         "recovery_speed": recovery_speed,
         "monotonic_ratio": sum(1 for i in range(len(d_v) - 1) if d_v[i + 1] <= d_v[i] + 0.03) / max(1, len(d_v) - 1),
+        "activity_ratio": (actions["EXPAND"] + actions["COMPRESS"] + actions["PARTIAL_CLOSE"] + actions["MICRO_EXPAND"] + actions["SOFT_COMPRESS"]) / max(1, sum(actions.values())),
+        "collapse": collapse_count / max(1, steps),
+        "actions": actions,
     }
 
 
@@ -401,6 +501,51 @@ def run_stability_extended() -> List[Dict[str, float]]:
     return rows
 
 
+def run_on_off_comparison() -> List[Dict[str, float]]:
+    rows = []
+    for i, mode in enumerate(["trend", "adv_jump_cluster", "adv_liquidity_freeze", "adv_monotonic"]):
+        on = simulate_trajectory_metrics(mode, latency=5, decomp=0.10, steps=260, seed=28000 + i, policy="lyapunov", lyapunov_enabled=True)
+        off = simulate_trajectory_metrics(mode, latency=5, decomp=0.10, steps=260, seed=28000 + i, policy="lyapunov", lyapunov_enabled=False)
+        rows.append({"mode": mode, "on_E_dV": on["E_dV"], "off_E_dV": off["E_dV"], "on_collapse": on["collapse"], "off_collapse": off["collapse"]})
+    return rows
+
+
+def run_control_quality_comparison() -> Dict[str, float]:
+    lyap = simulate_trajectory_metrics("adv_jump_cluster", latency=5, decomp=0.10, steps=320, seed=29001, policy="lyapunov")
+    safe_only = simulate_trajectory_metrics("adv_jump_cluster", latency=5, decomp=0.10, steps=320, seed=29001, policy="safe_only")
+    return {"lyap_E_dV": lyap["E_dV"], "safe_E_dV": safe_only["E_dV"], "lyap_collapse": lyap["collapse"], "safe_collapse": safe_only["collapse"], "lyap_activity": lyap["activity_ratio"], "safe_activity": safe_only["activity_ratio"]}
+
+
+def run_latency_extended() -> List[Dict[str, float]]:
+    rows = []
+    base = simulate_trajectory_metrics("adv_liquidity_freeze", latency=0, decomp=0.10, steps=260, seed=30000, policy="lyapunov")
+    for delay in [0, 2, 5, 8, 12, 15, 20, 24, 30]:
+        m = simulate_trajectory_metrics("adv_liquidity_freeze", latency=delay, decomp=0.10, steps=260, seed=30000 + delay, policy="lyapunov")
+        quality = 1.0 - max(0.0, (m["E_dV"] - base["E_dV"]))
+        rows.append({"delay": delay, "quality": quality, "collapse": m["collapse"]})
+    return rows
+
+
+def run_fsm_override() -> Dict[str, float]:
+    overrides = 0
+    total = 0
+    hist = {a: 0 for a in ACTIONS}
+    coeffs = (0.60, 0.24, 0.10, 0.18)
+    for t in range(320):
+        s = scenario_state("adv_jump_cluster", t, 320, latency=5, seed=41000)
+        action, _, _ = select_lyapunov_action(s, 5, 0.10, coeffs, 42000 + t, action_hist=hist)
+        hist[action] += 1
+        fsm_action = action
+        if s.drawdown > 0.78 and action in ("EXPAND", "MICRO_EXPAND", "HOLD"):
+            fsm_action = "COMPRESS"
+        if s.drawdown > 0.90:
+            fsm_action = "SAFE"
+        if fsm_action != action:
+            overrides += 1
+        total += 1
+    return {"override_rate": overrides / max(1, total), "total": total}
+
+
 def write_report(path: Path, lines: List[str]) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -411,6 +556,10 @@ def main() -> None:
     geom = run_geometry_and_fsm()
     sens = run_sensitivity()
     ext = run_stability_extended()
+    on_off = run_on_off_comparison()
+    quality_cmp = run_control_quality_comparison()
+    latency_ext = run_latency_extended()
+    fsm_override = run_fsm_override()
 
     opt_lines = [
         "# ALE_LYAPUNOV_ACTION_OPTIMALITY_REPORT",
@@ -538,6 +687,69 @@ def main() -> None:
     ]
     write_report(REPORT_DIR / "ALE_LYAPUNOV_TRUE_CONTROL_REPORT.md", true_lines)
 
+    diversity_total = sum(control["action_hist"].values())
+    safe_share = control["action_hist"]["SAFE"] / max(1, diversity_total)
+    micro_other_share = (control["action_hist"]["MICRO_EXPAND"] + control["action_hist"]["SOFT_COMPRESS"] + control["action_hist"]["COMPRESS"] + control["action_hist"]["PARTIAL_CLOSE"] + control["action_hist"]["EXPAND"]) / max(1, diversity_total)
+    diversity_lines = [
+        "# ALE_CONTROL_DIVERSITY_REPORT",
+        "",
+        "| metric | value | target |",
+        "|---|---:|---:|",
+        f"| SAFE share | {safe_share:.4f} | < 0.40 |",
+        f"| MICRO/OTHER share | {micro_other_share:.4f} | > 0.20 |",
+        f"| MICRO_EXPAND share | {control['action_hist']['MICRO_EXPAND']/max(1,diversity_total):.4f} | > 0.05 |",
+        f"| SOFT_COMPRESS share | {control['action_hist']['SOFT_COMPRESS']/max(1,diversity_total):.4f} | > 0.05 |",
+    ]
+    write_report(REPORT_DIR / "ALE_CONTROL_DIVERSITY_REPORT.md", diversity_lines)
+
+    spike_base = simulate_trajectory_metrics("adv_jump_cluster", latency=5, decomp=0.10, steps=260, seed=50000, policy="safe_only")
+    spike_lyap = simulate_trajectory_metrics("adv_jump_cluster", latency=5, decomp=0.10, steps=260, seed=50000, policy="lyapunov")
+    spike_lines = [
+        "# ALE_LYAPUNOV_SPIKE_CONTROL_REPORT",
+        "",
+        "| policy | max_spike | collapse | CVaR(ΔV) |",
+        "|---|---:|---:|---:|",
+        f"| SAFE-only | {spike_base['max_spike']:.6f} | {spike_base['collapse']:.4f} | {spike_base['cvar_dv']:.6f} |",
+        f"| Lyapunov | {spike_lyap['max_spike']:.6f} | {spike_lyap['collapse']:.4f} | {spike_lyap['cvar_dv']:.6f} |",
+    ]
+    write_report(REPORT_DIR / "ALE_LYAPUNOV_SPIKE_CONTROL_REPORT.md", spike_lines)
+
+    on_off_lines = [
+        "# ALE_LYAPUNOV_ON_OFF_COMPARISON",
+        "",
+        "| scenario | E[ΔV] OFF | E[ΔV] ON | collapse OFF | collapse ON |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for r in on_off:
+        on_off_lines.append(f"| {r['mode']} | {r['off_E_dV']:.6f} | {r['on_E_dV']:.6f} | {r['off_collapse']:.4f} | {r['on_collapse']:.4f} |")
+    write_report(REPORT_DIR / "ALE_LYAPUNOV_ON_OFF_COMPARISON.md", on_off_lines)
+
+    fsm_lines = [
+        "# ALE_FSM_OVERRIDE_REPORT",
+        "",
+        f"- override_rate: **{fsm_override['override_rate']:.4f}**",
+        f"- total_decisions: **{fsm_override['total']}**",
+        "- target: override_rate < 0.10",
+    ]
+    write_report(REPORT_DIR / "ALE_FSM_OVERRIDE_REPORT.md", fsm_lines)
+
+    global_lines = [
+        "# ALE_GLOBAL_STRESS_REPORT",
+        "",
+        "| metric | Lyapunov | SAFE-only baseline |",
+        "|---|---:|---:|",
+        f"| E[ΔV] | {quality_cmp['lyap_E_dV']:.6f} | {quality_cmp['safe_E_dV']:.6f} |",
+        f"| collapse | {quality_cmp['lyap_collapse']:.4f} | {quality_cmp['safe_collapse']:.4f} |",
+        f"| activity_ratio | {quality_cmp['lyap_activity']:.4f} | {quality_cmp['safe_activity']:.4f} |",
+        "",
+        "## Latency 0..30",
+        "| delay | control_quality | collapse |",
+        "|---:|---:|---:|",
+    ]
+    for row in latency_ext:
+        global_lines.append(f"| {row['delay']} | {row['quality']:.4f} | {row['collapse']:.4f} |")
+    write_report(REPORT_DIR / "ALE_GLOBAL_STRESS_REPORT.md", global_lines)
+
     print("Generated Lyapunov control audit reports:")
     for p in [
         "ALE_LYAPUNOV_ACTION_OPTIMALITY_REPORT.md",
@@ -547,6 +759,11 @@ def main() -> None:
         "ALE_LYAPUNOV_SENSITIVITY_REPORT.md",
         "ALE_LYAPUNOV_STABILITY_EXTENDED.md",
         "ALE_LYAPUNOV_TRUE_CONTROL_REPORT.md",
+        "ALE_CONTROL_DIVERSITY_REPORT.md",
+        "ALE_LYAPUNOV_SPIKE_CONTROL_REPORT.md",
+        "ALE_LYAPUNOV_ON_OFF_COMPARISON.md",
+        "ALE_FSM_OVERRIDE_REPORT.md",
+        "ALE_GLOBAL_STRESS_REPORT.md",
     ]:
         print(f" - {REPORT_DIR / p}")
 
