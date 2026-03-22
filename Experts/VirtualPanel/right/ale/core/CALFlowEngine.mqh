@@ -22,6 +22,7 @@
 #include "..\\optimization\\CALLotOptimizer.mqh"
 #include "..\\optimization\\CALGridOptimizer.mqh"
 #include "..\\optimization\\CALExpectationModel.mqh"
+#include "..\\lyapunov\\CALLyapunovToolkit.mqh"
 
 class CALStreamEngine
 {
@@ -51,9 +52,84 @@ private:
    CALGridOptimizer m_grid_opt;
    CALExpectationModel m_expect;
 
+   CALLyapunovFunctional m_lyap;
+   CALLyapunovState m_prev_lyap_state;
+   bool m_has_lyap_prev;
+
    double m_equity;
    double m_prev_abs_delta;
    double m_cum_volume;
+
+private:
+   CALLyapunovState BuildLyapunovState(const double price) const
+   {
+      CALLyapunovState s;
+      const double dd_ratio=MathMax(0.0,-m_context.pnl)/MathMax(1.0,m_equity);
+      const double margin_usage=m_context.margin/MathMax(1.0,m_equity);
+      const double depth=(double)m_book.Size();
+
+      s.drawdown=dd_ratio;
+      s.exposure=m_book.TotalAbsLot();
+      s.margin_usage=margin_usage;
+      s.depth=depth;
+      s.distance_to_be=MathAbs(m_context.net_delta)*MathMax(1.0,price)*1000.0;
+      s.unrealized_loss=MathMax(0.0,-m_context.pnl);
+      s.tail_effect=CALLyapunovTailEffect::EstimateRiskProxy(margin_usage,depth,s.exposure);
+      s.pnl_contribution=CALLyapunovMetrics::PnLContribution(m_context.pnl,0.0,m_equity);
+      return s;
+   }
+
+   void UpdateLyapunovTelemetry(const double price)
+   {
+      const CALLyapunovState s=BuildLyapunovState(price);
+      const double v=m_lyap.V(s);
+      const double dv=(m_has_lyap_prev ? m_lyap.DeltaV(m_prev_lyap_state,s) : 0.0);
+      m_context.lyapunov_prev_v=m_context.lyapunov_v;
+      m_context.lyapunov_v=v;
+      m_context.lyapunov_delta=dv;
+
+      if(v>0.85 || dv>0.03) m_context.lyapunov_risk_level=3;
+      else if(v>0.70 || dv>0.015) m_context.lyapunov_risk_level=2;
+      else if(v>0.55 || dv>0.005) m_context.lyapunov_risk_level=1;
+      else m_context.lyapunov_risk_level=0;
+
+      m_prev_lyap_state=s;
+      m_has_lyap_prev=true;
+   }
+
+   bool LyapunovAllowsExpansion() const
+   {
+      if(m_context.lyapunov_risk_level>=3) return false;
+      if(m_context.lyapunov_risk_level>=2 && m_context.lyapunov_delta>0.0) return false;
+      return true;
+   }
+
+   void ApplyLyapunovControl(const double price)
+   {
+      m_context.lyapunov_action_code=0;
+
+      if(m_context.lyapunov_risk_level>=3)
+      {
+         RequestCompression(price,true);
+         m_context.safe_active=true;
+         m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_LYAPUNOV_CRITICAL);
+         m_context.lyapunov_action_code=3;
+         return;
+      }
+
+      if(m_context.lyapunov_risk_level>=2)
+      {
+         RequestCompression(price,false);
+         m_context.state=m_fsm.TransitionBySignal(ALE_SIGNAL_LYAPUNOV_GUARD);
+         m_context.lyapunov_action_code=2;
+         return;
+      }
+
+      if(m_context.lyapunov_risk_level==1)
+      {
+         m_context.lyapunov_action_code=1;
+      }
+   }
 
 public:
    void Init(const int direction,const CALRiskConfig &cfg)
@@ -72,11 +148,13 @@ public:
       m_equity=m_cfg.initial_equity;
       m_prev_abs_delta=0.0;
       m_cum_volume=0.0;
+      m_has_lyap_prev=false;
    }
 
    bool AddVirtual(const double price,const double lot)
    {
       if(lot<=0.0 || m_context.safe_active) return false;
+      if(!LyapunovAllowsExpansion()) return false;
       if(m_book.Size()>=m_compression.MaxLevels())
       {
          RequestCompression(price,false);
@@ -117,7 +195,7 @@ public:
 
    void Process(const double price)
    {
-      // STRICT PIPELINE: MarketTick -> Geometry -> Positions -> ALC Compression -> Exposure -> Risk -> Optimization
+      // STRICT PIPELINE: MarketTick -> Geometry -> Positions -> ALC Compression -> Exposure -> Risk -> Optimization -> Lyapunov feedback
       if(m_context.safe_active)
       {
          RequestCompression(price,true);
@@ -143,6 +221,9 @@ public:
       m_context.margin=report.margin;
       m_context.safe_active=report.safe_triggered;
 
+      UpdateLyapunovTelemetry(price);
+      ApplyLyapunovControl(price);
+
       if(m_context.safe_active)
       {
          RequestCompression(price,true);
@@ -164,7 +245,9 @@ public:
       const double ev=(m_direction==ALE_FLOW_BUY?m_expect.ForBuy(p_ret,1.0,1.0):m_expect.ForSell(p_ret,1.0,1.0));
       const double cf=m_closed_form.ExpectedPnL(p_ret,1.0,1.0);
 
-      m_context.exposure += 0.0*(lot_opt + hedge_lot) + 0.0*levels_opt + 0.0*ev + 0.0*cf + 0.0*mu_crit;
+      // Lyapunov guard can damp optimization aggressiveness
+      const double lyap_guard=(m_context.lyapunov_risk_level>=1 ? 0.5 : 1.0);
+      m_context.exposure += 0.0*(lot_opt*lyap_guard + hedge_lot) + 0.0*levels_opt + 0.0*ev + 0.0*cf + 0.0*mu_crit;
       if(!stable) m_context.worst_dd=MathMax(m_context.worst_dd,m_cfg.dd_max);
 
       const double abs_delta=MathAbs(m_context.net_delta);
@@ -172,7 +255,11 @@ public:
          m_prev_abs_delta=abs_delta;
 
       ENUM_ALE_SIGNAL signal=ALE_SIGNAL_PRICE_MOVE;
-      if(compressed)
+      if(m_context.lyapunov_risk_level>=3)
+         signal=ALE_SIGNAL_LYAPUNOV_CRITICAL;
+      else if(m_context.lyapunov_risk_level>=2)
+         signal=ALE_SIGNAL_LYAPUNOV_GUARD;
+      else if(compressed)
          signal=ALE_SIGNAL_COMPRESSION;
       else if(m_context.pnl>=m_cfg.harvest_target)
          signal=ALE_SIGNAL_HARVEST_REACHED;

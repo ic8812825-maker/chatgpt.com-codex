@@ -111,12 +111,19 @@ public:
       const PhaseState phase_state=m_phase.DeterminePhase(m_cfg.growth_g,m_cfg.k,m_cfg.grid_step_R,SafeL0(equity));
       const bool explosive=(phase_state==PHASE_EXPLOSIVE) || (!m_phase.IsStable(m_cfg.k,m_cfg.growth_g,m_cfg.sigma));
 
+
+      const bool lyap_critical=(ctx.lyapunov_risk_level>=3) || (ctx.lyapunov_v>0.88) || (ctx.lyapunov_delta>0.03);
+      const bool lyap_guard=(ctx.lyapunov_risk_level>=2) || (ctx.lyapunov_v>0.75 && ctx.lyapunov_delta>0.0);
       report.safe_triggered=(report.stress_ratio>m_cfg.stress_limit)
                          || (report.dd_probability>m_cfg.dd_prob_limit)
                          || (report.worst_dd>equity*m_cfg.dd_max)
                          || phase_safe
                          || trigger_safe
-                         || explosive;
+                         || explosive
+                         || lyap_critical;
+
+      if(lyap_guard && !report.safe_triggered)
+         report.stress_ratio=MathMax(report.stress_ratio,m_cfg.stress_limit*0.95);
       return report;
    }
 

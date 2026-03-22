@@ -34,7 +34,7 @@ public:
    void SetScheduleEveryTicks(const int n){ m_scheduler.SetEveryTicks(n); }
    void ResetHistory(){ m_history.Reset(); }
 
-   bool ShouldTrigger(const CALPositionBook &book,const double margin,const double equity,const bool safe_active) const
+   bool ShouldTrigger(const CALPositionBook &book,const double margin,const double equity,const CALStreamContext &ctx,const bool safe_active) const
    {
       const int n=book.Size();
       if(n>m_trigger_levels) return true;
@@ -47,13 +47,15 @@ public:
       }
 
       if(safe_active) return true;
+      if(ctx.lyapunov_risk_level>=2) return true;
+      if(ctx.lyapunov_delta>0.01) return true;
       return false;
    }
 
    bool ProcessCompression(CALPositionBook &book,CALStreamContext &ctx,const double equity,const bool safe_rescue)
    {
       if(!m_scheduler.ShouldRun()) return false;
-      if(!ShouldTrigger(book,ctx.margin,equity,safe_rescue)) return false;
+      if(!ShouldTrigger(book,ctx.margin,equity,ctx,safe_rescue)) return false;
 
       const int levels_before=book.Size();
       const double delta_before=book.EffectiveDelta();

@@ -12,7 +12,9 @@ enum ENUM_ALE_SIGNAL
    ALE_SIGNAL_HARVEST_REACHED=3,
    ALE_SIGNAL_SAFE_TRIGGERED=4,
    ALE_SIGNAL_RESET_REQUESTED=5,
-   ALE_SIGNAL_COMPRESSION=6
+   ALE_SIGNAL_COMPRESSION=6,
+   ALE_SIGNAL_LYAPUNOV_GUARD=7,
+   ALE_SIGNAL_LYAPUNOV_CRITICAL=8
 };
 
 class CALStateMachine : public IFSM
@@ -64,10 +66,10 @@ public:
 
    ENUM_ALE_STATE TransitionBySignal(const ENUM_ALE_SIGNAL signal)
    {
-      if(signal==ALE_SIGNAL_SAFE_TRIGGERED) { Transition(ALE_STATE_SAFE); return m_state; }
+      if(signal==ALE_SIGNAL_SAFE_TRIGGERED || signal==ALE_SIGNAL_LYAPUNOV_CRITICAL) { Transition(ALE_STATE_SAFE); return m_state; }
       if(signal==ALE_SIGNAL_DRAWDOWN_EXCEEDED || signal==ALE_SIGNAL_RESET_REQUESTED) { Transition(ALE_STATE_RESET); return m_state; }
       if(signal==ALE_SIGNAL_HARVEST_REACHED) { Transition(ALE_STATE_HARVEST); return m_state; }
-      if(signal==ALE_SIGNAL_COMPRESSION) { Transition(ALE_STATE_COMPRESSION); return m_state; }
+      if(signal==ALE_SIGNAL_COMPRESSION || signal==ALE_SIGNAL_LYAPUNOV_GUARD) { Transition(ALE_STATE_COMPRESSION); return m_state; }
 
       if(signal==ALE_SIGNAL_PRICE_MOVE)
       {

@@ -30,6 +30,13 @@ struct CALStreamContext
    double convexity;
    bool safe_active;
 
+   // Lyapunov telemetry (runtime control loop)
+   double lyapunov_v;
+   double lyapunov_delta;
+   double lyapunov_prev_v;
+   int lyapunov_risk_level;   // 0=low 1=guard 2=high 3=critical
+   int lyapunov_action_code;  // 0=none 1=limit_expansion 2=compress 3=safe
+
    void Reset()
    {
       state=ALE_STATE_IDLE;
@@ -41,6 +48,11 @@ struct CALStreamContext
       gamma=0.0;
       convexity=0.0;
       safe_active=false;
+      lyapunov_v=0.0;
+      lyapunov_delta=0.0;
+      lyapunov_prev_v=0.0;
+      lyapunov_risk_level=0;
+      lyapunov_action_code=0;
    }
 };
 
