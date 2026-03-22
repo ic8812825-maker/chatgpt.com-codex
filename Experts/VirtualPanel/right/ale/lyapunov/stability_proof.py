@@ -29,7 +29,7 @@ def run():
 
     unstable_modes = []
     for r in lyap_rows[1:]:
-        if len(r) >= 6 and r[5] == "unstable":
+        if len(r) >= 2 and r[-1] == "unstable":
             unstable_modes.append(r[0])
 
     improved = 0
