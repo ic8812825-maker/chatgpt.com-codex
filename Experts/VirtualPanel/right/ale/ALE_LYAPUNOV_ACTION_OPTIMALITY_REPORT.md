@@ -8,7 +8,7 @@
 | adv_liquidity_freeze | 1.0000 | >= 0.95 |
 
 Prediction/realization aggregate match: **1.0000** (target >= 0.95).
-Fallback activations: **514**, real-best replacements: **2**.
+Fallback activations: **227**, real-best replacements: **176**.
 Worst mismatch |pred-real|: **0.492170**.
 
 ## Action distribution
@@ -16,11 +16,11 @@ Worst mismatch |pred-real|: **0.492170**.
 |---|---:|
 | HOLD | 0 |
 | EXPAND | 0 |
-| COMPRESS | 28 |
-| PARTIAL_CLOSE | 0 |
-| SAFE | 512 |
-| MICRO_EXPAND | 0 |
-| SOFT_COMPRESS | 0 |
+| COMPRESS | 313 |
+| PARTIAL_CLOSE | 118 |
+| SAFE | 51 |
+| MICRO_EXPAND | 31 |
+| SOFT_COMPRESS | 27 |
 
 ## Action evaluation coverage (all actions must be evaluated in argmin set)
 | action | evaluated_count |
