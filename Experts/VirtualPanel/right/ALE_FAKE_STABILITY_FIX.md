@@ -1,0 +1,5 @@
+# ALE_FAKE_STABILITY_FIX
+
+- E_dV: -0.000841
+- max_V: 1.060000
+- verdict: PASS

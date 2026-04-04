@@ -1,0 +1,7 @@
+# ALE_ACTION_CAUSALITY
+
+- COMPRESS E[ΔV]: -0.004280
+- EXPAND E[ΔV]: 0.115153
+- EXPAND max(V): 3.047758
+- SAFE policy share: 0.222727
+- verdict: FAIL

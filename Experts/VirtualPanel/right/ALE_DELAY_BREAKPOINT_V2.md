@@ -1,0 +1,48 @@
+# ALE_DELAY_BREAKPOINT_V2
+
+- critical_delay: 100
+- smooth_degradation: True
+- verdict: PASS
+
+## sweep
+- delay=0: stable=True, E_dV=-0.005124, max_V=1.060000
+- delay=5: stable=True, E_dV=-0.004734, max_V=1.060000
+- delay=10: stable=True, E_dV=-0.004464, max_V=1.060000
+- delay=15: stable=True, E_dV=-0.004222, max_V=1.060000
+- delay=20: stable=True, E_dV=-0.004001, max_V=1.060000
+- delay=25: stable=True, E_dV=-0.003707, max_V=1.060000
+- delay=30: stable=True, E_dV=-0.003390, max_V=1.060000
+- delay=35: stable=True, E_dV=-0.003183, max_V=1.060000
+- delay=40: stable=True, E_dV=-0.002901, max_V=1.060000
+- delay=45: stable=True, E_dV=-0.002637, max_V=1.060000
+- delay=50: stable=True, E_dV=-0.002454, max_V=1.060000
+- delay=55: stable=True, E_dV=-0.002133, max_V=1.060000
+- delay=60: stable=True, E_dV=-0.001961, max_V=1.060000
+- delay=65: stable=True, E_dV=-0.001676, max_V=1.060000
+- delay=70: stable=True, E_dV=-0.001417, max_V=1.060000
+- delay=75: stable=True, E_dV=-0.001128, max_V=1.060000
+- delay=80: stable=True, E_dV=-0.000906, max_V=1.060000
+- delay=85: stable=True, E_dV=-0.000707, max_V=1.060000
+- delay=90: stable=True, E_dV=-0.000400, max_V=1.060000
+- delay=95: stable=True, E_dV=-0.000129, max_V=1.060000
+- delay=100: stable=False, E_dV=0.000201, max_V=1.060000
+- delay=105: stable=False, E_dV=0.000522, max_V=1.060000
+- delay=110: stable=False, E_dV=0.000747, max_V=1.060848
+- delay=115: stable=False, E_dV=0.000861, max_V=1.060000
+- delay=120: stable=False, E_dV=0.001492, max_V=1.060000
+- delay=125: stable=False, E_dV=0.002022, max_V=1.063270
+- delay=130: stable=False, E_dV=0.001802, max_V=1.060000
+- delay=135: stable=False, E_dV=0.002022, max_V=1.060000
+- delay=140: stable=False, E_dV=0.002592, max_V=1.060000
+- delay=145: stable=False, E_dV=0.003458, max_V=1.060000
+- delay=150: stable=False, E_dV=0.002835, max_V=1.109893
+- delay=155: stable=False, E_dV=0.003035, max_V=1.111417
+- delay=160: stable=False, E_dV=0.003296, max_V=1.060000
+- delay=165: stable=False, E_dV=0.003408, max_V=1.060000
+- delay=170: stable=False, E_dV=0.004339, max_V=1.060000
+- delay=175: stable=False, E_dV=0.003928, max_V=1.060000
+- delay=180: stable=False, E_dV=0.004123, max_V=1.060000
+- delay=185: stable=False, E_dV=0.004855, max_V=1.117374
+- delay=190: stable=False, E_dV=0.004969, max_V=1.111973
+- delay=195: stable=False, E_dV=0.004905, max_V=1.168043
+- delay=200: stable=False, E_dV=0.005833, max_V=1.060000
