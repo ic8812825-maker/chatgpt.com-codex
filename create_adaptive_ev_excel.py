@@ -94,12 +94,12 @@ for r,sc,target,direction in rows:
     ws_next[f"C{r}"]='=Расчеты!B25'
     ws_next[f"D{r}"]='=IF(C{0}="ESCAPE","СБРОС СТРУКТУРЫ",IF(C{0}="STRESS","СНИЗИТЬ РИСК И k","FLOW-РЕБАЛАНС"))'.format(r)
     ws_next[f"E{r}"]='=ROUND(Расчеты!B24,2)'
-    ws_next[f"F{r}"]='=IF(C{0}="ESCAPE",0,ROUND(MAX(0.01,Ввод!B19*Ввод!B23),2))'.format(r)
+    ws_next[f"F{r}"]='=IF(C{0}="ESCAPE",0,ROUND(MAX(0.01,MIN(Ввод!B19*Ввод!B23*E{0},((Ввод!B10*Ввод!B22/100-Расчеты!B13)*Ввод!B7)/(Ввод!B6*MAX(B{0},0.00001)))),2))'.format(r)
     ws_next[f"G{r}"]='=IF(A{0}="Цена вверх на Δ",ROUND(F{0}*0.40,2),ROUND(F{0}*0.60,2))'.format(r)
     ws_next[f"H{r}"]='=IF(A{0}="Цена вверх на Δ",ROUND(F{0}*0.60,2),ROUND(F{0}*0.40,2))'.format(r)
     ws_next[f"I{r}"]='=IF(AND(C{0}<>"ESCAPE",Расчеты!B11="ДА"),"ДА","НЕТ")'.format(r)
-    ws_next[f"J{r}"]='=IF(I{0}="НЕТ","-","SELL")'.format(r)
-    ws_next[f"K{r}"]='=IF(I{0}="НЕТ",0,ROUND(MAX(Ввод!B20,F{0}),2))'.format(r)
+    ws_next[f"J{r}"]='=IF(I{0}="НЕТ","-",IF(A{0}="Цена вверх на Δ","SELL","BUY"))'.format(r)
+    ws_next[f"K{r}"]='=IF(I{0}="НЕТ",0,ROUND(MAX(Ввод!B20,MIN(F{0}*1.2,((Ввод!B10*Ввод!B22/100-Расчеты!B13)*Ввод!B7)/(Ввод!B6*MAX(B{0},0.00001)))),2))'.format(r)
     ws_next[f"L{r}"]='=IF(I{0}="НЕТ",0,B{0})'.format(r)
     ws_next[f"M{r}"]='=IF(C{0}="ESCAPE","Превышены лимиты риска",IF(C{0}="STRESS","Снизить k, ускорить сокращение риска","Плановый цикл"))'.format(r)
     ws_next[f"N{r}"]='=IF(OR(Расчеты!B9="FAIL",Расчеты!B14>Ввод!B22,Расчеты!B16<-Ввод!B21),"ESCAPE","OK")'
