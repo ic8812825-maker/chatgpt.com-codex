@@ -94,10 +94,10 @@ for r,sc,target,side,label,dirn,rec in rows:
     ws_next[f"I{r}"]='=IF(OR(Расчеты!B9="FAIL",Расчеты!B14>Ввод!B22,Расчеты!B16<-Ввод!B21),"ДА","НЕТ")'
     ws_next[f"J{r}"]='=IF(I{0}="ДА","Риск превышен: survival/маржа/просадка","Нормальный цикл")'.format(r)
 
-    ws_next[f"K{r}"] = '=IF(AND(Расчеты!B11="ДА",I{0}="НЕТ"),"ДА","НЕТ")'.format(r)
+    ws_next[f"K{r}"] = '=IF(AND(F{0}>0,I{0}="НЕТ"),"ДА","НЕТ")'.format(r)
     ws_next[f"L{r}"] = '=IF(K{0}="НЕТ","-",IF(D{0}="BUY (Рекомендации для выбранной BUY)","BUY","SELL"))'.format(r)
     ws_next[f"M{r}"] = '=IF(K{0}="НЕТ",0,ROUND(MAX(0.01,F{0}),2))'.format(r)
-    ws_next[f"N{r}"] = '=IF(K{0}="НЕТ",0,IF(L{0}="BUY",Ввод!B14,Ввод!B13))'.format(r)
+    ws_next[f"N{r}"] = '=IF(K{0}="НЕТ",0,B{0})'.format(r)
     ws_next[f"F{r}"].number_format=ws_next[f"H{r}"].number_format="0.00"
     ws_next[f"M{r}"].number_format="0.00"
     ws_next[f"N{r}"].number_format="0.00000"
