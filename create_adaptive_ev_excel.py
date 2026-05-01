@@ -7,6 +7,7 @@ ws_in.title = "Ввод"
 ws_pos = wb.create_sheet("Позиции")
 ws_calc = wb.create_sheet("Расчеты")
 ws_next = wb.create_sheet("Следующий шаг")
+ws_open = wb.create_sheet("Новые позиции")
 
 header_fill = PatternFill("solid", fgColor="1F4E78")
 header_font = Font(color="FFFFFF", bold=True)
@@ -102,7 +103,40 @@ for r,sc,target,side,label,dirn,rec in rows:
     ws_next[f"M{r}"].number_format="0.00"
     ws_next[f"N{r}"].number_format="0.00000"
 
-for ws in [ws_in,ws_pos,ws_calc,ws_next]:
+open_headers = [
+    "Сценарий", "Триггер", "Рекомендация открытия", "Направление",
+    "Рекомендуемый лот", "Рекомендуемая цена", "Оценка маржи, USD",
+    "Свободная маржа после открытия, USD", "Комментарий"
+]
+for c, h in enumerate(open_headers, 1):
+    cell = ws_open.cell(1, c, h)
+    cell.fill = header_fill
+    cell.font = header_font
+
+open_rows = [
+    (2, "Пробой вверх (+Δ)", 'Ввод!B12>=Расчеты!B5+Ввод!B18', "ОТКРЫТЬ"),
+    (3, "Пробой вниз (-Δ)", 'Ввод!B12<=Расчеты!B5-Ввод!B18', "ОТКРЫТЬ"),
+]
+for r, scenario, trigger_formula, action in open_rows:
+    ws_open[f"A{r}"] = scenario
+    ws_open[f"B{r}"] = f'=IF({trigger_formula},"ДА","НЕТ")'
+    ws_open[f"C{r}"] = f'=IF(B{r}="ДА","{action}","ЖДАТЬ")'
+    ws_open[f"D{r}"] = '=IF(A{0}="Пробой вверх (+Δ)","BUY","SELL")'.format(r)
+    ws_open[f"E{r}"] = (
+        '=IF(C{0}<>"ОТКРЫТЬ",0,ROUND(MAX(0.01,MIN('
+        'Ввод!B20*0.01*Ввод!B23,'
+        '(Ввод!B10*Ввод!B22/100-Расчеты!B13)*Ввод!B7/(Ввод!B6*Ввод!B12)'
+        ')),2))'
+    ).format(r)
+    ws_open[f"F{r}"] = '=IF(E{0}=0,0,IF(D{0}="BUY",Ввод!B14,Ввод!B13))'.format(r)
+    ws_open[f"G{r}"] = '=IF(E{0}=0,0,E{0}*Ввод!B6*F{0}/Ввод!B7)'.format(r)
+    ws_open[f"H{r}"] = '=Ввод!B10-G{0}'.format(r)
+    ws_open[f"I{r}"] = '=IF(E{0}=0,"Нет сигнала или лимит маржи","Открыть только при рыночном подтверждении")'.format(r)
+    ws_open[f"E{r}"].number_format = "0.00"
+    ws_open[f"F{r}"].number_format = "0.00000"
+    ws_open[f"G{r}"].number_format = ws_open[f"H{r}"].number_format = "#,##0.00"
+
+for ws in [ws_in,ws_pos,ws_calc,ws_next,ws_open]:
     for col in "ABCDEFGHIJKLMNOPQRST": ws.column_dimensions[col].width=28
 
 wb.save("adaptive_ev_calculator.xlsx")
