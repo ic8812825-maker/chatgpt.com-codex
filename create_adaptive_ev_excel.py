@@ -75,7 +75,7 @@ calc_rows = [
 for i,(k,v) in enumerate(calc_rows,1):
     ws_calc[f"A{i}"]=k; ws_calc[f"B{i}"]=v; ws_calc[f"A{i}"].fill=sub_fill
 
-next_headers=["Сценарий","Целевая цена","ID Позиции","Для BUY/SELL","Направление шага","Рекоменд. лот","Действие","Частично закрыть лот","Полностью закрыть?","Причина"]
+next_headers=["Сценарий","Целевая цена","ID Позиции","Для BUY/SELL","Направление шага","Рекоменд. лот","Действие","Частично закрыть лот","Полностью закрыть?","Причина","Открыть позицию?","Направление открытия","Лот открытия","Цена открытия"]
 for c,h in enumerate(next_headers,1):
     cell=ws_next.cell(1,c,h); cell.fill=header_fill; cell.font=header_font
 
@@ -93,7 +93,14 @@ for r,sc,target,side,label,dirn,rec in rows:
     ws_next[f"H{r}"]='=IF(F{0}=0,0,IF(OR(E{0}="BUY partial",E{0}="SELL partial"),ROUND(F{0},2),ROUND(F{0}*0.6,2)))'.format(r)
     ws_next[f"I{r}"]='=IF(OR(Расчеты!B9="FAIL",Расчеты!B14>Ввод!B22,Расчеты!B16<-Ввод!B21),"ДА","НЕТ")'
     ws_next[f"J{r}"]='=IF(I{0}="ДА","Риск превышен: survival/маржа/просадка","Нормальный цикл")'.format(r)
+
+    ws_next[f"K{r}"] = '=IF(AND(Расчеты!B11="ДА",I{0}="НЕТ"),"ДА","НЕТ")'.format(r)
+    ws_next[f"L{r}"] = '=IF(K{0}="НЕТ","-",IF(D{0}="BUY (Рекомендации для выбранной BUY)","BUY","SELL"))'.format(r)
+    ws_next[f"M{r}"] = '=IF(K{0}="НЕТ",0,ROUND(MAX(0.01,F{0}),2))'.format(r)
+    ws_next[f"N{r}"] = '=IF(K{0}="НЕТ",0,IF(L{0}="BUY",Ввод!B14,Ввод!B13))'.format(r)
     ws_next[f"F{r}"].number_format=ws_next[f"H{r}"].number_format="0.00"
+    ws_next[f"M{r}"].number_format="0.00"
+    ws_next[f"N{r}"].number_format="0.00000"
 
 for ws in [ws_in,ws_pos,ws_calc,ws_next]:
     for col in "ABCDEFGHIJKLMNOPQRST": ws.column_dimensions[col].width=28
