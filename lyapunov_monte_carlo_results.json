@@ -1,0 +1,36 @@
+{
+  "monte_carlo": {
+    "FLAT_LOW_VOL": {
+      "pass_rate": 0.715,
+      "avg_equity": 0.255079,
+      "p05_equity": 0.0
+    },
+    "TREND_UP_MODERATE": {
+      "pass_rate": 0.52,
+      "avg_equity": 0.032644,
+      "p05_equity": -0.001445
+    },
+    "TREND_DOWN_MODERATE": {
+      "pass_rate": 0.95,
+      "avg_equity": 0.25021,
+      "p05_equity": -0.000401
+    },
+    "VOLATILE_MEAN_ZERO": {
+      "pass_rate": 0.96,
+      "avg_equity": 0.333796,
+      "p05_equity": 0.011089
+    },
+    "SHOCK_REGIME": {
+      "pass_rate": 0.945,
+      "avg_equity": 0.380422,
+      "p05_equity": 0.0
+    }
+  },
+  "lyapunov_proxy": {
+    "FLAT_LOW_VOL": -0.265863,
+    "TREND_UP_MODERATE": 0.007793,
+    "TREND_DOWN_MODERATE": -0.01856,
+    "VOLATILE_MEAN_ZERO": -0.372029,
+    "SHOCK_REGIME": 0.588801
+  }
+}
