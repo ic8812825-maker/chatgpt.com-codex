@@ -1,0 +1,43 @@
+{
+  "cycles": 20,
+  "params": {
+    "alpha": 0.3,
+    "delta_step": 0.28,
+    "gamma": 0.08,
+    "ls_min": 0.25
+  },
+  "all_positive": true,
+  "score": 4.4,
+  "summary": [
+    {
+      "scenario": "FLAT_LOW_VOL",
+      "pass_rate": 0.95,
+      "avg_equity": 0.169177,
+      "ok": true
+    },
+    {
+      "scenario": "TREND_UP_MODERATE",
+      "pass_rate": 0.6,
+      "avg_equity": 0.034942,
+      "ok": true
+    },
+    {
+      "scenario": "TREND_DOWN_MODERATE",
+      "pass_rate": 1.0,
+      "avg_equity": 0.104586,
+      "ok": true
+    },
+    {
+      "scenario": "VOLATILE_MEAN_ZERO",
+      "pass_rate": 0.95,
+      "avg_equity": 0.219263,
+      "ok": true
+    },
+    {
+      "scenario": "SHOCK_REGIME",
+      "pass_rate": 0.9,
+      "avg_equity": 0.395865,
+      "ok": true
+    }
+  ]
+}
