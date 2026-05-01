@@ -84,32 +84,27 @@ calc_rows = [
 for i,(k,v) in enumerate(calc_rows,1):
     ws_calc[f"A{i}"]=k; ws_calc[f"B{i}"]=v; ws_calc[f"A{i}"].fill=sub_fill
 
-next_headers=["Сценарий","Целевая цена","ID Позиции","Для BUY/SELL","Направление шага","Рекоменд. лот","Действие","Частично закрыть лот","Полностью закрыть?","Причина","Открыть позицию?","Направление открытия","Лот открытия","Цена открытия"]
+next_headers=["Сценарий","Целевая цена","Текущее состояние FSM","Что делать с локом","Реком. коэффициент k","Реком. лот действия","Частичное закрытие BUY","Частичное закрытие SELL","Открыть новый цикл?","Направление нового цикла","Лот нового цикла","Цена нового цикла","Причина","Стоп-условие"]
 for c,h in enumerate(next_headers,1):
     cell=ws_next.cell(1,c,h); cell.fill=header_fill; cell.font=header_font
 
-rows=[
- (2,"Цена вверх на Δ","=Ввод!B12+Ввод!B18","BUY","BUY (Рекомендации для выбранной BUY)","BUY trim / SELL hedge","=IF(Расчеты!B17=\"НЕТ\",0,MAX(0.01,ROUND(Расчеты!B19*Ввод!B19*Ввод!B23*0.5,2)))"),
- (3,"Цена вверх на Δ","=Ввод!B12+Ввод!B18","SELL","SELL (Рекомендации для выбранной SELL)","SELL partial","=IF(Расчеты!B18=\"НЕТ\",0,MAX(0.01,ROUND(Расчеты!B20*Ввод!B19*Ввод!B23*2,2)))"),
- (4,"Цена вниз на Δ","=Ввод!B12-Ввод!B18","BUY","BUY (Рекомендации для выбранной BUY)","BUY partial","=IF(Расчеты!B17=\"НЕТ\",0,MAX(0.01,ROUND(Расчеты!B19*Ввод!B19*Ввод!B23*2,2)))"),
- (5,"Цена вниз на Δ","=Ввод!B12-Ввод!B18","SELL","SELL (Рекомендации для выбранной SELL)","SELL trim / BUY hedge","=IF(Расчеты!B18=\"НЕТ\",0,MAX(0.01,ROUND(Расчеты!B20*Ввод!B19*Ввод!B23*0.5,2)))")]
-
-for r,sc,target,side,label,dirn,rec in rows:
+rows=[(2,"Цена вверх на Δ","=Ввод!B12+Ввод!B18","UP"),(3,"Цена вниз на Δ","=Ввод!B12-Ввод!B18","DOWN")]
+for r,sc,target,direction in rows:
     ws_next[f"A{r}"]=sc; ws_next[f"B{r}"]=target
-    ws_next[f"C{r}"]='=IF(D{0}="BUY (Рекомендации для выбранной BUY)",Расчеты!B17,Расчеты!B18)'.format(r)
-    ws_next[f"D{r}"]=label; ws_next[f"E{r}"]=dirn; ws_next[f"F{r}"]=rec
-    ws_next[f"G{r}"]='=IF(AND(Расчеты!B11="ДА",F{0}>0),"ЧАСТИЧНАЯ РЕБАЛАНСИРОВКА","ОЖИДАТЬ")'.format(r)
-    ws_next[f"H{r}"]='=IF(F{0}=0,0,IF(OR(E{0}="BUY partial",E{0}="SELL partial"),ROUND(F{0},2),ROUND(F{0}*0.6,2)))'.format(r)
-    ws_next[f"I{r}"]='=IF(OR(Расчеты!B9="FAIL",Расчеты!B14>Ввод!B22,Расчеты!B16<-Ввод!B21),"ДА","НЕТ")'
-    ws_next[f"J{r}"]='=IF(I{0}="ДА","Риск превышен: survival/маржа/просадка","Нормальный цикл")'.format(r)
-
-    ws_next[f"K{r}"] = '=IF(AND(F{0}>0,I{0}="НЕТ"),"ДА","НЕТ")'.format(r)
-    ws_next[f"L{r}"] = '=IF(K{0}="НЕТ","-",IF(D{0}="BUY (Рекомендации для выбранной BUY)","BUY","SELL"))'.format(r)
-    ws_next[f"M{r}"] = '=IF(K{0}="НЕТ",0,ROUND(MAX(0.01,F{0}),2))'.format(r)
-    ws_next[f"N{r}"] = '=IF(K{0}="НЕТ",0,B{0})'.format(r)
-    ws_next[f"F{r}"].number_format=ws_next[f"H{r}"].number_format="0.00"
-    ws_next[f"M{r}"].number_format="0.00"
-    ws_next[f"N{r}"].number_format="0.00000"
+    ws_next[f"C{r}"]='=Расчеты!B25'
+    ws_next[f"D{r}"]='=IF(C{0}="ESCAPE","СБРОС СТРУКТУРЫ",IF(C{0}="STRESS","СНИЗИТЬ РИСК И k","FLOW-РЕБАЛАНС"))'.format(r)
+    ws_next[f"E{r}"]='=ROUND(Расчеты!B24,2)'
+    ws_next[f"F{r}"]='=IF(C{0}="ESCAPE",0,ROUND(MAX(0.01,Ввод!B19*Ввод!B23),2))'.format(r)
+    ws_next[f"G{r}"]='=IF(A{0}="Цена вверх на Δ",ROUND(F{0}*0.40,2),ROUND(F{0}*0.60,2))'.format(r)
+    ws_next[f"H{r}"]='=IF(A{0}="Цена вверх на Δ",ROUND(F{0}*0.60,2),ROUND(F{0}*0.40,2))'.format(r)
+    ws_next[f"I{r}"]='=IF(AND(C{0}<>"ESCAPE",Расчеты!B11="ДА"),"ДА","НЕТ")'.format(r)
+    ws_next[f"J{r}"]='=IF(I{0}="НЕТ","-","SELL")'.format(r)
+    ws_next[f"K{r}"]='=IF(I{0}="НЕТ",0,ROUND(MAX(Ввод!B20,F{0}),2))'.format(r)
+    ws_next[f"L{r}"]='=IF(I{0}="НЕТ",0,B{0})'.format(r)
+    ws_next[f"M{r}"]='=IF(C{0}="ESCAPE","Превышены лимиты риска",IF(C{0}="STRESS","Снизить k, ускорить сокращение риска","Плановый цикл"))'.format(r)
+    ws_next[f"N{r}"]='=IF(OR(Расчеты!B9="FAIL",Расчеты!B14>Ввод!B22,Расчеты!B16<-Ввод!B21),"ESCAPE","OK")'
+    ws_next[f"E{r}"].number_format=ws_next[f"F{r}"].number_format=ws_next[f"G{r}"].number_format=ws_next[f"H{r}"].number_format=ws_next[f"K{r}"].number_format="0.00"
+    ws_next[f"L{r}"].number_format="0.00000"
 
 open_headers = [
     "Сценарий", "Триггер", "Рекомендация открытия", "Направление",
@@ -121,15 +116,13 @@ for c, h in enumerate(open_headers, 1):
     cell.fill = header_fill
     cell.font = header_font
 
-open_rows = [
-    (2, "Пробой вверх (+Δ)", 'Ввод!B12>=Расчеты!B5+Ввод!B18', "ОТКРЫТЬ"),
-    (3, "Пробой вниз (-Δ)", 'Ввод!B12<=Расчеты!B5-Ввод!B18', "ОТКРЫТЬ"),
-]
+open_rows = [(2, "Пробой вверх (+Δ)", 'Ввод!B12>=Расчеты!B5+Ввод!B18', "BUY"),
+             (3, "Пробой вниз (-Δ)", 'Ввод!B12<=Расчеты!B5-Ввод!B18', "SELL")]
 for r, scenario, trigger_formula, action in open_rows:
     ws_open[f"A{r}"] = scenario
     ws_open[f"B{r}"] = f'=IF({trigger_formula},"ДА","НЕТ")'
-    ws_open[f"C{r}"] = f'=IF(B{r}="ДА","{action}","ЖДАТЬ")'
-    ws_open[f"D{r}"] = '=IF(A{0}="Пробой вверх (+Δ)","BUY","SELL")'.format(r)
+    ws_open[f"C{r}"] = f'=IF(B{r}="ДА","ОТКРЫТЬ","ЖДАТЬ")'
+    ws_open[f"D{r}"] = action
     ws_open[f"E{r}"] = (
         '=IF(C{0}<>"ОТКРЫТЬ",0,ROUND(MAX(0.01,MIN('
         'Ввод!B20*0.01*Ввод!B23,'
