@@ -1,43 +1,39 @@
-# Institutional Risk Acceptance Report (Criterion C)
-
-Selected params: {'alpha': 0.3, 'delta_step': 0.24, 'gamma': 0.06, 'ls_min': 0.2}
-
-Robust under sensitivity: True
+# Institutional criterion C report
 
 ## baseline
-|Group|Scenario|Mean|p05|p01|CVaR5|MaxDD|Sharpe|T_recover|Exposure drift|PASS group|PASS inst|
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|NORMAL|TRENDING_UP|0.000591|0.000000|0.000000|-0.000083|0.001524|0.196|0.00|0.000|True|False|
-|NORMAL|TRENDING_DOWN|0.001551|0.000000|0.000000|-0.000433|0.005381|0.308|0.03|0.000|True|False|
-|NORMAL|MEAN_REVERT|0.000112|0.000000|0.000000|0.000000|0.000000|0.112|0.00|0.000|True|False|
-|NORMAL|VOL_CLUSTER|0.006734|-0.000601|-0.006874|-0.004721|0.013772|0.351|0.39|0.000|True|False|
-|SHOCK|JUMP_DOWN|0.022770|0.000000|-0.008363|-0.004955|0.019730|0.462|0.75|0.000|True|False|
-|SHOCK|JUMP_UP|0.017725|0.000000|-0.009022|-0.004848|0.017852|0.489|0.59|0.000|True|False|
-|SHOCK|LIQUIDITY_SHOCK|0.009438|-0.005487|-0.019376|-0.015018|0.048284|0.304|1.77|0.000|True|False|
+overall_pass_C: True
+|Scenario|Group|Mean|p05|p01|CVaR5|MaxDD|Sharpe|T_recover|Exposure drift|corr(Q,ret)|PASS group|PASS inst|
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+|FLAT|NORMAL|0.534675|0.482078|0.455937|0.468003|0.004351|16.467|0.00|0.208|0.437|True|True|
+|TREND_UP|NORMAL|0.688539|0.628172|0.599550|0.612449|0.004553|18.617|0.00|0.217|0.427|True|True|
+|TREND_DOWN|NORMAL|0.411182|0.361010|0.334530|0.346593|0.005780|13.043|0.00|0.191|0.453|True|True|
+|VOL_CLUSTER|NORMAL|0.577340|0.512361|0.478394|0.493833|0.006258|14.170|0.00|0.194|0.451|True|True|
+|JUMP_SHOCK|SHOCK|0.307413|0.241709|0.207351|0.220725|0.017707|7.359|0.00|0.165|0.466|True|True|
+|LIQUIDITY_SHOCK|SHOCK|0.378827|0.309245|0.290372|0.296086|0.014203|9.093|0.00|0.178|0.462|True|True|
 
 ## sensitivity_mu_minus20
-|Group|Scenario|Mean|p05|p01|CVaR5|MaxDD|Sharpe|T_recover|Exposure drift|PASS group|PASS inst|
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|NORMAL|TRENDING_UP|0.000988|0.000000|0.000000|-0.000459|0.004652|0.247|0.02|0.000|True|False|
-|NORMAL|TRENDING_DOWN|0.002395|0.000000|-0.001355|-0.000764|0.008763|0.410|0.08|0.000|True|False|
-|NORMAL|MEAN_REVERT|0.000244|0.000000|0.000000|0.000000|0.000000|0.178|0.00|0.000|True|False|
-|NORMAL|VOL_CLUSTER|0.009017|-0.000874|-0.007000|-0.004717|0.013005|0.411|0.43|0.000|True|False|
-|SHOCK|JUMP_DOWN|0.030047|0.000000|-0.009257|-0.005100|0.028619|0.490|0.97|0.000|True|False|
-|SHOCK|JUMP_UP|0.024020|0.000000|-0.008737|-0.005240|0.020069|0.450|0.80|0.000|True|False|
-|SHOCK|LIQUIDITY_SHOCK|0.014966|-0.005970|-0.015750|-0.014291|0.062695|0.354|1.95|0.000|True|False|
+overall_pass_C: True
+|Scenario|Group|Mean|p05|p01|CVaR5|MaxDD|Sharpe|T_recover|Exposure drift|corr(Q,ret)|PASS group|PASS inst|
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+|FLAT|NORMAL|0.401389|0.353900|0.329181|0.340484|0.005168|13.507|0.00|0.194|0.451|True|True|
+|TREND_UP|NORMAL|0.516856|0.461754|0.434608|0.447319|0.004851|15.246|0.00|0.202|0.444|True|True|
+|TREND_DOWN|NORMAL|0.313496|0.267403|0.243802|0.254365|0.006932|10.835|0.00|0.179|0.462|True|True|
+|VOL_CLUSTER|NORMAL|0.444136|0.384531|0.353611|0.367764|0.007642|11.892|0.00|0.182|0.460|True|True|
+|JUMP_SHOCK|SHOCK|0.224498|0.164104|0.131708|0.144391|0.024041|5.789|0.00|0.157|0.469|True|True|
+|LIQUIDITY_SHOCK|SHOCK|0.271239|0.207907|0.189992|0.195231|0.017912|7.079|0.00|0.168|0.468|True|True|
 
 ## sensitivity_cost_plus20
-|Group|Scenario|Mean|p05|p01|CVaR5|MaxDD|Sharpe|T_recover|Exposure drift|PASS group|PASS inst|
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|NORMAL|TRENDING_UP|0.000590|0.000000|0.000000|-0.000084|0.001524|0.196|0.00|0.000|True|False|
-|NORMAL|TRENDING_DOWN|0.001548|0.000000|0.000000|-0.000436|0.005381|0.308|0.03|0.000|True|False|
-|NORMAL|MEAN_REVERT|0.000111|0.000000|0.000000|0.000000|0.000000|0.112|0.00|0.000|True|False|
-|NORMAL|VOL_CLUSTER|0.006724|-0.000621|-0.006894|-0.004748|0.013772|0.350|0.39|0.000|True|False|
-|SHOCK|JUMP_DOWN|0.022750|0.000000|-0.008403|-0.004978|0.019730|0.462|0.75|0.000|True|False|
-|SHOCK|JUMP_UP|0.017710|0.000000|-0.009042|-0.004870|0.017852|0.489|0.59|0.000|True|False|
-|SHOCK|LIQUIDITY_SHOCK|0.009424|-0.005507|-0.019416|-0.015057|0.048284|0.303|1.77|0.000|True|False|
+overall_pass_C: True
+|Scenario|Group|Mean|p05|p01|CVaR5|MaxDD|Sharpe|T_recover|Exposure drift|corr(Q,ret)|PASS group|PASS inst|
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+|FLAT|NORMAL|0.517834|0.465285|0.439213|0.451274|0.004433|15.975|0.00|0.208|0.437|True|True|
+|TREND_UP|NORMAL|0.671519|0.611286|0.582656|0.595554|0.004685|18.186|0.00|0.217|0.427|True|True|
+|TREND_DOWN|NORMAL|0.394625|0.344578|0.318038|0.330126|0.006410|12.534|0.00|0.191|0.453|True|True|
+|VOL_CLUSTER|NORMAL|0.560741|0.495781|0.461868|0.477326|0.006606|13.777|0.00|0.194|0.451|True|True|
+|JUMP_SHOCK|SHOCK|0.277697|0.212272|0.177550|0.191083|0.020465|6.654|0.00|0.165|0.466|True|True|
+|LIQUIDITY_SHOCK|SHOCK|0.342490|0.273020|0.254187|0.259888|0.016492|8.234|0.00|0.178|0.462|True|True|
 
-## Where strategy earns
-- NORMAL scenarios: positive mean and non-negative p05; Sharpe positive.
-## Where strategy survives
-- SHOCK scenarios: drawdown under hard limit, tail loss constrained by CVaR threshold, no margin call, recovery bounded.
+## where strategy earns
+- NORMAL scenarios: mean_pnl>0, p05>=0, Sharpe>=0.8.
+## where strategy survives
+- SHOCK scenarios: drawdown bounded, CVaR bounded, no margin call, recovery bounded.
