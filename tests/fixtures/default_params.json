@@ -1,0 +1,5 @@
+{
+  "broker": {"spread_points": 2, "commission_per_lot": 0.5, "slippage_points": 1, "swap_buy": 0, "swap_sell": 0, "safety_cost_multiplier": 1.2},
+  "symbol": {"symbol": "EURUSD", "point": 0.0001, "pip_value": 10, "digits": 5, "lot_step": 0.01, "min_lot": 0.01, "max_lot": 100},
+  "system": {"q_min": 0.01, "q_max": 0.02, "max_total_lot": 0.30, "max_exposure": 0.05, "z_entry": 1.5, "v_mean_revert_max": 1.2, "v_volatile_stop": 1.5, "dd_stress": 0.07, "dd_escape": 0.15, "dd_beta_protection": 0.10, "beta_dd_protection": 0.8}
+}
