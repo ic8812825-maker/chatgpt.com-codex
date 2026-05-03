@@ -27,7 +27,7 @@ for i,row in enumerate(params,1):
     sp.cell(i,1,row[0]); sp.cell(i,2,row[1])
 
 m=wb['Market_Data']
-rows=[('Параметр','Значение'),('Текущая цена',1.1000),('EMA',1.0985),('ATR Short',0.0018),('ATR Long',0.0020),('Текущий DD',0.02),('Последний PnL 10 циклов',5)]
+rows=[('Параметр','Значение'),('Текущая цена',1.17193),('EMA',1.0985),('ATR Short',0.0018),('ATR Long',0.0020),('Текущий DD',0.02),('Последний PnL 10 циклов',5)]
 for i,row in enumerate(rows,1):
     m.cell(i,1,row[0]); m.cell(i,2,row[1])
 
@@ -41,9 +41,15 @@ c['A6']='Cost'; c['B6']='=(Broker_Params!B5*B4*Symbol_Params!B7)+(Broker_Params!
 c['A7']='EV'; c['B7']='=(6*B4*Symbol_Params!B7)-B6'
 c['A8']='MinMovePoints'; c['B8']='=(B6*System_Params!B19)/(B4*Symbol_Params!B7)'
 
-for sh in ['Recommendations','Scenario_Up','Scenario_Down','Risk_Control','Trade_Log','Change_Log','Current_Positions']:
+for sh in ['Recommendations','Scenario_Up','Scenario_Down','Risk_Control','Trade_Log','Change_Log']:
     ws=wb[sh]
     ws['A1']='Демо-данные заполнены'
+
+
+cp=wb['Current_Positions']
+cp['A1']='ID'; cp['B1']='Тип'; cp['C1']='Лот'; cp['D1']='Цена открытия'; cp['E1']='Плавающий PnL'; cp['F1']='Комментарий'; cp['G1']='Убыток (USD)'; cp['H1']='Убыток (пункты)'
+cp.append([1,'BUY',0.01,1.17385,-10.50,'минусовой замок',-144.06,''])
+cp.append([2,'SELL',0.01,1.17175,'','противоположная нога','',''])
 
 wb.save('adaptive_lock_ev_calculator.xlsx')
 print('adaptive_lock_ev_calculator.xlsx updated')
