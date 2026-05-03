@@ -33,7 +33,7 @@ cp['J1']='Сумма BUY'; cp['K1']='=SUMIFS(C2:C100,B2:B100,"BUY")'
 cp['J2']='Сумма SELL'; cp['K2']='=SUMIFS(C2:C100,B2:B100,"SELL")'
 
 m=wb['Market_Data']
-rows=[('Параметр','Значение'),('Текущая цена',1.17193),('EMA',1.17260),('ATR Short',0.0018),('ATR Long',0.0024),('Текущий DD',0.02),('Последний PnL 10 циклов',5)]
+rows=[('Параметр','Значение'),('Текущая цена',1.17193),('EMA',1.17553),('ATR Short',0.0018),('ATR Long',0.0024),('Текущий DD',0.02),('Последний PnL 10 циклов',5)]
 for i,row in enumerate(rows,1): m.cell(i,1,row[0]); m.cell(i,2,row[1])
 
 c=wb['Calculations']
