@@ -51,3 +51,22 @@
 - Фиксируйте каждое решение на листе `11_DECISION_LOG` (кнопка/процедура: `ЗАПИСАТЬ РЕШЕНИЕ`, в текущей версии — manual copy, VBA можно добавить отдельно).
 - Фиксируйте реальное действие на листе `12_ACTION_LOG`.
 - На `13_ANALYTICS` контролируйте `DisciplineScore`, `LastMatch` и предупреждение `WARNING: DISCIPLINE LOW`.
+
+## Автоматический подбор параметров (ТЗ №6)
+
+Новые листы:
+- `14_OPTIMIZER_INPUT`
+- `15_OPTIMIZER_TABLE`
+- `16_OPTIMIZER_RESULT`
+- `17_OPTIMIZER_REPORT`
+
+Как использовать:
+1. На `14_OPTIMIZER_INPUT` выберите режим: `Conservative`, `Balanced`, `Aggressive`, `Custom`.
+2. Проверьте рекомендуемые параметры на `16_OPTIMIZER_RESULT` (`Recommended BaseLot/K/Step`, `Risk LOW/MEDIUM/HIGH`).
+3. Включите `01_INPUT!B40 = YES`, чтобы применить рекомендации (`Effective*` параметры).
+4. Если `OptimizerStatus = NO VALID PARAMS`, использовать рекомендации нельзя: система даст `PARAMETER ERROR`.
+
+Когда нельзя использовать рекомендации:
+- если `ValidationStatus = ERROR`;
+- если `OptimizerStatus = NO VALID PARAMS`;
+- если `10_PRECHECK` показывает `STOP`.
