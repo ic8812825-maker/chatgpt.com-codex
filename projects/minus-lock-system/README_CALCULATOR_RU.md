@@ -70,3 +70,23 @@
 - если `ValidationStatus = ERROR`;
 - если `OptimizerStatus = NO VALID PARAMS`;
 - если `10_PRECHECK` показывает `STOP`.
+
+## Стресс-тестирование серии шагов (ТЗ №7)
+
+Новые листы:
+- `18_STRESS_INPUT` — вход стресс-теста (режим, число шагов, правила остановки).
+- `19_STRESS_PATH` — путь цены по шагам.
+- `20_STRESS_SIMULATION` — последовательная симуляция (шаг N влияет на N+1).
+- `21_STRESS_REPORT` — итог (`PASSED/WARNING/FAILED`).
+
+Режимы StressMode:
+- `UP` — каждый шаг вверх.
+- `DOWN` — каждый шаг вниз.
+- `SAW` — пила (вверх/вниз чередуются).
+- `CUSTOM` — ручные направления.
+
+Как читать отчет:
+- `FinalStatus`, `FinalBasketProfit`, `SafeModeStep`, `FullCloseStep`, `Verdict`.
+- `PASSED` — цель достигнута или корзина неотрицательна.
+- `WARNING` — восстановление не завершено.
+- `FAILED` — сработал SAFE MODE.

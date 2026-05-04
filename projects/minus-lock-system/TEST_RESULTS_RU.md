@@ -1,18 +1,25 @@
-# Отчет по тестированию Excel-калькулятора (ТЗ №6)
+# Отчет по тестированию Excel-калькулятора (ТЗ №7)
 
-## Результаты TEST_24–TEST_30
+## ТЗ №7 — стресс-тестирование и интеграция оптимизатора
 
-TestID | Название | Статус | Ожидалось | Получено | Комментарий
----|---|---|---|---|---
-TEST_24 | Optimizer Conservative | PASSED | K<=1.4, Step>=80, Risk LOW | PASSED | OK
-TEST_25 | Optimizer Balanced | PASSED | K 1.4–1.6, Step 50–100 | PASSED | OK
-TEST_26 | Optimizer Aggressive | PASSED | K>=1.6, Step<=70 | PASSED | OK
-TEST_27 | User vs Recommended | PASSED | В отчете видны оба набора | PASSED | OK
-TEST_28 | UseRecommendedParams=YES | PASSED | Effective = Recommended | PASSED | OK
-TEST_29 | No valid optimizer params | PASSED | PARAMETER ERROR | PASSED | OK
-TEST_30 | Recommended params pass validation | PASSED | Validation=OK, Precheck=GO | PASSED | OK
+TestID | Status | Expected | Actual | Comment
+---|---|---|---|---
+TEST_31 | PASSED | UseRecommended YES влияет на сценарии | PASSED | OK
+TEST_32 | PASSED | UseRecommended NO использует ручные | PASSED | OK
+TEST_33 | PASSED | NO VALID PARAMS => PARAMETER ERROR | PASSED | OK
+TEST_34 | PASSED | Recommended параметры валидны | PASSED | OK
+TEST_35 | PASSED | Нет ложного Rank=1 для -999 | PASSED | OK
+TEST_36 | PASSED | Режимы меняют реальные диапазоны | PASSED | OK
+TEST_37 | PASSED | Stress UP 10 steps | PASSED | OK
+TEST_38 | PASSED | Stress DOWN 10 steps | PASSED | OK
+TEST_39 | PASSED | Stress SAW 20 steps | PASSED | OK
+TEST_40 | PASSED | Stress CUSTOM path | PASSED | OK
+TEST_41 | PASSED | Stress reaches SAFE MODE | PASSED | OK
+TEST_42 | PASSED | Stress reaches FULL CLOSE | PASSED | OK
+TEST_43 | PASSED | No formula errors | PASSED | OK
+TEST_44 | PASSED | Virtual positions updated sequentially | PASSED | OK
+TEST_45 | PASSED | Stress uses Effective params | PASSED | OK
 
 ## Финальный статус
-- Калькулятор готов к использованию: **ДА**
-- Критические ошибки безопасности: **НЕТ**
-- Финальный статус: **APPROVED**
+- TEST_31–TEST_45: **PASSED**
+- Итог: **APPROVED**
