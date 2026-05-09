@@ -1,26 +1,27 @@
-# Runtime execution report (data_only=True)
+# Runtime execution report (recalculated via LibreOffice + data_only=True)
 
-## What was executed
-1. Loaded `recovery_lock_cascade_next_step.xlsx`.
-2. Injected test inputs (NextLevel/TailLotAfterClose, BasketFloating/Reserve, CostMode, etc.).
-3. Saved runtime case as `reports/tests/recovery_lock_runtime_case.xlsx`.
-4. Reopened with `data_only=True` and read target cells.
+## Steps executed
+1. Opened `recovery_lock_cascade_next_step.xlsx`.
+2. Injected runtime test inputs into `reports/tests/recovery_lock_runtime_case.xlsx`.
+3. Recalculated by round-trip through LibreOffice headless (`xlsx -> ods -> xlsx`).
+4. Reopened the recalculated workbook with `openpyxl(..., data_only=True)`.
 
-## Raw runtime readout
-All formula cells returned `None` in this environment:
-- `Scenario_UP!B222`
-- `TailRecovery_UP!B16`
-- `TailRecovery_UP!B17`
-- `SectionCalculator_UP!B14`
-- `SectionCalculator_UP!K21`
-- `BasketSummary!B10`
-- `TailRecovery_UP!B8`
-- `TailRecovery_UP!B10`
-- `TailRecovery_UP!B11`
+## Runtime values read from workbook
+- `Scenario_UP!B222 (TailTicket)` = `N/A`
+- `TailRecovery_UP!B16 (NextBigLotAfterRecovery)` = `#NAME?`
+- `TailRecovery_UP!B17 (NextSmallLotAfterRecovery)` = `#NAME?`
+- `SectionCalculator_UP!B14 (CanOpenSection)` = `#NAME?`
+- `SectionCalculator_UP!K21 (Costs)` = `#NAME?`
+- `BasketSummary!B10 (CanCloseBasket)` = `YES`
+- `TailRecovery_UP!B8 (CloseLotRaw)` = `0`
+- `TailRecovery_UP!B10 (CloseLotFinal)` = `0`
+- `TailRecovery_UP!B11 (CloseAllowed)` = `NO`
 
-Reason: `openpyxl` does not calculate Excel formulas; it only reads cached values written by Excel/Calc.
-No local spreadsheet recalculation engine (LibreOffice/Excel) is available in this container.
+## Interpretation
+- Runtime recalculation is now **executed** (not blocked).
+- Cells using newer Excel functions (`XLOOKUP`, `LET`) are not fully compatible in this LibreOffice path and evaluate to `#NAME?`.
+- Cells not depending on unsupported functions are computed and returned as concrete values (`YES`, `0`, `NO`).
 
-## Result status
-- Runtime `data_only=True` recalculation proof: **BLOCKED by environment**.
-- Formula logic proof remains covered by explicit formula checks and deterministic scenario math in prior reports.
+## Conclusion
+- The runtime pipeline with recalculation + `data_only=True` is confirmed working.
+- For fully numeric PASS on all 6 checks in LibreOffice, formulas must be refactored to LibreOffice-compatible alternatives (replace `XLOOKUP`/`LET`).
