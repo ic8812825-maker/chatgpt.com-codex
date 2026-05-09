@@ -50,8 +50,8 @@ def add_scenario(ws, direction):
         ws.cell(rr, 7, f'=IF(B{rr}="BUY",(F{rr}-E{rr})/Settings!$B$3,(E{rr}-F{rr})/Settings!$B$3)'); ws.cell(rr, 8, f"=G{rr}*D{rr}*Settings!$B$4")
         ws.cell(rr, 9, f"=CurrentPositions!I{r}"); ws.cell(rr, 10, f"=CurrentPositions!J{r}")
     ws["A220"] = "TailType"; ws["B220"] = loss_type
-    ws["A221"] = "TailWorstPnL"; ws["B221"] = f'=MINIFS(H7:H206,B7:B206,"{loss_type}",H7:H206,"<0")'
-    ws["A222"] = "TailTicket"; ws["B222"] = f'=IFERROR(MINIFS(A7:A206,B7:B206,"{loss_type}",H7:H206,B221),"N/A")'
+    ws["A221"] = "TailWorstPnL"; ws["B221"] = f'=IFERROR(MIN(IF((B7:B206="{loss_type}")*(H7:H206<0),H7:H206)),0)'
+    ws["A222"] = "TailTicket"; ws["B222"] = f'=IFERROR(MIN(IF((B7:B206="{loss_type}")*(H7:H206=B221),A7:A206)),"N/A")'
     ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D7:D206,MATCH(B222,A7:A206,0)))'
     ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H7:H206,MATCH(B222,A7:A206,0))))'
     ws["A225"] = "TailLossPerLot"; ws["B225"] = '=IF(B223=0,0,ABS(B224/B223))'
