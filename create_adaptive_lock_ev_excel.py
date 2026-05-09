@@ -1,79 +1,194 @@
 from openpyxl import Workbook
+from openpyxl.styles import Font
 
-wb=Workbook()
-for s in ["README","Broker_Params","Symbol_Params","System_Params","Current_Positions","Market_Data","Calculations","Recommendations","Scenario_Up","Scenario_Down","Risk_Control","Trade_Log","Change_Log"]:
-    if s=="README": ws=wb.active; ws.title=s
-    else: wb.create_sheet(s)
+BOLD = Font(bold=True)
 
-r=wb['README']
-r['A1']='Калькулятор Adaptive Lock EV (демо)'
-r['A2']='Назначение: расчет следующего допустимого шага системы.'
-r['A3']='Важно: калькулятор не торгует, только рассчитывает.'
-r['A4']='Логика следующего шага рассчитывается на листах Calculations/Scenario_Up/Scenario_Down/Recommendations.'
 
-b=wb['Broker_Params']
-rows=[('Параметр','Значение','Комментарий'),('Баланс счёта',10000,'Демо'),('Эквити',10000,'Демо'),('Плечо',100,'1:100'),('Спред (пункты)',2,'Демо'),('Комиссия за 1 лот',0.5,'Демо'),('Проскальзывание (пункты)',1,'Демо'),('Своп BUY',0,'Демо'),('Своп SELL',0,'Демо'),('Маржа на 1 лот',1000,'Демо'),('Мин. лот',0.01,'Демо'),('Шаг лота',0.01,'Демо'),('Макс. лот',100,'Демо')]
-for i,row in enumerate(rows,1):
-    for j,v in enumerate(row,1): b.cell(i,j,v)
+def hdr(ws, row, cols):
+    for i, c in enumerate(cols, 1):
+        cell = ws.cell(row=row, column=i, value=c)
+        cell.font = BOLD
 
-s=wb['Symbol_Params']
-rows=[('Параметр','Значение','Комментарий'),('Символ','EURUSD','Демо'),('Digits',5,'Точность'),('Point',0.0001,'Шаг цены'),('Tick Size',0.0001,'Размер тика'),('Tick Value',1,'Стоимость тика'),('Pip Value 1 Lot',10,'Стоимость пункта'),('Contract Size',100000,'Контракт'),('ATR Period Short',14,'Демо'),('ATR Period Long',100,'Демо'),('EMA Period',50,'Демо')]
-for i,row in enumerate(rows,1):
-    for j,v in enumerate(row,1): s.cell(i,j,v)
 
-sp=wb['System_Params']
-params=[('Параметр','Значение'),('Base Lock Buy Lot',0.10),('Base Lock Sell Lot',0.10),('Q Min',0.01),('Q Max',0.02),('Max Total Lot',0.30),('Max Exposure',0.05),('Z Entry Level',1.5),('V Mean Revert Max',1.2),('V Volatile Stop',1.5),('DD Stress Level',0.07),('DD Escape Level',0.15),('DD Beta Protection',0.10),('Beta DD Protection',0.80),('Min EV Required',0),('Safety Cost Multiplier',1.2),('Expected Mu',6)]
-for i,row in enumerate(params,1): sp.cell(i,1,row[0]); sp.cell(i,2,row[1])
+def add_settings(ws):
+    hdr(ws, 1, ["Field", "Value"])
+    rows = [
+        ("Symbol", "EURUSD"), ("Point", 0.0001), ("PointValuePerLot", 1), ("StepPoints", 100),
+        ("MinLot", 0.01), ("LotStep", 0.01), ("MaxActiveSections", 4), ("ReservePercent", 0.20),
+        ("RecoveryPercent", 0.80), ("BasketTarget", 0), ("MaxSpreadPoints", 20),
+        ("CommissionPerLot", 0), ("SwapPerLot", 0), ("MaxTotalLot", 20), ("MaxNetLot", 10),
+        ("GlobalReserve", 0), ("RecoveryFund", 0),
+    ]
+    for r, (k, v) in enumerate(rows, 2):
+        ws.cell(r, 1, k); ws.cell(r, 2, v)
 
-cp=wb['Current_Positions']
-cp['A1']='ID'; cp['B1']='Тип'; cp['C1']='Лот'; cp['D1']='Цена открытия'; cp['E1']='Плавающий PnL'; cp['F1']='Комментарий'; cp['G1']='Убыток (USD)'; cp['H1']='Убыток (пункты)'
-cp.append([1,'BUY',0.01,1.17385,'=(Market_Data!B2-D2)/Symbol_Params!B4*C2*Symbol_Params!B7','минусовой замок',-144.06,''])
-cp.append([2,'SELL',0.01,1.17175,'=(D3-Market_Data!B2)/Symbol_Params!B4*C3*Symbol_Params!B7','противоположная нога','',''])
-cp['J1']='Сумма BUY'; cp['K1']='=SUMIFS(C2:C100,B2:B100,"BUY")'
-cp['J2']='Сумма SELL'; cp['K2']='=SUMIFS(C2:C100,B2:B100,"SELL")'
+    hdr(ws, 20, ["Level", "BigRatio", "SmallRatio"])
+    for r, row in enumerate([(1, 0.40, 0.15), (2, 0.25, 0.10), (3, 0.15, 0.06), (4, 0.10, 0.04)], 21):
+        ws.cell(r, 1, row[0]); ws.cell(r, 2, row[1]); ws.cell(r, 3, row[2])
 
-m=wb['Market_Data']
-rows=[('Параметр','Значение'),('Текущая цена',1.17193),('EMA',1.17553),('ATR Short',0.0018),('ATR Long',0.0024),('Текущий DD',0.02),('Последний PnL 10 циклов',5)]
-for i,row in enumerate(rows,1): m.cell(i,1,row[0]); m.cell(i,2,row[1])
 
-c=wb['Calculations']
-c['A1']='Z'; c['B1']='=(Market_Data!B2-Market_Data!B3)/Market_Data!B4'
-c['A2']='V'; c['B2']='=Market_Data!B4/Market_Data!B5'
-c['A3']='Regime'; c['B3']='=IF(B2>System_Params!B10,"VOLATILE",IF(B2<System_Params!B9,"MEAN_REVERT","NEUTRAL"))'
-c['A4']='Confidence'; c['B4']='=MIN(ABS(B1)/2,1)'
-c['A5']='Q'; c['B5']='=MIN(MAX(System_Params!B4+System_Params!B4*B4,System_Params!B4),System_Params!B5)'
-c['A6']='Q adj'; c['B6']='=IF(B3="NEUTRAL",B5*0.5,IF(B3="VOLATILE",0,B5))'
-c['A7']='Beta'; c['B7']='=IF(Market_Data!B6>System_Params!B13,System_Params!B14,0.7-0.4*B4)'
-c['A8']='Cost'; c['B8']='=(Broker_Params!B5*B6*Symbol_Params!B7)+(Broker_Params!B6*B6)+(Broker_Params!B7*B6*Symbol_Params!B7)'
-c['A9']='EV'; c['B9']='=(System_Params!B17*B6*Symbol_Params!B7)-B8'
-c['A10']='MinMovePoints'; c['B10']='=(B8*System_Params!B16)/(B6*Symbol_Params!B7)'
-c['A11']='MinMovePrice'; c['B11']='=B10*Symbol_Params!B4'
-c['A12']='TotalLot'; c['B12']='=Current_Positions!K1+Current_Positions!K2'
-c['A13']='Exposure'; c['B13']='=ABS(Current_Positions!K1-Current_Positions!K2)'
-c['A14']='RiskOK'; c['B14']='=IF(AND(B12<=System_Params!B6,B13<=System_Params!B7),"YES","NO")'
-c['A15']='EV_OK'; c['B15']='=IF(B9>System_Params!B15,"ALLOW","BLOCK")'
+def add_positions(ws):
+    hdr(ws, 1, ["Ticket", "Type", "Role", "Lot", "OpenPrice", "CurrentPrice", "PointsPnL", "MoneyPnL", "IsTail", "SectionID"])
+    rows = [
+        [10001, "BUY", "MAIN", 1.00, 1.2300, 1.2300, None, None, "NO", ""],
+        [10002, "SELL", "TAIL", 1.00, 1.2300, 1.2300, None, None, "YES", ""],
+        [10003, "SELL", "SECTION_BIG", 0.40, 1.2350, 1.2300, None, None, "NO", "S1"],
+        [10004, "BUY", "SECTION_SMALL", 0.15, 1.2350, 1.2300, None, None, "NO", "S1"],
+    ]
+    for r, row in enumerate(rows, 2):
+        for c, v in enumerate(row, 1):
+            ws.cell(r, c, v)
+        ws.cell(r, 7, f'=IF(B{r}="BUY",(F{r}-E{r})/Settings!$B$3,(E{r}-F{r})/Settings!$B$3)')
+        ws.cell(r, 8, f'=G{r}*D{r}*Settings!$B$4')
 
-up=wb['Scenario_Up']
-up['A1']='TriggerUp'; up['B1']='=Market_Data!B2+Calculations!B11'
-up['A2']='Action'; up['B2']='=IF(AND(Calculations!B1>System_Params!B8,Calculations!B3="MEAN_REVERT",Calculations!B14="YES",Calculations!B15="ALLOW"),"OPEN","NO_ACTION")'
-up['A3']='Type'; up['B3']='=IF(B2="OPEN","SELL","")'
-up['A4']='Lot'; up['B4']='=IF(B2="OPEN",Calculations!B6,0)'
-up['A5']='Comment'; up['B5']='=IF(B2="OPEN","Mean reversion SELL","Блокировка условий")'
 
-dn=wb['Scenario_Down']
-dn['A1']='TriggerDown'; dn['B1']='=Market_Data!B2-Calculations!B11'
-dn['A2']='Action'; dn['B2']='=IF(AND(Calculations!B1<-System_Params!B8,Calculations!B3="MEAN_REVERT",Calculations!B14="YES",Calculations!B15="ALLOW"),"OPEN","NO_ACTION")'
-dn['A3']='Type'; dn['B3']='=IF(B2="OPEN","BUY","")'
-dn['A4']='Lot'; dn['B4']='=IF(B2="OPEN",Calculations!B6,0)'
-dn['A5']='Comment'; dn['B5']='=IF(B2="OPEN","Mean reversion BUY","Блокировка условий")'
+def add_scenario(ws, direction):
+    up = direction == "UP"
+    move = "MoveUpPoints" if up else "MoveDownPoints"
+    sign = "+" if up else "-"
+    loss_type = "SELL" if up else "BUY"
 
-rec=wb['Recommendations']
-rec['A1']='Direction'; rec['B1']='Action'; rec['C1']='Type'; rec['D1']='Price'; rec['E1']='Lot'; rec['F1']='Comment'
-rec['A2']='UP'; rec['B2']='=Scenario_Up!B2'; rec['C2']='=Scenario_Up!B3'; rec['D2']='=Scenario_Up!B1'; rec['E2']='=Scenario_Up!B4'; rec['F2']='=Scenario_Up!B5'
-rec['A3']='DOWN'; rec['B3']='=Scenario_Down!B2'; rec['C3']='=Scenario_Down!B3'; rec['D3']='=Scenario_Down!B1'; rec['E3']='=Scenario_Down!B4'; rec['F3']='=Scenario_Down!B5'
+    hdr(ws, 1, ["Field", "Value"])
+    ws["A2"] = "CurrentPrice"; ws["B2"] = "=CurrentPositions!F2"
+    ws["A3"] = move; ws["B3"] = 100
+    ws["A4"] = "ScenarioPrice"; ws["B4"] = f"=B2{sign}B3*Settings!$B$3"
 
-for sh in ['Risk_Control','Trade_Log','Change_Log']:
-    wb[sh]['A1']='Демо-данные заполнены'
+    hdr(ws, 6, ["Ticket", "Type", "Role", "Lot", "OpenPrice", "ScenarioPrice", "ScenarioPointsPnL", "ScenarioMoneyPnL", "IsTail", "SectionID"])
+    for r in range(2, 102):
+        rr = r + 5
+        ws.cell(rr, 1, f"=CurrentPositions!A{r}")
+        ws.cell(rr, 2, f"=CurrentPositions!B{r}")
+        ws.cell(rr, 3, f"=CurrentPositions!C{r}")
+        ws.cell(rr, 4, f"=CurrentPositions!D{r}")
+        ws.cell(rr, 5, f"=CurrentPositions!E{r}")
+        ws.cell(rr, 6, "=$B$4")
+        ws.cell(rr, 7, f'=IF(B{rr}="BUY",(F{rr}-E{rr})/Settings!$B$3,(E{rr}-F{rr})/Settings!$B$3)')
+        ws.cell(rr, 8, f"=G{rr}*D{rr}*Settings!$B$4")
+        ws.cell(rr, 9, f"=CurrentPositions!I{r}")
+        ws.cell(rr, 10, f"=CurrentPositions!J{r}")
 
-wb.save('adaptive_lock_ev_calculator.xlsx')
-print('adaptive_lock_ev_calculator.xlsx updated with next-step formulas')
+    ws["A110"] = "TailType"; ws["B110"] = loss_type
+    ws["A111"] = "TailTicket"; ws["B111"] = f'=IFERROR(INDEX(A7:A106,MATCH(MINIFS(H7:H106,B7:B106,"{loss_type}",H7:H106,"<0"),H7:H106,0)),"N/A")'
+    ws["A112"] = "TailLot"; ws["B112"] = '=IF(B111="N/A",0,XLOOKUP(B111,A7:A106,D7:D106,0))'
+    ws["A113"] = "TailOpenPrice"; ws["B113"] = '=IF(B111="N/A",0,XLOOKUP(B111,A7:A106,E7:E106,0))'
+    ws["A114"] = "TailLossMoney"; ws["B114"] = '=IF(B111="N/A",0,ABS(XLOOKUP(B111,A7:A106,H7:H106,0)))'
+    ws["A115"] = "TailLossPerLot"; ws["B115"] = '=IF(B112=0,0,ABS(B114/B112))'
+
+    ws["D1"] = "AverageBuyPrice"; ws["E1"] = '=IFERROR(SUMPRODUCT((B7:B106="BUY")*E7:E106*D7:D106)/SUMIFS(D7:D106,B7:B106,"BUY"),0)'
+    ws["D2"] = "AverageSellPrice"; ws["E2"] = '=IFERROR(SUMPRODUCT((B7:B106="SELL")*E7:E106*D7:D106)/SUMIFS(D7:D106,B7:B106,"SELL"),0)'
+    ws["D3"] = "Center"; ws["E3"] = '=(E1+E2)/2'
+    for lvl in range(1, 5):
+        ws.cell(3 + lvl, 4, f"UpperLevel{lvl}")
+        ws.cell(3 + lvl, 5, f"=E3+{lvl}*Settings!$B$5*Settings!$B$3")
+        ws.cell(8 + lvl, 4, f"LowerLevel{lvl}")
+        ws.cell(8 + lvl, 5, f"=E3-{lvl}*Settings!$B$5*Settings!$B$3")
+
+
+def add_section_calc(ws, scenario_sheet):
+    hdr(ws, 1, ["Field", "Value"])
+    rows = [
+        ("TailType", f"={scenario_sheet}!B110"), ("TailLot", f"={scenario_sheet}!B112"), ("NextLevel", 1),
+        ("BigRatio", '=XLOOKUP(B4,Settings!A21:A24,Settings!B21:B24)'), ("SmallRatio", '=XLOOKUP(B4,Settings!A21:A24,Settings!C21:C24)'),
+        ("BigType", '=IF(B2="BUY","BUY","SELL")'), ("SmallType", '=IF(B2="BUY","SELL","BUY")'),
+        ("BigLotRaw", '=B3*B5'), ("SmallLotRaw", '=B3*B6'),
+        ("BigLot", '=FLOOR(B9,Settings!$B$7)'), ("SmallLot", '=FLOOR(B10,Settings!$B$7)'),
+        ("ActiveSections", '=COUNTIFS(CurrentPositions!C2:C200,"SECTION_BIG")'),
+        ("TotalLotAfterOpen", '=SUM(CurrentPositions!D2:D200)+B11+B12'),
+        ("NetLotAfterOpen", '=ABS(SUMIFS(CurrentPositions!D2:D200,CurrentPositions!B2:B200,"BUY")+IF(B7="BUY",B11,0)+IF(B8="BUY",B12,0)-SUMIFS(CurrentPositions!D2:D200,CurrentPositions!B2:B200,"SELL")-IF(B7="SELL",B11,0)-IF(B8="SELL",B12,0))'),
+        ("CanOpenSection", '=IF(AND(B11>=Settings!$B$6,B12>=Settings!$B$6,B12<B11,B11<=B3,B13<Settings!$B$8,B14<=Settings!$B$15,B15<=Settings!$B$16),"YES","NO")'),
+    ]
+    for r, (k, v) in enumerate(rows, 2): ws.cell(r, 1, k); ws.cell(r, 2, v)
+
+    hdr(ws, 20, ["SectionID", "BigType", "BigLot", "BigOpenPrice", "SmallType", "SmallLot", "SmallOpenPrice", "ScenarioPrice", "BigPnL", "SmallPnL", "Costs", "CycleProfit", "CanCloseSection", "ReserveAdd", "RecoveryAdd", "NewGlobalReserve", "NewRecoveryFund"])
+    ws["A21"] = "S1"
+    ws["B21"] = '=INDEX(CurrentPositions!B2:B200,MATCH("SECTION_BIG",CurrentPositions!C2:C200,0))'
+    ws["C21"] = '=INDEX(CurrentPositions!D2:D200,MATCH("SECTION_BIG",CurrentPositions!C2:C200,0))'
+    ws["D21"] = '=INDEX(CurrentPositions!E2:E200,MATCH("SECTION_BIG",CurrentPositions!C2:C200,0))'
+    ws["E21"] = '=INDEX(CurrentPositions!B2:B200,MATCH("SECTION_SMALL",CurrentPositions!C2:C200,0))'
+    ws["F21"] = '=INDEX(CurrentPositions!D2:D200,MATCH("SECTION_SMALL",CurrentPositions!C2:C200,0))'
+    ws["G21"] = '=INDEX(CurrentPositions!E2:E200,MATCH("SECTION_SMALL",CurrentPositions!C2:C200,0))'
+    ws["H21"] = f'={scenario_sheet}!B4'
+    ws["I21"] = '=IF(B21="BUY",(H21-D21)/Settings!$B$3*C21*Settings!$B$4,(D21-H21)/Settings!$B$3*C21*Settings!$B$4)'
+    ws["J21"] = '=IF(E21="BUY",(H21-G21)/Settings!$B$3*F21*Settings!$B$4,(G21-H21)/Settings!$B$3*F21*Settings!$B$4)'
+    ws["K21"] = '=((Settings!$B$11*2)*Settings!$B$4*(C21+F21))+(Settings!$B$12*(C21+F21))+(Settings!$B$13*(C21+F21))'
+    ws["L21"] = '=I21+J21-K21'
+    ws["M21"] = '=IF(L21>0,"YES","NO")'
+    ws["N21"] = '=IF(L21>0,L21*Settings!$B$9,0)'
+    ws["O21"] = '=IF(L21>0,L21*Settings!$B$10,0)'
+    ws["P21"] = '=Settings!$B$17+N21'
+    ws["Q21"] = '=Settings!$B$18+O21'
+
+
+def add_tail_recovery(ws, section_sheet, scenario_sheet):
+    hdr(ws, 1, ["Field", "Value"])
+    rows = [
+        ("TailType", f"={scenario_sheet}!B110"), ("TailTicket", f"={scenario_sheet}!B111"), ("TailLot", f"={scenario_sheet}!B112"),
+        ("TailLossMoney", f"={scenario_sheet}!B114"), ("TailLossPerLot", f"={scenario_sheet}!B115"),
+        ("CanCloseSection", f"={section_sheet}!M21"), ("RecoveryFundAfterCycle", f"={section_sheet}!Q21"),
+        ("CloseLotRaw", '=IF(OR(B6<>"YES",B5=0),0,B7/B5)'), ("CloseLotRounded", '=FLOOR(B8,Settings!$B$7)'),
+        ("CloseLotFinal", '=MIN(B9,B3)'), ("CloseAllowed", '=IF(AND(B6="YES",B10>=Settings!$B$6),"YES","NO")'),
+        ("TailCloseLoss", '=B10*B5'), ("RecoveryFundAfterClose", '=B7-B12'), ("TailLotAfterClose", '=B3-B10'),
+        ("Rule_TailCloseLoss<=RecoveryFund", '=IF(B12<=B7,"OK","ERROR")')
+    ]
+    for r, (k, v) in enumerate(rows, 2): ws.cell(r, 1, k); ws.cell(r, 2, v)
+
+
+def build():
+    wb = Workbook()
+    wb.active.title = "Settings"
+    for s in ["CurrentPositions", "Scenario_UP", "Scenario_DOWN", "SectionCalculator_UP", "SectionCalculator_DOWN", "TailRecovery_UP", "TailRecovery_DOWN", "BasketSummary", "Validation", "Log"]:
+        wb.create_sheet(s)
+
+    add_settings(wb["Settings"])
+    add_positions(wb["CurrentPositions"])
+    add_scenario(wb["Scenario_UP"], "UP")
+    add_scenario(wb["Scenario_DOWN"], "DOWN")
+    add_section_calc(wb["SectionCalculator_UP"], "Scenario_UP")
+    add_section_calc(wb["SectionCalculator_DOWN"], "Scenario_DOWN")
+    add_tail_recovery(wb["TailRecovery_UP"], "SectionCalculator_UP", "Scenario_UP")
+    add_tail_recovery(wb["TailRecovery_DOWN"], "SectionCalculator_DOWN", "Scenario_DOWN")
+
+    bs = wb["BasketSummary"]
+    hdr(bs, 1, ["Field", "UP", "DOWN"])
+    fields = ["ScenarioPrice", "BasketFloating", "GlobalReserveBefore", "GlobalReserveAfter", "RecoveryFundBefore", "RecoveryFundAfter", "TailType", "TailLotBefore", "TailLotAfter", "CloseLot", "CanCloseSection", "CanCloseTail", "CanCloseBasket", "NextAction"]
+    for i, f in enumerate(fields, 2): bs.cell(i, 1, f)
+    bs["B2"] = "=Scenario_UP!B4"; bs["C2"] = "=Scenario_DOWN!B4"
+    bs["B3"] = "=SUM(Scenario_UP!H7:H106)"; bs["C3"] = "=SUM(Scenario_DOWN!H7:H106)"
+    bs["B4"] = "=Settings!$B$17"; bs["C4"] = "=Settings!$B$17"
+    bs["B5"] = "=SectionCalculator_UP!P21"; bs["C5"] = "=SectionCalculator_DOWN!P21"
+    bs["B6"] = "=Settings!$B$18"; bs["C6"] = "=Settings!$B$18"
+    bs["B7"] = "=TailRecovery_UP!B13"; bs["C7"] = "=TailRecovery_DOWN!B13"
+    bs["B8"] = "=Scenario_UP!B110"; bs["C8"] = "=Scenario_DOWN!B110"
+    bs["B9"] = "=TailRecovery_UP!B4"; bs["C9"] = "=TailRecovery_DOWN!B4"
+    bs["B10"] = "=TailRecovery_UP!B14"; bs["C10"] = "=TailRecovery_DOWN!B14"
+    bs["B11"] = "=TailRecovery_UP!B10"; bs["C11"] = "=TailRecovery_DOWN!B10"
+    bs["B12"] = "=SectionCalculator_UP!M21"; bs["C12"] = "=SectionCalculator_DOWN!M21"
+    bs["B13"] = "=TailRecovery_UP!B11"; bs["C13"] = "=TailRecovery_DOWN!B11"
+    bs["B14"] = '=IF(B3+B5>=Settings!$B$10,"YES","NO")'; bs["C14"] = '=IF(C3+C5>=Settings!$B$10,"YES","NO")'
+    bs["B15"] = '=IF(B14="YES","BASKET_CLOSE",IF(B12="NO","WAIT",IF(B13="YES","CLOSE_SECTION+CLOSE_TAIL","CLOSE_SECTION/SAFE")))'
+    bs["C15"] = '=IF(C14="YES","BASKET_CLOSE",IF(C12="NO","WAIT",IF(C13="YES","CLOSE_SECTION+CLOSE_TAIL","CLOSE_SECTION/SAFE")))'
+
+    v = wb["Validation"]
+    hdr(v, 1, ["Rule", "UP Status", "DOWN Status"])
+    rules = [
+        ("Tail close only if section profit > 0", '=IF(OR(SectionCalculator_UP!L21>0,TailRecovery_UP!B10=0),"OK","ERROR")', '=IF(OR(SectionCalculator_DOWN!L21>0,TailRecovery_DOWN!B10=0),"OK","ERROR")'),
+        ("TailCloseLoss <= RecoveryFundAfterCycle", '=IF(TailRecovery_UP!B12<=TailRecovery_UP!B7,"OK","ERROR")', '=IF(TailRecovery_DOWN!B12<=TailRecovery_DOWN!B7,"OK","ERROR")'),
+        ("BigLot <= TailLot", '=IF(SectionCalculator_UP!B11<=SectionCalculator_UP!B3,"OK","ERROR")', '=IF(SectionCalculator_DOWN!B11<=SectionCalculator_DOWN!B3,"OK","ERROR")'),
+        ("SmallLot < BigLot", '=IF(SectionCalculator_UP!B12<SectionCalculator_UP!B11,"OK","ERROR")', '=IF(SectionCalculator_DOWN!B12<SectionCalculator_DOWN!B11,"OK","ERROR")'),
+        ("MaxActiveSections", '=IF(SectionCalculator_UP!B13<=Settings!$B$8,"OK","ERROR")', '=IF(SectionCalculator_DOWN!B13<=Settings!$B$8,"OK","ERROR")'),
+        ("MaxTotalLot", '=IF(SectionCalculator_UP!B14<=Settings!$B$15,"OK","ERROR")', '=IF(SectionCalculator_DOWN!B14<=Settings!$B$15,"OK","ERROR")'),
+        ("MaxNetLot", '=IF(SectionCalculator_UP!B15<=Settings!$B$16,"OK","ERROR")', '=IF(SectionCalculator_DOWN!B15<=Settings!$B$16,"OK","ERROR")'),
+    ]
+    for r, row in enumerate(rules, 2):
+        for c, val in enumerate(row, 1): v.cell(r, c, val)
+
+    log = wb["Log"]
+    log["A1"] = '="NEXT ACTION UP:"&CHAR(10)&"Price="&TEXT(BasketSummary!B2,"0.00000")&CHAR(10)&"CycleProfit="&TEXT(SectionCalculator_UP!L21,"0.00")&CHAR(10)&"CanCloseSection="&BasketSummary!B12&CHAR(10)&"CloseTailLot="&TEXT(BasketSummary!B11,"0.00")&CHAR(10)&"TailAfter="&TEXT(BasketSummary!B10,"0.00")&CHAR(10)&"Next="&BasketSummary!B15'
+    log["A2"] = '="NEXT ACTION DOWN:"&CHAR(10)&"Price="&TEXT(BasketSummary!C2,"0.00000")&CHAR(10)&"CycleProfit="&TEXT(SectionCalculator_DOWN!L21,"0.00")&CHAR(10)&"CanCloseSection="&BasketSummary!C12&CHAR(10)&"CloseTailLot="&TEXT(BasketSummary!C11,"0.00")&CHAR(10)&"TailAfter="&TEXT(BasketSummary!C10,"0.00")&CHAR(10)&"Next="&BasketSummary!C15'
+
+    wb.save("recovery_lock_cascade_next_step.xlsx")
+
+
+if __name__ == "__main__":
+    build()
+    print("Created recovery_lock_cascade_next_step.xlsx")
