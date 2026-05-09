@@ -92,9 +92,9 @@ def add_section_calc(ws, scenario_sheet, direction):
     ws["A8"] = "SmallLot"; ws["B8"] = '=FLOOR(B3*B6,Settings!$B$7)'
     ws["A9"] = "ActiveSections"; ws["B9"] = '=COUNTIFS(CurrentPositions!C2:C500,"SECTION_BIG")'
     ws["A10"] = "TotalLotAfterOpen"; ws["B10"] = '=SUM(CurrentPositions!D2:D500)+B7+B8'
-    ws["A11"] = "NetLotAfterOpen"; ws["B11"] = '=ABS(SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"BUY")-SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"SELL"))'
+    ws["A11"] = "NetLotAfterOpen"; ws["B11"] = '=ABS(SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"BUY")+IF(B2="BUY",B7,0)+IF(B2="SELL",B8,0)-SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"SELL")-IF(B2="SELL",B7,0)-IF(B2="BUY",B8,0))'
     ws["A12"] = "LevelReached"
-    ws["B12"] = '=IF({}!B4>={}!E4,"YES","NO")'.format(scenario_sheet, scenario_sheet) if up else '=IF({}!B4<={}!E9,"YES","NO")'.format(scenario_sheet, scenario_sheet)
+    ws["B12"] = '=IF({}!B4>=INDEX({}!E4:E7,B4),"YES","NO")'.format(scenario_sheet, scenario_sheet) if up else '=IF({}!B4<=INDEX({}!E9:E12,B4),"YES","NO")'.format(scenario_sheet, scenario_sheet)
     ws["A13"] = "CanOpenSection"
     ws["B13"] = '=IF(AND(B7>=Settings!$B$6,B8>=Settings!$B$6,B8<B7,B7<=B3,B9<Settings!$B$8,B10<=Settings!$B$15,B11<=Settings!$B$16,B12="YES"),"YES","NO")'
 
@@ -165,7 +165,7 @@ def build():
     bs["B7"] = "=TailRecovery_UP!B10"; bs["C7"] = "=TailRecovery_DOWN!B10"
     bs["B8"] = "=SectionCalculator_UP!B32"; bs["C8"] = "=SectionCalculator_DOWN!B32"
     bs["B9"] = "=TailRecovery_UP!B11"; bs["C9"] = "=TailRecovery_DOWN!B11"
-    bs["B10"] = '=IF(B3+B4>=Settings!$B$10,"YES","NO")'; bs["C10"] = '=IF(C3+C4>=Settings!$B$10,"YES","NO")'
+    bs["B10"] = '=IF(B3+B4>=Settings!$B$11,"YES","NO")'; bs["C10"] = '=IF(C3+C4>=Settings!$B$11,"YES","NO")'
     bs["B11"] = "=TailRecovery_UP!B15"; bs["C11"] = "=TailRecovery_DOWN!B15"
     bs["B12"] = "=TailRecovery_UP!B16"; bs["C12"] = "=TailRecovery_DOWN!B16"
     bs["B13"] = '=IF(B10="YES","BASKET_CLOSE",IF(B8="NO","WAIT",IF(B9="YES","CLOSE_SECTION+CLOSE_TAIL","SAFE")))'
@@ -178,7 +178,7 @@ def build():
         ("CloseLot = 0 if CanCloseSection=NO", '=IF(OR(SectionCalculator_UP!B32="YES",TailRecovery_UP!B10=0),"OK","ERROR")', '=IF(OR(SectionCalculator_DOWN!B32="YES",TailRecovery_DOWN!B10=0),"OK","ERROR")'),
         ("TailCloseLoss <= RecoveryFundAfterCycle", '=IF(TailRecovery_UP!B12<=TailRecovery_UP!B7,"OK","ERROR")', '=IF(TailRecovery_DOWN!B12<=TailRecovery_DOWN!B7,"OK","ERROR")'),
         ("LevelReached before open section", '=IF(OR(SectionCalculator_UP!B13="NO",SectionCalculator_UP!B12="YES"),"OK","ERROR")', '=IF(OR(SectionCalculator_DOWN!B13="NO",SectionCalculator_DOWN!B12="YES"),"OK","ERROR")'),
-        ("No opposite cascade active", 'OK', 'OK'),
+        ("No opposite cascade active", '=IF(AND(SectionCalculator_UP!B2="SELL",COUNTIFS(CurrentPositions!B2:B500,"BUY",CurrentPositions!C2:C500,"SECTION_BIG")=0),"OK",IF(SectionCalculator_UP!B2<>"SELL","OK","ERROR"))', '=IF(AND(SectionCalculator_DOWN!B2="BUY",COUNTIFS(CurrentPositions!B2:B500,"SELL",CurrentPositions!C2:C500,"SECTION_BIG")=0),"OK",IF(SectionCalculator_DOWN!B2<>"BUY","OK","ERROR"))'),
         ("CloseLot < MinLot => do not close", '=IF(OR(TailRecovery_UP!B10>=Settings!$B$6,TailRecovery_UP!B10=0),"OK","ERROR")', '=IF(OR(TailRecovery_DOWN!B10>=Settings!$B$6,TailRecovery_DOWN!B10=0),"OK","ERROR")'),
         ("RecoveryFundAfterClose >= 0", '=IF(TailRecovery_UP!B13>=0,"OK","ERROR")', '=IF(TailRecovery_DOWN!B13>=0,"OK","ERROR")'),
     ]
