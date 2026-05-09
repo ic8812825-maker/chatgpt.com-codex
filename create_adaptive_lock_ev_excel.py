@@ -52,8 +52,8 @@ def add_scenario(ws, direction):
     ws["A220"] = "TailType"; ws["B220"] = loss_type
     ws["A221"] = "TailWorstPnL"; ws["B221"] = f'=MINIFS(H7:H206,B7:B206,"{loss_type}",H7:H206,"<0")'
     ws["A222"] = "TailTicket"; ws["B222"] = f'=IFERROR(MINIFS(A7:A206,B7:B206,"{loss_type}",H7:H206,B221),"N/A")'
-    ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,XLOOKUP(B222,A7:A206,D7:D206,0))'
-    ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(XLOOKUP(B222,A7:A206,H7:H206,0)))'
+    ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D7:D206,MATCH(B222,A7:A206,0)))'
+    ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H7:H206,MATCH(B222,A7:A206,0))))'
     ws["A225"] = "TailLossPerLot"; ws["B225"] = '=IF(B223=0,0,ABS(B224/B223))'
     ws["D1"] = "AverageBuyPrice"; ws["E1"] = '=IFERROR(SUMPRODUCT((B7:B206="BUY")*E7:E206*D7:D206)/SUMIFS(D7:D206,B7:B206,"BUY"),0)'
     ws["D2"] = "AverageSellPrice"; ws["E2"] = '=IFERROR(SUMPRODUCT((B7:B206="SELL")*E7:E206*D7:D206)/SUMIFS(D7:D206,B7:B206,"SELL"),0)'
@@ -68,18 +68,22 @@ def add_section_calc(ws, scenario_sheet, up):
     ws["A2"] = "TailType"; ws["B2"] = f"={scenario_sheet}!B220"
     ws["A3"] = "TailLot"; ws["B3"] = f"={scenario_sheet}!B223"
     ws["A4"] = "NextLevel"; ws["B4"] = 1
-    ws["A5"] = "BigRatio"; ws["B5"] = '=XLOOKUP(B4,Settings!A21:A24,Settings!B21:B24)'
-    ws["A6"] = "SmallRatio"; ws["B6"] = '=XLOOKUP(B4,Settings!A21:A24,Settings!C21:C24)'
+    ws["A5"] = "BigRatio"; ws["B5"] = '=INDEX(Settings!B21:B24,MATCH(B4,Settings!A21:A24,0))'
+    ws["A6"] = "SmallRatio"; ws["B6"] = '=INDEX(Settings!C21:C24,MATCH(B4,Settings!A21:A24,0))'
     ws["A7"] = "BigLot"; ws["B7"] = '=FLOOR(B3*B5,Settings!$B$7)'
     ws["A8"] = "SmallLot"; ws["B8"] = '=FLOOR(B3*B6,Settings!$B$7)'
     ws["A9"] = "ActiveSections"; ws["B9"] = '=COUNTIFS(CurrentPositions!C2:C500,"SECTION_BIG")'
     ws["A10"] = "TotalLotAfterOpen"; ws["B10"] = '=SUM(CurrentPositions!D2:D500)+B7+B8'
     ws["A11"] = "NetLotAfterOpen"; ws["B11"] = '=ABS(SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"BUY")+IF(B2="BUY",B7,0)+IF(B2="SELL",B8,0)-SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"SELL")-IF(B2="SELL",B7,0)-IF(B2="BUY",B8,0))'
-    ws["A12"] = "LevelReached"; ws["B12"] = f'=IF({scenario_sheet}!B4>=INDEX({scenario_sheet}!E4:E7,B4),"YES","NO")' if up else f'=IF({scenario_sheet}!B4<=INDEX({scenario_sheet}!E9:E12,B4),"YES","NO")'
+    ws["A12"] = "LevelReached"
+    if up:
+        ws["B12"] = f'=IF({scenario_sheet}!B4>=IF(B4=1,{scenario_sheet}!E4,IF(B4=2,{scenario_sheet}!E5,IF(B4=3,{scenario_sheet}!E6,{scenario_sheet}!E7))),"YES","NO")'
+    else:
+        ws["B12"] = f'=IF({scenario_sheet}!B4<=IF(B4=1,{scenario_sheet}!E9,IF(B4=2,{scenario_sheet}!E10,IF(B4=3,{scenario_sheet}!E11,{scenario_sheet}!E12))),"YES","NO")'
     ws["A13"] = "NoOppositeCascade"; ws["B13"] = '=IF(B2="SELL",IF(COUNTIFS(CurrentPositions!B2:B500,"BUY",CurrentPositions!C2:C500,"SECTION_BIG")=0,"YES","NO"),IF(B2="BUY",IF(COUNTIFS(CurrentPositions!B2:B500,"SELL",CurrentPositions!C2:C500,"SECTION_BIG")=0,"YES","NO"),"NO"))'
     ws["A14"] = "CanOpenSection"; ws["B14"] = '=IF(AND(B7>=Settings!$B$6,B8>=Settings!$B$6,B8<B7,B7<=B3,B9<Settings!$B$8,B10<=Settings!$B$15,B11<=Settings!$B$16,B12="YES",B13="YES"),"YES","NO")'
 
-    hdr(ws, 20, ["SectionID", "BigType", "BigLot", "BigOpenPrice", "SmallType", "SmallLot", "SmallOpenPrice", "ScenarioPrice", "BigPnL", "SmallPnL", "Costs", "CycleProfit", "CanCloseSection"])
+    hdr(ws, 20, ["SectionID", "BigType", "BigLot", "BigOpenPrice", "SmallType", "SmallLot", "SmallOpenPrice", "ScenarioPrice", "BigPnL", "SmallPnL", "Lots", "CostMultiplier", "SpreadCost", "CommissionCost", "SwapCost", "Costs", "CycleProfit", "CanCloseSection"])
     for i in range(1, 5):
         r = 20 + i
         ws.cell(r, 1, f"S{i}")
@@ -92,11 +96,16 @@ def add_section_calc(ws, scenario_sheet, up):
         ws.cell(r, 8, f'={scenario_sheet}!B4')
         ws.cell(r, 9, f'=IF(B{r}="",0,IF(B{r}="BUY",(H{r}-D{r})/Settings!$B$3*C{r}*Settings!$B$4,(D{r}-H{r})/Settings!$B$3*C{r}*Settings!$B$4))')
         ws.cell(r, 10, f'=IF(E{r}="",0,IF(E{r}="BUY",(H{r}-G{r})/Settings!$B$3*F{r}*Settings!$B$4,(G{r}-H{r})/Settings!$B$3*F{r}*Settings!$B$4))')
-        ws.cell(r, 11, f'=LET(Lots,C{r}+F{r},Mult,IF(Settings!$B$19="FULL_CYCLE",2,1),SpreadCost,Settings!$B$12*Settings!$B$4*Lots*Mult,CommissionCost,Settings!$B$13*Lots*Mult,SwapCost,Settings!$B$14*Lots,SpreadCost+CommissionCost+SwapCost)')
-        ws.cell(r, 12, f'=I{r}+J{r}-K{r}')
-        ws.cell(r, 13, f'=IF(L{r}>0,"YES","NO")')
-    ws["A30"] = "SelectedSectionID"; ws["B30"] = '=IFERROR(INDEX(A21:A24,MATCH("YES",M21:M24,0)),"NONE")'
-    ws["A31"] = "CycleProfit"; ws["B31"] = '=IF(B30="NONE",0,XLOOKUP(B30,A21:A24,L21:L24,0))'
+        ws.cell(r, 11, f'=C{r}+F{r}')
+        ws.cell(r, 12, '=IF(Settings!$B$19="FULL_CYCLE",2,1)')
+        ws.cell(r, 13, f'=Settings!$B$12*Settings!$B$4*K{r}*L{r}')
+        ws.cell(r, 14, f'=Settings!$B$13*K{r}*L{r}')
+        ws.cell(r, 15, f'=Settings!$B$14*K{r}')
+        ws.cell(r, 16, f'=M{r}+N{r}+O{r}')
+        ws.cell(r, 17, f'=I{r}+J{r}-P{r}')
+        ws.cell(r, 18, f'=IF(Q{r}>0,"YES","NO")')
+    ws["A30"] = "SelectedSectionID"; ws["B30"] = '=IFERROR(INDEX(A21:A24,MATCH("YES",R21:R24,0)),"NONE")'
+    ws["A31"] = "CycleProfit"; ws["B31"] = '=IF(B30="NONE",0,INDEX(Q21:Q24,MATCH(B30,A21:A24,0)))'
     ws["A32"] = "CanCloseSection"; ws["B32"] = '=IF(B31>0,"YES","NO")'
     ws["A33"] = "ReserveAdd"; ws["B33"] = '=IF(B31>0,B31*Settings!$B$9,0)'
     ws["A34"] = "RecoveryAdd"; ws["B34"] = '=IF(B31>0,B31*Settings!$B$10,0)'
@@ -111,7 +120,7 @@ def add_tail_recovery(ws, section_sheet, scenario_sheet):
         ("CanCloseSection", f"={section_sheet}!B32"), ("RecoveryFundAfterCycle", f"={section_sheet}!B36"), ("CloseLotRaw", '=IF(OR(B6<>"YES",B5=0),0,B7/B5)'),
         ("CloseLotRounded", '=FLOOR(B8,Settings!$B$7)'), ("CloseLotFinal", '=IF(B6="YES",MIN(B9,B4),0)'), ("CloseAllowed", '=IF(AND(B10>=Settings!$B$6,B6="YES"),"YES","NO")'),
         ("TailCloseLoss", '=B10*B5'), ("RecoveryFundAfterClose", '=MAX(0,B7-B12)'), ("TailLotAfterClose", '=B4-B10'), ("NextLevel", f"={section_sheet}!B4"),
-        ("NextBigLotAfterRecovery", '=FLOOR(B14*XLOOKUP(B15,Settings!A21:A24,Settings!B21:B24),Settings!$B$7)'), ("NextSmallLotAfterRecovery", '=FLOOR(B14*XLOOKUP(B15,Settings!A21:A24,Settings!C21:C24),Settings!$B$7)')
+        ("NextBigLotAfterRecovery", '=FLOOR(B14*INDEX(Settings!B21:B24,MATCH(B15,Settings!A21:A24,0)),Settings!$B$7)'), ("NextSmallLotAfterRecovery", '=FLOOR(B14*INDEX(Settings!C21:C24,MATCH(B15,Settings!A21:A24,0)),Settings!$B$7)')
     ]
     for r, (k, v) in enumerate(rows, 2): ws.cell(r, 1, k); ws.cell(r, 2, v)
 
