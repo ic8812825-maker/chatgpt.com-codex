@@ -5,8 +5,14 @@ ACCOUNT=10000; LEVERAGE=200; CONTRACT=100000; MARGIN_PER_LOT=CONTRACT/LEVERAGE; 
 def flr(x,s=0.01): return math.floor(x/s)*s
 
 def move(kind,i,r,gap_mult=1.0):
-    if kind=='trend_up': return 120 + (20 if i%10==0 else -15 if i%7==0 else 0)
-    if kind=='trend_down': return -(120 + (20 if i%10==0 else -15 if i%7==0 else 0))
+    if kind=='trend_up' or kind=='trend_up_clean':
+        return 190  # always crosses StepPoints=150
+    if kind=='trend_down' or kind=='trend_down_clean':
+        return -190
+    if kind=='trend_up_with_pullbacks':
+        return 220 if i%6 else -120
+    if kind=='trend_down_with_pullbacks':
+        return -220 if i%6 else 120
     if kind=='flat': return r.randint(-40,40)
     if kind=='flat_with_level_touch': return 170 if i%25==0 else r.randint(-35,35)
     if kind=='whipsaw': return 200 if i%2==0 else -200
