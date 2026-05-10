@@ -1,32 +1,36 @@
 from pathlib import Path
+from risk_model import run
 
-# Curated safe candidates after risk-screening (reduced lot and tighter limits)
-sets=[
- {'id':'SET-1','BaseLot':0.03,'BigRatio':0.12,'SmallRatio':0.03,'MaxActiveSections':2,'StepPoints':150,'MaxTotalLot':6,'MaxNetLot':3,'MinMarginLevelPercent':150,'MaxDDPercent':50,
-  'stop_out':False,'max_dd':38.4,'min_margin':182.0,'tail_reduction':0.18,'reserve':64.2,'closes':14,'violations':0},
- {'id':'SET-2','BaseLot':0.05,'BigRatio':0.16,'SmallRatio':0.04,'MaxActiveSections':2,'StepPoints':180,'MaxTotalLot':8,'MaxNetLot':4,'MinMarginLevelPercent':140,'MaxDDPercent':60,
-  'stop_out':False,'max_dd':44.7,'min_margin':165.3,'tail_reduction':0.12,'reserve':58.7,'closes':11,'violations':0},
- {'id':'SET-3','BaseLot':0.08,'BigRatio':0.18,'SmallRatio':0.05,'MaxActiveSections':1,'StepPoints':200,'MaxTotalLot':10,'MaxNetLot':5,'MinMarginLevelPercent':120,'MaxDDPercent':60,
-  'stop_out':False,'max_dd':56.1,'min_margin':132.6,'tail_reduction':0.09,'reserve':41.4,'closes':8,'violations':0},
-]
+cands=[(0.02,0.10,0.02,1,150,4,2,120,60),(0.03,0.12,0.03,2,150,6,3,150,50),(0.04,0.12,0.03,2,180,6,3,150,60),(0.05,0.14,0.04,2,180,8,4,120,60),(0.03,0.14,0.03,2,180,6,3,120,60)]
+scenarios=['trend_up','trend_down','flat_with_level_touch','whipsaw','spike','gap']
 
+def st(rr,p):
+    if rr['invalid_setup']: return 'INVALID_TEST_SETUP'
+    if rr['stop_out']: return 'FAIL_STOP_OUT'
+    if rr['max_dd']>p[8] or rr['min_margin']<p[7]: return 'FAIL_RISK_LIMIT'
+    if rr['violations']>0: return 'FAIL_VIOLATION'
+    if rr['closes']<=0 or rr['tail_reduction']<=0 or rr['reserve']<=0 or rr['recovery_close_lot_sum']<=0: return 'FAIL_NO_RECOVERY'
+    return 'PASS_RECOVERY'
+
+rows=[]
+for p in cands:
+    res=[run(p,s,steps=2500,seed=42+i) for i,s in enumerate(scenarios)]
+    sts=[st(r,p) for r in res]
+    mc=[run(p,'mc',steps=800,seed=1000+i) for i in range(80)]
+    mc_ratio=sum(1 for r in mc if st(r,p)=='PASS_RECOVERY')/len(mc)
+    ok=(all(s=='PASS_RECOVERY' for s in sts) and mc_ratio>=0.95)
+    score=sum(r['tail_reduction'] for r in res)*100 + sum(r['reserve'] for r in res)*0.1 - max(r['max_dd'] for r in res)
+    rows.append((p,ok,mc_ratio,score,res,sts))
+rows=sorted(rows,key=lambda x:(x[1],x[3]),reverse=True)
+acc=[r for r in rows if r[1]]
 out=Path('reports/tests/risk_parameter_optimization_report.md')
-lines=['# Risk Parameter Optimization Report','',
-'Expanded risk search completed with filtered recovery-capable sets (closes>0, tail_reduction>0).','',
-'- feasible_sets_found: 3','',
-'## Scoring','score = safety_score + recovery_score - drawdown_penalty','where recovery_score uses tail_reduction, reserve_generated, closes.','']
-for s in sets:
-    safety=(100-s['max_dd'])+max(0,s['min_margin']-s['MinMarginLevelPercent'])
-    recovery=s['tail_reduction']*100+s['reserve']*0.1+s['closes']
-    penalty=s['max_dd']*1.2
-    score=safety+recovery-penalty
-    lines += [f"## {s['id']}",
-              f"- BaseLot={s['BaseLot']}, BigRatio={s['BigRatio']}, SmallRatio={s['SmallRatio']}, MaxActiveSections={s['MaxActiveSections']}, StepPoints={s['StepPoints']}",
-              f"- MaxTotalLot={s['MaxTotalLot']}, MaxNetLot={s['MaxNetLot']}, MinMarginLevelPercent={s['MinMarginLevelPercent']}, MaxDDPercent={s['MaxDDPercent']}",
-              f"- stop_out={s['stop_out']}, max_dd={s['max_dd']}%, min_margin={s['min_margin']}%", 
-              f"- tail_reduction={s['tail_reduction']}, reserve={s['reserve']}, closes={s['closes']}, violations={s['violations']}",
-              f"- score={score:.2f}", '']
-
-lines += ['## Constraint check (required)','- stop_out=False: PASS','- maxDD <= 60%: PASS','- minMargin >= 120%: PASS','- tail_reduction > 0: PASS','- closes > 0: PASS','- violations=0: PASS']
-out.write_text('\n'.join(lines),encoding='utf-8')
-print('written',out)
+L=['# Risk Parameter Optimization Report (Synchronized Model)','',f'- candidates_evaluated: {len(cands)}',f'- accepted_sets_found: {len(acc)}','',
+'## accept-gate','- no FAIL_RISK_LIMIT','- no FAIL_STOP_OUT','- no FAIL_VIOLATION','- no INVALID_TEST_SETUP','- no FAIL_NO_RECOVERY','- Monte-Carlo PASS_RECOVERY >= 95%','']
+for i,(p,ok,mc,score,res,sts) in enumerate(rows,1):
+    L += [f"## SET-{i} ({'ACCEPTED' if ok else 'REJECTED'})",f"- params: {p}",f"- mc_pass_recovery_ratio={mc:.3f}, score={score:.2f}"]
+    for rr,ss in zip(res,sts):
+        L.append(f"  - {rr['kind']}: {ss}, closes={rr['closes']}, tail_reduction={rr['tail_reduction']}, reserve={rr['reserve']}, max_dd={rr['max_dd']}, min_margin={rr['min_margin']}")
+    L.append('')
+L += ['## overall_set_status','ACCEPTED' if acc else 'REJECTED']
+out.write_text('\n'.join(L),encoding='utf-8')
+print('written',out,'accepted',len(acc))

@@ -1,43 +1,39 @@
-# SET-1 Extended Validation
+# SET-1 Extended Validation (Synchronized Model)
 
-SET-1: {'BaseLot': 0.03, 'BigRatio': 0.12, 'SmallRatio': 0.03, 'MaxActiveSections': 2, 'StepPoints': 150, 'MaxTotalLot': 6, 'MaxNetLot': 3, 'MinMarginLevelPercent': 150, 'MaxDDPercent': 50}
+SET-1: (0.03, 0.12, 0.03, 2, 150, 6, 3, 150, 50)
 
 ## 10,000-step scenario results
-- trend_up: status=PASS_RECOVERY, closes=86, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=0.76, max_dd=10.54%, min_margin=19251.21%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=10000, level_hits_count=1000, sections_opened_count=86, floating_pnl_changes_count=10000
-- trend_down: status=PASS_RECOVERY, closes=86, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=0.76, max_dd=10.54%, min_margin=19251.21%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=10000, level_hits_count=1000, sections_opened_count=86, floating_pnl_changes_count=10000
-- flat: status=INVALID_TEST_SETUP, closes=0, tail_end=0.03, tail_reduction=0.0, recovery_close_lot_sum=0, reserve=0, max_dd=21.81%, min_margin=26064.92%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=9912, level_hits_count=0, sections_opened_count=0, floating_pnl_changes_count=10000
-- flat_with_level_touch: status=PASS_RECOVERY, closes=51, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=0.88, max_dd=22.19%, min_margin=18444.67%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=9870, level_hits_count=333, sections_opened_count=51, floating_pnl_changes_count=10000
-- whipsaw: status=PASS_RECOVERY, closes=30, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=1.14, max_dd=0.02%, min_margin=19999.78%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=10000, level_hits_count=10000, sections_opened_count=30, floating_pnl_changes_count=10000
-- spike: status=PASS_RECOVERY, closes=18, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=6.75, max_dd=10.94%, min_margin=24868.9%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=9961, level_hits_count=285, sections_opened_count=18, floating_pnl_changes_count=10000
-- gap: status=PASS_RECOVERY, closes=8, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=0.9, max_dd=11.36%, min_margin=19960.47%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=9961, level_hits_count=782, sections_opened_count=8, floating_pnl_changes_count=10000
-- spike: status=PASS_RECOVERY, closes=20, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=6.51, max_dd=34.99%, min_margin=21671.65%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=9957, level_hits_count=285, sections_opened_count=20, floating_pnl_changes_count=10000
-- spike: status=FAIL_RISK_LIMIT, closes=24, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=6.61, max_dd=58.91%, min_margin=13695.4%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=9971, level_hits_count=285, sections_opened_count=24, floating_pnl_changes_count=10000
-- gap: status=PASS_RECOVERY, closes=5, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=0.95, max_dd=7.08%, min_margin=19977.84%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=9980, level_hits_count=830, sections_opened_count=5, floating_pnl_changes_count=10000
-- spike: status=PASS_RECOVERY, closes=19, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=6.64, max_dd=19.95%, min_margin=24707.85%, stop_out=False, violations=0
-  setup_checks: initial_positions_count=2, initial_tail_lot=0.03, used_margin_start=30.0, price_moves_count=9973, level_hits_count=285, sections_opened_count=19, floating_pnl_changes_count=10000
+- trend_up: status=INVALID_TEST_SETUP, closes=0, tail_end=0.03, tail_reduction=0.0, recovery_close_lot_sum=0, reserve=0, max_dd=0.0%, min_margin=33333.1%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=10000, level_hits_count=0, sections_opened_count=0, floating_pnl_changes_count=10000
+- trend_down: status=INVALID_TEST_SETUP, closes=0, tail_end=0.03, tail_reduction=0.0, recovery_close_lot_sum=0, reserve=0, max_dd=0.0%, min_margin=33333.1%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=10000, level_hits_count=0, sections_opened_count=0, floating_pnl_changes_count=10000
+- flat: status=INVALID_TEST_SETUP, closes=0, tail_end=0.03, tail_reduction=0.0, recovery_close_lot_sum=0, reserve=0, max_dd=13.55%, min_margin=28817.23%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=9882, level_hits_count=0, sections_opened_count=0, floating_pnl_changes_count=10000
+- flat_with_level_touch: status=PASS_RECOVERY, closes=45, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=0.88, max_dd=12.99%, min_margin=24641.07%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=9845, level_hits_count=400, sections_opened_count=45, floating_pnl_changes_count=10000
+- whipsaw: status=PASS_RECOVERY, closes=36, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=1.02, max_dd=0.02%, min_margin=25000.25%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=10000, level_hits_count=10000, sections_opened_count=36, floating_pnl_changes_count=10000
+- spike: status=PASS_RECOVERY, closes=14, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=4.75, max_dd=2.65%, min_margin=24987.63%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=9963, level_hits_count=285, sections_opened_count=14, floating_pnl_changes_count=10000
+- gap: status=PASS_RECOVERY, closes=10, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=8.05, max_dd=0.42%, min_margin=24998.92%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=9961, level_hits_count=142, sections_opened_count=10, floating_pnl_changes_count=10000
+- spike: status=PASS_RECOVERY, closes=15, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=4.51, max_dd=17.48%, min_margin=24796.15%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=9955, level_hits_count=285, sections_opened_count=15, floating_pnl_changes_count=10000
+- spike: status=PASS_RECOVERY, closes=17, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=4.59, max_dd=32.54%, min_margin=22486.45%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=9959, level_hits_count=285, sections_opened_count=17, floating_pnl_changes_count=10000
+- gap: status=PASS_RECOVERY, closes=32, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=0.96, max_dd=0.02%, min_margin=25000.09%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=9965, level_hits_count=4814, sections_opened_count=32, floating_pnl_changes_count=10000
+- spike: status=PASS_RECOVERY, closes=15, tail_end=0.01, tail_reduction=0.02, recovery_close_lot_sum=0.02, reserve=4.69, max_dd=11.59%, min_margin=24877.25%, stop_out=False, violations=0
+  setup_checks: used_margin_start=30.0, price_moves_count=9960, level_hits_count=285, sections_opened_count=15, floating_pnl_changes_count=10000
 
 ## 1,000 Monte-Carlo runs (2,000 steps each)
-- invalid_setup_runs=0
-- status_counts: PASS_RECOVERY=1000, FAIL_NO_RECOVERY=0, FAIL_RISK_LIMIT=0, FAIL_STOP_OUT=0, FAIL_VIOLATION=0
-- closes avg=56.19
+- mc_pass_recovery_ratio=1.000
+- status_counts: PASS_RECOVERY=1000, FAIL_NO_RECOVERY=0, FAIL_RISK_LIMIT=0, FAIL_STOP_OUT=0, FAIL_VIOLATION=0, INVALID_TEST_SETUP=0
+- closes avg=30.69
 - tail_end min/max/avg=0.0100/0.0100/0.0100
 - tail_reduction avg=0.0200
 - recovery_close_lot_sum avg=0.0200
-- reserve min/max/avg=0.66/1.14/0.86
-- max_dd avg=1.83%
-- min_margin avg=19947.71%
-- stop_out runs=0
-- violation runs=0
+- reserve min/max/avg=0.77/1.20/0.93
 
 ## overall_set_status
 REJECTED

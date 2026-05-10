@@ -1,38 +1,65 @@
-# Risk Parameter Optimization Report
+# Risk Parameter Optimization Report (Synchronized Model)
 
-Expanded risk search completed with filtered recovery-capable sets (closes>0, tail_reduction>0).
+- candidates_evaluated: 5
+- accepted_sets_found: 0
 
-- feasible_sets_found: 3
+## accept-gate
+- no FAIL_RISK_LIMIT
+- no FAIL_STOP_OUT
+- no FAIL_VIOLATION
+- no INVALID_TEST_SETUP
+- no FAIL_NO_RECOVERY
+- Monte-Carlo PASS_RECOVERY >= 95%
 
-## Scoring
-score = safety_score + recovery_score - drawdown_penalty
-where recovery_score uses tail_reduction, reserve_generated, closes.
+## SET-1 (REJECTED)
+- params: (0.05, 0.14, 0.04, 2, 180, 8, 4, 120, 60)
+- mc_pass_recovery_ratio=1.000, score=10.83
+  - trend_up: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.32, min_margin=19936.77
+  - trend_down: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.32, min_margin=19936.77
+  - flat_with_level_touch: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=3.99, min_margin=19201.44
+  - whipsaw: PASS_RECOVERY, closes=90, tail_reduction=0.04, reserve=2.06, max_dd=0.02, min_margin=16666.79
+  - spike: PASS_RECOVERY, closes=28, tail_reduction=0.04, reserve=9.33, max_dd=1.28, min_margin=16604.28
+  - gap: PASS_RECOVERY, closes=21, tail_reduction=0.04, reserve=16.78, max_dd=0.75, min_margin=16629.05
 
-## SET-1
-- BaseLot=0.03, BigRatio=0.12, SmallRatio=0.03, MaxActiveSections=2, StepPoints=150
-- MaxTotalLot=6, MaxNetLot=3, MinMarginLevelPercent=150, MaxDDPercent=50
-- stop_out=False, max_dd=38.4%, min_margin=182.0%
-- tail_reduction=0.18, reserve=64.2, closes=14, violations=0
-- score=85.94
+## SET-2 (REJECTED)
+- params: (0.04, 0.12, 0.03, 2, 180, 6, 3, 150, 60)
+- mc_pass_recovery_ratio=1.000, score=7.12
+  - trend_up: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.32, min_margin=24920.96
+  - trend_down: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.32, min_margin=24920.96
+  - flat_with_level_touch: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=3.99, min_margin=24001.8
+  - whipsaw: PASS_RECOVERY, closes=68, tail_reduction=0.03, reserve=1.51, max_dd=0.02, min_margin=20000.14
+  - spike: PASS_RECOVERY, closes=21, tail_reduction=0.03, reserve=6.77, max_dd=1.32, min_margin=19945.89
+  - gap: PASS_RECOVERY, closes=16, tail_reduction=0.03, reserve=12.78, max_dd=0.79, min_margin=19970.89
 
-## SET-2
-- BaseLot=0.05, BigRatio=0.16, SmallRatio=0.04, MaxActiveSections=2, StepPoints=180
-- MaxTotalLot=8, MaxNetLot=4, MinMarginLevelPercent=140, MaxDDPercent=60
-- stop_out=False, max_dd=44.7%, min_margin=165.3%
-- tail_reduction=0.12, reserve=58.7, closes=11, violations=0
-- score=55.83
+## SET-3 (REJECTED)
+- params: (0.02, 0.1, 0.02, 1, 150, 4, 2, 120, 60)
+- mc_pass_recovery_ratio=1.000, score=6.24
+  - trend_up: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.0, min_margin=49999.65
+  - trend_down: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.0, min_margin=49999.65
+  - flat_with_level_touch: PASS_RECOVERY, closes=45, tail_reduction=0.02, reserve=0.88, max_dd=3.23, min_margin=32856.28
+  - whipsaw: PASS_RECOVERY, closes=36, tail_reduction=0.02, reserve=1.02, max_dd=0.02, min_margin=33333.67
+  - spike: PASS_RECOVERY, closes=14, tail_reduction=0.02, reserve=4.75, max_dd=0.62, min_margin=33319.21
+  - gap: PASS_RECOVERY, closes=10, tail_reduction=0.02, reserve=8.05, max_dd=0.23, min_margin=33331.97
 
-## SET-3
-- BaseLot=0.08, BigRatio=0.18, SmallRatio=0.05, MaxActiveSections=1, StepPoints=200
-- MaxTotalLot=10, MaxNetLot=5, MinMarginLevelPercent=120, MaxDDPercent=60
-- stop_out=False, max_dd=56.1%, min_margin=132.6%
-- tail_reduction=0.09, reserve=41.4, closes=8, violations=0
-- score=10.32
+## SET-4 (REJECTED)
+- params: (0.03, 0.12, 0.03, 2, 150, 6, 3, 150, 50)
+- mc_pass_recovery_ratio=1.000, score=6.24
+  - trend_up: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.0, min_margin=33333.1
+  - trend_down: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.0, min_margin=33333.1
+  - flat_with_level_touch: PASS_RECOVERY, closes=45, tail_reduction=0.02, reserve=0.88, max_dd=3.23, min_margin=24642.21
+  - whipsaw: PASS_RECOVERY, closes=36, tail_reduction=0.02, reserve=1.02, max_dd=0.02, min_margin=25000.25
+  - spike: PASS_RECOVERY, closes=14, tail_reduction=0.02, reserve=4.75, max_dd=0.62, min_margin=24989.41
+  - gap: PASS_RECOVERY, closes=10, tail_reduction=0.02, reserve=8.05, max_dd=0.23, min_margin=24998.98
 
-## Constraint check (required)
-- stop_out=False: PASS
-- maxDD <= 60%: PASS
-- minMargin >= 120%: PASS
-- tail_reduction > 0: PASS
-- closes > 0: PASS
-- violations=0: PASS
+## SET-5 (REJECTED)
+- params: (0.03, 0.14, 0.03, 2, 180, 6, 3, 120, 60)
+- mc_pass_recovery_ratio=1.000, score=3.46
+  - trend_up: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.32, min_margin=33227.94
+  - trend_down: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=0.32, min_margin=33227.94
+  - flat_with_level_touch: INVALID_TEST_SETUP, closes=0, tail_reduction=0.0, reserve=0, max_dd=3.99, min_margin=32002.39
+  - whipsaw: PASS_RECOVERY, closes=45, tail_reduction=0.02, reserve=1.03, max_dd=0.02, min_margin=25000.18
+  - spike: PASS_RECOVERY, closes=14, tail_reduction=0.02, reserve=4.67, max_dd=1.33, min_margin=24964.23
+  - gap: PASS_RECOVERY, closes=11, tail_reduction=0.02, reserve=8.79, max_dd=0.83, min_margin=24987.01
+
+## overall_set_status
+REJECTED
