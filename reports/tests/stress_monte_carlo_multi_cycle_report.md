@@ -1,4 +1,8 @@
 # STRESS / MONTE-CARLO / MULTI-CYCLE TESTING
+- account_balance: 10000.0
+- MaxTotalLot: 20
+- MaxNetLot: 10
+- MaxActiveSections: 4
 
 ## Violation rules checked
 - tail_close_loss > recovery_fund
@@ -22,39 +26,44 @@
 - reserve_end: 0.0
 - recovery_start: 0.0
 - recovery_end: 0.0
-- max_floating_loss: -20854.0
-- max_drawdown_money: 20854.0
-- max_drawdown_percent: 0.0
+- max_floating_loss: -18180.38
+- max_drawdown_money: 18180.38
+- max_drawdown_percent: 181.8
 - max_total_lot: 4.2
 - max_net_lot: 1.0
 - max_active_sections: 4
 - max_consecutive_no_close_steps: 1000
 - violations_count: 0
-- final_status: PASS
+- final_status: PASS_SAFE_STALL
+- tail_reduction: 0.0
+- reserve_generated: 0.0
+- recovery_cycles_count: 0
+- limit_total_used_percent: 21.0
+- limit_net_used_percent: 10.0
 
 ### Event trace (first 10)
-- step 1 price=1.2381 event=OPEN_SECTION tail=1.0 sec=1 cycle=-21.09 rec=0.0 res=0.0 close=0.0 violation=-
-- step 2 price=1.2382 event=OPEN_SECTION tail=1.0 sec=2 cycle=-21.06 rec=0.0 res=0.0 close=0.0 violation=-
-- step 3 price=1.2383 event=OPEN_SECTION tail=1.0 sec=3 cycle=-21.04 rec=0.0 res=0.0 close=0.0 violation=-
-- step 4 price=1.2384 event=OPEN_SECTION tail=1.0 sec=4 cycle=-21.01 rec=0.0 res=0.0 close=0.0 violation=-
-- step 5 price=1.2385 event=WAIT tail=1.0 sec=4 cycle=-20.98 rec=0.0 res=0.0 close=0.0 violation=-
-- step 6 price=1.2386 event=WAIT tail=1.0 sec=4 cycle=-20.95 rec=0.0 res=0.0 close=0.0 violation=-
-- step 7 price=1.2387 event=WAIT tail=1.0 sec=4 cycle=-20.92 rec=0.0 res=0.0 close=0.0 violation=-
-- step 8 price=1.2388 event=WAIT tail=1.0 sec=4 cycle=-20.9 rec=0.0 res=0.0 close=0.0 violation=-
-- step 9 price=1.2389 event=WAIT tail=1.0 sec=4 cycle=-20.87 rec=0.0 res=0.0 close=0.0 violation=-
-- step 10 price=1.239 event=WAIT tail=1.0 sec=4 cycle=-20.84 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1 price=1.242 event=OPEN_SECTION tail=1.0 sec=1 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 2 price=1.242 event=OPEN_SECTION tail=1.0 sec=2 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 3 price=1.242 event=OPEN_SECTION tail=1.0 sec=3 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 4 price=1.242 event=OPEN_SECTION tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 5 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 6 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 7 price=1.241 event=WAIT tail=1.0 sec=4 cycle=-17.58 rec=0.0 res=0.0 close=0.0 violation=-
+- step 8 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 9 price=1.244 event=WAIT tail=1.0 sec=4 cycle=-17.8 rec=0.0 res=0.0 close=0.0 violation=-
+- step 10 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Event trace (last 10)
-- step 991 price=1.2391 event=WAIT tail=1.0 sec=4 cycle=-20.81 rec=0.0 res=0.0 close=0.0 violation=-
-- step 992 price=1.2392 event=WAIT tail=1.0 sec=4 cycle=-20.78 rec=0.0 res=0.0 close=0.0 violation=-
-- step 993 price=1.2393 event=WAIT tail=1.0 sec=4 cycle=-20.76 rec=0.0 res=0.0 close=0.0 violation=-
-- step 994 price=1.2394 event=WAIT tail=1.0 sec=4 cycle=-20.73 rec=0.0 res=0.0 close=0.0 violation=-
-- step 995 price=1.2395 event=WAIT tail=1.0 sec=4 cycle=-20.7 rec=0.0 res=0.0 close=0.0 violation=-
-- step 996 price=1.2396 event=WAIT tail=1.0 sec=4 cycle=-20.67 rec=0.0 res=0.0 close=0.0 violation=-
-- step 997 price=1.2397 event=WAIT tail=1.0 sec=4 cycle=-20.64 rec=0.0 res=0.0 close=0.0 violation=-
-- step 998 price=1.2398 event=WAIT tail=1.0 sec=4 cycle=-20.62 rec=0.0 res=0.0 close=0.0 violation=-
-- step 999 price=1.2399 event=WAIT tail=1.0 sec=4 cycle=-20.59 rec=0.0 res=0.0 close=0.0 violation=-
-- step 1000 price=1.238 event=WAIT tail=1.0 sec=4 cycle=-21.12 rec=0.0 res=0.0 close=0.0 violation=-
+- step 991 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 992 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 993 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 994 price=1.241 event=WAIT tail=1.0 sec=4 cycle=-17.58 rec=0.0 res=0.0 close=0.0 violation=-
+- step 995 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 996 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 997 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 998 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 999 price=1.244 event=WAIT tail=1.0 sec=4 cycle=-17.8 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1000 price=1.242 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Violation events
 - none
@@ -69,39 +78,44 @@
 - reserve_end: 0.0
 - recovery_start: 0.0
 - recovery_end: 0.0
-- max_floating_loss: -20854.0
-- max_drawdown_money: 20854.0
-- max_drawdown_percent: 0.0
+- max_floating_loss: -18180.38
+- max_drawdown_money: 18180.38
+- max_drawdown_percent: 181.8
 - max_total_lot: 4.2
 - max_net_lot: 1.0
 - max_active_sections: 4
 - max_consecutive_no_close_steps: 1000
 - violations_count: 0
-- final_status: PASS
+- final_status: PASS_SAFE_STALL
+- tail_reduction: 0.0
+- reserve_generated: 0.0
+- recovery_cycles_count: 0
+- limit_total_used_percent: 21.0
+- limit_net_used_percent: 10.0
 
 ### Event trace (first 10)
-- step 1 price=1.2219 event=OPEN_SECTION tail=1.0 sec=1 cycle=-21.09 rec=0.0 res=0.0 close=0.0 violation=-
-- step 2 price=1.2218 event=OPEN_SECTION tail=1.0 sec=2 cycle=-21.06 rec=0.0 res=0.0 close=0.0 violation=-
-- step 3 price=1.2217 event=OPEN_SECTION tail=1.0 sec=3 cycle=-21.04 rec=0.0 res=0.0 close=0.0 violation=-
-- step 4 price=1.2216 event=OPEN_SECTION tail=1.0 sec=4 cycle=-21.01 rec=0.0 res=0.0 close=0.0 violation=-
-- step 5 price=1.2215 event=WAIT tail=1.0 sec=4 cycle=-20.98 rec=0.0 res=0.0 close=0.0 violation=-
-- step 6 price=1.2214 event=WAIT tail=1.0 sec=4 cycle=-20.95 rec=0.0 res=0.0 close=0.0 violation=-
-- step 7 price=1.2213 event=WAIT tail=1.0 sec=4 cycle=-20.92 rec=0.0 res=0.0 close=0.0 violation=-
-- step 8 price=1.2212 event=WAIT tail=1.0 sec=4 cycle=-20.9 rec=0.0 res=0.0 close=0.0 violation=-
-- step 9 price=1.2211 event=WAIT tail=1.0 sec=4 cycle=-20.87 rec=0.0 res=0.0 close=0.0 violation=-
-- step 10 price=1.221 event=WAIT tail=1.0 sec=4 cycle=-20.84 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1 price=1.218 event=OPEN_SECTION tail=1.0 sec=1 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 2 price=1.218 event=OPEN_SECTION tail=1.0 sec=2 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 3 price=1.218 event=OPEN_SECTION tail=1.0 sec=3 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 4 price=1.218 event=OPEN_SECTION tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 5 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 6 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 7 price=1.219 event=WAIT tail=1.0 sec=4 cycle=-17.58 rec=0.0 res=0.0 close=0.0 violation=-
+- step 8 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 9 price=1.216 event=WAIT tail=1.0 sec=4 cycle=-17.8 rec=0.0 res=0.0 close=0.0 violation=-
+- step 10 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Event trace (last 10)
-- step 991 price=1.2209 event=WAIT tail=1.0 sec=4 cycle=-20.81 rec=0.0 res=0.0 close=0.0 violation=-
-- step 992 price=1.2208 event=WAIT tail=1.0 sec=4 cycle=-20.78 rec=0.0 res=0.0 close=0.0 violation=-
-- step 993 price=1.2207 event=WAIT tail=1.0 sec=4 cycle=-20.76 rec=0.0 res=0.0 close=0.0 violation=-
-- step 994 price=1.2206 event=WAIT tail=1.0 sec=4 cycle=-20.73 rec=0.0 res=0.0 close=0.0 violation=-
-- step 995 price=1.2205 event=WAIT tail=1.0 sec=4 cycle=-20.7 rec=0.0 res=0.0 close=0.0 violation=-
-- step 996 price=1.2204 event=WAIT tail=1.0 sec=4 cycle=-20.67 rec=0.0 res=0.0 close=0.0 violation=-
-- step 997 price=1.2203 event=WAIT tail=1.0 sec=4 cycle=-20.64 rec=0.0 res=0.0 close=0.0 violation=-
-- step 998 price=1.2202 event=WAIT tail=1.0 sec=4 cycle=-20.62 rec=0.0 res=0.0 close=0.0 violation=-
-- step 999 price=1.2201 event=WAIT tail=1.0 sec=4 cycle=-20.59 rec=0.0 res=0.0 close=0.0 violation=-
-- step 1000 price=1.222 event=WAIT tail=1.0 sec=4 cycle=-21.12 rec=0.0 res=0.0 close=0.0 violation=-
+- step 991 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 992 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 993 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 994 price=1.219 event=WAIT tail=1.0 sec=4 cycle=-17.58 rec=0.0 res=0.0 close=0.0 violation=-
+- step 995 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 996 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 997 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 998 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
+- step 999 price=1.216 event=WAIT tail=1.0 sec=4 cycle=-17.8 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1000 price=1.218 event=WAIT tail=1.0 sec=4 cycle=-18.52 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Violation events
 - none
@@ -116,39 +130,44 @@
 - reserve_end: 0.0
 - recovery_start: 0.0
 - recovery_end: 0.0
-- max_floating_loss: -22000.0
-- max_drawdown_money: 22000.0
-- max_drawdown_percent: 0.0
+- max_floating_loss: -21988.1
+- max_drawdown_money: 21988.1
+- max_drawdown_percent: 219.88
 - max_total_lot: 4.2
 - max_net_lot: 1.0
 - max_active_sections: 4
 - max_consecutive_no_close_steps: 1000
 - violations_count: 0
-- final_status: PASS
+- final_status: PASS_SAFE_STALL
+- tail_reduction: 0.0
+- reserve_generated: 0.0
+- recovery_cycles_count: 0
+- limit_total_used_percent: 21.0
+- limit_net_used_percent: 10.0
 
 ### Event trace (first 10)
-- step 1 price=1.2305 event=OPEN_SECTION tail=1.0 sec=1 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 2 price=1.2288 event=OPEN_SECTION tail=1.0 sec=2 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 3 price=1.2285 event=OPEN_SECTION tail=1.0 sec=3 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 4 price=1.2308 event=OPEN_SECTION tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 5 price=1.2293 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 6 price=1.2292 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 7 price=1.2292 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 8 price=1.2289 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 9 price=1.2308 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 10 price=1.2288 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1 price=1.231 event=OPEN_SECTION tail=1.0 sec=1 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
+- step 2 price=1.2277 event=OPEN_SECTION tail=1.0 sec=2 cycle=-22.01 rec=0.0 res=0.0 close=0.0 violation=-
+- step 3 price=1.2271 event=OPEN_SECTION tail=1.0 sec=3 cycle=-21.8 rec=0.0 res=0.0 close=0.0 violation=-
+- step 4 price=1.2317 event=OPEN_SECTION tail=1.0 sec=4 cycle=-22.08 rec=0.0 res=0.0 close=0.0 violation=-
+- step 5 price=1.2287 event=WAIT tail=1.0 sec=4 cycle=-22.04 rec=0.0 res=0.0 close=0.0 violation=-
+- step 6 price=1.2285 event=WAIT tail=1.0 sec=4 cycle=-22.06 rec=0.0 res=0.0 close=0.0 violation=-
+- step 7 price=1.2284 event=WAIT tail=1.0 sec=4 cycle=-22.07 rec=0.0 res=0.0 close=0.0 violation=-
+- step 8 price=1.2278 event=WAIT tail=1.0 sec=4 cycle=-22.05 rec=0.0 res=0.0 close=0.0 violation=-
+- step 9 price=1.2317 event=WAIT tail=1.0 sec=4 cycle=-22.08 rec=0.0 res=0.0 close=0.0 violation=-
+- step 10 price=1.2276 event=WAIT tail=1.0 sec=4 cycle=-21.98 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Event trace (last 10)
-- step 991 price=1.2299 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 992 price=1.2295 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 993 price=1.2295 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 994 price=1.2309 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 995 price=1.2313 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 996 price=1.2297 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 997 price=1.2293 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 998 price=1.2309 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 999 price=1.2315 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 1000 price=1.2311 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
+- step 991 price=1.2323 event=WAIT tail=1.0 sec=4 cycle=-22.01 rec=0.0 res=0.0 close=0.0 violation=-
+- step 992 price=1.2275 event=WAIT tail=1.0 sec=4 cycle=-21.94 rec=0.0 res=0.0 close=0.0 violation=-
+- step 993 price=1.23 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
+- step 994 price=1.2271 event=WAIT tail=1.0 sec=4 cycle=-21.67 rec=0.0 res=0.0 close=0.0 violation=-
+- step 995 price=1.2317 event=WAIT tail=1.0 sec=4 cycle=-22.08 rec=0.0 res=0.0 close=0.0 violation=-
+- step 996 price=1.2304 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
+- step 997 price=1.2273 event=WAIT tail=1.0 sec=4 cycle=-21.87 rec=0.0 res=0.0 close=0.0 violation=-
+- step 998 price=1.233 event=WAIT tail=1.0 sec=4 cycle=-21.76 rec=0.0 res=0.0 close=0.0 violation=-
+- step 999 price=1.2292 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1000 price=1.2284 event=WAIT tail=1.0 sec=4 cycle=-22.07 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Violation events
 - none
@@ -163,133 +182,148 @@
 - reserve_end: 0.0
 - recovery_start: 0.0
 - recovery_end: 0.0
-- max_floating_loss: -18320.0
-- max_drawdown_money: 18320.0
-- max_drawdown_percent: 0.0
+- max_floating_loss: -15853.12
+- max_drawdown_money: 15853.12
+- max_drawdown_percent: 158.53
 - max_total_lot: 4.2
 - max_net_lot: 1.0
 - max_active_sections: 4
 - max_consecutive_no_close_steps: 1000
 - violations_count: 0
-- final_status: PASS
+- final_status: PASS_SAFE_STALL
+- tail_reduction: 0.0
+- reserve_generated: 0.0
+- recovery_cycles_count: 0
+- limit_total_used_percent: 21.0
+- limit_net_used_percent: 10.0
 
 ### Event trace (first 10)
-- step 1 price=1.212 event=OPEN_SECTION tail=1.0 sec=1 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 2 price=1.248 event=OPEN_SECTION tail=1.0 sec=2 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 3 price=1.212 event=OPEN_SECTION tail=1.0 sec=3 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 4 price=1.248 event=OPEN_SECTION tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 5 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 6 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 7 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 8 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 9 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 10 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1 price=1.212 event=OPEN_SECTION tail=1.0 sec=1 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 2 price=1.248 event=OPEN_SECTION tail=1.0 sec=2 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 3 price=1.212 event=OPEN_SECTION tail=1.0 sec=3 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 4 price=1.248 event=OPEN_SECTION tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 5 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 6 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 7 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-14.06 rec=0.0 res=0.0 close=0.0 violation=-
+- step 8 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 9 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 10 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Event trace (last 10)
-- step 991 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 992 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 993 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 994 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 995 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 996 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 997 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 998 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 999 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
-- step 1000 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-18.32 rec=0.0 res=0.0 close=0.0 violation=-
+- step 991 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 992 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 993 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 994 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-14.06 rec=0.0 res=0.0 close=0.0 violation=-
+- step 995 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 996 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 997 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 998 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 999 price=1.212 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1000 price=1.248 event=WAIT tail=1.0 sec=4 cycle=-16.36 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Violation events
 - none
 
 ## spike
 - steps: 1000
-- opens: 28
-- closes: 25
+- opens: 26
+- closes: 22
 - tail_lot_start: 1.0
-- tail_lot_end: 0.84
+- tail_lot_end: 0.71
 - reserve_start: 0.0
-- reserve_end: 48.73
+- reserve_end: 109.34
 - recovery_start: 0.0
-- recovery_end: 2.91
-- max_floating_loss: -19256.56
-- max_drawdown_money: 19201.88
-- max_drawdown_percent: 0.0
+- recovery_end: 2.34
+- max_floating_loss: -13466.21
+- max_drawdown_money: 13354.53
+- max_drawdown_percent: 133.55
 - max_total_lot: 4.2
 - max_net_lot: 1.0
 - max_active_sections: 4
-- max_consecutive_no_close_steps: 39
+- max_consecutive_no_close_steps: 44
 - violations_count: 0
-- final_status: PASS
+- final_status: PASS_RECOVERY
+- tail_reduction: 0.29
+- reserve_generated: 109.34
+- recovery_cycles_count: 22
+- limit_total_used_percent: 21.0
+- limit_net_used_percent: 10.0
 
 ### Event trace (first 10)
-- step 1 price=1.2293 event=OPEN_SECTION tail=1.0 sec=1 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 2 price=1.2272 event=OPEN_SECTION tail=1.0 sec=2 cycle=-22.1 rec=0.0 res=0.0 close=0.0 violation=-
-- step 3 price=1.2346 event=OPEN_SECTION tail=1.0 sec=3 cycle=-22.07 rec=0.0 res=0.0 close=0.0 violation=-
-- step 4 price=1.225 event=OPEN_SECTION tail=1.0 sec=4 cycle=-21.96 rec=0.0 res=0.0 close=0.0 violation=-
-- step 5 price=1.23 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 6 price=1.2242 event=WAIT tail=1.0 sec=4 cycle=-21.74 rec=0.0 res=0.0 close=0.0 violation=-
-- step 7 price=1.2335 event=WAIT tail=1.0 sec=4 cycle=-22.18 rec=0.0 res=0.0 close=0.0 violation=-
-- step 8 price=1.2309 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 9 price=1.2246 event=WAIT tail=1.0 sec=4 cycle=-21.85 rec=0.0 res=0.0 close=0.0 violation=-
-- step 10 price=1.2284 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1 price=1.2373 event=OPEN_SECTION tail=1.0 sec=1 cycle=-20.21 rec=0.0 res=0.0 close=0.0 violation=-
+- step 2 price=1.2238 event=OPEN_SECTION tail=1.0 sec=2 cycle=-20.61 rec=0.0 res=0.0 close=0.0 violation=-
+- step 3 price=1.2216 event=OPEN_SECTION tail=1.0 sec=3 cycle=-19.82 rec=0.0 res=0.0 close=0.0 violation=-
+- step 4 price=1.228 event=OPEN_SECTION tail=1.0 sec=4 cycle=-22.12 rec=0.0 res=0.0 close=0.0 violation=-
+- step 5 price=1.2272 event=WAIT tail=1.0 sec=4 cycle=-21.83 rec=0.0 res=0.0 close=0.0 violation=-
+- step 6 price=1.2267 event=WAIT tail=1.0 sec=4 cycle=-21.65 rec=0.0 res=0.0 close=0.0 violation=-
+- step 7 price=1.2245 event=WAIT tail=1.0 sec=4 cycle=-20.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 8 price=1.2236 event=WAIT tail=1.0 sec=4 cycle=-20.54 rec=0.0 res=0.0 close=0.0 violation=-
+- step 9 price=1.2383 event=WAIT tail=1.0 sec=4 cycle=-19.85 rec=0.0 res=0.0 close=0.0 violation=-
+- step 10 price=1.2349 event=WAIT tail=1.0 sec=4 cycle=-21.08 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Event trace (last 10)
-- step 991 price=1.2241 event=WAIT tail=0.85 sec=4 cycle=-17.75 rec=7.75 res=46.94 close=0.0 violation=-
-- step 992 price=1.2285 event=WAIT tail=0.85 sec=4 cycle=-18.0 rec=7.75 res=46.94 close=0.0 violation=-
-- step 993 price=1.2341 event=WAIT tail=0.85 sec=4 cycle=-18.17 rec=7.75 res=46.94 close=0.0 violation=-
-- step 994 price=1.234 event=WAIT tail=0.85 sec=4 cycle=-18.19 rec=7.75 res=46.94 close=0.0 violation=-
-- step 995 price=1.227 event=WAIT tail=0.85 sec=4 cycle=-18.1 rec=7.75 res=46.94 close=0.0 violation=-
-- step 996 price=1.2315 event=WAIT tail=0.85 sec=4 cycle=-18.0 rec=7.75 res=46.94 close=0.0 violation=-
-- step 997 price=1.2281 event=WAIT tail=0.85 sec=4 cycle=-18.0 rec=7.75 res=46.94 close=0.0 violation=-
-- step 998 price=1.2242 event=WAIT tail=0.85 sec=4 cycle=-17.77 rec=7.75 res=46.94 close=0.0 violation=-
-- step 999 price=1.2262 event=WAIT tail=0.85 sec=4 cycle=-18.17 rec=7.75 res=46.94 close=0.0 violation=-
-- step 1000 price=1.35 event=CLOSE_TAIL tail=0.84 sec=3 cycle=8.95 rec=2.91 res=48.73 close=0.01 violation=-
+- step 991 price=1.2351 event=OPEN_SECTION tail=0.71 sec=4 cycle=-3.41 rec=2.34 res=109.34 close=0.0 violation=-
+- step 992 price=1.2229 event=WAIT tail=0.71 sec=4 cycle=-3.27 rec=2.34 res=109.34 close=0.0 violation=-
+- step 993 price=1.225 event=WAIT tail=0.71 sec=4 cycle=-3.41 rec=2.34 res=109.34 close=0.0 violation=-
+- step 994 price=1.221 event=WAIT tail=0.71 sec=4 cycle=-2.96 rec=2.34 res=109.34 close=0.0 violation=-
+- step 995 price=1.2314 event=WAIT tail=0.71 sec=4 cycle=-3.61 rec=2.34 res=109.34 close=0.0 violation=-
+- step 996 price=1.2325 event=WAIT tail=0.71 sec=4 cycle=-3.58 rec=2.34 res=109.34 close=0.0 violation=-
+- step 997 price=1.2386 event=WAIT tail=0.71 sec=4 cycle=-3.17 rec=2.34 res=109.34 close=0.0 violation=-
+- step 998 price=1.2362 event=WAIT tail=0.71 sec=4 cycle=-3.33 rec=2.34 res=109.34 close=0.0 violation=-
+- step 999 price=1.233 event=WAIT tail=0.71 sec=4 cycle=-3.55 rec=2.34 res=109.34 close=0.0 violation=-
+- step 1000 price=1.2284 event=WAIT tail=0.71 sec=4 cycle=-3.61 rec=2.34 res=109.34 close=0.0 violation=-
 
 ### Violation events
 - none
 
 ## gap
 - steps: 1000
-- opens: 12
-- closes: 8
+- opens: 13
+- closes: 9
 - tail_lot_start: 1.0
-- tail_lot_end: 0.89
+- tail_lot_end: 0.74
 - reserve_start: 0.0
-- reserve_end: 72.39
+- reserve_end: 185.12
 - recovery_start: 0.0
-- recovery_end: 14.55
-- max_floating_loss: -19733.24
-- max_drawdown_money: 19646.3
-- max_drawdown_percent: 0.0
+- recovery_end: 12.48
+- max_floating_loss: -16445.52
+- max_drawdown_money: 16249.95
+- max_drawdown_percent: 162.5
 - max_total_lot: 4.2
 - max_net_lot: 1.0
 - max_active_sections: 4
-- max_consecutive_no_close_steps: 119
+- max_consecutive_no_close_steps: 109
 - violations_count: 0
-- final_status: PASS
+- final_status: PASS_RECOVERY
+- tail_reduction: 0.26
+- reserve_generated: 185.12
+- recovery_cycles_count: 9
+- limit_total_used_percent: 21.0
+- limit_net_used_percent: 10.0
 
 ### Event trace (first 10)
-- step 1 price=1.2267 event=OPEN_SECTION tail=1.0 sec=1 cycle=-22.16 rec=0.0 res=0.0 close=0.0 violation=-
-- step 2 price=1.2213 event=OPEN_SECTION tail=1.0 sec=2 cycle=-20.92 rec=0.0 res=0.0 close=0.0 violation=-
-- step 3 price=1.2232 event=OPEN_SECTION tail=1.0 sec=3 cycle=-21.46 rec=0.0 res=0.0 close=0.0 violation=-
-- step 4 price=1.2389 event=OPEN_SECTION tail=1.0 sec=4 cycle=-20.87 rec=0.0 res=0.0 close=0.0 violation=-
-- step 5 price=1.2307 event=WAIT tail=1.0 sec=4 cycle=-22.0 rec=0.0 res=0.0 close=0.0 violation=-
-- step 6 price=1.2334 event=WAIT tail=1.0 sec=4 cycle=-22.17 rec=0.0 res=0.0 close=0.0 violation=-
-- step 7 price=1.2229 event=WAIT tail=1.0 sec=4 cycle=-21.37 rec=0.0 res=0.0 close=0.0 violation=-
-- step 8 price=1.239 event=WAIT tail=1.0 sec=4 cycle=-20.84 rec=0.0 res=0.0 close=0.0 violation=-
-- step 9 price=1.2216 event=WAIT tail=1.0 sec=4 cycle=-21.01 rec=0.0 res=0.0 close=0.0 violation=-
-- step 10 price=1.2321 event=WAIT tail=1.0 sec=4 cycle=-22.01 rec=0.0 res=0.0 close=0.0 violation=-
+- step 1 price=1.2343 event=OPEN_SECTION tail=1.0 sec=1 cycle=-21.29 rec=0.0 res=0.0 close=0.0 violation=-
+- step 2 price=1.2208 event=OPEN_SECTION tail=1.0 sec=2 cycle=-19.53 rec=0.0 res=0.0 close=0.0 violation=-
+- step 3 price=1.2186 event=OPEN_SECTION tail=1.0 sec=3 cycle=-18.74 rec=0.0 res=0.0 close=0.0 violation=-
+- step 4 price=1.2369 event=OPEN_SECTION tail=1.0 sec=4 cycle=-20.36 rec=0.0 res=0.0 close=0.0 violation=-
+- step 5 price=1.225 event=WAIT tail=1.0 sec=4 cycle=-21.04 rec=0.0 res=0.0 close=0.0 violation=-
+- step 6 price=1.2242 event=WAIT tail=1.0 sec=4 cycle=-20.75 rec=0.0 res=0.0 close=0.0 violation=-
+- step 7 price=1.2237 event=WAIT tail=1.0 sec=4 cycle=-19.95 rec=0.0 res=0.0 close=0.0 violation=-
+- step 8 price=1.2215 event=WAIT tail=1.0 sec=4 cycle=-19.78 rec=0.0 res=0.0 close=0.0 violation=-
+- step 9 price=1.2368 event=WAIT tail=1.0 sec=4 cycle=-20.39 rec=0.0 res=0.0 close=0.0 violation=-
+- step 10 price=1.2206 event=WAIT tail=1.0 sec=4 cycle=-19.46 rec=0.0 res=0.0 close=0.0 violation=-
 
 ### Event trace (last 10)
-- step 991 price=1.2263 event=WAIT tail=0.89 sec=4 cycle=-19.38 rec=14.55 res=72.39 close=0.0 violation=-
-- step 992 price=1.224 event=WAIT tail=0.89 sec=4 cycle=-18.92 rec=14.55 res=72.39 close=0.0 violation=-
-- step 993 price=1.2283 event=WAIT tail=0.89 sec=4 cycle=-19.2 rec=14.55 res=72.39 close=0.0 violation=-
-- step 994 price=1.2347 event=WAIT tail=0.89 sec=4 cycle=-19.24 rec=14.55 res=72.39 close=0.0 violation=-
-- step 995 price=1.2384 event=WAIT tail=0.89 sec=4 cycle=-18.33 rec=14.55 res=72.39 close=0.0 violation=-
-- step 996 price=1.228 event=WAIT tail=0.89 sec=4 cycle=-19.2 rec=14.55 res=72.39 close=0.0 violation=-
-- step 997 price=1.2248 event=WAIT tail=0.89 sec=4 cycle=-19.11 rec=14.55 res=72.39 close=0.0 violation=-
-- step 998 price=1.2395 event=WAIT tail=0.89 sec=4 cycle=-18.06 rec=14.55 res=72.39 close=0.0 violation=-
-- step 999 price=1.224 event=WAIT tail=0.89 sec=4 cycle=-18.92 rec=14.55 res=72.39 close=0.0 violation=-
-- step 1000 price=1.2327 event=WAIT tail=0.89 sec=4 cycle=-19.27 rec=14.55 res=72.39 close=0.0 violation=-
+- step 991 price=1.2184 event=OPEN_SECTION tail=0.74 sec=4 cycle=-8.52 rec=12.48 res=185.12 close=0.0 violation=-
+- step 992 price=1.2371 event=WAIT tail=0.74 sec=4 cycle=-9.24 rec=12.48 res=185.12 close=0.0 violation=-
+- step 993 price=1.2318 event=WAIT tail=0.74 sec=4 cycle=-10.04 rec=12.48 res=185.12 close=0.0 violation=-
+- step 994 price=1.2193 event=WAIT tail=0.74 sec=4 cycle=-8.1 rec=12.48 res=185.12 close=0.0 violation=-
+- step 995 price=1.2269 event=WAIT tail=0.74 sec=4 cycle=-9.88 rec=12.48 res=185.12 close=0.0 violation=-
+- step 996 price=1.2237 event=WAIT tail=0.74 sec=4 cycle=-9.37 rec=12.48 res=185.12 close=0.0 violation=-
+- step 997 price=1.2346 event=WAIT tail=0.74 sec=4 cycle=-9.64 rec=12.48 res=185.12 close=0.0 violation=-
+- step 998 price=1.2197 event=WAIT tail=0.74 sec=4 cycle=-8.73 rec=12.48 res=185.12 close=0.0 violation=-
+- step 999 price=1.2379 event=WAIT tail=0.74 sec=4 cycle=-9.11 rec=12.48 res=185.12 close=0.0 violation=-
+- step 1000 price=1.2346 event=WAIT tail=0.74 sec=4 cycle=-9.64 rec=12.48 res=185.12 close=0.0 violation=-
 
 ### Violation events
 - none
@@ -297,12 +331,16 @@
 ## monte_carlo_summary
 - number_of_runs: 200
 - seed: 42
-- tail_lot_end min/max/avg: 1.0000/1.0000/1.0000
-- reserve_end min/max/avg: 0.00/0.00/0.00
-- drawdown min/max/avg: 5595.01/5822.43/5718.30
-- worst_case_run: mc_150 (drawdown=5822.43)
+- regimes: random_walk, mean_reversion, trend_with_pullbacks, high_volatility, gap_sequence
+- tail_lot_end min/max/avg: 0.7400/1.0000/0.9404
+- reserve_end min/max/avg: 0.00/64.40/19.08
+- drawdown min/max/avg: 2047.63/6338.53/4659.48
+- worst_case_run: mean_reversion_27 (drawdown=6338.53)
 - violations_total: 0
 - runs_with_violations: 0
 
 ## Final status
-Stress testing: PASS
+Initial formula validation: PASS
+Workbook runtime validation: PASS
+Stress test quality: PASS_RECOVERY
+Final system validation: NOT YET
