@@ -55,12 +55,12 @@ def add_scenario(ws, direction):
     ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D7:D206,MATCH(B222,A7:A206,0)))'
     ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H7:H206,MATCH(B222,A7:A206,0))))'
     ws["A225"] = "TailLossPerLot"; ws["B225"] = '=IF(B223=0,0,ABS(B224/B223))'
-    ws["D1"] = "AverageBuyPrice"; ws["E1"] = '=IFERROR(SUMPRODUCT((B7:B206="BUY")*E7:E206*D7:D206)/SUMIFS(D7:D206,B7:B206,"BUY"),0)'
-    ws["D2"] = "AverageSellPrice"; ws["E2"] = '=IFERROR(SUMPRODUCT((B7:B206="SELL")*E7:E206*D7:D206)/SUMIFS(D7:D206,B7:B206,"SELL"),0)'
+    ws["D1"] = "AverageBuyPrice"; ws["E1"] = '=IFERROR(SUMPRODUCT((B7:B206="BUY")*E7:E206*D7:D206)/MAX(0.0000001,SUMIFS(D7:D206,B7:B206,"BUY")),0)'
+    ws["D2"] = "AverageSellPrice"; ws["E2"] = '=IFERROR(SUMPRODUCT((B7:B206="SELL")*E7:E206*D7:D206)/MAX(0.0000001,SUMIFS(D7:D206,B7:B206,"SELL")),0)'
     ws["D3"] = "Center"; ws["E3"] = '=(E1+E2)/2'
     for lvl in range(1, 5):
-        ws.cell(3 + lvl, 4, f"UpperLevel{lvl}"); ws.cell(3 + lvl, 5, f"=E3+{lvl}*Settings!$B$5*Settings!$B$3")
-        ws.cell(8 + lvl, 4, f"LowerLevel{lvl}"); ws.cell(8 + lvl, 5, f"=E3-{lvl}*Settings!$B$5*Settings!$B$3")
+        ws.cell(3 + lvl, 4, f"UpperLevel{lvl}"); ws.cell(3 + lvl, 5, f"=IF(E3=0,\"Уровень не рассчитан\",E3+{lvl}*Settings!$B$5*Settings!$B$3)")
+        ws.cell(8 + lvl, 4, f"LowerLevel{lvl}"); ws.cell(8 + lvl, 5, f"=IF(E3=0,\"Уровень не рассчитан\",E3-{lvl}*Settings!$B$5*Settings!$B$3)")
 
 
 def add_section_calc(ws, scenario_sheet, up):
@@ -70,8 +70,8 @@ def add_section_calc(ws, scenario_sheet, up):
     ws["A4"] = "NextLevel"; ws["B4"] = 1
     ws["A5"] = "BigRatio"; ws["B5"] = '=INDEX(Settings!B21:B24,MATCH(B4,Settings!A21:A24,0))'
     ws["A6"] = "SmallRatio"; ws["B6"] = '=INDEX(Settings!C21:C24,MATCH(B4,Settings!A21:A24,0))'
-    ws["A7"] = "BigLot"; ws["B7"] = '=FLOOR(B3*B5,Settings!$B$7)'
-    ws["A8"] = "SmallLot"; ws["B8"] = '=FLOOR(B3*B6,Settings!$B$7)'
+    ws["A7"] = "BigLot"; ws["B7"] = '=IF(B3<=0,0,FLOOR(B3*B5,Settings!$B$7))'
+    ws["A8"] = "SmallLot"; ws["B8"] = '=IF(B3<=0,0,FLOOR(B3*B6,Settings!$B$7))'
     ws["A9"] = "ActiveSections"; ws["B9"] = '=COUNTIFS(CurrentPositions!C2:C500,"SECTION_BIG")'
     ws["A10"] = "TotalLotAfterOpen"; ws["B10"] = '=SUM(CurrentPositions!D2:D500)+B7+B8'
     ws["A11"] = "NetLotAfterOpen"; ws["B11"] = '=ABS(SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"BUY")+IF(B2="BUY",B7,0)+IF(B2="SELL",B8,0)-SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"SELL")-IF(B2="SELL",B7,0)-IF(B2="BUY",B8,0))'
@@ -81,7 +81,7 @@ def add_section_calc(ws, scenario_sheet, up):
     else:
         ws["B12"] = f'=IF({scenario_sheet}!B4<=IF(B4=1,{scenario_sheet}!E9,IF(B4=2,{scenario_sheet}!E10,IF(B4=3,{scenario_sheet}!E11,{scenario_sheet}!E12))),"YES","NO")'
     ws["A13"] = "NoOppositeCascade"; ws["B13"] = '=IF(B2="SELL",IF(COUNTIFS(CurrentPositions!B2:B500,"BUY",CurrentPositions!C2:C500,"SECTION_BIG")=0,"YES","NO"),IF(B2="BUY",IF(COUNTIFS(CurrentPositions!B2:B500,"SELL",CurrentPositions!C2:C500,"SECTION_BIG")=0,"YES","NO"),"NO"))'
-    ws["A14"] = "CanOpenSection"; ws["B14"] = '=IF(AND(B7>=Settings!$B$6,B8>=Settings!$B$6,B8<B7,B7<=B3,B9<Settings!$B$8,B10<=Settings!$B$15,B11<=Settings!$B$16,B12="YES",B13="YES"),"YES","NO")'
+    ws["A14"] = "CanOpenSection"; ws["B14"] = '=IF(B3<=0,"NO",IF(AND(B7>=Settings!$B$6,B8>=Settings!$B$6,B8<B7,B7<=B3,B9<Settings!$B$8,B10<=Settings!$B$15,B11<=Settings!$B$16,B12="YES",B13="YES"),"YES","NO"))'
 
     hdr(ws, 20, ["SectionID", "BigType", "BigLot", "BigOpenPrice", "SmallType", "SmallLot", "SmallOpenPrice", "ScenarioPrice", "BigPnL", "SmallPnL", "Lots", "CostMultiplier", "SpreadCost", "CommissionCost", "SwapCost", "Costs", "CycleProfit", "CanCloseSection"])
     for i in range(1, 5):
@@ -218,16 +218,16 @@ def build():
         ("CycleProfit > 0 before close section", '=IF(OR(SectionCalculator_UP!B31>0,SectionCalculator_UP!B32="NO"),"OK","ERROR")', '=IF(OR(SectionCalculator_DOWN!B31>0,SectionCalculator_DOWN!B32="NO"),"OK","ERROR")'),
         ("CloseLot = 0 if CanCloseSection=NO", '=IF(OR(SectionCalculator_UP!B32="YES",TailRecovery_UP!B10=0),"OK","ERROR")', '=IF(OR(SectionCalculator_DOWN!B32="YES",TailRecovery_DOWN!B10=0),"OK","ERROR")'),
         ("TailCloseLoss <= RecoveryFundAfterCycle", '=IF(TailRecovery_UP!B12<=TailRecovery_UP!B7,"OK","ERROR")', '=IF(TailRecovery_DOWN!B12<=TailRecovery_DOWN!B7,"OK","ERROR")'),
-        ("LevelReached before open section", '=IF(OR(SectionCalculator_UP!B14="NO",SectionCalculator_UP!B12="YES"),"OK","ERROR")', '=IF(OR(SectionCalculator_DOWN!B14="NO",SectionCalculator_DOWN!B12="YES"),"OK","ERROR")'),
-        ("No opposite cascade active", '=IF(SectionCalculator_UP!B13="YES","OK","ERROR")', '=IF(SectionCalculator_DOWN!B13="YES","OK","ERROR")')
+        ("LevelReached before open section", '=IF(SectionCalculator_UP!B12="YES","OK",IF(SectionCalculator_UP!B14="NO","BLOCKED","ERROR"))', '=IF(SectionCalculator_DOWN!B12="YES","OK",IF(SectionCalculator_DOWN!B14="NO","BLOCKED","ERROR"))'),
+        ("No opposite cascade active", '=IF(SectionCalculator_UP!B13="YES","OK","BLOCKED")', '=IF(SectionCalculator_DOWN!B13="YES","OK","BLOCKED")')
     ]
     for r, row in enumerate(rules, 2):
         for c, x in enumerate(row, 1): ws=v; ws.cell(r, c, x)
 
     lg=wb["Log"]
     hdr(lg,1,["Время","Направление","Сценарий","Действие","Хвост до закрытия","Закрываемый лот хвоста","Хвост после закрытия","RecoveryFund до","RecoveryFund после","Резерв после","SAFE"])
-    lg["A2"]="=NOW()"; lg["B2"]="ВВЕРХ"; lg["C2"]="ScenarioText_UP"; lg["D2"]="=BasketSummary!B13"; lg["E2"]="=TailRecovery_UP!B3"; lg["F2"]="=TailRecovery_UP!B10"; lg["G2"]="=MAX(E2-F2,0)"; lg["H2"]="=TailRecovery_UP!B5"; lg["I2"]="=TailRecovery_UP!B7"; lg["J2"]="=SectionCalculator_UP!B35"; lg['K2']='=IF(OR(SectionCalculator_UP!B14<>"YES",SectionCalculator_UP!B13<>"YES"),"YES","NO")'
-    lg["A3"]="=NOW()"; lg["B3"]="ВНИЗ"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]="=BasketSummary!C13"; lg["E3"]="=TailRecovery_DOWN!B3"; lg["F3"]="=TailRecovery_DOWN!B10"; lg["G3"]="=MAX(E3-F3,0)"; lg["H3"]="=TailRecovery_DOWN!B5"; lg["I3"]="=TailRecovery_DOWN!B7"; lg["J3"]="=SectionCalculator_DOWN!B35"; lg['K3']='=IF(OR(SectionCalculator_DOWN!B14<>"YES",SectionCalculator_DOWN!B13<>"YES"),"YES","NO")'
+    lg["A2"]="=NOW()"; lg["B2"]="ВВЕРХ"; lg["C2"]="ScenarioText_UP"; lg["D2"]='=IF(BasketSummary!B13="WAIT","ЖДАТЬ",IF(BasketSummary!B13="SAFE","SAFE",IF(BasketSummary!B13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_UP!B10>0,TailRecovery_UP!B10<TailRecovery_UP!B3),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E2"]="=IFERROR(TailRecovery_UP!B3,0)"; lg["F2"]="=IFERROR(TailRecovery_UP!B10,0)"; lg["G2"]='=IF(OR(NOT(ISNUMBER(E2)),NOT(ISNUMBER(F2))),"Хвост не найден",MAX(E2-F2,0))'; lg["H2"]="=IFERROR(TailRecovery_UP!B5,0)"; lg["I2"]="=IFERROR(TailRecovery_UP!B7,0)"; lg["J2"]="=IFERROR(SectionCalculator_UP!B35,0)"; lg['K2']='=IF(OR(SectionCalculator_UP!B14<>"YES",SectionCalculator_UP!B13<>"YES"),"YES","NO")'
+    lg["A3"]="=NOW()"; lg["B3"]="ВНИЗ"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]='=IF(BasketSummary!C13="WAIT","ЖДАТЬ",IF(BasketSummary!C13="SAFE","SAFE",IF(BasketSummary!C13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_DOWN!B10>0,TailRecovery_DOWN!B10<TailRecovery_DOWN!B3),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E3"]="=IFERROR(TailRecovery_DOWN!B3,0)"; lg["F3"]="=IFERROR(TailRecovery_DOWN!B10,0)"; lg["G3"]='=IF(OR(NOT(ISNUMBER(E3)),NOT(ISNUMBER(F3))),"Хвост не найден",MAX(E3-F3,0))'; lg["H3"]="=IFERROR(TailRecovery_DOWN!B5,0)"; lg["I3"]="=IFERROR(TailRecovery_DOWN!B7,0)"; lg["J3"]="=IFERROR(SectionCalculator_DOWN!B35,0)"; lg['K3']='=IF(OR(SectionCalculator_DOWN!B14<>"YES",SectionCalculator_DOWN!B13<>"YES"),"YES","NO")'
     wb.save("recovery_lock_cascade_next_step.xlsx")
 
 
