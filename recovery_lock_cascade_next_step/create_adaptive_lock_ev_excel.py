@@ -1,5 +1,5 @@
 from openpyxl import Workbook
-from openpyxl.styles import Font
+from openpyxl.styles import Font, PatternFill, Alignment
 
 BOLD = Font(bold=True)
 
@@ -132,49 +132,54 @@ def add_recommendations(ws, direction):
     sec = "SectionCalculator_UP" if direction == "UP" else "SectionCalculator_DOWN"
     tail = "TailRecovery_UP" if direction == "UP" else "TailRecovery_DOWN"
 
-    ws["A2"] = "ScenarioTitle"; ws["B2"] = f'="SCENARIO: PRICE MOVES {direction}"'
-    ws["A3"] = "CurrentPrice"; ws["B3"] = f"={sc}!B4"
-    ws["A4"] = "NextTriggerLevel"; ws["B4"] = f"={sec}!B15"
-    ws["A5"] = "DistancePoints"; ws["B5"] = f"=ROUND(ABS(B4-B3)*10000,0)"
-    ws["A6"] = "BigPosition"; ws["B6"] = f'="SELL "&TEXT({tail}!B16,"0.00")'
-    ws["A7"] = "SmallHedge"; ws["B7"] = f'="BUY "&TEXT({tail}!B17,"0.00")'
-    ws["A8"] = "SectionLevel"; ws["B8"] = f"={sec}!B16"
-    ws["A9"] = "Reason"; ws["B9"] = f'=IF({sec}!B12="YES","Reached level; tail found; risk limits OK","Waiting level/risk gate")'
+    ws["A2"] = "Название сценария"; ws["B2"] = f'="СЦЕНАРИЙ: ЦЕНА ИДЕТ {"ВВЕРХ" if direction=="UP" else "ВНИЗ"}"'
+    ws["A3"] = "Текущая цена"; ws["B3"] = f"=IFERROR({sc}!B4,0)"
+    ws["A4"] = "Следующий уровень"; ws["B4"] = f'=IFERROR(IF({sec}!B4=1,{sc}!E4,IF({sec}!B4=2,{sc}!E5,IF({sec}!B4=3,{sc}!E6,IF({sec}!B4=4,{sc}!E7,"")))),"")' if direction == "UP" else f'=IFERROR(IF({sec}!B4=1,{sc}!E9,IF({sec}!B4=2,{sc}!E10,IF({sec}!B4=3,{sc}!E11,IF({sec}!B4=4,{sc}!E12,"")))),"")'
+    ws["A5"] = "Расстояние до уровня, пунктов"; ws["B5"] = '=IF(OR(B4="",B3=""),"Уровень не рассчитан",ROUND(ABS(B4-B3)*10000,0))'
+    ws["A6"] = "Большая позиция"; ws["B6"] = f'=IFERROR(IF({tail}!B16>0,IF("{direction}"="UP","SELL ","BUY ")&TEXT({tail}!B16,"0.00"),"Не открывать"),"Не открывать")'
+    ws["A7"] = "Малая защитная позиция"; ws["B7"] = f'=IFERROR(IF({tail}!B17>0,IF("{direction}"="UP","BUY ","SELL ")&TEXT({tail}!B17,"0.00"),"Не открывать"),"Не открывать")'
+    ws["A8"] = "Уровень секции"; ws["B8"] = f"=IFERROR({sec}!B4,0)"
+    ws["A9"] = "Причина"; ws["B9"] = f'=IF({sec}!B14="YES","цена достигла уровня; хвост найден; риск-лимиты OK","секция сейчас недоступна: уровень/риск-гейт/хвост")'
 
-    ws["A11"] = "RiskChecks"
-    ws["A12"] = "CanOpenSection"; ws["B12"] = f"={sec}!B12"
-    ws["A13"] = "NoOppositeCascade"; ws["B13"] = f"={sec}!B13"
-    ws["A14"] = "CanCloseSection"; ws["B14"] = f"={sec}!B32"
-    ws["A15"] = "CanCloseTail"; ws["B15"] = f"={tail}!B11"
+    ws["A11"] = "Проверки риска"
+    ws["A12"] = "Можно открыть секцию"; ws["B12"] = f"={sec}!B14"
+    ws["A13"] = "Нет встречного каскада"; ws["B13"] = f"={sec}!B13"
+    ws["A14"] = "Можно закрыть секцию"; ws["B14"] = f"={sec}!B32"
+    ws["A15"] = "Можно закрыть хвост"; ws["B15"] = f"={tail}!B11"
 
-    ws["A17"] = "CycleProfit"; ws["B17"] = f"={sec}!B31"
-    ws["A18"] = "ReserveAdd"; ws["B18"] = f"={tail}!B6"
-    ws["A19"] = "RecoveryAdd"; ws["B19"] = f"={tail}!B8"
+    ws["A17"] = "Прибыль цикла"; ws["B17"] = f"=IFERROR({sec}!B31,0)"
+    ws["A18"] = "Добавить в резерв"; ws["B18"] = f"=IFERROR({tail}!B6,0)"
+    ws["A19"] = "Добавить в RecoveryFund"; ws["B19"] = f"=IFERROR({tail}!B8,0)"
 
-    ws["A21"] = "DetectedTailType"; ws["B21"] = f"={tail}!B2"
-    ws["A22"] = "TailLot"; ws["B22"] = f"={tail}!B3"
-    ws["A23"] = "TailLoss"; ws["B23"] = f"={tail}!B12"
-    ws["A24"] = "RecoveryFundBefore"; ws["B24"] = f"={tail}!B5"
-    ws["A25"] = "CloseLotRaw"; ws["B25"] = f"={tail}!B9"
-    ws["A26"] = "CloseLotRounded"; ws["B26"] = f"={tail}!B10"
-    ws["A27"] = "CloseLotFinal"; ws["B27"] = f"={tail}!B10"
-    ws["A28"] = "TailLotAfter"; ws["B28"] = f"=MAX(B22-B27,0)"
-    ws["A29"] = "RecoveryFundAfter"; ws["B29"] = f"={tail}!B7"
+    ws["A21"] = "Тип хвоста"; ws["B21"] = f'=IF(OR({tail}!B2="",{tail}!B2="N/A"),"Хвост не найден",{tail}!B2)'
+    ws["A22"] = "Лот хвоста"; ws["B22"] = f'=IFERROR(IF({tail}!B3>0,{tail}!B3,"Хвост не найден"),"Хвост не найден")'
+    ws["A23"] = "Убыток хвоста"; ws["B23"] = f"=IFERROR({tail}!B12,0)"
+    ws["A24"] = "RecoveryFund до закрытия"; ws["B24"] = f"=IFERROR({tail}!B5,0)"
+    ws["A25"] = "Расчётный лот закрытия"; ws["B25"] = f"=IFERROR({tail}!B9,0)"
+    ws["A26"] = "Округлённый лот закрытия"; ws["B26"] = f"=IFERROR({tail}!B10,0)"
+    ws["A27"] = "Итоговый лот закрытия"; ws["B27"] = f"=IFERROR({tail}!B10,0)"
+    ws["A28"] = "Остаток хвоста"; ws["B28"] = '=IF(OR(B22="Хвост не найден",NOT(ISNUMBER(B22))),"Хвост не найден",MAX(B22-B27,0))'
+    ws["A29"] = "RecoveryFund после закрытия"; ws["B29"] = f"=IFERROR({tail}!B7,0)"
 
     ws["A31"] = "HumanReadableAction"
     ws["B31"] = (
         '=TEXTJOIN(CHAR(10),TRUE,'
+        '"ПОДРОБНАЯ РЕКОМЕНДАЦИЯ:",'
         'B2,'
-        '"Current Price: "&TEXT(B3,"0.00000"),'
-        '"Next trigger level: "&TEXT(B4,"0.00000")&" ("&TEXT(B5,"0")&" points)",'
-        '"Open section: "&B6&" + "&B7,'
-        '"Section level: "&TEXT(B8,"0"),'
-        '"CycleProfit: "&TEXT(B17,"0.00"),'
-        '"Reserve += "&TEXT(B18,"0.00")&"; Recovery += "&TEXT(B19,"0.00"),'
-        '"Tail: "&B21&" "&TEXT(B22,"0.00")&"; Close "&TEXT(B27,"0.00")&"; Remain "&TEXT(B28,"0.00"),'
-        '"CanCloseBasket: "&BasketSummary!'+('B10' if direction=='UP' else 'C10')+','
+        '"Если цена дойдет до: "&IF(B4="","уровень не рассчитан",TEXT(B4,"0.00000")),'
+        '"Расстояние до уровня: "&IF(ISNUMBER(B5),TEXT(B5,"0")&" пунктов",B5),'
+        '"Рекомендация по открытию: "&B6&" и "&B7,'
+        '"Прибыль цикла: "&TEXT(B17,"0.00")&"; Резерв +"&TEXT(B18,"0.00")&"; RecoveryFund +"&TEXT(B19,"0.00"),'
+        '"Хвост: "&B21&"; закрыть: "&IF(ISNUMBER(B27),TEXT(B27,"0.00"),"0.00")&"; останется: "&IF(ISNUMBER(B28),TEXT(B28,"0.00"),B28),'
+        '"RecoveryFund после: "&TEXT(B29,"0.00"),'
+        '"Итоговое действие: "&IF(BasketSummary!'+('B10' if direction=='UP' else 'C10')+'="YES","BASKET_CLOSE",IF(B12<>"YES","WAIT",IF(B14="YES",IF(B15="YES","CLOSE_SECTION+CLOSE_TAIL","CLOSE_SECTION"),"OPEN_SECTION"))),'
         '"SAFE: "&IF(OR(B12<>"YES",B13<>"YES"),"YES","NO"))'
     )
+    ws.merge_cells("A32:H45")
+    ws["A32"] = "=B31"
+    ws["A32"].alignment = Alignment(wrap_text=True, vertical="top")
+    ws["A32"].font = Font(bold=True, size=13, color="FFFFFFFF")
+    ws["A32"].fill = PatternFill(fill_type="solid", fgColor="FF1F4E78")
 
 def build():
     wb = Workbook(); wb.active.title = "Settings"
@@ -212,9 +217,9 @@ def build():
         for c, x in enumerate(row, 1): ws=v; ws.cell(r, c, x)
 
     lg=wb["Log"]
-    hdr(lg,1,["Timestamp","Direction","Scenario","Action","TailBefore","TailClosed","TailAfter","RecoveryBefore","RecoveryAfter","ReserveAfter","SAFE"])
-    lg["A2"]="=NOW()"; lg["B2"]="UP"; lg["C2"]="ScenarioText_UP"; lg["D2"]="=BasketSummary!B13"; lg["E2"]="=TailRecovery_UP!B3"; lg["F2"]="=TailRecovery_UP!B10"; lg["G2"]="=MAX(E2-F2,0)"; lg["H2"]="=TailRecovery_UP!B5"; lg["I2"]="=TailRecovery_UP!B7"; lg["J2"]="=SectionCalculator_UP!B35"; lg['K2']='=IF(OR(SectionCalculator_UP!B12<>"YES",SectionCalculator_UP!B13<>"YES"),"YES","NO")'
-    lg["A3"]="=NOW()"; lg["B3"]="DOWN"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]="=BasketSummary!C13"; lg["E3"]="=TailRecovery_DOWN!B3"; lg["F3"]="=TailRecovery_DOWN!B10"; lg["G3"]="=MAX(E3-F3,0)"; lg["H3"]="=TailRecovery_DOWN!B5"; lg["I3"]="=TailRecovery_DOWN!B7"; lg["J3"]="=SectionCalculator_DOWN!B35"; lg['K3']='=IF(OR(SectionCalculator_DOWN!B12<>"YES",SectionCalculator_DOWN!B13<>"YES"),"YES","NO")'
+    hdr(lg,1,["Время","Направление","Сценарий","Действие","Хвост до закрытия","Закрываемый лот хвоста","Хвост после закрытия","RecoveryFund до","RecoveryFund после","Резерв после","SAFE"])
+    lg["A2"]="=NOW()"; lg["B2"]="ВВЕРХ"; lg["C2"]="ScenarioText_UP"; lg["D2"]="=BasketSummary!B13"; lg["E2"]="=TailRecovery_UP!B3"; lg["F2"]="=TailRecovery_UP!B10"; lg["G2"]="=MAX(E2-F2,0)"; lg["H2"]="=TailRecovery_UP!B5"; lg["I2"]="=TailRecovery_UP!B7"; lg["J2"]="=SectionCalculator_UP!B35"; lg['K2']='=IF(OR(SectionCalculator_UP!B14<>"YES",SectionCalculator_UP!B13<>"YES"),"YES","NO")'
+    lg["A3"]="=NOW()"; lg["B3"]="ВНИЗ"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]="=BasketSummary!C13"; lg["E3"]="=TailRecovery_DOWN!B3"; lg["F3"]="=TailRecovery_DOWN!B10"; lg["G3"]="=MAX(E3-F3,0)"; lg["H3"]="=TailRecovery_DOWN!B5"; lg["I3"]="=TailRecovery_DOWN!B7"; lg["J3"]="=SectionCalculator_DOWN!B35"; lg['K3']='=IF(OR(SectionCalculator_DOWN!B14<>"YES",SectionCalculator_DOWN!B13<>"YES"),"YES","NO")'
     wb.save("recovery_lock_cascade_next_step.xlsx")
 
 
