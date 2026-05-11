@@ -125,9 +125,60 @@ def add_tail_recovery(ws, section_sheet, scenario_sheet):
     for r, (k, v) in enumerate(rows, 2): ws.cell(r, 1, k); ws.cell(r, 2, v)
 
 
+
+def add_recommendations(ws, direction):
+    hdr(ws, 1, ["Field", "Value"])
+    sc = "Scenario_UP" if direction == "UP" else "Scenario_DOWN"
+    sec = "SectionCalculator_UP" if direction == "UP" else "SectionCalculator_DOWN"
+    tail = "TailRecovery_UP" if direction == "UP" else "TailRecovery_DOWN"
+
+    ws["A2"] = "ScenarioTitle"; ws["B2"] = f'="SCENARIO: PRICE MOVES {direction}"'
+    ws["A3"] = "CurrentPrice"; ws["B3"] = f"={sc}!B4"
+    ws["A4"] = "NextTriggerLevel"; ws["B4"] = f"={sec}!B15"
+    ws["A5"] = "DistancePoints"; ws["B5"] = f"=ROUND(ABS(B4-B3)*10000,0)"
+    ws["A6"] = "BigPosition"; ws["B6"] = f'="SELL "&TEXT({tail}!B16,"0.00")'
+    ws["A7"] = "SmallHedge"; ws["B7"] = f'="BUY "&TEXT({tail}!B17,"0.00")'
+    ws["A8"] = "SectionLevel"; ws["B8"] = f"={sec}!B16"
+    ws["A9"] = "Reason"; ws["B9"] = f'=IF({sec}!B12="YES","Reached level; tail found; risk limits OK","Waiting level/risk gate")'
+
+    ws["A11"] = "RiskChecks"
+    ws["A12"] = "CanOpenSection"; ws["B12"] = f"={sec}!B12"
+    ws["A13"] = "NoOppositeCascade"; ws["B13"] = f"={sec}!B13"
+    ws["A14"] = "CanCloseSection"; ws["B14"] = f"={sec}!B32"
+    ws["A15"] = "CanCloseTail"; ws["B15"] = f"={tail}!B11"
+
+    ws["A17"] = "CycleProfit"; ws["B17"] = f"={sec}!B31"
+    ws["A18"] = "ReserveAdd"; ws["B18"] = f"={tail}!B6"
+    ws["A19"] = "RecoveryAdd"; ws["B19"] = f"={tail}!B8"
+
+    ws["A21"] = "DetectedTailType"; ws["B21"] = f"={tail}!B2"
+    ws["A22"] = "TailLot"; ws["B22"] = f"={tail}!B3"
+    ws["A23"] = "TailLoss"; ws["B23"] = f"={tail}!B12"
+    ws["A24"] = "RecoveryFundBefore"; ws["B24"] = f"={tail}!B5"
+    ws["A25"] = "CloseLotRaw"; ws["B25"] = f"={tail}!B9"
+    ws["A26"] = "CloseLotRounded"; ws["B26"] = f"={tail}!B10"
+    ws["A27"] = "CloseLotFinal"; ws["B27"] = f"={tail}!B10"
+    ws["A28"] = "TailLotAfter"; ws["B28"] = f"=MAX(B22-B27,0)"
+    ws["A29"] = "RecoveryFundAfter"; ws["B29"] = f"={tail}!B7"
+
+    ws["A31"] = "HumanReadableAction"
+    ws["B31"] = (
+        '=TEXTJOIN(CHAR(10),TRUE,'
+        'B2,'
+        '"Current Price: "&TEXT(B3,"0.00000"),'
+        '"Next trigger level: "&TEXT(B4,"0.00000")&" ("&TEXT(B5,"0")&" points)",'
+        '"Open section: "&B6&" + "&B7,'
+        '"Section level: "&TEXT(B8,"0"),'
+        '"CycleProfit: "&TEXT(B17,"0.00"),'
+        '"Reserve += "&TEXT(B18,"0.00")&"; Recovery += "&TEXT(B19,"0.00"),'
+        '"Tail: "&B21&" "&TEXT(B22,"0.00")&"; Close "&TEXT(B27,"0.00")&"; Remain "&TEXT(B28,"0.00"),'
+        '"CanCloseBasket: "&BasketSummary!'+('B10' if direction=='UP' else 'C10')+','
+        '"SAFE: "&IF(OR(B12<>"YES",B13<>"YES"),"YES","NO"))'
+    )
+
 def build():
     wb = Workbook(); wb.active.title = "Settings"
-    for s in ["CurrentPositions", "Scenario_UP", "Scenario_DOWN", "SectionCalculator_UP", "SectionCalculator_DOWN", "TailRecovery_UP", "TailRecovery_DOWN", "BasketSummary", "Validation", "Log"]:
+    for s in ["CurrentPositions", "Scenario_UP", "Scenario_DOWN", "SectionCalculator_UP", "SectionCalculator_DOWN", "TailRecovery_UP", "TailRecovery_DOWN", "BasketSummary", "Validation", "Log", "ScenarioText_UP", "ScenarioText_DOWN"]:
         wb.create_sheet(s)
     add_settings(wb["Settings"]); add_positions(wb["CurrentPositions"])
     add_scenario(wb["Scenario_UP"], "UP"); add_scenario(wb["Scenario_DOWN"], "DOWN")
@@ -135,7 +186,7 @@ def build():
     add_tail_recovery(wb["TailRecovery_UP"], "SectionCalculator_UP", "Scenario_UP"); add_tail_recovery(wb["TailRecovery_DOWN"], "SectionCalculator_DOWN", "Scenario_DOWN")
 
     bs = wb["BasketSummary"]; hdr(bs, 1, ["Field", "UP", "DOWN"])
-    fields = ["ScenarioPrice", "BasketFloating", "GlobalReserveAfter", "RecoveryFundAfterCycle", "TailLotAfter", "CloseLot", "CanCloseSection", "CanCloseTail", "CanCloseBasket", "NextBigLot", "NextSmallLot", "NextAction"]
+    fields = ["ScenarioPrice", "BasketFloating", "GlobalReserveAfter", "RecoveryFundAfterCycle", "TailLotAfter", "CloseLot", "CanCloseSection", "CanCloseTail", "CanCloseBasket", "NextBigLot", "NextSmallLot", "NextAction", "HumanReadableAction"]
     for i, f in enumerate(fields, 2): bs.cell(i, 1, f)
     bs["B2"] = "=Scenario_UP!B4"; bs["C2"] = "=Scenario_DOWN!B4"; bs["B3"] = "=SUM(Scenario_UP!H7:H206)"; bs["C3"] = "=SUM(Scenario_DOWN!H7:H206)"
     bs["B4"] = "=SectionCalculator_UP!B35"; bs["C4"] = "=SectionCalculator_DOWN!B35"; bs["B5"] = "=TailRecovery_UP!B7"; bs["C5"] = "=TailRecovery_DOWN!B7"
@@ -144,6 +195,10 @@ def build():
     bs["B10"] = '=IF(B3+B4>=Settings!$B$11,"YES","NO")'; bs["C10"] = '=IF(C3+C4>=Settings!$B$11,"YES","NO")'
     bs["B11"] = "=TailRecovery_UP!B16"; bs["C11"] = "=TailRecovery_DOWN!B16"; bs["B12"] = "=TailRecovery_UP!B17"; bs["C12"] = "=TailRecovery_DOWN!B17"
     bs["B13"] = '=IF(B10="YES","BASKET_CLOSE",IF(B8="NO","WAIT",IF(B9="YES","CLOSE_SECTION+CLOSE_TAIL","SAFE")))'; bs["C13"] = '=IF(C10="YES","BASKET_CLOSE",IF(C8="NO","WAIT",IF(C9="YES","CLOSE_SECTION+CLOSE_TAIL","SAFE")))'
+    bs["B14"] = "=ScenarioText_UP!B31"; bs["C14"] = "=ScenarioText_DOWN!B31"
+
+    add_recommendations(wb["ScenarioText_UP"], "UP")
+    add_recommendations(wb["ScenarioText_DOWN"], "DOWN")
 
     v = wb["Validation"]; hdr(v, 1, ["Rule", "UP", "DOWN"])
     rules = [
@@ -156,7 +211,10 @@ def build():
     for r, row in enumerate(rules, 2):
         for c, x in enumerate(row, 1): ws=v; ws.cell(r, c, x)
 
-    wb["Log"]["A1"] = '="NEXT ACTION UP:"&CHAR(10)&BasketSummary!B13&CHAR(10)&"NEXT ACTION DOWN:"&CHAR(10)&BasketSummary!C13'
+    lg=wb["Log"]
+    hdr(lg,1,["Timestamp","Direction","Scenario","Action","TailBefore","TailClosed","TailAfter","RecoveryBefore","RecoveryAfter","ReserveAfter","SAFE"])
+    lg["A2"]="=NOW()"; lg["B2"]="UP"; lg["C2"]="ScenarioText_UP"; lg["D2"]="=BasketSummary!B13"; lg["E2"]="=TailRecovery_UP!B3"; lg["F2"]="=TailRecovery_UP!B10"; lg["G2"]="=MAX(E2-F2,0)"; lg["H2"]="=TailRecovery_UP!B5"; lg["I2"]="=TailRecovery_UP!B7"; lg["J2"]="=SectionCalculator_UP!B35"; lg['K2']='=IF(OR(SectionCalculator_UP!B12<>"YES",SectionCalculator_UP!B13<>"YES"),"YES","NO")'
+    lg["A3"]="=NOW()"; lg["B3"]="DOWN"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]="=BasketSummary!C13"; lg["E3"]="=TailRecovery_DOWN!B3"; lg["F3"]="=TailRecovery_DOWN!B10"; lg["G3"]="=MAX(E3-F3,0)"; lg["H3"]="=TailRecovery_DOWN!B5"; lg["I3"]="=TailRecovery_DOWN!B7"; lg["J3"]="=SectionCalculator_DOWN!B35"; lg['K3']='=IF(OR(SectionCalculator_DOWN!B12<>"YES",SectionCalculator_DOWN!B13<>"YES"),"YES","NO")'
     wb.save("recovery_lock_cascade_next_step.xlsx")
 
 
