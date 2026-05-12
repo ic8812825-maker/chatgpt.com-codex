@@ -201,7 +201,7 @@ def add_recommendations(ws, direction):
     ws["A12"] = "Малая защитная позиция"; ws["B12"] = f'=IFERROR(IF({tail}!B17>0,IF("{direction}"="UP","BUY ","SELL ")&TEXT({tail}!B17,"0.00"),"Не открывать"),"Не открывать")'
     ws["A13"] = "Уровень секции"; ws["B13"] = f"=IFERROR({sec}!B4,0)"
 
-    ws["B46"] = (
+    ws["A39"] = (
         '="ПОДРОБНАЯ РЕКОМЕНДАЦИЯ"&CHAR(10)&CHAR(10)&'
         '"Сценарий: цена идет ' + ('вверх' if direction == 'UP' else 'вниз') + '."&CHAR(10)&'
         '"Текущий Bid: "&TEXT(B3,"0.00000")&CHAR(10)&'
@@ -232,7 +232,6 @@ def add_recommendations(ws, direction):
         '"ИТОГОВОЕ ДЕЙСТВИЕ: "&B31'
     )
     ws.merge_cells("A39:H52")
-    ws["A39"] = "=B46"
     ws["A39"].alignment = Alignment(wrap_text=True, vertical="top")
     ws["A39"].font = Font(bold=True, size=13, color="FFFFFFFF")
     ws["A39"].fill = PatternFill(fill_type="solid", fgColor="FF1F4E78")
@@ -293,7 +292,8 @@ def build():
         ("CloseLotFinal <= TailLot", '=IF(TailRecovery_UP!B10>TailRecovery_UP!B4,"ERROR","OK")', '=IF(TailRecovery_DOWN!B10>TailRecovery_DOWN!B4,"ERROR","OK")'),
         ("TailLotAfter >= 0", '=IF(TailRecovery_UP!B14<0,"ERROR","OK")', '=IF(TailRecovery_DOWN!B14<0,"ERROR","OK")'),
         ("ScenarioText SAFE not empty", '=IF(ScenarioText_UP!B38<>"","OK","ERROR")', '=IF(ScenarioText_DOWN!B38<>"","OK","ERROR")'),
-        ("ScenarioText SAFE equals Log SAFE", '=IF(ScenarioText_UP!B38=Log!K2,"OK","ERROR")', '=IF(ScenarioText_DOWN!B38=Log!K3,"OK","ERROR")')
+        ("ScenarioText SAFE equals Log SAFE", '=IF(ScenarioText_UP!B38=Log!K2,"OK","ERROR")', '=IF(ScenarioText_DOWN!B38=Log!K3,"OK","ERROR")'),
+        ("Detailed recommendation block not empty", '=IF(AND(ScenarioText_UP!A39<>"",ScenarioText_UP!A39<>0),"OK","ERROR")', '=IF(AND(ScenarioText_DOWN!A39<>"",ScenarioText_DOWN!A39<>0),"OK","ERROR")')
     ]
     for r, row in enumerate(rules, 2):
         for c, x in enumerate(row, 1): ws=v; ws.cell(r, c, x)
