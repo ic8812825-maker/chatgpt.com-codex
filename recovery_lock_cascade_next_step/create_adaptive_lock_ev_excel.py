@@ -54,6 +54,7 @@ def add_scenario(ws, direction):
     ws["A5"] = "ScenarioBid"; ws["B5"] = "=B2+B4*Settings!$B$3" if up else "=B2-B4*Settings!$B$3"
     ws["A6"] = "ScenarioAsk"; ws["B6"] = "=B3+B4*Settings!$B$3" if up else "=B3-B4*Settings!$B$3"
     ws["A7"] = "ScenarioMid"; ws["B7"] = "=(B5+B6)/2"
+    ws["A8"] = "ScenarioSpread"; ws["B8"] = "=(B6-B5)/Settings!$B$3"
     hdr(ws, 11, ["Ticket", "Type", "Role", "Lot", "OpenPrice", "ScenarioClosePrice", "ScenarioPointsPnL", "ScenarioMoneyPnL", "IsTail", "SectionID", "TailLossHelper", "TailTicketHelper"])
     for r in range(2, 202):
         rr = r + 10
@@ -153,12 +154,12 @@ def add_recommendations(ws, direction):
     ws["A5"] = "Сценарный Bid"; ws["B5"] = f"=IFERROR({sc}!B5,0)"
     ws["A6"] = "Сценарный Ask"; ws["B6"] = f"=IFERROR({sc}!B6,0)"
     ws["A7"] = "Spread, пунктов"; ws["B7"] = "=IFERROR(Settings!B34,0)"
-    ws["A8"] = "Следующий уровень открытия"; ws["B8"] = f'=IFERROR(IF({sec}!B4=1,{sc}!N4,IF({sec}!B4=2,{sc}!N5,IF({sec}!B4=3,{sc}!N6,IF({sec}!B4=4,{sc}!N7,"Уровень не рассчитан")))),"Уровень не рассчитан")' if direction == "UP" else f'=IFERROR(IF({sec}!B4=1,{sc}!N9,IF({sec}!B4=2,{sc}!N10,IF({sec}!B4=3,{sc}!N11,IF({sec}!B4=4,{sc}!N12,"Уровень не рассчитан")))),"Уровень не рассчитан")'
-    ws["A9"] = "Расстояние до уровня, пунктов"; ws["B9"] = '=IF(OR(B8="Уровень не рассчитан",B5=""),"Расстояние не рассчитано",ROUND(ABS(B8-((B5+B6)/2))/Settings!$B$3,0))'
-    ws["A10"] = "Большая позиция"; ws["B10"] = f'=IFERROR(IF({tail}!B16>0,IF("{direction}"="UP","SELL ","BUY ")&TEXT({tail}!B16,"0.00"),"Не открывать"),"Не открывать")'
-    ws["A11"] = "Малая защитная позиция"; ws["B11"] = f'=IFERROR(IF({tail}!B17>0,IF("{direction}"="UP","BUY ","SELL ")&TEXT({tail}!B17,"0.00"),"Не открывать"),"Не открывать")'
-    ws["A9"] = "Уровень секции"; ws["B9"] = f"=IFERROR({sec}!B4,0)"
-    ws["A10"] = "Причина"; ws["B10"] = f'=IF({sec}!B14="YES","цена достигла уровня; хвост найден; риск-лимиты OK","секция недоступна: уровень/риск-гейт/хвост")'
+    ws["A9"] = "Следующий уровень открытия"; ws["B9"] = f'=IFERROR(IF({sec}!B4=1,{sc}!N4,IF({sec}!B4=2,{sc}!N5,IF({sec}!B4=3,{sc}!N6,IF({sec}!B4=4,{sc}!N7,"Уровень не рассчитан")))),"Уровень не рассчитан")' if direction == "UP" else f'=IFERROR(IF({sec}!B4=1,{sc}!N9,IF({sec}!B4=2,{sc}!N10,IF({sec}!B4=3,{sc}!N11,IF({sec}!B4=4,{sc}!N12,"Уровень не рассчитан")))),"Уровень не рассчитан")'
+    ws["A10"] = "Расстояние до уровня, пунктов"; ws["B10"] = '=IF(OR(B9="Уровень не рассчитан",B7=""),"Расстояние не рассчитано",ROUND(ABS(B9-B7)/Settings!$B$3,0))'
+    ws["A11"] = "Большая позиция"; ws["B11"] = f'=IFERROR(IF({tail}!B16>0,IF("{direction}"="UP","SELL ","BUY ")&TEXT({tail}!B16,"0.00"),"Не открывать"),"Не открывать")'
+    ws["A12"] = "Малая защитная позиция"; ws["B12"] = f'=IFERROR(IF({tail}!B17>0,IF("{direction}"="UP","BUY ","SELL ")&TEXT({tail}!B17,"0.00"),"Не открывать"),"Не открывать")'
+    ws["A13"] = "Уровень секции"; ws["B13"] = f"=IFERROR({sec}!B4,0)"
+    ws["A14"] = "Причина"; ws["B14"] = f'=IF({sec}!B14="YES","цена достигла уровня; хвост найден; риск-лимиты OK","секция недоступна: уровень/риск-гейт/хвост")'
 
     ws["A12"] = "Проверки риска"
     ws["A13"] = "Можно открыть секцию"; ws["B13"] = f'=IF({sec}!B14="YES","ДА","НЕТ")'
@@ -257,8 +258,13 @@ def build():
         ("No opposite cascade active", '=IF(SectionCalculator_UP!B13="YES","OK","BLOCKED")', '=IF(SectionCalculator_DOWN!B13="YES","OK","BLOCKED")'),
         ("Tail exists when loss exists", '=IF(AND(COUNTIFS(Scenario_UP!B12:B211,"SELL",Scenario_UP!H12:H211,"<0")>0,Scenario_UP!B222="N/A"),"ERROR","OK")', '=IF(AND(COUNTIFS(Scenario_DOWN!B12:B211,"BUY",Scenario_DOWN!H12:H211,"<0")>0,Scenario_DOWN!B222="N/A"),"ERROR","OK")'),
         ("ScenarioText action equals BasketSummary action", '=IF(OR(AND(BasketSummary!B13="BASKET_CLOSE",ScenarioText_UP!B31="ЗАКРЫТЬ ВСЮ КОРЗИНУ"),BasketSummary!B13<>"BASKET_CLOSE"),"OK","ERROR")', '=IF(OR(AND(BasketSummary!C13="BASKET_CLOSE",ScenarioText_DOWN!B31="ЗАКРЫТЬ ВСЮ КОРЗИНУ"),BasketSummary!C13<>"BASKET_CLOSE"),"OK","ERROR")'),
-        ("NextTriggerLevel is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B5),ScenarioText_UP!B5="Уровень не рассчитан"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B5),ScenarioText_DOWN!B5="Уровень не рассчитан"),"OK","ERROR")'),
-        ("DistancePoints is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B6),ScenarioText_UP!B6="Расстояние не рассчитано"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B6),ScenarioText_DOWN!B6="Расстояние не рассчитано"),"OK","ERROR")'),
+        ("NextTriggerLevel is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B9),ScenarioText_UP!B9="Уровень не рассчитан"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B9),ScenarioText_DOWN!B9="Уровень не рассчитан"),"OK","ERROR")'),
+        ("DistancePoints is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B10),ScenarioText_UP!B10="Расстояние не рассчитано"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B10),ScenarioText_DOWN!B10="Расстояние не рассчитано"),"OK","ERROR")'),
+        ("ScenarioMid is numeric", '=IF(ISNUMBER(ScenarioText_UP!B7),"OK","ERROR")', '=IF(ISNUMBER(ScenarioText_DOWN!B7),"OK","ERROR")'),
+        ("ScenarioSpread is numeric", '=IF(ISNUMBER(ScenarioText_UP!B8),"OK","ERROR")', '=IF(ISNUMBER(ScenarioText_DOWN!B8),"OK","ERROR")'),
+        ("Scenario_* B8 not empty", '=IF(Scenario_UP!B8<>"","OK","ERROR")', '=IF(Scenario_DOWN!B8<>"","OK","ERROR")'),
+        ("ScenarioText B9!=B5", '=IF(ScenarioText_UP!B9<>ScenarioText_UP!B5,"OK","ERROR")', '=IF(ScenarioText_DOWN!B9<>ScenarioText_DOWN!B5,"OK","ERROR")'),
+        ("ScenarioText B10!=B6", '=IF(ScenarioText_UP!B10<>ScenarioText_UP!B6,"OK","ERROR")', '=IF(ScenarioText_DOWN!B10<>ScenarioText_DOWN!B6,"OK","ERROR")'),
         ("HumanReadableAction not empty", '=IF(AND(ScenarioText_UP!B31<>"",ISNUMBER(ScenarioText_UP!B4)),"OK","ERROR")', '=IF(AND(ScenarioText_DOWN!B31<>"",ISNUMBER(ScenarioText_DOWN!B4)),"OK","ERROR")'),
         ("ReserveAdd mapping sync", '=IF(ScenarioText_UP!B19=SectionCalculator_UP!B33,"OK","ERROR")', '=IF(ScenarioText_DOWN!B19=SectionCalculator_DOWN!B33,"OK","ERROR")'),
         ("RecoveryAdd mapping sync", '=IF(ScenarioText_UP!B20=SectionCalculator_UP!B34,"OK","ERROR")', '=IF(ScenarioText_DOWN!B20=SectionCalculator_DOWN!B34,"OK","ERROR")'),
