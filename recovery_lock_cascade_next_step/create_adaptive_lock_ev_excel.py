@@ -187,17 +187,31 @@ def add_recommendations(ws, direction):
     ws["A37"] = "Остаток хвоста"; ws["B37"] = f"=IFERROR({tail}!B14,0)"
     ws["A31"] = "HumanReadableAction"
     ws["B31"] = '=IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="CLOSE_SECTION+CLOSE_TAIL","ЗАКРЫТЬ СЕКЦИЮ + ЗАКРЫТЬ ХВОСТ",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="CLOSE_SECTION","ЗАКРЫТЬ СЕКЦИЮ",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="OPEN_SECTION","ОТКРЫТЬ СЕКЦИЮ",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="SAFE","SAFE",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="WAIT","ЖДАТЬ","BLOCKED"))))))'
-    ws["A34"] = "RecoveryFund после закрытия"; ws["B34"] = f"=IFERROR({tail}!B7,0)"
+    # Final semantic overrides for ScenarioText key fields (authoritative mapping)
+    ws["A3"] = "Текущий Bid"; ws["B3"] = f"=IFERROR({sc}!B2,0)"
+    ws["A4"] = "Текущий Ask"; ws["B4"] = f"=IFERROR({sc}!B3,0)"
+    ws["A5"] = "Сценарный Bid"; ws["B5"] = f"=IFERROR({sc}!B5,0)"
+    ws["A6"] = "Сценарный Ask"; ws["B6"] = f"=IFERROR({sc}!B6,0)"
+    ws["A7"] = "Сценарный Mid"; ws["B7"] = f"=IFERROR({sc}!B7,0)"
+    ws["A8"] = "Сценарный Spread"; ws["B8"] = f"=IFERROR({sc}!B8,0)"
+    ws["A9"] = "Следующий уровень открытия"; ws["B9"] = f'=IFERROR(IF({sec}!B4=1,{sc}!N4,IF({sec}!B4=2,{sc}!N5,IF({sec}!B4=3,{sc}!N6,IF({sec}!B4=4,{sc}!N7,"Уровень не рассчитан")))),"Уровень не рассчитан")' if direction == "UP" else f'=IFERROR(IF({sec}!B4=1,{sc}!N9,IF({sec}!B4=2,{sc}!N10,IF({sec}!B4=3,{sc}!N11,IF({sec}!B4=4,{sc}!N12,"Уровень не рассчитан")))),"Уровень не рассчитан")'
+    ws["A10"] = "Расстояние до уровня, пунктов"; ws["B10"] = '=IF(OR(B9="Уровень не рассчитан",B7=""),"Расстояние не рассчитано",ROUND(ABS(B9-B7)/Settings!$B$3,0))'
+    ws["A11"] = "Большая позиция"; ws["B11"] = f'=IFERROR(IF({tail}!B16>0,IF("{direction}"="UP","SELL ","BUY ")&TEXT({tail}!B16,"0.00"),"Не открывать"),"Не открывать")'
+    ws["A12"] = "Малая защитная позиция"; ws["B12"] = f'=IFERROR(IF({tail}!B17>0,IF("{direction}"="UP","BUY ","SELL ")&TEXT({tail}!B17,"0.00"),"Не открывать"),"Не открывать")'
+    ws["A13"] = "Уровень секции"; ws["B13"] = f"=IFERROR({sec}!B4,0)"
+
     ws["B46"] = (
         '="ПОДРОБНАЯ РЕКОМЕНДАЦИЯ"&CHAR(10)&CHAR(10)&'
         '"Сценарий: цена идет ' + ('вверх' if direction == 'UP' else 'вниз') + '."&CHAR(10)&'
-        '"Текущая расчетная цена: "&TEXT(B3,"0.00000")&"."&CHAR(10)&'
-        '"Сценарий: "&B2&CHAR(10)&'
-        '"Текущая цена: "&TEXT(B3,"0.00000")&CHAR(10)&'
-        '"Сценарная цена: "&TEXT(B4,"0.00000")&CHAR(10)&'
-        '"Следующий уровень: "&IF(ISNUMBER(B5),TEXT(B5,"0.00000"),B5)&CHAR(10)&'
-        '"Расстояние до уровня: "&IF(ISNUMBER(B6),TEXT(B6,"0")&" пунктов",B6)&CHAR(10)&CHAR(10)&'
-        '"Рекомендация по секции: "&B7&" / "&B8&CHAR(10)&'
+        '"Текущий Bid: "&TEXT(B3,"0.00000")&CHAR(10)&'
+        '"Текущий Ask: "&TEXT(B4,"0.00000")&CHAR(10)&'
+        '"Сценарный Bid: "&TEXT(B5,"0.00000")&CHAR(10)&'
+        '"Сценарный Ask: "&TEXT(B6,"0.00000")&CHAR(10)&'
+        '"Сценарный Mid: "&TEXT(B7,"0.00000")&CHAR(10)&'
+        '"Spread: "&TEXT(B8,"0")&" пунктов"&CHAR(10)&'
+        '"Следующий уровень: "&IF(ISNUMBER(B9),TEXT(B9,"0.00000"),B9)&CHAR(10)&'
+        '"Расстояние до уровня: "&IF(ISNUMBER(B10),TEXT(B10,"0")&" пунктов",B10)&CHAR(10)&CHAR(10)&'
+        '"Рекомендация по секции: "&B11&" / "&B12&CHAR(10)&'
         '"Можно открыть секцию: "&B13&CHAR(10)&'
         '"Можно закрыть секцию: "&B15&CHAR(10)&'
         '"Можно закрыть хвост: "&B16&CHAR(10)&CHAR(10)&'
