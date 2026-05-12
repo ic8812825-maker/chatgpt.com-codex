@@ -222,7 +222,7 @@ def add_recommendations(ws, direction):
         '"Остаток хвоста после закрытия: "&TEXT(' + (f'{tail}!B14') + ',"0.00")&CHAR(10)&CHAR(10)&'
         '"RecoveryFund после: "&TEXT(' + (f'{tail}!B13') + ',"0.00")&CHAR(10)&'
         '"ДЕЙСТВИЕ: "&B31&CHAR(10)&'
-        '"Если открывать секцию: "&B7&" / "&B8&CHAR(10)&'
+        '"Если открывать секцию: "&B11&" / "&B12&CHAR(10)&'
         '"Если закрывать хвост: тип="&B23&", тикет="&IF(ISNUMBER(B24),TEXT(B24,"0"),B24)&", до="&IF(ISNUMBER(B25),TEXT(B25,"0.00"),B25)&", закрыть="&TEXT(B30,"0.00")&", остаток="&TEXT(' + (f'{tail}!B14') + ',"0.00")&CHAR(10)&'
         '"Добавить в резерв: "&TEXT(B19,"0.00")&"; Добавить в RecoveryFund: "&TEXT(B20,"0.00")&CHAR(10)&'
         '"Резерв после: "&TEXT(B21,"0.00")&"; RecoveryFund после цикла: "&TEXT(B22,"0.00")&CHAR(10)&'
@@ -236,7 +236,8 @@ def add_recommendations(ws, direction):
     ws["A32"].font = Font(bold=True, size=13, color="FFFFFFFF")
     ws["A32"].fill = PatternFill(fill_type="solid", fgColor="FF1F4E78")
     for c in ("B3","B4","B5"): ws[c].number_format="0.00000"
-    for c in ("B7","B8","B25","B28","B29","B30","B35","B36","B37"): ws[c].number_format="0.00"
+    for c in ("B25","B28","B29","B30","B35","B36","B37"): ws[c].number_format="0.00"
+    ws["B8"].number_format="0"
     ws["B6"].number_format="0"
 
 def build():
@@ -276,7 +277,9 @@ def build():
         ("DistancePoints is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B10),ScenarioText_UP!B10="Расстояние не рассчитано"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B10),ScenarioText_DOWN!B10="Расстояние не рассчитано"),"OK","ERROR")'),
         ("ScenarioMid is numeric", '=IF(ISNUMBER(ScenarioText_UP!B7),"OK","ERROR")', '=IF(ISNUMBER(ScenarioText_DOWN!B7),"OK","ERROR")'),
         ("ScenarioSpread is numeric", '=IF(ISNUMBER(ScenarioText_UP!B8),"OK","ERROR")', '=IF(ISNUMBER(ScenarioText_DOWN!B8),"OK","ERROR")'),
+        ("ScenarioSpread bounds", '=IF(AND(ScenarioText_UP!B8>0,ScenarioText_UP!B8<1000),"OK","ERROR")', '=IF(AND(ScenarioText_DOWN!B8>0,ScenarioText_DOWN!B8<1000),"OK","ERROR")'),
         ("Scenario_* B8 not empty", '=IF(Scenario_UP!B8<>"","OK","ERROR")', '=IF(Scenario_DOWN!B8<>"","OK","ERROR")'),
+        ("No legacy single-price wording", '=IF(ISERROR(SEARCH("Сценарная цена",ScenarioText_UP!B46)),"OK","ERROR")', '=IF(ISERROR(SEARCH("Сценарная цена",ScenarioText_DOWN!B46)),"OK","ERROR")'),
         ("ScenarioText B9!=B5", '=IF(ScenarioText_UP!B9<>ScenarioText_UP!B5,"OK","ERROR")', '=IF(ScenarioText_DOWN!B9<>ScenarioText_DOWN!B5,"OK","ERROR")'),
         ("ScenarioText B10!=B6", '=IF(ScenarioText_UP!B10<>ScenarioText_UP!B6,"OK","ERROR")', '=IF(ScenarioText_DOWN!B10<>ScenarioText_DOWN!B6,"OK","ERROR")'),
         ("HumanReadableAction not empty", '=IF(AND(ScenarioText_UP!B31<>"",ISNUMBER(ScenarioText_UP!B4)),"OK","ERROR")', '=IF(AND(ScenarioText_DOWN!B31<>"",ISNUMBER(ScenarioText_DOWN!B4)),"OK","ERROR")'),

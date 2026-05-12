@@ -25,11 +25,13 @@ def check(path):
   if su['B6'].value in (None,''): issues.append(('Scenario_UP','B6','EMPTY_SCENARIO_ASK',''))
   if su['B7'].value in (None,''): issues.append(('Scenario_UP','B7','EMPTY_SCENARIO_MID',''))
   if su['B8'].value in (None,''): issues.append(('Scenario_UP','B8','EMPTY_SCENARIO_SPREAD',''))
+  if isinstance(su['B8'].value,str) and '/Settings!$B$3' not in su['B8'].value: issues.append(('Scenario_UP','B8','SPREAD_FORMULA_INVALID',su['B8'].value))
  if 'Scenario_DOWN' in wb.sheetnames:
   sd=wb['Scenario_DOWN']
   if sd['B6'].value in (None,''): issues.append(('Scenario_DOWN','B6','EMPTY_SCENARIO_ASK',''))
   if sd['B7'].value in (None,''): issues.append(('Scenario_DOWN','B7','EMPTY_SCENARIO_MID',''))
   if sd['B8'].value in (None,''): issues.append(('Scenario_DOWN','B8','EMPTY_SCENARIO_SPREAD',''))
+  if isinstance(sd['B8'].value,str) and '/Settings!$B$3' not in sd['B8'].value: issues.append(('Scenario_DOWN','B8','SPREAD_FORMULA_INVALID',sd['B8'].value))
  # xml grep
  with zipfile.ZipFile(path) as z:
   xml='\n'.join(z.read(n).decode('utf-8','ignore') for n in z.namelist() if n.startswith('xl/'))
