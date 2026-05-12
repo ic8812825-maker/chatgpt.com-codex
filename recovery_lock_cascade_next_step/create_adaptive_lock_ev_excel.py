@@ -185,6 +185,7 @@ def add_recommendations(ws, direction):
     ws["A35"] = "Убыток закрываемой части"; ws["B35"] = f"=IFERROR({tail}!B12,0)"
     ws["A36"] = "RecoveryFund после закрытия"; ws["B36"] = f"=IFERROR({tail}!B13,0)"
     ws["A37"] = "Остаток хвоста"; ws["B37"] = f"=IFERROR({tail}!B14,0)"
+    ws["A38"] = "SAFE"; ws["B38"] = '=IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="SAFE","ДА","НЕТ")'
     ws["A31"] = "HumanReadableAction"
     ws["B31"] = '=IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="CLOSE_SECTION+CLOSE_TAIL","ЗАКРЫТЬ СЕКЦИЮ + ЗАКРЫТЬ ХВОСТ",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="CLOSE_SECTION","ЗАКРЫТЬ СЕКЦИЮ",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="OPEN_SECTION","ОТКРЫТЬ СЕКЦИЮ",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="SAFE","SAFE",IF('+('BasketSummary!B13' if direction=='UP' else 'BasketSummary!C13')+'="WAIT","ЖДАТЬ","BLOCKED"))))))'
     # Final semantic overrides for ScenarioText key fields (authoritative mapping)
@@ -227,7 +228,7 @@ def add_recommendations(ws, direction):
         '"Добавить в резерв: "&TEXT(B19,"0.00")&"; Добавить в RecoveryFund: "&TEXT(B20,"0.00")&CHAR(10)&'
         '"Резерв после: "&TEXT(B21,"0.00")&"; RecoveryFund после цикла: "&TEXT(B22,"0.00")&CHAR(10)&'
         '"RecoveryFund до/после закрытия хвоста: "&TEXT(B27,"0.00")&" / "&TEXT(' + (f'{tail}!B13') + ',"0.00")&CHAR(10)&'
-        '"SAFE: "&IF(B14="ДА","НЕТ","ДА")&CHAR(10)&'
+        '"SAFE: "&B38&CHAR(10)&'
         '"ИТОГОВОЕ ДЕЙСТВИЕ: "&B31'
     )
     ws.merge_cells("A32:H45")
@@ -297,8 +298,8 @@ def build():
 
     lg=wb["Log"]
     hdr(lg,1,["Время","Направление","Сценарий","Действие","Хвост до закрытия","Закрываемый лот хвоста","Хвост после закрытия","RecoveryFund до","RecoveryFund после","Резерв после","SAFE"])
-    lg["A2"]="=NOW()"; lg["B2"]="ВВЕРХ"; lg["C2"]="ScenarioText_UP"; lg["D2"]='=IF(BasketSummary!B13="WAIT","ЖДАТЬ",IF(BasketSummary!B13="SAFE","SAFE",IF(BasketSummary!B13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_UP!B10>0,TailRecovery_UP!B10<TailRecovery_UP!B4),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E2"]="=IFERROR(TailRecovery_UP!B4,0)"; lg["F2"]="=IFERROR(TailRecovery_UP!B10,0)"; lg["G2"]='=IFERROR(TailRecovery_UP!B14,0)'; lg["H2"]="=IFERROR(TailRecovery_UP!B7,0)"; lg["I2"]="=IFERROR(TailRecovery_UP!B13,0)"; lg["J2"]="=IFERROR(SectionCalculator_UP!B35,0)"; lg['K2']='=IF(OR(SectionCalculator_UP!B14<>"YES",SectionCalculator_UP!B13<>"YES"),"ДА","НЕТ")'
-    lg["A3"]="=NOW()"; lg["B3"]="ВНИЗ"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]='=IF(BasketSummary!C13="WAIT","ЖДАТЬ",IF(BasketSummary!C13="SAFE","SAFE",IF(BasketSummary!C13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_DOWN!B10>0,TailRecovery_DOWN!B10<TailRecovery_DOWN!B4),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E3"]="=IFERROR(TailRecovery_DOWN!B4,0)"; lg["F3"]="=IFERROR(TailRecovery_DOWN!B10,0)"; lg["G3"]='=IFERROR(TailRecovery_DOWN!B14,0)'; lg["H3"]="=IFERROR(TailRecovery_DOWN!B7,0)"; lg["I3"]="=IFERROR(TailRecovery_DOWN!B13,0)"; lg["J3"]="=IFERROR(SectionCalculator_DOWN!B35,0)"; lg['K3']='=IF(OR(SectionCalculator_DOWN!B14<>"YES",SectionCalculator_DOWN!B13<>"YES"),"ДА","НЕТ")'
+    lg["A2"]="=NOW()"; lg["B2"]="ВВЕРХ"; lg["C2"]="ScenarioText_UP"; lg["D2"]='=IF(BasketSummary!B13="WAIT","ЖДАТЬ",IF(BasketSummary!B13="SAFE","SAFE",IF(BasketSummary!B13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_UP!B10>0,TailRecovery_UP!B10<TailRecovery_UP!B4),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E2"]="=IFERROR(TailRecovery_UP!B4,0)"; lg["F2"]="=IFERROR(TailRecovery_UP!B10,0)"; lg["G2"]='=IFERROR(TailRecovery_UP!B14,0)'; lg["H2"]="=IFERROR(TailRecovery_UP!B7,0)"; lg["I2"]="=IFERROR(TailRecovery_UP!B13,0)"; lg["J2"]="=IFERROR(SectionCalculator_UP!B35,0)"; lg['K2']='=IF(BasketSummary!B13="SAFE","ДА","НЕТ")'
+    lg["A3"]="=NOW()"; lg["B3"]="ВНИЗ"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]='=IF(BasketSummary!C13="WAIT","ЖДАТЬ",IF(BasketSummary!C13="SAFE","SAFE",IF(BasketSummary!C13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_DOWN!B10>0,TailRecovery_DOWN!B10<TailRecovery_DOWN!B4),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E3"]="=IFERROR(TailRecovery_DOWN!B4,0)"; lg["F3"]="=IFERROR(TailRecovery_DOWN!B10,0)"; lg["G3"]='=IFERROR(TailRecovery_DOWN!B14,0)'; lg["H3"]="=IFERROR(TailRecovery_DOWN!B7,0)"; lg["I3"]="=IFERROR(TailRecovery_DOWN!B13,0)"; lg["J3"]="=IFERROR(SectionCalculator_DOWN!B35,0)"; lg['K3']='=IF(BasketSummary!C13="SAFE","ДА","НЕТ")'
 
     dm=wb["FormulaDependencyMap"]; hdr(dm,1,["Cell","Formula","DependsOn","UsedBy","Description"])
     dm["A2"]="Scenario_UP!B4"; dm["B2"]="'=Scenario_UP!B2+Scenario_UP!B3*Settings!B3"; dm["C2"]="Scenario_UP!B2, Scenario_UP!B3, Settings!B3"; dm["D2"]="SectionCalculator_UP!B12, ScenarioText_UP!B4"
