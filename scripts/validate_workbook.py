@@ -20,6 +20,14 @@ def check(path):
   s=wb['Settings']
   if s['B31'].value in (None,''): issues.append(('Settings','B31','EMPTY_BID',''))
   if s['B32'].value in (None,''): issues.append(('Settings','B32','EMPTY_ASK',''))
+ if 'Scenario_UP' in wb.sheetnames:
+  su=wb['Scenario_UP']
+  if su['B6'].value in (None,''): issues.append(('Scenario_UP','B6','EMPTY_SCENARIO_ASK',''))
+  if su['B7'].value in (None,''): issues.append(('Scenario_UP','B7','EMPTY_SCENARIO_MID',''))
+ if 'Scenario_DOWN' in wb.sheetnames:
+  sd=wb['Scenario_DOWN']
+  if sd['B6'].value in (None,''): issues.append(('Scenario_DOWN','B6','EMPTY_SCENARIO_ASK',''))
+  if sd['B7'].value in (None,''): issues.append(('Scenario_DOWN','B7','EMPTY_SCENARIO_MID',''))
  # xml grep
  with zipfile.ZipFile(path) as z:
   xml='\n'.join(z.read(n).decode('utf-8','ignore') for n in z.namelist() if n.startswith('xl/'))

@@ -54,9 +54,9 @@ def add_scenario(ws, direction):
     ws["A5"] = "ScenarioBid"; ws["B5"] = "=B2+B4*Settings!$B$3" if up else "=B2-B4*Settings!$B$3"
     ws["A6"] = "ScenarioAsk"; ws["B6"] = "=B3+B4*Settings!$B$3" if up else "=B3-B4*Settings!$B$3"
     ws["A7"] = "ScenarioMid"; ws["B7"] = "=(B5+B6)/2"
-    hdr(ws, 6, ["Ticket", "Type", "Role", "Lot", "OpenPrice", "ScenarioPrice", "ScenarioPointsPnL", "ScenarioMoneyPnL", "IsTail", "SectionID", "TailLossHelper", "TailTicketHelper"])
+    hdr(ws, 11, ["Ticket", "Type", "Role", "Lot", "OpenPrice", "ScenarioClosePrice", "ScenarioPointsPnL", "ScenarioMoneyPnL", "IsTail", "SectionID", "TailLossHelper", "TailTicketHelper"])
     for r in range(2, 202):
-        rr = r + 5
+        rr = r + 10
         ws.cell(rr, 1, f"=CurrentPositions!A{r}"); ws.cell(rr, 2, f"=CurrentPositions!B{r}"); ws.cell(rr, 3, f"=CurrentPositions!C{r}")
         ws.cell(rr, 4, f"=CurrentPositions!D{r}"); ws.cell(rr, 5, f"=CurrentPositions!E{r}")
         ws.cell(rr, 6, f'=IF(B{rr}="BUY",$B$5,IF(B{rr}="SELL",$B$6,""))')
@@ -65,13 +65,13 @@ def add_scenario(ws, direction):
         ws.cell(rr, 11, f'=IF(AND(B{rr}="{loss_type}",H{rr}<0),H{rr},"")')
         ws.cell(rr, 12, f'=IF(K{rr}<>"",A{rr},"")')
     ws["A220"] = "TailType"; ws["B220"] = loss_type
-    ws["A221"] = "TailWorstPnL"; ws["B221"] = '=IF(COUNT(K7:K206)=0,0,MIN(K7:K206))'
-    ws["A222"] = "TailTicket"; ws["B222"] = '=IF(B221=0,"N/A",MIN(L7:L206))'
-    ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D7:D206,MATCH(B222,A7:A206,0)))'
-    ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H7:H206,MATCH(B222,A7:A206,0))))'
+    ws["A221"] = "TailWorstPnL"; ws["B221"] = '=IF(COUNT(K12:K211)=0,0,MIN(K12:K211))'
+    ws["A222"] = "TailTicket"; ws["B222"] = '=IF(B221=0,"N/A",MIN(L12:L211))'
+    ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D12:D211,MATCH(B222,A12:A211,0)))'
+    ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H12:H211,MATCH(B222,A12:A211,0))))'
     ws["A225"] = "TailLossPerLot"; ws["B225"] = '=IF(B223=0,0,ABS(B224/B223))'
-    ws["M1"] = "AverageBuyPrice"; ws["N1"] = '=IFERROR(SUMPRODUCT((B7:B206="BUY")*E7:E206*D7:D206)/MAX(0.0000001,SUMIFS(D7:D206,B7:B206,"BUY")),0)'
-    ws["M2"] = "AverageSellPrice"; ws["N2"] = '=IFERROR(SUMPRODUCT((B7:B206="SELL")*E7:E206*D7:D206)/MAX(0.0000001,SUMIFS(D7:D206,B7:B206,"SELL")),0)'
+    ws["M1"] = "AverageBuyPrice"; ws["N1"] = '=IFERROR(SUMPRODUCT((B12:B211="BUY")*E12:E211*D12:D211)/MAX(0.0000001,SUMIFS(D12:D211,B12:B211,"BUY")),0)'
+    ws["M2"] = "AverageSellPrice"; ws["N2"] = '=IFERROR(SUMPRODUCT((B12:B211="SELL")*E12:E211*D12:D211)/MAX(0.0000001,SUMIFS(D12:D211,B12:B211,"SELL")),0)'
     ws["M3"] = "Center"; ws["N3"] = '=(N1+N2)/2'
     for lvl in range(1, 5):
         ws.cell(3 + lvl, 13, f"UpperLevel{lvl}"); ws.cell(3 + lvl, 14, f"=IF(N3=0,\"Уровень не рассчитан\",N3+{lvl}*Settings!$B$5*Settings!$B$3)")
@@ -108,7 +108,7 @@ def add_section_calc(ws, scenario_sheet, up):
         ws.cell(r, 5, f'=IFERROR(INDEX(CurrentPositions!B2:B500,MATCH(1,(CurrentPositions!C2:C500="SECTION_SMALL")*(CurrentPositions!J2:J500=A{r}),0)),"")')
         ws.cell(r, 6, f'=IFERROR(INDEX(CurrentPositions!D2:D500,MATCH(1,(CurrentPositions!C2:C500="SECTION_SMALL")*(CurrentPositions!J2:J500=A{r}),0)),0)')
         ws.cell(r, 7, f'=IFERROR(INDEX(CurrentPositions!E2:E500,MATCH(1,(CurrentPositions!C2:C500="SECTION_SMALL")*(CurrentPositions!J2:J500=A{r}),0)),0)')
-        ws.cell(r, 8, f'={scenario_sheet}!B4')
+        ws.cell(r, 8, f'={scenario_sheet}!B7')
         ws.cell(r, 9, f'=IF(B{r}="",0,IF(B{r}="BUY",(H{r}-D{r})/Settings!$B$3*C{r}*Settings!$B$4,(D{r}-H{r})/Settings!$B$3*C{r}*Settings!$B$4))')
         ws.cell(r, 10, f'=IF(E{r}="",0,IF(E{r}="BUY",(H{r}-G{r})/Settings!$B$3*F{r}*Settings!$B$4,(G{r}-H{r})/Settings!$B$3*F{r}*Settings!$B$4))')
         ws.cell(r, 11, f'=C{r}+F{r}')
@@ -236,7 +236,7 @@ def build():
     bs = wb["BasketSummary"]; hdr(bs, 1, ["Field", "UP", "DOWN"])
     fields = ["ScenarioPrice", "BasketFloating", "GlobalReserveAfter", "RecoveryFundAfterCycle", "TailLotAfter", "CloseLot", "CanCloseSection", "CanCloseTail", "CanCloseBasket", "NextBigLot", "NextSmallLot", "NextAction", "HumanReadableAction"]
     for i, f in enumerate(fields, 2): bs.cell(i, 1, f)
-    bs["B2"] = "=Scenario_UP!B4"; bs["C2"] = "=Scenario_DOWN!B4"; bs["B3"] = "=SUM(Scenario_UP!H7:H206)"; bs["C3"] = "=SUM(Scenario_DOWN!H7:H206)"
+    bs["B2"] = "=Scenario_UP!B7"; bs["C2"] = "=Scenario_DOWN!B7"; bs["B3"] = "=SUM(Scenario_UP!H12:H211)"; bs["C3"] = "=SUM(Scenario_DOWN!H12:H211)"
     bs["B4"] = "=SectionCalculator_UP!B35"; bs["C4"] = "=SectionCalculator_DOWN!B35"; bs["B5"] = "=TailRecovery_UP!B7"; bs["C5"] = "=TailRecovery_DOWN!B7"
     bs["B6"] = "=TailRecovery_UP!B14"; bs["C6"] = "=TailRecovery_DOWN!B14"; bs["B7"] = "=TailRecovery_UP!B10"; bs["C7"] = "=TailRecovery_DOWN!B10"
     bs["B8"] = "=SectionCalculator_UP!B32"; bs["C8"] = "=SectionCalculator_DOWN!B32"; bs["B9"] = "=TailRecovery_UP!B11"; bs["C9"] = "=TailRecovery_DOWN!B11"
@@ -255,7 +255,7 @@ def build():
         ("TailCloseLoss <= RecoveryFundAfterCycle", '=IF(TailRecovery_UP!B12<=TailRecovery_UP!B7,"OK","ERROR")', '=IF(TailRecovery_DOWN!B12<=TailRecovery_DOWN!B7,"OK","ERROR")'),
         ("LevelReached before open section", '=IF(SectionCalculator_UP!B12="YES","OK",IF(SectionCalculator_UP!B14="NO","BLOCKED","ERROR"))', '=IF(SectionCalculator_DOWN!B12="YES","OK",IF(SectionCalculator_DOWN!B14="NO","BLOCKED","ERROR"))'),
         ("No opposite cascade active", '=IF(SectionCalculator_UP!B13="YES","OK","BLOCKED")', '=IF(SectionCalculator_DOWN!B13="YES","OK","BLOCKED")'),
-        ("Tail exists when loss exists", '=IF(AND(COUNTIFS(Scenario_UP!B7:B206,"SELL",Scenario_UP!H7:H206,"<0")>0,Scenario_UP!B222="N/A"),"ERROR","OK")', '=IF(AND(COUNTIFS(Scenario_DOWN!B7:B206,"BUY",Scenario_DOWN!H7:H206,"<0")>0,Scenario_DOWN!B222="N/A"),"ERROR","OK")'),
+        ("Tail exists when loss exists", '=IF(AND(COUNTIFS(Scenario_UP!B12:B211,"SELL",Scenario_UP!H12:H211,"<0")>0,Scenario_UP!B222="N/A"),"ERROR","OK")', '=IF(AND(COUNTIFS(Scenario_DOWN!B12:B211,"BUY",Scenario_DOWN!H12:H211,"<0")>0,Scenario_DOWN!B222="N/A"),"ERROR","OK")'),
         ("ScenarioText action equals BasketSummary action", '=IF(OR(AND(BasketSummary!B13="BASKET_CLOSE",ScenarioText_UP!B31="ЗАКРЫТЬ ВСЮ КОРЗИНУ"),BasketSummary!B13<>"BASKET_CLOSE"),"OK","ERROR")', '=IF(OR(AND(BasketSummary!C13="BASKET_CLOSE",ScenarioText_DOWN!B31="ЗАКРЫТЬ ВСЮ КОРЗИНУ"),BasketSummary!C13<>"BASKET_CLOSE"),"OK","ERROR")'),
         ("NextTriggerLevel is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B5),ScenarioText_UP!B5="Уровень не рассчитан"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B5),ScenarioText_DOWN!B5="Уровень не рассчитан"),"OK","ERROR")'),
         ("DistancePoints is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B6),ScenarioText_UP!B6="Расстояние не рассчитано"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B6),ScenarioText_DOWN!B6="Расстояние не рассчитано"),"OK","ERROR")'),
