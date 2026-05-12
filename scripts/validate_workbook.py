@@ -16,6 +16,10 @@ def check(path):
   if sh in wb.sheetnames:
    v=wb[sh][cell].value
    if v in (None,''): issues.append((sh,cell,'EMPTY_CRITICAL','empty'))
+ if 'Settings' in wb.sheetnames:
+  s=wb['Settings']
+  if s['B31'].value in (None,''): issues.append(('Settings','B31','EMPTY_BID',''))
+  if s['B32'].value in (None,''): issues.append(('Settings','B32','EMPTY_ASK',''))
  # xml grep
  with zipfile.ZipFile(path) as z:
   xml='\n'.join(z.read(n).decode('utf-8','ignore') for n in z.namelist() if n.startswith('xl/'))

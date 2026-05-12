@@ -21,6 +21,14 @@ def add_settings(ws):
     hdr(ws, 20, ["Level", "BigRatio", "SmallRatio"])
     for r, row in enumerate([(1, 0.40, 0.15), (2, 0.25, 0.10), (3, 0.15, 0.06), (4, 0.10, 0.04)], 21):
         ws.cell(r, 1, row[0]); ws.cell(r, 2, row[1]); ws.cell(r, 3, row[2])
+    ws["A30"]="MarketPriceInput"
+    ws["A31"]="Bid"; ws["B31"]=1.23000
+    ws["A32"]="Ask"; ws["B32"]=1.23020
+    ws["A33"]="MidPrice"; ws["B33"]="=(B31+B32)/2"
+    ws["A34"]="SpreadPoints"; ws["B34"]="=(B32-B31)/B3"
+    ws["A35"]="PriceSourceMode"; ws["B35"]="BID_ASK"
+    for c in ("B31","B32","B33"): ws[c].number_format="0.00000"
+    ws["B34"].number_format="0"
 
 
 def add_positions(ws):
@@ -31,7 +39,8 @@ def add_positions(ws):
     ]
     for r, row in enumerate(demo, 2):
         for c, v in enumerate(row, 1): ws.cell(r, c, v)
-        ws.cell(r, 7, f'=IF(B{r}="BUY",(F{r}-E{r})/Settings!$B$3,(E{r}-F{r})/Settings!$B$3)')
+        ws.cell(r, 6, f'=IF(B{r}="BUY",Settings!$B$31,IF(B{r}="SELL",Settings!$B$32,""))')
+        ws.cell(r, 7, f'=IF(B{r}="BUY",(F{r}-E{r})/Settings!$B$3,IF(B{r}="SELL",(E{r}-F{r})/Settings!$B$3,0))')
         ws.cell(r, 8, f'=G{r}*D{r}*Settings!$B$4')
 
 
@@ -39,15 +48,19 @@ def add_scenario(ws, direction):
     up = direction == "UP"
     loss_type = "SELL" if up else "BUY"
     hdr(ws, 1, ["Field", "Value"])
-    ws["A2"] = "CurrentPrice"; ws["B2"] = "=CurrentPositions!F2"
-    ws["A3"] = "MoveUpPoints" if up else "MoveDownPoints"; ws["B3"] = 100
-    ws["A4"] = "ScenarioPrice"; ws["B4"] = "=B2+B3*Settings!$B$3" if up else "=B2-B3*Settings!$B$3"
+    ws["A2"] = "CurrentBid"; ws["B2"] = "=Settings!$B$31"
+    ws["A3"] = "CurrentAsk"; ws["B3"] = "=Settings!$B$32"
+    ws["A4"] = "MoveUpPoints" if up else "MoveDownPoints"; ws["B4"] = 100
+    ws["A5"] = "ScenarioBid"; ws["B5"] = "=B2+B4*Settings!$B$3" if up else "=B2-B4*Settings!$B$3"
+    ws["A6"] = "ScenarioAsk"; ws["B6"] = "=B3+B4*Settings!$B$3" if up else "=B3-B4*Settings!$B$3"
+    ws["A7"] = "ScenarioMid"; ws["B7"] = "=(B5+B6)/2"
     hdr(ws, 6, ["Ticket", "Type", "Role", "Lot", "OpenPrice", "ScenarioPrice", "ScenarioPointsPnL", "ScenarioMoneyPnL", "IsTail", "SectionID", "TailLossHelper", "TailTicketHelper"])
     for r in range(2, 202):
         rr = r + 5
         ws.cell(rr, 1, f"=CurrentPositions!A{r}"); ws.cell(rr, 2, f"=CurrentPositions!B{r}"); ws.cell(rr, 3, f"=CurrentPositions!C{r}")
-        ws.cell(rr, 4, f"=CurrentPositions!D{r}"); ws.cell(rr, 5, f"=CurrentPositions!E{r}"); ws.cell(rr, 6, "=$B$4")
-        ws.cell(rr, 7, f'=IF(B{rr}="BUY",(F{rr}-E{rr})/Settings!$B$3,(E{rr}-F{rr})/Settings!$B$3)'); ws.cell(rr, 8, f"=G{rr}*D{rr}*Settings!$B$4")
+        ws.cell(rr, 4, f"=CurrentPositions!D{r}"); ws.cell(rr, 5, f"=CurrentPositions!E{r}")
+        ws.cell(rr, 6, f'=IF(B{rr}="BUY",$B$5,IF(B{rr}="SELL",$B$6,""))')
+        ws.cell(rr, 7, f'=IF(B{rr}="BUY",(F{rr}-E{rr})/Settings!$B$3,IF(B{rr}="SELL",(E{rr}-F{rr})/Settings!$B$3,0))'); ws.cell(rr, 8, f"=G{rr}*D{rr}*Settings!$B$4")
         ws.cell(rr, 9, f"=CurrentPositions!I{r}"); ws.cell(rr, 10, f"=CurrentPositions!J{r}")
         ws.cell(rr, 11, f'=IF(AND(B{rr}="{loss_type}",H{rr}<0),H{rr},"")')
         ws.cell(rr, 12, f'=IF(K{rr}<>"",A{rr},"")')
@@ -79,9 +92,9 @@ def add_section_calc(ws, scenario_sheet, up):
     ws["A11"] = "NetLotAfterOpen"; ws["B11"] = '=ABS(SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"BUY")+IF(B2="BUY",B7,0)+IF(B2="SELL",B8,0)-SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"SELL")-IF(B2="SELL",B7,0)-IF(B2="BUY",B8,0))'
     ws["A12"] = "LevelReached"
     if up:
-        ws["B12"] = f'=IF({scenario_sheet}!B4>=IF(B4=1,{scenario_sheet}!N4,IF(B4=2,{scenario_sheet}!N5,IF(B4=3,{scenario_sheet}!N6,{scenario_sheet}!N7))),"YES","NO")'
+        ws["B12"] = f'=IF({scenario_sheet}!B7>=IF(B4=1,{scenario_sheet}!N4,IF(B4=2,{scenario_sheet}!N5,IF(B4=3,{scenario_sheet}!N6,{scenario_sheet}!N7))),"YES","NO")'
     else:
-        ws["B12"] = f'=IF({scenario_sheet}!B4<=IF(B4=1,{scenario_sheet}!N9,IF(B4=2,{scenario_sheet}!N10,IF(B4=3,{scenario_sheet}!N11,{scenario_sheet}!N12))),"YES","NO")'
+        ws["B12"] = f'=IF({scenario_sheet}!B7<=IF(B4=1,{scenario_sheet}!N9,IF(B4=2,{scenario_sheet}!N10,IF(B4=3,{scenario_sheet}!N11,{scenario_sheet}!N12))),"YES","NO")'
     ws["A13"] = "NoOppositeCascade"; ws["B13"] = '=IF(B2="SELL",IF(COUNTIFS(CurrentPositions!B2:B500,"BUY",CurrentPositions!C2:C500,"SECTION_BIG")=0,"YES","NO"),IF(B2="BUY",IF(COUNTIFS(CurrentPositions!B2:B500,"SELL",CurrentPositions!C2:C500,"SECTION_BIG")=0,"YES","NO"),"NO"))'
     ws["A14"] = "CanOpenSection"; ws["B14"] = '=IF(B3<=0,"NO",IF(AND(B7>=Settings!$B$6,B8>=Settings!$B$6,B8<B7,B7<=B3,B9<Settings!$B$8,B10<=Settings!$B$15,B11<=Settings!$B$16,B12="YES",B13="YES"),"YES","NO"))'
 
@@ -135,12 +148,15 @@ def add_recommendations(ws, direction):
     tail = "TailRecovery_UP" if direction == "UP" else "TailRecovery_DOWN"
 
     ws["A2"] = "Название сценария"; ws["B2"] = f'="СЦЕНАРИЙ: ЦЕНА ИДЕТ {"ВВЕРХ" if direction=="UP" else "ВНИЗ"}"'
-    ws["A3"] = "Текущая цена"; ws["B3"] = f"=IFERROR(CurrentPositions!F2,0)"
-    ws["A4"] = "Сценарная цена"; ws["B4"] = f"=IFERROR({sc}!B4,0)"
-    ws["A5"] = "Следующий уровень открытия"; ws["B5"] = f'=IFERROR(IF({sec}!B4=1,{sc}!N4,IF({sec}!B4=2,{sc}!N5,IF({sec}!B4=3,{sc}!N6,IF({sec}!B4=4,{sc}!N7,"Уровень не рассчитан")))),"Уровень не рассчитан")' if direction == "UP" else f'=IFERROR(IF({sec}!B4=1,{sc}!N9,IF({sec}!B4=2,{sc}!N10,IF({sec}!B4=3,{sc}!N11,IF({sec}!B4=4,{sc}!N12,"Уровень не рассчитан")))),"Уровень не рассчитан")'
-    ws["A6"] = "Расстояние до уровня, пунктов"; ws["B6"] = '=IF(OR(B5="Уровень не рассчитан",B4=""),"Расстояние не рассчитано",ROUND(ABS(B5-B4)*10000,0))'
-    ws["A7"] = "Большая позиция"; ws["B7"] = f'=IFERROR(IF({tail}!B16>0,IF("{direction}"="UP","SELL ","BUY ")&TEXT({tail}!B16,"0.00"),"Не открывать"),"Не открывать")'
-    ws["A8"] = "Малая защитная позиция"; ws["B8"] = f'=IFERROR(IF({tail}!B17>0,IF("{direction}"="UP","BUY ","SELL ")&TEXT({tail}!B17,"0.00"),"Не открывать"),"Не открывать")'
+    ws["A3"] = "Текущий Bid"; ws["B3"] = f"=IFERROR({sc}!B2,0)"
+    ws["A4"] = "Текущий Ask"; ws["B4"] = f"=IFERROR({sc}!B3,0)"
+    ws["A5"] = "Сценарный Bid"; ws["B5"] = f"=IFERROR({sc}!B5,0)"
+    ws["A6"] = "Сценарный Ask"; ws["B6"] = f"=IFERROR({sc}!B6,0)"
+    ws["A7"] = "Spread, пунктов"; ws["B7"] = "=IFERROR(Settings!B34,0)"
+    ws["A8"] = "Следующий уровень открытия"; ws["B8"] = f'=IFERROR(IF({sec}!B4=1,{sc}!N4,IF({sec}!B4=2,{sc}!N5,IF({sec}!B4=3,{sc}!N6,IF({sec}!B4=4,{sc}!N7,"Уровень не рассчитан")))),"Уровень не рассчитан")' if direction == "UP" else f'=IFERROR(IF({sec}!B4=1,{sc}!N9,IF({sec}!B4=2,{sc}!N10,IF({sec}!B4=3,{sc}!N11,IF({sec}!B4=4,{sc}!N12,"Уровень не рассчитан")))),"Уровень не рассчитан")'
+    ws["A9"] = "Расстояние до уровня, пунктов"; ws["B9"] = '=IF(OR(B8="Уровень не рассчитан",B5=""),"Расстояние не рассчитано",ROUND(ABS(B8-((B5+B6)/2))/Settings!$B$3,0))'
+    ws["A10"] = "Большая позиция"; ws["B10"] = f'=IFERROR(IF({tail}!B16>0,IF("{direction}"="UP","SELL ","BUY ")&TEXT({tail}!B16,"0.00"),"Не открывать"),"Не открывать")'
+    ws["A11"] = "Малая защитная позиция"; ws["B11"] = f'=IFERROR(IF({tail}!B17>0,IF("{direction}"="UP","BUY ","SELL ")&TEXT({tail}!B17,"0.00"),"Не открывать"),"Не открывать")'
     ws["A9"] = "Уровень секции"; ws["B9"] = f"=IFERROR({sec}!B4,0)"
     ws["A10"] = "Причина"; ws["B10"] = f'=IF({sec}!B14="YES","цена достигла уровня; хвост найден; риск-лимиты OK","секция недоступна: уровень/риск-гейт/хвост")'
 
