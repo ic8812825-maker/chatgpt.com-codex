@@ -55,12 +55,12 @@ def add_scenario(ws, direction):
     ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D7:D206,MATCH(B222,A7:A206,0)))'
     ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H7:H206,MATCH(B222,A7:A206,0))))'
     ws["A225"] = "TailLossPerLot"; ws["B225"] = '=IF(B223=0,0,ABS(B224/B223))'
-    ws["D1"] = "AverageBuyPrice"; ws["E1"] = '=IFERROR(SUMPRODUCT((B7:B206="BUY")*E7:E206*D7:D206)/MAX(0.0000001,SUMIFS(D7:D206,B7:B206,"BUY")),0)'
-    ws["D2"] = "AverageSellPrice"; ws["E2"] = '=IFERROR(SUMPRODUCT((B7:B206="SELL")*E7:E206*D7:D206)/MAX(0.0000001,SUMIFS(D7:D206,B7:B206,"SELL")),0)'
-    ws["D3"] = "Center"; ws["E3"] = '=(E1+E2)/2'
+    ws["M1"] = "AverageBuyPrice"; ws["N1"] = '=IFERROR(SUMPRODUCT((B7:B206="BUY")*E7:E206*D7:D206)/MAX(0.0000001,SUMIFS(D7:D206,B7:B206,"BUY")),0)'
+    ws["M2"] = "AverageSellPrice"; ws["N2"] = '=IFERROR(SUMPRODUCT((B7:B206="SELL")*E7:E206*D7:D206)/MAX(0.0000001,SUMIFS(D7:D206,B7:B206,"SELL")),0)'
+    ws["M3"] = "Center"; ws["N3"] = '=(N1+N2)/2'
     for lvl in range(1, 5):
-        ws.cell(3 + lvl, 4, f"UpperLevel{lvl}"); ws.cell(3 + lvl, 5, f"=IF(E3=0,\"Уровень не рассчитан\",E3+{lvl}*Settings!$B$5*Settings!$B$3)")
-        ws.cell(8 + lvl, 4, f"LowerLevel{lvl}"); ws.cell(8 + lvl, 5, f"=IF(E3=0,\"Уровень не рассчитан\",E3-{lvl}*Settings!$B$5*Settings!$B$3)")
+        ws.cell(3 + lvl, 13, f"UpperLevel{lvl}"); ws.cell(3 + lvl, 14, f"=IF(N3=0,\"Уровень не рассчитан\",N3+{lvl}*Settings!$B$5*Settings!$B$3)")
+        ws.cell(8 + lvl, 13, f"LowerLevel{lvl}"); ws.cell(8 + lvl, 14, f"=IF(N3=0,\"Уровень не рассчитан\",N3-{lvl}*Settings!$B$5*Settings!$B$3)")
 
 
 def add_section_calc(ws, scenario_sheet, up):
@@ -77,9 +77,9 @@ def add_section_calc(ws, scenario_sheet, up):
     ws["A11"] = "NetLotAfterOpen"; ws["B11"] = '=ABS(SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"BUY")+IF(B2="BUY",B7,0)+IF(B2="SELL",B8,0)-SUMIFS(CurrentPositions!D2:D500,CurrentPositions!B2:B500,"SELL")-IF(B2="SELL",B7,0)-IF(B2="BUY",B8,0))'
     ws["A12"] = "LevelReached"
     if up:
-        ws["B12"] = f'=IF({scenario_sheet}!B4>=IF(B4=1,{scenario_sheet}!E4,IF(B4=2,{scenario_sheet}!E5,IF(B4=3,{scenario_sheet}!E6,{scenario_sheet}!E7))),"YES","NO")'
+        ws["B12"] = f'=IF({scenario_sheet}!B4>=IF(B4=1,{scenario_sheet}!N4,IF(B4=2,{scenario_sheet}!N5,IF(B4=3,{scenario_sheet}!N6,{scenario_sheet}!N7))),"YES","NO")'
     else:
-        ws["B12"] = f'=IF({scenario_sheet}!B4<=IF(B4=1,{scenario_sheet}!E9,IF(B4=2,{scenario_sheet}!E10,IF(B4=3,{scenario_sheet}!E11,{scenario_sheet}!E12))),"YES","NO")'
+        ws["B12"] = f'=IF({scenario_sheet}!B4<=IF(B4=1,{scenario_sheet}!N9,IF(B4=2,{scenario_sheet}!N10,IF(B4=3,{scenario_sheet}!N11,{scenario_sheet}!N12))),"YES","NO")'
     ws["A13"] = "NoOppositeCascade"; ws["B13"] = '=IF(B2="SELL",IF(COUNTIFS(CurrentPositions!B2:B500,"BUY",CurrentPositions!C2:C500,"SECTION_BIG")=0,"YES","NO"),IF(B2="BUY",IF(COUNTIFS(CurrentPositions!B2:B500,"SELL",CurrentPositions!C2:C500,"SECTION_BIG")=0,"YES","NO"),"NO"))'
     ws["A14"] = "CanOpenSection"; ws["B14"] = '=IF(B3<=0,"NO",IF(AND(B7>=Settings!$B$6,B8>=Settings!$B$6,B8<B7,B7<=B3,B9<Settings!$B$8,B10<=Settings!$B$15,B11<=Settings!$B$16,B12="YES",B13="YES"),"YES","NO"))'
 
@@ -135,7 +135,7 @@ def add_recommendations(ws, direction):
     ws["A2"] = "Название сценария"; ws["B2"] = f'="СЦЕНАРИЙ: ЦЕНА ИДЕТ {"ВВЕРХ" if direction=="UP" else "ВНИЗ"}"'
     ws["A3"] = "Текущая цена"; ws["B3"] = f"=IFERROR(CurrentPositions!F2,0)"
     ws["A4"] = "Сценарная цена"; ws["B4"] = f"=IFERROR({sc}!B4,0)"
-    ws["A5"] = "Следующий уровень открытия"; ws["B5"] = f'=IFERROR(IF({sec}!B4=1,{sc}!E4,IF({sec}!B4=2,{sc}!E5,IF({sec}!B4=3,{sc}!E6,IF({sec}!B4=4,{sc}!E7,"Уровень не рассчитан")))),"Уровень не рассчитан")' if direction == "UP" else f'=IFERROR(IF({sec}!B4=1,{sc}!E9,IF({sec}!B4=2,{sc}!E10,IF({sec}!B4=3,{sc}!E11,IF({sec}!B4=4,{sc}!E12,"Уровень не рассчитан")))),"Уровень не рассчитан")'
+    ws["A5"] = "Следующий уровень открытия"; ws["B5"] = f'=IFERROR(IF({sec}!B4=1,{sc}!N4,IF({sec}!B4=2,{sc}!N5,IF({sec}!B4=3,{sc}!N6,IF({sec}!B4=4,{sc}!N7,"Уровень не рассчитан")))),"Уровень не рассчитан")' if direction == "UP" else f'=IFERROR(IF({sec}!B4=1,{sc}!N9,IF({sec}!B4=2,{sc}!N10,IF({sec}!B4=3,{sc}!N11,IF({sec}!B4=4,{sc}!N12,"Уровень не рассчитан")))),"Уровень не рассчитан")'
     ws["A6"] = "Расстояние до уровня, пунктов"; ws["B6"] = '=IF(OR(B5="Уровень не рассчитан",B4=""),"Расстояние не рассчитано",ROUND(ABS(B5-B4)*10000,0))'
     ws["A7"] = "Большая позиция"; ws["B7"] = f'=IFERROR(IF({tail}!B16>0,IF("{direction}"="UP","SELL ","BUY ")&TEXT({tail}!B16,"0.00"),"Не открывать"),"Не открывать")'
     ws["A8"] = "Малая защитная позиция"; ws["B8"] = f'=IFERROR(IF({tail}!B17>0,IF("{direction}"="UP","BUY ","SELL ")&TEXT({tail}!B17,"0.00"),"Не открывать"),"Не открывать")'
@@ -191,7 +191,7 @@ def add_recommendations(ws, direction):
 
 def build():
     wb = Workbook(); wb.active.title = "Settings"
-    for s in ["CurrentPositions", "Scenario_UP", "Scenario_DOWN", "SectionCalculator_UP", "SectionCalculator_DOWN", "TailRecovery_UP", "TailRecovery_DOWN", "BasketSummary", "Validation", "Log", "ScenarioText_UP", "ScenarioText_DOWN"]:
+    for s in ["CurrentPositions", "Scenario_UP", "Scenario_DOWN", "SectionCalculator_UP", "SectionCalculator_DOWN", "TailRecovery_UP", "TailRecovery_DOWN", "BasketSummary", "Validation", "Log", "ScenarioText_UP", "ScenarioText_DOWN", "FormulaDependencyMap"]:
         wb.create_sheet(s)
     add_settings(wb["Settings"]); add_positions(wb["CurrentPositions"])
     add_scenario(wb["Scenario_UP"], "UP"); add_scenario(wb["Scenario_DOWN"], "DOWN")
@@ -228,6 +228,11 @@ def build():
     hdr(lg,1,["Время","Направление","Сценарий","Действие","Хвост до закрытия","Закрываемый лот хвоста","Хвост после закрытия","RecoveryFund до","RecoveryFund после","Резерв после","SAFE"])
     lg["A2"]="=NOW()"; lg["B2"]="ВВЕРХ"; lg["C2"]="ScenarioText_UP"; lg["D2"]='=IF(BasketSummary!B13="WAIT","ЖДАТЬ",IF(BasketSummary!B13="SAFE","SAFE",IF(BasketSummary!B13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_UP!B10>0,TailRecovery_UP!B10<TailRecovery_UP!B3),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E2"]="=IFERROR(TailRecovery_UP!B3,0)"; lg["F2"]="=IFERROR(TailRecovery_UP!B10,0)"; lg["G2"]='=IF(OR(NOT(ISNUMBER(E2)),NOT(ISNUMBER(F2))),"Хвост не найден",MAX(E2-F2,0))'; lg["H2"]="=IFERROR(TailRecovery_UP!B5,0)"; lg["I2"]="=IFERROR(TailRecovery_UP!B7,0)"; lg["J2"]="=IFERROR(SectionCalculator_UP!B35,0)"; lg['K2']='=IF(OR(SectionCalculator_UP!B14<>"YES",SectionCalculator_UP!B13<>"YES"),"YES","NO")'
     lg["A3"]="=NOW()"; lg["B3"]="ВНИЗ"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]='=IF(BasketSummary!C13="WAIT","ЖДАТЬ",IF(BasketSummary!C13="SAFE","SAFE",IF(BasketSummary!C13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_DOWN!B10>0,TailRecovery_DOWN!B10<TailRecovery_DOWN!B3),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E3"]="=IFERROR(TailRecovery_DOWN!B3,0)"; lg["F3"]="=IFERROR(TailRecovery_DOWN!B10,0)"; lg["G3"]='=IF(OR(NOT(ISNUMBER(E3)),NOT(ISNUMBER(F3))),"Хвост не найден",MAX(E3-F3,0))'; lg["H3"]="=IFERROR(TailRecovery_DOWN!B5,0)"; lg["I3"]="=IFERROR(TailRecovery_DOWN!B7,0)"; lg["J3"]="=IFERROR(SectionCalculator_DOWN!B35,0)"; lg['K3']='=IF(OR(SectionCalculator_DOWN!B14<>"YES",SectionCalculator_DOWN!B13<>"YES"),"YES","NO")'
+
+    dm=wb["FormulaDependencyMap"]; hdr(dm,1,["Cell","Formula","DependsOn","UsedBy"])
+    dm["A2"]="Scenario_UP!B4"; dm["B2"]="=Scenario_UP!B2+Scenario_UP!B3*Settings!B3"; dm["C2"]="Scenario_UP!B2, Scenario_UP!B3, Settings!B3"; dm["D2"]="SectionCalculator_UP!B12, ScenarioText_UP!B4"
+    dm["A3"]="Scenario_DOWN!B4"; dm["B3"]="=Scenario_DOWN!B2-Scenario_DOWN!B3*Settings!B3"; dm["C3"]="Scenario_DOWN!B2, Scenario_DOWN!B3, Settings!B3"; dm["D3"]="SectionCalculator_DOWN!B12, ScenarioText_DOWN!B4"
+    dm["A4"]="TailRecovery_UP!B10"; dm["B4"]="=IF(B6=\"YES\",MIN(B9,B4),0)"; dm["C4"]="TailRecovery_UP!B9, TailRecovery_UP!B4, TailRecovery_UP!B6"; dm["D4"]="BasketSummary!B7, Log!F2"
     wb.save("recovery_lock_cascade_next_step.xlsx")
 
 
