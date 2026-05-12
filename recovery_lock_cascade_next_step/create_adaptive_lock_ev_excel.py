@@ -67,7 +67,7 @@ def add_scenario(ws, direction):
         ws.cell(rr, 12, f'=IF(K{rr}<>"",A{rr},"")')
     ws["A220"] = "TailType"; ws["B220"] = loss_type
     ws["A221"] = "TailWorstPnL"; ws["B221"] = '=IF(COUNT(K12:K211)=0,0,MIN(K12:K211))'
-    ws["A222"] = "TailTicket"; ws["B222"] = '=IF(B221=0,"N/A",MIN(L12:L211))'
+    ws["A222"] = "TailTicket"; ws["B222"] = '=IF(B221=0,"N/A",MINIFS(L12:L211,K12:K211,B221))'
     ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D12:D211,MATCH(B222,A12:A211,0)))'
     ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H12:H211,MATCH(B222,A12:A211,0))))'
     ws["A225"] = "TailLossPerLot"; ws["B225"] = '=IF(B223=0,0,ABS(B224/B223))'
@@ -293,7 +293,8 @@ def build():
         ("TailLotAfter >= 0", '=IF(TailRecovery_UP!B14<0,"ERROR","OK")', '=IF(TailRecovery_DOWN!B14<0,"ERROR","OK")'),
         ("ScenarioText SAFE not empty", '=IF(ScenarioText_UP!B38<>"","OK","ERROR")', '=IF(ScenarioText_DOWN!B38<>"","OK","ERROR")'),
         ("ScenarioText SAFE equals Log SAFE", '=IF(ScenarioText_UP!B38=Log!K2,"OK","ERROR")', '=IF(ScenarioText_DOWN!B38=Log!K3,"OK","ERROR")'),
-        ("Detailed recommendation block not empty", '=IF(AND(ScenarioText_UP!A39<>"",ScenarioText_UP!A39<>0),"OK","ERROR")', '=IF(AND(ScenarioText_DOWN!A39<>"",ScenarioText_DOWN!A39<>0),"OK","ERROR")')
+        ("Detailed recommendation block not empty", '=IF(AND(ScenarioText_UP!A39<>"",ScenarioText_UP!A39<>0),"OK","ERROR")', '=IF(AND(ScenarioText_DOWN!A39<>"",ScenarioText_DOWN!A39<>0),"OK","ERROR")'),
+        ("TailTicket belongs to TailWorstPnL", '=IF(OR(Scenario_UP!B222="N/A",INDEX(Scenario_UP!K12:K211,MATCH(Scenario_UP!B222,Scenario_UP!A12:A211,0))=Scenario_UP!B221),"OK","ERROR")', '=IF(OR(Scenario_DOWN!B222="N/A",INDEX(Scenario_DOWN!K12:K211,MATCH(Scenario_DOWN!B222,Scenario_DOWN!A12:A211,0))=Scenario_DOWN!B221),"OK","ERROR")')
     ]
     for r, row in enumerate(rules, 2):
         for c, x in enumerate(row, 1): ws=v; ws.cell(r, c, x)
@@ -310,7 +311,7 @@ def build():
           ("Scenario_UP!B8","=(B6-B5)/Settings!B3","Scenario_UP!B6, Scenario_UP!B5, Settings!B3","ScenarioText_UP!B8","ScenarioSpread"),
           ("Scenario_UP!K12:L211","PnL helper range","Scenario_UP!C12:F211, Settings!B3","Scenario_UP!B221:B223","Tail helper range"),
           ("Scenario_UP!B221","=IF(COUNT(K12:K211)=0,0,MIN(K12:K211))","Scenario_UP!K12:K211","Scenario_UP!B222","TailWorstPnL"),
-          ("Scenario_UP!B222","=IF(B221=0,\"N/A\",MIN(L12:L211))","Scenario_UP!B221, Scenario_UP!L12:L211","Scenario_UP!B223, ScenarioText_UP!B24","TailTicket"),
+          ("Scenario_UP!B222","=IF(B221=0,\"N/A\",MINIFS(L12:L211,K12:K211,B221))","Scenario_UP!B221, Scenario_UP!K12:K211, Scenario_UP!L12:L211","Scenario_UP!B223, ScenarioText_UP!B24","TailTicket"),
           ("BasketSummary!B13","=IF(...)","BasketSummary!B8, BasketSummary!B9, BasketSummary!B10","ScenarioText_UP!B31, ScenarioText_UP!B38, Log!D2, Log!K2","NextAction"),
           ("ScenarioText_UP!B31","=IF(BasketSummary!B13...)","BasketSummary!B13","ScenarioText_UP!B46","HumanReadableAction"),
           ("ScenarioText_UP!B38","=IF(BasketSummary!B13=\"SAFE\",\"ДА\",\"НЕТ\")","BasketSummary!B13","ScenarioText_UP!B46, Validation","SAFE flag")]
