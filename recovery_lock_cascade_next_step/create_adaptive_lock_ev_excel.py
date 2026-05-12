@@ -151,8 +151,10 @@ def add_recommendations(ws, direction):
     ws["A16"] = "Можно закрыть хвост"; ws["B16"] = f'=IF({tail}!B11="YES","ДА","НЕТ")'
 
     ws["A18"] = "Прибыль цикла"; ws["B18"] = f"=IFERROR({sec}!B31,0)"
-    ws["A19"] = "Добавить в резерв"; ws["B19"] = f"=IFERROR({tail}!B6,0)"
-    ws["A20"] = "Добавить в RecoveryFund"; ws["B20"] = f"=IFERROR({tail}!B8,0)"
+    ws["A19"] = "Добавить в резерв"; ws["B19"] = f"=IFERROR({sec}!B33,0)"
+    ws["A20"] = "Добавить в RecoveryFund"; ws["B20"] = f"=IFERROR({sec}!B34,0)"
+    ws["A21"] = "Резерв после"; ws["B21"] = f"=IFERROR({sec}!B35,0)"
+    ws["A22"] = "RecoveryFund после цикла"; ws["B22"] = f"=IFERROR({sec}!B36,0)"
 
     ws["A23"] = "Тип хвоста"; ws["B23"] = f'=IF(OR({tail}!B2="",{tail}!B2="N/A"),"Хвост не найден",{tail}!B2)'
     ws["A24"] = "Тикет хвоста"; ws["B24"] = f"=IFERROR({tail}!B3,\"N/A\")"
@@ -191,7 +193,9 @@ def add_recommendations(ws, direction):
         '"Решение: "&B31&CHAR(10)&'
         '"Если открывать секцию: "&B7&" / "&B8&CHAR(10)&'
         '"Если закрывать хвост: тип="&B23&", тикет="&IF(ISNUMBER(B24),TEXT(B24,"0"),B24)&", до="&IF(ISNUMBER(B25),TEXT(B25,"0.00"),B25)&", закрыть="&TEXT(B30,"0.00")&", остаток="&TEXT(' + (f'{tail}!B14') + ',"0.00")&CHAR(10)&'
-        '"RecoveryFund до/после: "&TEXT(B27,"0.00")&" / "&TEXT(' + (f'{tail}!B13') + ',"0.00")&"; Резерв после: "&TEXT(B19,"0.00")&CHAR(10)&'
+        '"Добавить в резерв: "&TEXT(B19,"0.00")&"; Добавить в RecoveryFund: "&TEXT(B20,"0.00")&CHAR(10)&'
+        '"Резерв после: "&TEXT(B21,"0.00")&"; RecoveryFund после цикла: "&TEXT(B22,"0.00")&CHAR(10)&'
+        '"RecoveryFund до/после закрытия хвоста: "&TEXT(B27,"0.00")&" / "&TEXT(' + (f'{tail}!B13') + ',"0.00")&CHAR(10)&'
         '"ИТОГОВОЕ ДЕЙСТВИЕ: "&B31'
     )
     ws.merge_cells("A32:H45")
@@ -239,6 +243,8 @@ def build():
         ("NextTriggerLevel is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B5),ScenarioText_UP!B5="Уровень не рассчитан"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B5),ScenarioText_DOWN!B5="Уровень не рассчитан"),"OK","ERROR")'),
         ("DistancePoints is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B6),ScenarioText_UP!B6="Расстояние не рассчитано"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B6),ScenarioText_DOWN!B6="Расстояние не рассчитано"),"OK","ERROR")'),
         ("HumanReadableAction not empty", '=IF(AND(ScenarioText_UP!B31<>"",ISNUMBER(ScenarioText_UP!B4)),"OK","ERROR")', '=IF(AND(ScenarioText_DOWN!B31<>"",ISNUMBER(ScenarioText_DOWN!B4)),"OK","ERROR")'),
+        ("ReserveAdd mapping sync", '=IF(ScenarioText_UP!B19=SectionCalculator_UP!B33,"OK","ERROR")', '=IF(ScenarioText_DOWN!B19=SectionCalculator_DOWN!B33,"OK","ERROR")'),
+        ("RecoveryAdd mapping sync", '=IF(ScenarioText_UP!B20=SectionCalculator_UP!B34,"OK","ERROR")', '=IF(ScenarioText_DOWN!B20=SectionCalculator_DOWN!B34,"OK","ERROR")'),
         ("TailTicket not mapped as lot", '=IF(AND(ISNUMBER(ScenarioText_UP!B24),ScenarioText_UP!B24>1000,ISNUMBER(ScenarioText_UP!B25),ScenarioText_UP!B25>100),"ERROR","OK")', '=IF(AND(ISNUMBER(ScenarioText_DOWN!B24),ScenarioText_DOWN!B24>1000,ISNUMBER(ScenarioText_DOWN!B25),ScenarioText_DOWN!B25>100),"ERROR","OK")'),
         ("Tail lot reasonable", '=IF(AND(ISNUMBER(ScenarioText_UP!B25),ScenarioText_UP!B25>100),"ERROR","OK")', '=IF(AND(ISNUMBER(ScenarioText_DOWN!B25),ScenarioText_DOWN!B25>100),"ERROR","OK")'),
         ("Tail остаток <= исходного", '=IF(AND(ISNUMBER(ScenarioText_UP!B37),ISNUMBER(ScenarioText_UP!B25),ScenarioText_UP!B37>ScenarioText_UP!B25),"ERROR","OK")', '=IF(AND(ISNUMBER(ScenarioText_DOWN!B37),ISNUMBER(ScenarioText_DOWN!B25),ScenarioText_DOWN!B37>ScenarioText_DOWN!B25),"ERROR","OK")')
