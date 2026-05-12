@@ -121,7 +121,7 @@ def add_tail_recovery(ws, section_sheet, scenario_sheet):
         ("TailType", f"={scenario_sheet}!B220"), ("TailTicket", f"={scenario_sheet}!B222"), ("TailLot", f"={scenario_sheet}!B223"), ("TailLossPerLot", f"={scenario_sheet}!B225"),
         ("CanCloseSection", f"={section_sheet}!B32"), ("RecoveryFundAfterCycle", f"={section_sheet}!B36"), ("CloseLotRaw", '=IF(OR(B6<>"YES",B5=0),0,B7/B5)'),
         ("CloseLotRounded", '=FLOOR(B8,Settings!$B$7)'), ("CloseLotFinal", '=IF(B6="YES",MIN(B9,B4),0)'), ("CloseAllowed", '=IF(AND(B10>=Settings!$B$6,B6="YES"),"YES","NO")'),
-        ("TailCloseLoss", '=B10*B5'), ("RecoveryFundAfterClose", '=MAX(0,B7-B12)'), ("TailLotAfterClose", '=B4-B10'), ("NextLevel", f"={section_sheet}!B4"),
+        ("TailCloseLoss", '=B10*B5'), ("RecoveryFundAfterClose", '=MAX(0,B7-B12)'), ("TailLotAfterClose", '=MAX(0,B4-B10)'), ("NextLevel", f"={section_sheet}!B4"),
         ("NextBigLotAfterRecovery", '=FLOOR(B14*INDEX(Settings!B21:B24,MATCH(B15,Settings!A21:A24,0)),Settings!$B$7)'), ("NextSmallLotAfterRecovery", '=FLOOR(B14*INDEX(Settings!C21:C24,MATCH(B15,Settings!A21:A24,0)),Settings!$B$7)')
     ]
     for r, (k, v) in enumerate(rows, 2): ws.cell(r, 1, k); ws.cell(r, 2, v)
@@ -190,12 +190,13 @@ def add_recommendations(ws, direction):
         '"Итоговый лот закрытия: "&IF(ISNUMBER(B30),TEXT(B30,"0.00"),"0.00")&CHAR(10)&'
         '"Остаток хвоста после закрытия: "&TEXT(' + (f'{tail}!B14') + ',"0.00")&CHAR(10)&CHAR(10)&'
         '"RecoveryFund после: "&TEXT(' + (f'{tail}!B13') + ',"0.00")&CHAR(10)&'
-        '"Решение: "&B31&CHAR(10)&'
+        '"ДЕЙСТВИЕ: "&B31&CHAR(10)&'
         '"Если открывать секцию: "&B7&" / "&B8&CHAR(10)&'
         '"Если закрывать хвост: тип="&B23&", тикет="&IF(ISNUMBER(B24),TEXT(B24,"0"),B24)&", до="&IF(ISNUMBER(B25),TEXT(B25,"0.00"),B25)&", закрыть="&TEXT(B30,"0.00")&", остаток="&TEXT(' + (f'{tail}!B14') + ',"0.00")&CHAR(10)&'
         '"Добавить в резерв: "&TEXT(B19,"0.00")&"; Добавить в RecoveryFund: "&TEXT(B20,"0.00")&CHAR(10)&'
         '"Резерв после: "&TEXT(B21,"0.00")&"; RecoveryFund после цикла: "&TEXT(B22,"0.00")&CHAR(10)&'
         '"RecoveryFund до/после закрытия хвоста: "&TEXT(B27,"0.00")&" / "&TEXT(' + (f'{tail}!B13') + ',"0.00")&CHAR(10)&'
+        '"SAFE: "&IF(B14="ДА","НЕТ","ДА")&CHAR(10)&'
         '"ИТОГОВОЕ ДЕЙСТВИЕ: "&B31'
     )
     ws.merge_cells("A32:H45")
@@ -247,7 +248,10 @@ def build():
         ("RecoveryAdd mapping sync", '=IF(ScenarioText_UP!B20=SectionCalculator_UP!B34,"OK","ERROR")', '=IF(ScenarioText_DOWN!B20=SectionCalculator_DOWN!B34,"OK","ERROR")'),
         ("TailTicket not mapped as lot", '=IF(AND(ISNUMBER(ScenarioText_UP!B24),ScenarioText_UP!B24>1000,ISNUMBER(ScenarioText_UP!B25),ScenarioText_UP!B25>100),"ERROR","OK")', '=IF(AND(ISNUMBER(ScenarioText_DOWN!B24),ScenarioText_DOWN!B24>1000,ISNUMBER(ScenarioText_DOWN!B25),ScenarioText_DOWN!B25>100),"ERROR","OK")'),
         ("Tail lot reasonable", '=IF(AND(ISNUMBER(ScenarioText_UP!B25),ScenarioText_UP!B25>100),"ERROR","OK")', '=IF(AND(ISNUMBER(ScenarioText_DOWN!B25),ScenarioText_DOWN!B25>100),"ERROR","OK")'),
-        ("Tail остаток <= исходного", '=IF(AND(ISNUMBER(ScenarioText_UP!B37),ISNUMBER(ScenarioText_UP!B25),ScenarioText_UP!B37>ScenarioText_UP!B25),"ERROR","OK")', '=IF(AND(ISNUMBER(ScenarioText_DOWN!B37),ISNUMBER(ScenarioText_DOWN!B25),ScenarioText_DOWN!B37>ScenarioText_DOWN!B25),"ERROR","OK")')
+        ("Tail остаток <= исходного", '=IF(AND(ISNUMBER(ScenarioText_UP!B37),ISNUMBER(ScenarioText_UP!B25),ScenarioText_UP!B37>ScenarioText_UP!B25),"ERROR","OK")', '=IF(AND(ISNUMBER(ScenarioText_DOWN!B37),ISNUMBER(ScenarioText_DOWN!B25),ScenarioText_DOWN!B37>ScenarioText_DOWN!B25),"ERROR","OK")'),
+        ("RecoveryFundAfter >= 0", '=IF(TailRecovery_UP!B13<0,"ERROR","OK")', '=IF(TailRecovery_DOWN!B13<0,"ERROR","OK")'),
+        ("CloseLotFinal <= TailLot", '=IF(TailRecovery_UP!B10>TailRecovery_UP!B4,"ERROR","OK")', '=IF(TailRecovery_DOWN!B10>TailRecovery_DOWN!B4,"ERROR","OK")'),
+        ("TailLotAfter >= 0", '=IF(TailRecovery_UP!B14<0,"ERROR","OK")', '=IF(TailRecovery_DOWN!B14<0,"ERROR","OK")')
     ]
     for r, row in enumerate(rules, 2):
         for c, x in enumerate(row, 1): ws=v; ws.cell(r, c, x)
