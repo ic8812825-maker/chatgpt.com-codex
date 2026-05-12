@@ -231,11 +231,11 @@ def add_recommendations(ws, direction):
         '"SAFE: "&B38&CHAR(10)&'
         '"ИТОГОВОЕ ДЕЙСТВИЕ: "&B31'
     )
-    ws.merge_cells("A32:H45")
-    ws["A32"] = "=B46"
-    ws["A32"].alignment = Alignment(wrap_text=True, vertical="top")
-    ws["A32"].font = Font(bold=True, size=13, color="FFFFFFFF")
-    ws["A32"].fill = PatternFill(fill_type="solid", fgColor="FF1F4E78")
+    ws.merge_cells("A39:H52")
+    ws["A39"] = "=B46"
+    ws["A39"].alignment = Alignment(wrap_text=True, vertical="top")
+    ws["A39"].font = Font(bold=True, size=13, color="FFFFFFFF")
+    ws["A39"].fill = PatternFill(fill_type="solid", fgColor="FF1F4E78")
     for c in ("B3","B4","B5"): ws[c].number_format="0.00000"
     for c in ("B25","B28","B29","B30","B35","B36","B37"): ws[c].number_format="0.00"
     ws["B8"].number_format="0"
