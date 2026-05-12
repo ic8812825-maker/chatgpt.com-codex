@@ -42,16 +42,18 @@ def add_scenario(ws, direction):
     ws["A2"] = "CurrentPrice"; ws["B2"] = "=CurrentPositions!F2"
     ws["A3"] = "MoveUpPoints" if up else "MoveDownPoints"; ws["B3"] = 100
     ws["A4"] = "ScenarioPrice"; ws["B4"] = "=B2+B3*Settings!$B$3" if up else "=B2-B3*Settings!$B$3"
-    hdr(ws, 6, ["Ticket", "Type", "Role", "Lot", "OpenPrice", "ScenarioPrice", "ScenarioPointsPnL", "ScenarioMoneyPnL", "IsTail", "SectionID"])
+    hdr(ws, 6, ["Ticket", "Type", "Role", "Lot", "OpenPrice", "ScenarioPrice", "ScenarioPointsPnL", "ScenarioMoneyPnL", "IsTail", "SectionID", "TailLossHelper", "TailTicketHelper"])
     for r in range(2, 202):
         rr = r + 5
         ws.cell(rr, 1, f"=CurrentPositions!A{r}"); ws.cell(rr, 2, f"=CurrentPositions!B{r}"); ws.cell(rr, 3, f"=CurrentPositions!C{r}")
         ws.cell(rr, 4, f"=CurrentPositions!D{r}"); ws.cell(rr, 5, f"=CurrentPositions!E{r}"); ws.cell(rr, 6, "=$B$4")
         ws.cell(rr, 7, f'=IF(B{rr}="BUY",(F{rr}-E{rr})/Settings!$B$3,(E{rr}-F{rr})/Settings!$B$3)'); ws.cell(rr, 8, f"=G{rr}*D{rr}*Settings!$B$4")
         ws.cell(rr, 9, f"=CurrentPositions!I{r}"); ws.cell(rr, 10, f"=CurrentPositions!J{r}")
+        ws.cell(rr, 11, f'=IF(AND(B{rr}="{loss_type}",H{rr}<0),H{rr},"")')
+        ws.cell(rr, 12, f'=IF(K{rr}<>"",A{rr},"")')
     ws["A220"] = "TailType"; ws["B220"] = loss_type
-    ws["A221"] = "TailWorstPnL"; ws["B221"] = f'=IFERROR(MINIFS(H7:H206,B7:B206,"{loss_type}",H7:H206,"<0"),0)'
-    ws["A222"] = "TailTicket"; ws["B222"] = f'=IFERROR(MINIFS(A7:A206,B7:B206,"{loss_type}",H7:H206,B221),"N/A")'
+    ws["A221"] = "TailWorstPnL"; ws["B221"] = '=IF(COUNT(K7:K206)=0,0,MIN(K7:K206))'
+    ws["A222"] = "TailTicket"; ws["B222"] = '=IF(B221=0,"N/A",MIN(L7:L206))'
     ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D7:D206,MATCH(B222,A7:A206,0)))'
     ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H7:H206,MATCH(B222,A7:A206,0))))'
     ws["A225"] = "TailLossPerLot"; ws["B225"] = '=IF(B223=0,0,ABS(B224/B223))'
@@ -183,7 +185,7 @@ def add_recommendations(ws, direction):
         '"RecoveryFund после: "&TEXT(B34,"0.00")&CHAR(10)&'
         '"Решение: "&B31&CHAR(10)&'
         '"Если открывать секцию: "&B7&" / "&B8&CHAR(10)&'
-        '"Если закрывать хвост: тип="&B23&", до="&IF(ISNUMBER(B24),TEXT(B24,"0.00"),B24)&", закрыть="&TEXT(B29,"0.00")&", остаток="&IF(ISNUMBER(B30),TEXT(B30,"0.00"),B30)&CHAR(10)&'
+        '"Если закрывать хвост: тип="&B23&", тикет="&IF(B24=\"Хвост не найден\",\"N/A\",TEXT(' + ('Scenario_UP!B222' if direction=='UP' else 'Scenario_DOWN!B222') + ',\"0\"))&", до="&IF(ISNUMBER(B24),TEXT(B24,"0.00"),B24)&", закрыть="&TEXT(B29,"0.00")&", остаток="&IF(ISNUMBER(B30),TEXT(B30,"0.00"),B30)&CHAR(10)&'
         '"RecoveryFund до/после: "&TEXT(B26,"0.00")&" / "&TEXT(B34,"0.00")&"; Резерв после: "&TEXT(B19,"0.00")&CHAR(10)&'
         '"ИТОГОВОЕ ДЕЙСТВИЕ: "&B31'
     )
@@ -227,7 +229,7 @@ def build():
         ("TailCloseLoss <= RecoveryFundAfterCycle", '=IF(TailRecovery_UP!B12<=TailRecovery_UP!B7,"OK","ERROR")', '=IF(TailRecovery_DOWN!B12<=TailRecovery_DOWN!B7,"OK","ERROR")'),
         ("LevelReached before open section", '=IF(SectionCalculator_UP!B12="YES","OK",IF(SectionCalculator_UP!B14="NO","BLOCKED","ERROR"))', '=IF(SectionCalculator_DOWN!B12="YES","OK",IF(SectionCalculator_DOWN!B14="NO","BLOCKED","ERROR"))'),
         ("No opposite cascade active", '=IF(SectionCalculator_UP!B13="YES","OK","BLOCKED")', '=IF(SectionCalculator_DOWN!B13="YES","OK","BLOCKED")'),
-        ("Tail exists when loss exists", '=IF(OR(Scenario_UP!B221>=0,Scenario_UP!B222<>"N/A"),"OK","ERROR")', '=IF(OR(Scenario_DOWN!B221>=0,Scenario_DOWN!B222<>"N/A"),"OK","ERROR")'),
+        ("Tail exists when loss exists", '=IF(AND(COUNTIFS(Scenario_UP!B7:B206,"SELL",Scenario_UP!H7:H206,"<0")>0,Scenario_UP!B222="N/A"),"ERROR","OK")', '=IF(AND(COUNTIFS(Scenario_DOWN!B7:B206,"BUY",Scenario_DOWN!H7:H206,"<0")>0,Scenario_DOWN!B222="N/A"),"ERROR","OK")'),
         ("ScenarioText action equals BasketSummary action", '=IF(OR(AND(BasketSummary!B13="BASKET_CLOSE",ScenarioText_UP!B31="ЗАКРЫТЬ ВСЮ КОРЗИНУ"),BasketSummary!B13<>"BASKET_CLOSE"),"OK","ERROR")', '=IF(OR(AND(BasketSummary!C13="BASKET_CLOSE",ScenarioText_DOWN!B31="ЗАКРЫТЬ ВСЮ КОРЗИНУ"),BasketSummary!C13<>"BASKET_CLOSE"),"OK","ERROR")'),
         ("NextTriggerLevel is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B5),ScenarioText_UP!B5="Уровень не рассчитан"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B5),ScenarioText_DOWN!B5="Уровень не рассчитан"),"OK","ERROR")'),
         ("DistancePoints is numeric", '=IF(OR(ISNUMBER(ScenarioText_UP!B6),ScenarioText_UP!B6="Расстояние не рассчитано"),"OK","ERROR")', '=IF(OR(ISNUMBER(ScenarioText_DOWN!B6),ScenarioText_DOWN!B6="Расстояние не рассчитано"),"OK","ERROR")'),
@@ -242,8 +244,8 @@ def build():
     lg["A3"]="=NOW()"; lg["B3"]="ВНИЗ"; lg["C3"]="ScenarioText_DOWN"; lg["D3"]='=IF(BasketSummary!C13="WAIT","ЖДАТЬ",IF(BasketSummary!C13="SAFE","SAFE",IF(BasketSummary!C13="BASKET_CLOSE","ЗАКРЫТЬ ВСЮ КОРЗИНУ",IF(AND(TailRecovery_DOWN!B10>0,TailRecovery_DOWN!B10<TailRecovery_DOWN!B3),"ЗАКРЫТЬ ХВОСТ ЧАСТИЧНО","ЗАКРЫТЬ СЕКЦИЮ"))))'; lg["E3"]="=IFERROR(TailRecovery_DOWN!B3,0)"; lg["F3"]="=IFERROR(TailRecovery_DOWN!B10,0)"; lg["G3"]='=IF(OR(NOT(ISNUMBER(E3)),NOT(ISNUMBER(F3))),"Хвост не найден",MAX(E3-F3,0))'; lg["H3"]="=IFERROR(TailRecovery_DOWN!B5,0)"; lg["I3"]="=IFERROR(TailRecovery_DOWN!B7,0)"; lg["J3"]="=IFERROR(SectionCalculator_DOWN!B35,0)"; lg['K3']='=IF(OR(SectionCalculator_DOWN!B14<>"YES",SectionCalculator_DOWN!B13<>"YES"),"YES","NO")'
 
     dm=wb["FormulaDependencyMap"]; hdr(dm,1,["Cell","Formula","DependsOn","UsedBy","Description"])
-    dm["A2"]="Scenario_UP!B4"; dm["B2"]="=Scenario_UP!B2+Scenario_UP!B3*Settings!B3"; dm["C2"]="Scenario_UP!B2, Scenario_UP!B3, Settings!B3"; dm["D2"]="SectionCalculator_UP!B12, ScenarioText_UP!B4"
-    dm["A3"]="Scenario_DOWN!B4"; dm["B3"]="=Scenario_DOWN!B2-Scenario_DOWN!B3*Settings!B3"; dm["C3"]="Scenario_DOWN!B2, Scenario_DOWN!B3, Settings!B3"; dm["D3"]="SectionCalculator_DOWN!B12, ScenarioText_DOWN!B4"
+    dm["A2"]="Scenario_UP!B4"; dm["B2"]="'=Scenario_UP!B2+Scenario_UP!B3*Settings!B3"; dm["C2"]="Scenario_UP!B2, Scenario_UP!B3, Settings!B3"; dm["D2"]="SectionCalculator_UP!B12, ScenarioText_UP!B4"
+    dm["A3"]="Scenario_DOWN!B4"; dm["B3"]="'=Scenario_DOWN!B2-Scenario_DOWN!B3*Settings!B3"; dm["C3"]="Scenario_DOWN!B2, Scenario_DOWN!B3, Settings!B3"; dm["D3"]="SectionCalculator_DOWN!B12, ScenarioText_DOWN!B4"
     rows=[("Scenario_UP!B2","=CurrentPositions!F2","CurrentPositions!F2","Scenario_UP!B4","CurrentPrice"),
           ("Scenario_UP!B4","=B2+B3*Settings!B3","Scenario_UP!B2,B3,Settings!B3","SectionCalculator_UP!B12","ScenarioPrice"),
           ("Scenario_UP!N1","=...","Scenario_UP positions","Scenario_UP!N3","AverageBuyPrice"),
@@ -258,7 +260,11 @@ def build():
           ("BasketSummary!B13","=IF(...)","B8,B9,B10","ScenarioText_UP!B31","NextAction"),
           ("ScenarioText_UP!B31","=IF(BasketSummary!B13...)","BasketSummary!B13","ScenarioText_UP!B46","HumanReadableAction")]
     for i,(a,b,c,d,e) in enumerate(rows,4):
-        dm[f"A{i}"]=a; dm[f"B{i}"]=b; dm[f"C{i}"]=c; dm[f"D{i}"]=d; dm[f"E{i}"]=e
+        dm[f"A{i}"]=a
+        dm[f"B{i}"]="'"+b if isinstance(b,str) and b.startswith("=") else b
+        dm[f"C{i}"]=c
+        dm[f"D{i}"]=d
+        dm[f"E{i}"]=e
     wb.save("recovery_lock_cascade_next_step.xlsx")
 
 
