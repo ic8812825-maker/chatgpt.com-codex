@@ -67,7 +67,9 @@ def add_scenario(ws, direction):
         ws.cell(rr, 12, f'=IF(K{rr}<>"",A{rr},"")')
     ws["A220"] = "TailType"; ws["B220"] = loss_type
     ws["A221"] = "TailWorstPnL"; ws["B221"] = '=IF(COUNT(K12:K211)=0,0,MIN(K12:K211))'
-    ws["A222"] = "TailTicket"; ws["B222"] = '=IF(B221=0,"N/A",MINIFS(L12:L211,K12:K211,B221))'
+    for rr in range(12, 212):
+        ws.cell(rr, 15, f'=IF(K{rr}=$B$221,L{rr},"")')
+    ws["A222"] = "TailTicket"; ws["B222"] = '=IF(B221=0,"N/A",MIN(O12:O211))'
     ws["A223"] = "TailLot"; ws["B223"] = '=IF(B222="N/A",0,INDEX(D12:D211,MATCH(B222,A12:A211,0)))'
     ws["A224"] = "TailLossMoney"; ws["B224"] = '=IF(B222="N/A",0,ABS(INDEX(H12:H211,MATCH(B222,A12:A211,0))))'
     ws["A225"] = "TailLossPerLot"; ws["B225"] = '=IF(B223=0,0,ABS(B224/B223))'
@@ -311,7 +313,8 @@ def build():
           ("Scenario_UP!B8","=(B6-B5)/Settings!B3","Scenario_UP!B6, Scenario_UP!B5, Settings!B3","ScenarioText_UP!B8","ScenarioSpread"),
           ("Scenario_UP!K12:L211","PnL helper range","Scenario_UP!C12:F211, Settings!B3","Scenario_UP!B221:B223","Tail helper range"),
           ("Scenario_UP!B221","=IF(COUNT(K12:K211)=0,0,MIN(K12:K211))","Scenario_UP!K12:K211","Scenario_UP!B222","TailWorstPnL"),
-          ("Scenario_UP!B222","=IF(B221=0,\"N/A\",MINIFS(L12:L211,K12:K211,B221))","Scenario_UP!B221, Scenario_UP!K12:K211, Scenario_UP!L12:L211","Scenario_UP!B223, ScenarioText_UP!B24","TailTicket"),
+          ("Scenario_UP!O12:O211","=IF(Krow=$B$221,Lrow,\"\")","Scenario_UP!K12:K211, Scenario_UP!L12:L211, Scenario_UP!B221","Scenario_UP!B222","TailFinalTicketCandidates"),
+          ("Scenario_UP!B222","=IF(B221=0,\"N/A\",MIN(O12:O211))","Scenario_UP!B221, Scenario_UP!O12:O211","Scenario_UP!B223, ScenarioText_UP!B24","TailTicket"),
           ("BasketSummary!B13","=IF(...)","BasketSummary!B8, BasketSummary!B9, BasketSummary!B10","ScenarioText_UP!B31, ScenarioText_UP!B38, Log!D2, Log!K2","NextAction"),
           ("ScenarioText_UP!B31","=IF(BasketSummary!B13...)","BasketSummary!B13","ScenarioText_UP!B46","HumanReadableAction"),
           ("ScenarioText_UP!B38","=IF(BasketSummary!B13=\"SAFE\",\"ДА\",\"НЕТ\")","BasketSummary!B13","ScenarioText_UP!B46, Validation","SAFE flag")]
