@@ -53,6 +53,7 @@ def add_trend_sheet(ws, down=True):
         "Target Skew %", "Auto Close %", "Manual Close %", "Final Close %", "Start After %", "Sum Big %", "Sum Small %",
         "Total Main %", "Total Opposite %", "Skew %", "Status", "Comment",
         "Big Raw Lot", "Big Rounded", "Small Raw Lot", "Small Rounded", "Close Raw Lot", "Close Rounded", "Safe Rounding Status", "Rounding Comment",
+        "Rounded Start After Lot", "Rounded Sum Big Lot", "Rounded Sum Small Lot", "Rounded Total Main Lot", "Rounded Total Opposite Lot", "Rounded Skew Lot", "Rounded Status",
     ]
     for c, h in enumerate(headers, 1):
         ws.cell(1, c, h).font = Font(bold=True)
@@ -120,6 +121,13 @@ def add_trend_sheet(ws, down=True):
             f"IF(AB{r}=\"SAFE\",\"BUY/SELL balance preserved\","
             f"IF(AB{r}=\"WARNING\",\"Near protection boundary\",\"Protection broken\")))"
         )
+        ws[f"AD{r}"] = 0 if r == 2 else f"=MAX(0,Settings!$B$2*G{r}/100-AA{r})"
+        ws[f"AE{r}"] = 0 if r == 2 else f"=SUM($W$3:W{r})"
+        ws[f"AF{r}"] = 0 if r == 2 else f"=SUM($Y$3:Y{r})"
+        ws[f"AG{r}"] = 0 if r == 2 else f"=AD{r}+AE{r}"
+        ws[f"AH{r}"] = 0 if r == 2 else f"=Settings!$B$2+AF{r}"
+        ws[f"AI{r}"] = 0 if r == 2 else f"=AH{r}-AG{r}"
+        ws[f"AJ{r}"] = 0 if r == 2 else f"=IF(OR(AND(C{r}>0,W{r}=0),AND(E{r}>0,Y{r}=0),Settings!$B$2<Settings!$B$5),\"ERROR: LotStep too coarse\",IF(AG{r}>AH{r},\"ERROR: Rounded balance broken\",IF(AI{r}<Settings!$B$2*Settings!$B$7/100,\"WARNING\",\"OK\")))"
 
     ws.conditional_formatting.add("AB2:AB41", FormulaRule(formula=['AB2="SAFE"'], fill=PatternFill("solid", fgColor="C6EFCE")))
     ws.conditional_formatting.add("AB2:AB41", FormulaRule(formula=['AB2="FIXED"'], fill=PatternFill("solid", fgColor="9CC2E5")))

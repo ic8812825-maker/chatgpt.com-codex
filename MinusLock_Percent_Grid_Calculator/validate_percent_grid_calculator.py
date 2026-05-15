@@ -19,6 +19,7 @@ def main():
     settings_v3_ok = all(s[f'B{i}'].value is not None for i in range(11,19))
     dynamic_step_ok = mm['B16'].value == '=B3*B4'
     adaptive_formulas_ok = isinstance(ae['B17'].value, str) and 'EXP' in ae['B17'].value
+    rounded_cols_ok = all(wb['DownTrend'][c+'1'].value is not None for c in ['AD','AE','AF','AG','AH','AI','AJ'])
     margin_formulas_ok = mc['B12'].value == '=B9*B5' and mc['B13'].value == '=B8/B3*100'
     risk_score_ok = isinstance(rd['B4'].value, str) and 'MIN(100' in rd['B4'].value
     adaptive_stop_ok = isinstance(rd['B8'].value, str) and 'STOP NEW LEVELS' in rd['B8'].value
@@ -57,13 +58,17 @@ def main():
 ## 9. Stress tests
 - StressTest scenario table present: **{ok(stress_rows_ok)}**.
 
-## 10. Dashboard integrity
+## 10. Rounded risk logic
+- Rounded total columns AD:AJ present: **{ok(rounded_cols_ok)}**.
+- Rounded status formula AJ3 present: **{ok(isinstance(wb['DownTrend']['AJ3'].value,str))}**.
+
+## 11. Dashboard integrity
 - Required V3 sheets exist: **{ok(sheets_ok)}**.
 - Summary charts count >= 10: **{ok(charts_ok)}** (found: {len(sm._charts)}).
 - V3 settings block present (B11:B18): **{ok(settings_v3_ok)}**.
 
 ## Итоговый вердикт
-**{ok(all([sheets_ok, settings_v3_ok, dynamic_step_ok, adaptive_formulas_ok, margin_formulas_ok, risk_score_ok, adaptive_stop_ok, monte_rows_ok, recovery_rows_ok, stress_rows_ok, charts_ok]))}**
+**{ok(all([sheets_ok, settings_v3_ok, dynamic_step_ok, adaptive_formulas_ok, rounded_cols_ok, margin_formulas_ok, risk_score_ok, adaptive_stop_ok, monte_rows_ok, recovery_rows_ok, stress_rows_ok, charts_ok]))}**
 '''
 
     RPT.write_text(report, encoding='utf-8')
