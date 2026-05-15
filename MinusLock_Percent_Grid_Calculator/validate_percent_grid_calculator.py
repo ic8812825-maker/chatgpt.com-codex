@@ -1,8 +1,8 @@
 from pathlib import Path
 from openpyxl import load_workbook
 
-WB = Path('projects/minus-lock-system/MinusLock_Percent_Grid_Calculator.xlsx')
-RPT = Path('projects/minus-lock-system/PERCENT_GRID_VALIDATION_REPORT_V3_RU.md')
+WB = Path('MinusLock_Percent_Grid_Calculator.xlsx')
+RPT = Path('PERCENT_GRID_VALIDATION_REPORT_V3_RU.md')
 
 
 def ok(flag):

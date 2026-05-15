@@ -82,7 +82,7 @@ def add_trend_sheet(ws, down=True):
         # SAFE close in lot space to preserve protection balance
         ws[f"AA{r}"] = 0 if r == 2 else (
             f"=IF(Settings!$B$17,"
-            f"MIN(Settings!$B$2*G{r}/100,IF(Settings!$B$9,CEILING(MAX(0,V{r}+Settings!$B$2*G{r}/100-X{r}-Settings!$B$2*J{r}/100),Settings!$B$5),MAX(0,V{r}+Settings!$B$2*G{r}/100-X{r}-Settings!$B$2*J{r}/100))),"
+            f"MIN(Settings!$B$2*G{r}/100,IF(Settings!$B$9,CEILING(MAX(0,Settings!$B$2*(H{r}-I{r}+J{r})/100),Settings!$B$5),MAX(0,Settings!$B$2*(H{r}-I{r}+J{r})/100))),"
             f"IF(Settings!$B$9,MROUND(Z{r},Settings!$B$5),Z{r}))"
         )
         ws[f"M{r}"] = 0 if r == 2 else f"=MIN(G{r},AA{r}/Settings!$B$2*100)"
@@ -205,8 +205,8 @@ def add_summary_and_dashboard(wb):
     sm["A1"].font = Font(bold=True)
     pairs = [
         ("StartLot", "=Settings!B2"), ("Direction", "=Settings!B10"), ("Adaptive Step", "=MarketModel!B16"),
-        ("ATR Regime", "=MarketModel!B11"), ("Margin Load", "=MarginControl!B13"), ("Risk Score", "=RiskDashboard!B2"),
-        ("Max Safe Levels", "=MarginControl!B17"), ("Survival Probability", "=RiskDashboard!B5"),
+        ("ATR Regime", "=MarketModel!B11"), ("Margin Load", "=MarginControl!B13"), ("Risk Score", "=RiskDashboard!B4"),
+        ("Max Safe Levels", "=MarginControl!B17"), ("Survival Probability", "=RiskDashboard!B7"),
     ]
     for i, (k, f) in enumerate(pairs, 3):
         sm[f"A{i}"] = k
@@ -258,7 +258,7 @@ def build_workbook(output_path: str) -> None:
     add_adaptive_engine(wb["AdaptiveEngine"])
     add_margin_control(wb["MarginControl"])
     add_simple_table(wb["MonteCarlo"], "Monte Carlo Scenarios", ["Scenario", "Max DD", "Max Levels", "Margin Stress", "Recovery Distance", "Required Rollback", "Survival"], [
-        ("Strong Downtrend", 35, 9, "WARNING", 850, 420, "MEDIUM"), ("Strong Uptrend", 33, 8, "WARNING", 820, 400, "MEDIUM"),
+        ("Strong Downtrend", "=25+AdaptiveEngine!B17/4", "=INT(5+AdaptiveEngine!B17/20)", "WARNING", "=500+AdaptiveEngine!B17*6", "=200+AdaptiveEngine!D17*8", "=IF(B4>60,\"LOW\",\"MEDIUM\")"), ("Strong Uptrend", 33, 8, "WARNING", 820, 400, "MEDIUM"),
         ("Volatile Trend", 45, 10, "DANGER", 1200, 620, "LOW"), ("Flash Crash", 60, 12, "CRITICAL", 1800, 900, "LOW"),
         ("Long Compression", 28, 7, "NORMAL", 640, 300, "HIGH"), ("Endless Trend", 72, 14, "CRITICAL", 2600, 1200, "VERY LOW"),
         ("Trend + Spike", 55, 11, "DANGER", 1500, 760, "LOW"),
@@ -291,4 +291,4 @@ def build_workbook(output_path: str) -> None:
 
 
 if __name__ == "__main__":
-    build_workbook("projects/minus-lock-system/MinusLock_Percent_Grid_Calculator.xlsx")
+    build_workbook("MinusLock_Percent_Grid_Calculator.xlsx")
