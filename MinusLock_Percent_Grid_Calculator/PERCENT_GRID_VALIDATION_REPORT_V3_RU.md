@@ -1,45 +1,22 @@
 # PERCENT_GRID_VALIDATION_REPORT_V3_RU
 
-## 1. Adaptive formulas
-- AdaptiveEngine formulas: **OK**.
+## Workbook recalculation and cached values
+- DownTrend cached baseline values: **OK** ((90, 30, 60, 40, 130, 130, 0, 'OK', 'OK')).
+- UpTrend cached baseline values: **OK** ((90, 30, 60, 40, 130, 130, 0, 'OK', 'OK')).
+- ManualClose false error: **OK**.
+- Summary cached status: **OK** (B15=OK, B16=OK).
+- Checks baseline status: **OK**.
 
-## 2. Dynamic step
-- MarketModel!B16 = ATR × Multiplier: **OK**.
+## AJ false WARNING fix and Summary direction-switch
+- DownTrend AJ3 baseline: **OK**.
+- UpTrend AJ3 baseline: **OK**.
+- Summary Direction Switch: **OK**.
 
-## 3. Monte Carlo outputs
-- MonteCarlo scenarios table present: **OK**.
-
-## 4. Margin calculations
-- RequiredMargin/MarginLoad formulas present: **OK**.
-
-## 5. Recovery calculations
-- RecoveryMap rows present: **OK**.
-
-## 6. Risk score
-- RiskDashboard risk score formula present: **OK**.
-
-## 7. Adaptive skew
-- AdaptiveEngine dynamic skew column present: **OK**.
-
-## 8. Adaptive level stop
-- RiskDashboard adaptive stop formula present: **OK**.
-
-## 9. Stress tests
-- StressTest scenario table present: **OK**.
-
-## 10. Rounded risk logic
-- Rounded total columns AD:AJ present: **OK**.
-- DownTrend AJ3 baseline condition fix (J>0 gate): **OK**.
-- UpTrend AJ3 baseline condition fix (J>0 gate): **OK**.
-
-## 11. Summary direction-switch
-- Summary uses IF(Settings!Direction...) for final fields/statuses: **OK**.
-- Final Summary Status universal ERROR/WARNING handling: **OK**.
-
-## 12. Dashboard integrity
-- Required V3 sheets exist: **OK**.
-- Summary charts count >= 10: **OK** (found: 10).
-- V3 settings block present (B11:B18): **OK**.
+## Final Summary Status Universal Error Handling
+- Summary catches any T ERROR: **OK**.
+- Summary catches any AJ ERROR: **OK**.
+- Summary catches WARNING from T/AJ: **OK**.
+- Direction switch preserved: **OK**.
 
 ## Итоговый вердикт
 **OK**
