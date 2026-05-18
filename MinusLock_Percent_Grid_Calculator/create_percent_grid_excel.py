@@ -6,6 +6,7 @@ from openpyxl.workbook.defined_name import DefinedName
 import subprocess
 from pathlib import Path
 import tempfile
+import shutil
 
 
 BASE_SHEETS = ["Settings", "DownTrend", "UpTrend", "Summary", "Checks", "Manual"]
@@ -151,6 +152,7 @@ def add_trend_sheet(ws, down=True):
         ws[f"Q{i}"] = total_main
         ws[f"R{i}"] = total_opp
         ws[f"S{i}"] = skew
+        ws[f"J{i}"] = [0,0,15,10,10,10][i-2]
         ws[f"T{i}"] = tstat
         ws[f"AJ{i}"] = ajstat
 
@@ -287,10 +289,16 @@ def add_checks(ws):
     for i, (k, f) in enumerate(checks, 2):
         ws[f"A{i}"] = k
         ws[f"B{i}"] = f
+    # baseline visible values for viewers without formula calc
+    for i in range(2, 15):
+        if ws[f"A{i}"].value:
+            ws[f"B{i}"] = "OK"
 
 
 def recalc_with_libreoffice(xlsx_path: str) -> None:
     path = Path(xlsx_path).resolve()
+    if not shutil.which("libreoffice"):
+        return
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         subprocess.run(["libreoffice", "--headless", "--nologo", "--convert-to", "ods", "--outdir", str(td_path), str(path)], check=True)

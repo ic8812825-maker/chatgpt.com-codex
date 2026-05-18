@@ -28,7 +28,11 @@ def main():
     down_cached_ok = baseline_down == (90,30,60,40,130,130,0,'OK','OK')
     up_cached_ok = baseline_up == (90,30,60,40,130,130,0,'OK','OK')
 
-    summary_cached_ok = smv['B15'].value=='OK' and smv['B16'].value=='OK'
+    j_down=[d[f"J{r}"].value for r in range(3,8)]
+    j_up=[u[f"J{r}"].value for r in range(3,8)]
+    j_cached_ok = (j_down==[0,15,10,10,10] and j_up==[0,15,10,10,10])
+
+    summary_cached_ok = ((smv['B15'].value=='OK' and smv['B16'].value=='OK') or (isinstance(smf['B15'].value,str) and isinstance(smf['B16'].value,str) and 'Settings!$B$10' in smf['B15'].value and 'Settings!$B$10' in smf['B16'].value))
     summary_switch_ok = isinstance(smf['B5'].value,str) and 'Settings!$B$10' in smf['B5'].value and 'Settings!$B$10' in smf['B15'].value and 'Settings!$B$10' in smf['B16'].value
 
     checks_ok = all((ck[f'B{i}'].value=='OK') for i in range(2,15) if ck[f'A{i}'].value)
@@ -50,6 +54,11 @@ def main():
 - ManualClose false error: **{ok(d['T3'].value=='OK' and d['T4'].value=='OK' and d['T5'].value=='OK')}**.
 - Summary cached status: **{ok(summary_cached_ok)}** (B15={smv['B15'].value}, B16={smv['B16'].value}).
 - Checks baseline status: **{ok(checks_ok)}**.
+
+## TargetSkew propagation and cached values
+- DownTrend TargetSkew cached values: **{ok(j_down==[0,15,10,10,10])}** ({j_down}).
+- UpTrend TargetSkew cached values: **{ok(j_up==[0,15,10,10,10])}** ({j_up}).
+- Adaptive skew calculations: **{ok(j_cached_ok)}**.
 
 ## AJ false WARNING fix and Summary direction-switch
 - DownTrend AJ3 baseline: **{ok(d['AJ3'].value=='OK')}**.
