@@ -34,6 +34,7 @@
 
 ## 11. Summary direction-switch
 - Summary uses IF(Settings!Direction...) for final fields/statuses: **OK**.
+- Final Summary Status universal ERROR/WARNING handling: **OK**.
 
 ## 12. Dashboard integrity
 - Required V3 sheets exist: **OK**.

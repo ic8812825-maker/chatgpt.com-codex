@@ -219,7 +219,7 @@ def add_summary_and_dashboard(wb):
         ("Final id1 Remaining %", '=IF(Settings!$B$10="DOWN",INDEX(DownTrend!N:N,Settings!B4+3),INDEX(UpTrend!N:N,Settings!B4+3))'),
         ("Adaptive Step", "=MarketModel!B16"), ("ATR Regime", "=MarketModel!B11"), ("Margin Load", "=MarginControl!B13"),
         ("Risk Score", "=RiskDashboard!B4"), ("Risk Status", "=RiskDashboard!B5"), ("Survival Probability", "=RiskDashboard!B7"),
-        ("Final System Status", '=IF(Settings!$B$10="DOWN",IF(OR(INDEX(DownTrend!T:T,Settings!B4+3)="ERROR: Rounding broke protection balance",LEFT(INDEX(DownTrend!AJ:AJ,Settings!B4+3),5)="ERROR"),"ERROR",IF(OR(LEFT(INDEX(DownTrend!T:T,Settings!B4+3),7)="WARNING",INDEX(DownTrend!AJ:AJ,Settings!B4+3)="WARNING"),"WARNING","OK")),IF(OR(INDEX(UpTrend!T:T,Settings!B4+3)="ERROR: Rounding broke protection balance",LEFT(INDEX(UpTrend!AJ:AJ,Settings!B4+3),5)="ERROR"),"ERROR",IF(OR(LEFT(INDEX(UpTrend!T:T,Settings!B4+3),7)="WARNING",INDEX(UpTrend!AJ:AJ,Settings!B4+3)="WARNING"),"WARNING","OK")))'),
+        ("Final System Status", '=IF(OR(LEFT(IF(Settings!$B$10="DOWN",INDEX(DownTrend!T:T,Settings!B4+3),INDEX(UpTrend!T:T,Settings!B4+3)),5)="ERROR",LEFT(IF(Settings!$B$10="DOWN",INDEX(DownTrend!AJ:AJ,Settings!B4+3),INDEX(UpTrend!AJ:AJ,Settings!B4+3)),5)="ERROR"),"ERROR",IF(OR(LEFT(IF(Settings!$B$10="DOWN",INDEX(DownTrend!T:T,Settings!B4+3),INDEX(UpTrend!T:T,Settings!B4+3)),7)="WARNING",LEFT(IF(Settings!$B$10="DOWN",INDEX(DownTrend!AJ:AJ,Settings!B4+3),INDEX(UpTrend!AJ:AJ,Settings!B4+3)),7)="WARNING"),"WARNING","OK"))'),
         ("Rounded System Status", '=IF(Settings!$B$10="DOWN",INDEX(DownTrend!AJ:AJ,Settings!B4+3),INDEX(UpTrend!AJ:AJ,Settings!B4+3))'),
     ]
     for i, (k, f) in enumerate(pairs, 3):

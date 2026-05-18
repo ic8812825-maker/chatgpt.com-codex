@@ -30,7 +30,9 @@ def main():
     charts_ok = len(sm._charts) >= 10
     aj_down_ok = isinstance(wb['DownTrend']['AJ3'].value, str) and '"WARNING"' in wb['DownTrend']['AJ3'].value and 'J3>0' in wb['DownTrend']['AJ3'].value
     aj_up_ok = isinstance(wb['UpTrend']['AJ3'].value, str) and 'J3>0' in wb['UpTrend']['AJ3'].value
+    summary_formula = sm['B15'].value if isinstance(sm['B15'].value, str) else ""
     summary_switch_ok = isinstance(sm['B5'].value, str) and 'Settings!$B$10' in sm['B5'].value and isinstance(sm['B15'].value,str) and 'Settings!$B$10' in sm['B15'].value and isinstance(sm['B16'].value,str) and 'Settings!$B$10' in sm['B16'].value
+    summary_universal_error_ok = ('LEFT(IF(Settings!$B$10=' in summary_formula and '),5)="ERROR"' in summary_formula and '),7)="WARNING"' in summary_formula and 'Rounding broke protection balance' not in summary_formula)
 
     report = f'''# PERCENT_GRID_VALIDATION_REPORT_V3_RU
 
@@ -68,6 +70,7 @@ def main():
 
 ## 11. Summary direction-switch
 - Summary uses IF(Settings!Direction...) for final fields/statuses: **{ok(summary_switch_ok)}**.
+- Final Summary Status universal ERROR/WARNING handling: **{ok(summary_universal_error_ok)}**.
 
 ## 12. Dashboard integrity
 - Required V3 sheets exist: **{ok(sheets_ok)}**.
@@ -75,7 +78,7 @@ def main():
 - V3 settings block present (B11:B18): **{ok(settings_v3_ok)}**.
 
 ## Итоговый вердикт
-**{ok(all([sheets_ok, settings_v3_ok, dynamic_step_ok, adaptive_formulas_ok, rounded_cols_ok, margin_formulas_ok, risk_score_ok, adaptive_stop_ok, monte_rows_ok, recovery_rows_ok, stress_rows_ok, charts_ok, aj_down_ok, aj_up_ok, summary_switch_ok]))}**
+**{ok(all([sheets_ok, settings_v3_ok, dynamic_step_ok, adaptive_formulas_ok, rounded_cols_ok, margin_formulas_ok, risk_score_ok, adaptive_stop_ok, monte_rows_ok, recovery_rows_ok, stress_rows_ok, charts_ok, aj_down_ok, aj_up_ok, summary_switch_ok, summary_universal_error_ok]))}**
 '''
 
     RPT.write_text(report, encoding='utf-8')
