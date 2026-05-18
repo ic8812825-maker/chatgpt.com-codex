@@ -29,9 +29,13 @@
 
 ## 10. Rounded risk logic
 - Rounded total columns AD:AJ present: **OK**.
-- Rounded status formula AJ3 present: **OK**.
+- DownTrend AJ3 baseline condition fix (J>0 gate): **OK**.
+- UpTrend AJ3 baseline condition fix (J>0 gate): **OK**.
 
-## 11. Dashboard integrity
+## 11. Summary direction-switch
+- Summary uses IF(Settings!Direction...) for final fields/statuses: **OK**.
+
+## 12. Dashboard integrity
 - Required V3 sheets exist: **OK**.
 - Summary charts count >= 10: **OK** (found: 10).
 - V3 settings block present (B11:B18): **OK**.

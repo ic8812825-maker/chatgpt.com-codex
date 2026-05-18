@@ -127,7 +127,7 @@ def add_trend_sheet(ws, down=True):
         ws[f"AG{r}"] = 0 if r == 2 else f"=AD{r}+AE{r}"
         ws[f"AH{r}"] = 0 if r == 2 else f"=Settings!$B$2+AF{r}"
         ws[f"AI{r}"] = 0 if r == 2 else f"=AH{r}-AG{r}"
-        ws[f"AJ{r}"] = 0 if r == 2 else f"=IF(OR(AND(C{r}>0,W{r}=0),AND(E{r}>0,Y{r}=0),Settings!$B$2<Settings!$B$5),\"ERROR: LotStep too coarse\",IF(AG{r}>AH{r},\"ERROR: Rounded balance broken\",IF(AI{r}<Settings!$B$2*Settings!$B$7/100,\"WARNING\",\"OK\")))"
+        ws[f"AJ{r}"] = 0 if r == 2 else f"=IF(OR(AND(C{r}>0,W{r}=0),AND(E{r}>0,Y{r}=0),Settings!$B$2<Settings!$B$5),\"ERROR: LotStep too coarse\",IF(AG{r}>AH{r},\"ERROR: Rounded balance broken\",IF(AND(J{r}>0,AI{r}<Settings!$B$2*J{r}/100),\"WARNING\",\"OK\")))"
 
     ws.conditional_formatting.add("AB2:AB41", FormulaRule(formula=['AB2="SAFE"'], fill=PatternFill("solid", fgColor="C6EFCE")))
     ws.conditional_formatting.add("AB2:AB41", FormulaRule(formula=['AB2="FIXED"'], fill=PatternFill("solid", fgColor="9CC2E5")))
@@ -213,12 +213,14 @@ def add_summary_and_dashboard(wb):
     sm["A1"].font = Font(bold=True)
     pairs = [
         ("StartLot", "=Settings!B2"), ("Direction", "=Settings!B10"),
-        ("Final Total BUY %", "=INDEX(DownTrend!Q:Q,Settings!B4+3)"), ("Final Total SELL %", "=INDEX(DownTrend!R:R,Settings!B4+3)"),
-        ("Final Skew %", "=INDEX(DownTrend!S:S,Settings!B4+3)"), ("Final id1 Remaining %", "=INDEX(DownTrend!N:N,Settings!B4+3)"),
+        ("Final Total BUY %", '=IF(Settings!$B$10="DOWN",INDEX(DownTrend!Q:Q,Settings!B4+3),INDEX(UpTrend!R:R,Settings!B4+3))'),
+        ("Final Total SELL %", '=IF(Settings!$B$10="DOWN",INDEX(DownTrend!R:R,Settings!B4+3),INDEX(UpTrend!Q:Q,Settings!B4+3))'),
+        ("Final Skew %", '=IF(Settings!$B$10="DOWN",INDEX(DownTrend!S:S,Settings!B4+3),INDEX(UpTrend!S:S,Settings!B4+3))'),
+        ("Final id1 Remaining %", '=IF(Settings!$B$10="DOWN",INDEX(DownTrend!N:N,Settings!B4+3),INDEX(UpTrend!N:N,Settings!B4+3))'),
         ("Adaptive Step", "=MarketModel!B16"), ("ATR Regime", "=MarketModel!B11"), ("Margin Load", "=MarginControl!B13"),
         ("Risk Score", "=RiskDashboard!B4"), ("Risk Status", "=RiskDashboard!B5"), ("Survival Probability", "=RiskDashboard!B7"),
-        ("Final System Status", '=IF(COUNTIF(DownTrend!T3:INDEX(DownTrend!T:T,Settings!B4+3),"ERROR*")+COUNTIF(UpTrend!T3:INDEX(UpTrend!T:T,Settings!B4+3),"ERROR*")>0,"ERROR",IF(COUNTIF(DownTrend!T3:INDEX(DownTrend!T:T,Settings!B4+3),"WARNING*")+COUNTIF(UpTrend!T3:INDEX(UpTrend!T:T,Settings!B4+3),"WARNING*")>0,"WARNING","OK"))'),
-        ("Rounded System Status", '=IF(COUNTIF(DownTrend!AJ3:INDEX(DownTrend!AJ:AJ,Settings!B4+3),"ERROR*")+COUNTIF(UpTrend!AJ3:INDEX(UpTrend!AJ:AJ,Settings!B4+3),"ERROR*")>0,"ERROR",IF(COUNTIF(DownTrend!AJ3:INDEX(DownTrend!AJ:AJ,Settings!B4+3),"WARNING*")+COUNTIF(UpTrend!AJ3:INDEX(UpTrend!AJ:AJ,Settings!B4+3),"WARNING*")>0,"WARNING","OK"))'),
+        ("Final System Status", '=IF(Settings!$B$10="DOWN",IF(OR(INDEX(DownTrend!T:T,Settings!B4+3)="ERROR: Rounding broke protection balance",LEFT(INDEX(DownTrend!AJ:AJ,Settings!B4+3),5)="ERROR"),"ERROR",IF(OR(LEFT(INDEX(DownTrend!T:T,Settings!B4+3),7)="WARNING",INDEX(DownTrend!AJ:AJ,Settings!B4+3)="WARNING"),"WARNING","OK")),IF(OR(INDEX(UpTrend!T:T,Settings!B4+3)="ERROR: Rounding broke protection balance",LEFT(INDEX(UpTrend!AJ:AJ,Settings!B4+3),5)="ERROR"),"ERROR",IF(OR(LEFT(INDEX(UpTrend!T:T,Settings!B4+3),7)="WARNING",INDEX(UpTrend!AJ:AJ,Settings!B4+3)="WARNING"),"WARNING","OK")))'),
+        ("Rounded System Status", '=IF(Settings!$B$10="DOWN",INDEX(DownTrend!AJ:AJ,Settings!B4+3),INDEX(UpTrend!AJ:AJ,Settings!B4+3))'),
     ]
     for i, (k, f) in enumerate(pairs, 3):
         sm[f"A{i}"] = k
