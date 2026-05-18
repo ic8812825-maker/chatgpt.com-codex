@@ -27,7 +27,11 @@
 ## 9. Stress tests
 - StressTest scenario table present: **OK**.
 
-## 10. Dashboard integrity
+## 10. Rounded risk logic
+- Rounded total columns AD:AJ present: **OK**.
+- Rounded status formula AJ3 present: **OK**.
+
+## 11. Dashboard integrity
 - Required V3 sheets exist: **OK**.
 - Summary charts count >= 10: **OK** (found: 10).
 - V3 settings block present (B11:B18): **OK**.

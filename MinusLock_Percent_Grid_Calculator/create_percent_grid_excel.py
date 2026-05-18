@@ -212,9 +212,13 @@ def add_summary_and_dashboard(wb):
     sm["A1"] = "V3 Dashboard Summary"
     sm["A1"].font = Font(bold=True)
     pairs = [
-        ("StartLot", "=Settings!B2"), ("Direction", "=Settings!B10"), ("Adaptive Step", "=MarketModel!B16"),
-        ("ATR Regime", "=MarketModel!B11"), ("Margin Load", "=MarginControl!B13"), ("Risk Score", "=RiskDashboard!B4"),
-        ("Max Safe Levels", "=MarginControl!B17"), ("Survival Probability", "=RiskDashboard!B7"),
+        ("StartLot", "=Settings!B2"), ("Direction", "=Settings!B10"),
+        ("Final Total BUY %", "=INDEX(DownTrend!Q:Q,Settings!B4+3)"), ("Final Total SELL %", "=INDEX(DownTrend!R:R,Settings!B4+3)"),
+        ("Final Skew %", "=INDEX(DownTrend!S:S,Settings!B4+3)"), ("Final id1 Remaining %", "=INDEX(DownTrend!N:N,Settings!B4+3)"),
+        ("Adaptive Step", "=MarketModel!B16"), ("ATR Regime", "=MarketModel!B11"), ("Margin Load", "=MarginControl!B13"),
+        ("Risk Score", "=RiskDashboard!B4"), ("Risk Status", "=RiskDashboard!B5"), ("Survival Probability", "=RiskDashboard!B7"),
+        ("Final System Status", '=IF(COUNTIF(DownTrend!T3:INDEX(DownTrend!T:T,Settings!B4+3),"ERROR*")+COUNTIF(UpTrend!T3:INDEX(UpTrend!T:T,Settings!B4+3),"ERROR*")>0,"ERROR",IF(COUNTIF(DownTrend!T3:INDEX(DownTrend!T:T,Settings!B4+3),"WARNING*")+COUNTIF(UpTrend!T3:INDEX(UpTrend!T:T,Settings!B4+3),"WARNING*")>0,"WARNING","OK"))'),
+        ("Rounded System Status", '=IF(COUNTIF(DownTrend!AJ3:INDEX(DownTrend!AJ:AJ,Settings!B4+3),"ERROR*")+COUNTIF(UpTrend!AJ3:INDEX(UpTrend!AJ:AJ,Settings!B4+3),"ERROR*")>0,"ERROR",IF(COUNTIF(DownTrend!AJ3:INDEX(DownTrend!AJ:AJ,Settings!B4+3),"WARNING*")+COUNTIF(UpTrend!AJ3:INDEX(UpTrend!AJ:AJ,Settings!B4+3),"WARNING*")>0,"WARNING","OK"))'),
     ]
     for i, (k, f) in enumerate(pairs, 3):
         sm[f"A{i}"] = k
@@ -239,13 +243,19 @@ def add_checks(ws):
     ws["A1"] = "Checks"
     ws["A1"].font = Font(bold=True)
     checks = [
-        ("Big>=Small", '=IF(SUMPRODUCT(--(DownTrend!C3:C41<DownTrend!E3:E41))+SUMPRODUCT(--(UpTrend!C3:C41<UpTrend!E3:E41))>0,"ERROR","OK")'),
-        ("TotalBUY<=TotalSELL Down", '=IF(SUMPRODUCT(--(DownTrend!Q3:Q41>DownTrend!R3:R41))>0,"ERROR","OK")'),
-        ("TotalSELL<=TotalBUY Up", '=IF(SUMPRODUCT(--(UpTrend!Q3:Q41>UpTrend!R3:R41))>0,"ERROR","OK")'),
-        ("SAFE rounding preserved", '=IF(OR(COUNTIF(DownTrend!AB3:AB41,"ERROR")>0,COUNTIF(UpTrend!AB3:AB41,"ERROR")>0),"ERROR","OK")'),
         ("Invalid StartLot", '=IF(OR(NOT(ISNUMBER(Settings!B2)),Settings!B2<=0),"ERROR","OK")'),
         ("Invalid LotStep", '=IF(OR(NOT(ISNUMBER(Settings!B5)),Settings!B5<=0),"ERROR","OK")'),
         ("Invalid Direction", '=IF(AND(Settings!B10<>"DOWN",Settings!B10<>"UP"),"ERROR","OK")'),
+        ("Negative values", '=IF(OR(MIN(Settings!B22:E200)<0,MIN(DownTrend!N3:N41)<0,MIN(UpTrend!N3:N41)<0),"ERROR","OK")'),
+        ("Big < Small", '=IF(SUMPRODUCT(--(DownTrend!C3:C41<DownTrend!E3:E41))+SUMPRODUCT(--(UpTrend!C3:C41<UpTrend!E3:E41))>0,"ERROR","OK")'),
+        ("ManualClose > Remaining", '=IF(OR(SUMPRODUCT(--(DownTrend!L3:L41>DownTrend!G3:G41))>0,SUMPRODUCT(--(UpTrend!L3:L41>UpTrend!G3:G41))>0),"ERROR","OK")'),
+        ("Remaining < 0", '=IF(OR(MIN(DownTrend!N3:N41)<0,MIN(UpTrend!N3:N41)<0),"ERROR","OK")'),
+        ("Protection balance", '=IF(OR(SUMPRODUCT(--(DownTrend!Q3:Q41>DownTrend!R3:R41))>0,SUMPRODUCT(--(UpTrend!Q3:Q41>UpTrend!R3:R41))>0),"ERROR","OK")'),
+        ("Rounded safety preserved", '=IF(OR(COUNTIF(DownTrend!AJ3:AJ41,"ERROR*")>0,COUNTIF(UpTrend!AJ3:AJ41,"ERROR*")>0),"ERROR","OK")'),
+        ("Rounded Big zero", '=IF(OR(SUMPRODUCT(--(DownTrend!C3:C41>0),--(DownTrend!W3:W41=0))>0,SUMPRODUCT(--(UpTrend!C3:C41>0),--(UpTrend!W3:W41=0))>0),"ERROR","OK")'),
+        ("Rounded Small zero", '=IF(OR(SUMPRODUCT(--(DownTrend!E3:E41>0),--(DownTrend!Y3:Y41=0))>0,SUMPRODUCT(--(UpTrend!E3:E41>0),--(UpTrend!Y3:Y41=0))>0),"ERROR","OK")'),
+        ("LotStep too coarse", '=IF(Settings!B2<Settings!B5,"ERROR","OK")'),
+        ("FinalStatus from T/AJ", '=IF(OR(COUNTIF(DownTrend!T3:T41,"ERROR*")>0,COUNTIF(UpTrend!T3:T41,"ERROR*")>0,COUNTIF(DownTrend!AJ3:AJ41,"ERROR*")>0,COUNTIF(UpTrend!AJ3:AJ41,"ERROR*")>0),"ERROR",IF(OR(COUNTIF(DownTrend!T3:T41,"WARNING*")>0,COUNTIF(UpTrend!T3:T41,"WARNING*")>0,COUNTIF(DownTrend!AJ3:AJ41,"WARNING*")>0,COUNTIF(UpTrend!AJ3:AJ41,"WARNING*")>0),"WARNING","OK"))'),
     ]
     for i, (k, f) in enumerate(checks, 2):
         ws[f"A{i}"] = k
