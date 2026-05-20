@@ -86,6 +86,8 @@ def main():
     expect(c["W35"].value == '=$B$2*Q35/100+SUM($G$35:G35)', "W35 formula")
     expect(c["X26"].value == '=$B$2+SUM($I$26:I26)', "X26 formula")
     expect(c["Y26"].value == '=X26-W26', "Y26 formula")
+    expect("E26<>" in c["Z26"].value, "status formula Z26 manualclose check")
+    expect("AND(D26>0,Y26<($B$2*D26/100))" in c["Z26"].value, "status formula Z26 warning check")
 
     b = baseline()
     down_rows = [26, 27, 28, 29, 30]
@@ -114,7 +116,7 @@ def main():
     t = wb["Tests"]
     expect(t.max_row >= 38, "tests manualclose block missing")
     names=[t[f"A{r}"].value for r in range(2,t.max_row+1)]
-    for req in ["Empty ManualClose uses AutoClose","ManualClose override works","Empty ManualClose is blank not zero"]:
+    for req in ["Empty ManualClose uses AutoClose","ManualClose override works","Empty ManualClose is blank not zero","Down Level1 Status","Down Level2 Status","Down Level5 Status","Up Level1 Status","Up Level2 Status","Up Level5 Status","Summary Final Rounded Status","Summary Final System Status"]:
         expect(req in names, f"missing test {req}")
     for r in range(2, t.max_row + 1):
         if t[f"A{r}"].value:
