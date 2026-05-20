@@ -72,6 +72,14 @@ def main():
                 if cell.value in ERR:
                     die(f"formula error literal at {ws.title}!{cell.coordinate}")
 
+
+    # manual close pass-through must preserve blank
+    for r,src in [(26,18),(27,19),(28,20),(29,21),(30,22),(35,18),(36,19),(37,20),(38,21),(39,22)]:
+        expect(c[f"E{r}"].value == f'=IF(E{src}="","",E{src})', f"manual close pass-through E{r}")
+
+    # final close fallback formulas
+    for r in [26,27,28,29,30,35,36,37,38,39]:
+        expect(c[f"N{r}"].value == f'=MIN(J{r},IF(E{r}="",M{r},E{r}))', f"final close formula N{r}")
     # exact critical formulas
     expect(c["W26"].value == '=$B$2*Q26/100+SUM($G$26:G26)', "W26 formula")
     expect(c["W27"].value == '=$B$2*Q27/100+SUM($G$26:G27)', "W27 formula")
@@ -104,7 +112,10 @@ def main():
         expect(isinstance(v, str) and 'IF(B6="DOWN"' in v, f"summary formula {cell}")
 
     t = wb["Tests"]
-    expect(t.max_row >= 35, "tests rounded block missing")
+    expect(t.max_row >= 38, "tests manualclose block missing")
+    names=[t[f"A{r}"].value for r in range(2,t.max_row+1)]
+    for req in ["Empty ManualClose uses AutoClose","ManualClose override works","Empty ManualClose is blank not zero"]:
+        expect(req in names, f"missing test {req}")
     for r in range(2, t.max_row + 1):
         if t[f"A{r}"].value:
             expect(isinstance(t[f"D{r}"].value, str) and "PASS" in t[f"D{r}"].value and "FAIL" in t[f"D{r}"].value, f"bad test result formula D{r}")

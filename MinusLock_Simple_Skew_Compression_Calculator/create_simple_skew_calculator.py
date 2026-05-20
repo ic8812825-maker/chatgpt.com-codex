@@ -32,7 +32,7 @@ def build_calc(ws):
         for c,h in enumerate(heads,1): ws.cell(start+1,c,h).font=Font(bold=True)
         for i,r in enumerate(range(start+2,start+7),start=18):
             p=r-1
-            ws[f"A{r}"]=f"=A{i}"; ws[f"B{r}"]=f"=B{i}"; ws[f"C{r}"]=f"=C{i}"; ws[f"D{r}"]=f"=D{i}"; ws[f"E{r}"]=f"=E{i}"
+            ws[f"A{r}"]=f"=A{i}"; ws[f"B{r}"]=f"=B{i}"; ws[f"C{r}"]=f"=C{i}"; ws[f"D{r}"]=f"=D{i}"; ws[f"E{r}"]=f"=IF(E{i}=\"\",\"\",E{i})"
             ws[f"F{r}"]=f"=$B$2*B{r}/100"; ws[f"G{r}"]=f"=IF($B$7,FLOOR(F{r},$B$5),F{r})"
             ws[f"H{r}"]=f"=$B$2*C{r}/100"; ws[f"I{r}"]=f"=IF($B$7,CEILING(H{r},$B$5),H{r})"
             ws[f"J{r}"]="=100" if r==start+2 else f"=Q{p}"
@@ -64,7 +64,10 @@ def build_tests(ws):
       ("Up L1 Rounded Main",'=Calculator!W35',1.30,True),("Up L1 Rounded Opp",'=Calculator!X35',1.30,True),("Up L1 Rounded Skew",'=Calculator!Y35',0.00,True),("Up L1 Status",'=Calculator!Z35','OK',False),
       ("Up L2 Rounded Main",'=Calculator!W36',1.30,True),("Up L2 Rounded Opp",'=Calculator!X36',1.45,True),("Up L2 Rounded Skew",'=Calculator!Y36',0.15,True),("Up L2 Status",'=Calculator!Z36','OK',False),
       ("Up Final Rounded Main",'=Calculator!W39',1.65,True),("Up Final Rounded Opp",'=Calculator!X39',1.75,True),("Up Final Rounded Skew",'=Calculator!Y39',0.10,True),("Up Final Status",'=Calculator!Z39','OK',False),
-      ("Summary Final Rounded Status",'=Calculator!B51','OK',False),("Summary Final System Status",'=Calculator!B52','OK',False)
+      ("Summary Final Rounded Status",'=Calculator!B51','OK',False),("Summary Final System Status",'=Calculator!B52','OK',False),
+      ("Empty ManualClose uses AutoClose",'=IF(AND(ABS(Calculator!N26-Calculator!M26)<0.000001,ABS(Calculator!N27-Calculator!M27)<0.000001,ABS(Calculator!N35-Calculator!M35)<0.000001),"PASS","FAIL")','PASS',False),
+      ("ManualClose override works",'=IF(AND(MIN(Calculator!J26,IF(50="",Calculator!M26,50))=50,MIN(Calculator!J35,IF(50="",Calculator!M35,50))=50),"PASS","FAIL")','PASS',False),
+      ("Empty ManualClose is blank not zero",'=IF(AND(Calculator!E26="",Calculator!E27="",Calculator!E28="",Calculator!E35="",Calculator!E36="",Calculator!E37=""),"PASS","FAIL")','PASS',False)
     ]
     for i,(n,a,e,num) in enumerate(rows,2):
         ws[f"A{i}"]=n; ws[f"B{i}"]=a; ws[f"C{i}"]=e
