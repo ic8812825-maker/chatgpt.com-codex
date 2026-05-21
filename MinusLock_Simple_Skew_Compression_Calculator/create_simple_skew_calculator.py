@@ -41,7 +41,6 @@ def build_calc(ws):
             ws[f"M{r}"]=f"=MIN(J{r},MAX(0,K{r}-L{r}+D{r}))"
             ws[f"N{r}"]=f"=MIN(J{r},IF(E{r}=\"\",M{r},E{r}))"
             ws[f"O{r}"]=f"=$B$2*N{r}/100"; ws[f"P{r}"]=f"=MIN($B$2*J{r}/100,IF($B$7,CEILING(O{r},$B$5),O{r}))"
-            ws[f"Q{r}"]=f"=J{r}-N{r}"; ws[f"T{r}"]=f"=Q{r}+R{r}"; ws[f"U{r}"]=f"=100+S{r}"; ws[f"V{r}"]=f"=U{r}-T{r}"
             ws[f"W{r}"]=f"=$B$2*Q{r}/100+SUM($G${start+2}:G{r})"
             ws[f"X{r}"]=f"=$B$2+SUM($I${start+2}:I{r})"; ws[f"Y{r}"]=f"=X{r}-W{r}"
             ws[f"Z{r}"]=(f"=IF(OR($B$2<=0,$B$5<=0,$B$4<1,NOT(OR($B$6=\"DOWN\",$B$6=\"UP\"))),\"ERROR\",IF(B{r}<C{r},\"ERROR\",IF(AND(E{r}<>\"\",E{r}>J{r}),\"ERROR\",IF(T{r}>U{r},\"ERROR\",IF(W{r}>X{r},\"ERROR\",IF(AND(B{r}>0,G{r}=0),\"ERROR\",IF(AND(C{r}>0,I{r}=0),\"ERROR\",IF(AND(D{r}>0,ROUND(Y{r},6)<ROUND($B$2*D{r}/100,6)),\"WARNING\",\"OK\"))))))))")
@@ -78,7 +77,7 @@ def build_calc(ws):
         ws[f"R{r}"]=f'=IF($B$6="DOWN",X{down},X{up})'
         ws[f"S{r}"]=f'=IF($B$6="DOWN",Y{down},Y{up})'
         ws[f"T{r}"]=f'=IF($B$6="DOWN",Z{down},Z{up})'
-        ws[f"U{r}"]=f'="Level "&A{r}&": "&IF($B$6="DOWN","price goes DOWN. ","price goes UP. ")&C{r}&" "&TEXT(E{r},"0.00")&" lot, "&F{r}&" "&TEXT(H{r},"0.00")&" lot, "&I{r}&" "&TEXT(K{r},"0.00")&" lot. Start remains "&TEXT(M{r},"0.00")&" lot. Status: "&T{r}'
+        ws[f"U{r}"]=f'="Level "&A{r}&": "&IF($B$6="DOWN","price goes DOWN. ","price goes UP. ")&C{r}&" "&ROUND(E{r},2)&" lot, "&F{r}&" "&ROUND(H{r},2)&" lot, "&I{r}&" "&ROUND(K{r},2)&" lot. "&"Start remains "&ROUND(M{r},2)&" lot. "&"Total Main = "&N{r}&"%, "&"Total Opposite = "&O{r}&"%, "&"Skew = "&P{r}&"%, "&"Status = "&T{r}&"."'
 
 
 def build_human_sheet(ws):
@@ -108,7 +107,15 @@ def build_tests(ws):
       ("Human Sum Big Lots",'=HumanSummary!B11',1.55,True),("Human Sum Small Lots",'=HumanSummary!B12',0.75,True),("Human Sum Close Lots",'=HumanSummary!B13',0.90,True),("Human Final Start Remaining Lot",'=HumanSummary!B14',0.10,True),
       ("Human Final Status",'=HumanSummary!B21','OK',False),("Human Level 1 Big Action",'=HumanSummary!C3','Open Big BUY',False),("Human Level 1 Small Action",'=HumanSummary!F3','Open Small SELL',False),("Human Level 1 Close Action",'=HumanSummary!I3','Close Start BUY',False),
       ("Human UP Big Action",'=IF(Calculator!B6="UP",HumanSummary!C3,"SKIP")','Open Big SELL',False),
-      ("Summary Final System Status",'=Calculator!B52','OK',False)
+      ("Summary Final System Status",'=Calculator!B52','OK',False),
+      ("Human Comment L1 is text",'=IF(LEN(HumanSummary!U3)>0,"PASS","FAIL")','PASS',False),
+      ("Human Comment L1 no #VALUE",'=IF(ISNUMBER(SEARCH("#VALUE",HumanSummary!U3)),"FAIL","PASS")','PASS',False),
+      ("Human Comment L1 no #ИМЯ",'=IF(ISNUMBER(SEARCH("#ИМЯ",HumanSummary!U3)),"FAIL","PASS")','PASS',False),
+      ("Human Comment L1 has Open Big BUY",'=IF(ISNUMBER(SEARCH("Open Big BUY",HumanSummary!U3)),"PASS","FAIL")','PASS',False),
+      ("Human Comment L1 has Close Start BUY",'=IF(ISNUMBER(SEARCH("Close Start BUY",HumanSummary!U3)),"PASS","FAIL")','PASS',False),
+      ("Human Comment L1 has Status",'=IF(ISNUMBER(SEARCH("Status =",HumanSummary!U3)),"PASS","FAIL")','PASS',False),
+      ("Human Comment L5 is text",'=IF(LEN(HumanSummary!U7)>0,"PASS","FAIL")','PASS',False),
+      ("Human Comment L5 no error",'=IF(OR(ISNUMBER(SEARCH("#VALUE",HumanSummary!U7)),ISNUMBER(SEARCH("#ИМЯ",HumanSummary!U7)),ISNUMBER(SEARCH("#NAME",HumanSummary!U7))),"FAIL","PASS")','PASS',False)
     ]
     for i,(n,a,e,num) in enumerate(rows,2):
         ws[f"A{i}"]=n; ws[f"B{i}"]=a; ws[f"C{i}"]=e

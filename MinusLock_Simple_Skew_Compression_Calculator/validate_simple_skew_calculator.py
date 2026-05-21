@@ -45,9 +45,15 @@ def main():
     expect(c["T57"].value == '=IF($B$6="DOWN",Z26,Z35)', "human L1 status source")
     expect("#NAME" not in str(c["U57"].value).upper() and "#ИМЯ" not in str(c["U57"].value).upper(), "human comment formula broken")
 
+    # human comment formulas and content guards
+    expect(isinstance(c["U57"].value,str) and "ROUND(E57,2)" in c["U57"].value, "human comment formula U57")
+    expect(isinstance(c["U61"].value,str) and "Status = " in c["U61"].value, "human comment formula U61")
+    for marker in ["#ИМЯ","#NAME","#VALUE","#ЗНАЧ"]:
+        expect(marker not in str(c["U57"].value), f"human comment marker {marker} in formula")
+
     # tests include human rows
     names=[t[f"A{r}"].value for r in range(2,t.max_row+1)]
-    for req in ["Human Sum Big Lots","Human Sum Small Lots","Human Sum Close Lots","Human Final Start Remaining Lot","Human Final Status","Human Level 1 Big Action","Human Level 1 Small Action","Human Level 1 Close Action"]:
+    for req in ["Human Sum Big Lots","Human Sum Small Lots","Human Sum Close Lots","Human Final Start Remaining Lot","Human Final Status","Human Level 1 Big Action","Human Level 1 Small Action","Human Level 1 Close Action","Human Comment L1 is text","Human Comment L1 no #VALUE","Human Comment L1 no #ИМЯ","Human Comment L5 is text","Human Comment L5 no error"]:
         expect(req in names, f"missing test {req}")
 
     print("ALL TESTS PASSED")
