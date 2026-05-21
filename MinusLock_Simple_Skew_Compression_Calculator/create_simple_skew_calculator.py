@@ -56,27 +56,29 @@ def build_calc(ws):
     human_headers=["Level","Direction","Action Big","Big %","Big Lot","Action Small","Small %","Small Lot","Close Action","Close %","Close Lot","Start Remaining %","Start Remaining Lot","Total Main %","Total Opposite %","Skew %","Rounded Main Lot","Rounded Opp Lot","Rounded Skew Lot","Status","Human Comment"]
     for c,h in enumerate(human_headers,1): ws.cell(56,c,h).font=Font(bold=True)
     for r in range(57,62):
-        i=r-39
-        ws[f"A{r}"]=f"=A{i}"; ws[f"B{r}"]='=$B$6'
+        lvl=r-56
+        down=25+lvl
+        up=34+lvl
+        ws[f"A{r}"]=lvl; ws[f"B{r}"]='=$B$6'
         ws[f"C{r}"]=f'=IF($B$6="DOWN","Open Big BUY","Open Big SELL")'
-        ws[f"D{r}"]=f'=IF($B$6="DOWN",B{i},B{i})'
-        ws[f"E{r}"]=f'=IF($B$6="DOWN",G{i},G{i+9})'
+        ws[f"D{r}"]=f'=IF($B$6="DOWN",B{down},B{up})'
+        ws[f"E{r}"]=f'=IF($B$6="DOWN",G{down},G{up})'
         ws[f"F{r}"]=f'=IF($B$6="DOWN","Open Small SELL","Open Small BUY")'
-        ws[f"G{r}"]=f'=IF($B$6="DOWN",C{i},C{i})'
-        ws[f"H{r}"]=f'=IF($B$6="DOWN",I{i},I{i+9})'
+        ws[f"G{r}"]=f'=IF($B$6="DOWN",C{down},C{up})'
+        ws[f"H{r}"]=f'=IF($B$6="DOWN",I{down},I{up})'
         ws[f"I{r}"]=f'=IF($B$6="DOWN","Close Start BUY","Close Start SELL")'
-        ws[f"J{r}"]=f'=IF($B$6="DOWN",N{i},N{i+9})'
-        ws[f"K{r}"]=f'=IF($B$6="DOWN",P{i},P{i+9})'
-        ws[f"L{r}"]=f'=IF($B$6="DOWN",Q{i},Q{i+9})'
+        ws[f"J{r}"]=f'=IF($B$6="DOWN",N{down},N{up})'
+        ws[f"K{r}"]=f'=IF($B$6="DOWN",P{down},P{up})'
+        ws[f"L{r}"]=f'=IF($B$6="DOWN",Q{down},Q{up})'
         ws[f"M{r}"]=f'=$B$2*L{r}/100'
-        ws[f"N{r}"]=f'=IF($B$6="DOWN",T{i},T{i+9})'
-        ws[f"O{r}"]=f'=IF($B$6="DOWN",U{i},U{i+9})'
-        ws[f"P{r}"]=f'=IF($B$6="DOWN",V{i},V{i+9})'
-        ws[f"Q{r}"]=f'=IF($B$6="DOWN",W{i},W{i+9})'
-        ws[f"R{r}"]=f'=IF($B$6="DOWN",X{i},X{i+9})'
-        ws[f"S{r}"]=f'=IF($B$6="DOWN",Y{i},Y{i+9})'
-        ws[f"T{r}"]=f'=IF($B$6="DOWN",Z{i},Z{i+9})'
-        ws[f"U{r}"]=f'=CONCAT("Level ",A{r},": ",IF($B$6="DOWN","цена идёт вниз","цена идёт вверх"),". ",C{r}," ",TEXT(E{r},"0.00")," lot, ",F{r}," ",TEXT(H{r},"0.00")," lot, ",I{r}," ",TEXT(K{r},"0.00")," lot. Start remaining ",TEXT(M{r},"0.00")," lot. Status=",T{r})'
+        ws[f"N{r}"]=f'=IF($B$6="DOWN",T{down},T{up})'
+        ws[f"O{r}"]=f'=IF($B$6="DOWN",U{down},U{up})'
+        ws[f"P{r}"]=f'=IF($B$6="DOWN",V{down},V{up})'
+        ws[f"Q{r}"]=f'=IF($B$6="DOWN",W{down},W{up})'
+        ws[f"R{r}"]=f'=IF($B$6="DOWN",X{down},X{up})'
+        ws[f"S{r}"]=f'=IF($B$6="DOWN",Y{down},Y{up})'
+        ws[f"T{r}"]=f'=IF($B$6="DOWN",Z{down},Z{up})'
+        ws[f"U{r}"]=f'="Level "&A{r}&": "&IF($B$6="DOWN","price goes DOWN. ","price goes UP. ")&C{r}&" "&TEXT(E{r},"0.00")&" lot, "&F{r}&" "&TEXT(H{r},"0.00")&" lot, "&I{r}&" "&TEXT(K{r},"0.00")&" lot. Start remains "&TEXT(M{r},"0.00")&" lot. Status: "&T{r}'
 
 
 def build_human_sheet(ws):

@@ -35,6 +35,16 @@ def main():
     expect(c["F57"].value is not None and 'Open Small SELL' in c["F57"].value and 'Open Small BUY' in c["F57"].value, "direction action small formula")
     expect(c["I57"].value is not None and 'Close Start BUY' in c["I57"].value and 'Close Start SELL' in c["I57"].value, "direction close formula")
 
+
+    # Human formulas must point to DOWN/UP calc rows, not level-grid rows
+    expect(c["E57"].value == '=IF($B$6="DOWN",G26,G35)', "human L1 big lot source")
+    expect(c["H57"].value == '=IF($B$6="DOWN",I26,I35)', "human L1 small lot source")
+    expect(c["J57"].value == '=IF($B$6="DOWN",N26,N35)', "human L1 close pct source")
+    expect(c["K57"].value == '=IF($B$6="DOWN",P26,P35)', "human L1 close lot source")
+    expect(c["M57"].value == '=$B$2*L57/100', "human L1 start remaining lot formula")
+    expect(c["T57"].value == '=IF($B$6="DOWN",Z26,Z35)', "human L1 status source")
+    expect("#NAME" not in str(c["U57"].value).upper() and "#ИМЯ" not in str(c["U57"].value).upper(), "human comment formula broken")
+
     # tests include human rows
     names=[t[f"A{r}"].value for r in range(2,t.max_row+1)]
     for req in ["Human Sum Big Lots","Human Sum Small Lots","Human Sum Close Lots","Human Final Start Remaining Lot","Human Final Status","Human Level 1 Big Action","Human Level 1 Small Action","Human Level 1 Close Action"]:
