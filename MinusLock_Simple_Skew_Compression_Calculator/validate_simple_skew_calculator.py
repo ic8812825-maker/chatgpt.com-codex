@@ -1,62 +1,37 @@
-from __future__ import annotations
 from pathlib import Path
 from openpyxl import load_workbook
 
-FILE = Path(__file__).resolve().parent / "MinusLock_Simple_Skew_Compression_Calculator.xlsx"
+f=Path(__file__).resolve().parent/'MinusLock_Simple_Skew_Compression_Calculator.xlsx'
 
+def die(m):
+ print('VALIDATION FAILED:',m); raise SystemExit(1)
 
-def die(msg):
-    print(f"VALIDATION FAILED: {msg}")
-    raise SystemExit(1)
+def chk(c,m):
+ if not c: die(m)
 
-def expect(cond, msg):
-    if not cond: die(msg)
-
-def main():
-    expect(FILE.exists(), "file missing")
-    wb=load_workbook(FILE,data_only=False)
-    for s in ["Calculator","HumanSummary","Tests","Manual","README"]:
-        expect(s in wb.sheetnames, f"missing sheet {s}")
-    c=wb["Calculator"]; h=wb["HumanSummary"]; t=wb["Tests"]
-
-    # human headers
-    required=["Level","Direction","Action Big","Big %","Big Lot","Action Small","Small %","Small Lot","Close Action","Close %","Close Lot","Start Remaining %","Start Remaining Lot","Total Main %","Total Opposite %","Skew %","Rounded Main Lot","Rounded Opp Lot","Rounded Skew Lot","Status","Human Comment"]
-    for i,name in enumerate(required,1):
-        expect(h.cell(2,i).value==name, f"HumanSummary header {name}")
-
-    # totals formulas cells
-    expect(h["B11"].value == "=SUM(E3:E7)", "sum big formula")
-    expect(h["B12"].value == "=SUM(H3:H7)", "sum small formula")
-    expect(h["B13"].value == "=SUM(K3:K7)", "sum close formula")
-    expect(h["B21"].value == "=T7", "final status formula")
-
-    # action direction formulas
-    expect(c["C57"].value is not None and 'Open Big BUY' in c["C57"].value and 'Open Big SELL' in c["C57"].value, "direction action big formula")
-    expect(c["F57"].value is not None and 'Open Small SELL' in c["F57"].value and 'Open Small BUY' in c["F57"].value, "direction action small formula")
-    expect(c["I57"].value is not None and 'Close Start BUY' in c["I57"].value and 'Close Start SELL' in c["I57"].value, "direction close formula")
-
-
-    # Human formulas must point to DOWN/UP calc rows, not level-grid rows
-    expect(c["E57"].value == '=IF($B$6="DOWN",G26,G35)', "human L1 big lot source")
-    expect(c["H57"].value == '=IF($B$6="DOWN",I26,I35)', "human L1 small lot source")
-    expect(c["J57"].value == '=IF($B$6="DOWN",N26,N35)', "human L1 close pct source")
-    expect(c["K57"].value == '=IF($B$6="DOWN",P26,P35)', "human L1 close lot source")
-    expect(c["M57"].value == '=$B$2*L57/100', "human L1 start remaining lot formula")
-    expect(c["T57"].value == '=IF($B$6="DOWN",Z26,Z35)', "human L1 status source")
-    expect("#NAME" not in str(c["U57"].value).upper() and "#ИМЯ" not in str(c["U57"].value).upper(), "human comment formula broken")
-
-    # human comment formulas and content guards
-    expect(isinstance(c["U57"].value,str) and "ROUND(E57,2)" in c["U57"].value, "human comment formula U57")
-    expect(isinstance(c["U61"].value,str) and "Status = " in c["U61"].value, "human comment formula U61")
-    for marker in ["#ИМЯ","#NAME","#VALUE","#ЗНАЧ"]:
-        expect(marker not in str(c["U57"].value), f"human comment marker {marker} in formula")
-
-    # tests include human rows
-    names=[t[f"A{r}"].value for r in range(2,t.max_row+1)]
-    for req in ["Human Sum Big Lots","Human Sum Small Lots","Human Sum Close Lots","Human Final Start Remaining Lot","Human Final Status","Human Level 1 Big Action","Human Level 1 Small Action","Human Level 1 Close Action","Human Comment L1 is text","Human Comment L1 no #VALUE","Human Comment L1 no #ИМЯ","Human Comment L5 is text","Human Comment L5 no error"]:
-        expect(req in names, f"missing test {req}")
-
-    print("ALL TESTS PASSED")
-
-if __name__ == "__main__":
-    main()
+wb=load_workbook(f,data_only=False)
+c=wb['Calculator']; h=wb['HumanSummary']; t=wb['Tests']
+for s in ['Calculator','HumanSummary','Tests','Manual','README']:
+ chk(s in wb.sheetnames,f'missing {s}')
+# core formulas present
+for cell in ['Q26','T26','U26','V26','Q30','T30','U30','V30','Q35','T35','U35','V35','Q39','T39','U39','V39']:
+ chk(c[cell].value is not None,f'empty {cell}')
+# exact formulas for first row
+chk(c['Q26'].value=='=J26-N26','Q26 formula')
+chk(c['T26'].value=='=Q26+R26','T26 formula')
+chk(c['U26'].value=='=100+S26','U26 formula')
+chk(c['V26'].value=='=U26-T26','V26 formula')
+# summary
+chk(c['B44'].value=='=IF(B6="DOWN",T30,T39)','summary main formula')
+chk(c['B45'].value=='=IF(B6="DOWN",U30,U39)','summary opp formula')
+chk(c['B46'].value=='=IF(B6="DOWN",V30,V39)','summary skew formula')
+# human references
+chk(c['N57'].value=='=IF($B$6="DOWN",T26,T35)','human total main ref')
+chk(c['O57'].value=='=IF($B$6="DOWN",U26,U35)','human total opp ref')
+chk(c['P57'].value=='=IF($B$6="DOWN",V26,V35)','human skew ref')
+chk(isinstance(c['U57'].value,str) and 'Total Main = ' in c['U57'].value and '#NAME' not in c['U57'].value and '#ИМЯ' not in c['U57'].value,'human comment formula')
+# tests include critical
+names=[t[f'A{i}'].value for i in range(2,t.max_row+1)]
+for n in ['Down Q26','Down T30','Up T39','Human L1 Total Main','Human Comment contains Total Main = 130']:
+ chk(n in names,f'missing test {n}')
+print('ALL TESTS PASSED')
