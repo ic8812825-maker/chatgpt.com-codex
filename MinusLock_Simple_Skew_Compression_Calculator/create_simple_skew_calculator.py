@@ -44,7 +44,7 @@ def build_calc(ws):
             ws[f"Q{r}"]=f"=J{r}-N{r}"; ws[f"T{r}"]=f"=Q{r}+R{r}"; ws[f"U{r}"]=f"=100+S{r}"; ws[f"V{r}"]=f"=U{r}-T{r}"
             ws[f"W{r}"]=f"=$B$2*Q{r}/100+SUM($G${start+2}:G{r})"
             ws[f"X{r}"]=f"=$B$2+SUM($I${start+2}:I{r})"; ws[f"Y{r}"]=f"=X{r}-W{r}"
-            ws[f"Z{r}"]=(f"=IF(OR($B$2<=0,$B$5<=0,$B$4<1,NOT(OR($B$6=\"DOWN\",$B$6=\"UP\"))),\"ERROR\",IF(B{r}<C{r},\"ERROR\",IF(AND(E{r}<>\"\",E{r}>J{r}),\"ERROR\",IF(T{r}>U{r},\"ERROR\",IF(W{r}>X{r},\"ERROR\",IF(AND(B{r}>0,G{r}=0),\"ERROR\",IF(AND(C{r}>0,I{r}=0),\"ERROR\",IF(AND(D{r}>0,Y{r}<($B$2*D{r}/100)),\"WARNING\",\"OK\"))))))))")
+            ws[f"Z{r}"]=(f"=IF(OR($B$2<=0,$B$5<=0,$B$4<1,NOT(OR($B$6=\"DOWN\",$B$6=\"UP\"))),\"ERROR\",IF(B{r}<C{r},\"ERROR\",IF(AND(E{r}<>\"\",E{r}>J{r}),\"ERROR\",IF(T{r}>U{r},\"ERROR\",IF(W{r}>X{r},\"ERROR\",IF(AND(B{r}>0,G{r}=0),\"ERROR\",IF(AND(C{r}>0,I{r}=0),\"ERROR\",IF(AND(D{r}>0,ROUND(Y{r},6)<ROUND($B$2*D{r}/100,6)),\"WARNING\",\"OK\"))))))))")
 
     table(24,"DOWN CALCULATION"); table(33,"UP CALCULATION")
     title(ws,"A42","SUMMARY")
@@ -64,7 +64,7 @@ def build_tests(ws):
       ("Up L1 Rounded Main",'=Calculator!W35',1.30,True),("Up L1 Rounded Opp",'=Calculator!X35',1.30,True),("Up L1 Rounded Skew",'=Calculator!Y35',0.00,True),("Up L1 Status",'=Calculator!Z35','OK',False),
       ("Up L2 Rounded Main",'=Calculator!W36',1.30,True),("Up L2 Rounded Opp",'=Calculator!X36',1.45,True),("Up L2 Rounded Skew",'=Calculator!Y36',0.15,True),("Up L2 Status",'=Calculator!Z36','OK',False),
       ("Up Final Rounded Main",'=Calculator!W39',1.65,True),("Up Final Rounded Opp",'=Calculator!X39',1.75,True),("Up Final Rounded Skew",'=Calculator!Y39',0.10,True),("Up Final Status",'=Calculator!Z39','OK',False),
-      ("Down Level1 Status",'=Calculator!Z26','OK',False),("Down Level2 Status",'=Calculator!Z27','OK',False),("Down Level5 Status",'=Calculator!Z30','OK',False),("Up Level1 Status",'=Calculator!Z35','OK',False),("Up Level2 Status",'=Calculator!Z36','OK',False),("Up Level5 Status",'=Calculator!Z39','OK',False),("Summary Final Rounded Status",'=Calculator!B51','OK',False),("Summary Final System Status",'=Calculator!B52','OK',False),
+      ("Down Level1 Status",'=Calculator!Z26','OK',False),("Down Level2 Status",'=Calculator!Z27','OK',False),("Down L4 Status",'=Calculator!Z29','OK',False),("Down Level5 Status",'=Calculator!Z30','OK',False),("Up Level1 Status",'=Calculator!Z35','OK',False),("Up Level2 Status",'=Calculator!Z36','OK',False),("Up L4 Status",'=Calculator!Z38','OK',False),("Up Level5 Status",'=Calculator!Z39','OK',False),("Summary Final Rounded Status",'=Calculator!B51','OK',False),("Summary Final System Status",'=Calculator!B52','OK',False),("Summary Final Status",'=Calculator!B52','OK',False),
       ("Empty ManualClose uses AutoClose",'=IF(AND(ABS(Calculator!N26-Calculator!M26)<0.000001,ABS(Calculator!N27-Calculator!M27)<0.000001,ABS(Calculator!N35-Calculator!M35)<0.000001),"PASS","FAIL")','PASS',False),
       ("ManualClose override works",'=IF(AND(MIN(Calculator!J26,IF(50="",Calculator!M26,50))=50,MIN(Calculator!J35,IF(50="",Calculator!M35,50))=50),"PASS","FAIL")','PASS',False),
       ("Empty ManualClose is blank not zero",'=IF(AND(Calculator!E26="",Calculator!E27="",Calculator!E28="",Calculator!E35="",Calculator!E36="",Calculator!E37=""),"PASS","FAIL")','PASS',False)
