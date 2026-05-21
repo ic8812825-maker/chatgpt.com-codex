@@ -34,3 +34,10 @@ pip install -r MinusLock_Simple_Skew_Compression_Calculator/requirements.txt -q
 python MinusLock_Simple_Skew_Compression_Calculator/create_simple_skew_calculator.py
 python MinusLock_Simple_Skew_Compression_Calculator/validate_simple_skew_calculator.py
 ```
+
+
+## Документация
+
+- Краткое описание: README.md
+- Полный мануал: MANUAL_RU.md
+- Excel-файл: MinusLock_Simple_Skew_Compression_Calculator.xlsx

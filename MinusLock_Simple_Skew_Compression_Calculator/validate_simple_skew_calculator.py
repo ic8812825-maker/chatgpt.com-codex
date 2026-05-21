@@ -10,6 +10,18 @@ def chk(c,m):
  if not c: die(m)
 
 wb=load_workbook(f,data_only=False)
+
+from pathlib import Path as _P
+manual=_P(__file__).resolve().parent/'MANUAL_RU.md'
+readme=_P(__file__).resolve().parent/'README.md'
+chk(manual.exists(),'MANUAL_RU.md missing')
+chk(readme.exists(),'README.md missing')
+mt=manual.read_text(encoding='utf-8')
+rt=readme.read_text(encoding='utf-8')
+chk('MANUAL_RU.md' in rt,'README missing MANUAL_RU.md link')
+for key in ['PARAMETERS','LEVEL GRID','DOWN CALCULATION','UP CALCULATION','SUMMARY','HUMAN-READABLE LEVEL SUMMARY','StartLot = 1','StartLot = 2','StartLot = 5']:
+ chk(key in mt,f'MANUAL missing section: {key}')
+
 c=wb['Calculator']; h=wb['HumanSummary']; t=wb['Tests']
 for s in ['Calculator','HumanSummary','Tests','Manual','README']:
  chk(s in wb.sheetnames,f'missing {s}')
