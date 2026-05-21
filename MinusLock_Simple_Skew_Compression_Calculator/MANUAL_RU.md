@@ -238,3 +238,15 @@
 - [ ] HumanSummary показывает реальные лоты и действия
 - [ ] Tests = PASS
 - [ ] Final System Status = OK
+
+## ПАРАМЕТРЫ
+## СЕТКА УРОВНЕЙ
+## DOWN
+## UP
+## SUMMARY
+## HUMAN SUMMARY
+
+### StartLot = 1
+### StartLot = 2
+### StartLot = 5
+
