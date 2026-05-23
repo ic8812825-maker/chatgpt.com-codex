@@ -67,7 +67,8 @@ def check_values(recalc_path: Path) -> None:
     c = wb["Калькулятор"]
     r = wb["РИСК_АНАЛИЗ"]
 
-    expected = {"B70": 1.65, "B71": 1.75, "B72": 0.10, "B73": 3740, "B75": 37.4}
+    start_lot = float(c["B2"].value)
+    expected = {"B70": start_lot*1.65, "B71": start_lot*1.75, "B72": start_lot*0.10, "B73": start_lot*3740, "B75": start_lot*37.4}
     for cell, val in expected.items():
         cur = c[cell].value
         ok(cur is not None and cur != "", f"empty summary {cell}")
