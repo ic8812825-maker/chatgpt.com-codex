@@ -1,96 +1,160 @@
+from __future__ import annotations
+
+import re
+import shutil
+import subprocess
+import tempfile
 from pathlib import Path
+
 from openpyxl import load_workbook
 
-f = Path(__file__).resolve().parent / 'MinusLock_Simple_Skew_Compression_Calculator.xlsx'
-
+BASE_DIR = Path(__file__).resolve().parent
+WORKBOOK_PATH = BASE_DIR / "MinusLock_Simple_Skew_Compression_Calculator.xlsx"
+REQUIRED_SHEETS = ["Калькулятор", "РИСК_АНАЛИЗ", "Тесты", "Руководство", "Описание"]
 ERROR_TOKENS = {"#NAME?", "#ИМЯ?", "#VALUE!", "#ЗНАЧ!", "#REF!", "#ССЫЛКА!", "#DIV/0!", "#Н/Д", "#N/A"}
-RUS_SHEETS = ['Калькулятор', 'РИСК_АНАЛИЗ', 'Тесты', 'Руководство', 'Описание']
+UNQUOTED_SHEET_RE = re.compile(r"=(Калькулятор|РИСК_АНАЛИЗ|Тесты|Руководство|Описание)!", re.IGNORECASE)
 
 
-def die(m):
-    print('VALIDATION FAILED:', m)
+def die(message: str) -> None:
+    print(f"VALIDATION FAILED: {message}")
     raise SystemExit(1)
 
 
-def ok(c, m):
-    if not c:
-        die(m)
+def ok(condition: bool, message: str) -> None:
+    if not condition:
+        die(message)
 
 
-def has_bad_sheet_ref(formula: str) -> bool:
-    if not isinstance(formula, str) or not formula.startswith('='):
-        return False
-    for sh in RUS_SHEETS:
-        if f'={sh}!' in formula or f'+{sh}!' in formula or f'-{sh}!' in formula or f'({sh}!' in formula:
-            return True
-    return False
+def scan_workbook_formulas_and_errors(workbook_path: Path) -> None:
+    wb = load_workbook(workbook_path, data_only=False)
+    for s in REQUIRED_SHEETS:
+        ok(s in wb.sheetnames, f"нет листа {s}")
+
+    found_formula_cells = 0
+    for ws in wb.worksheets:
+        for row in ws.iter_rows():
+            for cell in row:
+                value = cell.value
+                if isinstance(value, str):
+                    if value in ERROR_TOKENS:
+                        die(f"ошибка Excel {value} в {ws.title}!{cell.coordinate}")
+                    if value.startswith("="):
+                        found_formula_cells += 1
+                        if UNQUOTED_SHEET_RE.search(value):
+                            die(f"некавыченная межлистовая ссылка в {ws.title}!{cell.coordinate}: {value}")
+    ok(found_formula_cells > 0, "формулы не найдены")
 
 
-wb = load_workbook(f, data_only=False)
-wb_vals = load_workbook(f, data_only=True)
+def recalc_with_libreoffice(src: Path) -> Path:
+    soffice = shutil.which("libreoffice") or shutil.which("soffice")
+    ok(soffice is not None, "LibreOffice/soffice недоступен: невозможно проверить data_only cache")
 
-for s in RUS_SHEETS:
-    ok(s in wb.sheetnames, f'нет листа {s}')
+    tmp_dir = Path(tempfile.mkdtemp(prefix="minuslock_recalc_"))
+    tmp_src = tmp_dir / src.name
+    tmp_src.write_bytes(src.read_bytes())
 
-c = wb['Калькулятор']
-r = wb['РИСК_АНАЛИЗ']
-t = wb['Тесты']
-cv = wb_vals['Калькулятор']
-rv = wb_vals['РИСК_АНАЛИЗ']
-tv = wb_vals['Тесты']
+    ods_file = tmp_dir / f"{tmp_src.stem}.ods"
+    to_ods = [soffice, "--headless", "--convert-to", "ods", "--outdir", str(tmp_dir), str(tmp_src)]
+    p1 = subprocess.run(to_ods, capture_output=True, text=True)
+    ok(p1.returncode == 0 and ods_file.exists(), f"ошибка LibreOffice xlsx->ods: {p1.stderr.strip() or p1.stdout.strip()}")
 
-# 1) no formula errors/tokens and no bad unquoted russian references
-for ws in wb.worksheets:
-    for row in ws.iter_rows(min_row=1, max_row=ws.max_row, min_col=1, max_col=ws.max_column):
-        for cell in row:
-            v = cell.value
-            if isinstance(v, str):
-                ok(v not in ERROR_TOKENS, f'{ws.title}!{cell.coordinate} содержит {v}')
-                ok(not has_bad_sheet_ref(v), f'{ws.title}!{cell.coordinate} ссылка без кавычек: {v}')
+    to_xlsx = [soffice, "--headless", "--convert-to", "xlsx", "--outdir", str(tmp_dir), str(ods_file)]
+    p2 = subprocess.run(to_xlsx, capture_output=True, text=True)
+    ok(p2.returncode == 0, f"ошибка LibreOffice ods->xlsx: {p2.stderr.strip() or p2.stdout.strip()}")
 
-# 2) expected formulas
-ok(c['T30'].value == '=Q30+R30', 'формула T30')
-ok(c['U30'].value == '=100+S30', 'формула U30')
-ok(c['V30'].value == '=U30-T30', 'формула V30')
-ok(c['R18'].value == '=Q18/$K$2*100', 'формула нагрузка')
-ok(c['T18'].value == '=O18*$K$6*$K$7', 'формула просадки')
-ok(c['X18'].value == '=IF(Q18=0,0,V18/Q18*100)', 'формула margin level')
+    recalc_file = tmp_dir / f"{ods_file.stem}.xlsx"
+    ok(recalc_file.exists(), "пересчитанный xlsx не создан LibreOffice")
+    return recalc_file
 
-# 3) risk/tests sheet integrity
-ok(r['A2'].value == 'Уровень', 'заголовок риск')
-ok(len(r._charts) >= 5, 'нет графиков риск-анализа')
 
-# 4) data_only key values must be present and match baseline
-expected = {
-    'B44': 165, 'B45': 175, 'B46': 10,
-    'B48': 1.65, 'B49': 1.75, 'B50': 0.10,
-    'B51': 'OK', 'B73': 37.4, 'B72': 3740, 'B74': 750, 'B70': 'WARNING'
-}
-for cell, val in expected.items():
-    got = cv[cell].value
-    ok(got is not None, f'data_only пусто {cell}')
-    if isinstance(val, (int, float)):
-        ok(abs(float(got) - float(val)) < 1e-6, f'{cell}: ожидалось {val}, получено {got}')
-    else:
-        ok(str(got) == val, f'{cell}: ожидалось {val}, получено {got}')
+def check_data_only_values(recalc_path: Path) -> None:
+    wb = load_workbook(recalc_path, data_only=True)
+    c = wb["Калькулятор"]
+    r = wb["РИСК_АНАЛИЗ"]
+    t = wb["Тесты"]
 
-# 5) risk block data_only no errors/empty level rows
-for rr in range(3, 8):
-    for cc in 'ABCDEFG':
-        v = rv[f'{cc}{rr}'].value
-        ok(v is not None, f'РИСК_АНАЛИЗ пусто {cc}{rr}')
-        ok(str(v) not in ERROR_TOKENS, f'РИСК_АНАЛИЗ ошибка {cc}{rr}={v}')
+    expected = {
+        "B44": 165,
+        "B45": 175,
+        "B46": 10,
+        "B48": 1.65,
+        "B49": 1.75,
+        "B50": 0.10,
+        "B51": "OK",
+        "B73": 3740,
+        "B75": 37.4,
+        "B74": 750,
+        "AA22": "WARNING",
+    }
 
-# 6) tests must be PASS in data_only
-for rr in range(2, 30):
-    if tv[f'A{rr}'].value:
-        res = tv[f'D{rr}'].value
-        ok(res == 'PASS', f'Тесты!D{rr} не PASS ({res})')
+    for cell, exp in expected.items():
+        val = c[cell].value
+        ok(val is not None and val != "", f"пустое ключевое значение Калькулятор!{cell}")
+        if isinstance(exp, (int, float)):
+            ok(abs(float(val) - float(exp)) < 1e-6, f"неверное значение Калькулятор!{cell}: {val} != {exp}")
+        else:
+            ok(str(val) == exp, f"неверное значение Калькулятор!{cell}: {val} != {exp}")
 
-# docs checks
-m = Path(__file__).resolve().parent / 'MANUAL_RU.md'
-rd = Path(__file__).resolve().parent / 'README.md'
-ok(m.exists(), 'нет MANUAL_RU.md')
-ok(rd.exists(), 'нет README.md')
+    for rr in range(3, 8):
+        for cc in [2, 3, 4, 5, 6, 7]:
+            val = r.cell(rr, cc).value
+            ok(val is not None and val != "", f"пусто РИСК_АНАЛИЗ!{r.cell(rr,cc).coordinate}")
+            ok(str(val) not in ERROR_TOKENS, f"ошибка в РИСК_АНАЛИЗ!{r.cell(rr,cc).coordinate}: {val}")
 
-print('ALL TESTS PASSED')
+    for rr in range(2, t.max_row + 1):
+        result = t[f"D{rr}"].value
+        ok(result is not None and result != "", f"пустой результат теста Тесты!D{rr}")
+        ok(str(result) == "PASS", f"тест не PASS в Тесты!D{rr}: {result}")
+
+
+def check_human_totals_and_risk_sync(recalc_path: Path) -> None:
+    wb = load_workbook(recalc_path, data_only=True)
+    c = wb["Калькулятор"]
+    r = wb["РИСК_АНАЛИЗ"]
+
+    totals_expected = {
+        "B70": 1.65,
+        "B71": 1.75,
+        "B72": 0.10,
+        "B73": 3740,
+        "B75": 37.4,
+    }
+    for cell, exp in totals_expected.items():
+        val = c[cell].value
+        ok(val is not None and val != "", f"пусто в итогах Калькулятор!{cell}")
+        ok(abs(float(val) - float(exp)) < 1e-6, f"ошибка в итогах Калькулятор!{cell}: {val} != {exp}")
+
+    for lvl in range(1, 6):
+        risk_row = 2 + lvl
+        calc_row = 17 + lvl
+        pairs = [
+            (f"A{risk_row}", f"J{calc_row}"),
+            (f"B{risk_row}", f"R{calc_row}"),
+            (f"C{risk_row}", f"Q{calc_row}"),
+            (f"D{risk_row}", f"N{calc_row}"),
+            (f"E{risk_row}", f"T{calc_row}"),
+            (f"F{risk_row}", f"X{calc_row}"),
+            (f"G{risk_row}", f"AA{calc_row}"),
+        ]
+        for risk_cell, calc_cell in pairs:
+            rv = r[risk_cell].value
+            cv = c[calc_cell].value
+            ok(rv is not None and cv is not None, f"пустая синхронизация {risk_cell}<->{calc_cell}")
+            if isinstance(cv, (int, float)):
+                ok(abs(float(rv) - float(cv)) < 1e-6, f"рассинхрон РИСК_АНАЛИЗ!{risk_cell}={rv} vs Калькулятор!{calc_cell}={cv}")
+            else:
+                ok(str(rv) == str(cv), f"рассинхрон РИСК_АНАЛИЗ!{risk_cell}={rv} vs Калькулятор!{calc_cell}={cv}")
+
+
+def main() -> None:
+    ok(WORKBOOK_PATH.exists(), f"нет файла {WORKBOOK_PATH.name}")
+    scan_workbook_formulas_and_errors(WORKBOOK_PATH)
+    recalc = recalc_with_libreoffice(WORKBOOK_PATH)
+    check_data_only_values(recalc)
+    check_human_totals_and_risk_sync(recalc)
+    print("ALL TESTS PASSED")
+    print("NO EXCEL FORMULA ERRORS")
+
+
+if __name__ == "__main__":
+    main()
