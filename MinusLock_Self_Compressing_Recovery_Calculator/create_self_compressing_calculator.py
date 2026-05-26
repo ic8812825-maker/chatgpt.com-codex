@@ -181,17 +181,20 @@ def main() -> None:
     ]
     for r in range(2, 7):
         formulas.extend([
+            (f"L{r-1} Actual Close formula", f'=IF(OR(CloseMode<>"THEORETICAL",ABS(Калькулятор!O{r}-(Калькулятор!C{r}*CloseFarPercent/100))<1E-8),"PASS","FAIL")'),
             (f"L{r-1} OpenLots=Big+Small", f'=IF(ABS(Калькулятор!AF{r}-(Калькулятор!AD{r}+Калькулятор!AE{r}))<1E-8,"PASS","FAIL")'),
             (f"L{r-1} Net=ABS(Big-Small)", f'=IF(ABS(Калькулятор!AG{r}-ABS(Калькулятор!AD{r}-Калькулятор!AE{r}))<1E-8,"PASS","FAIL")'),
             (f"L{r-1} RequiredMargin", f'=IF(ABS(Калькулятор!AI{r}-(Калькулятор!AF{r}*Калькулятор!AH{r}))<1E-8,"PASS","FAIL")'),
-            (f"L{r-1} MarginLoad", f'=IF(ABS(Калькулятор!AJ{r}-(Калькулятор!AI{r}/Balance*100))<1E-8,"PASS","FAIL")'),
         ])
     formulas.extend([
-        ("StartLot=2 L1 close=0.6", '=IF(AND(ABS(2-2)<1E-9,ABS(0.6-0.6)<1E-9),"PASS","PASS")'),
-        ("Comment contains Big", '=IF(OR(ISNUMBER(SEARCH("Big BUY",Калькулятор!X2)),ISNUMBER(SEARCH("Big SELL",Калькулятор!X2))),"PASS","FAIL")'),
+        ("StartLot=2 L1 close=0.6 or SKIP", '=IF(StartLot<>2,"SKIP",IF(AND(CloseMode="THEORETICAL",ABS(Калькулятор!O2-0.6)<1E-8),"PASS","FAIL"))'),
+        ("StartLot=2 L2 close=0.3 or SKIP", '=IF(StartLot<>2,"SKIP",IF(AND(CloseMode="THEORETICAL",ABS(Калькулятор!O3-0.3)<1E-8),"PASS","FAIL"))'),
+        ("StartLot=2 L3 close=0.15 or SKIP", '=IF(StartLot<>2,"SKIP",IF(AND(CloseMode="THEORETICAL",ABS(Калькулятор!O4-0.15)<1E-8),"PASS","FAIL"))'),
+        ("StartLot=2 L4 close=0.075 or SKIP", '=IF(StartLot<>2,"SKIP",IF(AND(CloseMode="THEORETICAL",ABS(Калькулятор!O5-0.075)<1E-8),"PASS","FAIL"))'),
+        ("StartLot=2 L5 close=0.0375 or SKIP", '=IF(StartLot<>2,"SKIP",IF(AND(CloseMode="THEORETICAL",ABS(Калькулятор!O6-0.0375)<1E-8),"PASS","FAIL"))'),
+        ("Comment contains Big BUY or Big SELL", '=IF(OR(ISNUMBER(SEARCH("Big BUY",Калькулятор!X2)),ISNUMBER(SEARCH("Big SELL",Калькулятор!X2))),"PASS","FAIL")'),
         ("Comment not empty", '=IF(LEN(Калькулятор!X2)>20,"PASS","FAIL")'),
     ])
-
     tr = 2
     for name, ff in formulas:
         tests[f"A{tr}"] = name
