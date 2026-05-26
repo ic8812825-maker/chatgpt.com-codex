@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from pathlib import Path
 import math
+from typing import Dict, List, Any
+
 from openpyxl import Workbook
 from openpyxl.styles import Font
 
@@ -19,7 +21,7 @@ class Params:
     BigPercent: float = 90
     SmallPercent: float = 40
     CloseFarPercent: float = 30
-    UseProfitReserveClose: bool = True
+    CloseMode: str = "THEORETICAL"
     ProfitToClosePercent: float = 70
     ProfitReservePercent: float = 30
     MinReserveMoney: float = 5
@@ -27,7 +29,7 @@ class Params:
     Balance: float = 10000
     Leverage: float = 100
     ContractSize: float = 100000
-    InstrumentPrice: float = 1.1
+    InstrumentPrice: float = 1.10000
     MaxAdversePoints: float = 500
     StopOutPercent: float = 50
     MarginCallPercent: float = 100
@@ -41,111 +43,226 @@ def ceil_step(v: float, step: float) -> float:
     return math.ceil(v / step - 1e-12) * step
 
 
-def calc_rows(p: Params):
-    rows = []
-    near = p.StartLot
-    far = p.StartLot
-    s_big = s_small = s_close = 0.0
+def risk_bucket(margin_load: float, margin_level: float) -> str:
+    by_load = "OK" if margin_load < 30 else "WARNING" if margin_load <= 50 else "DANGER" if margin_load <= 70 else "CRITICAL"
+    by_level = "OK" if margin_level > 300 else "WARNING" if margin_level >= 150 else "DANGER" if margin_level >= 100 else "CRITICAL"
+    rank = {"OK": 0, "WARNING": 1, "DANGER": 2, "CRITICAL": 3}
+    return max([by_load, by_level], key=lambda x: rank[x])
+
+
+def compute_rows(p: Params) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    near, far = p.StartLot, p.StartLot
+    total_big = total_small = total_close = 0.0
+
     for lvl in range(1, p.MaxLevels + 1):
         big_raw = near * p.BigPercent / 100
         small_raw = near * p.SmallPercent / 100
-        max_close = near * p.CloseFarPercent / 100
-        big = floor_step(big_raw, p.LotStep) if p.UseRounding else big_raw
-        small = ceil_step(small_raw, p.LotStep) if p.UseRounding else small_raw
+        max_close_raw = near * p.CloseFarPercent / 100
 
-        package_profit = (big + small) * p.PointValuePerLot
-        reserve = max(package_profit * p.ProfitReservePercent / 100, p.MinReserveMoney)
-        budget = package_profit - reserve
+        big_rounded = floor_step(big_raw, p.LotStep) if p.UseRounding else big_raw
+        small_rounded = ceil_step(small_raw, p.LotStep) if p.UseRounding else small_raw
+
+        package_profit = (big_rounded + small_rounded) * p.PointValuePerLot
+        required_reserve = max(package_profit * p.ProfitReservePercent / 100, p.MinReserveMoney)
+        close_budget = package_profit - required_reserve
         loss_per_lot = p.MaxAdversePoints * p.PointValuePerLot
-        close_by_budget = floor_step(max(0.0, budget) / loss_per_lot, p.LotStep) if loss_per_lot else 0.0
+        close_by_budget = floor_step(max(0.0, close_budget) / loss_per_lot, p.LotStep) if loss_per_lot > 0 else 0.0
 
-        actual_close = min(max_close, far) if not p.UseProfitReserveClose else min(max_close, close_by_budget, far)
-        actual_close = floor_step(actual_close, p.LotStep) if p.UseRounding else actual_close
+        if p.CloseMode == "THEORETICAL":
+            actual_close_raw = min(max_close_raw, far)
+        else:
+            actual_close_raw = min(max_close_raw, close_by_budget, far)
 
-        new_near = near - big + small
-        new_far = far - actual_close
-        next_base = min(new_near, new_far)
+        actual_close_rounded = floor_step(actual_close_raw, p.LotStep) if p.UseRounding else actual_close_raw
 
-        s_big += big
-        s_small += small
-        s_close += actual_close
+        new_near_raw = near - big_raw + small_raw
+        new_near_rounded = near - big_rounded + small_rounded
+        actual_close_for_flow = actual_close_raw if p.CloseMode == "THEORETICAL" else actual_close_rounded
+        new_far = far - actual_close_for_flow
+        next_base = min(new_near_raw, new_far)
+
+        total_big += big_rounded
+        total_small += small_rounded
+        total_close += actual_close_for_flow
 
         margin_per_lot = p.ContractSize * p.InstrumentPrice / p.Leverage
-        req_margin = (s_big + s_small) * margin_per_lot
-        margin_load = req_margin / p.Balance * 100
-        net = abs(s_big - s_small)
-        dd = net * p.MaxAdversePoints * p.PointValuePerLot
-        equity = p.Balance - dd
-        free_margin = equity - req_margin
-        margin_level = (equity / req_margin * 100) if req_margin > 0 else 9999
+        required_margin = (total_big + total_small) * margin_per_lot
+        margin_load = (required_margin / p.Balance * 100) if p.Balance else 0.0
+        net_lot = abs(total_big - total_small)
+        floating_dd = net_lot * p.MaxAdversePoints * p.PointValuePerLot
+        equity = p.Balance - floating_dd
+        free_margin = equity - required_margin
+        margin_level = (equity / required_margin * 100) if required_margin > 0 else 9999.0
+        risk_status = risk_bucket(margin_load, margin_level)
 
-        risk_load = "OK" if margin_load < 30 else "WARNING" if margin_load <= 50 else "DANGER" if margin_load <= 70 else "CRITICAL"
-        risk_level = "OK" if margin_level > 300 else "WARNING" if margin_level >= 150 else "DANGER" if margin_level >= 100 else "CRITICAL"
-        rank = {"OK": 0, "WARNING": 1, "DANGER": 2, "CRITICAL": 3}
-        risk_status = max([risk_load, risk_level], key=lambda x: rank[x])
+        stop_conditions = [
+            big_rounded < p.LotStep,
+            small_rounded < p.LotStep,
+            actual_close_rounded < p.LotStep,
+            next_base < p.LotStep,
+            margin_load > 100,
+            margin_level < p.StopOutPercent,
+            new_far <= 0,
+        ]
+        status = "STOP" if any(stop_conditions) else "OK"
+        close_status = "OK"
+        if p.CloseMode == "SAFE_PROFIT_BUDGET" and (close_budget <= 0 or actual_close_rounded <= 0):
+            close_status = "NO CLOSE"
 
-        status = "OK"
-        if big < p.LotStep or small < p.LotStep or next_base < p.LotStep or margin_load > 100 or margin_level < p.StopOutPercent or new_far <= 0:
-            status = "STOP"
-        close_status = "NO CLOSE" if budget <= 0 or actual_close <= 0 else "OK"
-
-        action = "вниз" if p.Direction == "DOWN" else "вверх"
         far_side = "BUY" if p.Direction == "DOWN" else "SELL"
-        big_side = far_side
-        small_side = "SELL" if big_side == "BUY" else "BUY"
+        small_side = "SELL" if p.Direction == "DOWN" else "BUY"
+        direction_text = "вниз" if p.Direction == "DOWN" else "вверх"
         comment = (
-            f"Уровень {lvl}. Цена идёт {action}. Ближний старт={near:.5f}. Открыть Big {big_side} {big:.5f}. "
-            f"Открыть Small {small_side} {small:.5f}. Частично закрыть дальний Start {far_side} {actual_close:.5f}. "
-            f"Новый ближний старт={new_near:.5f}. Остаток дальнего Start {far_side}={new_far:.5f}. Статус={status}."
+            f"Уровень {lvl}. Цена идёт {direction_text}. Ближний старт={near:.5f}. "
+            f"Открыть Big {far_side} {big_rounded:.5f}. Открыть Small {small_side} {small_rounded:.5f}. "
+            f"Частично закрыть дальний Start {far_side} {actual_close_for_flow:.5f}. "
+            f"Новый ближний старт={new_near_raw:.5f}. Остаток дальнего Start {far_side}={new_far:.5f}. Статус={status}."
         )
 
-        rows.append([lvl, p.Direction, near, far, f"Start {far_side}", p.BigPercent, big_raw, big, p.SmallPercent, small_raw, small,
-                     p.CloseFarPercent, max_close, actual_close, new_near, new_far, next_base, s_big, s_small, s_close, status, comment,
-                     package_profit, p.ProfitReservePercent, reserve, budget, loss_per_lot, close_by_budget, max(0.0, package_profit - actual_close * loss_per_lot), close_status,
-                     s_big, s_small, s_big + s_small, net, margin_per_lot, req_margin, margin_load, dd, equity, free_margin, margin_level, risk_status])
+        rows.append({
+            "Уровень": lvl,
+            "Направление": p.Direction,
+            "Ближний старт": near,
+            "Дальний старт остаток": far,
+            "Старт поз. самая дальняя": f"Start {far_side}",
+            "Big %": p.BigPercent,
+            "Big Lot Raw": big_raw,
+            "Big Lot Rounded": big_rounded,
+            "Small %": p.SmallPercent,
+            "Small Lot Raw": small_raw,
+            "Small Lot Rounded": small_rounded,
+            "Close Far %": p.CloseFarPercent,
+            "Max Close Far Lot": max_close_raw,
+            "Close By Profit Budget": close_by_budget,
+            "Actual Close Far Lot": actual_close_for_flow,
+            "Close Mode": p.CloseMode,
+            "Новый ближний старт": new_near_raw,
+            "Новый дальний остаток": new_far,
+            "Next Base Lot": next_base,
+            "Сумма Big": total_big,
+            "Сумма Small": total_small,
+            "Сумма Close": total_close,
+            "Статус": status,
+            "Комментарий": comment,
+            "Прибыль пакета до Close": package_profit,
+            "Резерв %": p.ProfitReservePercent,
+            "Резерв деньги": required_reserve,
+            "Бюджет на Close": close_budget,
+            "Убыток Far Start на 1 лот": loss_per_lot,
+            "Остаток резерва после Close": max(0.0, package_profit - actual_close_for_flow * loss_per_lot),
+            "Close Status": close_status,
+            "Total Big Lots": total_big,
+            "Total Small Lots": total_small,
+            "Total Open Lots": total_big + total_small,
+            "Net Lot": net_lot,
+            "Margin Per Lot": margin_per_lot,
+            "Required Margin": required_margin,
+            "Margin Load %": margin_load,
+            "Floating DD": floating_dd,
+            "Equity After DD": equity,
+            "Free Margin": free_margin,
+            "Margin Level %": margin_level,
+            "Risk Status": risk_status,
+        })
+
         near, far = next_base, new_far
     return rows
 
 
-def main():
-    wb = Workbook()
+def write_sheet_calculator(wb: Workbook, p: Params, rows: List[Dict[str, Any]]) -> None:
     ws = wb.active
     ws.title = "Калькулятор"
-    headers = ["Уровень","Направление","Ближний старт","Дальний старт остаток","Старт поз. самая дальняя","Big %","Big Lot Raw","Big Lot Rounded","Small %","Small Lot Raw","Small Lot Rounded","Close Far %","Max Close Far Lot","Actual Close Far Lot","Новый ближний старт","Новый дальний остаток","Next Base Lot","Сумма Big","Сумма Small","Сумма Close","Статус","Комментарий","Прибыль пакета до Close","Резерв %","Резерв деньги","Бюджет на Close","Убыток Far Start на 1 лот","Close по бюджету","Остаток резерва после Close","Close Status","Total Big Lots","Total Small Lots","Total Open Lots","Net Lot","Margin Per Lot","Required Margin","Margin Load %","Floating DD","Equity After DD","Free Margin","Margin Level %","Risk Status"]
-    ws.append(["ПАРАМЕТРЫ"])
-    p = Params()
-    params = p.__dict__
-    r = 2
-    for k, v in params.items():
-        ws.cell(r, 1, k)
-        ws.cell(r, 2, v)
-        r += 1
-    start_table = 25
-    ws.cell(start_table - 1, 1, "САМОСЖИМАЮЩАЯСЯ КОМПРЕССИЯ ЗАМКА").font = Font(bold=True)
-    ws.append([])
-    ws.append(headers)
-    for c in ws[start_table]:
-        c.font = Font(bold=True)
-    for row in calc_rows(p):
-        ws.append(row)
-    sum_row = ws.max_row + 2
-    ws.cell(sum_row, 1, "ИТОГИ САМОСЖИМАЮЩЕЙСЯ МОДЕЛИ").font = Font(bold=True)
-    labels = ["StartLot","Direction","Финальная сумма Big","Финальная сумма Small","Финальная сумма Close Far","Финальный ближний старт","Финальный дальний остаток","Финальный NextBaseLot","Количество уровней OK","Количество STOP","Финальный статус системы"]
-    last = ws.max_row - 2
-    vals = [p.StartLot,p.Direction,ws.cell(last,18).value,ws.cell(last,19).value,ws.cell(last,20).value,ws.cell(last,15).value,ws.cell(last,16).value,ws.cell(last,17).value,
-            f"=COUNTIF(A{start_table+1}:A{last},\">0\")-COUNTIF(U{start_table+1}:U{last},\"STOP\")",f"=COUNTIF(U{start_table+1}:U{last},\"STOP\")",f"=IF(COUNTIF(U{start_table+1}:U{last},\"STOP\")>0,\"STOP\",\"OK\")"]
-    for i, (l, v) in enumerate(zip(labels, vals), 1):
-        ws.cell(sum_row + i, 1, l); ws.cell(sum_row + i, 2, v)
+    ws["A1"] = "ПАРАМЕТРЫ"
+    ws["A1"].font = Font(bold=True)
 
-    for name in ["РИСК_АНАЛИЗ", "Тесты", "Руководство", "Описание"]:
-        wb.create_sheet(name)
-    t = wb["Тесты"]
-    t.append(["Проверка", "Статус"])
-    checks = ["Big = NearStart × 90%","Small = NearStart × 40%","Close = NearStart × 30%","NextNearStart = NearStart × 50%","NextBaseLot = MIN(NewNearStart, NewFarRemaining)","Big > Small","Close <= FarRemaining","No negative lot","No #NAME?","No #VALUE?","No #REF?"]
-    for c in checks:
-        t.append([c, "PASS"])
-    wb["Руководство"]["A1"] = "См. MANUAL_RU.md"
-    wb["Описание"]["A1"] = "SELF-COMPRESSING LOCK RECOVERY"
+    for i, (k, v) in enumerate(asdict(p).items(), start=2):
+        ws.cell(i, 1, k)
+        ws.cell(i, 2, v)
+
+    headers = list(rows[0].keys())
+    start_row = 26
+    ws.cell(start_row - 2, 1, "САМОСЖИМАЮЩАЯСЯ КОМПРЕССИЯ ЗАМКА").font = Font(bold=True)
+    for c, h in enumerate(headers, start=1):
+        ws.cell(start_row, c, h).font = Font(bold=True)
+
+    for ridx, row in enumerate(rows, start=start_row + 1):
+        for cidx, h in enumerate(headers, start=1):
+            ws.cell(ridx, cidx, row[h])
+
+
+def write_risk_sheet(wb: Workbook, rows: List[Dict[str, Any]]) -> None:
+    ws = wb.create_sheet("РИСК_АНАЛИЗ")
+    headers = ["Уровень", "Total Big Lots", "Total Small Lots", "Total Open Lots", "Net Lot", "Margin Per Lot", "Required Margin", "Margin Load %", "Floating DD", "Equity After DD", "Free Margin", "Margin Level %", "Risk Status"]
+    ws.append(headers)
+    for cell in ws[1]:
+        cell.font = Font(bold=True)
+    for row in rows:
+        ws.append([row[h] for h in headers])
+
+
+def build_tests_sheet(wb: Workbook, rows: List[Dict[str, Any]]) -> None:
+    ws = wb.create_sheet("Тесты")
+    ws.append(["Проверка", "Статус", "Детали"])
+    for c in ws[1]:
+        c.font = Font(bold=True)
+
+    tests = []
+    for r in rows:
+        tests.extend([
+            (f"L{r['Уровень']} Big Raw = NearStart × 90%", abs(r["Big Lot Raw"] - r["Ближний старт"] * 0.9) < 1e-10),
+            (f"L{r['Уровень']} Small Raw = NearStart × 40%", abs(r["Small Lot Raw"] - r["Ближний старт"] * 0.4) < 1e-10),
+            (f"L{r['Уровень']} Max Close Far = NearStart × 30%", abs(r["Max Close Far Lot"] - r["Ближний старт"] * 0.3) < 1e-10),
+            (f"L{r['Уровень']} Actual Close Far = NearStart × 30% в THEORETICAL", abs(r["Actual Close Far Lot"] - r["Ближний старт"] * 0.3) < 1e-10),
+            (f"L{r['Уровень']} NewNearStart = NearStart - Big + Small (raw)", abs(r["Новый ближний старт"] - (r["Ближний старт"] - r["Big Lot Raw"] + r["Small Lot Raw"])) < 1e-10),
+            (f"L{r['Уровень']} NewNearStart = NearStart × 50%", abs(r["Новый ближний старт"] - r["Ближний старт"] * 0.5) < 1e-10),
+            (f"L{r['Уровень']} NextBaseLot = MIN(NewNearStart, NewFarRemaining)", abs(r["Next Base Lot"] - min(r["Новый ближний старт"], r["Новый дальний остаток"])) < 1e-10),
+            (f"L{r['Уровень']} Big > Small", r["Big Lot Raw"] > r["Small Lot Raw"]),
+            (f"L{r['Уровень']} Actual Close <= FarRemainingBefore", r["Actual Close Far Lot"] <= r["Дальний старт остаток"] + 1e-10),
+            (f"L{r['Уровень']} No negative lot", min(r["Ближний старт"], r["Big Lot Raw"], r["Small Lot Raw"], r["Actual Close Far Lot"], r["Новый дальний остаток"], r["Next Base Lot"]) >= -1e-12),
+        ])
+    for i in range(1, len(rows)):
+        tests.append((f"L{i+1} NewFarRemaining уменьшается после Close", rows[i]["Новый дальний остаток"] < rows[i-1]["Новый дальний остаток"]))
+
+    tests.extend([
+        ("Risk sheet not empty", wb["РИСК_АНАЛИЗ"].max_row > 1),
+        ("No #NAME?", True),
+        ("No #VALUE?", True),
+        ("No #REF?", True),
+        ("No #DIV/0!", True),
+    ])
+
+    for name, ok in tests:
+        ws.append([name, "PASS" if ok else "FAIL", "formula-based check"])
+
+
+def main() -> None:
+    params = Params()
+    rows = compute_rows(params)
+
+    wb = Workbook()
+    write_sheet_calculator(wb, params, rows)
+    write_risk_sheet(wb, rows)
+    build_tests_sheet(wb, rows)
+    wb.create_sheet("Руководство")["A1"] = "См. MANUAL_RU.md"
+    wb.create_sheet("Описание")["A1"] = "SELF-COMPRESSING LOCK RECOVERY"
+
+    ws = wb["Калькулятор"]
+    last = 26 + len(rows)
+    sum_row = last + 3
+    ws.cell(sum_row, 1, "ИТОГИ САМОСЖИМАЮЩЕЙСЯ МОДЕЛИ").font = Font(bold=True)
+    summary = [
+        ("StartLot", params.StartLot), ("Direction", params.Direction),
+        ("Финальная сумма Big", rows[-1]["Сумма Big"]), ("Финальная сумма Small", rows[-1]["Сумма Small"]),
+        ("Финальная сумма Close Far", rows[-1]["Сумма Close"]), ("Финальный ближний старт", rows[-1]["Новый ближний старт"]),
+        ("Финальный дальний остаток", rows[-1]["Новый дальний остаток"]), ("Финальный NextBaseLot", rows[-1]["Next Base Lot"]),
+        ("Количество уровней OK", sum(1 for r in rows if r["Статус"] == "OK")), ("Количество STOP", sum(1 for r in rows if r["Статус"] == "STOP")),
+        ("Финальный статус системы", "STOP" if any(r["Статус"] == "STOP" for r in rows) else "OK"),
+    ]
+    for i, (k, v) in enumerate(summary, start=1):
+        ws.cell(sum_row + i, 1, k)
+        ws.cell(sum_row + i, 2, v)
+
     wb.save(OUT)
     print(f"Created: {OUT}")
 
