@@ -41,7 +41,24 @@
 
 ```text
 python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/tests/excel/test_minuslock_bigsmall_v2.py -q
-19 passed
+26 passed
+```
+
+
+## Исправления v4: DUAL_TAIL state persistence
+
+1. Старый хвост теперь не исчезает после `DUAL_TAIL`.
+2. `BLOCKED` строки сохраняют оба хвоста через `ActiveOldFarLot` и `ActiveNewFarLot`.
+3. Маржа считается от суммы двух хвостов: `MarginAfter = OpenLotsAfter × MarginPerLot`, где `OpenLotsAfter = DualTailTotalLot` в `BLOCKED`.
+4. Добавлены `ActiveOldFarLot`, `ActiveNewFarLot`, `DualTailTotalLot`.
+5. Добавлен ручной механизм закрытия хвостов: `ManualOldFarCloseLot`, `ManualNewFarCloseLot`, `ManualClosePL`, `ManualAllowNewLevel`.
+6. Добавлены новые тесты: `test_dual_tail_persists_old_and_new_tail`, `test_blocked_rows_keep_dual_tail_total_lot`, `test_blocked_rows_keep_margin_from_both_tails`, `test_old_tail_cannot_disappear_without_manual_close`, `test_manual_close_reduces_active_tail_lots`, `test_manual_ready_requires_single_remaining_tail`, `test_new_level_requires_manual_allow_after_dual_tail`.
+
+### V4 smoke / pytest result
+
+```text
+python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/tests/excel/test_minuslock_bigsmall_v2.py -q
+26 passed
 ```
 
 ## 3. Подробные результаты тестов
@@ -128,7 +145,7 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 Результат:
 
 ```text
-19 passed in 1.22s
+26 passed in 2.44s
 ```
 
 Статус: PASS.

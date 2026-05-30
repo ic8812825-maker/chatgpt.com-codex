@@ -23,6 +23,13 @@ REQUIRED_V3_HEADERS = [
     "CostPerLot",
     "OldFarClosedLot",
     "BlockedReason",
+    "ActiveOldFarLot",
+    "ActiveNewFarLot",
+    "DualTailTotalLot",
+    "ManualOldFarCloseLot",
+    "ManualNewFarCloseLot",
+    "ManualClosePL",
+    "ManualAllowNewLevel",
 ]
 
 
@@ -205,7 +212,7 @@ def test_realized_far_loss_formula():
 
 def test_big_side_balance_after_realized_far_loss():
     ws = workbook()["Calculator"]
-    assert ws["AA2"].value == '=IF($B2="BLOCKED",$Z2,IF($B2="BIG_SIDE",$Z2+$AX2-$AS2-$AZ2,IF($B2="SMALL_SIDE",$Z2+$S2+$AI2,$Z2+$S2)))'
+    assert ws["AA2"].value == '=IF($B2="BLOCKED",$Z2+$BF2,IF($B2="BIG_SIDE",$Z2+$AX2-$AS2-$AZ2,IF($B2="SMALL_SIDE",$Z2+$S2+$AI2,$Z2+$S2)))'
     model = big_side_v3_model(1.0, 1.15, 0.44, 200 / 1.15, -60 / 0.44, 100, 5, 3, 2)
     expected_balance = model["net_profit_before_far"] - model["realized_far_loss"] - model["costs_far_close"]
     assert round(model["balance_after"], 3) == round(expected_balance, 3)
@@ -254,10 +261,13 @@ def test_old_far_close_pl_affects_small_side_balance():
 def test_dual_tail_blocks_next_level():
     ws = workbook()["Calculator"]
     assert ws["AK2"].value == '=IF(AND($AJ2>0,$AG2>0),TRUE,FALSE)'
-    assert ws["AQ2"].value.startswith('=IF($B2="BLOCKED","STOP",IF($AK2=TRUE,"DUAL_TAIL"')
-    assert ws["AP2"].value == '=IF(OR($AQ2="DUAL_TAIL",$AQ2="DANGER",$AQ2="STOP"),"NO","YES")'
-    assert ws["B3"].value == '=IF(OR($AP2="NO",$AQ2="DUAL_TAIL",$AQ2="DANGER",$AQ2="STOP"),"BLOCKED","BIG_SIDE")'
-    assert ws["AW3"].value == '=IF($B3="BLOCKED","Заблокировано: предыдущий уровень не разрешил новый полноценный уровень","")'
+    assert ws["AQ2"].value.startswith('=IF($B2="BLOCKED",IF($BC2=0,"STOP_CLEARED"')
+    assert '"STOP"' in ws["AQ2"].value
+    assert 'IF($AK2=TRUE,"DUAL_TAIL"' in ws["AQ2"].value
+    assert ws["AP2"].value == '=IF(AND($AQ2="MANUAL_READY",$BG2="YES"),"YES",IF(OR($AQ2="DUAL_TAIL",$AQ2="DANGER",$AQ2="STOP",$AQ2="STOP_CLEARED",$AQ2="MANUAL_READY"),"NO","YES"))'
+    assert ws["B3"].value.startswith('=IF(AND($AQ2="MANUAL_READY",$BG2="YES")')
+    assert '"BLOCKED"' in ws["B3"].value
+    assert ws["AW3"].value == '=IF($B3="BLOCKED","Заблокировано: DUAL_TAIL сохраняет оба хвоста до ручного закрытия","")'
 
 
 def test_blocked_next_level_zeroes_big_and_small_lots():
@@ -266,12 +276,13 @@ def test_blocked_next_level_zeroes_big_and_small_lots():
     assert ws["G3"].value == '=IF($B3="BLOCKED",0,IFERROR(MAX(0,ROUND($F3/Settings!$B$11,0)*Settings!$B$11),0))'
     assert ws["I3"].value == '=IF($B3="BLOCKED",0,MAX(0,$G3*Settings!$B$4))'
     assert ws["J3"].value == '=IF($B3="BLOCKED",0,IFERROR(MAX(0,ROUND($I3/Settings!$B$11,0)*Settings!$B$11),0))'
-    assert ws["AQ3"].value.startswith('=IF($B3="BLOCKED","STOP"')
+    assert ws["AQ3"].value.startswith('=IF($B3="BLOCKED",IF($BC3=0,"STOP_CLEARED"')
+    assert '"STOP"' in ws["AQ3"].value
 
 
 def test_margin_balance_reserve_and_limit_status_formulas():
     ws = workbook()["Calculator"]
-    assert ws["AB2"].value == '=IF($B2="BLOCKED",IF(ROW()=2,0,$AG1+$AJ1),$D2+$G2+$J2)'
+    assert ws["AB2"].value == '=IF($B2="BLOCKED",$BC2,$D2+$G2+$J2)'
     assert ws["AD2"].value == "=$AB2*Settings!$B$10"
     assert ws["AE2"].value == "=$AC2*Settings!$B$10"
     assert "IFERROR($G2/$D2,0)>Settings!$B$16" in ws["AQ2"].value
@@ -357,3 +368,65 @@ def test_risk_analysis_examples_and_manual_v2_anchors():
         "Small не должен накапливаться",
     ]:
         assert text in manual
+
+
+def test_dual_tail_persists_old_and_new_tail():
+    ws = workbook()["Calculator"]
+    headers = header_map(ws)
+    assert "ActiveOldFarLot" in headers
+    assert "ActiveNewFarLot" in headers
+    assert "DualTailTotalLot" in headers
+    assert ws["BA4"].value == '=IF($AK4=TRUE,MAX(0,$AJ4-$BD4),IF($B4="BLOCKED",MAX(0,$BA3-$BD4),0))'
+    assert ws["BB4"].value == '=IF($AK4=TRUE,MAX(0,$AG4-$BE4),IF($B4="BLOCKED",MAX(0,$BB3-$BE4),0))'
+    assert ws["BC4"].value == "=$BA4+$BB4"
+
+
+def test_blocked_rows_keep_dual_tail_total_lot():
+    ws = workbook()["Calculator"]
+    assert ws["B5"].value.startswith('=IF(AND($AQ4="MANUAL_READY",$BG4="YES")')
+    assert ws["BA5"].value == '=IF($AK5=TRUE,MAX(0,$AJ5-$BD5),IF($B5="BLOCKED",MAX(0,$BA4-$BD5),0))'
+    assert ws["BB5"].value == '=IF($AK5=TRUE,MAX(0,$AG5-$BE5),IF($B5="BLOCKED",MAX(0,$BB4-$BE5),0))'
+    assert ws["BA6"].value == '=IF($AK6=TRUE,MAX(0,$AJ6-$BD6),IF($B6="BLOCKED",MAX(0,$BA5-$BD6),0))'
+    assert ws["BB6"].value == '=IF($AK6=TRUE,MAX(0,$AG6-$BE6),IF($B6="BLOCKED",MAX(0,$BB5-$BE6),0))'
+    assert ws["BC5"].value == "=$BA5+$BB5"
+    assert ws["BC6"].value == "=$BA6+$BB6"
+
+
+def test_blocked_rows_keep_margin_from_both_tails():
+    ws = workbook()["Calculator"]
+    assert ws["AB5"].value == '=IF($B5="BLOCKED",$BC5,$D5+$G5+$J5)'
+    assert ws["AC5"].value == '=IF($B5="BLOCKED",$BC5,IF($B5="BIG_SIDE",$W5,IF($AK5=TRUE,$BC5,$AG5)))'
+    assert ws["AE5"].value == "=$AC5*Settings!$B$10"
+    assert ws["AB6"].value == '=IF($B6="BLOCKED",$BC6,$D6+$G6+$J6)'
+    assert ws["AC6"].value == '=IF($B6="BLOCKED",$BC6,IF($B6="BIG_SIDE",$W6,IF($AK6=TRUE,$BC6,$AG6)))'
+    assert ws["AE6"].value == "=$AC6*Settings!$B$10"
+
+
+def test_old_tail_cannot_disappear_without_manual_close():
+    ws = workbook()["Calculator"]
+    assert ws["BD5"].value == 0
+    assert "MAX(0,$BA4-$BD5)" in ws["BA5"].value
+    assert "MAX(0,$BA5-$BD6)" in ws["BA6"].value
+
+
+def test_manual_close_reduces_active_tail_lots():
+    ws = workbook()["Calculator"]
+    assert "MAX(0,$BA4-$BD5)" in ws["BA5"].value
+    assert "MAX(0,$BB4-$BE5)" in ws["BB5"].value
+    assert ws["AA5"].value == '=IF($B5="BLOCKED",$Z5+$BF5,IF($B5="BIG_SIDE",$Z5+$AX5-$AS5-$AZ5,IF($B5="SMALL_SIDE",$Z5+$S5+$AI5,$Z5+$S5)))'
+
+
+def test_manual_ready_requires_single_remaining_tail():
+    ws = workbook()["Calculator"]
+    status_formula = ws["AQ5"].value
+    assert 'AND($BA5=0,$BB5>0)' in status_formula
+    assert 'AND($BA5>0,$BB5=0)' in status_formula
+    assert '"MANUAL_READY"' in status_formula
+    assert '"STOP_CLEARED"' in status_formula
+
+
+def test_new_level_requires_manual_allow_after_dual_tail():
+    ws = workbook()["Calculator"]
+    assert ws["BG5"].value == "NO"
+    assert ws["AP5"].value == '=IF(AND($AQ5="MANUAL_READY",$BG5="YES"),"YES",IF(OR($AQ5="DUAL_TAIL",$AQ5="DANGER",$AQ5="STOP",$AQ5="STOP_CLEARED",$AQ5="MANUAL_READY"),"NO","YES"))'
+    assert ws["B6"].value.startswith('=IF(AND($AQ5="MANUAL_READY",$BG5="YES")')

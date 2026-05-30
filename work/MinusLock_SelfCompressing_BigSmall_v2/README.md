@@ -57,11 +57,20 @@ MinusLock_SelfCompressing_BigSmall_v2/
 - `DUAL_TAIL` блокирует следующий уровень;
 - `Costs` считаются на закрываемый лот: `Costs = ClosedLotsForCosts × CostPerLot`.
 
+
+## v4 исправления
+
+- `DUAL_TAIL` теперь хранит оба хвоста;
+- `BLOCKED` строки не теряют старый хвост;
+- `OpenLotsAfter` и `MarginAfter` считаются от двух хвостов;
+- добавлены поля ручного закрытия хвостов: `ManualOldFarCloseLot`, `ManualNewFarCloseLot`, `ManualClosePL`;
+- новый уровень после `DUAL_TAIL` невозможен без `ManualAllowNewLevel = YES`.
+
 ## Результаты тестирования
 
 ```text
 32 теста PASS
-19 pytest PASS
+26 pytest PASS
 0 критических ошибок
 ```
 
