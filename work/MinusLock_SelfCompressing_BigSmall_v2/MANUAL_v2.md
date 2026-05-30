@@ -1435,3 +1435,31 @@ Row N -> Risk_Analysis -> Row N
 ```
 
 `Risk_Analysis` не должен использоваться как источник данных для расчётных листов. Он является только итоговой аналитической витриной и обязан читать данные из `Calculator`, `Trend_UP` и `Trend_DOWN`, но не возвращать значения обратно в расчётные листы.
+
+---
+
+# Справочная таблица Big-N / Small-N / Close-N
+
+На листе `Settings` добавлена справочная геометрическая таблица лотов `Big-N / Small-N / Close-N`. Она нужна для быстрого просмотра того, как уменьшается хвост и какие ориентировочные рабочие лоты соответствуют каждому уровню.
+
+Формулы таблицы:
+
+```text
+FarStart-N = FarStart-(N-1) × (1 - CloseFarShare)
+Big-N = FarStart-N × BigRatio
+Small-N = Big-N × SmallRatio
+Close-N = FarStart-N × CloseFarShare
+```
+
+`Big-N`, `Small-N` и `Close-N` округляются по `LotStep`.
+
+Важно:
+
+```text
+Close-N в Settings является справочной лотовой геометрией.
+Основной режим закрытия хвоста в Calculator остаётся денежный:
+CloseFarBudget = NetProfitBeforeFar × CloseFarShare
+CloseFarLot = CloseFarBudget / LossPerLotToClose
+```
+
+Поэтому `Close-N` нельзя использовать как замену реального денежного расчёта `CloseFarLot` в рабочем листе `Calculator`.

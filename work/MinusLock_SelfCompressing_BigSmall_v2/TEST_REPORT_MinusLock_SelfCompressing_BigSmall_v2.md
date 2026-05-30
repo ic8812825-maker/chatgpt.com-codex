@@ -282,3 +282,14 @@ SMALL_SIDE:
 7. `Risk_Analysis` видит глобальные `DUAL_TAIL`, `BLOCKED`, `STOP` и `Global Max DualTail Exposure`.
 8. BLOCKED строки не имеют пустых ключевых ячеек.
 9. Добавлены v7 pytest-проверки: отсутствие direct self-reference, заполненность global profit/loss, корректный перенос Trend_DOWN DUAL_TAIL и полнота BLOCKED строк.
+
+---
+
+## Исправления v8: Risk_Analysis Global Max DualTail Exposure и Settings geometry table
+
+1. Исправлена формула `Global Max DualTail Exposure`.
+2. Теперь `Global Max DualTail Exposure = MAX(DualTailTotalLot)` по `Calculator + Trend_UP + Trend_DOWN`.
+3. Текущий ожидаемый результат: `Trend_UP Max DualTail Exposure = 0.9896`, `Trend_DOWN Max DualTail Exposure = 1.5306`, `Global Max DualTail Exposure = 1.5306`.
+4. Добавлена справочная таблица `Big-N / Small-N / Close-N` на лист `Settings`.
+5. Таблица использует ссылки на параметры `StartLot`, `BigRatio`, `SmallRatio`, `CloseFarShare`, `LotStep`, `MaxLevels`.
+6. `Close-N` помечен как справочная лотовая геометрия и не заменяет денежный режим закрытия хвоста в `Calculator`.

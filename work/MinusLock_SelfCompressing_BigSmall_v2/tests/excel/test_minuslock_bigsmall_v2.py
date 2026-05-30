@@ -740,3 +740,87 @@ def test_global_risk_summary_profit_loss_populated():
     assert values["Global Blocked Levels Count"] > 0
     assert values["Global Stop Count"] > 0
     assert values["Global Max DualTail Exposure"] > 0
+
+
+def _settings_geometry_header_row(ws):
+    required = {"N", "FarStart-N", "Big-N", "Small-N", "Close-N"}
+    for row in range(1, ws.max_row + 1):
+        values = {ws.cell(row, col).value for col in range(1, ws.max_column + 1)}
+        if required.issubset(values):
+            return row
+    raise AssertionError("Settings geometry table headers missing")
+
+
+def test_global_max_dual_tail_exposure_uses_dual_tail_total_lot():
+    wb = workbook()
+    risk = wb["Risk_Analysis"]
+    formulas = {risk.cell(r, 1).value: risk.cell(r, 3).value for r in range(1, risk.max_row + 1) if risk.cell(r, 1).value}
+    formula = formulas["Global Max DualTail Exposure"]
+    assert "Calculator!BC2:BC11" in formula
+    assert "Trend_UP!BC2:BC11" in formula
+    assert "Trend_DOWN!BC2:BC11" in formula
+    assert "BA2:BA11" not in formula
+    assert "BB2:BB11" not in formula
+
+
+def test_global_max_dual_tail_exposure_expected_value():
+    values = _risk_values()
+    assert abs(values["Global Max DualTail Exposure"] - 1.5306) < 1e-9
+
+
+def test_settings_geometry_table_exists():
+    ws = workbook()["Settings"]
+    header_row = _settings_geometry_header_row(ws)
+    assert ws.cell(header_row - 1, 1).value == "Справочная геометрия лотов Big-N / Small-N / Close-N"
+    assert [ws.cell(header_row, col).value for col in range(1, 6)] == ["N", "FarStart-N", "Big-N", "Small-N", "Close-N"]
+
+
+def test_settings_geometry_big_n_formula():
+    ws = workbook()["Settings"]
+    header_row = _settings_geometry_header_row(ws)
+    first = header_row + 1
+    assert ws.cell(first, 3).value == '=IF($A22="","",ROUND(($B22*Settings!$B$3)/Settings!$B$11,0)*Settings!$B$11)'
+    assert "Settings!$B$3" in ws.cell(first, 3).value
+    assert "Settings!$B$11" in ws.cell(first, 3).value
+
+
+def test_settings_geometry_small_n_formula():
+    ws = workbook()["Settings"]
+    header_row = _settings_geometry_header_row(ws)
+    first = header_row + 1
+    assert ws.cell(first, 4).value == '=IF($A22="","",ROUND(($C22*Settings!$B$4)/Settings!$B$11,0)*Settings!$B$11)'
+    assert "Settings!$B$4" in ws.cell(first, 4).value
+    assert "Settings!$B$11" in ws.cell(first, 4).value
+
+
+def test_settings_geometry_close_n_formula():
+    ws = workbook()["Settings"]
+    header_row = _settings_geometry_header_row(ws)
+    first = header_row + 1
+    assert ws.cell(first, 5).value == '=IF($A22="","",ROUND(($B22*Settings!$B$5)/Settings!$B$11,0)*Settings!$B$11)'
+    assert "Settings!$B$5" in ws.cell(first, 5).value
+    assert "Settings!$B$11" in ws.cell(first, 5).value
+
+
+def test_settings_geometry_uses_settings_references():
+    ws = workbook()["Settings"]
+    header_row = _settings_geometry_header_row(ws)
+    formulas = "\n".join(str(ws.cell(r, c).value) for r in range(header_row + 1, header_row + 11) for c in range(1, 6))
+    for ref in ["Settings!$B$2", "Settings!$B$3", "Settings!$B$4", "Settings!$B$5", "Settings!$B$11", "Settings!$B$12"]:
+        assert ref in formulas
+    for static in ["*1.15", "*0.38", "*0.20", "/0.01"]:
+        assert static not in formulas
+
+
+def test_close_n_is_reference_only_not_calculator_close_rule():
+    wb = workbook()
+    calc = wb["Calculator"]
+    formulas = "\n".join(
+        str(calc.cell(r, c).value)
+        for r in range(2, 12)
+        for c in range(1, calc.max_column + 1)
+        if calc.cell(r, c).data_type == "f"
+    )
+    assert "Close-N" not in formulas
+    assert "$T2/$U2" in formulas or "$T3/$U3" in formulas
+    assert "LossPerLotToClose" not in formulas

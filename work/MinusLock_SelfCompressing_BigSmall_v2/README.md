@@ -115,3 +115,10 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 - populated Global Total Closed Profit / Loss;
 - ensured BLOCKED rows have no blank key fields;
 - verified workbook formulas with a no-direct-self-reference scan; desktop Excel manual warning check is noted as requiring Microsoft Excel.
+
+## v8 fixes
+
+- fixed Global Max DualTail Exposure formula;
+- added Settings geometry table Big-N / Small-N / Close-N;
+- geometry table is linked to Settings parameters;
+- Close-N is reference lot geometry, not the money-mode close rule.
