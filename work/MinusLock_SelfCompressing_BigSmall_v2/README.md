@@ -66,11 +66,20 @@ MinusLock_SelfCompressing_BigSmall_v2/
 - добавлены поля ручного закрытия хвостов: `ManualOldFarCloseLot`, `ManualNewFarCloseLot`, `ManualClosePL`;
 - новый уровень после `DUAL_TAIL` невозможен без `ManualAllowNewLevel = YES`.
 
+
+## v5 fixes
+
+- true `DUAL_TAIL` state persistence;
+- `BLOCKED` rows keep both tails;
+- `Risk_Analysis` counts `BLOCKED` and `DUAL_TAIL` exposure;
+- active tails cannot disappear without manual close;
+- `ManualAllowNewLevel` required to resume after `DUAL_TAIL`.
+
 ## Результаты тестирования
 
 ```text
 32 теста PASS
-26 pytest PASS
+37 pytest PASS
 0 критических ошибок
 ```
 

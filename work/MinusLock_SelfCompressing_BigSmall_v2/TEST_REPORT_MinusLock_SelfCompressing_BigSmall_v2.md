@@ -41,7 +41,7 @@
 
 ```text
 python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/tests/excel/test_minuslock_bigsmall_v2.py -q
-26 passed
+37 passed
 ```
 
 
@@ -58,8 +58,20 @@ python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/tests/excel/test_min
 
 ```text
 python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/tests/excel/test_minuslock_bigsmall_v2.py -q
-26 passed
+37 passed
 ```
+
+
+## Исправления v5: настоящая persistence-логика DUAL_TAIL
+
+1. Почему v4 было недостаточно: формулы существовали, но cached/data-only выгрузка и часть визуальных строк могли показывать нулевые активные хвосты после `DUAL_TAIL`.
+2. Старый хвост теперь сохраняется в `ActiveOldFarLot` и переносится через все `BLOCKED / STOP` строки до `ManualOldFarCloseLot`.
+3. Новый хвост теперь сохраняется в `ActiveNewFarLot` и переносится через все `BLOCKED / STOP` строки до `ManualNewFarCloseLot`.
+4. `DualTailTotalLot = ActiveOldFarLot + ActiveNewFarLot` и не должен становиться нулём после `DUAL_TAIL`, пока хвосты не закрыты вручную.
+5. В `BLOCKED` строках `OpenLotsAfter = DualTailTotalLot`, а `MarginAfter = OpenLotsAfter × MarginPerLot`.
+6. Ручное закрытие работает через `ManualOldFarCloseLot`, `ManualNewFarCloseLot`, `ManualClosePL`, а возобновление требует `ManualAllowNewLevel = YES`.
+7. `Risk_Analysis` теперь видит `DUAL_TAIL` и `BLOCKED`: `Max DualTail Exposure > 0`, `Blocked Levels Count > 0`, если такие строки есть.
+8. Pytest suite расширен до 37 проверок: `37 passed`.
 
 ## 3. Подробные результаты тестов
 
@@ -145,7 +157,7 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 Результат:
 
 ```text
-26 passed in 2.44s
+37 passed
 ```
 
 Статус: PASS.

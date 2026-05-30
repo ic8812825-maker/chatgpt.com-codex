@@ -430,3 +430,118 @@ def test_new_level_requires_manual_allow_after_dual_tail():
     assert ws["BG5"].value == "NO"
     assert ws["AP5"].value == '=IF(AND($AQ5="MANUAL_READY",$BG5="YES"),"YES",IF(OR($AQ5="DUAL_TAIL",$AQ5="DANGER",$AQ5="STOP",$AQ5="STOP_CLEARED",$AQ5="MANUAL_READY"),"NO","YES"))'
     assert ws["B6"].value.startswith('=IF(AND($AQ5="MANUAL_READY",$BG5="YES")')
+
+
+def _data_only_workbook():
+    return load_workbook(WORKBOOK, data_only=True)
+
+
+def _rows_by_header(ws):
+    headers = [cell.value for cell in ws[1]]
+    return {header: headers.index(header) + 1 for header in headers if header}
+
+
+def test_dual_tail_row_has_active_old_and_new_lots():
+    for sheet in ["Trend_UP", "Trend_DOWN"]:
+        ws = _data_only_workbook()[sheet]
+        idx = _rows_by_header(ws)
+        dual_rows = [r for r in range(2, ws.max_row + 1) if ws.cell(r, idx["Status"]).value == "DUAL_TAIL"]
+        assert dual_rows, f"{sheet} has no DUAL_TAIL row"
+        for r in dual_rows:
+            old_remain = ws.cell(r, idx["OldFarRemainLot"]).value or 0
+            new_far = ws.cell(r, idx["NewFarStartLot"]).value or 0
+            active_old = ws.cell(r, idx["ActiveOldFarLot"]).value or 0
+            active_new = ws.cell(r, idx["ActiveNewFarLot"]).value or 0
+            assert active_old == old_remain
+            assert active_new == new_far
+            assert active_old > 0 and active_new > 0
+
+
+def test_first_blocked_row_preserves_dual_tail_lots():
+    for sheet in ["Trend_UP", "Trend_DOWN"]:
+        ws = _data_only_workbook()[sheet]
+        idx = _rows_by_header(ws)
+        rows = range(2, ws.max_row + 1)
+        dual = next(r for r in rows if ws.cell(r, idx["Status"]).value == "DUAL_TAIL")
+        blocked = dual + 1
+        assert ws.cell(blocked, idx["Scenario"]).value == "BLOCKED"
+        assert ws.cell(blocked, idx["ActiveOldFarLot"]).value == ws.cell(dual, idx["ActiveOldFarLot"]).value
+        assert ws.cell(blocked, idx["ActiveNewFarLot"]).value == ws.cell(dual, idx["ActiveNewFarLot"]).value
+
+
+def test_second_blocked_row_preserves_dual_tail_lots():
+    for sheet in ["Trend_UP", "Trend_DOWN"]:
+        ws = _data_only_workbook()[sheet]
+        idx = _rows_by_header(ws)
+        rows = range(2, ws.max_row + 1)
+        dual = next(r for r in rows if ws.cell(r, idx["Status"]).value == "DUAL_TAIL")
+        blocked_1 = dual + 1
+        blocked_2 = dual + 2
+        assert ws.cell(blocked_2, idx["Scenario"]).value == "BLOCKED"
+        assert ws.cell(blocked_2, idx["ActiveOldFarLot"]).value == ws.cell(blocked_1, idx["ActiveOldFarLot"]).value
+        assert ws.cell(blocked_2, idx["ActiveNewFarLot"]).value == ws.cell(blocked_1, idx["ActiveNewFarLot"]).value
+
+
+def test_blocked_rows_open_lots_equal_dual_tail_total():
+    for sheet in ["Trend_UP", "Trend_DOWN"]:
+        ws = _data_only_workbook()[sheet]
+        idx = _rows_by_header(ws)
+        for r in range(2, ws.max_row + 1):
+            if ws.cell(r, idx["Scenario"]).value == "BLOCKED":
+                assert ws.cell(r, idx["OpenLotsAfter"]).value == ws.cell(r, idx["DualTailTotalLot"]).value
+                assert ws.cell(r, idx["DualTailTotalLot"]).value > 0
+
+
+def test_blocked_rows_margin_equal_dual_tail_total_margin():
+    for sheet in ["Trend_UP", "Trend_DOWN"]:
+        ws = _data_only_workbook()[sheet]
+        idx = _rows_by_header(ws)
+        for r in range(2, ws.max_row + 1):
+            if ws.cell(r, idx["Scenario"]).value == "BLOCKED":
+                expected = ws.cell(r, idx["DualTailTotalLot"]).value * 1000
+                assert abs(ws.cell(r, idx["MarginAfter"]).value - expected) < 1e-9
+
+
+def test_risk_analysis_counts_blocked_rows():
+    wb = _data_only_workbook()
+    risk = wb["Risk_Analysis"]
+    values = {risk.cell(r, 1).value: risk.cell(r, 3).value for r in range(2, risk.max_row + 1)}
+    assert values["Blocked Levels Count"] > 0
+
+
+def test_risk_analysis_max_dual_tail_exposure_positive():
+    wb = _data_only_workbook()
+    risk = wb["Risk_Analysis"]
+    values = {risk.cell(r, 1).value: risk.cell(r, 3).value for r in range(2, risk.max_row + 1)}
+    assert values["Max DualTail Exposure"] > 0
+
+
+def test_active_old_tail_not_zero_without_manual_close():
+    ws = _data_only_workbook()["Trend_UP"]
+    idx = _rows_by_header(ws)
+    blocked_rows = [r for r in range(2, ws.max_row + 1) if ws.cell(r, idx["Scenario"]).value == "BLOCKED"]
+    assert blocked_rows
+    for r in blocked_rows:
+        assert (ws.cell(r, idx["ManualOldFarCloseLot"]).value or 0) == 0
+        assert ws.cell(r, idx["ActiveOldFarLot"]).value > 0
+
+
+def test_active_new_tail_not_zero_without_manual_close():
+    ws = _data_only_workbook()["Trend_UP"]
+    idx = _rows_by_header(ws)
+    blocked_rows = [r for r in range(2, ws.max_row + 1) if ws.cell(r, idx["Scenario"]).value == "BLOCKED"]
+    assert blocked_rows
+    for r in blocked_rows:
+        assert (ws.cell(r, idx["ManualNewFarCloseLot"]).value or 0) == 0
+        assert ws.cell(r, idx["ActiveNewFarLot"]).value > 0
+
+
+def test_manual_close_pl_changes_balance():
+    ws = workbook()["Calculator"]
+    assert ws["AA5"].value.startswith('=IF($B5="BLOCKED",$Z5+$BF5')
+
+
+def test_manual_allow_required_to_resume():
+    ws = workbook()["Calculator"]
+    assert ws["B6"].value.startswith('=IF(AND($AQ5="MANUAL_READY",$BG5="YES")')
+    assert ws["AP5"].value.startswith('=IF(AND($AQ5="MANUAL_READY",$BG5="YES")')
