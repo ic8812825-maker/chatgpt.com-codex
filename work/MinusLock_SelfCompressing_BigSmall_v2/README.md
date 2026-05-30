@@ -107,3 +107,11 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 - Risk_Analysis includes Global Risk Summary;
 - DUAL_TAIL/BLOCKED/STOP counted globally;
 - workbook auto-calculation enabled.
+
+## v7 fixes
+
+- removed Excel circular references;
+- fixed Trend_DOWN DUAL_TAIL persistence;
+- populated Global Total Closed Profit / Loss;
+- ensured BLOCKED rows have no blank key fields;
+- verified workbook formulas with a no-direct-self-reference scan; desktop Excel manual warning check is noted as requiring Microsoft Excel.

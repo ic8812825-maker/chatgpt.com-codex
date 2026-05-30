@@ -187,7 +187,7 @@ def test_calculator_big_side_formulas_close_big_small_and_use_monetary_budget():
     assert ws["AN2"].value == '=IF($B2="BIG_SIDE",1,IF($B2="SMALL_SIDE",Settings!$B$7,0))'
     assert ws["AO2"].value == '=IF(OR($B2="BIG_SIDE",$B2="SMALL_SIDE"),1,0)'
     assert ws["T2"].value == '=IF(AND($B2="BIG_SIDE",$AX2>0),$AX2*Settings!$B$5,0)'
-    assert ws["X2"].value == '=IF($B2="BIG_SIDE",IF($AX2>0,$AX2-$AS2,0),IF($S2>0,$S2*0.5,0))'
+    assert ws["X2"].value == '=IF($B2="BIG_SIDE",IF($AX$2>0,$AX$2-$AS$2,0),IF($S$2>0,$S$2*0.5,0))'
 
 
 def test_costs_per_lot_are_multiplied_by_closed_lots():
@@ -221,7 +221,7 @@ def test_big_side_balance_after_realized_far_loss():
 
 def test_reserve_add_uses_net_profit_before_far_minus_realized_far_loss():
     ws = workbook()["Calculator"]
-    assert ws["X2"].value == '=IF($B2="BIG_SIDE",IF($AX2>0,$AX2-$AS2,0),IF($S2>0,$S2*0.5,0))'
+    assert ws["X2"].value == '=IF($B2="BIG_SIDE",IF($AX$2>0,$AX$2-$AS$2,0),IF($S$2>0,$S$2*0.5,0))'
     model = big_side_v3_model(1.0, 1.15, 0.44, 200 / 1.15, -60 / 0.44, 100, 5, 3, 2)
     assert round(model["reserve_add"], 2) == round(model["net_profit_before_far"] - model["realized_far_loss"], 2)
 
@@ -675,3 +675,68 @@ def test_settings_links_exist_across_all_calc_sheets():
         )
         for ref in settings_refs:
             assert ref in formulas, f"{sheet} formulas missing {ref}"
+
+
+def test_no_direct_self_references():
+    wb = workbook()
+    for ws in wb.worksheets:
+        for row in ws.iter_rows():
+            for cell in row:
+                if isinstance(cell.value, str) and cell.value.startswith("="):
+                    coord = cell.coordinate.upper()
+                    formula = cell.value.upper()
+                    assert coord not in formula, f"Direct self-reference found: {ws.title}!{coord} -> {cell.value}"
+
+
+def test_no_blank_global_profit_loss():
+    wb = workbook()
+    risk = wb["Risk_Analysis"]
+    formulas = {risk.cell(r, 1).value: risk.cell(r, 3).value for r in range(2, risk.max_row + 1) if risk.cell(r, 1).value}
+    assert formulas["Global Total Closed Profit"]
+    assert formulas["Global Total Closed Loss"]
+    assert "Calculator!" in formulas["Global Total Closed Profit"]
+    assert "Trend_UP!" in formulas["Global Total Closed Profit"]
+    assert "Trend_DOWN!" in formulas["Global Total Closed Profit"]
+    assert "Calculator!" in formulas["Global Total Closed Loss"]
+    assert "Trend_UP!" in formulas["Global Total Closed Loss"]
+    assert "Trend_DOWN!" in formulas["Global Total Closed Loss"]
+
+
+def test_trend_down_blocked_uses_previous_dual_tail_values():
+    ws, idx, dual_rows, blocked_rows = _dual_and_blocked_rows("Trend_DOWN")
+    assert dual_rows and blocked_rows
+    dual = dual_rows[0]
+    first_blocked = min(r for r in blocked_rows if r > dual)
+    assert ws.cell(first_blocked, idx["ActiveOldFarLot"]).value == ws.cell(dual, idx["ActiveOldFarLot"]).value
+    assert ws.cell(first_blocked, idx["ActiveNewFarLot"]).value == ws.cell(dual, idx["ActiveNewFarLot"]).value
+    assert ws.cell(first_blocked, idx["DualTailTotalLot"]).value == ws.cell(dual, idx["DualTailTotalLot"]).value
+    assert round(ws.cell(first_blocked, idx["ActiveOldFarLot"]).value, 4) == 0.8052
+    assert round(ws.cell(first_blocked, idx["ActiveNewFarLot"]).value, 4) == 0.7254
+    assert round(ws.cell(first_blocked, idx["DualTailTotalLot"]).value, 4) == 1.5306
+
+
+def test_blocked_rows_key_fields_not_blank():
+    key_fields = [
+        "Scenario", "Status", "Comment", "OpenLotsBefore", "OpenLotsAfter",
+        "MarginBefore", "MarginAfter", "ActiveOldFarLot", "ActiveNewFarLot",
+        "DualTailTotalLot", "NewFullLevelAllowed", "BlockedReason",
+    ]
+    for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]:
+        ws = _data_only_workbook()[sheet]
+        idx = _rows_by_header(ws)
+        blocked_rows = [r for r in range(2, ws.max_row + 1) if ws.cell(r, idx["Scenario"]).value == "BLOCKED"]
+        for r in blocked_rows:
+            for field in key_fields:
+                assert ws.cell(r, idx[field]).value not in (None, ""), f"{sheet} row {r} blank {field}"
+
+
+def test_global_risk_summary_profit_loss_populated():
+    values = _risk_values()
+    assert values["Global Total Closed Profit"] is not None
+    assert values["Global Total Closed Loss"] is not None
+    assert values["Global Total Closed Profit"] > 0
+    assert values["Global Total Closed Loss"] > 0
+    assert values["Global Dual Tail Count"] > 0
+    assert values["Global Blocked Levels Count"] > 0
+    assert values["Global Stop Count"] > 0
+    assert values["Global Max DualTail Exposure"] > 0

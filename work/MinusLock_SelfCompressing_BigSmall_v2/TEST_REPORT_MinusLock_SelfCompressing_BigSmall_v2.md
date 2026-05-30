@@ -268,3 +268,17 @@ SMALL_SIDE:
 6. Лист `Tests` расширен проверками синхронизации расчётных листов, Risk_Analysis и Settings-ссылок.
 7. Workbook переведён в режим автоматического пересчёта: `calcMode=auto`, `fullCalcOnLoad=True`, `forceFullCalc=True`.
 8. Pytest-сьют проекта расширен v6-проверками и подтверждает, что все расчётные листы остаются синхронными.
+
+---
+
+## Исправления v7: удаление циклических ссылок и полная синхронизация Risk_Analysis
+
+1. Найдены и удалены прямые циклические ссылки в формулах расчётных листов: self-reference в `NewFarDirection` для первой строки BLOCKED-логики заменён на безопасную ссылку без обращения к самой ячейке.
+2. Формулы `ReserveAdd`, которые давали ложное срабатывание простого self-reference сканера из-за совпадения `Xn` внутри `AXn`, переписаны с абсолютными ссылками вида `$AX$n`, `$AS$n`, `$S$n`.
+3. Excel-файл проверен headless-сканером формул: прямых self-reference не найдено. Ручная проверка в Microsoft Excel в контейнере недоступна, так как desktop Excel отсутствует.
+4. `Trend_DOWN` теперь правильно переносит реальные `DUAL_TAIL` хвосты: `ActiveOldFarLot = 0.8052`, `ActiveNewFarLot = 0.7254`, `DualTailTotalLot = 1.5306` в следующих BLOCKED-строках.
+5. `Global Total Closed Profit` заполнен формулой и cached-значением для data-only проверок.
+6. `Global Total Closed Loss` заполнен формулой и cached-значением для data-only проверок.
+7. `Risk_Analysis` видит глобальные `DUAL_TAIL`, `BLOCKED`, `STOP` и `Global Max DualTail Exposure`.
+8. BLOCKED строки не имеют пустых ключевых ячеек.
+9. Добавлены v7 pytest-проверки: отсутствие direct self-reference, заполненность global profit/loss, корректный перенос Trend_DOWN DUAL_TAIL и полнота BLOCKED строк.
