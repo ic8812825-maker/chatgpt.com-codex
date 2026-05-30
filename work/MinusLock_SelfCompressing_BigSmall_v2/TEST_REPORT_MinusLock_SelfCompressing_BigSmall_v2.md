@@ -27,6 +27,23 @@
 3. Лист `Tests` заменён на подробную таблицу с колонками `Test ID`, `Test Name`, `Input`, `Expected`, `Actual`, `Formula Checked`, `Status`, `Comment` и 29 проверками.
 4. Добавлен отдельный pytest-набор `tests/excel/test_minuslock_bigsmall_v2.py`, который проверяет workbook-структуру, v2-формулы и независимые числовые сценарии.
 
+
+## Исправления v3
+
+1. Добавлен `RealizedFarLoss = CloseFarLot × LossPerLotToClose`.
+2. `BalanceAfter` теперь учитывает закрытие дальнего хвоста: для `BIG_SIDE` используется `BalanceBefore + NetProfitBeforeFar - RealizedFarLoss - CostsFarClose`.
+3. `Risk_Analysis` теперь включает `RealizedFarLoss` в `Total Closed Loss` и содержит отдельный показатель `Total Realized Far Loss`.
+4. `DUAL_TAIL` теперь реально блокирует следующий уровень: следующий `Scenario` становится `BLOCKED`, `Status = STOP`, `BigLot = 0`, `SmallLot = 0`.
+5. `Costs` теперь считаются как `PerLot × ClosedLotsForCosts`, где `CostPerLot = CommissionPerLot + SpreadCostPerLot + SlippageCostPerLot`.
+6. Добавлены новые тесты в Excel-лист `Tests` и pytest: `test_realized_far_loss_formula`, `test_big_side_balance_after_realized_far_loss`, `test_risk_analysis_includes_realized_far_loss`, `test_dual_tail_blocks_next_level`, `test_costs_per_lot_are_multiplied_by_closed_lots`, `test_old_far_close_pl_affects_small_side_balance`.
+
+### V3 smoke / pytest result
+
+```text
+python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/tests/excel/test_minuslock_bigsmall_v2.py -q
+19 passed
+```
+
 ## 3. Подробные результаты тестов
 
 | # | Название | Что проверялось | Входные данные | Ожидание | Факт / Excel-ячейка | Статус | Комментарий |
@@ -111,7 +128,7 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 Результат:
 
 ```text
-12 passed in 1.07s
+19 passed in 1.22s
 ```
 
 Статус: PASS.
