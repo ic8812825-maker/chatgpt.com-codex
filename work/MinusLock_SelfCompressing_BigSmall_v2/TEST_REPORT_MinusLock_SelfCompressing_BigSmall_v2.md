@@ -255,3 +255,16 @@ SMALL_SIDE:
     старый хвост проверяется
     DUAL_TAIL блокирует новый полноценный уровень
 ```
+
+---
+
+## Исправления v6: полная синхронизация листов
+
+1. Все расчётные листы `Calculator`, `Trend_UP` и `Trend_DOWN` синхронизированы по единому набору колонок.
+2. `Trend_UP` и `Trend_DOWN` используют одинаковые формулы Big/Small, направлений, DUAL_TAIL, BLOCKED и ручного выхода.
+3. `DUAL_TAIL` корректно сохраняется на обоих сценарных листах: старый и новый хвосты переходят в `ActiveOldFarLot` и `ActiveNewFarLot`.
+4. `Risk_Analysis` теперь имеет два логических блока: `Calculator Summary` и `Global Risk Summary`.
+5. `Global Risk Summary` считает одновременно `Calculator + Trend_UP + Trend_DOWN`, включая DUAL_TAIL, BLOCKED, STOP и максимальную экспозицию двух хвостов.
+6. Лист `Tests` расширен проверками синхронизации расчётных листов, Risk_Analysis и Settings-ссылок.
+7. Workbook переведён в режим автоматического пересчёта: `calcMode=auto`, `fullCalcOnLoad=True`, `forceFullCalc=True`.
+8. Pytest-сьют проекта расширен v6-проверками и подтверждает, что все расчётные листы остаются синхронными.

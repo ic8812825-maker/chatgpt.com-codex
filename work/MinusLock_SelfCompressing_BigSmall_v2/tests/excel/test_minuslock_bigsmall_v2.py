@@ -545,3 +545,133 @@ def test_manual_allow_required_to_resume():
     ws = workbook()["Calculator"]
     assert ws["B6"].value.startswith('=IF(AND($AQ5="MANUAL_READY",$BG5="YES")')
     assert ws["AP5"].value.startswith('=IF(AND($AQ5="MANUAL_READY",$BG5="YES")')
+
+
+def test_calc_trend_up_trend_down_have_same_headers():
+    wb = workbook()
+    headers = [[cell.value for cell in wb[sheet][1]] for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]]
+    assert headers[0] == headers[1] == headers[2]
+
+
+def test_same_big_formula_across_sheets():
+    wb = workbook()
+    for row in range(2, 12):
+        formulas = [(wb[sheet].cell(row, 6).value, wb[sheet].cell(row, 7).value) for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]]
+        assert formulas[0] == formulas[1] == formulas[2]
+        assert "Settings!$B$3" in formulas[0][0]
+        assert "Settings!$B$11" in formulas[0][1]
+
+
+def test_same_small_formula_across_sheets():
+    wb = workbook()
+    for row in range(2, 12):
+        formulas = [(wb[sheet].cell(row, 9).value, wb[sheet].cell(row, 10).value) for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]]
+        assert formulas[0] == formulas[1] == formulas[2]
+        assert "Settings!$B$4" in formulas[0][0]
+        assert "Settings!$B$11" in formulas[0][1]
+
+
+def _dual_and_blocked_rows(sheet_name: str):
+    ws = _data_only_workbook()[sheet_name]
+    idx = _rows_by_header(ws)
+    dual_rows = [r for r in range(2, ws.max_row + 1) if ws.cell(r, idx["Status"]).value == "DUAL_TAIL"]
+    blocked_rows = [r for r in range(2, ws.max_row + 1) if ws.cell(r, idx["Scenario"]).value == "BLOCKED"]
+    return ws, idx, dual_rows, blocked_rows
+
+
+def test_trend_up_dual_tail_persists():
+    ws, idx, dual_rows, blocked_rows = _dual_and_blocked_rows("Trend_UP")
+    assert dual_rows and blocked_rows
+    for r in dual_rows:
+        assert ws.cell(r, idx["ActiveOldFarLot"]).value == ws.cell(r, idx["OldFarRemainLot"]).value
+        assert ws.cell(r, idx["ActiveNewFarLot"]).value == ws.cell(r, idx["NewFarStartLot"]).value
+        assert ws.cell(r, idx["DualTailTotalLot"]).value > 0
+
+
+def test_trend_down_dual_tail_persists():
+    ws, idx, dual_rows, blocked_rows = _dual_and_blocked_rows("Trend_DOWN")
+    assert dual_rows and blocked_rows
+    for r in dual_rows:
+        assert ws.cell(r, idx["ActiveOldFarLot"]).value == ws.cell(r, idx["OldFarRemainLot"]).value
+        assert ws.cell(r, idx["ActiveNewFarLot"]).value == ws.cell(r, idx["NewFarStartLot"]).value
+        assert ws.cell(r, idx["DualTailTotalLot"]).value > 0
+
+
+def test_trend_up_blocked_rows_keep_tails():
+    ws, idx, _, blocked_rows = _dual_and_blocked_rows("Trend_UP")
+    assert blocked_rows
+    for r in blocked_rows:
+        assert ws.cell(r, idx["ActiveOldFarLot"]).value > 0
+        assert ws.cell(r, idx["ActiveNewFarLot"]).value > 0
+        assert ws.cell(r, idx["OpenLotsAfter"]).value == ws.cell(r, idx["DualTailTotalLot"]).value
+        assert ws.cell(r, idx["Status"]).value == "STOP"
+        assert ws.cell(r, idx["BigLot"]).value == 0
+        assert ws.cell(r, idx["SmallLot"]).value == 0
+
+
+def test_trend_down_blocked_rows_keep_tails():
+    ws, idx, _, blocked_rows = _dual_and_blocked_rows("Trend_DOWN")
+    assert blocked_rows
+    for r in blocked_rows:
+        assert ws.cell(r, idx["ActiveOldFarLot"]).value > 0
+        assert ws.cell(r, idx["ActiveNewFarLot"]).value > 0
+        assert ws.cell(r, idx["OpenLotsAfter"]).value == ws.cell(r, idx["DualTailTotalLot"]).value
+        assert ws.cell(r, idx["Status"]).value == "STOP"
+        assert ws.cell(r, idx["BigLot"]).value == 0
+        assert ws.cell(r, idx["SmallLot"]).value == 0
+
+
+def _risk_values():
+    risk = _data_only_workbook()["Risk_Analysis"]
+    return {risk.cell(r, 1).value: risk.cell(r, 3).value for r in range(2, risk.max_row + 1) if risk.cell(r, 1).value}
+
+
+def test_risk_analysis_counts_trend_up_dual_tail():
+    values = _risk_values()
+    assert values["Global Dual Tail Count"] >= 1
+    assert values["Global Max DualTail Exposure"] > 0
+
+
+def test_risk_analysis_counts_trend_down_dual_tail():
+    values = _risk_values()
+    assert values["Global Dual Tail Count"] >= 2
+    assert values["Global Blocked Levels Count"] > 0
+
+
+def test_global_risk_summary_counts_all_sheets():
+    wb = workbook()
+    risk = wb["Risk_Analysis"]
+    formulas = {risk.cell(r, 1).value: risk.cell(r, 3).value for r in range(2, risk.max_row + 1) if risk.cell(r, 1).value}
+    for metric in ["Global Dual Tail Count", "Global Blocked Levels Count", "Global Max DualTail Exposure"]:
+        formula = formulas[metric]
+        assert "Calculator!" in formula
+        assert "Trend_UP!" in formula
+        assert "Trend_DOWN!" in formula
+
+
+def test_blocked_rows_have_no_empty_key_fields():
+    key_fields = [
+        "Scenario", "Status", "ActiveOldFarLot", "ActiveNewFarLot", "DualTailTotalLot",
+        "OpenLotsBefore", "OpenLotsAfter", "MarginBefore", "MarginAfter", "Comment",
+    ]
+    for sheet in ["Trend_UP", "Trend_DOWN"]:
+        ws, idx, _, blocked_rows = _dual_and_blocked_rows(sheet)
+        assert blocked_rows
+        for r in blocked_rows:
+            for field in key_fields:
+                assert ws.cell(r, idx[field]).value not in (None, ""), f"{sheet} row {r} empty {field}"
+
+
+def test_settings_links_exist_across_all_calc_sheets():
+    wb = workbook()
+    settings_refs = ["Settings!$B$3", "Settings!$B$4", "Settings!$B$5", "Settings!$B$7", "Settings!$B$9", "Settings!$B$10", "Settings!$B$11"]
+    for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]:
+        ws = wb[sheet]
+        formulas = "\n".join(
+            str(ws.cell(r, c).value)
+            for r in range(2, min(ws.max_row, 11) + 1)
+            for c in range(1, ws.max_column + 1)
+            if ws.cell(r, c).data_type == "f"
+        )
+        for ref in settings_refs:
+            assert ref in formulas, f"{sheet} formulas missing {ref}"

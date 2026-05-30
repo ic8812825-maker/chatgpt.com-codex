@@ -98,3 +98,12 @@ python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/tests/excel/test_min
 ```bash
 python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 ```
+
+## v6 sync fixes
+
+- all calculation sheets share identical headers;
+- all formulas generated from one source;
+- Trend_UP and Trend_DOWN synchronized;
+- Risk_Analysis includes Global Risk Summary;
+- DUAL_TAIL/BLOCKED/STOP counted globally;
+- workbook auto-calculation enabled.
