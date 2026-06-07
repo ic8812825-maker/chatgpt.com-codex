@@ -1463,3 +1463,63 @@ CloseFarLot = CloseFarBudget / LossPerLotToClose
 ```
 
 Поэтому `Close-N` нельзя использовать как замену реального денежного расчёта `CloseFarLot` в рабочем листе `Calculator`.
+
+---
+
+# Big-harvest модель 1.30 / 0.36 / 90-10
+
+Для Big-harvest модели используются параметры:
+
+```text
+BigRatio = 1.30
+SmallRatio = 0.36
+CloseFarShare = 0.90
+ReserveShare = 0.10
+CloseBigOnSmall = 0.30
+RemainBigOnSmall = 0.70
+```
+
+Ключевое правило:
+
+```text
+CloseFarShare = 90% — это денежный бюджет от NetProfit, а не процент лота Far.
+```
+
+Рабочий расчёт в `Calculator` остаётся денежным:
+
+```text
+CloseFarBudget = NetProfitBeforeFar × CloseFarShare
+CloseFarLot = CloseFarBudget / LossPerLotToClose
+LossPerLotToClose = FarDistancePoints × PointValuePerLot
+```
+
+Пример:
+
+```text
+Far = 1.00
+Big = 1.30
+Small ≈ 0.47
+BigMove = 100
+FarDistance = 200
+NetProfit ≈ 83
+CloseFarBudget ≈ 74.7
+CloseFarLot ≈ 0.3735
+FarRemain ≈ 0.6265
+```
+
+Запрещено считать:
+
+```text
+CloseFarLot = FarStartLot × 0.90
+```
+
+Для `SMALL_SIDE`:
+
+```text
+Close Small = 100%
+Close Big = 30%
+Remain Big = 70%
+NewFar = BigLot × 0.70
+```
+
+При `Big = 1.30`, `Small = 0.468`, `CloseBig = 0.39`, движение `100` пунктов даёт `NetSmall = 46.8 - 39 = +7.8`, поэтому Small-сценарий не ломает harvest-геометрию.

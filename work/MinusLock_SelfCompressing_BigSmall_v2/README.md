@@ -122,3 +122,10 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 - added Settings geometry table Big-N / Small-N / Close-N;
 - geometry table is linked to Settings parameters;
 - Close-N is reference lot geometry, not the money-mode close rule.
+
+## Big-harvest model update
+
+- BigRatio = 1.30, SmallRatio = 0.36, CloseFarShare = 0.90, ReserveShare = 0.10;
+- CloseBigOnSmall = 0.30 and RemainBigOnSmall = 0.70;
+- CloseFarShare = 90% is a money budget from NetProfit, not 90% of the Far lot;
+- example: Far = 1.00, Big = 1.30, Small ≈ 0.47, BigMove = 100, FarDistance = 200, NetProfit ≈ 83, CloseFarBudget ≈ 74.7, CloseFarLot ≈ 0.3735, FarRemain ≈ 0.6265.

@@ -293,3 +293,14 @@ SMALL_SIDE:
 4. Добавлена справочная таблица `Big-N / Small-N / Close-N` на лист `Settings`.
 5. Таблица использует ссылки на параметры `StartLot`, `BigRatio`, `SmallRatio`, `CloseFarShare`, `LotStep`, `MaxLevels`.
 6. `Close-N` помечен как справочная лотовая геометрия и не заменяет денежный режим закрытия хвоста в `Calculator`.
+
+---
+
+## Исправления Big-harvest: денежное CloseFarShare 90%
+
+1. Параметры обновлены: `BigRatio = 1.30`, `SmallRatio = 0.36`, `CloseFarShare = 0.90`, `ReserveShare = 0.10`, `CloseBigOnSmall = 0.30`, `RemainBigOnSmall = 0.70`.
+2. `CloseFarShare = 90%` теперь трактуется только как денежный бюджет от `NetProfit`, а не как закрытие 90% лота Far.
+3. Контрольный пример: `Far = 1.00`, `Big = 1.30`, `Small ≈ 0.47`, `BigMove = 100`, `FarDistance = 200`, `NetProfit ≈ 83`, `CloseFarBudget ≈ 74.7`, `CloseFarLot ≈ 0.3735`, `FarRemain ≈ 0.6265`.
+4. Таблица `Big Harvest Geometry` заменила старую геометрию `Big-N / Small-N / Close-N` и показывает денежный harvest-расчёт по уровням.
+5. Добавлены колонки `BigMovePoints`, `FarDistancePoints`, `HarvestMode`, `HarvestCount`, `CloseFarPercent`, `CanFullCloseFar`, `FarRemainLoss`, `FinalClosePL` на всех расчётных листах.
+6. Small-сценарий проверен: при `Big = 1.30`, `Small = 0.468`, `CloseBig = 0.39`, `NetSmall = +7.8`, `NewFar = 0.91`.

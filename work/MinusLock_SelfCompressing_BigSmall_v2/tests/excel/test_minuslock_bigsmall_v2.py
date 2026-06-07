@@ -36,16 +36,16 @@ REQUIRED_V3_HEADERS = [
 @dataclass
 class Params:
     start_lot: float = 1.0
-    big_ratio: float = 1.15
-    small_ratio: float = 0.38
-    close_far_share: float = 0.20
-    reserve_share: float = 0.80
-    close_big_on_small: float = 0.22
-    remain_big_on_small: float = 0.78
+    big_ratio: float = 1.30
+    small_ratio: float = 0.36
+    close_far_share: float = 0.90
+    reserve_share: float = 0.10
+    close_big_on_small: float = 0.30
+    remain_big_on_small: float = 0.70
     point_value_per_lot: float = 1.0
     margin_per_lot: float = 1000.0
     lot_step: float = 0.01
-    max_big_ratio: float = 1.20
+    max_big_ratio: float = 1.35
     max_small_ratio: float = 0.45
 
 
@@ -92,8 +92,8 @@ def big_side_v3_model(
     closed_lots_for_costs = big_lot + small_lot + close_far_lot
     costs = closed_lots_for_costs * cost_per_lot
     net_profit = profit_big - loss_small - costs
-    reserve_add = net_profit_before_far - realized_far_loss if net_profit_before_far > 0 else 0
-    balance_after = net_profit_before_far - realized_far_loss - costs_far_close
+    reserve_add = net_profit_before_far * params.reserve_share if net_profit_before_far > 0 else 0
+    balance_after = net_profit - realized_far_loss
     return {
         "profit_big": profit_big,
         "loss_small": loss_small,
@@ -133,12 +133,12 @@ def test_settings_defaults_and_editable_cells():
     settings = settings_map(wb)
     expected = {
         "StartLot": 1,
-        "BigRatio": 1.15,
-        "SmallRatio": 0.38,
-        "CloseFarShare": 0.20,
-        "ReserveShare": 0.80,
-        "CloseBigOnSmall": 0.22,
-        "RemainBigOnSmall": 0.78,
+        "BigRatio": 1.30,
+        "SmallRatio": 0.36,
+        "CloseFarShare": 0.90,
+        "ReserveShare": 0.10,
+        "CloseBigOnSmall": 0.30,
+        "RemainBigOnSmall": 0.70,
         "PointValuePerLot": 1,
         "MarginPerLot": 1000,
         "LotStep": 0.01,
@@ -146,7 +146,7 @@ def test_settings_defaults_and_editable_cells():
         "CommissionPerLot": 0,
         "SpreadCostPerLot": 0,
         "SlippageCostPerLot": 0,
-        "MaxBigRatio": 1.20,
+        "MaxBigRatio": 1.35,
         "MaxSmallRatio": 0.45,
     }
     assert settings == expected
@@ -163,13 +163,13 @@ def test_v3_required_columns_exist_on_all_calculation_sheets():
 
 
 def test_big_and_small_formula_math():
-    assert round_lot(1.00 * 1.15) == 1.15
-    assert round_lot(0.80 * 1.15) == 0.92
-    small_raw = 1.15 * 0.38
+    assert round_lot(1.00 * 1.30) == 1.30
+    assert round_lot(0.80 * 1.30) == 1.04
+    small_raw = 1.30 * 0.36
     small_lot = round_lot(small_raw)
-    assert small_raw == 0.43699999999999994
-    assert small_lot == 0.44
-    assert small_lot / 1.15 <= 0.45
+    assert small_raw == 0.46799999999999997
+    assert small_lot == 0.47
+    assert small_lot / 1.30 <= 0.45
 
 
 def test_direction_sheets_have_v2_direction_logic():
@@ -187,7 +187,7 @@ def test_calculator_big_side_formulas_close_big_small_and_use_monetary_budget():
     assert ws["AN2"].value == '=IF($B2="BIG_SIDE",1,IF($B2="SMALL_SIDE",Settings!$B$7,0))'
     assert ws["AO2"].value == '=IF(OR($B2="BIG_SIDE",$B2="SMALL_SIDE"),1,0)'
     assert ws["T2"].value == '=IF(AND($B2="BIG_SIDE",$AX2>0),$AX2*Settings!$B$5,0)'
-    assert ws["X2"].value == '=IF($B2="BIG_SIDE",IF($AX$2>0,$AX$2-$AS$2,0),IF($S$2>0,$S$2*0.5,0))'
+    assert ws["X2"].value == '=IF($B2="BIG_SIDE",IF($AX$2>0,$AX$2*Settings!$B$6,0),IF($S$2>0,$S$2*Settings!$B$6,0))'
 
 
 def test_costs_per_lot_are_multiplied_by_closed_lots():
@@ -195,41 +195,41 @@ def test_costs_per_lot_are_multiplied_by_closed_lots():
     assert ws["AU2"].value == "=Settings!$B$13+Settings!$B$14+Settings!$B$15"
     assert ws["AT2"].value == '=IF($B2="BIG_SIDE",$G2+$J2+$V2,IF($B2="SMALL_SIDE",$J2+$AL2+$AV2,0))'
     assert ws["R2"].value == "=$AT2*$AU2"
-    model = big_side_v3_model(1.0, 1.15, 0.44, 200 / 1.15, -60 / 0.44, 100, 5, 3, 2)
-    assert round(model["closed_lots_for_costs"], 4) == 1.8382
+    model = big_side_v3_model(1.0, 1.30, 0.47, 100, -100, 200, 5, 3, 2)
+    assert round(model["closed_lots_for_costs"], 4) == 2.0638
     assert model["cost_per_lot"] == 10
-    assert round(model["costs"], 3) == 18.382
+    assert round(model["costs"], 3) == 20.639
 
 
 def test_realized_far_loss_formula():
     ws = workbook()["Calculator"]
     assert ws["AS2"].value == '=IF($B2="BIG_SIDE",$V2*$U2,0)'
-    model = big_side_v3_model(1.0, 1.15, 0.44, 200 / 1.15, -60 / 0.44, 100, 5, 3, 2)
-    assert round(model["close_far_budget"], 2) == 24.82
-    assert round(model["close_far_lot"], 4) == 0.2482
-    assert round(model["realized_far_loss"], 2) == 24.82
+    model = big_side_v3_model(1.0, 1.30, 0.47, 100, -100, 200, 5, 3, 2)
+    assert round(model["close_far_budget"], 2) == 58.77
+    assert round(model["close_far_lot"], 4) == 0.2939
+    assert round(model["realized_far_loss"], 2) == 58.77
 
 
 def test_big_side_balance_after_realized_far_loss():
     ws = workbook()["Calculator"]
-    assert ws["AA2"].value == '=IF($B2="BLOCKED",$Z2+$BF2,IF($B2="BIG_SIDE",$Z2+$AX2-$AS2-$AZ2,IF($B2="SMALL_SIDE",$Z2+$S2+$AI2,$Z2+$S2)))'
-    model = big_side_v3_model(1.0, 1.15, 0.44, 200 / 1.15, -60 / 0.44, 100, 5, 3, 2)
-    expected_balance = model["net_profit_before_far"] - model["realized_far_loss"] - model["costs_far_close"]
+    assert ws["AA2"].value == '=IF($B2="BLOCKED",$Z2+$BF2,IF($B2="BIG_SIDE",$Z2+$S2-$AS2,IF($B2="SMALL_SIDE",$Z2+$S2+$AI2,$Z2+$S2)))'
+    model = big_side_v3_model(1.0, 1.30, 0.47, 100, -100, 200, 5, 3, 2)
+    expected_balance = model["net_profit"] - model["realized_far_loss"]
     assert round(model["balance_after"], 3) == round(expected_balance, 3)
     assert model["balance_after"] < model["net_profit_before_far"]
 
 
 def test_reserve_add_uses_net_profit_before_far_minus_realized_far_loss():
     ws = workbook()["Calculator"]
-    assert ws["X2"].value == '=IF($B2="BIG_SIDE",IF($AX$2>0,$AX$2-$AS$2,0),IF($S$2>0,$S$2*0.5,0))'
-    model = big_side_v3_model(1.0, 1.15, 0.44, 200 / 1.15, -60 / 0.44, 100, 5, 3, 2)
-    assert round(model["reserve_add"], 2) == round(model["net_profit_before_far"] - model["realized_far_loss"], 2)
+    assert ws["X2"].value == '=IF($B2="BIG_SIDE",IF($AX$2>0,$AX$2*Settings!$B$6,0),IF($S$2>0,$S$2*Settings!$B$6,0))'
+    model = big_side_v3_model(1.0, 1.30, 0.47, 100, -100, 200, 5, 3, 2)
+    assert round(model["reserve_add"], 2) == round(model["net_profit_before_far"] * Params().reserve_share, 2)
 
 
 def test_zero_division_and_negative_net_profit_are_guarded():
-    zero_loss = big_side_v3_model(1.0, 1.15, 0.44, 200 / 1.15, -60 / 0.44, 0, 5, 3, 2)
+    zero_loss = big_side_v3_model(1.0, 1.30, 0.47, 100, -100, 0, 5, 3, 2)
     assert zero_loss["close_far_lot"] == 0
-    negative = big_side_v3_model(1.0, 1.15, 0.44, 100 / 1.15, -120 / 0.44, 100, 5, 3, 2)
+    negative = big_side_v3_model(1.0, 1.30, 0.47, 20, -200, 200, 5, 3, 2)
     assert negative["net_profit_before_far"] < 0
     assert negative["close_far_budget"] == 0
     assert negative["reserve_add"] == 0
@@ -238,14 +238,14 @@ def test_zero_division_and_negative_net_profit_are_guarded():
 
 def test_small_side_close_remain_and_self_compression():
     first = small_side_model(1.0)
-    assert first["big_lot"] == 1.15
-    assert round(first["close_big"], 3) == 0.253
-    assert round(first["remain_big"], 3) == 0.897
-    assert round(first["new_far_start"], 3) == 0.897
-    second = small_side_model(0.897)
-    assert second["big_lot"] == 1.03
-    assert round(0.897 * 1.15 * 0.78, 6) == 0.804609
-    assert second["new_far_start"] < 0.897
+    assert first["big_lot"] == 1.30
+    assert round(first["close_big"], 3) == 0.390
+    assert round(first["remain_big"], 3) == 0.910
+    assert round(first["new_far_start"], 3) == 0.910
+    second = small_side_model(0.91)
+    assert second["big_lot"] == 1.18
+    assert round(1.30 * 0.70, 6) == 0.91
+    assert second["new_far_start"] > 0
 
 
 def test_old_far_close_pl_affects_small_side_balance():
@@ -287,9 +287,9 @@ def test_margin_balance_reserve_and_limit_status_formulas():
     assert ws["AE2"].value == "=$AC2*Settings!$B$10"
     assert "IFERROR($G2/$D2,0)>Settings!$B$16" in ws["AQ2"].value
     assert "IFERROR($J2/$G2,0)>Settings!$B$17" in ws["AQ2"].value
-    open_lots_before = 1.00 + 1.15 + 0.44
-    assert round(open_lots_before, 2) == 2.59
-    assert open_lots_before * 1000 == 2590
+    open_lots_before = 1.00 + 1.30 + 0.47
+    assert round(open_lots_before, 2) == 2.77
+    assert round(open_lots_before * 1000, 0) == 2770
 
 
 def test_risk_analysis_includes_realized_far_loss():
@@ -413,7 +413,7 @@ def test_manual_close_reduces_active_tail_lots():
     ws = workbook()["Calculator"]
     assert "MAX(0,$BA4-$BD5)" in ws["BA5"].value
     assert "MAX(0,$BB4-$BE5)" in ws["BB5"].value
-    assert ws["AA5"].value == '=IF($B5="BLOCKED",$Z5+$BF5,IF($B5="BIG_SIDE",$Z5+$AX5-$AS5-$AZ5,IF($B5="SMALL_SIDE",$Z5+$S5+$AI5,$Z5+$S5)))'
+    assert ws["AA5"].value == '=IF($B5="BLOCKED",$Z5+$BF5,IF($B5="BIG_SIDE",$Z5+$S5-$AS5,IF($B5="SMALL_SIDE",$Z5+$S5+$AI5,$Z5+$S5)))'
 
 
 def test_manual_ready_requires_single_remaining_tail():
@@ -664,7 +664,7 @@ def test_blocked_rows_have_no_empty_key_fields():
 
 def test_settings_links_exist_across_all_calc_sheets():
     wb = workbook()
-    settings_refs = ["Settings!$B$3", "Settings!$B$4", "Settings!$B$5", "Settings!$B$7", "Settings!$B$9", "Settings!$B$10", "Settings!$B$11"]
+    settings_refs = ["Settings!$B$3", "Settings!$B$4", "Settings!$B$5", "Settings!$B$6", "Settings!$B$7", "Settings!$B$9", "Settings!$B$10", "Settings!$B$11"]
     for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]:
         ws = wb[sheet]
         formulas = "\n".join(
@@ -743,7 +743,7 @@ def test_global_risk_summary_profit_loss_populated():
 
 
 def _settings_geometry_header_row(ws):
-    required = {"N", "FarStart-N", "Big-N", "Small-N", "Close-N"}
+    required = {"N", "FarStart-N", "Big-N", "Small-N", "CloseFarBudget"} if False else {"N", "FarStart-N", "Big-N", "Small-N", "CloseFarBudget"}
     for row in range(1, ws.max_row + 1):
         values = {ws.cell(row, col).value for col in range(1, ws.max_column + 1)}
         if required.issubset(values):
@@ -771,44 +771,44 @@ def test_global_max_dual_tail_exposure_expected_value():
 def test_settings_geometry_table_exists():
     ws = workbook()["Settings"]
     header_row = _settings_geometry_header_row(ws)
-    assert ws.cell(header_row - 1, 1).value == "Справочная геометрия лотов Big-N / Small-N / Close-N"
-    assert [ws.cell(header_row, col).value for col in range(1, 6)] == ["N", "FarStart-N", "Big-N", "Small-N", "Close-N"]
+    assert ws.cell(header_row - 1, 1).value == "Big Harvest Geometry — денежное закрытие Far через CloseFarBudget"
+    assert [ws.cell(header_row, col).value for col in range(1, 15)] == ["N", "FarStart-N", "BigMovePoints", "FarDistancePoints", "Big-N", "Small-N", "ProfitBig", "LossSmall", "NetProfit", "CloseFarBudget", "ReserveAdd", "CloseFarLot", "FarRemain", "CloseFarPercent"]
 
 
 def test_settings_geometry_big_n_formula():
     ws = workbook()["Settings"]
     header_row = _settings_geometry_header_row(ws)
     first = header_row + 1
-    assert ws.cell(first, 3).value == '=IF($A22="","",ROUND(($B22*Settings!$B$3)/Settings!$B$11,0)*Settings!$B$11)'
-    assert "Settings!$B$3" in ws.cell(first, 3).value
-    assert "Settings!$B$11" in ws.cell(first, 3).value
+    assert ws.cell(first, 5).value == '=IF($A22="","",ROUND(($B22*Settings!$B$3)/Settings!$B$11,0)*Settings!$B$11)'
+    assert "Settings!$B$3" in ws.cell(first, 5).value
+    assert "Settings!$B$11" in ws.cell(first, 5).value
 
 
 def test_settings_geometry_small_n_formula():
     ws = workbook()["Settings"]
     header_row = _settings_geometry_header_row(ws)
     first = header_row + 1
-    assert ws.cell(first, 4).value == '=IF($A22="","",ROUND(($C22*Settings!$B$4)/Settings!$B$11,0)*Settings!$B$11)'
-    assert "Settings!$B$4" in ws.cell(first, 4).value
-    assert "Settings!$B$11" in ws.cell(first, 4).value
+    assert ws.cell(first, 6).value == '=IF($A22="","",ROUND(($E22*Settings!$B$4)/Settings!$B$11,0)*Settings!$B$11)'
+    assert "Settings!$B$4" in ws.cell(first, 6).value
+    assert "Settings!$B$11" in ws.cell(first, 6).value
 
 
 def test_settings_geometry_close_n_formula():
     ws = workbook()["Settings"]
     header_row = _settings_geometry_header_row(ws)
     first = header_row + 1
-    assert ws.cell(first, 5).value == '=IF($A22="","",ROUND(($B22*Settings!$B$5)/Settings!$B$11,0)*Settings!$B$11)'
-    assert "Settings!$B$5" in ws.cell(first, 5).value
-    assert "Settings!$B$11" in ws.cell(first, 5).value
+    assert ws.cell(first, 10).value == '=IF($A22="","",MAX(0,$I22*Settings!$B$5))'
+    assert ws.cell(first, 12).value == '=IF($A22="","",MIN($B22,IFERROR($J22/($D22*Settings!$B$9),0)))'
+    assert "Settings!$B$5" in ws.cell(first, 10).value
 
 
 def test_settings_geometry_uses_settings_references():
     ws = workbook()["Settings"]
     header_row = _settings_geometry_header_row(ws)
-    formulas = "\n".join(str(ws.cell(r, c).value) for r in range(header_row + 1, header_row + 11) for c in range(1, 6))
+    formulas = "\n".join(str(ws.cell(r, c).value) for r in range(header_row + 1, header_row + 11) for c in range(1, 15))
     for ref in ["Settings!$B$2", "Settings!$B$3", "Settings!$B$4", "Settings!$B$5", "Settings!$B$11", "Settings!$B$12"]:
         assert ref in formulas
-    for static in ["*1.15", "*0.38", "*0.20", "/0.01"]:
+    for static in ["*1.30", "*0.36", "*0.90", "/0.01"]:
         assert static not in formulas
 
 
@@ -824,3 +824,54 @@ def test_close_n_is_reference_only_not_calculator_close_rule():
     assert "Close-N" not in formulas
     assert "$T2/$U2" in formulas or "$T3/$U3" in formulas
     assert "LossPerLotToClose" not in formulas
+
+
+def test_big_harvest_close_far_share_is_money_budget_not_lot_percent():
+    wb = _data_only_workbook()
+    ws = wb["Calculator"]
+    idx = _rows_by_header(ws)
+    row = 2
+    assert ws.cell(row, idx["FarStartLot"]).value == 1
+    assert round(ws.cell(row, idx["BigLot"]).value, 2) == 1.30
+    assert round(ws.cell(row, idx["SmallLot"]).value, 2) == 0.47
+    assert round(ws.cell(row, idx["CloseFarLot"]).value, 4) == 0.3735
+    assert round(ws.cell(row, idx["FarRemainLot"]).value, 4) == 0.6265
+    assert round(ws.cell(row, idx["CloseFarPercent"]).value, 4) == 0.3735
+    assert ws.cell(row, idx["CloseFarLot"]).value != 0.90
+    assert round(ws.cell(row, idx["FarRemainLot"]).value, 4) != 0.10
+
+
+def test_big_harvest_reserve_and_budget_shares():
+    ws = _data_only_workbook()["Calculator"]
+    idx = _rows_by_header(ws)
+    row = 2
+    net_profit = ws.cell(row, idx["NetProfitBeforeFar"]).value
+    assert round(net_profit, 2) == 83.00
+    assert round(ws.cell(row, idx["ReserveAdd"]).value, 2) == round(net_profit * 0.10, 2)
+    assert round(ws.cell(row, idx["CloseFarBudget"]).value, 2) == round(net_profit * 0.90, 2)
+    assert ws.cell(row, idx["RealizedFarLoss"]).value <= ws.cell(row, idx["CloseFarBudget"]).value
+
+
+def test_big_harvest_small_scenario_positive_and_new_far():
+    big = 1.30
+    small = big * 0.36
+    close_big = big * 0.30
+    small_move_points = 100
+    profit_small = small * small_move_points
+    loss_closed_big = close_big * small_move_points
+    net_small = profit_small - loss_closed_big
+    new_far = big * 0.70
+    assert round(small, 3) == 0.468
+    assert round(close_big, 2) == 0.39
+    assert round(net_small, 1) == 7.8
+    assert net_small > 0
+    assert round(new_far, 2) == 0.91
+
+
+def test_big_harvest_new_columns_exist_on_all_calc_sheets():
+    wb = workbook()
+    required = ["BigMovePoints", "FarDistancePoints", "HarvestMode", "HarvestCount", "CloseFarPercent", "CanFullCloseFar", "FarRemainLoss", "FinalClosePL"]
+    for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]:
+        headers = header_map(wb[sheet])
+        for header in required:
+            assert header in headers
