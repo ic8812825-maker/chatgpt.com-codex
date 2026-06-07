@@ -1523,3 +1523,47 @@ NewFar = BigLot × 0.70
 ```
 
 При `Big = 1.30`, `Small = 0.468`, `CloseBig = 0.39`, движение `100` пунктов даёт `NetSmall = 46.8 - 39 = +7.8`, поэтому Small-сценарий не ломает harvest-геометрию.
+
+---
+
+# LotStep rounding
+
+`CloseFarShare = 90%` остаётся денежным бюджетом от `NetProfit`, а не процентом лота Far.
+
+Сначала система считает сырой денежный объём закрытия:
+
+```text
+CloseFarLotRaw = CloseFarBudget / LossPerLotToClose
+CloseFarBudget = NetProfitBeforeFar × CloseFarShare
+LossPerLotToClose = FarDistancePoints × PointValuePerLot
+```
+
+Но в реальной торговле нельзя закрывать объём меньше или точнее шага брокера. Поэтому рабочим торговым объёмом является:
+
+```text
+CloseFarLotRounded = MIN(FarStartLot, FLOOR(CloseFarLotRaw, LotStep))
+```
+
+Остаток хвоста считается только от округлённого лота:
+
+```text
+FarRemainAfterRounded = FarStartLot - CloseFarLotRounded
+FarRemainLoss = FarRemainAfterRounded × FarDistancePoints × PointValuePerLot
+```
+
+Если сырой объём меньше торгового шага:
+
+```text
+IF CloseFarLotRaw > 0 AND CloseFarLotRaw < LotStep:
+    CannotCloseBelowLotStep = YES
+    CloseFarLotRounded = 0
+```
+
+В таком случае закрытие Far не выполняется, а прибыль остаётся в резерве или ждёт режима финального закрытия.
+
+Финальное закрытие допустимо только если резерв покрывает оставшийся убыток хвоста:
+
+```text
+FinalCloseAllowed = YES, если TotalReserve >= FarRemainLoss
+FinalClosePL = TotalReserve - FarRemainLoss
+```

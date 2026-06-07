@@ -129,3 +129,11 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 - CloseBigOnSmall = 0.30 and RemainBigOnSmall = 0.70;
 - CloseFarShare = 90% is a money budget from NetProfit, not 90% of the Far lot;
 - example: Far = 1.00, Big = 1.30, Small ≈ 0.47, BigMove = 100, FarDistance = 200, NetProfit ≈ 83, CloseFarBudget ≈ 74.7, CloseFarLot ≈ 0.3735, FarRemain ≈ 0.6265.
+
+## v9 LotStep rounding
+
+- CloseFarShare = 90% remains a money budget from NetProfit, not a Far-lot percentage;
+- CloseFarLotRaw is calculated from `CloseFarBudget / FarDistancePoints`;
+- CloseFarLotRounded is the real tradable lot after `FLOOR(CloseFarLotRaw, LotStep)` and cannot exceed FarStartLot;
+- if `CloseFarLotRaw < LotStep`, Far is not closed and `CannotCloseBelowLotStep = YES`;
+- final close is allowed only when reserve covers `FarRemainLoss`.

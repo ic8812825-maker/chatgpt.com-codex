@@ -193,7 +193,7 @@ def test_calculator_big_side_formulas_close_big_small_and_use_monetary_budget():
 def test_costs_per_lot_are_multiplied_by_closed_lots():
     ws = workbook()["Calculator"]
     assert ws["AU2"].value == "=Settings!$B$13+Settings!$B$14+Settings!$B$15"
-    assert ws["AT2"].value == '=IF($B2="BIG_SIDE",$G2+$J2+$V2,IF($B2="SMALL_SIDE",$J2+$AL2+$AV2,0))'
+    assert ws["AT2"].value == '=IF($B2="BIG_SIDE",$G2+$J2+$BQ2,IF($B2="SMALL_SIDE",$J2+$AL2+$AV2,0))'
     assert ws["R2"].value == "=$AT2*$AU2"
     model = big_side_v3_model(1.0, 1.30, 0.47, 100, -100, 200, 5, 3, 2)
     assert round(model["closed_lots_for_costs"], 4) == 2.0638
@@ -203,7 +203,7 @@ def test_costs_per_lot_are_multiplied_by_closed_lots():
 
 def test_realized_far_loss_formula():
     ws = workbook()["Calculator"]
-    assert ws["AS2"].value == '=IF($B2="BIG_SIDE",$V2*$U2,0)'
+    assert ws["AS2"].value == '=IF($B2="BIG_SIDE",$BQ2*$U2,0)'
     model = big_side_v3_model(1.0, 1.30, 0.47, 100, -100, 200, 5, 3, 2)
     assert round(model["close_far_budget"], 2) == 58.77
     assert round(model["close_far_lot"], 4) == 0.2939
@@ -771,8 +771,8 @@ def test_global_max_dual_tail_exposure_expected_value():
 def test_settings_geometry_table_exists():
     ws = workbook()["Settings"]
     header_row = _settings_geometry_header_row(ws)
-    assert ws.cell(header_row - 1, 1).value == "Big Harvest Geometry — денежное закрытие Far через CloseFarBudget"
-    assert [ws.cell(header_row, col).value for col in range(1, 15)] == ["N", "FarStart-N", "BigMovePoints", "FarDistancePoints", "Big-N", "Small-N", "ProfitBig", "LossSmall", "NetProfit", "CloseFarBudget", "ReserveAdd", "CloseFarLot", "FarRemain", "CloseFarPercent"]
+    assert ws.cell(header_row - 1, 1).value == "Big Harvest Geometry — LotStep rounding and final-close validation"
+    assert [ws.cell(header_row, col).value for col in range(1, 22)] == ["N", "FarStart-N", "BigMovePoints", "FarDistancePoints", "Big-N", "Small-N", "ProfitBig", "LossSmall", "NetProfit", "CloseFarBudget", "ReserveAdd", "CloseFarLotRaw", "CloseFarLotRounded", "FarRemainAfterRounded", "CloseFarPercent", "CannotCloseBelowLotStep", "FarRemainLoss", "TotalReserve", "FinalCloseAllowed", "FinalClosePL", "LostToRounding"]
 
 
 def test_settings_geometry_big_n_formula():
@@ -798,7 +798,8 @@ def test_settings_geometry_close_n_formula():
     header_row = _settings_geometry_header_row(ws)
     first = header_row + 1
     assert ws.cell(first, 10).value == '=IF($A22="","",MAX(0,$I22*Settings!$B$5))'
-    assert ws.cell(first, 12).value == '=IF($A22="","",MIN($B22,IFERROR($J22/($D22*Settings!$B$9),0)))'
+    assert ws.cell(first, 12).value == '=IF($A22="","",IFERROR($J22/($D22*Settings!$B$9),0))'
+    assert ws.cell(first, 13).value == '=IF($A22="","",MIN($B22,FLOOR(MAX(0,$L22),Settings!$B$11)))'
     assert "Settings!$B$5" in ws.cell(first, 10).value
 
 
@@ -834,11 +835,12 @@ def test_big_harvest_close_far_share_is_money_budget_not_lot_percent():
     assert ws.cell(row, idx["FarStartLot"]).value == 1
     assert round(ws.cell(row, idx["BigLot"]).value, 2) == 1.30
     assert round(ws.cell(row, idx["SmallLot"]).value, 2) == 0.47
-    assert round(ws.cell(row, idx["CloseFarLot"]).value, 4) == 0.3735
-    assert round(ws.cell(row, idx["FarRemainLot"]).value, 4) == 0.6265
-    assert round(ws.cell(row, idx["CloseFarPercent"]).value, 4) == 0.3735
-    assert ws.cell(row, idx["CloseFarLot"]).value != 0.90
-    assert round(ws.cell(row, idx["FarRemainLot"]).value, 4) != 0.10
+    assert round(ws.cell(row, idx["CloseFarLotRaw"]).value, 4) == 0.3735
+    assert round(ws.cell(row, idx["CloseFarLotRounded"]).value, 2) == 0.37
+    assert round(ws.cell(row, idx["FarRemainAfterRounded"]).value, 2) == 0.63
+    assert round(ws.cell(row, idx["CloseFarPercent"]).value, 2) == 0.37
+    assert ws.cell(row, idx["CloseFarLotRounded"]).value != 0.90
+    assert round(ws.cell(row, idx["FarRemainAfterRounded"]).value, 2) != 0.10
 
 
 def test_big_harvest_reserve_and_budget_shares():
@@ -850,6 +852,7 @@ def test_big_harvest_reserve_and_budget_shares():
     assert round(ws.cell(row, idx["ReserveAdd"]).value, 2) == round(net_profit * 0.10, 2)
     assert round(ws.cell(row, idx["CloseFarBudget"]).value, 2) == round(net_profit * 0.90, 2)
     assert ws.cell(row, idx["RealizedFarLoss"]).value <= ws.cell(row, idx["CloseFarBudget"]).value
+    assert round(ws.cell(row, idx["RealizedFarLoss"]).value, 2) == 74.00
 
 
 def test_big_harvest_small_scenario_positive_and_new_far():
@@ -870,8 +873,66 @@ def test_big_harvest_small_scenario_positive_and_new_far():
 
 def test_big_harvest_new_columns_exist_on_all_calc_sheets():
     wb = workbook()
-    required = ["BigMovePoints", "FarDistancePoints", "HarvestMode", "HarvestCount", "CloseFarPercent", "CanFullCloseFar", "FarRemainLoss", "FinalClosePL"]
+    required = ["BigMovePoints", "FarDistancePoints", "HarvestMode", "HarvestCount", "CloseFarPercent", "CanFullCloseFar", "FarRemainLoss", "FinalClosePL", "CloseFarLotRaw", "CloseFarLotRounded", "FarRemainAfterRounded", "CannotCloseBelowLotStep", "FinalCloseAllowed", "LostToRounding"]
     for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]:
         headers = header_map(wb[sheet])
         for header in required:
             assert header in headers
+
+
+def test_v9_close_far_lot_raw_not_far_percent():
+    ws = _data_only_workbook()["Calculator"]
+    idx = _rows_by_header(ws)
+    assert round(ws.cell(2, idx["CloseFarLotRaw"]).value, 4) == 0.3735
+    assert round(ws.cell(2, idx["CloseFarLotRounded"]).value, 2) == 0.37
+    assert ws.cell(2, idx["CloseFarLotRaw"]).value != 0.90
+
+
+def test_v9_lotstep_rounding_below_minimum_lot():
+    ws = _data_only_workbook()["Calculator"]
+    idx = _rows_by_header(ws)
+    assert round(ws.cell(10, idx["CloseFarLotRaw"]).value, 4) == 0.009
+    assert ws.cell(10, idx["CloseFarLotRounded"]).value == 0
+    assert ws.cell(10, idx["CannotCloseBelowLotStep"]).value == "YES"
+
+
+def test_v9_rounded_close_never_exceeds_budget_or_far_start():
+    wb = _data_only_workbook()
+    for sheet in ["Calculator", "Trend_UP", "Trend_DOWN"]:
+        ws = wb[sheet]
+        idx = _rows_by_header(ws)
+        for row in range(2, ws.max_row + 1):
+            rounded = ws.cell(row, idx["CloseFarLotRounded"]).value or 0
+            far_start = ws.cell(row, idx["FarStartLot"]).value or 0
+            distance = ws.cell(row, idx["FarDistancePoints"]).value or 0
+            budget = ws.cell(row, idx["CloseFarBudget"]).value or 0
+            assert rounded >= 0
+            assert rounded <= far_start + 1e-9
+            assert rounded * distance <= budget + 1e-9
+
+
+def test_v9_far_remain_after_rounded_uses_rounded_lot():
+    ws = _data_only_workbook()["Calculator"]
+    idx = _rows_by_header(ws)
+    row = 2
+    expected = ws.cell(row, idx["FarStartLot"]).value - ws.cell(row, idx["CloseFarLotRounded"]).value
+    assert abs(ws.cell(row, idx["FarRemainAfterRounded"]).value - expected) < 1e-9
+
+
+def test_v9_final_close_allowed_matches_reserve_coverage():
+    ws = _data_only_workbook()["Calculator"]
+    idx = _rows_by_header(ws)
+    for row in range(2, ws.max_row + 1):
+        reserve = ws.cell(row, idx["TotalReserve"]).value or 0
+        loss = ws.cell(row, idx["FarRemainLoss"]).value or 0
+        expected = "YES" if reserve >= loss else "NO"
+        assert ws.cell(row, idx["FinalCloseAllowed"]).value in ("YES", "NO", None)
+        if ws.cell(row, idx["Scenario"]).value in ("BIG_SIDE", "BLOCKED"):
+            assert ws.cell(row, idx["FinalCloseAllowed"]).value == expected
+
+
+def test_v9_risk_analysis_rounding_metrics_exist_and_populated():
+    values = _risk_values()
+    for key in ["Total CloseFarLotRaw", "Total CloseFarLotRounded", "Total LostToRounding", "Final FarRemainAfterRounded", "Final FarRemainLoss", "CannotCloseBelowLotStep Count", "FinalCloseAllowed Count", "FinalClosePL"]:
+        assert key in values
+        assert values[key] is not None

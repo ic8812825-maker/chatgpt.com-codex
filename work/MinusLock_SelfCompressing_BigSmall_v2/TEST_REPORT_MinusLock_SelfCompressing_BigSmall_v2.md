@@ -304,3 +304,14 @@ SMALL_SIDE:
 4. Таблица `Big Harvest Geometry` заменила старую геометрию `Big-N / Small-N / Close-N` и показывает денежный harvest-расчёт по уровням.
 5. Добавлены колонки `BigMovePoints`, `FarDistancePoints`, `HarvestMode`, `HarvestCount`, `CloseFarPercent`, `CanFullCloseFar`, `FarRemainLoss`, `FinalClosePL` на всех расчётных листах.
 6. Small-сценарий проверен: при `Big = 1.30`, `Small = 0.468`, `CloseBig = 0.39`, `NetSmall = +7.8`, `NewFar = 0.91`.
+
+---
+
+## v9 LotStep rounding and final-close validation
+
+1. Проверено округление `CloseFarLot` по `LotStep`: добавлены `CloseFarLotRaw` и `CloseFarLotRounded`.
+2. Проверено, что лоты меньше `0.01` не закрываются: `CloseFarLotRaw = 0.0090` даёт `CloseFarLotRounded = 0.00` и `CannotCloseBelowLotStep = YES`.
+3. Проверено, что `FarRemainAfterRounded` считается от округлённого торгового лота, а не от сырого расчёта.
+4. Проверено, что `RealizedFarLoss = CloseFarLotRounded × FarDistancePoints × PointValuePerLot` не превышает `CloseFarBudget`.
+5. Проверено, что `FinalCloseAllowed` срабатывает только если `TotalReserve >= FarRemainLoss`.
+6. Risk_Analysis расширен метриками `Total CloseFarLotRaw`, `Total CloseFarLotRounded`, `Total LostToRounding`, `Final FarRemainAfterRounded`, `Final FarRemainLoss`, `CannotCloseBelowLotStep Count`, `FinalCloseAllowed Count`, `FinalClosePL`.
