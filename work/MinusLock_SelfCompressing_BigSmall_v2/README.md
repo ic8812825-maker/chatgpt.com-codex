@@ -137,3 +137,11 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 - CloseFarLotRounded is the real tradable lot after `FLOOR(CloseFarLotRaw, LotStep)` and cannot exceed FarStartLot;
 - if `CloseFarLotRaw < LotStep`, Far is not closed and `CannotCloseBelowLotStep = YES`;
 - final close is allowed only when reserve covers `FarRemainLoss`.
+
+## Big-Harvest Full Cycle Close
+
+- When `FinalCloseAllowed = YES`, the remaining Far is considered fully covered by reserve and the Big-harvest cycle is closed.
+- The closing row receives `Status = CLOSED_PROFIT`; `CycleClosed`, `CycleCloseLevel`, and `CycleFinalPL` record the closing event.
+- All following levels are stopped: `FarStartLot`, `BigLot`, `SmallLot`, `CloseFarLotRaw`, `CloseFarLotRounded`, `FarRemainAfterRounded`, and `FarRemainLoss` become `0`.
+- New Big/Small levels are not opened after full close; balance and reserve are carried forward unchanged.
+- `CycleFinalPL = TotalReserve - FarRemainLoss` shows the final profitable result available after the reserve covers the remaining Far loss.

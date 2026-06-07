@@ -315,3 +315,15 @@ SMALL_SIDE:
 4. Проверено, что `RealizedFarLoss = CloseFarLotRounded × FarDistancePoints × PointValuePerLot` не превышает `CloseFarBudget`.
 5. Проверено, что `FinalCloseAllowed` срабатывает только если `TotalReserve >= FarRemainLoss`.
 6. Risk_Analysis расширен метриками `Total CloseFarLotRaw`, `Total CloseFarLotRounded`, `Total LostToRounding`, `Final FarRemainAfterRounded`, `Final FarRemainLoss`, `CannotCloseBelowLotStep Count`, `FinalCloseAllowed Count`, `FinalClosePL`.
+
+---
+
+## v10 Big-harvest full cycle close
+
+1. Добавлен статус `CLOSED_PROFIT` для строки, где `FinalCloseAllowed = YES`.
+2. Добавлены колонки `CycleClosed`, `CycleCloseLevel`, `CycleFinalPL` на листы `Calculator`, `Trend_UP`, `Trend_DOWN`.
+3. После полного закрытия следующие уровни переводятся в `Scenario = CLOSED`, `Status = CLOSED_PROFIT` и не открывают новые Big/Small.
+4. После закрытия `FarStartLot`, `BigLot`, `SmallLot`, `CloseFarLotRaw`, `CloseFarLotRounded`, `FarRemainAfterRounded`, `FarRemainLoss` равны `0`.
+5. `Risk_Analysis` расширен метриками `Cycle Closed Count`, `Average Close Level`, `Earliest Close Level`, `Latest Close Level`, `Closed In Profit Count`.
+6. Проверены сценарии StartLot: `1 → Level 6`, `2 → Level 5`, `5 → Level 5`.
+7. Проверено отсутствие direct self-reference и dependency cycles в формулах.

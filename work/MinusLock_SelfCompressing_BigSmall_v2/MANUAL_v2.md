@@ -1567,3 +1567,39 @@ IF CloseFarLotRaw > 0 AND CloseFarLotRaw < LotStep:
 FinalCloseAllowed = YES, если TotalReserve >= FarRemainLoss
 FinalClosePL = TotalReserve - FarRemainLoss
 ```
+
+---
+
+# Полное закрытие цикла через Big-Harvest
+
+## Шаг 1. Big приносит прибыль
+
+На каждом `BIG_SIDE` уровне Big закрывается полностью, Small закрывается полностью, а `NetProfitBeforeFar` считается как денежная прибыль Big-harvest до закрытия дальнего хвоста.
+
+## Шаг 2. 90% прибыли идут на денежное закрытие Far
+
+`CloseFarShare = 90%` остаётся денежным бюджетом: `CloseFarBudget = NetProfitBeforeFar × CloseFarShare`. Это не процент лота Far.
+
+## Шаг 3. 10% идут в резерв
+
+`ReserveAdd = NetProfitBeforeFar × ReserveShare`, где `ReserveShare = 10%`.
+
+## Шаг 4. Резерв накапливается
+
+`TotalReserve` переносится между уровнями и используется только как аналитический буфер для финального закрытия оставшегося Far.
+
+## Шаг 5. Проверка полного закрытия Far
+
+Когда выполняется условие:
+
+```text
+TotalReserve >= FarRemainLoss
+```
+
+система выставляет `FinalCloseAllowed = YES`.
+
+## Шаг 6. Цикл завершается
+
+Если `FinalCloseAllowed = YES`, остаток Far считается полностью закрытым, строка получает `Status = CLOSED_PROFIT`, а `CycleClosed = YES`. `CycleCloseLevel` фиксирует уровень закрытия, а `CycleFinalPL = TotalReserve - FarRemainLoss` показывает итоговый прибыльный результат.
+
+После `CLOSED_PROFIT` новые уровни не строятся: `FarStartLot = 0`, `BigLot = 0`, `SmallLot = 0`, `CloseFarLotRaw = 0`, `CloseFarLotRounded = 0`, `FarRemainAfterRounded = 0`, `FarRemainLoss = 0`. Баланс и резерв переносятся без изменений.
