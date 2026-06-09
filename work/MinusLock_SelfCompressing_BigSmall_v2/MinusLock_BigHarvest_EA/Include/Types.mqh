@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_TYPES_MQH__
+#define __BH_TYPES_MQH__
 
 enum EAState
 {
@@ -99,3 +100,5 @@ Direction OppositeDirection(Direction dir)
       return DIR_BUY;
    return DIR_NONE;
 }
+
+#endif // __BH_TYPES_MQH__

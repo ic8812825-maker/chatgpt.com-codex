@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_LOTUTILS_MQH__
+#define __BH_LOTUTILS_MQH__
 
 double BrokerLotStep()
 {
@@ -88,3 +89,5 @@ double NormalizeLotNearest(double lot)
 
    return NormalizeDouble(result, VolumeDigits());
 }
+
+#endif // __BH_LOTUTILS_MQH__

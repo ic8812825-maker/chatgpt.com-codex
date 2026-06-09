@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_LOGGER_MQH__
+#define __BH_LOGGER_MQH__
 
 void LogInfo(string message)
 {
@@ -122,3 +123,5 @@ void LogSmallScenario(
       dualTailDetected ? "true" : "false"
    );
 }
+
+#endif // __BH_LOGGER_MQH__

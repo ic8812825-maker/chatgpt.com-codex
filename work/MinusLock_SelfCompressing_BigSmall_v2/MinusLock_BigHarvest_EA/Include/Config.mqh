@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_CONFIG_MQH__
+#define __BH_CONFIG_MQH__
 
 input double StartLot              = 1.00;
 input double BigRatio              = 1.30;
@@ -23,3 +24,5 @@ input double MaxMarginPercent      = 70.0;
 input ulong  MagicNumber           = 20260609;
 input bool   AllowRealTrading      = false;
 input bool   UseMarketOrders       = true;
+
+#endif // __BH_CONFIG_MQH__

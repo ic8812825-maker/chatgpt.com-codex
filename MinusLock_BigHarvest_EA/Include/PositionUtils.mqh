@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_POSITIONUTILS_MQH__
+#define __BH_POSITIONUTILS_MQH__
 
 Direction PositionTypeToDirection(long positionType)
 {
@@ -176,3 +177,5 @@ int CountFarLikePositions(Direction expectedFarDirection)
 
    return count;
 }
+
+#endif // __BH_POSITIONUTILS_MQH__

@@ -227,6 +227,20 @@ git rev-parse origin/work
 5. Re-ran available local checks from both root and target folders.
 6. Pushed the branch to `origin/work` and verified the remote EA folder with `git ls-tree`.
 
+
+## MetaEditor Compile Fix Applied
+
+The reported MetaEditor error `'#pragma' - invalid preprocessor command` was addressed by removing `#pragma once` from every EA `.mqh` include file and replacing it with MQL-compatible include guards:
+
+```text
+#ifndef __BH_..._MQH__
+#define __BH_..._MQH__
+...
+#endif
+```
+
+The local verification harness now fails if any `#pragma once` reappears in EA include files.
+
 ## GitHub URL
 
 ```text

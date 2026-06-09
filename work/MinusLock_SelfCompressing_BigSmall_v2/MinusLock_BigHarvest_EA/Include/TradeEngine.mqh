@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_TRADEENGINE_MQH__
+#define __BH_TRADEENGINE_MQH__
 
 #include <Trade/Trade.mqh>
 
@@ -71,3 +72,5 @@ bool ClosePositionByTicket(ulong ticket, double lot)
 
    return BigHarvestTrade.PositionClosePartial(ticket, closeLot);
 }
+
+#endif // __BH_TRADEENGINE_MQH__

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_STATEMACHINE_MQH__
+#define __BH_STATEMACHINE_MQH__
 
 EAState State = STATE_IDLE;
 RecoveryContext Ctx;
@@ -587,3 +588,5 @@ void RunStateMachine()
          break;
    }
 }
+
+#endif // __BH_STATEMACHINE_MQH__

@@ -98,6 +98,14 @@ def check_static_files() -> dict[str, object]:
     if missing:
         raise AssertionError(f"missing files: {missing}")
 
+    for rel_path in required:
+        if rel_path.endswith(".mqh"):
+            include_text = (EA / rel_path).read_text(encoding="utf-8")
+            if "#pragma once" in include_text:
+                raise AssertionError(f"MQL-incompatible #pragma once found in {rel_path}")
+            if not include_text.startswith("#ifndef __BH_"):
+                raise AssertionError(f"missing MQL include guard in {rel_path}")
+
     config = (EA / "Include/Config.mqh").read_text(encoding="utf-8")
     for token in [
         "StartLot              = 1.00",

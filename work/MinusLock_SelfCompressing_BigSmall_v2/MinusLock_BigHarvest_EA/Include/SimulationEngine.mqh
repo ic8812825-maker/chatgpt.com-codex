@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_SIMULATIONENGINE_MQH__
+#define __BH_SIMULATIONENGINE_MQH__
 
 PositionSnapshot SimPositions[];
 ulong SimNextTicket = 900000001;
@@ -145,3 +146,5 @@ bool SimClosePositionByTicket(ulong ticket, double lot)
    SimPositions[index].lot = SimPositions[index].lot - closeLot;
    return true;
 }
+
+#endif // __BH_SIMULATIONENGINE_MQH__

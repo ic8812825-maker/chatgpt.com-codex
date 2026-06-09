@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_RISKMANAGER_MQH__
+#define __BH_RISKMANAGER_MQH__
 
 bool SpreadOk()
 {
@@ -49,3 +50,5 @@ bool IsTradingAllowedSafe()
 
    return true;
 }
+
+#endif // __BH_RISKMANAGER_MQH__

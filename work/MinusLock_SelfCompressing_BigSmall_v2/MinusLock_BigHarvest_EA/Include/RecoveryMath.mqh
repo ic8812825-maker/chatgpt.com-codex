@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BH_RECOVERYMATH_MQH__
+#define __BH_RECOVERYMATH_MQH__
 
 double PointValuePerLot()
 {
@@ -93,3 +94,5 @@ double CalcRemainBigLotOnSmall(double bigLot)
 {
    return NormalizeLotDown(bigLot * RemainBigOnSmall);
 }
+
+#endif // __BH_RECOVERYMATH_MQH__
