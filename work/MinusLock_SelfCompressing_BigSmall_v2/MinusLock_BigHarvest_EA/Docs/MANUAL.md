@@ -1,0 +1,159 @@
+# MinusLock BigHarvest EA — технический мануал
+
+Документ описывает MQL5-советник, реализованный строго на базе `manual/big_harvest_system_manual_ru.md`.
+
+## 1. Назначение
+
+Советник разруливает оставшуюся минусовую позицию `Far` через цикл `Big-Harvest`:
+
+1. Открывается начальный замок `BUY StartLot` + `SELL StartLot`.
+2. Первая плюсовая позиция закрывается при достижении `InitialTriggerPoints`.
+3. Прибыль первого плюса не участвует в разруливании: `InitialProfitIgnored = true`, `Reserve = 0`.
+4. Оставшаяся минусовая позиция становится `Far`.
+5. От `Far` строятся `Big` и `Small` по геометрии мануала.
+6. В Big-сценарии чистая прибыль делится: 90% на денежное закрытие `Far`, 10% в `Reserve`.
+7. После каждого уровня проверяется `FinalCloseAllowed`.
+
+## 2. Параметры
+
+Ключевые `input`-параметры находятся в `Include/Config.mqh`:
+
+```mql5
+StartLot = 1.00
+BigRatio = 1.30
+SmallRatio = 0.37
+CloseBigOnSmall = 0.30
+RemainBigOnSmall = 0.70
+CloseFarShare = 0.90
+ReserveShare = 0.10
+BigMoveLevel1 = 100
+BigMoveLevel2 = 150
+BigMoveLevel3 = 200
+FarDistancePoints = 200
+MaxHarvestLevels = 3
+LotStep = 0.01
+```
+
+## 3. Начальный замок
+
+Советник открывает две позиции с одним `MagicNumber`:
+
+```text
+MinusLock_INITIAL_BUY
+MinusLock_INITIAL_SELL
+```
+
+Плюсовая позиция определяется через прибыль в пунктах:
+
+```text
+ProfitPoints = ABS(CurrentPrice - OpenPrice) / Point
+```
+
+Для BUY используется выход по Bid, для SELL — выход по Ask.
+
+## 4. Big/Small геометрия
+
+Если `Far = SELL`, то:
+
+```text
+Big = BUY
+Small = SELL
+```
+
+Если `Far = BUY`, то:
+
+```text
+Big = SELL
+Small = BUY
+```
+
+Лоты:
+
+```text
+BigLot = NormalizeLotNearest(FarLot × 1.30)
+SmallLot = NormalizeLotNearest(BigLot × 0.37)
+```
+
+## 5. Big-сценарий
+
+При достижении `BigMovePoints` в сторону `Big` советник:
+
+1. Закрывает `Big` полностью.
+2. Закрывает `Small` полностью.
+3. Считает `NetProfit = ProfitBig - LossSmall - Costs`.
+4. Считает `CloseFarBudget = NetProfit × 0.90`.
+5. Считает `ReserveAdd = NetProfit × 0.10`.
+6. Закрывает `Far` только через денежный бюджет:
+
+```text
+CloseFarLotRaw = CloseFarBudget / (FarDistancePoints × PointValuePerLot)
+CloseFarLotRounded = FloorToLotStep(CloseFarLotRaw)
+CloseFarLotFinal = MIN(FarLot, CloseFarLotRounded)
+```
+
+Важно: `CloseFarShare` — это доля денег от чистой прибыли, а не доля лота `Far`.
+
+## 6. Small-сценарий и DUAL_TAIL
+
+При движении цены против `Big` в сторону `Small` советник:
+
+1. Закрывает `Small` полностью.
+2. Закрывает 30% `Big`.
+3. Оставшиеся 70% `Big` рассматривает как новый `Far`.
+4. Проверяет `DUAL_TAIL`.
+
+Если старый `Far` всё ещё открыт и одновременно появился новый хвост из оставшегося `Big`, советник переводится в `STATE_DUAL_TAIL` и не строит новый уровень.
+
+## 7. FinalCloseAllowed
+
+После каждого Big-harvest:
+
+```text
+FarRemainLoss = FarRemainLot × FarDistancePoints × PointValuePerLot
+FinalCloseAllowed = TotalReserve >= FarRemainLoss
+```
+
+Если условие выполнено, остаток `Far` закрывается полностью, цикл завершается:
+
+```text
+Status = CLOSED_PROFIT
+```
+
+## 8. Безопасность
+
+По умолчанию:
+
+```mql5
+AllowRealTrading = false
+```
+
+При `false` торговые операции выполняются во внутреннем виртуальном SIMULATION-хранилище советника: позиции получают виртуальные тикеты, читаются теми же утилитами поиска и могут частично/полностью закрываться без отправки ордеров брокеру. Для реальной торговли требуется вручную включить `AllowRealTrading = true`.
+
+Дополнительно советник блокирует работу при превышении:
+
+- `MaxSpreadPoints`
+- `MaxMarginPercent`
+
+## 9. Обязательные логи
+
+Каждый Big-harvest уровень пишет поля:
+
+```text
+Level
+FarLot
+BigLot
+SmallLot
+BigMovePoints
+ProfitBig
+LossSmall
+NetProfit
+CloseFarBudget
+CloseFarLotRaw
+CloseFarLotRounded
+FarRemainLot
+ReserveAdd
+TotalReserve
+FinalCloseAllowed
+CycleFinalPL
+State
+```

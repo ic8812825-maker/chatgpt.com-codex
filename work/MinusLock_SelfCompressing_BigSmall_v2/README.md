@@ -145,3 +145,8 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 - All following levels are stopped: `FarStartLot`, `BigLot`, `SmallLot`, `CloseFarLotRaw`, `CloseFarLotRounded`, `FarRemainAfterRounded`, and `FarRemainLoss` become `0`.
 - New Big/Small levels are not opened after full close; balance and reserve are carried forward unchanged.
 - `CycleFinalPL = TotalReserve - FarRemainLoss` shows the final profitable result available after the reserve covers the remaining Far loss.
+
+## Big-Harvest EA
+
+- [MinusLock_BigHarvest_EA](MinusLock_BigHarvest_EA/) — MQL5-советник Big-Harvest, перенесённый в рабочую папку проекта.
+- [Big-Harvest EA final local verification](reports/tests/big_harvest_ea_final_report.md) — локальный отчёт проверок; MetaEditor Compile и Strategy Tester требуют запуска в Windows/MetaTrader.

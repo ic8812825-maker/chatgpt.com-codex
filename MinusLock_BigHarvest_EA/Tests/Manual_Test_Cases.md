@@ -1,0 +1,88 @@
+# Manual Test Cases — MinusLock BigHarvest EA
+
+## TC-01: первый плюс не участвует в разруливании
+
+**Шаги:**
+1. Запустить советник с `StartLot = 1.00`.
+2. Дождаться открытия `MinusLock_INITIAL_BUY` и `MinusLock_INITIAL_SELL`.
+3. Довести одну позицию до `InitialTriggerPoints` прибыли.
+
+**Ожидание:**
+- Плюсовая позиция закрыта полностью.
+- Оставшаяся позиция записана как `Far`.
+- `InitialProfitIgnored = true`.
+- `totalReserve = 0.0`.
+
+## TC-02: Level 1 Big-harvest для Far = 1.00
+
+**Вход:**
+
+```text
+FarLot = 1.00
+BigMovePoints = 100
+PointValuePerLot = 1
+```
+
+**Ожидание:**
+
+```text
+BigLot = 1.30
+SmallLot = 0.48
+ProfitBig = 130.00
+LossSmall = 48.00
+NetProfit = 82.00
+CloseFarBudget = 73.80
+CloseFarLotRaw = 0.369
+CloseFarLotRounded = 0.36
+FarRemainLot = 0.64
+ReserveAdd = 8.20
+TotalReserve = 8.20
+FinalCloseAllowed = false
+```
+
+## TC-03: полный цикл StartLot = 1.00
+
+**Ожидание:**
+
+```text
+Level 1 FarRemain = 0.64, Reserve = 8.20
+Level 2 FarRemain = 0.29, Reserve = 16.00
+Level 3 FarRemain = 0.08, Reserve = 20.80
+FarRemainLoss = 16.00
+CycleFinalPL = +4.80
+State = STATE_CLOSED_PROFIT
+```
+
+## TC-04: Small-сценарий не ломается математически
+
+**Вход:**
+
+```text
+Far = 1.00
+Big = 1.30
+Small = 0.48
+SmallMovePoints = 100
+```
+
+**Ожидание:**
+
+```text
+CloseBig = 0.39
+RemainBig = 0.91
+ProfitSmall = 48.00
+LossClosedBig = 39.00
+NetSmall = +9.00
+```
+
+## TC-05: DUAL_TAIL protection
+
+**Шаги:**
+1. Открыть `Far`.
+2. Открыть `Big/Small`.
+3. Смоделировать Small-сценарий.
+
+**Ожидание:**
+- `Small` закрыт полностью.
+- 30% `Big` закрыто.
+- При наличии старого `Far` и оставшихся 70% `Big` советник переходит в `STATE_DUAL_TAIL`.
+- Новый уровень не открывается.

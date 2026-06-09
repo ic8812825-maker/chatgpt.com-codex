@@ -1,0 +1,228 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import shutil
+from dataclasses import dataclass, asdict
+from math import floor
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+EA = ROOT / "MinusLock_BigHarvest_EA"
+LOT_STEP = 0.01
+FAR_DISTANCE = 200
+BIG_RATIO = 1.30
+SMALL_RATIO = 0.37
+CLOSE_BIG_ON_SMALL = 0.30
+REMAIN_BIG_ON_SMALL = 0.70
+CLOSE_FAR_SHARE = 0.90
+RESERVE_SHARE = 0.10
+BIG_MOVES = [100, 150, 200]
+
+@dataclass(frozen=True)
+class LevelResult:
+    level: int
+    far_start: float
+    big_move: int
+    big: float
+    small: float
+    net_profit: float
+    close_far: float
+    far_remain: float
+    total_reserve: float
+    final_close_allowed: bool
+    final_close_pl: float | None
+
+
+def round_lot_nearest(value: float) -> float:
+    # MQL5 MathRound semantics are half-away-from-zero for positive lots;
+    # Python round() is banker's rounding and would incorrectly turn 2.405 into 2.40.
+    return round(floor((value / LOT_STEP) + 0.5 + 1e-12) * LOT_STEP, 2)
+
+
+def floor_lot(value: float) -> float:
+    return round(floor((value + 1e-12) / LOT_STEP) * LOT_STEP, 2)
+
+
+def run_cycle(start_lot: float) -> list[LevelResult]:
+    far = start_lot
+    reserve = 0.0
+    results: list[LevelResult] = []
+    for idx, move in enumerate(BIG_MOVES, start=1):
+        big = round_lot_nearest(far * BIG_RATIO)
+        small = round_lot_nearest(big * SMALL_RATIO)
+        net_profit = round((big - small) * move, 2)
+        reserve = round(reserve + net_profit * RESERVE_SHARE, 2)
+        close_far_budget = net_profit * CLOSE_FAR_SHARE
+        close_far_raw = close_far_budget / FAR_DISTANCE
+        close_far = min(far, floor_lot(close_far_raw))
+        far = round(far - close_far, 2)
+        far_loss = round(far * FAR_DISTANCE, 2)
+        final_allowed = reserve >= far_loss
+        final_pl = round(reserve - far_loss, 2) if final_allowed else None
+        results.append(LevelResult(idx, round(results[-1].far_remain if results else start_lot, 2), move, big, small, net_profit, close_far, far, reserve, final_allowed, final_pl))
+        if final_allowed:
+            break
+    return results
+
+
+def assert_cycle(start_lot: float, expected: list[tuple[float, int, float, float, float, float, float, float, bool, float | None]]) -> list[LevelResult]:
+    got = run_cycle(start_lot)
+    got_tuples = [
+        (r.far_start, r.big_move, r.big, r.small, r.net_profit, r.close_far, r.far_remain, r.total_reserve, r.final_close_allowed, r.final_close_pl)
+        for r in got
+    ]
+    if got_tuples != expected:
+        raise AssertionError(f"StartLot={start_lot}: got {got_tuples}, expected {expected}")
+    return got
+
+
+def check_static_files() -> dict[str, object]:
+    required = [
+        "MinusLock_BigHarvest_EA.mq5",
+        "Include/Config.mqh",
+        "Include/Types.mqh",
+        "Include/LotUtils.mqh",
+        "Include/SimulationEngine.mqh",
+        "Include/PositionUtils.mqh",
+        "Include/TradeEngine.mqh",
+        "Include/StateMachine.mqh",
+        "Include/RecoveryMath.mqh",
+        "Include/RiskManager.mqh",
+        "Include/Logger.mqh",
+        "Docs/MANUAL.md",
+        "Docs/TEST_PLAN.md",
+        "Tests/Manual_Test_Cases.md",
+    ]
+    missing = [p for p in required if not (EA / p).is_file()]
+    if missing:
+        raise AssertionError(f"missing files: {missing}")
+
+    config = (EA / "Include/Config.mqh").read_text(encoding="utf-8")
+    for token in [
+        "StartLot              = 1.00",
+        "BigRatio              = 1.30",
+        "SmallRatio            = 0.37",
+        "CloseBigOnSmall       = 0.30",
+        "RemainBigOnSmall      = 0.70",
+        "CloseFarShare         = 0.90",
+        "ReserveShare          = 0.10",
+        "InitialTriggerPoints  = 100",
+        "BigMoveLevel1         = 100",
+        "BigMoveLevel2         = 150",
+        "BigMoveLevel3         = 200",
+        "FarDistancePoints     = 200",
+        "MaxHarvestLevels      = 3",
+        "LotStep               = 0.01",
+        "AllowRealTrading      = false",
+        "UseMarketOrders       = true",
+    ]:
+        if token not in config:
+            raise AssertionError(f"config token missing: {token}")
+
+    state = (EA / "Include/StateMachine.mqh").read_text(encoding="utf-8")
+    for token in [
+        "OpenInitialLock",
+        "CheckInitialPlusClose",
+        "Ctx.initialProfitIgnored = true",
+        "Ctx.totalReserve = 0.0",
+        "OpenBigSmall",
+        "Ctx.bigDirection = OppositeDirection(Ctx.farDirection)",
+        "Ctx.smallDirection = Ctx.farDirection",
+        "ProcessBigHarvest",
+        "closeFarLotRounded",
+        "CalcFinalCloseAllowed",
+        "ProcessSmallScenario",
+        "STATE_DUAL_TAIL",
+        "ProcessFinalClose",
+        "STATE_CLOSED_PROFIT",
+    ]:
+        if token not in state:
+            raise AssertionError(f"state-machine token missing: {token}")
+
+    logger = (EA / "Include/Logger.mqh").read_text(encoding="utf-8")
+    for field in [
+        "Level", "State", "FarTicket", "FarDirection", "FarLotBefore", "BigLot", "SmallLot",
+        "BigMovePoints", "ProfitBig", "LossSmall", "NetProfit", "CloseFarBudget", "ReserveAdd",
+        "TotalReserve", "CloseFarLotRaw", "CloseFarLotRounded", "FarLotAfter", "FarRemainLoss",
+        "FinalCloseAllowed", "FinalClosePL", "InitialProfitIgnored",
+    ]:
+        if field not in logger:
+            raise AssertionError(f"mandatory log field missing: {field}")
+
+    trade = (EA / "Include/TradeEngine.mqh").read_text(encoding="utf-8")
+    for token in ["SimOpenPosition", "SimClosePositionByTicket", "UseMarketOrders", "AllowRealTrading"]:
+        if token not in trade:
+            raise AssertionError(f"trade safety token missing: {token}")
+
+    risk = (EA / "Include/RiskManager.mqh").read_text(encoding="utf-8")
+    for token in ["MaxSpreadPoints", "MaxMarginPercent", "IsTradingAllowedSafe"]:
+        if token not in risk:
+            raise AssertionError(f"risk-gate token missing: {token}")
+
+    return {"required_files": len(required), "static_checks": "passed"}
+
+
+def check_small_scenario() -> dict[str, float | bool]:
+    far = 1.00
+    big = round_lot_nearest(far * BIG_RATIO)
+    small = round_lot_nearest(big * SMALL_RATIO)
+    close_big = floor_lot(big * CLOSE_BIG_ON_SMALL)
+    remain_big = floor_lot(big * REMAIN_BIG_ON_SMALL)
+    profit_small = small * 100
+    loss_closed_big = close_big * 100
+    net_small = round(profit_small - loss_closed_big, 2)
+    if (big, small, close_big, remain_big, net_small) != (1.30, 0.48, 0.39, 0.91, 9.00):
+        raise AssertionError((big, small, close_big, remain_big, net_small))
+    if net_small <= 0:
+        raise AssertionError("Small scenario NetSmall <= 0")
+    return {
+        "far": far,
+        "big": big,
+        "small": small,
+        "close_big": close_big,
+        "remain_big_new_far": remain_big,
+        "net_small": net_small,
+        "dual_tail_expected": True,
+    }
+
+
+def main() -> None:
+    report: dict[str, object] = {}
+    report["static"] = check_static_files()
+    report["compile_environment"] = {
+        "metaeditor_available": bool(shutil.which("metaeditor64") or shutil.which("MetaEditor64.exe") or shutil.which("metaeditor")),
+        "note": "MetaEditor/Strategy Tester are required for real MQL5 compile and tester runs; this script performs repository-local static/math verification.",
+    }
+    expected_1 = [
+        (1.00, 100, 1.30, 0.48, 82.00, 0.36, 0.64, 8.20, False, None),
+        (0.64, 150, 0.83, 0.31, 78.00, 0.35, 0.29, 16.00, False, None),
+        (0.29, 200, 0.38, 0.14, 48.00, 0.21, 0.08, 20.80, True, 4.80),
+    ]
+    expected_2 = [
+        (2.00, 100, 2.60, 0.96, 164.00, 0.73, 1.27, 16.40, False, None),
+        (1.27, 150, 1.65, 0.61, 156.00, 0.70, 0.57, 32.00, False, None),
+        (0.57, 200, 0.74, 0.27, 94.00, 0.42, 0.15, 41.40, True, 11.40),
+    ]
+    expected_5 = [
+        (5.00, 100, 6.50, 2.41, 409.00, 1.84, 3.16, 40.90, False, None),
+        (3.16, 150, 4.11, 1.52, 388.50, 1.74, 1.42, 79.75, False, None),
+        (1.42, 200, 1.85, 0.68, 234.00, 1.05, 0.37, 103.15, True, 29.15),
+    ]
+    cycles = {
+        "StartLot_1": assert_cycle(1.00, expected_1),
+        "StartLot_2": assert_cycle(2.00, expected_2),
+        "StartLot_5": assert_cycle(5.00, expected_5),
+    }
+    report["big_harvest"] = {name: [asdict(x) for x in rows] for name, rows in cycles.items()}
+    report["small_scenario"] = check_small_scenario()
+    report["risk_gates"] = "static references passed for MaxSpreadPoints, MaxMarginPercent, AllowRealTrading, UseMarketOrders"
+    report["dual_tail"] = "static and math verification passed: old Far + 70% remaining Big is expected to set STATE_DUAL_TAIL"
+
+    out = ROOT / "reports/tests/big_harvest_ea_verification.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+
+if __name__ == "__main__":
+    main()

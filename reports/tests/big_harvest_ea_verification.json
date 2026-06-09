@@ -1,0 +1,146 @@
+{
+  "static": {
+    "required_files": 14,
+    "static_checks": "passed"
+  },
+  "compile_environment": {
+    "metaeditor_available": false,
+    "note": "MetaEditor/Strategy Tester are required for real MQL5 compile and tester runs; this script performs repository-local static/math verification."
+  },
+  "big_harvest": {
+    "StartLot_1": [
+      {
+        "level": 1,
+        "far_start": 1.0,
+        "big_move": 100,
+        "big": 1.3,
+        "small": 0.48,
+        "net_profit": 82.0,
+        "close_far": 0.36,
+        "far_remain": 0.64,
+        "total_reserve": 8.2,
+        "final_close_allowed": false,
+        "final_close_pl": null
+      },
+      {
+        "level": 2,
+        "far_start": 0.64,
+        "big_move": 150,
+        "big": 0.83,
+        "small": 0.31,
+        "net_profit": 78.0,
+        "close_far": 0.35,
+        "far_remain": 0.29,
+        "total_reserve": 16.0,
+        "final_close_allowed": false,
+        "final_close_pl": null
+      },
+      {
+        "level": 3,
+        "far_start": 0.29,
+        "big_move": 200,
+        "big": 0.38,
+        "small": 0.14,
+        "net_profit": 48.0,
+        "close_far": 0.21,
+        "far_remain": 0.08,
+        "total_reserve": 20.8,
+        "final_close_allowed": true,
+        "final_close_pl": 4.8
+      }
+    ],
+    "StartLot_2": [
+      {
+        "level": 1,
+        "far_start": 2.0,
+        "big_move": 100,
+        "big": 2.6,
+        "small": 0.96,
+        "net_profit": 164.0,
+        "close_far": 0.73,
+        "far_remain": 1.27,
+        "total_reserve": 16.4,
+        "final_close_allowed": false,
+        "final_close_pl": null
+      },
+      {
+        "level": 2,
+        "far_start": 1.27,
+        "big_move": 150,
+        "big": 1.65,
+        "small": 0.61,
+        "net_profit": 156.0,
+        "close_far": 0.7,
+        "far_remain": 0.57,
+        "total_reserve": 32.0,
+        "final_close_allowed": false,
+        "final_close_pl": null
+      },
+      {
+        "level": 3,
+        "far_start": 0.57,
+        "big_move": 200,
+        "big": 0.74,
+        "small": 0.27,
+        "net_profit": 94.0,
+        "close_far": 0.42,
+        "far_remain": 0.15,
+        "total_reserve": 41.4,
+        "final_close_allowed": true,
+        "final_close_pl": 11.4
+      }
+    ],
+    "StartLot_5": [
+      {
+        "level": 1,
+        "far_start": 5.0,
+        "big_move": 100,
+        "big": 6.5,
+        "small": 2.41,
+        "net_profit": 409.0,
+        "close_far": 1.84,
+        "far_remain": 3.16,
+        "total_reserve": 40.9,
+        "final_close_allowed": false,
+        "final_close_pl": null
+      },
+      {
+        "level": 2,
+        "far_start": 3.16,
+        "big_move": 150,
+        "big": 4.11,
+        "small": 1.52,
+        "net_profit": 388.5,
+        "close_far": 1.74,
+        "far_remain": 1.42,
+        "total_reserve": 79.75,
+        "final_close_allowed": false,
+        "final_close_pl": null
+      },
+      {
+        "level": 3,
+        "far_start": 1.42,
+        "big_move": 200,
+        "big": 1.85,
+        "small": 0.68,
+        "net_profit": 234.0,
+        "close_far": 1.05,
+        "far_remain": 0.37,
+        "total_reserve": 103.15,
+        "final_close_allowed": true,
+        "final_close_pl": 29.15
+      }
+    ]
+  },
+  "small_scenario": {
+    "far": 1.0,
+    "big": 1.3,
+    "small": 0.48,
+    "close_big": 0.39,
+    "remain_big_new_far": 0.91,
+    "net_small": 9.0,
+    "dual_tail_expected": true
+  },
+  "risk_gates": "static references passed for MaxSpreadPoints, MaxMarginPercent, AllowRealTrading, UseMarketOrders",
+  "dual_tail": "static and math verification passed: old Far + 70% remaining Big is expected to set STATE_DUAL_TAIL"
+}
