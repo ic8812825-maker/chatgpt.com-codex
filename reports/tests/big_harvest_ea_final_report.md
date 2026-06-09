@@ -212,10 +212,10 @@ Remote branch contains the full EA folder at:
 work/MinusLock_SelfCompressing_BigSmall_v2/MinusLock_BigHarvest_EA
 ```
 
-Remote commit verified after push:
+Remote commit was verified after push with:
 
-```text
-8ed04ca84ff3c6f07197b0bf1f276f232222ebd6
+```bash
+git rev-parse origin/work
 ```
 
 ## What Was Done
