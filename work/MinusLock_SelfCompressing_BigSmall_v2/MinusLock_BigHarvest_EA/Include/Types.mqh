@@ -9,6 +9,7 @@ enum EAState
    STATE_FAR_ACTIVE,
    STATE_BIG_SMALL_OPENED,
    STATE_BIG_HARVEST,
+   STATE_WAIT_SMALL_TO_FAR,
    STATE_SMALL_SCENARIO,
    STATE_FINAL_CLOSE,
    STATE_CLOSED_PROFIT,
@@ -81,6 +82,7 @@ string StateToString(EAState state)
       case STATE_FAR_ACTIVE:           return "STATE_FAR_ACTIVE";
       case STATE_BIG_SMALL_OPENED:     return "STATE_BIG_SMALL_OPENED";
       case STATE_BIG_HARVEST:          return "STATE_BIG_HARVEST";
+      case STATE_WAIT_SMALL_TO_FAR:    return "STATE_WAIT_SMALL_TO_FAR";
       case STATE_SMALL_SCENARIO:       return "STATE_SMALL_SCENARIO";
       case STATE_FINAL_CLOSE:          return "STATE_FINAL_CLOSE";
       case STATE_CLOSED_PROFIT:        return "STATE_CLOSED_PROFIT";

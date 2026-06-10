@@ -79,6 +79,33 @@ double CalcFarRemainLoss(double farRemainLot, int farDistancePoints)
    return farRemainLot * farDistancePoints * PointValuePerLot();
 }
 
+
+double CalcSignedPositionPL(Direction dir, double lot, double openPrice, double closePrice)
+{
+   double point = SymbolInfoDouble(_Symbol, SYMBOL_POINT);
+   double pointValue = PointValuePerLot();
+
+   if(point <= 0.0 || pointValue <= 0.0 || lot <= 0.0 || openPrice <= 0.0 || closePrice <= 0.0)
+      return 0.0;
+
+   if(dir == DIR_BUY)
+      return lot * ((closePrice - openPrice) / point) * pointValue;
+
+   if(dir == DIR_SELL)
+      return lot * ((openPrice - closePrice) / point) * pointValue;
+
+   return 0.0;
+}
+
+double CalcMovePointsBetween(double fromPrice, double toPrice)
+{
+   double point = SymbolInfoDouble(_Symbol, SYMBOL_POINT);
+   if(point <= 0.0 || fromPrice <= 0.0 || toPrice <= 0.0)
+      return 0.0;
+
+   return MathAbs(toPrice - fromPrice) / point;
+}
+
 bool CalcFinalCloseAllowed(double totalReserve, double farRemainLot, int farDistancePoints)
 {
    double farRemainLoss = CalcFarRemainLoss(farRemainLot, farDistancePoints);

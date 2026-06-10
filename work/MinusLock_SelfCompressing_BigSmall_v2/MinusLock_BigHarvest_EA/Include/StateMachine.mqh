@@ -328,7 +328,7 @@ void CheckBigOrSmallScenario()
 
    if(smallProfitPoints >= targetPoints)
    {
-      SetState(STATE_SMALL_SCENARIO, "Small reached protective movement");
+      SetState(STATE_WAIT_SMALL_TO_FAR, "Small direction detected. Waiting for price to reach old Far open price.");
       return;
    }
 }
@@ -434,82 +434,198 @@ void ProcessBigHarvest()
    SetState(STATE_FAR_ACTIVE, "Repeat Harvest from reduced Far");
 }
 
-void ProcessSmallScenario()
+double CurrentPriceForSmallTouch(Direction smallDirection)
+{
+   return ExitPriceForDirection(smallDirection);
+}
+
+bool FarTouchReachedForSmall(Direction smallDirection, double oldFarOpenPrice, double currentPrice)
+{
+   double point = SymbolInfoDouble(_Symbol, SYMBOL_POINT);
+   double offset = SmallFarTouchOffsetPoints * point;
+
+   if(point <= 0.0 || oldFarOpenPrice <= 0.0 || currentPrice <= 0.0)
+      return false;
+
+   if(smallDirection == DIR_BUY)
+      return currentPrice >= oldFarOpenPrice + offset;
+
+   if(smallDirection == DIR_SELL)
+      return currentPrice <= oldFarOpenPrice - offset;
+
+   return false;
+}
+
+void CheckSmallToFarTouch()
 {
    PositionSnapshot big;
    PositionSnapshot small;
 
    if(!RefreshFar() || !RefreshBigSmall(big, small))
    {
-      SetState(STATE_ERROR, "cannot process Small-scenario without Far/Big/Small");
+      SetState(STATE_ERROR, "cannot wait Small-to-Far without Far/Big/Small");
       return;
    }
 
-   int smallMovePoints = GetBigMovePoints(Ctx.harvestLevel);
-   double closeBigLot = CalcCloseBigLotOnSmall(Ctx.bigLot);
-   double remainBigLot = CalcRemainBigLotOnSmall(Ctx.bigLot);
-   double profitSmall = CalcProfit(Ctx.smallLot, smallMovePoints);
-   double lossClosedBig = CalcProfit(closeBigLot, smallMovePoints);
+   double currentPrice = CurrentPriceForSmallTouch(Ctx.smallDirection);
+   bool farTouchReached = FarTouchReachedForSmall(Ctx.smallDirection, Ctx.farOpenPrice, currentPrice);
+
+   LogWaitSmallToFar(
+      Ctx.smallDirection,
+      Ctx.smallTicket,
+      Ctx.smallOpenPrice,
+      Ctx.farTicket,
+      Ctx.farOpenPrice,
+      currentPrice,
+      SmallFarTouchOffsetPoints,
+      farTouchReached
+   );
+
+   if(!farTouchReached)
+      return;
+
+   SetState(STATE_SMALL_SCENARIO, "SMALL_AT_FAR_TRIGGERED");
+   ProcessSmallAtFarTouch();
+}
+
+void ProcessSmallAtFarTouch()
+{
+   PositionSnapshot big;
+   PositionSnapshot small;
+
+   if(!RefreshFar() || !RefreshBigSmall(big, small))
+   {
+      SetState(STATE_ERROR, "cannot process Small-at-Far without Far/Big/Small");
+      return;
+   }
+
+   double oldFarLot = Ctx.farLot;
+   double oldFarOpenPrice = Ctx.farOpenPrice;
+   ulong oldFarTicket = Ctx.farTicket;
+   Direction oldFarDirection = Ctx.farDirection;
+
+   double bigLot = Ctx.bigLot;
+   double bigOpenPrice = Ctx.bigOpenPrice;
+   ulong bigTicket = Ctx.bigTicket;
+   Direction bigDirection = Ctx.bigDirection;
+
+   double smallLot = Ctx.smallLot;
+   double smallOpenPrice = Ctx.smallOpenPrice;
+   ulong smallTicket = Ctx.smallTicket;
+   Direction smallDirection = Ctx.smallDirection;
+
+   double currentPrice = CurrentPriceForSmallTouch(smallDirection);
+   double smallMovePoints = CalcMovePointsBetween(smallOpenPrice, currentPrice);
+   double smallPL = CalcSignedPositionPL(smallDirection, smallLot, smallOpenPrice, currentPrice);
+   double oldFarPL = CalcSignedPositionPL(oldFarDirection, oldFarLot, oldFarOpenPrice, currentPrice);
+   double closeBigLotRaw = bigLot * CloseBigOnSmall;
+   double closeBigLotRounded = NormalizeLotDown(closeBigLotRaw);
+   double remainBigLot = NormalizeLotDown(MathMax(0.0, bigLot - closeBigLotRounded));
+   double closedBigPL = CalcSignedPositionPL(bigDirection, closeBigLotRounded, bigOpenPrice, currentPrice);
    double costs = 0.0;
-   double netSmall = profitSmall - lossClosedBig - costs;
+   double smallScenarioTotalPL = smallPL + oldFarPL + closedBigPL - costs;
 
-   if(!ClosePositionByTicket(Ctx.smallTicket, Ctx.smallLot))
+   if(!ClosePositionByTicket(smallTicket, smallLot))
    {
-      SetState(STATE_ERROR, "failed to close Small 100% in Small-scenario");
+      SetState(STATE_ERROR, "failed to close Small 100% at old Far touch");
       return;
    }
 
-   if(closeBigLot > 0.0)
+   if(!ClosePositionByTicket(oldFarTicket, oldFarLot))
    {
-      if(!ClosePositionByTicket(Ctx.bigTicket, closeBigLot))
+      SetState(STATE_ERROR, "failed to close old Far 100% at Small-at-Far");
+      return;
+   }
+
+   if(closeBigLotRounded > 0.0)
+   {
+      if(!ClosePositionByTicket(bigTicket, closeBigLotRounded))
       {
-         SetState(STATE_ERROR, "failed to close Big 30% in Small-scenario");
+         SetState(STATE_ERROR, "failed to close Big by CloseBigOnSmall at Small-at-Far");
          return;
       }
    }
 
-   PositionSnapshot oldFar;
-   bool oldFarStillExists = GetManagedPositionByTicket(Ctx.farTicket, oldFar) || (!AllowRealTrading && Ctx.farLot > 0.0);
-   Ctx.dualTailDetected = oldFarStillExists && remainBigLot > 0.0;
-
-   LogSmallScenario(
-      Ctx.harvestLevel,
-      Ctx.farTicket,
-      Ctx.farDirection,
-      Ctx.farLot,
-      Ctx.smallLot,
-      closeBigLot,
-      remainBigLot,
-      smallMovePoints,
-      profitSmall,
-      lossClosedBig,
-      netSmall,
-      Ctx.dualTailDetected,
-      STATE_SMALL_SCENARIO
-   );
-
-   if(netSmall <= 0.0)
-   {
-      SetState(STATE_STOP, "Small-scenario net profit is not positive");
-      return;
-   }
-
-   if(Ctx.dualTailDetected)
-   {
-      SetState(STATE_DUAL_TAIL, "old Far plus remaining Big detected; new level stopped");
-      return;
-   }
-
-   Ctx.farTicket = Ctx.bigTicket;
+   Ctx.farTicket = bigTicket;
    Ctx.farLot = remainBigLot;
-   Ctx.farOpenPrice = Ctx.bigOpenPrice;
-   Ctx.farDirection = Ctx.bigDirection;
+   Ctx.farOpenPrice = bigOpenPrice;
+   Ctx.farDirection = bigDirection;
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
    Ctx.bigLot = 0.0;
    Ctx.smallLot = 0.0;
+   Ctx.bigOpenPrice = 0.0;
+   Ctx.smallOpenPrice = 0.0;
+   Ctx.bigDirection = DIR_NONE;
+   Ctx.smallDirection = DIR_NONE;
+   Ctx.dualTailDetected = false;
 
-   SetState(STATE_FAR_ACTIVE, "remaining 70% Big became new Far");
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
+   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, FarDistancePoints);
+   Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
+
+   double newBigLot = 0.0;
+   double newSmallLot = 0.0;
+   string actionAfterSmallScenario = "OPEN_NEW_BIG_SMALL";
+
+   if(Ctx.finalCloseAllowed)
+      actionAfterSmallScenario = "FINAL_CLOSE_NEW_FAR";
+   else
+   {
+      newBigLot = CalcBigLot(Ctx.farLot);
+      newSmallLot = CalcSmallLot(newBigLot);
+   }
+
+   LogInfo(StringFormat("SMALL_AT_FAR_TRIGGERED SmallMovePoints=%.1f CurrentPrice=%.5f", smallMovePoints, currentPrice));
+   LogSmallAtFarTriggered(
+      Ctx.harvestLevel,
+      oldFarLot,
+      bigLot,
+      smallLot,
+      smallPL,
+      oldFarPL,
+      closedBigPL,
+      smallScenarioTotalPL,
+      closeBigLotRaw,
+      closeBigLotRounded,
+      remainBigLot,
+      Ctx.farLot,
+      Ctx.farDirection,
+      newBigLot,
+      newSmallLot,
+      farRemainLoss,
+      Ctx.totalReserve,
+      Ctx.finalCloseAllowed,
+      Ctx.cycleFinalPL,
+      actionAfterSmallScenario
+   );
+
+   if(Ctx.farLot <= 0.0)
+   {
+      SetState(STATE_CLOSED_PROFIT, "Small-at-Far left no NewFar lot");
+      return;
+   }
+
+   if(Ctx.finalCloseAllowed)
+   {
+      if(!ClosePositionByTicket(Ctx.farTicket, Ctx.farLot))
+      {
+         SetState(STATE_ERROR, "failed to close NewFar after Small-at-Far FinalCloseAllowed");
+         return;
+      }
+
+      Ctx.farTicket = 0;
+      Ctx.farLot = 0.0;
+      SetState(STATE_CLOSED_PROFIT, "FinalCloseAllowed after Small-at-Far; NewFar closed and no new Big/Small opened");
+      return;
+   }
+
+   SetState(STATE_FAR_ACTIVE, "Small-at-Far rebuilt: old Far closed, remaining Big became NewFar");
+}
+
+void ProcessSmallScenario()
+{
+   ProcessSmallAtFarTouch();
 }
 
 void ProcessFinalClose()
@@ -567,6 +683,10 @@ void RunStateMachine()
 
       case STATE_BIG_HARVEST:
          ProcessBigHarvest();
+         break;
+
+      case STATE_WAIT_SMALL_TO_FAR:
+         CheckSmallToFarTouch();
          break;
 
       case STATE_SMALL_SCENARIO:

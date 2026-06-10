@@ -124,4 +124,76 @@ void LogSmallScenario(
    );
 }
 
+void LogWaitSmallToFar(
+   Direction smallDirection,
+   ulong smallTicket,
+   double smallOpenPrice,
+   ulong oldFarTicket,
+   double oldFarOpenPrice,
+   double currentPrice,
+   int smallFarTouchOffsetPoints,
+   bool farTouchReached
+)
+{
+   PrintFormat(
+      "[BigHarvest][SMALL_WAIT] State=STATE_WAIT_SMALL_TO_FAR SmallDirection=%s SmallTicket=%I64u SmallOpenPrice=%.5f OldFarTicket=%I64u OldFarOpenPrice=%.5f CurrentPrice=%.5f SmallFarTouchOffsetPoints=%d FarTouchReached=%s",
+      DirectionToString(smallDirection),
+      smallTicket,
+      smallOpenPrice,
+      oldFarTicket,
+      oldFarOpenPrice,
+      currentPrice,
+      smallFarTouchOffsetPoints,
+      farTouchReached ? "true" : "false"
+   );
+}
+
+void LogSmallAtFarTriggered(
+   int level,
+   double oldFarLot,
+   double bigLot,
+   double smallLot,
+   double smallPL,
+   double oldFarPL,
+   double closedBigPL,
+   double smallScenarioTotalPL,
+   double closeBigLotRaw,
+   double closeBigLotRounded,
+   double remainBigLot,
+   double newFarLot,
+   Direction newFarDirection,
+   double newBigLot,
+   double newSmallLot,
+   double farRemainLoss,
+   double totalReserve,
+   bool finalCloseAllowed,
+   double cycleFinalPL,
+   string actionAfterSmallScenario
+)
+{
+   PrintFormat(
+      "[BigHarvest][SMALL_AT_FAR_TRIGGERED] Level=%d OldFarLot=%.2f BigLot=%.2f SmallLot=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallScenarioTotalPL=%.2f CloseBigLotRaw=%.5f CloseBigLotRounded=%.2f RemainBigLot=%.2f NewFarLot=%.2f NewFarDirection=%s NewBigLot=%.2f NewSmallLot=%.2f FarRemainLoss=%.2f TotalReserve=%.2f FinalCloseAllowed=%s CycleFinalPL=%.2f ActionAfterSmallScenario=%s",
+      level,
+      oldFarLot,
+      bigLot,
+      smallLot,
+      smallPL,
+      oldFarPL,
+      closedBigPL,
+      smallScenarioTotalPL,
+      closeBigLotRaw,
+      closeBigLotRounded,
+      remainBigLot,
+      newFarLot,
+      DirectionToString(newFarDirection),
+      newBigLot,
+      newSmallLot,
+      farRemainLoss,
+      totalReserve,
+      finalCloseAllowed ? "YES" : "NO",
+      cycleFinalPL,
+      actionAfterSmallScenario
+   );
+}
+
 #endif // __BH_LOGGER_MQH__

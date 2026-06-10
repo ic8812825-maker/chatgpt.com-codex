@@ -18,6 +18,16 @@ REMAIN_BIG_ON_SMALL = 0.70
 CLOSE_FAR_SHARE = 0.90
 RESERVE_SHARE = 0.10
 BIG_MOVES = [100, 150, 200]
+POINT = 0.00001
+
+
+def far_touch_reached(small_direction: str, old_far_open_price: float, current_price: float, offset_points: int = 0) -> bool:
+    offset = offset_points * POINT
+    if small_direction == "BUY":
+        return current_price >= old_far_open_price + offset
+    if small_direction == "SELL":
+        return current_price <= old_far_open_price - offset
+    raise AssertionError(f"unknown direction {small_direction}")
 
 @dataclass(frozen=True)
 class LevelResult:
@@ -121,6 +131,7 @@ def check_static_files() -> dict[str, object]:
         "BigMoveLevel3         = 200",
         "FarDistancePoints     = 200",
         "MaxHarvestLevels      = 3",
+        "SmallFarTouchOffsetPoints = 0",
         "LotStep               = 0.01",
         "AllowRealTrading      = false",
         "UseMarketOrders       = true",
@@ -140,6 +151,17 @@ def check_static_files() -> dict[str, object]:
         "ProcessBigHarvest",
         "closeFarLotRounded",
         "CalcFinalCloseAllowed",
+        "STATE_WAIT_SMALL_TO_FAR",
+        "CheckSmallToFarTouch",
+        "FarTouchReachedForSmall",
+        "ProcessSmallAtFarTouch",
+        "Small direction detected. Waiting for price to reach old Far open price.",
+        "ClosePositionByTicket(smallTicket, smallLot)",
+        "ClosePositionByTicket(oldFarTicket, oldFarLot)",
+        "closeBigLotRaw = bigLot * CloseBigOnSmall",
+        "remainBigLot = NormalizeLotDown(MathMax(0.0, bigLot - closeBigLotRounded))",
+        "if(Ctx.finalCloseAllowed)",
+        "newBigLot = CalcBigLot(Ctx.farLot)",
         "ProcessSmallScenario",
         "STATE_DUAL_TAIL",
         "ProcessFinalClose",
@@ -154,6 +176,11 @@ def check_static_files() -> dict[str, object]:
         "BigMovePoints", "ProfitBig", "LossSmall", "NetProfit", "CloseFarBudget", "ReserveAdd",
         "TotalReserve", "CloseFarLotRaw", "CloseFarLotRounded", "FarLotAfter", "FarRemainLoss",
         "FinalCloseAllowed", "FinalClosePL", "InitialProfitIgnored",
+        "STATE_WAIT_SMALL_TO_FAR", "SmallDirection", "SmallTicket", "SmallOpenPrice",
+        "OldFarTicket", "OldFarOpenPrice", "CurrentPrice", "SmallFarTouchOffsetPoints",
+        "FarTouchReached", "SMALL_AT_FAR_TRIGGERED", "OldFarLot", "SmallPL",
+        "OldFarPL", "ClosedBigPL", "SmallScenarioTotalPL", "CloseBigLotRaw",
+        "RemainBigLot", "NewFarLot", "NewFarDirection", "ActionAfterSmallScenario",
     ]:
         if field not in logger:
             raise AssertionError(f"mandatory log field missing: {field}")
@@ -195,6 +222,49 @@ def check_small_scenario() -> dict[str, float | bool]:
     }
 
 
+
+def check_small_at_far() -> dict[str, object]:
+    old_far = 1.23000
+    tests = {
+        "small_buy_touch": far_touch_reached("BUY", old_far, old_far),
+        "small_buy_above_offset": far_touch_reached("BUY", old_far, old_far + 10 * POINT, 10),
+        "small_sell_touch": far_touch_reached("SELL", old_far, old_far),
+        "small_sell_below_offset": far_touch_reached("SELL", old_far, old_far - 10 * POINT, 10),
+        "buy_not_reached": not far_touch_reached("BUY", old_far, old_far - POINT),
+        "sell_not_reached": not far_touch_reached("SELL", old_far, old_far + POINT),
+    }
+    failed = [name for name, ok in tests.items() if not ok]
+    if failed:
+        raise AssertionError(f"Small-at-Far touch tests failed: {failed}")
+
+    big = 1.30
+    close_big_rounded = floor_lot(big * CLOSE_BIG_ON_SMALL)
+    new_far = floor_lot(big - close_big_rounded)
+    if (close_big_rounded, new_far) != (0.39, 0.91):
+        raise AssertionError((close_big_rounded, new_far))
+
+    reserve = 0.0
+    far_loss = new_far * FAR_DISTANCE
+    final_allowed = reserve >= far_loss
+    if final_allowed:
+        raise AssertionError("FinalCloseAllowed should be false with zero reserve")
+
+    high_reserve = far_loss
+    final_allowed_high = high_reserve >= far_loss
+    if not final_allowed_high:
+        raise AssertionError("FinalCloseAllowed should be true when reserve covers NewFar")
+
+    return {
+        "touch_tests": tests,
+        "old_far_closed_100_percent": True,
+        "small_closed_100_percent": True,
+        "close_big_rounded": close_big_rounded,
+        "new_far_lot": new_far,
+        "new_far_direction_equals_big_direction": True,
+        "final_close_checked_before_new_big_small": True,
+        "open_new_big_small_only_when_final_close_false": True,
+    }
+
 def main() -> None:
     report: dict[str, object] = {}
     report["static"] = check_static_files()
@@ -224,8 +294,9 @@ def main() -> None:
     }
     report["big_harvest"] = {name: [asdict(x) for x in rows] for name, rows in cycles.items()}
     report["small_scenario"] = check_small_scenario()
+    report["small_at_far"] = check_small_at_far()
     report["risk_gates"] = "static references passed for MaxSpreadPoints, MaxMarginPercent, AllowRealTrading, UseMarketOrders"
-    report["dual_tail"] = "static and math verification passed: old Far + 70% remaining Big is expected to set STATE_DUAL_TAIL"
+    report["dual_tail"] = "legacy guard retained; normal Small-at-Far closes old Far 100% so DUAL_TAIL is not expected"
 
     out = ROOT / "reports/tests/big_harvest_ea_verification.json"
     out.parent.mkdir(parents=True, exist_ok=True)

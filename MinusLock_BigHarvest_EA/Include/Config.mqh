@@ -16,6 +16,7 @@ input int    BigMoveLevel3         = 200;
 
 input int    FarDistancePoints     = 200;
 input int    MaxHarvestLevels      = 3;
+input int    SmallFarTouchOffsetPoints = 0;
 
 input double LotStep               = 0.01;
 input double MaxSpreadPoints       = 30;

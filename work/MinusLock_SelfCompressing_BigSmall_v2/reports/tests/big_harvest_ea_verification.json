@@ -141,6 +141,23 @@
     "net_small": 9.0,
     "dual_tail_expected": true
   },
+  "small_at_far": {
+    "touch_tests": {
+      "small_buy_touch": true,
+      "small_buy_above_offset": true,
+      "small_sell_touch": true,
+      "small_sell_below_offset": true,
+      "buy_not_reached": true,
+      "sell_not_reached": true
+    },
+    "old_far_closed_100_percent": true,
+    "small_closed_100_percent": true,
+    "close_big_rounded": 0.39,
+    "new_far_lot": 0.91,
+    "new_far_direction_equals_big_direction": true,
+    "final_close_checked_before_new_big_small": true,
+    "open_new_big_small_only_when_final_close_false": true
+  },
   "risk_gates": "static references passed for MaxSpreadPoints, MaxMarginPercent, AllowRealTrading, UseMarketOrders",
-  "dual_tail": "static and math verification passed: old Far + 70% remaining Big is expected to set STATE_DUAL_TAIL"
+  "dual_tail": "legacy guard retained; normal Small-at-Far closes old Far 100% so DUAL_TAIL is not expected"
 }

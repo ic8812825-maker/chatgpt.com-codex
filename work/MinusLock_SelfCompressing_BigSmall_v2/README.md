@@ -150,3 +150,9 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 
 - [MinusLock_BigHarvest_EA](MinusLock_BigHarvest_EA/) — MQL5-советник Big-Harvest, перенесённый в рабочую папку проекта.
 - [Big-Harvest EA final local verification](reports/tests/big_harvest_ea_final_report.md) — локальный отчёт проверок; MetaEditor Compile и Strategy Tester требуют запуска в Windows/MetaTrader.
+
+## Small-at-Far Scenario
+
+Small-сценарий больше не исполняется сразу при первом движении в сторону Small. Если Small достиг защитного движения, советник переводит цикл в `STATE_WAIT_SMALL_TO_FAR` и ждёт, пока текущая цена дойдёт до цены открытия старого `Far` с учётом `SmallFarTouchOffsetPoints`. Для `Small=BUY` условие касания: `CurrentPrice >= OldFarOpenPrice + offset`; для `Small=SELL`: `CurrentPrice <= OldFarOpenPrice - offset`.
+
+После касания старого Far выполняется `ProcessSmallAtFarTouch`: Small закрывается на 100%, старый Far закрывается на 100%, Big закрывается только на `CloseBigOnSmall`, а остаток Big становится новым Far. Затем обязательно сначала проверяется `FinalCloseAllowed` для нового Far. Если резерва хватает, новый Far закрывается полностью и состояние становится `STATE_CLOSED_PROFIT`; если резерва не хватает, только тогда открывается новый Big/Small от нового Far. В нормальном Small-at-Far сценарии `DUAL_TAIL` не должен появляться, потому что старый Far ликвидируется до назначения нового Far.
