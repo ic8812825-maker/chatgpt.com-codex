@@ -163,3 +163,97 @@ State
 Small-сценарий больше не исполняется сразу при первом движении в сторону Small. Если Small достиг защитного движения, советник переводит цикл в `STATE_WAIT_SMALL_TO_FAR` и ждёт, пока текущая цена дойдёт до цены открытия старого `Far` с учётом `SmallFarTouchOffsetPoints`. Для `Small=BUY` условие касания: `CurrentPrice >= OldFarOpenPrice + offset`; для `Small=SELL`: `CurrentPrice <= OldFarOpenPrice - offset`.
 
 После касания старого Far выполняется `ProcessSmallAtFarTouch`: Small закрывается на 100%, старый Far закрывается на 100%, Big закрывается только на `CloseBigOnSmall`, а остаток Big становится новым Far. Затем обязательно сначала проверяется `FinalCloseAllowed` для нового Far. Если резерва хватает, новый Far закрывается полностью и состояние становится `STATE_CLOSED_PROFIT`; если резерва не хватает, только тогда открывается новый Big/Small от нового Far. В нормальном Small-at-Far сценарии `DUAL_TAIL` не должен появляться, потому что старый Far ликвидируется до назначения нового Far.
+
+---
+
+## Reverse Geometry Protection
+
+После `Small-at-Far Scenario` советник обязан проверить качество нового переворота до открытия новой пары Big/Small.
+
+### Параметры защиты
+
+```mql5
+input int    MaxReverseCycles              = 3;
+input double MinReverseStrength            = 0.10;
+input double WarningReverseStrength        = 0.15;
+input double StrongReverseStrength         = 0.25;
+input double MinProjectedReserveCoverage   = 1.00;
+input bool   StopOnInvalidReverseGeometry  = true;
+input bool   StopOnReverseLimit            = true;
+input bool   AllowNegativeSmallReverseNet  = false;
+```
+
+### Geometry Validator
+
+Переворот разрешается только если новая геометрия улучшает систему:
+
+```text
+NewFarLot < OldFarLot
+NewBigLot > NewFarLot
+NewSmallLot < NewBigLot
+ReverseStrength >= MinReverseStrength
+```
+
+`ReverseStrength` считается так:
+
+```text
+ReverseStrength = (NewBigLot - NewFarLot) / NewFarLot
+```
+
+Статусы качества:
+
+```text
+STRONG  = ReverseStrength >= StrongReverseStrength
+OK      = ReverseStrength >= WarningReverseStrength
+WARNING = ReverseStrength >= MinReverseStrength
+INVALID = ReverseStrength < MinReverseStrength
+```
+
+Если `NewFarLot >= OldFarLot`, новый хвост не сжался. Это запрещённая геометрия, потому что переворот ухудшает систему и может привести к деградации хвоста.
+
+### Small Geometry Validator
+
+Small-at-Far дополнительно проверяет денежный результат переворота:
+
+```text
+SmallReverseNet = SmallPL + OldFarPL + ClosedBigPL
+```
+
+По умолчанию `SmallReverseNet` должен быть больше нуля. Если `AllowNegativeSmallReverseNet = true`, отрицательное значение допускается только как `STATE_REVERSE_WARNING` и обязательно логируется.
+
+### Reverse Risk Validator
+
+Проекция покрытия резерва:
+
+```text
+ProjectedReserveCoverage = (TotalReserve + ExpectedNextReserve) / ExpectedNextFarLoss
+```
+
+Если покрытие ниже `MinProjectedReserveCoverage`, советник пишет `STATE_REVERSE_WARNING`. Это предупреждение не открывает новую пару до завершения всех остальных проверок.
+
+### MaxReverseCycles
+
+После каждого успешного Small-at-Far увеличивается:
+
+```text
+reverseCycleCount += 1
+```
+
+Если `reverseCycleCount > MaxReverseCycles` и `StopOnReverseLimit = true`, советник переходит в `STATE_REVERSE_LIMIT` и новый Big/Small не открывает.
+
+### Обязательный порядок после Small-at-Far
+
+```text
+1. Рассчитать NewFarLot.
+2. Рассчитать NewBigLot.
+3. Рассчитать NewSmallLot.
+4. ValidateReverseGeometry.
+5. ValidateSmallGeometry.
+6. ValidateReverseRisk.
+7. Проверить MaxReverseCycles.
+8. Проверить FinalCloseAllowed.
+9. Если FinalCloseAllowed = YES — закрыть NewFar и STATE_CLOSED_PROFIT.
+10. Если проверки OK и FinalCloseAllowed = NO — открыть новый Big/Small.
+```
+
+Запрещено открывать новый Big/Small до проверки геометрии, risk projection, reverse-limit и `FinalCloseAllowed`.

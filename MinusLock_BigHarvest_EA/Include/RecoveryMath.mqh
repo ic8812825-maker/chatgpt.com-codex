@@ -106,6 +106,114 @@ double CalcMovePointsBetween(double fromPrice, double toPrice)
    return MathAbs(toPrice - fromPrice) / point;
 }
 
+string ReverseStrengthStatus(double reverseStrength)
+{
+   if(reverseStrength >= StrongReverseStrength)
+      return "STRONG";
+   if(reverseStrength >= WarningReverseStrength)
+      return "OK";
+   if(reverseStrength >= MinReverseStrength)
+      return "WARNING";
+   return "INVALID";
+}
+
+bool ValidateReverseGeometry(
+   double oldFarLot,
+   double newFarLot,
+   double newBigLot,
+   double newSmallLot,
+   double &reverseStrength,
+   string &reason
+)
+{
+   reverseStrength = 0.0;
+   reason = "OK";
+
+   if(oldFarLot <= 0.0 || newFarLot <= 0.0)
+   {
+      reason = "OldFarLot or NewFarLot <= 0";
+      return false;
+   }
+
+   if(newFarLot >= oldFarLot)
+   {
+      reason = "NewFarLot >= OldFarLot";
+      return false;
+   }
+
+   if(newBigLot <= newFarLot)
+   {
+      reason = "NewBigLot <= NewFarLot";
+      return false;
+   }
+
+   if(newSmallLot >= newBigLot)
+   {
+      reason = "NewSmallLot >= NewBigLot";
+      return false;
+   }
+
+   reverseStrength = (newBigLot - newFarLot) / newFarLot;
+   if(reverseStrength < MinReverseStrength)
+   {
+      reason = "ReverseStrength below minimum";
+      return false;
+   }
+
+   return true;
+}
+
+bool ValidateSmallGeometry(
+   double smallPL,
+   double oldFarPL,
+   double closedBigPL,
+   double &smallReverseNet,
+   string &reason
+)
+{
+   smallReverseNet = smallPL + oldFarPL + closedBigPL;
+   reason = "OK";
+
+   if(smallReverseNet <= 0.0)
+   {
+      reason = "SmallReverseNet <= 0";
+      return AllowNegativeSmallReverseNet;
+   }
+
+   return true;
+}
+
+bool ValidateReverseRisk(
+   double totalReserve,
+   double expectedNextReserve,
+   double expectedNextFarLoss,
+   double &projectedReserveCoverage,
+   string &reason
+)
+{
+   reason = "OK";
+   if(expectedNextFarLoss <= 0.0)
+   {
+      projectedReserveCoverage = 999.0;
+      return true;
+   }
+
+   projectedReserveCoverage = (totalReserve + expectedNextReserve) / expectedNextFarLoss;
+   if(projectedReserveCoverage < MinProjectedReserveCoverage)
+   {
+      reason = "ProjectedReserveCoverage below minimum";
+      return false;
+   }
+
+   return true;
+}
+
+double CalcExpectedNextReserve(double newBigLot, double newSmallLot, int nextLevel)
+{
+   double expectedNetProfit = (newBigLot - newSmallLot) * GetBigMovePoints(nextLevel) * PointValuePerLot();
+   return CalcReserveAdd(expectedNetProfit);
+}
+
 bool CalcFinalCloseAllowed(double totalReserve, double farRemainLot, int farDistancePoints)
 {
    double farRemainLoss = CalcFarRemainLoss(farRemainLot, farDistancePoints);

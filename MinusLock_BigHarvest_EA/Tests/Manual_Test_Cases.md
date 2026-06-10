@@ -92,3 +92,88 @@ NetSmall = +9.00
 Small-сценарий больше не исполняется сразу при первом движении в сторону Small. Если Small достиг защитного движения, советник переводит цикл в `STATE_WAIT_SMALL_TO_FAR` и ждёт, пока текущая цена дойдёт до цены открытия старого `Far` с учётом `SmallFarTouchOffsetPoints`. Для `Small=BUY` условие касания: `CurrentPrice >= OldFarOpenPrice + offset`; для `Small=SELL`: `CurrentPrice <= OldFarOpenPrice - offset`.
 
 После касания старого Far выполняется `ProcessSmallAtFarTouch`: Small закрывается на 100%, старый Far закрывается на 100%, Big закрывается только на `CloseBigOnSmall`, а остаток Big становится новым Far. Затем обязательно сначала проверяется `FinalCloseAllowed` для нового Far. Если резерва хватает, новый Far закрывается полностью и состояние становится `STATE_CLOSED_PROFIT`; если резерва не хватает, только тогда открывается новый Big/Small от нового Far. В нормальном Small-at-Far сценарии `DUAL_TAIL` не должен появляться, потому что старый Far ликвидируется до назначения нового Far.
+
+---
+
+## Reverse Geometry Protection
+
+### Case RG-1: Valid reverse
+
+```text
+OldFarLot = 1.00
+BigLot = 1.30
+CloseBigLotRounded = 0.39
+NewFarLot = 0.91
+NewBigLot = 1.18
+NewSmallLot = 0.44
+```
+
+Ожидание:
+
+```text
+GeometryValid = true
+ReverseStrength ≈ 0.2967
+ReverseStrengthStatus = STRONG
+```
+
+### Case RG-2: NewFar не сжался
+
+```text
+OldFarLot = 1.00
+NewFarLot = 1.00
+```
+
+Ожидание:
+
+```text
+STATE_INVALID_REVERSE_GEOMETRY
+GeometryInvalidReason = NewFarLot >= OldFarLot
+ActionAfterValidation = STOP_INVALID_REVERSE_GEOMETRY
+```
+
+### Case RG-3: NewBig не сильнее NewFar
+
+```text
+NewFarLot = 1.00
+NewBigLot = 1.00
+```
+
+Ожидание:
+
+```text
+STATE_INVALID_REVERSE_GEOMETRY
+GeometryInvalidReason = NewBigLot <= NewFarLot
+```
+
+### Case RG-4: Weak ReverseStrength
+
+```text
+NewFarLot = 1.00
+NewBigLot = 1.05
+ReverseStrength = 0.05
+```
+
+Ожидание:
+
+```text
+STATE_INVALID_REVERSE_GEOMETRY
+GeometryInvalidReason = ReverseStrength below minimum
+```
+
+### Case RG-5: Reverse limit
+
+```text
+reverseCycleCount = 4
+MaxReverseCycles = 3
+```
+
+Ожидание:
+
+```text
+STATE_REVERSE_LIMIT
+новый Big/Small не открывается
+```
+
+### Case RG-6: FinalClose priority
+
+Если `FinalCloseAllowed = true`, советник закрывает NewFar полностью, выставляет `STATE_CLOSED_PROFIT` и не открывает новый Big/Small.

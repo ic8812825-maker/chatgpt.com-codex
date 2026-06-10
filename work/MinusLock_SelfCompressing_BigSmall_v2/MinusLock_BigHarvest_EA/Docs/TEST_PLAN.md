@@ -98,3 +98,38 @@ git diff --check
 Small-сценарий больше не исполняется сразу при первом движении в сторону Small. Если Small достиг защитного движения, советник переводит цикл в `STATE_WAIT_SMALL_TO_FAR` и ждёт, пока текущая цена дойдёт до цены открытия старого `Far` с учётом `SmallFarTouchOffsetPoints`. Для `Small=BUY` условие касания: `CurrentPrice >= OldFarOpenPrice + offset`; для `Small=SELL`: `CurrentPrice <= OldFarOpenPrice - offset`.
 
 После касания старого Far выполняется `ProcessSmallAtFarTouch`: Small закрывается на 100%, старый Far закрывается на 100%, Big закрывается только на `CloseBigOnSmall`, а остаток Big становится новым Far. Затем обязательно сначала проверяется `FinalCloseAllowed` для нового Far. Если резерва хватает, новый Far закрывается полностью и состояние становится `STATE_CLOSED_PROFIT`; если резерва не хватает, только тогда открывается новый Big/Small от нового Far. В нормальном Small-at-Far сценарии `DUAL_TAIL` не должен появляться, потому что старый Far ликвидируется до назначения нового Far.
+
+---
+
+## Reverse Geometry Protection Tests
+
+1. **Valid reverse**
+   - `OldFarLot = 1.00`, `BigLot = 1.30`, `CloseBigLotRounded = 0.39`.
+   - Ожидание: `NewFarLot = 0.91`, `NewBigLot = 1.18`, `NewSmallLot = 0.44`, `ReverseStrength ≈ 0.2967`, статус `STRONG`.
+
+2. **Invalid NewFar**
+   - `NewFarLot >= OldFarLot`.
+   - Ожидание: `STATE_INVALID_REVERSE_GEOMETRY`, reason `NewFarLot >= OldFarLot`, новый Big/Small не открывать.
+
+3. **Invalid NewBig**
+   - `NewBigLot <= NewFarLot`.
+   - Ожидание: `STATE_INVALID_REVERSE_GEOMETRY`, reason `NewBigLot <= NewFarLot`.
+
+4. **Weak ReverseStrength**
+   - `NewFarLot = 1.00`, `NewBigLot = 1.05`.
+   - Ожидание: `STATE_INVALID_REVERSE_GEOMETRY`, reason `ReverseStrength below minimum`.
+
+5. **Small Geometry Validator**
+   - Проверить `SmallReverseNet = SmallPL + OldFarPL + ClosedBigPL`.
+   - Если `SmallReverseNet <= 0` и `AllowNegativeSmallReverseNet = false`, ожидание: `STATE_INVALID_SMALL_GEOMETRY`.
+
+6. **Reverse Risk Validator**
+   - Проверить `ProjectedReserveCoverage`.
+   - Если значение ниже `MinProjectedReserveCoverage`, ожидание: `STATE_REVERSE_WARNING` в логах.
+
+7. **MaxReverseCycles**
+   - `reverseCycleCount = 4`, `MaxReverseCycles = 3`.
+   - Ожидание: `STATE_REVERSE_LIMIT`, новый Big/Small не открывать при `StopOnReverseLimit = true`.
+
+8. **FinalClose priority**
+   - Если `FinalCloseAllowed = true`, ожидание: NewFar закрывается полностью, `STATE_CLOSED_PROFIT`, новый Big/Small не открывается.

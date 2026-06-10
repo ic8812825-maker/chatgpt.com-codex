@@ -37,6 +37,20 @@ void ResetRecoveryContext()
    Ctx.initialProfitIgnored = false;
    Ctx.finalCloseAllowed = false;
    Ctx.dualTailDetected = false;
+
+   Ctx.reverseCycleCount = 0;
+   Ctx.oldFarLotBeforeReverse = 0.0;
+   Ctx.newFarLotAfterReverse = 0.0;
+   Ctx.newBigLotAfterReverse = 0.0;
+   Ctx.newSmallLotAfterReverse = 0.0;
+   Ctx.reverseStrength = 0.0;
+   Ctx.reverseQualityScore = 0.0;
+   Ctx.projectedReserveCoverage = 0.0;
+   Ctx.smallReverseNet = 0.0;
+   Ctx.geometryValid = true;
+   Ctx.reverseLimitReached = false;
+   Ctx.reserveProjectionOk = true;
+   Ctx.smallGeometryValid = true;
 }
 
 void UpdateFarFromSnapshot(PositionSnapshot &far)
@@ -525,6 +539,75 @@ void ProcessSmallAtFarTouch()
    double costs = 0.0;
    double smallScenarioTotalPL = smallPL + oldFarPL + closedBigPL - costs;
 
+   double newFarLot = remainBigLot;
+   Direction newFarDirection = bigDirection;
+   double newBigLot = CalcBigLot(newFarLot);
+   double newSmallLot = CalcSmallLot(newBigLot);
+   double expectedNextReserve = CalcExpectedNextReserve(newBigLot, newSmallLot, Ctx.harvestLevel + 1);
+   double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, FarDistancePoints);
+   double projectedReserveCoverage = 0.0;
+   double reverseStrength = 0.0;
+   double smallReverseNet = 0.0;
+   string geometryInvalidReason = "OK";
+   string smallInvalidReason = "OK";
+   string riskWarningReason = "OK";
+   string actionAfterValidation = "OPEN_NEW_BIG_SMALL";
+
+   bool geometryValid = ValidateReverseGeometry(oldFarLot, newFarLot, newBigLot, newSmallLot, reverseStrength, geometryInvalidReason);
+   bool smallGeometryValid = ValidateSmallGeometry(smallPL, oldFarPL, closedBigPL, smallReverseNet, smallInvalidReason);
+   bool reserveProjectionOk = ValidateReverseRisk(Ctx.totalReserve, expectedNextReserve, expectedNextFarLoss, projectedReserveCoverage, riskWarningReason);
+
+   Ctx.oldFarLotBeforeReverse = oldFarLot;
+   Ctx.newFarLotAfterReverse = newFarLot;
+   Ctx.newBigLotAfterReverse = newBigLot;
+   Ctx.newSmallLotAfterReverse = newSmallLot;
+   Ctx.reverseStrength = reverseStrength;
+   Ctx.reverseQualityScore = reverseStrength;
+   Ctx.projectedReserveCoverage = projectedReserveCoverage;
+   Ctx.smallReverseNet = smallReverseNet;
+   Ctx.geometryValid = geometryValid;
+   Ctx.smallGeometryValid = smallGeometryValid;
+   Ctx.reserveProjectionOk = reserveProjectionOk;
+
+   if(!geometryValid && StopOnInvalidReverseGeometry)
+      actionAfterValidation = "STOP_INVALID_REVERSE_GEOMETRY";
+   else if(!smallGeometryValid && !AllowNegativeSmallReverseNet)
+      actionAfterValidation = "STOP_INVALID_SMALL_GEOMETRY";
+   else if(!reserveProjectionOk)
+      actionAfterValidation = "REVERSE_WARNING_CONTINUE";
+
+   if(!geometryValid && StopOnInvalidReverseGeometry)
+   {
+      LogInfo(StringFormat("SMALL_AT_FAR_TRIGGERED SmallMovePoints=%.1f CurrentPrice=%.5f", smallMovePoints, currentPrice));
+      LogSmallAtFarTriggered(
+         Ctx.harvestLevel, oldFarLot, bigLot, smallLot, smallPL, oldFarPL, closedBigPL,
+         smallScenarioTotalPL, closeBigLotRaw, closeBigLotRounded, remainBigLot, newFarLot,
+         newFarDirection, newBigLot, newSmallLot, expectedNextFarLoss, Ctx.totalReserve,
+         false, Ctx.totalReserve - expectedNextFarLoss, actionAfterValidation, reverseStrength,
+         ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
+         geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
+         MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
+      );
+      SetState(STATE_INVALID_REVERSE_GEOMETRY, geometryInvalidReason);
+      return;
+   }
+
+   if(!smallGeometryValid && !AllowNegativeSmallReverseNet)
+   {
+      LogInfo(StringFormat("SMALL_AT_FAR_TRIGGERED SmallMovePoints=%.1f CurrentPrice=%.5f", smallMovePoints, currentPrice));
+      LogSmallAtFarTriggered(
+         Ctx.harvestLevel, oldFarLot, bigLot, smallLot, smallPL, oldFarPL, closedBigPL,
+         smallScenarioTotalPL, closeBigLotRaw, closeBigLotRounded, remainBigLot, newFarLot,
+         newFarDirection, newBigLot, newSmallLot, expectedNextFarLoss, Ctx.totalReserve,
+         false, Ctx.totalReserve - expectedNextFarLoss, actionAfterValidation, reverseStrength,
+         ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
+         geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
+         MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
+      );
+      SetState(STATE_INVALID_SMALL_GEOMETRY, smallInvalidReason);
+      return;
+   }
+
    if(!ClosePositionByTicket(smallTicket, smallLot))
    {
       SetState(STATE_ERROR, "failed to close Small 100% at old Far touch");
@@ -546,10 +629,15 @@ void ProcessSmallAtFarTouch()
       }
    }
 
+   Ctx.reverseCycleCount += 1;
+   Ctx.reverseLimitReached = Ctx.reverseCycleCount > MaxReverseCycles;
+   if(Ctx.reverseLimitReached && StopOnReverseLimit)
+      actionAfterValidation = "STOP_REVERSE_LIMIT";
+
    Ctx.farTicket = bigTicket;
-   Ctx.farLot = remainBigLot;
+   Ctx.farLot = newFarLot;
    Ctx.farOpenPrice = bigOpenPrice;
-   Ctx.farDirection = bigDirection;
+   Ctx.farDirection = newFarDirection;
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
    Ctx.bigLot = 0.0;
@@ -564,41 +652,33 @@ void ProcessSmallAtFarTouch()
    Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, FarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
 
-   double newBigLot = 0.0;
-   double newSmallLot = 0.0;
-   string actionAfterSmallScenario = "OPEN_NEW_BIG_SMALL";
-
    if(Ctx.finalCloseAllowed)
-      actionAfterSmallScenario = "FINAL_CLOSE_NEW_FAR";
+      actionAfterValidation = "FINAL_CLOSE_NEW_FAR";
+   else if(Ctx.reverseLimitReached && StopOnReverseLimit)
+      actionAfterValidation = "STOP_REVERSE_LIMIT";
+   else if(!reserveProjectionOk)
+      actionAfterValidation = "REVERSE_WARNING_OPEN_NEW_BIG_SMALL";
+   else if(!smallGeometryValid && AllowNegativeSmallReverseNet)
+      actionAfterValidation = "SMALL_GEOMETRY_WARNING_OPEN_NEW_BIG_SMALL";
    else
-   {
-      newBigLot = CalcBigLot(Ctx.farLot);
-      newSmallLot = CalcSmallLot(newBigLot);
-   }
+      actionAfterValidation = "OPEN_NEW_BIG_SMALL";
 
    LogInfo(StringFormat("SMALL_AT_FAR_TRIGGERED SmallMovePoints=%.1f CurrentPrice=%.5f", smallMovePoints, currentPrice));
    LogSmallAtFarTriggered(
-      Ctx.harvestLevel,
-      oldFarLot,
-      bigLot,
-      smallLot,
-      smallPL,
-      oldFarPL,
-      closedBigPL,
-      smallScenarioTotalPL,
-      closeBigLotRaw,
-      closeBigLotRounded,
-      remainBigLot,
-      Ctx.farLot,
-      Ctx.farDirection,
-      newBigLot,
-      newSmallLot,
-      farRemainLoss,
-      Ctx.totalReserve,
-      Ctx.finalCloseAllowed,
-      Ctx.cycleFinalPL,
-      actionAfterSmallScenario
+      Ctx.harvestLevel, oldFarLot, bigLot, smallLot, smallPL, oldFarPL, closedBigPL,
+      smallScenarioTotalPL, closeBigLotRaw, closeBigLotRounded, remainBigLot, Ctx.farLot,
+      Ctx.farDirection, newBigLot, newSmallLot, farRemainLoss, Ctx.totalReserve,
+      Ctx.finalCloseAllowed, Ctx.cycleFinalPL, actionAfterValidation, reverseStrength,
+      ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
+      geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
+      MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
    );
+
+   if(Ctx.reverseLimitReached && StopOnReverseLimit)
+   {
+      SetState(STATE_REVERSE_LIMIT, "reverseCycleCount > MaxReverseCycles");
+      return;
+   }
 
    if(Ctx.farLot <= 0.0)
    {
@@ -620,7 +700,10 @@ void ProcessSmallAtFarTouch()
       return;
    }
 
-   SetState(STATE_FAR_ACTIVE, "Small-at-Far rebuilt: old Far closed, remaining Big became NewFar");
+   if(!reserveProjectionOk || (!smallGeometryValid && AllowNegativeSmallReverseNet))
+      SetState(STATE_REVERSE_WARNING, "reverse validation warning logged; continuing with protected rebuild");
+
+   SetState(STATE_FAR_ACTIVE, "Small-at-Far validation passed: old Far closed, remaining Big became NewFar");
 }
 
 void ProcessSmallScenario()
@@ -699,6 +782,9 @@ void RunStateMachine()
 
       case STATE_CLOSED_PROFIT:
       case STATE_DUAL_TAIL:
+      case STATE_INVALID_REVERSE_GEOMETRY:
+      case STATE_INVALID_SMALL_GEOMETRY:
+      case STATE_REVERSE_LIMIT:
       case STATE_STOP:
       case STATE_ERROR:
          break;

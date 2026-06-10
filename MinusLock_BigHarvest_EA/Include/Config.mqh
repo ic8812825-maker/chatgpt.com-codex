@@ -17,6 +17,14 @@ input int    BigMoveLevel3         = 200;
 input int    FarDistancePoints     = 200;
 input int    MaxHarvestLevels      = 3;
 input int    SmallFarTouchOffsetPoints = 0;
+input int    MaxReverseCycles              = 3;
+input double MinReverseStrength            = 0.10;
+input double WarningReverseStrength        = 0.15;
+input double StrongReverseStrength         = 0.25;
+input double MinProjectedReserveCoverage   = 1.00;
+input bool   StopOnInvalidReverseGeometry  = true;
+input bool   StopOnReverseLimit            = true;
+input bool   AllowNegativeSmallReverseNet  = false;
 
 input double LotStep               = 0.01;
 input double MaxSpreadPoints       = 30;

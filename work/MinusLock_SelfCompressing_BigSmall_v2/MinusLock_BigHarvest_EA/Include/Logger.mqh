@@ -168,11 +168,23 @@ void LogSmallAtFarTriggered(
    double totalReserve,
    bool finalCloseAllowed,
    double cycleFinalPL,
-   string actionAfterSmallScenario
+   string actionAfterSmallScenario,
+   double reverseStrength,
+   string reverseStrengthStatus,
+   double smallReverseNet,
+   double projectedReserveCoverage,
+   bool geometryValid,
+   bool smallGeometryValid,
+   bool reserveProjectionOk,
+   int reverseCycleCount,
+   int maxReverseCycles,
+   string geometryInvalidReason,
+   string smallInvalidReason,
+   string riskWarningReason
 )
 {
    PrintFormat(
-      "[BigHarvest][SMALL_AT_FAR_TRIGGERED] Level=%d OldFarLot=%.2f BigLot=%.2f SmallLot=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallScenarioTotalPL=%.2f CloseBigLotRaw=%.5f CloseBigLotRounded=%.2f RemainBigLot=%.2f NewFarLot=%.2f NewFarDirection=%s NewBigLot=%.2f NewSmallLot=%.2f FarRemainLoss=%.2f TotalReserve=%.2f FinalCloseAllowed=%s CycleFinalPL=%.2f ActionAfterSmallScenario=%s",
+      "[BigHarvest][SMALL_AT_FAR_TRIGGERED] Level=%d OldFarLot=%.2f BigLot=%.2f SmallLot=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallScenarioTotalPL=%.2f CloseBigLotRaw=%.5f CloseBigLotRounded=%.2f RemainBigLot=%.2f NewFarLot=%.2f NewFarDirection=%s NewBigLot=%.2f NewSmallLot=%.2f FarRemainLoss=%.2f TotalReserve=%.2f FinalCloseAllowed=%s CycleFinalPL=%.2f ActionAfterSmallScenario=%s ReverseStrength=%.5f ReverseQualityScore=%.5f ReverseStrengthStatus=%s SmallReverseNet=%.2f ProjectedReserveCoverage=%.5f GeometryValid=%s SmallGeometryValid=%s ReserveProjectionOk=%s ReverseCycleCount=%d MaxReverseCycles=%d GeometryInvalidReason=%s SmallInvalidReason=%s RiskWarningReason=%s ActionAfterValidation=%s",
       level,
       oldFarLot,
       bigLot,
@@ -192,6 +204,20 @@ void LogSmallAtFarTriggered(
       totalReserve,
       finalCloseAllowed ? "YES" : "NO",
       cycleFinalPL,
+      actionAfterSmallScenario,
+      reverseStrength,
+      reverseStrength,
+      reverseStrengthStatus,
+      smallReverseNet,
+      projectedReserveCoverage,
+      geometryValid ? "true" : "false",
+      smallGeometryValid ? "true" : "false",
+      reserveProjectionOk ? "true" : "false",
+      reverseCycleCount,
+      maxReverseCycles,
+      geometryInvalidReason,
+      smallInvalidReason,
+      riskWarningReason,
       actionAfterSmallScenario
    );
 }

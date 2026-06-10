@@ -158,6 +158,26 @@
     "final_close_checked_before_new_big_small": true,
     "open_new_big_small_only_when_final_close_false": true
   },
+  "reverse_geometry_protection": {
+    "valid_reverse": {
+      "old_far": 1.0,
+      "close_big": 0.39,
+      "new_far": 0.91,
+      "new_big": 1.18,
+      "new_small": 0.44,
+      "geometry_valid": true,
+      "reverse_strength": 0.2967,
+      "status": "STRONG"
+    },
+    "invalid_new_far_reason": "NewFarLot >= OldFarLot",
+    "invalid_new_big_reason": "NewBigLot <= NewFarLot",
+    "weak_reverse_reason": "ReverseStrength below minimum",
+    "small_geometry_positive_net": 10.0,
+    "small_geometry_negative_blocked_reason": "SmallReverseNet <= 0",
+    "risk_warning_reason": "ProjectedReserveCoverage below minimum",
+    "reverse_limit_blocked": true,
+    "final_close_priority_before_open": true
+  },
   "risk_gates": "static references passed for MaxSpreadPoints, MaxMarginPercent, AllowRealTrading, UseMarketOrders",
   "dual_tail": "legacy guard retained; normal Small-at-Far closes old Far 100% so DUAL_TAIL is not expected"
 }

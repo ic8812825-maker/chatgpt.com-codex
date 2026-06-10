@@ -14,6 +14,10 @@ enum EAState
    STATE_FINAL_CLOSE,
    STATE_CLOSED_PROFIT,
    STATE_DUAL_TAIL,
+   STATE_INVALID_REVERSE_GEOMETRY,
+   STATE_INVALID_SMALL_GEOMETRY,
+   STATE_REVERSE_LIMIT,
+   STATE_REVERSE_WARNING,
    STATE_STOP,
    STATE_ERROR
 };
@@ -61,6 +65,22 @@ struct RecoveryContext
    bool initialProfitIgnored;
    bool finalCloseAllowed;
    bool dualTailDetected;
+
+   int reverseCycleCount;
+   double oldFarLotBeforeReverse;
+   double newFarLotAfterReverse;
+   double newBigLotAfterReverse;
+   double newSmallLotAfterReverse;
+
+   double reverseStrength;
+   double reverseQualityScore;
+   double projectedReserveCoverage;
+   double smallReverseNet;
+
+   bool geometryValid;
+   bool reverseLimitReached;
+   bool reserveProjectionOk;
+   bool smallGeometryValid;
 };
 
 string DirectionToString(Direction dir)
@@ -87,6 +107,10 @@ string StateToString(EAState state)
       case STATE_FINAL_CLOSE:          return "STATE_FINAL_CLOSE";
       case STATE_CLOSED_PROFIT:        return "STATE_CLOSED_PROFIT";
       case STATE_DUAL_TAIL:            return "STATE_DUAL_TAIL";
+      case STATE_INVALID_REVERSE_GEOMETRY: return "STATE_INVALID_REVERSE_GEOMETRY";
+      case STATE_INVALID_SMALL_GEOMETRY:   return "STATE_INVALID_SMALL_GEOMETRY";
+      case STATE_REVERSE_LIMIT:            return "STATE_REVERSE_LIMIT";
+      case STATE_REVERSE_WARNING:          return "STATE_REVERSE_WARNING";
       case STATE_STOP:                 return "STATE_STOP";
       case STATE_ERROR:                return "STATE_ERROR";
    }

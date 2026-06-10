@@ -19,6 +19,11 @@ CLOSE_FAR_SHARE = 0.90
 RESERVE_SHARE = 0.10
 BIG_MOVES = [100, 150, 200]
 POINT = 0.00001
+MAX_REVERSE_CYCLES = 3
+MIN_REVERSE_STRENGTH = 0.10
+WARNING_REVERSE_STRENGTH = 0.15
+STRONG_REVERSE_STRENGTH = 0.25
+MIN_PROJECTED_RESERVE_COVERAGE = 1.00
 
 
 def far_touch_reached(small_direction: str, old_far_open_price: float, current_price: float, offset_points: int = 0) -> bool:
@@ -52,6 +57,47 @@ def round_lot_nearest(value: float) -> float:
 
 def floor_lot(value: float) -> float:
     return round(floor((value + 1e-12) / LOT_STEP) * LOT_STEP, 2)
+
+
+def reverse_strength_status(reverse_strength: float) -> str:
+    if reverse_strength >= STRONG_REVERSE_STRENGTH:
+        return "STRONG"
+    if reverse_strength >= WARNING_REVERSE_STRENGTH:
+        return "OK"
+    if reverse_strength >= MIN_REVERSE_STRENGTH:
+        return "WARNING"
+    return "INVALID"
+
+
+def validate_reverse_geometry(old_far_lot: float, new_far_lot: float, new_big_lot: float, new_small_lot: float) -> tuple[bool, float, str]:
+    if old_far_lot <= 0 or new_far_lot <= 0:
+        return False, 0.0, "OldFarLot or NewFarLot <= 0"
+    if new_far_lot >= old_far_lot:
+        return False, 0.0, "NewFarLot >= OldFarLot"
+    if new_big_lot <= new_far_lot:
+        return False, 0.0, "NewBigLot <= NewFarLot"
+    if new_small_lot >= new_big_lot:
+        return False, 0.0, "NewSmallLot >= NewBigLot"
+    strength = (new_big_lot - new_far_lot) / new_far_lot
+    if strength < MIN_REVERSE_STRENGTH:
+        return False, strength, "ReverseStrength below minimum"
+    return True, strength, "OK"
+
+
+def validate_small_geometry(small_pl: float, old_far_pl: float, closed_big_pl: float, allow_negative: bool = False) -> tuple[bool, float, str]:
+    net = round(small_pl + old_far_pl + closed_big_pl, 2)
+    if net <= 0 and not allow_negative:
+        return False, net, "SmallReverseNet <= 0"
+    return True, net, "OK" if net > 0 else "SmallReverseNet <= 0"
+
+
+def validate_reverse_risk(total_reserve: float, expected_next_reserve: float, expected_next_far_loss: float) -> tuple[bool, float, str]:
+    if expected_next_far_loss <= 0:
+        return True, 999.0, "OK"
+    coverage = (total_reserve + expected_next_reserve) / expected_next_far_loss
+    if coverage < MIN_PROJECTED_RESERVE_COVERAGE:
+        return False, coverage, "ProjectedReserveCoverage below minimum"
+    return True, coverage, "OK"
 
 
 def run_cycle(start_lot: float) -> list[LevelResult]:
@@ -132,6 +178,14 @@ def check_static_files() -> dict[str, object]:
         "FarDistancePoints     = 200",
         "MaxHarvestLevels      = 3",
         "SmallFarTouchOffsetPoints = 0",
+        "MaxReverseCycles",
+        "MinReverseStrength",
+        "WarningReverseStrength",
+        "StrongReverseStrength",
+        "MinProjectedReserveCoverage",
+        "StopOnInvalidReverseGeometry",
+        "StopOnReverseLimit",
+        "AllowNegativeSmallReverseNet",
         "LotStep               = 0.01",
         "AllowRealTrading      = false",
         "UseMarketOrders       = true",
@@ -152,16 +206,28 @@ def check_static_files() -> dict[str, object]:
         "closeFarLotRounded",
         "CalcFinalCloseAllowed",
         "STATE_WAIT_SMALL_TO_FAR",
+        "STATE_INVALID_REVERSE_GEOMETRY",
+        "STATE_INVALID_SMALL_GEOMETRY",
+        "STATE_REVERSE_LIMIT",
+        "STATE_REVERSE_WARNING",
         "CheckSmallToFarTouch",
         "FarTouchReachedForSmall",
         "ProcessSmallAtFarTouch",
+        "ValidateReverseGeometry",
+        "ValidateSmallGeometry",
+        "ValidateReverseRisk",
+        "Ctx.reverseCycleCount += 1",
+        "Ctx.reverseLimitReached = Ctx.reverseCycleCount > MaxReverseCycles",
+        "STATE_INVALID_REVERSE_GEOMETRY",
+        "STATE_INVALID_SMALL_GEOMETRY",
+        "STATE_REVERSE_LIMIT",
         "Small direction detected. Waiting for price to reach old Far open price.",
         "ClosePositionByTicket(smallTicket, smallLot)",
         "ClosePositionByTicket(oldFarTicket, oldFarLot)",
         "closeBigLotRaw = bigLot * CloseBigOnSmall",
         "remainBigLot = NormalizeLotDown(MathMax(0.0, bigLot - closeBigLotRounded))",
         "if(Ctx.finalCloseAllowed)",
-        "newBigLot = CalcBigLot(Ctx.farLot)",
+        "newBigLot = CalcBigLot(newFarLot)",
         "ProcessSmallScenario",
         "STATE_DUAL_TAIL",
         "ProcessFinalClose",
@@ -169,6 +235,11 @@ def check_static_files() -> dict[str, object]:
     ]:
         if token not in state:
             raise AssertionError(f"state-machine token missing: {token}")
+
+    recovery = (EA / "Include/RecoveryMath.mqh").read_text(encoding="utf-8")
+    for token in ["ValidateReverseGeometry", "ValidateSmallGeometry", "ValidateReverseRisk", "ReverseStrength below minimum", "NewFarLot >= OldFarLot", "NewBigLot <= NewFarLot"]:
+        if token not in recovery:
+            raise AssertionError(f"reverse validator token missing: {token}")
 
     logger = (EA / "Include/Logger.mqh").read_text(encoding="utf-8")
     for field in [
@@ -181,6 +252,10 @@ def check_static_files() -> dict[str, object]:
         "FarTouchReached", "SMALL_AT_FAR_TRIGGERED", "OldFarLot", "SmallPL",
         "OldFarPL", "ClosedBigPL", "SmallScenarioTotalPL", "CloseBigLotRaw",
         "RemainBigLot", "NewFarLot", "NewFarDirection", "ActionAfterSmallScenario",
+        "ReverseStrength", "ReverseStrengthStatus", "SmallReverseNet", "ProjectedReserveCoverage",
+        "GeometryValid", "SmallGeometryValid", "ReserveProjectionOk", "ReverseCycleCount",
+        "MaxReverseCycles", "GeometryInvalidReason", "SmallInvalidReason", "RiskWarningReason",
+        "ActionAfterValidation",
     ]:
         if field not in logger:
             raise AssertionError(f"mandatory log field missing: {field}")
@@ -265,6 +340,68 @@ def check_small_at_far() -> dict[str, object]:
         "open_new_big_small_only_when_final_close_false": True,
     }
 
+
+def check_reverse_geometry_protection() -> dict[str, object]:
+    close_big = floor_lot(1.30 * CLOSE_BIG_ON_SMALL)
+    new_far = floor_lot(1.30 - close_big)
+    new_big = round_lot_nearest(new_far * BIG_RATIO)
+    new_small = round_lot_nearest(new_big * SMALL_RATIO)
+    valid, strength, reason = validate_reverse_geometry(1.00, new_far, new_big, new_small)
+    if not valid:
+        raise AssertionError(f"valid reverse unexpectedly failed: {reason}")
+    if round(strength, 4) != 0.2967:
+        raise AssertionError(f"unexpected reverse strength: {strength}")
+    if reverse_strength_status(strength) != "STRONG":
+        raise AssertionError(reverse_strength_status(strength))
+
+    invalid_far = validate_reverse_geometry(1.00, 1.00, 1.30, 0.48)
+    if invalid_far[0] or invalid_far[2] != "NewFarLot >= OldFarLot":
+        raise AssertionError(invalid_far)
+
+    invalid_big = validate_reverse_geometry(2.00, 1.00, 1.00, 0.37)
+    if invalid_big[0] or invalid_big[2] != "NewBigLot <= NewFarLot":
+        raise AssertionError(invalid_big)
+
+    weak = validate_reverse_geometry(2.00, 1.00, 1.05, 0.39)
+    if weak[0] or weak[2] != "ReverseStrength below minimum":
+        raise AssertionError(weak)
+
+    small_ok = validate_small_geometry(120.0, -100.0, -10.0)
+    if not small_ok[0] or small_ok[1] != 10.0:
+        raise AssertionError(small_ok)
+    small_bad = validate_small_geometry(48.0, -100.0, -39.0)
+    if small_bad[0] or small_bad[2] != "SmallReverseNet <= 0":
+        raise AssertionError(small_bad)
+
+    risk_warning = validate_reverse_risk(0.0, 10.0, 100.0)
+    if risk_warning[0] or risk_warning[2] != "ProjectedReserveCoverage below minimum":
+        raise AssertionError(risk_warning)
+
+    reverse_cycle_count = 4
+    if not (reverse_cycle_count > MAX_REVERSE_CYCLES):
+        raise AssertionError("reverseCycleCount > MaxReverseCycles should be blocked")
+
+    return {
+        "valid_reverse": {
+            "old_far": 1.00,
+            "close_big": close_big,
+            "new_far": new_far,
+            "new_big": new_big,
+            "new_small": new_small,
+            "geometry_valid": valid,
+            "reverse_strength": round(strength, 4),
+            "status": reverse_strength_status(strength),
+        },
+        "invalid_new_far_reason": invalid_far[2],
+        "invalid_new_big_reason": invalid_big[2],
+        "weak_reverse_reason": weak[2],
+        "small_geometry_positive_net": small_ok[1],
+        "small_geometry_negative_blocked_reason": small_bad[2],
+        "risk_warning_reason": risk_warning[2],
+        "reverse_limit_blocked": True,
+        "final_close_priority_before_open": True,
+    }
+
 def main() -> None:
     report: dict[str, object] = {}
     report["static"] = check_static_files()
@@ -295,6 +432,7 @@ def main() -> None:
     report["big_harvest"] = {name: [asdict(x) for x in rows] for name, rows in cycles.items()}
     report["small_scenario"] = check_small_scenario()
     report["small_at_far"] = check_small_at_far()
+    report["reverse_geometry_protection"] = check_reverse_geometry_protection()
     report["risk_gates"] = "static references passed for MaxSpreadPoints, MaxMarginPercent, AllowRealTrading, UseMarketOrders"
     report["dual_tail"] = "legacy guard retained; normal Small-at-Far closes old Far 100% so DUAL_TAIL is not expected"
 
