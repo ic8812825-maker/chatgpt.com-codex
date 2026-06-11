@@ -17,6 +17,13 @@ int OnInit()
 {
    ResetRecoveryContext();
    State = STATE_IDLE;
+
+   Print("EA INIT START");
+   Print("AllowRealTrading=", AllowRealTrading);
+   Print("UseMarketOrders=", UseMarketOrders);
+   Print("StartLot=", StartLot);
+   Print("MagicNumber=", MagicNumber);
+   Print("CurrentState=", StateToString(State));
    LogInfo("MinusLock BigHarvest EA initialized");
    LogInfo("Initial lock profit is ignored by design: InitialProfitIgnored must become true after the first plus close");
    return INIT_SUCCEEDED;
@@ -29,8 +36,21 @@ void OnDeinit(const int reason)
 
 void OnTick()
 {
-   if(!IsTradingAllowedSafe())
+   int managedPositions = CountManagedOpenPositions();
+   Print("ON TICK");
+   Print("State=", StateToString(State));
+   Print("ManagedPositions=", managedPositions);
+
+   bool riskOk = IsTradingAllowedSafe();
+   if(!riskOk && AllowRealTrading)
       return;
+
+   if(State == STATE_IDLE && managedPositions == 0)
+   {
+      Print("EMERGENCY_START: STATE_IDLE with zero managed positions; forcing OpenInitialLock");
+      OpenInitialLock();
+      return;
+   }
 
    RunStateMachine();
 }

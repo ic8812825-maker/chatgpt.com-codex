@@ -260,6 +260,16 @@ def check_static_files() -> dict[str, object]:
         if field not in logger:
             raise AssertionError(f"mandatory log field missing: {field}")
 
+    all_ea_text = "\n".join(path.read_text(encoding="utf-8") for path in EA.rglob("*") if path.is_file())
+    for token in [
+        "EA INIT START", "ON TICK", "OPEN_INITIAL_LOCK_START",
+        "INITIAL BUY OPENED", "INITIAL SELL OPENED", "INITIAL LOCK CREATED",
+        "RiskGate Spread=", "RiskGate Margin=", "RISK GATE BLOCKED",
+        "EMERGENCY_START", "SIM OPEN BUY", "SIM OPEN SELL", "TRADE ERROR=",
+    ]:
+        if token not in all_ea_text:
+            raise AssertionError(f"startup diagnostic token missing: {token}")
+
     trade = (EA / "Include/TradeEngine.mqh").read_text(encoding="utf-8")
     for token in ["SimOpenPosition", "SimClosePositionByTicket", "UseMarketOrders", "AllowRealTrading"]:
         if token not in trade:

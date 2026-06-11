@@ -130,6 +130,22 @@ bool RefreshBigSmall(PositionSnapshot &big, PositionSnapshot &small)
 
 void OpenInitialLock()
 {
+   Print("OPEN_INITIAL_LOCK_START");
+   double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID);
+   double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+   double point = SymbolInfoDouble(_Symbol, SYMBOL_POINT);
+   double spreadPoints = 0.0;
+   if(point > 0.0 && ask > 0.0 && bid > 0.0)
+      spreadPoints = (ask - bid) / point;
+
+   Print("Bid=", bid);
+   Print("Ask=", ask);
+   Print("Spread=", spreadPoints);
+   Print("SYMBOL_VOLUME_MIN=", SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN));
+   Print("SYMBOL_VOLUME_STEP=", SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP));
+   Print("SYMBOL_TRADE_MODE=", (int)SymbolInfoInteger(_Symbol, SYMBOL_TRADE_MODE));
+   Print("SYMBOL_TRADE_EXECUTION=", (int)SymbolInfoInteger(_Symbol, SYMBOL_TRADE_EXEMODE));
+
    PositionSnapshot initialBuy;
    PositionSnapshot initialSell;
 
@@ -138,32 +154,90 @@ void OpenInitialLock()
 
    if(hasBuy && hasSell)
    {
+      Print("INITIAL LOCK CREATED");
+      Print("BuyTicket=", initialBuy.ticket);
+      Print("SellTicket=", initialSell.ticket);
+      Print("State=STATE_INITIAL_LOCK");
       SetState(STATE_INITIAL_LOCK_OPENED, "existing initial BUY/SELL lock found");
       return;
    }
 
-   if(CountManagedOpenPositions() > 0)
+   int managedPositions = CountManagedOpenPositions();
+   if(managedPositions > 0)
    {
-      LogError("Managed positions already exist but the initial lock is incomplete");
+      LogError(StringFormat("Managed positions already exist but the initial lock is incomplete: ManagedPositions=%d", managedPositions));
       SetState(STATE_ERROR, "incomplete managed position set before initial lock");
       return;
    }
 
    double lot = NormalizeLotNearest(StartLot);
+   Print("NormalizedLot=", lot);
    if(lot <= 0.0)
    {
       LogError("StartLot normalized to zero");
+      Print("TRADE ERROR=", GetLastError());
       SetState(STATE_ERROR, "invalid StartLot");
       return;
    }
 
+   ResetLastError();
    bool buyOpened = OpenPosition(DIR_BUY, lot, "MinusLock_INITIAL_BUY");
-   bool sellOpened = OpenPosition(DIR_SELL, lot, "MinusLock_INITIAL_SELL");
-
-   if(!buyOpened || !sellOpened)
+   if(!buyOpened)
    {
-      LogError("Failed to open initial BUY/SELL lock");
-      SetState(STATE_ERROR, "initial lock open failed");
+      Print("TRADE ERROR=", GetLastError());
+      LogError("Failed to open initial BUY");
+      SetState(STATE_ERROR, "initial BUY open failed");
+      return;
+   }
+
+   if(GetInitialBuy(initialBuy))
+   {
+      Print("INITIAL BUY OPENED");
+      Print("Ticket=", initialBuy.ticket);
+      Print("Lot=", lot);
+   }
+   else
+   {
+      Print("INITIAL BUY OPENED");
+      Print("Ticket=0");
+      Print("Lot=", lot);
+   }
+
+   ResetLastError();
+   bool sellOpened = OpenPosition(DIR_SELL, lot, "MinusLock_INITIAL_SELL");
+   if(!sellOpened)
+   {
+      Print("TRADE ERROR=", GetLastError());
+      LogError("Failed to open initial SELL");
+      SetState(STATE_ERROR, "initial SELL open failed");
+      return;
+   }
+
+   if(GetInitialSell(initialSell))
+   {
+      Print("INITIAL SELL OPENED");
+      Print("Ticket=", initialSell.ticket);
+      Print("Lot=", lot);
+   }
+   else
+   {
+      Print("INITIAL SELL OPENED");
+      Print("Ticket=0");
+      Print("Lot=", lot);
+   }
+
+   if(GetInitialBuy(initialBuy) && GetInitialSell(initialSell))
+   {
+      Print("INITIAL LOCK CREATED");
+      Print("BuyTicket=", initialBuy.ticket);
+      Print("SellTicket=", initialSell.ticket);
+      Print("State=STATE_INITIAL_LOCK");
+   }
+   else
+   {
+      LogError("Initial BUY/SELL lock was opened but tickets could not be read back");
+      Print("TRADE ERROR=", GetLastError());
+      SetState(STATE_ERROR, "initial lock ticket readback failed");
       return;
    }
 

@@ -29,16 +29,36 @@ bool OpenPosition(Direction dir, double lot, string comment)
    if(!PrepareTradeEngine())
       return false;
 
+   ResetLastError();
+
    if(!AllowRealTrading)
-      return SimOpenPosition(dir, lot, comment);
+   {
+      if(dir == DIR_BUY)
+         Print("SIM OPEN BUY");
+      if(dir == DIR_SELL)
+         Print("SIM OPEN SELL");
+      bool simOpened = SimOpenPosition(dir, lot, comment);
+      if(!simOpened)
+         Print("TRADE ERROR=", GetLastError());
+      return simOpened;
+   }
 
+   bool opened = false;
    if(dir == DIR_BUY)
-      return BigHarvestTrade.Buy(lot, _Symbol, 0.0, 0.0, 0.0, comment);
+   {
+      Print("TRADE OPEN BUY");
+      opened = BigHarvestTrade.Buy(lot, _Symbol, 0.0, 0.0, 0.0, comment);
+   }
+   else if(dir == DIR_SELL)
+   {
+      Print("TRADE OPEN SELL");
+      opened = BigHarvestTrade.Sell(lot, _Symbol, 0.0, 0.0, 0.0, comment);
+   }
 
-   if(dir == DIR_SELL)
-      return BigHarvestTrade.Sell(lot, _Symbol, 0.0, 0.0, 0.0, comment);
+   if(!opened)
+      Print("TRADE ERROR=", GetLastError());
 
-   return false;
+   return opened;
 }
 
 bool ClosePositionByTicket(ulong ticket, double lot)
