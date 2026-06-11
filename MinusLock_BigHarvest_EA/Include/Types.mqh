@@ -18,6 +18,8 @@ enum EAState
    STATE_INVALID_SMALL_GEOMETRY,
    STATE_REVERSE_LIMIT,
    STATE_REVERSE_WARNING,
+   STATE_STOP_MAX_LEVELS,
+   STATE_UNCLOSED_CYCLE,
    STATE_STOP,
    STATE_ERROR
 };
@@ -111,6 +113,8 @@ string StateToString(EAState state)
       case STATE_INVALID_SMALL_GEOMETRY:   return "STATE_INVALID_SMALL_GEOMETRY";
       case STATE_REVERSE_LIMIT:            return "STATE_REVERSE_LIMIT";
       case STATE_REVERSE_WARNING:          return "STATE_REVERSE_WARNING";
+      case STATE_STOP_MAX_LEVELS:      return "STATE_STOP_MAX_LEVELS";
+      case STATE_UNCLOSED_CYCLE:       return "STATE_UNCLOSED_CYCLE";
       case STATE_STOP:                 return "STATE_STOP";
       case STATE_ERROR:                return "STATE_ERROR";
    }

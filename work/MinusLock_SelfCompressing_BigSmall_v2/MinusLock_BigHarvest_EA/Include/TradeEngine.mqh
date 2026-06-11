@@ -93,4 +93,79 @@ bool ClosePositionByTicket(ulong ticket, double lot)
    return BigHarvestTrade.PositionClosePartial(ticket, closeLot);
 }
 
+bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComment)
+{
+   if(!PrepareTradeEngine())
+      return false;
+
+   if(!AllowRealTrading)
+   {
+      Print("SIM CLOSE ", closeComment);
+      return SimClosePositionByTicket(ticket, lot);
+   }
+
+   if(ticket == 0 || lot <= 0.0)
+   {
+      LogError(StringFormat("ClosePositionByTicketWithComment rejected: ticket=%I64u lot=%.2f comment=%s", ticket, lot, closeComment));
+      return false;
+   }
+
+   if(!PositionSelectByTicket(ticket))
+   {
+      LogError(StringFormat("Position not found for close with comment: ticket=%I64u comment=%s", ticket, closeComment));
+      return false;
+   }
+
+   string symbol = PositionGetString(POSITION_SYMBOL);
+   long positionType = PositionGetInteger(POSITION_TYPE);
+   double currentLot = PositionGetDouble(POSITION_VOLUME);
+   double closeLot = NormalizeLotDown(lot);
+
+   if(closeLot <= 0.0)
+      return false;
+   if(closeLot > currentLot)
+      closeLot = currentLot;
+
+   MqlTradeRequest request;
+   MqlTradeResult result;
+   ZeroMemory(request);
+   ZeroMemory(result);
+
+   request.action = TRADE_ACTION_DEAL;
+   request.position = ticket;
+   request.symbol = symbol;
+   request.magic = MagicNumber;
+   request.volume = closeLot;
+   request.deviation = 30;
+   request.comment = closeComment;
+
+   if(positionType == POSITION_TYPE_BUY)
+   {
+      request.type = ORDER_TYPE_SELL;
+      request.price = SymbolInfoDouble(symbol, SYMBOL_BID);
+   }
+   else if(positionType == POSITION_TYPE_SELL)
+   {
+      request.type = ORDER_TYPE_BUY;
+      request.price = SymbolInfoDouble(symbol, SYMBOL_ASK);
+   }
+   else
+   {
+      LogError(StringFormat("Unsupported position type for close: ticket=%I64u", ticket));
+      return false;
+   }
+
+   ResetLastError();
+   bool sent = OrderSend(request, result);
+   if(!sent || (result.retcode != TRADE_RETCODE_DONE && result.retcode != TRADE_RETCODE_DONE_PARTIAL && result.retcode != TRADE_RETCODE_PLACED))
+   {
+      Print("TRADE ERROR=", GetLastError());
+      LogError(StringFormat("ClosePositionByTicketWithComment failed: ticket=%I64u comment=%s retcode=%u", ticket, closeComment, result.retcode));
+      return false;
+   }
+
+   Print("EA CLOSE COMMENT=", closeComment);
+   return true;
+}
+
 #endif // __BH_TRADEENGINE_MQH__

@@ -210,6 +210,10 @@ def check_static_files() -> dict[str, object]:
         "STATE_INVALID_SMALL_GEOMETRY",
         "STATE_REVERSE_LIMIT",
         "STATE_REVERSE_WARNING",
+        "STATE_STOP_MAX_LEVELS",
+        "STATE_UNCLOSED_CYCLE",
+        "STOP_MAX_LEVELS",
+        "ClosePositionByTicketWithComment",
         "CheckSmallToFarTouch",
         "FarTouchReachedForSmall",
         "ProcessSmallAtFarTouch",
@@ -266,6 +270,7 @@ def check_static_files() -> dict[str, object]:
         "INITIAL BUY OPENED", "INITIAL SELL OPENED", "INITIAL LOCK CREATED",
         "RiskGate Spread=", "RiskGate Margin=", "RISK GATE BLOCKED",
         "EMERGENCY_START", "SIM OPEN BUY", "SIM OPEN SELL", "TRADE ERROR=",
+        "OnTester", "CRITICAL: TEST ENDED WITH OPEN POSITIONS",
     ]:
         if token not in all_ea_text:
             raise AssertionError(f"startup diagnostic token missing: {token}")

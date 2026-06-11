@@ -515,7 +515,18 @@ void ProcessBigHarvest()
 
    if(Ctx.harvestLevel >= MaxHarvestLevels)
    {
-      SetState(STATE_STOP, "MaxHarvestLevels reached without final close");
+      LogError(StringFormat("STOP_MAX_LEVELS: MaxHarvestLevels=%d reached after Big-harvest. OpenFarLot=%.2f FarTicket=%I64u FinalCloseAllowed=NO State=%s", MaxHarvestLevels, Ctx.farLot, Ctx.farTicket, StateToString(State)));
+      if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
+      {
+         if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
+         {
+            SetState(STATE_UNCLOSED_CYCLE, "MaxHarvestLevels reached; failed to close Far with STOP_MAX_LEVELS");
+            return;
+         }
+      }
+      Ctx.farTicket = 0;
+      Ctx.farLot = 0.0;
+      SetState(STATE_UNCLOSED_CYCLE, "STOP_MAX_LEVELS: cycle failed, residual Far closed by EA to prevent end-of-test distortion");
       return;
    }
 
@@ -728,6 +739,8 @@ void ProcessSmallAtFarTouch()
 
    if(Ctx.finalCloseAllowed)
       actionAfterValidation = "FINAL_CLOSE_NEW_FAR";
+   else if(Ctx.harvestLevel >= MaxHarvestLevels)
+      actionAfterValidation = "STOP_MAX_LEVELS";
    else if(Ctx.reverseLimitReached && StopOnReverseLimit)
       actionAfterValidation = "STOP_REVERSE_LIMIT";
    else if(!reserveProjectionOk)
@@ -751,6 +764,23 @@ void ProcessSmallAtFarTouch()
    if(Ctx.reverseLimitReached && StopOnReverseLimit)
    {
       SetState(STATE_REVERSE_LIMIT, "reverseCycleCount > MaxReverseCycles");
+      return;
+   }
+
+   if(!Ctx.finalCloseAllowed && Ctx.harvestLevel >= MaxHarvestLevels)
+   {
+      LogError(StringFormat("STOP_MAX_LEVELS: MaxHarvestLevels=%d reached after Small-at-Far. NewFarLot=%.2f NewFarTicket=%I64u FinalCloseAllowed=NO CycleFinalPL=%.2f", MaxHarvestLevels, Ctx.farLot, Ctx.farTicket, Ctx.cycleFinalPL));
+      if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
+      {
+         if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
+         {
+            SetState(STATE_UNCLOSED_CYCLE, "MaxHarvestLevels reached after Small-at-Far; failed to close NewFar with STOP_MAX_LEVELS");
+            return;
+         }
+      }
+      Ctx.farTicket = 0;
+      Ctx.farLot = 0.0;
+      SetState(STATE_UNCLOSED_CYCLE, "STOP_MAX_LEVELS: NewFar closed by EA; cycle not successful");
       return;
    }
 
@@ -855,6 +885,8 @@ void RunStateMachine()
          break;
 
       case STATE_CLOSED_PROFIT:
+      case STATE_STOP_MAX_LEVELS:
+      case STATE_UNCLOSED_CYCLE:
       case STATE_DUAL_TAIL:
       case STATE_INVALID_REVERSE_GEOMETRY:
       case STATE_INVALID_SMALL_GEOMETRY:

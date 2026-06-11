@@ -31,7 +31,34 @@ int OnInit()
 
 void OnDeinit(const int reason)
 {
+   int managedPositions = CountManagedOpenPositions();
+   if(managedPositions > 0)
+   {
+      Print("CRITICAL: TEST ENDED WITH OPEN POSITIONS");
+      Print("OpenFarLot=", Ctx.farLot);
+      Print("State=", StateToString(State));
+      Print("ManagedPositions=", managedPositions);
+   }
+
    LogInfo(StringFormat("MinusLock BigHarvest EA stopped, reason=%d", reason));
+}
+
+double OnTester()
+{
+   int managedPositions = CountManagedOpenPositions();
+   if(managedPositions > 0 || State == STATE_STOP_MAX_LEVELS || State == STATE_UNCLOSED_CYCLE || State == STATE_ERROR || State == STATE_STOP)
+   {
+      Print("TEST RESULT FAIL: cycle not closed by EA");
+      Print("OpenFarLot=", Ctx.farLot);
+      Print("State=", StateToString(State));
+      Print("ManagedPositions=", managedPositions);
+      return -1.0;
+   }
+
+   if(State == STATE_CLOSED_PROFIT)
+      return Ctx.cycleFinalPL;
+
+   return -1.0;
 }
 
 void OnTick()
