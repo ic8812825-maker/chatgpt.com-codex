@@ -257,3 +257,54 @@ reverseCycleCount += 1
 ```
 
 Запрещено открывать новый Big/Small до проверки геометрии, risk projection, reverse-limit и `FinalCloseAllowed`.
+
+---
+
+## Cycle Math Internal Report
+
+Советник пишет внутренний математический отчёт цикла в журнал Strategy Tester строкой `CYCLE_MATH | ...` и, если `EnableCycleMathCsv = true`, в файл `MQL5/Files/MinusLock_CycleMath.csv`.
+
+### Как читать `CYCLE_MATH`
+
+Минимальные поля:
+
+```text
+Level
+Scenario
+FarLotBefore
+BigLot
+SmallLot
+NetProfit
+CloseFarBudget
+ReserveAdd
+TotalReserve
+FarRemainLoss
+FinalCloseAllowed
+State
+```
+
+`Scenario=BIG_HARVEST` означает денежное закрытие Far из бюджета `CloseFarBudget`. `Scenario=SMALL_AT_FAR` означает переворот: Small и старый Far закрыты, часть Big закрыта, остаток Big стал NewFar; `CloseFarBudget=0`, `ReserveAdd=0`. `Scenario=STOP_MAX_LEVELS` означает провал цикла: уровни закончились до `FinalCloseAllowed=YES`.
+
+### Как читать `MinusLock_CycleMath.csv`
+
+CSV содержит время, символ, уровень, сценарий, лоты, прибыль/убыток, резерв, состояние счёта и расширенные поля:
+
+```text
+ProfitBig, LossSmall, SmallPL, OldFarPL, ClosedBigPL,
+SmallReverseNet, CloseFarLotRaw, CloseFarLotRounded,
+FarRemainLot, ReverseStrength, ProjectedReserveCoverage,
+ActionAfterValidation, StopReason,
+NetProfitTheoretical, NetProfitRealized, CostsRealized,
+TotalReserveBefore, TotalReserveAfter, ReserveUsedForFinalClose
+```
+
+`NetProfitTheoretical` — расчёт по формуле советника. `NetProfitRealized` выделен отдельным полем для сравнения с фактическим результатом тестера; если история сделок не подтянута в коде, он равен теоретическому значению, а `CostsRealized=0`.
+
+### PASS / FAIL
+
+```text
+CLOSED_PROFIT + FinalCloseAllowed=YES + OnTester > 0 = PASS
+STOP_MAX_LEVELS или STATE_UNCLOSED_CYCLE или OnTester=-1 = FAIL
+```
+
+`STOP_MAX_LEVELS` означает, что система не смогла накопить достаточный `TotalReserve` для покрытия `FarRemainLoss`. Для сравнения агрессивности настроек нужно прогнать варианты `CloseFarShare/ReserveShare`: `0.90/0.10`, `0.70/0.30`, `0.50/0.50`, затем сравнить `TotalReserve`, `FarRemainLoss`, уровень `FinalCloseAllowed` и итоговый Net Profit.

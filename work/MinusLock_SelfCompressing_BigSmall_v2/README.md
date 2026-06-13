@@ -167,3 +167,9 @@ Small-сценарий больше не исполняется сразу пр�
 - `MaxReverseCycles` ограничивает бесконечные reverse-циклы.
 - `ProjectedReserveCoverage` показывает, хватит ли резерва на следующий этап.
 - `FinalCloseAllowed` проверяется до открытия нового Big/Small.
+
+## Cycle Math Internal Report
+
+EA пишет диагностический журнал `CYCLE_MATH | ...` и CSV `MQL5/Files/MinusLock_CycleMath.csv` при `EnableCycleMathCsv=true`. Эти строки показывают, почему цикл закрылся через `CLOSED_PROFIT` или провалился в `STOP_MAX_LEVELS` / `STATE_UNCLOSED_CYCLE`.
+
+Для анализа агрессивности настроек нужно сравнить три набора `CloseFarShare/ReserveShare`: `0.90/0.10`, `0.70/0.30`, `0.50/0.50`. Главные поля сравнения: `TotalReserve`, `FarRemainLoss`, `FinalCloseAllowed`, `NetProfitRealized`, `CostsRealized`, `ActionAfterValidation`, `StopReason`.

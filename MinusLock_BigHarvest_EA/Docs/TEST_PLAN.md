@@ -133,3 +133,19 @@ Small-сценарий больше не исполняется сразу пр�
 
 8. **FinalClose priority**
    - Если `FinalCloseAllowed = true`, ожидание: NewFar закрывается полностью, `STATE_CLOSED_PROFIT`, новый Big/Small не открывается.
+
+---
+
+## Cycle Math Internal Report Tests
+
+1. Проверить, что журнал содержит строки `CYCLE_MATH |` для сценариев `BIG_HARVEST`, `SMALL_AT_FAR` и `STOP_MAX_LEVELS`.
+2. Проверить, что при `EnableCycleMathCsv=true` создаётся файл `MQL5/Files/MinusLock_CycleMath.csv`.
+3. Проверить обязательные CSV-колонки: `Time`, `Symbol`, `Level`, `Scenario`, `FarLotBefore`, `BigLot`, `SmallLot`, `NetProfit`, `CloseFarBudget`, `ReserveAdd`, `TotalReserve`, `FarRemainLoss`, `FinalCloseAllowed`, `State`, `Balance`, `Equity`, `Margin`, `FreeMargin`.
+4. Проверить расширенные поля: `ProfitBig`, `LossSmall`, `SmallPL`, `OldFarPL`, `ClosedBigPL`, `SmallReverseNet`, `CloseFarLotRaw`, `CloseFarLotRounded`, `FarRemainLot`, `ReverseStrength`, `ProjectedReserveCoverage`, `ActionAfterValidation`, `StopReason`, `NetProfitTheoretical`, `NetProfitRealized`, `CostsRealized`, `TotalReserveBefore`, `TotalReserveAfter`, `ReserveUsedForFinalClose`.
+5. Strategy Tester parameter comparison:
+   - A: `CloseFarShare=0.90`, `ReserveShare=0.10`.
+   - B: `CloseFarShare=0.70`, `ReserveShare=0.30`.
+   - C: `CloseFarShare=0.50`, `ReserveShare=0.50`.
+6. Для каждого варианта записать: `CLOSED_PROFIT` или `STOP_MAX_LEVELS`, Net Profit, Max Drawdown Equity, уровень `FinalCloseAllowed`, `TotalReserve` и `FarRemainLoss` перед финальным закрытием.
+7. PASS: `STATE_CLOSED_PROFIT`, `FinalCloseAllowed=YES`, нет `STOP_MAX_LEVELS`, нет end-of-test по позициям советника, `OnTester > 0`.
+8. FAIL: `STATE_UNCLOSED_CYCLE`, `STOP_MAX_LEVELS`, `OnTester=-1`, end-of-test, `FinalCloseAllowed` ни разу не стал `YES`.

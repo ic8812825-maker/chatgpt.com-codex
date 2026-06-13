@@ -33,5 +33,6 @@ input double MaxMarginPercent      = 70.0;
 input ulong  MagicNumber           = 20260609;
 input bool   AllowRealTrading      = false;
 input bool   UseMarketOrders       = true;
+input bool   EnableCycleMathCsv     = true;
 
 #endif // __BH_CONFIG_MQH__

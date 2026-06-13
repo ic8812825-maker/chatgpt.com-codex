@@ -222,4 +222,259 @@ void LogSmallAtFarTriggered(
    );
 }
 
+
+void WriteCycleMathCsv(
+   int level,
+   string scenario,
+   double farLotBefore,
+   double bigLot,
+   double smallLot,
+   double netProfit,
+   double closeFarBudget,
+   double reserveAdd,
+   double totalReserve,
+   double farRemainLoss,
+   bool finalCloseAllowed,
+   EAState state,
+   double profitBig,
+   double lossSmall,
+   double smallPL,
+   double oldFarPL,
+   double closedBigPL,
+   double smallReverseNet,
+   double closeFarLotRaw,
+   double closeFarLotRounded,
+   double farRemainLot,
+   double reverseStrength,
+   double projectedReserveCoverage,
+   string actionAfterValidation,
+   string stopReason,
+   double netProfitTheoretical,
+   double netProfitRealized,
+   double costsRealized,
+   double totalReserveBefore,
+   double reserveUsedForFinalClose
+)
+{
+   if(!EnableCycleMathCsv)
+      return;
+
+   int handle = FileOpen("MinusLock_CycleMath.csv", FILE_READ | FILE_WRITE | FILE_CSV | FILE_ANSI, ',');
+   if(handle == INVALID_HANDLE)
+   {
+      Print("[BigHarvest][ERROR] Cannot open MinusLock_CycleMath.csv, error=", GetLastError());
+      return;
+   }
+
+   if(FileSize(handle) == 0)
+   {
+      FileWrite(
+         handle,
+         "Time", "Symbol", "Level", "Scenario", "FarLotBefore", "BigLot", "SmallLot",
+         "NetProfit", "CloseFarBudget", "ReserveAdd", "TotalReserve", "FarRemainLoss",
+         "FinalCloseAllowed", "State", "Balance", "Equity", "Margin", "FreeMargin",
+         "ProfitBig", "LossSmall", "SmallPL", "OldFarPL", "ClosedBigPL", "SmallReverseNet",
+         "CloseFarLotRaw", "CloseFarLotRounded", "FarRemainLot", "ReverseStrength",
+         "ProjectedReserveCoverage", "ActionAfterValidation", "StopReason",
+         "NetProfitTheoretical", "NetProfitRealized", "CostsRealized", "TotalReserveBefore",
+         "TotalReserveAfter", "ReserveUsedForFinalClose"
+      );
+   }
+
+   FileSeek(handle, 0, SEEK_END);
+   FileWrite(
+      handle,
+      TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS),
+      _Symbol,
+      level,
+      scenario,
+      DoubleToString(farLotBefore, 2),
+      DoubleToString(bigLot, 2),
+      DoubleToString(smallLot, 2),
+      DoubleToString(netProfit, 2),
+      DoubleToString(closeFarBudget, 2),
+      DoubleToString(reserveAdd, 2),
+      DoubleToString(totalReserve, 2),
+      DoubleToString(farRemainLoss, 2),
+      finalCloseAllowed ? "YES" : "NO",
+      StateToString(state),
+      DoubleToString(AccountInfoDouble(ACCOUNT_BALANCE), 2),
+      DoubleToString(AccountInfoDouble(ACCOUNT_EQUITY), 2),
+      DoubleToString(AccountInfoDouble(ACCOUNT_MARGIN), 2),
+      DoubleToString(AccountInfoDouble(ACCOUNT_MARGIN_FREE), 2),
+      DoubleToString(profitBig, 2),
+      DoubleToString(lossSmall, 2),
+      DoubleToString(smallPL, 2),
+      DoubleToString(oldFarPL, 2),
+      DoubleToString(closedBigPL, 2),
+      DoubleToString(smallReverseNet, 2),
+      DoubleToString(closeFarLotRaw, 5),
+      DoubleToString(closeFarLotRounded, 2),
+      DoubleToString(farRemainLot, 2),
+      DoubleToString(reverseStrength, 5),
+      DoubleToString(projectedReserveCoverage, 5),
+      actionAfterValidation,
+      stopReason,
+      DoubleToString(netProfitTheoretical, 2),
+      DoubleToString(netProfitRealized, 2),
+      DoubleToString(costsRealized, 2),
+      DoubleToString(totalReserveBefore, 2),
+      DoubleToString(totalReserve, 2),
+      DoubleToString(reserveUsedForFinalClose, 2)
+   );
+
+   FileClose(handle);
+}
+
+void LogCycleMathDetailed(
+   int level,
+   string scenario,
+   double farLotBefore,
+   double bigLot,
+   double smallLot,
+   double netProfit,
+   double closeFarBudget,
+   double reserveAdd,
+   double totalReserve,
+   double farRemainLoss,
+   bool finalCloseAllowed,
+   EAState state,
+   double profitBig,
+   double lossSmall,
+   double smallPL,
+   double oldFarPL,
+   double closedBigPL,
+   double smallReverseNet,
+   double closeFarLotRaw,
+   double closeFarLotRounded,
+   double farRemainLot,
+   double reverseStrength,
+   double projectedReserveCoverage,
+   string actionAfterValidation,
+   string stopReason,
+   double netProfitTheoretical,
+   double netProfitRealized,
+   double costsRealized,
+   double totalReserveBefore,
+   double reserveUsedForFinalClose
+)
+{
+   PrintFormat(
+      "CYCLE_MATH | Level=%d Scenario=%s FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f",
+      level,
+      scenario,
+      farLotBefore,
+      bigLot,
+      smallLot,
+      netProfit,
+      closeFarBudget,
+      reserveAdd,
+      totalReserve,
+      farRemainLoss,
+      finalCloseAllowed ? "YES" : "NO",
+      StateToString(state),
+      profitBig,
+      lossSmall,
+      smallPL,
+      oldFarPL,
+      closedBigPL,
+      smallReverseNet,
+      closeFarLotRaw,
+      closeFarLotRounded,
+      farRemainLot,
+      reverseStrength,
+      projectedReserveCoverage,
+      actionAfterValidation,
+      stopReason,
+      netProfitTheoretical,
+      netProfitRealized,
+      costsRealized,
+      totalReserveBefore,
+      totalReserve,
+      reserveUsedForFinalClose
+   );
+
+   WriteCycleMathCsv(
+      level,
+      scenario,
+      farLotBefore,
+      bigLot,
+      smallLot,
+      netProfit,
+      closeFarBudget,
+      reserveAdd,
+      totalReserve,
+      farRemainLoss,
+      finalCloseAllowed,
+      state,
+      profitBig,
+      lossSmall,
+      smallPL,
+      oldFarPL,
+      closedBigPL,
+      smallReverseNet,
+      closeFarLotRaw,
+      closeFarLotRounded,
+      farRemainLot,
+      reverseStrength,
+      projectedReserveCoverage,
+      actionAfterValidation,
+      stopReason,
+      netProfitTheoretical,
+      netProfitRealized,
+      costsRealized,
+      totalReserveBefore,
+      reserveUsedForFinalClose
+   );
+}
+
+void LogCycleMath(
+   int level,
+   string scenario,
+   double farLotBefore,
+   double bigLot,
+   double smallLot,
+   double netProfit,
+   double closeFarBudget,
+   double reserveAdd,
+   double totalReserve,
+   double farRemainLoss,
+   bool finalCloseAllowed,
+   EAState state
+)
+{
+   LogCycleMathDetailed(
+      level,
+      scenario,
+      farLotBefore,
+      bigLot,
+      smallLot,
+      netProfit,
+      closeFarBudget,
+      reserveAdd,
+      totalReserve,
+      farRemainLoss,
+      finalCloseAllowed,
+      state,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      farLotBefore,
+      0.0,
+      0.0,
+      "BASIC",
+      "",
+      netProfit,
+      netProfit,
+      0.0,
+      totalReserve - reserveAdd,
+      0.0
+   );
+}
+
 #endif // __BH_LOGGER_MQH__

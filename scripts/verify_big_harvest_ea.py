@@ -189,6 +189,7 @@ def check_static_files() -> dict[str, object]:
         "LotStep               = 0.01",
         "AllowRealTrading      = false",
         "UseMarketOrders       = true",
+        "EnableCycleMathCsv",
     ]:
         if token not in config:
             raise AssertionError(f"config token missing: {token}")
@@ -235,6 +236,11 @@ def check_static_files() -> dict[str, object]:
         "ProcessSmallScenario",
         "STATE_DUAL_TAIL",
         "ProcessFinalClose",
+        "\"BIG_HARVEST\"",
+        "\"SMALL_AT_FAR\"",
+        "\"STOP_MAX_LEVELS\"",
+        "LogCycleMath",
+        "LogCycleMathDetailed",
         "STATE_CLOSED_PROFIT",
     ]:
         if token not in state:
@@ -259,7 +265,8 @@ def check_static_files() -> dict[str, object]:
         "ReverseStrength", "ReverseStrengthStatus", "SmallReverseNet", "ProjectedReserveCoverage",
         "GeometryValid", "SmallGeometryValid", "ReserveProjectionOk", "ReverseCycleCount",
         "MaxReverseCycles", "GeometryInvalidReason", "SmallInvalidReason", "RiskWarningReason",
-        "ActionAfterValidation",
+        "ActionAfterValidation", "NetProfitTheoretical", "NetProfitRealized", "CostsRealized",
+        "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose", "MinusLock_CycleMath.csv",
     ]:
         if field not in logger:
             raise AssertionError(f"mandatory log field missing: {field}")
@@ -279,6 +286,24 @@ def check_static_files() -> dict[str, object]:
     for token in ["SimOpenPosition", "SimClosePositionByTicket", "UseMarketOrders", "AllowRealTrading"]:
         if token not in trade:
             raise AssertionError(f"trade safety token missing: {token}")
+
+    cycle_math_required = [
+        "void LogCycleMath(",
+        "void LogCycleMathDetailed(",
+        "CYCLE_MATH |",
+        "MinusLock_CycleMath.csv",
+        "Time", "Symbol", "Level", "Scenario", "FarLotBefore", "BigLot", "SmallLot",
+        "NetProfit", "CloseFarBudget", "ReserveAdd", "TotalReserve", "FarRemainLoss",
+        "FinalCloseAllowed", "State", "Balance", "Equity", "Margin", "FreeMargin",
+        "ProfitBig", "LossSmall", "SmallPL", "OldFarPL", "ClosedBigPL", "SmallReverseNet",
+        "CloseFarLotRaw", "CloseFarLotRounded", "FarRemainLot", "ReverseStrength",
+        "ProjectedReserveCoverage", "ActionAfterValidation", "StopReason",
+        "NetProfitTheoretical", "NetProfitRealized", "CostsRealized",
+        "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose",
+    ]
+    for token in cycle_math_required:
+        if token not in logger:
+            raise AssertionError(f"cycle math log token missing: {token}")
 
     risk = (EA / "Include/RiskManager.mqh").read_text(encoding="utf-8")
     for token in ["MaxSpreadPoints", "MaxMarginPercent", "IsTradingAllowedSafe"]:
