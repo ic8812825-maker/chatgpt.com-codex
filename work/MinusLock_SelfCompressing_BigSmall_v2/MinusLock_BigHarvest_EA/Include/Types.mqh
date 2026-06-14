@@ -83,6 +83,12 @@ struct RecoveryContext
    bool reverseLimitReached;
    bool reserveProjectionOk;
    bool smallGeometryValid;
+
+   double initialFarDistancePoints;
+   double currentBigMovePoints;
+   double cumulativeBigMovePoints;
+   double effectiveFarDistancePoints;
+   double currentClosePrice;
 };
 
 string DirectionToString(Direction dir)

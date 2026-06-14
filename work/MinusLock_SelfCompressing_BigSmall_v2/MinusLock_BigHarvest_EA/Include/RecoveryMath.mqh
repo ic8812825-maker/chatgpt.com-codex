@@ -54,7 +54,7 @@ double CalcReserveAdd(double netProfit)
    return netProfit * WorkReserveShare;
 }
 
-double CalcCloseFarLotRaw(double closeFarBudget, int farDistancePoints)
+double CalcCloseFarLotRaw(double closeFarBudget, double farDistancePoints)
 {
    double lossPerLot = farDistancePoints * PointValuePerLot();
 
@@ -74,7 +74,7 @@ double CalcCloseFarLotRounded(double rawLot, double farLot)
    return NormalizeLotDown(rounded);
 }
 
-double CalcFarRemainLoss(double farRemainLot, int farDistancePoints)
+double CalcFarRemainLoss(double farRemainLot, double farDistancePoints)
 {
    return farRemainLot * farDistancePoints * PointValuePerLot();
 }
@@ -214,7 +214,47 @@ double CalcExpectedNextReserve(double newBigLot, double newSmallLot, int nextLev
    return CalcReserveAdd(expectedNetProfit);
 }
 
-bool CalcFinalCloseAllowed(double totalReserve, double farRemainLot, int farDistancePoints)
+string FarDistanceModeToString(FarDistanceModeEnum mode)
+{
+   if(mode == FIXED_200)
+      return "FIXED_200";
+   if(mode == INITIAL_PLUS_CURRENT)
+      return "INITIAL_PLUS_CURRENT";
+   if(mode == INITIAL_PLUS_CUMULATIVE)
+      return "INITIAL_PLUS_CUMULATIVE";
+   if(mode == REAL_PRICE_DISTANCE)
+      return "REAL_PRICE_DISTANCE";
+   return "UNKNOWN";
+}
+
+double CalcRealPriceFarDistancePoints(double currentClosePrice, double farOpenPrice)
+{
+   double point = SymbolInfoDouble(_Symbol, SYMBOL_POINT);
+   if(point <= 0.0 || currentClosePrice <= 0.0 || farOpenPrice <= 0.0)
+      return 0.0;
+   return MathAbs(currentClosePrice - farOpenPrice) / point;
+}
+
+double CalcEffectiveFarDistancePoints(
+   double initialFarDistancePoints,
+   double currentBigMovePoints,
+   double cumulativeBigMovePoints,
+   double currentClosePrice,
+   double farOpenPrice
+)
+{
+   if(WorkFarDistanceMode == FIXED_200)
+      return FarDistancePoints;
+   if(WorkFarDistanceMode == INITIAL_PLUS_CURRENT)
+      return initialFarDistancePoints + currentBigMovePoints;
+   if(WorkFarDistanceMode == INITIAL_PLUS_CUMULATIVE)
+      return initialFarDistancePoints + cumulativeBigMovePoints;
+   if(WorkFarDistanceMode == REAL_PRICE_DISTANCE)
+      return CalcRealPriceFarDistancePoints(currentClosePrice, farOpenPrice);
+   return FarDistancePoints;
+}
+
+bool CalcFinalCloseAllowed(double totalReserve, double farRemainLot, double farDistancePoints)
 {
    double farRemainLoss = CalcFarRemainLoss(farRemainLot, farDistancePoints);
    return totalReserve >= farRemainLoss;

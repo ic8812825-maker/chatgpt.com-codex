@@ -176,6 +176,11 @@ def check_static_files() -> dict[str, object]:
         "BigMoveLevel2         = 150",
         "BigMoveLevel3         = 200",
         "FarDistancePoints     = 200",
+        "FarDistanceMode",
+        "FIXED_200",
+        "INITIAL_PLUS_CURRENT",
+        "INITIAL_PLUS_CUMULATIVE",
+        "REAL_PRICE_DISTANCE",
         "MaxHarvestLevels      = 3",
         "SmallFarTouchOffsetPoints = 0",
         "MaxReverseCycles",
@@ -266,7 +271,10 @@ def check_static_files() -> dict[str, object]:
         "GeometryValid", "SmallGeometryValid", "ReserveProjectionOk", "ReverseCycleCount",
         "MaxReverseCycles", "GeometryInvalidReason", "SmallInvalidReason", "RiskWarningReason",
         "ActionAfterValidation", "NetProfitTheoretical", "NetProfitRealized", "CostsRealized",
-        "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose", "MinusLock_CycleMath.csv",
+        "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose",
+        "InitialFarDistancePoints", "CurrentBigMovePoints", "CumulativeBigMovePoints",
+        "EffectiveFarDistancePoints", "FarDistanceMode", "FarOpenPrice", "CurrentClosePrice",
+        "MinusLock_CycleMath.csv",
     ]:
         if field not in logger:
             raise AssertionError(f"mandatory log field missing: {field}")

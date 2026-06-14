@@ -161,3 +161,36 @@ Required comparisons:
 3. Neighbor 60/40: compare against 50/50 by `OnTester`, final state, `TotalReserve`, `FarRemainLoss`, and drawdown.
 
 Do not mark the strategy as confirmed until MT5 Strategy Tester verifies `STATE_CLOSED_PROFIT`, no open positions at the end, and `OnTester > 0`.
+
+## Far Distance Mode Tests
+
+Before accepting any parameter variant, verify that Level 1 includes the initial 100 points:
+
+```text
+InitialTriggerPoints = 100
+BigMoveLevel1 = 100
+EffectiveFarDistancePoints = 200
+```
+
+Run these modes for 90/10, 60/40 and 50/50:
+
+```text
+FIXED_200
+INITIAL_PLUS_CURRENT
+INITIAL_PLUS_CUMULATIVE
+REAL_PRICE_DISTANCE
+```
+
+Required CYCLE_MATH fields in Experts journal and `MinusLock_CycleMath.csv`:
+
+```text
+InitialFarDistancePoints
+CurrentBigMovePoints
+CumulativeBigMovePoints
+EffectiveFarDistancePoints
+FarDistanceMode
+FarOpenPrice
+CurrentClosePrice
+```
+
+After `Small-at-Far`, confirm that the new Far starts from current price and does not inherit the old initial 100 points.

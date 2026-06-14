@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Iterable
 
 CYCLE_COLUMNS = [
-    "Level", "Scenario", "FarLotBefore", "BigLot", "SmallLot", "ProfitBig", "LossSmall",
+    "Level", "Scenario", "InitialFarDistancePoints", "CurrentBigMovePoints",
+    "CumulativeBigMovePoints", "EffectiveFarDistancePoints", "FarDistanceMode",
+    "FarOpenPrice", "CurrentClosePrice", "FarLotBefore", "BigLot", "SmallLot", "ProfitBig", "LossSmall",
     "SmallPL", "OldFarPL", "ClosedBigPL", "NetProfit", "CloseFarBudget", "ReserveAdd",
     "TotalReserveBefore", "TotalReserveAfter", "CloseFarLotRaw", "CloseFarLotRounded",
     "FarRemainLot", "FarRemainLoss", "FinalCloseAllowed", "ReverseStrength",
@@ -19,6 +21,13 @@ class CycleMathRow:
     Level: int
     Scenario: str
     FarLotBefore: float
+    InitialFarDistancePoints: float = 0.0
+    CurrentBigMovePoints: float = 0.0
+    CumulativeBigMovePoints: float = 0.0
+    EffectiveFarDistancePoints: float = 0.0
+    FarDistanceMode: str = "FIXED_200"
+    FarOpenPrice: float = 0.0
+    CurrentClosePrice: float = 0.0
     BigLot: float = 0.0
     SmallLot: float = 0.0
     ProfitBig: float = 0.0
@@ -63,11 +72,13 @@ def write_cycle_csv(rows: Iterable[CycleMathRow], path: Path) -> None:
 
 def write_cycle_markdown(rows: list[CycleMathRow], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    headers = ["Level", "Scenario", "FarLotBefore", "BigLot", "SmallLot", "NetProfit", "Reserve", "FarRemainLoss", "FinalClose", "State", "Action"]
+    headers = ["Level", "Scenario", "InitialFarDistance", "CurrentBigMove", "CumulativeBigMove", "EffectiveFarDistance", "FarLotBefore", "BigLot", "SmallLot", "NetProfit", "Reserve", "FarRemainLoss", "FinalClose", "State", "Action"]
     lines = ["# AI Cycle Math", "", "| " + " | ".join(headers) + " |", "|" + "|".join(["---"] * len(headers)) + "|"]
     for r in rows:
         values = [
-            r.Level, r.Scenario, f"{r.FarLotBefore:.2f}", f"{r.BigLot:.2f}", f"{r.SmallLot:.2f}",
+            r.Level, r.Scenario, f"{r.InitialFarDistancePoints:.0f}", f"{r.CurrentBigMovePoints:.0f}",
+            f"{r.CumulativeBigMovePoints:.0f}", f"{r.EffectiveFarDistancePoints:.0f}",
+            f"{r.FarLotBefore:.2f}", f"{r.BigLot:.2f}", f"{r.SmallLot:.2f}",
             f"{r.NetProfit:.2f}", f"{r.TotalReserveAfter:.2f}", f"{r.FarRemainLoss:.2f}",
             "YES" if r.FinalCloseAllowed else "NO", r.State, r.Action,
         ]

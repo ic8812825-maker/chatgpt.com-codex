@@ -203,3 +203,18 @@ MaxReverseCycles = 10
 ```
 
 The EA exposes `UseRecommended5050Preset`. When enabled, internal `Work...` parameters use the candidate values while the original inputs remain visible for comparison. Final confirmation must be done in MT5 Strategy Tester using `ai_tests/reports/mt5_confirmation_plan.md`.
+
+## Far Distance Mode Verification
+
+The EA and Python harness now expose `FarDistanceMode` to verify whether the initial 100 points of the startup lock are included in Far loss math.
+
+Modes:
+
+```text
+FIXED_200
+INITIAL_PLUS_CURRENT
+INITIAL_PLUS_CUMULATIVE
+REAL_PRICE_DISTANCE
+```
+
+The Python report `ai_tests/reports/far_distance_mode_comparison.md` confirms Level 1 uses `EffectiveFarDistance=200` for `InitialTriggerPoints=100` and `BigMoveLevel1=100`. For real MT5 runs, `REAL_PRICE_DISTANCE` is the recommended confirmation mode because it uses actual price distance from `FarOpenPrice`.

@@ -51,6 +51,11 @@ void ResetRecoveryContext()
    Ctx.reverseLimitReached = false;
    Ctx.reserveProjectionOk = true;
    Ctx.smallGeometryValid = true;
+   Ctx.initialFarDistancePoints = 0.0;
+   Ctx.currentBigMovePoints = 0.0;
+   Ctx.cumulativeBigMovePoints = 0.0;
+   Ctx.effectiveFarDistancePoints = 0.0;
+   Ctx.currentClosePrice = 0.0;
 }
 
 void UpdateFarFromSnapshot(PositionSnapshot &far)
@@ -275,6 +280,8 @@ void CheckInitialPlusClose()
       Ctx.initialProfitIgnored = true;
       Ctx.totalReserve = 0.0;
       Ctx.cycleFinalPL = 0.0;
+      Ctx.initialFarDistancePoints = InitialTriggerPoints;
+      Ctx.cumulativeBigMovePoints = 0.0;
 
       LogInfo(StringFormat("CLOSE INITIAL PROFIT POSITION direction=BUY InitialProfit=%.2f InitialProfitIgnored=%s ReserveBeforeRecovery=%.2f RecoveryReserveAfterInitialClose=%.2f", initialBuy.profitMoney, Ctx.initialProfitIgnored ? "true" : "false", 0.0, Ctx.totalReserve));
       LogInfo(StringFormat("Initial BUY plus closed at %.1f points and ignored. Far is SELL %.2f", buyProfitPoints, Ctx.farLot));
@@ -295,6 +302,8 @@ void CheckInitialPlusClose()
       Ctx.initialProfitIgnored = true;
       Ctx.totalReserve = 0.0;
       Ctx.cycleFinalPL = 0.0;
+      Ctx.initialFarDistancePoints = InitialTriggerPoints;
+      Ctx.cumulativeBigMovePoints = 0.0;
 
       LogInfo(StringFormat("CLOSE INITIAL PROFIT POSITION direction=SELL InitialProfit=%.2f InitialProfitIgnored=%s ReserveBeforeRecovery=%.2f RecoveryReserveAfterInitialClose=%.2f", initialSell.profitMoney, Ctx.initialProfitIgnored ? "true" : "false", 0.0, Ctx.totalReserve));
       LogInfo(StringFormat("Initial SELL plus closed at %.1f points and ignored. Far is BUY %.2f", sellProfitPoints, Ctx.farLot));
@@ -434,6 +443,16 @@ void ProcessBigHarvest()
 
    double farStartLot = Ctx.farLot;
    int bigMovePoints = GetBigMovePoints(Ctx.harvestLevel);
+   Ctx.currentBigMovePoints = bigMovePoints;
+   Ctx.cumulativeBigMovePoints += bigMovePoints;
+   Ctx.currentClosePrice = ExitPriceForDirection(Ctx.bigDirection);
+   Ctx.effectiveFarDistancePoints = CalcEffectiveFarDistancePoints(
+      Ctx.initialFarDistancePoints,
+      Ctx.currentBigMovePoints,
+      Ctx.cumulativeBigMovePoints,
+      Ctx.currentClosePrice,
+      Ctx.farOpenPrice
+   );
    double profitBig = CalcProfit(Ctx.bigLot, bigMovePoints);
    double lossSmall = CalcProfit(Ctx.smallLot, bigMovePoints);
    double costs = 0.0;
@@ -441,7 +460,7 @@ void ProcessBigHarvest()
    double netProfit = profitBig - lossSmall - costs;
    double closeFarBudget = CalcCloseFarBudget(netProfit);
    double reserveAdd = CalcReserveAdd(netProfit);
-   double closeFarLotRaw = CalcCloseFarLotRaw(closeFarBudget, FarDistancePoints);
+   double closeFarLotRaw = CalcCloseFarLotRaw(closeFarBudget, Ctx.effectiveFarDistancePoints);
    double closeFarLotRounded = CalcCloseFarLotRounded(closeFarLotRaw, Ctx.farLot);
    double closeFarLotFinal = closeFarLotRounded;
 
@@ -468,10 +487,10 @@ void ProcessBigHarvest()
 
    Ctx.totalReserve += reserveAdd;
    Ctx.farLot = NormalizeLotDown(MathMax(0.0, Ctx.farLot - closeFarLotFinal));
-   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, FarDistancePoints);
-   Ctx.cycleFinalPL = Ctx.totalReserve - CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
+   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   Ctx.cycleFinalPL = Ctx.totalReserve - CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
 
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
 
    LogHarvestLevel(
       Ctx.harvestLevel,
@@ -559,7 +578,7 @@ void ProcessBigHarvest()
          0.0,
          0.0,
          Ctx.totalReserve,
-         CalcFarRemainLoss(Ctx.farLot, FarDistancePoints),
+         CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints),
          false,
          STATE_STOP_MAX_LEVELS,
          0.0,
@@ -696,7 +715,7 @@ void ProcessSmallAtFarTouch()
    double newBigLot = CalcBigLot(newFarLot);
    double newSmallLot = CalcSmallLot(newBigLot);
    double expectedNextReserve = CalcExpectedNextReserve(newBigLot, newSmallLot, Ctx.harvestLevel + 1);
-   double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, FarDistancePoints);
+   double expectedNextFarLoss = 0.0;
    double projectedReserveCoverage = 0.0;
    double reverseStrength = 0.0;
    double smallReverseNet = 0.0;
@@ -852,8 +871,13 @@ void ProcessSmallAtFarTouch()
 
    Ctx.farTicket = bigTicket;
    Ctx.farLot = newFarLot;
-   Ctx.farOpenPrice = bigOpenPrice;
+   Ctx.farOpenPrice = currentPrice;
    Ctx.farDirection = newFarDirection;
+   Ctx.initialFarDistancePoints = 0.0;
+   Ctx.currentBigMovePoints = 0.0;
+   Ctx.cumulativeBigMovePoints = 0.0;
+   Ctx.effectiveFarDistancePoints = 0.0;
+   Ctx.currentClosePrice = currentPrice;
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
    Ctx.bigLot = 0.0;
@@ -864,8 +888,8 @@ void ProcessSmallAtFarTouch()
    Ctx.smallDirection = DIR_NONE;
    Ctx.dualTailDetected = false;
 
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
-   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, FarDistancePoints);
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
 
    if(Ctx.finalCloseAllowed)
@@ -943,7 +967,7 @@ void ProcessSmallAtFarTouch()
          0.0,
          0.0,
          Ctx.totalReserve,
-         CalcFarRemainLoss(Ctx.farLot, FarDistancePoints),
+         CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints),
          false,
          STATE_STOP_MAX_LEVELS,
          0.0,
@@ -1019,7 +1043,7 @@ void ProcessFinalClose()
       return;
    }
 
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
 
    LogCycleMathDetailed(

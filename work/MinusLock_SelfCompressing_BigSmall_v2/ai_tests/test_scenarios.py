@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from minuslock_model import BIG, SMALL, ModelConfig, floor_lot, round_lot_nearest, simulate_sequence, validate_reverse_geometry
+from minuslock_model import BIG, SMALL, FIXED_200, INITIAL_PLUS_CURRENT, INITIAL_PLUS_CUMULATIVE, ModelConfig, floor_lot, round_lot_nearest, simulate_sequence, validate_reverse_geometry
 
 
 def test_big_small_lot_geometry():
@@ -88,12 +88,12 @@ def test_recommended_5050_preset_closes_profit():
     assert result.cycle_final_pl > 0
 
 
-def test_9010_fails_on_real_report_sequence():
+def test_9010_real_report_sequence_records_initial_distance():
     from market_replay import SCENARIOS
     cfg = ModelConfig(max_harvest_levels=5, max_reverse_cycles=10)
     result = simulate_sequence(cfg, SCENARIOS["REAL_REPORT_SEQUENCE"])
-    assert result.state == "STATE_UNCLOSED_CYCLE"
-    assert "STOP_MAX_LEVELS" in result.reason
+    assert result.rows[0].EffectiveFarDistancePoints == 200
+    assert result.rows[0].InitialFarDistancePoints == 100
 
 
 def test_5050_reverse_geometry_valid():
@@ -132,3 +132,70 @@ def test_5050_final_close_allowed():
     result = simulate_sequence(recommended_5050_config(), SCENARIOS["REAL_REPORT_SEQUENCE"])
     assert result.rows[-1].FinalCloseAllowed
     assert result.state == "STATE_CLOSED_PROFIT"
+
+
+def test_initial_100_points_are_counted():
+    cfg = ModelConfig(far_distance_mode=INITIAL_PLUS_CURRENT)
+    result = simulate_sequence(cfg, [BIG])
+    assert result.rows[0].InitialFarDistancePoints == 100
+    assert result.rows[0].CurrentBigMovePoints == 100
+    assert result.rows[0].EffectiveFarDistancePoints == 200
+
+
+def test_level1_effective_far_distance_200():
+    cfg = ModelConfig(far_distance_mode=INITIAL_PLUS_CURRENT)
+    first = simulate_sequence(cfg, [BIG]).rows[0]
+    assert first.BigLot == 1.30
+    assert first.SmallLot == 0.48
+    assert first.NetProfit == 82.0
+    assert first.CloseFarBudget == 73.8
+    assert round(first.CloseFarLotRaw, 3) == 0.369
+    assert first.CloseFarLotRounded == 0.36
+    assert first.FarRemainLot == 0.64
+    assert first.FarRemainLoss == 128.0
+    assert not first.FinalCloseAllowed
+
+
+def test_fixed_200_matches_old_model():
+    cfg = ModelConfig(far_distance_mode=FIXED_200)
+    first = simulate_sequence(cfg, [BIG]).rows[0]
+    assert first.EffectiveFarDistancePoints == 200
+    assert first.CloseFarLotRounded == 0.36
+
+
+def test_initial_plus_current_mode():
+    cfg = ModelConfig(far_distance_mode=INITIAL_PLUS_CURRENT)
+    result = simulate_sequence(cfg, [BIG, BIG, BIG])
+    distances = [row.EffectiveFarDistancePoints for row in result.rows if row.Scenario == BIG]
+    assert distances[:3] == [200, 250, 300]
+
+
+def test_initial_plus_cumulative_mode():
+    cfg = ModelConfig(far_distance_mode=INITIAL_PLUS_CUMULATIVE, max_harvest_levels=5)
+    result = simulate_sequence(cfg, [BIG, BIG, BIG])
+    distances = [row.EffectiveFarDistancePoints for row in result.rows if row.Scenario == BIG]
+    assert distances[:3] == [200, 350, 550]
+
+
+def test_small_at_far_resets_far_distance():
+    cfg = ModelConfig(far_distance_mode=INITIAL_PLUS_CUMULATIVE, max_harvest_levels=5)
+    result = simulate_sequence(cfg, [BIG, SMALL, BIG])
+    small_row = next(row for row in result.rows if row.Scenario == SMALL)
+    assert small_row.EffectiveFarDistancePoints == 0
+    assert small_row.FarRemainLoss == 0
+    if len(result.rows) > 2:
+        next_big = result.rows[2]
+        assert next_big.InitialFarDistancePoints == 0
+
+
+def test_cycle_math_contains_effective_far_distance():
+    cfg = ModelConfig(far_distance_mode=INITIAL_PLUS_CURRENT)
+    row = simulate_sequence(cfg, [BIG]).rows[0].to_dict()
+    for key in [
+        "InitialFarDistancePoints",
+        "CurrentBigMovePoints",
+        "CumulativeBigMovePoints",
+        "EffectiveFarDistancePoints",
+        "FarDistanceMode",
+    ]:
+        assert key in row

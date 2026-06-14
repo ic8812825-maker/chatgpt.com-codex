@@ -1,6 +1,14 @@
 #ifndef __BH_CONFIG_MQH__
 #define __BH_CONFIG_MQH__
 
+enum FarDistanceModeEnum
+{
+   FIXED_200 = 0,
+   INITIAL_PLUS_CURRENT,
+   INITIAL_PLUS_CUMULATIVE,
+   REAL_PRICE_DISTANCE
+};
+
 input double StartLot              = 1.00;
 input double BigRatio              = 1.30;
 input double SmallRatio            = 0.37;
@@ -16,6 +24,7 @@ input int    BigMoveLevel2         = 150;
 input int    BigMoveLevel3         = 200;
 
 input int    FarDistancePoints     = 200;
+input FarDistanceModeEnum FarDistanceMode = REAL_PRICE_DISTANCE;
 input int    MaxHarvestLevels      = 3;
 input int    SmallFarTouchOffsetPoints = 0;
 input int    MaxReverseCycles              = 3;
@@ -43,6 +52,7 @@ double WorkCloseFarShare;
 double WorkReserveShare;
 int    WorkMaxHarvestLevels;
 int    WorkMaxReverseCycles;
+FarDistanceModeEnum WorkFarDistanceMode;
 
 void ConfigureWorkingParameters()
 {
@@ -53,6 +63,7 @@ void ConfigureWorkingParameters()
    WorkReserveShare = ReserveShare;
    WorkMaxHarvestLevels = MaxHarvestLevels;
    WorkMaxReverseCycles = MaxReverseCycles;
+   WorkFarDistanceMode = FarDistanceMode;
 
    if(UseRecommended5050Preset)
    {
@@ -63,6 +74,7 @@ void ConfigureWorkingParameters()
       WorkReserveShare = 0.50;
       WorkMaxHarvestLevels = 5;
       WorkMaxReverseCycles = 10;
+      WorkFarDistanceMode = FarDistanceMode;
    }
 
    Print("WORKING_PARAMETERS | UseRecommended5050Preset=", UseRecommended5050Preset,
@@ -72,7 +84,8 @@ void ConfigureWorkingParameters()
          " WorkCloseFarShare=", DoubleToString(WorkCloseFarShare, 2),
          " WorkReserveShare=", DoubleToString(WorkReserveShare, 2),
          " WorkMaxHarvestLevels=", WorkMaxHarvestLevels,
-         " WorkMaxReverseCycles=", WorkMaxReverseCycles);
+         " WorkMaxReverseCycles=", WorkMaxReverseCycles,
+         " WorkFarDistanceMode=", EnumToString(WorkFarDistanceMode));
 }
 
 #endif // __BH_CONFIG_MQH__

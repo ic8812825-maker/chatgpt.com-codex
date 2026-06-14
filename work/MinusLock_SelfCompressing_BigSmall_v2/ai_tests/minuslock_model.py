@@ -11,6 +11,10 @@ except ImportError:  # pragma: no cover
 
 BIG = "BIG_HARVEST"
 SMALL = "SMALL_AT_FAR"
+FIXED_200 = "FIXED_200"
+INITIAL_PLUS_CURRENT = "INITIAL_PLUS_CURRENT"
+INITIAL_PLUS_CUMULATIVE = "INITIAL_PLUS_CUMULATIVE"
+REAL_PRICE_DISTANCE = "REAL_PRICE_DISTANCE"
 
 @dataclass(frozen=True)
 class ModelConfig:
@@ -40,6 +44,7 @@ class ModelConfig:
     spread_cost_per_lot: float = 0.0
     small_at_far_move_points: int = 200
     point_value_per_lot: float = 1.0
+    far_distance_mode: str = FIXED_200
 
     def with_params(self, **kwargs) -> "ModelConfig":
         return replace(self, **kwargs)
@@ -114,6 +119,16 @@ def costs_for_lots(cfg: ModelConfig, *lots: float) -> float:
     return sum(abs(x) for x in lots) * per_lot
 
 
+def effective_far_distance(cfg: ModelConfig, initial_far_distance: float, current_big_move: float, cumulative_big_move: float) -> float:
+    if cfg.far_distance_mode == FIXED_200:
+        return float(cfg.far_distance_points)
+    if cfg.far_distance_mode == INITIAL_PLUS_CURRENT:
+        return float(initial_far_distance + current_big_move)
+    if cfg.far_distance_mode in {INITIAL_PLUS_CUMULATIVE, REAL_PRICE_DISTANCE}:
+        return float(initial_far_distance + cumulative_big_move)
+    raise ValueError(f"unknown FarDistanceMode: {cfg.far_distance_mode}")
+
+
 def validate_reverse_geometry(cfg: ModelConfig, old_far: float, new_far: float, new_big: float, new_small: float) -> tuple[bool, str, float]:
     strength = reverse_strength(new_far, new_big)
     if new_far >= old_far:
@@ -136,6 +151,10 @@ def simulate_sequence(cfg: ModelConfig, sequence: Sequence[str], initial_directi
     max_open_lots = 2.0 * far_lot
     max_margin_estimate = max_open_lots
     reverse_cycles = 0
+    initial_far_distance = float(cfg.initial_trigger_points)
+    cumulative_big_move = 0.0
+    synthetic_far_open_price = 0.0
+    synthetic_current_price = float(cfg.initial_trigger_points)
     big_count = 0
     small_count = 0
     state = "RUNNING"
@@ -145,7 +164,7 @@ def simulate_sequence(cfg: ModelConfig, sequence: Sequence[str], initial_directi
     for level, raw_scenario in enumerate(sequence, start=1):
         if level > cfg.max_harvest_levels:
             far_loss = far_lot * cfg.far_distance_points * cfg.point_value_per_lot
-            rows.append(CycleMathRow(level-1, "STOP_MAX_LEVELS", far_lot, TotalReserveBefore=reserve, TotalReserveAfter=reserve, FarRemainLot=far_lot, FarRemainLoss=far_loss, State="STATE_UNCLOSED_CYCLE", Action="CLOSE_RESIDUAL_FAR", StopReason="MaxHarvestLevels exceeded", MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
+            rows.append(CycleMathRow(level-1, "STOP_MAX_LEVELS", far_lot, InitialFarDistancePoints=initial_far_distance, CumulativeBigMovePoints=cumulative_big_move, EffectiveFarDistancePoints=far_loss / far_lot if far_lot else 0.0, FarDistanceMode=cfg.far_distance_mode, FarOpenPrice=synthetic_far_open_price, CurrentClosePrice=synthetic_current_price, TotalReserveBefore=reserve, TotalReserveAfter=reserve, FarRemainLot=far_lot, FarRemainLoss=far_loss, State="STATE_UNCLOSED_CYCLE", Action="CLOSE_RESIDUAL_FAR", StopReason="MaxHarvestLevels exceeded", MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
             return SimulationResult("STATE_UNCLOSED_CYCLE", reserve - far_loss, reserve, far_lot, max_far, max_open_lots, max_margin_estimate, big_count, small_count, level-1, "STOP_MAX_LEVELS", rows, initial_ignored_profit)
 
         scenario = BIG if raw_scenario.upper().startswith("BIG") else SMALL
@@ -160,17 +179,20 @@ def simulate_sequence(cfg: ModelConfig, sequence: Sequence[str], initial_directi
         if scenario == BIG:
             big_count += 1
             move = big_move_points(cfg, level)
+            cumulative_big_move += move
+            synthetic_current_price = synthetic_far_open_price + initial_far_distance + cumulative_big_move
+            effective_distance = effective_far_distance(cfg, initial_far_distance, move, cumulative_big_move)
             profit_big = big_lot * move * cfg.point_value_per_lot
             loss_small = small_lot * move * cfg.point_value_per_lot
             costs = costs_for_lots(cfg, big_lot, small_lot)
             net = profit_big - loss_small - costs
             close_far_budget = round(max(0.0, net * cfg.close_far_share), 2)
             reserve_add = round(max(0.0, net * cfg.reserve_share), 2)
-            close_far_raw = close_far_budget / (cfg.far_distance_points * cfg.point_value_per_lot)
+            close_far_raw = close_far_budget / (effective_distance * cfg.point_value_per_lot) if effective_distance > 0 else 0.0
             close_far_rounded = min(far_lot, floor_lot(close_far_raw, cfg.lot_step))
             far_lot = round(max(0.0, far_lot - close_far_rounded), 2)
             reserve = round(reserve + reserve_add, 2)
-            far_loss = round(far_lot * cfg.far_distance_points * cfg.point_value_per_lot, 2)
+            far_loss = round(far_lot * effective_distance * cfg.point_value_per_lot, 2)
             final_allowed = reserve >= far_loss
             cycle_final_pl = round(reserve - far_loss, 2)
             state = "STATE_CLOSED_PROFIT" if final_allowed else "STATE_BIG_HARVEST"
@@ -179,7 +201,7 @@ def simulate_sequence(cfg: ModelConfig, sequence: Sequence[str], initial_directi
                 state = "STATE_UNCLOSED_CYCLE"
                 action = "CLOSE_RESIDUAL_FAR"
                 reason = "STOP_MAX_LEVELS after Big-harvest"
-            rows.append(CycleMathRow(level, scenario, far_before, big_lot, small_lot, ProfitBig=profit_big, LossSmall=loss_small, NetProfit=net, CloseFarBudget=close_far_budget, ReserveAdd=reserve_add, TotalReserveBefore=reserve_before, TotalReserveAfter=reserve, CloseFarLotRaw=close_far_raw, CloseFarLotRounded=close_far_rounded, FarRemainLot=far_lot, FarRemainLoss=far_loss, FinalCloseAllowed=final_allowed, State=state, Action=action, StopReason="" if final_allowed or level < cfg.max_harvest_levels else reason, CycleFinalPL=cycle_final_pl, MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
+            rows.append(CycleMathRow(level, scenario, far_before, BigLot=big_lot, SmallLot=small_lot, InitialFarDistancePoints=initial_far_distance, CurrentBigMovePoints=move, CumulativeBigMovePoints=cumulative_big_move, EffectiveFarDistancePoints=effective_distance, FarDistanceMode=cfg.far_distance_mode, FarOpenPrice=synthetic_far_open_price, CurrentClosePrice=synthetic_current_price, ProfitBig=profit_big, LossSmall=loss_small, NetProfit=net, CloseFarBudget=close_far_budget, ReserveAdd=reserve_add, TotalReserveBefore=reserve_before, TotalReserveAfter=reserve, CloseFarLotRaw=close_far_raw, CloseFarLotRounded=close_far_rounded, FarRemainLot=far_lot, FarRemainLoss=far_loss, FinalCloseAllowed=final_allowed, State=state, Action=action, StopReason="" if final_allowed or level < cfg.max_harvest_levels else reason, CycleFinalPL=cycle_final_pl, MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
             if final_allowed:
                 return SimulationResult(state, cycle_final_pl, reserve, far_lot, max_far, max_open_lots, max_margin_estimate, big_count, small_count, level, "FinalCloseAllowed after Big-harvest", rows, initial_ignored_profit)
             if level >= cfg.max_harvest_levels:
@@ -197,17 +219,21 @@ def simulate_sequence(cfg: ModelConfig, sequence: Sequence[str], initial_directi
             costs = costs_for_lots(cfg, small_lot, far_lot, close_big)
             small_reverse_net = small_pl + old_far_pl + closed_big_pl - costs
             valid, geom_reason, strength = validate_reverse_geometry(cfg, far_lot, new_far, new_big, new_small)
-            projected_loss = new_far * cfg.far_distance_points * cfg.point_value_per_lot
+            effective_distance = 0.0
+            projected_loss = new_far * effective_distance * cfg.point_value_per_lot
             expected_next_reserve = max(0.0, (new_big - new_small) * big_move_points(cfg, level + 1) * cfg.reserve_share)
             projected_coverage = 999.0 if projected_loss <= 0 else (reserve + expected_next_reserve) / projected_loss
             if not valid:
-                rows.append(CycleMathRow(level, scenario, far_before, big_lot, small_lot, SmallPL=small_pl, OldFarPL=old_far_pl, ClosedBigPL=closed_big_pl, NetProfit=small_reverse_net, TotalReserveBefore=reserve_before, TotalReserveAfter=reserve, CloseFarLotRounded=close_big, FarRemainLot=new_far, FarRemainLoss=projected_loss, ReverseStrength=strength, ProjectedReserveCoverage=projected_coverage, State="STATE_INVALID_REVERSE_GEOMETRY", Action="STOP", StopReason=geom_reason, CycleFinalPL=reserve-projected_loss, MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
+                rows.append(CycleMathRow(level, scenario, far_before, BigLot=big_lot, SmallLot=small_lot, InitialFarDistancePoints=initial_far_distance, CurrentBigMovePoints=0.0, CumulativeBigMovePoints=cumulative_big_move, EffectiveFarDistancePoints=effective_distance, FarDistanceMode=cfg.far_distance_mode, FarOpenPrice=synthetic_far_open_price, CurrentClosePrice=synthetic_current_price, SmallPL=small_pl, OldFarPL=old_far_pl, ClosedBigPL=closed_big_pl, NetProfit=small_reverse_net, TotalReserveBefore=reserve_before, TotalReserveAfter=reserve, CloseFarLotRounded=close_big, FarRemainLot=new_far, FarRemainLoss=projected_loss, ReverseStrength=strength, ProjectedReserveCoverage=projected_coverage, State="STATE_INVALID_REVERSE_GEOMETRY", Action="STOP", StopReason=geom_reason, CycleFinalPL=reserve-projected_loss, MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
                 return SimulationResult("STATE_INVALID_REVERSE_GEOMETRY", reserve-projected_loss, reserve, new_far, max_far, max_open_lots, max_margin_estimate, big_count, small_count, level, geom_reason, rows, initial_ignored_profit)
             if small_reverse_net <= 0 and not cfg.allow_negative_small_reverse_net:
-                rows.append(CycleMathRow(level, scenario, far_before, big_lot, small_lot, SmallPL=small_pl, OldFarPL=old_far_pl, ClosedBigPL=closed_big_pl, NetProfit=small_reverse_net, TotalReserveBefore=reserve_before, TotalReserveAfter=reserve, CloseFarLotRounded=close_big, FarRemainLot=new_far, FarRemainLoss=projected_loss, ReverseStrength=strength, ProjectedReserveCoverage=projected_coverage, State="STATE_INVALID_SMALL_GEOMETRY", Action="STOP", StopReason="SmallReverseNet <= 0", CycleFinalPL=reserve-projected_loss, MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
+                rows.append(CycleMathRow(level, scenario, far_before, BigLot=big_lot, SmallLot=small_lot, InitialFarDistancePoints=initial_far_distance, CurrentBigMovePoints=0.0, CumulativeBigMovePoints=cumulative_big_move, EffectiveFarDistancePoints=effective_distance, FarDistanceMode=cfg.far_distance_mode, FarOpenPrice=synthetic_far_open_price, CurrentClosePrice=synthetic_current_price, SmallPL=small_pl, OldFarPL=old_far_pl, ClosedBigPL=closed_big_pl, NetProfit=small_reverse_net, TotalReserveBefore=reserve_before, TotalReserveAfter=reserve, CloseFarLotRounded=close_big, FarRemainLot=new_far, FarRemainLoss=projected_loss, ReverseStrength=strength, ProjectedReserveCoverage=projected_coverage, State="STATE_INVALID_SMALL_GEOMETRY", Action="STOP", StopReason="SmallReverseNet <= 0", CycleFinalPL=reserve-projected_loss, MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
                 return SimulationResult("STATE_INVALID_SMALL_GEOMETRY", reserve-projected_loss, reserve, new_far, max_far, max_open_lots, max_margin_estimate, big_count, small_count, level, "SmallReverseNet <= 0", rows, initial_ignored_profit)
             reverse_cycles += 1
             far_lot = new_far
+            initial_far_distance = 0.0
+            cumulative_big_move = 0.0
+            synthetic_far_open_price = synthetic_current_price
             final_allowed = reserve >= projected_loss
             cycle_final_pl = round(reserve - projected_loss, 2)
             action = "FINAL_CLOSE" if final_allowed else "OPEN_NEW_BIG_SMALL"
@@ -220,7 +246,7 @@ def simulate_sequence(cfg: ModelConfig, sequence: Sequence[str], initial_directi
                 state = "STATE_UNCLOSED_CYCLE"
                 action = "CLOSE_RESIDUAL_FAR"
                 reason = "STOP_MAX_LEVELS after Small-at-Far"
-            rows.append(CycleMathRow(level, scenario, far_before, big_lot, small_lot, SmallPL=small_pl, OldFarPL=old_far_pl, ClosedBigPL=closed_big_pl, NetProfit=small_reverse_net, TotalReserveBefore=reserve_before, TotalReserveAfter=reserve, CloseFarLotRounded=close_big, FarRemainLot=far_lot, FarRemainLoss=projected_loss, FinalCloseAllowed=final_allowed, ReverseStrength=strength, ProjectedReserveCoverage=projected_coverage, State=state, Action=action, StopReason="" if state in {"STATE_SMALL_SCENARIO", "STATE_CLOSED_PROFIT"} else reason, CycleFinalPL=cycle_final_pl, MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
+            rows.append(CycleMathRow(level, scenario, far_before, BigLot=big_lot, SmallLot=small_lot, InitialFarDistancePoints=initial_far_distance, CurrentBigMovePoints=0.0, CumulativeBigMovePoints=cumulative_big_move, EffectiveFarDistancePoints=effective_distance, FarDistanceMode=cfg.far_distance_mode, FarOpenPrice=synthetic_far_open_price, CurrentClosePrice=synthetic_current_price, SmallPL=small_pl, OldFarPL=old_far_pl, ClosedBigPL=closed_big_pl, NetProfit=small_reverse_net, TotalReserveBefore=reserve_before, TotalReserveAfter=reserve, CloseFarLotRounded=close_big, FarRemainLot=far_lot, FarRemainLoss=projected_loss, FinalCloseAllowed=final_allowed, ReverseStrength=strength, ProjectedReserveCoverage=projected_coverage, State=state, Action=action, StopReason="" if state in {"STATE_SMALL_SCENARIO", "STATE_CLOSED_PROFIT"} else reason, CycleFinalPL=cycle_final_pl, MaxOpenLots=max_open_lots, MaxFarLot=max_far, InitialIgnoredProfit=initial_ignored_profit))
             if final_allowed or state in {"STATE_REVERSE_LIMIT", "STATE_UNCLOSED_CYCLE"}:
                 return SimulationResult(state, cycle_final_pl, reserve, far_lot, max_far, max_open_lots, max_margin_estimate, big_count, small_count, level, reason if not final_allowed else "FinalCloseAllowed after Small-at-Far", rows, initial_ignored_profit)
 

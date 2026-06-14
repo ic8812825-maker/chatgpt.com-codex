@@ -8,12 +8,12 @@ from pathlib import Path
 try:
     from .cycle_math import write_cycle_csv, write_cycle_markdown
     from .market_replay import SCENARIOS, observed_failure_summary, run_named_scenarios
-    from .minuslock_model import BIG, SMALL, ModelConfig, SimulationResult, recommended_5050_config, simulate_sequence
+    from .minuslock_model import BIG, SMALL, FIXED_200, INITIAL_PLUS_CURRENT, INITIAL_PLUS_CUMULATIVE, REAL_PRICE_DISTANCE, ModelConfig, SimulationResult, recommended_5050_config, simulate_sequence
     from .validate_against_report import validate_sample_report
 except ImportError:  # pragma: no cover
     from cycle_math import write_cycle_csv, write_cycle_markdown
     from market_replay import SCENARIOS, observed_failure_summary, run_named_scenarios
-    from minuslock_model import BIG, SMALL, ModelConfig, SimulationResult, recommended_5050_config, simulate_sequence
+    from minuslock_model import BIG, SMALL, FIXED_200, INITIAL_PLUS_CURRENT, INITIAL_PLUS_CUMULATIVE, REAL_PRICE_DISTANCE, ModelConfig, SimulationResult, recommended_5050_config, simulate_sequence
     from validate_against_report import validate_sample_report
 
 ROOT = Path(__file__).resolve().parent
@@ -30,6 +30,7 @@ def result_row(name: str, cfg: ModelConfig, result: SimulationResult) -> dict[st
         "SmallRatio": cfg.small_ratio,
         "CloseBigOnSmall": cfg.close_big_on_small,
         "MaxHarvestLevels": cfg.max_harvest_levels,
+        "FarDistanceMode": cfg.far_distance_mode,
         "State": result.state,
         "ClosedProfit": result.closed_profit,
         "CycleFinalPL": round(result.cycle_final_pl, 2),
@@ -50,11 +51,12 @@ def result_row(name: str, cfg: ModelConfig, result: SimulationResult) -> dict[st
 def sweep() -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     sequence = SCENARIOS["REAL_REPORT_SEQUENCE"]
-    for close_far, small_ratio, close_big, max_levels in product(
+    for close_far, small_ratio, close_big, max_levels, far_distance_mode in product(
         [0.50, 0.60, 0.70, 0.80, 0.90],
         [0.35, 0.36, 0.37, 0.38, 0.40],
         [0.25, 0.30, 0.35],
         [3, 5, 7],
+        [FIXED_200, INITIAL_PLUS_CURRENT, INITIAL_PLUS_CUMULATIVE],
     ):
         cfg = ModelConfig(
             close_far_share=close_far,
@@ -63,6 +65,7 @@ def sweep() -> list[dict[str, object]]:
             close_big_on_small=close_big,
             max_harvest_levels=max_levels,
             max_reverse_cycles=10,
+            far_distance_mode=far_distance_mode,
         )
         rows.append(result_row("REAL_REPORT_SEQUENCE", cfg, simulate_sequence(cfg, sequence)))
     rows.sort(key=lambda r: (not bool(r["ClosedProfit"]), -float(r["CycleFinalPL"]), float(r["MaxDrawdownEstimate"]), float(r["MaxOpenLots"]), float(r["MinReverseStrength"]) < 0.15))
@@ -81,7 +84,7 @@ def write_best_parameters(rows: list[dict[str, object]], path: Path) -> None:
     top = rows[:10]
     worst = sorted(rows, key=lambda r: (bool(r["ClosedProfit"]), float(r["CycleFinalPL"]), -float(r["MaxDrawdownEstimate"])))[:10]
     candidates = [r for r in rows if r["CloseFarShare"] in {0.50, 0.60, 0.70}]
-    best_candidate = next((r for r in candidates if r["CloseFarShare"] == 0.50 and r["ReserveShare"] == 0.50 and r["SmallRatio"] == 0.36 and r["CloseBigOnSmall"] == 0.35 and r["MaxHarvestLevels"] == 5), next((r for r in candidates if r["ClosedProfit"]), candidates[0]))
+    best_candidate = next((r for r in candidates if r["CloseFarShare"] == 0.50 and r["ReserveShare"] == 0.50 and r["SmallRatio"] == 0.36 and r["CloseBigOnSmall"] == 0.35 and r["MaxHarvestLevels"] == 5 and r["FarDistanceMode"] == FIXED_200), next((r for r in candidates if r["ClosedProfit"]), candidates[0]))
     lines = [
         "# Best Parameters — Python Model Candidates",
         "",
@@ -172,9 +175,83 @@ def write_compare_report(path: Path) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def _variant_configs() -> list[tuple[str, ModelConfig]]:
+    return [
+        ("90/10", ModelConfig(max_harvest_levels=5, max_reverse_cycles=10)),
+        ("60/40", recommended_5050_config(close_far_share=0.60, reserve_share=0.40)),
+        ("50/50", recommended_5050_config()),
+    ]
+
+
+def write_far_distance_mode_report(path: Path) -> None:
+    sequence = SCENARIOS["REAL_REPORT_SEQUENCE"]
+    modes = [FIXED_200, INITIAL_PLUS_CURRENT, INITIAL_PLUS_CUMULATIVE]
+    headers = [
+        "Variant", "FarDistanceMode", "Level", "Scenario", "InitialFarDistance",
+        "CurrentBigMove", "CumulativeBigMove", "EffectiveFarDistance", "FarLotBefore",
+        "BigLot", "SmallLot", "NetProfit", "CloseFarBudget", "ReserveAdd",
+        "TotalReserve", "CloseFarLotRounded", "FarRemainLot", "FarRemainLoss",
+        "FinalCloseAllowed", "State", "CycleFinalPL",
+    ]
+    lines = [
+        "# Far Distance Mode Comparison",
+        "",
+        "> Python-модель не заменяет MT5 Strategy Tester. Она пересчитывает расстояние Far с учётом первых 100 пунктов initial lock.",
+        "",
+        "## Was first 100 points counted before?",
+        "",
+        "Частично: старый режим `FIXED_200` давал правильный Level 1 при `InitialTrigger=100` и `BigMove=100`, но не различал Level 2/3 режимы `INITIAL_PLUS_CURRENT` и `INITIAL_PLUS_CUMULATIVE` и не сбрасывал дистанцию явно после Small-at-Far.",
+        "",
+        "## Correct Level 1",
+        "",
+        "For `InitialTriggerPoints=100` and `BigMoveLevel1=100`, `EffectiveFarDistance=200`. If a model returns 100, it is wrong.",
+        "",
+    ]
+    base = ModelConfig(max_harvest_levels=5, max_reverse_cycles=10, far_distance_mode=INITIAL_PLUS_CURRENT)
+    level1 = simulate_sequence(base, [BIG]).rows[0]
+    lines += [
+        f"- EffectiveFarDistance: {level1.EffectiveFarDistancePoints:.0f}",
+        f"- CloseFarLotRounded: {level1.CloseFarLotRounded:.2f}",
+        f"- FarRemainLoss: {level1.FarRemainLoss:.2f}",
+        f"- FinalCloseAllowed: {'YES' if level1.FinalCloseAllowed else 'NO'}",
+        "",
+        "## Variant / Mode Table",
+        "",
+        "| " + " | ".join(headers) + " |",
+        "|" + "|".join(["---"] * len(headers)) + "|",
+    ]
+    summaries = []
+    for variant_name, cfg in _variant_configs():
+        for mode in modes:
+            result = simulate_sequence(cfg.with_params(far_distance_mode=mode), sequence)
+            summaries.append((variant_name, mode, result.state, result.cycle_final_pl, result.reason))
+            for row in result.rows:
+                values = [
+                    variant_name, mode, row.Level, row.Scenario,
+                    f"{row.InitialFarDistancePoints:.0f}", f"{row.CurrentBigMovePoints:.0f}",
+                    f"{row.CumulativeBigMovePoints:.0f}", f"{row.EffectiveFarDistancePoints:.0f}",
+                    f"{row.FarLotBefore:.2f}", f"{row.BigLot:.2f}", f"{row.SmallLot:.2f}",
+                    f"{row.NetProfit:.2f}", f"{row.CloseFarBudget:.2f}", f"{row.ReserveAdd:.2f}",
+                    f"{row.TotalReserveAfter:.2f}", f"{row.CloseFarLotRounded:.2f}",
+                    f"{row.FarRemainLot:.2f}", f"{row.FarRemainLoss:.2f}",
+                    "YES" if row.FinalCloseAllowed else "NO", row.State, f"{row.CycleFinalPL:.2f}",
+                ]
+                lines.append("| " + " | ".join(map(str, values)) + " |")
+    lines += ["", "## Summary", ""]
+    for variant_name, mode, state, pl, reason in summaries:
+        lines.append(f"- {variant_name} / {mode}: State={state}, CycleFinalPL={pl:.2f}, Reason={reason}")
+    lines += [
+        "",
+        "## Verdict",
+        "",
+        "For MT5, use `REAL_PRICE_DISTANCE` because it measures actual `ABS(CurrentClosePrice - FarOpenPrice) / Point`. For Python pre-checks without ticks, use `INITIAL_PLUS_CURRENT` and `INITIAL_PLUS_CUMULATIVE` to bound behavior. After Small-at-Far, the model resets `InitialFarDistancePoints=0` and `CumulativeBigMovePoints=0` for the new Far.",
+    ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def write_ai_report(scenarios: dict[str, SimulationResult], sweep_rows: list[dict[str, object]], validation: dict[str, object], path: Path) -> None:
     best = sweep_rows[0]
-    current = next((r for r in sweep_rows if r["CloseFarShare"] == 0.90 and r["ReserveShare"] == 0.10 and r["SmallRatio"] == 0.37 and r["CloseBigOnSmall"] == 0.30 and r["MaxHarvestLevels"] == 5), None)
+    current = next((r for r in sweep_rows if r["CloseFarShare"] == 0.90 and r["ReserveShare"] == 0.10 and r["SmallRatio"] == 0.37 and r["CloseBigOnSmall"] == 0.30 and r["MaxHarvestLevels"] == 5 and r["FarDistanceMode"] == FIXED_200), None)
     lines = [
         "# AI Test Report — MinusLock BigHarvest",
         "",
@@ -229,6 +306,7 @@ def main() -> None:
     write_sweep_csv(rows, REPORTS / "parameter_sweep_results.csv")
     write_best_parameters(rows, REPORTS / "best_parameters.md")
     write_compare_report(REPORTS / "compare_90_10_vs_50_50.md")
+    write_far_distance_mode_report(REPORTS / "far_distance_mode_comparison.md")
     validation = validate_sample_report(DATA / "sample_mt5_report.csv")
     write_ai_report(scenarios, rows, validation, REPORTS / "ai_test_report.md")
     print(f"AI simulation PASS: scenarios={len(scenarios)} sweep={len(rows)} best_state={rows[0]['State']} best_pl={rows[0]['CycleFinalPL']}")

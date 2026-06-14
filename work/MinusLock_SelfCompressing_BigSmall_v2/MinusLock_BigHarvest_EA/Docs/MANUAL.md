@@ -351,3 +351,49 @@ NewBig = 0.84 × 1.30 = 1.09
 NewSmall = 1.09 × 0.36 = 0.39
 ReverseStrength = (1.09 - 0.84) / 0.84 ≈ 0.2976 = STRONG
 ```
+
+## Far Distance Modes with Initial Trigger
+
+The recovery does not start from zero distance. After the initial lock moves by `InitialTriggerPoints`, the losing initial position is already an active Far with an initial distance:
+
+```text
+InitialFarDistancePoints = InitialTriggerPoints
+```
+
+The EA now separates:
+
+```text
+InitialTriggerPoints
+BigMovePoints
+FarDistancePoints
+CumulativeBigMovePoints
+EffectiveFarDistancePoints
+FarDistanceMode
+```
+
+Available `FarDistanceMode` values:
+
+```text
+FIXED_200               -> legacy comparison mode, uses FarDistancePoints
+INITIAL_PLUS_CURRENT    -> InitialFarDistancePoints + current BigMovePoints
+INITIAL_PLUS_CUMULATIVE -> InitialFarDistancePoints + cumulative BigMovePoints
+REAL_PRICE_DISTANCE     -> ABS(CurrentClosePrice - FarOpenPrice) / Point
+```
+
+For Level 1 with `InitialTriggerPoints=100` and `BigMoveLevel1=100`:
+
+```text
+EffectiveFarDistancePoints = 100 + 100 = 200
+CloseFarLotRaw = CloseFarBudget / (EffectiveFarDistancePoints × PointValuePerLot)
+FarRemainLoss = FarRemainLot × EffectiveFarDistancePoints × PointValuePerLot
+```
+
+After `Small-at-Far`, the old Far is closed and the new Far appears at the current price. Therefore the EA resets the new Far distance context:
+
+```text
+InitialFarDistancePoints = 0
+CumulativeBigMovePoints = 0
+FarOpenPrice = CurrentPrice
+```
+
+For MT5 confirmation, `REAL_PRICE_DISTANCE` is the preferred mode because it uses the actual price distance instead of a synthetic Python distance assumption.

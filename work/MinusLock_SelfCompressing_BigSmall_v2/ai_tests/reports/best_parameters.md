@@ -4,29 +4,29 @@
 
 ## Top 10 лучших вариантов
 
-1. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.30, MaxLevels=5, State=STATE_CLOSED_PROFIT, PL=22.0
-2. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.30, MaxLevels=7, State=STATE_CLOSED_PROFIT, PL=22.0
-3. CF/RS=0.50/0.50, SmallRatio=0.36, CloseBig=0.35, MaxLevels=5, State=STATE_CLOSED_PROFIT, PL=20.5
-4. CF/RS=0.50/0.50, SmallRatio=0.36, CloseBig=0.35, MaxLevels=7, State=STATE_CLOSED_PROFIT, PL=20.5
-5. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=5, State=STATE_CLOSED_PROFIT, PL=20.0
-6. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=7, State=STATE_CLOSED_PROFIT, PL=20.0
-7. CF/RS=0.50/0.50, SmallRatio=0.37, CloseBig=0.35, MaxLevels=5, State=STATE_CLOSED_PROFIT, PL=20.0
-8. CF/RS=0.50/0.50, SmallRatio=0.37, CloseBig=0.35, MaxLevels=7, State=STATE_CLOSED_PROFIT, PL=20.0
-9. CF/RS=0.50/0.50, SmallRatio=0.36, CloseBig=0.30, MaxLevels=5, State=STATE_CLOSED_PROFIT, PL=18.5
-10. CF/RS=0.50/0.50, SmallRatio=0.36, CloseBig=0.30, MaxLevels=7, State=STATE_CLOSED_PROFIT, PL=18.5
+1. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=3, State=STATE_CLOSED_PROFIT, PL=42.0
+2. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=3, State=STATE_CLOSED_PROFIT, PL=42.0
+3. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=3, State=STATE_CLOSED_PROFIT, PL=42.0
+4. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=5, State=STATE_CLOSED_PROFIT, PL=42.0
+5. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=5, State=STATE_CLOSED_PROFIT, PL=42.0
+6. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=5, State=STATE_CLOSED_PROFIT, PL=42.0
+7. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=7, State=STATE_CLOSED_PROFIT, PL=42.0
+8. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=7, State=STATE_CLOSED_PROFIT, PL=42.0
+9. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.25, MaxLevels=7, State=STATE_CLOSED_PROFIT, PL=42.0
+10. CF/RS=0.50/0.50, SmallRatio=0.35, CloseBig=0.30, MaxLevels=3, State=STATE_CLOSED_PROFIT, PL=42.0
 
 ## Top 10 худших вариантов
 
-1. CF/RS=0.90/0.10, SmallRatio=0.40, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-116.2, Reason=STOP_MAX_LEVELS after Small-at-Far
-2. CF/RS=0.50/0.50, SmallRatio=0.40, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-115.0, Reason=STOP_MAX_LEVELS after Small-at-Far
-3. CF/RS=0.60/0.40, SmallRatio=0.40, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-114.8, Reason=STOP_MAX_LEVELS after Small-at-Far
-4. CF/RS=0.70/0.30, SmallRatio=0.40, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-114.6, Reason=STOP_MAX_LEVELS after Small-at-Far
-5. CF/RS=0.80/0.20, SmallRatio=0.40, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-114.4, Reason=STOP_MAX_LEVELS after Small-at-Far
-6. CF/RS=0.90/0.10, SmallRatio=0.38, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-113.9, Reason=STOP_MAX_LEVELS after Small-at-Far
-7. CF/RS=0.90/0.10, SmallRatio=0.37, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-113.8, Reason=STOP_MAX_LEVELS after Small-at-Far
-8. CF/RS=0.80/0.20, SmallRatio=0.38, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-111.8, Reason=STOP_MAX_LEVELS after Small-at-Far
-9. CF/RS=0.70/0.30, SmallRatio=0.38, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-111.7, Reason=STOP_MAX_LEVELS after Small-at-Far
-10. CF/RS=0.60/0.40, SmallRatio=0.38, CloseBig=0.25, MaxLevels=3, State=STATE_UNCLOSED_CYCLE, PL=-111.6, Reason=STOP_MAX_LEVELS after Small-at-Far
+1. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=3, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+2. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=3, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+3. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=3, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+4. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=5, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+5. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=5, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+6. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=5, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+7. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=7, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+8. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=7, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+9. CF/RS=0.90/0.10, SmallRatio=0.35, CloseBig=0.35, MaxLevels=7, State=STATE_INVALID_SMALL_GEOMETRY, PL=8.4, Reason=SmallReverseNet <= 0
+10. CF/RS=0.80/0.20, SmallRatio=0.35, CloseBig=0.35, MaxLevels=3, State=STATE_INVALID_SMALL_GEOMETRY, PL=16.8, Reason=SmallReverseNet <= 0
 
 ## Почему текущий 90/10 проваливается
 
