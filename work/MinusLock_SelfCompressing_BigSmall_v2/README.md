@@ -173,3 +173,16 @@ Small-сценарий больше не исполняется сразу пр�
 EA пишет диагностический журнал `CYCLE_MATH | ...` и CSV `MQL5/Files/MinusLock_CycleMath.csv` при `EnableCycleMathCsv=true`. Эти строки показывают, почему цикл закрылся через `CLOSED_PROFIT` или провалился в `STOP_MAX_LEVELS` / `STATE_UNCLOSED_CYCLE`.
 
 Для анализа агрессивности настроек нужно сравнить три набора `CloseFarShare/ReserveShare`: `0.90/0.10`, `0.70/0.30`, `0.50/0.50`. Главные поля сравнения: `TotalReserve`, `FarRemainLoss`, `FinalCloseAllowed`, `NetProfitRealized`, `CostsRealized`, `ActionAfterValidation`, `StopReason`.
+
+## AI Simulation Harness
+
+Добавлен автономный Python-стенд `ai_tests/` для проверки математики Big-Harvest без MT5. Он генерирует `ai_cycle_math.csv`, `ai_cycle_math.md`, `parameter_sweep_results.csv`, `best_parameters.md` и `ai_test_report.md`.
+
+Запуск:
+
+```bash
+python work/MinusLock_SelfCompressing_BigSmall_v2/ai_tests/parameter_sweep.py
+python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/ai_tests/test_scenarios.py -q
+```
+
+Важно: Python-модель показывает лучший кандидат. Финальное подтверждение обязательно через MT5 Strategy Tester.
