@@ -253,7 +253,14 @@ void WriteCycleMathCsv(
    double netProfitRealized,
    double costsRealized,
    double totalReserveBefore,
-   double reserveUsedForFinalClose
+   double reserveUsedForFinalClose,
+   double initialFarDistancePoints = 0.0,
+   double currentBigMovePoints = 0.0,
+   double cumulativeBigMovePoints = 0.0,
+   double effectiveFarDistancePoints = 0.0,
+   string farDistanceMode = "",
+   double farOpenPrice = 0.0,
+   double currentClosePrice = 0.0
 )
 {
    if(!EnableCycleMathCsv)
@@ -270,7 +277,10 @@ void WriteCycleMathCsv(
    {
       FileWrite(
          handle,
-         "Time", "Symbol", "Level", "Scenario", "FarLotBefore", "BigLot", "SmallLot",
+         "Time", "Symbol", "Level", "Scenario", "InitialFarDistancePoints",
+         "CurrentBigMovePoints", "CumulativeBigMovePoints", "EffectiveFarDistancePoints",
+         "FarDistanceMode", "FarOpenPrice", "CurrentClosePrice",
+         "FarLotBefore", "BigLot", "SmallLot",
          "NetProfit", "CloseFarBudget", "ReserveAdd", "TotalReserve", "FarRemainLoss",
          "FinalCloseAllowed", "State", "Balance", "Equity", "Margin", "FreeMargin",
          "ProfitBig", "LossSmall", "SmallPL", "OldFarPL", "ClosedBigPL", "SmallReverseNet",
@@ -288,6 +298,13 @@ void WriteCycleMathCsv(
       _Symbol,
       level,
       scenario,
+      DoubleToString(initialFarDistancePoints, 1),
+      DoubleToString(currentBigMovePoints, 1),
+      DoubleToString(cumulativeBigMovePoints, 1),
+      DoubleToString(effectiveFarDistancePoints, 1),
+      farDistanceMode,
+      DoubleToString(farOpenPrice, 5),
+      DoubleToString(currentClosePrice, 5),
       DoubleToString(farLotBefore, 2),
       DoubleToString(bigLot, 2),
       DoubleToString(smallLot, 2),
@@ -356,13 +373,27 @@ void LogCycleMathDetailed(
    double netProfitRealized,
    double costsRealized,
    double totalReserveBefore,
-   double reserveUsedForFinalClose
+   double reserveUsedForFinalClose,
+   double initialFarDistancePoints = 0.0,
+   double currentBigMovePoints = 0.0,
+   double cumulativeBigMovePoints = 0.0,
+   double effectiveFarDistancePoints = 0.0,
+   string farDistanceMode = "",
+   double farOpenPrice = 0.0,
+   double currentClosePrice = 0.0
 )
 {
    PrintFormat(
-      "CYCLE_MATH | Level=%d Scenario=%s FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f",
+      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f",
       level,
       scenario,
+      initialFarDistancePoints,
+      currentBigMovePoints,
+      cumulativeBigMovePoints,
+      effectiveFarDistancePoints,
+      farDistanceMode,
+      farOpenPrice,
+      currentClosePrice,
       farLotBefore,
       bigLot,
       smallLot,
@@ -424,7 +455,14 @@ void LogCycleMathDetailed(
       netProfitRealized,
       costsRealized,
       totalReserveBefore,
-      reserveUsedForFinalClose
+      reserveUsedForFinalClose,
+      initialFarDistancePoints,
+      currentBigMovePoints,
+      cumulativeBigMovePoints,
+      effectiveFarDistancePoints,
+      farDistanceMode,
+      farOpenPrice,
+      currentClosePrice
    );
 }
 

@@ -149,3 +149,48 @@ Small-сценарий больше не исполняется сразу пр�
 6. Для каждого варианта записать: `CLOSED_PROFIT` или `STOP_MAX_LEVELS`, Net Profit, Max Drawdown Equity, уровень `FinalCloseAllowed`, `TotalReserve` и `FarRemainLoss` перед финальным закрытием.
 7. PASS: `STATE_CLOSED_PROFIT`, `FinalCloseAllowed=YES`, нет `STOP_MAX_LEVELS`, нет end-of-test по позициям советника, `OnTester > 0`.
 8. FAIL: `STATE_UNCLOSED_CYCLE`, `STOP_MAX_LEVELS`, `OnTester=-1`, end-of-test, `FinalCloseAllowed` ни разу не стал `YES`.
+
+## Python Candidate 50/50 MT5 Confirmation
+
+Run the MT5 confirmation plan in `ai_tests/reports/mt5_confirmation_plan.md`.
+
+Required comparisons:
+
+1. Current 90/10 baseline: expected `STOP_MAX_LEVELS` or FAIL on the known bad sequence.
+2. Python candidate 50/50: expected by Python model to reach `STATE_CLOSED_PROFIT`; must be confirmed in MT5 with real costs.
+3. Neighbor 60/40: compare against 50/50 by `OnTester`, final state, `TotalReserve`, `FarRemainLoss`, and drawdown.
+
+Do not mark the strategy as confirmed until MT5 Strategy Tester verifies `STATE_CLOSED_PROFIT`, no open positions at the end, and `OnTester > 0`.
+
+## Far Distance Mode Tests
+
+Before accepting any parameter variant, verify that Level 1 includes the initial 100 points:
+
+```text
+InitialTriggerPoints = 100
+BigMoveLevel1 = 100
+EffectiveFarDistancePoints = 200
+```
+
+Run these modes for 90/10, 60/40 and 50/50:
+
+```text
+FIXED_200
+INITIAL_PLUS_CURRENT
+INITIAL_PLUS_CUMULATIVE
+REAL_PRICE_DISTANCE
+```
+
+Required CYCLE_MATH fields in Experts journal and `MinusLock_CycleMath.csv`:
+
+```text
+InitialFarDistancePoints
+CurrentBigMovePoints
+CumulativeBigMovePoints
+EffectiveFarDistancePoints
+FarDistanceMode
+FarOpenPrice
+CurrentClosePrice
+```
+
+After `Small-at-Far`, confirm that the new Far starts from current price and does not inherit the old initial 100 points.

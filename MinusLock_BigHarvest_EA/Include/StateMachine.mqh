@@ -51,6 +51,11 @@ void ResetRecoveryContext()
    Ctx.reverseLimitReached = false;
    Ctx.reserveProjectionOk = true;
    Ctx.smallGeometryValid = true;
+   Ctx.initialFarDistancePoints = 0.0;
+   Ctx.currentBigMovePoints = 0.0;
+   Ctx.cumulativeBigMovePoints = 0.0;
+   Ctx.effectiveFarDistancePoints = 0.0;
+   Ctx.currentClosePrice = 0.0;
 }
 
 void UpdateFarFromSnapshot(PositionSnapshot &far)
@@ -275,6 +280,8 @@ void CheckInitialPlusClose()
       Ctx.initialProfitIgnored = true;
       Ctx.totalReserve = 0.0;
       Ctx.cycleFinalPL = 0.0;
+      Ctx.initialFarDistancePoints = InitialTriggerPoints;
+      Ctx.cumulativeBigMovePoints = 0.0;
 
       LogInfo(StringFormat("CLOSE INITIAL PROFIT POSITION direction=BUY InitialProfit=%.2f InitialProfitIgnored=%s ReserveBeforeRecovery=%.2f RecoveryReserveAfterInitialClose=%.2f", initialBuy.profitMoney, Ctx.initialProfitIgnored ? "true" : "false", 0.0, Ctx.totalReserve));
       LogInfo(StringFormat("Initial BUY plus closed at %.1f points and ignored. Far is SELL %.2f", buyProfitPoints, Ctx.farLot));
@@ -295,6 +302,8 @@ void CheckInitialPlusClose()
       Ctx.initialProfitIgnored = true;
       Ctx.totalReserve = 0.0;
       Ctx.cycleFinalPL = 0.0;
+      Ctx.initialFarDistancePoints = InitialTriggerPoints;
+      Ctx.cumulativeBigMovePoints = 0.0;
 
       LogInfo(StringFormat("CLOSE INITIAL PROFIT POSITION direction=SELL InitialProfit=%.2f InitialProfitIgnored=%s ReserveBeforeRecovery=%.2f RecoveryReserveAfterInitialClose=%.2f", initialSell.profitMoney, Ctx.initialProfitIgnored ? "true" : "false", 0.0, Ctx.totalReserve));
       LogInfo(StringFormat("Initial SELL plus closed at %.1f points and ignored. Far is BUY %.2f", sellProfitPoints, Ctx.farLot));
@@ -320,9 +329,9 @@ void OpenBigSmall()
       return;
    }
 
-   if(Ctx.harvestLevel >= MaxHarvestLevels)
+   if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
    {
-      SetState(STATE_STOP, "MaxHarvestLevels reached before FinalCloseAllowed");
+      SetState(STATE_STOP, "WorkMaxHarvestLevels reached before FinalCloseAllowed");
       return;
    }
 
@@ -434,6 +443,16 @@ void ProcessBigHarvest()
 
    double farStartLot = Ctx.farLot;
    int bigMovePoints = GetBigMovePoints(Ctx.harvestLevel);
+   Ctx.currentBigMovePoints = bigMovePoints;
+   Ctx.cumulativeBigMovePoints += bigMovePoints;
+   Ctx.currentClosePrice = ExitPriceForDirection(Ctx.bigDirection);
+   Ctx.effectiveFarDistancePoints = CalcEffectiveFarDistancePoints(
+      Ctx.initialFarDistancePoints,
+      Ctx.currentBigMovePoints,
+      Ctx.cumulativeBigMovePoints,
+      Ctx.currentClosePrice,
+      Ctx.farOpenPrice
+   );
    double profitBig = CalcProfit(Ctx.bigLot, bigMovePoints);
    double lossSmall = CalcProfit(Ctx.smallLot, bigMovePoints);
    double costs = 0.0;
@@ -441,7 +460,7 @@ void ProcessBigHarvest()
    double netProfit = profitBig - lossSmall - costs;
    double closeFarBudget = CalcCloseFarBudget(netProfit);
    double reserveAdd = CalcReserveAdd(netProfit);
-   double closeFarLotRaw = CalcCloseFarLotRaw(closeFarBudget, FarDistancePoints);
+   double closeFarLotRaw = CalcCloseFarLotRaw(closeFarBudget, Ctx.effectiveFarDistancePoints);
    double closeFarLotRounded = CalcCloseFarLotRounded(closeFarLotRaw, Ctx.farLot);
    double closeFarLotFinal = closeFarLotRounded;
 
@@ -468,10 +487,10 @@ void ProcessBigHarvest()
 
    Ctx.totalReserve += reserveAdd;
    Ctx.farLot = NormalizeLotDown(MathMax(0.0, Ctx.farLot - closeFarLotFinal));
-   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, FarDistancePoints);
-   Ctx.cycleFinalPL = Ctx.totalReserve - CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
+   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   Ctx.cycleFinalPL = Ctx.totalReserve - CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
 
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
 
    LogHarvestLevel(
       Ctx.harvestLevel,
@@ -547,7 +566,7 @@ void ProcessBigHarvest()
       return;
    }
 
-   if(Ctx.harvestLevel >= MaxHarvestLevels)
+   if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
    {
       LogCycleMathDetailed(
          Ctx.harvestLevel,
@@ -559,7 +578,7 @@ void ProcessBigHarvest()
          0.0,
          0.0,
          Ctx.totalReserve,
-         CalcFarRemainLoss(Ctx.farLot, FarDistancePoints),
+         CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints),
          false,
          STATE_STOP_MAX_LEVELS,
          0.0,
@@ -574,19 +593,19 @@ void ProcessBigHarvest()
          Ctx.reverseStrength,
          Ctx.projectedReserveCoverage,
          "STOP_MAX_LEVELS_CLOSE_RESIDUAL_FAR",
-         "MaxHarvestLevels reached after Big-harvest",
+         "WorkMaxHarvestLevels reached after Big-harvest",
          0.0,
          0.0,
          0.0,
          Ctx.totalReserve,
          0.0
       );
-      LogError(StringFormat("STOP_MAX_LEVELS: MaxHarvestLevels=%d reached after Big-harvest. OpenFarLot=%.2f FarTicket=%I64u FinalCloseAllowed=NO State=%s", MaxHarvestLevels, Ctx.farLot, Ctx.farTicket, StateToString(State)));
+      LogError(StringFormat("STOP_MAX_LEVELS: WorkMaxHarvestLevels=%d reached after Big-harvest. OpenFarLot=%.2f FarTicket=%I64u FinalCloseAllowed=NO State=%s", WorkMaxHarvestLevels, Ctx.farLot, Ctx.farTicket, StateToString(State)));
       if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
       {
          if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
          {
-            SetState(STATE_UNCLOSED_CYCLE, "MaxHarvestLevels reached; failed to close Far with STOP_MAX_LEVELS");
+            SetState(STATE_UNCLOSED_CYCLE, "WorkMaxHarvestLevels reached; failed to close Far with STOP_MAX_LEVELS");
             return;
          }
       }
@@ -683,8 +702,8 @@ void ProcessSmallAtFarTouch()
    double smallMovePoints = CalcMovePointsBetween(smallOpenPrice, currentPrice);
    double smallPL = CalcSignedPositionPL(smallDirection, smallLot, smallOpenPrice, currentPrice);
    double oldFarPL = CalcSignedPositionPL(oldFarDirection, oldFarLot, oldFarOpenPrice, currentPrice);
-   double closeBigLotRaw = bigLot * CloseBigOnSmall;
-   double closeBigLotRounded = NormalizeLotDown(closeBigLotRaw);
+   double closeBigLotRaw = bigLot * WorkCloseBigOnSmall;
+   double closeBigLotRounded = NormalizeLotNearest(closeBigLotRaw);
    double remainBigLot = NormalizeLotDown(MathMax(0.0, bigLot - closeBigLotRounded));
    double closedBigPL = CalcSignedPositionPL(bigDirection, closeBigLotRounded, bigOpenPrice, currentPrice);
    double costs = 0.0;
@@ -696,7 +715,7 @@ void ProcessSmallAtFarTouch()
    double newBigLot = CalcBigLot(newFarLot);
    double newSmallLot = CalcSmallLot(newBigLot);
    double expectedNextReserve = CalcExpectedNextReserve(newBigLot, newSmallLot, Ctx.harvestLevel + 1);
-   double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, FarDistancePoints);
+   double expectedNextFarLoss = 0.0;
    double projectedReserveCoverage = 0.0;
    double reverseStrength = 0.0;
    double smallReverseNet = 0.0;
@@ -738,7 +757,7 @@ void ProcessSmallAtFarTouch()
          false, Ctx.totalReserve - expectedNextFarLoss, actionAfterValidation, reverseStrength,
          ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
          geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-         MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
+         WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
       );
       LogCycleMathDetailed(
          Ctx.harvestLevel,
@@ -786,7 +805,7 @@ void ProcessSmallAtFarTouch()
          false, Ctx.totalReserve - expectedNextFarLoss, actionAfterValidation, reverseStrength,
          ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
          geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-         MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
+         WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
       );
       LogCycleMathDetailed(
          Ctx.harvestLevel,
@@ -846,14 +865,19 @@ void ProcessSmallAtFarTouch()
    }
 
    Ctx.reverseCycleCount += 1;
-   Ctx.reverseLimitReached = Ctx.reverseCycleCount > MaxReverseCycles;
+   Ctx.reverseLimitReached = Ctx.reverseCycleCount > WorkMaxReverseCycles;
    if(Ctx.reverseLimitReached && StopOnReverseLimit)
       actionAfterValidation = "STOP_REVERSE_LIMIT";
 
    Ctx.farTicket = bigTicket;
    Ctx.farLot = newFarLot;
-   Ctx.farOpenPrice = bigOpenPrice;
+   Ctx.farOpenPrice = currentPrice;
    Ctx.farDirection = newFarDirection;
+   Ctx.initialFarDistancePoints = 0.0;
+   Ctx.currentBigMovePoints = 0.0;
+   Ctx.cumulativeBigMovePoints = 0.0;
+   Ctx.effectiveFarDistancePoints = 0.0;
+   Ctx.currentClosePrice = currentPrice;
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
    Ctx.bigLot = 0.0;
@@ -864,13 +888,13 @@ void ProcessSmallAtFarTouch()
    Ctx.smallDirection = DIR_NONE;
    Ctx.dualTailDetected = false;
 
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
-   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, FarDistancePoints);
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
 
    if(Ctx.finalCloseAllowed)
       actionAfterValidation = "FINAL_CLOSE_NEW_FAR";
-   else if(Ctx.harvestLevel >= MaxHarvestLevels)
+   else if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
       actionAfterValidation = "STOP_MAX_LEVELS";
    else if(Ctx.reverseLimitReached && StopOnReverseLimit)
       actionAfterValidation = "STOP_REVERSE_LIMIT";
@@ -889,7 +913,7 @@ void ProcessSmallAtFarTouch()
       Ctx.finalCloseAllowed, Ctx.cycleFinalPL, actionAfterValidation, reverseStrength,
       ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
       geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-      MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
+      WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
    );
 
    LogCycleMathDetailed(
@@ -927,11 +951,11 @@ void ProcessSmallAtFarTouch()
 
    if(Ctx.reverseLimitReached && StopOnReverseLimit)
    {
-      SetState(STATE_REVERSE_LIMIT, "reverseCycleCount > MaxReverseCycles");
+      SetState(STATE_REVERSE_LIMIT, "reverseCycleCount > WorkMaxReverseCycles");
       return;
    }
 
-   if(!Ctx.finalCloseAllowed && Ctx.harvestLevel >= MaxHarvestLevels)
+   if(!Ctx.finalCloseAllowed && Ctx.harvestLevel >= WorkMaxHarvestLevels)
    {
       LogCycleMathDetailed(
          Ctx.harvestLevel,
@@ -943,7 +967,7 @@ void ProcessSmallAtFarTouch()
          0.0,
          0.0,
          Ctx.totalReserve,
-         CalcFarRemainLoss(Ctx.farLot, FarDistancePoints),
+         CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints),
          false,
          STATE_STOP_MAX_LEVELS,
          0.0,
@@ -958,19 +982,19 @@ void ProcessSmallAtFarTouch()
          Ctx.reverseStrength,
          Ctx.projectedReserveCoverage,
          "STOP_MAX_LEVELS_CLOSE_NEW_FAR",
-         "MaxHarvestLevels reached after Small-at-Far",
+         "WorkMaxHarvestLevels reached after Small-at-Far",
          0.0,
          0.0,
          0.0,
          Ctx.totalReserve,
          0.0
       );
-      LogError(StringFormat("STOP_MAX_LEVELS: MaxHarvestLevels=%d reached after Small-at-Far. NewFarLot=%.2f NewFarTicket=%I64u FinalCloseAllowed=NO CycleFinalPL=%.2f", MaxHarvestLevels, Ctx.farLot, Ctx.farTicket, Ctx.cycleFinalPL));
+      LogError(StringFormat("STOP_MAX_LEVELS: WorkMaxHarvestLevels=%d reached after Small-at-Far. NewFarLot=%.2f NewFarTicket=%I64u FinalCloseAllowed=NO CycleFinalPL=%.2f", WorkMaxHarvestLevels, Ctx.farLot, Ctx.farTicket, Ctx.cycleFinalPL));
       if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
       {
          if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
          {
-            SetState(STATE_UNCLOSED_CYCLE, "MaxHarvestLevels reached after Small-at-Far; failed to close NewFar with STOP_MAX_LEVELS");
+            SetState(STATE_UNCLOSED_CYCLE, "WorkMaxHarvestLevels reached after Small-at-Far; failed to close NewFar with STOP_MAX_LEVELS");
             return;
          }
       }
@@ -1019,7 +1043,7 @@ void ProcessFinalClose()
       return;
    }
 
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, FarDistancePoints);
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
 
    LogCycleMathDetailed(
