@@ -308,3 +308,46 @@ STOP_MAX_LEVELS или STATE_UNCLOSED_CYCLE или OnTester=-1 = FAIL
 ```
 
 `STOP_MAX_LEVELS` означает, что система не смогла накопить достаточный `TotalReserve` для покрытия `FarRemainLoss`. Для сравнения агрессивности настроек нужно прогнать варианты `CloseFarShare/ReserveShare`: `0.90/0.10`, `0.70/0.30`, `0.50/0.50`, затем сравнить `TotalReserve`, `FarRemainLoss`, уровень `FinalCloseAllowed` и итоговый Net Profit.
+
+## Python Candidate 50/50
+
+The Python simulation harness found a candidate for MT5 confirmation:
+
+```text
+BigRatio = 1.30
+SmallRatio = 0.36
+CloseBigOnSmall = 0.35
+RemainBigOnSmall = 0.65
+CloseFarShare = 0.50
+ReserveShare = 0.50
+MaxHarvestLevels = 5
+MaxReverseCycles = 10
+```
+
+This is not a final profitable-strategy claim. It is a Python-model candidate that must be confirmed in MT5 Strategy Tester.
+
+When `UseRecommended5050Preset = true`, the EA uses internal working parameters:
+
+```text
+WorkSmallRatio
+WorkCloseBigOnSmall
+WorkRemainBigOnSmall
+WorkCloseFarShare
+WorkReserveShare
+WorkMaxHarvestLevels
+WorkMaxReverseCycles
+```
+
+All recovery calculations must use these `Work...` values so that the 50/50 preset and normal input mode share the same formulas.
+
+Small-at-Far geometry for Far=1.00 with the 50/50 candidate:
+
+```text
+Big = 1.30
+Small = 1.30 × 0.36 = 0.47
+CloseBig = 1.30 × 0.35 = 0.46
+NewFar = 1.30 - 0.46 = 0.84
+NewBig = 0.84 × 1.30 = 1.09
+NewSmall = 1.09 × 0.36 = 0.39
+ReverseStrength = (1.09 - 0.84) / 0.84 ≈ 0.2976 = STRONG
+```

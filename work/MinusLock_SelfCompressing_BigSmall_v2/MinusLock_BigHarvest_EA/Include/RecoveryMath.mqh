@@ -30,7 +30,7 @@ double CalcBigLot(double farLot)
 
 double CalcSmallLot(double bigLot)
 {
-   return NormalizeLotNearest(bigLot * SmallRatio);
+   return NormalizeLotNearest(bigLot * WorkSmallRatio);
 }
 
 double CalcProfit(double lot, int points)
@@ -43,7 +43,7 @@ double CalcCloseFarBudget(double netProfit)
    if(netProfit <= 0.0)
       return 0.0;
 
-   return netProfit * CloseFarShare;
+   return netProfit * WorkCloseFarShare;
 }
 
 double CalcReserveAdd(double netProfit)
@@ -51,7 +51,7 @@ double CalcReserveAdd(double netProfit)
    if(netProfit <= 0.0)
       return 0.0;
 
-   return netProfit * ReserveShare;
+   return netProfit * WorkReserveShare;
 }
 
 double CalcCloseFarLotRaw(double closeFarBudget, int farDistancePoints)
@@ -222,12 +222,12 @@ bool CalcFinalCloseAllowed(double totalReserve, double farRemainLot, int farDist
 
 double CalcCloseBigLotOnSmall(double bigLot)
 {
-   return NormalizeLotDown(bigLot * CloseBigOnSmall);
+   return NormalizeLotNearest(bigLot * WorkCloseBigOnSmall);
 }
 
 double CalcRemainBigLotOnSmall(double bigLot)
 {
-   return NormalizeLotDown(bigLot * RemainBigOnSmall);
+   return NormalizeLotDown(bigLot * WorkRemainBigOnSmall);
 }
 
 #endif // __BH_RECOVERYMATH_MQH__

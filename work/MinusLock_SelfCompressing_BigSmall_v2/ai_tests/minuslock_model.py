@@ -44,6 +44,20 @@ class ModelConfig:
     def with_params(self, **kwargs) -> "ModelConfig":
         return replace(self, **kwargs)
 
+
+def recommended_5050_config(**overrides) -> ModelConfig:
+    params = dict(
+        small_ratio=0.36,
+        close_big_on_small=0.35,
+        remain_big_on_small=0.65,
+        close_far_share=0.50,
+        reserve_share=0.50,
+        max_harvest_levels=5,
+        max_reverse_cycles=10,
+    )
+    params.update(overrides)
+    return ModelConfig(**params)
+
 @dataclass
 class SimulationResult:
     state: str
@@ -172,7 +186,7 @@ def simulate_sequence(cfg: ModelConfig, sequence: Sequence[str], initial_directi
                 return SimulationResult(state, cycle_final_pl, reserve, far_lot, max_far, max_open_lots, max_margin_estimate, big_count, small_count, level, reason, rows, initial_ignored_profit)
         else:
             small_count += 1
-            close_big = floor_lot(big_lot * cfg.close_big_on_small, cfg.lot_step)
+            close_big = round_lot_nearest(big_lot * cfg.close_big_on_small, cfg.lot_step)
             new_far = floor_lot(max(0.0, big_lot - close_big), cfg.lot_step)
             new_big = round_lot_nearest(new_far * cfg.big_ratio, cfg.lot_step)
             new_small = round_lot_nearest(new_big * cfg.small_ratio, cfg.lot_step)

@@ -15,6 +15,7 @@
 
 int OnInit()
 {
+   ConfigureWorkingParameters();
    ResetRecoveryContext();
    State = STATE_IDLE;
 
@@ -23,6 +24,7 @@ int OnInit()
    Print("UseMarketOrders=", UseMarketOrders);
    Print("StartLot=", StartLot);
    Print("MagicNumber=", MagicNumber);
+   Print("UseRecommended5050Preset=", UseRecommended5050Preset);
    Print("CurrentState=", StateToString(State));
    LogInfo("MinusLock BigHarvest EA initialized");
    LogInfo("Initial lock profit is ignored by design: InitialProfitIgnored must become true after the first plus close");

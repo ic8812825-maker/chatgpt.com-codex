@@ -320,9 +320,9 @@ void OpenBigSmall()
       return;
    }
 
-   if(Ctx.harvestLevel >= MaxHarvestLevels)
+   if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
    {
-      SetState(STATE_STOP, "MaxHarvestLevels reached before FinalCloseAllowed");
+      SetState(STATE_STOP, "WorkMaxHarvestLevels reached before FinalCloseAllowed");
       return;
    }
 
@@ -547,7 +547,7 @@ void ProcessBigHarvest()
       return;
    }
 
-   if(Ctx.harvestLevel >= MaxHarvestLevels)
+   if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
    {
       LogCycleMathDetailed(
          Ctx.harvestLevel,
@@ -574,19 +574,19 @@ void ProcessBigHarvest()
          Ctx.reverseStrength,
          Ctx.projectedReserveCoverage,
          "STOP_MAX_LEVELS_CLOSE_RESIDUAL_FAR",
-         "MaxHarvestLevels reached after Big-harvest",
+         "WorkMaxHarvestLevels reached after Big-harvest",
          0.0,
          0.0,
          0.0,
          Ctx.totalReserve,
          0.0
       );
-      LogError(StringFormat("STOP_MAX_LEVELS: MaxHarvestLevels=%d reached after Big-harvest. OpenFarLot=%.2f FarTicket=%I64u FinalCloseAllowed=NO State=%s", MaxHarvestLevels, Ctx.farLot, Ctx.farTicket, StateToString(State)));
+      LogError(StringFormat("STOP_MAX_LEVELS: WorkMaxHarvestLevels=%d reached after Big-harvest. OpenFarLot=%.2f FarTicket=%I64u FinalCloseAllowed=NO State=%s", WorkMaxHarvestLevels, Ctx.farLot, Ctx.farTicket, StateToString(State)));
       if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
       {
          if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
          {
-            SetState(STATE_UNCLOSED_CYCLE, "MaxHarvestLevels reached; failed to close Far with STOP_MAX_LEVELS");
+            SetState(STATE_UNCLOSED_CYCLE, "WorkMaxHarvestLevels reached; failed to close Far with STOP_MAX_LEVELS");
             return;
          }
       }
@@ -683,8 +683,8 @@ void ProcessSmallAtFarTouch()
    double smallMovePoints = CalcMovePointsBetween(smallOpenPrice, currentPrice);
    double smallPL = CalcSignedPositionPL(smallDirection, smallLot, smallOpenPrice, currentPrice);
    double oldFarPL = CalcSignedPositionPL(oldFarDirection, oldFarLot, oldFarOpenPrice, currentPrice);
-   double closeBigLotRaw = bigLot * CloseBigOnSmall;
-   double closeBigLotRounded = NormalizeLotDown(closeBigLotRaw);
+   double closeBigLotRaw = bigLot * WorkCloseBigOnSmall;
+   double closeBigLotRounded = NormalizeLotNearest(closeBigLotRaw);
    double remainBigLot = NormalizeLotDown(MathMax(0.0, bigLot - closeBigLotRounded));
    double closedBigPL = CalcSignedPositionPL(bigDirection, closeBigLotRounded, bigOpenPrice, currentPrice);
    double costs = 0.0;
@@ -738,7 +738,7 @@ void ProcessSmallAtFarTouch()
          false, Ctx.totalReserve - expectedNextFarLoss, actionAfterValidation, reverseStrength,
          ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
          geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-         MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
+         WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
       );
       LogCycleMathDetailed(
          Ctx.harvestLevel,
@@ -786,7 +786,7 @@ void ProcessSmallAtFarTouch()
          false, Ctx.totalReserve - expectedNextFarLoss, actionAfterValidation, reverseStrength,
          ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
          geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-         MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
+         WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
       );
       LogCycleMathDetailed(
          Ctx.harvestLevel,
@@ -846,7 +846,7 @@ void ProcessSmallAtFarTouch()
    }
 
    Ctx.reverseCycleCount += 1;
-   Ctx.reverseLimitReached = Ctx.reverseCycleCount > MaxReverseCycles;
+   Ctx.reverseLimitReached = Ctx.reverseCycleCount > WorkMaxReverseCycles;
    if(Ctx.reverseLimitReached && StopOnReverseLimit)
       actionAfterValidation = "STOP_REVERSE_LIMIT";
 
@@ -870,7 +870,7 @@ void ProcessSmallAtFarTouch()
 
    if(Ctx.finalCloseAllowed)
       actionAfterValidation = "FINAL_CLOSE_NEW_FAR";
-   else if(Ctx.harvestLevel >= MaxHarvestLevels)
+   else if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
       actionAfterValidation = "STOP_MAX_LEVELS";
    else if(Ctx.reverseLimitReached && StopOnReverseLimit)
       actionAfterValidation = "STOP_REVERSE_LIMIT";
@@ -889,7 +889,7 @@ void ProcessSmallAtFarTouch()
       Ctx.finalCloseAllowed, Ctx.cycleFinalPL, actionAfterValidation, reverseStrength,
       ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
       geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-      MaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
+      WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
    );
 
    LogCycleMathDetailed(
@@ -927,11 +927,11 @@ void ProcessSmallAtFarTouch()
 
    if(Ctx.reverseLimitReached && StopOnReverseLimit)
    {
-      SetState(STATE_REVERSE_LIMIT, "reverseCycleCount > MaxReverseCycles");
+      SetState(STATE_REVERSE_LIMIT, "reverseCycleCount > WorkMaxReverseCycles");
       return;
    }
 
-   if(!Ctx.finalCloseAllowed && Ctx.harvestLevel >= MaxHarvestLevels)
+   if(!Ctx.finalCloseAllowed && Ctx.harvestLevel >= WorkMaxHarvestLevels)
    {
       LogCycleMathDetailed(
          Ctx.harvestLevel,
@@ -958,19 +958,19 @@ void ProcessSmallAtFarTouch()
          Ctx.reverseStrength,
          Ctx.projectedReserveCoverage,
          "STOP_MAX_LEVELS_CLOSE_NEW_FAR",
-         "MaxHarvestLevels reached after Small-at-Far",
+         "WorkMaxHarvestLevels reached after Small-at-Far",
          0.0,
          0.0,
          0.0,
          Ctx.totalReserve,
          0.0
       );
-      LogError(StringFormat("STOP_MAX_LEVELS: MaxHarvestLevels=%d reached after Small-at-Far. NewFarLot=%.2f NewFarTicket=%I64u FinalCloseAllowed=NO CycleFinalPL=%.2f", MaxHarvestLevels, Ctx.farLot, Ctx.farTicket, Ctx.cycleFinalPL));
+      LogError(StringFormat("STOP_MAX_LEVELS: WorkMaxHarvestLevels=%d reached after Small-at-Far. NewFarLot=%.2f NewFarTicket=%I64u FinalCloseAllowed=NO CycleFinalPL=%.2f", WorkMaxHarvestLevels, Ctx.farLot, Ctx.farTicket, Ctx.cycleFinalPL));
       if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
       {
          if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
          {
-            SetState(STATE_UNCLOSED_CYCLE, "MaxHarvestLevels reached after Small-at-Far; failed to close NewFar with STOP_MAX_LEVELS");
+            SetState(STATE_UNCLOSED_CYCLE, "WorkMaxHarvestLevels reached after Small-at-Far; failed to close NewFar with STOP_MAX_LEVELS");
             return;
          }
       }

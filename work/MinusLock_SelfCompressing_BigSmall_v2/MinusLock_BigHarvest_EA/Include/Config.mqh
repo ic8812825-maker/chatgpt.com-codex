@@ -8,6 +8,7 @@ input double CloseBigOnSmall       = 0.30;
 input double RemainBigOnSmall      = 0.70;
 input double CloseFarShare         = 0.90;
 input double ReserveShare          = 0.10;
+input bool   UseRecommended5050Preset = false;
 
 input int    InitialTriggerPoints  = 100;
 input int    BigMoveLevel1         = 100;
@@ -34,5 +35,44 @@ input ulong  MagicNumber           = 20260609;
 input bool   AllowRealTrading      = false;
 input bool   UseMarketOrders       = true;
 input bool   EnableCycleMathCsv     = true;
+
+double WorkSmallRatio;
+double WorkCloseBigOnSmall;
+double WorkRemainBigOnSmall;
+double WorkCloseFarShare;
+double WorkReserveShare;
+int    WorkMaxHarvestLevels;
+int    WorkMaxReverseCycles;
+
+void ConfigureWorkingParameters()
+{
+   WorkSmallRatio = SmallRatio;
+   WorkCloseBigOnSmall = CloseBigOnSmall;
+   WorkRemainBigOnSmall = RemainBigOnSmall;
+   WorkCloseFarShare = CloseFarShare;
+   WorkReserveShare = ReserveShare;
+   WorkMaxHarvestLevels = MaxHarvestLevels;
+   WorkMaxReverseCycles = MaxReverseCycles;
+
+   if(UseRecommended5050Preset)
+   {
+      WorkSmallRatio = 0.36;
+      WorkCloseBigOnSmall = 0.35;
+      WorkRemainBigOnSmall = 0.65;
+      WorkCloseFarShare = 0.50;
+      WorkReserveShare = 0.50;
+      WorkMaxHarvestLevels = 5;
+      WorkMaxReverseCycles = 10;
+   }
+
+   Print("WORKING_PARAMETERS | UseRecommended5050Preset=", UseRecommended5050Preset,
+         " WorkSmallRatio=", DoubleToString(WorkSmallRatio, 2),
+         " WorkCloseBigOnSmall=", DoubleToString(WorkCloseBigOnSmall, 2),
+         " WorkRemainBigOnSmall=", DoubleToString(WorkRemainBigOnSmall, 2),
+         " WorkCloseFarShare=", DoubleToString(WorkCloseFarShare, 2),
+         " WorkReserveShare=", DoubleToString(WorkReserveShare, 2),
+         " WorkMaxHarvestLevels=", WorkMaxHarvestLevels,
+         " WorkMaxReverseCycles=", WorkMaxReverseCycles);
+}
 
 #endif // __BH_CONFIG_MQH__

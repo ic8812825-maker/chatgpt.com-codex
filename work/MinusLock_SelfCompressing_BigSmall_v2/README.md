@@ -186,3 +186,20 @@ python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/ai_tests/test_scenar
 ```
 
 Важно: Python-модель показывает лучший кандидат. Финальное подтверждение обязательно через MT5 Strategy Tester.
+
+## Python Candidate 50/50
+
+Python simulation harness currently identifies the following MT5-confirmation candidate, not a final strategy setting:
+
+```text
+BigRatio = 1.30
+SmallRatio = 0.36
+CloseBigOnSmall = 0.35
+RemainBigOnSmall = 0.65
+CloseFarShare = 0.50
+ReserveShare = 0.50
+MaxHarvestLevels = 5
+MaxReverseCycles = 10
+```
+
+The EA exposes `UseRecommended5050Preset`. When enabled, internal `Work...` parameters use the candidate values while the original inputs remain visible for comparison. Final confirmation must be done in MT5 Strategy Tester using `ai_tests/reports/mt5_confirmation_plan.md`.

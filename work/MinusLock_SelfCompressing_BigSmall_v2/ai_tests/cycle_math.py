@@ -55,7 +55,7 @@ class CycleMathRow:
 def write_cycle_csv(rows: Iterable[CycleMathRow], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=CYCLE_COLUMNS)
+        writer = csv.DictWriter(f, fieldnames=CYCLE_COLUMNS, lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow(row.to_dict())

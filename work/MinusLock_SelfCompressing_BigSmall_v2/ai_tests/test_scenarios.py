@@ -78,3 +78,57 @@ def test_small_at_far_flow_records_rows():
     assert result.rows
     assert result.rows[0].Scenario == SMALL
     assert result.rows[0].FarRemainLot < result.rows[0].FarLotBefore
+
+
+def test_recommended_5050_preset_closes_profit():
+    from market_replay import SCENARIOS
+    from minuslock_model import recommended_5050_config
+    result = simulate_sequence(recommended_5050_config(), SCENARIOS["REAL_REPORT_SEQUENCE"])
+    assert result.state == "STATE_CLOSED_PROFIT"
+    assert result.cycle_final_pl > 0
+
+
+def test_9010_fails_on_real_report_sequence():
+    from market_replay import SCENARIOS
+    cfg = ModelConfig(max_harvest_levels=5, max_reverse_cycles=10)
+    result = simulate_sequence(cfg, SCENARIOS["REAL_REPORT_SEQUENCE"])
+    assert result.state == "STATE_UNCLOSED_CYCLE"
+    assert "STOP_MAX_LEVELS" in result.reason
+
+
+def test_5050_reverse_geometry_valid():
+    from minuslock_model import recommended_5050_config
+    cfg = recommended_5050_config()
+    old_far = 1.00
+    big = round_lot_nearest(old_far * cfg.big_ratio, cfg.lot_step)
+    small = round_lot_nearest(big * cfg.small_ratio, cfg.lot_step)
+    close_big = round_lot_nearest(big * cfg.close_big_on_small, cfg.lot_step)
+    new_far = floor_lot(big - close_big, cfg.lot_step)
+    new_big = round_lot_nearest(new_far * cfg.big_ratio, cfg.lot_step)
+    new_small = round_lot_nearest(new_big * cfg.small_ratio, cfg.lot_step)
+    valid, reason, strength = validate_reverse_geometry(cfg, old_far, new_far, new_big, new_small)
+    assert (big, small, close_big, new_far, new_big, new_small) == (1.30, 0.47, 0.46, 0.84, 1.09, 0.39)
+    assert valid, reason
+    assert new_far < old_far
+    assert new_big > new_far
+    assert new_small < new_big
+    assert strength > cfg.strong_reverse_strength
+
+
+def test_5050_small_at_far_not_broken():
+    from minuslock_model import recommended_5050_config
+    cfg = recommended_5050_config()
+    result = simulate_sequence(cfg, [SMALL, SMALL, SMALL])
+    first = result.rows[0]
+    assert first.State in {"STATE_SMALL_SCENARIO", "STATE_CLOSED_PROFIT"}
+    assert first.FarRemainLot < first.FarLotBefore
+    assert first.ReverseStrength >= cfg.min_reverse_strength
+    assert first.NetProfit > 0
+
+
+def test_5050_final_close_allowed():
+    from market_replay import SCENARIOS
+    from minuslock_model import recommended_5050_config
+    result = simulate_sequence(recommended_5050_config(), SCENARIOS["REAL_REPORT_SEQUENCE"])
+    assert result.rows[-1].FinalCloseAllowed
+    assert result.state == "STATE_CLOSED_PROFIT"
