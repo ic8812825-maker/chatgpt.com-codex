@@ -194,3 +194,13 @@ CurrentClosePrice
 ```
 
 After `Small-at-Far`, confirm that the new Far starts from current price and does not inherit the old initial 100 points.
+
+
+## Real Recovery P/L Validation Tests
+
+1. Run the known 70/30 case: `CloseFarShare=0.70`, `ReserveShare=0.30`, `FarDistanceMode=REAL_PRICE_DISTANCE`, `AllowRealTrading=true`.
+2. If the MT5 report balance is negative, expected `OnTester=-1` even when theoretical `CycleFinalPL` is positive.
+3. Confirm `REAL_CYCLE_MATH |` appears in Experts journal.
+4. Confirm `MinusLock_CycleMath.csv` contains: `InitialIgnoredProfit`, `CycleStartBalance`, `CurrentBalance`, `RealRecoveryPL`, `RealClosedProfit`, `RealClosedLoss`, `RealCommission`, `RealSwap`, `RealCosts`, `TheoreticalCyclePL`, `LastSystemCloseComment`, `PassByRealPL`.
+5. Confirm the first profitable initial lock leg is excluded from `RealRecoveryPL` because `CycleStartBalance` is recorded after that close.
+6. PASS requires `STATE_CLOSED_PROFIT`, `RealRecoveryPL > 0`, no managed open positions, no `STOP_MAX_LEVELS`, and final system close comment `FINAL_CLOSE` or `CLOSED_PROFIT`.

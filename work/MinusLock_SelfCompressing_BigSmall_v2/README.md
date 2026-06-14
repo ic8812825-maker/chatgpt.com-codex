@@ -218,3 +218,8 @@ REAL_PRICE_DISTANCE
 ```
 
 The Python report `ai_tests/reports/far_distance_mode_comparison.md` confirms Level 1 uses `EffectiveFarDistance=200` for `InitialTriggerPoints=100` and `BigMoveLevel1=100`. For real MT5 runs, `REAL_PRICE_DISTANCE` is the recommended confirmation mode because it uses actual price distance from `FarOpenPrice`.
+
+
+## Real Recovery P/L Validation
+
+The MT5-ready EA gates `OnTester()` by real recovery profit, not theoretical `CycleFinalPL`. The first lock profit is stored as `InitialIgnoredProfit` and excluded by recording `CycleStartBalance` after the first plus closes. `REAL_CYCLE_MATH` and `MinusLock_CycleMath.csv` expose `RealRecoveryPL`, real closed profit/loss, commission, swap, costs and `PassByRealPL`. If real recovery is negative, `OnTester()` returns `-1` even when the theoretical cycle estimate is positive.

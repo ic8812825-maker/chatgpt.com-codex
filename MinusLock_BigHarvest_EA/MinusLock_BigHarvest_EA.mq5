@@ -47,20 +47,27 @@ void OnDeinit(const int reason)
 
 double OnTester()
 {
+   RecalculateRealCycleStatsFromHistory();
+
    int managedPositions = CountManagedOpenPositions();
-   if(managedPositions > 0 || State == STATE_STOP_MAX_LEVELS || State == STATE_UNCLOSED_CYCLE || State == STATE_ERROR || State == STATE_STOP)
+   bool passByRealPL = IsRealRecoveryPass();
+   double testerValue = passByRealPL ? Ctx.realRecoveryPL : -1.0;
+
+   LogRealCycleMath(State, testerValue);
+
+   if(!passByRealPL)
    {
-      Print("TEST RESULT FAIL: cycle not closed by EA");
+      Print("TEST RESULT FAIL: cycle not closed by real recovery profit");
       Print("OpenFarLot=", Ctx.farLot);
       Print("State=", StateToString(State));
       Print("ManagedPositions=", managedPositions);
+      Print("RealRecoveryPL=", Ctx.realRecoveryPL);
+      Print("TheoreticalCyclePL=", Ctx.theoreticalCyclePL);
+      Print("LastSystemCloseComment=", Ctx.lastSystemCloseComment);
       return -1.0;
    }
 
-   if(State == STATE_CLOSED_PROFIT)
-      return Ctx.cycleFinalPL;
-
-   return -1.0;
+   return testerValue;
 }
 
 void OnTick()

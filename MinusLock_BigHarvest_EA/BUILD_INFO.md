@@ -18,3 +18,5 @@ Included features:
 - STOP_MAX_LEVELS / UNCLOSED_CYCLE
 - OnTester fail on unclosed cycle
 - Internal SIMULATION engine
+- Real Recovery P/L Validation
+- REAL_CYCLE_MATH log and CSV fields

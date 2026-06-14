@@ -1,21 +1,22 @@
 # MinusLock BigHarvest EA Build Info
 
-Build date: 2026-06-11 16:46 UTC
+Build date: 2026-06-14 10:17 UTC
 Branch: work
-Commit purpose: Full refresh of all EA files
-Status: Latest complete version
+Target folder: MinusLock_BigHarvest_EA
+Commit purpose: MT5-ready top-level EA refresh
 
 Included features:
 - Initial BUY/SELL lock
 - Initial profit ignored
-- Far recovery only
-- Big-Harvest 100/150/200
-- Money-based CloseFarBudget
-- Reserve 10%
-- Small-at-Far scenario
-- FinalCloseAllowed
+- Big-Harvest
+- Small-at-Far
+- FarDistanceMode
+- REAL_PRICE_DISTANCE
+- EffectiveFarDistancePoints
+- Cycle Math CSV report
 - Reverse Geometry Validator
-- Small Geometry Validator
-- Reverse Risk Validator
-- MaxReverseCycles
+- STOP_MAX_LEVELS / UNCLOSED_CYCLE
+- OnTester fail on unclosed cycle
 - Internal SIMULATION engine
+- Real Recovery P/L Validation
+- REAL_CYCLE_MATH log and CSV fields

@@ -176,6 +176,11 @@ def check_static_files() -> dict[str, object]:
         "BigMoveLevel2         = 150",
         "BigMoveLevel3         = 200",
         "FarDistancePoints     = 200",
+        "FarDistanceMode",
+        "FIXED_200",
+        "INITIAL_PLUS_CURRENT",
+        "INITIAL_PLUS_CUMULATIVE",
+        "REAL_PRICE_DISTANCE",
         "MaxHarvestLevels      = 3",
         "SmallFarTouchOffsetPoints = 0",
         "MaxReverseCycles",
@@ -222,14 +227,22 @@ def check_static_files() -> dict[str, object]:
         "ValidateSmallGeometry",
         "ValidateReverseRisk",
         "Ctx.reverseCycleCount += 1",
-        "Ctx.reverseLimitReached = Ctx.reverseCycleCount > MaxReverseCycles",
+        "Ctx.reverseLimitReached = Ctx.reverseCycleCount > WorkMaxReverseCycles",
+        "initialIgnoredProfit",
+        "realRecoveryPL",
+        "realCyclePL",
+        "cycleStartBalance",
+        "CalcRealRecoveryPL",
+        "RecalculateRealCycleStatsFromHistory",
+        "lastCloseWasSystemClose",
+        "lastSystemCloseComment",
         "STATE_INVALID_REVERSE_GEOMETRY",
         "STATE_INVALID_SMALL_GEOMETRY",
         "STATE_REVERSE_LIMIT",
         "Small direction detected. Waiting for price to reach old Far open price.",
         "ClosePositionByTicket(smallTicket, smallLot)",
         "ClosePositionByTicket(oldFarTicket, oldFarLot)",
-        "closeBigLotRaw = bigLot * CloseBigOnSmall",
+        "closeBigLotRaw = bigLot * WorkCloseBigOnSmall",
         "remainBigLot = NormalizeLotDown(MathMax(0.0, bigLot - closeBigLotRounded))",
         "if(Ctx.finalCloseAllowed)",
         "newBigLot = CalcBigLot(newFarLot)",
@@ -266,7 +279,14 @@ def check_static_files() -> dict[str, object]:
         "GeometryValid", "SmallGeometryValid", "ReserveProjectionOk", "ReverseCycleCount",
         "MaxReverseCycles", "GeometryInvalidReason", "SmallInvalidReason", "RiskWarningReason",
         "ActionAfterValidation", "NetProfitTheoretical", "NetProfitRealized", "CostsRealized",
-        "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose", "MinusLock_CycleMath.csv",
+        "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose",
+        "InitialFarDistancePoints", "CurrentBigMovePoints", "CumulativeBigMovePoints",
+        "EffectiveFarDistancePoints", "FarDistanceMode", "FarOpenPrice", "CurrentClosePrice",
+        "MinusLock_CycleMath.csv",
+        "REAL_CYCLE_MATH",
+        "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance", "RealRecoveryPL",
+        "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
+        "TheoreticalCyclePL", "LastSystemCloseComment", "PassByRealPL",
     ]:
         if field not in logger:
             raise AssertionError(f"mandatory log field missing: {field}")
@@ -278,6 +298,7 @@ def check_static_files() -> dict[str, object]:
         "RiskGate Spread=", "RiskGate Margin=", "RISK GATE BLOCKED",
         "EMERGENCY_START", "SIM OPEN BUY", "SIM OPEN SELL", "TRADE ERROR=",
         "OnTester", "CRITICAL: TEST ENDED WITH OPEN POSITIONS",
+        "TEST RESULT FAIL: cycle not closed by real recovery profit",
     ]:
         if token not in all_ea_text:
             raise AssertionError(f"startup diagnostic token missing: {token}")
@@ -300,6 +321,9 @@ def check_static_files() -> dict[str, object]:
         "ProjectedReserveCoverage", "ActionAfterValidation", "StopReason",
         "NetProfitTheoretical", "NetProfitRealized", "CostsRealized",
         "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose",
+        "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance", "RealRecoveryPL",
+        "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
+        "TheoreticalCyclePL", "LastSystemCloseComment", "PassByRealPL",
     ]
     for token in cycle_math_required:
         if token not in logger:

@@ -89,6 +89,23 @@ struct RecoveryContext
    double cumulativeBigMovePoints;
    double effectiveFarDistancePoints;
    double currentClosePrice;
+
+   datetime cycleStartTime;
+   double initialIgnoredProfit;
+   double realRecoveryPL;
+   double realCyclePL;
+   double realClosedProfit;
+   double realClosedLoss;
+   double realCommission;
+   double realSwap;
+   double realCosts;
+   double theoreticalCyclePL;
+   double cycleStartBalance;
+   double cycleCurrentBalance;
+   double cycleBalancePL;
+   bool realCycleProfitPositive;
+   bool lastCloseWasSystemClose;
+   string lastSystemCloseComment;
 };
 
 string DirectionToString(Direction dir)

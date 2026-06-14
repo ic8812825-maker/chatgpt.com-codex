@@ -397,3 +397,50 @@ FarOpenPrice = CurrentPrice
 ```
 
 For MT5 confirmation, `REAL_PRICE_DISTANCE` is the preferred mode because it uses the actual price distance instead of a synthetic Python distance assumption.
+
+
+## Real Recovery P/L Validation
+
+`CycleFinalPL = TotalReserve - FarRemainLoss` remains a theoretical pre-check only. It is useful for deciding whether a final Far close is allowed, but it is not the final Strategy Tester profit.
+
+The EA now tracks real recovery-cycle results after the initial plus is ignored:
+
+```text
+InitialIgnoredProfit
+CycleStartBalance
+CurrentBalance
+RealRecoveryPL
+RealCyclePL
+RealClosedProfit
+RealClosedLoss
+RealCommission
+RealSwap
+RealCosts
+TheoreticalCyclePL
+LastSystemCloseComment
+PassByRealPL
+```
+
+`CycleStartBalance` is fixed only after the first profitable initial lock leg is closed. Therefore the first plus remains excluded from `TotalReserve`, `RealRecoveryPL`, `RealCyclePL` and `FinalCloseAllowed`.
+
+PASS is allowed only when all conditions are true:
+
+```text
+State = STATE_CLOSED_PROFIT
+RealRecoveryPL > 0
+CountManagedOpenPositions() = 0
+LastSystemCloseComment = FINAL_CLOSE or CLOSED_PROFIT
+No STOP_MAX_LEVELS
+```
+
+If the theoretical cycle is positive but real closed deals, commission, swap, spread or slippage make `RealRecoveryPL <= 0`, `OnTester()` returns `-1`. This prevents false positive results such as a positive internal `CycleFinalPL` while the MT5 report balance is negative.
+
+Final system closes use explicit comments:
+
+```text
+FINAL_CLOSE
+CLOSED_PROFIT
+STOP_MAX_LEVELS
+```
+
+The journal and CSV include `REAL_CYCLE_MATH | ...` so MT5 reports can be audited against the internal recovery result.

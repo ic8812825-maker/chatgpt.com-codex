@@ -228,6 +228,14 @@ def check_static_files() -> dict[str, object]:
         "ValidateReverseRisk",
         "Ctx.reverseCycleCount += 1",
         "Ctx.reverseLimitReached = Ctx.reverseCycleCount > WorkMaxReverseCycles",
+        "initialIgnoredProfit",
+        "realRecoveryPL",
+        "realCyclePL",
+        "cycleStartBalance",
+        "CalcRealRecoveryPL",
+        "RecalculateRealCycleStatsFromHistory",
+        "lastCloseWasSystemClose",
+        "lastSystemCloseComment",
         "STATE_INVALID_REVERSE_GEOMETRY",
         "STATE_INVALID_SMALL_GEOMETRY",
         "STATE_REVERSE_LIMIT",
@@ -275,6 +283,10 @@ def check_static_files() -> dict[str, object]:
         "InitialFarDistancePoints", "CurrentBigMovePoints", "CumulativeBigMovePoints",
         "EffectiveFarDistancePoints", "FarDistanceMode", "FarOpenPrice", "CurrentClosePrice",
         "MinusLock_CycleMath.csv",
+        "REAL_CYCLE_MATH",
+        "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance", "RealRecoveryPL",
+        "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
+        "TheoreticalCyclePL", "LastSystemCloseComment", "PassByRealPL",
     ]:
         if field not in logger:
             raise AssertionError(f"mandatory log field missing: {field}")
@@ -286,6 +298,7 @@ def check_static_files() -> dict[str, object]:
         "RiskGate Spread=", "RiskGate Margin=", "RISK GATE BLOCKED",
         "EMERGENCY_START", "SIM OPEN BUY", "SIM OPEN SELL", "TRADE ERROR=",
         "OnTester", "CRITICAL: TEST ENDED WITH OPEN POSITIONS",
+        "TEST RESULT FAIL: cycle not closed by real recovery profit",
     ]:
         if token not in all_ea_text:
             raise AssertionError(f"startup diagnostic token missing: {token}")
@@ -308,6 +321,9 @@ def check_static_files() -> dict[str, object]:
         "ProjectedReserveCoverage", "ActionAfterValidation", "StopReason",
         "NetProfitTheoretical", "NetProfitRealized", "CostsRealized",
         "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose",
+        "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance", "RealRecoveryPL",
+        "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
+        "TheoreticalCyclePL", "LastSystemCloseComment", "PassByRealPL",
     ]
     for token in cycle_math_required:
         if token not in logger:

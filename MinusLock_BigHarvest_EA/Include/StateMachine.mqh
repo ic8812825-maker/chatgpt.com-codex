@@ -56,7 +56,188 @@ void ResetRecoveryContext()
    Ctx.cumulativeBigMovePoints = 0.0;
    Ctx.effectiveFarDistancePoints = 0.0;
    Ctx.currentClosePrice = 0.0;
+
+   Ctx.cycleStartTime = 0;
+   Ctx.initialIgnoredProfit = 0.0;
+   Ctx.realRecoveryPL = 0.0;
+   Ctx.realCyclePL = 0.0;
+   Ctx.realClosedProfit = 0.0;
+   Ctx.realClosedLoss = 0.0;
+   Ctx.realCommission = 0.0;
+   Ctx.realSwap = 0.0;
+   Ctx.realCosts = 0.0;
+   Ctx.theoreticalCyclePL = 0.0;
+   Ctx.cycleStartBalance = 0.0;
+   Ctx.cycleCurrentBalance = 0.0;
+   Ctx.cycleBalancePL = 0.0;
+   Ctx.realCycleProfitPositive = false;
+   Ctx.lastCloseWasSystemClose = false;
+   Ctx.lastSystemCloseComment = "";
 }
+
+double CalcRealRecoveryPL()
+{
+   Ctx.cycleCurrentBalance = AccountInfoDouble(ACCOUNT_BALANCE);
+   Ctx.cycleBalancePL = Ctx.cycleCurrentBalance - Ctx.cycleStartBalance;
+
+   if(Ctx.realCyclePL != 0.0 || Ctx.realClosedProfit != 0.0 || Ctx.realClosedLoss != 0.0 || Ctx.realCommission != 0.0 || Ctx.realSwap != 0.0)
+      Ctx.realRecoveryPL = Ctx.realCyclePL;
+   else
+      Ctx.realRecoveryPL = Ctx.cycleBalancePL;
+
+   Ctx.realCycleProfitPositive = Ctx.realRecoveryPL > 0.0;
+   return Ctx.realRecoveryPL;
+}
+
+bool RecalculateRealCycleStatsFromHistory()
+{
+   Ctx.cycleCurrentBalance = AccountInfoDouble(ACCOUNT_BALANCE);
+   Ctx.cycleBalancePL = Ctx.cycleCurrentBalance - Ctx.cycleStartBalance;
+
+   Ctx.realClosedProfit = 0.0;
+   Ctx.realClosedLoss = 0.0;
+   Ctx.realCommission = 0.0;
+   Ctx.realSwap = 0.0;
+   Ctx.realCosts = 0.0;
+   Ctx.realCyclePL = 0.0;
+
+   bool foundDeals = false;
+
+   if(AllowRealTrading && Ctx.cycleStartTime > 0)
+   {
+      datetime fromTime = Ctx.cycleStartTime;
+      datetime toTime = TimeCurrent() + 86400;
+      if(HistorySelect(fromTime, toTime))
+      {
+         int totalDeals = HistoryDealsTotal();
+         for(int i = 0; i < totalDeals; i++)
+         {
+            ulong dealTicket = HistoryDealGetTicket(i);
+            if(dealTicket == 0)
+               continue;
+
+            if((ulong)HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber)
+               continue;
+
+            if((ENUM_DEAL_ENTRY)HistoryDealGetInteger(dealTicket, DEAL_ENTRY) != DEAL_ENTRY_OUT)
+               continue;
+
+            double dealProfit = HistoryDealGetDouble(dealTicket, DEAL_PROFIT);
+            double dealCommission = HistoryDealGetDouble(dealTicket, DEAL_COMMISSION);
+            double dealSwap = HistoryDealGetDouble(dealTicket, DEAL_SWAP);
+            double dealNet = dealProfit + dealCommission + dealSwap;
+
+            if(dealNet >= 0.0)
+               Ctx.realClosedProfit += dealNet;
+            else
+               Ctx.realClosedLoss += dealNet;
+
+            Ctx.realCommission += dealCommission;
+            Ctx.realSwap += dealSwap;
+            foundDeals = true;
+         }
+      }
+   }
+
+   Ctx.realCosts = Ctx.realCommission + Ctx.realSwap;
+   Ctx.realCyclePL = Ctx.realClosedProfit + Ctx.realClosedLoss;
+
+   if(!foundDeals)
+      Ctx.realCyclePL = Ctx.cycleBalancePL;
+
+   CalcRealRecoveryPL();
+   return foundDeals;
+}
+
+void MarkSystemClose(string closeComment)
+{
+   Ctx.lastCloseWasSystemClose = true;
+   Ctx.lastSystemCloseComment = closeComment;
+}
+
+bool IsRealRecoveryPass()
+{
+   return State == STATE_CLOSED_PROFIT &&
+          Ctx.realRecoveryPL > 0.0 &&
+          CountManagedOpenPositions() == 0 &&
+          Ctx.lastCloseWasSystemClose &&
+          (Ctx.lastSystemCloseComment == "FINAL_CLOSE" || Ctx.lastSystemCloseComment == "CLOSED_PROFIT");
+}
+
+void LogRealCycleMath(EAState state, double onTesterValue)
+{
+   bool passByRealPL = (state == STATE_CLOSED_PROFIT && Ctx.realRecoveryPL > 0.0 && CountManagedOpenPositions() == 0 && Ctx.lastCloseWasSystemClose);
+   PrintFormat(
+      "REAL_CYCLE_MATH | State=%s InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s OnTesterValue=%.2f PassByRealPL=%s",
+      StateToString(state),
+      Ctx.initialIgnoredProfit,
+      Ctx.cycleStartBalance,
+      Ctx.cycleCurrentBalance,
+      Ctx.realRecoveryPL,
+      Ctx.realClosedProfit,
+      Ctx.realClosedLoss,
+      Ctx.realCommission,
+      Ctx.realSwap,
+      Ctx.realCosts,
+      Ctx.theoreticalCyclePL,
+      Ctx.lastSystemCloseComment,
+      onTesterValue,
+      passByRealPL ? "YES" : "NO"
+   );
+
+   WriteCycleMathCsv(
+      Ctx.harvestLevel,
+      "REAL_CYCLE_MATH",
+      Ctx.farLot,
+      Ctx.bigLot,
+      Ctx.smallLot,
+      Ctx.realRecoveryPL,
+      0.0,
+      0.0,
+      Ctx.totalReserve,
+      CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints),
+      Ctx.finalCloseAllowed,
+      state,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      Ctx.smallReverseNet,
+      0.0,
+      0.0,
+      Ctx.farLot,
+      Ctx.reverseStrength,
+      Ctx.projectedReserveCoverage,
+      passByRealPL ? "REAL_PASS" : "REAL_FAIL",
+      passByRealPL ? "" : "RealRecoveryPL <= 0 or system close missing",
+      Ctx.theoreticalCyclePL,
+      Ctx.realRecoveryPL,
+      Ctx.realCosts,
+      Ctx.totalReserve,
+      0.0,
+      Ctx.initialFarDistancePoints,
+      Ctx.currentBigMovePoints,
+      Ctx.cumulativeBigMovePoints,
+      Ctx.effectiveFarDistancePoints,
+      FarDistanceModeToString(WorkFarDistanceMode),
+      Ctx.farOpenPrice,
+      Ctx.currentClosePrice,
+      Ctx.initialIgnoredProfit,
+      Ctx.cycleStartBalance,
+      Ctx.cycleCurrentBalance,
+      Ctx.realRecoveryPL,
+      Ctx.realClosedProfit,
+      Ctx.realClosedLoss,
+      Ctx.realCommission,
+      Ctx.realSwap,
+      Ctx.realCosts,
+      Ctx.theoreticalCyclePL,
+      Ctx.lastSystemCloseComment,
+      passByRealPL
+   );
+}
+
 
 void UpdateFarFromSnapshot(PositionSnapshot &far)
 {
@@ -278,8 +459,17 @@ void CheckInitialPlusClose()
 
       UpdateFarFromSnapshot(initialSell);
       Ctx.initialProfitIgnored = true;
+      Ctx.initialIgnoredProfit = initialBuy.profitMoney;
       Ctx.totalReserve = 0.0;
       Ctx.cycleFinalPL = 0.0;
+      Ctx.theoreticalCyclePL = 0.0;
+      Ctx.cycleStartBalance = AccountInfoDouble(ACCOUNT_BALANCE);
+      Ctx.cycleCurrentBalance = Ctx.cycleStartBalance;
+      Ctx.cycleStartTime = TimeCurrent();
+      Ctx.realRecoveryPL = 0.0;
+      Ctx.realCyclePL = 0.0;
+      Ctx.lastCloseWasSystemClose = false;
+      Ctx.lastSystemCloseComment = "";
       Ctx.initialFarDistancePoints = InitialTriggerPoints;
       Ctx.cumulativeBigMovePoints = 0.0;
 
@@ -300,8 +490,17 @@ void CheckInitialPlusClose()
 
       UpdateFarFromSnapshot(initialBuy);
       Ctx.initialProfitIgnored = true;
+      Ctx.initialIgnoredProfit = initialSell.profitMoney;
       Ctx.totalReserve = 0.0;
       Ctx.cycleFinalPL = 0.0;
+      Ctx.theoreticalCyclePL = 0.0;
+      Ctx.cycleStartBalance = AccountInfoDouble(ACCOUNT_BALANCE);
+      Ctx.cycleCurrentBalance = Ctx.cycleStartBalance;
+      Ctx.cycleStartTime = TimeCurrent();
+      Ctx.realRecoveryPL = 0.0;
+      Ctx.realCyclePL = 0.0;
+      Ctx.lastCloseWasSystemClose = false;
+      Ctx.lastSystemCloseComment = "";
       Ctx.initialFarDistancePoints = InitialTriggerPoints;
       Ctx.cumulativeBigMovePoints = 0.0;
 
@@ -478,7 +677,16 @@ void ProcessBigHarvest()
 
    if(closeFarLotFinal > 0.0)
    {
-      if(!ClosePositionByTicket(Ctx.farTicket, closeFarLotFinal))
+      bool farClosedByBudget = false;
+      if(closeFarLotFinal >= Ctx.farLot)
+      {
+         MarkSystemClose("CLOSED_PROFIT");
+         farClosedByBudget = ClosePositionByTicketWithComment(Ctx.farTicket, closeFarLotFinal, "CLOSED_PROFIT");
+      }
+      else
+         farClosedByBudget = ClosePositionByTicket(Ctx.farTicket, closeFarLotFinal);
+
+      if(!farClosedByBudget)
       {
          SetState(STATE_ERROR, "failed to close Far by money budget");
          return;
@@ -489,6 +697,7 @@ void ProcessBigHarvest()
    Ctx.farLot = NormalizeLotDown(MathMax(0.0, Ctx.farLot - closeFarLotFinal));
    Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   Ctx.theoreticalCyclePL = Ctx.cycleFinalPL;
 
    double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
 
@@ -557,6 +766,8 @@ void ProcessBigHarvest()
    if(Ctx.farLot <= 0.0)
    {
       SetState(STATE_CLOSED_PROFIT, "Far was fully closed by Big-harvest budget");
+      RecalculateRealCycleStatsFromHistory();
+      LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
       return;
    }
 
@@ -891,6 +1102,7 @@ void ProcessSmallAtFarTouch()
    double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
+   Ctx.theoreticalCyclePL = Ctx.cycleFinalPL;
 
    if(Ctx.finalCloseAllowed)
       actionAfterValidation = "FINAL_CLOSE_NEW_FAR";
@@ -1006,13 +1218,17 @@ void ProcessSmallAtFarTouch()
 
    if(Ctx.farLot <= 0.0)
    {
+      MarkSystemClose("CLOSED_PROFIT");
       SetState(STATE_CLOSED_PROFIT, "Small-at-Far left no NewFar lot");
+      RecalculateRealCycleStatsFromHistory();
+      LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
       return;
    }
 
    if(Ctx.finalCloseAllowed)
    {
-      if(!ClosePositionByTicket(Ctx.farTicket, Ctx.farLot))
+      MarkSystemClose("FINAL_CLOSE");
+      if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
       {
          SetState(STATE_ERROR, "failed to close NewFar after Small-at-Far FinalCloseAllowed");
          return;
@@ -1021,6 +1237,8 @@ void ProcessSmallAtFarTouch()
       Ctx.farTicket = 0;
       Ctx.farLot = 0.0;
       SetState(STATE_CLOSED_PROFIT, "FinalCloseAllowed after Small-at-Far; NewFar closed and no new Big/Small opened");
+      RecalculateRealCycleStatsFromHistory();
+      LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
       return;
    }
 
@@ -1040,11 +1258,14 @@ void ProcessFinalClose()
    if(!RefreshFar())
    {
       SetState(STATE_CLOSED_PROFIT, "Far already absent at final close");
+      RecalculateRealCycleStatsFromHistory();
+      LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
       return;
    }
 
    double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
+   Ctx.theoreticalCyclePL = Ctx.cycleFinalPL;
 
    LogCycleMathDetailed(
       Ctx.harvestLevel,
@@ -1079,7 +1300,8 @@ void ProcessFinalClose()
       farRemainLoss
    );
 
-   if(!ClosePositionByTicket(Ctx.farTicket, Ctx.farLot))
+   MarkSystemClose("FINAL_CLOSE");
+   if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
    {
       SetState(STATE_ERROR, "failed to close Far during FinalClose");
       return;
@@ -1095,6 +1317,8 @@ void ProcessFinalClose()
    Ctx.farTicket = 0;
    Ctx.farLot = 0.0;
    SetState(STATE_CLOSED_PROFIT, "cycle closed in profit; no new levels");
+   RecalculateRealCycleStatsFromHistory();
+   LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
 }
 
 void RunStateMachine()
