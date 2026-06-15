@@ -255,3 +255,54 @@ def test_geometry_sweep_outputs_reports():
         assert path.stat().st_size > 0
     assert "Таблица Top 10" in REPORT_MD.read_text(encoding="utf-8")
     assert "PASS criteria" in MT5_PLAN_MD.read_text(encoding="utf-8")
+
+
+def test_refined_sweep_generates_reports():
+    from refined_geometry_sweep import REFINED_CSV, REFINED_MT5_PLAN_MD, REFINED_REPORT_MD, REFINED_TOP10_MD, run_refined_sweep
+    summary = run_refined_sweep(write_reports=True)
+    assert summary.raw_combinations == 20160
+    assert summary.scenarios_per_combination == 9
+    assert summary.tested_combinations > 0
+    for path in [REFINED_CSV, REFINED_TOP10_MD, REFINED_REPORT_MD, REFINED_MT5_PLAN_MD]:
+        assert path.exists()
+        assert path.stat().st_size > 0
+
+
+def test_refined_sweep_keeps_previous_best():
+    from refined_geometry_sweep import PREVIOUS_BEST, _params_from_dict, evaluate_params
+    row = evaluate_params(_params_from_dict(PREVIOUS_BEST), "Previous Best")
+    assert row["BigRatio"] == 1.25
+    assert row["SmallRatio"] == 0.37
+    assert row["CloseBigOnSmall"] == 0.35
+    assert row["CloseFarShare"] == 0.40
+    assert row["ReserveShare"] == 0.60
+    assert row["MaxHarvestLevels"] == 7
+    assert row["MaxReverseCycles"] == 3
+
+
+def test_refined_sweep_filters_bad_compression():
+    from refined_geometry_sweep import is_valid_refined_params
+    valid, reason = is_valid_refined_params(1.30, 0.37, 0.30, 0.70, 0.30, 7)
+    assert not valid
+    assert reason == "CompressionRatio >= 0.86"
+
+
+def test_refined_top_candidate_has_valid_geometry():
+    from refined_geometry_sweep import is_valid_refined_params, run_refined_sweep
+    summary = run_refined_sweep(write_reports=False)
+    top = summary.top10[0]
+    valid, reason = is_valid_refined_params(top["BigRatio"], top["SmallRatio"], top["CloseBigOnSmall"], top["CloseFarShare"], top["ReserveShare"], top["MaxHarvestLevels"])
+    assert valid, reason
+    assert 0.68 < top["CompressionRatio"] < 0.86
+    assert top["BigNetPower"] >= 0.72
+    assert top["SmallCoverageGap"] >= 0.015
+
+
+def test_refined_top_candidate_not_weaker_than_previous_best():
+    from refined_geometry_sweep import run_refined_sweep
+    summary = run_refined_sweep(write_reports=False)
+    top = summary.top10[0]
+    previous = summary.previous_best
+    assert top["Score"] >= previous["Score"]
+    assert top["PassCount"] >= previous["PassCount"]
+    assert top["StopMaxLevelsCount"] <= previous["StopMaxLevelsCount"]

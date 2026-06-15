@@ -236,3 +236,23 @@ Generated reports:
 - `ai_tests/reports/mt5_parameter_confirmation_plan.md` — exact Strategy Tester inputs and PASS/FAIL rules for the top candidates.
 
 Important: these are Python-model candidates only. Final confirmation must be done in MT5 Strategy Tester with `RealRecoveryPL > 0`, no managed open positions, and `OnTester > 0` only when the real recovery cycle is positive.
+
+## Refined Geometry Sweep
+
+A second-stage refined sweep now searches around the previous Python best candidate:
+
+```text
+Previous best: BigRatio=1.25, SmallRatio=0.37, CloseBigOnSmall=0.35,
+RemainBigOnSmall=0.65, CloseFarShare=0.40, ReserveShare=0.60,
+MaxHarvestLevels=7, MaxReverseCycles=3, CompressionRatio=0.8125,
+BigNetPower=0.7875, first-stage Score=750.
+```
+
+The refined search is implemented in `ai_tests/refined_geometry_sweep.py` and tests a narrower grid around that candidate with stricter filters for `CompressionRatio`, `BigNetPower`, `SmallCoverageGap`, reserve share, STOP_MAX_LEVELS, and repeated Small-at-Far pressure. The current refined Python top candidate is recorded in:
+
+- `ai_tests/reports/refined_geometry_sweep.csv`
+- `ai_tests/reports/refined_geometry_top10.md`
+- `ai_tests/reports/refined_geometry_report.md`
+- `ai_tests/reports/refined_mt5_confirmation_plan.md`
+
+Important: refined sweep output is still a Python-model candidate list, not an MT5 result. The top, second, and conservative refined candidates must be confirmed in MT5 Strategy Tester with `FarDistanceMode=REAL_PRICE_DISTANCE`, `EnableCycleMathCsv=true`, no managed open positions, and PASS only when `RealRecoveryPL > 0` and `OnTester > 0`.
