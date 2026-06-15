@@ -145,3 +145,94 @@ python -m pytest tests/excel/test_minuslock_bigsmall_v2.py -q
 - All following levels are stopped: `FarStartLot`, `BigLot`, `SmallLot`, `CloseFarLotRaw`, `CloseFarLotRounded`, `FarRemainAfterRounded`, and `FarRemainLoss` become `0`.
 - New Big/Small levels are not opened after full close; balance and reserve are carried forward unchanged.
 - `CycleFinalPL = TotalReserve - FarRemainLoss` shows the final profitable result available after the reserve covers the remaining Far loss.
+
+## Big-Harvest EA
+
+- [MinusLock_BigHarvest_EA](MinusLock_BigHarvest_EA/) — MQL5-советник Big-Harvest, перенесённый в рабочую папку проекта.
+- [Big-Harvest EA final local verification](reports/tests/big_harvest_ea_final_report.md) — локальный отчёт проверок; MetaEditor Compile и Strategy Tester требуют запуска в Windows/MetaTrader.
+
+## Small-at-Far Scenario
+
+Small-сценарий больше не исполняется сразу при первом движении в сторону Small. Если Small достиг защитного движения, советник переводит цикл в `STATE_WAIT_SMALL_TO_FAR` и ждёт, пока текущая цена дойдёт до цены открытия старого `Far` с учётом `SmallFarTouchOffsetPoints`. Для `Small=BUY` условие касания: `CurrentPrice >= OldFarOpenPrice + offset`; для `Small=SELL`: `CurrentPrice <= OldFarOpenPrice - offset`.
+
+После касания старого Far выполняется `ProcessSmallAtFarTouch`: Small закрывается на 100%, старый Far закрывается на 100%, Big закрывается только на `CloseBigOnSmall`, а остаток Big становится новым Far. Затем обязательно сначала проверяется `FinalCloseAllowed` для нового Far. Если резерва хватает, новый Far закрывается полностью и состояние становится `STATE_CLOSED_PROFIT`; если резерва не хватает, только тогда открывается новый Big/Small от нового Far. В нормальном Small-at-Far сценарии `DUAL_TAIL` не должен появляться, потому что старый Far ликвидируется до назначения нового Far.
+
+## Reverse Geometry Protection
+
+`MinusLock_BigHarvest_EA` теперь защищает Small-at-Far rebuild перед открытием новой пары Big/Small:
+
+- `NewFarLot` должен быть меньше `OldFarLot`.
+- `NewBigLot` должен быть больше `NewFarLot`.
+- `ReverseStrength` / `ReverseQualityScore` показывает качество переворота.
+- `MaxReverseCycles` ограничивает бесконечные reverse-циклы.
+- `ProjectedReserveCoverage` показывает, хватит ли резерва на следующий этап.
+- `FinalCloseAllowed` проверяется до открытия нового Big/Small.
+
+## Cycle Math Internal Report
+
+EA пишет диагностический журнал `CYCLE_MATH | ...` и CSV `MQL5/Files/MinusLock_CycleMath.csv` при `EnableCycleMathCsv=true`. Эти строки показывают, почему цикл закрылся через `CLOSED_PROFIT` или провалился в `STOP_MAX_LEVELS` / `STATE_UNCLOSED_CYCLE`.
+
+Для анализа агрессивности настроек нужно сравнить три набора `CloseFarShare/ReserveShare`: `0.90/0.10`, `0.70/0.30`, `0.50/0.50`. Главные поля сравнения: `TotalReserve`, `FarRemainLoss`, `FinalCloseAllowed`, `NetProfitRealized`, `CostsRealized`, `ActionAfterValidation`, `StopReason`.
+
+## AI Simulation Harness
+
+Добавлен автономный Python-стенд `ai_tests/` для проверки математики Big-Harvest без MT5. Он генерирует `ai_cycle_math.csv`, `ai_cycle_math.md`, `parameter_sweep_results.csv`, `best_parameters.md` и `ai_test_report.md`.
+
+Запуск:
+
+```bash
+python work/MinusLock_SelfCompressing_BigSmall_v2/ai_tests/parameter_sweep.py
+python -m pytest work/MinusLock_SelfCompressing_BigSmall_v2/ai_tests/test_scenarios.py -q
+```
+
+Важно: Python-модель показывает лучший кандидат. Финальное подтверждение обязательно через MT5 Strategy Tester.
+
+## Python Candidate 50/50
+
+Python simulation harness currently identifies the following MT5-confirmation candidate, not a final strategy setting:
+
+```text
+BigRatio = 1.30
+SmallRatio = 0.36
+CloseBigOnSmall = 0.35
+RemainBigOnSmall = 0.65
+CloseFarShare = 0.50
+ReserveShare = 0.50
+MaxHarvestLevels = 5
+MaxReverseCycles = 10
+```
+
+The EA exposes `UseRecommended5050Preset`. When enabled, internal `Work...` parameters use the candidate values while the original inputs remain visible for comparison. Final confirmation must be done in MT5 Strategy Tester using `ai_tests/reports/mt5_confirmation_plan.md`.
+
+## Far Distance Mode Verification
+
+The EA and Python harness now expose `FarDistanceMode` to verify whether the initial 100 points of the startup lock are included in Far loss math.
+
+Modes:
+
+```text
+FIXED_200
+INITIAL_PLUS_CURRENT
+INITIAL_PLUS_CUMULATIVE
+REAL_PRICE_DISTANCE
+```
+
+The Python report `ai_tests/reports/far_distance_mode_comparison.md` confirms Level 1 uses `EffectiveFarDistance=200` for `InitialTriggerPoints=100` and `BigMoveLevel1=100`. For real MT5 runs, `REAL_PRICE_DISTANCE` is the recommended confirmation mode because it uses actual price distance from `FarOpenPrice`.
+
+
+## Real Recovery P/L Validation
+
+The MT5-ready EA gates `OnTester()` by real recovery profit, not theoretical `CycleFinalPL`. The first lock profit is stored as `InitialIgnoredProfit` and excluded by recording `CycleStartBalance` after the first plus closes. `REAL_CYCLE_MATH` and `MinusLock_CycleMath.csv` expose `RealRecoveryPL`, real closed profit/loss, commission, swap, costs and `PassByRealPL`. If real recovery is negative, `OnTester()` returns `-1` even when the theoretical cycle estimate is positive.
+
+## Parameter Geometry Sweep
+
+The AI/Python harness now includes `ai_tests/geometry_sweep.py` for a full geometry search across BigRatio, SmallRatio, CloseBigOnSmall, CloseFarShare/ReserveShare, MaxHarvestLevels, and MaxReverseCycles. The sweep filters unsafe geometry before scenario testing, including `CloseBigOnSmall >= SmallRatio`, weak tail compression (`CompressionRatio >= 0.90`), over-aggressive compression (`CompressionRatio <= 0.60`), and weak Big-side power (`BigNetPower < 0.65`).
+
+Generated reports:
+
+- `ai_tests/reports/parameter_geometry_sweep.csv` — all tested combinations and aggregate metrics across seven scenarios.
+- `ai_tests/reports/parameter_geometry_top10.md` — Top 10 and Worst 10 by Python score.
+- `ai_tests/reports/parameter_geometry_report.md` — diagnosis of weak current geometry, formulas, filters, candidates, risks, and MT5 confirmation requirements.
+- `ai_tests/reports/mt5_parameter_confirmation_plan.md` — exact Strategy Tester inputs and PASS/FAIL rules for the top candidates.
+
+Important: these are Python-model candidates only. Final confirmation must be done in MT5 Strategy Tester with `RealRecoveryPL > 0`, no managed open positions, and `OnTester > 0` only when the real recovery cycle is positive.
