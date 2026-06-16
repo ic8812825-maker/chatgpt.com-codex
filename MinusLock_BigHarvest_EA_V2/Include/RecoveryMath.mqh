@@ -13,14 +13,12 @@ double PointValuePerLot()
    return tickValue * point / tickSize;
 }
 
-int GetBigMovePoints(int level)
+int GetBigMovePoints(const int level)
 {
-   if(level <= 1)
-      return BigMoveLevel1;
-   if(level == 2)
-      return BigMoveLevel2;
+   if(level <= 0)
+      return 0;
 
-   return BigMoveLevel3;
+   return BigMoveStartPoints + (level - 1) * BigMoveStepPoints;
 }
 
 double CalcBigLot(double farLot)

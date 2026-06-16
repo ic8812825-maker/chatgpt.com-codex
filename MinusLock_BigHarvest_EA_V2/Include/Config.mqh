@@ -19,13 +19,12 @@ input double ReserveShare          = 0.10;
 input bool   UseRecommended5050Preset = false;
 
 input int    InitialTriggerPoints  = 100;
-input int    BigMoveLevel1         = 100;
-input int    BigMoveLevel2         = 150;
-input int    BigMoveLevel3         = 200;
+input int    BigMoveStartPoints    = 100;
+input int    BigMoveStepPoints     = 50;
 
 input int    FarDistancePoints     = 200;
 input FarDistanceModeEnum FarDistanceMode = REAL_PRICE_DISTANCE;
-input int    MaxHarvestLevels      = 3;
+input int    MaxHarvestLevels      = 7;
 input int    SmallFarTouchOffsetPoints = 0;
 input int    MaxReverseCycles              = 3;
 input double MinReverseStrength            = 0.10;

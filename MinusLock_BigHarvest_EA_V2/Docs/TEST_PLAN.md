@@ -47,9 +47,9 @@ AllowRealTrading = false
 
 ```text
 FarDistancePoints = 200
-BigMoveLevel1 = 100
-BigMoveLevel2 = 150
-BigMoveLevel3 = 200
+BigMoveStartPoints = 100
+BigMoveStepPoints = 50
+MaxHarvestLevels = 7
 LotStep = 0.01
 ```
 
@@ -168,7 +168,16 @@ Before accepting any parameter variant, verify that Level 1 includes the initial
 
 ```text
 InitialTriggerPoints = 100
-BigMoveLevel1 = 100
+BigMoveStartPoints = 100
+BigMoveStepPoints = 50
+MaxHarvestLevels = 7
+L1 = 100
+L2 = 150
+L3 = 200
+L4 = 250
+L5 = 300
+L6 = 350
+L7 = 400
 EffectiveFarDistancePoints = 200
 ```
 

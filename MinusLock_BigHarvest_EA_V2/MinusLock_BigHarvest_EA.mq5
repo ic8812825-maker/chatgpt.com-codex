@@ -15,6 +15,35 @@
 
 int OnInit()
 {
+   if(BigMoveStartPoints <= 0)
+   {
+      Print("ERROR: BigMoveStartPoints must be > 0");
+      return INIT_PARAMETERS_INCORRECT;
+   }
+
+   if(BigMoveStepPoints <= 0)
+   {
+      Print("ERROR: BigMoveStepPoints must be > 0");
+      return INIT_PARAMETERS_INCORRECT;
+   }
+
+   if(MaxHarvestLevels <= 0)
+   {
+      Print("ERROR: MaxHarvestLevels must be > 0");
+      return INIT_PARAMETERS_INCORRECT;
+   }
+
+   int lastLevelPoints = BigMoveStartPoints + (MaxHarvestLevels - 1) * BigMoveStepPoints;
+   if(lastLevelPoints <= 0)
+   {
+      Print("ERROR: Invalid BigMove levels calculation");
+      return INIT_PARAMETERS_INCORRECT;
+   }
+
+   Print("BIG_MOVE_LEVELS:");
+   for(int level = 1; level <= MaxHarvestLevels; level++)
+      Print("L", level, " = ", GetBigMovePoints(level), " points");
+
    ConfigureWorkingParameters();
 
    if(!UseMarketOrders)

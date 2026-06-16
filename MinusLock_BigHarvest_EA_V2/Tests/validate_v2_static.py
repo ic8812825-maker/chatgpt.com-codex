@@ -6,6 +6,18 @@ sim = (ROOT / "Include" / "SimulationEngine.mqh").read_text(encoding="utf-8")
 main = (ROOT / "MinusLock_BigHarvest_EA.mq5").read_text(encoding="utf-8")
 config = (ROOT / "Include" / "Config.mqh").read_text(encoding="utf-8")
 risk_math = (ROOT / "Include" / "RecoveryMath.mqh").read_text(encoding="utf-8")
+docs_text = "\n".join(path.read_text(encoding="utf-8") for path in (ROOT / "Docs").glob("*.md"))
+
+old_big_move_params = tuple("BigMoveLevel" + suffix for suffix in ("1", "2", "3"))
+for token in old_big_move_params:
+    assert token not in config
+    assert token not in risk_math
+    assert token not in docs_text
+
+assert "BigMoveStartPoints" in config
+assert "BigMoveStepPoints" in config
+assert "BigMoveStartPoints + (level - 1) * BigMoveStepPoints" in risk_math
+assert "L(level) = BigMoveStartPoints + (level - 1) * BigMoveStepPoints" in docs_text
 
 assert "Ctx.farOpenPrice = newFarOpenPrice;" in state
 assert "double newFarOpenPrice = bigOpenPrice;" in state
@@ -25,4 +37,4 @@ assert "INIT_PARAMETERS_INCORRECT" in main
 assert "VerboseTickLogs" in config and "if(VerboseTickLogs)" in main
 assert "reason = \"ExpectedNextFarLoss <= 0\";" in risk_math
 
-print("V2_STATIC_VALIDATION PASS: Small-at-Far uses bigOpenPrice, reverse-risk uses real expected loss, sim records realized P/L, RefreshFar is strict, hedge/use-market/tick-log gates exist")
+print("V2_STATIC_VALIDATION PASS: BigMove start/step formula is active, old level inputs are removed, Small-at-Far uses bigOpenPrice, reverse-risk uses real expected loss, sim records realized P/L, RefreshFar is strict, hedge/use-market/tick-log gates exist")

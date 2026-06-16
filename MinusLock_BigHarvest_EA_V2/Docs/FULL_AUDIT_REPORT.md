@@ -57,7 +57,7 @@ Verified tokens and parameters:
 ```text
 StartLot, BigRatio, SmallRatio, CloseBigOnSmall, RemainBigOnSmall,
 CloseFarShare, ReserveShare, UseRecommended5050Preset,
-InitialTriggerPoints, BigMoveLevel1/2/3, FarDistanceMode,
+InitialTriggerPoints, BigMoveStartPoints, BigMoveStepPoints, FarDistanceMode,
 MaxHarvestLevels, SmallFarTouchOffsetPoints, MaxReverseCycles,
 MinReverseStrength, WarningReverseStrength, StrongReverseStrength,
 MinProjectedReserveCoverage, StopOnInvalidReverseGeometry,
@@ -209,7 +209,10 @@ Verified Level 1 design requirement:
 
 ```text
 InitialTriggerPoints = 100
-BigMoveLevel1 = 100
+BigMoveStartPoints = 100
+BigMoveStepPoints = 50
+MaxHarvestLevels = 7
+L(level) = BigMoveStartPoints + (level - 1) * BigMoveStepPoints
 Expected EffectiveFarDistancePoints ≈ 200 in real price movement.
 ```
 

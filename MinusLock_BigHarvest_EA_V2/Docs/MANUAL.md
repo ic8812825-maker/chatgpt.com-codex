@@ -26,11 +26,10 @@ CloseBigOnSmall = 0.30
 RemainBigOnSmall = 0.70
 CloseFarShare = 0.90
 ReserveShare = 0.10
-BigMoveLevel1 = 100
-BigMoveLevel2 = 150
-BigMoveLevel3 = 200
+BigMoveStartPoints = 100
+BigMoveStepPoints = 50
+MaxHarvestLevels = 7
 FarDistancePoints = 200
-MaxHarvestLevels = 3
 LotStep = 0.01
 ```
 
@@ -380,7 +379,19 @@ INITIAL_PLUS_CUMULATIVE -> InitialFarDistancePoints + cumulative BigMovePoints
 REAL_PRICE_DISTANCE     -> ABS(CurrentClosePrice - FarOpenPrice) / Point
 ```
 
-For Level 1 with `InitialTriggerPoints=100` and `BigMoveLevel1=100`:
+Big Harvest levels are calculated automatically:
+
+```text
+L(level) = BigMoveStartPoints + (level - 1) * BigMoveStepPoints
+```
+
+При `BigMoveStartPoints=100`, `BigMoveStepPoints=50`, `MaxHarvestLevels=7`:
+
+```text
+L1=100, L2=150, L3=200, L4=250, L5=300, L6=350, L7=400
+```
+
+For Level 1 with `InitialTriggerPoints=100` and `BigMoveStartPoints=100`:
 
 ```text
 EffectiveFarDistancePoints = 100 + 100 = 200
