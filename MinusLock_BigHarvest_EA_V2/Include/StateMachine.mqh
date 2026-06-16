@@ -14,6 +14,9 @@ void SetState(EAState nextState, string reason)
 
 void ResetRecoveryContext()
 {
+   if(!AllowRealTrading)
+      SimResetHistory();
+
    Ctx.farTicket = 0;
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
@@ -77,6 +80,15 @@ void ResetRecoveryContext()
 
 double CalcRealRecoveryPL()
 {
+   if(!AllowRealTrading)
+   {
+      Ctx.cycleCurrentBalance = Ctx.cycleStartBalance + Ctx.realCyclePL;
+      Ctx.cycleBalancePL = Ctx.realCyclePL;
+      Ctx.realRecoveryPL = Ctx.realCyclePL;
+      Ctx.realCycleProfitPositive = Ctx.realRecoveryPL > 0.0;
+      return Ctx.realRecoveryPL;
+   }
+
    Ctx.cycleCurrentBalance = AccountInfoDouble(ACCOUNT_BALANCE);
    Ctx.cycleBalancePL = Ctx.cycleCurrentBalance - Ctx.cycleStartBalance;
 
@@ -102,6 +114,18 @@ bool RecalculateRealCycleStatsFromHistory()
    Ctx.realCyclePL = 0.0;
 
    bool foundDeals = false;
+
+   if(!AllowRealTrading)
+   {
+      foundDeals = SimRecalculateClosedStats(Ctx.realCyclePL, Ctx.realClosedProfit, Ctx.realClosedLoss);
+      Ctx.realCosts = 0.0;
+      Ctx.realCommission = 0.0;
+      Ctx.realSwap = 0.0;
+      Ctx.cycleCurrentBalance = Ctx.cycleStartBalance + Ctx.realCyclePL;
+      Ctx.cycleBalancePL = Ctx.realCyclePL;
+      CalcRealRecoveryPL();
+      return foundDeals;
+   }
 
    if(AllowRealTrading && Ctx.cycleStartTime > 0)
    {
@@ -256,9 +280,6 @@ bool RefreshFar()
       UpdateFarFromSnapshot(far);
       return true;
    }
-
-   if(!AllowRealTrading && Ctx.farLot > 0.0 && Ctx.farDirection != DIR_NONE)
-      return true;
 
    return false;
 }
@@ -551,16 +572,29 @@ void OpenBigSmall()
    string smallComment = LevelComment("SMALL", Ctx.harvestLevel);
 
    bool bigOpened = OpenPosition(Ctx.bigDirection, Ctx.bigLot, bigComment);
-   bool smallOpened = OpenPosition(Ctx.smallDirection, Ctx.smallLot, smallComment);
-
-   if(!bigOpened || !smallOpened)
-   {
-      SetState(STATE_ERROR, "failed to open Big/Small pair");
-      return;
-   }
 
    PositionSnapshot big;
    PositionSnapshot small;
+
+   if(!bigOpened)
+   {
+      SetState(STATE_ERROR, "failed to open Big leg of Big/Small pair");
+      return;
+   }
+
+   bool bigFoundAfterOpen = GetManagedPositionByComment(bigComment, big);
+   bool smallOpened = OpenPosition(Ctx.smallDirection, Ctx.smallLot, smallComment);
+
+   if(!smallOpened)
+   {
+      if(bigFoundAfterOpen)
+      {
+         MarkSystemClose("ROLLBACK_BIG_WITHOUT_SMALL");
+         ClosePositionByTicketWithComment(big.ticket, big.lot, "ROLLBACK_BIG_WITHOUT_SMALL");
+      }
+      SetState(STATE_ERROR, "failed to open Small leg; Big leg rolled back");
+      return;
+   }
 
    if(GetManagedPositionByComment(bigComment, big))
    {
@@ -641,10 +675,12 @@ void ProcessBigHarvest()
    }
 
    double farStartLot = Ctx.farLot;
-   int bigMovePoints = GetBigMovePoints(Ctx.harvestLevel);
-   Ctx.currentBigMovePoints = bigMovePoints;
-   Ctx.cumulativeBigMovePoints += bigMovePoints;
-   Ctx.currentClosePrice = ExitPriceForDirection(Ctx.bigDirection);
+   double bigClosePrice = ExitPriceForDirection(Ctx.bigDirection);
+   double smallClosePrice = ExitPriceForDirection(Ctx.smallDirection);
+   double actualBigMovePoints = CalcMovePointsBetween(Ctx.bigOpenPrice, bigClosePrice);
+   Ctx.currentBigMovePoints = actualBigMovePoints;
+   Ctx.cumulativeBigMovePoints += actualBigMovePoints;
+   Ctx.currentClosePrice = bigClosePrice;
    Ctx.effectiveFarDistancePoints = CalcEffectiveFarDistancePoints(
       Ctx.initialFarDistancePoints,
       Ctx.currentBigMovePoints,
@@ -652,8 +688,8 @@ void ProcessBigHarvest()
       Ctx.currentClosePrice,
       Ctx.farOpenPrice
    );
-   double profitBig = CalcProfit(Ctx.bigLot, bigMovePoints);
-   double lossSmall = CalcProfit(Ctx.smallLot, bigMovePoints);
+   double profitBig = CalcSignedPositionPL(Ctx.bigDirection, Ctx.bigLot, Ctx.bigOpenPrice, bigClosePrice);
+   double lossSmall = -CalcSignedPositionPL(Ctx.smallDirection, Ctx.smallLot, Ctx.smallOpenPrice, smallClosePrice);
    double costs = 0.0;
    double totalReserveBefore = Ctx.totalReserve;
    double netProfit = profitBig - lossSmall - costs;
@@ -708,7 +744,7 @@ void ProcessBigHarvest()
       farStartLot,
       Ctx.bigLot,
       Ctx.smallLot,
-      bigMovePoints,
+      (int)MathRound(actualBigMovePoints),
       profitBig,
       lossSmall,
       netProfit,
@@ -923,10 +959,12 @@ void ProcessSmallAtFarTouch()
 
    double newFarLot = remainBigLot;
    Direction newFarDirection = bigDirection;
+   double newFarOpenPrice = bigOpenPrice;
+   double newFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, newFarOpenPrice);
    double newBigLot = CalcBigLot(newFarLot);
    double newSmallLot = CalcSmallLot(newBigLot);
    double expectedNextReserve = CalcExpectedNextReserve(newBigLot, newSmallLot, Ctx.harvestLevel + 1);
-   double expectedNextFarLoss = 0.0;
+   double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, newFarDistancePoints);
    double projectedReserveCoverage = 0.0;
    double reverseStrength = 0.0;
    double smallReverseNet = 0.0;
@@ -1082,12 +1120,12 @@ void ProcessSmallAtFarTouch()
 
    Ctx.farTicket = bigTicket;
    Ctx.farLot = newFarLot;
-   Ctx.farOpenPrice = currentPrice;
+   Ctx.farOpenPrice = newFarOpenPrice;
    Ctx.farDirection = newFarDirection;
-   Ctx.initialFarDistancePoints = 0.0;
+   Ctx.initialFarDistancePoints = newFarDistancePoints;
    Ctx.currentBigMovePoints = 0.0;
    Ctx.cumulativeBigMovePoints = 0.0;
-   Ctx.effectiveFarDistancePoints = 0.0;
+   Ctx.effectiveFarDistancePoints = newFarDistancePoints;
    Ctx.currentClosePrice = currentPrice;
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
@@ -1102,6 +1140,18 @@ void ProcessSmallAtFarTouch()
    double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
+   LogInfo(StringFormat(
+      "SMALL_AT_FAR_NEW_FAR_CHECK bigOpenPrice=%.5f currentPrice=%.5f farOpenPrice=%.5f effectiveFarDistancePoints=%.1f expectedNextFarLoss=%.2f farRemainLoss=%.2f totalReserve=%.2f finalCloseAllowed=%s farOpenEqualsBigOpen=%s",
+      bigOpenPrice,
+      currentPrice,
+      Ctx.farOpenPrice,
+      Ctx.effectiveFarDistancePoints,
+      expectedNextFarLoss,
+      farRemainLoss,
+      Ctx.totalReserve,
+      Ctx.finalCloseAllowed ? "YES" : "NO",
+      MathAbs(Ctx.farOpenPrice - bigOpenPrice) <= SymbolInfoDouble(_Symbol, SYMBOL_POINT) * 0.1 ? "YES" : "NO"
+   ));
    Ctx.theoreticalCyclePL = Ctx.cycleFinalPL;
 
    if(Ctx.finalCloseAllowed)

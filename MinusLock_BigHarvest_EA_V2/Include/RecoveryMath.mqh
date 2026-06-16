@@ -194,8 +194,9 @@ bool ValidateReverseRisk(
    reason = "OK";
    if(expectedNextFarLoss <= 0.0)
    {
-      projectedReserveCoverage = 999.0;
-      return true;
+      projectedReserveCoverage = 0.0;
+      reason = "ExpectedNextFarLoss <= 0";
+      return false;
    }
 
    projectedReserveCoverage = (totalReserve + expectedNextReserve) / expectedNextFarLoss;

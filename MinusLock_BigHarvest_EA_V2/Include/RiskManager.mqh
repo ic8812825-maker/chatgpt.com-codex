@@ -11,7 +11,8 @@ bool SpreadOk()
    if(point > 0.0 && ask > 0.0 && bid > 0.0)
       spreadPoints = (ask - bid) / point;
 
-   Print("RiskGate Spread=", spreadPoints);
+   if(VerboseTickLogs)
+      Print("RiskGate Spread=", spreadPoints);
 
    if(point <= 0.0 || ask <= 0.0 || bid <= 0.0)
    {
@@ -38,7 +39,8 @@ bool MarginOk()
    if(equity > 0.0)
       marginPercent = margin / equity * 100.0;
 
-   Print("RiskGate Margin=", marginPercent);
+   if(VerboseTickLogs)
+      Print("RiskGate Margin=", marginPercent);
 
    if(equity <= 0.0)
    {

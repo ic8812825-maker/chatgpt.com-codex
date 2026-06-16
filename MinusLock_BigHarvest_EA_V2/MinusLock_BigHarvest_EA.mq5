@@ -16,6 +16,19 @@
 int OnInit()
 {
    ConfigureWorkingParameters();
+
+   if(!UseMarketOrders)
+   {
+      Print("INIT FAILED: UseMarketOrders=false is not supported; market orders are required");
+      return INIT_PARAMETERS_INCORRECT;
+   }
+
+   if((ENUM_ACCOUNT_MARGIN_MODE)AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
+   {
+      Print("INIT FAILED: MinusLock BigHarvest requires ACCOUNT_MARGIN_MODE_RETAIL_HEDGING");
+      return INIT_FAILED;
+   }
+
    ResetRecoveryContext();
    State = STATE_IDLE;
 
@@ -73,9 +86,12 @@ double OnTester()
 void OnTick()
 {
    int managedPositions = CountManagedOpenPositions();
-   Print("ON TICK");
-   Print("State=", StateToString(State));
-   Print("ManagedPositions=", managedPositions);
+   if(VerboseTickLogs)
+   {
+      Print("ON TICK");
+      Print("State=", StateToString(State));
+      Print("ManagedPositions=", managedPositions);
+   }
 
    bool riskOk = IsTradingAllowedSafe();
    if(!riskOk && AllowRealTrading)

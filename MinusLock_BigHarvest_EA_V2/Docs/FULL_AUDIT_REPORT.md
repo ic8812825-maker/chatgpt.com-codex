@@ -177,17 +177,16 @@ Verified Small-at-Far flow:
 7. Big closes by `WorkCloseBigOnSmall`.
 8. Remaining Big becomes NewFar.
 9. NewFar direction equals Big direction.
-10. New Far distance context is reset:
+10. New Far inherits the real open price of the remaining Big and keeps a non-zero real distance when price moved:
 
 ```text
-initialFarDistancePoints = 0
-currentBigMovePoints = 0
-cumulativeBigMovePoints = 0
-effectiveFarDistancePoints = 0
-farOpenPrice = currentPrice
+farOpenPrice = bigOpenPrice
+currentClosePrice = currentPrice
+effectiveFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, bigOpenPrice)
+expectedNextFarLoss = CalcFarRemainLoss(newFarLot, effectiveFarDistancePoints)
 ```
 
-Verdict: PASS — normal Small-at-Far does not leave old Far and should not create DUAL_TAIL.
+Verdict: PASS — normal Small-at-Far does not leave old Far, should not create DUAL_TAIL, and must not create an artificial zero-loss NewFar.
 
 ## 8. FarDistanceMode Check
 

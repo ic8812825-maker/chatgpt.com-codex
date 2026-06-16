@@ -42,6 +42,17 @@ struct PositionSnapshot
    string comment;
 };
 
+struct ClosedDealSnapshot
+{
+   ulong ticket;
+   Direction direction;
+   double lot;
+   double openPrice;
+   double closePrice;
+   double profitMoney;
+   string comment;
+};
+
 struct RecoveryContext
 {
    ulong farTicket;

@@ -44,6 +44,7 @@ input ulong  MagicNumber           = 20260609;
 input bool   AllowRealTrading      = false;
 input bool   UseMarketOrders       = true;
 input bool   EnableCycleMathCsv     = true;
+input bool   VerboseTickLogs       = false;
 
 double WorkSmallRatio;
 double WorkCloseBigOnSmall;
