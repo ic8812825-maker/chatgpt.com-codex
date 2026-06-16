@@ -1,6 +1,6 @@
 # MinusLock_BigHarvest_EA_V2
 
-Рабочая папка проекта MinusLock_BigHarvest_EA_V2.
+Отдельная рабочая папка проекта `MinusLock_BigHarvest_EA_V2` в каталоге `work`.
 
 Назначение:
 - исправление логики Small-at-Far;
