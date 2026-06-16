@@ -20,3 +20,9 @@ Included features:
 - Internal SIMULATION engine
 - Real Recovery P/L Validation
 - REAL_CYCLE_MATH log and CSV fields
+
+## 2026-06-16 Big-Harvest comments/panel audit
+- Added dynamic WorkBigRatio usage and PRESET_ACTIVE logging.
+- Added CommentUtils.mqh for all open/close system comments.
+- Added Panel.mqh online status panel.
+- Extended CYCLE_MATH/CSV with comment and panel audit columns.

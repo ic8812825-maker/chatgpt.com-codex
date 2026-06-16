@@ -114,6 +114,12 @@ bool SimOpenPosition(Direction dir, double lot, string comment)
    return true;
 }
 
+bool SimClosePositionByTicketWithReason(ulong ticket, double lot, string closeReason)
+{
+   Print("EA_CLOSE_COMMENT=", closeReason);
+   return SimClosePositionByTicket(ticket, lot);
+}
+
 bool SimClosePositionByTicket(ulong ticket, double lot)
 {
    int index = SimFindIndexByTicket(ticket);

@@ -45,6 +45,7 @@ input bool   AllowRealTrading      = false;
 input bool   UseMarketOrders       = true;
 input bool   EnableCycleMathCsv     = true;
 
+double WorkBigRatio;
 double WorkSmallRatio;
 double WorkCloseBigOnSmall;
 double WorkRemainBigOnSmall;
@@ -56,6 +57,7 @@ FarDistanceModeEnum WorkFarDistanceMode;
 
 void ConfigureWorkingParameters()
 {
+   WorkBigRatio = BigRatio;
    WorkSmallRatio = SmallRatio;
    WorkCloseBigOnSmall = CloseBigOnSmall;
    WorkRemainBigOnSmall = RemainBigOnSmall;
@@ -67,7 +69,8 @@ void ConfigureWorkingParameters()
 
    if(UseRecommended5050Preset)
    {
-      WorkSmallRatio = 0.36;
+      WorkBigRatio = 1.30;
+      WorkSmallRatio = 0.37;
       WorkCloseBigOnSmall = 0.35;
       WorkRemainBigOnSmall = 0.65;
       WorkCloseFarShare = 0.50;
@@ -77,7 +80,19 @@ void ConfigureWorkingParameters()
       WorkFarDistanceMode = FarDistanceMode;
    }
 
+   if(UseRecommended5050Preset)
+      Print("PRESET_ACTIVE WorkBigRatio=", DoubleToString(WorkBigRatio, 2),
+            " WorkBigRatio=", DoubleToString(WorkBigRatio, 2),
+         " WorkSmallRatio=", DoubleToString(WorkSmallRatio, 2),
+            " WorkCloseBigOnSmall=", DoubleToString(WorkCloseBigOnSmall, 2),
+            " WorkRemainBigOnSmall=", DoubleToString(WorkRemainBigOnSmall, 2),
+            " WorkCloseFarShare=", DoubleToString(WorkCloseFarShare, 2),
+            " WorkReserveShare=", DoubleToString(WorkReserveShare, 2),
+            " WorkMaxHarvestLevels=", WorkMaxHarvestLevels,
+            " WorkMaxReverseCycles=", WorkMaxReverseCycles);
+
    Print("WORKING_PARAMETERS | UseRecommended5050Preset=", UseRecommended5050Preset,
+         " WorkBigRatio=", DoubleToString(WorkBigRatio, 2),
          " WorkSmallRatio=", DoubleToString(WorkSmallRatio, 2),
          " WorkCloseBigOnSmall=", DoubleToString(WorkCloseBigOnSmall, 2),
          " WorkRemainBigOnSmall=", DoubleToString(WorkRemainBigOnSmall, 2),

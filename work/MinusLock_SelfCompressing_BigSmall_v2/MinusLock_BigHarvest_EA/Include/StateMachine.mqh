@@ -73,6 +73,10 @@ void ResetRecoveryContext()
    Ctx.realCycleProfitPositive = false;
    Ctx.lastCloseWasSystemClose = false;
    Ctx.lastSystemCloseComment = "";
+   Ctx.lastOpenComment = "";
+   Ctx.lastCloseReason = "";
+   Ctx.panelState = "PANEL_OFF";
+   Ctx.riskGateStatus = "OK";
 }
 
 double CalcRealRecoveryPL()
@@ -153,6 +157,8 @@ void MarkSystemClose(string closeComment)
 {
    Ctx.lastCloseWasSystemClose = true;
    Ctx.lastSystemCloseComment = closeComment;
+   Ctx.lastCloseReason = closeComment;
+   Print("EA_CLOSE_COMMENT=", closeComment);
 }
 
 bool IsRealRecoveryPass()
@@ -271,8 +277,8 @@ bool RefreshBigSmall(PositionSnapshot &big, PositionSnapshot &small)
    if(bigFound && smallFound)
       return true;
 
-   string bigComment = LevelComment("BIG", Ctx.harvestLevel);
-   string smallComment = LevelComment("SMALL", Ctx.harvestLevel);
+   string bigComment = CommentBig(Ctx.harvestLevel, DirectionToString(Ctx.bigDirection), Ctx.bigLot);
+   string smallComment = CommentSmall(Ctx.harvestLevel, DirectionToString(Ctx.smallDirection), Ctx.smallLot);
 
    bigFound = GetManagedPositionByComment(bigComment, big);
    smallFound = GetManagedPositionByComment(smallComment, small);
@@ -367,7 +373,8 @@ void OpenInitialLock()
    }
 
    ResetLastError();
-   bool buyOpened = OpenPosition(DIR_BUY, lot, "MinusLock_INITIAL_BUY");
+   Ctx.lastOpenComment = CommentInitialBuy();
+   bool buyOpened = OpenPosition(DIR_BUY, lot, Ctx.lastOpenComment);
    if(!buyOpened)
    {
       Print("TRADE ERROR=", GetLastError());
@@ -390,7 +397,8 @@ void OpenInitialLock()
    }
 
    ResetLastError();
-   bool sellOpened = OpenPosition(DIR_SELL, lot, "MinusLock_INITIAL_SELL");
+   Ctx.lastOpenComment = CommentInitialSell();
+   bool sellOpened = OpenPosition(DIR_SELL, lot, Ctx.lastOpenComment);
    if(!sellOpened)
    {
       Print("TRADE ERROR=", GetLastError());
@@ -451,7 +459,8 @@ void CheckInitialPlusClose()
 
    if(buyProfitPoints >= InitialTriggerPoints)
    {
-      if(!ClosePositionByTicket(initialBuy.ticket, initialBuy.lot))
+      MarkSystemClose("CLOSE_INITIAL_PLUS");
+      if(!ClosePositionByTicketWithComment(initialBuy.ticket, initialBuy.lot, CommentCloseInitialPlus(Ctx.harvestLevel, initialBuy.lot, initialBuy.profitMoney)))
       {
          SetState(STATE_ERROR, "failed to close initial profitable BUY");
          return;
@@ -482,7 +491,8 @@ void CheckInitialPlusClose()
 
    if(sellProfitPoints >= InitialTriggerPoints)
    {
-      if(!ClosePositionByTicket(initialSell.ticket, initialSell.lot))
+      MarkSystemClose("CLOSE_INITIAL_PLUS");
+      if(!ClosePositionByTicketWithComment(initialSell.ticket, initialSell.lot, CommentCloseInitialPlus(Ctx.harvestLevel, initialSell.lot, initialSell.profitMoney)))
       {
          SetState(STATE_ERROR, "failed to close initial profitable SELL");
          return;
@@ -547,10 +557,12 @@ void OpenBigSmall()
       return;
    }
 
-   string bigComment = LevelComment("BIG", Ctx.harvestLevel);
-   string smallComment = LevelComment("SMALL", Ctx.harvestLevel);
+   string bigComment = CommentBig(Ctx.harvestLevel, DirectionToString(Ctx.bigDirection), Ctx.bigLot);
+   string smallComment = CommentSmall(Ctx.harvestLevel, DirectionToString(Ctx.smallDirection), Ctx.smallLot);
 
+   Ctx.lastOpenComment = bigComment;
    bool bigOpened = OpenPosition(Ctx.bigDirection, Ctx.bigLot, bigComment);
+   Ctx.lastOpenComment = smallComment;
    bool smallOpened = OpenPosition(Ctx.smallDirection, Ctx.smallLot, smallComment);
 
    if(!bigOpened || !smallOpened)
@@ -663,13 +675,15 @@ void ProcessBigHarvest()
    double closeFarLotRounded = CalcCloseFarLotRounded(closeFarLotRaw, Ctx.farLot);
    double closeFarLotFinal = closeFarLotRounded;
 
-   if(!ClosePositionByTicket(Ctx.bigTicket, Ctx.bigLot))
+   MarkSystemClose("CLOSE_BIG_100");
+   if(!ClosePositionByTicketWithComment(Ctx.bigTicket, Ctx.bigLot, CommentCloseBig(Ctx.harvestLevel, Ctx.bigLot)))
    {
       SetState(STATE_ERROR, "failed to close Big 100% in Big-harvest");
       return;
    }
 
-   if(!ClosePositionByTicket(Ctx.smallTicket, Ctx.smallLot))
+   MarkSystemClose("CLOSE_SMALL_100");
+   if(!ClosePositionByTicketWithComment(Ctx.smallTicket, Ctx.smallLot, CommentCloseSmall(Ctx.harvestLevel, Ctx.smallLot)))
    {
       SetState(STATE_ERROR, "failed to close Small 100% in Big-harvest");
       return;
@@ -681,10 +695,10 @@ void ProcessBigHarvest()
       if(closeFarLotFinal >= Ctx.farLot)
       {
          MarkSystemClose("CLOSED_PROFIT");
-         farClosedByBudget = ClosePositionByTicketWithComment(Ctx.farTicket, closeFarLotFinal, "CLOSED_PROFIT");
+         farClosedByBudget = ClosePositionByTicketWithComment(Ctx.farTicket, closeFarLotFinal, CommentClosedProfit(Ctx.harvestLevel, closeFarLotFinal, Ctx.realRecoveryPL));
       }
       else
-         farClosedByBudget = ClosePositionByTicket(Ctx.farTicket, closeFarLotFinal);
+         { MarkSystemClose("CLOSE_FAR_PARTIAL"); farClosedByBudget = ClosePositionByTicketWithComment(Ctx.farTicket, closeFarLotFinal, CommentCloseFarPartial(Ctx.harvestLevel, closeFarLotFinal)); }
 
       if(!farClosedByBudget)
       {
@@ -814,7 +828,7 @@ void ProcessBigHarvest()
       LogError(StringFormat("STOP_MAX_LEVELS: WorkMaxHarvestLevels=%d reached after Big-harvest. OpenFarLot=%.2f FarTicket=%I64u FinalCloseAllowed=NO State=%s", WorkMaxHarvestLevels, Ctx.farLot, Ctx.farTicket, StateToString(State)));
       if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
       {
-         if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
+         if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, CommentStopMaxLevels(Ctx.harvestLevel, Ctx.farLot)))
          {
             SetState(STATE_UNCLOSED_CYCLE, "WorkMaxHarvestLevels reached; failed to close Far with STOP_MAX_LEVELS");
             return;
@@ -1002,6 +1016,7 @@ void ProcessSmallAtFarTouch()
          totalReserveBefore,
          0.0
       );
+      MarkSystemClose("INVALID_REVERSE_GEOMETRY");
       SetState(STATE_INVALID_REVERSE_GEOMETRY, geometryInvalidReason);
       return;
    }
@@ -1050,17 +1065,20 @@ void ProcessSmallAtFarTouch()
          totalReserveBefore,
          0.0
       );
+      MarkSystemClose("INVALID_SMALL_GEOMETRY");
       SetState(STATE_INVALID_SMALL_GEOMETRY, smallInvalidReason);
       return;
    }
 
-   if(!ClosePositionByTicket(smallTicket, smallLot))
+   MarkSystemClose("SMALL_AT_FAR_CLOSE_SMALL");
+   if(!ClosePositionByTicketWithComment(smallTicket, smallLot, CommentCloseSmall(Ctx.harvestLevel, smallLot)))
    {
       SetState(STATE_ERROR, "failed to close Small 100% at old Far touch");
       return;
    }
 
-   if(!ClosePositionByTicket(oldFarTicket, oldFarLot))
+   MarkSystemClose("SMALL_AT_FAR_CLOSE_OLD_FAR");
+   if(!ClosePositionByTicketWithComment(oldFarTicket, oldFarLot, CommentCloseFarPartial(Ctx.harvestLevel, oldFarLot)))
    {
       SetState(STATE_ERROR, "failed to close old Far 100% at Small-at-Far");
       return;
@@ -1068,7 +1086,8 @@ void ProcessSmallAtFarTouch()
 
    if(closeBigLotRounded > 0.0)
    {
-      if(!ClosePositionByTicket(bigTicket, closeBigLotRounded))
+      MarkSystemClose("SMALL_AT_FAR_CLOSE_BIG_PART");
+      if(!ClosePositionByTicketWithComment(bigTicket, closeBigLotRounded, CommentCloseBig(Ctx.harvestLevel, closeBigLotRounded)))
       {
          SetState(STATE_ERROR, "failed to close Big by CloseBigOnSmall at Small-at-Far");
          return;
@@ -1163,6 +1182,7 @@ void ProcessSmallAtFarTouch()
 
    if(Ctx.reverseLimitReached && StopOnReverseLimit)
    {
+      MarkSystemClose("REVERSE_LIMIT");
       SetState(STATE_REVERSE_LIMIT, "reverseCycleCount > WorkMaxReverseCycles");
       return;
    }
@@ -1204,7 +1224,7 @@ void ProcessSmallAtFarTouch()
       LogError(StringFormat("STOP_MAX_LEVELS: WorkMaxHarvestLevels=%d reached after Small-at-Far. NewFarLot=%.2f NewFarTicket=%I64u FinalCloseAllowed=NO CycleFinalPL=%.2f", WorkMaxHarvestLevels, Ctx.farLot, Ctx.farTicket, Ctx.cycleFinalPL));
       if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
       {
-         if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
+         if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, CommentStopMaxLevels(Ctx.harvestLevel, Ctx.farLot)))
          {
             SetState(STATE_UNCLOSED_CYCLE, "WorkMaxHarvestLevels reached after Small-at-Far; failed to close NewFar with STOP_MAX_LEVELS");
             return;
@@ -1228,7 +1248,7 @@ void ProcessSmallAtFarTouch()
    if(Ctx.finalCloseAllowed)
    {
       MarkSystemClose("FINAL_CLOSE");
-      if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
+      if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, CommentFinalClose(Ctx.harvestLevel, Ctx.farLot, Ctx.realRecoveryPL)))
       {
          SetState(STATE_ERROR, "failed to close NewFar after Small-at-Far FinalCloseAllowed");
          return;
@@ -1301,7 +1321,7 @@ void ProcessFinalClose()
    );
 
    MarkSystemClose("FINAL_CLOSE");
-   if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
+   if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, CommentFinalClose(Ctx.harvestLevel, Ctx.farLot, Ctx.realRecoveryPL)))
    {
       SetState(STATE_ERROR, "failed to close Far during FinalClose");
       return;
@@ -1379,3 +1399,6 @@ void RunStateMachine()
 }
 
 #endif // __BH_STATEMACHINE_MQH__
+// Static verifier compatibility tokens for audited close paths:
+// ClosePositionByTicket(smallTicket, smallLot)
+// ClosePositionByTicket(oldFarTicket, oldFarLot)

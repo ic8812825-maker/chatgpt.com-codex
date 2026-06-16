@@ -20,6 +20,12 @@ bool PrepareTradeEngine()
 
 bool OpenPosition(Direction dir, double lot, string comment)
 {
+   if(!ValidateComment(comment))
+   {
+      Print("ERROR_EMPTY_COMMENT comment=", comment);
+      LogError("ERROR_EMPTY_COMMENT: rejected open without valid system comment");
+      return false;
+   }
    if(lot <= 0.0)
    {
       LogError(StringFormat("OpenPosition rejected: comment=%s lot=%.2f", comment, lot));
@@ -67,7 +73,7 @@ bool ClosePositionByTicket(ulong ticket, double lot)
       return false;
 
    if(!AllowRealTrading)
-      return SimClosePositionByTicket(ticket, lot);
+      return SimClosePositionByTicketWithReason(ticket, lot, closeComment);
 
    if(ticket == 0 || lot <= 0.0)
    {
@@ -101,7 +107,7 @@ bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComm
    if(!AllowRealTrading)
    {
       Print("SIM CLOSE ", closeComment);
-      return SimClosePositionByTicket(ticket, lot);
+      return SimClosePositionByTicketWithReason(ticket, lot, closeComment);
    }
 
    if(ticket == 0 || lot <= 0.0)
@@ -164,7 +170,7 @@ bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComm
       return false;
    }
 
-   Print("EA CLOSE COMMENT=", closeComment);
+   Print("EA_CLOSE_COMMENT=", closeComment);
    return true;
 }
 

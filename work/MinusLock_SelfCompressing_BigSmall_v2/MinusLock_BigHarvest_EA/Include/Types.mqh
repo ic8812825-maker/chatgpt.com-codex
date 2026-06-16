@@ -106,6 +106,10 @@ struct RecoveryContext
    bool realCycleProfitPositive;
    bool lastCloseWasSystemClose;
    string lastSystemCloseComment;
+   string lastOpenComment;
+   string lastCloseReason;
+   string panelState;
+   string riskGateStatus;
 };
 
 string DirectionToString(Direction dir)

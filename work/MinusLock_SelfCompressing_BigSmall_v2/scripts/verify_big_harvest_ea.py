@@ -146,6 +146,8 @@ def check_static_files() -> dict[str, object]:
         "Include/RecoveryMath.mqh",
         "Include/RiskManager.mqh",
         "Include/Logger.mqh",
+        "Include/CommentUtils.mqh",
+        "Include/Panel.mqh",
         "Docs/MANUAL.md",
         "Docs/TEST_PLAN.md",
         "Tests/Manual_Test_Cases.md",
@@ -286,7 +288,7 @@ def check_static_files() -> dict[str, object]:
         "REAL_CYCLE_MATH",
         "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance", "RealRecoveryPL",
         "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
-        "TheoreticalCyclePL", "LastSystemCloseComment", "PassByRealPL",
+        "TheoreticalCyclePL", "LastSystemCloseComment", "OpenComment", "CloseComment", "PositionRole", "CommentValid", "PanelState", "LastOpenComment", "LastCloseReason", "PassByRealPL",
     ]:
         if field not in logger:
             raise AssertionError(f"mandatory log field missing: {field}")
@@ -302,6 +304,17 @@ def check_static_files() -> dict[str, object]:
     ]:
         if token not in all_ea_text:
             raise AssertionError(f"startup diagnostic token missing: {token}")
+
+
+    for token in [
+        "CommentUtils.mqh", "Panel.mqh", "CommentInitialBuy", "CommentInitialSell",
+        "CommentBig", "CommentSmall", "CommentFar", "CommentFinalClose",
+        "CommentStopMaxLevels", "ValidateComment", "ERROR_EMPTY_COMMENT",
+        "PanelInit", "PanelUpdate", "PanelDeinit", "OpenComment", "CloseComment",
+        "CommentValid", "PanelState", "LastOpenComment", "LastCloseReason",
+    ]:
+        if token not in all_ea_text:
+            raise AssertionError(f"comment/panel token missing: {token}")
 
     trade = (EA / "Include/TradeEngine.mqh").read_text(encoding="utf-8")
     for token in ["SimOpenPosition", "SimClosePositionByTicket", "UseMarketOrders", "AllowRealTrading"]:
@@ -323,7 +336,7 @@ def check_static_files() -> dict[str, object]:
         "TotalReserveBefore", "TotalReserveAfter", "ReserveUsedForFinalClose",
         "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance", "RealRecoveryPL",
         "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
-        "TheoreticalCyclePL", "LastSystemCloseComment", "PassByRealPL",
+        "TheoreticalCyclePL", "LastSystemCloseComment", "OpenComment", "CloseComment", "PositionRole", "CommentValid", "PanelState", "LastOpenComment", "LastCloseReason", "PassByRealPL",
     ]
     for token in cycle_math_required:
         if token not in logger:

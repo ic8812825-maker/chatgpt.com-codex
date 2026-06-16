@@ -25,7 +25,7 @@ int GetBigMovePoints(int level)
 
 double CalcBigLot(double farLot)
 {
-   return NormalizeLotNearest(farLot * BigRatio);
+   return NormalizeLotNearest(farLot * WorkBigRatio);
 }
 
 double CalcSmallLot(double bigLot)

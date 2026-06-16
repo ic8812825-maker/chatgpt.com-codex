@@ -204,3 +204,15 @@ After `Small-at-Far`, confirm that the new Far starts from current price and doe
 4. Confirm `MinusLock_CycleMath.csv` contains: `InitialIgnoredProfit`, `CycleStartBalance`, `CurrentBalance`, `RealRecoveryPL`, `RealClosedProfit`, `RealClosedLoss`, `RealCommission`, `RealSwap`, `RealCosts`, `TheoreticalCyclePL`, `LastSystemCloseComment`, `PassByRealPL`.
 5. Confirm the first profitable initial lock leg is excluded from `RealRecoveryPL` because `CycleStartBalance` is recorded after that close.
 6. PASS requires `STATE_CLOSED_PROFIT`, `RealRecoveryPL > 0`, no managed open positions, no `STOP_MAX_LEVELS`, and final system close comment `FINAL_CLOSE` or `CLOSED_PROFIT`.
+
+## Dynamic Parameters
+Verify `WorkBigRatio`, `WorkSmallRatio`, `WorkCloseBigOnSmall`, `WorkRemainBigOnSmall`, `WorkCloseFarShare`, `WorkReserveShare`, `WorkMaxHarvestLevels`, `WorkMaxReverseCycles`, and `WorkFarDistanceMode` in normal and `PRESET_ACTIVE` modes.
+
+## Position Comments / Comment Library
+Run static checks for `CommentUtils.mqh`, `ValidateComment`, and `ERROR_EMPTY_COMMENT`; confirm every open path uses generated comments.
+
+## Visual Status Panel
+In visual tester confirm the upper-right panel updates state, tickets, lots, reserve, PL, spread, margin, and risk-gate status without duplicate labels.
+
+## Full Trade Flow Validation
+Exercise price-up and price-down initial cycles, Big harvest, Small-at-Far rebuild, STOP_MAX_LEVELS, invalid reverse geometry, and final-close paths; inspect CSV columns `OpenComment`, `CloseComment`, `PositionRole`, `CommentValid`, `PanelState`, `LastOpenComment`, and `LastCloseReason`.

@@ -256,3 +256,6 @@ The refined search is implemented in `ai_tests/refined_geometry_sweep.py` and te
 - `ai_tests/reports/refined_mt5_confirmation_plan.md`
 
 Important: refined sweep output is still a Python-model candidate list, not an MT5 result. The top, second, and conservative refined candidates must be confirmed in MT5 Strategy Tester with `FarDistanceMode=REAL_PRICE_DISTANCE`, `EnableCycleMathCsv=true`, no managed open positions, and PASS only when `RealRecoveryPL > 0` and `OnTester > 0`.
+
+## Big-Harvest dynamic comments and live panel
+The Big-Harvest EA now includes centralized `CommentUtils.mqh`, live upper-right `Panel.mqh`, dynamic Work-parameter audit logging, empty-comment open blocking, and extended CYCLE_MATH CSV comment/panel fields.

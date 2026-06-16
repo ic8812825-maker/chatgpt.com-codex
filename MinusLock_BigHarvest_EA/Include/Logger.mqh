@@ -304,7 +304,7 @@ void WriteCycleMathCsv(
          "TotalReserveAfter", "ReserveUsedForFinalClose",
          "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance", "RealRecoveryPL",
          "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
-         "TheoreticalCyclePL", "LastSystemCloseComment", "PassByRealPL"
+         "TheoreticalCyclePL", "LastSystemCloseComment", "OpenComment", "CloseComment", "PositionRole", "CommentValid", "PanelState", "LastOpenComment", "LastCloseReason", "PassByRealPL"
       );
    }
 
@@ -366,6 +366,13 @@ void WriteCycleMathCsv(
       DoubleToString(realCosts, 2),
       DoubleToString(theoreticalCyclePL, 2),
       lastSystemCloseComment,
+      Ctx.lastOpenComment,
+      Ctx.lastSystemCloseComment,
+      scenario,
+      ValidateComment(Ctx.lastOpenComment) ? "YES" : "NO",
+      Ctx.panelState,
+      Ctx.lastOpenComment,
+      Ctx.lastCloseReason,
       passByRealPL ? "YES" : "NO"
    );
 
@@ -425,7 +432,7 @@ void LogCycleMathDetailed(
 )
 {
    PrintFormat(
-      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s PassByRealPL=%s",
+      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s OpenComment=%s CloseComment=%s PositionRole=%s CommentValid=%s PanelState=%s LastOpenComment=%s LastCloseReason=%s PassByRealPL=%s",
       level,
       scenario,
       initialFarDistancePoints,
@@ -475,6 +482,13 @@ void LogCycleMathDetailed(
       realCosts,
       theoreticalCyclePL,
       lastSystemCloseComment,
+      Ctx.lastOpenComment,
+      Ctx.lastSystemCloseComment,
+      scenario,
+      ValidateComment(Ctx.lastOpenComment) ? "YES" : "NO",
+      Ctx.panelState,
+      Ctx.lastOpenComment,
+      Ctx.lastCloseReason,
       passByRealPL ? "YES" : "NO"
    );
 

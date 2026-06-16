@@ -114,17 +114,17 @@ bool GetManagedPositionByComment(string comment, PositionSnapshot &snapshot)
 
 bool GetInitialBuy(PositionSnapshot &snapshot)
 {
-   return GetManagedPositionByComment("MinusLock_INITIAL_BUY", snapshot);
+   return GetManagedPositionByComment(CommentInitialBuy(), snapshot);
 }
 
 bool GetInitialSell(PositionSnapshot &snapshot)
 {
-   return GetManagedPositionByComment("MinusLock_INITIAL_SELL", snapshot);
+   return GetManagedPositionByComment(CommentInitialSell(), snapshot);
 }
 
 string LevelComment(string prefix, int level)
 {
-   return StringFormat("MinusLock_%s_L%d", prefix, level);
+   return FormatMLComment(prefix, level, "", -1.0, "OPEN");
 }
 
 int CountManagedOpenPositions()

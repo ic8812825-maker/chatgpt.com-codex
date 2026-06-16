@@ -1,6 +1,6 @@
 {
   "static": {
-    "required_files": 14,
+    "required_files": 16,
     "static_checks": "passed"
   },
   "compile_environment": {

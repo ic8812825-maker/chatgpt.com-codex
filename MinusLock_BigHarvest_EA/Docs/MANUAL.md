@@ -444,3 +444,18 @@ STOP_MAX_LEVELS
 ```
 
 The journal and CSV include `REAL_CYCLE_MATH | ...` so MT5 reports can be audited against the internal recovery result.
+
+## Dynamic Parameters
+Big-Harvest runtime calculations use configured input parameters through Work* mirrors. When `UseRecommended5050Preset=false`, Work values mirror user inputs. When enabled, `PRESET_ACTIVE` is printed with every Work value used by formulas.
+
+## Position Comments
+Every system open uses `Include/CommentUtils.mqh` and the compact `ML|...` comment format. Empty or invalid comments are rejected with `ERROR_EMPTY_COMMENT` before any order is sent.
+
+## Comment Library
+`CommentUtils.mqh` centralizes initial, Far, Big, Small, final-close, stop, invalid-geometry, and reverse-limit comment generation plus `ValidateComment`.
+
+## Visual Status Panel
+`Include/Panel.mqh` creates one upper-right chart label, updates it on every tick, and deletes it on deinitialization. Panel failures are warnings and do not stop trading.
+
+## Full Trade Flow Validation
+The EA records open comments, close comments, position roles, comment validity, panel state, last open comment, and last close reason in cycle logs/CSV to validate Initial, Big, Small-at-Far, final close, and STOP/FAIL paths.

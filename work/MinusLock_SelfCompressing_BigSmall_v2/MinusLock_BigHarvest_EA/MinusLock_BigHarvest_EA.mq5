@@ -4,6 +4,7 @@
 
 #include "Include/Config.mqh"
 #include "Include/Types.mqh"
+#include "Include/CommentUtils.mqh"
 #include "Include/Logger.mqh"
 #include "Include/LotUtils.mqh"
 #include "Include/SimulationEngine.mqh"
@@ -12,6 +13,7 @@
 #include "Include/RecoveryMath.mqh"
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
+#include "Include/Panel.mqh"
 
 int OnInit()
 {
@@ -28,6 +30,7 @@ int OnInit()
    Print("CurrentState=", StateToString(State));
    LogInfo("MinusLock BigHarvest EA initialized");
    LogInfo("Initial lock profit is ignored by design: InitialProfitIgnored must become true after the first plus close");
+   PanelInit();
    return INIT_SUCCEEDED;
 }
 
@@ -42,6 +45,7 @@ void OnDeinit(const int reason)
       Print("ManagedPositions=", managedPositions);
    }
 
+   PanelDeinit();
    LogInfo(StringFormat("MinusLock BigHarvest EA stopped, reason=%d", reason));
 }
 
@@ -89,4 +93,5 @@ void OnTick()
    }
 
    RunStateMachine();
+   PanelUpdate();
 }
