@@ -17,6 +17,11 @@ enum EAState
    STATE_INVALID_REVERSE_GEOMETRY,
    STATE_INVALID_SMALL_GEOMETRY,
    STATE_REVERSE_LIMIT,
+   STATE_REVERSE_LIMIT_CLOSED,
+   STATE_INVALID_GEOMETRY_CLOSED,
+   STATE_MANUAL_INTERVENTION_REQUIRED,
+   STATE_OPEN_NEW_BIG_PENDING,
+   STATE_OPEN_NEW_SMALL_PENDING,
    STATE_REVERSE_WARNING,
    STATE_STOP_MAX_LEVELS,
    STATE_UNCLOSED_CYCLE,
@@ -110,6 +115,21 @@ struct RecoveryContext
    string lastCloseReason;
    string panelState;
    string riskGateStatus;
+
+   Direction savedSmallDirection;
+   double savedSmallClosePrice;
+   double savedSmallTouchPrice;
+
+   ulong oldFarTicket;
+   double oldFarLot;
+   Direction oldFarDirection;
+   double oldFarOpenPrice;
+
+   double pendingLot;
+   Direction pendingDirection;
+   string pendingComment;
+   int pendingAttempts;
+   string pendingOperation;
 };
 
 string DirectionToString(Direction dir)
@@ -139,6 +159,11 @@ string StateToString(EAState state)
       case STATE_INVALID_REVERSE_GEOMETRY: return "STATE_INVALID_REVERSE_GEOMETRY";
       case STATE_INVALID_SMALL_GEOMETRY:   return "STATE_INVALID_SMALL_GEOMETRY";
       case STATE_REVERSE_LIMIT:            return "STATE_REVERSE_LIMIT";
+      case STATE_REVERSE_LIMIT_CLOSED:     return "STATE_REVERSE_LIMIT_CLOSED";
+      case STATE_INVALID_GEOMETRY_CLOSED:  return "STATE_INVALID_GEOMETRY_CLOSED";
+      case STATE_MANUAL_INTERVENTION_REQUIRED: return "STATE_MANUAL_INTERVENTION_REQUIRED";
+      case STATE_OPEN_NEW_BIG_PENDING:     return "STATE_OPEN_NEW_BIG_PENDING";
+      case STATE_OPEN_NEW_SMALL_PENDING:   return "STATE_OPEN_NEW_SMALL_PENDING";
       case STATE_REVERSE_WARNING:          return "STATE_REVERSE_WARNING";
       case STATE_STOP_MAX_LEVELS:      return "STATE_STOP_MAX_LEVELS";
       case STATE_UNCLOSED_CYCLE:       return "STATE_UNCLOSED_CYCLE";

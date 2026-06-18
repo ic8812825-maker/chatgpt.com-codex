@@ -210,7 +210,7 @@ def check_static_files() -> dict[str, object]:
         "OpenBigSmall",
         "Ctx.bigDirection = OppositeDirection(Ctx.farDirection)",
         "Ctx.smallDirection = Ctx.farDirection",
-        "ProcessBigHarvest",
+        "StartBigHarvestPhaseFSM",
         "closeFarLotRounded",
         "CalcFinalCloseAllowed",
         "STATE_WAIT_SMALL_TO_FAR",
@@ -248,7 +248,7 @@ def check_static_files() -> dict[str, object]:
         "remainBigLot = NormalizeLotDown(MathMax(0.0, bigLot - closeBigLotRounded))",
         "if(Ctx.finalCloseAllowed)",
         "newBigLot = CalcBigLot(newFarLot)",
-        "ProcessSmallScenario",
+        "StartSmallScenarioPhaseFSM",
         "STATE_DUAL_TAIL",
         "ProcessFinalClose",
         "\"BIG_HARVEST\"",
@@ -257,6 +257,14 @@ def check_static_files() -> dict[str, object]:
         "LogCycleMath",
         "LogCycleMathDetailed",
         "STATE_CLOSED_PROFIT",
+        "ValidateTerminalStateSafety",
+        "STATE_OPEN_NEW_BIG_PENDING",
+        "STATE_OPEN_NEW_SMALL_PENDING",
+        "RetryOpenNewBig",
+        "RetryOpenNewSmall",
+        "savedSmallDirection",
+        "oldFarTicket",
+        "ClearPendingOpenContext",
     ]:
         if token not in state:
             raise AssertionError(f"state-machine token missing: {token}")

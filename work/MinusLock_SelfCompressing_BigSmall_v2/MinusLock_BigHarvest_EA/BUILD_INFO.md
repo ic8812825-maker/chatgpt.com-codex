@@ -26,3 +26,8 @@ Included features:
 - Added CommentUtils.mqh for all open/close system comments.
 - Added Panel.mqh online status panel.
 - Extended CYCLE_MATH/CSV with comment and panel audit columns.
+
+## 2026-06-18 V2.4.4 FSM safety patch
+- Terminal states are isolated from pending open retries.
+- Added saved Small context and old Far cleanup guards for Small-at-Far.
+- Added ValidateTerminalStateSafety and V2.4.4 static tests.

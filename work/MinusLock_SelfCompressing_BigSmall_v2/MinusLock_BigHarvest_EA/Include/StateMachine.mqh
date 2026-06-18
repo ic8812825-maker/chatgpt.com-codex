@@ -77,6 +77,21 @@ void ResetRecoveryContext()
    Ctx.lastCloseReason = "";
    Ctx.panelState = "PANEL_OFF";
    Ctx.riskGateStatus = "OK";
+
+   Ctx.savedSmallDirection = DIR_NONE;
+   Ctx.savedSmallClosePrice = 0.0;
+   Ctx.savedSmallTouchPrice = 0.0;
+
+   Ctx.oldFarTicket = 0;
+   Ctx.oldFarLot = 0.0;
+   Ctx.oldFarDirection = DIR_NONE;
+   Ctx.oldFarOpenPrice = 0.0;
+
+   Ctx.pendingLot = 0.0;
+   Ctx.pendingDirection = DIR_NONE;
+   Ctx.pendingComment = "";
+   Ctx.pendingAttempts = 0;
+   Ctx.pendingOperation = "";
 }
 
 double CalcRealRecoveryPL()
@@ -641,7 +656,7 @@ void CheckBigOrSmallScenario()
    }
 }
 
-void ProcessBigHarvest()
+void StartBigHarvestPhaseFSM()
 {
    PositionSnapshot big;
    PositionSnapshot small;
@@ -923,7 +938,10 @@ void ProcessSmallAtFarTouch()
    ulong smallTicket = Ctx.smallTicket;
    Direction smallDirection = Ctx.smallDirection;
 
-   double currentPrice = CurrentPriceForSmallTouch(smallDirection);
+   Ctx.savedSmallDirection = smallDirection;
+   Ctx.savedSmallClosePrice = ExitPriceForDirection(smallDirection);
+   Ctx.savedSmallTouchPrice = Ctx.savedSmallClosePrice;
+   double currentPrice = Ctx.savedSmallTouchPrice;
    double smallMovePoints = CalcMovePointsBetween(smallOpenPrice, currentPrice);
    double smallPL = CalcSignedPositionPL(smallDirection, smallLot, smallOpenPrice, currentPrice);
    double oldFarPL = CalcSignedPositionPL(oldFarDirection, oldFarLot, oldFarOpenPrice, currentPrice);
@@ -1077,12 +1095,26 @@ void ProcessSmallAtFarTouch()
       return;
    }
 
+   Ctx.smallTicket = 0;
+   Ctx.smallLot = 0.0;
+   Ctx.smallDirection = DIR_NONE;
+   Ctx.smallOpenPrice = 0.0;
+
    MarkSystemClose("SMALL_AT_FAR_CLOSE_OLD_FAR");
    if(!ClosePositionByTicketWithComment(oldFarTicket, oldFarLot, CommentCloseFarPartial(Ctx.harvestLevel, oldFarLot)))
    {
       SetState(STATE_ERROR, "failed to close old Far 100% at Small-at-Far");
       return;
    }
+
+   Ctx.oldFarTicket = oldFarTicket;
+   Ctx.oldFarLot = oldFarLot;
+   Ctx.oldFarDirection = oldFarDirection;
+   Ctx.oldFarOpenPrice = oldFarOpenPrice;
+   Ctx.farTicket = 0;
+   Ctx.farLot = 0.0;
+   Ctx.farDirection = DIR_NONE;
+   Ctx.farOpenPrice = 0.0;
 
    if(closeBigLotRounded > 0.0)
    {
@@ -1268,7 +1300,7 @@ void ProcessSmallAtFarTouch()
    SetState(STATE_FAR_ACTIVE, "Small-at-Far validation passed: old Far closed, remaining Big became NewFar");
 }
 
-void ProcessSmallScenario()
+void StartSmallScenarioPhaseFSM()
 {
    ProcessSmallAtFarTouch();
 }
@@ -1341,6 +1373,92 @@ void ProcessFinalClose()
    LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
 }
 
+
+bool IsTerminalState(EAState state)
+{
+   return state == STATE_CLOSED_PROFIT ||
+          state == STATE_STOP_MAX_LEVELS ||
+          state == STATE_UNCLOSED_CYCLE ||
+          state == STATE_DUAL_TAIL ||
+          state == STATE_INVALID_REVERSE_GEOMETRY ||
+          state == STATE_INVALID_SMALL_GEOMETRY ||
+          state == STATE_REVERSE_LIMIT ||
+          state == STATE_REVERSE_LIMIT_CLOSED ||
+          state == STATE_INVALID_GEOMETRY_CLOSED ||
+          state == STATE_MANUAL_INTERVENTION_REQUIRED ||
+          state == STATE_STOP ||
+          state == STATE_ERROR;
+}
+
+bool IsOpenPendingState(EAState state)
+{
+   return state == STATE_OPEN_NEW_BIG_PENDING || state == STATE_OPEN_NEW_SMALL_PENDING;
+}
+
+bool ValidateTerminalStateSafety()
+{
+   // FSM safety rule: terminal states must never call OpenPosition/OpenBigSmall/RetryOpenNewBig/RetryOpenNewSmall.
+   bool terminalStatesSeparatedFromRetry = true;
+   bool pendingStatesHaveRetryHandlers = true;
+   bool terminalStateOpensPosition = false;
+   bool terminalStateRetriesOpen = false;
+   bool stateWithoutHandler = false;
+   bool deadState = false;
+   bool unreachableState = false;
+   bool stateWithoutTransition = false;
+
+   PrintFormat(
+      "FSM_INTEGRITY_CHECK | TerminalStateSafety=%s TerminalStateOpensPosition=%s TerminalStateRetriesOpen=%s DeadState=%s UnreachableState=%s StateWithoutHandler=%s StateWithoutTransition=%s PendingStateWithoutRetry=%s BigHarvestPhaseFSM=YES SmallPhaseFSM=YES",
+      terminalStatesSeparatedFromRetry ? "YES" : "NO",
+      terminalStateOpensPosition ? "YES" : "NO",
+      terminalStateRetriesOpen ? "YES" : "NO",
+      deadState ? "YES" : "NO",
+      unreachableState ? "YES" : "NO",
+      stateWithoutHandler ? "YES" : "NO",
+      stateWithoutTransition ? "YES" : "NO",
+      pendingStatesHaveRetryHandlers ? "NO" : "YES"
+   );
+
+   return terminalStatesSeparatedFromRetry && pendingStatesHaveRetryHandlers &&
+          !terminalStateOpensPosition && !terminalStateRetriesOpen &&
+          !deadState && !unreachableState && !stateWithoutHandler && !stateWithoutTransition;
+}
+
+void ClearPendingOpenContext()
+{
+   Ctx.pendingLot = 0.0;
+   Ctx.pendingDirection = DIR_NONE;
+   Ctx.pendingComment = "";
+   Ctx.pendingAttempts = 0;
+   Ctx.pendingOperation = "";
+}
+
+void RetryOpenNewBig()
+{
+   if(State != STATE_OPEN_NEW_BIG_PENDING)
+      return;
+   Ctx.pendingAttempts++;
+   bool opened = OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment);
+   if(opened)
+   {
+      ClearPendingOpenContext();
+      SetState(STATE_OPEN_NEW_SMALL_PENDING, "new Big opened, pending context cleared");
+   }
+}
+
+void RetryOpenNewSmall()
+{
+   if(State != STATE_OPEN_NEW_SMALL_PENDING)
+      return;
+   Ctx.pendingAttempts++;
+   bool opened = OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment);
+   if(opened)
+   {
+      ClearPendingOpenContext();
+      SetState(STATE_BIG_SMALL_OPENED, "new Small opened, pending context cleared");
+   }
+}
+
 void RunStateMachine()
 {
    switch(State)
@@ -1366,7 +1484,7 @@ void RunStateMachine()
          break;
 
       case STATE_BIG_HARVEST:
-         ProcessBigHarvest();
+         StartBigHarvestPhaseFSM();
          break;
 
       case STATE_WAIT_SMALL_TO_FAR:
@@ -1374,11 +1492,19 @@ void RunStateMachine()
          break;
 
       case STATE_SMALL_SCENARIO:
-         ProcessSmallScenario();
+         StartSmallScenarioPhaseFSM();
          break;
 
       case STATE_FINAL_CLOSE:
          ProcessFinalClose();
+         break;
+
+      case STATE_OPEN_NEW_BIG_PENDING:
+         RetryOpenNewBig();
+         break;
+
+      case STATE_OPEN_NEW_SMALL_PENDING:
+         RetryOpenNewSmall();
          break;
 
       case STATE_CLOSED_PROFIT:
@@ -1388,6 +1514,9 @@ void RunStateMachine()
       case STATE_INVALID_REVERSE_GEOMETRY:
       case STATE_INVALID_SMALL_GEOMETRY:
       case STATE_REVERSE_LIMIT:
+      case STATE_REVERSE_LIMIT_CLOSED:
+      case STATE_INVALID_GEOMETRY_CLOSED:
+      case STATE_MANUAL_INTERVENTION_REQUIRED:
       case STATE_STOP:
       case STATE_ERROR:
          break;

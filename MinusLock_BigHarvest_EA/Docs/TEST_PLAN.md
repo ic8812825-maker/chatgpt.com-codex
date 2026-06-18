@@ -216,3 +216,6 @@ In visual tester confirm the upper-right panel updates state, tickets, lots, res
 
 ## Full Trade Flow Validation
 Exercise price-up and price-down initial cycles, Big harvest, Small-at-Far rebuild, STOP_MAX_LEVELS, invalid reverse geometry, and final-close paths; inspect CSV columns `OpenComment`, `CloseComment`, `PositionRole`, `CommentValid`, `PanelState`, `LastOpenComment`, and `LastCloseReason`.
+
+## V2.4.4 FSM Safety Tests
+Run terminal state, saved Small direction, old Far cleanup, wrapper rename, and pending cleanup static checks from `work/MinusLock_SelfCompressing_BigSmall_v2/ai_tests/*_check.py`.
