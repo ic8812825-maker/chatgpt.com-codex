@@ -44,6 +44,9 @@ bool ValidateInputs()
    if(MaxReverseCycles <= 0) { Print("ERROR: MaxReverseCycles must be > 0"); return false; }
    if(MaxSpreadPoints <= 0.0) { Print("ERROR: MaxSpreadPoints must be > 0"); return false; }
    if(MaxMarginPercent <= 0.0) { Print("ERROR: MaxMarginPercent must be > 0"); return false; }
+   if(MaxCloseRetryAttempts <= 0) { Print("ERROR: MaxCloseRetryAttempts must be > 0"); return false; }
+   if(RetryLogIntervalSeconds <= 0) { Print("ERROR: RetryLogIntervalSeconds must be > 0"); return false; }
+   if(RiskGateLogIntervalSeconds <= 0) { Print("ERROR: RiskGateLogIntervalSeconds must be > 0"); return false; }
 
    int lastLevelPoints = BigMoveStartPoints + (MaxHarvestLevels - 1) * BigMoveStepPoints;
    if(lastLevelPoints <= 0) { Print("ERROR: Invalid BigMove levels calculation"); return false; }
@@ -194,8 +197,7 @@ void OnTick()
    }
 
    bool riskOk = IsTradingAllowedSafe();
-   if(!riskOk && AllowRealTrading && StopOnRiskGateBlocked)
-      return;
+   Ctx.riskGateOk = riskOk;
 
    if(State == STATE_IDLE && managedPositions == 0)
    {

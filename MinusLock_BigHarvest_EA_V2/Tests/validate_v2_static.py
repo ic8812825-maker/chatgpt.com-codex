@@ -49,4 +49,19 @@ for token in ["ValidateRiskCompression", "CalcSmallReserveAdd", "CalcRealFarLoss
 for token in ["RecoverState", "SaveState", "STOP_REVERSE_LIMIT_CLOSE_NEW_FAR", "ROLLBACK_INITIAL_BUY_WITHOUT_SELL", "SMALL_RESERVE_ADD"]:
     assert token in state
 
+
+for token in [
+    "RiskGateLogIntervalSeconds", "MaxCloseRetryAttempts", "RetryLogIntervalSeconds",
+    "Ctx.riskGateOk = riskOk", "OpenInitialLock blocked", "OpenBigSmall blocked",
+    "RetryCloseBig();", "RetryCloseSmall();", "RetryCloseOldFar();", "RetryCloseBigPart();", "RetryCloseNewFar();",
+    "BIG_HARVEST_REAL_RESERVE", "DEAL_POSITION_ID", "ReconcileRecoveredPosition",
+]:
+    assert token in (config + main + state)
+
+assert "if(!riskOk && AllowRealTrading && StopOnRiskGateBlocked)" not in main
+assert "input double MaxSpreadPoints       = 60.0;" in config
+assert "input double CloseFarShare         = 0.40;" in config
+assert "input double ReserveShare          = 0.60;" in config
+assert "input int    MaxReverseCycles              = 7;" in config
+
 print("V2_STATIC_VALIDATION PASS: BigMove start/step formula is active, old level inputs are removed, Small-at-Far uses bigOpenPrice, reverse-risk uses real expected loss, sim records realized P/L, RefreshFar is strict, hedge/use-market/tick-log gates exist")

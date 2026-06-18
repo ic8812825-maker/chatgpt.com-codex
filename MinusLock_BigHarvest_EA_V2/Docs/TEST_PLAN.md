@@ -240,3 +240,13 @@ python3 Tests/retry_fsm_static_check.py
 python3 Tests/reverse_limit_close_check.py
 python3 Tests/invalid_geometry_emergency_check.py
 ```
+
+## V2.4.1 RiskGate Architecture Fix Tests
+
+1. Verify high spread blocks only new openings (`OpenInitialLock`, `OpenBigSmall`).
+2. Verify `ProcessBigHarvest`, `ProcessSmallAtFarTouch`, `ProcessFinalClose`, reverse-limit close and invalid-geometry emergency close still execute when spread is above `MaxSpreadPoints`.
+3. Force broker close failure and verify `STATE_CLOSE_BIG_PENDING`, `STATE_CLOSE_SMALL_PENDING`, `STATE_CLOSE_OLD_FAR_PENDING`, `STATE_CLOSE_BIG_PART_PENDING`, `STATE_CLOSE_NEW_FAR_PENDING`, and `STATE_REVERSE_LIMIT_CLOSE_PENDING` retry on following ticks.
+4. Verify BigHarvest reserve is updated only from HistoryDeals-derived `RealBigHarvestNet` and not from projected theoretical P/L.
+5. Restart the terminal/VPS with open managed positions and verify `RecoverState()` reconciles saved GlobalVariables with real positions or moves to `STATE_RECOVERY_PENDING` / `STATE_MANUAL_INTERVENTION_REQUIRED`.
+6. Confirm spread-block logs are throttled by `RiskGateLogIntervalSeconds` and state changes are logged once.
+7. Confirm default V2.4.1 parameters: `MaxSpreadPoints=60`, `CloseFarShare=0.40`, `ReserveShare=0.60`, `MaxReverseCycles=7`, `AllowRealTrading=true`, `UseInternalSimulation=false`, `UseMarketOrders=true`.

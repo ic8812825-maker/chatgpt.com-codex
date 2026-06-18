@@ -3,7 +3,7 @@
 Build date: 2026-06-18 UTC
 Branch: work
 Target folder: MinusLock_BigHarvest_EA_V2
-Commit purpose: V2.4 Small Scenario Risk Compression Reverse hardening
+Commit purpose: V2.4.1 RiskGate lifecycle, real BigHarvest reserve, retry pending states, recovery reconciliation and defaults
 
 Included features:
 - Initial BUY/SELL lock with rollback
@@ -26,3 +26,12 @@ Included features:
 - Internal SIMULATION engine
 - Real Recovery P/L Validation
 - REAL_CYCLE_MATH log and CSV fields
+
+
+V2.4.1 updates:
+- RiskGate blocks only new openings; closes and retry/pending states continue even when spread is high.
+- Pending close states have retry handlers with MaxCloseRetryAttempts and RetryLogIntervalSeconds.
+- BigHarvest reserve and CloseFarBudget use real HistoryDeals net P/L when available.
+- RecoverState persists/reconciles extra context and real open positions after restart.
+- Spread blocked logs are throttled with RiskGateLogIntervalSeconds.
+- Defaults updated: CloseFarShare=0.40, ReserveShare=0.60, MaxReverseCycles=7, MaxSpreadPoints=60.0.

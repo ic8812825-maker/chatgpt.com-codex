@@ -458,3 +458,15 @@ Implemented V2.4 safety requirements:
 - Retry FSM state definitions for multi-step operations.
 
 MetaEditor compile and Strategy Tester remain required on an MT5 environment.
+
+## V2.4.1 RiskGate Architecture Fix Audit Addendum
+
+V2.4.1 removes the unsafe global `return` from `OnTick()` when RiskGate is blocked. `OnTick()` records `Ctx.riskGateOk` and always runs the state machine; the opening functions check the gate locally before creating new exposure. Close, partial-close, final-close, reverse-limit, invalid-geometry emergency, recovery and retry paths are intentionally independent of spread blocking.
+
+Pending states are now operational: each `STATE_CLOSE_*_PENDING`, `STATE_REVERSE_LIMIT_CLOSE_PENDING`, and `STATE_RECOVERY_PENDING` case has a handler. Retry context is persisted through GlobalVariables (`lastRetryState`, `retryTicket`, `retryLot`, `retryAttempts`) and repeated attempts are logged at `RetryLogIntervalSeconds` intervals until success or `MaxCloseRetryAttempts` moves the EA to manual intervention.
+
+BigHarvest reserve handling was revised so projected P/L remains diagnostic only. The reserve and Far-close budget are derived from real history aggregation (`HistorySelect`, `HistoryDealGetDouble`, `HistoryDealGetInteger(DEAL_POSITION_ID)`) and positive `RealBigHarvestNet` only.
+
+RecoverState now restores additional fields and reconciles saved context with real positions by symbol, magic, ticket, position identifier, comment, direction, lot and open price. Disagreement enters `STATE_RECOVERY_PENDING` so the EA does not blindly reset with live exposure.
+
+The V2.4.1 default spread gate is `MaxSpreadPoints=60.0`, because USDJPY MetaQuotes-Demo can show 45-50 points and `30` may over-block opening decisions.

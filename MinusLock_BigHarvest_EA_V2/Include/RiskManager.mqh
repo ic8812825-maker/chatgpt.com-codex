@@ -1,6 +1,26 @@
 #ifndef __BH_RISKMANAGER_MQH__
 #define __BH_RISKMANAGER_MQH__
 
+datetime LastRiskGateLogTime = 0;
+bool LastRiskGateOk = true;
+
+bool ShouldLogRiskGateNow()
+{
+   datetime now = TimeCurrent();
+   if(RiskGateLogIntervalSeconds <= 0 || LastRiskGateLogTime == 0 || now - LastRiskGateLogTime >= RiskGateLogIntervalSeconds)
+   {
+      LastRiskGateLogTime = now;
+      return true;
+   }
+   return false;
+}
+
+void LogRiskGateBlocked(string reason)
+{
+   if(ShouldLogRiskGateNow())
+      LogInfo(StringFormat("RiskGate blocked: %s", reason));
+}
+
 bool SpreadOk()
 {
    double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
@@ -22,8 +42,11 @@ bool SpreadOk()
 
    if(spreadPoints > MaxSpreadPoints)
    {
-      Print("RISK GATE BLOCKED: spread exceeds MaxSpreadPoints");
-      LogInfo(StringFormat("Spread blocked: spreadPoints=%.1f MaxSpreadPoints=%.1f", spreadPoints, MaxSpreadPoints));
+      if(ShouldLogRiskGateNow())
+      {
+         Print("RISK GATE BLOCKED: spread exceeds MaxSpreadPoints");
+         LogInfo(StringFormat("Spread blocked: spreadPoints=%.1f MaxSpreadPoints=%.1f", spreadPoints, MaxSpreadPoints));
+      }
       return false;
    }
 
@@ -106,10 +129,14 @@ bool IsTradingAllowedSafe()
       return true;
    }
 
-   if(!spreadOk || !marginOk || !symbolOk)
-      return false;
+   bool ok = spreadOk && marginOk && symbolOk;
+   if(ok != LastRiskGateOk)
+   {
+      LogInfo(ok ? "RiskGate became OK" : "RiskGate became BLOCKED");
+      LastRiskGateOk = ok;
+   }
 
-   return true;
+   return ok;
 }
 
 #endif // __BH_RISKMANAGER_MQH__

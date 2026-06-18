@@ -190,3 +190,11 @@ STATE_REVERSE_LIMIT
 8. Restart terminal with open managed positions and confirm `RecoverState()` diagnostics.
 9. Force initial SELL failure after BUY open and confirm `ROLLBACK_INITIAL_BUY_WITHOUT_SELL`.
 10. Confirm `UseRecommended5050Preset=false` preserves user inputs.
+
+## V2.4.1 Manual Cases
+
+1. **RiskGate close immunity:** set an artificially low `MaxSpreadPoints`, start a cycle, then verify close paths still execute while only new openings are blocked.
+2. **Pending close retry:** reject or interrupt one close operation and verify the appropriate `STATE_CLOSE_*_PENDING` retries with the same ticket/lot/comment.
+3. **BigHarvest real reserve:** inspect journal/history after BigHarvest and confirm reserve is derived from real HistoryDeals net P/L.
+4. **Restart recovery:** restart MT5/VPS with open managed Far/Big/Small and verify recovered state matches real tickets, lots, directions and open prices.
+5. **Spread log throttle:** confirm `Spread blocked` appears no more often than `RiskGateLogIntervalSeconds`, while `RiskGate became BLOCKED/OK` logs state transitions.

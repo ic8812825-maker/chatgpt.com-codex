@@ -39,6 +39,73 @@ void SaveState()
    GlobalVariableSet(StateKey("HarvestLevel"), (double)Ctx.harvestLevel);
    GlobalVariableSet(StateKey("ReverseCycles"), (double)Ctx.reverseCycleCount);
    GlobalVariableSet(StateKey("TotalReserve"), Ctx.totalReserve);
+   GlobalVariableSet(StateKey("CycleId"), (double)Ctx.cycleId);
+   GlobalVariableSet(StateKey("InitialProfitIgnored"), Ctx.initialProfitIgnored ? 1.0 : 0.0);
+   GlobalVariableSet(StateKey("EffectiveFarDistancePoints"), Ctx.effectiveFarDistancePoints);
+   GlobalVariableSet(StateKey("CycleStartBalance"), Ctx.cycleStartBalance);
+   GlobalVariableSet(StateKey("RealCyclePL"), Ctx.realCyclePL);
+   GlobalVariableSet(StateKey("FinalCloseAllowed"), Ctx.finalCloseAllowed ? 1.0 : 0.0);
+   GlobalVariableSet(StateKey("LastRetryState"), (double)Ctx.lastRetryState);
+   GlobalVariableSet(StateKey("RetryTicket"), (double)Ctx.retryTicket);
+   GlobalVariableSet(StateKey("RetryLot"), Ctx.retryLot);
+   GlobalVariableSet(StateKey("RetryAttempts"), (double)Ctx.retryAttempts);
+}
+
+bool GetStateDouble(string field, double &value)
+{
+   string key = StateKey(field);
+   if(!GlobalVariableCheck(key))
+      return false;
+   value = GlobalVariableGet(key);
+   return true;
+}
+
+bool ReconcileRecoveredPosition(string legName, string comment, ulong &ticket, double &lot, double &openPrice, Direction &direction)
+{
+   if(ticket == 0 && lot <= 0.0)
+      return true;
+
+   PositionSnapshot snapshot;
+   bool found = GetManagedPositionByTicket(ticket, snapshot);
+   if(!found && comment != "")
+      found = GetManagedPositionByComment(comment, snapshot);
+
+   if(found)
+   {
+      // Reconcile by Symbol + MagicNumber + Ticket + Position identifier + Comment + Direction + Lot + OpenPrice.
+      ticket = snapshot.ticket;
+      lot = snapshot.lot;
+      openPrice = snapshot.openPrice;
+      direction = snapshot.direction;
+      LogInfo(StringFormat("RECOVER_RECONCILE %s OK Ticket=%I64u Comment=%s Direction=%s Lot=%.2f OpenPrice=%.5f", legName, ticket, snapshot.comment, DirectionToString(direction), lot, openPrice));
+      return true;
+   }
+
+   LogError(StringFormat("RECOVER_RECONCILE %s missing saved Ticket=%I64u Comment=%s Lot=%.2f OpenPrice=%.5f", legName, ticket, comment, lot, openPrice));
+   return false;
+}
+
+void LogManagedPositionsForRecovery()
+{
+   LogInfo(StringFormat("RECOVERY_DIAGNOSTICS Managed positions found=%d", CountManagedOpenPositions()));
+   if(IsInternalSimulationMode())
+      return;
+
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   {
+      ulong ticket = PositionGetTicket(i);
+      if(ticket == 0 || !PositionSelectByTicket(ticket))
+         continue;
+
+      string symbol = PositionGetString(POSITION_SYMBOL);
+      ulong magic = (ulong)PositionGetInteger(POSITION_MAGIC);
+      ulong identifier = (ulong)PositionGetInteger(POSITION_IDENTIFIER);
+      string comment = PositionGetString(POSITION_COMMENT);
+      double lot = PositionGetDouble(POSITION_VOLUME);
+      double openPrice = PositionGetDouble(POSITION_PRICE_OPEN);
+      Direction direction = PositionTypeToDirection(PositionGetInteger(POSITION_TYPE));
+      LogInfo(StringFormat("RECOVERY_POSITION Symbol=%s MagicNumber=%I64u Ticket=%I64u Position identifier=%I64u Comment=%s Direction=%s Lot=%.2f OpenPrice=%.5f", symbol, magic, ticket, identifier, comment, DirectionToString(direction), lot, openPrice));
+   }
 }
 
 bool RecoverState()
@@ -64,14 +131,47 @@ bool RecoverState()
    Ctx.reverseCycleCount = (int)GlobalVariableGet(StateKey("ReverseCycles"));
    Ctx.totalReserve = GlobalVariableGet(StateKey("TotalReserve"));
 
+   double saved = 0.0;
+   if(GetStateDouble("CycleId", saved)) Ctx.cycleId = (ulong)saved;
+   if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
+   if(GetStateDouble("EffectiveFarDistancePoints", saved)) Ctx.effectiveFarDistancePoints = saved;
+   if(GetStateDouble("CycleStartBalance", saved)) Ctx.cycleStartBalance = saved;
+   if(GetStateDouble("RealCyclePL", saved)) Ctx.realCyclePL = saved;
+   if(GetStateDouble("FinalCloseAllowed", saved)) Ctx.finalCloseAllowed = (saved > 0.5);
+   if(GetStateDouble("LastRetryState", saved)) Ctx.lastRetryState = (EAState)(int)saved;
+   if(GetStateDouble("RetryTicket", saved)) Ctx.retryTicket = (ulong)saved;
+   if(GetStateDouble("RetryLot", saved)) Ctx.retryLot = saved;
+   if(GetStateDouble("RetryAttempts", saved)) Ctx.retryAttempts = (int)saved;
+
    int managed = CountManagedOpenPositions();
+   bool reconcileOk = true;
+   if(managed > 0)
+   {
+      LogManagedPositionsForRecovery();
+      reconcileOk = ReconcileRecoveredPosition("Far", "", Ctx.farTicket, Ctx.farLot, Ctx.farOpenPrice, Ctx.farDirection);
+      if(Ctx.harvestLevel > 0)
+      {
+         string bigComment = LevelComment("BIG", Ctx.harvestLevel);
+         string smallComment = LevelComment("SMALL", Ctx.harvestLevel);
+         reconcileOk = ReconcileRecoveredPosition("Big", bigComment, Ctx.bigTicket, Ctx.bigLot, Ctx.bigOpenPrice, Ctx.bigDirection) && reconcileOk;
+         reconcileOk = ReconcileRecoveredPosition("Small", smallComment, Ctx.smallTicket, Ctx.smallLot, Ctx.smallOpenPrice, Ctx.smallDirection) && reconcileOk;
+      }
+   }
+
    if(managed > 0 && State == STATE_IDLE)
    {
       State = STATE_RECOVERY_PENDING;
-      LogError("RecoverState found managed positions while saved state is idle; manual recovery required");
+      LogError("RecoverState found managed positions while saved state is idle; recovery pending");
    }
 
-   LogInfo(StringFormat("RecoverState restored State=%s FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u ManagedPositions=%d", StateToString(State), Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket, managed));
+   if(!reconcileOk)
+   {
+      State = STATE_RECOVERY_PENDING;
+      Ctx.lastError = "saved state contradicts real open positions";
+      LogError("RecoverState reconciliation failed; STATE_RECOVERY_PENDING and possible STATE_MANUAL_INTERVENTION_REQUIRED");
+   }
+
+   LogInfo(StringFormat("RecoverState restored State=%s CycleId=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u ManagedPositions=%d RetryState=%s RetryTicket=%I64u RetryAttempts=%d", StateToString(State), Ctx.cycleId, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket, managed, StateToString(Ctx.lastRetryState), Ctx.retryTicket, Ctx.retryAttempts));
    return true;
 }
 
@@ -141,6 +241,13 @@ void ResetRecoveryContext()
    Ctx.lastSystemCloseComment = "";
    Ctx.lastAction = "";
    Ctx.lastError = "";
+   Ctx.riskGateOk = true;
+   Ctx.lastRetryState = STATE_IDLE;
+   Ctx.retryTicket = 0;
+   Ctx.retryLot = 0.0;
+   Ctx.retryAttempts = 0;
+   Ctx.lastRetryLogTime = 0;
+   Ctx.cycleId = (ulong)TimeCurrent();
 }
 
 double CalcRealRecoveryPL()
@@ -211,6 +318,8 @@ bool RecalculateRealCycleStatsFromHistory()
             if((ENUM_DEAL_ENTRY)HistoryDealGetInteger(dealTicket, DEAL_ENTRY) != DEAL_ENTRY_OUT)
                continue;
 
+            ulong dealPositionId = (ulong)HistoryDealGetInteger(dealTicket, DEAL_POSITION_ID);
+            string dealComment = HistoryDealGetString(dealTicket, DEAL_COMMENT);
             double dealProfit = HistoryDealGetDouble(dealTicket, DEAL_PROFIT);
             double dealCommission = HistoryDealGetDouble(dealTicket, DEAL_COMMISSION);
             double dealSwap = HistoryDealGetDouble(dealTicket, DEAL_SWAP);
@@ -223,6 +332,7 @@ bool RecalculateRealCycleStatsFromHistory()
 
             Ctx.realCommission += dealCommission;
             Ctx.realSwap += dealSwap;
+            LogInfo(StringFormat("HISTORY_DEAL_REAL_PL Ticket=%I64u DEAL_POSITION_ID=%I64u Comment=%s Net=%.2f", dealTicket, dealPositionId, dealComment, dealNet));
             foundDeals = true;
          }
       }
@@ -452,6 +562,11 @@ bool RefreshBigSmall(PositionSnapshot &big, PositionSnapshot &small)
 void OpenInitialLock()
 {
    Print("OPEN_INITIAL_LOCK_START");
+   if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
+   {
+      LogRiskGateBlocked("OpenInitialLock blocked: RiskGate blocks only new openings, not closes");
+      return;
+   }
    double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID);
    double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
    double point = SymbolInfoDouble(_Symbol, SYMBOL_POINT);
@@ -654,6 +769,12 @@ void CheckInitialPlusClose()
 
 void OpenBigSmall()
 {
+   if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
+   {
+      LogRiskGateBlocked("OpenBigSmall blocked: RiskGate blocks only new Big/Small openings");
+      return;
+   }
+
    if(!Ctx.initialProfitIgnored)
    {
       LogError("Recovery attempted before InitialProfitIgnored=true");
@@ -782,6 +903,102 @@ void CheckBigOrSmallScenario()
    }
 }
 
+void SetRetryContext(EAState pendingState, ulong ticket, double lot, string reason)
+{
+   Ctx.lastRetryState = pendingState;
+   Ctx.retryTicket = ticket;
+   Ctx.retryLot = lot;
+   Ctx.retryAttempts = 0;
+   Ctx.lastRetryLogTime = 0;
+   SetState(pendingState, reason);
+}
+
+bool RetryCloseTicket(string operationName, string comment, EAState successState)
+{
+   if(Ctx.retryTicket == 0 || Ctx.retryLot <= 0.0)
+   {
+      LogError(StringFormat("%s missing retry context Ticket=%I64u Lot=%.2f", operationName, Ctx.retryTicket, Ctx.retryLot));
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, operationName + " missing retry context");
+      return false;
+   }
+
+   Ctx.retryAttempts++;
+   datetime now = TimeCurrent();
+   if(Ctx.lastRetryLogTime == 0 || RetryLogIntervalSeconds <= 0 || now - Ctx.lastRetryLogTime >= RetryLogIntervalSeconds)
+   {
+      Ctx.lastRetryLogTime = now;
+      LogInfo(StringFormat("RETRY_CLOSE %s attempt=%d/%d Ticket=%I64u Lot=%.2f Comment=%s RiskGateOk=%s", operationName, Ctx.retryAttempts, MaxCloseRetryAttempts, Ctx.retryTicket, Ctx.retryLot, comment, Ctx.riskGateOk ? "YES" : "NO"));
+   }
+
+   MarkSystemClose(comment);
+   if(ClosePositionByTicketWithComment(Ctx.retryTicket, Ctx.retryLot, comment))
+   {
+      Ctx.retryTicket = 0;
+      Ctx.retryLot = 0.0;
+      Ctx.retryAttempts = 0;
+      Ctx.lastRetryState = STATE_IDLE;
+      SetState(successState, operationName + " retry close succeeded");
+      return true;
+   }
+
+   if(MaxCloseRetryAttempts > 0 && Ctx.retryAttempts >= MaxCloseRetryAttempts)
+   {
+      LogError(StringFormat("%s exceeded MaxCloseRetryAttempts=%d", operationName, MaxCloseRetryAttempts));
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, operationName + " exceeded close retry attempts");
+   }
+   else
+      SaveState();
+
+   return false;
+}
+
+void RetryCloseBig()
+{
+   RetryCloseTicket("RetryCloseBig", "RETRY_CLOSE_BIG", STATE_BIG_HARVEST);
+}
+
+void RetryCloseSmall()
+{
+   RetryCloseTicket("RetryCloseSmall", "RETRY_CLOSE_SMALL", STATE_BIG_HARVEST);
+}
+
+void RetryCloseOldFar()
+{
+   RetryCloseTicket("RetryCloseOldFar", "RETRY_CLOSE_OLD_FAR", STATE_SMALL_SCENARIO);
+}
+
+void RetryCloseBigPart()
+{
+   RetryCloseTicket("RetryCloseBigPart", "RETRY_CLOSE_BIG_PART", STATE_SMALL_SCENARIO);
+}
+
+void RetryCloseNewFar()
+{
+   RetryCloseTicket("RetryCloseNewFar", "RETRY_CLOSE_NEW_FAR", STATE_CLOSED_PROFIT);
+}
+
+void RetryReverseLimitClose()
+{
+   RetryCloseTicket("RetryReverseLimitClose", "STOP_REVERSE_LIMIT_CLOSE_NEW_FAR", STATE_REVERSE_LIMIT_CLOSED);
+}
+
+void ProcessRecoveryPending()
+{
+   LogInfo("PROCESS_RECOVERY_PENDING: reconciling saved GlobalVariables with real open positions");
+   if(RecoverState())
+   {
+      if(State == STATE_RECOVERY_PENDING)
+      {
+         LogManagedPositionsForRecovery();
+         if(CountManagedOpenPositions() == 0)
+            SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "recovery pending but no managed positions found");
+      }
+      return;
+   }
+
+   SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "RecoverState failed in recovery pending");
+}
+
 void ProcessBigHarvest()
 {
    PositionSnapshot big;
@@ -811,6 +1028,8 @@ void ProcessBigHarvest()
    double lossSmall = -CalcSignedPositionPL(Ctx.smallDirection, Ctx.smallLot, Ctx.smallOpenPrice, smallClosePrice);
    double costs = 0.0;
    double totalReserveBefore = Ctx.totalReserve;
+   RecalculateRealCycleStatsFromHistory();
+   double realCycleBeforeBigHarvest = Ctx.realCyclePL;
    double netProfit = profitBig - lossSmall - costs;
    double closeFarBudget = CalcCloseFarBudget(netProfit);
    double reserveAdd = CalcReserveAdd(netProfit);
@@ -820,15 +1039,35 @@ void ProcessBigHarvest()
 
    if(!ClosePositionByTicket(Ctx.bigTicket, Ctx.bigLot))
    {
-      SetState(STATE_ERROR, "failed to close Big 100% in Big-harvest");
+      SetRetryContext(STATE_CLOSE_BIG_PENDING, Ctx.bigTicket, Ctx.bigLot, "failed to close Big 100% in Big-harvest; retry pending");
       return;
    }
 
    if(!ClosePositionByTicket(Ctx.smallTicket, Ctx.smallLot))
    {
-      SetState(STATE_ERROR, "failed to close Small 100% in Big-harvest");
+      SetRetryContext(STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "failed to close Small 100% in Big-harvest; retry pending");
       return;
    }
+
+   RecalculateRealCycleStatsFromHistory();
+   double realBigHarvestNet = Ctx.realCyclePL - realCycleBeforeBigHarvest;
+   if(IsInternalSimulationMode())
+      realBigHarvestNet = Ctx.realCyclePL - realCycleBeforeBigHarvest;
+
+   if(realBigHarvestNet > 0.0)
+   {
+      closeFarBudget = realBigHarvestNet * WorkCloseFarShare;
+      reserveAdd = realBigHarvestNet * WorkReserveShare;
+   }
+   else
+   {
+      closeFarBudget = 0.0;
+      reserveAdd = 0.0;
+   }
+   closeFarLotRaw = CalcCloseFarLotRaw(closeFarBudget, Ctx.effectiveFarDistancePoints);
+   closeFarLotRounded = CalcCloseFarLotRounded(closeFarLotRaw, Ctx.farLot);
+   closeFarLotFinal = closeFarLotRounded;
+   LogInfo(StringFormat("BIG_HARVEST_REAL_RESERVE HistorySelect HistoryDealGetDouble DEAL_POSITION_ID RealBigHarvestNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f ProjectedBigProfit=%.2f ProjectedSmallLoss=%.2f ProjectedNet=%.2f", realBigHarvestNet, reserveAdd, closeFarBudget, profitBig, lossSmall, netProfit));
 
    if(closeFarLotFinal > 0.0)
    {
@@ -843,7 +1082,7 @@ void ProcessBigHarvest()
 
       if(!farClosedByBudget)
       {
-         SetState(STATE_ERROR, "failed to close Far by money budget");
+         SetRetryContext(STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, closeFarLotFinal, "failed to close Far by real money budget; retry pending");
          return;
       }
    }
@@ -1214,13 +1453,13 @@ void ProcessSmallAtFarTouch()
 
    if(!ClosePositionByTicket(smallTicket, smallLot))
    {
-      SetState(STATE_ERROR, "failed to close Small 100% at old Far touch");
+      SetRetryContext(STATE_CLOSE_SMALL_PENDING, smallTicket, smallLot, "failed to close Small 100% at old Far touch; retry pending");
       return;
    }
 
    if(!ClosePositionByTicket(oldFarTicket, oldFarLot))
    {
-      SetState(STATE_ERROR, "failed to close old Far 100% at Small-at-Far");
+      SetRetryContext(STATE_CLOSE_OLD_FAR_PENDING, oldFarTicket, oldFarLot, "failed to close old Far 100% at Small-at-Far; retry pending");
       return;
    }
 
@@ -1228,7 +1467,7 @@ void ProcessSmallAtFarTouch()
    {
       if(!ClosePositionByTicket(bigTicket, closeBigLotRounded))
       {
-         SetState(STATE_CLOSE_BIG_PART_PENDING, "failed to close Big by CloseBigOnSmall at Small-at-Far; retry pending");
+         SetRetryContext(STATE_CLOSE_BIG_PART_PENDING, bigTicket, closeBigLotRounded, "failed to close Big by CloseBigOnSmall at Small-at-Far; retry pending");
          return;
       }
    }
@@ -1349,7 +1588,7 @@ void ProcessSmallAtFarTouch()
          SetState(STATE_REVERSE_LIMIT_CLOSED, "reverse limit reached; NewFar closed");
       }
       else
-         SetState(STATE_REVERSE_LIMIT_CLOSE_PENDING, "reverse limit reached; NewFar close pending");
+         SetRetryContext(STATE_REVERSE_LIMIT_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "reverse limit reached; NewFar close pending");
       return;
    }
 
@@ -1416,7 +1655,7 @@ void ProcessSmallAtFarTouch()
       MarkSystemClose("FINAL_CLOSE");
       if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
       {
-         SetState(STATE_ERROR, "failed to close NewFar after Small-at-Far FinalCloseAllowed");
+         SetRetryContext(STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "failed to close NewFar after Small-at-Far FinalCloseAllowed; retry pending");
          return;
       }
 
@@ -1489,7 +1728,7 @@ void ProcessFinalClose()
    MarkSystemClose("FINAL_CLOSE");
    if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
    {
-      SetState(STATE_ERROR, "failed to close Far during FinalClose");
+      SetRetryContext(STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "failed to close Far during FinalClose; retry pending");
       return;
    }
 
@@ -1555,19 +1794,40 @@ void RunStateMachine()
       case STATE_INVALID_SMALL_GEOMETRY:
       case STATE_REVERSE_LIMIT:
       case STATE_REVERSE_LIMIT_CLOSED:
-      case STATE_REVERSE_LIMIT_CLOSE_PENDING:
       case STATE_INVALID_GEOMETRY_CLOSED:
-      case STATE_RECOVERY_PENDING:
       case STATE_MANUAL_INTERVENTION_REQUIRED:
-      case STATE_CLOSE_BIG_PENDING:
-      case STATE_CLOSE_SMALL_PENDING:
-      case STATE_CLOSE_OLD_FAR_PENDING:
-      case STATE_CLOSE_BIG_PART_PENDING:
-      case STATE_CLOSE_NEW_FAR_PENDING:
       case STATE_OPEN_NEW_BIG_PENDING:
       case STATE_OPEN_NEW_SMALL_PENDING:
       case STATE_STOP:
       case STATE_ERROR:
+         break;
+
+      case STATE_REVERSE_LIMIT_CLOSE_PENDING:
+         RetryReverseLimitClose();
+         break;
+
+      case STATE_RECOVERY_PENDING:
+         ProcessRecoveryPending();
+         break;
+
+      case STATE_CLOSE_BIG_PENDING:
+         RetryCloseBig();
+         break;
+
+      case STATE_CLOSE_SMALL_PENDING:
+         RetryCloseSmall();
+         break;
+
+      case STATE_CLOSE_OLD_FAR_PENDING:
+         RetryCloseOldFar();
+         break;
+
+      case STATE_CLOSE_BIG_PART_PENDING:
+         RetryCloseBigPart();
+         break;
+
+      case STATE_CLOSE_NEW_FAR_PENDING:
+         RetryCloseNewFar();
          break;
 
       default:

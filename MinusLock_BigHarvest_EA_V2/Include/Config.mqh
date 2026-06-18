@@ -14,8 +14,8 @@ input double BigRatio              = 1.20;
 input double SmallRatio            = 0.35;
 input double CloseBigOnSmall       = 0.35;
 input double RemainBigOnSmall      = 0.65;
-input double CloseFarShare         = 0.90;
-input double ReserveShare          = 0.10;
+input double CloseFarShare         = 0.40;
+input double ReserveShare          = 0.60;
 input double SmallReserveShare     = 0.05;
 input bool   UseRecommended5050Preset = false;
 
@@ -27,7 +27,7 @@ input int    FarDistancePoints     = 200;
 input FarDistanceModeEnum FarDistanceMode = REAL_PRICE_DISTANCE;
 input int    MaxHarvestLevels      = 7;
 input int    SmallFarTouchOffsetPoints = 0;
-input int    MaxReverseCycles              = 3;
+input int    MaxReverseCycles              = 7;
 input double MinReverseStrength            = 0.10;
 input double WarningReverseStrength        = 0.15;
 input double StrongReverseStrength         = 0.25;
@@ -37,11 +37,14 @@ input bool   StopOnReverseLimit            = true;
 input bool   AllowNegativeSmallReverseNet  = false;
 
 input double LotStep               = 0.01;
-input double MaxSpreadPoints       = 30;
+input double MaxSpreadPoints       = 60.0;
 input double MaxMarginPercent      = 70.0;
 input double MaxDrawdownPercent    = 30.0;
 input int    MaxManagedPositions   = 10;
 input bool   StopOnRiskGateBlocked = true;
+input int    RiskGateLogIntervalSeconds = 60;
+input int    MaxCloseRetryAttempts = 20;
+input int    RetryLogIntervalSeconds = 30;
 input int    MaxSlippagePoints     = 30;
 input bool   CloseAllOnInvalidGeometry = true;
 

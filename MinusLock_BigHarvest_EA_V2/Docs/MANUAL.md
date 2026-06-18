@@ -526,3 +526,47 @@ The recommended compression preset is visible in the input defaults, but the EA 
 ## User Parameters vs Recommended Preset
 
 When `UseRecommended5050Preset=false`, `Work*` values are copied directly from user inputs. Preset substitutions happen only inside the explicit `if(UseRecommended5050Preset)` block.
+
+## V2.4.1 RiskGate Architecture Fix
+
+V2.4.1 changes the lifecycle rule for the risk gate: the gate blocks **only new openings** (`OpenInitialLock` and `OpenBigSmall`). It never blocks position closes, partial closes, FinalClose, Small-at-Far closes, reverse-limit close, invalid-geometry emergency close, or retry/pending states. This prevents the EA from freezing an already-open cycle when spread becomes wide.
+
+Default V2.4.1 parameters are:
+
+```text
+BigRatio=1.20
+SmallRatio=0.35
+CloseBigOnSmall=0.35
+RemainBigOnSmall=0.65
+CloseFarShare=0.40
+ReserveShare=0.60
+SmallReserveShare=0.05
+UseRecommended5050Preset=false
+MaxReverseCycles=7
+LotStep=0.01
+MaxSpreadPoints=60.0
+AllowRealTrading=true
+UseInternalSimulation=false
+UseMarketOrders=true
+```
+
+For USDJPY on MetaQuotes-Demo, spread of 45-50 points is common. `MaxSpreadPoints=30` can block new entries too frequently, so the V2.4.1 baseline is `60 points`.
+
+RiskGate state changes are logged (`RiskGate became BLOCKED`, `RiskGate became OK`) and repeated spread-block logs are throttled by `RiskGateLogIntervalSeconds`.
+
+### Pending retry states
+
+The `STATE_CLOSE_*_PENDING` and `STATE_REVERSE_LIMIT_CLOSE_PENDING` states now retry their stored close operation with `retryTicket`, `retryLot`, `retryAttempts`, `MaxCloseRetryAttempts`, and `RetryLogIntervalSeconds`. If retries exceed the configured limit, the EA moves to `STATE_MANUAL_INTERVENTION_REQUIRED` rather than losing context.
+
+### BigHarvest reserve from HistoryDeals
+
+BigHarvest now treats theoretical Big/Small P/L as a projection only. The actual reserve update uses real closed-deal history (`HistorySelect`, `HistoryDealGetDouble(DEAL_PROFIT/COMMISSION/SWAP)`, `DEAL_POSITION_ID`, MagicNumber, symbol, comments). Only positive `RealBigHarvestNet` can add to reserve:
+
+```text
+ReserveAdd = RealBigHarvestNet * ReserveShare
+CloseFarBudget = RealBigHarvestNet * CloseFarShare
+```
+
+### Restart recovery reconciliation
+
+`RecoverState()` restores saved GlobalVariables and reconciles Far/Big/Small tickets against real open positions by Symbol, MagicNumber, Ticket, Position identifier, Comment, Direction, Lot and OpenPrice. Contradictions move the EA to `STATE_RECOVERY_PENDING`; unrecoverable cases require manual intervention.

@@ -131,6 +131,13 @@ struct RecoveryContext
    string lastSystemCloseComment;
    string lastAction;
    string lastError;
+   bool riskGateOk;
+   EAState lastRetryState;
+   ulong retryTicket;
+   double retryLot;
+   int retryAttempts;
+   datetime lastRetryLogTime;
+   ulong cycleId;
 };
 
 string DirectionToString(Direction dir)
