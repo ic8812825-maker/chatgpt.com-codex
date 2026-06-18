@@ -260,3 +260,12 @@ python3 Tests/invalid_geometry_emergency_check.py
 5. Verify no BigHarvest reserve is added when matching HistoryDeals are absent.
 6. Verify SmallScenario reserve uses `smallScenarioRealAfter - smallScenarioRealBefore`.
 7. Restart during pending operation and verify saved pending state, ticket, lot, attempts, and next state restore.
+
+## V2.4.3 Full Phase FSM Tests
+
+1. Verify `ProcessBigHarvest()` contains only the transition to `STATE_BIG_HARVEST_CLOSE_BIG`.
+2. Verify `STATE_BIG_HARVEST_CLOSE_BIG` calls `ProcessBigHarvestCloseBig()` and closes only Big.
+3. Verify `ProcessSmallAtFarTouch()` / `ProcessSmallScenario()` contain no close/reserve business logic and only route to `STATE_SMALL_CLOSE_SMALL`.
+4. Verify retry close success clears the relevant Big/Small/Far context fields.
+5. Verify `STATE_OPEN_NEW_BIG_PENDING` and `STATE_OPEN_NEW_SMALL_PENDING` execute open retry functions.
+6. Verify preset validation order is `ConfigureWorkingParameters()` -> `ValidateInputs()` -> `ValidateWorkingParameters()` -> `ValidateFSMIntegrity()`.

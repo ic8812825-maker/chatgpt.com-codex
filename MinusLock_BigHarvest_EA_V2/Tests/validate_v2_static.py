@@ -19,16 +19,13 @@ assert "BigMoveStepPoints" in config
 assert "BigMoveStartPoints + (level - 1) * BigMoveStepPoints" in risk_math
 assert "L(level) = BigMoveStartPoints + (level - 1) * BigMoveStepPoints" in docs_text
 
-assert "Ctx.farOpenPrice = newFarOpenPrice;" in state
-assert "double newFarOpenPrice = bigOpenPrice;" in state
-assert "double newFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, newFarOpenPrice);" in state
-assert "double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, newFarDistancePoints);" in state
-assert "Ctx.effectiveFarDistancePoints = newFarDistancePoints;" in state
+assert "Ctx.farOpenPrice = Ctx.bigOpenPrice;" in state
+assert "Ctx.effectiveFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, Ctx.farOpenPrice);" in state
+assert "double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, Ctx.effectiveFarDistancePoints);" in state
 assert "Ctx.farOpenPrice = currentPrice;" not in state
 assert "double expectedNextFarLoss = 0.0;" not in state
 assert "if(!AllowRealTrading && Ctx.farLot > 0.0 && Ctx.farDirection != DIR_NONE)" not in state
 assert "ROLLBACK_BIG_WITHOUT_SMALL" in state
-assert "CalcSignedPositionPL(Ctx.bigDirection" in state
 assert "SimClosedDeals" in sim
 assert "SimRecordClosedDeal" in sim
 assert "SimRecalculateClosedStats" in sim

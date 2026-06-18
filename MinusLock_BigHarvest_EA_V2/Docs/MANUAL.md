@@ -602,3 +602,13 @@ BigHarvest reserve is based on deals for the closed Big/Small position ids using
 SmallScenario reserve now uses `smallScenarioRealAfter - smallScenarioRealBefore`, not `realCyclePL - totalReserveBefore`.
 
 Recovery persists additional operational fields, including cycle timing, movement points, reverse metrics, pending operation context, and diagnostic reports for Saved State, Recovered State, Open Positions, Unknown Positions, Missing Positions, and Duplicate Positions.
+
+## V2.4.3 Full Phase FSM Completion
+
+V2.4.3 removes legacy monolithic execution from BigHarvest and Small Scenario entry points. `ProcessBigHarvest()` is now only a thin phase-FSM proxy that moves to `STATE_BIG_HARVEST_CLOSE_BIG`; `ProcessSmallAtFarTouch()` and `ProcessSmallScenario()` are thin proxies to `STATE_SMALL_CLOSE_SMALL`.
+
+BigHarvest now starts with `ProcessBigHarvestCloseBig()`, then continues one operation per phase. Small Scenario also starts with `ProcessSmallCloseSmall()` and proceeds to old-Far close, Big partial close, NewFar build, reserve check and new Big/Small opening phases.
+
+Retry close success now calls `ClearClosedLegAfterRetry()` so closed Big, Small or Far context is cleared before the next phase runs. Open-pending states now run `RetryOpenNewBig()` and `RetryOpenNewSmall()` with pending direction, lot, comment and next-state context.
+
+Initialization order is now preset-safe: `ConfigureWorkingParameters()` runs before validation, then `ValidateInputs()`, `ValidateWorkingParameters()` and `ValidateFSMIntegrity()` run in that order.

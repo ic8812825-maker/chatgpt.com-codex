@@ -474,3 +474,7 @@ The V2.4.1 default spread gate is `MaxSpreadPoints=60.0`, because USDJPY MetaQuo
 ## V2.4.2 Audit Addendum
 
 The V2.4.2 patch addresses the remaining V2.4.1 architectural findings: retry states now carry a next-state continuation target, BigHarvest and Small Scenario expose phase states, dead open-pending states have handlers, BigHarvest real reserve uses matching HistoryDeals by position id, and SmallScenario reserve uses before/after real-cycle deltas. Recovery diagnostics now include saved/recovered state and open/missing/duplicate position reporting tokens.
+
+## V2.4.3 Audit Addendum
+
+The remaining mixed FSM/legacy paths were removed from the main execution routes. BigHarvest and Small Scenario entry functions are now thin state-transition wrappers, while actual work is performed by phase-specific handlers. Retry cleanup now clears closed leg context, open-pending states retry actual opens, and startup validation is performed after working-parameter configuration.

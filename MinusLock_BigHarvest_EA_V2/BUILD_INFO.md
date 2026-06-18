@@ -45,3 +45,13 @@ V2.4.2 updates:
 - BigHarvest reserve is calculated by matching closed Big/Small HistoryDeals via DEAL_POSITION_ID.
 - SmallScenarioRealNet uses real before/after delta.
 - Recovery persistence and diagnostics expanded.
+
+
+V2.4.3 updates:
+- ProcessBigHarvest, ProcessSmallAtFarTouch and ProcessSmallScenario are thin phase-FSM proxies only.
+- Added ProcessBigHarvestCloseBig as the atomic Big close phase.
+- Small Scenario starts from ProcessSmallCloseSmall and proceeds through atomic phases.
+- Retry close success clears closed Big/Small/Far context.
+- OPEN_NEW_*_PENDING states perform actual open retry attempts.
+- Startup order is ConfigureWorkingParameters -> ValidateInputs -> ValidateWorkingParameters -> ValidateFSMIntegrity.
+- FSM integrity check added at startup.

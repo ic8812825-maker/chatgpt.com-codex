@@ -8,6 +8,7 @@ assert "RealBigHarvestNet" in text or "realBigHarvestNet" in text
 assert "realBigHarvestNet * WorkReserveShare" in text
 assert "realBigHarvestNet * WorkCloseFarShare" in text
 idx_real = text.index("BIG_HARVEST_REAL_RESERVE")
-idx_add = text.index("Ctx.totalReserve += reserveAdd", idx_real)
+assert "Ctx.pendingReserveAdd = realBigHarvestNet * WorkReserveShare" in text
+idx_add = text.index("Ctx.totalReserve += Ctx.pendingReserveAdd", idx_real)
 assert idx_add > idx_real
 print("BIGHARVEST_REAL_RESERVE_CHECK PASS")

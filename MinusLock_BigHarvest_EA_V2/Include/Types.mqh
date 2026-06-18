@@ -161,6 +161,8 @@ struct RecoveryContext
    double pendingCloseFarBudget;
    double pendingReserveAdd;
    double pendingCloseFarLot;
+   Direction pendingDirection;
+   string pendingComment;
    double smallScenarioRealBefore;
    double smallScenarioRealAfter;
    ulong cycleId;

@@ -206,3 +206,10 @@ STATE_REVERSE_LIMIT
 3. Confirm `STATE_OPEN_NEW_BIG_PENDING` and `STATE_OPEN_NEW_SMALL_PENDING` do not remain dead/break-only states.
 4. Compare BigHarvest reserve with MT5 history filtered by Big/Small position ids.
 5. Compare SmallReserveAdd with `smallScenarioRealAfter - smallScenarioRealBefore`.
+
+## V2.4.3 Manual Cases
+
+1. Trigger BigHarvest and confirm the journal enters `STATE_BIG_HARVEST_CLOSE_BIG` before closing Big, then continues phase-by-phase.
+2. Trigger Small-at-Far and confirm the journal enters `STATE_SMALL_CLOSE_SMALL` and each following phase performs one operation only.
+3. Force a close retry and confirm the corresponding leg context is cleared after successful retry.
+4. Force an open retry and confirm `STATE_OPEN_NEW_BIG_PENDING` / `STATE_OPEN_NEW_SMALL_PENDING` retry real opens instead of just jumping to `STATE_FAR_ACTIVE`.

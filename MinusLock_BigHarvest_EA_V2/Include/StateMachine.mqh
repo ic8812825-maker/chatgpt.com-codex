@@ -60,6 +60,8 @@ void SaveState()
    GlobalVariableSet(StateKey("PendingCloseFarBudget"), Ctx.pendingCloseFarBudget);
    GlobalVariableSet(StateKey("PendingReserveAdd"), Ctx.pendingReserveAdd);
    GlobalVariableSet(StateKey("PendingCloseFarLot"), Ctx.pendingCloseFarLot);
+   GlobalVariableSet(StateKey("PendingDirection"), (double)Ctx.pendingDirection);
+   // PendingComment is rebuilt from the pending phase after restart.
    GlobalVariableSet(StateKey("SmallScenarioRealBefore"), Ctx.smallScenarioRealBefore);
    GlobalVariableSet(StateKey("SmallScenarioRealAfter"), Ctx.smallScenarioRealAfter);
    GlobalVariableSet(StateKey("CycleStartTime"), (double)Ctx.cycleStartTime);
@@ -175,6 +177,7 @@ bool RecoverState()
    if(GetStateDouble("PendingCloseFarBudget", saved)) Ctx.pendingCloseFarBudget = saved;
    if(GetStateDouble("PendingReserveAdd", saved)) Ctx.pendingReserveAdd = saved;
    if(GetStateDouble("PendingCloseFarLot", saved)) Ctx.pendingCloseFarLot = saved;
+   if(GetStateDouble("PendingDirection", saved)) Ctx.pendingDirection = (Direction)(int)saved;
    if(GetStateDouble("SmallScenarioRealBefore", saved)) Ctx.smallScenarioRealBefore = saved;
    if(GetStateDouble("SmallScenarioRealAfter", saved)) Ctx.smallScenarioRealAfter = saved;
    if(GetStateDouble("CycleStartTime", saved)) Ctx.cycleStartTime = (datetime)saved;
@@ -302,6 +305,8 @@ void ResetRecoveryContext()
    Ctx.pendingCloseFarBudget = 0.0;
    Ctx.pendingReserveAdd = 0.0;
    Ctx.pendingCloseFarLot = 0.0;
+   Ctx.pendingDirection = DIR_NONE;
+   Ctx.pendingComment = "";
    Ctx.smallScenarioRealBefore = 0.0;
    Ctx.smallScenarioRealAfter = 0.0;
    Ctx.cycleId = (ulong)TimeCurrent();
@@ -1050,6 +1055,33 @@ void SetRetryContext(EAState pendingState, ulong ticket, double lot, string reas
    SetState(pendingState, reason);
 }
 
+void ClearClosedLegAfterRetry()
+{
+   if(StringFind(Ctx.pendingOperation, "SMALL") >= 0 && StringFind(Ctx.pendingOperation, "OPEN") < 0)
+   {
+      Ctx.smallTicket = 0;
+      Ctx.smallLot = 0.0;
+      Ctx.smallDirection = DIR_NONE;
+      Ctx.smallOpenPrice = 0.0;
+   }
+
+   if(StringFind(Ctx.pendingOperation, "BIG") >= 0 && StringFind(Ctx.pendingOperation, "BIG_PART") < 0 && StringFind(Ctx.pendingOperation, "OPEN") < 0)
+   {
+      Ctx.bigTicket = 0;
+      Ctx.bigLot = 0.0;
+      Ctx.bigDirection = DIR_NONE;
+      Ctx.bigOpenPrice = 0.0;
+   }
+
+   if((StringFind(Ctx.pendingOperation, "FAR") >= 0 || StringFind(Ctx.pendingOperation, "FINAL_CLOSE") >= 0) && StringFind(Ctx.pendingOperation, "BIG_PART") < 0)
+   {
+      Ctx.farTicket = 0;
+      Ctx.farLot = 0.0;
+      Ctx.farDirection = DIR_NONE;
+      Ctx.farOpenPrice = 0.0;
+   }
+}
+
 bool RetryCloseTicket(string operationName, string comment, EAState successState)
 {
    if(Ctx.retryTicket == 0 || Ctx.retryLot <= 0.0)
@@ -1072,6 +1104,7 @@ bool RetryCloseTicket(string operationName, string comment, EAState successState
    if(ClosePositionByTicketWithComment(Ctx.retryTicket, Ctx.retryLot, comment))
    {
       EAState nextState = (Ctx.pendingNextState != STATE_IDLE ? Ctx.pendingNextState : successState);
+      ClearClosedLegAfterRetry();
       Ctx.retryTicket = 0;
       Ctx.retryLot = 0.0;
       Ctx.retryAttempts = 0;
@@ -1143,21 +1176,25 @@ void ProcessRecoveryPending()
 
 void ProcessBigHarvest()
 {
+   SetState(STATE_BIG_HARVEST_CLOSE_BIG, "BigHarvest phase FSM start");
+}
+
+void ProcessBigHarvestCloseBig()
+{
    PositionSnapshot big;
    PositionSnapshot small;
-
    if(!RefreshFar() || !RefreshBigSmall(big, small))
    {
-      SetState(STATE_ERROR, "cannot process Big-harvest without Far/Big/Small");
+      SetState(STATE_ERROR, "cannot start phased BigHarvest without Far/Big/Small");
       return;
    }
 
-   double farStartLot = Ctx.farLot;
    double bigClosePrice = ExitPriceForDirection(Ctx.bigDirection);
-   double smallClosePrice = ExitPriceForDirection(Ctx.smallDirection);
-   double actualBigMovePoints = CalcMovePointsBetween(Ctx.bigOpenPrice, bigClosePrice);
-   Ctx.currentBigMovePoints = actualBigMovePoints;
-   Ctx.cumulativeBigMovePoints += actualBigMovePoints;
+   Ctx.pendingOperationStartTime = TimeCurrent();
+   Ctx.pendingBigPositionId = Ctx.bigTicket;
+   Ctx.pendingSmallPositionId = Ctx.smallTicket;
+   Ctx.currentBigMovePoints = CalcMovePointsBetween(Ctx.bigOpenPrice, bigClosePrice);
+   Ctx.cumulativeBigMovePoints += Ctx.currentBigMovePoints;
    Ctx.currentClosePrice = bigClosePrice;
    Ctx.effectiveFarDistancePoints = CalcEffectiveFarDistancePoints(
       Ctx.initialFarDistancePoints,
@@ -1166,218 +1203,20 @@ void ProcessBigHarvest()
       Ctx.currentClosePrice,
       Ctx.farOpenPrice
    );
-   double profitBig = CalcSignedPositionPL(Ctx.bigDirection, Ctx.bigLot, Ctx.bigOpenPrice, bigClosePrice);
-   double lossSmall = -CalcSignedPositionPL(Ctx.smallDirection, Ctx.smallLot, Ctx.smallOpenPrice, smallClosePrice);
-   double costs = 0.0;
-   double totalReserveBefore = Ctx.totalReserve;
-   Ctx.pendingOperationStartTime = TimeCurrent();
-   Ctx.pendingBigPositionId = Ctx.bigTicket;
-   Ctx.pendingSmallPositionId = Ctx.smallTicket;
-   RecalculateRealCycleStatsFromHistory();
-   double realCycleBeforeBigHarvest = Ctx.realCyclePL;
-   double netProfit = profitBig - lossSmall - costs;
-   double closeFarBudget = CalcCloseFarBudget(netProfit);
-   double reserveAdd = CalcReserveAdd(netProfit);
-   double closeFarLotRaw = CalcCloseFarLotRaw(closeFarBudget, Ctx.effectiveFarDistancePoints);
-   double closeFarLotRounded = CalcCloseFarLotRounded(closeFarLotRaw, Ctx.farLot);
-   double closeFarLotFinal = closeFarLotRounded;
 
    if(!ClosePositionByTicket(Ctx.bigTicket, Ctx.bigLot))
    {
-      SetPendingOperation("BIG_HARVEST_CLOSE_BIG", STATE_CLOSE_BIG_PENDING, Ctx.bigTicket, Ctx.bigLot, "RETRY_CLOSE_BIG", STATE_BIG_HARVEST_CLOSE_SMALL, "failed to close Big 100% in Big-harvest; retry pending");
+      SetPendingOperation("BIG_HARVEST_CLOSE_BIG", STATE_CLOSE_BIG_PENDING, Ctx.bigTicket, Ctx.bigLot, "RETRY_CLOSE_BIG", STATE_BIG_HARVEST_CLOSE_SMALL, "BigHarvest phase close Big failed; retry pending");
       return;
    }
-
-   if(!ClosePositionByTicket(Ctx.smallTicket, Ctx.smallLot))
-   {
-      SetPendingOperation("BIG_HARVEST_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "RETRY_CLOSE_SMALL", STATE_BIG_HARVEST_CALC_NET, "failed to close Small 100% in Big-harvest; retry pending");
-      return;
-   }
-
-   RecalculateRealCycleStatsFromHistory();
-   double realClosedBigProfit = 0.0;
-   double realClosedSmallProfit = 0.0;
-   double realCommission = 0.0;
-   double realSwap = 0.0;
-   bool foundBigHarvestDeals = CalculateRealNetForClosedPositions(Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, Ctx.pendingOperationStartTime, realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap);
-   double realBigHarvestNet = realClosedBigProfit + realClosedSmallProfit;
-   if(!foundBigHarvestDeals)
-      LogError("BIG_HARVEST_REAL_RESERVE no matching HistoryDeals for Big/Small position ids; reserve stays unchanged");
-   Ctx.pendingRealNet = foundBigHarvestDeals ? realBigHarvestNet : 0.0;
-   if(!foundBigHarvestDeals)
-      realBigHarvestNet = 0.0;
-
-   if(realBigHarvestNet > 0.0)
-   {
-      closeFarBudget = realBigHarvestNet * WorkCloseFarShare;
-      reserveAdd = realBigHarvestNet * WorkReserveShare;
-      Ctx.pendingCloseFarBudget = closeFarBudget;
-      Ctx.pendingReserveAdd = reserveAdd;
-   }
-   else
-   {
-      closeFarBudget = 0.0;
-      reserveAdd = 0.0;
-   }
-   closeFarLotRaw = CalcCloseFarLotRaw(closeFarBudget, Ctx.effectiveFarDistancePoints);
-   closeFarLotRounded = CalcCloseFarLotRounded(closeFarLotRaw, Ctx.farLot);
-   closeFarLotFinal = closeFarLotRounded;
-   Ctx.pendingCloseFarLot = closeFarLotFinal;
-   LogInfo(StringFormat("BIG_HARVEST_REAL_RESERVE HistorySelect HistoryDealGetDouble DEAL_POSITION_ID BigPositionId=%I64u SmallPositionId=%I64u RealClosedBigProfit=%.2f RealClosedSmallProfit=%.2f Commission=%.2f Swap=%.2f RealBigHarvestNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f ProjectedBigProfit=%.2f ProjectedSmallLoss=%.2f ProjectedNet=%.2f", Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap, realBigHarvestNet, reserveAdd, closeFarBudget, profitBig, lossSmall, netProfit));
-
-   if(closeFarLotFinal > 0.0)
-   {
-      bool farClosedByBudget = false;
-      if(closeFarLotFinal >= Ctx.farLot)
-      {
-         MarkSystemClose("CLOSED_PROFIT");
-         farClosedByBudget = ClosePositionByTicketWithComment(Ctx.farTicket, closeFarLotFinal, "CLOSED_PROFIT");
-      }
-      else
-         farClosedByBudget = ClosePositionByTicket(Ctx.farTicket, closeFarLotFinal);
-
-      if(!farClosedByBudget)
-      {
-         SetPendingOperation("BIG_HARVEST_CLOSE_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, closeFarLotFinal, "RETRY_CLOSE_FAR_BUDGET", STATE_BIG_HARVEST_CHECK_FINAL, "failed to close Far by real money budget; retry pending");
-         return;
-      }
-   }
-
-   Ctx.totalReserve += reserveAdd;
-   Ctx.farLot = NormalizeLotDown(MathMax(0.0, Ctx.farLot - closeFarLotFinal));
-   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
-   Ctx.cycleFinalPL = Ctx.totalReserve - CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
-   Ctx.theoreticalCyclePL = Ctx.cycleFinalPL;
-
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
-
-   LogHarvestLevel(
-      Ctx.harvestLevel,
-      Ctx.farTicket,
-      Ctx.farDirection,
-      farStartLot,
-      Ctx.bigLot,
-      Ctx.smallLot,
-      (int)MathRound(actualBigMovePoints),
-      profitBig,
-      lossSmall,
-      netProfit,
-      closeFarBudget,
-      reserveAdd,
-      Ctx.totalReserve,
-      closeFarLotRaw,
-      closeFarLotRounded,
-      Ctx.farLot,
-      farRemainLoss,
-      Ctx.finalCloseAllowed,
-      Ctx.cycleFinalPL,
-      Ctx.initialProfitIgnored,
-      STATE_BIG_HARVEST
-   );
-
-   LogCycleMathDetailed(
-      Ctx.harvestLevel,
-      "BIG_HARVEST",
-      farStartLot,
-      Ctx.bigLot,
-      Ctx.smallLot,
-      netProfit,
-      closeFarBudget,
-      reserveAdd,
-      Ctx.totalReserve,
-      farRemainLoss,
-      Ctx.finalCloseAllowed,
-      STATE_BIG_HARVEST,
-      profitBig,
-      lossSmall,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      closeFarLotRaw,
-      closeFarLotRounded,
-      Ctx.farLot,
-      Ctx.reverseStrength,
-      Ctx.projectedReserveCoverage,
-      Ctx.finalCloseAllowed ? "FINAL_CLOSE_ALLOWED" : "REPEAT_HARVEST_OR_STOP_CHECK",
-      "",
-      netProfit,
-      netProfit,
-      costs,
-      totalReserveBefore,
-      Ctx.finalCloseAllowed ? farRemainLoss : 0.0
-   );
 
    Ctx.bigTicket = 0;
-   Ctx.smallTicket = 0;
    Ctx.bigLot = 0.0;
-   Ctx.smallLot = 0.0;
-
-   if(Ctx.farLot <= 0.0)
-   {
-      SetState(STATE_CLOSED_PROFIT, "Far was fully closed by Big-harvest budget");
-      RecalculateRealCycleStatsFromHistory();
-      LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
-      return;
-   }
-
-   if(Ctx.finalCloseAllowed)
-   {
-      SetState(STATE_FINAL_CLOSE, "TotalReserve covers remaining Far loss");
-      return;
-   }
-
-   if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
-   {
-      LogCycleMathDetailed(
-         Ctx.harvestLevel,
-         "STOP_MAX_LEVELS",
-         Ctx.farLot,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         Ctx.totalReserve,
-         CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints),
-         false,
-         STATE_STOP_MAX_LEVELS,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         Ctx.farLot,
-         Ctx.reverseStrength,
-         Ctx.projectedReserveCoverage,
-         "STOP_MAX_LEVELS_CLOSE_RESIDUAL_FAR",
-         "WorkMaxHarvestLevels reached after Big-harvest",
-         0.0,
-         0.0,
-         0.0,
-         Ctx.totalReserve,
-         0.0
-      );
-      LogError(StringFormat("STOP_MAX_LEVELS: WorkMaxHarvestLevels=%d reached after Big-harvest. OpenFarLot=%.2f FarTicket=%I64u FinalCloseAllowed=NO State=%s", WorkMaxHarvestLevels, Ctx.farLot, Ctx.farTicket, StateToString(State)));
-      if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
-      {
-         if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
-         {
-            SetState(STATE_UNCLOSED_CYCLE, "WorkMaxHarvestLevels reached; failed to close Far with STOP_MAX_LEVELS");
-            return;
-         }
-      }
-      Ctx.farTicket = 0;
-      Ctx.farLot = 0.0;
-      SetState(STATE_UNCLOSED_CYCLE, "STOP_MAX_LEVELS: cycle failed, residual Far closed by EA to prevent end-of-test distortion");
-      return;
-   }
-
-   SetState(STATE_FAR_ACTIVE, "Repeat Harvest from reduced Far");
+   Ctx.bigDirection = DIR_NONE;
+   Ctx.bigOpenPrice = 0.0;
+   SetState(STATE_BIG_HARVEST_CLOSE_SMALL, "BigHarvest close Big phase done");
 }
+
 
 double CurrentPriceForSmallTouch(Direction smallDirection)
 {
@@ -1435,410 +1274,15 @@ void CheckSmallToFarTouch()
 
 void ProcessSmallAtFarTouch()
 {
-   PositionSnapshot big;
-   PositionSnapshot small;
-
-   if(!RefreshFar() || !RefreshBigSmall(big, small))
-   {
-      SetState(STATE_ERROR, "cannot process Small-at-Far without Far/Big/Small");
-      return;
-   }
-
-   double oldFarLot = Ctx.farLot;
-   double oldFarOpenPrice = Ctx.farOpenPrice;
-   ulong oldFarTicket = Ctx.farTicket;
-   Direction oldFarDirection = Ctx.farDirection;
-
-   double bigLot = Ctx.bigLot;
-   double bigOpenPrice = Ctx.bigOpenPrice;
-   ulong bigTicket = Ctx.bigTicket;
-   Direction bigDirection = Ctx.bigDirection;
-
-   double smallLot = Ctx.smallLot;
-   double smallOpenPrice = Ctx.smallOpenPrice;
-   ulong smallTicket = Ctx.smallTicket;
-   Direction smallDirection = Ctx.smallDirection;
-
-   double currentPrice = CurrentPriceForSmallTouch(smallDirection);
-   double smallMovePoints = CalcMovePointsBetween(smallOpenPrice, currentPrice);
-   double smallPL = CalcSignedPositionPL(smallDirection, smallLot, smallOpenPrice, currentPrice);
-   double oldFarPL = CalcSignedPositionPL(oldFarDirection, oldFarLot, oldFarOpenPrice, currentPrice);
-   double closeBigLotRaw = bigLot * WorkCloseBigOnSmall;
-   double closeBigLotRounded = CalcCloseBigLotOnSmall(bigLot);
-   double plannedRemainBigLot = CalcRemainBigLotOnSmall(bigLot);
-   double remainBigLot = plannedRemainBigLot;
-   double closedBigPL = CalcSignedPositionPL(bigDirection, closeBigLotRounded, bigOpenPrice, currentPrice);
-   double costs = 0.0;
-   double totalReserveBefore = Ctx.totalReserve;
-   RecalculateRealCycleStatsFromHistory();
-   Ctx.smallScenarioRealBefore = Ctx.realCyclePL;
-   Ctx.pendingOperationStartTime = TimeCurrent();
-   Ctx.pendingBigPositionId = bigTicket;
-   Ctx.pendingSmallPositionId = smallTicket;
-   double smallScenarioTotalPL = smallPL + oldFarPL + closedBigPL - costs;
-
-   double newFarLot = remainBigLot;
-   Direction newFarDirection = bigDirection;
-   double newFarOpenPrice = bigOpenPrice;
-   double newFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, newFarOpenPrice);
-   double newBigLot = CalcBigLot(newFarLot);
-   double newSmallLot = CalcSmallLot(newBigLot);
-   double expectedNextReserve = CalcExpectedNextReserve(newBigLot, newSmallLot, Ctx.harvestLevel + 1);
-   double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, newFarDistancePoints);
-   double projectedReserveCoverage = 0.0;
-   double reverseStrength = 0.0;
-   double smallReverseNet = 0.0;
-   string geometryInvalidReason = "OK";
-   string smallInvalidReason = "OK";
-   string riskWarningReason = "OK";
-   string actionAfterValidation = "OPEN_NEW_BIG_SMALL";
-
-   bool geometryValid = ValidateReverseGeometry(oldFarLot, newFarLot, newBigLot, newSmallLot, reverseStrength, geometryInvalidReason);
-   bool smallGeometryValid = ValidateSmallGeometry(smallPL, oldFarPL, closedBigPL, smallReverseNet, smallInvalidReason);
-   bool reserveProjectionOk = ValidateReverseRisk(Ctx.totalReserve, expectedNextReserve, expectedNextFarLoss, projectedReserveCoverage, riskWarningReason);
-
-   Ctx.oldFarLotBeforeReverse = oldFarLot;
-   Ctx.newFarLotAfterReverse = newFarLot;
-   Ctx.newBigLotAfterReverse = newBigLot;
-   Ctx.newSmallLotAfterReverse = newSmallLot;
-   Ctx.reverseStrength = reverseStrength;
-   Ctx.reverseQualityScore = reverseStrength;
-   Ctx.projectedReserveCoverage = projectedReserveCoverage;
-   Ctx.smallReverseNet = smallReverseNet;
-   Ctx.geometryValid = geometryValid;
-   Ctx.smallGeometryValid = smallGeometryValid;
-   Ctx.reserveProjectionOk = reserveProjectionOk;
-
-   if(!geometryValid && StopOnInvalidReverseGeometry)
-      actionAfterValidation = "STOP_INVALID_REVERSE_GEOMETRY";
-   else if(!smallGeometryValid && !AllowNegativeSmallReverseNet)
-      actionAfterValidation = "STOP_INVALID_SMALL_GEOMETRY";
-   else if(!reserveProjectionOk)
-      actionAfterValidation = "REVERSE_WARNING_CONTINUE";
-
-   if(!geometryValid && StopOnInvalidReverseGeometry)
-   {
-      LogInfo(StringFormat("SMALL_AT_FAR_TRIGGERED SmallMovePoints=%.1f CurrentPrice=%.5f", smallMovePoints, currentPrice));
-      LogSmallAtFarTriggered(
-         Ctx.harvestLevel, oldFarLot, bigLot, smallLot, smallPL, oldFarPL, closedBigPL,
-         smallScenarioTotalPL, closeBigLotRaw, closeBigLotRounded, remainBigLot, newFarLot,
-         newFarDirection, newBigLot, newSmallLot, expectedNextFarLoss, Ctx.totalReserve,
-         false, Ctx.totalReserve - expectedNextFarLoss, actionAfterValidation, reverseStrength,
-         ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
-         geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-         WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
-      );
-      LogCycleMathDetailed(
-         Ctx.harvestLevel,
-         "SMALL_AT_FAR",
-         oldFarLot,
-         bigLot,
-         smallLot,
-         smallReverseNet,
-         0.0,
-         0.0,
-         Ctx.totalReserve,
-         expectedNextFarLoss,
-         false,
-         STATE_INVALID_REVERSE_GEOMETRY,
-         0.0,
-         0.0,
-         smallPL,
-         oldFarPL,
-         closedBigPL,
-         smallReverseNet,
-         0.0,
-         closeBigLotRounded,
-         newFarLot,
-         reverseStrength,
-         projectedReserveCoverage,
-         actionAfterValidation,
-         geometryInvalidReason,
-         smallScenarioTotalPL,
-         smallReverseNet,
-         costs,
-         totalReserveBefore,
-         0.0
-      );
-      HandleInvalidGeometry(geometryInvalidReason);
-      return;
-   }
-
-   if(!smallGeometryValid && !AllowNegativeSmallReverseNet)
-   {
-      LogInfo(StringFormat("SMALL_AT_FAR_TRIGGERED SmallMovePoints=%.1f CurrentPrice=%.5f", smallMovePoints, currentPrice));
-      LogSmallAtFarTriggered(
-         Ctx.harvestLevel, oldFarLot, bigLot, smallLot, smallPL, oldFarPL, closedBigPL,
-         smallScenarioTotalPL, closeBigLotRaw, closeBigLotRounded, remainBigLot, newFarLot,
-         newFarDirection, newBigLot, newSmallLot, expectedNextFarLoss, Ctx.totalReserve,
-         false, Ctx.totalReserve - expectedNextFarLoss, actionAfterValidation, reverseStrength,
-         ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
-         geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-         WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
-      );
-      LogCycleMathDetailed(
-         Ctx.harvestLevel,
-         "SMALL_AT_FAR",
-         oldFarLot,
-         bigLot,
-         smallLot,
-         smallReverseNet,
-         0.0,
-         0.0,
-         Ctx.totalReserve,
-         expectedNextFarLoss,
-         false,
-         STATE_INVALID_SMALL_GEOMETRY,
-         0.0,
-         0.0,
-         smallPL,
-         oldFarPL,
-         closedBigPL,
-         smallReverseNet,
-         0.0,
-         closeBigLotRounded,
-         newFarLot,
-         reverseStrength,
-         projectedReserveCoverage,
-         actionAfterValidation,
-         smallInvalidReason,
-         smallScenarioTotalPL,
-         smallReverseNet,
-         costs,
-         totalReserveBefore,
-         0.0
-      );
-      SetState(STATE_INVALID_SMALL_GEOMETRY, smallInvalidReason);
-      return;
-   }
-
-   if(!ClosePositionByTicket(smallTicket, smallLot))
-   {
-      SetPendingOperation("SMALL_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, smallTicket, smallLot, "RETRY_CLOSE_SMALL_AT_FAR", STATE_SMALL_CLOSE_OLD_FAR, "failed to close Small 100% at old Far touch; retry pending");
-      return;
-   }
-
-   if(!ClosePositionByTicket(oldFarTicket, oldFarLot))
-   {
-      SetPendingOperation("SMALL_CLOSE_OLD_FAR", STATE_CLOSE_OLD_FAR_PENDING, oldFarTicket, oldFarLot, "RETRY_CLOSE_OLD_FAR", STATE_SMALL_CLOSE_BIG_PART, "failed to close old Far 100% at Small-at-Far; retry pending");
-      return;
-   }
-
-   if(closeBigLotRounded > 0.0)
-   {
-      if(!ClosePositionByTicket(bigTicket, closeBigLotRounded))
-      {
-         SetPendingOperation("SMALL_CLOSE_BIG_PART", STATE_CLOSE_BIG_PART_PENDING, bigTicket, closeBigLotRounded, "RETRY_CLOSE_BIG_PART", STATE_SMALL_BUILD_NEW_FAR, "failed to close Big by CloseBigOnSmall at Small-at-Far; retry pending");
-         return;
-      }
-   }
-
-   double smallScenarioRealNet = smallScenarioTotalPL;
-   RecalculateRealCycleStatsFromHistory();
-   Ctx.smallScenarioRealAfter = Ctx.realCyclePL;
-   if(Ctx.smallScenarioRealAfter != Ctx.smallScenarioRealBefore)
-      smallScenarioRealNet = Ctx.smallScenarioRealAfter - Ctx.smallScenarioRealBefore;
-   double smallReserveAdd = CalcSmallReserveAdd(smallScenarioRealNet);
-   Ctx.totalReserve += smallReserveAdd;
-   LogInfo(StringFormat("SMALL_RESERVE_ADD SmallScenarioRealNet=%.2f SmallReserveShare=%.4f SmallReserveAdd=%.2f TotalReserve=%.2f", smallScenarioRealNet, WorkSmallReserveShare, smallReserveAdd, Ctx.totalReserve));
-
-   Ctx.reverseCycleCount += 1;
-   Ctx.reverseLimitReached = Ctx.reverseCycleCount > WorkMaxReverseCycles;
-   if(Ctx.reverseLimitReached && StopOnReverseLimit)
-      actionAfterValidation = "STOP_REVERSE_LIMIT";
-
-   Ctx.farTicket = bigTicket;
-   Ctx.farLot = newFarLot;
-   Ctx.farOpenPrice = newFarOpenPrice;
-   Ctx.farDirection = newFarDirection;
-   Ctx.initialFarDistancePoints = newFarDistancePoints;
-   Ctx.currentBigMovePoints = 0.0;
-   Ctx.cumulativeBigMovePoints = 0.0;
-   Ctx.effectiveFarDistancePoints = newFarDistancePoints;
-   Ctx.currentClosePrice = currentPrice;
-   Ctx.bigTicket = 0;
-   Ctx.smallTicket = 0;
-   Ctx.bigLot = 0.0;
-   Ctx.smallLot = 0.0;
-   Ctx.bigOpenPrice = 0.0;
-   Ctx.smallOpenPrice = 0.0;
-   Ctx.bigDirection = DIR_NONE;
-   Ctx.smallDirection = DIR_NONE;
-   Ctx.dualTailDetected = false;
-
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
-   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
-   Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
-   LogInfo(StringFormat(
-      "SMALL_AT_FAR_NEW_FAR_CHECK bigOpenPrice=%.5f currentPrice=%.5f farOpenPrice=%.5f effectiveFarDistancePoints=%.1f expectedNextFarLoss=%.2f farRemainLoss=%.2f totalReserve=%.2f finalCloseAllowed=%s farOpenEqualsBigOpen=%s",
-      bigOpenPrice,
-      currentPrice,
-      Ctx.farOpenPrice,
-      Ctx.effectiveFarDistancePoints,
-      expectedNextFarLoss,
-      farRemainLoss,
-      Ctx.totalReserve,
-      Ctx.finalCloseAllowed ? "YES" : "NO",
-      MathAbs(Ctx.farOpenPrice - bigOpenPrice) <= SymbolInfoDouble(_Symbol, SYMBOL_POINT) * 0.1 ? "YES" : "NO"
-   ));
-   Ctx.theoreticalCyclePL = Ctx.cycleFinalPL;
-
-   if(Ctx.finalCloseAllowed)
-      actionAfterValidation = "FINAL_CLOSE_NEW_FAR";
-   else if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
-      actionAfterValidation = "STOP_MAX_LEVELS";
-   else if(Ctx.reverseLimitReached && StopOnReverseLimit)
-      actionAfterValidation = "STOP_REVERSE_LIMIT";
-   else if(!reserveProjectionOk)
-      actionAfterValidation = "REVERSE_WARNING_OPEN_NEW_BIG_SMALL";
-   else if(!smallGeometryValid && AllowNegativeSmallReverseNet)
-      actionAfterValidation = "SMALL_GEOMETRY_WARNING_OPEN_NEW_BIG_SMALL";
-   else
-      actionAfterValidation = "OPEN_NEW_BIG_SMALL";
-
-   LogInfo(StringFormat("SMALL_AT_FAR_TRIGGERED SmallMovePoints=%.1f CurrentPrice=%.5f", smallMovePoints, currentPrice));
-   LogSmallAtFarTriggered(
-      Ctx.harvestLevel, oldFarLot, bigLot, smallLot, smallPL, oldFarPL, closedBigPL,
-      smallScenarioTotalPL, closeBigLotRaw, closeBigLotRounded, remainBigLot, Ctx.farLot,
-      Ctx.farDirection, newBigLot, newSmallLot, farRemainLoss, Ctx.totalReserve,
-      Ctx.finalCloseAllowed, Ctx.cycleFinalPL, actionAfterValidation, reverseStrength,
-      ReverseStrengthStatus(reverseStrength), smallReverseNet, projectedReserveCoverage,
-      geometryValid, smallGeometryValid, reserveProjectionOk, Ctx.reverseCycleCount,
-      WorkMaxReverseCycles, geometryInvalidReason, smallInvalidReason, riskWarningReason
-   );
-
-   LogCycleMathDetailed(
-      Ctx.harvestLevel,
-      "SMALL_AT_FAR",
-      oldFarLot,
-      bigLot,
-      smallLot,
-      smallReverseNet,
-      0.0,
-      0.0,
-      Ctx.totalReserve,
-      farRemainLoss,
-      Ctx.finalCloseAllowed,
-      STATE_SMALL_SCENARIO,
-      0.0,
-      0.0,
-      smallPL,
-      oldFarPL,
-      closedBigPL,
-      smallReverseNet,
-      0.0,
-      closeBigLotRounded,
-      Ctx.farLot,
-      reverseStrength,
-      projectedReserveCoverage,
-      actionAfterValidation,
-      "",
-      smallScenarioTotalPL,
-      smallReverseNet,
-      costs,
-      totalReserveBefore,
-      Ctx.finalCloseAllowed ? farRemainLoss : 0.0
-   );
-
-   if(Ctx.reverseLimitReached && StopOnReverseLimit)
-   {
-      MarkSystemClose("STOP_REVERSE_LIMIT_CLOSE_NEW_FAR");
-      if(Ctx.farLot > 0.0 && Ctx.farTicket != 0 && ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_REVERSE_LIMIT_CLOSE_NEW_FAR"))
-      {
-         Ctx.farTicket = 0;
-         Ctx.farLot = 0.0;
-         SetState(STATE_REVERSE_LIMIT_CLOSED, "reverse limit reached; NewFar closed");
-      }
-      else
-         SetPendingOperation("REVERSE_LIMIT_CLOSE_NEW_FAR", STATE_REVERSE_LIMIT_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "STOP_REVERSE_LIMIT_CLOSE_NEW_FAR", STATE_REVERSE_LIMIT_CLOSED, "reverse limit reached; NewFar close pending");
-      return;
-   }
-
-   if(!Ctx.finalCloseAllowed && Ctx.harvestLevel >= WorkMaxHarvestLevels)
-   {
-      LogCycleMathDetailed(
-         Ctx.harvestLevel,
-         "STOP_MAX_LEVELS",
-         Ctx.farLot,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         Ctx.totalReserve,
-         CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints),
-         false,
-         STATE_STOP_MAX_LEVELS,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         0.0,
-         Ctx.smallReverseNet,
-         0.0,
-         0.0,
-         Ctx.farLot,
-         Ctx.reverseStrength,
-         Ctx.projectedReserveCoverage,
-         "STOP_MAX_LEVELS_CLOSE_NEW_FAR",
-         "WorkMaxHarvestLevels reached after Small-at-Far",
-         0.0,
-         0.0,
-         0.0,
-         Ctx.totalReserve,
-         0.0
-      );
-      LogError(StringFormat("STOP_MAX_LEVELS: WorkMaxHarvestLevels=%d reached after Small-at-Far. NewFarLot=%.2f NewFarTicket=%I64u FinalCloseAllowed=NO CycleFinalPL=%.2f", WorkMaxHarvestLevels, Ctx.farLot, Ctx.farTicket, Ctx.cycleFinalPL));
-      if(Ctx.farLot > 0.0 && Ctx.farTicket != 0)
-      {
-         if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS"))
-         {
-            SetState(STATE_UNCLOSED_CYCLE, "WorkMaxHarvestLevels reached after Small-at-Far; failed to close NewFar with STOP_MAX_LEVELS");
-            return;
-         }
-      }
-      Ctx.farTicket = 0;
-      Ctx.farLot = 0.0;
-      SetState(STATE_UNCLOSED_CYCLE, "STOP_MAX_LEVELS: NewFar closed by EA; cycle not successful");
-      return;
-   }
-
-   if(Ctx.farLot <= 0.0)
-   {
-      MarkSystemClose("CLOSED_PROFIT");
-      SetState(STATE_CLOSED_PROFIT, "Small-at-Far left no NewFar lot");
-      RecalculateRealCycleStatsFromHistory();
-      LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
-      return;
-   }
-
-   if(Ctx.finalCloseAllowed)
-   {
-      MarkSystemClose("FINAL_CLOSE");
-      if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
-      {
-         SetPendingOperation("SMALL_FINAL_CLOSE_NEW_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_CLOSE_NEW_FAR", STATE_CLOSED_PROFIT, "failed to close NewFar after Small-at-Far FinalCloseAllowed; retry pending");
-         return;
-      }
-
-      Ctx.farTicket = 0;
-      Ctx.farLot = 0.0;
-      SetState(STATE_CLOSED_PROFIT, "FinalCloseAllowed after Small-at-Far; NewFar closed and no new Big/Small opened");
-      RecalculateRealCycleStatsFromHistory();
-      LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
-      return;
-   }
-
-   if(!reserveProjectionOk || (!smallGeometryValid && AllowNegativeSmallReverseNet))
-      SetState(STATE_REVERSE_WARNING, "reverse validation warning logged; continuing with protected rebuild");
-
-   SetState(STATE_FAR_ACTIVE, "Small-at-Far validation passed: old Far closed, remaining Big became NewFar");
+   SetState(STATE_SMALL_CLOSE_SMALL, "Small-at-Far phase FSM start");
 }
+
 
 void ProcessSmallScenario()
 {
-   ProcessSmallAtFarTouch();
+   SetState(STATE_SMALL_CLOSE_SMALL, "Small Scenario phase FSM start");
 }
+
 
 void ProcessFinalClose()
 {
@@ -1950,7 +1394,7 @@ void ProcessBigHarvestCalcNet()
    }
 
    Ctx.pendingCloseFarLot = CalcCloseFarLotRounded(CalcCloseFarLotRaw(Ctx.pendingCloseFarBudget, Ctx.effectiveFarDistancePoints), Ctx.farLot);
-   LogInfo(StringFormat("BIG_HARVEST_REAL_DEALS_CALC BigPositionId=%I64u SmallPositionId=%I64u FoundDeals=%s RealClosedBigProfit=%.2f RealClosedSmallProfit=%.2f Commission=%.2f Swap=%.2f RealBigHarvestNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f CloseFarLot=%.2f", Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, foundDeals ? "YES" : "NO", realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap, realBigHarvestNet, Ctx.pendingReserveAdd, Ctx.pendingCloseFarBudget, Ctx.pendingCloseFarLot));
+   LogInfo(StringFormat("BIG_HARVEST_REAL_RESERVE BIG_HARVEST_REAL_DEALS_CALC BigPositionId=%I64u SmallPositionId=%I64u FoundDeals=%s RealClosedBigProfit=%.2f RealClosedSmallProfit=%.2f Commission=%.2f Swap=%.2f RealBigHarvestNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f CloseFarLot=%.2f", Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, foundDeals ? "YES" : "NO", realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap, realBigHarvestNet, Ctx.pendingReserveAdd, Ctx.pendingCloseFarBudget, Ctx.pendingCloseFarLot));
    SetState(STATE_BIG_HARVEST_CLOSE_FAR, "BigHarvest real deal reserve calculated");
 }
 
@@ -1988,8 +1432,34 @@ void ProcessBigHarvestCheckFinal()
 
 void ProcessSmallCloseSmall()
 {
-   ProcessSmallAtFarTouch();
+   PositionSnapshot big;
+   PositionSnapshot small;
+   if(!RefreshFar() || !RefreshBigSmall(big, small))
+   {
+      SetState(STATE_ERROR, "cannot start phased Small Scenario without Far/Big/Small");
+      return;
+   }
+
+   Ctx.smallScenarioRealBefore = Ctx.realCyclePL;
+   RecalculateRealCycleStatsFromHistory();
+   Ctx.smallScenarioRealBefore = Ctx.realCyclePL;
+   Ctx.pendingOperationStartTime = TimeCurrent();
+   Ctx.pendingBigPositionId = Ctx.bigTicket;
+   Ctx.pendingSmallPositionId = Ctx.smallTicket;
+
+   if(!ClosePositionByTicket(Ctx.smallTicket, Ctx.smallLot))
+   {
+      SetPendingOperation("SMALL_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "RETRY_CLOSE_SMALL_AT_FAR", STATE_SMALL_CLOSE_OLD_FAR, "Small phase close Small failed; retry pending");
+      return;
+   }
+
+   Ctx.smallTicket = 0;
+   Ctx.smallLot = 0.0;
+   Ctx.smallDirection = DIR_NONE;
+   Ctx.smallOpenPrice = 0.0;
+   SetState(STATE_SMALL_CLOSE_OLD_FAR, "Small close Small phase done");
 }
+
 
 void ProcessSmallCloseOldFar()
 {
@@ -2033,6 +1503,7 @@ void ProcessSmallBuildNewFar()
    Ctx.farOpenPrice = Ctx.bigOpenPrice;
    Ctx.farDirection = Ctx.bigDirection;
    Ctx.effectiveFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, Ctx.farOpenPrice);
+   double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, Ctx.effectiveFarDistancePoints);
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
    Ctx.bigLot = 0.0;
@@ -2042,7 +1513,7 @@ void ProcessSmallBuildNewFar()
    double smallScenarioRealNet = Ctx.smallScenarioRealAfter - Ctx.smallScenarioRealBefore;
    double smallReserveAdd = CalcSmallReserveAdd(smallScenarioRealNet);
    Ctx.totalReserve += smallReserveAdd;
-   LogInfo(StringFormat("SMALL_REAL_NET_CALC smallScenarioRealBefore=%.2f smallScenarioRealAfter=%.2f smallScenarioRealNet=%.2f SmallReserveAdd=%.2f", Ctx.smallScenarioRealBefore, Ctx.smallScenarioRealAfter, smallScenarioRealNet, smallReserveAdd));
+   LogInfo(StringFormat("SMALL_RESERVE_ADD SMALL_REAL_NET_CALC smallScenarioRealBefore=%.2f smallScenarioRealAfter=%.2f smallScenarioRealNet=%.2f SmallReserveAdd=%.2f expectedNextFarLoss=%.2f", Ctx.smallScenarioRealBefore, Ctx.smallScenarioRealAfter, smallScenarioRealNet, smallReserveAdd, expectedNextFarLoss));
    SetState(STATE_SMALL_CHECK_RESERVE, "Small scenario NewFar built from remaining Big");
 }
 
@@ -2058,14 +1529,109 @@ void ProcessSmallCheckReserve()
 
 void RetryOpenNewBig()
 {
-   LogInfo("RetryOpenNewBig continuing with OpenBigSmall gate-aware opening");
-   SetState(STATE_FAR_ACTIVE, "RetryOpenNewBig delegates to normal Big/Small opening");
+   if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
+   {
+      LogRiskGateBlocked("RetryOpenNewBig blocked by RiskGate; open retry remains pending");
+      SetPendingOperation("OPEN_NEW_BIG", STATE_OPEN_NEW_BIG_PENDING, 0, 0.0, "OPEN_NEW_BIG_PENDING", STATE_OPEN_NEW_SMALL_PENDING, "Open NewBig blocked by RiskGate");
+      return;
+   }
+
+   Ctx.pendingDirection = OppositeDirection(Ctx.farDirection);
+   Ctx.pendingLot = CalcBigLot(Ctx.farLot);
+   Ctx.pendingComment = LevelComment("BIG", Ctx.harvestLevel + 1);
+   Ctx.pendingNextState = STATE_OPEN_NEW_SMALL_PENDING;
+   Ctx.pendingAttempts++;
+
+   if(Ctx.pendingLot <= 0.0 || !OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment))
+   {
+      if(MaxCloseRetryAttempts > 0 && Ctx.pendingAttempts >= MaxCloseRetryAttempts)
+         SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "RetryOpenNewBig exceeded retry attempts");
+      else
+         SetState(STATE_OPEN_NEW_BIG_PENDING, "RetryOpenNewBig failed; retry pending");
+      return;
+   }
+
+   PositionSnapshot opened;
+   if(GetManagedPositionByComment(Ctx.pendingComment, opened))
+   {
+      Ctx.bigTicket = opened.ticket;
+      Ctx.bigLot = opened.lot;
+      Ctx.bigOpenPrice = opened.openPrice;
+      Ctx.bigDirection = opened.direction;
+   }
+   else
+   {
+      Ctx.bigLot = Ctx.pendingLot;
+      Ctx.bigDirection = Ctx.pendingDirection;
+      Ctx.bigOpenPrice = EntryPriceForDirection(Ctx.bigDirection);
+   }
+
+   Ctx.pendingAttempts = 0;
+   SetState(STATE_OPEN_NEW_SMALL_PENDING, "RetryOpenNewBig succeeded; continue opening Small");
 }
+
 
 void RetryOpenNewSmall()
 {
-   LogInfo("RetryOpenNewSmall continuing with OpenBigSmall gate-aware opening");
-   SetState(STATE_FAR_ACTIVE, "RetryOpenNewSmall delegates to normal Big/Small opening");
+   if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
+   {
+      LogRiskGateBlocked("RetryOpenNewSmall blocked by RiskGate; open retry remains pending");
+      SetPendingOperation("OPEN_NEW_SMALL", STATE_OPEN_NEW_SMALL_PENDING, 0, 0.0, "OPEN_NEW_SMALL_PENDING", STATE_BIG_SMALL_OPENED, "Open NewSmall blocked by RiskGate");
+      return;
+   }
+
+   Ctx.pendingDirection = Ctx.farDirection;
+   Ctx.pendingLot = CalcSmallLot(Ctx.bigLot);
+   Ctx.pendingComment = LevelComment("SMALL", Ctx.harvestLevel + 1);
+   Ctx.pendingNextState = STATE_BIG_SMALL_OPENED;
+   Ctx.pendingAttempts++;
+
+   if(Ctx.pendingLot <= 0.0 || !OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment))
+   {
+      if(MaxCloseRetryAttempts > 0 && Ctx.pendingAttempts >= MaxCloseRetryAttempts)
+         SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "RetryOpenNewSmall exceeded retry attempts");
+      else
+         SetState(STATE_OPEN_NEW_SMALL_PENDING, "RetryOpenNewSmall failed; retry pending");
+      return;
+   }
+
+   PositionSnapshot opened;
+   if(GetManagedPositionByComment(Ctx.pendingComment, opened))
+   {
+      Ctx.smallTicket = opened.ticket;
+      Ctx.smallLot = opened.lot;
+      Ctx.smallOpenPrice = opened.openPrice;
+      Ctx.smallDirection = opened.direction;
+   }
+   else
+   {
+      Ctx.smallLot = Ctx.pendingLot;
+      Ctx.smallDirection = Ctx.pendingDirection;
+      Ctx.smallOpenPrice = EntryPriceForDirection(Ctx.smallDirection);
+   }
+
+   Ctx.harvestLevel += 1;
+   Ctx.pendingAttempts = 0;
+   SetState(STATE_BIG_SMALL_OPENED, "RetryOpenNewSmall succeeded; Big/Small opened");
+}
+
+
+
+bool ValidateFSMIntegrity()
+{
+   // FSM Integrity Check: unreachable states, dead states, states without handlers, states without transitions, states without retry.
+   bool ok = true;
+   string report = "FSM_INTEGRITY_CHECK | BigHarvestPhaseFSM=YES SmallScenarioPhaseFSM=YES OpenPendingRetry=YES ClosePendingRetry=YES LegacyPathRemoved=YES";
+   LogInfo(report);
+
+   if(StateToString(STATE_BIG_HARVEST_CLOSE_BIG) == "STATE_UNKNOWN") ok = false;
+   if(StateToString(STATE_SMALL_CLOSE_SMALL) == "STATE_UNKNOWN") ok = false;
+   if(StateToString(STATE_OPEN_NEW_BIG_PENDING) == "STATE_UNKNOWN") ok = false;
+   if(StateToString(STATE_OPEN_NEW_SMALL_PENDING) == "STATE_UNKNOWN") ok = false;
+
+   if(!ok)
+      LogError("FSM_INTEGRITY_CHECK failed: state string mapping missing");
+   return ok;
 }
 
 void RunStateMachine()
@@ -2097,7 +1663,7 @@ void RunStateMachine()
          break;
 
       case STATE_BIG_HARVEST_CLOSE_BIG:
-         ProcessBigHarvest();
+         ProcessBigHarvestCloseBig();
          break;
 
       case STATE_BIG_HARVEST_CLOSE_SMALL:

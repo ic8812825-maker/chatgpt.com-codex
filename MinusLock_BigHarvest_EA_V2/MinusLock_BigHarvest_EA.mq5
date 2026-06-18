@@ -31,13 +31,6 @@ bool ValidateInputs()
       return false;
    }
 
-   if(BigRatio <= 1.0) { Print("ERROR: BigRatio must be > 1.0"); return false; }
-   if(SmallRatio <= 0.0 || SmallRatio >= 1.0) { Print("ERROR: SmallRatio must be > 0 and < 1"); return false; }
-   if(CloseBigOnSmall <= 0.0 || CloseBigOnSmall >= 1.0) { Print("ERROR: CloseBigOnSmall must be > 0 and < 1"); return false; }
-   if(RemainBigOnSmall <= 0.0 || RemainBigOnSmall >= 1.0) { Print("ERROR: RemainBigOnSmall must be > 0 and < 1"); return false; }
-   if(MathAbs((CloseBigOnSmall + RemainBigOnSmall) - 1.0) > 0.000001) { Print("ERROR: CloseBigOnSmall + RemainBigOnSmall must equal 1.0"); return false; }
-   if(CloseFarShare < 0.0 || ReserveShare < 0.0 || MathAbs((CloseFarShare + ReserveShare) - 1.0) > 0.000001) { Print("ERROR: CloseFarShare + ReserveShare must equal 1.0 and both be >= 0"); return false; }
-   if(SmallReserveShare < 0.0 || SmallReserveShare > 1.0) { Print("ERROR: SmallReserveShare must be between 0 and 1"); return false; }
    if(BigMoveStartPoints <= 0) { Print("ERROR: BigMoveStartPoints must be > 0"); return false; }
    if(BigMoveStepPoints <= 0) { Print("ERROR: BigMoveStepPoints must be > 0"); return false; }
    if(MaxHarvestLevels <= 0) { Print("ERROR: MaxHarvestLevels must be > 0"); return false; }
@@ -51,19 +44,34 @@ bool ValidateInputs()
    int lastLevelPoints = BigMoveStartPoints + (MaxHarvestLevels - 1) * BigMoveStepPoints;
    if(lastLevelPoints <= 0) { Print("ERROR: Invalid BigMove levels calculation"); return false; }
 
-   string compressionReason = "OK";
-   if(!ValidateRiskCompression(BigRatio, RemainBigOnSmall, compressionReason))
-   {
-      Print("ERROR: ", compressionReason);
-      return false;
-   }
-
    if(UseInternalSimulation && AllowRealTrading)
    {
       Print("ERROR: UseInternalSimulation=true cannot be mixed with AllowRealTrading=true");
       return false;
    }
 
+   return true;
+}
+
+bool ValidateWorkingParameters()
+{
+   if(WorkSmallRatio <= 0.0 || WorkSmallRatio >= 1.0) { Print("ERROR: WorkSmallRatio must be > 0 and < 1"); return false; }
+   if(WorkCloseBigOnSmall <= 0.0 || WorkCloseBigOnSmall >= 1.0) { Print("ERROR: WorkCloseBigOnSmall must be > 0 and < 1"); return false; }
+   if(WorkRemainBigOnSmall <= 0.0 || WorkRemainBigOnSmall >= 1.0) { Print("ERROR: WorkRemainBigOnSmall must be > 0 and < 1"); return false; }
+   if(MathAbs((WorkCloseBigOnSmall + WorkRemainBigOnSmall) - 1.0) > 0.000001) { Print("ERROR: WorkCloseBigOnSmall + WorkRemainBigOnSmall must equal 1.0"); return false; }
+   if(WorkCloseFarShare < 0.0 || WorkReserveShare < 0.0 || MathAbs((WorkCloseFarShare + WorkReserveShare) - 1.0) > 0.000001) { Print("ERROR: WorkCloseFarShare + WorkReserveShare must equal 1.0 and both be >= 0"); return false; }
+   if(WorkSmallReserveShare < 0.0 || WorkSmallReserveShare > 1.0) { Print("ERROR: WorkSmallReserveShare must be between 0 and 1"); return false; }
+   if(WorkMaxHarvestLevels <= 0) { Print("ERROR: WorkMaxHarvestLevels must be > 0"); return false; }
+   if(WorkMaxReverseCycles <= 0) { Print("ERROR: WorkMaxReverseCycles must be > 0"); return false; }
+
+   string compressionReason = "OK";
+   if(!ValidateRiskCompression(BigRatio, WorkRemainBigOnSmall, compressionReason))
+   {
+      Print("ERROR: ", compressionReason);
+      return false;
+   }
+
+   Print("ValidateWorkingParameters PASS | UseRecommended5050Preset=", UseRecommended5050Preset);
    return true;
 }
 
@@ -113,11 +121,18 @@ void LogBigMoveLevels()
 
 int OnInit()
 {
+   ConfigureWorkingParameters();
+
    if(!ValidateInputs())
       return INIT_PARAMETERS_INCORRECT;
 
+   if(!ValidateWorkingParameters())
+      return INIT_PARAMETERS_INCORRECT;
+
+   if(!ValidateFSMIntegrity())
+      return INIT_FAILED;
+
    LogBigMoveLevels();
-   ConfigureWorkingParameters();
 
    if(!UseMarketOrders)
    {
