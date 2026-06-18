@@ -198,3 +198,11 @@ STATE_REVERSE_LIMIT
 3. **BigHarvest real reserve:** inspect journal/history after BigHarvest and confirm reserve is derived from real HistoryDeals net P/L.
 4. **Restart recovery:** restart MT5/VPS with open managed Far/Big/Small and verify recovered state matches real tickets, lots, directions and open prices.
 5. **Spread log throttle:** confirm `Spread blocked` appears no more often than `RiskGateLogIntervalSeconds`, while `RiskGate became BLOCKED/OK` logs state transitions.
+
+## V2.4.2 Manual Cases
+
+1. Interrupt BigHarvest after Big close, then confirm retry closes Small and continues to real-net calculation.
+2. Interrupt Small Scenario after Small close, then confirm retry continues to old Far close and Big partial close rather than restarting the whole scenario.
+3. Confirm `STATE_OPEN_NEW_BIG_PENDING` and `STATE_OPEN_NEW_SMALL_PENDING` do not remain dead/break-only states.
+4. Compare BigHarvest reserve with MT5 history filtered by Big/Small position ids.
+5. Compare SmallReserveAdd with `smallScenarioRealAfter - smallScenarioRealBefore`.

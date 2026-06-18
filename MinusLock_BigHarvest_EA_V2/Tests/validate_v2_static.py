@@ -64,4 +64,14 @@ assert "input double CloseFarShare         = 0.40;" in config
 assert "input double ReserveShare          = 0.60;" in config
 assert "input int    MaxReverseCycles              = 7;" in config
 
+
+for token in [
+    "STATE_BIG_HARVEST_CLOSE_BIG", "STATE_BIG_HARVEST_CLOSE_SMALL", "STATE_BIG_HARVEST_CALC_NET", "STATE_BIG_HARVEST_CLOSE_FAR", "STATE_BIG_HARVEST_CHECK_FINAL",
+    "STATE_SMALL_CLOSE_SMALL", "STATE_SMALL_CLOSE_OLD_FAR", "STATE_SMALL_CLOSE_BIG_PART", "STATE_SMALL_BUILD_NEW_FAR", "STATE_SMALL_CHECK_RESERVE",
+    "pendingOperation", "pendingNextState", "SetPendingOperation", "CalculateRealNetForClosedPositions",
+    "smallScenarioRealAfter - Ctx.smallScenarioRealBefore", "RetryOpenNewBig", "RetryOpenNewSmall",
+]:
+    assert token in (config + main + state)
+assert "Ctx.realCyclePL - totalReserveBefore" not in state
+
 print("V2_STATIC_VALIDATION PASS: BigMove start/step formula is active, old level inputs are removed, Small-at-Far uses bigOpenPrice, reverse-risk uses real expected loss, sim records realized P/L, RefreshFar is strict, hedge/use-market/tick-log gates exist")

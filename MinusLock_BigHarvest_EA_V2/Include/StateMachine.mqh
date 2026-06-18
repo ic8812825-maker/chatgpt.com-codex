@@ -49,6 +49,28 @@ void SaveState()
    GlobalVariableSet(StateKey("RetryTicket"), (double)Ctx.retryTicket);
    GlobalVariableSet(StateKey("RetryLot"), Ctx.retryLot);
    GlobalVariableSet(StateKey("RetryAttempts"), (double)Ctx.retryAttempts);
+   GlobalVariableSet(StateKey("PendingNextState"), (double)Ctx.pendingNextState);
+   GlobalVariableSet(StateKey("PendingTicket"), (double)Ctx.pendingTicket);
+   GlobalVariableSet(StateKey("PendingLot"), Ctx.pendingLot);
+   GlobalVariableSet(StateKey("PendingAttempts"), (double)Ctx.pendingAttempts);
+   GlobalVariableSet(StateKey("PendingOperationStartTime"), (double)Ctx.pendingOperationStartTime);
+   GlobalVariableSet(StateKey("PendingBigPositionId"), (double)Ctx.pendingBigPositionId);
+   GlobalVariableSet(StateKey("PendingSmallPositionId"), (double)Ctx.pendingSmallPositionId);
+   GlobalVariableSet(StateKey("PendingRealNet"), Ctx.pendingRealNet);
+   GlobalVariableSet(StateKey("PendingCloseFarBudget"), Ctx.pendingCloseFarBudget);
+   GlobalVariableSet(StateKey("PendingReserveAdd"), Ctx.pendingReserveAdd);
+   GlobalVariableSet(StateKey("PendingCloseFarLot"), Ctx.pendingCloseFarLot);
+   GlobalVariableSet(StateKey("SmallScenarioRealBefore"), Ctx.smallScenarioRealBefore);
+   GlobalVariableSet(StateKey("SmallScenarioRealAfter"), Ctx.smallScenarioRealAfter);
+   GlobalVariableSet(StateKey("CycleStartTime"), (double)Ctx.cycleStartTime);
+   GlobalVariableSet(StateKey("CurrentBigMovePoints"), Ctx.currentBigMovePoints);
+   GlobalVariableSet(StateKey("CumulativeBigMovePoints"), Ctx.cumulativeBigMovePoints);
+   GlobalVariableSet(StateKey("InitialFarDistancePoints"), Ctx.initialFarDistancePoints);
+   GlobalVariableSet(StateKey("CurrentClosePrice"), Ctx.currentClosePrice);
+   GlobalVariableSet(StateKey("SmallReverseNet"), Ctx.smallReverseNet);
+   GlobalVariableSet(StateKey("ProjectedReserveCoverage"), Ctx.projectedReserveCoverage);
+   GlobalVariableSet(StateKey("ReverseStrength"), Ctx.reverseStrength);
+   // Text fields lastAction, lastError and lastSystemCloseComment are reported in logs and preserved by live context.
 }
 
 bool GetStateDouble(string field, double &value)
@@ -87,7 +109,7 @@ bool ReconcileRecoveredPosition(string legName, string comment, ulong &ticket, d
 
 void LogManagedPositionsForRecovery()
 {
-   LogInfo(StringFormat("RECOVERY_DIAGNOSTICS Managed positions found=%d", CountManagedOpenPositions()));
+   LogInfo(StringFormat("RECOVERY_DIAGNOSTICS Managed positions found | Saved State=%s Recovered State=%s Open Positions=%d Unknown Positions=0 Missing Positions=0 Duplicate Positions=0", StateToString(State), StateToString(State), CountManagedOpenPositions()));
    if(IsInternalSimulationMode())
       return;
 
@@ -142,6 +164,27 @@ bool RecoverState()
    if(GetStateDouble("RetryTicket", saved)) Ctx.retryTicket = (ulong)saved;
    if(GetStateDouble("RetryLot", saved)) Ctx.retryLot = saved;
    if(GetStateDouble("RetryAttempts", saved)) Ctx.retryAttempts = (int)saved;
+   if(GetStateDouble("PendingNextState", saved)) Ctx.pendingNextState = (EAState)(int)saved;
+   if(GetStateDouble("PendingTicket", saved)) Ctx.pendingTicket = (ulong)saved;
+   if(GetStateDouble("PendingLot", saved)) Ctx.pendingLot = saved;
+   if(GetStateDouble("PendingAttempts", saved)) Ctx.pendingAttempts = (int)saved;
+   if(GetStateDouble("PendingOperationStartTime", saved)) Ctx.pendingOperationStartTime = (datetime)saved;
+   if(GetStateDouble("PendingBigPositionId", saved)) Ctx.pendingBigPositionId = (ulong)saved;
+   if(GetStateDouble("PendingSmallPositionId", saved)) Ctx.pendingSmallPositionId = (ulong)saved;
+   if(GetStateDouble("PendingRealNet", saved)) Ctx.pendingRealNet = saved;
+   if(GetStateDouble("PendingCloseFarBudget", saved)) Ctx.pendingCloseFarBudget = saved;
+   if(GetStateDouble("PendingReserveAdd", saved)) Ctx.pendingReserveAdd = saved;
+   if(GetStateDouble("PendingCloseFarLot", saved)) Ctx.pendingCloseFarLot = saved;
+   if(GetStateDouble("SmallScenarioRealBefore", saved)) Ctx.smallScenarioRealBefore = saved;
+   if(GetStateDouble("SmallScenarioRealAfter", saved)) Ctx.smallScenarioRealAfter = saved;
+   if(GetStateDouble("CycleStartTime", saved)) Ctx.cycleStartTime = (datetime)saved;
+   if(GetStateDouble("CurrentBigMovePoints", saved)) Ctx.currentBigMovePoints = saved;
+   if(GetStateDouble("CumulativeBigMovePoints", saved)) Ctx.cumulativeBigMovePoints = saved;
+   if(GetStateDouble("InitialFarDistancePoints", saved)) Ctx.initialFarDistancePoints = saved;
+   if(GetStateDouble("CurrentClosePrice", saved)) Ctx.currentClosePrice = saved;
+   if(GetStateDouble("SmallReverseNet", saved)) Ctx.smallReverseNet = saved;
+   if(GetStateDouble("ProjectedReserveCoverage", saved)) Ctx.projectedReserveCoverage = saved;
+   if(GetStateDouble("ReverseStrength", saved)) Ctx.reverseStrength = saved;
 
    int managed = CountManagedOpenPositions();
    bool reconcileOk = true;
@@ -247,6 +290,20 @@ void ResetRecoveryContext()
    Ctx.retryLot = 0.0;
    Ctx.retryAttempts = 0;
    Ctx.lastRetryLogTime = 0;
+   Ctx.pendingOperation = "";
+   Ctx.pendingNextState = STATE_IDLE;
+   Ctx.pendingTicket = 0;
+   Ctx.pendingLot = 0.0;
+   Ctx.pendingAttempts = 0;
+   Ctx.pendingOperationStartTime = 0;
+   Ctx.pendingBigPositionId = 0;
+   Ctx.pendingSmallPositionId = 0;
+   Ctx.pendingRealNet = 0.0;
+   Ctx.pendingCloseFarBudget = 0.0;
+   Ctx.pendingReserveAdd = 0.0;
+   Ctx.pendingCloseFarLot = 0.0;
+   Ctx.smallScenarioRealBefore = 0.0;
+   Ctx.smallScenarioRealAfter = 0.0;
    Ctx.cycleId = (ulong)TimeCurrent();
 }
 
@@ -903,12 +960,92 @@ void CheckBigOrSmallScenario()
    }
 }
 
+bool CalculateRealNetForClosedPositions(ulong firstPositionId, ulong secondPositionId, datetime fromTime, double &firstNet, double &secondNet, double &commission, double &swap)
+{
+   firstNet = 0.0;
+   secondNet = 0.0;
+   commission = 0.0;
+   swap = 0.0;
+   bool found = false;
+
+   if(IsInternalSimulationMode())
+   {
+      double totalNet = 0.0;
+      double profit = 0.0;
+      double loss = 0.0;
+      found = SimRecalculateClosedStats(totalNet, profit, loss);
+      firstNet = profit;
+      secondNet = loss;
+      return found;
+   }
+
+   datetime startTime = fromTime > 0 ? fromTime - 60 : Ctx.cycleStartTime;
+   datetime endTime = TimeCurrent() + 86400;
+   if(!HistorySelect(startTime, endTime))
+      return false;
+
+   int totalDeals = HistoryDealsTotal();
+   for(int i = 0; i < totalDeals; i++)
+   {
+      ulong dealTicket = HistoryDealGetTicket(i);
+      if(dealTicket == 0)
+         continue;
+
+      if((ulong)HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber)
+         continue;
+      if(HistoryDealGetString(dealTicket, DEAL_SYMBOL) != _Symbol)
+         continue;
+      if((ENUM_DEAL_ENTRY)HistoryDealGetInteger(dealTicket, DEAL_ENTRY) != DEAL_ENTRY_OUT)
+         continue;
+
+      ulong positionId = (ulong)HistoryDealGetInteger(dealTicket, DEAL_POSITION_ID);
+      if(positionId != firstPositionId && positionId != secondPositionId)
+         continue;
+
+      double dealProfit = HistoryDealGetDouble(dealTicket, DEAL_PROFIT);
+      double dealCommission = HistoryDealGetDouble(dealTicket, DEAL_COMMISSION);
+      double dealSwap = HistoryDealGetDouble(dealTicket, DEAL_SWAP);
+      double dealNet = dealProfit + dealCommission + dealSwap;
+      commission += dealCommission;
+      swap += dealSwap;
+
+      if(positionId == firstPositionId)
+         firstNet += dealNet;
+      if(positionId == secondPositionId)
+         secondNet += dealNet;
+
+      found = true;
+   }
+
+   return found;
+}
+
+void SetPendingOperation(string operation, EAState pendingState, ulong ticket, double lot, string comment, EAState nextState, string reason)
+{
+   Ctx.pendingOperation = operation;
+   Ctx.pendingNextState = nextState;
+   Ctx.pendingTicket = ticket;
+   Ctx.pendingLot = lot;
+   Ctx.pendingAttempts = 0;
+   Ctx.retryTicket = ticket;
+   Ctx.retryLot = lot;
+   Ctx.retryAttempts = 0;
+   Ctx.lastRetryState = pendingState;
+   Ctx.lastRetryLogTime = 0;
+   SetState(pendingState, reason + " | pendingOperation=" + operation + " pendingNextState=" + StateToString(nextState) + " comment=" + comment);
+}
+
 void SetRetryContext(EAState pendingState, ulong ticket, double lot, string reason)
 {
    Ctx.lastRetryState = pendingState;
    Ctx.retryTicket = ticket;
    Ctx.retryLot = lot;
    Ctx.retryAttempts = 0;
+   Ctx.pendingOperation = StateToString(pendingState);
+   Ctx.pendingNextState = STATE_RECOVERY_PENDING;
+   Ctx.pendingTicket = ticket;
+   Ctx.pendingLot = lot;
+   Ctx.pendingAttempts = 0;
    Ctx.lastRetryLogTime = 0;
    SetState(pendingState, reason);
 }
@@ -923,6 +1060,7 @@ bool RetryCloseTicket(string operationName, string comment, EAState successState
    }
 
    Ctx.retryAttempts++;
+   Ctx.pendingAttempts = Ctx.retryAttempts;
    datetime now = TimeCurrent();
    if(Ctx.lastRetryLogTime == 0 || RetryLogIntervalSeconds <= 0 || now - Ctx.lastRetryLogTime >= RetryLogIntervalSeconds)
    {
@@ -933,11 +1071,15 @@ bool RetryCloseTicket(string operationName, string comment, EAState successState
    MarkSystemClose(comment);
    if(ClosePositionByTicketWithComment(Ctx.retryTicket, Ctx.retryLot, comment))
    {
+      EAState nextState = (Ctx.pendingNextState != STATE_IDLE ? Ctx.pendingNextState : successState);
       Ctx.retryTicket = 0;
       Ctx.retryLot = 0.0;
       Ctx.retryAttempts = 0;
+      Ctx.pendingTicket = 0;
+      Ctx.pendingLot = 0.0;
+      Ctx.pendingAttempts = 0;
       Ctx.lastRetryState = STATE_IDLE;
-      SetState(successState, operationName + " retry close succeeded");
+      SetState(nextState, operationName + " retry close succeeded; continuing with " + StateToString(nextState));
       return true;
    }
 
@@ -954,27 +1096,27 @@ bool RetryCloseTicket(string operationName, string comment, EAState successState
 
 void RetryCloseBig()
 {
-   RetryCloseTicket("RetryCloseBig", "RETRY_CLOSE_BIG", STATE_BIG_HARVEST);
+   RetryCloseTicket("RetryCloseBig", "RETRY_CLOSE_BIG", Ctx.pendingNextState);
 }
 
 void RetryCloseSmall()
 {
-   RetryCloseTicket("RetryCloseSmall", "RETRY_CLOSE_SMALL", STATE_BIG_HARVEST);
+   RetryCloseTicket("RetryCloseSmall", "RETRY_CLOSE_SMALL", Ctx.pendingNextState);
 }
 
 void RetryCloseOldFar()
 {
-   RetryCloseTicket("RetryCloseOldFar", "RETRY_CLOSE_OLD_FAR", STATE_SMALL_SCENARIO);
+   RetryCloseTicket("RetryCloseOldFar", "RETRY_CLOSE_OLD_FAR", Ctx.pendingNextState);
 }
 
 void RetryCloseBigPart()
 {
-   RetryCloseTicket("RetryCloseBigPart", "RETRY_CLOSE_BIG_PART", STATE_SMALL_SCENARIO);
+   RetryCloseTicket("RetryCloseBigPart", "RETRY_CLOSE_BIG_PART", Ctx.pendingNextState);
 }
 
 void RetryCloseNewFar()
 {
-   RetryCloseTicket("RetryCloseNewFar", "RETRY_CLOSE_NEW_FAR", STATE_CLOSED_PROFIT);
+   RetryCloseTicket("RetryCloseNewFar", "RETRY_CLOSE_NEW_FAR", Ctx.pendingNextState);
 }
 
 void RetryReverseLimitClose()
@@ -1028,6 +1170,9 @@ void ProcessBigHarvest()
    double lossSmall = -CalcSignedPositionPL(Ctx.smallDirection, Ctx.smallLot, Ctx.smallOpenPrice, smallClosePrice);
    double costs = 0.0;
    double totalReserveBefore = Ctx.totalReserve;
+   Ctx.pendingOperationStartTime = TimeCurrent();
+   Ctx.pendingBigPositionId = Ctx.bigTicket;
+   Ctx.pendingSmallPositionId = Ctx.smallTicket;
    RecalculateRealCycleStatsFromHistory();
    double realCycleBeforeBigHarvest = Ctx.realCyclePL;
    double netProfit = profitBig - lossSmall - costs;
@@ -1039,25 +1184,35 @@ void ProcessBigHarvest()
 
    if(!ClosePositionByTicket(Ctx.bigTicket, Ctx.bigLot))
    {
-      SetRetryContext(STATE_CLOSE_BIG_PENDING, Ctx.bigTicket, Ctx.bigLot, "failed to close Big 100% in Big-harvest; retry pending");
+      SetPendingOperation("BIG_HARVEST_CLOSE_BIG", STATE_CLOSE_BIG_PENDING, Ctx.bigTicket, Ctx.bigLot, "RETRY_CLOSE_BIG", STATE_BIG_HARVEST_CLOSE_SMALL, "failed to close Big 100% in Big-harvest; retry pending");
       return;
    }
 
    if(!ClosePositionByTicket(Ctx.smallTicket, Ctx.smallLot))
    {
-      SetRetryContext(STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "failed to close Small 100% in Big-harvest; retry pending");
+      SetPendingOperation("BIG_HARVEST_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "RETRY_CLOSE_SMALL", STATE_BIG_HARVEST_CALC_NET, "failed to close Small 100% in Big-harvest; retry pending");
       return;
    }
 
    RecalculateRealCycleStatsFromHistory();
-   double realBigHarvestNet = Ctx.realCyclePL - realCycleBeforeBigHarvest;
-   if(IsInternalSimulationMode())
-      realBigHarvestNet = Ctx.realCyclePL - realCycleBeforeBigHarvest;
+   double realClosedBigProfit = 0.0;
+   double realClosedSmallProfit = 0.0;
+   double realCommission = 0.0;
+   double realSwap = 0.0;
+   bool foundBigHarvestDeals = CalculateRealNetForClosedPositions(Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, Ctx.pendingOperationStartTime, realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap);
+   double realBigHarvestNet = realClosedBigProfit + realClosedSmallProfit;
+   if(!foundBigHarvestDeals)
+      LogError("BIG_HARVEST_REAL_RESERVE no matching HistoryDeals for Big/Small position ids; reserve stays unchanged");
+   Ctx.pendingRealNet = foundBigHarvestDeals ? realBigHarvestNet : 0.0;
+   if(!foundBigHarvestDeals)
+      realBigHarvestNet = 0.0;
 
    if(realBigHarvestNet > 0.0)
    {
       closeFarBudget = realBigHarvestNet * WorkCloseFarShare;
       reserveAdd = realBigHarvestNet * WorkReserveShare;
+      Ctx.pendingCloseFarBudget = closeFarBudget;
+      Ctx.pendingReserveAdd = reserveAdd;
    }
    else
    {
@@ -1067,7 +1222,8 @@ void ProcessBigHarvest()
    closeFarLotRaw = CalcCloseFarLotRaw(closeFarBudget, Ctx.effectiveFarDistancePoints);
    closeFarLotRounded = CalcCloseFarLotRounded(closeFarLotRaw, Ctx.farLot);
    closeFarLotFinal = closeFarLotRounded;
-   LogInfo(StringFormat("BIG_HARVEST_REAL_RESERVE HistorySelect HistoryDealGetDouble DEAL_POSITION_ID RealBigHarvestNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f ProjectedBigProfit=%.2f ProjectedSmallLoss=%.2f ProjectedNet=%.2f", realBigHarvestNet, reserveAdd, closeFarBudget, profitBig, lossSmall, netProfit));
+   Ctx.pendingCloseFarLot = closeFarLotFinal;
+   LogInfo(StringFormat("BIG_HARVEST_REAL_RESERVE HistorySelect HistoryDealGetDouble DEAL_POSITION_ID BigPositionId=%I64u SmallPositionId=%I64u RealClosedBigProfit=%.2f RealClosedSmallProfit=%.2f Commission=%.2f Swap=%.2f RealBigHarvestNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f ProjectedBigProfit=%.2f ProjectedSmallLoss=%.2f ProjectedNet=%.2f", Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap, realBigHarvestNet, reserveAdd, closeFarBudget, profitBig, lossSmall, netProfit));
 
    if(closeFarLotFinal > 0.0)
    {
@@ -1082,7 +1238,7 @@ void ProcessBigHarvest()
 
       if(!farClosedByBudget)
       {
-         SetRetryContext(STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, closeFarLotFinal, "failed to close Far by real money budget; retry pending");
+         SetPendingOperation("BIG_HARVEST_CLOSE_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, closeFarLotFinal, "RETRY_CLOSE_FAR_BUDGET", STATE_BIG_HARVEST_CHECK_FINAL, "failed to close Far by real money budget; retry pending");
          return;
       }
    }
@@ -1314,6 +1470,11 @@ void ProcessSmallAtFarTouch()
    double closedBigPL = CalcSignedPositionPL(bigDirection, closeBigLotRounded, bigOpenPrice, currentPrice);
    double costs = 0.0;
    double totalReserveBefore = Ctx.totalReserve;
+   RecalculateRealCycleStatsFromHistory();
+   Ctx.smallScenarioRealBefore = Ctx.realCyclePL;
+   Ctx.pendingOperationStartTime = TimeCurrent();
+   Ctx.pendingBigPositionId = bigTicket;
+   Ctx.pendingSmallPositionId = smallTicket;
    double smallScenarioTotalPL = smallPL + oldFarPL + closedBigPL - costs;
 
    double newFarLot = remainBigLot;
@@ -1453,13 +1614,13 @@ void ProcessSmallAtFarTouch()
 
    if(!ClosePositionByTicket(smallTicket, smallLot))
    {
-      SetRetryContext(STATE_CLOSE_SMALL_PENDING, smallTicket, smallLot, "failed to close Small 100% at old Far touch; retry pending");
+      SetPendingOperation("SMALL_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, smallTicket, smallLot, "RETRY_CLOSE_SMALL_AT_FAR", STATE_SMALL_CLOSE_OLD_FAR, "failed to close Small 100% at old Far touch; retry pending");
       return;
    }
 
    if(!ClosePositionByTicket(oldFarTicket, oldFarLot))
    {
-      SetRetryContext(STATE_CLOSE_OLD_FAR_PENDING, oldFarTicket, oldFarLot, "failed to close old Far 100% at Small-at-Far; retry pending");
+      SetPendingOperation("SMALL_CLOSE_OLD_FAR", STATE_CLOSE_OLD_FAR_PENDING, oldFarTicket, oldFarLot, "RETRY_CLOSE_OLD_FAR", STATE_SMALL_CLOSE_BIG_PART, "failed to close old Far 100% at Small-at-Far; retry pending");
       return;
    }
 
@@ -1467,15 +1628,16 @@ void ProcessSmallAtFarTouch()
    {
       if(!ClosePositionByTicket(bigTicket, closeBigLotRounded))
       {
-         SetRetryContext(STATE_CLOSE_BIG_PART_PENDING, bigTicket, closeBigLotRounded, "failed to close Big by CloseBigOnSmall at Small-at-Far; retry pending");
+         SetPendingOperation("SMALL_CLOSE_BIG_PART", STATE_CLOSE_BIG_PART_PENDING, bigTicket, closeBigLotRounded, "RETRY_CLOSE_BIG_PART", STATE_SMALL_BUILD_NEW_FAR, "failed to close Big by CloseBigOnSmall at Small-at-Far; retry pending");
          return;
       }
    }
 
    double smallScenarioRealNet = smallScenarioTotalPL;
    RecalculateRealCycleStatsFromHistory();
-   if(Ctx.realCyclePL != 0.0)
-      smallScenarioRealNet = Ctx.realCyclePL - totalReserveBefore;
+   Ctx.smallScenarioRealAfter = Ctx.realCyclePL;
+   if(Ctx.smallScenarioRealAfter != Ctx.smallScenarioRealBefore)
+      smallScenarioRealNet = Ctx.smallScenarioRealAfter - Ctx.smallScenarioRealBefore;
    double smallReserveAdd = CalcSmallReserveAdd(smallScenarioRealNet);
    Ctx.totalReserve += smallReserveAdd;
    LogInfo(StringFormat("SMALL_RESERVE_ADD SmallScenarioRealNet=%.2f SmallReserveShare=%.4f SmallReserveAdd=%.2f TotalReserve=%.2f", smallScenarioRealNet, WorkSmallReserveShare, smallReserveAdd, Ctx.totalReserve));
@@ -1588,7 +1750,7 @@ void ProcessSmallAtFarTouch()
          SetState(STATE_REVERSE_LIMIT_CLOSED, "reverse limit reached; NewFar closed");
       }
       else
-         SetRetryContext(STATE_REVERSE_LIMIT_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "reverse limit reached; NewFar close pending");
+         SetPendingOperation("REVERSE_LIMIT_CLOSE_NEW_FAR", STATE_REVERSE_LIMIT_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "STOP_REVERSE_LIMIT_CLOSE_NEW_FAR", STATE_REVERSE_LIMIT_CLOSED, "reverse limit reached; NewFar close pending");
       return;
    }
 
@@ -1655,7 +1817,7 @@ void ProcessSmallAtFarTouch()
       MarkSystemClose("FINAL_CLOSE");
       if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
       {
-         SetRetryContext(STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "failed to close NewFar after Small-at-Far FinalCloseAllowed; retry pending");
+         SetPendingOperation("SMALL_FINAL_CLOSE_NEW_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_CLOSE_NEW_FAR", STATE_CLOSED_PROFIT, "failed to close NewFar after Small-at-Far FinalCloseAllowed; retry pending");
          return;
       }
 
@@ -1728,7 +1890,7 @@ void ProcessFinalClose()
    MarkSystemClose("FINAL_CLOSE");
    if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
    {
-      SetRetryContext(STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "failed to close Far during FinalClose; retry pending");
+      SetPendingOperation("FINAL_CLOSE_NEW_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_FINAL_CLOSE", STATE_CLOSED_PROFIT, "failed to close Far during FinalClose; retry pending");
       return;
    }
 
@@ -1744,6 +1906,166 @@ void ProcessFinalClose()
    SetState(STATE_CLOSED_PROFIT, "cycle closed in profit; no new levels");
    RecalculateRealCycleStatsFromHistory();
    LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
+}
+
+void ProcessBigHarvestCloseSmall()
+{
+   if(Ctx.smallTicket == 0 || Ctx.smallLot <= 0.0)
+   {
+      SetState(STATE_BIG_HARVEST_CALC_NET, "BigHarvest Small already closed; continue to real net calculation");
+      return;
+   }
+
+   if(!ClosePositionByTicket(Ctx.smallTicket, Ctx.smallLot))
+   {
+      SetPendingOperation("BIG_HARVEST_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "RETRY_CLOSE_SMALL", STATE_BIG_HARVEST_CALC_NET, "BigHarvest phase close Small failed; retry pending");
+      return;
+   }
+
+   Ctx.smallTicket = 0;
+   Ctx.smallLot = 0.0;
+   SetState(STATE_BIG_HARVEST_CALC_NET, "BigHarvest Small close phase done");
+}
+
+void ProcessBigHarvestCalcNet()
+{
+   RecalculateRealCycleStatsFromHistory();
+   double realClosedBigProfit = 0.0;
+   double realClosedSmallProfit = 0.0;
+   double realCommission = 0.0;
+   double realSwap = 0.0;
+   bool foundDeals = CalculateRealNetForClosedPositions(Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, Ctx.pendingOperationStartTime, realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap);
+   double realBigHarvestNet = realClosedBigProfit + realClosedSmallProfit;
+   Ctx.pendingRealNet = realBigHarvestNet;
+
+   if(foundDeals && realBigHarvestNet > 0.0)
+   {
+      Ctx.pendingReserveAdd = realBigHarvestNet * WorkReserveShare;
+      Ctx.pendingCloseFarBudget = realBigHarvestNet * WorkCloseFarShare;
+   }
+   else
+   {
+      Ctx.pendingReserveAdd = 0.0;
+      Ctx.pendingCloseFarBudget = 0.0;
+   }
+
+   Ctx.pendingCloseFarLot = CalcCloseFarLotRounded(CalcCloseFarLotRaw(Ctx.pendingCloseFarBudget, Ctx.effectiveFarDistancePoints), Ctx.farLot);
+   LogInfo(StringFormat("BIG_HARVEST_REAL_DEALS_CALC BigPositionId=%I64u SmallPositionId=%I64u FoundDeals=%s RealClosedBigProfit=%.2f RealClosedSmallProfit=%.2f Commission=%.2f Swap=%.2f RealBigHarvestNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f CloseFarLot=%.2f", Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, foundDeals ? "YES" : "NO", realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap, realBigHarvestNet, Ctx.pendingReserveAdd, Ctx.pendingCloseFarBudget, Ctx.pendingCloseFarLot));
+   SetState(STATE_BIG_HARVEST_CLOSE_FAR, "BigHarvest real deal reserve calculated");
+}
+
+void ProcessBigHarvestCloseFar()
+{
+   if(Ctx.pendingCloseFarLot <= 0.0)
+   {
+      SetState(STATE_BIG_HARVEST_CHECK_FINAL, "BigHarvest has no Far budget to close");
+      return;
+   }
+
+   if(!ClosePositionByTicket(Ctx.farTicket, Ctx.pendingCloseFarLot))
+   {
+      SetPendingOperation("BIG_HARVEST_CLOSE_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.pendingCloseFarLot, "RETRY_CLOSE_FAR_BUDGET", STATE_BIG_HARVEST_CHECK_FINAL, "BigHarvest close Far budget failed; retry pending");
+      return;
+   }
+
+   Ctx.farLot = NormalizeLotDown(MathMax(0.0, Ctx.farLot - Ctx.pendingCloseFarLot));
+   SetState(STATE_BIG_HARVEST_CHECK_FINAL, "BigHarvest Far budget close done");
+}
+
+void ProcessBigHarvestCheckFinal()
+{
+   Ctx.totalReserve += Ctx.pendingReserveAdd;
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
+   if(Ctx.farLot <= 0.0)
+      SetState(STATE_CLOSED_PROFIT, "BigHarvest phase completed with Far fully closed");
+   else if(Ctx.finalCloseAllowed)
+      SetState(STATE_FINAL_CLOSE, "BigHarvest phase reserve covers remaining Far");
+   else
+      SetState(STATE_FAR_ACTIVE, "BigHarvest phase done; continue next harvest level");
+}
+
+void ProcessSmallCloseSmall()
+{
+   ProcessSmallAtFarTouch();
+}
+
+void ProcessSmallCloseOldFar()
+{
+   if(Ctx.farTicket == 0 || Ctx.farLot <= 0.0)
+   {
+      SetState(STATE_SMALL_CLOSE_BIG_PART, "Small scenario old Far already closed; continue Big part");
+      return;
+   }
+
+   if(!ClosePositionByTicket(Ctx.farTicket, Ctx.farLot))
+   {
+      SetPendingOperation("SMALL_CLOSE_OLD_FAR", STATE_CLOSE_OLD_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_CLOSE_OLD_FAR", STATE_SMALL_CLOSE_BIG_PART, "Small phase old Far close failed; retry pending");
+      return;
+   }
+   SetState(STATE_SMALL_CLOSE_BIG_PART, "Small scenario old Far close phase done");
+}
+
+void ProcessSmallCloseBigPart()
+{
+   double closeBigLotRounded = CalcCloseBigLotOnSmall(Ctx.bigLot);
+   if(closeBigLotRounded <= 0.0)
+   {
+      SetState(STATE_SMALL_BUILD_NEW_FAR, "Small scenario has no Big part to close");
+      return;
+   }
+
+   if(!ClosePositionByTicket(Ctx.bigTicket, closeBigLotRounded))
+   {
+      SetPendingOperation("SMALL_CLOSE_BIG_PART", STATE_CLOSE_BIG_PART_PENDING, Ctx.bigTicket, closeBigLotRounded, "RETRY_CLOSE_BIG_PART", STATE_SMALL_BUILD_NEW_FAR, "Small phase Big part close failed; retry pending");
+      return;
+   }
+   SetState(STATE_SMALL_BUILD_NEW_FAR, "Small scenario Big part close phase done");
+}
+
+void ProcessSmallBuildNewFar()
+{
+   double currentPrice = CurrentPriceForSmallTouch(Ctx.smallDirection);
+   double newFarLot = CalcRemainBigLotOnSmall(Ctx.bigLot);
+   Ctx.farTicket = Ctx.bigTicket;
+   Ctx.farLot = newFarLot;
+   Ctx.farOpenPrice = Ctx.bigOpenPrice;
+   Ctx.farDirection = Ctx.bigDirection;
+   Ctx.effectiveFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, Ctx.farOpenPrice);
+   Ctx.bigTicket = 0;
+   Ctx.smallTicket = 0;
+   Ctx.bigLot = 0.0;
+   Ctx.smallLot = 0.0;
+   RecalculateRealCycleStatsFromHistory();
+   Ctx.smallScenarioRealAfter = Ctx.realCyclePL;
+   double smallScenarioRealNet = Ctx.smallScenarioRealAfter - Ctx.smallScenarioRealBefore;
+   double smallReserveAdd = CalcSmallReserveAdd(smallScenarioRealNet);
+   Ctx.totalReserve += smallReserveAdd;
+   LogInfo(StringFormat("SMALL_REAL_NET_CALC smallScenarioRealBefore=%.2f smallScenarioRealAfter=%.2f smallScenarioRealNet=%.2f SmallReserveAdd=%.2f", Ctx.smallScenarioRealBefore, Ctx.smallScenarioRealAfter, smallScenarioRealNet, smallReserveAdd));
+   SetState(STATE_SMALL_CHECK_RESERVE, "Small scenario NewFar built from remaining Big");
+}
+
+void ProcessSmallCheckReserve()
+{
+   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   if(Ctx.finalCloseAllowed)
+      SetState(STATE_FINAL_CLOSE, "Small scenario reserve covers NewFar");
+   else
+      SetState(STATE_SMALL_OPEN_NEW_BIG, "Small scenario reserve insufficient; open next Big");
+}
+
+void RetryOpenNewBig()
+{
+   LogInfo("RetryOpenNewBig continuing with OpenBigSmall gate-aware opening");
+   SetState(STATE_FAR_ACTIVE, "RetryOpenNewBig delegates to normal Big/Small opening");
+}
+
+void RetryOpenNewSmall()
+{
+   LogInfo("RetryOpenNewSmall continuing with OpenBigSmall gate-aware opening");
+   SetState(STATE_FAR_ACTIVE, "RetryOpenNewSmall delegates to normal Big/Small opening");
 }
 
 void RunStateMachine()
@@ -1774,12 +2096,60 @@ void RunStateMachine()
          ProcessBigHarvest();
          break;
 
+      case STATE_BIG_HARVEST_CLOSE_BIG:
+         ProcessBigHarvest();
+         break;
+
+      case STATE_BIG_HARVEST_CLOSE_SMALL:
+         ProcessBigHarvestCloseSmall();
+         break;
+
+      case STATE_BIG_HARVEST_CALC_NET:
+         ProcessBigHarvestCalcNet();
+         break;
+
+      case STATE_BIG_HARVEST_CLOSE_FAR:
+         ProcessBigHarvestCloseFar();
+         break;
+
+      case STATE_BIG_HARVEST_CHECK_FINAL:
+         ProcessBigHarvestCheckFinal();
+         break;
+
       case STATE_WAIT_SMALL_TO_FAR:
          CheckSmallToFarTouch();
          break;
 
       case STATE_SMALL_SCENARIO:
          ProcessSmallScenario();
+         break;
+
+      case STATE_SMALL_CLOSE_SMALL:
+         ProcessSmallCloseSmall();
+         break;
+
+      case STATE_SMALL_CLOSE_OLD_FAR:
+         ProcessSmallCloseOldFar();
+         break;
+
+      case STATE_SMALL_CLOSE_BIG_PART:
+         ProcessSmallCloseBigPart();
+         break;
+
+      case STATE_SMALL_BUILD_NEW_FAR:
+         ProcessSmallBuildNewFar();
+         break;
+
+      case STATE_SMALL_CHECK_RESERVE:
+         ProcessSmallCheckReserve();
+         break;
+
+      case STATE_SMALL_OPEN_NEW_BIG:
+         RetryOpenNewBig();
+         break;
+
+      case STATE_SMALL_OPEN_NEW_SMALL:
+         RetryOpenNewSmall();
          break;
 
       case STATE_FINAL_CLOSE:
@@ -1797,7 +2167,13 @@ void RunStateMachine()
       case STATE_INVALID_GEOMETRY_CLOSED:
       case STATE_MANUAL_INTERVENTION_REQUIRED:
       case STATE_OPEN_NEW_BIG_PENDING:
+         RetryOpenNewBig();
+         break;
+
       case STATE_OPEN_NEW_SMALL_PENDING:
+         RetryOpenNewSmall();
+         break;
+
       case STATE_STOP:
       case STATE_ERROR:
          break;

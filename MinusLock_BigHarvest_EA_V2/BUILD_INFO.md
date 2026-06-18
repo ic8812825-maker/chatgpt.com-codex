@@ -35,3 +35,13 @@ V2.4.1 updates:
 - RecoverState persists/reconciles extra context and real open positions after restart.
 - Spread blocked logs are throttled with RiskGateLogIntervalSeconds.
 - Defaults updated: CloseFarShare=0.40, ReserveShare=0.60, MaxReverseCycles=7, MaxSpreadPoints=60.0.
+
+
+V2.4.2 updates:
+- Pending FSM now stores pendingOperation/pendingNextState/pendingTicket/pendingLot/pendingAttempts.
+- Retry continues to the next scenario phase instead of restarting BigHarvest or Small Scenario.
+- BigHarvest and Small Scenario phase states added.
+- STATE_OPEN_NEW_BIG_PENDING and STATE_OPEN_NEW_SMALL_PENDING have handlers.
+- BigHarvest reserve is calculated by matching closed Big/Small HistoryDeals via DEAL_POSITION_ID.
+- SmallScenarioRealNet uses real before/after delta.
+- Recovery persistence and diagnostics expanded.

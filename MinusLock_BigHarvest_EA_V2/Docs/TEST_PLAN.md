@@ -250,3 +250,13 @@ python3 Tests/invalid_geometry_emergency_check.py
 5. Restart the terminal/VPS with open managed positions and verify `RecoverState()` reconciles saved GlobalVariables with real positions or moves to `STATE_RECOVERY_PENDING` / `STATE_MANUAL_INTERVENTION_REQUIRED`.
 6. Confirm spread-block logs are throttled by `RiskGateLogIntervalSeconds` and state changes are logged once.
 7. Confirm default V2.4.1 parameters: `MaxSpreadPoints=60`, `CloseFarShare=0.40`, `ReserveShare=0.60`, `MaxReverseCycles=7`, `AllowRealTrading=true`, `UseInternalSimulation=false`, `UseMarketOrders=true`.
+
+## V2.4.2 Pending FSM / Real Reserve Tests
+
+1. Force `STATE_CLOSE_SMALL_PENDING` after BigHarvest Big close and confirm retry continues to `STATE_BIG_HARVEST_CALC_NET`, not back to the scenario root.
+2. Force Small Scenario partial-close retry and confirm it continues to `STATE_SMALL_BUILD_NEW_FAR`.
+3. Verify `STATE_OPEN_NEW_BIG_PENDING` and `STATE_OPEN_NEW_SMALL_PENDING` have handlers.
+4. Verify BigHarvest reserve is calculated from matching closed Big/Small deal `DEAL_POSITION_ID` values.
+5. Verify no BigHarvest reserve is added when matching HistoryDeals are absent.
+6. Verify SmallScenario reserve uses `smallScenarioRealAfter - smallScenarioRealBefore`.
+7. Restart during pending operation and verify saved pending state, ticket, lot, attempts, and next state restore.

@@ -9,8 +9,20 @@ enum EAState
    STATE_FAR_ACTIVE,
    STATE_BIG_SMALL_OPENED,
    STATE_BIG_HARVEST,
+   STATE_BIG_HARVEST_CLOSE_BIG,
+   STATE_BIG_HARVEST_CLOSE_SMALL,
+   STATE_BIG_HARVEST_CALC_NET,
+   STATE_BIG_HARVEST_CLOSE_FAR,
+   STATE_BIG_HARVEST_CHECK_FINAL,
    STATE_WAIT_SMALL_TO_FAR,
    STATE_SMALL_SCENARIO,
+   STATE_SMALL_CLOSE_SMALL,
+   STATE_SMALL_CLOSE_OLD_FAR,
+   STATE_SMALL_CLOSE_BIG_PART,
+   STATE_SMALL_BUILD_NEW_FAR,
+   STATE_SMALL_CHECK_RESERVE,
+   STATE_SMALL_OPEN_NEW_BIG,
+   STATE_SMALL_OPEN_NEW_SMALL,
    STATE_FINAL_CLOSE,
    STATE_CLOSED_PROFIT,
    STATE_DUAL_TAIL,
@@ -137,6 +149,20 @@ struct RecoveryContext
    double retryLot;
    int retryAttempts;
    datetime lastRetryLogTime;
+   string pendingOperation;
+   EAState pendingNextState;
+   ulong pendingTicket;
+   double pendingLot;
+   int pendingAttempts;
+   datetime pendingOperationStartTime;
+   ulong pendingBigPositionId;
+   ulong pendingSmallPositionId;
+   double pendingRealNet;
+   double pendingCloseFarBudget;
+   double pendingReserveAdd;
+   double pendingCloseFarLot;
+   double smallScenarioRealBefore;
+   double smallScenarioRealAfter;
    ulong cycleId;
 };
 
@@ -159,8 +185,20 @@ string StateToString(EAState state)
       case STATE_FAR_ACTIVE:           return "STATE_FAR_ACTIVE";
       case STATE_BIG_SMALL_OPENED:     return "STATE_BIG_SMALL_OPENED";
       case STATE_BIG_HARVEST:          return "STATE_BIG_HARVEST";
+      case STATE_BIG_HARVEST_CLOSE_BIG: return "STATE_BIG_HARVEST_CLOSE_BIG";
+      case STATE_BIG_HARVEST_CLOSE_SMALL: return "STATE_BIG_HARVEST_CLOSE_SMALL";
+      case STATE_BIG_HARVEST_CALC_NET: return "STATE_BIG_HARVEST_CALC_NET";
+      case STATE_BIG_HARVEST_CLOSE_FAR: return "STATE_BIG_HARVEST_CLOSE_FAR";
+      case STATE_BIG_HARVEST_CHECK_FINAL: return "STATE_BIG_HARVEST_CHECK_FINAL";
       case STATE_WAIT_SMALL_TO_FAR:    return "STATE_WAIT_SMALL_TO_FAR";
       case STATE_SMALL_SCENARIO:       return "STATE_SMALL_SCENARIO";
+      case STATE_SMALL_CLOSE_SMALL:    return "STATE_SMALL_CLOSE_SMALL";
+      case STATE_SMALL_CLOSE_OLD_FAR:  return "STATE_SMALL_CLOSE_OLD_FAR";
+      case STATE_SMALL_CLOSE_BIG_PART: return "STATE_SMALL_CLOSE_BIG_PART";
+      case STATE_SMALL_BUILD_NEW_FAR:  return "STATE_SMALL_BUILD_NEW_FAR";
+      case STATE_SMALL_CHECK_RESERVE:  return "STATE_SMALL_CHECK_RESERVE";
+      case STATE_SMALL_OPEN_NEW_BIG:   return "STATE_SMALL_OPEN_NEW_BIG";
+      case STATE_SMALL_OPEN_NEW_SMALL: return "STATE_SMALL_OPEN_NEW_SMALL";
       case STATE_FINAL_CLOSE:          return "STATE_FINAL_CLOSE";
       case STATE_CLOSED_PROFIT:        return "STATE_CLOSED_PROFIT";
       case STATE_DUAL_TAIL:            return "STATE_DUAL_TAIL";

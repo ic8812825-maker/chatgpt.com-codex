@@ -470,3 +470,7 @@ BigHarvest reserve handling was revised so projected P/L remains diagnostic only
 RecoverState now restores additional fields and reconciles saved context with real positions by symbol, magic, ticket, position identifier, comment, direction, lot and open price. Disagreement enters `STATE_RECOVERY_PENDING` so the EA does not blindly reset with live exposure.
 
 The V2.4.1 default spread gate is `MaxSpreadPoints=60.0`, because USDJPY MetaQuotes-Demo can show 45-50 points and `30` may over-block opening decisions.
+
+## V2.4.2 Audit Addendum
+
+The V2.4.2 patch addresses the remaining V2.4.1 architectural findings: retry states now carry a next-state continuation target, BigHarvest and Small Scenario expose phase states, dead open-pending states have handlers, BigHarvest real reserve uses matching HistoryDeals by position id, and SmallScenario reserve uses before/after real-cycle deltas. Recovery diagnostics now include saved/recovered state and open/missing/duplicate position reporting tokens.

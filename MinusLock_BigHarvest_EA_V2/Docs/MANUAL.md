@@ -570,3 +570,35 @@ CloseFarBudget = RealBigHarvestNet * CloseFarShare
 ### Restart recovery reconciliation
 
 `RecoverState()` restores saved GlobalVariables and reconciles Far/Big/Small tickets against real open positions by Symbol, MagicNumber, Ticket, Position identifier, Comment, Direction, Lot and OpenPrice. Contradictions move the EA to `STATE_RECOVERY_PENDING`; unrecoverable cases require manual intervention.
+
+## V2.4.2 Pending FSM and Real Reserve Fix
+
+V2.4.2 completes the pending/retry architecture. Retry no longer returns blindly to the scenario root. Each pending operation stores `pendingOperation`, `pendingNextState`, `pendingTicket`, `pendingLot`, and `pendingAttempts`; after a successful retry the FSM continues with the saved next phase instead of repeating already completed closes.
+
+Big Harvest now has explicit phases:
+
+```text
+STATE_BIG_HARVEST_CLOSE_BIG
+STATE_BIG_HARVEST_CLOSE_SMALL
+STATE_BIG_HARVEST_CALC_NET
+STATE_BIG_HARVEST_CLOSE_FAR
+STATE_BIG_HARVEST_CHECK_FINAL
+```
+
+Small Scenario now has explicit continuation phases:
+
+```text
+STATE_SMALL_CLOSE_SMALL
+STATE_SMALL_CLOSE_OLD_FAR
+STATE_SMALL_CLOSE_BIG_PART
+STATE_SMALL_BUILD_NEW_FAR
+STATE_SMALL_CHECK_RESERVE
+STATE_SMALL_OPEN_NEW_BIG
+STATE_SMALL_OPEN_NEW_SMALL
+```
+
+BigHarvest reserve is based on deals for the closed Big/Small position ids using `DEAL_POSITION_ID`, `DEAL_MAGIC`, `DEAL_SYMBOL`, and `DEAL_ENTRY_OUT`. If matching deals are not found, reserve is not increased.
+
+SmallScenario reserve now uses `smallScenarioRealAfter - smallScenarioRealBefore`, not `realCyclePL - totalReserveBefore`.
+
+Recovery persists additional operational fields, including cycle timing, movement points, reverse metrics, pending operation context, and diagnostic reports for Saved State, Recovered State, Open Positions, Unknown Positions, Missing Positions, and Duplicate Positions.
