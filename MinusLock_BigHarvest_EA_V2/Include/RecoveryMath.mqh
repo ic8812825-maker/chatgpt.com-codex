@@ -23,12 +23,12 @@ int GetBigMovePoints(const int level)
 
 double CalcBigLot(double farLot)
 {
-   return NormalizeLotNearest(farLot * BigRatio);
+   return NormalizeLotDown(farLot * BigRatio);
 }
 
 double CalcSmallLot(double bigLot)
 {
-   return NormalizeLotNearest(bigLot * WorkSmallRatio);
+   return NormalizeLotDown(bigLot * WorkSmallRatio);
 }
 
 double CalcProfit(double lot, int points)
@@ -139,9 +139,9 @@ bool ValidateReverseGeometry(
       return false;
    }
 
-   if(newBigLot <= newFarLot)
+   if(newBigLot >= oldFarLot)
    {
-      reason = "NewBigLot <= NewFarLot";
+      reason = "Risk Compression failed: NewBig >= OldFar; BigRatio^2 * RemainBigOnSmall must be < 1";
       return false;
    }
 
@@ -261,12 +261,38 @@ bool CalcFinalCloseAllowed(double totalReserve, double farRemainLot, double farD
 
 double CalcCloseBigLotOnSmall(double bigLot)
 {
-   return NormalizeLotNearest(bigLot * WorkCloseBigOnSmall);
+   return NormalizeLotDown(bigLot * WorkCloseBigOnSmall);
 }
 
 double CalcRemainBigLotOnSmall(double bigLot)
 {
    return NormalizeLotDown(bigLot * WorkRemainBigOnSmall);
+}
+
+
+bool ValidateRiskCompression(double bigRatio, double remainBigOnSmall, string &reason)
+{
+   double compression = bigRatio * bigRatio * remainBigOnSmall;
+   if(compression >= 1.0)
+   {
+      reason = StringFormat("Risk Compression Reverse invalid: BigRatio^2 * RemainBigOnSmall = %.6f >= 1. New Big after Small reverse will not be smaller than Old Far.", compression);
+      return false;
+   }
+
+   reason = "OK";
+   return true;
+}
+
+double CalcSmallReserveAdd(double smallScenarioRealNet)
+{
+   if(smallScenarioRealNet <= 0.0)
+      return 0.0;
+   return smallScenarioRealNet * WorkSmallReserveShare;
+}
+
+double CalcRealFarLossMoney(Direction dir, double lot, double openPrice, double closePrice)
+{
+   return MathAbs(CalcSignedPositionPL(dir, lot, openPrice, closePrice));
 }
 
 #endif // __BH_RECOVERYMATH_MQH__

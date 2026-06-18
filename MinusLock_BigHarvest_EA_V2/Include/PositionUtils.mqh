@@ -70,7 +70,7 @@ bool GetManagedPositionByTicket(ulong ticket, PositionSnapshot &snapshot)
 {
    snapshot.exists = false;
 
-   if(!AllowRealTrading)
+   if(IsInternalSimulationMode())
       return SimGetPositionByTicket(ticket, snapshot);
 
    if(ticket == 0)
@@ -86,7 +86,7 @@ bool GetManagedPositionByComment(string comment, PositionSnapshot &snapshot)
 {
    snapshot.exists = false;
 
-   if(!AllowRealTrading)
+   if(IsInternalSimulationMode())
       return SimGetPositionByComment(comment, snapshot);
 
    for(int i = PositionsTotal() - 1; i >= 0; i--)
@@ -129,7 +129,7 @@ string LevelComment(string prefix, int level)
 
 int CountManagedOpenPositions()
 {
-   if(!AllowRealTrading)
+   if(IsInternalSimulationMode())
       return SimCountOpenPositions();
 
    int count = 0;
@@ -153,7 +153,7 @@ int CountManagedOpenPositions()
 
 int CountFarLikePositions(Direction expectedFarDirection)
 {
-   if(!AllowRealTrading)
+   if(IsInternalSimulationMode())
       return SimCountFarLikePositions(expectedFarDirection);
 
    int count = 0;

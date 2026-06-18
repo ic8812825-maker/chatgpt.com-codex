@@ -8,6 +8,8 @@ CTrade BigHarvestTrade;
 bool PrepareTradeEngine()
 {
    BigHarvestTrade.SetExpertMagicNumber(MagicNumber);
+   BigHarvestTrade.SetDeviationInPoints(MaxSlippagePoints);
+   BigHarvestTrade.SetTypeFillingBySymbol(_Symbol);
 
    if(!UseMarketOrders)
    {
@@ -31,7 +33,7 @@ bool OpenPosition(Direction dir, double lot, string comment)
 
    ResetLastError();
 
-   if(!AllowRealTrading)
+   if(IsInternalSimulationMode())
    {
       if(dir == DIR_BUY)
          Print("SIM OPEN BUY");
@@ -55,6 +57,12 @@ bool OpenPosition(Direction dir, double lot, string comment)
       opened = BigHarvestTrade.Sell(lot, _Symbol, 0.0, 0.0, 0.0, comment);
    }
 
+   PrintFormat("TRADE_RESULT operation=OPEN symbol=%s magic=%I64u comment=%s lot=%.2f direction=%s expectedPrice=%.5f spread=%.1f state=%s retcode=%u retcodeDescription=%s order=%I64u deal=%I64u volume=%.2f actualPrice=%.5f lastError=%d",
+      _Symbol, MagicNumber, comment, lot, DirectionToString(dir), EntryPriceForDirection(dir),
+      (SymbolInfoDouble(_Symbol, SYMBOL_ASK) - SymbolInfoDouble(_Symbol, SYMBOL_BID)) / SymbolInfoDouble(_Symbol, SYMBOL_POINT),
+      StateToString(State), BigHarvestTrade.ResultRetcode(), BigHarvestTrade.ResultRetcodeDescription(),
+      BigHarvestTrade.ResultOrder(), BigHarvestTrade.ResultDeal(), BigHarvestTrade.ResultVolume(), BigHarvestTrade.ResultPrice(), GetLastError());
+
    if(!opened)
       Print("TRADE ERROR=", GetLastError());
 
@@ -66,7 +74,7 @@ bool ClosePositionByTicket(ulong ticket, double lot)
    if(!PrepareTradeEngine())
       return false;
 
-   if(!AllowRealTrading)
+   if(IsInternalSimulationMode())
       return SimClosePositionByTicket(ticket, lot);
 
    if(ticket == 0 || lot <= 0.0)
@@ -87,10 +95,18 @@ bool ClosePositionByTicket(ulong ticket, double lot)
    if(closeLot <= 0.0)
       return false;
 
+   bool closed = false;
    if(closeLot >= currentLot)
-      return BigHarvestTrade.PositionClose(ticket);
+      closed = BigHarvestTrade.PositionClose(ticket);
+   else
+      closed = BigHarvestTrade.PositionClosePartial(ticket, closeLot);
 
-   return BigHarvestTrade.PositionClosePartial(ticket, closeLot);
+   PrintFormat("TRADE_RESULT operation=CLOSE symbol=%s magic=%I64u ticket=%I64u lot=%.2f state=%s retcode=%u retcodeDescription=%s order=%I64u deal=%I64u volume=%.2f actualPrice=%.5f lastError=%d",
+      _Symbol, MagicNumber, ticket, closeLot, StateToString(State), BigHarvestTrade.ResultRetcode(),
+      BigHarvestTrade.ResultRetcodeDescription(), BigHarvestTrade.ResultOrder(), BigHarvestTrade.ResultDeal(),
+      BigHarvestTrade.ResultVolume(), BigHarvestTrade.ResultPrice(), GetLastError());
+
+   return closed;
 }
 
 bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComment)
@@ -98,7 +114,7 @@ bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComm
    if(!PrepareTradeEngine())
       return false;
 
-   if(!AllowRealTrading)
+   if(IsInternalSimulationMode())
    {
       Print("SIM CLOSE ", closeComment);
       return SimClosePositionByTicket(ticket, lot);
@@ -136,7 +152,7 @@ bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComm
    request.symbol = symbol;
    request.magic = MagicNumber;
    request.volume = closeLot;
-   request.deviation = 30;
+   request.deviation = MaxSlippagePoints;
    request.comment = closeComment;
 
    if(positionType == POSITION_TYPE_BUY)
@@ -164,6 +180,8 @@ bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComm
       return false;
    }
 
+   PrintFormat("TRADE_RESULT operation=CLOSE_WITH_COMMENT symbol=%s magic=%I64u comment=%s ticket=%I64u lot=%.2f expectedPrice=%.5f state=%s retcode=%u order=%I64u deal=%I64u volume=%.2f actualPrice=%.5f lastError=%d",
+      symbol, MagicNumber, closeComment, ticket, closeLot, request.price, StateToString(State), result.retcode, result.order, result.deal, result.volume, result.price, GetLastError());
    Print("EA CLOSE COMMENT=", closeComment);
    return true;
 }

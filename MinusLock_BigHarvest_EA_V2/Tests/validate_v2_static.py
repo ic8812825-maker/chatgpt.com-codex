@@ -37,4 +37,16 @@ assert "INIT_PARAMETERS_INCORRECT" in main
 assert "VerboseTickLogs" in config and "if(VerboseTickLogs)" in main
 assert "reason = \"ExpectedNextFarLoss <= 0\";" in risk_math
 
+for token in [
+    "SmallReserveShare", "MaxSlippagePoints", "MaxDrawdownPercent", "MaxManagedPositions",
+    "StopOnRiskGateBlocked", "CloseAllOnInvalidGeometry", "UseInternalSimulation",
+]:
+    assert token in config
+
+for token in ["ValidateRiskCompression", "CalcSmallReserveAdd", "CalcRealFarLossMoney"]:
+    assert token in risk_math
+
+for token in ["RecoverState", "SaveState", "STOP_REVERSE_LIMIT_CLOSE_NEW_FAR", "ROLLBACK_INITIAL_BUY_WITHOUT_SELL", "SMALL_RESERVE_ADD"]:
+    assert token in state
+
 print("V2_STATIC_VALIDATION PASS: BigMove start/step formula is active, old level inputs are removed, Small-at-Far uses bigOpenPrice, reverse-risk uses real expected loss, sim records realized P/L, RefreshFar is strict, hedge/use-market/tick-log gates exist")

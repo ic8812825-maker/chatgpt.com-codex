@@ -177,3 +177,16 @@ STATE_REVERSE_LIMIT
 ### Case RG-6: FinalClose priority
 
 Если `FinalCloseAllowed = true`, советник закрывает NewFar полностью, выставляет `STATE_CLOSED_PROFIT` и не открывает новый Big/Small.
+
+## V2.4 Manual Cases
+
+1. Verify Small-at-Far Risk Compression Reverse with `BigRatio=1.20`, `CloseBigOnSmall=0.35`, `RemainBigOnSmall=0.65` and confirm `NewBig < OldFar`.
+2. Set `RemainBigOnSmall=0.70` with `BigRatio=1.20` and confirm startup validation blocks if compression is not safe.
+3. Force positive Small scenario net and confirm `SMALL_RESERVE_ADD` equals 5% of positive net.
+4. Force enough total reserve and confirm NewFar is closed with `FINAL_CLOSE`.
+5. Force insufficient reserve and confirm new Big/Small are opened from NewFar.
+6. Force reverse limit and confirm `STOP_REVERSE_LIMIT_CLOSE_NEW_FAR` behavior.
+7. Force invalid geometry and confirm emergency close or manual intervention depending on `CloseAllOnInvalidGeometry`.
+8. Restart terminal with open managed positions and confirm `RecoverState()` diagnostics.
+9. Force initial SELL failure after BUY open and confirm `ROLLBACK_INITIAL_BUY_WITHOUT_SELL`.
+10. Confirm `UseRecommended5050Preset=false` preserves user inputs.

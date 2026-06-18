@@ -455,3 +455,74 @@ STOP_MAX_LEVELS
 ```
 
 The journal and CSV include `REAL_CYCLE_MATH | ...` so MT5 reports can be audited against the internal recovery result.
+
+## Small Scenario V2.4
+
+Small Scenario V2.4 implements a Risk Compression Reverse. The EA waits for the Small leg to reach the old Far open price, then closes Small, closes old Far, partially closes Big, and promotes the remaining Big volume to the new Far.
+
+## Risk Compression Reverse
+
+The required compression rule is:
+
+```text
+NewFar = OldBig * RemainBigOnSmall
+NewBig = NewFar * BigRatio
+NewBig < OldFar
+BigRatio^2 * RemainBigOnSmall < 1
+```
+
+Recommended parameters:
+
+```text
+BigRatio = 1.20
+SmallRatio = 0.35
+CloseBigOnSmall = 0.35
+RemainBigOnSmall = 0.65
+SmallReserveShare = 0.05
+```
+
+## New Far Calculation
+
+The new Far is the remaining Big after the actual partial close. Its open price is the original Big open price, not the current price. The effective Far distance is based on real price distance from current close price to `bigOpenPrice`.
+
+## New Big < Old Far Rule
+
+The EA validates `BigRatio^2 * RemainBigOnSmall < 1` at startup. If this is not true, the EA refuses to start because a Small reverse would not compress risk.
+
+## Small Reserve Logic
+
+After Small-at-Far closes Small, old Far, and the selected Big part, the EA calculates `SmallScenarioRealNet`. If the result is positive, it adds:
+
+```text
+SmallReserveAdd = SmallScenarioRealNet * SmallReserveShare
+```
+
+If the result is zero or negative, no Small reserve is added.
+
+## Real Reserve From HistoryDeals
+
+For live trading the recovery accounting is based on closed deal history using `HistorySelect`, `HistoryDealGetDouble(DEAL_PROFIT)`, `HistoryDealGetDouble(DEAL_COMMISSION)`, `HistoryDealGetDouble(DEAL_SWAP)`, `HistoryDealGetString(DEAL_COMMENT)`, `HistoryDealGetInteger(DEAL_MAGIC)`, and symbol filtering. Theoretical values remain diagnostic only.
+
+## Reverse Limit Handling
+
+When `StopOnReverseLimit=true`, a reverse-limit event closes the new Far with comment `STOP_REVERSE_LIMIT_CLOSE_NEW_FAR`. Success moves to `STATE_REVERSE_LIMIT_CLOSED`; failure moves to `STATE_REVERSE_LIMIT_CLOSE_PENDING`.
+
+## Invalid Geometry Handling
+
+When reverse geometry is invalid and `CloseAllOnInvalidGeometry=true`, the EA attempts to close all managed positions and moves to `STATE_INVALID_GEOMETRY_CLOSED`. If disabled, it moves to `STATE_MANUAL_INTERVENTION_REQUIRED` and does not open new positions.
+
+## Restart Recovery
+
+The EA persists key context with GlobalVariables via `SaveState()` and restores it with `RecoverState()` on startup. If saved state and live positions conflict, it enters `STATE_RECOVERY_PENDING`.
+
+## Retry FSM
+
+The EA defines retry/pending states for multi-step operations: `STATE_CLOSE_BIG_PENDING`, `STATE_CLOSE_SMALL_PENDING`, `STATE_CLOSE_OLD_FAR_PENDING`, `STATE_CLOSE_BIG_PART_PENDING`, `STATE_CLOSE_NEW_FAR_PENDING`, `STATE_OPEN_NEW_BIG_PENDING`, `STATE_OPEN_NEW_SMALL_PENDING`, `STATE_RECOVERY_PENDING`, and `STATE_MANUAL_INTERVENTION_REQUIRED`.
+
+## Recommended Parameters
+
+The recommended compression preset is visible in the input defaults, but the EA does not silently override user inputs unless `UseRecommended5050Preset=true`.
+
+## User Parameters vs Recommended Preset
+
+When `UseRecommended5050Preset=false`, `Work*` values are copied directly from user inputs. Preset substitutions happen only inside the explicit `if(UseRecommended5050Preset)` block.

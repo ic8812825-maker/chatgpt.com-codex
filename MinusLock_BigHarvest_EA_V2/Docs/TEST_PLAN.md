@@ -213,3 +213,30 @@ After `Small-at-Far`, confirm that the new Far starts from current price and doe
 4. Confirm `MinusLock_CycleMath.csv` contains: `InitialIgnoredProfit`, `CycleStartBalance`, `CurrentBalance`, `RealRecoveryPL`, `RealClosedProfit`, `RealClosedLoss`, `RealCommission`, `RealSwap`, `RealCosts`, `TheoreticalCyclePL`, `LastSystemCloseComment`, `PassByRealPL`.
 5. Confirm the first profitable initial lock leg is excluded from `RealRecoveryPL` because `CycleStartBalance` is recorded after that close.
 6. PASS requires `STATE_CLOSED_PROFIT`, `RealRecoveryPL > 0`, no managed open positions, no `STOP_MAX_LEVELS`, and final system close comment `FINAL_CLOSE` or `CLOSED_PROFIT`.
+
+## Small Scenario V2.4 Required Tests
+
+1. Small-сценарий с успешным переворотом.
+2. Проверка NewBig < OldFar.
+3. Проверка BigRatio² × RemainBigOnSmall < 1.
+4. Проверка добавления 5% в резерв.
+5. Проверка закрытия NewFar, если резерва хватает.
+6. Проверка открытия нового Big/Small, если резерва не хватает.
+7. Проверка reverse-limit.
+8. Проверка invalid geometry.
+9. Проверка восстановления после перезапуска.
+10. Проверка rollback initial lock.
+11. Проверка отказа брокера при закрытии одной ноги.
+12. Проверка запрета автоподмены параметров recommended preset.
+
+Required local checks:
+
+```bash
+python3 Tests/small_reverse_compression_check.py
+python3 Tests/small_reserve_add_check.py
+python3 Tests/recommended_preset_guard_check.py
+python3 Tests/restart_recovery_static_check.py
+python3 Tests/retry_fsm_static_check.py
+python3 Tests/reverse_limit_close_check.py
+python3 Tests/invalid_geometry_emergency_check.py
+```

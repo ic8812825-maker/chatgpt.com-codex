@@ -10,12 +10,13 @@ enum FarDistanceModeEnum
 };
 
 input double StartLot              = 1.00;
-input double BigRatio              = 1.30;
-input double SmallRatio            = 0.37;
-input double CloseBigOnSmall       = 0.30;
-input double RemainBigOnSmall      = 0.70;
+input double BigRatio              = 1.20;
+input double SmallRatio            = 0.35;
+input double CloseBigOnSmall       = 0.35;
+input double RemainBigOnSmall      = 0.65;
 input double CloseFarShare         = 0.90;
 input double ReserveShare          = 0.10;
+input double SmallReserveShare     = 0.05;
 input bool   UseRecommended5050Preset = false;
 
 input int    InitialTriggerPoints  = 100;
@@ -38,9 +39,15 @@ input bool   AllowNegativeSmallReverseNet  = false;
 input double LotStep               = 0.01;
 input double MaxSpreadPoints       = 30;
 input double MaxMarginPercent      = 70.0;
+input double MaxDrawdownPercent    = 30.0;
+input int    MaxManagedPositions   = 10;
+input bool   StopOnRiskGateBlocked = true;
+input int    MaxSlippagePoints     = 30;
+input bool   CloseAllOnInvalidGeometry = true;
 
 input ulong  MagicNumber           = 20260609;
-input bool   AllowRealTrading      = false;
+input bool   AllowRealTrading      = true;
+input bool   UseInternalSimulation = false;
 input bool   UseMarketOrders       = true;
 input bool   EnableCycleMathCsv     = true;
 input bool   VerboseTickLogs       = false;
@@ -50,6 +57,7 @@ double WorkCloseBigOnSmall;
 double WorkRemainBigOnSmall;
 double WorkCloseFarShare;
 double WorkReserveShare;
+double WorkSmallReserveShare;
 int    WorkMaxHarvestLevels;
 int    WorkMaxReverseCycles;
 FarDistanceModeEnum WorkFarDistanceMode;
@@ -61,6 +69,7 @@ void ConfigureWorkingParameters()
    WorkRemainBigOnSmall = RemainBigOnSmall;
    WorkCloseFarShare = CloseFarShare;
    WorkReserveShare = ReserveShare;
+   WorkSmallReserveShare = SmallReserveShare;
    WorkMaxHarvestLevels = MaxHarvestLevels;
    WorkMaxReverseCycles = MaxReverseCycles;
    WorkFarDistanceMode = FarDistanceMode;
@@ -72,6 +81,7 @@ void ConfigureWorkingParameters()
       WorkRemainBigOnSmall = 0.65;
       WorkCloseFarShare = 0.50;
       WorkReserveShare = 0.50;
+      WorkSmallReserveShare = SmallReserveShare;
       WorkMaxHarvestLevels = 5;
       WorkMaxReverseCycles = 10;
       WorkFarDistanceMode = FarDistanceMode;
@@ -83,9 +93,15 @@ void ConfigureWorkingParameters()
          " WorkRemainBigOnSmall=", DoubleToString(WorkRemainBigOnSmall, 2),
          " WorkCloseFarShare=", DoubleToString(WorkCloseFarShare, 2),
          " WorkReserveShare=", DoubleToString(WorkReserveShare, 2),
+         " WorkSmallReserveShare=", DoubleToString(WorkSmallReserveShare, 2),
          " WorkMaxHarvestLevels=", WorkMaxHarvestLevels,
          " WorkMaxReverseCycles=", WorkMaxReverseCycles,
          " WorkFarDistanceMode=", EnumToString(WorkFarDistanceMode));
+}
+
+bool IsInternalSimulationMode()
+{
+   return UseInternalSimulation || !AllowRealTrading;
 }
 
 #endif // __BH_CONFIG_MQH__

@@ -13,37 +13,107 @@
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
 
-int OnInit()
+bool ValidateInputs()
 {
-   if(BigMoveStartPoints <= 0)
+   double minLot = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN);
+   double maxLot = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MAX);
+   double lotStep = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP);
+
+   if(StartLot < minLot || StartLot > maxLot)
    {
-      Print("ERROR: BigMoveStartPoints must be > 0");
-      return INIT_PARAMETERS_INCORRECT;
+      Print("ERROR: StartLot outside SYMBOL_VOLUME_MIN/MAX");
+      return false;
    }
 
-   if(BigMoveStepPoints <= 0)
+   if(lotStep <= 0.0 || MathAbs(NormalizeLotDown(StartLot) - StartLot) > lotStep * 0.5)
    {
-      Print("ERROR: BigMoveStepPoints must be > 0");
-      return INIT_PARAMETERS_INCORRECT;
+      Print("ERROR: StartLot does not match SYMBOL_VOLUME_STEP");
+      return false;
    }
 
-   if(MaxHarvestLevels <= 0)
-   {
-      Print("ERROR: MaxHarvestLevels must be > 0");
-      return INIT_PARAMETERS_INCORRECT;
-   }
+   if(BigRatio <= 1.0) { Print("ERROR: BigRatio must be > 1.0"); return false; }
+   if(SmallRatio <= 0.0 || SmallRatio >= 1.0) { Print("ERROR: SmallRatio must be > 0 and < 1"); return false; }
+   if(CloseBigOnSmall <= 0.0 || CloseBigOnSmall >= 1.0) { Print("ERROR: CloseBigOnSmall must be > 0 and < 1"); return false; }
+   if(RemainBigOnSmall <= 0.0 || RemainBigOnSmall >= 1.0) { Print("ERROR: RemainBigOnSmall must be > 0 and < 1"); return false; }
+   if(MathAbs((CloseBigOnSmall + RemainBigOnSmall) - 1.0) > 0.000001) { Print("ERROR: CloseBigOnSmall + RemainBigOnSmall must equal 1.0"); return false; }
+   if(CloseFarShare < 0.0 || ReserveShare < 0.0 || MathAbs((CloseFarShare + ReserveShare) - 1.0) > 0.000001) { Print("ERROR: CloseFarShare + ReserveShare must equal 1.0 and both be >= 0"); return false; }
+   if(SmallReserveShare < 0.0 || SmallReserveShare > 1.0) { Print("ERROR: SmallReserveShare must be between 0 and 1"); return false; }
+   if(BigMoveStartPoints <= 0) { Print("ERROR: BigMoveStartPoints must be > 0"); return false; }
+   if(BigMoveStepPoints <= 0) { Print("ERROR: BigMoveStepPoints must be > 0"); return false; }
+   if(MaxHarvestLevels <= 0) { Print("ERROR: MaxHarvestLevels must be > 0"); return false; }
+   if(MaxReverseCycles <= 0) { Print("ERROR: MaxReverseCycles must be > 0"); return false; }
+   if(MaxSpreadPoints <= 0.0) { Print("ERROR: MaxSpreadPoints must be > 0"); return false; }
+   if(MaxMarginPercent <= 0.0) { Print("ERROR: MaxMarginPercent must be > 0"); return false; }
 
    int lastLevelPoints = BigMoveStartPoints + (MaxHarvestLevels - 1) * BigMoveStepPoints;
-   if(lastLevelPoints <= 0)
+   if(lastLevelPoints <= 0) { Print("ERROR: Invalid BigMove levels calculation"); return false; }
+
+   string compressionReason = "OK";
+   if(!ValidateRiskCompression(BigRatio, RemainBigOnSmall, compressionReason))
    {
-      Print("ERROR: Invalid BigMove levels calculation");
-      return INIT_PARAMETERS_INCORRECT;
+      Print("ERROR: ", compressionReason);
+      return false;
    }
 
+   if(UseInternalSimulation && AllowRealTrading)
+   {
+      Print("ERROR: UseInternalSimulation=true cannot be mixed with AllowRealTrading=true");
+      return false;
+   }
+
+   return true;
+}
+
+bool ValidateTradingEnvironment()
+{
+   Print("TRADING_ENVIRONMENT | TerminalTradeAllowed=", (int)TerminalInfoInteger(TERMINAL_TRADE_ALLOWED),
+         " MqlTradeAllowed=", (int)MQLInfoInteger(MQL_TRADE_ALLOWED),
+         " MarginMode=", (int)AccountInfoInteger(ACCOUNT_MARGIN_MODE),
+         " SymbolTradeMode=", (int)SymbolInfoInteger(_Symbol, SYMBOL_TRADE_MODE),
+         " SymbolExecution=", (int)SymbolInfoInteger(_Symbol, SYMBOL_TRADE_EXEMODE),
+         " SymbolFilling=", (int)SymbolInfoInteger(_Symbol, SYMBOL_FILLING_MODE),
+         " MinLot=", SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN),
+         " MaxLot=", SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MAX),
+         " LotStep=", SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP));
+
+   if(IsInternalSimulationMode())
+      return true;
+
+   if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED))
+   {
+      Print("ERROR: terminal or MQL trading is not allowed");
+      return false;
+   }
+
+   if((ENUM_ACCOUNT_MARGIN_MODE)AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
+   {
+      Print("ERROR: MinusLock BigHarvest requires ACCOUNT_MARGIN_MODE_RETAIL_HEDGING");
+      return false;
+   }
+
+   if((int)SymbolInfoInteger(_Symbol, SYMBOL_TRADE_MODE) == SYMBOL_TRADE_MODE_DISABLED)
+   {
+      Print("ERROR: symbol trade mode is disabled");
+      return false;
+   }
+
+   return true;
+}
+
+void LogBigMoveLevels()
+{
    Print("BIG_MOVE_LEVELS:");
    for(int level = 1; level <= MaxHarvestLevels; level++)
       Print("L", level, " = ", GetBigMovePoints(level), " points");
+}
 
+
+int OnInit()
+{
+   if(!ValidateInputs())
+      return INIT_PARAMETERS_INCORRECT;
+
+   LogBigMoveLevels();
    ConfigureWorkingParameters();
 
    if(!UseMarketOrders)
@@ -52,17 +122,18 @@ int OnInit()
       return INIT_PARAMETERS_INCORRECT;
    }
 
-   if((ENUM_ACCOUNT_MARGIN_MODE)AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
-   {
-      Print("INIT FAILED: MinusLock BigHarvest requires ACCOUNT_MARGIN_MODE_RETAIL_HEDGING");
+   if(!ValidateTradingEnvironment())
       return INIT_FAILED;
-   }
 
-   ResetRecoveryContext();
-   State = STATE_IDLE;
+   if(!RecoverState())
+   {
+      ResetRecoveryContext();
+      State = STATE_IDLE;
+   }
 
    Print("EA INIT START");
    Print("AllowRealTrading=", AllowRealTrading);
+   Print("UseInternalSimulation=", UseInternalSimulation);
    Print("UseMarketOrders=", UseMarketOrders);
    Print("StartLot=", StartLot);
    Print("MagicNumber=", MagicNumber);
@@ -123,7 +194,7 @@ void OnTick()
    }
 
    bool riskOk = IsTradingAllowedSafe();
-   if(!riskOk && AllowRealTrading)
+   if(!riskOk && AllowRealTrading && StopOnRiskGateBlocked)
       return;
 
    if(State == STATE_IDLE && managedPositions == 0)

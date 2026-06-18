@@ -34,13 +34,18 @@ bool MarginOk()
 {
    double equity = AccountInfoDouble(ACCOUNT_EQUITY);
    double margin = AccountInfoDouble(ACCOUNT_MARGIN);
+   double freeMargin = AccountInfoDouble(ACCOUNT_MARGIN_FREE);
+   double balance = AccountInfoDouble(ACCOUNT_BALANCE);
    double marginPercent = 0.0;
+   double drawdownPercent = 0.0;
 
    if(equity > 0.0)
       marginPercent = margin / equity * 100.0;
+   if(balance > 0.0 && equity < balance)
+      drawdownPercent = (balance - equity) / balance * 100.0;
 
    if(VerboseTickLogs)
-      Print("RiskGate Margin=", marginPercent);
+      Print("RiskGate Margin=", marginPercent, " FreeMargin=", freeMargin, " Drawdown=", drawdownPercent);
 
    if(equity <= 0.0)
    {
@@ -55,6 +60,36 @@ bool MarginOk()
       return false;
    }
 
+   if(drawdownPercent > MaxDrawdownPercent)
+   {
+      Print("RISK GATE BLOCKED: drawdown exceeds MaxDrawdownPercent");
+      LogInfo(StringFormat("Drawdown blocked: drawdownPercent=%.2f MaxDrawdownPercent=%.2f", drawdownPercent, MaxDrawdownPercent));
+      return false;
+   }
+
+   if(freeMargin <= 0.0)
+   {
+      Print("RISK GATE BLOCKED: free margin <= 0");
+      return false;
+   }
+
+   return true;
+}
+
+bool SymbolRiskOk()
+{
+   if((int)SymbolInfoInteger(_Symbol, SYMBOL_TRADE_MODE) == SYMBOL_TRADE_MODE_DISABLED)
+   {
+      Print("RISK GATE BLOCKED: symbol trading disabled");
+      return false;
+   }
+
+   if(CountManagedOpenPositions() > MaxManagedPositions)
+   {
+      Print("RISK GATE BLOCKED: managed positions exceed MaxManagedPositions");
+      return false;
+   }
+
    return true;
 }
 
@@ -62,15 +97,16 @@ bool IsTradingAllowedSafe()
 {
    bool spreadOk = SpreadOk();
    bool marginOk = MarginOk();
+   bool symbolOk = SymbolRiskOk();
 
-   if(!AllowRealTrading)
+   if(IsInternalSimulationMode())
    {
-      if(!spreadOk || !marginOk)
-         Print("SIMULATION mode: RiskGate warning logged but initial simulation start is not blocked");
+      if(!spreadOk || !marginOk || !symbolOk)
+         Print("SIMULATION mode: RiskGate warning logged but simulation is not blocked");
       return true;
    }
 
-   if(!spreadOk || !marginOk)
+   if(!spreadOk || !marginOk || !symbolOk)
       return false;
 
    return true;

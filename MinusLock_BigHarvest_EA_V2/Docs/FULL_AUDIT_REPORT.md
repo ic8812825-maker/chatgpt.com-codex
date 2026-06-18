@@ -441,3 +441,20 @@ Final platform verdict remains pending MT5:
 MetaEditor compile-check: REQUIRED
 Strategy Tester 70/30, 50/50, 90/10: REQUIRED
 ```
+
+## V2.4 Safety Audit Addendum
+
+Implemented V2.4 safety requirements:
+
+- Risk Compression Reverse validation: `BigRatio^2 * RemainBigOnSmall < 1`.
+- Strict `CloseBigOnSmall + RemainBigOnSmall == 1.0` input validation.
+- Small reserve accounting via `SmallReserveShare` and `SMALL_RESERVE_ADD` logs.
+- Startup trading environment diagnostics.
+- Initial lock rollback with `ROLLBACK_INITIAL_BUY_WITHOUT_SELL`.
+- Trade setup uses `SetExpertMagicNumber`, `SetDeviationInPoints(MaxSlippagePoints)`, and `SetTypeFillingBySymbol`.
+- Reverse-limit new-Far close comments and terminal states.
+- Invalid geometry emergency close/manual-intervention states.
+- Restart recovery stubs using GlobalVariables.
+- Retry FSM state definitions for multi-step operations.
+
+MetaEditor compile and Strategy Tester remain required on an MT5 environment.
