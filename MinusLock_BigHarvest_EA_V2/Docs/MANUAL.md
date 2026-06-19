@@ -627,3 +627,10 @@ When `Ctx.harvestLevel >= MaxHarvestLevels`, the EA must not open another Big/Sm
 `CloseFarOnMaxLevels=true` means the EA closes the residual Far itself with `STOP_MAX_LEVELS_CLOSE_FAR` if reserve is insufficient for a profitable final close. If the reserve covers the Far close loss, the EA uses `MAX_LEVELS_FINAL_CLOSE` and finishes in `STATE_CLOSED_PROFIT`. If `CloseFarOnMaxLevels=false`, the EA does not leave the position unmanaged; it enters `STATE_MANUAL_INTERVENTION_REQUIRED` and logs `NOT_CLOSED: reserve insufficient and CloseFarOnMaxLevels=false`.
 
 This prevents a residual Far from being left until Strategy Tester closes it with an end-of-test comment. High spread / RiskGate blockage does not block this close path because RiskGate only blocks new openings.
+
+## V2.4.7 Retry Partial Far and Closed-Profit Guard
+Retry cleanup now uses `PendingActionType`, not string matching on operation names. A partial Far close retry (`PENDING_CLOSE_FAR_PARTIAL`) only reduces `Ctx.farLot` and preserves the active Far ticket, direction and open price while a real residual Far remains.
+
+Full Far cleanup is limited to full-close actions: old Far close, final Far close, max-level final close and stop max-level close. BigHarvest partial Far budget closes cannot erase Far context.
+
+The EA also blocks `STATE_CLOSED_PROFIT` if `CountManagedOpenPositions() > 0`, logging `CLOSED_PROFIT_BLOCKED: managed positions still open` and routing to manual intervention instead. Reserve application is guarded by persisted `pendingReserveApplied` / `pendingSmallReserveApplied` flags to prevent duplicate reserve additions after restart.

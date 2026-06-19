@@ -57,6 +57,7 @@ bool ReadSelectedPosition(PositionSnapshot &snapshot)
 
    snapshot.exists = true;
    snapshot.ticket = (ulong)PositionGetInteger(POSITION_TICKET);
+   snapshot.identifier = (ulong)PositionGetInteger(POSITION_IDENTIFIER);
    snapshot.direction = PositionTypeToDirection(PositionGetInteger(POSITION_TYPE));
    snapshot.lot = PositionGetDouble(POSITION_VOLUME);
    snapshot.openPrice = PositionGetDouble(POSITION_PRICE_OPEN);

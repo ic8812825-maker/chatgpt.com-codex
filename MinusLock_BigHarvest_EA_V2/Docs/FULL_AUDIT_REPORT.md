@@ -487,3 +487,8 @@ V2.4.5 fixes the three critical FSM defects only: terminal states are separated 
 V2.4.6 adds an explicit max-level terminal decision path. `OpenBigSmall()` and `RetryOpenNewBig()` route to `STATE_MAX_LEVELS_DECISION` instead of opening new exposure when `Ctx.harvestLevel >= WorkMaxHarvestLevels`. `ProcessBigHarvestCheckFinal()` and `ProcessSmallCheckReserve()` also route residual Far handling to this state at the last allowed level.
 
 `ProcessMaxLevelsDecision()` calculates Far floating P/L, reserve coverage, and logs `[MAX_LEVELS_DECISION]`. With `CloseFarOnMaxLevels=true`, residual Far is closed by the EA via `STOP_MAX_LEVELS_CLOSE_FAR` if reserve is insufficient. Failed closes go to `STATE_STOP_MAX_LEVELS_CLOSE_PENDING` and retry through `RetryStopMaxLevelsClose()`.
+
+## V2.4.7 Audit: Retry Partial Far Safety
+V2.4.7 replaces text-based retry cleanup with `PendingActionType`. `PENDING_CLOSE_FAR_PARTIAL` preserves Far identity and only subtracts the retried lot from `Ctx.farLot`, preventing false closed-Far context after partial retry success. Full Far cleanup is restricted to explicit full-close pending actions.
+
+A runtime `STATE_CLOSED_PROFIT` guard now checks `CountManagedOpenPositions()` and blocks a profit terminal state if any managed position remains open. Real HistoryDeals matching uses `PositionSnapshot.identifier` from `POSITION_IDENTIFIER` against `DEAL_POSITION_ID`.

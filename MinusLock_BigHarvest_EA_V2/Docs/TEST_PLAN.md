@@ -285,3 +285,10 @@ python3 Tests/invalid_geometry_emergency_check.py
 3. Confirm the residual Far is closed by `MAX_LEVELS_FINAL_CLOSE` when reserve covers loss, or by `STOP_MAX_LEVELS_CLOSE_FAR` when reserve is insufficient.
 4. Confirm there is no residual managed Far closed only by the Strategy Tester `end of test` / `окончание теста` comment.
 5. Confirm `STATE_STOP_MAX_LEVELS_CLOSE_PENDING` retries failed Far closes and RiskGate does not block this close path.
+
+## V2.4.7 Retry Partial Far Tests
+1. Simulate BigHarvest Far budget close where the first partial Far close fails and retry succeeds; expected result is residual Far context preserved with reduced `farLot`.
+2. Verify `PendingActionType` drives retry cleanup and `StringFind(Ctx.pendingOperation, ...)` is not used to classify Big/Small/Far cleanup.
+3. Verify `STATE_CLOSED_PROFIT` is blocked when managed positions remain open.
+4. Verify real deal accounting uses `POSITION_IDENTIFIER` / `DEAL_POSITION_ID`, not position ticket as a surrogate.
+5. Verify reserve flags prevent BigHarvest and Small reserve additions from being applied twice after restart/retry.

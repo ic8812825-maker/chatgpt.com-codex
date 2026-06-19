@@ -169,6 +169,7 @@ bool SimOpenPosition(Direction dir, double lot, string comment)
 
    SimPositions[index].exists = true;
    SimPositions[index].ticket = SimNextTicket++;
+   SimPositions[index].identifier = SimPositions[index].ticket;
    SimPositions[index].direction = dir;
    SimPositions[index].lot = lot;
    SimPositions[index].openPrice = SimEntryPrice(dir);

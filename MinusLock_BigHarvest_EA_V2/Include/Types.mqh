@@ -32,6 +32,7 @@ enum EAState
    STATE_REVERSE_LIMIT,
    STATE_REVERSE_LIMIT_CLOSED,
    STATE_REVERSE_LIMIT_CLOSE_PENDING,
+   STATE_MAX_LEVELS_FINAL_CLOSE_PENDING,
    STATE_STOP_MAX_LEVELS_CLOSE_PENDING,
    STATE_REVERSE_WARNING,
    STATE_INVALID_GEOMETRY_CLOSED,
@@ -57,10 +58,26 @@ enum Direction
    DIR_SELL
 };
 
+enum PendingActionType
+{
+   PENDING_NONE = 0,
+   PENDING_CLOSE_BIG_FULL,
+   PENDING_CLOSE_SMALL_FULL,
+   PENDING_CLOSE_OLD_FAR_FULL,
+   PENDING_CLOSE_FAR_FULL,
+   PENDING_CLOSE_FAR_PARTIAL,
+   PENDING_CLOSE_BIG_PARTIAL,
+   PENDING_OPEN_BIG,
+   PENDING_OPEN_SMALL,
+   PENDING_MAX_LEVELS_FINAL_CLOSE,
+   PENDING_STOP_MAX_LEVELS_CLOSE
+};
+
 struct PositionSnapshot
 {
    bool exists;
    ulong ticket;
+   ulong identifier;
    Direction direction;
    double lot;
    double openPrice;
@@ -151,6 +168,7 @@ struct RecoveryContext
    double retryLot;
    int retryAttempts;
    datetime lastRetryLogTime;
+   PendingActionType pendingActionType;
    string pendingOperation;
    EAState pendingNextState;
    ulong pendingTicket;
@@ -162,6 +180,9 @@ struct RecoveryContext
    double pendingRealNet;
    double pendingCloseFarBudget;
    double pendingReserveAdd;
+   double pendingSmallReserveAdd;
+   bool pendingReserveApplied;
+   bool pendingSmallReserveApplied;
    double pendingCloseFarLot;
    Direction pendingDirection;
    string pendingComment;
@@ -221,6 +242,7 @@ string StateToString(EAState state)
       case STATE_REVERSE_LIMIT:            return "STATE_REVERSE_LIMIT";
       case STATE_REVERSE_LIMIT_CLOSED:     return "STATE_REVERSE_LIMIT_CLOSED";
       case STATE_REVERSE_LIMIT_CLOSE_PENDING: return "STATE_REVERSE_LIMIT_CLOSE_PENDING";
+      case STATE_MAX_LEVELS_FINAL_CLOSE_PENDING: return "STATE_MAX_LEVELS_FINAL_CLOSE_PENDING";
       case STATE_STOP_MAX_LEVELS_CLOSE_PENDING: return "STATE_STOP_MAX_LEVELS_CLOSE_PENDING";
       case STATE_REVERSE_WARNING:          return "STATE_REVERSE_WARNING";
       case STATE_INVALID_GEOMETRY_CLOSED:  return "STATE_INVALID_GEOMETRY_CLOSED";

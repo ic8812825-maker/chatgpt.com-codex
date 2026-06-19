@@ -68,3 +68,10 @@ V2.4.5 updates:
 - Added `CloseFarOnMaxLevels=true` as the default safety policy for the last allowed harvest level.
 - Added explicit `STATE_MAX_LEVELS_DECISION` and `STATE_STOP_MAX_LEVELS_CLOSE_PENDING` so the residual Far is either final-closed, stop-closed, or routed to manual intervention with a full `[MAX_LEVELS_DECISION]` log.
 - RiskGate continues to block only new Big/Small openings; it does not block MaxHarvestLevels residual-Far closing.
+
+## V2.4.7 Retry Partial Far and Closed-Profit Guard
+- Added `PendingActionType` so retry cleanup no longer infers operation type from `pendingOperation` text.
+- Partial Far retry now preserves `farTicket`, `farDirection`, and `farOpenPrice` and only reduces `farLot` by the retried lot.
+- Added persisted reserve-applied flags and `pendingSmallReserveAdd` to prevent repeated reserve application after restart/retry.
+- Added a runtime guard that blocks `STATE_CLOSED_PROFIT` while managed positions are still open.
+- Real-deal matching now uses `POSITION_IDENTIFIER` stored in `PositionSnapshot.identifier` for `DEAL_POSITION_ID` comparisons.
