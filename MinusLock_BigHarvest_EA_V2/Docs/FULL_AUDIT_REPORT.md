@@ -495,3 +495,6 @@ A runtime `STATE_CLOSED_PROFIT` guard now checks `CountManagedOpenPositions()` a
 
 ## V2.4.8 Audit: Real Reserve and MT5 State Reconciliation
 V2.4.8 adds `ReconciliationEngine.mqh` to detect divergence between `RecoveryContext` and actual MT5 state. It validates Far/Big/Small ticket, `POSITION_IDENTIFIER`, direction and volume, checks harvest-level evidence, emits reserve rebuild diagnostics from HistoryDeals, and routes hard mismatches to `STATE_RECOVERY_MISMATCH`.
+
+## V2.4.9 Audit: Reconciliation False Positive Fix
+V2.4.9 changes Reconciliation from fail-fast on small raw volume differences to normalized, severity-based handling. Differences within `max(LotStep, ReserveMismatchTolerance)` are auto-synced and logged as warnings, preventing false `STATE_RECOVERY_MISMATCH` stops such as `ctxFarLot=0.68` vs `actualFarVolume=0.69`.

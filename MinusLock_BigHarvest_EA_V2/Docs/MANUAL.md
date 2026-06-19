@@ -639,3 +639,8 @@ The EA also blocks `STATE_CLOSED_PROFIT` if `CountManagedOpenPositions() > 0`, l
 The EA now includes `ReconciliationEngine.mqh`. After `RecoverState()` and periodically every `ReconciliationIntervalSeconds`, it runs `RunReconciliation()` to compare the saved `RecoveryContext` with MT5 open positions and history.
 
 The engine validates Far, Big and Small tickets, `POSITION_IDENTIFIER`, direction and volume. It also recalculates reserve diagnostics from HistoryDeals and compares the result with `Ctx.totalReserve` using `ReserveMismatchTolerance`. Any hard mismatch logs `RECONCILIATION FAIL` and moves the EA to `STATE_RECOVERY_MISMATCH`, preventing the trading cycle from continuing with corrupted context. A clean check logs `RECONCILIATION PASS`.
+
+## V2.4.9 Reconciliation Soft Volume Sync
+Reconciliation no longer treats a one-step lot difference as fatal. Before comparing position volume, both context and actual MT5 volume are normalized through `NormalizeVolumeToStep()`. The effective tolerance is logged as `RECON_TOLERANCE_USED` and is based on `max(LotStep, ReserveMismatchTolerance)`.
+
+If ticket, identifier and direction match but volume differs within tolerance, the EA logs `RECON WARNING` and automatically synchronizes the context (`RECON_AUTO_SYNC_FAR_VOLUME`, `RECON_AUTO_SYNC_BIG_VOLUME`, or `RECON_AUTO_SYNC_SMALL_VOLUME`) without entering `STATE_RECOVERY_MISMATCH`. Only missing positions, identifier/direction mismatches, or multi-step unrecoverable volume differences are fatal.

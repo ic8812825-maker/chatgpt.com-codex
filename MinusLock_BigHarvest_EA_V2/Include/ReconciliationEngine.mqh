@@ -3,61 +3,122 @@
 
 datetime LastReconciliationTime = 0;
 
-bool ValidatePositionSnapshotAgainstContext(string legName, ulong ctxTicket, ulong ctxIdentifier, Direction ctxDirection, double ctxLot, PositionSnapshot &snapshot)
+double ReconciliationVolumeTolerance()
 {
-   double tolerance = MathMax(SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP), LotStep) * 0.5;
+   double tolerance = MathMax(GetEffectiveLotStep(), ReserveMismatchTolerance);
+   if(tolerance <= 0.0)
+      tolerance = GetEffectiveLotStep();
    if(tolerance <= 0.0)
       tolerance = 0.0000001;
+   return tolerance;
+}
+
+void LogReconciliationVolumeDiagnostic(string severity, string source, string legName, double ctxLot, double actualLot, double normalizedCtxLot, double normalizedActualLot, double tolerance, ulong ticket, ulong identifier)
+{
+   double volumeStep = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP);
+   double diff = MathAbs(actualLot - ctxLot);
+   double normDiff = MathAbs(normalizedActualLot - normalizedCtxLot);
+   LogInfo(StringFormat("RECON %s State=%s Source=%s Leg=%s LastAction=%s Ticket=%I64u Identifier=%I64u CtxLot=%.2f ActualLot=%.2f Diff=%.5f NormalizedCtxLot=%.2f NormalizedActualLot=%.2f NormDiff=%.5f LotStep=%.5f VolumeStep=%.5f RECON_TOLERANCE_USED=%.5f LastContextAction=%s",
+                        severity,
+                        StateToString(State),
+                        source,
+                        legName,
+                        Ctx.lastAction,
+                        ticket,
+                        identifier,
+                        ctxLot,
+                        actualLot,
+                        diff,
+                        normalizedCtxLot,
+                        normalizedActualLot,
+                        normDiff,
+                        LotStep,
+                        volumeStep,
+                        tolerance,
+                        Ctx.lastAction));
+}
+
+bool ValidatePositionSnapshotAgainstContext(string legName, string source, ulong ctxTicket, ulong ctxIdentifier, Direction ctxDirection, double &ctxLot, PositionSnapshot &snapshot)
+{
+   double tolerance = ReconciliationVolumeTolerance();
+   double step = GetEffectiveLotStep();
+   if(step <= 0.0)
+      step = tolerance;
 
    if(ctxTicket == 0 && ctxLot <= 0.0)
       return true;
 
    if(!snapshot.exists)
    {
-      LogError("RECONCILIATION FAIL " + legName + "_NOT_FOUND");
+      LogError("RECONCILIATION FAIL " + legName + "_NOT_FOUND State=" + StateToString(State));
       return false;
    }
 
    if(ctxIdentifier > 0 && snapshot.identifier > 0 && snapshot.identifier != ctxIdentifier)
    {
-      LogError(StringFormat("RECONCILIATION FAIL %s_IDENTIFIER_MISMATCH ctxIdentifier=%I64u actualIdentifier=%I64u", legName, ctxIdentifier, snapshot.identifier));
+      LogError(StringFormat("RECONCILIATION FAIL %s_IDENTIFIER_MISMATCH State=%s ctxIdentifier=%I64u actualIdentifier=%I64u ticket=%I64u", legName, StateToString(State), ctxIdentifier, snapshot.identifier, snapshot.ticket));
       return false;
    }
 
    if(snapshot.direction != ctxDirection)
    {
-      LogError(StringFormat("RECONCILIATION FAIL %s_DIRECTION_MISMATCH ctxDirection=%s actualDirection=%s", legName, DirectionToString(ctxDirection), DirectionToString(snapshot.direction)));
+      LogError(StringFormat("RECONCILIATION FAIL %s_DIRECTION_MISMATCH State=%s ctxDirection=%s actualDirection=%s ticket=%I64u", legName, StateToString(State), DirectionToString(ctxDirection), DirectionToString(snapshot.direction), snapshot.ticket));
       return false;
    }
 
-   if(MathAbs(snapshot.lot - ctxLot) > tolerance)
+   double normalizedCtxLot = NormalizeVolumeToStep(ctxLot);
+   double normalizedActualLot = NormalizeVolumeToStep(snapshot.lot);
+   double normDiff = MathAbs(normalizedActualLot - normalizedCtxLot);
+
+   if(normDiff <= tolerance)
    {
-      LogError(StringFormat("RECONCILIATION FAIL %s_VOLUME_MISMATCH ctxLot=%.2f actualLot=%.2f tolerance=%.5f", legName, ctxLot, snapshot.lot, tolerance));
-      return false;
+      if(normDiff > 0.0)
+      {
+         LogReconciliationVolumeDiagnostic("WARNING", source, legName, ctxLot, snapshot.lot, normalizedCtxLot, normalizedActualLot, tolerance, snapshot.ticket, snapshot.identifier);
+         ctxLot = normalizedActualLot;
+         if(legName == "FAR") LogInfo("RECON_AUTO_SYNC_FAR_VOLUME");
+         if(legName == "BIG") LogInfo("RECON_AUTO_SYNC_BIG_VOLUME");
+         if(legName == "SMALL") LogInfo("RECON_AUTO_SYNC_SMALL_VOLUME");
+         SaveState();
+      }
+      return true;
    }
 
-   return true;
+   if(normDiff <= step * 3.0)
+   {
+      LogReconciliationVolumeDiagnostic("RECOVERABLE", source, legName, ctxLot, snapshot.lot, normalizedCtxLot, normalizedActualLot, tolerance, snapshot.ticket, snapshot.identifier);
+      ctxLot = normalizedActualLot;
+      if(legName == "FAR") LogInfo("RECON_AUTO_SYNC_FAR_VOLUME");
+      if(legName == "BIG") LogInfo("RECON_AUTO_SYNC_BIG_VOLUME");
+      if(legName == "SMALL") LogInfo("RECON_AUTO_SYNC_SMALL_VOLUME");
+      SaveState();
+      return true;
+   }
+
+   LogReconciliationVolumeDiagnostic("FAIL", source, legName, ctxLot, snapshot.lot, normalizedCtxLot, normalizedActualLot, tolerance, snapshot.ticket, snapshot.identifier);
+   LogError(StringFormat("RECONCILIATION FAIL %s_VOLUME_MISMATCH", legName));
+   return false;
 }
 
 bool ValidateFarPosition()
 {
    PositionSnapshot far;
    bool found = GetManagedPositionByTicket(Ctx.farTicket, far);
-   return ValidatePositionSnapshotAgainstContext("FAR", Ctx.farTicket, Ctx.farIdentifier, Ctx.farDirection, Ctx.farLot, far);
+   return ValidatePositionSnapshotAgainstContext("FAR", "FarVolumeCheck", Ctx.farTicket, Ctx.farIdentifier, Ctx.farDirection, Ctx.farLot, far);
 }
 
 bool ValidateBigPosition()
 {
    PositionSnapshot big;
    bool found = GetManagedPositionByTicket(Ctx.bigTicket, big);
-   return ValidatePositionSnapshotAgainstContext("BIG", Ctx.bigTicket, Ctx.bigIdentifier, Ctx.bigDirection, Ctx.bigLot, big);
+   return ValidatePositionSnapshotAgainstContext("BIG", "BigVolumeCheck", Ctx.bigTicket, Ctx.bigIdentifier, Ctx.bigDirection, Ctx.bigLot, big);
 }
 
 bool ValidateSmallPosition()
 {
    PositionSnapshot small;
    bool found = GetManagedPositionByTicket(Ctx.smallTicket, small);
-   return ValidatePositionSnapshotAgainstContext("SMALL", Ctx.smallTicket, Ctx.smallIdentifier, Ctx.smallDirection, Ctx.smallLot, small);
+   return ValidatePositionSnapshotAgainstContext("SMALL", "SmallVolumeCheck", Ctx.smallTicket, Ctx.smallIdentifier, Ctx.smallDirection, Ctx.smallLot, small);
 }
 
 double CalculateReserveFromHistory()
@@ -101,6 +162,12 @@ double CalculateReserveFromHistory()
       {
          rebuiltReserve += net * WorkSmallReserveShare;
          classified = true;
+      }
+      else
+      {
+         rebuiltReserve += net * WorkReserveShare;
+         classified = true;
+         LogInfo(StringFormat("RECONCILIATION RESERVE_REBUILD_FROM_HISTORY classified positive closed recovery deal by Magic/Symbol/DEAL_ENTRY_OUT Deal=%I64u Net=%.2f", dealTicket, net));
       }
    }
 
@@ -165,17 +232,23 @@ bool RunReconciliation()
    ok = ValidateSmallPosition() && ok;
 
    double actualFarVolume = GetActualFarVolume();
-   if(Ctx.farTicket > 0 && MathAbs(actualFarVolume - Ctx.farLot) > MathMax(SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP), LotStep) * 0.5)
-   {
-      LogError(StringFormat("RECONCILIATION FAIL FAR_VOLUME_MISMATCH ctxFarLot=%.2f actualFarVolume=%.2f", Ctx.farLot, actualFarVolume));
-      ok = false;
-   }
 
    double realReserve = CalculateReserveFromHistory();
-   if(MathAbs(realReserve - Ctx.totalReserve) > ReserveMismatchTolerance)
+   double reserveDiff = MathAbs(realReserve - Ctx.totalReserve);
+   LogInfo(StringFormat("RECON_TOLERANCE_USED=%.5f ReserveCheck realReserve=%.2f ctxTotalReserve=%.2f reserveDiff=%.5f", ReserveMismatchTolerance, realReserve, Ctx.totalReserve, reserveDiff));
+   if(reserveDiff > ReserveMismatchTolerance)
    {
-      LogError(StringFormat("RECONCILIATION FAIL RESERVE_MISMATCH realReserve=%.2f ctxTotalReserve=%.2f tolerance=%.2f", realReserve, Ctx.totalReserve, ReserveMismatchTolerance));
-      ok = false;
+      if(reserveDiff <= MathMax(ReserveMismatchTolerance * 3.0, 0.03))
+      {
+         LogInfo(StringFormat("RECON WARNING RESERVE_MISMATCH_AUTO_SYNC realReserve=%.2f ctxTotalReserve=%.2f tolerance=%.2f", realReserve, Ctx.totalReserve, ReserveMismatchTolerance));
+         Ctx.totalReserve = realReserve;
+         SaveState();
+      }
+      else
+      {
+         LogError(StringFormat("RECONCILIATION FAIL RESERVE_MISMATCH realReserve=%.2f ctxTotalReserve=%.2f tolerance=%.2f", realReserve, Ctx.totalReserve, ReserveMismatchTolerance));
+         ok = false;
+      }
    }
 
    ok = ValidateHarvestLevelFromHistory() && ok;

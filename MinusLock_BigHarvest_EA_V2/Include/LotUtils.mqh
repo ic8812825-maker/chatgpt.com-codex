@@ -50,6 +50,26 @@ int VolumeDigits()
    return digits;
 }
 
+double NormalizeVolumeToStep(double volume)
+{
+   double step = GetEffectiveLotStep();
+   double minLot = GetMinLot();
+   double maxLot = GetMaxLot();
+
+   if(step <= 0.0 || volume <= 0.0)
+      return 0.0;
+
+   double result = MathRound(volume / step) * step;
+
+   if(result < minLot)
+      return 0.0;
+
+   if(result > maxLot)
+      result = maxLot;
+
+   return NormalizeDouble(result, VolumeDigits());
+}
+
 double NormalizeLotDown(double lot)
 {
    double step = GetEffectiveLotStep();

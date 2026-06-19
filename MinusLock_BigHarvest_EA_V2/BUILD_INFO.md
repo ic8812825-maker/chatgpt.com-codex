@@ -80,3 +80,9 @@ V2.4.5 updates:
 - Added `Include/ReconciliationEngine.mqh` with startup and periodic checks comparing `RecoveryContext` against MT5 positions and history.
 - Added `STATE_RECOVERY_MISMATCH`, `ReserveMismatchTolerance`, and `ReconciliationIntervalSeconds`.
 - Added Far/Big/Small ticket, identifier, direction and volume validation plus reserve rebuild diagnostics from HistoryDeals.
+
+## V2.4.9 Reconciliation Soft Volume Sync
+- Added `NormalizeVolumeToStep()` as the shared volume normalization helper for reconciliation checks.
+- Reconciliation now compares normalized context/actual volumes and uses `RECON_TOLERANCE_USED` diagnostics.
+- One-step volume differences are warnings with `RECON_AUTO_SYNC_*_VOLUME`, not fatal `STATE_RECOVERY_MISMATCH` events.
+- Reserve rebuild now classifies positive closed recovery deals by Magic/Symbol/DEAL_ENTRY_OUT when broker close comments are blank.

@@ -299,3 +299,9 @@ python3 Tests/invalid_geometry_emergency_check.py
 3. Manually change or remove a managed position and confirm `RECONCILIATION FAIL` and `STATE_RECOVERY_MISMATCH`.
 4. Verify Far/Big/Small volume mismatches and identifier mismatches are detected.
 5. Verify reserve mismatch uses `ReserveMismatchTolerance` and blocks continuation when exceeded.
+
+## V2.4.9 Reconciliation Regression Tests
+1. Reproduce `ctxFarLot=0.68` / `actualFarVolume=0.69` with `LotStep=0.01`; expected result is `RECON WARNING` + `RECON_AUTO_SYNC_FAR_VOLUME`, not `STATE_RECOVERY_MISMATCH`.
+2. Confirm `RECON_TOLERANCE_USED=0.01` when `ReserveMismatchTolerance=0.01`.
+3. Confirm normalized volume comparison is used for Far/Big/Small and direct raw-volume fatal checks are absent.
+4. Confirm reserve rebuild classifies positive closed recovery deals even when broker close comments are blank.
