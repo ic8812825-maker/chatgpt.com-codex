@@ -482,3 +482,8 @@ The remaining mixed FSM/legacy paths were removed from the main execution routes
 ## V2.4.5 Audit Addendum
 
 V2.4.5 fixes the three critical FSM defects only: terminal states are separated from opening pending states, Small Build New Far uses saved Small context after active Small cleanup, and Old Far is saved then removed from active context after close. The strict FSM integrity check and Python tests assert these routes directly.
+
+## V2.4.6 MaxHarvestLevels Final Decision Audit
+V2.4.6 adds an explicit max-level terminal decision path. `OpenBigSmall()` and `RetryOpenNewBig()` route to `STATE_MAX_LEVELS_DECISION` instead of opening new exposure when `Ctx.harvestLevel >= WorkMaxHarvestLevels`. `ProcessBigHarvestCheckFinal()` and `ProcessSmallCheckReserve()` also route residual Far handling to this state at the last allowed level.
+
+`ProcessMaxLevelsDecision()` calculates Far floating P/L, reserve coverage, and logs `[MAX_LEVELS_DECISION]`. With `CloseFarOnMaxLevels=true`, residual Far is closed by the EA via `STOP_MAX_LEVELS_CLOSE_FAR` if reserve is insufficient. Failed closes go to `STATE_STOP_MAX_LEVELS_CLOSE_PENDING` and retry through `RetryStopMaxLevelsClose()`.

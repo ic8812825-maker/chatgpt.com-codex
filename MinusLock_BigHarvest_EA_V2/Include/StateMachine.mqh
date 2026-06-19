@@ -880,7 +880,7 @@ void OpenBigSmall()
 
    if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
    {
-      SetState(STATE_STOP, "WorkMaxHarvestLevels reached before FinalCloseAllowed");
+      SetState(STATE_MAX_LEVELS_DECISION, "WorkMaxHarvestLevels reached; route to explicit max-levels decision before any new Big/Small");
       return;
    }
 
@@ -1453,6 +1453,8 @@ void ProcessBigHarvestCheckFinal()
       SetState(STATE_CLOSED_PROFIT, "BigHarvest phase completed with Far fully closed");
    else if(Ctx.finalCloseAllowed)
       SetState(STATE_FINAL_CLOSE, "BigHarvest phase reserve covers remaining Far");
+   else if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
+      SetState(STATE_MAX_LEVELS_DECISION, "BigHarvest phase done at MaxHarvestLevels; decide residual Far");
    else
       SetState(STATE_FAR_ACTIVE, "BigHarvest phase done; continue next harvest level");
 }
@@ -1575,12 +1577,120 @@ void ProcessSmallCheckReserve()
    Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
    if(Ctx.finalCloseAllowed)
       SetState(STATE_FINAL_CLOSE, "Small scenario reserve covers NewFar");
+   else if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
+      SetState(STATE_MAX_LEVELS_DECISION, "Small scenario reserve insufficient at MaxHarvestLevels; decide residual Far");
    else
       SetState(STATE_SMALL_OPEN_NEW_BIG, "Small scenario reserve insufficient; open next Big");
 }
 
+
+double CurrentPriceForDirectionClose(Direction dir)
+{
+   return ExitPriceForDirection(dir);
+}
+
+double CalculateFarFloatingPL(double closePrice)
+{
+   if(Ctx.farLot <= 0.0 || Ctx.farOpenPrice <= 0.0 || closePrice <= 0.0 || Ctx.farDirection == DIR_NONE)
+      return 0.0;
+
+   if(IsInternalSimulationMode())
+      return CalcSignedPositionPL(Ctx.farDirection, Ctx.farLot, Ctx.farOpenPrice, closePrice);
+
+   double profit = 0.0;
+   ENUM_ORDER_TYPE orderType = (Ctx.farDirection == DIR_BUY ? ORDER_TYPE_BUY : ORDER_TYPE_SELL);
+   if(OrderCalcProfit(orderType, _Symbol, Ctx.farLot, Ctx.farOpenPrice, closePrice, profit))
+      return profit;
+
+   return CalcSignedPositionPL(Ctx.farDirection, Ctx.farLot, Ctx.farOpenPrice, closePrice);
+}
+
+void LogMaxLevelsDecision(double currentPrice, double farFloatingPL, double farCloseLoss, string decision)
+{
+   double coverage = farCloseLoss > 0.0 ? Ctx.totalReserve / farCloseLoss : 999.0;
+   LogInfo(StringFormat("[MAX_LEVELS_DECISION] harvestLevel=%d MaxHarvestLevels=%d farTicket=%I64u farLot=%.2f farDirection=%s farOpenPrice=%.5f currentPrice=%.5f farFloatingPL=%.2f totalReserve=%.2f farCloseLoss=%.2f reserveCoverage=%.4f decision=%s RiskGateOk=%s CloseFarOnMaxLevels=%s",
+                        Ctx.harvestLevel,
+                        WorkMaxHarvestLevels,
+                        Ctx.farTicket,
+                        Ctx.farLot,
+                        DirectionToString(Ctx.farDirection),
+                        Ctx.farOpenPrice,
+                        currentPrice,
+                        farFloatingPL,
+                        Ctx.totalReserve,
+                        farCloseLoss,
+                        coverage,
+                        decision,
+                        Ctx.riskGateOk ? "YES" : "NO",
+                        CloseFarOnMaxLevels ? "true" : "false"));
+}
+
+void ProcessMaxLevelsDecision()
+{
+   if(!RefreshFar())
+   {
+      LogMaxLevelsDecision(0.0, 0.0, 0.0, "NO_FAR_FOUND_SET_STOP_MAX_LEVELS");
+      SetState(STATE_STOP_MAX_LEVELS, "Max levels reached and no residual Far found");
+      return;
+   }
+
+   double currentPrice = CurrentPriceForDirectionClose(Ctx.farDirection);
+   double farFloatingPL = CalculateFarFloatingPL(currentPrice);
+   double farCloseLoss = MathMax(0.0, -farFloatingPL);
+   Ctx.finalCloseAllowed = (Ctx.totalReserve >= farCloseLoss);
+
+   if(Ctx.finalCloseAllowed)
+   {
+      LogMaxLevelsDecision(currentPrice, farFloatingPL, farCloseLoss, "FINAL_CLOSE_RESERVE_COVERS_FAR");
+      MarkSystemClose("MAX_LEVELS_FINAL_CLOSE");
+      if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "MAX_LEVELS_FINAL_CLOSE"))
+      {
+         SetPendingOperation("MAX_LEVELS_FINAL_CLOSE_FAR", STATE_STOP_MAX_LEVELS_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "MAX_LEVELS_FINAL_CLOSE", STATE_CLOSED_PROFIT, "Max levels reserve close failed; retry pending");
+         return;
+      }
+      Ctx.farTicket = 0;
+      Ctx.farLot = 0.0;
+      Ctx.farDirection = DIR_NONE;
+      Ctx.farOpenPrice = 0.0;
+      SetState(STATE_CLOSED_PROFIT, "Max levels residual Far closed because reserve covered loss");
+      return;
+   }
+
+   if(CloseFarOnMaxLevels)
+   {
+      LogMaxLevelsDecision(currentPrice, farFloatingPL, farCloseLoss, "STOP_MAX_LEVELS_CLOSE_FAR");
+      MarkSystemClose("STOP_MAX_LEVELS_CLOSE_FAR");
+      if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS_CLOSE_FAR"))
+      {
+         LogMaxLevelsDecision(currentPrice, farFloatingPL, farCloseLoss, "CLOSE_FAILED: retry pending");
+         SetPendingOperation("STOP_MAX_LEVELS_CLOSE_FAR", STATE_STOP_MAX_LEVELS_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS_CLOSE_FAR", STATE_STOP_MAX_LEVELS, "Stop max levels Far close failed; retry pending");
+         return;
+      }
+      Ctx.farTicket = 0;
+      Ctx.farLot = 0.0;
+      Ctx.farDirection = DIR_NONE;
+      Ctx.farOpenPrice = 0.0;
+      SetState(STATE_STOP_MAX_LEVELS, "MaxHarvestLevels reached; residual Far closed by STOP_MAX_LEVELS_CLOSE_FAR");
+      return;
+   }
+
+   LogMaxLevelsDecision(currentPrice, farFloatingPL, farCloseLoss, "NOT_CLOSED: reserve insufficient and CloseFarOnMaxLevels=false");
+   SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "MaxHarvestLevels reached; residual Far requires manual intervention");
+}
+
+void RetryStopMaxLevelsClose()
+{
+   RetryCloseTicket("RetryStopMaxLevelsClose", "STOP_MAX_LEVELS_CLOSE_FAR", STATE_STOP_MAX_LEVELS);
+}
+
 void RetryOpenNewBig()
 {
+   if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
+   {
+      SetState(STATE_MAX_LEVELS_DECISION, "RetryOpenNewBig blocked: MaxHarvestLevels reached; no new Big/Small allowed");
+      return;
+   }
+
    if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
    {
       LogRiskGateBlocked("RetryOpenNewBig blocked by RiskGate; open retry remains pending");
@@ -1673,7 +1783,7 @@ bool ValidateFSMIntegrity()
 {
    // FSM Integrity Check: unreachable states, dead states, states without handlers, states without transitions, states without retry.
    bool ok = true;
-   string report = "FSM_INTEGRITY_CHECK | BigHarvestPhaseFSM=YES SmallScenarioPhaseFSM=YES OpenPendingRetry=YES ClosePendingRetry=YES LegacyPathRemoved=YES TerminalStatesNeverOpen=YES SmallBuildUsesSavedSmallDirection=YES OldFarCleanup=YES";
+   string report = "FSM_INTEGRITY_CHECK | BigHarvestPhaseFSM=YES SmallScenarioPhaseFSM=YES OpenPendingRetry=YES ClosePendingRetry=YES LegacyPathRemoved=YES TerminalStatesNeverOpen=YES SmallBuildUsesSavedSmallDirection=YES OldFarCleanup=YES MaxLevelsDecision=YES StopMaxLevelsCloseRetry=YES RiskGateDoesNotBlockMaxLevelsClose=YES";
    LogInfo(report);
 
    if(StateToString(STATE_BIG_HARVEST_CLOSE_BIG) == "STATE_UNKNOWN") ok = false;
@@ -1775,6 +1885,10 @@ void RunStateMachine()
          ProcessFinalClose();
          break;
 
+      case STATE_MAX_LEVELS_DECISION:
+         ProcessMaxLevelsDecision();
+         break;
+
       case STATE_CLOSED_PROFIT:
       case STATE_STOP_MAX_LEVELS:
       case STATE_UNCLOSED_CYCLE:
@@ -1799,6 +1913,10 @@ void RunStateMachine()
 
       case STATE_REVERSE_LIMIT_CLOSE_PENDING:
          RetryReverseLimitClose();
+         break;
+
+      case STATE_STOP_MAX_LEVELS_CLOSE_PENDING:
+         RetryStopMaxLevelsClose();
          break;
 
       case STATE_RECOVERY_PENDING:

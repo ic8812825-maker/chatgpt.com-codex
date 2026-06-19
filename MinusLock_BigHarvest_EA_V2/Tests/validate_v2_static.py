@@ -51,7 +51,7 @@ for token in [
     "RiskGateLogIntervalSeconds", "MaxCloseRetryAttempts", "RetryLogIntervalSeconds",
     "Ctx.riskGateOk = riskOk", "OpenInitialLock blocked", "OpenBigSmall blocked",
     "RetryCloseBig();", "RetryCloseSmall();", "RetryCloseOldFar();", "RetryCloseBigPart();", "RetryCloseNewFar();",
-    "BIG_HARVEST_REAL_RESERVE", "DEAL_POSITION_ID", "ReconcileRecoveredPosition",
+    "BIG_HARVEST_REAL_RESERVE", "DEAL_POSITION_ID", "ReconcileRecoveredPosition", "STATE_MAX_LEVELS_DECISION", "CloseFarOnMaxLevels", "STOP_MAX_LEVELS_CLOSE_FAR",
 ]:
     assert token in (config + main + state)
 

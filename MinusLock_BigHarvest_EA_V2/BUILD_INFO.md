@@ -63,3 +63,8 @@ V2.4.5 updates:
 - ProcessSmallBuildNewFar uses saved Small context and fails if savedSmallDirection is DIR_NONE.
 - ProcessSmallCloseOldFar saves old Far and clears active Ctx.far* after close.
 - Strict FSM safety tests added.
+
+## V2.4.6 MaxHarvestLevels Final Decision
+- Added `CloseFarOnMaxLevels=true` as the default safety policy for the last allowed harvest level.
+- Added explicit `STATE_MAX_LEVELS_DECISION` and `STATE_STOP_MAX_LEVELS_CLOSE_PENDING` so the residual Far is either final-closed, stop-closed, or routed to manual intervention with a full `[MAX_LEVELS_DECISION]` log.
+- RiskGate continues to block only new Big/Small openings; it does not block MaxHarvestLevels residual-Far closing.

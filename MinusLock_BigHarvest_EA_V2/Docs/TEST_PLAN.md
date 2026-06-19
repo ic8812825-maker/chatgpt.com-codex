@@ -278,3 +278,10 @@ python3 Tests/invalid_geometry_emergency_check.py
 4. Verify `ProcessSmallBuildNewFar()` uses `savedSmallDirection` / `savedSmallTouchPrice`, not active `smallDirection`.
 5. Verify Old Far is copied to `oldFar*` fields and active `Ctx.far*` is cleared after close.
 6. Verify saved Small and old Far fields are stored/restored by `SaveState()` / `RecoverState()`.
+
+## V2.4.6 MaxHarvestLevels Final Decision Tests
+1. Run USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, Deposit 10000, hedging account, `MaxHarvestLevels=7`, `MaxSpreadPoints=60`, `CloseFarOnMaxLevels=true`.
+2. Confirm that after L7 the EA does not open L8 and logs `[MAX_LEVELS_DECISION]`.
+3. Confirm the residual Far is closed by `MAX_LEVELS_FINAL_CLOSE` when reserve covers loss, or by `STOP_MAX_LEVELS_CLOSE_FAR` when reserve is insufficient.
+4. Confirm there is no residual managed Far closed only by the Strategy Tester `end of test` / `окончание теста` comment.
+5. Confirm `STATE_STOP_MAX_LEVELS_CLOSE_PENDING` retries failed Far closes and RiskGate does not block this close path.

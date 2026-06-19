@@ -47,6 +47,7 @@ input int    MaxCloseRetryAttempts = 20;
 input int    RetryLogIntervalSeconds = 30;
 input int    MaxSlippagePoints     = 30;
 input bool   CloseAllOnInvalidGeometry = true;
+input bool   CloseFarOnMaxLevels = true;
 
 input ulong  MagicNumber           = 20260609;
 input bool   AllowRealTrading      = true;

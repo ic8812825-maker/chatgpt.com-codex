@@ -620,3 +620,10 @@ V2.4.5 is limited to three critical FSM safety fixes. Terminal states are now se
 Small Scenario now saves `savedSmallDirection`, `savedSmallClosePrice`, `savedSmallTouchPrice`, `savedSmallOpenPrice` and `savedSmallLot` before clearing the active Small leg. `ProcessSmallBuildNewFar()` uses the saved Small context and fails to `STATE_MANUAL_INTERVENTION_REQUIRED` if `savedSmallDirection == DIR_NONE`.
 
 Old Far is now preserved into `oldFarTicket`, `oldFarLot`, `oldFarDirection` and `oldFarOpenPrice` before successful close, then the active `Ctx.far*` context is cleared. These new saved Small and old Far fields are persisted through `SaveState()` / `RecoverState()`.
+
+## V2.4.6 MaxHarvestLevels Final Decision
+When `Ctx.harvestLevel >= MaxHarvestLevels`, the EA must not open another Big/Small pair. It routes to `STATE_MAX_LEVELS_DECISION` and logs `[MAX_LEVELS_DECISION]` with harvest level, Far ticket/lot/direction/open price, current price, Far floating P/L, `totalReserve`, `farCloseLoss`, reserve coverage, and the selected decision.
+
+`CloseFarOnMaxLevels=true` means the EA closes the residual Far itself with `STOP_MAX_LEVELS_CLOSE_FAR` if reserve is insufficient for a profitable final close. If the reserve covers the Far close loss, the EA uses `MAX_LEVELS_FINAL_CLOSE` and finishes in `STATE_CLOSED_PROFIT`. If `CloseFarOnMaxLevels=false`, the EA does not leave the position unmanaged; it enters `STATE_MANUAL_INTERVENTION_REQUIRED` and logs `NOT_CLOSED: reserve insufficient and CloseFarOnMaxLevels=false`.
+
+This prevents a residual Far from being left until Strategy Tester closes it with an end-of-test comment. High spread / RiskGate blockage does not block this close path because RiskGate only blocks new openings.
