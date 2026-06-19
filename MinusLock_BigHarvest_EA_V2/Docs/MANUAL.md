@@ -644,3 +644,13 @@ The engine validates Far, Big and Small tickets, `POSITION_IDENTIFIER`, directio
 Reconciliation no longer treats a one-step lot difference as fatal. Before comparing position volume, both context and actual MT5 volume are normalized through `NormalizeVolumeToStep()`. The effective tolerance is logged as `RECON_TOLERANCE_USED` and is based on `max(LotStep, ReserveMismatchTolerance)`.
 
 If ticket, identifier and direction match but volume differs within tolerance, the EA logs `RECON WARNING` and automatically synchronizes the context (`RECON_AUTO_SYNC_FAR_VOLUME`, `RECON_AUTO_SYNC_BIG_VOLUME`, or `RECON_AUTO_SYNC_SMALL_VOLUME`) without entering `STATE_RECOVERY_MISMATCH`. Only missing positions, identifier/direction mismatches, or multi-step unrecoverable volume differences are fatal.
+
+## V2.4.9 Reserve Ledger and Reconciliation
+
+The EA no longer rebuilds reserve from all profitable deals. The Initial Lock profit is a setup event and is never a reserve credit. Reserve is changed only through explicit ledger operations:
+
+- `RESERVE_EVENT_BIG_HARVEST_ADD`
+- `RESERVE_EVENT_SMALL_HARVEST_ADD`
+- debit/reset events for future reserve consumption flows
+
+`CalculateReserveFromHistory()` now uses the ledger balance and scans Initial Lock deals only to log `RESERVE_REBUILD_SKIP_INITIAL_LOCK`. A reserve-balance mismatch is treated as `RECONCILIATION WARNING RESERVE_REBUILD_UNVERIFIED`; it does not stop the FSM by itself. Structural position errors such as missing tickets, identifier mismatches, direction mismatches, or unrecoverable volume mismatches remain fatal.

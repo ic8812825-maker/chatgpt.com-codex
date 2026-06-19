@@ -498,3 +498,7 @@ V2.4.8 adds `ReconciliationEngine.mqh` to detect divergence between `RecoveryCon
 
 ## V2.4.9 Audit: Reconciliation False Positive Fix
 V2.4.9 changes Reconciliation from fail-fast on small raw volume differences to normalized, severity-based handling. Differences within `max(LotStep, ReserveMismatchTolerance)` are auto-synced and logged as warnings, preventing false `STATE_RECOVERY_MISMATCH` stops such as `ctxFarLot=0.68` vs `actualFarVolume=0.69`.
+
+## V2.4.9 P0 Audit: Reserve Ledger Source of Truth
+
+The prior reserve rebuild approach could classify the first Initial Lock profit as a reserve credit. V2.4.9 replaces profit-based reconstruction with an explicit reserve ledger. The reconciliation engine now logs Initial Lock history as skipped, rebuilds reserve from ledger events, and treats reserve-only mismatch as non-fatal diagnostics. `STATE_RECOVERY_MISMATCH` remains reserved for structural MT5/context divergence.

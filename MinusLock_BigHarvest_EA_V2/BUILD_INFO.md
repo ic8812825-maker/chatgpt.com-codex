@@ -86,3 +86,10 @@ V2.4.5 updates:
 - Reconciliation now compares normalized context/actual volumes and uses `RECON_TOLERANCE_USED` diagnostics.
 - One-step volume differences are warnings with `RECON_AUTO_SYNC_*_VOLUME`, not fatal `STATE_RECOVERY_MISMATCH` events.
 - Reserve rebuild now classifies positive closed recovery deals by Magic/Symbol/DEAL_ENTRY_OUT when broker close comments are blank.
+
+## V2.4.9 P0 Reserve Ledger / Reconciliation Fix
+
+- Reserve reconstruction no longer treats every profitable HistoryDeal as reserve; Initial Lock profit is explicitly skipped and logged as `RESERVE_REBUILD_SKIP_INITIAL_LOCK`.
+- Reserve changes are routed through `ApplyReserveCredit()` / `ApplyReserveDebit()` and recorded in `ReserveLedgerEntry` rows for deterministic rebuild.
+- Reserve mismatch is now diagnostic (`RECONCILIATION WARNING RESERVE_REBUILD_UNVERIFIED`) and does not enter `STATE_RECOVERY_MISMATCH` unless structural position reconciliation also fails.
+- Periodic reconciliation stops repeating full checks after a fatal `STATE_RECOVERY_MISMATCH` and emits a single repeat warning instead of flooding logs.

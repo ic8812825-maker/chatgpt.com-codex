@@ -4,6 +4,82 @@
 EAState State = STATE_IDLE;
 RecoveryContext Ctx;
 
+ReserveLedgerEntry ReserveLedger[];
+long NextReserveEventId = 1;
+
+void AppendReserveLedgerEntry(ReserveEventType type, double amount, double reserveBefore, double reserveAfter)
+{
+   int index = ArraySize(ReserveLedger);
+   ArrayResize(ReserveLedger, index + 1);
+   ReserveLedger[index].eventId = NextReserveEventId++;
+   ReserveLedger[index].timestamp = TimeCurrent();
+   ReserveLedger[index].type = type;
+   ReserveLedger[index].amount = amount;
+   ReserveLedger[index].reserveBefore = reserveBefore;
+   ReserveLedger[index].reserveAfter = reserveAfter;
+   ReserveLedger[index].bigIdentifier = (long)Ctx.bigIdentifier;
+   ReserveLedger[index].smallIdentifier = (long)Ctx.smallIdentifier;
+   ReserveLedger[index].farIdentifier = (long)Ctx.farIdentifier;
+   ReserveLedger[index].harvestLevel = Ctx.harvestLevel;
+   ReserveLedger[index].reverseCycle = Ctx.reverseCycleCount;
+   LogInfo(StringFormat("RESERVE_LEDGER eventId=%d type=%d amount=%.2f reserveBefore=%.2f reserveAfter=%.2f bigIdentifier=%I64d smallIdentifier=%I64d farIdentifier=%I64d harvestLevel=%d reverseCycle=%d",
+                        ReserveLedger[index].eventId,
+                        (int)type,
+                        amount,
+                        reserveBefore,
+                        reserveAfter,
+                        ReserveLedger[index].bigIdentifier,
+                        ReserveLedger[index].smallIdentifier,
+                        ReserveLedger[index].farIdentifier,
+                        ReserveLedger[index].harvestLevel,
+                        ReserveLedger[index].reverseCycle));
+}
+
+void ApplyReserveCredit(ReserveEventType type, double amount)
+{
+   if(amount <= 0.0)
+      return;
+   double before = Ctx.totalReserve;
+   Ctx.totalReserve = before + amount;
+   AppendReserveLedgerEntry(type, amount, before, Ctx.totalReserve);
+   SaveState();
+}
+
+void ApplyReserveDebit(ReserveEventType type, double amount)
+{
+   if(amount <= 0.0)
+      return;
+   double before = Ctx.totalReserve;
+   Ctx.totalReserve = MathMax(0.0, before - amount);
+   AppendReserveLedgerEntry(type, -amount, before, Ctx.totalReserve);
+   SaveState();
+}
+
+void ApplyReserveReset(double amount, string reason)
+{
+   double before = Ctx.totalReserve;
+   Ctx.totalReserve = MathMax(0.0, amount);
+   AppendReserveLedgerEntry(RESERVE_EVENT_RESET, Ctx.totalReserve - before, before, Ctx.totalReserve);
+   LogInfo("RESERVE_LEDGER_RESET " + reason);
+   SaveState();
+}
+
+double RebuildReserveFromLedger()
+{
+   double reserve = 0.0;
+   for(int i = 0; i < ArraySize(ReserveLedger); i++)
+   {
+      if(ReserveLedger[i].type == RESERVE_EVENT_RESET)
+         reserve = ReserveLedger[i].reserveAfter;
+      else
+         reserve += ReserveLedger[i].amount;
+   }
+   if(reserve < 0.0)
+      reserve = 0.0;
+   return reserve;
+}
+
+
 void SetState(EAState nextState, string reason)
 {
    if(nextState == STATE_CLOSED_PROFIT && CountManagedOpenPositions() > 0)
@@ -49,6 +125,23 @@ void SaveState()
    GlobalVariableSet(StateKey("HarvestLevel"), (double)Ctx.harvestLevel);
    GlobalVariableSet(StateKey("ReverseCycles"), (double)Ctx.reverseCycleCount);
    GlobalVariableSet(StateKey("TotalReserve"), Ctx.totalReserve);
+   GlobalVariableSet(StateKey("ReserveLedgerCount"), (double)ArraySize(ReserveLedger));
+   GlobalVariableSet(StateKey("ReserveNextEventId"), (double)NextReserveEventId);
+   for(int ledgerIndex = 0; ledgerIndex < ArraySize(ReserveLedger); ledgerIndex++)
+   {
+      string prefix = StringFormat("ReserveLedger_%d_", ledgerIndex);
+      GlobalVariableSet(StateKey(prefix + "EventId"), (double)ReserveLedger[ledgerIndex].eventId);
+      GlobalVariableSet(StateKey(prefix + "Timestamp"), (double)ReserveLedger[ledgerIndex].timestamp);
+      GlobalVariableSet(StateKey(prefix + "Type"), (double)ReserveLedger[ledgerIndex].type);
+      GlobalVariableSet(StateKey(prefix + "Amount"), ReserveLedger[ledgerIndex].amount);
+      GlobalVariableSet(StateKey(prefix + "ReserveBefore"), ReserveLedger[ledgerIndex].reserveBefore);
+      GlobalVariableSet(StateKey(prefix + "ReserveAfter"), ReserveLedger[ledgerIndex].reserveAfter);
+      GlobalVariableSet(StateKey(prefix + "BigIdentifier"), (double)ReserveLedger[ledgerIndex].bigIdentifier);
+      GlobalVariableSet(StateKey(prefix + "SmallIdentifier"), (double)ReserveLedger[ledgerIndex].smallIdentifier);
+      GlobalVariableSet(StateKey(prefix + "FarIdentifier"), (double)ReserveLedger[ledgerIndex].farIdentifier);
+      GlobalVariableSet(StateKey(prefix + "HarvestLevel"), (double)ReserveLedger[ledgerIndex].harvestLevel);
+      GlobalVariableSet(StateKey(prefix + "ReverseCycle"), (double)ReserveLedger[ledgerIndex].reverseCycle);
+   }
    GlobalVariableSet(StateKey("CycleId"), (double)Ctx.cycleId);
    GlobalVariableSet(StateKey("InitialProfitIgnored"), Ctx.initialProfitIgnored ? 1.0 : 0.0);
    GlobalVariableSet(StateKey("EffectiveFarDistancePoints"), Ctx.effectiveFarDistancePoints);
@@ -181,6 +274,29 @@ bool RecoverState()
    Ctx.harvestLevel = (int)GlobalVariableGet(StateKey("HarvestLevel"));
    Ctx.reverseCycleCount = (int)GlobalVariableGet(StateKey("ReverseCycles"));
    Ctx.totalReserve = GlobalVariableGet(StateKey("TotalReserve"));
+   ArrayResize(ReserveLedger, 0);
+   NextReserveEventId = 1;
+   if(GetStateDouble("ReserveLedgerCount", saved))
+   {
+      int ledgerCount = (int)saved;
+      ArrayResize(ReserveLedger, ledgerCount);
+      for(int ledgerIndex = 0; ledgerIndex < ledgerCount; ledgerIndex++)
+      {
+         string prefix = StringFormat("ReserveLedger_%d_", ledgerIndex);
+         if(GetStateDouble(prefix + "EventId", saved)) ReserveLedger[ledgerIndex].eventId = (long)saved;
+         if(GetStateDouble(prefix + "Timestamp", saved)) ReserveLedger[ledgerIndex].timestamp = (datetime)saved;
+         if(GetStateDouble(prefix + "Type", saved)) ReserveLedger[ledgerIndex].type = (ReserveEventType)(int)saved;
+         if(GetStateDouble(prefix + "Amount", saved)) ReserveLedger[ledgerIndex].amount = saved;
+         if(GetStateDouble(prefix + "ReserveBefore", saved)) ReserveLedger[ledgerIndex].reserveBefore = saved;
+         if(GetStateDouble(prefix + "ReserveAfter", saved)) ReserveLedger[ledgerIndex].reserveAfter = saved;
+         if(GetStateDouble(prefix + "BigIdentifier", saved)) ReserveLedger[ledgerIndex].bigIdentifier = (long)saved;
+         if(GetStateDouble(prefix + "SmallIdentifier", saved)) ReserveLedger[ledgerIndex].smallIdentifier = (long)saved;
+         if(GetStateDouble(prefix + "FarIdentifier", saved)) ReserveLedger[ledgerIndex].farIdentifier = (long)saved;
+         if(GetStateDouble(prefix + "HarvestLevel", saved)) ReserveLedger[ledgerIndex].harvestLevel = (int)saved;
+         if(GetStateDouble(prefix + "ReverseCycle", saved)) ReserveLedger[ledgerIndex].reverseCycle = (int)saved;
+      }
+   }
+   if(GetStateDouble("ReserveNextEventId", saved)) NextReserveEventId = (long)saved;
 
    if(GetStateDouble("CycleId", saved)) Ctx.cycleId = (ulong)saved;
    if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
@@ -286,6 +402,8 @@ void ResetRecoveryContext()
 
    Ctx.harvestLevel = 0;
    Ctx.totalReserve = 0.0;
+   ArrayResize(ReserveLedger, 0);
+   NextReserveEventId = 1;
    Ctx.cycleFinalPL = 0.0;
 
    Ctx.initialProfitIgnored = false;
@@ -1531,7 +1649,7 @@ void ProcessBigHarvestCheckFinal()
 {
    if(!Ctx.pendingReserveApplied)
    {
-      Ctx.totalReserve += Ctx.pendingReserveAdd;
+      ApplyReserveCredit(RESERVE_EVENT_BIG_HARVEST_ADD, Ctx.pendingReserveAdd);
       Ctx.pendingReserveApplied = true;
    }
    Ctx.pendingReserveAdd = 0.0;
@@ -1661,7 +1779,7 @@ void ProcessSmallBuildNewFar()
    Ctx.pendingSmallReserveAdd = CalcSmallReserveAdd(smallScenarioRealNet);
    if(!Ctx.pendingSmallReserveApplied)
    {
-      Ctx.totalReserve += Ctx.pendingSmallReserveAdd;
+      ApplyReserveCredit(RESERVE_EVENT_SMALL_HARVEST_ADD, Ctx.pendingSmallReserveAdd);
       Ctx.pendingSmallReserveApplied = true;
    }
    double smallReserveAdd = Ctx.pendingSmallReserveAdd;

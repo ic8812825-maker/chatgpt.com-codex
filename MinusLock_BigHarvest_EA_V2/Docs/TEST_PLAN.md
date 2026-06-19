@@ -305,3 +305,15 @@ python3 Tests/invalid_geometry_emergency_check.py
 2. Confirm `RECON_TOLERANCE_USED=0.01` when `ReserveMismatchTolerance=0.01`.
 3. Confirm normalized volume comparison is used for Far/Big/Small and direct raw-volume fatal checks are absent.
 4. Confirm reserve rebuild classifies positive closed recovery deals even when broker close comments are blank.
+
+## V2.4.9 Reserve Reconciliation Tests
+
+Run all Python checks in `Tests/`, including:
+
+- `reserve_rebuild_skips_initial_profit_check.py`
+- `reserve_mismatch_not_fatal_check.py`
+- `reserve_ledger_credit_debit_check.py`
+- `reserve_rebuild_from_ledger_check.py`
+- `reconciliation_stops_after_fatal_error_check.py`
+
+MT5 validation must confirm that the first Initial Lock profit does not produce `RECONCILIATION FAIL RESERVE_MISMATCH`, the EA continues beyond L1, and reserve mismatches without structural position errors remain warnings only.

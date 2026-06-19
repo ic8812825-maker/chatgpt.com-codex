@@ -74,6 +74,32 @@ enum PendingActionType
    PENDING_STOP_MAX_LEVELS_CLOSE
 };
 
+enum ReserveEventType
+{
+   RESERVE_EVENT_NONE = 0,
+   RESERVE_EVENT_BIG_HARVEST_ADD,
+   RESERVE_EVENT_SMALL_HARVEST_ADD,
+   RESERVE_EVENT_FAR_COVER_DEBIT,
+   RESERVE_EVENT_SMALL_FAR_DEBIT,
+   RESERVE_EVENT_FINAL_CLOSE_DEBIT,
+   RESERVE_EVENT_RESET
+};
+
+struct ReserveLedgerEntry
+{
+   long eventId;
+   datetime timestamp;
+   ReserveEventType type;
+   double amount;
+   double reserveBefore;
+   double reserveAfter;
+   long bigIdentifier;
+   long smallIdentifier;
+   long farIdentifier;
+   int harvestLevel;
+   int reverseCycle;
+};
+
 struct PositionSnapshot
 {
    bool exists;

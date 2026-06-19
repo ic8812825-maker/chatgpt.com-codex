@@ -123,61 +123,34 @@ bool ValidateSmallPosition()
 
 double CalculateReserveFromHistory()
 {
-   if(IsInternalSimulationMode())
-      return Ctx.totalReserve;
-
-   datetime startTime = Ctx.cycleStartTime > 0 ? Ctx.cycleStartTime - 60 : TimeCurrent() - 86400 * 30;
-   if(!HistorySelect(startTime, TimeCurrent() + 86400))
+   // V2.4.9: HistoryDeals alone are not a source of reserve truth.
+   // Initial lock profit is intentionally ignored and must never create RESERVE_EVENT_* credit.
+   if(!IsInternalSimulationMode())
    {
-      LogError("RECONCILIATION FAIL RESERVE_HISTORY_SELECT_FAILED");
-      return Ctx.totalReserve;
-   }
-
-   double rebuiltReserve = 0.0;
-   bool classified = false;
-   int totalDeals = HistoryDealsTotal();
-   for(int i = 0; i < totalDeals; i++)
-   {
-      ulong dealTicket = HistoryDealGetTicket(i);
-      if(dealTicket == 0)
-         continue;
-      if((ulong)HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber)
-         continue;
-      if(HistoryDealGetString(dealTicket, DEAL_SYMBOL) != _Symbol)
-         continue;
-      if((ENUM_DEAL_ENTRY)HistoryDealGetInteger(dealTicket, DEAL_ENTRY) != DEAL_ENTRY_OUT)
-         continue;
-
-      string comment = HistoryDealGetString(dealTicket, DEAL_COMMENT);
-      double net = HistoryDealGetDouble(dealTicket, DEAL_PROFIT) + HistoryDealGetDouble(dealTicket, DEAL_COMMISSION) + HistoryDealGetDouble(dealTicket, DEAL_SWAP);
-      if(net <= 0.0)
-         continue;
-
-      if(StringFind(comment, "BIG_HARVEST") >= 0 || StringFind(comment, "RETRY_CLOSE_BIG") >= 0 || StringFind(comment, "RETRY_CLOSE_SMALL") >= 0)
+      datetime startTime = Ctx.cycleStartTime > 0 ? Ctx.cycleStartTime - 60 : TimeCurrent() - 86400 * 30;
+      if(HistorySelect(startTime, TimeCurrent() + 86400))
       {
-         rebuiltReserve += net * WorkReserveShare;
-         classified = true;
-      }
-      else if(StringFind(comment, "SMALL") >= 0 || StringFind(comment, "OLD_FAR") >= 0)
-      {
-         rebuiltReserve += net * WorkSmallReserveShare;
-         classified = true;
-      }
-      else
-      {
-         rebuiltReserve += net * WorkReserveShare;
-         classified = true;
-         LogInfo(StringFormat("RECONCILIATION RESERVE_REBUILD_FROM_HISTORY classified positive closed recovery deal by Magic/Symbol/DEAL_ENTRY_OUT Deal=%I64u Net=%.2f", dealTicket, net));
+         int totalDeals = HistoryDealsTotal();
+         for(int i = 0; i < totalDeals; i++)
+         {
+            ulong dealTicket = HistoryDealGetTicket(i);
+            if(dealTicket == 0)
+               continue;
+            if((ulong)HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber)
+               continue;
+            if(HistoryDealGetString(dealTicket, DEAL_SYMBOL) != _Symbol)
+               continue;
+
+            string comment = HistoryDealGetString(dealTicket, DEAL_COMMENT);
+            if(StringFind(comment, "INITIAL_BUY") >= 0 || StringFind(comment, "INITIAL_SELL") >= 0)
+               LogInfo(StringFormat("RESERVE_REBUILD_SKIP_INITIAL_LOCK Deal=%I64u Comment=%s", dealTicket, comment));
+         }
       }
    }
 
-   if(!classified)
-   {
-      LogInfo("RECONCILIATION RESERVE_REBUILD_FROM_HISTORY no classified reserve deals; using current Ctx.totalReserve as safe baseline");
-      return Ctx.totalReserve;
-   }
-
-   return rebuiltReserve;
+   double ledgerReserve = RebuildReserveFromLedger();
+   LogInfo(StringFormat("RESERVE_REBUILD_FROM_LEDGER LedgerEntries=%d LedgerReserve=%.2f ContextReserve=%.2f", ArraySize(ReserveLedger), ledgerReserve, Ctx.totalReserve));
+   return ledgerReserve;
 }
 
 double GetActualFarVolume()
@@ -238,17 +211,9 @@ bool RunReconciliation()
    LogInfo(StringFormat("RECON_TOLERANCE_USED=%.5f ReserveCheck realReserve=%.2f ctxTotalReserve=%.2f reserveDiff=%.5f", ReserveMismatchTolerance, realReserve, Ctx.totalReserve, reserveDiff));
    if(reserveDiff > ReserveMismatchTolerance)
    {
-      if(reserveDiff <= MathMax(ReserveMismatchTolerance * 3.0, 0.03))
-      {
-         LogInfo(StringFormat("RECON WARNING RESERVE_MISMATCH_AUTO_SYNC realReserve=%.2f ctxTotalReserve=%.2f tolerance=%.2f", realReserve, Ctx.totalReserve, ReserveMismatchTolerance));
-         Ctx.totalReserve = realReserve;
-         SaveState();
-      }
-      else
-      {
-         LogError(StringFormat("RECONCILIATION FAIL RESERVE_MISMATCH realReserve=%.2f ctxTotalReserve=%.2f tolerance=%.2f", realReserve, Ctx.totalReserve, ReserveMismatchTolerance));
-         ok = false;
-      }
+      // V2.4.9 P0: reserve reconstruction is diagnostic only unless a structural position mismatch is also present.
+      // Initial-lock profit and other profitable deals are warning-only signals, not fatal recovery evidence.
+      LogInfo(StringFormat("RECONCILIATION WARNING RESERVE_REBUILD_UNVERIFIED realReserve=%.2f ctxTotalReserve=%.2f reserveDiff=%.5f tolerance=%.2f", realReserve, Ctx.totalReserve, reserveDiff, ReserveMismatchTolerance));
    }
 
    ok = ValidateHarvestLevelFromHistory() && ok;
@@ -269,6 +234,12 @@ bool RunReconciliation()
 
 void RunPeriodicReconciliation()
 {
+   if(State == STATE_RECOVERY_MISMATCH)
+   {
+      LogInfo("RECONCILIATION REPEAT WARNING skipped because STATE_RECOVERY_MISMATCH is already active");
+      return;
+   }
+
    if(ReconciliationIntervalSeconds <= 0)
       return;
 
