@@ -48,6 +48,8 @@ input int    RetryLogIntervalSeconds = 30;
 input int    MaxSlippagePoints     = 30;
 input bool   CloseAllOnInvalidGeometry = true;
 input bool   CloseFarOnMaxLevels = true;
+input double ReserveMismatchTolerance = 0.01;
+input int    ReconciliationIntervalSeconds = 300;
 
 input ulong  MagicNumber           = 20260609;
 input bool   AllowRealTrading      = true;

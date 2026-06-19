@@ -12,6 +12,7 @@
 #include "Include/RecoveryMath.mqh"
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
+#include "Include/ReconciliationEngine.mqh"
 
 bool ValidateInputs()
 {
@@ -148,6 +149,8 @@ int OnInit()
       ResetRecoveryContext();
       State = STATE_IDLE;
    }
+   else if(!RunReconciliation())
+      return INIT_FAILED;
 
    Print("EA INIT START");
    Print("AllowRealTrading=", AllowRealTrading);
@@ -213,6 +216,10 @@ void OnTick()
 
    bool riskOk = IsTradingAllowedSafe();
    Ctx.riskGateOk = riskOk;
+
+   RunPeriodicReconciliation();
+   if(State == STATE_RECOVERY_MISMATCH)
+      return;
 
    if(State == STATE_IDLE && managedPositions == 0)
    {

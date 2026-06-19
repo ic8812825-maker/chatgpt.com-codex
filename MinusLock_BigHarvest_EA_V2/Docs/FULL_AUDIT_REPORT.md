@@ -492,3 +492,6 @@ V2.4.6 adds an explicit max-level terminal decision path. `OpenBigSmall()` and `
 V2.4.7 replaces text-based retry cleanup with `PendingActionType`. `PENDING_CLOSE_FAR_PARTIAL` preserves Far identity and only subtracts the retried lot from `Ctx.farLot`, preventing false closed-Far context after partial retry success. Full Far cleanup is restricted to explicit full-close pending actions.
 
 A runtime `STATE_CLOSED_PROFIT` guard now checks `CountManagedOpenPositions()` and blocks a profit terminal state if any managed position remains open. Real HistoryDeals matching uses `PositionSnapshot.identifier` from `POSITION_IDENTIFIER` against `DEAL_POSITION_ID`.
+
+## V2.4.8 Audit: Real Reserve and MT5 State Reconciliation
+V2.4.8 adds `ReconciliationEngine.mqh` to detect divergence between `RecoveryContext` and actual MT5 state. It validates Far/Big/Small ticket, `POSITION_IDENTIFIER`, direction and volume, checks harvest-level evidence, emits reserve rebuild diagnostics from HistoryDeals, and routes hard mismatches to `STATE_RECOVERY_MISMATCH`.

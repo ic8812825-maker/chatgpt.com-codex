@@ -75,3 +75,8 @@ V2.4.5 updates:
 - Added persisted reserve-applied flags and `pendingSmallReserveAdd` to prevent repeated reserve application after restart/retry.
 - Added a runtime guard that blocks `STATE_CLOSED_PROFIT` while managed positions are still open.
 - Real-deal matching now uses `POSITION_IDENTIFIER` stored in `PositionSnapshot.identifier` for `DEAL_POSITION_ID` comparisons.
+
+## V2.4.8 Reconciliation Engine
+- Added `Include/ReconciliationEngine.mqh` with startup and periodic checks comparing `RecoveryContext` against MT5 positions and history.
+- Added `STATE_RECOVERY_MISMATCH`, `ReserveMismatchTolerance`, and `ReconciliationIntervalSeconds`.
+- Added Far/Big/Small ticket, identifier, direction and volume validation plus reserve rebuild diagnostics from HistoryDeals.

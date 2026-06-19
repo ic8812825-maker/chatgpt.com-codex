@@ -292,3 +292,10 @@ python3 Tests/invalid_geometry_emergency_check.py
 3. Verify `STATE_CLOSED_PROFIT` is blocked when managed positions remain open.
 4. Verify real deal accounting uses `POSITION_IDENTIFIER` / `DEAL_POSITION_ID`, not position ticket as a surrogate.
 5. Verify reserve flags prevent BigHarvest and Small reserve additions from being applied twice after restart/retry.
+
+## V2.4.8 Reconciliation Tests
+1. Start EA after a saved-state restore and confirm `RunReconciliation()` is executed.
+2. Confirm journal contains `RECONCILIATION PASS` for a clean context.
+3. Manually change or remove a managed position and confirm `RECONCILIATION FAIL` and `STATE_RECOVERY_MISMATCH`.
+4. Verify Far/Big/Small volume mismatches and identifier mismatches are detected.
+5. Verify reserve mismatch uses `ReserveMismatchTolerance` and blocks continuation when exceeded.

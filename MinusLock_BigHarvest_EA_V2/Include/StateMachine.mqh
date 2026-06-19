@@ -32,14 +32,17 @@ void SaveState()
 {
    GlobalVariableSet(StateKey("State"), (double)State);
    GlobalVariableSet(StateKey("FarTicket"), (double)Ctx.farTicket);
+   GlobalVariableSet(StateKey("FarIdentifier"), (double)Ctx.farIdentifier);
    GlobalVariableSet(StateKey("FarLot"), Ctx.farLot);
    GlobalVariableSet(StateKey("FarOpenPrice"), Ctx.farOpenPrice);
    GlobalVariableSet(StateKey("FarDirection"), (double)Ctx.farDirection);
    GlobalVariableSet(StateKey("BigTicket"), (double)Ctx.bigTicket);
+   GlobalVariableSet(StateKey("BigIdentifier"), (double)Ctx.bigIdentifier);
    GlobalVariableSet(StateKey("BigLot"), Ctx.bigLot);
    GlobalVariableSet(StateKey("BigOpenPrice"), Ctx.bigOpenPrice);
    GlobalVariableSet(StateKey("BigDirection"), (double)Ctx.bigDirection);
    GlobalVariableSet(StateKey("SmallTicket"), (double)Ctx.smallTicket);
+   GlobalVariableSet(StateKey("SmallIdentifier"), (double)Ctx.smallIdentifier);
    GlobalVariableSet(StateKey("SmallLot"), Ctx.smallLot);
    GlobalVariableSet(StateKey("SmallOpenPrice"), Ctx.smallOpenPrice);
    GlobalVariableSet(StateKey("SmallDirection"), (double)Ctx.smallDirection);
@@ -158,16 +161,20 @@ bool RecoverState()
       return false;
 
    ResetRecoveryContext();
+   double saved = 0.0;
    State = (EAState)(int)GlobalVariableGet(StateKey("State"));
    Ctx.farTicket = (ulong)GlobalVariableGet(StateKey("FarTicket"));
+   if(GetStateDouble("FarIdentifier", saved)) Ctx.farIdentifier = (ulong)saved;
    Ctx.farLot = GlobalVariableGet(StateKey("FarLot"));
    Ctx.farOpenPrice = GlobalVariableGet(StateKey("FarOpenPrice"));
    Ctx.farDirection = (Direction)(int)GlobalVariableGet(StateKey("FarDirection"));
    Ctx.bigTicket = (ulong)GlobalVariableGet(StateKey("BigTicket"));
+   if(GetStateDouble("BigIdentifier", saved)) Ctx.bigIdentifier = (ulong)saved;
    Ctx.bigLot = GlobalVariableGet(StateKey("BigLot"));
    Ctx.bigOpenPrice = GlobalVariableGet(StateKey("BigOpenPrice"));
    Ctx.bigDirection = (Direction)(int)GlobalVariableGet(StateKey("BigDirection"));
    Ctx.smallTicket = (ulong)GlobalVariableGet(StateKey("SmallTicket"));
+   if(GetStateDouble("SmallIdentifier", saved)) Ctx.smallIdentifier = (ulong)saved;
    Ctx.smallLot = GlobalVariableGet(StateKey("SmallLot"));
    Ctx.smallOpenPrice = GlobalVariableGet(StateKey("SmallOpenPrice"));
    Ctx.smallDirection = (Direction)(int)GlobalVariableGet(StateKey("SmallDirection"));
@@ -175,7 +182,6 @@ bool RecoverState()
    Ctx.reverseCycleCount = (int)GlobalVariableGet(StateKey("ReverseCycles"));
    Ctx.totalReserve = GlobalVariableGet(StateKey("TotalReserve"));
 
-   double saved = 0.0;
    if(GetStateDouble("CycleId", saved)) Ctx.cycleId = (ulong)saved;
    if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
    if(GetStateDouble("EffectiveFarDistancePoints", saved)) Ctx.effectiveFarDistancePoints = saved;
@@ -262,6 +268,9 @@ void ResetRecoveryContext()
    Ctx.farTicket = 0;
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
+   Ctx.farIdentifier = 0;
+   Ctx.bigIdentifier = 0;
+   Ctx.smallIdentifier = 0;
 
    Ctx.farLot = 0.0;
    Ctx.bigLot = 0.0;
@@ -598,6 +607,7 @@ void LogRealCycleMath(EAState state, double onTesterValue)
 void UpdateFarFromSnapshot(PositionSnapshot &far)
 {
    Ctx.farTicket = far.ticket;
+   Ctx.farIdentifier = far.identifier;
    Ctx.farLot = NormalizeLotDown(far.lot);
    Ctx.farOpenPrice = far.openPrice;
    Ctx.farDirection = far.direction;
@@ -633,6 +643,7 @@ bool RefreshBigSmall(PositionSnapshot &big, PositionSnapshot &small)
    if(bigFound)
    {
       Ctx.bigTicket = big.ticket;
+      Ctx.bigIdentifier = big.identifier;
       Ctx.bigLot = big.lot;
       Ctx.bigOpenPrice = big.openPrice;
       Ctx.bigDirection = big.direction;
@@ -641,6 +652,7 @@ bool RefreshBigSmall(PositionSnapshot &big, PositionSnapshot &small)
    if(smallFound)
    {
       Ctx.smallTicket = small.ticket;
+      Ctx.smallIdentifier = small.identifier;
       Ctx.smallLot = small.lot;
       Ctx.smallOpenPrice = small.openPrice;
       Ctx.smallDirection = small.direction;
@@ -947,6 +959,7 @@ void OpenBigSmall()
    if(GetManagedPositionByComment(bigComment, big))
    {
       Ctx.bigTicket = big.ticket;
+      Ctx.bigIdentifier = big.identifier;
       Ctx.bigOpenPrice = big.openPrice;
    }
    else
@@ -958,6 +971,7 @@ void OpenBigSmall()
    if(GetManagedPositionByComment(smallComment, small))
    {
       Ctx.smallTicket = small.ticket;
+      Ctx.smallIdentifier = small.identifier;
       Ctx.smallOpenPrice = small.openPrice;
    }
    else
@@ -1113,6 +1127,7 @@ void ApplyPendingCloseSuccessToContext()
    {
       case PENDING_CLOSE_BIG_FULL:
          Ctx.bigTicket = 0;
+         Ctx.bigIdentifier = 0;
          Ctx.bigLot = 0.0;
          Ctx.bigDirection = DIR_NONE;
          Ctx.bigOpenPrice = 0.0;
@@ -1120,6 +1135,7 @@ void ApplyPendingCloseSuccessToContext()
 
       case PENDING_CLOSE_SMALL_FULL:
          Ctx.smallTicket = 0;
+         Ctx.smallIdentifier = 0;
          Ctx.smallLot = 0.0;
          Ctx.smallDirection = DIR_NONE;
          Ctx.smallOpenPrice = 0.0;
@@ -1130,6 +1146,7 @@ void ApplyPendingCloseSuccessToContext()
          if(Ctx.bigLot <= minLot + 0.000000001)
          {
             Ctx.bigTicket = 0;
+            Ctx.bigIdentifier = 0;
             Ctx.bigLot = 0.0;
             Ctx.bigDirection = DIR_NONE;
             Ctx.bigOpenPrice = 0.0;
@@ -1141,6 +1158,7 @@ void ApplyPendingCloseSuccessToContext()
          if(Ctx.farLot <= minLot + 0.000000001)
          {
             Ctx.farTicket = 0;
+            Ctx.farIdentifier = 0;
             Ctx.farLot = 0.0;
             Ctx.farDirection = DIR_NONE;
             Ctx.farOpenPrice = 0.0;
@@ -1152,6 +1170,7 @@ void ApplyPendingCloseSuccessToContext()
       case PENDING_MAX_LEVELS_FINAL_CLOSE:
       case PENDING_STOP_MAX_LEVELS_CLOSE:
          Ctx.farTicket = 0;
+         Ctx.farIdentifier = 0;
          Ctx.farLot = 0.0;
          Ctx.farDirection = DIR_NONE;
          Ctx.farOpenPrice = 0.0;
@@ -1624,6 +1643,7 @@ void ProcessSmallBuildNewFar()
       currentPrice = CurrentPriceForSmallTouch(Ctx.savedSmallDirection);
    double newFarLot = CalcRemainBigLotOnSmall(Ctx.bigLot);
    Ctx.farTicket = Ctx.bigTicket;
+   Ctx.farIdentifier = Ctx.bigIdentifier;
    Ctx.farLot = newFarLot;
    Ctx.farOpenPrice = Ctx.bigOpenPrice;
    Ctx.farDirection = Ctx.bigDirection;
@@ -1631,6 +1651,8 @@ void ProcessSmallBuildNewFar()
    double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, Ctx.effectiveFarDistancePoints);
    Ctx.bigTicket = 0;
    Ctx.smallTicket = 0;
+   Ctx.bigIdentifier = 0;
+   Ctx.smallIdentifier = 0;
    Ctx.bigLot = 0.0;
    Ctx.smallLot = 0.0;
    RecalculateRealCycleStatsFromHistory();
@@ -1800,6 +1822,7 @@ void RetryOpenNewBig()
    if(GetManagedPositionByComment(Ctx.pendingComment, opened))
    {
       Ctx.bigTicket = opened.ticket;
+      Ctx.bigIdentifier = opened.identifier;
       Ctx.bigLot = opened.lot;
       Ctx.bigOpenPrice = opened.openPrice;
       Ctx.bigDirection = opened.direction;
@@ -1844,6 +1867,7 @@ void RetryOpenNewSmall()
    if(GetManagedPositionByComment(Ctx.pendingComment, opened))
    {
       Ctx.smallTicket = opened.ticket;
+      Ctx.smallIdentifier = opened.identifier;
       Ctx.smallLot = opened.lot;
       Ctx.smallOpenPrice = opened.openPrice;
       Ctx.smallDirection = opened.direction;
@@ -1981,6 +2005,7 @@ void RunStateMachine()
       case STATE_REVERSE_LIMIT:
       case STATE_REVERSE_LIMIT_CLOSED:
       case STATE_INVALID_GEOMETRY_CLOSED:
+      case STATE_RECOVERY_MISMATCH:
       case STATE_MANUAL_INTERVENTION_REQUIRED:
       case STATE_STOP:
       case STATE_ERROR:

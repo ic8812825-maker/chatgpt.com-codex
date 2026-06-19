@@ -634,3 +634,8 @@ Retry cleanup now uses `PendingActionType`, not string matching on operation nam
 Full Far cleanup is limited to full-close actions: old Far close, final Far close, max-level final close and stop max-level close. BigHarvest partial Far budget closes cannot erase Far context.
 
 The EA also blocks `STATE_CLOSED_PROFIT` if `CountManagedOpenPositions() > 0`, logging `CLOSED_PROFIT_BLOCKED: managed positions still open` and routing to manual intervention instead. Reserve application is guarded by persisted `pendingReserveApplied` / `pendingSmallReserveApplied` flags to prevent duplicate reserve additions after restart.
+
+## V2.4.8 Reconciliation Engine
+The EA now includes `ReconciliationEngine.mqh`. After `RecoverState()` and periodically every `ReconciliationIntervalSeconds`, it runs `RunReconciliation()` to compare the saved `RecoveryContext` with MT5 open positions and history.
+
+The engine validates Far, Big and Small tickets, `POSITION_IDENTIFIER`, direction and volume. It also recalculates reserve diagnostics from HistoryDeals and compares the result with `Ctx.totalReserve` using `ReserveMismatchTolerance`. Any hard mismatch logs `RECONCILIATION FAIL` and moves the EA to `STATE_RECOVERY_MISMATCH`, preventing the trading cycle from continuing with corrupted context. A clean check logs `RECONCILIATION PASS`.

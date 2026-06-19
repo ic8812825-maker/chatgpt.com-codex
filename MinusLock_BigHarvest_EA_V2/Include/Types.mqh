@@ -44,6 +44,7 @@ enum EAState
    STATE_OPEN_NEW_BIG_PENDING,
    STATE_OPEN_NEW_SMALL_PENDING,
    STATE_RECOVERY_PENDING,
+   STATE_RECOVERY_MISMATCH,
    STATE_MANUAL_INTERVENTION_REQUIRED,
    STATE_STOP_MAX_LEVELS,
    STATE_UNCLOSED_CYCLE,
@@ -101,6 +102,9 @@ struct RecoveryContext
    ulong farTicket;
    ulong bigTicket;
    ulong smallTicket;
+   ulong farIdentifier;
+   ulong bigIdentifier;
+   ulong smallIdentifier;
 
    double farLot;
    double bigLot;
