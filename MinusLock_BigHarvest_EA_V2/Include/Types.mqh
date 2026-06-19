@@ -163,6 +163,15 @@ struct RecoveryContext
    double pendingCloseFarLot;
    Direction pendingDirection;
    string pendingComment;
+   Direction savedSmallDirection;
+   double savedSmallClosePrice;
+   double savedSmallTouchPrice;
+   double savedSmallOpenPrice;
+   double savedSmallLot;
+   ulong oldFarTicket;
+   double oldFarLot;
+   Direction oldFarDirection;
+   double oldFarOpenPrice;
    double smallScenarioRealBefore;
    double smallScenarioRealAfter;
    ulong cycleId;

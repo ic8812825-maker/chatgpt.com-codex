@@ -62,6 +62,15 @@ void SaveState()
    GlobalVariableSet(StateKey("PendingCloseFarLot"), Ctx.pendingCloseFarLot);
    GlobalVariableSet(StateKey("PendingDirection"), (double)Ctx.pendingDirection);
    // PendingComment is rebuilt from the pending phase after restart.
+   GlobalVariableSet(StateKey("SavedSmallDirection"), (double)Ctx.savedSmallDirection);
+   GlobalVariableSet(StateKey("SavedSmallClosePrice"), Ctx.savedSmallClosePrice);
+   GlobalVariableSet(StateKey("SavedSmallTouchPrice"), Ctx.savedSmallTouchPrice);
+   GlobalVariableSet(StateKey("SavedSmallOpenPrice"), Ctx.savedSmallOpenPrice);
+   GlobalVariableSet(StateKey("SavedSmallLot"), Ctx.savedSmallLot);
+   GlobalVariableSet(StateKey("OldFarTicket"), (double)Ctx.oldFarTicket);
+   GlobalVariableSet(StateKey("OldFarLot"), Ctx.oldFarLot);
+   GlobalVariableSet(StateKey("OldFarDirection"), (double)Ctx.oldFarDirection);
+   GlobalVariableSet(StateKey("OldFarOpenPrice"), Ctx.oldFarOpenPrice);
    GlobalVariableSet(StateKey("SmallScenarioRealBefore"), Ctx.smallScenarioRealBefore);
    GlobalVariableSet(StateKey("SmallScenarioRealAfter"), Ctx.smallScenarioRealAfter);
    GlobalVariableSet(StateKey("CycleStartTime"), (double)Ctx.cycleStartTime);
@@ -178,6 +187,15 @@ bool RecoverState()
    if(GetStateDouble("PendingReserveAdd", saved)) Ctx.pendingReserveAdd = saved;
    if(GetStateDouble("PendingCloseFarLot", saved)) Ctx.pendingCloseFarLot = saved;
    if(GetStateDouble("PendingDirection", saved)) Ctx.pendingDirection = (Direction)(int)saved;
+   if(GetStateDouble("SavedSmallDirection", saved)) Ctx.savedSmallDirection = (Direction)(int)saved;
+   if(GetStateDouble("SavedSmallClosePrice", saved)) Ctx.savedSmallClosePrice = saved;
+   if(GetStateDouble("SavedSmallTouchPrice", saved)) Ctx.savedSmallTouchPrice = saved;
+   if(GetStateDouble("SavedSmallOpenPrice", saved)) Ctx.savedSmallOpenPrice = saved;
+   if(GetStateDouble("SavedSmallLot", saved)) Ctx.savedSmallLot = saved;
+   if(GetStateDouble("OldFarTicket", saved)) Ctx.oldFarTicket = (ulong)saved;
+   if(GetStateDouble("OldFarLot", saved)) Ctx.oldFarLot = saved;
+   if(GetStateDouble("OldFarDirection", saved)) Ctx.oldFarDirection = (Direction)(int)saved;
+   if(GetStateDouble("OldFarOpenPrice", saved)) Ctx.oldFarOpenPrice = saved;
    if(GetStateDouble("SmallScenarioRealBefore", saved)) Ctx.smallScenarioRealBefore = saved;
    if(GetStateDouble("SmallScenarioRealAfter", saved)) Ctx.smallScenarioRealAfter = saved;
    if(GetStateDouble("CycleStartTime", saved)) Ctx.cycleStartTime = (datetime)saved;
@@ -307,6 +325,15 @@ void ResetRecoveryContext()
    Ctx.pendingCloseFarLot = 0.0;
    Ctx.pendingDirection = DIR_NONE;
    Ctx.pendingComment = "";
+   Ctx.savedSmallDirection = DIR_NONE;
+   Ctx.savedSmallClosePrice = 0.0;
+   Ctx.savedSmallTouchPrice = 0.0;
+   Ctx.savedSmallOpenPrice = 0.0;
+   Ctx.savedSmallLot = 0.0;
+   Ctx.oldFarTicket = 0;
+   Ctx.oldFarLot = 0.0;
+   Ctx.oldFarDirection = DIR_NONE;
+   Ctx.oldFarOpenPrice = 0.0;
    Ctx.smallScenarioRealBefore = 0.0;
    Ctx.smallScenarioRealAfter = 0.0;
    Ctx.cycleId = (ulong)TimeCurrent();
@@ -1447,6 +1474,12 @@ void ProcessSmallCloseSmall()
    Ctx.pendingBigPositionId = Ctx.bigTicket;
    Ctx.pendingSmallPositionId = Ctx.smallTicket;
 
+   Ctx.savedSmallDirection = Ctx.smallDirection;
+   Ctx.savedSmallOpenPrice = Ctx.smallOpenPrice;
+   Ctx.savedSmallLot = Ctx.smallLot;
+   Ctx.savedSmallClosePrice = ExitPriceForDirection(Ctx.smallDirection);
+   Ctx.savedSmallTouchPrice = CurrentPriceForSmallTouch(Ctx.smallDirection);
+
    if(!ClosePositionByTicket(Ctx.smallTicket, Ctx.smallLot))
    {
       SetPendingOperation("SMALL_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "RETRY_CLOSE_SMALL_AT_FAR", STATE_SMALL_CLOSE_OLD_FAR, "Small phase close Small failed; retry pending");
@@ -1469,12 +1502,22 @@ void ProcessSmallCloseOldFar()
       return;
    }
 
+   Ctx.oldFarTicket = Ctx.farTicket;
+   Ctx.oldFarLot = Ctx.farLot;
+   Ctx.oldFarDirection = Ctx.farDirection;
+   Ctx.oldFarOpenPrice = Ctx.farOpenPrice;
+
    if(!ClosePositionByTicket(Ctx.farTicket, Ctx.farLot))
    {
       SetPendingOperation("SMALL_CLOSE_OLD_FAR", STATE_CLOSE_OLD_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_CLOSE_OLD_FAR", STATE_SMALL_CLOSE_BIG_PART, "Small phase old Far close failed; retry pending");
       return;
    }
-   SetState(STATE_SMALL_CLOSE_BIG_PART, "Small scenario old Far close phase done");
+
+   Ctx.farTicket = 0;
+   Ctx.farLot = 0.0;
+   Ctx.farDirection = DIR_NONE;
+   Ctx.farOpenPrice = 0.0;
+   SetState(STATE_SMALL_CLOSE_BIG_PART, "Small scenario old Far close phase done; active OldFar context cleared");
 }
 
 void ProcessSmallCloseBigPart()
@@ -1496,7 +1539,16 @@ void ProcessSmallCloseBigPart()
 
 void ProcessSmallBuildNewFar()
 {
-   double currentPrice = CurrentPriceForSmallTouch(Ctx.smallDirection);
+   if(Ctx.savedSmallDirection == DIR_NONE)
+   {
+      LogError("SMALL_BUILD_NEW_FAR FAILED: savedSmallDirection is DIR_NONE");
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "SMALL_BUILD_NEW_FAR FAILED: savedSmallDirection is DIR_NONE");
+      return;
+   }
+
+   double currentPrice = Ctx.savedSmallTouchPrice;
+   if(currentPrice <= 0.0)
+      currentPrice = CurrentPriceForSmallTouch(Ctx.savedSmallDirection);
    double newFarLot = CalcRemainBigLotOnSmall(Ctx.bigLot);
    Ctx.farTicket = Ctx.bigTicket;
    Ctx.farLot = newFarLot;
@@ -1621,13 +1673,14 @@ bool ValidateFSMIntegrity()
 {
    // FSM Integrity Check: unreachable states, dead states, states without handlers, states without transitions, states without retry.
    bool ok = true;
-   string report = "FSM_INTEGRITY_CHECK | BigHarvestPhaseFSM=YES SmallScenarioPhaseFSM=YES OpenPendingRetry=YES ClosePendingRetry=YES LegacyPathRemoved=YES";
+   string report = "FSM_INTEGRITY_CHECK | BigHarvestPhaseFSM=YES SmallScenarioPhaseFSM=YES OpenPendingRetry=YES ClosePendingRetry=YES LegacyPathRemoved=YES TerminalStatesNeverOpen=YES SmallBuildUsesSavedSmallDirection=YES OldFarCleanup=YES";
    LogInfo(report);
 
    if(StateToString(STATE_BIG_HARVEST_CLOSE_BIG) == "STATE_UNKNOWN") ok = false;
    if(StateToString(STATE_SMALL_CLOSE_SMALL) == "STATE_UNKNOWN") ok = false;
    if(StateToString(STATE_OPEN_NEW_BIG_PENDING) == "STATE_UNKNOWN") ok = false;
    if(StateToString(STATE_OPEN_NEW_SMALL_PENDING) == "STATE_UNKNOWN") ok = false;
+   // Strict V2.4.5 guards: terminal states must not route to RetryOpenNewBig/RetryOpenNewSmall/OpenBigSmall/OpenInitialLock; pending open states are handled separately; SmallBuildNewFar uses savedSmallDirection; OldFar close clears Ctx.far*.
 
    if(!ok)
       LogError("FSM_INTEGRITY_CHECK failed: state string mapping missing");
@@ -1732,16 +1785,16 @@ void RunStateMachine()
       case STATE_REVERSE_LIMIT_CLOSED:
       case STATE_INVALID_GEOMETRY_CLOSED:
       case STATE_MANUAL_INTERVENTION_REQUIRED:
+      case STATE_STOP:
+      case STATE_ERROR:
+         break;
+
       case STATE_OPEN_NEW_BIG_PENDING:
          RetryOpenNewBig();
          break;
 
       case STATE_OPEN_NEW_SMALL_PENDING:
          RetryOpenNewSmall();
-         break;
-
-      case STATE_STOP:
-      case STATE_ERROR:
          break;
 
       case STATE_REVERSE_LIMIT_CLOSE_PENDING:

@@ -55,3 +55,11 @@ V2.4.3 updates:
 - OPEN_NEW_*_PENDING states perform actual open retry attempts.
 - Startup order is ConfigureWorkingParameters -> ValidateInputs -> ValidateWorkingParameters -> ValidateFSMIntegrity.
 - FSM integrity check added at startup.
+
+V2.4.5 updates:
+- Terminal states are separated from OPEN_NEW_*_PENDING and only break.
+- savedSmallDirection/savedSmallClosePrice/savedSmallTouchPrice/savedSmallOpenPrice/savedSmallLot added and persisted.
+- oldFarTicket/oldFarLot/oldFarDirection/oldFarOpenPrice added and persisted.
+- ProcessSmallBuildNewFar uses saved Small context and fails if savedSmallDirection is DIR_NONE.
+- ProcessSmallCloseOldFar saves old Far and clears active Ctx.far* after close.
+- Strict FSM safety tests added.

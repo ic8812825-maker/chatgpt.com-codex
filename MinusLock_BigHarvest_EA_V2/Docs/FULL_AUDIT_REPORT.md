@@ -478,3 +478,7 @@ The V2.4.2 patch addresses the remaining V2.4.1 architectural findings: retry st
 ## V2.4.3 Audit Addendum
 
 The remaining mixed FSM/legacy paths were removed from the main execution routes. BigHarvest and Small Scenario entry functions are now thin state-transition wrappers, while actual work is performed by phase-specific handlers. Retry cleanup now clears closed leg context, open-pending states retry actual opens, and startup validation is performed after working-parameter configuration.
+
+## V2.4.5 Audit Addendum
+
+V2.4.5 fixes the three critical FSM defects only: terminal states are separated from opening pending states, Small Build New Far uses saved Small context after active Small cleanup, and Old Far is saved then removed from active context after close. The strict FSM integrity check and Python tests assert these routes directly.

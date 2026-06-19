@@ -612,3 +612,11 @@ BigHarvest now starts with `ProcessBigHarvestCloseBig()`, then continues one ope
 Retry close success now calls `ClearClosedLegAfterRetry()` so closed Big, Small or Far context is cleared before the next phase runs. Open-pending states now run `RetryOpenNewBig()` and `RetryOpenNewSmall()` with pending direction, lot, comment and next-state context.
 
 Initialization order is now preset-safe: `ConfigureWorkingParameters()` runs before validation, then `ValidateInputs()`, `ValidateWorkingParameters()` and `ValidateFSMIntegrity()` run in that order.
+
+## V2.4.5 Critical FSM Safety Fixes
+
+V2.4.5 is limited to three critical FSM safety fixes. Terminal states are now separated from open-pending states and only break; they cannot call `RetryOpenNewBig()`, `RetryOpenNewSmall()`, `OpenBigSmall()` or `OpenInitialLock()`.
+
+Small Scenario now saves `savedSmallDirection`, `savedSmallClosePrice`, `savedSmallTouchPrice`, `savedSmallOpenPrice` and `savedSmallLot` before clearing the active Small leg. `ProcessSmallBuildNewFar()` uses the saved Small context and fails to `STATE_MANUAL_INTERVENTION_REQUIRED` if `savedSmallDirection == DIR_NONE`.
+
+Old Far is now preserved into `oldFarTicket`, `oldFarLot`, `oldFarDirection` and `oldFarOpenPrice` before successful close, then the active `Ctx.far*` context is cleared. These new saved Small and old Far fields are persisted through `SaveState()` / `RecoverState()`.

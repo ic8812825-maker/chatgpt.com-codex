@@ -269,3 +269,12 @@ python3 Tests/invalid_geometry_emergency_check.py
 4. Verify retry close success clears the relevant Big/Small/Far context fields.
 5. Verify `STATE_OPEN_NEW_BIG_PENDING` and `STATE_OPEN_NEW_SMALL_PENDING` execute open retry functions.
 6. Verify preset validation order is `ConfigureWorkingParameters()` -> `ValidateInputs()` -> `ValidateWorkingParameters()` -> `ValidateFSMIntegrity()`.
+
+## V2.4.5 Critical FSM Safety Checks
+
+1. Verify terminal states only `break` and never call open/retry-open functions.
+2. Verify `STATE_OPEN_NEW_BIG_PENDING` and `STATE_OPEN_NEW_SMALL_PENDING` are separate cases.
+3. Verify Small context is saved before active Small cleanup.
+4. Verify `ProcessSmallBuildNewFar()` uses `savedSmallDirection` / `savedSmallTouchPrice`, not active `smallDirection`.
+5. Verify Old Far is copied to `oldFar*` fields and active `Ctx.far*` is cleared after close.
+6. Verify saved Small and old Far fields are stored/restored by `SaveState()` / `RecoverState()`.
