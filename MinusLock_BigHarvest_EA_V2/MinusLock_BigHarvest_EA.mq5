@@ -41,6 +41,7 @@ bool ValidateInputs()
    if(MaxCloseRetryAttempts <= 0) { Print("ERROR: MaxCloseRetryAttempts must be > 0"); return false; }
    if(RetryLogIntervalSeconds <= 0) { Print("ERROR: RetryLogIntervalSeconds must be > 0"); return false; }
    if(RiskGateLogIntervalSeconds <= 0) { Print("ERROR: RiskGateLogIntervalSeconds must be > 0"); return false; }
+   if(VolumeMismatchToleranceLots <= 0.0) { Print("ERROR: VolumeMismatchToleranceLots must be > 0"); return false; }
 
    int lastLevelPoints = BigMoveStartPoints + (MaxHarvestLevels - 1) * BigMoveStepPoints;
    if(lastLevelPoints <= 0) { Print("ERROR: Invalid BigMove levels calculation"); return false; }

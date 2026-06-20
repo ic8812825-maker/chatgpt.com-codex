@@ -179,4 +179,28 @@ int CountFarLikePositions(Direction expectedFarDirection)
    return count;
 }
 
+double GetActualPositionVolume(ulong ticket)
+{
+   if(ticket == 0)
+      return 0.0;
+
+   if(IsInternalSimulationMode())
+   {
+      PositionSnapshot snapshot;
+      if(GetManagedPositionByTicket(ticket, snapshot))
+         return NormalizeVolumeToStep(snapshot.lot);
+      return 0.0;
+   }
+
+   if(!PositionSelectByTicket(ticket))
+      return 0.0;
+
+   if(PositionGetString(POSITION_SYMBOL) != _Symbol)
+      return 0.0;
+   if((ulong)PositionGetInteger(POSITION_MAGIC) != MagicNumber)
+      return 0.0;
+
+   return NormalizeVolumeToStep(PositionGetDouble(POSITION_VOLUME));
+}
+
 #endif // __BH_POSITIONUTILS_MQH__

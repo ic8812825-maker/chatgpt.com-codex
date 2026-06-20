@@ -5,7 +5,7 @@ datetime LastReconciliationTime = 0;
 
 double ReconciliationVolumeTolerance()
 {
-   double tolerance = MathMax(GetEffectiveLotStep(), ReserveMismatchTolerance);
+   double tolerance = VolumeMismatchToleranceLots;
    if(tolerance <= 0.0)
       tolerance = GetEffectiveLotStep();
    if(tolerance <= 0.0)
@@ -73,25 +73,8 @@ bool ValidatePositionSnapshotAgainstContext(string legName, string source, ulong
    if(normDiff <= tolerance)
    {
       if(normDiff > 0.0)
-      {
          LogReconciliationVolumeDiagnostic("WARNING", source, legName, ctxLot, snapshot.lot, normalizedCtxLot, normalizedActualLot, tolerance, snapshot.ticket, snapshot.identifier);
-         ctxLot = normalizedActualLot;
-         if(legName == "FAR") LogInfo("RECON_AUTO_SYNC_FAR_VOLUME");
-         if(legName == "BIG") LogInfo("RECON_AUTO_SYNC_BIG_VOLUME");
-         if(legName == "SMALL") LogInfo("RECON_AUTO_SYNC_SMALL_VOLUME");
-         SaveState();
-      }
-      return true;
-   }
-
-   if(normDiff <= step * 3.0)
-   {
-      LogReconciliationVolumeDiagnostic("RECOVERABLE", source, legName, ctxLot, snapshot.lot, normalizedCtxLot, normalizedActualLot, tolerance, snapshot.ticket, snapshot.identifier);
       ctxLot = normalizedActualLot;
-      if(legName == "FAR") LogInfo("RECON_AUTO_SYNC_FAR_VOLUME");
-      if(legName == "BIG") LogInfo("RECON_AUTO_SYNC_BIG_VOLUME");
-      if(legName == "SMALL") LogInfo("RECON_AUTO_SYNC_SMALL_VOLUME");
-      SaveState();
       return true;
    }
 

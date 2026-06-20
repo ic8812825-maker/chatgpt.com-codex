@@ -200,6 +200,20 @@ bool GetStateDouble(string field, double &value)
    return true;
 }
 
+bool VerifyPositionVolumeIntegrity(string source, double expectedVolume, double actualVolume)
+{
+   double normalizedExpected = NormalizeVolumeToStep(expectedVolume);
+   double normalizedActual = NormalizeVolumeToStep(actualVolume);
+   double difference = MathAbs(normalizedExpected - normalizedActual);
+   LogInfo(StringFormat("POSITION_VOLUME_INTEGRITY Source=%s ExpectedVolume=%.2f ActualVolume=%.2f Difference=%.5f VolumeMismatchToleranceLots=%.5f", source, normalizedExpected, normalizedActual, difference, VolumeMismatchToleranceLots));
+   if(difference > VolumeMismatchToleranceLots)
+   {
+      LogError(StringFormat("POSITION_VOLUME_INTEGRITY_FAIL Source=%s ExpectedVolume=%.2f ActualVolume=%.2f Difference=%.5f VolumeMismatchToleranceLots=%.5f", source, normalizedExpected, normalizedActual, difference, VolumeMismatchToleranceLots));
+      return false;
+   }
+   return true;
+}
+
 bool ReconcileRecoveredPosition(string legName, string comment, ulong &ticket, double &lot, double &openPrice, Direction &direction)
 {
    if(ticket == 0 && lot <= 0.0)
@@ -212,9 +226,14 @@ bool ReconcileRecoveredPosition(string legName, string comment, ulong &ticket, d
 
    if(found)
    {
-      // Reconcile by Symbol + MagicNumber + Ticket + Position identifier + Comment + Direction + Lot + OpenPrice.
+      // Reconcile by Symbol + MagicNumber + Ticket + Position identifier + Comment + Direction + SavedVolume + ActualVolume + OpenPrice.
+      double savedVolume = lot;
+      double actualVolume = GetActualPositionVolume(snapshot.ticket);
+      if(actualVolume <= 0.0)
+         actualVolume = snapshot.lot;
+      LogInfo(StringFormat("RECOVER_RECONCILE_VOLUME %s SavedVolume=%.2f ActualVolume=%.2f Difference=%.5f", legName, savedVolume, actualVolume, MathAbs(NormalizeVolumeToStep(savedVolume) - NormalizeVolumeToStep(actualVolume))));
       ticket = snapshot.ticket;
-      lot = snapshot.lot;
+      lot = actualVolume;
       openPrice = snapshot.openPrice;
       direction = snapshot.direction;
       LogInfo(StringFormat("RECOVER_RECONCILE %s OK Ticket=%I64u Comment=%s Direction=%s Lot=%.2f OpenPrice=%.5f", legName, ticket, snapshot.comment, DirectionToString(direction), lot, openPrice));
@@ -1260,8 +1279,13 @@ void ApplyPendingCloseSuccessToContext()
          break;
 
       case PENDING_CLOSE_BIG_PARTIAL:
-         Ctx.bigLot = NormalizeLotDown(MathMax(0.0, Ctx.bigLot - Ctx.retryLot));
-         if(Ctx.bigLot <= minLot + 0.000000001)
+      {
+         double actualBigLot = GetActualPositionVolume(Ctx.bigTicket);
+         double expectedBigLot = NormalizeVolumeToStep(MathMax(0.0, Ctx.bigLot - Ctx.retryLot));
+         LogInfo(StringFormat("BIG_PARTIAL_CLOSE_VERIFY ExpectedRemaining=%.2f ActualRemaining=%.2f Difference=%.5f", expectedBigLot, actualBigLot, MathAbs(expectedBigLot - actualBigLot)));
+         if(actualBigLot > minLot + 0.000000001)
+            Ctx.bigLot = actualBigLot;
+         else
          {
             Ctx.bigTicket = 0;
             Ctx.bigIdentifier = 0;
@@ -1270,10 +1294,14 @@ void ApplyPendingCloseSuccessToContext()
             Ctx.bigOpenPrice = 0.0;
          }
          break;
+      }
 
       case PENDING_CLOSE_FAR_PARTIAL:
-         Ctx.farLot = NormalizeLotDown(MathMax(0.0, Ctx.farLot - Ctx.retryLot));
-         if(Ctx.farLot <= minLot + 0.000000001)
+      {
+         double actualFarLot = GetActualPositionVolume(Ctx.farTicket);
+         if(actualFarLot > minLot + 0.000000001)
+            Ctx.farLot = actualFarLot;
+         else
          {
             Ctx.farTicket = 0;
             Ctx.farIdentifier = 0;
@@ -1282,6 +1310,7 @@ void ApplyPendingCloseSuccessToContext()
             Ctx.farOpenPrice = 0.0;
          }
          break;
+      }
 
       case PENDING_CLOSE_OLD_FAR_FULL:
       case PENDING_CLOSE_FAR_FULL:
@@ -1744,6 +1773,18 @@ void ProcessSmallCloseBigPart()
       SetPendingOperation(PENDING_CLOSE_BIG_PARTIAL, "SMALL_CLOSE_BIG_PART", STATE_CLOSE_BIG_PART_PENDING, Ctx.bigTicket, closeBigLotRounded, "RETRY_CLOSE_BIG_PART", STATE_SMALL_BUILD_NEW_FAR, "Small phase Big part close failed; retry pending");
       return;
    }
+
+   double expectedRemaining = NormalizeVolumeToStep(MathMax(0.0, Ctx.bigLot - closeBigLotRounded));
+   double actualRemaining = GetActualPositionVolume(Ctx.bigTicket);
+   double difference = MathAbs(expectedRemaining - actualRemaining);
+   LogInfo(StringFormat("BIG_PARTIAL_CLOSE_VERIFY ExpectedRemaining=%.2f ActualRemaining=%.2f Difference=%.5f", expectedRemaining, actualRemaining, difference));
+   if(actualRemaining <= 0.0 || !VerifyPositionVolumeIntegrity("BIG_PARTIAL_CLOSE_VERIFY", expectedRemaining, actualRemaining))
+   {
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "POSITION_VOLUME_INTEGRITY_FAIL after Small Big partial close");
+      return;
+   }
+
+   Ctx.bigLot = actualRemaining;
    SetState(STATE_SMALL_BUILD_NEW_FAR, "Small scenario Big part close phase done");
 }
 
@@ -1759,7 +1800,13 @@ void ProcessSmallBuildNewFar()
    double currentPrice = Ctx.savedSmallTouchPrice;
    if(currentPrice <= 0.0)
       currentPrice = CurrentPriceForSmallTouch(Ctx.savedSmallDirection);
-   double newFarLot = CalcRemainBigLotOnSmall(Ctx.bigLot);
+   double newFarLot = GetActualPositionVolume(Ctx.bigTicket);
+   if(newFarLot <= 0.0)
+   {
+      LogError("NEW_FAR_VOLUME_NOT_FOUND");
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "NEW_FAR_VOLUME_NOT_FOUND");
+      return;
+   }
    Ctx.farTicket = Ctx.bigTicket;
    Ctx.farIdentifier = Ctx.bigIdentifier;
    Ctx.farLot = newFarLot;

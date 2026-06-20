@@ -641,9 +641,7 @@ The EA now includes `ReconciliationEngine.mqh`. After `RecoverState()` and perio
 The engine validates Far, Big and Small tickets, `POSITION_IDENTIFIER`, direction and volume. It also recalculates reserve diagnostics from HistoryDeals and compares the result with `Ctx.totalReserve` using `ReserveMismatchTolerance`. Any hard mismatch logs `RECONCILIATION FAIL` and moves the EA to `STATE_RECOVERY_MISMATCH`, preventing the trading cycle from continuing with corrupted context. A clean check logs `RECONCILIATION PASS`.
 
 ## V2.4.9 Reconciliation Soft Volume Sync
-Reconciliation no longer treats a one-step lot difference as fatal. Before comparing position volume, both context and actual MT5 volume are normalized through `NormalizeVolumeToStep()`. The effective tolerance is logged as `RECON_TOLERANCE_USED` and is based on `max(LotStep, ReserveMismatchTolerance)`.
-
-If ticket, identifier and direction match but volume differs within tolerance, the EA logs `RECON WARNING` and automatically synchronizes the context (`RECON_AUTO_SYNC_FAR_VOLUME`, `RECON_AUTO_SYNC_BIG_VOLUME`, or `RECON_AUTO_SYNC_SMALL_VOLUME`) without entering `STATE_RECOVERY_MISMATCH`. Only missing positions, identifier/direction mismatches, or multi-step unrecoverable volume differences are fatal.
+V2.4.10 supersedes the earlier soft-sync volume policy. Volume comparison now uses `VolumeMismatchToleranceLots` (lots only), and normal Small Reverse flow must populate context from actual MT5 position volume before reconciliation. A remaining volume mismatch outside that tolerance is treated as a real structural issue rather than an automatic reserve/money-tolerance sync.
 
 ## V2.4.9 Reserve Ledger and Reconciliation
 
@@ -654,3 +652,9 @@ The EA no longer rebuilds reserve from all profitable deals. The Initial Lock pr
 - debit/reset events for future reserve consumption flows
 
 `CalculateReserveFromHistory()` now uses the ledger balance and scans Initial Lock deals only to log `RESERVE_REBUILD_SKIP_INITIAL_LOCK`. A reserve-balance mismatch is treated as `RECONCILIATION WARNING RESERVE_REBUILD_UNVERIFIED`; it does not stop the FSM by itself. Structural position errors such as missing tickets, identifier mismatches, direction mismatches, or unrecoverable volume mismatches remain fatal.
+
+## V2.4.10 Actual Volume After Small Reverse
+
+After a Small Reverse partial Big close, the remaining Big position becomes the new Far. The EA no longer calculates that remainder from `BigLot * RemainBigOnSmall`; it reads the broker/terminal position volume with `GetActualPositionVolume()`. This prevents the 1.05 × 0.65 = 0.68 synthetic mismatch when MT5 actually leaves 0.69 after closing 0.36.
+
+`BIG_PARTIAL_CLOSE_VERIFY` logs expected remaining volume, actual remaining volume and difference. Volume comparisons use `VolumeMismatchToleranceLots`; reserve reconciliation continues to use `ReserveMismatchTolerance` for money only.

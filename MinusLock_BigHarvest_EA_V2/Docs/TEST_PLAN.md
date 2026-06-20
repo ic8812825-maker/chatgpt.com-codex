@@ -301,7 +301,7 @@ python3 Tests/invalid_geometry_emergency_check.py
 5. Verify reserve mismatch uses `ReserveMismatchTolerance` and blocks continuation when exceeded.
 
 ## V2.4.9 Reconciliation Regression Tests
-1. Reproduce `ctxFarLot=0.68` / `actualFarVolume=0.69` with `LotStep=0.01`; expected result is `RECON WARNING` + `RECON_AUTO_SYNC_FAR_VOLUME`, not `STATE_RECOVERY_MISMATCH`.
+1. Reproduce the Small Reverse 0.68/0.69 case; expected result is that `ProcessSmallBuildNewFar()` uses actual MT5 volume, so regular `FAR_VOLUME_MISMATCH` does not appear during normal progression.
 2. Confirm `RECON_TOLERANCE_USED=0.01` when `ReserveMismatchTolerance=0.01`.
 3. Confirm normalized volume comparison is used for Far/Big/Small and direct raw-volume fatal checks are absent.
 4. Confirm reserve rebuild classifies positive closed recovery deals even when broker close comments are blank.
@@ -317,3 +317,15 @@ Run all Python checks in `Tests/`, including:
 - `reconciliation_stops_after_fatal_error_check.py`
 
 MT5 validation must confirm that the first Initial Lock profit does not produce `RECONCILIATION FAIL RESERVE_MISMATCH`, the EA continues beyond L1, and reserve mismatches without structural position errors remain warnings only.
+
+## V2.4.10 Actual Volume Regression Tests
+
+Run all Python checks plus the new V2.4.10 checks:
+
+- `actual_volume_after_partial_close_check.py`
+- `synthetic_volume_forbidden_check.py`
+- `recovery_uses_actual_volume_check.py`
+- `volume_integrity_guard_check.py`
+- `reconciliation_volume_stability_check.py`
+
+MT5 Strategy Tester must confirm that Small Reverse no longer produces the synthetic 0.68/0.69 Far volume mismatch and that regular `FAR_VOLUME_MISMATCH` messages do not appear during normal progression.

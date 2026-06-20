@@ -12,10 +12,15 @@ double BrokerLotStep()
 
 double GetEffectiveLotStep()
 {
-   if(LotStep > 0.0)
-      return LotStep;
+   double brokerStep = BrokerLotStep();
+   if(brokerStep > 0.0)
+   {
+      if(LotStep > 0.0 && MathAbs(LotStep - brokerStep) > 0.000000001)
+         LogInfo(StringFormat("LOT_STEP_OVERRIDE_WARNING BrokerStep=%.8f UserLotStep=%.8f BrokerStepUsed=true", brokerStep, LotStep));
+      return brokerStep;
+   }
 
-   return BrokerLotStep();
+   return LotStep;
 }
 
 double GetMinLot()

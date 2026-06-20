@@ -53,7 +53,7 @@ for token in [
     "RiskGateLogIntervalSeconds", "MaxCloseRetryAttempts", "RetryLogIntervalSeconds",
     "Ctx.riskGateOk = riskOk", "OpenInitialLock blocked", "OpenBigSmall blocked",
     "RetryCloseBig();", "RetryCloseSmall();", "RetryCloseOldFar();", "RetryCloseBigPart();", "RetryCloseNewFar();",
-    "BIG_HARVEST_REAL_RESERVE", "DEAL_POSITION_ID", "ReconcileRecoveredPosition", "STATE_MAX_LEVELS_DECISION", "CloseFarOnMaxLevels", "STOP_MAX_LEVELS_CLOSE_FAR", "PendingActionType", "PENDING_CLOSE_FAR_PARTIAL", "CLOSED_PROFIT_BLOCKED", "RunReconciliation", "STATE_RECOVERY_MISMATCH", "ReserveMismatchTolerance", "NormalizeVolumeToStep", "RECON_AUTO_SYNC_FAR_VOLUME", "RECON_TOLERANCE_USED",
+    "BIG_HARVEST_REAL_RESERVE", "DEAL_POSITION_ID", "ReconcileRecoveredPosition", "STATE_MAX_LEVELS_DECISION", "CloseFarOnMaxLevels", "STOP_MAX_LEVELS_CLOSE_FAR", "PendingActionType", "PENDING_CLOSE_FAR_PARTIAL", "CLOSED_PROFIT_BLOCKED", "RunReconciliation", "STATE_RECOVERY_MISMATCH", "ReserveMismatchTolerance", "NormalizeVolumeToStep", "VolumeMismatchToleranceLots", "VolumeMismatchToleranceLots must be > 0", "RECON_TOLERANCE_USED",
 ]:
     assert token in (config + main + state + recon + lot_utils)
 

@@ -84,7 +84,7 @@ V2.4.5 updates:
 ## V2.4.9 Reconciliation Soft Volume Sync
 - Added `NormalizeVolumeToStep()` as the shared volume normalization helper for reconciliation checks.
 - Reconciliation now compares normalized context/actual volumes and uses `RECON_TOLERANCE_USED` diagnostics.
-- One-step volume differences are warnings with `RECON_AUTO_SYNC_*_VOLUME`, not fatal `STATE_RECOVERY_MISMATCH` events.
+- V2.4.10 supersedes one-step auto-sync: normal Small Reverse writes actual MT5 volume before reconciliation, and remaining lot mismatches use `VolumeMismatchToleranceLots`.
 - Reserve rebuild now classifies positive closed recovery deals by Magic/Symbol/DEAL_ENTRY_OUT when broker close comments are blank.
 
 ## V2.4.9 P0 Reserve Ledger / Reconciliation Fix
@@ -93,3 +93,11 @@ V2.4.5 updates:
 - Reserve changes are routed through `ApplyReserveCredit()` / `ApplyReserveDebit()` and recorded in `ReserveLedgerEntry` rows for deterministic rebuild.
 - Reserve mismatch is now diagnostic (`RECONCILIATION WARNING RESERVE_REBUILD_UNVERIFIED`) and does not enter `STATE_RECOVERY_MISMATCH` unless structural position reconciliation also fails.
 - Periodic reconciliation stops repeating full checks after a fatal `STATE_RECOVERY_MISMATCH` and emits a single repeat warning instead of flooding logs.
+
+## V2.4.10 P0 Actual Volume After Small Reverse
+
+- New Far volume after Small Reverse is now read from the actual remaining MT5 position via `GetActualPositionVolume()` instead of synthetic `CalcRemainBigLotOnSmall()` math.
+- `ProcessSmallCloseBigPart()` logs `BIG_PARTIAL_CLOSE_VERIFY` with expected, actual and difference values after partial Big close.
+- Added `VolumeMismatchToleranceLots` for lot-volume integrity; `ReserveMismatchTolerance` remains money-only.
+- `RecoverState()` reconciliation now overwrites saved leg volume with actual terminal volume and logs SavedVolume/ActualVolume.
+- `GetEffectiveLotStep()` prefers broker `SYMBOL_VOLUME_STEP` and logs `LOT_STEP_OVERRIDE_WARNING` if user `LotStep` differs.

@@ -497,8 +497,12 @@ A runtime `STATE_CLOSED_PROFIT` guard now checks `CountManagedOpenPositions()` a
 V2.4.8 adds `ReconciliationEngine.mqh` to detect divergence between `RecoveryContext` and actual MT5 state. It validates Far/Big/Small ticket, `POSITION_IDENTIFIER`, direction and volume, checks harvest-level evidence, emits reserve rebuild diagnostics from HistoryDeals, and routes hard mismatches to `STATE_RECOVERY_MISMATCH`.
 
 ## V2.4.9 Audit: Reconciliation False Positive Fix
-V2.4.9 changes Reconciliation from fail-fast on small raw volume differences to normalized, severity-based handling. Differences within `max(LotStep, ReserveMismatchTolerance)` are auto-synced and logged as warnings, preventing false `STATE_RECOVERY_MISMATCH` stops such as `ctxFarLot=0.68` vs `actualFarVolume=0.69`.
+V2.4.9 changes Reconciliation from fail-fast on small raw volume differences to normalized, severity-based handling. V2.4.10 supersedes auto-sync: Small Reverse now writes actual MT5 volume into context before reconciliation, and lot mismatches use `VolumeMismatchToleranceLots` instead of reserve-money tolerance.
 
 ## V2.4.9 P0 Audit: Reserve Ledger Source of Truth
 
 The prior reserve rebuild approach could classify the first Initial Lock profit as a reserve credit. V2.4.9 replaces profit-based reconstruction with an explicit reserve ledger. The reconciliation engine now logs Initial Lock history as skipped, rebuilds reserve from ledger events, and treats reserve-only mismatch as non-fatal diagnostics. `STATE_RECOVERY_MISMATCH` remains reserved for structural MT5/context divergence.
+
+## V2.4.10 P0 Audit: Synthetic Far Volume Removed
+
+Small Reverse now treats MT5 as the source of truth after partial Big close. The expected remainder is logged for diagnostics, but `Ctx.farLot` is populated from `POSITION_VOLUME` through `GetActualPositionVolume()`. Recovery reconciliation also refreshes saved volumes from actual terminal positions, preventing stale saved lot values from creating false reconciliation failures.
