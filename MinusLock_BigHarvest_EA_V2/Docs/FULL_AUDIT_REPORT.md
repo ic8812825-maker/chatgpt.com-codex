@@ -506,3 +506,7 @@ The prior reserve rebuild approach could classify the first Initial Lock profit 
 ## V2.4.10 P0 Audit: Synthetic Far Volume Removed
 
 Small Reverse now treats MT5 as the source of truth after partial Big close. The expected remainder is logged for diagnostics, but `Ctx.farLot` is populated from `POSITION_VOLUME` through `GetActualPositionVolume()`. Recovery reconciliation also refreshes saved volumes from actual terminal positions, preventing stale saved lot values from creating false reconciliation failures.
+
+## V2.4.11 P0 Audit: Unified Actual Volume Rule
+
+The actual-volume rule is now applied to all partial-close paths, not only Small Reverse. BigHarvest Far partial close and partial-close retry paths refresh context from terminal `POSITION_VOLUME`; full close paths verify actual remaining volume and keep retry pending on `FULL_CLOSE_INCOMPLETE` instead of clearing context prematurely.

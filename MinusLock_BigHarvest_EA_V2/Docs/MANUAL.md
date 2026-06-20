@@ -658,3 +658,9 @@ The EA no longer rebuilds reserve from all profitable deals. The Initial Lock pr
 After a Small Reverse partial Big close, the remaining Big position becomes the new Far. The EA no longer calculates that remainder from `BigLot * RemainBigOnSmall`; it reads the broker/terminal position volume with `GetActualPositionVolume()`. This prevents the 1.05 × 0.65 = 0.68 synthetic mismatch when MT5 actually leaves 0.69 after closing 0.36.
 
 `BIG_PARTIAL_CLOSE_VERIFY` logs expected remaining volume, actual remaining volume and difference. Volume comparisons use `VolumeMismatchToleranceLots`; reserve reconciliation continues to use `ReserveMismatchTolerance` for money only.
+
+## V2.4.11 Actual Volume After Partial Close
+
+After any partial close, the EA must not calculate the remaining lot as `oldLot - closeLot`. The only source of truth is the terminal position volume (`POSITION_VOLUME`) read through `GetActualPositionVolume()` / `RefreshLegVolumeFromTerminal()`.
+
+This rule now covers BigHarvest Far budget closes, Small Reverse Big partial closes, and retry paths. Full Far closes also verify that MT5 reports zero remaining volume before clearing context; otherwise the EA logs `FULL_CLOSE_INCOMPLETE` and retries instead of producing a false closed state. This prevents ReconciliationEngine from seeing false `FAR_VOLUME_MISMATCH` / `BIG_VOLUME_MISMATCH` after broker rounding or partial execution.

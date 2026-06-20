@@ -329,3 +329,14 @@ Run all Python checks plus the new V2.4.10 checks:
 - `reconciliation_volume_stability_check.py`
 
 MT5 Strategy Tester must confirm that Small Reverse no longer produces the synthetic 0.68/0.69 Far volume mismatch and that regular `FAR_VOLUME_MISMATCH` messages do not appear during normal progression.
+
+## V2.4.11 Actual Volume Test Plan
+
+Run all Python checks, including:
+
+- `bigharvest_far_partial_uses_actual_volume_check.py`
+- `partial_close_no_theoretical_lot_subtraction_check.py`
+- `full_close_incomplete_guard_check.py`
+- `refresh_leg_volume_from_terminal_check.py`
+
+MT5 Strategy Tester must verify that BigHarvest Far partial close and retry no longer generate false `FAR_VOLUME_MISMATCH`, and that full close leaves no residual terminal volume before context is cleared.

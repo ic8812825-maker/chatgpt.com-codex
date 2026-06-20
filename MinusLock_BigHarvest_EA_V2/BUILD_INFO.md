@@ -101,3 +101,10 @@ V2.4.5 updates:
 - Added `VolumeMismatchToleranceLots` for lot-volume integrity; `ReserveMismatchTolerance` remains money-only.
 - `RecoverState()` reconciliation now overwrites saved leg volume with actual terminal volume and logs SavedVolume/ActualVolume.
 - `GetEffectiveLotStep()` prefers broker `SYMBOL_VOLUME_STEP` and logs `LOT_STEP_OVERRIDE_WARNING` if user `LotStep` differs.
+
+## V2.4.11 P0 Actual Volume After Every Partial Close
+
+- BigHarvest Far partial close now refreshes `Ctx.farLot` from actual terminal `POSITION_VOLUME` via `RefreshFarVolumeFromTerminal()` instead of `oldLot - closeLot` math.
+- Partial-close retry paths for Big and Far use `RefreshBigVolumeFromTerminal()` / `RefreshFarVolumeFromTerminal()`; theoretical `Ctx.*Lot - Ctx.retryLot` updates are removed.
+- Full Far closes verify actual remaining volume; if MT5 still reports volume, the EA logs `FULL_CLOSE_INCOMPLETE` and keeps/re-enters retry pending instead of clearing context.
+- Added `RefreshLegVolumeFromTerminal()` plus `ClearFarContext()`/leg clear helpers to centralize volume refresh and cleanup.

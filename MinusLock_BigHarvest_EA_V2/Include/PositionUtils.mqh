@@ -203,4 +203,20 @@ double GetActualPositionVolume(ulong ticket)
    return NormalizeVolumeToStep(PositionGetDouble(POSITION_VOLUME));
 }
 
+bool RefreshLegVolumeFromTerminal(ulong ticket, double &targetLot, string legName)
+{
+   double actualVolume = GetActualPositionVolume(ticket);
+   double normalizedVolume = NormalizeVolumeToStep(actualVolume);
+   LogInfo(StringFormat("REFRESH_LEG_VOLUME_FROM_TERMINAL Leg=%s Ticket=%I64u ActualVolume=%.2f NormalizedVolume=%.2f", legName, ticket, actualVolume, normalizedVolume));
+
+   if(normalizedVolume <= 0.0)
+   {
+      targetLot = 0.0;
+      return false;
+   }
+
+   targetLot = normalizedVolume;
+   return true;
+}
+
 #endif // __BH_POSITIONUTILS_MQH__
