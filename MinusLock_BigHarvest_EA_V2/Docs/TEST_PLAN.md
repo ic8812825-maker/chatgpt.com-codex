@@ -340,3 +340,15 @@ Run all Python checks, including:
 - `refresh_leg_volume_from_terminal_check.py`
 
 MT5 Strategy Tester must verify that BigHarvest Far partial close and retry no longer generate false `FAR_VOLUME_MISMATCH`, and that full close leaves no residual terminal volume before context is cleared.
+
+## V2.4.12 Full Close Integrity Tests
+
+Run all Python checks, including:
+
+- `full_close_volume_tolerance_check.py`
+- `full_close_not_min_lot_check.py`
+- `verify_full_close_check.py`
+- `closed_profit_requires_full_close_check.py`
+- `context_cleared_with_live_position_check.py`
+
+MT5 Strategy Tester must confirm that full closes never clear Far context while `POSITION_VOLUME > VolumeMismatchToleranceLots`, and that no false `STATE_CLOSED_PROFIT` occurs with residual managed positions.

@@ -510,3 +510,7 @@ Small Reverse now treats MT5 as the source of truth after partial Big close. The
 ## V2.4.11 P0 Audit: Unified Actual Volume Rule
 
 The actual-volume rule is now applied to all partial-close paths, not only Small Reverse. BigHarvest Far partial close and partial-close retry paths refresh context from terminal `POSITION_VOLUME`; full close paths verify actual remaining volume and keep retry pending on `FULL_CLOSE_INCOMPLETE` instead of clearing context prematurely.
+
+## V2.4.12 P0 Audit: Full Close Integrity
+
+Full-close completion is now based only on actual terminal volume and `VolumeMismatchToleranceLots`. Min-lot checks are not used as close-complete criteria. The FSM blocks `STATE_CLOSED_PROFIT` when leg context or managed positions remain, and reconciliation raises `CONTEXT_CLEARED_WITH_LIVE_POSITION` if context was cleared while MT5 still has live managed positions.

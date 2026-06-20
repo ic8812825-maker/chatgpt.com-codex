@@ -664,3 +664,9 @@ After a Small Reverse partial Big close, the remaining Big position becomes the 
 After any partial close, the EA must not calculate the remaining lot as `oldLot - closeLot`. The only source of truth is the terminal position volume (`POSITION_VOLUME`) read through `GetActualPositionVolume()` / `RefreshLegVolumeFromTerminal()`.
 
 This rule now covers BigHarvest Far budget closes, Small Reverse Big partial closes, and retry paths. Full Far closes also verify that MT5 reports zero remaining volume before clearing context; otherwise the EA logs `FULL_CLOSE_INCOMPLETE` and retries instead of producing a false closed state. This prevents ReconciliationEngine from seeing false `FAR_VOLUME_MISMATCH` / `BIG_VOLUME_MISMATCH` after broker rounding or partial execution.
+
+## V2.4.12 Full Close Integrity
+
+A full close is complete only when actual terminal volume is less than or equal to `VolumeMismatchToleranceLots`. Broker minimum lot, `SYMBOL_VOLUME_MIN`, and `LotStep` are not valid criteria for clearing context because a min-lot residue can still be a live position.
+
+`VerifyFullClose()` reads `POSITION_VOLUME`, logs `ExpectedVolume=0`, `ActualVolume`, and `Difference`, and returns success only when the position is truly absent within volume tolerance. FinalClose, MaxLevels final close, StopMaxLevels close, and full-close retry paths use this helper before calling `ClearFarContext()`. Reconciliation also detects `CONTEXT_CLEARED_WITH_LIVE_POSITION` if context has been cleared while MT5 still has managed positions.

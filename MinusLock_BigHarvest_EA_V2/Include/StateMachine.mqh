@@ -82,11 +82,19 @@ double RebuildReserveFromLedger()
 
 void SetState(EAState nextState, string reason)
 {
-   if(nextState == STATE_CLOSED_PROFIT && CountManagedOpenPositions() > 0)
+   if(nextState == STATE_CLOSED_PROFIT)
    {
-      LogError("CLOSED_PROFIT_BLOCKED: managed positions still open");
-      nextState = STATE_MANUAL_INTERVENTION_REQUIRED;
-      reason = "CLOSED_PROFIT_BLOCKED: managed positions still open";
+      bool fullCloseVerified = true;
+      if(Ctx.farTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.farTicket, "STATE_CLOSED_PROFIT_FAR_GUARD") && fullCloseVerified;
+      if(Ctx.bigTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.bigTicket, "STATE_CLOSED_PROFIT_BIG_GUARD") && fullCloseVerified;
+      if(Ctx.smallTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.smallTicket, "STATE_CLOSED_PROFIT_SMALL_GUARD") && fullCloseVerified;
+
+      if(CountManagedOpenPositions() > 0 || HasOpenLegContext() || !fullCloseVerified)
+      {
+         LogError("CLOSED_PROFIT_BLOCKED: managed positions or live leg context still open");
+         nextState = STATE_MANUAL_INTERVENTION_REQUIRED;
+         reason = "CLOSED_PROFIT_BLOCKED: managed positions or live leg context still open";
+      }
    }
 
    if(State != nextState)
@@ -198,6 +206,32 @@ bool GetStateDouble(string field, double &value)
       return false;
    value = GlobalVariableGet(key);
    return true;
+}
+
+bool IsPositionFullyClosed(double actualVolume)
+{
+   return actualVolume <= VolumeMismatchToleranceLots;
+}
+
+bool VerifyFullClose(ulong ticket, string operationName)
+{
+   double actualVolume = GetActualPositionVolume(ticket);
+   double normalizedActual = NormalizeVolumeToStep(actualVolume);
+   double difference = MathAbs(normalizedActual - 0.0);
+   LogInfo(StringFormat("VERIFY_FULL_CLOSE Operation=%s Ticket=%I64u ExpectedVolume=0.00 ActualVolume=%.2f Difference=%.5f VolumeMismatchToleranceLots=%.5f", operationName, ticket, normalizedActual, difference, VolumeMismatchToleranceLots));
+   if(!IsPositionFullyClosed(normalizedActual))
+   {
+      LogError(StringFormat("FULL_CLOSE_INCOMPLETE Operation=%s Ticket=%I64u ExpectedVolume=0.00 ActualVolume=%.2f Difference=%.5f", operationName, ticket, normalizedActual, difference));
+      return false;
+   }
+   return true;
+}
+
+bool HasOpenLegContext()
+{
+   return (Ctx.farTicket != 0 || Ctx.farLot > VolumeMismatchToleranceLots || Ctx.farDirection != DIR_NONE ||
+           Ctx.bigTicket != 0 || Ctx.bigLot > VolumeMismatchToleranceLots || Ctx.bigDirection != DIR_NONE ||
+           Ctx.smallTicket != 0 || Ctx.smallLot > VolumeMismatchToleranceLots || Ctx.smallDirection != DIR_NONE);
 }
 
 void ClearFarContext(string reason)
@@ -1313,26 +1347,30 @@ void SetRetryContext(EAState pendingState, ulong ticket, double lot, string reas
 
 bool ApplyPendingCloseSuccessToContext()
 {
-   double minLot = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN);
-   if(minLot <= 0.0)
-      minLot = LotStep;
-
    switch(Ctx.pendingActionType)
    {
       case PENDING_CLOSE_BIG_FULL:
-         Ctx.bigTicket = 0;
-         Ctx.bigIdentifier = 0;
-         Ctx.bigLot = 0.0;
-         Ctx.bigDirection = DIR_NONE;
-         Ctx.bigOpenPrice = 0.0;
+         if(!VerifyFullClose(Ctx.bigTicket, "PENDING_CLOSE_BIG_FULL"))
+         {
+            Ctx.bigLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.bigTicket));
+            Ctx.retryLot = Ctx.bigLot;
+            Ctx.pendingLot = Ctx.bigLot;
+            SaveState();
+            return false;
+         }
+         ClearBigContext("full Big close confirmed by VerifyFullClose");
          break;
 
       case PENDING_CLOSE_SMALL_FULL:
-         Ctx.smallTicket = 0;
-         Ctx.smallIdentifier = 0;
-         Ctx.smallLot = 0.0;
-         Ctx.smallDirection = DIR_NONE;
-         Ctx.smallOpenPrice = 0.0;
+         if(!VerifyFullClose(Ctx.smallTicket, "PENDING_CLOSE_SMALL_FULL"))
+         {
+            Ctx.smallLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.smallTicket));
+            Ctx.retryLot = Ctx.smallLot;
+            Ctx.pendingLot = Ctx.smallLot;
+            SaveState();
+            return false;
+         }
+         ClearSmallContext("full Small close confirmed by VerifyFullClose");
          break;
 
       case PENDING_CLOSE_BIG_PARTIAL:
@@ -1354,17 +1392,15 @@ bool ApplyPendingCloseSuccessToContext()
       case PENDING_MAX_LEVELS_FINAL_CLOSE:
       case PENDING_STOP_MAX_LEVELS_CLOSE:
       {
-         double actualFarLot = GetActualPositionVolume(Ctx.farTicket);
-         if(actualFarLot > minLot + 0.000000001)
+         if(!VerifyFullClose(Ctx.farTicket, "PENDING_FULL_FAR_CLOSE"))
          {
-            Ctx.farLot = NormalizeVolumeToStep(actualFarLot);
+            Ctx.farLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.farTicket));
             Ctx.retryLot = Ctx.farLot;
             Ctx.pendingLot = Ctx.farLot;
-            LogError(StringFormat("FULL_CLOSE_INCOMPLETE ActionType=%d Ticket=%I64u RemainingVolume=%.2f", (int)Ctx.pendingActionType, Ctx.farTicket, Ctx.farLot));
             SaveState();
             return false;
          }
-         ClearFarContext("full Far close confirmed by actual terminal volume");
+         ClearFarContext("full Far close confirmed by VerifyFullClose");
          break;
       }
 
@@ -1518,10 +1554,13 @@ void ProcessBigHarvestCloseBig()
       return;
    }
 
-   Ctx.bigTicket = 0;
-   Ctx.bigLot = 0.0;
-   Ctx.bigDirection = DIR_NONE;
-   Ctx.bigOpenPrice = 0.0;
+   if(!VerifyFullClose(Ctx.bigTicket, "BIG_HARVEST_CLOSE_BIG"))
+   {
+      Ctx.bigLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.bigTicket));
+      SetPendingOperation(PENDING_CLOSE_BIG_FULL, "BIG_HARVEST_CLOSE_BIG", STATE_CLOSE_BIG_PENDING, Ctx.bigTicket, Ctx.bigLot, "RETRY_CLOSE_BIG", STATE_BIG_HARVEST_CLOSE_SMALL, "FULL_CLOSE_INCOMPLETE after BigHarvest Big close; retry pending");
+      return;
+   }
+   ClearBigContext("BigHarvest close Big phase confirmed by VerifyFullClose");
    SetState(STATE_BIG_HARVEST_CLOSE_SMALL, "BigHarvest close Big phase done");
 }
 
@@ -1653,15 +1692,13 @@ void ProcessFinalClose()
       Ctx.cycleFinalPL
    ));
 
-   double actualFarLotAfterFinalClose = GetActualPositionVolume(Ctx.farTicket);
-   if(actualFarLotAfterFinalClose > VolumeMismatchToleranceLots)
+   if(!VerifyFullClose(Ctx.farTicket, "FINAL_CLOSE"))
    {
-      Ctx.farLot = NormalizeVolumeToStep(actualFarLotAfterFinalClose);
-      LogError(StringFormat("FULL_CLOSE_INCOMPLETE Source=FINAL_CLOSE Ticket=%I64u RemainingVolume=%.2f", Ctx.farTicket, Ctx.farLot));
+      Ctx.farLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.farTicket));
       SetPendingOperation(PENDING_CLOSE_FAR_FULL, "FINAL_CLOSE_NEW_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_FINAL_CLOSE", STATE_CLOSED_PROFIT, "FULL_CLOSE_INCOMPLETE after FinalClose; retry pending");
       return;
    }
-   ClearFarContext("FINAL_CLOSE confirmed no remaining Far volume");
+   ClearFarContext("FINAL_CLOSE confirmed by VerifyFullClose");
    SetState(STATE_CLOSED_PROFIT, "cycle closed in profit; no new levels");
    RecalculateRealCycleStatsFromHistory();
    LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
@@ -1681,8 +1718,13 @@ void ProcessBigHarvestCloseSmall()
       return;
    }
 
-   Ctx.smallTicket = 0;
-   Ctx.smallLot = 0.0;
+   if(!VerifyFullClose(Ctx.smallTicket, "BIG_HARVEST_CLOSE_SMALL"))
+   {
+      Ctx.smallLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.smallTicket));
+      SetPendingOperation(PENDING_CLOSE_SMALL_FULL, "BIG_HARVEST_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "RETRY_CLOSE_SMALL", STATE_BIG_HARVEST_CALC_NET, "FULL_CLOSE_INCOMPLETE after BigHarvest Small close; retry pending");
+      return;
+   }
+   ClearSmallContext("BigHarvest close Small phase confirmed by VerifyFullClose");
    SetState(STATE_BIG_HARVEST_CALC_NET, "BigHarvest Small close phase done");
 }
 
@@ -1783,10 +1825,13 @@ void ProcessSmallCloseSmall()
       return;
    }
 
-   Ctx.smallTicket = 0;
-   Ctx.smallLot = 0.0;
-   Ctx.smallDirection = DIR_NONE;
-   Ctx.smallOpenPrice = 0.0;
+   if(!VerifyFullClose(Ctx.smallTicket, "SMALL_CLOSE_SMALL"))
+   {
+      Ctx.smallLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.smallTicket));
+      SetPendingOperation(PENDING_CLOSE_SMALL_FULL, "SMALL_CLOSE_SMALL", STATE_CLOSE_SMALL_PENDING, Ctx.smallTicket, Ctx.smallLot, "RETRY_CLOSE_SMALL_AT_FAR", STATE_SMALL_CLOSE_OLD_FAR, "FULL_CLOSE_INCOMPLETE after Small close Small; retry pending");
+      return;
+   }
+   ClearSmallContext("Small close Small phase confirmed by VerifyFullClose");
    SetState(STATE_SMALL_CLOSE_OLD_FAR, "Small close Small phase done");
 }
 
@@ -1810,10 +1855,13 @@ void ProcessSmallCloseOldFar()
       return;
    }
 
-   Ctx.farTicket = 0;
-   Ctx.farLot = 0.0;
-   Ctx.farDirection = DIR_NONE;
-   Ctx.farOpenPrice = 0.0;
+   if(!VerifyFullClose(Ctx.farTicket, "SMALL_CLOSE_OLD_FAR"))
+   {
+      Ctx.farLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.farTicket));
+      SetPendingOperation(PENDING_CLOSE_OLD_FAR_FULL, "SMALL_CLOSE_OLD_FAR", STATE_CLOSE_OLD_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_CLOSE_OLD_FAR", STATE_SMALL_CLOSE_BIG_PART, "FULL_CLOSE_INCOMPLETE after Small old Far close; retry pending");
+      return;
+   }
+   ClearFarContext("Small scenario old Far close confirmed by VerifyFullClose");
    SetState(STATE_SMALL_CLOSE_BIG_PART, "Small scenario old Far close phase done; active OldFar context cleared");
 }
 
@@ -1972,15 +2020,13 @@ void ProcessMaxLevelsDecision()
          SetPendingOperation(PENDING_MAX_LEVELS_FINAL_CLOSE, "MAX_LEVELS_FINAL_CLOSE_FAR", STATE_MAX_LEVELS_FINAL_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "MAX_LEVELS_FINAL_CLOSE", STATE_CLOSED_PROFIT, "Max levels reserve close failed; retry pending");
          return;
       }
-      double actualFarLotAfterMaxFinal = GetActualPositionVolume(Ctx.farTicket);
-      if(actualFarLotAfterMaxFinal > VolumeMismatchToleranceLots)
+      if(!VerifyFullClose(Ctx.farTicket, "MAX_LEVELS_FINAL_CLOSE"))
       {
-         Ctx.farLot = NormalizeVolumeToStep(actualFarLotAfterMaxFinal);
-         LogError(StringFormat("FULL_CLOSE_INCOMPLETE Source=MAX_LEVELS_FINAL_CLOSE Ticket=%I64u RemainingVolume=%.2f", Ctx.farTicket, Ctx.farLot));
+         Ctx.farLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.farTicket));
          SetPendingOperation(PENDING_MAX_LEVELS_FINAL_CLOSE, "MAX_LEVELS_FINAL_CLOSE_FAR", STATE_MAX_LEVELS_FINAL_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "MAX_LEVELS_FINAL_CLOSE", STATE_CLOSED_PROFIT, "FULL_CLOSE_INCOMPLETE after max-level final close; retry pending");
          return;
       }
-      ClearFarContext("MAX_LEVELS_FINAL_CLOSE confirmed no remaining Far volume");
+      ClearFarContext("MAX_LEVELS_FINAL_CLOSE confirmed by VerifyFullClose");
       SetState(STATE_CLOSED_PROFIT, "Max levels residual Far closed because reserve covered loss");
       return;
    }
@@ -1995,15 +2041,13 @@ void ProcessMaxLevelsDecision()
          SetPendingOperation(PENDING_STOP_MAX_LEVELS_CLOSE, "STOP_MAX_LEVELS_CLOSE_FAR", STATE_STOP_MAX_LEVELS_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS_CLOSE_FAR", STATE_STOP_MAX_LEVELS, "Stop max levels Far close failed; retry pending");
          return;
       }
-      double actualFarLotAfterStopMax = GetActualPositionVolume(Ctx.farTicket);
-      if(actualFarLotAfterStopMax > VolumeMismatchToleranceLots)
+      if(!VerifyFullClose(Ctx.farTicket, "STOP_MAX_LEVELS_CLOSE_FAR"))
       {
-         Ctx.farLot = NormalizeVolumeToStep(actualFarLotAfterStopMax);
-         LogError(StringFormat("FULL_CLOSE_INCOMPLETE Source=STOP_MAX_LEVELS_CLOSE_FAR Ticket=%I64u RemainingVolume=%.2f", Ctx.farTicket, Ctx.farLot));
+         Ctx.farLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.farTicket));
          SetPendingOperation(PENDING_STOP_MAX_LEVELS_CLOSE, "STOP_MAX_LEVELS_CLOSE_FAR", STATE_STOP_MAX_LEVELS_CLOSE_PENDING, Ctx.farTicket, Ctx.farLot, "STOP_MAX_LEVELS_CLOSE_FAR", STATE_STOP_MAX_LEVELS, "FULL_CLOSE_INCOMPLETE after stop max levels close; retry pending");
          return;
       }
-      ClearFarContext("STOP_MAX_LEVELS_CLOSE_FAR confirmed no remaining Far volume");
+      ClearFarContext("STOP_MAX_LEVELS_CLOSE_FAR confirmed by VerifyFullClose");
       SetState(STATE_STOP_MAX_LEVELS, "MaxHarvestLevels reached; residual Far closed by STOP_MAX_LEVELS_CLOSE_FAR");
       return;
    }

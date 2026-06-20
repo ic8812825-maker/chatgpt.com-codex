@@ -183,6 +183,11 @@ bool ValidateReverseCyclesFromHistory()
 bool RunReconciliation()
 {
    bool ok = true;
+   if(Ctx.farTicket == 0 && Ctx.bigTicket == 0 && Ctx.smallTicket == 0 && CountManagedOpenPositions() > 0)
+   {
+      LogError(StringFormat("CONTEXT_CLEARED_WITH_LIVE_POSITION State=%s ManagedPositions=%d", StateToString(State), CountManagedOpenPositions()));
+      ok = false;
+   }
    ok = ValidateFarPosition() && ok;
    ok = ValidateBigPosition() && ok;
    ok = ValidateSmallPosition() && ok;

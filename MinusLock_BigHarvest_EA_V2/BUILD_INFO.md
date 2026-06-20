@@ -108,3 +108,10 @@ V2.4.5 updates:
 - Partial-close retry paths for Big and Far use `RefreshBigVolumeFromTerminal()` / `RefreshFarVolumeFromTerminal()`; theoretical `Ctx.*Lot - Ctx.retryLot` updates are removed.
 - Full Far closes verify actual remaining volume; if MT5 still reports volume, the EA logs `FULL_CLOSE_INCOMPLETE` and keeps/re-enters retry pending instead of clearing context.
 - Added `RefreshLegVolumeFromTerminal()` plus `ClearFarContext()`/leg clear helpers to centralize volume refresh and cleanup.
+
+## V2.4.12 P0 Full Close Integrity
+
+- Added `IsPositionFullyClosed()` and `VerifyFullClose()` so full closes are confirmed only by `POSITION_VOLUME <= VolumeMismatchToleranceLots`, never by `SYMBOL_VOLUME_MIN` or broker min lot.
+- Full Far close paths now verify zero actual terminal volume before `ClearFarContext()`; otherwise they log `FULL_CLOSE_INCOMPLETE` and keep/re-enter retry pending.
+- `STATE_CLOSED_PROFIT` now checks managed positions, leg context, and `VerifyFullClose()` for non-zero leg tickets before allowing terminal profit state.
+- Reconciliation now logs `CONTEXT_CLEARED_WITH_LIVE_POSITION` and routes to `STATE_RECOVERY_MISMATCH` when context says all legs are gone but managed MT5 positions still exist.
