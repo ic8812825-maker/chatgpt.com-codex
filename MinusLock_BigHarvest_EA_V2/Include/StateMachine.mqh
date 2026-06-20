@@ -80,6 +80,8 @@ double RebuildReserveFromLedger()
 }
 
 
+bool ValidateNoOrphanManagedPositions();
+
 void SetState(EAState nextState, string reason)
 {
    if(nextState == STATE_CLOSED_PROFIT)
@@ -724,12 +726,14 @@ bool CloseAllManagedPositionsWithComment(string closeComment)
       if(Ctx.farTicket != 0 && Ctx.farLot > 0.0) ok = ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, closeComment) && ok;
       if(Ctx.bigTicket != 0 && Ctx.bigLot > 0.0) ok = ClosePositionByTicketWithComment(Ctx.bigTicket, Ctx.bigLot, closeComment) && ok;
       if(Ctx.smallTicket != 0 && Ctx.smallLot > 0.0) ok = ClosePositionByTicketWithComment(Ctx.smallTicket, Ctx.smallLot, closeComment) && ok;
+      if(ok) ok = ValidateNoOrphanManagedPositions() && ok;
       return ok;
    }
 
    for(int j = 0; j < count; j++)
       ok = ClosePositionByTicketWithComment(tickets[j], lots[j], closeComment) && ok;
 
+   if(ok) ok = ValidateNoOrphanManagedPositions() && ok;
    return ok;
 }
 
@@ -1359,6 +1363,7 @@ bool ApplyPendingCloseSuccessToContext()
             return false;
          }
          ClearBigContext("full Big close confirmed by VerifyFullClose");
+         if(!ValidateNoOrphanManagedPositions()) return false;
          break;
 
       case PENDING_CLOSE_SMALL_FULL:
@@ -1371,12 +1376,14 @@ bool ApplyPendingCloseSuccessToContext()
             return false;
          }
          ClearSmallContext("full Small close confirmed by VerifyFullClose");
+         if(!ValidateNoOrphanManagedPositions()) return false;
          break;
 
       case PENDING_CLOSE_BIG_PARTIAL:
       {
          if(!RefreshBigVolumeFromTerminal("PENDING_CLOSE_BIG_PARTIAL"))
             ClearBigContext("PENDING_CLOSE_BIG_PARTIAL fully closed or missing after retry");
+         if(!ValidateNoOrphanManagedPositions()) return false;
          break;
       }
 
@@ -1384,6 +1391,7 @@ bool ApplyPendingCloseSuccessToContext()
       {
          if(!RefreshFarVolumeFromTerminal("PENDING_CLOSE_FAR_PARTIAL"))
             ClearFarContext("PENDING_CLOSE_FAR_PARTIAL fully closed or missing after retry");
+         if(!ValidateNoOrphanManagedPositions()) return false;
          break;
       }
 
@@ -1401,6 +1409,7 @@ bool ApplyPendingCloseSuccessToContext()
             return false;
          }
          ClearFarContext("full Far close confirmed by VerifyFullClose");
+         if(!ValidateNoOrphanManagedPositions()) return false;
          break;
       }
 
@@ -1452,7 +1461,8 @@ bool RetryCloseTicket(string operationName, string comment, EAState successState
       EAState nextState = (Ctx.pendingNextState != STATE_IDLE ? Ctx.pendingNextState : successState);
       if(!ApplyPendingCloseSuccessToContext())
       {
-         SetState(Ctx.lastRetryState, operationName + " FULL_CLOSE_INCOMPLETE; retry remains pending");
+         if(State != STATE_RECOVERY_MISMATCH)
+            SetState(Ctx.lastRetryState, operationName + " FULL_CLOSE_INCOMPLETE; retry remains pending");
          return false;
       }
       ClearPendingOperationContext();
@@ -1506,6 +1516,8 @@ void ProcessRecoveryPending()
    LogInfo("PROCESS_RECOVERY_PENDING: reconciling saved GlobalVariables with real open positions");
    if(RecoverState())
    {
+      if(!ValidateNoOrphanManagedPositions())
+         return;
       if(State == STATE_RECOVERY_PENDING)
       {
          LogManagedPositionsForRecovery();
@@ -1561,6 +1573,7 @@ void ProcessBigHarvestCloseBig()
       return;
    }
    ClearBigContext("BigHarvest close Big phase confirmed by VerifyFullClose");
+   if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_BIG_HARVEST_CLOSE_SMALL, "BigHarvest close Big phase done");
 }
 
@@ -1699,6 +1712,7 @@ void ProcessFinalClose()
       return;
    }
    ClearFarContext("FINAL_CLOSE confirmed by VerifyFullClose");
+   if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_CLOSED_PROFIT, "cycle closed in profit; no new levels");
    RecalculateRealCycleStatsFromHistory();
    LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
@@ -1725,6 +1739,7 @@ void ProcessBigHarvestCloseSmall()
       return;
    }
    ClearSmallContext("BigHarvest close Small phase confirmed by VerifyFullClose");
+   if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_BIG_HARVEST_CALC_NET, "BigHarvest Small close phase done");
 }
 
@@ -1771,6 +1786,7 @@ void ProcessBigHarvestCloseFar()
 
    if(!RefreshFarVolumeFromTerminal("BIG_HARVEST_CLOSE_FAR partial close"))
       ClearFarContext("BIG_HARVEST_CLOSE_FAR actual remaining Far volume is zero");
+   if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_BIG_HARVEST_CHECK_FINAL, "BigHarvest Far budget close done");
 }
 
@@ -1832,6 +1848,7 @@ void ProcessSmallCloseSmall()
       return;
    }
    ClearSmallContext("Small close Small phase confirmed by VerifyFullClose");
+   if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_SMALL_CLOSE_OLD_FAR, "Small close Small phase done");
 }
 
@@ -1862,6 +1879,7 @@ void ProcessSmallCloseOldFar()
       return;
    }
    ClearFarContext("Small scenario old Far close confirmed by VerifyFullClose");
+   if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_SMALL_CLOSE_BIG_PART, "Small scenario old Far close phase done; active OldFar context cleared");
 }
 
@@ -1892,6 +1910,7 @@ void ProcessSmallCloseBigPart()
    }
 
    Ctx.bigLot = actualRemaining;
+   if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_SMALL_BUILD_NEW_FAR, "Small scenario Big part close phase done");
 }
 
@@ -2027,6 +2046,7 @@ void ProcessMaxLevelsDecision()
          return;
       }
       ClearFarContext("MAX_LEVELS_FINAL_CLOSE confirmed by VerifyFullClose");
+      if(!ValidateNoOrphanManagedPositions()) return;
       SetState(STATE_CLOSED_PROFIT, "Max levels residual Far closed because reserve covered loss");
       return;
    }
@@ -2048,6 +2068,7 @@ void ProcessMaxLevelsDecision()
          return;
       }
       ClearFarContext("STOP_MAX_LEVELS_CLOSE_FAR confirmed by VerifyFullClose");
+      if(!ValidateNoOrphanManagedPositions()) return;
       SetState(STATE_STOP_MAX_LEVELS, "MaxHarvestLevels reached; residual Far closed by STOP_MAX_LEVELS_CLOSE_FAR");
       return;
    }

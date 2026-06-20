@@ -514,3 +514,9 @@ The actual-volume rule is now applied to all partial-close paths, not only Small
 ## V2.4.12 P0 Audit: Full Close Integrity
 
 Full-close completion is now based only on actual terminal volume and `VolumeMismatchToleranceLots`. Min-lot checks are not used as close-complete criteria. The FSM blocks `STATE_CLOSED_PROFIT` when leg context or managed positions remain, and reconciliation raises `CONTEXT_CLEARED_WITH_LIVE_POSITION` if context was cleared while MT5 still has live managed positions.
+
+## V2.4.13 P0 Audit: Reconciliation Integrity / Orphan Positions
+
+The reconciliation engine now verifies that every managed MT5 position belongs to the active RecoveryContext or a pending/retry close operation. `ValidateNoOrphanManagedPositions()` scans by Symbol and MagicNumber, compares ticket and `POSITION_IDENTIFIER` against Far/Big/Small plus pending/retry tickets, and treats any unmanaged live position as a structural recovery mismatch.
+
+This closes the gap where only a completely empty context was compared against `CountManagedOpenPositions()`. A cleared Far with live Big/Small context now still detects the lost Far as `ORPHAN_MANAGED_POSITION` instead of waiting for a later volume mismatch or allowing the FSM to continue.

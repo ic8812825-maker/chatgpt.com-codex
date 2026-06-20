@@ -4,5 +4,5 @@ recon = (root / "Include" / "ReconciliationEngine.mqh").read_text()
 periodic = recon[recon.index("void RunPeriodicReconciliation") :]
 assert "if(State == STATE_RECOVERY_MISMATCH)" in periodic
 assert "RECONCILIATION REPEAT WARNING" in periodic
-assert periodic.index("if(State == STATE_RECOVERY_MISMATCH)") < periodic.index("RunReconciliation();")
+assert periodic.index("if(State == STATE_RECOVERY_MISMATCH)") < periodic.index("RunReconciliation()")
 print("RECONCILIATION_STOPS_AFTER_FATAL_ERROR_CHECK PASS")

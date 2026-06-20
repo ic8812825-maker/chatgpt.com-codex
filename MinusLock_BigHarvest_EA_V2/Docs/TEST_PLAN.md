@@ -352,3 +352,15 @@ Run all Python checks, including:
 - `context_cleared_with_live_position_check.py`
 
 MT5 Strategy Tester must confirm that full closes never clear Far context while `POSITION_VOLUME > VolumeMismatchToleranceLots`, and that no false `STATE_CLOSED_PROFIT` occurs with residual managed positions.
+
+## V2.4.13 Orphan Position Protection Tests
+
+Static tests added:
+
+- `orphan_position_detection_check.py` verifies `ValidateNoOrphanManagedPositions()` and required orphan diagnostics.
+- `orphan_position_recovery_mismatch_check.py` verifies orphan detection forces `STATE_RECOVERY_MISMATCH`.
+- `orphan_position_identifier_check.py` verifies `POSITION_IDENTIFIER` is used for ownership matching.
+- `orphan_position_after_close_check.py` verifies close paths invoke orphan checks without waiting for the periodic interval.
+- `orphan_position_after_recover_check.py` verifies startup/recovery paths call orphan validation after `RecoverState()`.
+
+MT5 acceptance test remains USDJPY M30 2026.04.01–2026.06.17 Every Tick with the baseline BigHarvest parameters. Experts log must contain no `ORPHAN_MANAGED_POSITION` during normal operation.

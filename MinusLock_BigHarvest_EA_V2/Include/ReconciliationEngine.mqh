@@ -180,6 +180,103 @@ bool ValidateReverseCyclesFromHistory()
    return true;
 }
 
+
+bool IsManagedPositionKnownToContext(ulong ticket, ulong identifier)
+{
+   if(ticket != 0)
+   {
+      if(ticket == Ctx.farTicket || ticket == Ctx.bigTicket || ticket == Ctx.smallTicket)
+         return true;
+      if(ticket == Ctx.pendingTicket || ticket == Ctx.retryTicket)
+         return true;
+   }
+
+   if(identifier != 0)
+   {
+      if(identifier == Ctx.farIdentifier || identifier == Ctx.bigIdentifier || identifier == Ctx.smallIdentifier)
+         return true;
+   }
+
+   return false;
+}
+
+string ClassifyOrphanManagedPosition(ulong ticket, ulong identifier, string comment)
+{
+   if(ticket == Ctx.pendingTicket)
+      return "ORPHAN_PENDING";
+   if(ticket == Ctx.retryTicket)
+      return "ORPHAN_RETRY";
+   if(StringFind(comment, "FAR") >= 0 || StringFind(comment, "Far") >= 0)
+      return "ORPHAN_FAR";
+   if(StringFind(comment, "BIG") >= 0 || StringFind(comment, "Big") >= 0)
+      return "ORPHAN_BIG";
+   if(StringFind(comment, "SMALL") >= 0 || StringFind(comment, "Small") >= 0)
+      return "ORPHAN_SMALL";
+   if(identifier == Ctx.farIdentifier)
+      return "ORPHAN_FAR";
+   if(identifier == Ctx.bigIdentifier)
+      return "ORPHAN_BIG";
+   if(identifier == Ctx.smallIdentifier)
+      return "ORPHAN_SMALL";
+   return "ORPHAN_MANAGED_POSITION";
+}
+
+bool ValidateNoOrphanManagedPositions()
+{
+   bool ok = true;
+
+   if(IsInternalSimulationMode())
+   {
+      for(int i = 0; i < ArraySize(SimPositions); i++)
+      {
+         if(!SimPositions[i].exists || SimPositions[i].lot <= VolumeMismatchToleranceLots)
+            continue;
+
+         ulong ticket = SimPositions[i].ticket;
+         ulong identifier = SimPositions[i].identifier;
+         if(IsManagedPositionKnownToContext(ticket, identifier))
+            continue;
+
+         string orphanType = ClassifyOrphanManagedPosition(ticket, identifier, SimPositions[i].comment);
+         LogError(StringFormat("ORPHAN_MANAGED_POSITION DETECTED Type=%s Ticket=%I64u Identifier=%I64u Volume=%.2f Direction=%s Comment=%s", orphanType, ticket, identifier, SimPositions[i].lot, DirectionToString(SimPositions[i].direction), SimPositions[i].comment));
+         ok = false;
+      }
+   }
+   else
+   {
+      for(int i = PositionsTotal() - 1; i >= 0; i--)
+      {
+         ulong ticket = PositionGetTicket(i);
+         if(ticket == 0 || !PositionSelectByTicket(ticket))
+            continue;
+
+         if(PositionGetString(POSITION_SYMBOL) != _Symbol)
+            continue;
+         if((ulong)PositionGetInteger(POSITION_MAGIC) != MagicNumber)
+            continue;
+
+         ulong identifier = (ulong)PositionGetInteger(POSITION_IDENTIFIER);
+         double volume = NormalizeVolumeToStep(PositionGetDouble(POSITION_VOLUME));
+         Direction direction = PositionTypeToDirection(PositionGetInteger(POSITION_TYPE));
+         string comment = PositionGetString(POSITION_COMMENT);
+
+         if(volume <= VolumeMismatchToleranceLots)
+            continue;
+         if(IsManagedPositionKnownToContext(ticket, identifier))
+            continue;
+
+         string orphanType = ClassifyOrphanManagedPosition(ticket, identifier, comment);
+         LogError(StringFormat("ORPHAN_MANAGED_POSITION DETECTED Type=%s Ticket=%I64u Identifier=%I64u Volume=%.2f Direction=%s Comment=%s", orphanType, ticket, identifier, volume, DirectionToString(direction), comment));
+         ok = false;
+      }
+   }
+
+   if(!ok)
+      SetState(STATE_RECOVERY_MISMATCH, "ORPHAN_MANAGED_POSITION detected by ValidateNoOrphanManagedPositions");
+
+   return ok;
+}
+
 bool RunReconciliation()
 {
    bool ok = true;
@@ -188,6 +285,7 @@ bool RunReconciliation()
       LogError(StringFormat("CONTEXT_CLEARED_WITH_LIVE_POSITION State=%s ManagedPositions=%d", StateToString(State), CountManagedOpenPositions()));
       ok = false;
    }
+   ok = ValidateNoOrphanManagedPositions() && ok;
    ok = ValidateFarPosition() && ok;
    ok = ValidateBigPosition() && ok;
    ok = ValidateSmallPosition() && ok;
@@ -236,7 +334,8 @@ void RunPeriodicReconciliation()
       return;
 
    LastReconciliationTime = now;
-   RunReconciliation();
+   if(RunReconciliation())
+      ValidateNoOrphanManagedPositions();
 }
 
 #endif // __BH_RECONCILIATIONENGINE_MQH__

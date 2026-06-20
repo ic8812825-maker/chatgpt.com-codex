@@ -150,6 +150,8 @@ int OnInit()
       ResetRecoveryContext();
       State = STATE_IDLE;
    }
+   else if(!ValidateNoOrphanManagedPositions())
+      return INIT_FAILED;
    else if(!RunReconciliation())
       return INIT_FAILED;
 

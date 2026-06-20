@@ -115,3 +115,9 @@ V2.4.5 updates:
 - Full Far close paths now verify zero actual terminal volume before `ClearFarContext()`; otherwise they log `FULL_CLOSE_INCOMPLETE` and keep/re-enter retry pending.
 - `STATE_CLOSED_PROFIT` now checks managed positions, leg context, and `VerifyFullClose()` for non-zero leg tickets before allowing terminal profit state.
 - Reconciliation now logs `CONTEXT_CLEARED_WITH_LIVE_POSITION` and routes to `STATE_RECOVERY_MISMATCH` when context says all legs are gone but managed MT5 positions still exist.
+
+## V2.4.13 P0 Reconciliation Integrity: Orphan Position Protection
+
+- Added `ValidateNoOrphanManagedPositions()` to scan all managed MT5 positions by MagicNumber/Symbol and require ownership by Far, Big, Small, pending ticket, retry ticket, or stored position identifier.
+- Orphan positions now log `ORPHAN_MANAGED_POSITION DETECTED` with ticket, identifier, volume, direction, and comment, then force `STATE_RECOVERY_MISMATCH`.
+- The orphan guard runs after close paths, after `RecoverState()`, and during/after reconciliation so partial context loss cannot hide live managed exposure.

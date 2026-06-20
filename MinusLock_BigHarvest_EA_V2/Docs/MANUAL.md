@@ -670,3 +670,11 @@ This rule now covers BigHarvest Far budget closes, Small Reverse Big partial clo
 A full close is complete only when actual terminal volume is less than or equal to `VolumeMismatchToleranceLots`. Broker minimum lot, `SYMBOL_VOLUME_MIN`, and `LotStep` are not valid criteria for clearing context because a min-lot residue can still be a live position.
 
 `VerifyFullClose()` reads `POSITION_VOLUME`, logs `ExpectedVolume=0`, `ActualVolume`, and `Difference`, and returns success only when the position is truly absent within volume tolerance. FinalClose, MaxLevels final close, StopMaxLevels close, and full-close retry paths use this helper before calling `ClearFarContext()`. Reconciliation also detects `CONTEXT_CLEARED_WITH_LIVE_POSITION` if context has been cleared while MT5 still has managed positions.
+
+## V2.4.13 Orphan Position Protection
+
+An orphan position is a managed MT5 position with the EA MagicNumber and Symbol that is not owned by the current RecoveryContext. It is dangerous because the EA may continue managing Big/Small while a cleared Far or other live exposure remains in the terminal.
+
+`ValidateNoOrphanManagedPositions()` scans live positions, reads ticket, `POSITION_IDENTIFIER`, volume, direction, and comment, and accepts a position only when it matches Far/Big/Small context, pending close ticket, retry ticket, or the stored leg identifier. Ticket checks alone are not enough after broker/server history transitions; the identifier remains the stable MT5 position identity used for recovery.
+
+If an orphan is detected, the EA logs `ORPHAN_MANAGED_POSITION DETECTED` plus `ORPHAN_FAR`, `ORPHAN_BIG`, `ORPHAN_SMALL`, `ORPHAN_PENDING`, or `ORPHAN_RETRY` classification where possible, then moves to `STATE_RECOVERY_MISMATCH`. The guard runs after close operations, after state recovery, and during reconciliation.
