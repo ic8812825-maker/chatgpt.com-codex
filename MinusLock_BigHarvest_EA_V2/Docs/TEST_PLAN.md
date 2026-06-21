@@ -364,3 +364,15 @@ Static tests added:
 - `orphan_position_after_recover_check.py` verifies startup/recovery paths call orphan validation after `RecoverState()`.
 
 MT5 acceptance test remains USDJPY M30 2026.04.01–2026.06.17 Every Tick with the baseline BigHarvest parameters. Experts log must contain no `ORPHAN_MANAGED_POSITION` during normal operation.
+
+## V2.4.15 Initial Lock Recovery Tests
+
+Static tests added:
+
+- `initial_lock_context_fields_check.py` verifies Initial Lock fields in `RecoveryContext`.
+- `initial_lock_save_restore_check.py` verifies Initial Lock persistence and recovery registration tokens.
+- `initial_lock_orphan_protection_check.py` verifies Initial legs are known to orphan protection by ticket and identifier.
+- `initial_lock_reconciliation_check.py` verifies `ValidateInitialLockIntegrity()` diagnostics.
+- `initial_lock_state_consistency_check.py` verifies state-aware position consistency validation.
+
+Manual MT5 scenarios to repeat: restart while both initial legs are open, restart after one initial leg is closed and the remaining leg is Far, and restart during Initial-plus conversion. Expected result: no false `ORPHAN_MANAGED_POSITION`, no false `STATE_RECOVERY_MISMATCH`, and no duplicate Far.

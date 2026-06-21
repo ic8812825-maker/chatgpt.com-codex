@@ -185,7 +185,8 @@ bool IsManagedPositionKnownToContext(ulong ticket, ulong identifier)
 {
    if(ticket != 0)
    {
-      if(ticket == Ctx.farTicket || ticket == Ctx.bigTicket || ticket == Ctx.smallTicket)
+      if(ticket == Ctx.farTicket || ticket == Ctx.bigTicket || ticket == Ctx.smallTicket ||
+         ticket == Ctx.initialBuyTicket || ticket == Ctx.initialSellTicket)
          return true;
       if(ticket == Ctx.pendingTicket || ticket == Ctx.retryTicket)
          return true;
@@ -193,7 +194,8 @@ bool IsManagedPositionKnownToContext(ulong ticket, ulong identifier)
 
    if(identifier != 0)
    {
-      if(identifier == Ctx.farIdentifier || identifier == Ctx.bigIdentifier || identifier == Ctx.smallIdentifier)
+      if(identifier == Ctx.farIdentifier || identifier == Ctx.bigIdentifier || identifier == Ctx.smallIdentifier ||
+         identifier == Ctx.initialBuyIdentifier || identifier == Ctx.initialSellIdentifier)
          return true;
    }
 
@@ -219,6 +221,114 @@ string ClassifyOrphanManagedPosition(ulong ticket, ulong identifier, string comm
    if(identifier == Ctx.smallIdentifier)
       return "ORPHAN_SMALL";
    return "ORPHAN_MANAGED_POSITION";
+}
+
+
+bool ValidateInitialLockLeg(string legName, ulong &ticket, ulong &identifier, double &lot, double &openPrice, string comment, Direction expectedDirection)
+{
+   PositionSnapshot snapshot;
+   bool found = GetManagedPositionByTicket(ticket, snapshot);
+   if(!found)
+      found = GetManagedPositionByComment(comment, snapshot);
+
+   if(!found)
+   {
+      LogError(StringFormat("INITIAL_LOCK_TICKET_MISMATCH Leg=%s Ticket=%I64u Comment=%s", legName, ticket, comment));
+      return false;
+   }
+
+   if(expectedDirection != DIR_NONE && snapshot.direction != expectedDirection)
+   {
+      LogError(StringFormat("INITIAL_LOCK_STATE_INVALID Leg=%s Direction=%s Expected=%s", legName, DirectionToString(snapshot.direction), DirectionToString(expectedDirection)));
+      return false;
+   }
+
+   if(identifier != 0 && snapshot.identifier != identifier)
+   {
+      LogError(StringFormat("INITIAL_LOCK_IDENTIFIER_MISMATCH Leg=%s SavedIdentifier=%I64u ActualIdentifier=%I64u Ticket=%I64u", legName, identifier, snapshot.identifier, snapshot.ticket));
+      return false;
+   }
+
+   double actualVolume = GetActualPositionVolume(snapshot.ticket);
+   if(actualVolume <= 0.0)
+      actualVolume = snapshot.lot;
+   if(MathAbs(NormalizeVolumeToStep(lot) - NormalizeVolumeToStep(actualVolume)) > VolumeMismatchToleranceLots)
+   {
+      LogError(StringFormat("INITIAL_LOCK_STATE_INVALID Leg=%s SavedVolume=%.2f ActualVolume=%.2f", legName, lot, actualVolume));
+      return false;
+   }
+
+   ticket = snapshot.ticket;
+   identifier = snapshot.identifier;
+   lot = NormalizeVolumeToStep(actualVolume);
+   openPrice = snapshot.openPrice;
+   LogInfo(StringFormat("INITIAL_LOCK_STATE_VALID Leg=%s Ticket=%I64u Identifier=%I64u Lot=%.2f OpenPrice=%.5f", legName, ticket, identifier, lot, openPrice));
+   return true;
+}
+
+bool ValidateInitialLockIntegrity()
+{
+   bool hasInitialContext = (Ctx.initialBuyTicket != 0 || Ctx.initialSellTicket != 0 ||
+                             Ctx.initialBuyIdentifier != 0 || Ctx.initialSellIdentifier != 0 ||
+                             Ctx.initialBuyLot > VolumeMismatchToleranceLots || Ctx.initialSellLot > VolumeMismatchToleranceLots ||
+                             State == STATE_INITIAL_LOCK_OPENED);
+   if(!hasInitialContext)
+      return true;
+
+   bool ok = true;
+   ok = ValidateInitialLockLeg("INITIAL_BUY", Ctx.initialBuyTicket, Ctx.initialBuyIdentifier, Ctx.initialBuyLot, Ctx.initialBuyOpenPrice, "MinusLock_INITIAL_BUY", DIR_BUY) && ok;
+   ok = ValidateInitialLockLeg("INITIAL_SELL", Ctx.initialSellTicket, Ctx.initialSellIdentifier, Ctx.initialSellLot, Ctx.initialSellOpenPrice, "MinusLock_INITIAL_SELL", DIR_SELL) && ok;
+
+   if(ok)
+   {
+      Ctx.initialLockRecovered = true;
+      LogInfo(StringFormat("INITIAL_LOCK_RECOVERED BuyTicket=%I64u SellTicket=%I64u", Ctx.initialBuyTicket, Ctx.initialSellTicket));
+      SaveState();
+   }
+   else
+      SetState(STATE_RECOVERY_MISMATCH, "INITIAL_LOCK_STATE_INVALID");
+
+   return ok;
+}
+
+bool ValidateStatePositionConsistency()
+{
+   if(State == STATE_INITIAL_LOCK_OPENED)
+   {
+      bool valid = (Ctx.initialBuyTicket != 0 && Ctx.initialSellTicket != 0 &&
+                    Ctx.farTicket == 0 && Ctx.bigTicket == 0 && Ctx.smallTicket == 0);
+      if(!valid)
+      {
+         LogError(StringFormat("INITIAL_LOCK_STATE_INVALID State=%s InitialBuyTicket=%I64u InitialSellTicket=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u", StateToString(State), Ctx.initialBuyTicket, Ctx.initialSellTicket, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket));
+         SetState(STATE_RECOVERY_MISMATCH, "INITIAL_LOCK_STATE_INVALID");
+         return false;
+      }
+      LogInfo("INITIAL_LOCK_STATE_VALID State=STATE_INITIAL_LOCK_OPENED");
+      return ValidateInitialLockIntegrity();
+   }
+
+   if(State == STATE_FAR_ACTIVE)
+   {
+      if(Ctx.initialBuyTicket != 0 || Ctx.initialSellTicket != 0 || Ctx.farTicket == 0 || Ctx.bigTicket != 0 || Ctx.smallTicket != 0)
+      {
+         LogError(StringFormat("INITIAL_LOCK_STATE_INVALID State=%s InitialBuyTicket=%I64u InitialSellTicket=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u", StateToString(State), Ctx.initialBuyTicket, Ctx.initialSellTicket, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket));
+         SetState(STATE_RECOVERY_MISMATCH, "STATE_FAR_ACTIVE position consistency invalid");
+         return false;
+      }
+      return true;
+   }
+
+   if(State == STATE_BIG_SMALL_OPENED || State == STATE_BIG_HARVEST || State == STATE_SMALL_SCENARIO || State == STATE_WAIT_SMALL_TO_FAR)
+   {
+      if(Ctx.initialBuyTicket != 0 || Ctx.initialSellTicket != 0 || Ctx.farTicket == 0 || Ctx.bigTicket == 0 || Ctx.smallTicket == 0)
+      {
+         LogError(StringFormat("INITIAL_LOCK_STATE_INVALID State=%s InitialBuyTicket=%I64u InitialSellTicket=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u", StateToString(State), Ctx.initialBuyTicket, Ctx.initialSellTicket, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket));
+         SetState(STATE_RECOVERY_MISMATCH, "Big/Small state position consistency invalid");
+         return false;
+      }
+   }
+
+   return true;
 }
 
 bool ValidateNoOrphanManagedPositions()
@@ -285,6 +395,8 @@ bool RunReconciliation()
       LogError(StringFormat("CONTEXT_CLEARED_WITH_LIVE_POSITION State=%s ManagedPositions=%d", StateToString(State), CountManagedOpenPositions()));
       ok = false;
    }
+   ok = ValidateInitialLockIntegrity() && ok;
+   ok = ValidateStatePositionConsistency() && ok;
    ok = ValidateNoOrphanManagedPositions() && ok;
    ok = ValidateFarPosition() && ok;
    ok = ValidateBigPosition() && ok;

@@ -81,6 +81,7 @@ double RebuildReserveFromLedger()
 
 
 bool ValidateNoOrphanManagedPositions();
+bool ValidateStatePositionConsistency();
 
 void SetState(EAState nextState, string reason)
 {
@@ -132,6 +133,15 @@ void SaveState()
    GlobalVariableSet(StateKey("SmallLot"), Ctx.smallLot);
    GlobalVariableSet(StateKey("SmallOpenPrice"), Ctx.smallOpenPrice);
    GlobalVariableSet(StateKey("SmallDirection"), (double)Ctx.smallDirection);
+   GlobalVariableSet(StateKey("InitialBuyTicket"), (double)Ctx.initialBuyTicket);
+   GlobalVariableSet(StateKey("InitialSellTicket"), (double)Ctx.initialSellTicket);
+   GlobalVariableSet(StateKey("InitialBuyIdentifier"), (double)Ctx.initialBuyIdentifier);
+   GlobalVariableSet(StateKey("InitialSellIdentifier"), (double)Ctx.initialSellIdentifier);
+   GlobalVariableSet(StateKey("InitialBuyLot"), Ctx.initialBuyLot);
+   GlobalVariableSet(StateKey("InitialSellLot"), Ctx.initialSellLot);
+   GlobalVariableSet(StateKey("InitialBuyOpenPrice"), Ctx.initialBuyOpenPrice);
+   GlobalVariableSet(StateKey("InitialSellOpenPrice"), Ctx.initialSellOpenPrice);
+   GlobalVariableSet(StateKey("InitialLockRecovered"), Ctx.initialLockRecovered ? 1.0 : 0.0);
    GlobalVariableSet(StateKey("HarvestLevel"), (double)Ctx.harvestLevel);
    GlobalVariableSet(StateKey("ReverseCycles"), (double)Ctx.reverseCycleCount);
    GlobalVariableSet(StateKey("TotalReserve"), Ctx.totalReserve);
@@ -231,7 +241,9 @@ bool VerifyFullClose(ulong ticket, string operationName)
 
 bool HasOpenLegContext()
 {
-   return (Ctx.farTicket != 0 || Ctx.farLot > VolumeMismatchToleranceLots || Ctx.farDirection != DIR_NONE ||
+   return (Ctx.initialBuyTicket != 0 || Ctx.initialBuyLot > VolumeMismatchToleranceLots ||
+           Ctx.initialSellTicket != 0 || Ctx.initialSellLot > VolumeMismatchToleranceLots ||
+           Ctx.farTicket != 0 || Ctx.farLot > VolumeMismatchToleranceLots || Ctx.farDirection != DIR_NONE ||
            Ctx.bigTicket != 0 || Ctx.bigLot > VolumeMismatchToleranceLots || Ctx.bigDirection != DIR_NONE ||
            Ctx.smallTicket != 0 || Ctx.smallLot > VolumeMismatchToleranceLots || Ctx.smallDirection != DIR_NONE);
 }
@@ -266,6 +278,61 @@ void ClearSmallContext(string reason)
    Ctx.smallLot = 0.0;
    Ctx.smallDirection = DIR_NONE;
    Ctx.smallOpenPrice = 0.0;
+   SaveState();
+}
+
+void RegisterInitialLockFromSnapshots(PositionSnapshot &initialBuy, PositionSnapshot &initialSell, string reason)
+{
+   Ctx.initialBuyTicket = initialBuy.ticket;
+   Ctx.initialSellTicket = initialSell.ticket;
+   Ctx.initialBuyIdentifier = initialBuy.identifier;
+   Ctx.initialSellIdentifier = initialSell.identifier;
+   Ctx.initialBuyLot = NormalizeVolumeToStep(initialBuy.lot);
+   Ctx.initialSellLot = NormalizeVolumeToStep(initialSell.lot);
+   Ctx.initialBuyOpenPrice = initialBuy.openPrice;
+   Ctx.initialSellOpenPrice = initialSell.openPrice;
+   Ctx.initialLockRecovered = true;
+   LogInfo(StringFormat("INITIAL_LOCK_REGISTERED Reason=%s BuyTicket=%I64u BuyIdentifier=%I64u BuyLot=%.2f BuyOpenPrice=%.5f SellTicket=%I64u SellIdentifier=%I64u SellLot=%.2f SellOpenPrice=%.5f",
+                        reason,
+                        Ctx.initialBuyTicket,
+                        Ctx.initialBuyIdentifier,
+                        Ctx.initialBuyLot,
+                        Ctx.initialBuyOpenPrice,
+                        Ctx.initialSellTicket,
+                        Ctx.initialSellIdentifier,
+                        Ctx.initialSellLot,
+                        Ctx.initialSellOpenPrice));
+   SaveState();
+}
+
+void ClearInitialLockContext(string reason)
+{
+   LogInfo("CLEAR_INITIAL_LOCK_CONTEXT " + reason);
+   Ctx.initialBuyTicket = 0;
+   Ctx.initialSellTicket = 0;
+   Ctx.initialBuyIdentifier = 0;
+   Ctx.initialSellIdentifier = 0;
+   Ctx.initialBuyLot = 0.0;
+   Ctx.initialSellLot = 0.0;
+   Ctx.initialBuyOpenPrice = 0.0;
+   Ctx.initialSellOpenPrice = 0.0;
+   Ctx.initialLockRecovered = false;
+   SaveState();
+}
+
+void ConvertInitialLockToFar(PositionSnapshot &remainingFar, PositionSnapshot &closedInitial, string reason)
+{
+   UpdateFarFromSnapshot(remainingFar);
+   ClearInitialLockContext(reason);
+   Ctx.initialLockRecovered = false;
+   LogInfo(StringFormat("INITIAL_LOCK_CONVERTED_TO_FAR Reason=%s ClosedTicket=%I64u ClosedIdentifier=%I64u FarTicket=%I64u FarIdentifier=%I64u FarDirection=%s FarLot=%.2f",
+                        reason,
+                        closedInitial.ticket,
+                        closedInitial.identifier,
+                        Ctx.farTicket,
+                        Ctx.farIdentifier,
+                        DirectionToString(Ctx.farDirection),
+                        Ctx.farLot));
    SaveState();
 }
 
@@ -383,6 +450,15 @@ bool RecoverState()
    Ctx.smallLot = GlobalVariableGet(StateKey("SmallLot"));
    Ctx.smallOpenPrice = GlobalVariableGet(StateKey("SmallOpenPrice"));
    Ctx.smallDirection = (Direction)(int)GlobalVariableGet(StateKey("SmallDirection"));
+   if(GetStateDouble("InitialBuyTicket", saved)) Ctx.initialBuyTicket = (ulong)saved;
+   if(GetStateDouble("InitialSellTicket", saved)) Ctx.initialSellTicket = (ulong)saved;
+   if(GetStateDouble("InitialBuyIdentifier", saved)) Ctx.initialBuyIdentifier = (ulong)saved;
+   if(GetStateDouble("InitialSellIdentifier", saved)) Ctx.initialSellIdentifier = (ulong)saved;
+   if(GetStateDouble("InitialBuyLot", saved)) Ctx.initialBuyLot = saved;
+   if(GetStateDouble("InitialSellLot", saved)) Ctx.initialSellLot = saved;
+   if(GetStateDouble("InitialBuyOpenPrice", saved)) Ctx.initialBuyOpenPrice = saved;
+   if(GetStateDouble("InitialSellOpenPrice", saved)) Ctx.initialSellOpenPrice = saved;
+   if(GetStateDouble("InitialLockRecovered", saved)) Ctx.initialLockRecovered = (saved > 0.5);
    Ctx.harvestLevel = (int)GlobalVariableGet(StateKey("HarvestLevel"));
    Ctx.reverseCycleCount = (int)GlobalVariableGet(StateKey("ReverseCycles"));
    Ctx.totalReserve = GlobalVariableGet(StateKey("TotalReserve"));
@@ -456,12 +532,38 @@ bool RecoverState()
    if(GetStateDouble("ProjectedReserveCoverage", saved)) Ctx.projectedReserveCoverage = saved;
    if(GetStateDouble("ReverseStrength", saved)) Ctx.reverseStrength = saved;
 
+   PositionSnapshot recoveredInitialBuy;
+   PositionSnapshot recoveredInitialSell;
+   bool recoveredHasInitialBuy = GetInitialBuy(recoveredInitialBuy);
+   bool recoveredHasInitialSell = GetInitialSell(recoveredInitialSell);
+   if(recoveredHasInitialBuy && recoveredHasInitialSell)
+   {
+      RegisterInitialLockFromSnapshots(recoveredInitialBuy, recoveredInitialSell, "RecoverState");
+      State = STATE_INITIAL_LOCK_OPENED;
+      Ctx.initialLockRecovered = true;
+      LogInfo(StringFormat("INITIAL_LOCK_RECOVERED BuyTicket=%I64u SellTicket=%I64u", Ctx.initialBuyTicket, Ctx.initialSellTicket));
+   }
+   else if(State == STATE_INITIAL_LOCK_OPENED && (recoveredHasInitialBuy || recoveredHasInitialSell))
+   {
+      PositionSnapshot remainingInitial = recoveredHasInitialBuy ? recoveredInitialBuy : recoveredInitialSell;
+      PositionSnapshot missingInitial;
+      missingInitial.ticket = recoveredHasInitialBuy ? Ctx.initialSellTicket : Ctx.initialBuyTicket;
+      missingInitial.identifier = recoveredHasInitialBuy ? Ctx.initialSellIdentifier : Ctx.initialBuyIdentifier;
+      UpdateFarFromSnapshot(remainingInitial);
+      ClearInitialLockContext("RecoverState partial initial lock converted to Far");
+      Ctx.initialProfitIgnored = true;
+      Ctx.initialFarDistancePoints = InitialTriggerPoints;
+      State = STATE_FAR_ACTIVE;
+      LogInfo(StringFormat("INITIAL_LOCK_CONVERTED_TO_FAR Reason=RecoverStatePartial RemainingTicket=%I64u FarTicket=%I64u", remainingInitial.ticket, Ctx.farTicket));
+   }
+
    int managed = CountManagedOpenPositions();
    bool reconcileOk = true;
    if(managed > 0)
    {
       LogManagedPositionsForRecovery();
-      reconcileOk = ReconcileRecoveredPosition("Far", "", Ctx.farTicket, Ctx.farLot, Ctx.farOpenPrice, Ctx.farDirection);
+      if(State != STATE_INITIAL_LOCK_OPENED)
+         reconcileOk = ReconcileRecoveredPosition("Far", "", Ctx.farTicket, Ctx.farLot, Ctx.farOpenPrice, Ctx.farDirection);
       if(Ctx.harvestLevel > 0)
       {
          string bigComment = LevelComment("BIG", Ctx.harvestLevel);
@@ -499,6 +601,10 @@ void ResetRecoveryContext()
    Ctx.farIdentifier = 0;
    Ctx.bigIdentifier = 0;
    Ctx.smallIdentifier = 0;
+   Ctx.initialBuyTicket = 0;
+   Ctx.initialSellTicket = 0;
+   Ctx.initialBuyIdentifier = 0;
+   Ctx.initialSellIdentifier = 0;
 
    Ctx.farLot = 0.0;
    Ctx.bigLot = 0.0;
@@ -507,6 +613,10 @@ void ResetRecoveryContext()
    Ctx.farOpenPrice = 0.0;
    Ctx.bigOpenPrice = 0.0;
    Ctx.smallOpenPrice = 0.0;
+   Ctx.initialBuyLot = 0.0;
+   Ctx.initialSellLot = 0.0;
+   Ctx.initialBuyOpenPrice = 0.0;
+   Ctx.initialSellOpenPrice = 0.0;
 
    Ctx.farDirection = DIR_NONE;
    Ctx.bigDirection = DIR_NONE;
@@ -519,6 +629,7 @@ void ResetRecoveryContext()
    Ctx.cycleFinalPL = 0.0;
 
    Ctx.initialProfitIgnored = false;
+   Ctx.initialLockRecovered = false;
    Ctx.finalCloseAllowed = false;
    Ctx.dualTailDetected = false;
 
@@ -946,6 +1057,7 @@ void OpenInitialLock()
       Print("BuyTicket=", initialBuy.ticket);
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
+      RegisterInitialLockFromSnapshots(initialBuy, initialSell, "existing initial BUY/SELL lock found");
       SetState(STATE_INITIAL_LOCK_OPENED, "existing initial BUY/SELL lock found");
       return;
    }
@@ -1025,6 +1137,7 @@ void OpenInitialLock()
       Print("BuyTicket=", initialBuy.ticket);
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
+      RegisterInitialLockFromSnapshots(initialBuy, initialSell, "initial lock opened");
    }
    else
    {
@@ -1064,7 +1177,7 @@ void CheckInitialPlusClose()
          return;
       }
 
-      UpdateFarFromSnapshot(initialSell);
+      ConvertInitialLockToFar(initialSell, initialBuy, "INITIAL_BUY_CLOSED_SELL_TO_FAR");
       Ctx.initialProfitIgnored = true;
       Ctx.initialIgnoredProfit = initialBuy.profitMoney;
       Ctx.totalReserve = 0.0;
@@ -1095,7 +1208,7 @@ void CheckInitialPlusClose()
          return;
       }
 
-      UpdateFarFromSnapshot(initialBuy);
+      ConvertInitialLockToFar(initialBuy, initialSell, "INITIAL_SELL_CLOSED_BUY_TO_FAR");
       Ctx.initialProfitIgnored = true;
       Ctx.initialIgnoredProfit = initialSell.profitMoney;
       Ctx.totalReserve = 0.0;
@@ -1517,6 +1630,8 @@ void ProcessRecoveryPending()
    if(RecoverState())
    {
       if(!ValidateNoOrphanManagedPositions())
+         return;
+      if(!ValidateStatePositionConsistency())
          return;
       if(State == STATE_RECOVERY_PENDING)
       {

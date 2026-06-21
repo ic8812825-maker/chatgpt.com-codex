@@ -152,6 +152,8 @@ int OnInit()
    }
    else if(!ValidateNoOrphanManagedPositions())
       return INIT_FAILED;
+   else if(!ValidateStatePositionConsistency())
+      return INIT_FAILED;
    else if(!RunReconciliation())
       return INIT_FAILED;
 

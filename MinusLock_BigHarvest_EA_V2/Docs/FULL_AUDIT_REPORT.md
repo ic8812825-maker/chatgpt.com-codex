@@ -520,3 +520,9 @@ Full-close completion is now based only on actual terminal volume and `VolumeMis
 The reconciliation engine now verifies that every managed MT5 position belongs to the active RecoveryContext or a pending/retry close operation. `ValidateNoOrphanManagedPositions()` scans by Symbol and MagicNumber, compares ticket and `POSITION_IDENTIFIER` against Far/Big/Small plus pending/retry tickets, and treats any unmanaged live position as a structural recovery mismatch.
 
 This closes the gap where only a completely empty context was compared against `CountManagedOpenPositions()`. A cleared Far with live Big/Small context now still detects the lost Far as `ORPHAN_MANAGED_POSITION` instead of waiting for a later volume mismatch or allowing the FSM to continue.
+
+## V2.4.15 P0 Audit: Initial Lock Recovery Architecture
+
+Initial Lock is now integrated into the same recovery, reconciliation, and orphan-protection model as Far/Big/Small. The audit gap was that `MinusLock_INITIAL_BUY` and `MinusLock_INITIAL_SELL` were real managed positions during `STATE_INITIAL_LOCK_OPENED` but were not represented in `RecoveryContext`.
+
+The V2.4.15 fix adds Initial BUY/SELL context fields, registers them in `OpenInitialLock()`, persists/restores them through `SaveState()`/`RecoverState()`, validates them through `ValidateInitialLockIntegrity()`, and includes them in orphan ownership matching. When one initial leg closes, the remaining leg is explicitly converted to Far and Initial context is cleared with `INITIAL_LOCK_CONVERTED_TO_FAR` diagnostics.

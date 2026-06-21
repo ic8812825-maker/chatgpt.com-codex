@@ -678,3 +678,11 @@ An orphan position is a managed MT5 position with the EA MagicNumber and Symbol 
 `ValidateNoOrphanManagedPositions()` scans live positions, reads ticket, `POSITION_IDENTIFIER`, volume, direction, and comment, and accepts a position only when it matches Far/Big/Small context, pending close ticket, retry ticket, or the stored leg identifier. Ticket checks alone are not enough after broker/server history transitions; the identifier remains the stable MT5 position identity used for recovery.
 
 If an orphan is detected, the EA logs `ORPHAN_MANAGED_POSITION DETECTED` plus `ORPHAN_FAR`, `ORPHAN_BIG`, `ORPHAN_SMALL`, `ORPHAN_PENDING`, or `ORPHAN_RETRY` classification where possible, then moves to `STATE_RECOVERY_MISMATCH`. The guard runs after close operations, after state recovery, and during reconciliation.
+
+## V2.4.15 Initial Lock Recovery Architecture
+
+Initial Lock is now a first-class recovery object. The EA stores Initial BUY/SELL ticket, `POSITION_IDENTIFIER`, lot, and open price in `RecoveryContext` as soon as both `MinusLock_INITIAL_BUY` and `MinusLock_INITIAL_SELL` are present.
+
+On restart, `RecoverState()` can restore `STATE_INITIAL_LOCK_OPENED` when both initial legs are live. If restart happens after one initial leg was closed and the other became Far, the remaining leg is converted into Far context and Initial Lock context is cleared, preventing duplicated Far or orphan Initial positions.
+
+`ValidateInitialLockIntegrity()` checks both initial legs by ticket/comment, identifier, direction, and volume. `ValidateStatePositionConsistency()` makes `STATE_INITIAL_LOCK_OPENED` valid only for Initial BUY/SELL, `STATE_FAR_ACTIVE` valid for Far only, and Big/Small states valid only for Far/Big/Small plus pending/retry operations. Orphan protection now recognizes Initial BUY/SELL by ticket and identifier.

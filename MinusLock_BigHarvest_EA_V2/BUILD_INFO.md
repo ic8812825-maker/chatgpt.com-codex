@@ -121,3 +121,9 @@ V2.4.5 updates:
 - Added `ValidateNoOrphanManagedPositions()` to scan all managed MT5 positions by MagicNumber/Symbol and require ownership by Far, Big, Small, pending ticket, retry ticket, or stored position identifier.
 - Orphan positions now log `ORPHAN_MANAGED_POSITION DETECTED` with ticket, identifier, volume, direction, and comment, then force `STATE_RECOVERY_MISMATCH`.
 - The orphan guard runs after close paths, after `RecoverState()`, and during/after reconciliation so partial context loss cannot hide live managed exposure.
+
+## V2.4.15 P0 Initial Lock Recovery Architecture
+
+- Added Initial Lock legs to `RecoveryContext` with tickets, identifiers, lots, open prices, and `initialLockRecovered` diagnostics.
+- `OpenInitialLock()` registers Initial BUY/SELL context immediately; `RecoverState()` restores or rebuilds Initial Lock state after restart; `CheckInitialPlusClose()` converts the remaining Initial leg into Far and clears Initial context.
+- Reconciliation now includes `ValidateInitialLockIntegrity()` and `ValidateStatePositionConsistency()`, and orphan protection treats Initial BUY/SELL as owned managed positions.

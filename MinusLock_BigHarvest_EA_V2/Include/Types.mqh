@@ -131,6 +131,10 @@ struct RecoveryContext
    ulong farIdentifier;
    ulong bigIdentifier;
    ulong smallIdentifier;
+   ulong initialBuyTicket;
+   ulong initialSellTicket;
+   ulong initialBuyIdentifier;
+   ulong initialSellIdentifier;
 
    double farLot;
    double bigLot;
@@ -139,6 +143,10 @@ struct RecoveryContext
    double farOpenPrice;
    double bigOpenPrice;
    double smallOpenPrice;
+   double initialBuyLot;
+   double initialSellLot;
+   double initialBuyOpenPrice;
+   double initialSellOpenPrice;
 
    Direction farDirection;
    Direction bigDirection;
@@ -149,6 +157,7 @@ struct RecoveryContext
    double cycleFinalPL;
 
    bool initialProfitIgnored;
+   bool initialLockRecovered;
    bool finalCloseAllowed;
    bool dualTailDetected;
 
