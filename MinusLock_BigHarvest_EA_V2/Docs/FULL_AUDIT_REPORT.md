@@ -539,3 +539,10 @@ The remaining reconciliation risk was that broad states were validated but inter
 The validator logs `STATE_INTEGRITY_MATRIX` and either `STATE_INTEGRITY_PASS` or `STATE_INTEGRITY_FAIL`. Required legs are checked for ticket, identifier, direction and `POSITION_VOLUME` parity; forbidden legs raise `UNEXPECTED_POSITION_PRESENT`; missing required legs raise `EXPECTED_POSITION_MISSING`. Pending and retry phases raise `INVALID_PENDING_CONTEXT` or `INVALID_RETRY_CONTEXT` if their operation context is incomplete.
 
 On failure, execution is stopped in `STATE_INTEGRITY_ERROR`, making phase mismatches distinct from generic recovery mismatch and preventing unsafe continuation after restarts, partial execution, broker errors or VPS interruptions.
+
+## V2.4.18 Pending State Contract Architecture
+The V2.4.17 integrity engine could validate a pending state before the FSM had prepared the matching pending context. V2.4.18 fixes that by making Pending Context creation explicit and validated before each Pending transition.
+
+`PendingContractEngine.mqh` defines a State ↔ PendingAction matrix. `RetryOpenNewBig()` now prepares `PENDING_OPEN_SMALL` before `STATE_OPEN_NEW_SMALL_PENDING`, and `RetryOpenNewSmall()` clears pending context before returning to `STATE_BIG_SMALL_OPENED`. The integrity engine also calls `ValidatePendingStateContract()` so a pending state with the wrong action is rejected as `INVALID_PENDING_CONTRACT` / `STATE_ACTION_MISMATCH`.
+
+BigHarvest phase shape was tightened: `STATE_BIG_HARVEST_CLOSE_SMALL` forbids Big context, and `STATE_BIG_HARVEST_CALC_NET`, `STATE_BIG_HARVEST_CLOSE_FAR`, and `STATE_BIG_HARVEST_CHECK_FINAL` forbid both Big and Small context.

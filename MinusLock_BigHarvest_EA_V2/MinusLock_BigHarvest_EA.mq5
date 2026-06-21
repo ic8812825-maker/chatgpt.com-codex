@@ -12,6 +12,7 @@
 #include "Include/RecoveryMath.mqh"
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
+#include "Include/PendingContractEngine.mqh"
 #include "Include/StateIntegrityEngine.mqh"
 #include "Include/ReconciliationEngine.mqh"
 

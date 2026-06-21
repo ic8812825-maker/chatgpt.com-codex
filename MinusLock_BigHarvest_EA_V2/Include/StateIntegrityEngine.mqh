@@ -125,6 +125,7 @@ bool ValidatePendingStateIntegrity(EAState state)
       return true;
 
    bool ok = true;
+   ok = ValidatePendingStateContract(state) && ok;
    bool pendingOk = (Ctx.pendingActionType != PENDING_NONE &&
                      Ctx.pendingNextState != STATE_IDLE &&
                      Ctx.pendingOperationStartTime > 0);
@@ -256,6 +257,7 @@ void GetStateIntegrityShape(EAState state,
          requireFar = true;
          requireSmall = true;
          forbidInitial = true;
+         forbidBig = true;
          break;
 
       case STATE_BIG_HARVEST_CALC_NET:
@@ -263,6 +265,8 @@ void GetStateIntegrityShape(EAState state,
       case STATE_BIG_HARVEST_CHECK_FINAL:
          requireFar = true;
          forbidInitial = true;
+         forbidBig = true;
+         forbidSmall = true;
          break;
 
       case STATE_SMALL_CLOSE_OLD_FAR:
@@ -356,6 +360,12 @@ bool ValidateCurrentStateIntegrity()
    ok = ValidateStateIntegrityLeg("FAR", requireFar, forbidFar, HasFarContext(), Ctx.farTicket, Ctx.farIdentifier, Ctx.farLot, Ctx.farDirection) && ok;
    ok = ValidateStateIntegrityLeg("BIG", requireBig, forbidBig, HasBigContext(), Ctx.bigTicket, Ctx.bigIdentifier, Ctx.bigLot, Ctx.bigDirection) && ok;
    ok = ValidateStateIntegrityLeg("SMALL", requireSmall, forbidSmall, HasSmallContext(), Ctx.smallTicket, Ctx.smallIdentifier, Ctx.smallLot, Ctx.smallDirection) && ok;
+
+   if(!IsStateIntegrityPendingState(State) && HasPendingOperationContext() && !IsStateIntegrityTerminalState(State))
+   {
+      LogError(StringFormat("PENDING_CONTRACT_INVALID State=%s has Pending Context but is not a Pending State pendingActionType=%d pendingOperation=%s", StateToString(State), (int)Ctx.pendingActionType, Ctx.pendingOperation));
+      ok = false;
+   }
 
    if(requirePending)
       ok = ValidatePendingStateIntegrity(State) && ok;

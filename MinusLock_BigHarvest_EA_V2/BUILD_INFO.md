@@ -139,3 +139,9 @@ V2.4.5 updates:
 - Added terminal `STATE_INTEGRITY_ERROR` for states whose required positions, forbidden positions, pending context, or retry context do not match the current FSM phase.
 - Runtime validation now runs after recovery, reconciliation, and `SetState()` transitions so phase states are checked before trading continues.
 - New diagnostics: `STATE_INTEGRITY_PASS`, `STATE_INTEGRITY_FAIL`, `EXPECTED_POSITION_MISSING`, `UNEXPECTED_POSITION_PRESENT`, `INVALID_PENDING_CONTEXT`, `INVALID_RETRY_CONTEXT`, and `INVALID_STATE_SHAPE`.
+
+## V2.4.18 Pending State Contract Architecture
+- Added `Include/PendingContractEngine.mqh` so every Pending state requires a fully prepared Pending Context before `SetState()` is allowed.
+- Added strict State-to-`PendingActionType` validation for open Big, open Small, close Big, close Small, partial Big, Far close, max-levels close and stop max-levels close states.
+- `RetryOpenNewBig()` now prepares `PENDING_OPEN_SMALL` before transitioning to `STATE_OPEN_NEW_SMALL_PENDING`, preventing false `STATE_INTEGRITY_ERROR` after a successful New Big open.
+- BigHarvest phase integrity now forbids already-closed Big/Small context in close-small, net calculation, Far close and final-check phases.

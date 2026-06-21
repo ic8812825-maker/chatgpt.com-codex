@@ -84,6 +84,14 @@ double RebuildReserveFromLedger()
 bool ValidateNoOrphanManagedPositions();
 bool ValidateStatePositionConsistency();
 bool ValidateCurrentStateIntegrity();
+bool ValidatePendingContract(EAState targetState);
+bool ValidatePendingStateContract(EAState targetState);
+bool PreparePendingOpenBigContext();
+bool PreparePendingOpenSmallContext();
+bool PreparePendingCloseBigContext();
+bool PreparePendingCloseSmallContext();
+bool PreparePendingCloseFarContext();
+bool PreparePendingFinalCloseContext();
 
 void SetState(EAState nextState, string reason)
 {
@@ -1520,12 +1528,31 @@ void SetPendingOperation(PendingActionType actionType, string operation, EAState
    Ctx.pendingNextState = nextState;
    Ctx.pendingTicket = ticket;
    Ctx.pendingLot = lot;
+   Ctx.pendingComment = comment;
    Ctx.pendingAttempts = 0;
    Ctx.retryTicket = ticket;
    Ctx.retryLot = lot;
    Ctx.retryAttempts = 0;
    Ctx.lastRetryState = pendingState;
    Ctx.lastRetryLogTime = 0;
+   Ctx.pendingOperationStartTime = TimeCurrent();
+
+   if(actionType == PENDING_CLOSE_BIG_FULL || actionType == PENDING_CLOSE_BIG_PARTIAL)
+      Ctx.pendingDirection = Ctx.bigDirection;
+   else if(actionType == PENDING_CLOSE_SMALL_FULL)
+      Ctx.pendingDirection = Ctx.smallDirection;
+   else if(actionType == PENDING_CLOSE_OLD_FAR_FULL || actionType == PENDING_CLOSE_FAR_FULL || actionType == PENDING_CLOSE_FAR_PARTIAL || actionType == PENDING_MAX_LEVELS_FINAL_CLOSE || actionType == PENDING_STOP_MAX_LEVELS_CLOSE)
+      Ctx.pendingDirection = Ctx.farDirection;
+   else
+      Ctx.pendingDirection = DIR_NONE;
+
+   LogInfo(StringFormat("PENDING_CONTRACT_CREATED TargetState=%s Action=%d Operation=%s Ticket=%I64u Lot=%.2f Comment=%s NextState=%s", StateToString(pendingState), (int)actionType, operation, ticket, lot, comment, StateToString(nextState)));
+   SaveState();
+   if(!ValidatePendingContract(pendingState))
+   {
+      SetState(STATE_INTEGRITY_ERROR, "INVALID_PENDING_CONTRACT before " + StateToString(pendingState));
+      return;
+   }
    SetState(pendingState, reason + " | pendingOperation=" + operation + " pendingNextState=" + StateToString(nextState) + " comment=" + comment);
 }
 
@@ -2295,17 +2322,33 @@ void RetryOpenNewBig()
       return;
    }
 
+   if(Ctx.pendingActionType != PENDING_OPEN_BIG || State != STATE_OPEN_NEW_BIG_PENDING)
+   {
+      if(!PreparePendingOpenBigContext())
+      {
+         SetState(STATE_INTEGRITY_ERROR, "INVALID_PENDING_CONTRACT for STATE_OPEN_NEW_BIG_PENDING");
+         return;
+      }
+   }
+
    if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
    {
       LogRiskGateBlocked("RetryOpenNewBig blocked by RiskGate; open retry remains pending");
-      SetPendingOperation(PENDING_OPEN_BIG, "OPEN_NEW_BIG", STATE_OPEN_NEW_BIG_PENDING, 0, 0.0, "OPEN_NEW_BIG_PENDING", STATE_OPEN_NEW_SMALL_PENDING, "Open NewBig blocked by RiskGate");
+      if(!ValidatePendingContract(STATE_OPEN_NEW_BIG_PENDING))
+      {
+         SetState(STATE_INTEGRITY_ERROR, "INVALID_PENDING_CONTRACT before STATE_OPEN_NEW_BIG_PENDING");
+         return;
+      }
+      SetState(STATE_OPEN_NEW_BIG_PENDING, "Open NewBig blocked by RiskGate");
       return;
    }
 
-   Ctx.pendingDirection = OppositeDirection(Ctx.farDirection);
-   Ctx.pendingLot = CalcBigLot(Ctx.farLot);
-   Ctx.pendingComment = LevelComment("BIG", Ctx.harvestLevel + 1);
-   Ctx.pendingNextState = STATE_OPEN_NEW_SMALL_PENDING;
+   if(!ValidatePendingContract(STATE_OPEN_NEW_BIG_PENDING))
+   {
+      SetState(STATE_INTEGRITY_ERROR, "INVALID_PENDING_CONTRACT before RetryOpenNewBig");
+      return;
+   }
+
    Ctx.pendingAttempts++;
 
    if(Ctx.pendingLot <= 0.0 || !OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment))
@@ -2334,23 +2377,44 @@ void RetryOpenNewBig()
    }
 
    Ctx.pendingAttempts = 0;
-   SetState(STATE_OPEN_NEW_SMALL_PENDING, "RetryOpenNewBig succeeded; continue opening Small");
+   if(!PreparePendingOpenSmallContext())
+   {
+      SetState(STATE_INTEGRITY_ERROR, "INVALID_PENDING_CONTRACT for STATE_OPEN_NEW_SMALL_PENDING");
+      return;
+   }
+   SetState(STATE_OPEN_NEW_SMALL_PENDING, "RetryOpenNewBig succeeded; PENDING_OPEN_SMALL prepared; continue opening Small");
 }
 
 
 void RetryOpenNewSmall()
 {
+   if(Ctx.pendingActionType != PENDING_OPEN_SMALL || State != STATE_OPEN_NEW_SMALL_PENDING)
+   {
+      if(!PreparePendingOpenSmallContext())
+      {
+         SetState(STATE_INTEGRITY_ERROR, "INVALID_PENDING_CONTRACT for STATE_OPEN_NEW_SMALL_PENDING");
+         return;
+      }
+   }
+
    if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
    {
       LogRiskGateBlocked("RetryOpenNewSmall blocked by RiskGate; open retry remains pending");
-      SetPendingOperation(PENDING_OPEN_SMALL, "OPEN_NEW_SMALL", STATE_OPEN_NEW_SMALL_PENDING, 0, 0.0, "OPEN_NEW_SMALL_PENDING", STATE_BIG_SMALL_OPENED, "Open NewSmall blocked by RiskGate");
+      if(!ValidatePendingContract(STATE_OPEN_NEW_SMALL_PENDING))
+      {
+         SetState(STATE_INTEGRITY_ERROR, "INVALID_PENDING_CONTRACT before STATE_OPEN_NEW_SMALL_PENDING");
+         return;
+      }
+      SetState(STATE_OPEN_NEW_SMALL_PENDING, "Open NewSmall blocked by RiskGate");
       return;
    }
 
-   Ctx.pendingDirection = Ctx.farDirection;
-   Ctx.pendingLot = CalcSmallLot(Ctx.bigLot);
-   Ctx.pendingComment = LevelComment("SMALL", Ctx.harvestLevel + 1);
-   Ctx.pendingNextState = STATE_BIG_SMALL_OPENED;
+   if(!ValidatePendingContract(STATE_OPEN_NEW_SMALL_PENDING))
+   {
+      SetState(STATE_INTEGRITY_ERROR, "INVALID_PENDING_CONTRACT before RetryOpenNewSmall");
+      return;
+   }
+
    Ctx.pendingAttempts++;
 
    if(Ctx.pendingLot <= 0.0 || !OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment))
@@ -2380,6 +2444,7 @@ void RetryOpenNewSmall()
 
    Ctx.harvestLevel += 1;
    Ctx.pendingAttempts = 0;
+   ClearPendingOperationContext();
    SetState(STATE_BIG_SMALL_OPENED, "RetryOpenNewSmall succeeded; Big/Small opened");
 }
 

@@ -397,3 +397,15 @@ Additional static checks:
 - `state_shape_validation_check.py` verifies required/forbidden position diagnostics and reconciliation/startup integration.
 
 Manual MT5 acceptance remains USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, MaxSpreadPoints=60, real market-order mode. The Experts log must not show unexpected `STATE_INTEGRITY_FAIL` entries during normal execution.
+
+## V2.4.18 Pending Contract Tests
+Static tests added:
+- `pending_contract_engine_check.py` verifies the new contract module, helper functions and contract diagnostics.
+- `pending_open_big_contract_check.py` verifies `STATE_OPEN_NEW_BIG_PENDING` uses `PENDING_OPEN_BIG` and is prepared before state transition.
+- `pending_open_small_contract_check.py` verifies `STATE_OPEN_NEW_SMALL_PENDING` uses `PENDING_OPEN_SMALL`.
+- `pending_close_big_contract_check.py` and `pending_close_small_contract_check.py` verify close-pending ticket/action ownership.
+- `state_action_matrix_check.py` verifies the State ↔ PendingAction matrix.
+- `open_new_small_pending_context_check.py` verifies the Small Reverse/New Big/New Small handoff prepares `PENDING_OPEN_SMALL` before entering `STATE_OPEN_NEW_SMALL_PENDING`.
+- `bigharvest_phase_forbids_closed_legs_check.py` verifies BigHarvest phases forbid closed Big/Small legs where required.
+
+MT5 acceptance remains USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, MaxSpreadPoints=60, real market-order mode. Experts must show no false `STATE_INTEGRITY_ERROR` after New Big opens and before New Small opens.

@@ -701,3 +701,8 @@ Every FSM phase is now self-checking through `ValidateCurrentStateIntegrity()`. 
 The source of truth for open volume remains MT5 `POSITION_VOLUME`; the integrity engine reads managed position snapshots and compares ticket, identifier, direction and normalized volume against `RecoveryContext` using `VolumeMismatchToleranceLots`.
 
 If a phase shape is invalid, the EA moves to `STATE_INTEGRITY_ERROR` instead of continuing trade execution. This prevents restart/requote/VPS interruption scenarios from continuing when the FSM phase no longer matches the live position structure.
+
+## V2.4.18 Pending State Contract Architecture
+Pending states are now contractual: the EA must create and validate the Pending Context before entering a Pending state. `PendingContractEngine.mqh` defines the State ↔ PendingAction matrix and logs `PENDING_CONTRACT_CREATED`, `PENDING_CONTRACT_VALID`, `PENDING_CONTRACT_INVALID`, `STATE_ACTION_MISMATCH`, and `PENDING_CONTRACT_MISSING`.
+
+Open retries now use `PreparePendingOpenBigContext()` and `PreparePendingOpenSmallContext()`. After New Big opens successfully, the FSM prepares `PENDING_OPEN_SMALL` before entering `STATE_OPEN_NEW_SMALL_PENDING`, so State Integrity cannot falsely stop the EA because of an empty pending context.
