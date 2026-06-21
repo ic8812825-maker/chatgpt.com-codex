@@ -295,8 +295,8 @@ bool ValidateStatePositionConsistency()
 {
    if(State == STATE_INITIAL_LOCK_OPENED)
    {
-      bool valid = (Ctx.initialBuyTicket != 0 && Ctx.initialSellTicket != 0 &&
-                    Ctx.farTicket == 0 && Ctx.bigTicket == 0 && Ctx.smallTicket == 0);
+      bool valid = (HasInitialBuyContext() && HasInitialSellContext() &&
+                    !HasFarContext() && !HasBigContext() && !HasSmallContext());
       if(!valid)
       {
          LogError(StringFormat("INITIAL_LOCK_STATE_INVALID State=%s InitialBuyTicket=%I64u InitialSellTicket=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u", StateToString(State), Ctx.initialBuyTicket, Ctx.initialSellTicket, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket));
@@ -309,7 +309,7 @@ bool ValidateStatePositionConsistency()
 
    if(State == STATE_FAR_ACTIVE)
    {
-      if(Ctx.initialBuyTicket != 0 || Ctx.initialSellTicket != 0 || Ctx.farTicket == 0 || Ctx.bigTicket != 0 || Ctx.smallTicket != 0)
+      if(HasInitialBuyContext() || HasInitialSellContext() || !HasFarContext() || HasBigContext() || HasSmallContext())
       {
          LogError(StringFormat("INITIAL_LOCK_STATE_INVALID State=%s InitialBuyTicket=%I64u InitialSellTicket=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u", StateToString(State), Ctx.initialBuyTicket, Ctx.initialSellTicket, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket));
          SetState(STATE_RECOVERY_MISMATCH, "STATE_FAR_ACTIVE position consistency invalid");
@@ -320,7 +320,7 @@ bool ValidateStatePositionConsistency()
 
    if(State == STATE_BIG_SMALL_OPENED || State == STATE_BIG_HARVEST || State == STATE_SMALL_SCENARIO || State == STATE_WAIT_SMALL_TO_FAR)
    {
-      if(Ctx.initialBuyTicket != 0 || Ctx.initialSellTicket != 0 || Ctx.farTicket == 0 || Ctx.bigTicket == 0 || Ctx.smallTicket == 0)
+      if(HasInitialBuyContext() || HasInitialSellContext() || !HasFarContext() || !HasBigContext() || !HasSmallContext())
       {
          LogError(StringFormat("INITIAL_LOCK_STATE_INVALID State=%s InitialBuyTicket=%I64u InitialSellTicket=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u", StateToString(State), Ctx.initialBuyTicket, Ctx.initialSellTicket, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket));
          SetState(STATE_RECOVERY_MISMATCH, "Big/Small state position consistency invalid");
@@ -390,7 +390,8 @@ bool ValidateNoOrphanManagedPositions()
 bool RunReconciliation()
 {
    bool ok = true;
-   if(Ctx.farTicket == 0 && Ctx.bigTicket == 0 && Ctx.smallTicket == 0 && CountManagedOpenPositions() > 0)
+   LogReconciliationContextSummary("RunReconciliation");
+   if(!HasKnownContext() && CountManagedOpenPositions() > 0)
    {
       LogError(StringFormat("CONTEXT_CLEARED_WITH_LIVE_POSITION State=%s ManagedPositions=%d", StateToString(State), CountManagedOpenPositions()));
       ok = false;

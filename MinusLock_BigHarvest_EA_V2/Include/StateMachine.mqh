@@ -239,13 +239,89 @@ bool VerifyFullClose(ulong ticket, string operationName)
    return true;
 }
 
+
+bool HasInitialBuyContext()
+{
+   return (Ctx.initialBuyTicket != 0 || Ctx.initialBuyIdentifier != 0 || Ctx.initialBuyLot > VolumeMismatchToleranceLots);
+}
+
+bool HasInitialSellContext()
+{
+   return (Ctx.initialSellTicket != 0 || Ctx.initialSellIdentifier != 0 || Ctx.initialSellLot > VolumeMismatchToleranceLots);
+}
+
+bool HasFarContext()
+{
+   return (Ctx.farTicket != 0 || Ctx.farIdentifier != 0 || Ctx.farLot > VolumeMismatchToleranceLots || Ctx.farDirection != DIR_NONE);
+}
+
+bool HasBigContext()
+{
+   return (Ctx.bigTicket != 0 || Ctx.bigIdentifier != 0 || Ctx.bigLot > VolumeMismatchToleranceLots || Ctx.bigDirection != DIR_NONE);
+}
+
+bool HasSmallContext()
+{
+   return (Ctx.smallTicket != 0 || Ctx.smallIdentifier != 0 || Ctx.smallLot > VolumeMismatchToleranceLots || Ctx.smallDirection != DIR_NONE);
+}
+
+bool HasPendingOperationContext()
+{
+   return (Ctx.pendingActionType != PENDING_NONE || Ctx.pendingTicket != 0 || Ctx.pendingLot > VolumeMismatchToleranceLots || Ctx.pendingNextState != STATE_IDLE || Ctx.pendingAttempts > 0);
+}
+
+bool HasRetryOperationContext()
+{
+   return (Ctx.retryTicket != 0 || Ctx.retryLot > VolumeMismatchToleranceLots || Ctx.lastRetryState != STATE_IDLE || Ctx.retryAttempts > 0);
+}
+
+bool HasKnownContext()
+{
+   bool initialBuy = HasInitialBuyContext();
+   bool initialSell = HasInitialSellContext();
+   bool far = HasFarContext();
+   bool big = HasBigContext();
+   bool small = HasSmallContext();
+   bool pending = HasPendingOperationContext();
+   bool retry = HasRetryOperationContext();
+   bool known = (initialBuy || initialSell || far || big || small || pending || retry);
+   LogInfo(StringFormat("KNOWN_CONTEXT_PRESENT InitialBuy=%s InitialSell=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s KnownContext=%s",
+                        initialBuy ? "YES" : "NO",
+                        initialSell ? "YES" : "NO",
+                        far ? "YES" : "NO",
+                        big ? "YES" : "NO",
+                        small ? "YES" : "NO",
+                        pending ? "YES" : "NO",
+                        retry ? "YES" : "NO",
+                        known ? "YES" : "NO"));
+   return known;
+}
+
+void LogReconciliationContextSummary(string source)
+{
+   bool initialLock = (HasInitialBuyContext() || HasInitialSellContext());
+   bool far = HasFarContext();
+   bool big = HasBigContext();
+   bool small = HasSmallContext();
+   bool pending = HasPendingOperationContext();
+   bool retry = HasRetryOperationContext();
+   bool known = (initialLock || far || big || small || pending || retry);
+   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s",
+                        source,
+                        StateToString(State),
+                        CountManagedOpenPositions(),
+                        known ? "YES" : "NO",
+                        initialLock ? "YES" : "NO",
+                        far ? "YES" : "NO",
+                        big ? "YES" : "NO",
+                        small ? "YES" : "NO",
+                        pending ? "YES" : "NO",
+                        retry ? "YES" : "NO"));
+}
+
 bool HasOpenLegContext()
 {
-   return (Ctx.initialBuyTicket != 0 || Ctx.initialBuyLot > VolumeMismatchToleranceLots ||
-           Ctx.initialSellTicket != 0 || Ctx.initialSellLot > VolumeMismatchToleranceLots ||
-           Ctx.farTicket != 0 || Ctx.farLot > VolumeMismatchToleranceLots || Ctx.farDirection != DIR_NONE ||
-           Ctx.bigTicket != 0 || Ctx.bigLot > VolumeMismatchToleranceLots || Ctx.bigDirection != DIR_NONE ||
-           Ctx.smallTicket != 0 || Ctx.smallLot > VolumeMismatchToleranceLots || Ctx.smallDirection != DIR_NONE);
+   return HasKnownContext();
 }
 
 void ClearFarContext(string reason)
@@ -587,6 +663,8 @@ bool RecoverState()
    }
 
    LogInfo(StringFormat("RecoverState restored State=%s CycleId=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u ManagedPositions=%d RetryState=%s RetryTicket=%I64u RetryAttempts=%d", StateToString(State), Ctx.cycleId, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket, managed, StateToString(Ctx.lastRetryState), Ctx.retryTicket, Ctx.retryAttempts));
+   LogInfo(StringFormat("RECOVERY_CONTEXT_RESTORED State=%s ManagedPositions=%d KnownContext=%s", StateToString(State), managed, HasKnownContext() ? "YES" : "NO"));
+   LogReconciliationContextSummary("RecoverState");
    return true;
 }
 

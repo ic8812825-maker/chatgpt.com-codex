@@ -376,3 +376,14 @@ Static tests added:
 - `initial_lock_state_consistency_check.py` verifies state-aware position consistency validation.
 
 Manual MT5 scenarios to repeat: restart while both initial legs are open, restart after one initial leg is closed and the remaining leg is Far, and restart during Initial-plus conversion. Expected result: no false `ORPHAN_MANAGED_POSITION`, no false `STATE_RECOVERY_MISMATCH`, and no duplicate Far.
+
+## V2.4.17 Known Context Tests
+
+Static tests added:
+
+- `known_context_check.py` verifies centralized context helpers and `HasKnownContext()`.
+- `known_context_diagnostics_check.py` verifies `KNOWN_CONTEXT_PRESENT` diagnostics.
+- `reconciliation_context_summary_check.py` verifies `RECONCILIATION_CONTEXT_SUMMARY` and `RECOVERY_CONTEXT_RESTORED` startup diagnostics.
+- `context_cleared_guard_check.py` verifies `CONTEXT_CLEARED_WITH_LIVE_POSITION` uses only `!HasKnownContext() && CountManagedOpenPositions() > 0`.
+
+MT5 acceptance remains USDJPY M30 2026.04.01–2026.06.17 Every Tick with MaxSpreadPoints=60 and real trading mode enabled in tester.

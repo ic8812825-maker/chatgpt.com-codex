@@ -526,3 +526,9 @@ This closes the gap where only a completely empty context was compared against `
 Initial Lock is now integrated into the same recovery, reconciliation, and orphan-protection model as Far/Big/Small. The audit gap was that `MinusLock_INITIAL_BUY` and `MinusLock_INITIAL_SELL` were real managed positions during `STATE_INITIAL_LOCK_OPENED` but were not represented in `RecoveryContext`.
 
 The V2.4.15 fix adds Initial BUY/SELL context fields, registers them in `OpenInitialLock()`, persists/restores them through `SaveState()`/`RecoverState()`, validates them through `ValidateInitialLockIntegrity()`, and includes them in orphan ownership matching. When one initial leg closes, the remaining leg is explicitly converted to Far and Initial context is cleared with `INITIAL_LOCK_CONVERTED_TO_FAR` diagnostics.
+
+## V2.4.17 P0 Audit: Known Context Architecture
+
+The EA now has a centralized context-existence model. `HasKnownContext()` covers Initial Lock, Far, Big, Small, pending operations, and retry operations, so reconciliation no longer treats only Far/Big/Small as context.
+
+The cleared-context guard now uses the required form `!HasKnownContext() && CountManagedOpenPositions() > 0`. Startup recovery emits `RECOVERY_CONTEXT_RESTORED` and `RECONCILIATION_CONTEXT_SUMMARY`, allowing future MT5 reports to show whether Initial Lock, Far, Big, Small, Pending, or Retry context existed when reconciliation ran.

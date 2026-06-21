@@ -686,3 +686,11 @@ Initial Lock is now a first-class recovery object. The EA stores Initial BUY/SEL
 On restart, `RecoverState()` can restore `STATE_INITIAL_LOCK_OPENED` when both initial legs are live. If restart happens after one initial leg was closed and the other became Far, the remaining leg is converted into Far context and Initial Lock context is cleared, preventing duplicated Far or orphan Initial positions.
 
 `ValidateInitialLockIntegrity()` checks both initial legs by ticket/comment, identifier, direction, and volume. `ValidateStatePositionConsistency()` makes `STATE_INITIAL_LOCK_OPENED` valid only for Initial BUY/SELL, `STATE_FAR_ACTIVE` valid for Far only, and Big/Small states valid only for Far/Big/Small plus pending/retry operations. Orphan protection now recognizes Initial BUY/SELL by ticket and identifier.
+
+## V2.4.17 Known Context Architecture
+
+`HasKnownContext()` is the central source of truth for whether the EA owns any recovery object. It includes Initial BUY, Initial SELL, Far, Big, Small, pending operations, and retry operations. The old mental model of context as only `farTicket/bigTicket/smallTicket` is no longer valid.
+
+Reconciliation now reports `KNOWN_CONTEXT_PRESENT` and `RECONCILIATION_CONTEXT_SUMMARY` with CurrentState, ManagedPositions, KnownContext, InitialLock, Far, Big, Small, Pending, and Retry. The `CONTEXT_CLEARED_WITH_LIVE_POSITION` guard is valid only when `!HasKnownContext()` and MT5 still has managed positions.
+
+After `RecoverState()`, the EA logs `RECOVERY_CONTEXT_RESTORED` and immediately emits a context summary before startup validation continues.

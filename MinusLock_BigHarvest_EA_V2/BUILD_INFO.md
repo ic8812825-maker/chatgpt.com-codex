@@ -127,3 +127,9 @@ V2.4.5 updates:
 - Added Initial Lock legs to `RecoveryContext` with tickets, identifiers, lots, open prices, and `initialLockRecovered` diagnostics.
 - `OpenInitialLock()` registers Initial BUY/SELL context immediately; `RecoverState()` restores or rebuilds Initial Lock state after restart; `CheckInitialPlusClose()` converts the remaining Initial leg into Far and clears Initial context.
 - Reconciliation now includes `ValidateInitialLockIntegrity()` and `ValidateStatePositionConsistency()`, and orphan protection treats Initial BUY/SELL as owned managed positions.
+
+## V2.4.17 P0 Known Context Architecture
+
+- Added centralized `HasKnownContext()` and leg-specific context helpers for Initial BUY/SELL, Far, Big, Small, pending, and retry objects.
+- Replaced the cleared-context reconciliation guard with `!HasKnownContext() && CountManagedOpenPositions() > 0`.
+- Added `KNOWN_CONTEXT_PRESENT`, `RECOVERY_CONTEXT_RESTORED`, and `RECONCILIATION_CONTEXT_SUMMARY` diagnostics so startup and reconciliation show the complete context shape before trading logic proceeds.
