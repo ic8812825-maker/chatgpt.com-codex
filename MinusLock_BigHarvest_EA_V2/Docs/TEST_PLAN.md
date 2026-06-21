@@ -387,3 +387,13 @@ Static tests added:
 - `context_cleared_guard_check.py` verifies `CONTEXT_CLEARED_WITH_LIVE_POSITION` uses only `!HasKnownContext() && CountManagedOpenPositions() > 0`.
 
 MT5 acceptance remains USDJPY M30 2026.04.01–2026.06.17 Every Tick with MaxSpreadPoints=60 and real trading mode enabled in tester.
+
+## V2.4.17 Full Phase-State Integrity Validation
+Additional static checks:
+- `state_integrity_engine_check.py` verifies the new module, include wiring, `ValidateCurrentStateIntegrity()`, and `STATE_INTEGRITY_ERROR`.
+- `phase_state_matrix_check.py` verifies every `EAState` has a matrix entry.
+- `pending_state_integrity_check.py` verifies pending states require pending context.
+- `retry_state_integrity_check.py` verifies retry states require retry context.
+- `state_shape_validation_check.py` verifies required/forbidden position diagnostics and reconciliation/startup integration.
+
+Manual MT5 acceptance remains USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, MaxSpreadPoints=60, real market-order mode. The Experts log must not show unexpected `STATE_INTEGRITY_FAIL` entries during normal execution.

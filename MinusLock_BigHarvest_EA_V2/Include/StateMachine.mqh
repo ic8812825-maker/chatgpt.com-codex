@@ -3,6 +3,7 @@
 
 EAState State = STATE_IDLE;
 RecoveryContext Ctx;
+bool StateIntegrityValidationInProgress = false;
 
 ReserveLedgerEntry ReserveLedger[];
 long NextReserveEventId = 1;
@@ -82,6 +83,7 @@ double RebuildReserveFromLedger()
 
 bool ValidateNoOrphanManagedPositions();
 bool ValidateStatePositionConsistency();
+bool ValidateCurrentStateIntegrity();
 
 void SetState(EAState nextState, string reason)
 {
@@ -105,9 +107,12 @@ void SetState(EAState nextState, string reason)
 
    State = nextState;
    Ctx.lastAction = reason;
-   if(nextState == STATE_ERROR || nextState == STATE_MANUAL_INTERVENTION_REQUIRED || nextState == STATE_RECOVERY_PENDING)
+   if(nextState == STATE_ERROR || nextState == STATE_MANUAL_INTERVENTION_REQUIRED || nextState == STATE_RECOVERY_PENDING || nextState == STATE_INTEGRITY_ERROR)
       Ctx.lastError = reason;
    SaveState();
+
+   if(nextState != STATE_INTEGRITY_ERROR && nextState != STATE_RECOVERY_MISMATCH && !StateIntegrityValidationInProgress)
+      ValidateCurrentStateIntegrity();
 }
 
 string StateKey(string field)
@@ -1711,6 +1716,8 @@ void ProcessRecoveryPending()
          return;
       if(!ValidateStatePositionConsistency())
          return;
+      if(!ValidateCurrentStateIntegrity())
+         return;
       if(State == STATE_RECOVERY_PENDING)
       {
          LogManagedPositionsForRecovery();
@@ -2389,6 +2396,7 @@ bool ValidateFSMIntegrity()
    if(StateToString(STATE_SMALL_CLOSE_SMALL) == "STATE_UNKNOWN") ok = false;
    if(StateToString(STATE_OPEN_NEW_BIG_PENDING) == "STATE_UNKNOWN") ok = false;
    if(StateToString(STATE_OPEN_NEW_SMALL_PENDING) == "STATE_UNKNOWN") ok = false;
+   if(StateToString(STATE_INTEGRITY_ERROR) == "STATE_UNKNOWN") ok = false;
    // Strict V2.4.5 guards: terminal states must not route to RetryOpenNewBig/RetryOpenNewSmall/OpenBigSmall/OpenInitialLock; pending open states are handled separately; SmallBuildNewFar uses savedSmallDirection; OldFar close clears Ctx.far*.
 
    if(!ok)
@@ -2498,6 +2506,7 @@ void RunStateMachine()
       case STATE_REVERSE_LIMIT_CLOSED:
       case STATE_INVALID_GEOMETRY_CLOSED:
       case STATE_RECOVERY_MISMATCH:
+      case STATE_INTEGRITY_ERROR:
       case STATE_MANUAL_INTERVENTION_REQUIRED:
       case STATE_STOP:
       case STATE_ERROR:

@@ -133,3 +133,9 @@ V2.4.5 updates:
 - Added centralized `HasKnownContext()` and leg-specific context helpers for Initial BUY/SELL, Far, Big, Small, pending, and retry objects.
 - Replaced the cleared-context reconciliation guard with `!HasKnownContext() && CountManagedOpenPositions() > 0`.
 - Added `KNOWN_CONTEXT_PRESENT`, `RECOVERY_CONTEXT_RESTORED`, and `RECONCILIATION_CONTEXT_SUMMARY` diagnostics so startup and reconciliation show the complete context shape before trading logic proceeds.
+
+## V2.4.17 Full Phase-State Integrity Validation
+- Added `Include/StateIntegrityEngine.mqh` with `ValidateCurrentStateIntegrity()` and a formal FSM state-shape matrix.
+- Added terminal `STATE_INTEGRITY_ERROR` for states whose required positions, forbidden positions, pending context, or retry context do not match the current FSM phase.
+- Runtime validation now runs after recovery, reconciliation, and `SetState()` transitions so phase states are checked before trading continues.
+- New diagnostics: `STATE_INTEGRITY_PASS`, `STATE_INTEGRITY_FAIL`, `EXPECTED_POSITION_MISSING`, `UNEXPECTED_POSITION_PRESENT`, `INVALID_PENDING_CONTEXT`, `INVALID_RETRY_CONTEXT`, and `INVALID_STATE_SHAPE`.

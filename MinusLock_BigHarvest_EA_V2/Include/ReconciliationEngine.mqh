@@ -398,6 +398,7 @@ bool RunReconciliation()
    }
    ok = ValidateInitialLockIntegrity() && ok;
    ok = ValidateStatePositionConsistency() && ok;
+   ok = ValidateCurrentStateIntegrity() && ok;
    ok = ValidateNoOrphanManagedPositions() && ok;
    ok = ValidateFarPosition() && ok;
    ok = ValidateBigPosition() && ok;
@@ -420,9 +421,17 @@ bool RunReconciliation()
 
    if(!ok)
    {
-      State = STATE_RECOVERY_MISMATCH;
-      Ctx.lastError = "RECONCILIATION FAIL";
-      LogError("RECONCILIATION FAIL -> STATE_RECOVERY_MISMATCH");
+      if(State != STATE_INTEGRITY_ERROR)
+      {
+         State = STATE_RECOVERY_MISMATCH;
+         Ctx.lastError = "RECONCILIATION FAIL";
+         LogError("RECONCILIATION FAIL -> STATE_RECOVERY_MISMATCH");
+      }
+      else
+      {
+         Ctx.lastError = "STATE_INTEGRITY_FAIL";
+         LogError("RECONCILIATION FAIL -> STATE_INTEGRITY_ERROR");
+      }
       SaveState();
       return false;
    }
@@ -439,6 +448,12 @@ void RunPeriodicReconciliation()
       return;
    }
 
+   if(State == STATE_INTEGRITY_ERROR)
+   {
+      LogInfo("RECONCILIATION REPEAT WARNING skipped because STATE_INTEGRITY_ERROR is already active");
+      return;
+   }
+
    if(ReconciliationIntervalSeconds <= 0)
       return;
 
@@ -448,7 +463,10 @@ void RunPeriodicReconciliation()
 
    LastReconciliationTime = now;
    if(RunReconciliation())
+   {
       ValidateNoOrphanManagedPositions();
+      ValidateCurrentStateIntegrity();
+   }
 }
 
 #endif // __BH_RECONCILIATIONENGINE_MQH__

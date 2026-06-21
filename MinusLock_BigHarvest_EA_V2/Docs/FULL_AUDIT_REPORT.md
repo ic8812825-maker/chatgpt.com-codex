@@ -532,3 +532,10 @@ The V2.4.15 fix adds Initial BUY/SELL context fields, registers them in `OpenIni
 The EA now has a centralized context-existence model. `HasKnownContext()` covers Initial Lock, Far, Big, Small, pending operations, and retry operations, so reconciliation no longer treats only Far/Big/Small as context.
 
 The cleared-context guard now uses the required form `!HasKnownContext() && CountManagedOpenPositions() > 0`. Startup recovery emits `RECOVERY_CONTEXT_RESTORED` and `RECONCILIATION_CONTEXT_SUMMARY`, allowing future MT5 reports to show whether Initial Lock, Far, Big, Small, Pending, or Retry context existed when reconciliation ran.
+
+## V2.4.17 Full Phase-State Integrity Validation
+The remaining reconciliation risk was that broad states were validated but intermediate money-moving phases were not. `StateIntegrityEngine.mqh` now defines a phase matrix for every `EAState`, including BigHarvest close phases, Small scenario phases, final/max-level closes and pending/retry states.
+
+The validator logs `STATE_INTEGRITY_MATRIX` and either `STATE_INTEGRITY_PASS` or `STATE_INTEGRITY_FAIL`. Required legs are checked for ticket, identifier, direction and `POSITION_VOLUME` parity; forbidden legs raise `UNEXPECTED_POSITION_PRESENT`; missing required legs raise `EXPECTED_POSITION_MISSING`. Pending and retry phases raise `INVALID_PENDING_CONTEXT` or `INVALID_RETRY_CONTEXT` if their operation context is incomplete.
+
+On failure, execution is stopped in `STATE_INTEGRITY_ERROR`, making phase mismatches distinct from generic recovery mismatch and preventing unsafe continuation after restarts, partial execution, broker errors or VPS interruptions.

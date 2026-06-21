@@ -12,6 +12,7 @@
 #include "Include/RecoveryMath.mqh"
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
+#include "Include/StateIntegrityEngine.mqh"
 #include "Include/ReconciliationEngine.mqh"
 
 bool ValidateInputs()
@@ -154,6 +155,8 @@ int OnInit()
       return INIT_FAILED;
    else if(!ValidateStatePositionConsistency())
       return INIT_FAILED;
+   else if(!ValidateCurrentStateIntegrity())
+      return INIT_FAILED;
    else if(!RunReconciliation())
       return INIT_FAILED;
 
@@ -223,7 +226,7 @@ void OnTick()
    Ctx.riskGateOk = riskOk;
 
    RunPeriodicReconciliation();
-   if(State == STATE_RECOVERY_MISMATCH)
+   if(State == STATE_RECOVERY_MISMATCH || State == STATE_INTEGRITY_ERROR)
       return;
 
    if(State == STATE_IDLE && managedPositions == 0)

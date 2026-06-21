@@ -694,3 +694,10 @@ On restart, `RecoverState()` can restore `STATE_INITIAL_LOCK_OPENED` when both i
 Reconciliation now reports `KNOWN_CONTEXT_PRESENT` and `RECONCILIATION_CONTEXT_SUMMARY` with CurrentState, ManagedPositions, KnownContext, InitialLock, Far, Big, Small, Pending, and Retry. The `CONTEXT_CLEARED_WITH_LIVE_POSITION` guard is valid only when `!HasKnownContext()` and MT5 still has managed positions.
 
 After `RecoverState()`, the EA logs `RECOVERY_CONTEXT_RESTORED` and immediately emits a context summary before startup validation continues.
+
+## V2.4.17 Full Phase-State Integrity Validation
+Every FSM phase is now self-checking through `ValidateCurrentStateIntegrity()`. The validator verifies which legs must exist, which legs must be absent, and whether pending/retry metadata is present before a phase continues.
+
+The source of truth for open volume remains MT5 `POSITION_VOLUME`; the integrity engine reads managed position snapshots and compares ticket, identifier, direction and normalized volume against `RecoveryContext` using `VolumeMismatchToleranceLots`.
+
+If a phase shape is invalid, the EA moves to `STATE_INTEGRITY_ERROR` instead of continuing trade execution. This prevents restart/requote/VPS interruption scenarios from continuing when the FSM phase no longer matches the live position structure.
