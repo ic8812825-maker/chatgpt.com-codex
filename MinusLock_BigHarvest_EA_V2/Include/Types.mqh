@@ -46,6 +46,7 @@ enum EAState
    STATE_RECOVERY_PENDING,
    STATE_RECOVERY_MISMATCH,
    STATE_INTEGRITY_ERROR,
+   STATE_POSITION_RESOLUTION_ERROR,
    STATE_MANUAL_INTERVENTION_REQUIRED,
    STATE_STOP_MAX_LEVELS,
    STATE_UNCLOSED_CYCLE,
@@ -99,6 +100,17 @@ struct ReserveLedgerEntry
    long farIdentifier;
    int harvestLevel;
    int reverseCycle;
+};
+
+struct PositionResolutionResult
+{
+   bool resolved;
+   ulong ticket;
+   ulong identifier;
+   double lot;
+   ENUM_POSITION_TYPE type;
+   double openPrice;
+   datetime openTime;
 };
 
 struct PositionSnapshot
@@ -296,6 +308,7 @@ string StateToString(EAState state)
       case STATE_RECOVERY_PENDING:         return "STATE_RECOVERY_PENDING";
       case STATE_RECOVERY_MISMATCH:         return "STATE_RECOVERY_MISMATCH";
       case STATE_INTEGRITY_ERROR:           return "STATE_INTEGRITY_ERROR";
+      case STATE_POSITION_RESOLUTION_ERROR: return "STATE_POSITION_RESOLUTION_ERROR";
       case STATE_MANUAL_INTERVENTION_REQUIRED: return "STATE_MANUAL_INTERVENTION_REQUIRED";
       case STATE_STOP_MAX_LEVELS:      return "STATE_STOP_MAX_LEVELS";
       case STATE_UNCLOSED_CYCLE:       return "STATE_UNCLOSED_CYCLE";

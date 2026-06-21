@@ -19,6 +19,7 @@ bool IsStateIntegrityTerminalState(EAState state)
            state == STATE_INVALID_GEOMETRY_CLOSED ||
            state == STATE_RECOVERY_MISMATCH ||
            state == STATE_INTEGRITY_ERROR ||
+           state == STATE_POSITION_RESOLUTION_ERROR ||
            state == STATE_MANUAL_INTERVENTION_REQUIRED ||
            state == STATE_STOP_MAX_LEVELS ||
            state == STATE_UNCLOSED_CYCLE ||
@@ -76,6 +77,12 @@ bool ValidateStateIntegrityLeg(string legName,
    if(forbidden && hasContext)
    {
       LogError(StringFormat("UNEXPECTED_POSITION_PRESENT State=%s Leg=%s Ticket=%I64u Identifier=%I64u Lot=%.2f", StateToString(State), legName, ticket, identifier, ctxLot));
+      ok = false;
+   }
+
+   if(required && (ticket == 0 || identifier == 0))
+   {
+      LogError(StringFormat("INVALID_STATE_SHAPE State=%s Leg=%s unresolved ticket/identifier Ticket=%I64u Identifier=%I64u", StateToString(State), legName, ticket, identifier));
       ok = false;
    }
 
@@ -216,6 +223,7 @@ void GetStateIntegrityShape(EAState state,
       case STATE_INVALID_GEOMETRY_CLOSED:
       case STATE_RECOVERY_MISMATCH:
       case STATE_INTEGRITY_ERROR:
+      case STATE_POSITION_RESOLUTION_ERROR:
       case STATE_MANUAL_INTERVENTION_REQUIRED:
       case STATE_STOP_MAX_LEVELS:
       case STATE_UNCLOSED_CYCLE:
@@ -299,13 +307,25 @@ void GetStateIntegrityShape(EAState state,
          forbidSmall = true;
          break;
 
+      case STATE_OPEN_NEW_BIG_PENDING:
+         requireFar = true;
+         forbidInitial = true;
+         forbidBig = true;
+         forbidSmall = true;
+         break;
+
+      case STATE_OPEN_NEW_SMALL_PENDING:
+         requireFar = true;
+         requireBig = true;
+         forbidInitial = true;
+         forbidSmall = true;
+         break;
+
       case STATE_CLOSE_BIG_PENDING:
       case STATE_CLOSE_SMALL_PENDING:
       case STATE_CLOSE_OLD_FAR_PENDING:
       case STATE_CLOSE_BIG_PART_PENDING:
       case STATE_CLOSE_NEW_FAR_PENDING:
-      case STATE_OPEN_NEW_BIG_PENDING:
-      case STATE_OPEN_NEW_SMALL_PENDING:
       case STATE_REVERSE_LIMIT_CLOSE_PENDING:
       case STATE_MAX_LEVELS_FINAL_CLOSE_PENDING:
       case STATE_STOP_MAX_LEVELS_CLOSE_PENDING:

@@ -546,3 +546,10 @@ The V2.4.17 integrity engine could validate a pending state before the FSM had p
 `PendingContractEngine.mqh` defines a State ↔ PendingAction matrix. `RetryOpenNewBig()` now prepares `PENDING_OPEN_SMALL` before `STATE_OPEN_NEW_SMALL_PENDING`, and `RetryOpenNewSmall()` clears pending context before returning to `STATE_BIG_SMALL_OPENED`. The integrity engine also calls `ValidatePendingStateContract()` so a pending state with the wrong action is rejected as `INVALID_PENDING_CONTRACT` / `STATE_ACTION_MISMATCH`.
 
 BigHarvest phase shape was tightened: `STATE_BIG_HARVEST_CLOSE_SMALL` forbids Big context, and `STATE_BIG_HARVEST_CALC_NET`, `STATE_BIG_HARVEST_CLOSE_FAR`, and `STATE_BIG_HARVEST_CHECK_FINAL` forbid both Big and Small context.
+
+## V2.4.19 Position Resolution Architecture
+The remaining pending-state risk was that `OpenPosition()` success could be followed by virtual context assignment if the broker altered comments and `GetManagedPositionByComment()` failed. `PositionResolutionEngine.mqh` fixes this by resolving newly opened legs through comment, Magic/Symbol/direction/lot, identifier and open-time strategies.
+
+`RetryOpenNewBig()`, `RetryOpenNewSmall()` and `OpenBigSmall()` now register Big/Small legs only through `ApplyResolvedPositionToBig()` / `ApplyResolvedPositionToSmall()`. If resolution fails, the EA moves to `STATE_POSITION_RESOLUTION_ERROR` and does not continue to open Small or the next level.
+
+State Integrity was strengthened so required legs must have non-zero ticket and identifier, and `STATE_OPEN_NEW_SMALL_PENDING` requires resolved Far+Big and forbids Small before the Small-open contract can pass.

@@ -92,6 +92,9 @@ bool PreparePendingCloseBigContext();
 bool PreparePendingCloseSmallContext();
 bool PreparePendingCloseFarContext();
 bool PreparePendingFinalCloseContext();
+PositionResolutionResult ResolveOpenedPositionAfterOpen(string comment, Direction direction, double expectedLot, ulong knownIdentifier, datetime openStartTime);
+bool ApplyResolvedPositionToBig(PositionResolutionResult result);
+bool ApplyResolvedPositionToSmall(PositionResolutionResult result);
 
 void SetState(EAState nextState, string reason)
 {
@@ -115,11 +118,11 @@ void SetState(EAState nextState, string reason)
 
    State = nextState;
    Ctx.lastAction = reason;
-   if(nextState == STATE_ERROR || nextState == STATE_MANUAL_INTERVENTION_REQUIRED || nextState == STATE_RECOVERY_PENDING || nextState == STATE_INTEGRITY_ERROR)
+   if(nextState == STATE_ERROR || nextState == STATE_MANUAL_INTERVENTION_REQUIRED || nextState == STATE_RECOVERY_PENDING || nextState == STATE_INTEGRITY_ERROR || nextState == STATE_POSITION_RESOLUTION_ERROR)
       Ctx.lastError = reason;
    SaveState();
 
-   if(nextState != STATE_INTEGRITY_ERROR && nextState != STATE_RECOVERY_MISMATCH && !StateIntegrityValidationInProgress)
+   if(nextState != STATE_INTEGRITY_ERROR && nextState != STATE_POSITION_RESOLUTION_ERROR && nextState != STATE_RECOVERY_MISMATCH && !StateIntegrityValidationInProgress)
       ValidateCurrentStateIntegrity();
 }
 
@@ -1367,10 +1370,8 @@ void OpenBigSmall()
    string bigComment = LevelComment("BIG", Ctx.harvestLevel);
    string smallComment = LevelComment("SMALL", Ctx.harvestLevel);
 
+   datetime bigOpenStartTime = TimeCurrent();
    bool bigOpened = OpenPosition(Ctx.bigDirection, Ctx.bigLot, bigComment);
-
-   PositionSnapshot big;
-   PositionSnapshot small;
 
    if(!bigOpened)
    {
@@ -1378,43 +1379,24 @@ void OpenBigSmall()
       return;
    }
 
-   bool bigFoundAfterOpen = GetManagedPositionByComment(bigComment, big);
+   PositionResolutionResult bigResolution = ResolveOpenedPositionAfterOpen(bigComment, Ctx.bigDirection, Ctx.bigLot, 0, bigOpenStartTime);
+   if(!ApplyResolvedPositionToBig(bigResolution))
+      return;
+
+   datetime smallOpenStartTime = TimeCurrent();
    bool smallOpened = OpenPosition(Ctx.smallDirection, Ctx.smallLot, smallComment);
 
    if(!smallOpened)
    {
-      if(bigFoundAfterOpen)
-      {
-         MarkSystemClose("ROLLBACK_BIG_WITHOUT_SMALL");
-         ClosePositionByTicketWithComment(big.ticket, big.lot, "ROLLBACK_BIG_WITHOUT_SMALL");
-      }
+      MarkSystemClose("ROLLBACK_BIG_WITHOUT_SMALL");
+      ClosePositionByTicketWithComment(Ctx.bigTicket, Ctx.bigLot, "ROLLBACK_BIG_WITHOUT_SMALL");
       SetState(STATE_ERROR, "failed to open Small leg; Big leg rolled back");
       return;
    }
 
-   if(GetManagedPositionByComment(bigComment, big))
-   {
-      Ctx.bigTicket = big.ticket;
-      Ctx.bigIdentifier = big.identifier;
-      Ctx.bigOpenPrice = big.openPrice;
-   }
-   else
-   {
-      Ctx.bigTicket = 0;
-      Ctx.bigOpenPrice = EntryPriceForDirection(Ctx.bigDirection);
-   }
-
-   if(GetManagedPositionByComment(smallComment, small))
-   {
-      Ctx.smallTicket = small.ticket;
-      Ctx.smallIdentifier = small.identifier;
-      Ctx.smallOpenPrice = small.openPrice;
-   }
-   else
-   {
-      Ctx.smallTicket = 0;
-      Ctx.smallOpenPrice = EntryPriceForDirection(Ctx.smallDirection);
-   }
+   PositionResolutionResult smallResolution = ResolveOpenedPositionAfterOpen(smallComment, Ctx.smallDirection, Ctx.smallLot, 0, smallOpenStartTime);
+   if(!ApplyResolvedPositionToSmall(smallResolution))
+      return;
 
    LogInfo(StringFormat(
       "OPEN BIG/SMALL Level=%d FarTicket=%I64u FarDirection=%s FarLot=%.2f BigDirection=%s BigLot=%.2f SmallDirection=%s SmallLot=%.2f Target=%d",
@@ -2351,6 +2333,7 @@ void RetryOpenNewBig()
 
    Ctx.pendingAttempts++;
 
+   datetime bigOpenStartTime = TimeCurrent();
    if(Ctx.pendingLot <= 0.0 || !OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment))
    {
       if(MaxCloseRetryAttempts > 0 && Ctx.pendingAttempts >= MaxCloseRetryAttempts)
@@ -2360,21 +2343,9 @@ void RetryOpenNewBig()
       return;
    }
 
-   PositionSnapshot opened;
-   if(GetManagedPositionByComment(Ctx.pendingComment, opened))
-   {
-      Ctx.bigTicket = opened.ticket;
-      Ctx.bigIdentifier = opened.identifier;
-      Ctx.bigLot = opened.lot;
-      Ctx.bigOpenPrice = opened.openPrice;
-      Ctx.bigDirection = opened.direction;
-   }
-   else
-   {
-      Ctx.bigLot = Ctx.pendingLot;
-      Ctx.bigDirection = Ctx.pendingDirection;
-      Ctx.bigOpenPrice = EntryPriceForDirection(Ctx.bigDirection);
-   }
+   PositionResolutionResult bigResolution = ResolveOpenedPositionAfterOpen(Ctx.pendingComment, Ctx.pendingDirection, Ctx.pendingLot, 0, bigOpenStartTime);
+   if(!ApplyResolvedPositionToBig(bigResolution))
+      return;
 
    Ctx.pendingAttempts = 0;
    if(!PreparePendingOpenSmallContext())
@@ -2417,6 +2388,7 @@ void RetryOpenNewSmall()
 
    Ctx.pendingAttempts++;
 
+   datetime smallOpenStartTime = TimeCurrent();
    if(Ctx.pendingLot <= 0.0 || !OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment))
    {
       if(MaxCloseRetryAttempts > 0 && Ctx.pendingAttempts >= MaxCloseRetryAttempts)
@@ -2426,21 +2398,9 @@ void RetryOpenNewSmall()
       return;
    }
 
-   PositionSnapshot opened;
-   if(GetManagedPositionByComment(Ctx.pendingComment, opened))
-   {
-      Ctx.smallTicket = opened.ticket;
-      Ctx.smallIdentifier = opened.identifier;
-      Ctx.smallLot = opened.lot;
-      Ctx.smallOpenPrice = opened.openPrice;
-      Ctx.smallDirection = opened.direction;
-   }
-   else
-   {
-      Ctx.smallLot = Ctx.pendingLot;
-      Ctx.smallDirection = Ctx.pendingDirection;
-      Ctx.smallOpenPrice = EntryPriceForDirection(Ctx.smallDirection);
-   }
+   PositionResolutionResult smallResolution = ResolveOpenedPositionAfterOpen(Ctx.pendingComment, Ctx.pendingDirection, Ctx.pendingLot, 0, smallOpenStartTime);
+   if(!ApplyResolvedPositionToSmall(smallResolution))
+      return;
 
    Ctx.harvestLevel += 1;
    Ctx.pendingAttempts = 0;
@@ -2462,6 +2422,7 @@ bool ValidateFSMIntegrity()
    if(StateToString(STATE_OPEN_NEW_BIG_PENDING) == "STATE_UNKNOWN") ok = false;
    if(StateToString(STATE_OPEN_NEW_SMALL_PENDING) == "STATE_UNKNOWN") ok = false;
    if(StateToString(STATE_INTEGRITY_ERROR) == "STATE_UNKNOWN") ok = false;
+   if(StateToString(STATE_POSITION_RESOLUTION_ERROR) == "STATE_UNKNOWN") ok = false;
    // Strict V2.4.5 guards: terminal states must not route to RetryOpenNewBig/RetryOpenNewSmall/OpenBigSmall/OpenInitialLock; pending open states are handled separately; SmallBuildNewFar uses savedSmallDirection; OldFar close clears Ctx.far*.
 
    if(!ok)
@@ -2572,6 +2533,7 @@ void RunStateMachine()
       case STATE_INVALID_GEOMETRY_CLOSED:
       case STATE_RECOVERY_MISMATCH:
       case STATE_INTEGRITY_ERROR:
+      case STATE_POSITION_RESOLUTION_ERROR:
       case STATE_MANUAL_INTERVENTION_REQUIRED:
       case STATE_STOP:
       case STATE_ERROR:

@@ -13,6 +13,7 @@
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
 #include "Include/PendingContractEngine.mqh"
+#include "Include/PositionResolutionEngine.mqh"
 #include "Include/StateIntegrityEngine.mqh"
 #include "Include/ReconciliationEngine.mqh"
 
@@ -227,7 +228,7 @@ void OnTick()
    Ctx.riskGateOk = riskOk;
 
    RunPeriodicReconciliation();
-   if(State == STATE_RECOVERY_MISMATCH || State == STATE_INTEGRITY_ERROR)
+   if(State == STATE_RECOVERY_MISMATCH || State == STATE_INTEGRITY_ERROR || State == STATE_POSITION_RESOLUTION_ERROR)
       return;
 
    if(State == STATE_IDLE && managedPositions == 0)

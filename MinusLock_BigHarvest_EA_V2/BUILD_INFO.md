@@ -145,3 +145,8 @@ V2.4.5 updates:
 - Added strict State-to-`PendingActionType` validation for open Big, open Small, close Big, close Small, partial Big, Far close, max-levels close and stop max-levels close states.
 - `RetryOpenNewBig()` now prepares `PENDING_OPEN_SMALL` before transitioning to `STATE_OPEN_NEW_SMALL_PENDING`, preventing false `STATE_INTEGRITY_ERROR` after a successful New Big open.
 - BigHarvest phase integrity now forbids already-closed Big/Small context in close-small, net calculation, Far close and final-check phases.
+
+## V2.4.19 Position Resolution Architecture
+- Added `Include/PositionResolutionEngine.mqh` and `STATE_POSITION_RESOLUTION_ERROR` so `OpenPosition()` success is not treated as a registered leg until ticket, identifier, lot, type, open price and open time are resolved from MT5.
+- `OpenBigSmall()`, `RetryOpenNewBig()` and `RetryOpenNewSmall()` now use `ResolveOpenedPositionAfterOpen()` and never create virtual Big/Small context from pending lot/direction when resolution fails.
+- State integrity now requires real ticket and identifier for required legs, and pending-open states enforce Far/Big/Small shape before progression.

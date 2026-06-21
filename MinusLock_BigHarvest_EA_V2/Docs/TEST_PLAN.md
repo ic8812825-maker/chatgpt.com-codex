@@ -409,3 +409,14 @@ Static tests added:
 - `bigharvest_phase_forbids_closed_legs_check.py` verifies BigHarvest phases forbid closed Big/Small legs where required.
 
 MT5 acceptance remains USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, MaxSpreadPoints=60, real market-order mode. Experts must show no false `STATE_INTEGRITY_ERROR` after New Big opens and before New Small opens.
+
+## V2.4.19 Position Resolution Tests
+Static tests added:
+- `position_resolution_engine_check.py` verifies the resolver module, result structure, logs and include wiring.
+- `retry_open_big_resolution_check.py` verifies New Big cannot fall back to virtual context.
+- `retry_open_small_resolution_check.py` verifies New Small must be resolved before the cycle completes.
+- `open_bigsmall_resolution_check.py` verifies initial Big/Small pair opens use resolution for both legs.
+- `position_resolution_fail_check.py` verifies failed resolution routes to `STATE_POSITION_RESOLUTION_ERROR`.
+- `state_requires_resolved_position_check.py` and `open_new_small_requires_big_context_check.py` verify pending-open state integrity requires real ticket/identifier context.
+
+MT5 acceptance and optimization remain required on MT5: USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, MaxSpreadPoints=60, plus the requested parameter-selection campaign. This Linux container cannot run MetaEditor or Strategy Tester.

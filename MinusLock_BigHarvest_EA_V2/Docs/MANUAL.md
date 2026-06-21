@@ -706,3 +706,8 @@ If a phase shape is invalid, the EA moves to `STATE_INTEGRITY_ERROR` instead of 
 Pending states are now contractual: the EA must create and validate the Pending Context before entering a Pending state. `PendingContractEngine.mqh` defines the State ↔ PendingAction matrix and logs `PENDING_CONTRACT_CREATED`, `PENDING_CONTRACT_VALID`, `PENDING_CONTRACT_INVALID`, `STATE_ACTION_MISMATCH`, and `PENDING_CONTRACT_MISSING`.
 
 Open retries now use `PreparePendingOpenBigContext()` and `PreparePendingOpenSmallContext()`. After New Big opens successfully, the FSM prepares `PENDING_OPEN_SMALL` before entering `STATE_OPEN_NEW_SMALL_PENDING`, so State Integrity cannot falsely stop the EA because of an empty pending context.
+
+## V2.4.19 Position Resolution Architecture
+A new position is considered usable only after `ResolveOpenedPositionAfterOpen()` resolves a real MT5 position. The resolver searches by comment, by Magic/Symbol/direction/lot, by identifier when known, and by recent open time.
+
+If an open succeeds but the position cannot be resolved with ticket, identifier and lot, the EA enters `STATE_POSITION_RESOLUTION_ERROR`. This prevents virtual Big/Small context and blocks opening Small after New Big unless the Big ticket and identifier are confirmed.

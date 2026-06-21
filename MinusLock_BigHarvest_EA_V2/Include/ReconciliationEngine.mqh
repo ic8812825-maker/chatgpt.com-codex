@@ -399,6 +399,7 @@ bool RunReconciliation()
    ok = ValidateInitialLockIntegrity() && ok;
    ok = ValidateStatePositionConsistency() && ok;
    ok = ValidateCurrentStateIntegrity() && ok;
+   ok = ValidatePositionResolutionContext() && ok;
    ok = ValidateNoOrphanManagedPositions() && ok;
    ok = ValidateFarPosition() && ok;
    ok = ValidateBigPosition() && ok;
@@ -421,7 +422,7 @@ bool RunReconciliation()
 
    if(!ok)
    {
-      if(State != STATE_INTEGRITY_ERROR)
+      if(State != STATE_INTEGRITY_ERROR && State != STATE_POSITION_RESOLUTION_ERROR)
       {
          State = STATE_RECOVERY_MISMATCH;
          Ctx.lastError = "RECONCILIATION FAIL";
@@ -451,6 +452,12 @@ void RunPeriodicReconciliation()
    if(State == STATE_INTEGRITY_ERROR)
    {
       LogInfo("RECONCILIATION REPEAT WARNING skipped because STATE_INTEGRITY_ERROR is already active");
+      return;
+   }
+
+   if(State == STATE_POSITION_RESOLUTION_ERROR)
+   {
+      LogInfo("RECONCILIATION REPEAT WARNING skipped because STATE_POSITION_RESOLUTION_ERROR is already active");
       return;
    }
 
