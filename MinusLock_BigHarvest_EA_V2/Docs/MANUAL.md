@@ -19,7 +19,7 @@
 Ключевые `input`-параметры находятся в `Include/Config.mqh`:
 
 ```mql5
-StartLot = 1.00
+StartLot = 0.10
 BigRatio = 1.30
 SmallRatio = 0.37
 CloseBigOnSmall = 0.30
@@ -440,7 +440,7 @@ PASS is allowed only when all conditions are true:
 State = STATE_CLOSED_PROFIT
 RealRecoveryPL > 0
 CountManagedOpenPositions() = 0
-LastSystemCloseComment = FINAL_CLOSE or CLOSED_PROFIT
+LastSystemCloseComment = FINAL_CLOSE_PROFIT or CLOSED_PROFIT
 No STOP_MAX_LEVELS
 ```
 
@@ -720,3 +720,13 @@ If an open succeeds but the position cannot be resolved with ticket, identifier 
 After a Small scenario, the partially closed Big remainder is normal exposure. `PromoteRemainingBigToNewFar()` verifies the remaining Big ticket, identifier, terminal `POSITION_VOLUME`, direction, and open price, assigns it to `Ctx.far*`, clears Big/Small context, saves state, and lets the FSM continue. A remainder such as `0.64` lots after closing about `0.42` from an old `1.06` Big is therefore a valid new Far, not an integrity error.
 
 On restart or reconciliation, `TryRecoverPromotedBigAsFar()` recognizes the same shape: old Far absent, Small absent, and the Big remainder still open. It logs `PROMOTED_BIG_AS_FAR_RECOVERED`, promotes the remainder to Far, clears error state, and resumes from `STATE_FAR_ACTIVE`.
+
+## V2.4.21 Real Recovery Profit + Final Close Pass Criteria
+
+- The pass criterion is now `FinalBalance > CycleStartBalance`; account-level profit versus the initial deposit is diagnostic only.
+- `InitialIgnoredProfit` from the first Initial Lock plus close is excluded from `realRecoveryPL`, reserve accounting, `OnTester()`, and `STATE_CLOSED_PROFIT` eligibility.
+- `CalcRealRecoveryPL()` uses `CurrentBalance - CycleStartBalance` as the source of truth; closed-deal profit/loss fields remain diagnostics.
+- `OnTester()` returns `Ctx.realRecoveryPL` only when `IsRealRecoveryPass()` confirms `STATE_CLOSED_PROFIT`, no managed open positions, a profitable system close comment, and positive recovery P/L. Otherwise it returns `-1.0`.
+- `ProcessFinalClose()` forecasts `ProjectedRecoveryPLAfterFinalClose`; negative or zero recovery projection is routed as `FINAL_CLOSE_STOP` and cannot enter `STATE_CLOSED_PROFIT`.
+- `STATE_CLOSED_RECOVERY_LOSS` records terminal cycles where all positions are closed but `realRecoveryPL <= 0`.
+- CSV diagnostics now include `InitialDeposit`, `AccountPL`, `RecoveryPL`, `PassByAccountPL`, `PassByRecoveryPL`, `LastCloseWasSystemClose`, and `FinalCloseType` so a positive account P/L cannot hide a failed recovery cycle.

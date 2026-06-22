@@ -28,7 +28,7 @@
 Параметры:
 
 ```text
-StartLot = 1.00
+StartLot = 0.10
 InitialTriggerPoints = 100
 AllowRealTrading = false
 ```
@@ -41,7 +41,7 @@ AllowRealTrading = false
 4. При движении вниз на 100 пунктов закрывается только SELL, BUY становится Far.
 5. В логах зафиксировано, что первый плюс игнорируется.
 
-## 4. Тест StartLot = 1.00 по мануалу
+## 4. Тест StartLot = 0.10 по мануалу
 
 Условия:
 
@@ -212,7 +212,7 @@ After `Small-at-Far`, confirm that the new Far starts from current price and doe
 3. Confirm `REAL_CYCLE_MATH |` appears in Experts journal.
 4. Confirm `MinusLock_CycleMath.csv` contains: `InitialIgnoredProfit`, `CycleStartBalance`, `CurrentBalance`, `RealRecoveryPL`, `RealClosedProfit`, `RealClosedLoss`, `RealCommission`, `RealSwap`, `RealCosts`, `TheoreticalCyclePL`, `LastSystemCloseComment`, `PassByRealPL`.
 5. Confirm the first profitable initial lock leg is excluded from `RealRecoveryPL` because `CycleStartBalance` is recorded after that close.
-6. PASS requires `STATE_CLOSED_PROFIT`, `RealRecoveryPL > 0`, no managed open positions, no `STOP_MAX_LEVELS`, and final system close comment `FINAL_CLOSE` or `CLOSED_PROFIT`.
+6. PASS requires `STATE_CLOSED_PROFIT`, `RealRecoveryPL > 0`, no managed open positions, no `STOP_MAX_LEVELS`, and final system close comment `FINAL_CLOSE_PROFIT` or `CLOSED_PROFIT`.
 
 ## Small Scenario V2.4 Required Tests
 
@@ -432,3 +432,13 @@ Static tests added:
 - `recover_promoted_big_as_far_check.py` verifies recovery/reconciliation can rebuild promoted Big as Far.
 
 Manual MT5 acceptance remains required: USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, Deposit 10000, Hedging. Required checks: no false `STATE_INTEGRITY_ERROR` after Small scenario, no stuck Far at test end, new Far near the terminal remainder after partial Big close, no `STATE_RECOVERY_MISMATCH`, and no `STATE_POSITION_RESOLUTION_ERROR` unless the opened position truly cannot be resolved.
+
+## V2.4.21 Real Recovery Profit + Final Close Pass Criteria
+
+- The pass criterion is now `FinalBalance > CycleStartBalance`; account-level profit versus the initial deposit is diagnostic only.
+- `InitialIgnoredProfit` from the first Initial Lock plus close is excluded from `realRecoveryPL`, reserve accounting, `OnTester()`, and `STATE_CLOSED_PROFIT` eligibility.
+- `CalcRealRecoveryPL()` uses `CurrentBalance - CycleStartBalance` as the source of truth; closed-deal profit/loss fields remain diagnostics.
+- `OnTester()` returns `Ctx.realRecoveryPL` only when `IsRealRecoveryPass()` confirms `STATE_CLOSED_PROFIT`, no managed open positions, a profitable system close comment, and positive recovery P/L. Otherwise it returns `-1.0`.
+- `ProcessFinalClose()` forecasts `ProjectedRecoveryPLAfterFinalClose`; negative or zero recovery projection is routed as `FINAL_CLOSE_STOP` and cannot enter `STATE_CLOSED_PROFIT`.
+- `STATE_CLOSED_RECOVERY_LOSS` records terminal cycles where all positions are closed but `realRecoveryPL <= 0`.
+- CSV diagnostics now include `InitialDeposit`, `AccountPL`, `RecoveryPL`, `PassByAccountPL`, `PassByRecoveryPL`, `LastCloseWasSystemClose`, and `FinalCloseType` so a positive account P/L cannot hide a failed recovery cycle.

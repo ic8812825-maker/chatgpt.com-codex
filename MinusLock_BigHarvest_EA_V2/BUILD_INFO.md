@@ -157,3 +157,13 @@ V2.4.5 updates:
 - Added `PositionResolutionLookbackSeconds=10` and reworked resolution order: comment, strict open-time window, identifier, then non-ambiguous fallback excluding existing context.
 - Added `PromoteRemainingBigToNewFar()` and recovery hook `PROMOTED_BIG_AS_FAR_RECOVERED` so the real remaining Big position after a Small scenario becomes the new Far instead of causing a false `STATE_INTEGRITY_ERROR`.
 - Reconciliation now attempts promoted-Big recovery from integrity/resolution error states and throttles repeated terminal-state warnings with a suppressed-message counter.
+
+## V2.4.21 Real Recovery Profit + Final Close Pass Criteria
+
+- The pass criterion is now `FinalBalance > CycleStartBalance`; account-level profit versus the initial deposit is diagnostic only.
+- `InitialIgnoredProfit` from the first Initial Lock plus close is excluded from `realRecoveryPL`, reserve accounting, `OnTester()`, and `STATE_CLOSED_PROFIT` eligibility.
+- `CalcRealRecoveryPL()` uses `CurrentBalance - CycleStartBalance` as the source of truth; closed-deal profit/loss fields remain diagnostics.
+- `OnTester()` returns `Ctx.realRecoveryPL` only when `IsRealRecoveryPass()` confirms `STATE_CLOSED_PROFIT`, no managed open positions, a profitable system close comment, and positive recovery P/L. Otherwise it returns `-1.0`.
+- `ProcessFinalClose()` forecasts `ProjectedRecoveryPLAfterFinalClose`; negative or zero recovery projection is routed as `FINAL_CLOSE_STOP` and cannot enter `STATE_CLOSED_PROFIT`.
+- `STATE_CLOSED_RECOVERY_LOSS` records terminal cycles where all positions are closed but `realRecoveryPL <= 0`.
+- CSV diagnostics now include `InitialDeposit`, `AccountPL`, `RecoveryPL`, `PassByAccountPL`, `PassByRecoveryPL`, `LastCloseWasSystemClose`, and `FinalCloseType` so a positive account P/L cannot hide a failed recovery cycle.

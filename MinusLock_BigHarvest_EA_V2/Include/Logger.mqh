@@ -274,11 +274,21 @@ void WriteCycleMathCsv(
    double realCosts = 0.0,
    double theoreticalCyclePL = 0.0,
    string lastSystemCloseComment = "",
-   bool passByRealPL = false
+   bool passByRealPL = false,
+   bool lastCloseWasSystemClose = false,
+   string finalCloseType = ""
 )
 {
    if(!EnableCycleMathCsv)
       return;
+
+   double initialDeposit = cycleStartBalance - initialIgnoredProfit;
+   double accountPL = currentBalance - initialDeposit;
+   double recoveryPL = currentBalance - cycleStartBalance;
+   bool passByAccountPL = accountPL > 0.0;
+   bool passByRecoveryPL = passByRealPL;
+   if(finalCloseType == "")
+      finalCloseType = lastSystemCloseComment;
 
    int handle = FileOpen("MinusLock_CycleMath.csv", FILE_READ | FILE_WRITE | FILE_CSV | FILE_ANSI, ',');
    if(handle == INVALID_HANDLE)
@@ -302,9 +312,10 @@ void WriteCycleMathCsv(
          "ProjectedReserveCoverage", "ActionAfterValidation", "StopReason",
          "NetProfitTheoretical", "NetProfitRealized", "CostsRealized", "TotalReserveBefore",
          "TotalReserveAfter", "ReserveUsedForFinalClose",
-         "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance", "RealRecoveryPL",
+         "InitialDeposit", "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance",
+         "AccountPL", "RecoveryPL", "PassByAccountPL", "PassByRecoveryPL", "RealRecoveryPL",
          "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
-         "TheoreticalCyclePL", "LastSystemCloseComment", "PassByRealPL"
+         "TheoreticalCyclePL", "LastSystemCloseComment", "LastCloseWasSystemClose", "FinalCloseType", "PassByRealPL"
       );
    }
 
@@ -355,9 +366,14 @@ void WriteCycleMathCsv(
       DoubleToString(totalReserveBefore, 2),
       DoubleToString(totalReserve, 2),
       DoubleToString(reserveUsedForFinalClose, 2),
+      DoubleToString(initialDeposit, 2),
       DoubleToString(initialIgnoredProfit, 2),
       DoubleToString(cycleStartBalance, 2),
       DoubleToString(currentBalance, 2),
+      DoubleToString(accountPL, 2),
+      DoubleToString(recoveryPL, 2),
+      passByAccountPL ? "YES" : "NO",
+      passByRecoveryPL ? "YES" : "NO",
       DoubleToString(realRecoveryPL, 2),
       DoubleToString(realClosedProfit, 2),
       DoubleToString(realClosedLoss, 2),
@@ -366,6 +382,8 @@ void WriteCycleMathCsv(
       DoubleToString(realCosts, 2),
       DoubleToString(theoreticalCyclePL, 2),
       lastSystemCloseComment,
+      lastCloseWasSystemClose ? "YES" : "NO",
+      finalCloseType,
       passByRealPL ? "YES" : "NO"
    );
 
@@ -421,11 +439,13 @@ void LogCycleMathDetailed(
    double realCosts = 0.0,
    double theoreticalCyclePL = 0.0,
    string lastSystemCloseComment = "",
-   bool passByRealPL = false
+   bool passByRealPL = false,
+   bool lastCloseWasSystemClose = false,
+   string finalCloseType = ""
 )
 {
    PrintFormat(
-      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s PassByRealPL=%s",
+      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s LastCloseWasSystemClose=%s FinalCloseType=%s PassByAccountPL=%s PassByRecoveryPL=%s PassByRealPL=%s",
       level,
       scenario,
       initialFarDistancePoints,
@@ -475,6 +495,10 @@ void LogCycleMathDetailed(
       realCosts,
       theoreticalCyclePL,
       lastSystemCloseComment,
+      lastCloseWasSystemClose ? "YES" : "NO",
+      finalCloseType,
+      (cycleStartBalance > 0.0 && currentBalance - (cycleStartBalance - initialIgnoredProfit) > 0.0) ? "YES" : "NO",
+      passByRealPL ? "YES" : "NO",
       passByRealPL ? "YES" : "NO"
    );
 
@@ -527,7 +551,9 @@ void LogCycleMathDetailed(
       realCosts,
       theoreticalCyclePL,
       lastSystemCloseComment,
-      passByRealPL
+      passByRealPL,
+      lastCloseWasSystemClose,
+      finalCloseType
    );
 }
 

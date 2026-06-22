@@ -97,6 +97,23 @@ bool ApplyResolvedPositionToBig(PositionResolutionResult &result);
 bool ApplyResolvedPositionToSmall(PositionResolutionResult &result);
 bool TryRecoverPromotedBigAsFar(string reason);
 
+bool IsProfitSystemCloseComment(string comment)
+{
+   return comment == "FINAL_CLOSE_PROFIT" ||
+          comment == "CLOSED_PROFIT" ||
+          comment == "MAX_LEVELS_FINAL_CLOSE";
+}
+
+bool CanEnterClosedProfit()
+{
+   RecalculateRealCycleStatsFromHistory();
+   return CountManagedOpenPositions() == 0 &&
+          !HasOpenLegContext() &&
+          Ctx.realRecoveryPL > 0.0 &&
+          Ctx.lastCloseWasSystemClose &&
+          IsProfitSystemCloseComment(Ctx.lastSystemCloseComment);
+}
+
 void SetState(EAState nextState, string reason)
 {
    if(nextState == STATE_CLOSED_PROFIT)
@@ -106,11 +123,24 @@ void SetState(EAState nextState, string reason)
       if(Ctx.bigTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.bigTicket, "STATE_CLOSED_PROFIT_BIG_GUARD") && fullCloseVerified;
       if(Ctx.smallTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.smallTicket, "STATE_CLOSED_PROFIT_SMALL_GUARD") && fullCloseVerified;
 
-      if(CountManagedOpenPositions() > 0 || HasOpenLegContext() || !fullCloseVerified)
+      if(!fullCloseVerified || !CanEnterClosedProfit())
       {
-         LogError("CLOSED_PROFIT_BLOCKED: managed positions or live leg context still open");
-         nextState = STATE_MANUAL_INTERVENTION_REQUIRED;
-         reason = "CLOSED_PROFIT_BLOCKED: managed positions or live leg context still open";
+         LogError(StringFormat("CLOSED_PROFIT_BLOCKED: ManagedPositions=%d HasContext=%s RealRecoveryPL=%.2f LastCloseWasSystemClose=%s LastSystemCloseComment=%s",
+                              CountManagedOpenPositions(),
+                              HasOpenLegContext() ? "YES" : "NO",
+                              Ctx.realRecoveryPL,
+                              Ctx.lastCloseWasSystemClose ? "YES" : "NO",
+                              Ctx.lastSystemCloseComment));
+         if(CountManagedOpenPositions() == 0 && Ctx.realRecoveryPL <= 0.0)
+         {
+            nextState = STATE_CLOSED_RECOVERY_LOSS;
+            reason = "CLOSED_RECOVERY_LOSS: realRecoveryPL <= 0";
+         }
+         else
+         {
+            nextState = STATE_MANUAL_INTERVENTION_REQUIRED;
+            reason = "CLOSED_PROFIT_BLOCKED: strict recovery-profit guard failed";
+         }
       }
    }
 
@@ -808,22 +838,12 @@ void ResetRecoveryContext()
 double CalcRealRecoveryPL()
 {
    if(IsInternalSimulationMode())
-   {
       Ctx.cycleCurrentBalance = Ctx.cycleStartBalance + Ctx.realCyclePL;
-      Ctx.cycleBalancePL = Ctx.realCyclePL;
-      Ctx.realRecoveryPL = Ctx.realCyclePL;
-      Ctx.realCycleProfitPositive = Ctx.realRecoveryPL > 0.0;
-      return Ctx.realRecoveryPL;
-   }
-
-   Ctx.cycleCurrentBalance = AccountInfoDouble(ACCOUNT_BALANCE);
-   Ctx.cycleBalancePL = Ctx.cycleCurrentBalance - Ctx.cycleStartBalance;
-
-   if(Ctx.realCyclePL != 0.0 || Ctx.realClosedProfit != 0.0 || Ctx.realClosedLoss != 0.0 || Ctx.realCommission != 0.0 || Ctx.realSwap != 0.0)
-      Ctx.realRecoveryPL = Ctx.realCyclePL;
    else
-      Ctx.realRecoveryPL = Ctx.cycleBalancePL;
+      Ctx.cycleCurrentBalance = AccountInfoDouble(ACCOUNT_BALANCE);
 
+   Ctx.cycleBalancePL = Ctx.cycleCurrentBalance - Ctx.cycleStartBalance;
+   Ctx.realRecoveryPL = Ctx.cycleBalancePL;
    Ctx.realCycleProfitPositive = Ctx.realRecoveryPL > 0.0;
    return Ctx.realRecoveryPL;
 }
@@ -875,6 +895,11 @@ bool RecalculateRealCycleStatsFromHistory()
 
             ulong dealPositionId = (ulong)HistoryDealGetInteger(dealTicket, DEAL_POSITION_ID);
             string dealComment = HistoryDealGetString(dealTicket, DEAL_COMMENT);
+            if(StringFind(dealComment, "INITIAL_BUY") >= 0 || StringFind(dealComment, "INITIAL_SELL") >= 0)
+            {
+               LogInfo(StringFormat("REAL_RECOVERY_SKIP_INITIAL_LOCK Deal=%I64u Comment=%s", dealTicket, dealComment));
+               continue;
+            }
             double dealProfit = HistoryDealGetDouble(dealTicket, DEAL_PROFIT);
             double dealCommission = HistoryDealGetDouble(dealTicket, DEAL_COMMISSION);
             double dealSwap = HistoryDealGetDouble(dealTicket, DEAL_SWAP);
@@ -966,18 +991,25 @@ bool IsRealRecoveryPass()
           Ctx.realRecoveryPL > 0.0 &&
           CountManagedOpenPositions() == 0 &&
           Ctx.lastCloseWasSystemClose &&
-          (Ctx.lastSystemCloseComment == "FINAL_CLOSE" || Ctx.lastSystemCloseComment == "CLOSED_PROFIT");
+          IsProfitSystemCloseComment(Ctx.lastSystemCloseComment);
 }
 
 void LogRealCycleMath(EAState state, double onTesterValue)
 {
-   bool passByRealPL = (state == STATE_CLOSED_PROFIT && Ctx.realRecoveryPL > 0.0 && CountManagedOpenPositions() == 0 && Ctx.lastCloseWasSystemClose);
+   bool passByRealPL = IsRealRecoveryPass();
+   double initialDeposit = Ctx.cycleStartBalance - Ctx.initialIgnoredProfit;
+   double accountPL = Ctx.cycleCurrentBalance - initialDeposit;
+   double recoveryPL = Ctx.cycleCurrentBalance - Ctx.cycleStartBalance;
+   bool passByAccountPL = accountPL > 0.0;
    PrintFormat(
-      "REAL_CYCLE_MATH | State=%s InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s OnTesterValue=%.2f PassByRealPL=%s",
+      "REAL_CYCLE_MATH | State=%s InitialDeposit=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f AccountPL=%.2f RecoveryPL=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s LastCloseWasSystemClose=%s FinalCloseType=%s OnTesterValue=%.2f PassByAccountPL=%s PassByRecoveryPL=%s PassByRealPL=%s",
       StateToString(state),
+      initialDeposit,
       Ctx.initialIgnoredProfit,
       Ctx.cycleStartBalance,
       Ctx.cycleCurrentBalance,
+      accountPL,
+      recoveryPL,
       Ctx.realRecoveryPL,
       Ctx.realClosedProfit,
       Ctx.realClosedLoss,
@@ -986,7 +1018,11 @@ void LogRealCycleMath(EAState state, double onTesterValue)
       Ctx.realCosts,
       Ctx.theoreticalCyclePL,
       Ctx.lastSystemCloseComment,
+      Ctx.lastCloseWasSystemClose ? "YES" : "NO",
+      Ctx.lastSystemCloseComment,
       onTesterValue,
+      passByAccountPL ? "YES" : "NO",
+      passByRealPL ? "YES" : "NO",
       passByRealPL ? "YES" : "NO"
    );
 
@@ -1039,7 +1075,9 @@ void LogRealCycleMath(EAState state, double onTesterValue)
       Ctx.realCosts,
       Ctx.theoreticalCyclePL,
       Ctx.lastSystemCloseComment,
-      passByRealPL
+      passByRealPL,
+      Ctx.lastCloseWasSystemClose,
+      Ctx.lastSystemCloseComment
    );
 }
 
@@ -1996,8 +2034,12 @@ void ProcessFinalClose()
 {
    if(!RefreshFar())
    {
-      SetState(STATE_CLOSED_PROFIT, "Far already absent at final close");
       RecalculateRealCycleStatsFromHistory();
+      if(Ctx.realRecoveryPL > 0.0)
+         MarkSystemClose("CLOSED_PROFIT");
+      else
+         MarkSystemClose("CLOSED_RECOVERY_LOSS");
+      SetState(Ctx.realRecoveryPL > 0.0 ? STATE_CLOSED_PROFIT : STATE_CLOSED_RECOVERY_LOSS, "Far already absent at final close");
       LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
       return;
    }
@@ -2006,9 +2048,28 @@ void ProcessFinalClose()
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
    Ctx.theoreticalCyclePL = Ctx.cycleFinalPL;
 
+   double projectedCurrentPrice = CurrentPriceForDirectionClose(Ctx.farDirection);
+   double projectedFarPL = CalculateFarFloatingPL(projectedCurrentPrice);
+   double projectedBalanceAfterFinalClose = AccountInfoDouble(ACCOUNT_BALANCE) + projectedFarPL;
+   double projectedRecoveryPLAfterFinalClose = projectedBalanceAfterFinalClose - Ctx.cycleStartBalance;
+   LogInfo(StringFormat("FINAL_CLOSE_PROFIT_FORECAST ProjectedBalanceAfterFinalClose=%.2f ProjectedRecoveryPLAfterFinalClose=%.2f CycleStartBalance=%.2f FarFloatingPL=%.2f",
+                        projectedBalanceAfterFinalClose,
+                        projectedRecoveryPLAfterFinalClose,
+                        Ctx.cycleStartBalance,
+                        projectedFarPL));
+   if(projectedRecoveryPLAfterFinalClose <= 0.0)
+   {
+      Ctx.finalCloseAllowed = false;
+      if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
+         SetState(STATE_MAX_LEVELS_DECISION, "FINAL_CLOSE_STOP: projected recovery PL is not positive");
+      else
+         SetState(STATE_FAR_ACTIVE, "FINAL_CLOSE_STOP: wait for positive recovery PL");
+      return;
+   }
+
    LogCycleMathDetailed(
       Ctx.harvestLevel,
-      "FINAL_CLOSE",
+      "FINAL_CLOSE_PROFIT",
       Ctx.farLot,
       0.0,
       0.0,
@@ -2039,8 +2100,8 @@ void ProcessFinalClose()
       farRemainLoss
    );
 
-   MarkSystemClose("FINAL_CLOSE");
-   if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE"))
+   MarkSystemClose("FINAL_CLOSE_PROFIT");
+   if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.farLot, "FINAL_CLOSE_PROFIT"))
    {
       SetPendingOperation(PENDING_CLOSE_FAR_FULL, "FINAL_CLOSE_NEW_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_FINAL_CLOSE", STATE_CLOSED_PROFIT, "failed to close Far during FinalClose; retry pending");
       return;
@@ -2053,13 +2114,13 @@ void ProcessFinalClose()
       Ctx.cycleFinalPL
    ));
 
-   if(!VerifyFullClose(Ctx.farTicket, "FINAL_CLOSE"))
+   if(!VerifyFullClose(Ctx.farTicket, "FINAL_CLOSE_PROFIT"))
    {
       Ctx.farLot = NormalizeVolumeToStep(GetActualPositionVolume(Ctx.farTicket));
       SetPendingOperation(PENDING_CLOSE_FAR_FULL, "FINAL_CLOSE_NEW_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_FINAL_CLOSE", STATE_CLOSED_PROFIT, "FULL_CLOSE_INCOMPLETE after FinalClose; retry pending");
       return;
    }
-   ClearFarContext("FINAL_CLOSE confirmed by VerifyFullClose");
+   ClearFarContext("FINAL_CLOSE_PROFIT confirmed by VerifyFullClose");
    if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_CLOSED_PROFIT, "cycle closed in profit; no new levels");
    RecalculateRealCycleStatsFromHistory();
@@ -2151,7 +2212,14 @@ void ProcessBigHarvestCheckFinal()
    Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
    if(Ctx.farLot <= 0.0)
-      SetState(STATE_CLOSED_PROFIT, "BigHarvest phase completed with Far fully closed");
+   {
+      RecalculateRealCycleStatsFromHistory();
+      if(Ctx.realRecoveryPL > 0.0)
+         MarkSystemClose("CLOSED_PROFIT");
+      else
+         MarkSystemClose("CLOSED_RECOVERY_LOSS");
+      SetState(Ctx.realRecoveryPL > 0.0 ? STATE_CLOSED_PROFIT : STATE_CLOSED_RECOVERY_LOSS, "BigHarvest phase completed with Far fully closed");
+   }
    else if(Ctx.finalCloseAllowed)
       SetState(STATE_FINAL_CLOSE, "BigHarvest phase reserve covers remaining Far");
    else if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
@@ -2378,7 +2446,8 @@ void ProcessMaxLevelsDecision()
       }
       ClearFarContext("MAX_LEVELS_FINAL_CLOSE confirmed by VerifyFullClose");
       if(!ValidateNoOrphanManagedPositions()) return;
-      SetState(STATE_CLOSED_PROFIT, "Max levels residual Far closed because reserve covered loss");
+      RecalculateRealCycleStatsFromHistory();
+      SetState(Ctx.realRecoveryPL > 0.0 ? STATE_CLOSED_PROFIT : STATE_CLOSED_RECOVERY_LOSS, "Max levels residual Far closed; classify by real recovery PL");
       return;
    }
 
@@ -2655,6 +2724,7 @@ void RunStateMachine()
          break;
 
       case STATE_CLOSED_PROFIT:
+      case STATE_CLOSED_RECOVERY_LOSS:
       case STATE_STOP_MAX_LEVELS:
       case STATE_UNCLOSED_CYCLE:
       case STATE_DUAL_TAIL:

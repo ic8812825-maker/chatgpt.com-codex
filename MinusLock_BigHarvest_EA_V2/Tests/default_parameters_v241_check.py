@@ -1,7 +1,7 @@
 from pathlib import Path
 text = (Path(__file__).resolve().parents[1] / "Include" / "Config.mqh").read_text()
 expected = [
-    "input double StartLot              = 1.00;",
+    "input double StartLot              = 0.10;",
     "input double BigRatio              = 1.15;",
     "input double SmallRatio            = 0.25;",
     "input double CloseBigOnSmall       = 0.40;",

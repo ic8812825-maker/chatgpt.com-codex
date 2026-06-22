@@ -9,7 +9,7 @@ enum FarDistanceModeEnum
    REAL_PRICE_DISTANCE
 };
 
-input double StartLot              = 1.00;
+input double StartLot              = 0.10;
 input double BigRatio              = 1.15;
 input double SmallRatio            = 0.25;
 input double CloseBigOnSmall       = 0.40;
@@ -84,6 +84,7 @@ void ConfigureWorkingParameters()
 
    if(UseRecommended5050Preset)
    {
+      Print("WARNING: 5050 preset is experimental and not the approved BigHarvest system.");
       WorkSmallRatio = 0.36;
       WorkCloseBigOnSmall = 0.35;
       WorkRemainBigOnSmall = 0.65;

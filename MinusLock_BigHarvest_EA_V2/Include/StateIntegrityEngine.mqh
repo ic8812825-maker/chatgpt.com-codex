@@ -10,6 +10,7 @@
 bool IsStateIntegrityTerminalState(EAState state)
 {
    return (state == STATE_CLOSED_PROFIT ||
+           state == STATE_CLOSED_RECOVERY_LOSS ||
            state == STATE_DUAL_TAIL ||
            state == STATE_INVALID_REVERSE_GEOMETRY ||
            state == STATE_INVALID_SMALL_GEOMETRY ||
@@ -214,6 +215,7 @@ void GetStateIntegrityShape(EAState state,
       case STATE_IDLE:
       case STATE_RECOVERY_PENDING:
       case STATE_CLOSED_PROFIT:
+      case STATE_CLOSED_RECOVERY_LOSS:
       case STATE_DUAL_TAIL:
       case STATE_INVALID_REVERSE_GEOMETRY:
       case STATE_INVALID_SMALL_GEOMETRY:
