@@ -553,3 +553,12 @@ The remaining pending-state risk was that `OpenPosition()` success could be foll
 `RetryOpenNewBig()`, `RetryOpenNewSmall()` and `OpenBigSmall()` now register Big/Small legs only through `ApplyResolvedPositionToBig()` / `ApplyResolvedPositionToSmall()`. If resolution fails, the EA moves to `STATE_POSITION_RESOLUTION_ERROR` and does not continue to open Small or the next level.
 
 State Integrity was strengthened so required legs must have non-zero ticket and identifier, and `STATE_OPEN_NEW_SMALL_PENDING` requires resolved Far+Big and forbids Small before the Small-open contract can pass.
+
+## V2.4.20 Position Resolution + Small Scenario Promote Fix
+The V2.4.20 patch fixes the MetaEditor structure-passing errors by changing position-resolution APIs to fill `PositionResolutionResult` through references and by accepting `PositionSnapshot` by reference only. It adds the missing `PositionResolutionLookbackSeconds` input and makes the resolver deterministic: comment first, then strict operation-time window, then identifier, then a non-ambiguous fallback that excludes existing context tickets and identifiers.
+
+The Small scenario now treats the remaining Big position as a valid new Far. `PromoteRemainingBigToNewFar()` validates the live ticket, `POSITION_IDENTIFIER`, terminal volume, direction, and open price; writes those values to `Ctx.far*`; clears `Ctx.big*` and `Ctx.small*`; saves state; and lets the FSM continue via `STATE_SMALL_CHECK_RESERVE`/`STATE_FAR_ACTIVE` recovery instead of false `STATE_INTEGRITY_ERROR`.
+
+Reconciliation and periodic recovery now call `TryRecoverPromotedBigAsFar()` for the recovered shape where old Far and Small are absent but the Big remainder exists. Repeated terminal-state warnings are throttled and include a suppressed-message counter.
+
+MetaEditor compilation and Strategy Tester validation still require MT5 and broker history outside this Linux container.

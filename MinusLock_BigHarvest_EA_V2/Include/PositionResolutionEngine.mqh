@@ -1,13 +1,13 @@
 #ifndef __BH_POSITIONRESOLUTIONENGINE_MQH__
 #define __BH_POSITIONRESOLUTIONENGINE_MQH__
 
-// V2.4.19 Position Resolution Architecture.
+// V2.4.20 Position Resolution Architecture.
 // OpenPosition success is not enough: a new leg is registered only after ticket,
 // identifier, lot, type, open price and open time are resolved from MT5.
 
-PositionResolutionResult EmptyPositionResolutionResult()
+void ResetPositionResolutionResult(PositionResolutionResult &result)
 {
-   PositionResolutionResult result;
+   ZeroMemory(result);
    result.resolved = false;
    result.ticket = 0;
    result.identifier = 0;
@@ -15,12 +15,11 @@ PositionResolutionResult EmptyPositionResolutionResult()
    result.type = POSITION_TYPE_BUY;
    result.openPrice = 0.0;
    result.openTime = 0;
-   return result;
 }
 
-PositionResolutionResult ResolutionResultFromSnapshot(PositionSnapshot snapshot, datetime openTime)
+bool ResolutionResultFromSnapshot(PositionSnapshot &snapshot, datetime openTime, PositionResolutionResult &result)
 {
-   PositionResolutionResult result;
+   ResetPositionResolutionResult(result);
    result.resolved = snapshot.exists && snapshot.ticket != 0 && snapshot.identifier != 0 && snapshot.lot > VolumeMismatchToleranceLots;
    result.ticket = snapshot.ticket;
    result.identifier = snapshot.identifier;
@@ -28,19 +27,40 @@ PositionResolutionResult ResolutionResultFromSnapshot(PositionSnapshot snapshot,
    result.type = (snapshot.direction == DIR_BUY ? POSITION_TYPE_BUY : POSITION_TYPE_SELL);
    result.openPrice = snapshot.openPrice;
    result.openTime = openTime;
-   return result;
+   return result.resolved;
 }
 
 bool PositionResolutionLotMatches(double actualLot, double expectedLot)
 {
    double actual = NormalizeVolumeToStep(actualLot);
    double expected = NormalizeVolumeToStep(expectedLot);
-   return MathAbs(actual - expected) <= VolumeMismatchToleranceLots;
+   return expected <= 0.0 || MathAbs(actual - expected) <= VolumeMismatchToleranceLots;
 }
 
 bool PositionResolutionDirectionMatches(Direction actualDirection, Direction expectedDirection)
 {
    return expectedDirection == DIR_NONE || actualDirection == expectedDirection;
+}
+
+bool IsKnownContextTicketOrIdentifier(ulong ticket, ulong identifier)
+{
+   if(ticket != 0)
+   {
+      if(ticket == Ctx.farTicket || ticket == Ctx.bigTicket || ticket == Ctx.smallTicket ||
+         ticket == Ctx.initialBuyTicket || ticket == Ctx.initialSellTicket ||
+         ticket == Ctx.pendingTicket || ticket == Ctx.retryTicket)
+         return true;
+   }
+
+   if(identifier != 0)
+   {
+      if(identifier == Ctx.farIdentifier || identifier == Ctx.bigIdentifier || identifier == Ctx.smallIdentifier ||
+         identifier == Ctx.initialBuyIdentifier || identifier == Ctx.initialSellIdentifier ||
+         identifier == Ctx.pendingBigPositionId || identifier == Ctx.pendingSmallPositionId)
+         return true;
+   }
+
+   return false;
 }
 
 bool ReadSelectedPositionResolution(PositionResolutionResult &result)
@@ -49,16 +69,17 @@ bool ReadSelectedPositionResolution(PositionResolutionResult &result)
    if(!ReadSelectedPosition(snapshot))
       return false;
 
-   result = ResolutionResultFromSnapshot(snapshot, (datetime)PositionGetInteger(POSITION_TIME));
-   return result.resolved;
+   return ResolutionResultFromSnapshot(snapshot, (datetime)PositionGetInteger(POSITION_TIME), result);
 }
 
-PositionResolutionResult ResolveOpenedPosition(string comment,
-                                                Direction direction,
-                                                double expectedLot,
-                                                ulong knownIdentifier,
-                                                datetime openStartTime)
+bool ResolveOpenedPosition(string comment,
+                           Direction direction,
+                           double expectedLot,
+                           ulong knownIdentifier,
+                           datetime openStartTime,
+                           PositionResolutionResult &result)
 {
+   ResetPositionResolutionResult(result);
    LogInfo(StringFormat("POSITION_RESOLUTION_START Comment=%s Direction=%s ExpectedLot=%.2f KnownIdentifier=%I64u OpenStartTime=%I64d WindowSeconds=%d",
                         comment,
                         DirectionToString(direction),
@@ -67,26 +88,30 @@ PositionResolutionResult ResolveOpenedPosition(string comment,
                         (long)openStartTime,
                         PositionResolutionLookbackSeconds));
 
-   PositionResolutionResult result = EmptyPositionResolutionResult();
-
+   // Level 1: broker-preserved comment + MagicNumber + Symbol through GetManagedPositionByComment().
    PositionSnapshot byComment;
    if(comment != "" && GetManagedPositionByComment(comment, byComment))
    {
-      result = ResolutionResultFromSnapshot(byComment, TimeCurrent());
-      if(result.resolved && PositionResolutionDirectionMatches(byComment.direction, direction) && PositionResolutionLotMatches(byComment.lot, expectedLot))
+      PositionResolutionResult byCommentResult;
+      if(ResolutionResultFromSnapshot(byComment, TimeCurrent(), byCommentResult) &&
+         PositionResolutionDirectionMatches(byComment.direction, direction) &&
+         PositionResolutionLotMatches(byComment.lot, expectedLot))
       {
+         result = byCommentResult;
          LogInfo(StringFormat("POSITION_RESOLUTION_BY_COMMENT Ticket=%I64u Identifier=%I64u Lot=%.2f Comment=%s", result.ticket, result.identifier, result.lot, comment));
          LogInfo(StringFormat("POSITION_RESOLUTION_PASS Ticket=%I64u Identifier=%I64u Lot=%.2f", result.ticket, result.identifier, result.lot));
-         return result;
+         return true;
       }
    }
 
    if(IsInternalSimulationMode())
    {
       LogError(StringFormat("POSITION_RESOLUTION_FAIL Comment=%s Reason=simulation_comment_lookup_failed", comment));
-      return result;
+      return false;
    }
 
+   // Level 2: strict operation time window + direction + lot + MagicNumber + Symbol.
+   datetime maxOpenTime = (openStartTime > 0 ? openStartTime + PositionResolutionLookbackSeconds : TimeCurrent());
    for(int i = PositionsTotal() - 1; i >= 0; i--)
    {
       ulong ticket = PositionGetTicket(i);
@@ -98,15 +123,17 @@ PositionResolutionResult ResolveOpenedPosition(string comment,
          continue;
 
       datetime positionTime = (datetime)PositionGetInteger(POSITION_TIME);
-      if(PositionResolutionDirectionMatches(candidate.direction, direction) && PositionResolutionLotMatches(candidate.lot, expectedLot))
+      bool inWindow = (openStartTime <= 0 || (positionTime >= openStartTime && positionTime <= maxOpenTime));
+      if(inWindow && PositionResolutionDirectionMatches(candidate.direction, direction) && PositionResolutionLotMatches(candidate.lot, expectedLot))
       {
-         result = ResolutionResultFromSnapshot(candidate, positionTime);
-         LogInfo(StringFormat("POSITION_RESOLUTION_BY_MAGIC Ticket=%I64u Identifier=%I64u Lot=%.2f Direction=%s", result.ticket, result.identifier, result.lot, DirectionToString(candidate.direction)));
+         ResolutionResultFromSnapshot(candidate, positionTime, result);
+         LogInfo(StringFormat("POSITION_RESOLUTION_BY_TIME Ticket=%I64u Identifier=%I64u Lot=%.2f OpenTime=%I64d", result.ticket, result.identifier, result.lot, (long)positionTime));
          LogInfo(StringFormat("POSITION_RESOLUTION_PASS Ticket=%I64u Identifier=%I64u Lot=%.2f", result.ticket, result.identifier, result.lot));
-         return result;
+         return true;
       }
    }
 
+   // Level 3: explicit POSITION_IDENTIFIER if the caller already knows it.
    if(knownIdentifier != 0)
    {
       for(int i = PositionsTotal() - 1; i >= 0; i--)
@@ -121,15 +148,18 @@ PositionResolutionResult ResolveOpenedPosition(string comment,
 
          if(candidate.identifier == knownIdentifier)
          {
-            result = ResolutionResultFromSnapshot(candidate, (datetime)PositionGetInteger(POSITION_TIME));
+            ResolutionResultFromSnapshot(candidate, (datetime)PositionGetInteger(POSITION_TIME), result);
             LogInfo(StringFormat("POSITION_RESOLUTION_BY_IDENTIFIER Ticket=%I64u Identifier=%I64u Lot=%.2f", result.ticket, result.identifier, result.lot));
             LogInfo(StringFormat("POSITION_RESOLUTION_PASS Ticket=%I64u Identifier=%I64u Lot=%.2f", result.ticket, result.identifier, result.lot));
-            return result;
+            return true;
          }
       }
    }
 
-   datetime now = TimeCurrent();
+   // Level 4: non-ambiguous fallback by Magic/Symbol/direction/lot, excluding already known context.
+   int matches = 0;
+   PositionResolutionResult fallback;
+   ResetPositionResolutionResult(fallback);
    for(int i = PositionsTotal() - 1; i >= 0; i--)
    {
       ulong ticket = PositionGetTicket(i);
@@ -139,33 +169,40 @@ PositionResolutionResult ResolveOpenedPosition(string comment,
       PositionSnapshot candidate;
       if(!ReadSelectedPosition(candidate))
          continue;
+      if(IsKnownContextTicketOrIdentifier(candidate.ticket, candidate.identifier))
+         continue;
+      if(!PositionResolutionDirectionMatches(candidate.direction, direction) || !PositionResolutionLotMatches(candidate.lot, expectedLot))
+         continue;
 
-      datetime positionTime = (datetime)PositionGetInteger(POSITION_TIME);
-      bool openedAfterRequest = (openStartTime <= 0 || positionTime >= openStartTime - PositionResolutionLookbackSeconds);
-      bool withinRecentWindow = (now - positionTime <= PositionResolutionLookbackSeconds);
-      if(openedAfterRequest && withinRecentWindow && PositionResolutionDirectionMatches(candidate.direction, direction) && PositionResolutionLotMatches(candidate.lot, expectedLot))
-      {
-         result = ResolutionResultFromSnapshot(candidate, positionTime);
-         LogInfo(StringFormat("POSITION_RESOLUTION_BY_TIME Ticket=%I64u Identifier=%I64u Lot=%.2f OpenTime=%I64d", result.ticket, result.identifier, result.lot, (long)positionTime));
-         LogInfo(StringFormat("POSITION_RESOLUTION_PASS Ticket=%I64u Identifier=%I64u Lot=%.2f", result.ticket, result.identifier, result.lot));
-         return result;
-      }
+      matches++;
+      ResolutionResultFromSnapshot(candidate, (datetime)PositionGetInteger(POSITION_TIME), fallback);
    }
 
+   if(matches == 1 && fallback.resolved)
+   {
+      result = fallback;
+      LogInfo(StringFormat("POSITION_RESOLUTION_BY_MAGIC Ticket=%I64u Identifier=%I64u Lot=%.2f Direction=%s", result.ticket, result.identifier, result.lot, DirectionToString(PositionTypeToDirection((long)result.type))));
+      LogInfo(StringFormat("POSITION_RESOLUTION_PASS Ticket=%I64u Identifier=%I64u Lot=%.2f", result.ticket, result.identifier, result.lot));
+      return true;
+   }
+   if(matches > 1)
+      LogError(StringFormat("POSITION_RESOLUTION_FAIL ambiguous fallback matches=%d Comment=%s", matches, comment));
+
    LogError(StringFormat("POSITION_RESOLUTION_FAIL Comment=%s Direction=%s ExpectedLot=%.2f KnownIdentifier=%I64u", comment, DirectionToString(direction), expectedLot, knownIdentifier));
-   return result;
+   return false;
 }
 
-PositionResolutionResult ResolveOpenedPositionAfterOpen(string comment,
-                                                         Direction direction,
-                                                         double expectedLot,
-                                                         ulong knownIdentifier,
-                                                         datetime openStartTime)
+bool ResolveOpenedPositionAfterOpen(string comment,
+                                    Direction direction,
+                                    double expectedLot,
+                                    ulong knownIdentifier,
+                                    datetime openStartTime,
+                                    PositionResolutionResult &result)
 {
-   return ResolveOpenedPosition(comment, direction, expectedLot, knownIdentifier, openStartTime);
+   return ResolveOpenedPosition(comment, direction, expectedLot, knownIdentifier, openStartTime, result);
 }
 
-bool ApplyResolvedPositionToBig(PositionResolutionResult result)
+bool ApplyResolvedPositionToBig(PositionResolutionResult &result)
 {
    if(!result.resolved || result.ticket == 0 || result.identifier == 0 || result.lot <= VolumeMismatchToleranceLots)
    {
@@ -183,7 +220,7 @@ bool ApplyResolvedPositionToBig(PositionResolutionResult result)
    return true;
 }
 
-bool ApplyResolvedPositionToSmall(PositionResolutionResult result)
+bool ApplyResolvedPositionToSmall(PositionResolutionResult &result)
 {
    if(!result.resolved || result.ticket == 0 || result.identifier == 0 || result.lot <= VolumeMismatchToleranceLots)
    {

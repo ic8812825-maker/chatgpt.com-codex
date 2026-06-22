@@ -711,3 +711,12 @@ Open retries now use `PreparePendingOpenBigContext()` and `PreparePendingOpenSma
 A new position is considered usable only after `ResolveOpenedPositionAfterOpen()` resolves a real MT5 position. The resolver searches by comment, by Magic/Symbol/direction/lot, by identifier when known, and by recent open time.
 
 If an open succeeds but the position cannot be resolved with ticket, identifier and lot, the EA enters `STATE_POSITION_RESOLUTION_ERROR`. This prevents virtual Big/Small context and blocks opening Small after New Big unless the Big ticket and identifier are confirmed.
+
+## V2.4.20 Position Resolution + Small Scenario Promote Fix
+`OpenPosition()` success is not treated as proof that a leg is controlled. The EA resolves each newly opened position from MT5 by comment, operation-time window, identifier, and finally a non-ambiguous Magic/Symbol/direction/lot fallback that excludes existing Far/Big/Small/Initial/Pending/Retry context.
+
+`PositionResolutionLookbackSeconds` controls the strict time window after an open request. If no unique position with ticket, `POSITION_IDENTIFIER`, lot, direction, and open price is found, the EA stops in `STATE_POSITION_RESOLUTION_ERROR` instead of creating virtual Big/Small context.
+
+After a Small scenario, the partially closed Big remainder is normal exposure. `PromoteRemainingBigToNewFar()` verifies the remaining Big ticket, identifier, terminal `POSITION_VOLUME`, direction, and open price, assigns it to `Ctx.far*`, clears Big/Small context, saves state, and lets the FSM continue. A remainder such as `0.64` lots after closing about `0.42` from an old `1.06` Big is therefore a valid new Far, not an integrity error.
+
+On restart or reconciliation, `TryRecoverPromotedBigAsFar()` recognizes the same shape: old Far absent, Small absent, and the Big remainder still open. It logs `PROMOTED_BIG_AS_FAR_RECOVERED`, promotes the remainder to Far, clears error state, and resumes from `STATE_FAR_ACTIVE`.

@@ -150,3 +150,10 @@ V2.4.5 updates:
 - Added `Include/PositionResolutionEngine.mqh` and `STATE_POSITION_RESOLUTION_ERROR` so `OpenPosition()` success is not treated as a registered leg until ticket, identifier, lot, type, open price and open time are resolved from MT5.
 - `OpenBigSmall()`, `RetryOpenNewBig()` and `RetryOpenNewSmall()` now use `ResolveOpenedPositionAfterOpen()` and never create virtual Big/Small context from pending lot/direction when resolution fails.
 - State integrity now requires real ticket and identifier for required legs, and pending-open states enforce Far/Big/Small shape before progression.
+
+## V2.4.20 Position Resolution + Small Scenario Promote Fix
+- Defaults updated to the approved compression-safe set (`BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.20`, `ReserveShare=0.80`, `MaxSpreadPoints=40`, `MaxMarginPercent=60`, `MaxDrawdownPercent=25`, `MaxManagedPositions=8`).
+- `PositionResolutionResult` and `PositionSnapshot` are now passed by reference in resolver APIs so MetaEditor does not reject structure parameters.
+- Added `PositionResolutionLookbackSeconds=10` and reworked resolution order: comment, strict open-time window, identifier, then non-ambiguous fallback excluding existing context.
+- Added `PromoteRemainingBigToNewFar()` and recovery hook `PROMOTED_BIG_AS_FAR_RECOVERED` so the real remaining Big position after a Small scenario becomes the new Far instead of causing a false `STATE_INTEGRITY_ERROR`.
+- Reconciliation now attempts promoted-Big recovery from integrity/resolution error states and throttles repeated terminal-state warnings with a suppressed-message counter.

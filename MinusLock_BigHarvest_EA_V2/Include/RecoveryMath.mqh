@@ -28,7 +28,7 @@ double CalcBigLot(double farLot)
 
 double CalcSmallLot(double bigLot)
 {
-   return NormalizeLotDown(bigLot * WorkSmallRatio);
+   return NormalizeLotUp(bigLot * WorkSmallRatio);
 }
 
 double CalcProfit(double lot, int points)
@@ -261,7 +261,7 @@ bool CalcFinalCloseAllowed(double totalReserve, double farRemainLot, double farD
 
 double CalcCloseBigLotOnSmall(double bigLot)
 {
-   return NormalizeLotDown(bigLot * WorkCloseBigOnSmall);
+   return NormalizeVolumeToStep(bigLot * WorkCloseBigOnSmall);
 }
 
 double CalcRemainBigLotOnSmall(double bigLot)

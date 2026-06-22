@@ -420,3 +420,15 @@ Static tests added:
 - `state_requires_resolved_position_check.py` and `open_new_small_requires_big_context_check.py` verify pending-open state integrity requires real ticket/identifier context.
 
 MT5 acceptance and optimization remain required on MT5: USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, MaxSpreadPoints=60, plus the requested parameter-selection campaign. This Linux container cannot run MetaEditor or Strategy Tester.
+
+## V2.4.20 Position Resolution + Small Scenario Promote Fix
+Static tests added:
+- `position_resolution_lookback_config_check.py` verifies `PositionResolutionLookbackSeconds=10` is declared and used.
+- `position_resolution_reference_only_check.py` verifies `PositionResolutionResult` and `PositionSnapshot` are not passed by value.
+- `position_resolution_excludes_existing_context_check.py` verifies fallback resolution excludes known context and rejects ambiguous matches.
+- `position_resolution_time_window_check.py` verifies operation-start/open-time window logic.
+- `promote_remaining_big_to_far_check.py` verifies remaining Big fields become the new `Ctx.far*` and Big/Small context is cleared.
+- `small_scenario_promote_no_integrity_error_check.py` verifies `ProcessSmallBuildNewFar()` promotes instead of entering `STATE_INTEGRITY_ERROR`.
+- `recover_promoted_big_as_far_check.py` verifies recovery/reconciliation can rebuild promoted Big as Far.
+
+Manual MT5 acceptance remains required: USDJPY M30, 2026-04-01 through 2026-06-17, Every Tick, Deposit 10000, Hedging. Required checks: no false `STATE_INTEGRITY_ERROR` after Small scenario, no stuck Far at test end, new Far near the terminal remainder after partial Big close, no `STATE_RECOVERY_MISMATCH`, and no `STATE_POSITION_RESOLUTION_ERROR` unless the opened position truly cannot be resolved.

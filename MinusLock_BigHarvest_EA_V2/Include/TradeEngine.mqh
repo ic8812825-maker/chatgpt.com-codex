@@ -5,6 +5,16 @@
 
 CTrade BigHarvestTrade;
 
+ENUM_ORDER_TYPE_FILLING ResolveSymbolFillingMode(string symbol)
+{
+   int filling = (int)SymbolInfoInteger(symbol, SYMBOL_FILLING_MODE);
+   if((filling & SYMBOL_FILLING_FOK) == SYMBOL_FILLING_FOK)
+      return ORDER_FILLING_FOK;
+   if((filling & SYMBOL_FILLING_IOC) == SYMBOL_FILLING_IOC)
+      return ORDER_FILLING_IOC;
+   return ORDER_FILLING_RETURN;
+}
+
 bool PrepareTradeEngine()
 {
    BigHarvestTrade.SetExpertMagicNumber(MagicNumber);
@@ -153,6 +163,7 @@ bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComm
    request.magic = MagicNumber;
    request.volume = closeLot;
    request.deviation = MaxSlippagePoints;
+   request.type_filling = ResolveSymbolFillingMode(symbol);
    request.comment = closeComment;
 
    if(positionType == POSITION_TYPE_BUY)

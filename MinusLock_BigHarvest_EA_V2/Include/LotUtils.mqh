@@ -115,4 +115,24 @@ double NormalizeLotNearest(double lot)
    return NormalizeDouble(result, VolumeDigits());
 }
 
+double NormalizeLotUp(double lot)
+{
+   double step = GetEffectiveLotStep();
+   double minLot = GetMinLot();
+   double maxLot = GetMaxLot();
+
+   if(step <= 0.0 || lot <= 0.0)
+      return 0.0;
+
+   double result = MathCeil((lot - 0.000000001) / step) * step;
+
+   if(result < minLot)
+      return 0.0;
+
+   if(result > maxLot)
+      result = maxLot;
+
+   return NormalizeDouble(result, VolumeDigits());
+}
+
 #endif // __BH_LOTUTILS_MQH__

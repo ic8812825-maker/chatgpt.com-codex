@@ -2,6 +2,29 @@
 #define __BH_RECONCILIATIONENGINE_MQH__
 
 datetime LastReconciliationTime = 0;
+datetime LastRepeatWarningLogTime = 0;
+int ReconciliationSuppressedRepeatWarnings = 0;
+
+void LogReconciliationRepeatWarning(string message)
+{
+   datetime now = TimeCurrent();
+   int interval = RetryLogIntervalSeconds > 0 ? RetryLogIntervalSeconds : RiskGateLogIntervalSeconds;
+   if(interval <= 0)
+      interval = 30;
+
+   if(LastRepeatWarningLogTime == 0 || now - LastRepeatWarningLogTime >= interval)
+   {
+      if(ReconciliationSuppressedRepeatWarnings > 0)
+         LogInfo(StringFormat("[Reconciliation] %s; suppressed %d repeated messages", message, ReconciliationSuppressedRepeatWarnings));
+      else
+         LogInfo("[Reconciliation] " + message);
+      ReconciliationSuppressedRepeatWarnings = 0;
+      LastRepeatWarningLogTime = now;
+   }
+   else
+      ReconciliationSuppressedRepeatWarnings++;
+}
+
 
 double ReconciliationVolumeTolerance()
 {
@@ -397,6 +420,8 @@ bool RunReconciliation()
       ok = false;
    }
    ok = ValidateInitialLockIntegrity() && ok;
+   if(TryRecoverPromotedBigAsFar("RunReconciliation"))
+      ok = true;
    ok = ValidateStatePositionConsistency() && ok;
    ok = ValidateCurrentStateIntegrity() && ok;
    ok = ValidatePositionResolutionContext() && ok;
@@ -445,20 +470,34 @@ void RunPeriodicReconciliation()
 {
    if(State == STATE_RECOVERY_MISMATCH)
    {
-      LogInfo("RECONCILIATION REPEAT WARNING skipped because STATE_RECOVERY_MISMATCH is already active");
+      LogReconciliationRepeatWarning("STATE_RECOVERY_MISMATCH still active");
       return;
    }
 
    if(State == STATE_INTEGRITY_ERROR)
    {
-      LogInfo("RECONCILIATION REPEAT WARNING skipped because STATE_INTEGRITY_ERROR is already active");
-      return;
+      if(TryRecoverPromotedBigAsFar("AutoRecover STATE_INTEGRITY_ERROR"))
+      {
+         LogInfo("STATE_INTEGRITY_ERROR recovered by promoted Big-as-Far reconstruction");
+      }
+      else
+      {
+         LogReconciliationRepeatWarning("STATE_INTEGRITY_ERROR still active");
+         return;
+      }
    }
 
    if(State == STATE_POSITION_RESOLUTION_ERROR)
    {
-      LogInfo("RECONCILIATION REPEAT WARNING skipped because STATE_POSITION_RESOLUTION_ERROR is already active");
-      return;
+      if(TryRecoverPromotedBigAsFar("AutoRecover STATE_POSITION_RESOLUTION_ERROR"))
+      {
+         LogInfo("STATE_POSITION_RESOLUTION_ERROR recovered by promoted Big-as-Far reconstruction");
+      }
+      else
+      {
+         LogReconciliationRepeatWarning("STATE_POSITION_RESOLUTION_ERROR still active");
+         return;
+      }
    }
 
    if(ReconciliationIntervalSeconds <= 0)

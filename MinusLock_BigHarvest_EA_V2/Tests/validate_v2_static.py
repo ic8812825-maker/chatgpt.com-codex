@@ -21,9 +21,9 @@ assert "BigMoveStepPoints" in config
 assert "BigMoveStartPoints + (level - 1) * BigMoveStepPoints" in risk_math
 assert "L(level) = BigMoveStartPoints + (level - 1) * BigMoveStepPoints" in docs_text
 
-assert "Ctx.farOpenPrice = Ctx.bigOpenPrice;" in state
+assert "Ctx.farOpenPrice = remainingBig.openPrice;" in state
 assert "Ctx.effectiveFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, Ctx.farOpenPrice);" in state
-assert "double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, Ctx.effectiveFarDistancePoints);" in state
+assert "double expectedNextFarLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);" in state
 assert "Ctx.farOpenPrice = currentPrice;" not in state
 assert "double expectedNextFarLoss = 0.0;" not in state
 assert "if(!AllowRealTrading && Ctx.farLot > 0.0 && Ctx.farDirection != DIR_NONE)" not in state
@@ -58,9 +58,9 @@ for token in [
     assert token in (config + main + state + recon + lot_utils)
 
 assert "if(!riskOk && AllowRealTrading && StopOnRiskGateBlocked)" not in main
-assert "input double MaxSpreadPoints       = 60.0;" in config
-assert "input double CloseFarShare         = 0.40;" in config
-assert "input double ReserveShare          = 0.60;" in config
+assert "input double MaxSpreadPoints       = 40.0;" in config
+assert "input double CloseFarShare         = 0.20;" in config
+assert "input double ReserveShare          = 0.80;" in config
 assert "input int    MaxReverseCycles              = 7;" in config
 
 

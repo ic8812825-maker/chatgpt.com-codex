@@ -92,9 +92,10 @@ bool PreparePendingCloseBigContext();
 bool PreparePendingCloseSmallContext();
 bool PreparePendingCloseFarContext();
 bool PreparePendingFinalCloseContext();
-PositionResolutionResult ResolveOpenedPositionAfterOpen(string comment, Direction direction, double expectedLot, ulong knownIdentifier, datetime openStartTime);
-bool ApplyResolvedPositionToBig(PositionResolutionResult result);
-bool ApplyResolvedPositionToSmall(PositionResolutionResult result);
+bool ResolveOpenedPositionAfterOpen(string comment, Direction direction, double expectedLot, ulong knownIdentifier, datetime openStartTime, PositionResolutionResult &result);
+bool ApplyResolvedPositionToBig(PositionResolutionResult &result);
+bool ApplyResolvedPositionToSmall(PositionResolutionResult &result);
+bool TryRecoverPromotedBigAsFar(string reason);
 
 void SetState(EAState nextState, string reason)
 {
@@ -650,6 +651,8 @@ bool RecoverState()
    }
 
    int managed = CountManagedOpenPositions();
+   if(TryRecoverPromotedBigAsFar("RecoverState"))
+      managed = CountManagedOpenPositions();
    bool reconcileOk = true;
    if(managed > 0)
    {
@@ -1050,6 +1053,132 @@ void UpdateFarFromSnapshot(PositionSnapshot &far)
    Ctx.farDirection = far.direction;
 }
 
+
+bool PromoteRemainingBigToNewFar()
+{
+   PositionSnapshot remainingBig;
+   bool found = false;
+   if(Ctx.bigTicket != 0)
+      found = GetManagedPositionByTicket(Ctx.bigTicket, remainingBig);
+   if(!found && Ctx.bigIdentifier != 0)
+   {
+      if(IsInternalSimulationMode())
+      {
+         for(int i = 0; i < ArraySize(SimPositions); i++)
+         {
+            if(SimPositions[i].exists && SimPositions[i].identifier == Ctx.bigIdentifier)
+            {
+               remainingBig = SimPositions[i];
+               found = true;
+               break;
+            }
+         }
+      }
+      else
+      {
+         for(int i = PositionsTotal() - 1; i >= 0; i--)
+         {
+            ulong ticket = PositionGetTicket(i);
+            if(ticket == 0 || !PositionSelectByTicket(ticket))
+               continue;
+            PositionSnapshot candidate;
+            if(!ReadSelectedPosition(candidate))
+               continue;
+            if(candidate.identifier == Ctx.bigIdentifier)
+            {
+               remainingBig = candidate;
+               found = true;
+               break;
+            }
+         }
+      }
+   }
+
+   if(!found || !remainingBig.exists || remainingBig.ticket == 0 || remainingBig.identifier == 0)
+   {
+      LogError(StringFormat("PROMOTE_REMAINING_BIG_TO_FAR_FAILED Reason=BigNotFound BigTicket=%I64u BigIdentifier=%I64u", Ctx.bigTicket, Ctx.bigIdentifier));
+      return false;
+   }
+
+   double actualVolume = GetActualPositionVolume(remainingBig.ticket);
+   if(actualVolume <= VolumeMismatchToleranceLots)
+      actualVolume = remainingBig.lot;
+   actualVolume = NormalizeVolumeToStep(actualVolume);
+
+   if(actualVolume <= VolumeMismatchToleranceLots)
+   {
+      LogError(StringFormat("PROMOTE_REMAINING_BIG_TO_FAR_FAILED Reason=ZeroVolume Ticket=%I64u Identifier=%I64u", remainingBig.ticket, remainingBig.identifier));
+      return false;
+   }
+
+   if(Ctx.bigDirection != DIR_NONE && remainingBig.direction != Ctx.bigDirection)
+   {
+      LogError(StringFormat("PROMOTE_REMAINING_BIG_TO_FAR_FAILED Reason=DirectionMismatch Ticket=%I64u Expected=%s Actual=%s", remainingBig.ticket, DirectionToString(Ctx.bigDirection), DirectionToString(remainingBig.direction)));
+      return false;
+   }
+
+   double currentPrice = Ctx.savedSmallTouchPrice;
+   if(currentPrice <= 0.0 && Ctx.savedSmallDirection != DIR_NONE)
+      currentPrice = CurrentPriceForSmallTouch(Ctx.savedSmallDirection);
+   if(currentPrice <= 0.0)
+      currentPrice = ExitPriceForDirection(remainingBig.direction);
+
+   ulong oldBigTicket = Ctx.bigTicket;
+   ulong oldBigIdentifier = Ctx.bigIdentifier;
+   double oldBigLot = Ctx.bigLot;
+
+   Ctx.farTicket = remainingBig.ticket;
+   Ctx.farIdentifier = remainingBig.identifier;
+   Ctx.farLot = actualVolume;
+   Ctx.farOpenPrice = remainingBig.openPrice;
+   Ctx.farDirection = remainingBig.direction;
+   Ctx.effectiveFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, Ctx.farOpenPrice);
+
+   Ctx.bigTicket = 0;
+   Ctx.bigIdentifier = 0;
+   Ctx.bigLot = 0.0;
+   Ctx.bigDirection = DIR_NONE;
+   Ctx.bigOpenPrice = 0.0;
+   Ctx.smallTicket = 0;
+   Ctx.smallIdentifier = 0;
+   Ctx.smallLot = 0.0;
+   Ctx.smallDirection = DIR_NONE;
+   Ctx.smallOpenPrice = 0.0;
+
+   SaveState();
+   LogInfo(StringFormat("PROMOTED_BIG_AS_FAR_RECOVERED OldBigTicket=%I64u OldBigIdentifier=%I64u OldBigLot=%.2f FarTicket=%I64u FarIdentifier=%I64u FarLot=%.2f FarDirection=%s FarOpenPrice=%.5f EffectiveFarDistancePoints=%.2f",
+                        oldBigTicket,
+                        oldBigIdentifier,
+                        oldBigLot,
+                        Ctx.farTicket,
+                        Ctx.farIdentifier,
+                        Ctx.farLot,
+                        DirectionToString(Ctx.farDirection),
+                        Ctx.farOpenPrice,
+                        Ctx.effectiveFarDistancePoints));
+   return true;
+}
+
+bool TryRecoverPromotedBigAsFar(string reason)
+{
+   bool smallAbsent = (Ctx.smallTicket == 0 || GetActualPositionVolume(Ctx.smallTicket) <= VolumeMismatchToleranceLots);
+   bool farAbsent = (Ctx.farTicket == 0 || GetActualPositionVolume(Ctx.farTicket) <= VolumeMismatchToleranceLots);
+   bool bigPresent = (Ctx.bigTicket != 0 && GetActualPositionVolume(Ctx.bigTicket) > VolumeMismatchToleranceLots);
+
+   if(!farAbsent || !smallAbsent || !bigPresent)
+      return false;
+
+   if(!PromoteRemainingBigToNewFar())
+      return false;
+
+   ClearPendingOperationContext();
+   State = STATE_FAR_ACTIVE;
+   Ctx.lastError = "";
+   SaveState();
+   LogInfo("[Recovery] PROMOTED_BIG_AS_FAR_RECOVERED Reason=" + reason + " State=STATE_FAR_ACTIVE");
+   return true;
+}
+
 bool RefreshFar()
 {
    PositionSnapshot far;
@@ -1379,7 +1508,12 @@ void OpenBigSmall()
       return;
    }
 
-   PositionResolutionResult bigResolution = ResolveOpenedPositionAfterOpen(bigComment, Ctx.bigDirection, Ctx.bigLot, 0, bigOpenStartTime);
+   PositionResolutionResult bigResolution;
+   if(!ResolveOpenedPositionAfterOpen(bigComment, Ctx.bigDirection, Ctx.bigLot, 0, bigOpenStartTime, bigResolution))
+   {
+      SetState(STATE_POSITION_RESOLUTION_ERROR, "POSITION_RESOLUTION_FAILED OpenBigSmall Big");
+      return;
+   }
    if(!ApplyResolvedPositionToBig(bigResolution))
       return;
 
@@ -1394,7 +1528,12 @@ void OpenBigSmall()
       return;
    }
 
-   PositionResolutionResult smallResolution = ResolveOpenedPositionAfterOpen(smallComment, Ctx.smallDirection, Ctx.smallLot, 0, smallOpenStartTime);
+   PositionResolutionResult smallResolution;
+   if(!ResolveOpenedPositionAfterOpen(smallComment, Ctx.smallDirection, Ctx.smallLot, 0, smallOpenStartTime, smallResolution))
+   {
+      SetState(STATE_POSITION_RESOLUTION_ERROR, "POSITION_RESOLUTION_FAILED OpenBigSmall Small");
+      return;
+   }
    if(!ApplyResolvedPositionToSmall(smallResolution))
       return;
 
@@ -2132,29 +2271,12 @@ void ProcessSmallBuildNewFar()
       return;
    }
 
-   double currentPrice = Ctx.savedSmallTouchPrice;
-   if(currentPrice <= 0.0)
-      currentPrice = CurrentPriceForSmallTouch(Ctx.savedSmallDirection);
-   double newFarLot = GetActualPositionVolume(Ctx.bigTicket);
-   if(newFarLot <= 0.0)
+   if(!PromoteRemainingBigToNewFar())
    {
-      LogError("NEW_FAR_VOLUME_NOT_FOUND");
-      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "NEW_FAR_VOLUME_NOT_FOUND");
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "PROMOTE_REMAINING_BIG_TO_FAR_FAILED");
       return;
    }
-   Ctx.farTicket = Ctx.bigTicket;
-   Ctx.farIdentifier = Ctx.bigIdentifier;
-   Ctx.farLot = newFarLot;
-   Ctx.farOpenPrice = Ctx.bigOpenPrice;
-   Ctx.farDirection = Ctx.bigDirection;
-   Ctx.effectiveFarDistancePoints = CalcRealPriceFarDistancePoints(currentPrice, Ctx.farOpenPrice);
-   double expectedNextFarLoss = CalcFarRemainLoss(newFarLot, Ctx.effectiveFarDistancePoints);
-   Ctx.bigTicket = 0;
-   Ctx.smallTicket = 0;
-   Ctx.bigIdentifier = 0;
-   Ctx.smallIdentifier = 0;
-   Ctx.bigLot = 0.0;
-   Ctx.smallLot = 0.0;
+   double expectedNextFarLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
    RecalculateRealCycleStatsFromHistory();
    Ctx.smallScenarioRealAfter = Ctx.realCyclePL;
    double smallScenarioRealNet = Ctx.smallScenarioRealAfter - Ctx.smallScenarioRealBefore;
@@ -2343,7 +2465,12 @@ void RetryOpenNewBig()
       return;
    }
 
-   PositionResolutionResult bigResolution = ResolveOpenedPositionAfterOpen(Ctx.pendingComment, Ctx.pendingDirection, Ctx.pendingLot, 0, bigOpenStartTime);
+   PositionResolutionResult bigResolution;
+   if(!ResolveOpenedPositionAfterOpen(Ctx.pendingComment, Ctx.pendingDirection, Ctx.pendingLot, 0, bigOpenStartTime, bigResolution))
+   {
+      SetState(STATE_POSITION_RESOLUTION_ERROR, "POSITION_RESOLUTION_FAILED RetryOpenNewBig");
+      return;
+   }
    if(!ApplyResolvedPositionToBig(bigResolution))
       return;
 
@@ -2398,7 +2525,12 @@ void RetryOpenNewSmall()
       return;
    }
 
-   PositionResolutionResult smallResolution = ResolveOpenedPositionAfterOpen(Ctx.pendingComment, Ctx.pendingDirection, Ctx.pendingLot, 0, smallOpenStartTime);
+   PositionResolutionResult smallResolution;
+   if(!ResolveOpenedPositionAfterOpen(Ctx.pendingComment, Ctx.pendingDirection, Ctx.pendingLot, 0, smallOpenStartTime, smallResolution))
+   {
+      SetState(STATE_POSITION_RESOLUTION_ERROR, "POSITION_RESOLUTION_FAILED RetryOpenNewSmall");
+      return;
+   }
    if(!ApplyResolvedPositionToSmall(smallResolution))
       return;
 

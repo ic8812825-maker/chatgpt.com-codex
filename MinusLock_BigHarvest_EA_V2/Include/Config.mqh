@@ -10,12 +10,12 @@ enum FarDistanceModeEnum
 };
 
 input double StartLot              = 1.00;
-input double BigRatio              = 1.20;
-input double SmallRatio            = 0.35;
-input double CloseBigOnSmall       = 0.35;
-input double RemainBigOnSmall      = 0.65;
-input double CloseFarShare         = 0.40;
-input double ReserveShare          = 0.60;
+input double BigRatio              = 1.15;
+input double SmallRatio            = 0.25;
+input double CloseBigOnSmall       = 0.40;
+input double RemainBigOnSmall      = 0.60;
+input double CloseFarShare         = 0.20;
+input double ReserveShare          = 0.80;
 input double SmallReserveShare     = 0.05;
 input bool   UseRecommended5050Preset = false;
 
@@ -37,10 +37,10 @@ input bool   StopOnReverseLimit            = true;
 input bool   AllowNegativeSmallReverseNet  = false;
 
 input double LotStep               = 0.01;
-input double MaxSpreadPoints       = 60.0;
-input double MaxMarginPercent      = 70.0;
-input double MaxDrawdownPercent    = 30.0;
-input int    MaxManagedPositions   = 10;
+input double MaxSpreadPoints       = 40.0;
+input double MaxMarginPercent      = 60.0;
+input double MaxDrawdownPercent    = 25.0;
+input int    MaxManagedPositions   = 8;
 input bool   StopOnRiskGateBlocked = true;
 input int    RiskGateLogIntervalSeconds = 60;
 input int    MaxCloseRetryAttempts = 20;
@@ -51,6 +51,7 @@ input bool   CloseFarOnMaxLevels = true;
 input double ReserveMismatchTolerance = 0.01;
 input double VolumeMismatchToleranceLots = 0.001;
 input int    ReconciliationIntervalSeconds = 300;
+input int    PositionResolutionLookbackSeconds = 10;
 
 input ulong  MagicNumber           = 20260609;
 input bool   AllowRealTrading      = true;
