@@ -167,3 +167,11 @@ V2.4.5 updates:
 - `ProcessFinalClose()` forecasts `ProjectedRecoveryPLAfterFinalClose`; negative or zero recovery projection is routed as `FINAL_CLOSE_STOP` and cannot enter `STATE_CLOSED_PROFIT`.
 - `STATE_CLOSED_RECOVERY_LOSS` records terminal cycles where all positions are closed but `realRecoveryPL <= 0`.
 - CSV diagnostics now include `InitialDeposit`, `AccountPL`, `RecoveryPL`, `PassByAccountPL`, `PassByRecoveryPL`, `LastCloseWasSystemClose`, and `FinalCloseType` so a positive account P/L cannot hide a failed recovery cycle.
+
+## V2.4.22 Offline Parameter Optimizer
+
+- Added `Tools/offline_optimizer.py`, `offline_scenarios.py`, `score_parameters.py`, and `generate_set_files.py` for deterministic parameter screening without MT5.
+- The optimizer preserves the EA acceptance rule: `RecoveryPL = FinalBalance - CycleStartBalance`; AccountPL and InitialIgnoredProfit are diagnostics only.
+- Synthetic scenarios cover Big wins, Small wins, alternating moves, false reversals, adverse trend, MaxLevels stress, and worst-case ordering.
+- `Optimization_Report.csv` records ranked results and rejections; `Best_Parameters.md` explains selected Safe / Balanced / Aggressive / LowLot candidates and MT5 validation requirements.
+- Generated `.set` files are available under `Sets/` for manual MT5 Strategy Tester confirmation.
