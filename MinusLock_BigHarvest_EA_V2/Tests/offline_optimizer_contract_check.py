@@ -12,6 +12,13 @@ for token in [
     "STOP_MAX_LEVELS",
     "STATE_CLOSED_RECOVERY_LOSS",
     "write_set_file",
+    "REJECTED_SCORE_PENALTY",
+    "FinalRank",
+    "StabilityScore",
+    "RobustnessScore",
+    "IsSelectableForSetFile",
+    "LOCAL_SEARCH_RANGES",
+    "local-runs",
 ]:
     assert token in optimizer + report, token
 for name in ["A_BIG_WINS", "B_SMALL_WINS", "C_ALTERNATING", "D_FALSE_REVERSE", "E_ADVERSE_TREND", "F_MAX_LEVELS", "G_WORST_CASE"]:

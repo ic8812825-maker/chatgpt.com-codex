@@ -736,5 +736,8 @@ On restart or reconciliation, `TryRecoverPromotedBigAsFar()` recognizes the same
 - Added `Tools/offline_optimizer.py`, `offline_scenarios.py`, `score_parameters.py`, and `generate_set_files.py` for deterministic parameter screening without MT5.
 - The optimizer preserves the EA acceptance rule: `RecoveryPL = FinalBalance - CycleStartBalance`; AccountPL and InitialIgnoredProfit are diagnostics only.
 - Synthetic scenarios cover Big wins, Small wins, alternating moves, false reversals, adverse trend, MaxLevels stress, and worst-case ordering.
-- `Optimization_Report.csv` records ranked results and rejections; `Best_Parameters.md` explains selected Safe / Balanced / Aggressive / LowLot candidates and MT5 validation requirements.
-- Generated `.set` files are available under `Sets/` for manual MT5 Strategy Tester confirmation.
+- Ranking is now two-stage: candidates receive a `Verdict` first, then only `Verdict=ACCEPT` rows can appear in TOP ACCEPT, selected categories, and `.set` generation. Rejected rows get a hard score/final-rank penalty and remain diagnostics only.
+- The regenerated search evaluates 110,000 combinations: 100,000 broad sampled combinations plus 10,000 local-search combinations around the audited leader zone. The report records theoretical grid size, tested count, and coverage ratio.
+- `Optimization_Report.csv` now includes `ProfitScore`, `StabilityScore`, `RobustnessScore`, `FinalRank`, `CoverageRatio`, and `IsSelectableForSetFile`.
+- `Best_Parameters.md` now separates TOP ACCEPT from TOP REJECTED, explains rejection causes, documents sensitivity/stability/robustness, and explicitly reports the LOWLOT priority result.
+- Generated `.set` files are available under `Sets/` only for ACCEPT/selectable categories. If no acceptable category candidate exists, a `*_NOT_FOUND.txt` marker is written instead of an unsafe `.set`.

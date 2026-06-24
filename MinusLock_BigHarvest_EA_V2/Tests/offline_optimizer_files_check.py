@@ -9,8 +9,10 @@ for rel in [
     "Best_Parameters.md",
     "Sets/USDJPY_M30_SAFE.set",
     "Sets/USDJPY_M30_BALANCED.set",
-    "Sets/USDJPY_M30_AGGRESSIVE.set",
     "Sets/USDJPY_M30_LOWLOT_SAFE.set",
 ]:
     assert (root / rel).exists(), rel
+aggressive_set = root / "Sets" / "USDJPY_M30_AGGRESSIVE.set"
+aggressive_not_found = root / "Sets" / "USDJPY_M30_AGGRESSIVE_NOT_FOUND.txt"
+assert aggressive_set.exists() or aggressive_not_found.exists(), "AGGRESSIVE set or not-found marker required"
 print("OFFLINE_OPTIMIZER_FILES_CHECK PASS")
