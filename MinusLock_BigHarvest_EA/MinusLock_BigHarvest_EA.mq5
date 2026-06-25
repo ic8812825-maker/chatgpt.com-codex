@@ -20,6 +20,11 @@ int OnInit()
    ConfigureWorkingParameters();
    ResetRecoveryContext();
    State = STATE_IDLE;
+   if(!ValidateTerminalStateSafety())
+   {
+      LogError("FSMIntegrityCheck failed: unsafe terminal or pending state route");
+      return INIT_FAILED;
+   }
 
    Print("EA INIT START");
    Print("AllowRealTrading=", AllowRealTrading);

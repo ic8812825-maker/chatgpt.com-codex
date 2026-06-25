@@ -58,3 +58,6 @@ Added WorkBigRatio, centralized comments, empty-comment blocking, close-reason c
 
 ## 19. Final Verdict
 PASS for static/code audit and Python checks in this repository environment; MT5 visual/compile checks require the MT5 toolchain.
+
+## V2.4.4 FSM Safety Addendum
+Terminal states now break without open/retry calls. Small-at-Far saves Small direction/close price before clearing Small context. Old Far fields are copied into `oldFar*` audit fields and active Far context is cleared before assigning the new Far. `ValidateTerminalStateSafety()` is executed during initialization and returns `INIT_FAILED` if the static FSM safety rule is violated.
