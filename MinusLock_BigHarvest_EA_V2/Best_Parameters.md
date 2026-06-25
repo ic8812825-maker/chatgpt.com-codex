@@ -5,92 +5,132 @@
 This report is generated without MT5. It is a deterministic offline filter, not a replacement for MetaTrader Strategy Tester.
 It uses the strict success rule `RecoveryPL = FinalBalance - CycleStartBalance`; AccountPL versus InitialDeposit is diagnostic only.
 InitialIgnoredProfit is excluded from pass/fail, matching the EA realRecoveryPL / OnTester contract.
+Rejected rows are diagnostics only: they cannot enter TOP ACCEPT and cannot generate production `.set` files.
 
 ## Optimization model
 
 - Synthetic scenarios: A_BIG_WINS, B_SMALL_WINS, C_ALTERNATING, D_FALSE_REVERSE, E_ADVERSE_TREND, F_MAX_LEVELS, G_WORST_CASE.
-- Sampled combinations: 25,000 from a theoretical grid of 9,676,800,000 combinations.
-- Mathematically rejected or unstable rows in CSV: 24,978.
+- Total combinations theoretical: 9,676,800,000.
+- Total combinations tested: 110,000 (100,000 broad + 10,000 local mini-search).
+- Coverage ratio: 0.001137%.
+- Mathematically rejected or unstable rows in CSV: 109,659.
 - P/L model: `Lot × Points × PointValuePerLot` minus spread/slippage/commission costs.
 - Compression filter: `BigRatio² × RemainBigOnSmall < 1` plus simulated `NewBig < OldFar` checks.
-- STOP_MAX_LEVELS, STATE_CLOSED_RECOVERY_LOSS, compression violations and drawdown/margin breaches receive hard penalties.
+- FinalRank = ProfitScore + StabilityScore + RobustnessScore only for ACCEPT rows; rejected rows receive a terminal rank penalty.
 
-## Selected parameter sets
+## Selected ACCEPT parameter sets
+
+LOWLOT candidate found at StartLot=0.05.
 
 ### SAFE
 
-- StartLot=0.05, BigRatio=1.1, SmallRatio=0.35
-- CloseBigOnSmall=0.3 / RemainBigOnSmall=0.7
-- CloseFarShare=0.15 / ReserveShare=0.85, SmallReserveShare=0.1
-- Trigger/steps: Initial=200, BigStart=150, BigStep=75, FarDistance=300
-- MaxHarvestLevels=9, MaxReverseCycles=5, MaxSpreadPoints=30
-- RecoveryPL mean/min/max: 2.04 / 0.3 / 4.72
-- MaxDD=0.45, MaxMarginUsed=140.0, Score=1584.65, Verdict=ACCEPT
-- Why selected: ACCEPT row with the best available score inside its risk category and no false AccountPL pass.
+- StartLot=0.05, BigRatio=1.12, SmallRatio=0.34
+- CloseBigOnSmall=0.32 / RemainBigOnSmall=0.68
+- CloseFarShare=0.3 / ReserveShare=0.7, SmallReserveShare=0.03
+- Trigger/steps: Initial=100, BigStart=100, BigStep=100, FarDistance=300
+- MaxHarvestLevels=6, MaxReverseCycles=7, MaxSpreadPoints=30
+- RecoveryPL mean/min/max: 2.5 / 0.3 / 4.96
+- MaxDD=0.45, MaxMarginUsed=140.0, StabilityScore=98.0889, RobustnessScore=100.0, FinalRank=2230.6839, Verdict=ACCEPT
+- Why selected: ACCEPT row with the best available FinalRank inside its risk category and no false AccountPL pass.
 
 ### BALANCED
 
-- StartLot=0.05, BigRatio=1.15, SmallRatio=0.35
-- CloseBigOnSmall=0.35 / RemainBigOnSmall=0.65
-- CloseFarShare=0.25 / ReserveShare=0.75, SmallReserveShare=0.05
-- Trigger/steps: Initial=70, BigStart=200, BigStep=75, FarDistance=300
-- MaxHarvestLevels=8, MaxReverseCycles=7, MaxSpreadPoints=30
-- RecoveryPL mean/min/max: 2.8 / 0.73 / 7.77
-- MaxDD=0.94, MaxMarginUsed=140.0, Score=2036.63, Verdict=ACCEPT
-- Why selected: ACCEPT row with the best available score inside its risk category and no false AccountPL pass.
+- StartLot=0.1, BigRatio=1.16, SmallRatio=0.38
+- CloseBigOnSmall=0.4 / RemainBigOnSmall=0.6
+- CloseFarShare=0.22 / ReserveShare=0.78, SmallReserveShare=0.05
+- Trigger/steps: Initial=200, BigStart=200, BigStep=75, FarDistance=300
+- MaxHarvestLevels=9, MaxReverseCycles=10, MaxSpreadPoints=30
+- RecoveryPL mean/min/max: 4.58 / 0.13 / 10.38
+- MaxDD=4.11, MaxMarginUsed=270.0, StabilityScore=94.959, RobustnessScore=100.0, FinalRank=3462.274, Verdict=ACCEPT
+- Why selected: ACCEPT row with the best available FinalRank inside its risk category and no false AccountPL pass.
 
 ### AGGRESSIVE
 
-- StartLot=1.0, BigRatio=1.15, SmallRatio=0.35
-- CloseBigOnSmall=0.3 / RemainBigOnSmall=0.7
-- CloseFarShare=0.1 / ReserveShare=0.9, SmallReserveShare=0.07
-- Trigger/steps: Initial=150, BigStart=200, BigStep=100, FarDistance=100
-- MaxHarvestLevels=8, MaxReverseCycles=3, MaxSpreadPoints=30
-- RecoveryPL mean/min/max: 59.42 / -142.65 / 155.49
-- MaxDD=142.65, MaxMarginUsed=2560.0, Score=-1593.495, Verdict=REJECTED_RECOVERY_LOSS
-- Why selected: stress-only candidate; offline model rejects it, so it must not be treated as a default until MT5 proves recovery profitability.
+- AGGRESSIVE_NOT_FOUND: no ACCEPT candidate matched this category. No `.set` file was generated from a rejected row.
 
 ### LOWLOT_SAFE
 
 - StartLot=0.05, BigRatio=1.1, SmallRatio=0.35
-- CloseBigOnSmall=0.3 / RemainBigOnSmall=0.7
-- CloseFarShare=0.4 / ReserveShare=0.6, SmallReserveShare=0.1
-- Trigger/steps: Initial=150, BigStart=200, BigStep=75, FarDistance=300
-- MaxHarvestLevels=5, MaxReverseCycles=5, MaxSpreadPoints=30
-- RecoveryPL mean/min/max: 1.42 / 0.14 / 3.91
-- MaxDD=0.45, MaxMarginUsed=140.0, Score=1082.3, Verdict=ACCEPT
-- Why selected: ACCEPT row with the best available score inside its risk category and no false AccountPL pass.
+- CloseBigOnSmall=0.35 / RemainBigOnSmall=0.65
+- CloseFarShare=0.1 / ReserveShare=0.9, SmallReserveShare=0.07
+- Trigger/steps: Initial=70, BigStart=150, BigStep=100, FarDistance=250
+- MaxHarvestLevels=7, MaxReverseCycles=10, MaxSpreadPoints=30
+- RecoveryPL mean/min/max: 2.95 / 0.07 / 8.03
+- MaxDD=0.59, MaxMarginUsed=140.0, StabilityScore=97.057, RobustnessScore=100.0, FinalRank=2516.127, Verdict=ACCEPT
+- Why selected: ACCEPT row with the best available FinalRank inside its risk category and no false AccountPL pass.
 
-## Top-20 by score
+## TOP ACCEPT
 
-| Rank | RunID | Score | Verdict | StartLot | BigRatio | SmallRatio | CloseBig | Reserve | RecoveryPL_Min | MaxDD | StopMax | LossCount |
+| Rank | RunID | FinalRank | ProfitScore | StabilityScore | RobustnessScore | StartLot | BigRatio | SmallRatio | CloseBig | CloseFar | RecoveryPL_Min | MaxDD | Verdict |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| 1 | 107668 | 3462.274 | 3267.315 | 94.959 | 100.0 | 0.1 | 1.16 | 0.38 | 0.4 | 0.22 | 0.13 | 4.11 | ACCEPT |
+| 2 | 102168 | 3019.5995 | 2822.775 | 96.8245 | 100.0 | 0.1 | 1.15 | 0.38 | 0.36 | 0.2 | 0.33 | 1.58 | ACCEPT |
+| 3 | 108460 | 2976.1717 | 2780.335 | 95.8367 | 100.0 | 0.1 | 1.12 | 0.34 | 0.3 | 0.2 | 0.11 | 3.86 | ACCEPT |
+| 4 | 103040 | 2850.1518 | 2655.335 | 94.8168 | 100.0 | 0.1 | 1.12 | 0.38 | 0.38 | 0.28 | 0.61 | 2.5 | ACCEPT |
+| 5 | 55566 | 2516.127 | 2319.07 | 97.057 | 100.0 | 0.05 | 1.1 | 0.35 | 0.35 | 0.1 | 0.07 | 0.59 | ACCEPT |
+| 6 | 100001 | 2516.127 | 2319.07 | 97.057 | 100.0 | 0.05 | 1.1 | 0.35 | 0.35 | 0.1 | 0.07 | 0.59 | ACCEPT |
+| 7 | 102063 | 2513.7498 | 2317.105 | 96.6448 | 100.0 | 0.05 | 1.13 | 0.34 | 0.34 | 0.3 | 0.49 | 1.21 | ACCEPT |
+| 8 | 102105 | 2513.7498 | 2317.105 | 96.6448 | 100.0 | 0.05 | 1.13 | 0.35 | 0.34 | 0.3 | 0.49 | 1.21 | ACCEPT |
+| 9 | 101591 | 2468.1132 | 2271.505 | 96.6082 | 100.0 | 0.05 | 1.16 | 0.35 | 0.32 | 0.24 | 0.49 | 1.21 | ACCEPT |
+| 10 | 102717 | 2468.1132 | 2271.505 | 96.6082 | 100.0 | 0.05 | 1.16 | 0.4 | 0.32 | 0.2 | 0.49 | 1.21 | ACCEPT |
+| 11 | 103179 | 2468.1132 | 2271.505 | 96.6082 | 100.0 | 0.05 | 1.15 | 0.38 | 0.4 | 0.24 | 0.49 | 1.21 | ACCEPT |
+| 12 | 104290 | 2468.1132 | 2271.505 | 96.6082 | 100.0 | 0.05 | 1.16 | 0.38 | 0.4 | 0.2 | 0.49 | 1.21 | ACCEPT |
+| 13 | 104735 | 2468.1132 | 2271.505 | 96.6082 | 100.0 | 0.05 | 1.14 | 0.39 | 0.34 | 0.28 | 0.49 | 1.21 | ACCEPT |
+| 14 | 105340 | 2468.1132 | 2271.505 | 96.6082 | 100.0 | 0.05 | 1.13 | 0.38 | 0.4 | 0.24 | 0.49 | 1.21 | ACCEPT |
+| 15 | 108097 | 2468.1132 | 2271.505 | 96.6082 | 100.0 | 0.05 | 1.14 | 0.35 | 0.3 | 0.2 | 0.49 | 1.21 | ACCEPT |
+| 16 | 109852 | 2432.6569 | 2234.895 | 97.7619 | 100.0 | 0.05 | 1.16 | 0.35 | 0.34 | 0.24 | 0.99 | 1.06 | ACCEPT |
+| 17 | 107558 | 2408.6594 | 2212.59 | 96.0694 | 100.0 | 0.1 | 1.14 | 0.39 | 0.4 | 0.22 | 0.02 | 1.58 | ACCEPT |
+| 18 | 18268 | 2305.8931 | 2108.51 | 97.3831 | 100.0 | 0.05 | 1.15 | 0.35 | 0.35 | 0.25 | 0.73 | 0.94 | ACCEPT |
+| 19 | 101641 | 2305.8931 | 2108.51 | 97.3831 | 100.0 | 0.05 | 1.15 | 0.38 | 0.3 | 0.3 | 0.73 | 0.94 | ACCEPT |
+| 20 | 102060 | 2305.8931 | 2108.51 | 97.3831 | 100.0 | 0.05 | 1.15 | 0.35 | 0.38 | 0.24 | 0.73 | 0.94 | ACCEPT |
+
+## TOP REJECTED
+
+| Rank | RunID | ScoreAfterPenalty | Verdict | StartLot | BigRatio | SmallRatio | CloseBig | CloseFar | RecoveryPL_Min | StopMax | LossCount | CompressionRatio |
 |---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 15171 | 47965.915 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.25 | 0.35 | 0.4 | 0.6 | -0.02 | 1.83 | 1 | 1 |
-| 2 | 4168 | 32227.38 | REJECTED_COMPRESSION | 0.05 | 1.18 | 0.3 | 0.35 | 0.9 | -0.06 | 3.41 | 0 | 1 |
-| 3 | 6356 | 7433.645 | REJECTED_RECOVERY_LOSS | 0.05 | 1.18 | 0.35 | 0.4 | 0.75 | -0.2 | 1.13 | 0 | 1 |
-| 4 | 12152 | 5736.02 | REJECTED_RECOVERY_LOSS | 0.05 | 1.1 | 0.3 | 0.35 | 0.75 | -0.21 | 3.88 | 0 | 2 |
-| 5 | 24472 | 3989.98 | REJECTED_RECOVERY_LOSS | 0.05 | 1.05 | 0.3 | 0.5 | 0.75 | -0.2 | 5.44 | 0 | 3 |
-| 6 | 11854 | 3751.035 | REJECTED_RECOVERY_LOSS | 0.1 | 1.15 | 0.35 | 0.3 | 0.85 | -1.09 | 3.86 | 0 | 1 |
-| 7 | 2188 | 3355.33 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.2 | 0.35 | 0.4 | 0.9 | -0.16 | 1.95 | 1 | 2 |
-| 8 | 9364 | 3181.825 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.15 | 0.35 | 0.45 | 0.9 | -0.16 | 1.8 | 1 | 2 |
-| 9 | 2068 | 2777.625 | REJECTED_RECOVERY_LOSS | 0.05 | 1.18 | 0.35 | 0.45 | 0.9 | -0.12 | 1.68 | 0 | 3 |
-| 10 | 17120 | 2745.91 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.1 | 0.35 | 0.5 | 0.8 | -0.2 | 0.73 | 1 | 1 |
-| 11 | 11127 | 2528.805 | REJECTED_RECOVERY_LOSS | 0.05 | 1.18 | 0.35 | 0.4 | 0.6 | -0.2 | 1.13 | 0 | 3 |
-| 12 | 2633 | 2118.035 | REJECTED_RECOVERY_LOSS | 0.1 | 1.1 | 0.35 | 0.3 | 0.75 | 0.06 | 3.86 | 0 | 1 |
-| 13 | 18268 | 2036.63 | ACCEPT | 0.05 | 1.15 | 0.35 | 0.35 | 0.75 | 0.73 | 0.94 | 0 | 0 |
-| 14 | 6164 | 1874.065 | REJECTED_RECOVERY_LOSS | 0.05 | 1.15 | 0.35 | 0.4 | 0.75 | 0.86 | 1.21 | 0 | 1 |
-| 15 | 14396 | 1820.64 | REJECTED_RECOVERY_LOSS | 0.1 | 1.25 | 0.35 | 0.4 | 0.8 | 0.51 | 3.15 | 0 | 1 |
-| 16 | 7143 | 1800.0 | REJECTED_RECOVERY_LOSS | 0.05 | 1.18 | 0.35 | 0.5 | 0.6 | -0.12 | 1.68 | 0 | 4 |
-| 17 | 7406 | 1649.605 | ACCEPT | 0.05 | 1.12 | 0.35 | 0.35 | 0.75 | 0.07 | 0.59 | 0 | 0 |
-| 18 | 10667 | 1584.65 | ACCEPT | 0.05 | 1.1 | 0.35 | 0.3 | 0.85 | 0.3 | 0.45 | 0 | 0 |
-| 19 | 13564 | 1568.055 | ACCEPT | 0.05 | 1.12 | 0.35 | 0.35 | 0.8 | 0.07 | 0.6 | 0 | 0 |
-| 20 | 13471 | 1559.975 | ACCEPT | 0.05 | 1.1 | 0.35 | 0.35 | 0.8 | 0.3 | 0.47 | 0 | 0 |
+| 1 | 15171 | -952034.085 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.25 | 0.35 | 0.4 | 0.4 | -0.02 | 1 | 1 | 1.0 |
+| 2 | 99571 | -965699.82 | REJECTED_COMPRESSION | 0.05 | 1.18 | 0.3 | 0.3 | 0.1 | -0.06 | 0 | 2 | 1.0 |
+| 3 | 4168 | -967772.62 | REJECTED_COMPRESSION | 0.05 | 1.18 | 0.3 | 0.35 | 0.1 | -0.06 | 0 | 1 | 1.0 |
+| 4 | 108314 | -969673.15 | REJECTED_COMPRESSION | 0.05 | 1.18 | 0.32 | 0.34 | 0.24 | -0.06 | 0 | 2 | 1.0 |
+| 5 | 103926 | -970643.08 | REJECTED_STOP_MAX_LEVELS | 0.1 | 1.16 | 0.35 | 0.4 | 0.26 | -0.13 | 1 | 1 | 1.0 |
+| 6 | 39373 | -972555.355 | REJECTED_COMPRESSION | 0.1 | 1.2 | 0.35 | 0.35 | 0.2 | -0.16 | 0 | 1 | 1.0 |
+| 7 | 106353 | -977799.375 | REJECTED_COMPRESSION | 0.05 | 1.17 | 0.31 | 0.32 | 0.24 | -0.06 | 0 | 2 | 1.0 |
+| 8 | 109909 | -988532.44 | REJECTED_COMPRESSION | 0.05 | 1.17 | 0.33 | 0.36 | 0.24 | -0.06 | 0 | 1 | 1.0 |
+| 9 | 108871 | -990349.395 | REJECTED_STOP_MAX_LEVELS | 0.1 | 1.13 | 0.37 | 0.32 | 0.28 | -0.07 | 2 | 3 | 1.0 |
+| 10 | 105921 | -990461.41 | REJECTED_RECOVERY_LOSS | 0.1 | 1.14 | 0.38 | 0.36 | 0.3 | -0.17 | 0 | 1 | 1.0 |
+| 11 | 88912 | -991000.43 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.15 | 0.35 | 0.35 | 0.3 | -0.09 | 1 | 1 | 1.0 |
+| 12 | 103721 | -991000.43 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.16 | 0.4 | 0.4 | 0.28 | -0.09 | 1 | 1 | 1.0 |
+| 13 | 51991 | -991035.38 | REJECTED_COMPRESSION | 0.05 | 1.2 | 0.3 | 0.35 | 0.15 | -0.21 | 0 | 2 | 1.0 |
+| 14 | 30125 | -991173.425 | REJECTED_COMPRESSION | 0.05 | 1.18 | 0.35 | 0.3 | 0.1 | -0.23 | 0 | 1 | 1.0 |
+| 15 | 51025 | -991371.965 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.18 | 0.35 | 0.5 | 0.4 | -0.08 | 1 | 1 | 1.0 |
+| 16 | 102514 | -991504.685 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.12 | 0.35 | 0.4 | 0.26 | -0.08 | 1 | 1 | 1.0 |
+| 17 | 65977 | -991551.395 | REJECTED_COMPRESSION | 0.05 | 1.18 | 0.3 | 0.3 | 0.15 | -0.21 | 0 | 4 | 1.0 |
+| 18 | 107896 | -991674.285 | REJECTED_STOP_MAX_LEVELS | 0.05 | 1.16 | 0.38 | 0.36 | 0.3 | -0.14 | 1 | 2 | 1.0 |
+| 19 | 109635 | -992120.905 | REJECTED_RECOVERY_LOSS | 0.1 | 1.15 | 0.4 | 0.34 | 0.26 | -0.17 | 0 | 1 | 1.0 |
+| 20 | 62037 | -992427.895 | REJECTED_COMPRESSION | 0.1 | 1.18 | 0.35 | 0.3 | 0.1 | -0.63 | 0 | 1 | 1.0 |
 
-## Rejected parameter causes
+## Why rejected
 
-Rows are rejected for failed compression math, simulated `NewBig >= OldFar`, margin/drawdown pressure, STOP_MAX_LEVELS, closed recovery loss, or non-positive minimum recovery across scenarios.
-The most sensitive parameters are BigRatio, RemainBigOnSmall, FarDistancePoints, MaxHarvestLevels and CloseFarShare/ReserveShare.
-Do not raise BigRatio or RemainBigOnSmall until `BigRatio² × RemainBigOnSmall < 1` and simulated `NewBig < OldFar` still hold.
+- REJECTED_STOP_MAX_LEVELS: 83,741 rows. These rows remain in CSV for diagnostics but are not selectable for `.set` generation.
+- REJECTED_RECOVERY_LOSS: 12,566 rows. These rows remain in CSV for diagnostics but are not selectable for `.set` generation.
+- REJECTED_COMPRESSION_FORMULA: 8,545 rows. These rows remain in CSV for diagnostics but are not selectable for `.set` generation.
+- REJECTED_COMPRESSION: 4,807 rows. These rows remain in CSV for diagnostics but are not selectable for `.set` generation.
+
+## Sensitivity Analysis
+
+- BigRatio and RemainBigOnSmall are the most dangerous pair because `BigRatio² × RemainBigOnSmall >= 1` breaks compression before simulation.
+- BigRatio above 1.20 sharply narrows the ACCEPT region unless CloseBigOnSmall is high enough to keep the next Big below the old Far.
+- SmallRatio below 0.20 often weakens Small-scenario recovery; very high SmallRatio increases hedge cost and drawdown variance.
+- CloseFarShare above 0.30 may reduce reserve resilience; too little CloseFarShare leaves large final Far losses.
+- FarDistancePoints and BigMoveStepPoints materially change RecoveryPL variance and must be revalidated in MT5 tick data.
+
+## Stability analysis
+
+StabilityScore penalizes RecoveryPL variance, drawdown variance, STOP_MAX_LEVELS frequency and recovery-loss frequency. Higher values indicate a smoother cross-scenario profile.
+
+## Robustness analysis
+
+RobustnessScore measures how many synthetic paths close profitably and subtracts penalties for STOP_MAX_LEVELS, recovery loss and compression violations across Big trend, Small trend, alternating, false reversal, worst-case and max-level stress paths.
 
 ## Required MT5 validation after offline filtering
 

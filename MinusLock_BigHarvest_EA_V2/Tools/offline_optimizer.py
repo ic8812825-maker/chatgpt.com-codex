@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Offline parameter optimizer for MinusLock_BigHarvest_EA_V2.
 
-This is a deterministic mathematical screening model. It intentionally does not
-claim MT5-equivalent execution; it reproduces the EA's recovery-accounting rules,
-lot geometry, Big/Small/MaxLevels transitions and strict success criterion:
+This deterministic screening model is not an MT5 replacement. It reproduces the
+EA recovery-accounting contract, Big/Small lot geometry, terminal outcomes and
+strict success rule:
 
     RecoveryPL = FinalBalance - CycleStartBalance
 
-The output is a ranked candidate list and .set files for later manual MT5
-Strategy Tester validation.
+V2.4.22 fixes ranking methodology: rejected rows are diagnostics only, cannot
+outrank accepted rows, and cannot generate production .set files.
 """
 
 from __future__ import annotations
@@ -21,8 +21,8 @@ import random
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from statistics import mean
-from typing import Dict, Iterable, Iterator, List, Tuple
+from statistics import mean, pstdev
+from typing import Dict, Iterator, List, Optional, Tuple
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
@@ -30,7 +30,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from generate_set_files import write_set_file
 from offline_scenarios import Scenario, build_scenarios, scenario_names
-from score_parameters import score_candidate, verdict
+from score_parameters import REJECTED_SCORE_PENALTY, score_candidate, verdict
 
 ROOT = SCRIPT_DIR.parent
 
@@ -40,6 +40,9 @@ POINT_VALUE_PER_LOT = 1.0
 COMMISSION_PER_LOT = 0.0
 SLIPPAGE_POINTS = 2.0
 MARGIN_PER_LOT = 1000.0
+BROAD_DEFAULT_RUNS = 100_000
+LOCAL_DEFAULT_RUNS = 10_000
+REJECTED_FINAL_RANK = -999_999_999.0
 
 RANGES = {
     "StartLot": [0.01, 0.05, 0.10, 0.50, 1.00],
@@ -60,12 +63,13 @@ RANGES = {
 }
 
 CSV_COLUMNS = [
-    "RunID", "Category", "StartLot", "BigRatio", "SmallRatio", "CloseBigOnSmall", "RemainBigOnSmall",
+    "RunID", "Category", "SearchPhase", "StartLot", "BigRatio", "SmallRatio", "CloseBigOnSmall", "RemainBigOnSmall",
     "CloseFarShare", "ReserveShare", "SmallReserveShare", "InitialTriggerPoints", "BigMoveStartPoints",
     "BigMoveStepPoints", "FarDistancePoints", "MaxHarvestLevels", "MaxReverseCycles", "MaxSpreadPoints",
     "MaxMarginPercent", "MaxDrawdownPercent", "RecoveryPL_Mean", "RecoveryPL_Min", "RecoveryPL_Max",
     "MaxDD_Mean", "MaxDD_Max", "MaxMarginUsed", "StopMaxLevelsCount", "ClosedProfitCount",
-    "ClosedRecoveryLossCount", "CompressionRatio", "NewBigToOldFarRatio", "Score", "Verdict",
+    "ClosedRecoveryLossCount", "CompressionRatio", "NewBigToOldFarRatio", "ProfitScore", "StabilityScore",
+    "RobustnessScore", "Score", "FinalRank", "CoverageRatio", "IsSelectableForSetFile", "Verdict",
 ]
 
 
@@ -195,10 +199,6 @@ def simulate_scenario(p: Params, scenario: Scenario) -> ScenarioResult:
             far_lot = normalize_to_step(max(0.0, far_lot - close_far_lot))
         else:
             reverse_cycles += 1
-            # Small-at-Far usually closes near the old Far touch, while the Big partial
-            # close is based on the actual terminal remainder. Use a conservative but
-            # not worst-tick full-distance loss model so offline screening does not
-            # reject every mathematically compressed parameter set.
             small_leg_points = p.FarDistancePoints
             adverse_close_points = p.FarDistancePoints * 0.25
             profit_small = pnl(small_lot, small_leg_points, p.MaxSpreadPoints, scenario.stress_multiplier)
@@ -222,7 +222,7 @@ def simulate_scenario(p: Params, scenario: Scenario) -> ScenarioResult:
 
         peak_balance = max(peak_balance, balance)
         max_dd = max(max_dd, peak_balance - balance)
-        ok_final, projected_recovery = can_final_close(balance, cycle_start, far_lot, p, scenario)
+        ok_final, _projected_recovery = can_final_close(balance, cycle_start, far_lot, p, scenario)
         if far_lot <= LOT_STEP / 2 or ok_final:
             if far_lot > LOT_STEP / 2:
                 final_loss = loss(far_lot, p.FarDistancePoints, p.MaxSpreadPoints, scenario.stress_multiplier)
@@ -265,26 +265,34 @@ def simulate_scenario(p: Params, scenario: Scenario) -> ScenarioResult:
     )
 
 
-def aggregate_results(run_id: int, p: Params, results: List[ScenarioResult]) -> Dict[str, object]:
+def aggregate_results(run_id: int, p: Params, results: List[ScenarioResult], search_phase: str, coverage_ratio: float) -> Dict[str, object]:
     pls = [r.recovery_pl for r in results]
     dds = [r.max_dd for r in results]
     gross_profit = sum(x for x in pls if x > 0.0)
     gross_loss = abs(sum(x for x in pls if x < 0.0))
     max_dd = max(dds) if dds else 0.0
+    stop_count = sum(r.stop_max for r in results)
+    loss_count = sum(r.closed_recovery_loss for r in results)
+    compression_count = sum(r.compression_violation for r in results)
+    closed_profit_count = sum(r.closed_profit for r in results)
+    recovery_std = pstdev(pls) if len(pls) > 1 else 0.0
+    dd_std = pstdev(dds) if len(dds) > 1 else 0.0
+
     metrics: Dict[str, object] = asdict(p)
     metrics.update(
         RunID=run_id,
         Category="CANDIDATE",
+        SearchPhase=search_phase,
         RecoveryPL_Mean=round(mean(pls), 2),
         RecoveryPL_Min=round(min(pls), 2),
         RecoveryPL_Max=round(max(pls), 2),
         MaxDD_Mean=round(mean(dds), 2),
         MaxDD_Max=round(max_dd, 2),
         MaxMarginUsed=round(max(r.max_margin for r in results), 2),
-        StopMaxLevelsCount=sum(r.stop_max for r in results),
-        ClosedProfitCount=sum(r.closed_profit for r in results),
-        ClosedRecoveryLossCount=sum(r.closed_recovery_loss for r in results),
-        CompressionViolationCount=sum(r.compression_violation for r in results),
+        StopMaxLevelsCount=stop_count,
+        ClosedProfitCount=closed_profit_count,
+        ClosedRecoveryLossCount=loss_count,
+        CompressionViolationCount=compression_count,
         CompressionRatio=round(max(r.compression_ratio for r in results), 4),
         NewBigToOldFarRatio=round(max(r.new_big_to_old_far_ratio for r in results), 4),
         ProfitFactorOffline=round(gross_profit / gross_loss, 4) if gross_loss > 0.0 else round(gross_profit, 4),
@@ -292,9 +300,23 @@ def aggregate_results(run_id: int, p: Params, results: List[ScenarioResult]) -> 
         MaxAllowedDD=INITIAL_DEPOSIT * p.MaxDrawdownPercent / 100.0,
         MaxAllowedMargin=INITIAL_DEPOSIT * p.MaxMarginPercent / 100.0,
         RejectedReason=validate_params(p),
+        CoverageRatio=round(coverage_ratio, 6),
     )
-    metrics["Score"] = score_candidate(metrics)
+    raw_score = score_candidate(metrics)
     metrics["Verdict"] = verdict(metrics)
+    if metrics["Verdict"] != "ACCEPT":
+        metrics["Score"] = round(raw_score - REJECTED_SCORE_PENALTY, 4)
+        metrics["IsSelectableForSetFile"] = "NO"
+    else:
+        metrics["Score"] = raw_score
+        metrics["IsSelectableForSetFile"] = "YES"
+    metrics["ProfitScore"] = round(metrics["RecoveryPL_Mean"] + metrics["ProfitFactorOffline"] * 100.0 + metrics["RecoveryFactorOffline"] * 50.0, 4)
+    metrics["StabilityScore"] = round(100.0 - recovery_std - dd_std - stop_count * 10.0 - loss_count * 20.0, 4)
+    metrics["RobustnessScore"] = round((closed_profit_count / max(1, len(results))) * 100.0 - stop_count * 10.0 - loss_count * 20.0 - compression_count * 25.0, 4)
+    if metrics["Verdict"] == "ACCEPT":
+        metrics["FinalRank"] = round(metrics["ProfitScore"] + metrics["StabilityScore"] + metrics["RobustnessScore"], 4)
+    else:
+        metrics["FinalRank"] = REJECTED_FINAL_RANK
     return metrics
 
 
@@ -311,82 +333,157 @@ def iter_full_grid() -> Iterator[Params]:
         yield Params(CloseBigOnSmall=close_big, RemainBigOnSmall=remain_big, CloseFarShare=close_far, ReserveShare=reserve, **raw)
 
 
+def _build_params_from_range_raw(raw: dict) -> Params:
+    raw = dict(raw)
+    close_big, remain_big = raw.pop("ClosePair")
+    close_far, reserve = raw.pop("ReservePair")
+    return Params(CloseBigOnSmall=close_big, RemainBigOnSmall=remain_big, CloseFarShare=close_far, ReserveShare=reserve, **raw)
+
+
 def sample_params(limit: int, seed: int) -> List[Params]:
     """Deterministically sample a large grid while covering every allowed value."""
     rng = random.Random(seed)
     keys = list(RANGES)
     generated: List[Params] = []
     seen = set()
-
-    def build(raw: dict) -> Params:
-        raw = dict(raw)
-        close_big, remain_big = raw.pop("ClosePair")
-        close_far, reserve = raw.pop("ReservePair")
-        return Params(CloseBigOnSmall=close_big, RemainBigOnSmall=remain_big, CloseFarShare=close_far, ReserveShare=reserve, **raw)
-
-    # Coverage pass: each range value is forced into at least one sampled combination.
     for key in keys:
         for value in RANGES[key]:
             raw = {k: rng.choice(RANGES[k]) for k in keys}
             raw[key] = value
-            p = build(raw)
+            p = _build_params_from_range_raw(raw)
             if p not in seen:
                 generated.append(p)
                 seen.add(p)
-
     while len(generated) < limit:
         raw = {k: rng.choice(RANGES[k]) for k in keys}
-        p = build(raw)
+        p = _build_params_from_range_raw(raw)
         if p not in seen:
             generated.append(p)
             seen.add(p)
     return generated
 
 
-def choose_categories(rows: List[Dict[str, object]]) -> Dict[str, Dict[str, object]]:
-    """Pick distinct category representatives.
+def build_local_params(base: Params, target: int, seed: int) -> List[Params]:
+    """Second-pass mini-search around the best accepted/current leader zone."""
+    rng = random.Random(seed)
+    big_ratios = [1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18]
+    small_ratios = [round(x / 100.0, 2) for x in range(30, 41)]
+    close_big_values = [0.30, 0.32, 0.34, 0.36, 0.38, 0.40]
+    close_far_values = [0.20, 0.22, 0.24, 0.26, 0.28, 0.30]
+    start_lots = [0.01, 0.05, 0.10, base.StartLot]
+    small_reserves = sorted({0.03, 0.05, 0.07, 0.10, base.SmallReserveShare})
+    initial_triggers = sorted({70, 100, 150, 200, base.InitialTriggerPoints})
+    big_starts = sorted({70, 100, 150, 200, base.BigMoveStartPoints})
+    big_steps = sorted({25, 50, 75, 100, base.BigMoveStepPoints})
+    far_distances = sorted({100, 150, 200, 250, 300, base.FarDistancePoints})
+    max_levels = sorted({6, 7, 8, 9, 10, base.MaxHarvestLevels})
+    reverse_cycles = sorted({5, 7, 10, base.MaxReverseCycles})
+    spreads = sorted({30, 40, 60, base.MaxSpreadPoints})
+    margins = sorted({50, 60, 70, base.MaxMarginPercent})
+    drawdowns = sorted({15, 20, 25, 30, base.MaxDrawdownPercent})
 
-    Safe/Balanced/LowLot are chosen from ACCEPT rows whenever available.
-    Aggressive may be a stress candidate if no high-lot row survives every
-    offline scenario; the report keeps its Verdict so MT5 users see the risk.
-    """
-    accepted = [r for r in rows if r["Verdict"] == "ACCEPT"]
-    score_sorted = sorted(accepted or rows, key=lambda r: r["Score"], reverse=True)
+    generated: List[Params] = []
+    seen = set()
+    required_anchor = Params(0.05, 1.15, 0.35, 0.35, 0.65, 0.25, 0.75, 0.05, 100, 100, 50, 200, 7, 7, 40, 60, 25)
+    for p in (base, required_anchor):
+        if p not in seen:
+            generated.append(p)
+            seen.add(p)
+
+    while len(generated) < target:
+        close_big = rng.choice(close_big_values)
+        close_far = rng.choice(close_far_values)
+        p = Params(
+            StartLot=rng.choice(start_lots),
+            BigRatio=rng.choice(big_ratios),
+            SmallRatio=rng.choice(small_ratios),
+            CloseBigOnSmall=close_big,
+            RemainBigOnSmall=round(1.0 - close_big, 2),
+            CloseFarShare=close_far,
+            ReserveShare=round(1.0 - close_far, 2),
+            SmallReserveShare=rng.choice(small_reserves),
+            InitialTriggerPoints=rng.choice(initial_triggers),
+            BigMoveStartPoints=rng.choice(big_starts),
+            BigMoveStepPoints=rng.choice(big_steps),
+            FarDistancePoints=rng.choice(far_distances),
+            MaxHarvestLevels=rng.choice(max_levels),
+            MaxReverseCycles=rng.choice(reverse_cycles),
+            MaxSpreadPoints=rng.choice(spreads),
+            MaxMarginPercent=rng.choice(margins),
+            MaxDrawdownPercent=rng.choice(drawdowns),
+        )
+        if p not in seen:
+            generated.append(p)
+            seen.add(p)
+    return generated
+
+
+def rank_rows(rows: List[Dict[str, object]]) -> List[Dict[str, object]]:
+    return sorted(rows, key=lambda r: (r["Verdict"] == "ACCEPT", float(r["FinalRank"]), float(r["Score"])), reverse=True)
+
+
+def choose_categories(rows: List[Dict[str, object]]) -> Dict[str, Optional[Dict[str, object]]]:
+    """Pick .set representatives only from ACCEPT/selectable rows."""
+    accepted = [r for r in rows if r["Verdict"] == "ACCEPT" and r["IsSelectableForSetFile"] == "YES"]
+    accepted_ranked = sorted(accepted, key=lambda r: float(r["FinalRank"]), reverse=True)
     used: set[int] = set()
 
-    def pick(pool: List[Dict[str, object]], key, reverse=True) -> Dict[str, object]:
+    def pick(pool: List[Dict[str, object]], key=None, reverse=True) -> Optional[Dict[str, object]]:
         candidates = [r for r in pool if int(r["RunID"]) not in used]
         if not candidates:
-            candidates = pool or score_sorted
-        row = sorted(candidates, key=key, reverse=reverse)[0]
+            candidates = pool[:]
+        if not candidates:
+            return None
+        if key is None:
+            row = sorted(candidates, key=lambda r: float(r["FinalRank"]), reverse=True)[0]
+        else:
+            row = sorted(candidates, key=key, reverse=reverse)[0]
         used.add(int(row["RunID"]))
         return row
 
-    safe_pool = [r for r in accepted if r["StartLot"] <= 0.10 and r["MaxDD_Max"] <= 120 and r["MaxMarginUsed"] <= 2500]
-    balanced_pool = [r for r in accepted if r["RecoveryPL_Min"] > 0.0]
-    lowlot_pool = [r for r in accepted if r["StartLot"] in (0.01, 0.05, 0.10)]
-    aggressive_pool = [r for r in accepted if r["StartLot"] >= 0.50]
-    if not aggressive_pool:
-        aggressive_pool = [r for r in rows if r["StartLot"] >= 0.50 and r["CompressionViolationCount"] == 0]
+    safe_pool = [r for r in accepted if float(r["StartLot"]) <= 0.10 and float(r["MaxDD_Max"]) <= 120 and float(r["MaxMarginUsed"]) <= 2500]
+    balanced_pool = [r for r in accepted if float(r["RecoveryPL_Min"]) > 0.0]
+    aggressive_pool = [r for r in accepted if float(r["StartLot"]) >= 0.50]
 
-    return {
-        "SAFE": pick(safe_pool or score_sorted, key=lambda r: (-r["MaxDD_Max"], r["Score"], r["RecoveryPL_Min"])),
-        "BALANCED": pick(balanced_pool or score_sorted, key=lambda r: (r["Score"], r["RecoveryPL_Min"])),
-        "AGGRESSIVE": pick(aggressive_pool or score_sorted, key=lambda r: (r["Verdict"] == "ACCEPT", r["StartLot"], r["Score"])),
-        "LOWLOT_SAFE": pick(lowlot_pool or score_sorted, key=lambda r: (-r["StartLot"], -r["MaxDD_Max"], r["Score"])),
+    selected: Dict[str, Optional[Dict[str, object]]] = {
+        "SAFE": pick(safe_pool or accepted_ranked, key=lambda r: (-float(r["MaxDD_Max"]), float(r["FinalRank"]), float(r["RecoveryPL_Min"]))),
+        "BALANCED": pick(balanced_pool or accepted_ranked),
+        "AGGRESSIVE": pick(aggressive_pool, key=lambda r: (float(r["StartLot"]), float(r["FinalRank"]))),
+        "LOWLOT_SAFE": None,
     }
+    for lot in (0.01, 0.05, 0.10):
+        lot_pool = [r for r in accepted if abs(float(r["StartLot"]) - lot) < 1e-9]
+        if lot_pool:
+            selected["LOWLOT_SAFE"] = pick(lot_pool)
+            break
+    return selected
 
 
 def write_csv(path: Path, rows: List[Dict[str, object]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS, extrasaction="ignore")
+        writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
 
-def write_best_parameters(path: Path, rows: List[Dict[str, object]], selected: Dict[str, Dict[str, object]], args, scenarios: List[Scenario], rejected_count: int) -> None:
-    top20 = sorted(rows, key=lambda r: r["Score"], reverse=True)[:20]
+def rejected_summary(rows: List[Dict[str, object]]) -> Dict[str, int]:
+    summary: Dict[str, int] = {}
+    for row in rows:
+        if row["Verdict"] != "ACCEPT":
+            summary[str(row["Verdict"])] = summary.get(str(row["Verdict"]), 0) + 1
+    return dict(sorted(summary.items(), key=lambda kv: kv[1], reverse=True))
+
+
+def write_best_parameters(path: Path, rows: List[Dict[str, object]], selected: Dict[str, Optional[Dict[str, object]]], args, scenarios: List[Scenario], total_tested: int, coverage_ratio: float) -> None:
+    accepted = [r for r in rows if r["Verdict"] == "ACCEPT"]
+    rejected = [r for r in rows if r["Verdict"] != "ACCEPT"]
+    top_accept = sorted(accepted, key=lambda r: float(r["FinalRank"]), reverse=True)[:20]
+    top_rejected = sorted(rejected, key=lambda r: float(r["Score"]), reverse=True)[:20]
+    summary = rejected_summary(rows)
+    lowlot = selected.get("LOWLOT_SAFE")
+    lowlot_text = f"LOWLOT candidate found at StartLot={lowlot['StartLot']}." if lowlot else "LOWLOT_SAFE_NOT_FOUND: no ACCEPT row at StartLot 0.01, 0.05, or 0.10."
+
     lines = [
         "# Offline Best Parameters for MinusLock_BigHarvest_EA_V2",
         "",
@@ -395,52 +492,80 @@ def write_best_parameters(path: Path, rows: List[Dict[str, object]], selected: D
         "This report is generated without MT5. It is a deterministic offline filter, not a replacement for MetaTrader Strategy Tester.",
         "It uses the strict success rule `RecoveryPL = FinalBalance - CycleStartBalance`; AccountPL versus InitialDeposit is diagnostic only.",
         "InitialIgnoredProfit is excluded from pass/fail, matching the EA realRecoveryPL / OnTester contract.",
+        "Rejected rows are diagnostics only: they cannot enter TOP ACCEPT and cannot generate production `.set` files.",
         "",
         "## Optimization model",
         "",
         f"- Synthetic scenarios: {scenario_names(scenarios)}.",
-        f"- Sampled combinations: {args.max_runs:,} from a theoretical grid of {grid_size():,} combinations.",
-        f"- Mathematically rejected or unstable rows in CSV: {rejected_count:,}.",
+        f"- Total combinations theoretical: {grid_size():,}.",
+        f"- Total combinations tested: {total_tested:,} ({args.max_runs:,} broad + {args.local_runs:,} local mini-search).",
+        f"- Coverage ratio: {coverage_ratio:.6%}.",
+        f"- Mathematically rejected or unstable rows in CSV: {len(rejected):,}.",
         "- P/L model: `Lot × Points × PointValuePerLot` minus spread/slippage/commission costs.",
         "- Compression filter: `BigRatio² × RemainBigOnSmall < 1` plus simulated `NewBig < OldFar` checks.",
-        "- STOP_MAX_LEVELS, STATE_CLOSED_RECOVERY_LOSS, compression violations and drawdown/margin breaches receive hard penalties.",
+        "- FinalRank = ProfitScore + StabilityScore + RobustnessScore only for ACCEPT rows; rejected rows receive a terminal rank penalty.",
         "",
-        "## Selected parameter sets",
+        "## Selected ACCEPT parameter sets",
+        "",
+        lowlot_text,
         "",
     ]
     for category, row in selected.items():
+        lines += [f"### {category}", ""]
+        if row is None:
+            lines += [f"- {category}_NOT_FOUND: no ACCEPT candidate matched this category. No `.set` file was generated from a rejected row.", ""]
+            continue
         lines += [
-            f"### {category}",
-            "",
             f"- StartLot={row['StartLot']}, BigRatio={row['BigRatio']}, SmallRatio={row['SmallRatio']}",
             f"- CloseBigOnSmall={row['CloseBigOnSmall']} / RemainBigOnSmall={row['RemainBigOnSmall']}",
             f"- CloseFarShare={row['CloseFarShare']} / ReserveShare={row['ReserveShare']}, SmallReserveShare={row['SmallReserveShare']}",
             f"- Trigger/steps: Initial={row['InitialTriggerPoints']}, BigStart={row['BigMoveStartPoints']}, BigStep={row['BigMoveStepPoints']}, FarDistance={row['FarDistancePoints']}",
             f"- MaxHarvestLevels={row['MaxHarvestLevels']}, MaxReverseCycles={row['MaxReverseCycles']}, MaxSpreadPoints={row['MaxSpreadPoints']}",
             f"- RecoveryPL mean/min/max: {row['RecoveryPL_Mean']} / {row['RecoveryPL_Min']} / {row['RecoveryPL_Max']}",
-            f"- MaxDD={row['MaxDD_Max']}, MaxMarginUsed={row['MaxMarginUsed']}, Score={row['Score']}, Verdict={row['Verdict']}",
-            ("- Why selected: ACCEPT row with the best available score inside its risk category and no false AccountPL pass."
-             if row["Verdict"] == "ACCEPT"
-             else "- Why selected: stress-only candidate; offline model rejects it, so it must not be treated as a default until MT5 proves recovery profitability."),
+            f"- MaxDD={row['MaxDD_Max']}, MaxMarginUsed={row['MaxMarginUsed']}, StabilityScore={row['StabilityScore']}, RobustnessScore={row['RobustnessScore']}, FinalRank={row['FinalRank']}, Verdict={row['Verdict']}",
+            "- Why selected: ACCEPT row with the best available FinalRank inside its risk category and no false AccountPL pass.",
             "",
         ]
+
     lines += [
-        "## Top-20 by score",
+        "## TOP ACCEPT",
         "",
-        "| Rank | RunID | Score | Verdict | StartLot | BigRatio | SmallRatio | CloseBig | Reserve | RecoveryPL_Min | MaxDD | StopMax | LossCount |",
+        "| Rank | RunID | FinalRank | ProfitScore | StabilityScore | RobustnessScore | StartLot | BigRatio | SmallRatio | CloseBig | CloseFar | RecoveryPL_Min | MaxDD | Verdict |",
+        "|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|",
+    ]
+    for rank, row in enumerate(top_accept, 1):
+        lines.append(f"| {rank} | {row['RunID']} | {row['FinalRank']} | {row['ProfitScore']} | {row['StabilityScore']} | {row['RobustnessScore']} | {row['StartLot']} | {row['BigRatio']} | {row['SmallRatio']} | {row['CloseBigOnSmall']} | {row['CloseFarShare']} | {row['RecoveryPL_Min']} | {row['MaxDD_Max']} | {row['Verdict']} |")
+
+    lines += [
+        "",
+        "## TOP REJECTED",
+        "",
+        "| Rank | RunID | ScoreAfterPenalty | Verdict | StartLot | BigRatio | SmallRatio | CloseBig | CloseFar | RecoveryPL_Min | StopMax | LossCount | CompressionRatio |",
         "|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
-    for rank, row in enumerate(top20, 1):
-        lines.append(
-            f"| {rank} | {row['RunID']} | {row['Score']} | {row['Verdict']} | {row['StartLot']} | {row['BigRatio']} | {row['SmallRatio']} | {row['CloseBigOnSmall']} | {row['ReserveShare']} | {row['RecoveryPL_Min']} | {row['MaxDD_Max']} | {row['StopMaxLevelsCount']} | {row['ClosedRecoveryLossCount']} |"
-        )
+    for rank, row in enumerate(top_rejected, 1):
+        lines.append(f"| {rank} | {row['RunID']} | {row['Score']} | {row['Verdict']} | {row['StartLot']} | {row['BigRatio']} | {row['SmallRatio']} | {row['CloseBigOnSmall']} | {row['CloseFarShare']} | {row['RecoveryPL_Min']} | {row['StopMaxLevelsCount']} | {row['ClosedRecoveryLossCount']} | {row['CompressionRatio']} |")
+
+    lines += ["", "## Why rejected", ""]
+    for reason, count in summary.items():
+        lines.append(f"- {reason}: {count:,} rows. These rows remain in CSV for diagnostics but are not selectable for `.set` generation.")
     lines += [
         "",
-        "## Rejected parameter causes",
+        "## Sensitivity Analysis",
         "",
-        "Rows are rejected for failed compression math, simulated `NewBig >= OldFar`, margin/drawdown pressure, STOP_MAX_LEVELS, closed recovery loss, or non-positive minimum recovery across scenarios.",
-        "The most sensitive parameters are BigRatio, RemainBigOnSmall, FarDistancePoints, MaxHarvestLevels and CloseFarShare/ReserveShare.",
-        "Do not raise BigRatio or RemainBigOnSmall until `BigRatio² × RemainBigOnSmall < 1` and simulated `NewBig < OldFar` still hold.",
+        "- BigRatio and RemainBigOnSmall are the most dangerous pair because `BigRatio² × RemainBigOnSmall >= 1` breaks compression before simulation.",
+        "- BigRatio above 1.20 sharply narrows the ACCEPT region unless CloseBigOnSmall is high enough to keep the next Big below the old Far.",
+        "- SmallRatio below 0.20 often weakens Small-scenario recovery; very high SmallRatio increases hedge cost and drawdown variance.",
+        "- CloseFarShare above 0.30 may reduce reserve resilience; too little CloseFarShare leaves large final Far losses.",
+        "- FarDistancePoints and BigMoveStepPoints materially change RecoveryPL variance and must be revalidated in MT5 tick data.",
+        "",
+        "## Stability analysis",
+        "",
+        "StabilityScore penalizes RecoveryPL variance, drawdown variance, STOP_MAX_LEVELS frequency and recovery-loss frequency. Higher values indicate a smoother cross-scenario profile.",
+        "",
+        "## Robustness analysis",
+        "",
+        "RobustnessScore measures how many synthetic paths close profitably and subtracts penalties for STOP_MAX_LEVELS, recovery loss and compression violations across Big trend, Small trend, alternating, false reversal, worst-case and max-level stress paths.",
         "",
         "## Required MT5 validation after offline filtering",
         "",
@@ -468,46 +593,83 @@ def row_for_set(row: Dict[str, object]) -> Dict[str, object]:
     }
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Offline optimizer for MinusLock BigHarvest EA V2")
-    parser.add_argument("--max-runs", type=int, default=25000, help="number of sampled combinations to evaluate")
-    parser.add_argument("--seed", type=int, default=20260623, help="deterministic random seed")
-    parser.add_argument("--output", type=Path, default=ROOT / "Optimization_Report.csv")
-    parser.add_argument("--best", type=Path, default=ROOT / "Best_Parameters.md")
-    parser.add_argument("--sets-dir", type=Path, default=ROOT / "Sets")
-    args = parser.parse_args()
+def evaluate_params(run_id: int, params: Params, scenarios: List[Scenario], search_phase: str, coverage_ratio: float) -> Dict[str, object]:
+    reject = validate_params(params)
+    if reject:
+        results = [ScenarioResult(s.name, -9999.0, 9999.0, 9999.0, True, False, True, True, 9.99, 9.99, 0.0, "REJECTED", 0) for s in scenarios]
+    else:
+        results = [simulate_scenario(params, s) for s in scenarios]
+    return aggregate_results(run_id, params, results, search_phase, coverage_ratio)
 
-    scenarios = build_scenarios(max_levels=10)
-    rows: List[Dict[str, object]] = []
-    for run_id, params in enumerate(sample_params(args.max_runs, args.seed), 1):
-        reject = validate_params(params)
-        if reject:
-            results = [ScenarioResult(s.name, -9999.0, 9999.0, 9999.0, True, False, True, True, 9.99, 9.99, 0.0, "REJECTED", 0) for s in scenarios]
-        else:
-            results = [simulate_scenario(params, s) for s in scenarios]
-        row = aggregate_results(run_id, params, results)
-        rows.append(row)
 
-    rows = sorted(rows, key=lambda r: r["Score"], reverse=True)
-    selected = choose_categories(rows)
-    for category, row in selected.items():
-        row["Category"] = category
-
-    write_csv(args.output, rows)
-    write_best_parameters(args.best, rows, selected, args, scenarios, sum(1 for r in rows if r["Verdict"] != "ACCEPT"))
-
+def write_selected_set_files(sets_dir: Path, selected: Dict[str, Optional[Dict[str, object]]]) -> None:
     set_names = {
         "SAFE": "USDJPY_M30_SAFE.set",
         "BALANCED": "USDJPY_M30_BALANCED.set",
         "AGGRESSIVE": "USDJPY_M30_AGGRESSIVE.set",
         "LOWLOT_SAFE": "USDJPY_M30_LOWLOT_SAFE.set",
     }
-    for category, row in selected.items():
-        write_set_file(args.sets_dir / set_names[category], row_for_set(row))
+    sets_dir.mkdir(parents=True, exist_ok=True)
+    for category, filename in set_names.items():
+        set_path = sets_dir / filename
+        not_found_path = sets_dir / f"USDJPY_M30_{category}_NOT_FOUND.txt"
+        if set_path.exists():
+            set_path.unlink()
+        if not_found_path.exists():
+            not_found_path.unlink()
+        row = selected.get(category)
+        if row is not None and row["Verdict"] == "ACCEPT" and row["IsSelectableForSetFile"] == "YES":
+            write_set_file(set_path, row_for_set(row))
+        else:
+            not_found_path.write_text(f"{category}_NOT_FOUND: no ACCEPT selectable candidate was found.\n", encoding="utf-8")
 
-    print(f"OFFLINE_OPTIMIZER PASS sampled={args.max_runs} theoretical_grid={grid_size()} scenarios={len(scenarios)}")
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Offline optimizer for MinusLock BigHarvest EA V2")
+    parser.add_argument("--max-runs", type=int, default=BROAD_DEFAULT_RUNS, help="number of broad sampled combinations to evaluate")
+    parser.add_argument("--local-runs", type=int, default=LOCAL_DEFAULT_RUNS, help="number of local mini-search combinations to evaluate")
+    parser.add_argument("--seed", type=int, default=20260623, help="deterministic random seed")
+    parser.add_argument("--output", type=Path, default=ROOT / "Optimization_Report.csv")
+    parser.add_argument("--best", type=Path, default=ROOT / "Best_Parameters.md")
+    parser.add_argument("--sets-dir", type=Path, default=ROOT / "Sets")
+    args = parser.parse_args()
+
+    if args.max_runs < BROAD_DEFAULT_RUNS:
+        print(f"WARNING: requested broad sample {args.max_runs:,} is below V2.4.22 minimum {BROAD_DEFAULT_RUNS:,}", file=sys.stderr)
+
+    scenarios = build_scenarios(max_levels=10)
+    total_requested = args.max_runs + args.local_runs
+    coverage_ratio = total_requested / grid_size()
+    rows: List[Dict[str, object]] = []
+
+    broad_params = sample_params(args.max_runs, args.seed)
+    for run_id, params in enumerate(broad_params, 1):
+        rows.append(evaluate_params(run_id, params, scenarios, "BROAD", coverage_ratio))
+
+    broad_ranked = rank_rows(rows)
+    best_accept = next((Params(**{k: r[k] for k in Params.__dataclass_fields__}) for r in broad_ranked if r["Verdict"] == "ACCEPT"), None)
+    local_base = best_accept or Params(0.05, 1.15, 0.35, 0.35, 0.65, 0.25, 0.75, 0.05, 100, 100, 50, 200, 7, 7, 40, 60, 25)
+    local_params = build_local_params(local_base, args.local_runs, args.seed + 101)
+    offset = len(rows)
+    for index, params in enumerate(local_params, 1):
+        rows.append(evaluate_params(offset + index, params, scenarios, "LOCAL", coverage_ratio))
+
+    rows = rank_rows(rows)
+    selected = choose_categories(rows)
     for category, row in selected.items():
-        print(f"{category}: RunID={row['RunID']} Score={row['Score']} Verdict={row['Verdict']} RecoveryPL_Min={row['RecoveryPL_Min']}")
+        if row is not None:
+            row["Category"] = category
+
+    write_csv(args.output, rows)
+    write_best_parameters(args.best, rows, selected, args, scenarios, len(rows), coverage_ratio)
+    write_selected_set_files(args.sets_dir, selected)
+
+    print(f"OFFLINE_OPTIMIZER PASS sampled={len(rows):,} broad={args.max_runs:,} local={args.local_runs:,} theoretical_grid={grid_size():,} coverage={coverage_ratio:.6%} scenarios={len(scenarios)}")
+    for category, row in selected.items():
+        if row is None:
+            print(f"{category}: NOT_FOUND")
+        else:
+            print(f"{category}: RunID={row['RunID']} FinalRank={row['FinalRank']} Verdict={row['Verdict']} RecoveryPL_Min={row['RecoveryPL_Min']} StartLot={row['StartLot']}")
     print(f"Wrote {args.output}")
     print(f"Wrote {args.best}")
     return 0

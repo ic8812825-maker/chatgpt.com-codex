@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+REJECTED_SCORE_PENALTY = 1_000_000.0
+
 
 @dataclass(frozen=True)
 class ScoreWeights:
