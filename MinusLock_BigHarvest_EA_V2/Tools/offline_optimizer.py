@@ -482,7 +482,9 @@ def write_best_parameters(path: Path, rows: List[Dict[str, object]], selected: D
     top_rejected = sorted(rejected, key=lambda r: float(r["Score"]), reverse=True)[:20]
     summary = rejected_summary(rows)
     lowlot = selected.get("LOWLOT_SAFE")
-    lowlot_text = f"LOWLOT candidate found at StartLot={lowlot['StartLot']}." if lowlot else "LOWLOT_SAFE_NOT_FOUND: no ACCEPT row at StartLot 0.01, 0.05, or 0.10."
+    lowlot_001_found = any(r["Verdict"] == "ACCEPT" and r["IsSelectableForSetFile"] == "YES" and abs(float(r["StartLot"]) - 0.01) < 1e-9 for r in rows)
+    lowlot_prefix = "" if lowlot_001_found else "LOWLOT_0_01_NOT_FOUND: no ACCEPT selectable row at StartLot=0.01.\n\n"
+    lowlot_text = lowlot_prefix + (f"LOWLOT candidate found at StartLot={lowlot['StartLot']}." if lowlot else "LOWLOT_SAFE_NOT_FOUND: no ACCEPT row at StartLot 0.01, 0.05, or 0.10.")
 
     lines = [
         "# Offline Best Parameters for MinusLock_BigHarvest_EA_V2",
@@ -490,6 +492,7 @@ def write_best_parameters(path: Path, rows: List[Dict[str, object]], selected: D
         "## Scope and limitations",
         "",
         "This report is generated without MT5. It is a deterministic offline filter, not a replacement for MetaTrader Strategy Tester.",
+        "These are offline candidates, not MT5-approved parameters.",
         "It uses the strict success rule `RecoveryPL = FinalBalance - CycleStartBalance`; AccountPL versus InitialDeposit is diagnostic only.",
         "InitialIgnoredProfit is excluded from pass/fail, matching the EA realRecoveryPL / OnTester contract.",
         "Rejected rows are diagnostics only: they cannot enter TOP ACCEPT and cannot generate production `.set` files.",
@@ -566,6 +569,16 @@ def write_best_parameters(path: Path, rows: List[Dict[str, object]], selected: D
         "## Robustness analysis",
         "",
         "RobustnessScore measures how many synthetic paths close profitably and subtracts penalties for STOP_MAX_LEVELS, recovery loss and compression violations across Big trend, Small trend, alternating, false reversal, worst-case and max-level stress paths.",
+        "",
+        "## Report validation command",
+        "",
+        "Run before delivery:",
+        "",
+        "```bash",
+        "python3 Tools/validate_optimization_outputs.py",
+        "```",
+        "",
+        "Expected result: `OPTIMIZATION_OUTPUT_VALIDATION_PASS`.",
         "",
         "## Required MT5 validation after offline filtering",
         "",
