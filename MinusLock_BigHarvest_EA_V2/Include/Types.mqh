@@ -191,6 +191,14 @@ struct RecoveryContext
    bool reserveProjectionOk;
    bool smallGeometryValid;
 
+   double cycleATRPoints;
+   int workInitialTriggerPoints;
+   int workBigMoveStartPoints;
+   int workBigMoveStepPoints;
+   int workFarDistancePoints;
+   int geometryModeUsed;
+   datetime geometryCalculatedTime;
+
    double initialFarDistancePoints;
    double currentBigMovePoints;
    double cumulativeBigMovePoints;
@@ -252,6 +260,9 @@ struct RecoveryContext
    double smallScenarioRealAfter;
    ulong cycleId;
 };
+
+EAState State = STATE_IDLE;
+RecoveryContext Ctx;
 
 string DirectionToString(Direction dir)
 {

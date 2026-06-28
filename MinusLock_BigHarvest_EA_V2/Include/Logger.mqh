@@ -26,7 +26,7 @@ void LogFarPosition(RecoveryContext &ctx)
       DirectionToString(ctx.farDirection),
       ctx.farLot,
       ctx.farOpenPrice,
-      FarDistancePoints,
+      WorkFarDistancePoints(),
       ctx.initialProfitIgnored ? "true" : "false",
       0.0,
       ctx.totalReserve
@@ -276,7 +276,16 @@ void WriteCycleMathCsv(
    string lastSystemCloseComment = "",
    bool passByRealPL = false,
    bool lastCloseWasSystemClose = false,
-   string finalCloseType = ""
+   string finalCloseType = "",
+   string geometryMode = "",
+   string atrTimeframe = "",
+   int atrPeriod = 0,
+   double atrPoints = 0.0,
+   int workInitialTriggerPoints = 0,
+   int workBigMoveStartPoints = 0,
+   int workBigMoveStepPoints = 0,
+   int workFarDistancePoints = 0,
+   bool freezeGeometryPerCycle = true
 )
 {
    if(!EnableCycleMathCsv)
@@ -315,7 +324,9 @@ void WriteCycleMathCsv(
          "InitialDeposit", "InitialIgnoredProfit", "CycleStartBalance", "CurrentBalance",
          "AccountPL", "RecoveryPL", "PassByAccountPL", "PassByRecoveryPL", "RealRecoveryPL",
          "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
-         "TheoreticalCyclePL", "LastSystemCloseComment", "LastCloseWasSystemClose", "FinalCloseType", "PassByRealPL"
+         "TheoreticalCyclePL", "LastSystemCloseComment", "LastCloseWasSystemClose", "FinalCloseType", "PassByRealPL",
+         "GeometryMode", "ATRTimeframe", "ATRPeriod", "ATRPoints",
+         "WorkInitialTriggerPoints", "WorkBigMoveStartPoints", "WorkBigMoveStepPoints", "WorkFarDistancePoints", "FreezeGeometryPerCycle"
       );
    }
 
@@ -384,7 +395,16 @@ void WriteCycleMathCsv(
       lastSystemCloseComment,
       lastCloseWasSystemClose ? "YES" : "NO",
       finalCloseType,
-      passByRealPL ? "YES" : "NO"
+      passByRealPL ? "YES" : "NO",
+      geometryMode,
+      atrTimeframe,
+      atrPeriod,
+      DoubleToString(atrPoints, 1),
+      workInitialTriggerPoints,
+      workBigMoveStartPoints,
+      workBigMoveStepPoints,
+      workFarDistancePoints,
+      freezeGeometryPerCycle ? "YES" : "NO"
    );
 
    FileClose(handle);
@@ -441,11 +461,20 @@ void LogCycleMathDetailed(
    string lastSystemCloseComment = "",
    bool passByRealPL = false,
    bool lastCloseWasSystemClose = false,
-   string finalCloseType = ""
+   string finalCloseType = "",
+   string geometryMode = "",
+   string atrTimeframe = "",
+   int atrPeriod = 0,
+   double atrPoints = 0.0,
+   int workInitialTriggerPoints = 0,
+   int workBigMoveStartPoints = 0,
+   int workBigMoveStepPoints = 0,
+   int workFarDistancePoints = 0,
+   bool freezeGeometryPerCycle = true
 )
 {
    PrintFormat(
-      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s LastCloseWasSystemClose=%s FinalCloseType=%s PassByAccountPL=%s PassByRecoveryPL=%s PassByRealPL=%s",
+      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s LastCloseWasSystemClose=%s FinalCloseType=%s PassByAccountPL=%s PassByRecoveryPL=%s PassByRealPL=%s GeometryMode=%s ATRTimeframe=%s ATRPeriod=%d ATRPoints=%.1f WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d FreezeGeometryPerCycle=%s",
       level,
       scenario,
       initialFarDistancePoints,
@@ -499,7 +528,16 @@ void LogCycleMathDetailed(
       finalCloseType,
       (cycleStartBalance > 0.0 && currentBalance - (cycleStartBalance - initialIgnoredProfit) > 0.0) ? "YES" : "NO",
       passByRealPL ? "YES" : "NO",
-      passByRealPL ? "YES" : "NO"
+      passByRealPL ? "YES" : "NO",
+      geometryMode,
+      atrTimeframe,
+      atrPeriod,
+      atrPoints,
+      workInitialTriggerPoints,
+      workBigMoveStartPoints,
+      workBigMoveStepPoints,
+      workFarDistancePoints,
+      freezeGeometryPerCycle ? "YES" : "NO"
    );
 
    WriteCycleMathCsv(
@@ -553,7 +591,16 @@ void LogCycleMathDetailed(
       lastSystemCloseComment,
       passByRealPL,
       lastCloseWasSystemClose,
-      finalCloseType
+      finalCloseType,
+      geometryMode,
+      atrTimeframe,
+      atrPeriod,
+      atrPoints,
+      workInitialTriggerPoints,
+      workBigMoveStartPoints,
+      workBigMoveStepPoints,
+      workFarDistancePoints,
+      freezeGeometryPerCycle
    );
 }
 

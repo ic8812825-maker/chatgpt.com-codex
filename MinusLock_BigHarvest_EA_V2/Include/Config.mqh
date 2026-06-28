@@ -9,6 +9,15 @@ enum FarDistanceModeEnum
    REAL_PRICE_DISTANCE
 };
 
+enum GeometryModeEnum
+{
+   GEOMETRY_MANUAL = 0,
+   GEOMETRY_ATR_SAFE = 1,
+   GEOMETRY_ATR_BALANCED = 2,
+   GEOMETRY_ATR_PROFIT = 3,
+   GEOMETRY_ATR_CUSTOM = 4
+};
+
 input double StartLot              = 0.10;
 input double BigRatio              = 1.15;
 input double SmallRatio            = 0.25;
@@ -25,6 +34,25 @@ input int    BigMoveStepPoints     = 50;
 
 input int    FarDistancePoints     = 200;
 input FarDistanceModeEnum FarDistanceMode = REAL_PRICE_DISTANCE;
+
+input GeometryModeEnum GeometryMode = GEOMETRY_MANUAL;
+input ENUM_TIMEFRAMES ATRTimeframe = PERIOD_M30;
+input int ATRPeriod = 14;
+input double ATRInitialMultiplier = 1.00;
+input double ATRBigStartMultiplier = 1.00;
+input double ATRStepMultiplier = 0.40;
+input double ATRFarMultiplier = 1.30;
+input int MinInitialTriggerPoints = 100;
+input int MaxInitialTriggerPoints = 250;
+input int MinBigMoveStartPoints = 100;
+input int MaxBigMoveStartPoints = 260;
+input int MinBigMoveStepPoints = 50;
+input int MaxBigMoveStepPoints = 125;
+input int MinFarDistancePoints = 200;
+input int MaxFarDistancePoints = 400;
+input int GeometryRoundStep = 5;
+input bool FreezeGeometryPerCycle = true;
+input bool PrintAdaptiveGeometryLog = true;
 input int    MaxHarvestLevels      = 7;
 input int    SmallFarTouchOffsetPoints = 0;
 input int    MaxReverseCycles              = 7;

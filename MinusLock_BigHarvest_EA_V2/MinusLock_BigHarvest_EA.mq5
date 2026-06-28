@@ -4,6 +4,7 @@
 
 #include "Include/Config.mqh"
 #include "Include/Types.mqh"
+#include "Include/GeometryEngine.mqh"
 #include "Include/Logger.mqh"
 #include "Include/LotUtils.mqh"
 #include "Include/SimulationEngine.mqh"
@@ -35,8 +36,10 @@ bool ValidateInputs()
       return false;
    }
 
+   if(InitialTriggerPoints <= 0) { Print("ERROR: InitialTriggerPoints must be > 0"); return false; }
    if(BigMoveStartPoints <= 0) { Print("ERROR: BigMoveStartPoints must be > 0"); return false; }
    if(BigMoveStepPoints <= 0) { Print("ERROR: BigMoveStepPoints must be > 0"); return false; }
+   if(FarDistancePoints <= 0) { Print("ERROR: FarDistancePoints must be > 0"); return false; }
    if(MaxHarvestLevels <= 0) { Print("ERROR: MaxHarvestLevels must be > 0"); return false; }
    if(MaxReverseCycles <= 0) { Print("ERROR: MaxReverseCycles must be > 0"); return false; }
    if(MaxSpreadPoints <= 0.0) { Print("ERROR: MaxSpreadPoints must be > 0"); return false; }
@@ -45,6 +48,12 @@ bool ValidateInputs()
    if(RetryLogIntervalSeconds <= 0) { Print("ERROR: RetryLogIntervalSeconds must be > 0"); return false; }
    if(RiskGateLogIntervalSeconds <= 0) { Print("ERROR: RiskGateLogIntervalSeconds must be > 0"); return false; }
    if(VolumeMismatchToleranceLots <= 0.0) { Print("ERROR: VolumeMismatchToleranceLots must be > 0"); return false; }
+   if(ATRPeriod <= 0) { Print("ERROR: ATRPeriod must be > 0"); return false; }
+   if(GeometryRoundStep <= 0) { Print("ERROR: GeometryRoundStep must be > 0"); return false; }
+   if(MinInitialTriggerPoints <= 0 || MaxInitialTriggerPoints < MinInitialTriggerPoints) { Print("ERROR: invalid InitialTrigger adaptive bounds"); return false; }
+   if(MinBigMoveStartPoints <= 0 || MaxBigMoveStartPoints < MinBigMoveStartPoints) { Print("ERROR: invalid BigMoveStart adaptive bounds"); return false; }
+   if(MinBigMoveStepPoints <= 0 || MaxBigMoveStepPoints < MinBigMoveStepPoints) { Print("ERROR: invalid BigMoveStep adaptive bounds"); return false; }
+   if(MinFarDistancePoints <= 0 || MaxFarDistancePoints < MinFarDistancePoints) { Print("ERROR: invalid FarDistance adaptive bounds"); return false; }
 
    int lastLevelPoints = BigMoveStartPoints + (MaxHarvestLevels - 1) * BigMoveStepPoints;
    if(lastLevelPoints <= 0) { Print("ERROR: Invalid BigMove levels calculation"); return false; }
@@ -136,6 +145,9 @@ int OnInit()
 
    if(!ValidateFSMIntegrity())
       return INIT_FAILED;
+
+   UseManualGeometryFallback("");
+   PrintGeometryDiagnostics();
 
    LogBigMoveLevels();
 
@@ -238,5 +250,6 @@ void OnTick()
       return;
    }
 
+   UpdateGeometryPanel();
    RunStateMachine();
 }

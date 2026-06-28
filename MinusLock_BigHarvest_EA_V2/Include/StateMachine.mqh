@@ -1,8 +1,6 @@
 #ifndef __BH_STATEMACHINE_MQH__
 #define __BH_STATEMACHINE_MQH__
 
-EAState State = STATE_IDLE;
-RecoveryContext Ctx;
 bool StateIntegrityValidationInProgress = false;
 
 ReserveLedgerEntry ReserveLedger[];
@@ -212,6 +210,13 @@ void SaveState()
    GlobalVariableSet(StateKey("CycleId"), (double)Ctx.cycleId);
    GlobalVariableSet(StateKey("InitialProfitIgnored"), Ctx.initialProfitIgnored ? 1.0 : 0.0);
    GlobalVariableSet(StateKey("EffectiveFarDistancePoints"), Ctx.effectiveFarDistancePoints);
+   GlobalVariableSet(StateKey("CycleATRPoints"), Ctx.cycleATRPoints);
+   GlobalVariableSet(StateKey("WorkInitialTriggerPoints"), (double)Ctx.workInitialTriggerPoints);
+   GlobalVariableSet(StateKey("WorkBigMoveStartPoints"), (double)Ctx.workBigMoveStartPoints);
+   GlobalVariableSet(StateKey("WorkBigMoveStepPoints"), (double)Ctx.workBigMoveStepPoints);
+   GlobalVariableSet(StateKey("WorkFarDistancePoints"), (double)Ctx.workFarDistancePoints);
+   GlobalVariableSet(StateKey("GeometryModeUsed"), (double)Ctx.geometryModeUsed);
+   GlobalVariableSet(StateKey("GeometryCalculatedTime"), (double)Ctx.geometryCalculatedTime);
    GlobalVariableSet(StateKey("CycleStartBalance"), Ctx.cycleStartBalance);
    GlobalVariableSet(StateKey("RealCyclePL"), Ctx.realCyclePL);
    GlobalVariableSet(StateKey("FinalCloseAllowed"), Ctx.finalCloseAllowed ? 1.0 : 0.0);
@@ -353,7 +358,7 @@ void LogReconciliationContextSummary(string source)
    bool pending = HasPendingOperationContext();
    bool retry = HasRetryOperationContext();
    bool known = (initialLock || far || big || small || pending || retry);
-   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s",
+   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s GeometryMode=%s ATRPoints=%.1f WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d",
                         source,
                         StateToString(State),
                         CountManagedOpenPositions(),
@@ -363,7 +368,13 @@ void LogReconciliationContextSummary(string source)
                         big ? "YES" : "NO",
                         small ? "YES" : "NO",
                         pending ? "YES" : "NO",
-                        retry ? "YES" : "NO"));
+                        retry ? "YES" : "NO",
+                        GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed),
+                        Ctx.cycleATRPoints,
+                        WorkInitialTriggerPoints(),
+                        WorkBigMoveStartPoints(),
+                        WorkBigMoveStepPoints(),
+                        WorkFarDistancePoints()));
 }
 
 bool HasOpenLegContext()
@@ -612,6 +623,13 @@ bool RecoverState()
    if(GetStateDouble("CycleId", saved)) Ctx.cycleId = (ulong)saved;
    if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
    if(GetStateDouble("EffectiveFarDistancePoints", saved)) Ctx.effectiveFarDistancePoints = saved;
+   if(GetStateDouble("CycleATRPoints", saved)) Ctx.cycleATRPoints = saved;
+   if(GetStateDouble("WorkInitialTriggerPoints", saved)) Ctx.workInitialTriggerPoints = (int)saved;
+   if(GetStateDouble("WorkBigMoveStartPoints", saved)) Ctx.workBigMoveStartPoints = (int)saved;
+   if(GetStateDouble("WorkBigMoveStepPoints", saved)) Ctx.workBigMoveStepPoints = (int)saved;
+   if(GetStateDouble("WorkFarDistancePoints", saved)) Ctx.workFarDistancePoints = (int)saved;
+   if(GetStateDouble("GeometryModeUsed", saved)) Ctx.geometryModeUsed = (int)saved;
+   if(GetStateDouble("GeometryCalculatedTime", saved)) Ctx.geometryCalculatedTime = (datetime)saved;
    if(GetStateDouble("CycleStartBalance", saved)) Ctx.cycleStartBalance = saved;
    if(GetStateDouble("RealCyclePL", saved)) Ctx.realCyclePL = saved;
    if(GetStateDouble("FinalCloseAllowed", saved)) Ctx.finalCloseAllowed = (saved > 0.5);
@@ -664,6 +682,11 @@ bool RecoverState()
       RegisterInitialLockFromSnapshots(recoveredInitialBuy, recoveredInitialSell, "RecoverState");
       State = STATE_INITIAL_LOCK_OPENED;
       Ctx.initialLockRecovered = true;
+      if(!HasCycleGeometry())
+      {
+         InitializeCycleGeometry();
+         PrintGeometryDiagnostics();
+      }
       LogInfo(StringFormat("INITIAL_LOCK_RECOVERED BuyTicket=%I64u SellTicket=%I64u", Ctx.initialBuyTicket, Ctx.initialSellTicket));
    }
    else if(State == STATE_INITIAL_LOCK_OPENED && (recoveredHasInitialBuy || recoveredHasInitialSell))
@@ -674,8 +697,13 @@ bool RecoverState()
       missingInitial.identifier = recoveredHasInitialBuy ? Ctx.initialSellIdentifier : Ctx.initialBuyIdentifier;
       UpdateFarFromSnapshot(remainingInitial);
       ClearInitialLockContext("RecoverState partial initial lock converted to Far");
+      if(!HasCycleGeometry())
+      {
+         InitializeCycleGeometry();
+         PrintGeometryDiagnostics();
+      }
       Ctx.initialProfitIgnored = true;
-      Ctx.initialFarDistancePoints = InitialTriggerPoints;
+      Ctx.initialFarDistancePoints = WorkInitialTriggerPoints();
       State = STATE_FAR_ACTIVE;
       LogInfo(StringFormat("INITIAL_LOCK_CONVERTED_TO_FAR Reason=RecoverStatePartial RemainingTicket=%I64u FarTicket=%I64u", remainingInitial.ticket, Ctx.farTicket));
    }
@@ -773,6 +801,13 @@ void ResetRecoveryContext()
    Ctx.reverseLimitReached = false;
    Ctx.reserveProjectionOk = true;
    Ctx.smallGeometryValid = true;
+   Ctx.cycleATRPoints = 0.0;
+   Ctx.workInitialTriggerPoints = 0;
+   Ctx.workBigMoveStartPoints = 0;
+   Ctx.workBigMoveStepPoints = 0;
+   Ctx.workFarDistancePoints = 0;
+   Ctx.geometryModeUsed = (int)GEOMETRY_MANUAL;
+   Ctx.geometryCalculatedTime = 0;
    Ctx.initialFarDistancePoints = 0.0;
    Ctx.currentBigMovePoints = 0.0;
    Ctx.cumulativeBigMovePoints = 0.0;
@@ -1077,7 +1112,16 @@ void LogRealCycleMath(EAState state, double onTesterValue)
       Ctx.lastSystemCloseComment,
       passByRealPL,
       Ctx.lastCloseWasSystemClose,
-      Ctx.lastSystemCloseComment
+      Ctx.lastSystemCloseComment,
+      GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed),
+      EnumToString(ATRTimeframe),
+      ATRPeriod,
+      Ctx.cycleATRPoints,
+      WorkInitialTriggerPoints(),
+      WorkBigMoveStartPoints(),
+      WorkBigMoveStepPoints(),
+      WorkFarDistancePoints(),
+      FreezeGeometryPerCycle
    );
 }
 
@@ -1319,6 +1363,9 @@ void OpenInitialLock()
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
       RegisterInitialLockFromSnapshots(initialBuy, initialSell, "existing initial BUY/SELL lock found");
+      Ctx.workInitialTriggerPoints = 0; Ctx.geometryCalculatedTime = 0;
+      InitializeCycleGeometry();
+      PrintGeometryDiagnostics();
       SetState(STATE_INITIAL_LOCK_OPENED, "existing initial BUY/SELL lock found");
       return;
    }
@@ -1399,6 +1446,9 @@ void OpenInitialLock()
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
       RegisterInitialLockFromSnapshots(initialBuy, initialSell, "initial lock opened");
+      Ctx.workInitialTriggerPoints = 0; Ctx.geometryCalculatedTime = 0;
+      InitializeCycleGeometry();
+      PrintGeometryDiagnostics();
    }
    else
    {
@@ -1430,7 +1480,7 @@ void CheckInitialPlusClose()
    double buyProfitPoints = ProfitPoints(initialBuy.direction, initialBuy.openPrice);
    double sellProfitPoints = ProfitPoints(initialSell.direction, initialSell.openPrice);
 
-   if(buyProfitPoints >= InitialTriggerPoints)
+   if(buyProfitPoints >= WorkInitialTriggerPoints())
    {
       if(!ClosePositionByTicket(initialBuy.ticket, initialBuy.lot))
       {
@@ -1451,7 +1501,7 @@ void CheckInitialPlusClose()
       Ctx.realCyclePL = 0.0;
       Ctx.lastCloseWasSystemClose = false;
       Ctx.lastSystemCloseComment = "";
-      Ctx.initialFarDistancePoints = InitialTriggerPoints;
+      Ctx.initialFarDistancePoints = WorkInitialTriggerPoints();
       Ctx.cumulativeBigMovePoints = 0.0;
 
       LogInfo(StringFormat("CLOSE INITIAL PROFIT POSITION direction=BUY InitialProfit=%.2f InitialProfitIgnored=%s ReserveBeforeRecovery=%.2f RecoveryReserveAfterInitialClose=%.2f", initialBuy.profitMoney, Ctx.initialProfitIgnored ? "true" : "false", 0.0, Ctx.totalReserve));
@@ -1461,7 +1511,7 @@ void CheckInitialPlusClose()
       return;
    }
 
-   if(sellProfitPoints >= InitialTriggerPoints)
+   if(sellProfitPoints >= WorkInitialTriggerPoints())
    {
       if(!ClosePositionByTicket(initialSell.ticket, initialSell.lot))
       {
@@ -1482,7 +1532,7 @@ void CheckInitialPlusClose()
       Ctx.realCyclePL = 0.0;
       Ctx.lastCloseWasSystemClose = false;
       Ctx.lastSystemCloseComment = "";
-      Ctx.initialFarDistancePoints = InitialTriggerPoints;
+      Ctx.initialFarDistancePoints = WorkInitialTriggerPoints();
       Ctx.cumulativeBigMovePoints = 0.0;
 
       LogInfo(StringFormat("CLOSE INITIAL PROFIT POSITION direction=SELL InitialProfit=%.2f InitialProfitIgnored=%s ReserveBeforeRecovery=%.2f RecoveryReserveAfterInitialClose=%.2f", initialSell.profitMoney, Ctx.initialProfitIgnored ? "true" : "false", 0.0, Ctx.totalReserve));
@@ -2097,7 +2147,37 @@ void ProcessFinalClose()
       0.0,
       0.0,
       Ctx.totalReserve,
-      farRemainLoss
+      farRemainLoss,
+      Ctx.initialFarDistancePoints,
+      Ctx.currentBigMovePoints,
+      Ctx.cumulativeBigMovePoints,
+      Ctx.effectiveFarDistancePoints,
+      FarDistanceModeToString(WorkFarDistanceMode),
+      Ctx.farOpenPrice,
+      Ctx.currentClosePrice,
+      Ctx.initialIgnoredProfit,
+      Ctx.cycleStartBalance,
+      Ctx.cycleCurrentBalance,
+      Ctx.realRecoveryPL,
+      Ctx.realClosedProfit,
+      Ctx.realClosedLoss,
+      Ctx.realCommission,
+      Ctx.realSwap,
+      Ctx.realCosts,
+      Ctx.theoreticalCyclePL,
+      Ctx.lastSystemCloseComment,
+      IsRealRecoveryPass(),
+      Ctx.lastCloseWasSystemClose,
+      Ctx.lastSystemCloseComment,
+      GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed),
+      EnumToString(ATRTimeframe),
+      ATRPeriod,
+      Ctx.cycleATRPoints,
+      WorkInitialTriggerPoints(),
+      WorkBigMoveStartPoints(),
+      WorkBigMoveStepPoints(),
+      WorkFarDistancePoints(),
+      FreezeGeometryPerCycle
    );
 
    MarkSystemClose("FINAL_CLOSE_PROFIT");

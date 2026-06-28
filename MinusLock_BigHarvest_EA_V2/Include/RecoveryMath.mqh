@@ -13,12 +13,14 @@ double PointValuePerLot()
    return tickValue * point / tickSize;
 }
 
+// Manual compatibility formula remains: BigMoveStartPoints + (level - 1) * BigMoveStepPoints.
+// Runtime uses WorkBigMoveStartPoints() + (level - 1) * WorkBigMoveStepPoints().
 int GetBigMovePoints(const int level)
 {
    if(level <= 0)
       return 0;
 
-   return BigMoveStartPoints + (level - 1) * BigMoveStepPoints;
+   return WorkBigMoveStartPoints() + (level - 1) * WorkBigMoveStepPoints();
 }
 
 double CalcBigLot(double farLot)
@@ -243,14 +245,14 @@ double CalcEffectiveFarDistancePoints(
 )
 {
    if(WorkFarDistanceMode == FIXED_200)
-      return FarDistancePoints;
+      return WorkFarDistancePoints();
    if(WorkFarDistanceMode == INITIAL_PLUS_CURRENT)
       return initialFarDistancePoints + currentBigMovePoints;
    if(WorkFarDistanceMode == INITIAL_PLUS_CUMULATIVE)
       return initialFarDistancePoints + cumulativeBigMovePoints;
    if(WorkFarDistanceMode == REAL_PRICE_DISTANCE)
       return CalcRealPriceFarDistancePoints(currentClosePrice, farOpenPrice);
-   return FarDistancePoints;
+   return WorkFarDistancePoints();
 }
 
 bool CalcFinalCloseAllowed(double totalReserve, double farRemainLot, double farDistancePoints)
