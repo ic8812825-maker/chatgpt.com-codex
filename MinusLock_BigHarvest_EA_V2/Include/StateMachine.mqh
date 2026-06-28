@@ -867,6 +867,7 @@ void ResetRecoveryContext()
    Ctx.oldFarOpenPrice = 0.0;
    Ctx.smallScenarioRealBefore = 0.0;
    Ctx.smallScenarioRealAfter = 0.0;
+   ClearCycleGeometry();
    Ctx.cycleId = (ulong)TimeCurrent();
 }
 
@@ -1117,6 +1118,10 @@ void LogRealCycleMath(EAState state, double onTesterValue)
       EnumToString(ATRTimeframe),
       ATRPeriod,
       Ctx.cycleATRPoints,
+      InitialRoundStep,
+      BigStartRoundStep,
+      BigStepRoundStep,
+      FarDistanceRoundStep,
       WorkInitialTriggerPoints(),
       WorkBigMoveStartPoints(),
       WorkBigMoveStepPoints(),
@@ -2173,6 +2178,10 @@ void ProcessFinalClose()
       EnumToString(ATRTimeframe),
       ATRPeriod,
       Ctx.cycleATRPoints,
+      InitialRoundStep,
+      BigStartRoundStep,
+      BigStepRoundStep,
+      FarDistanceRoundStep,
       WorkInitialTriggerPoints(),
       WorkBigMoveStartPoints(),
       WorkBigMoveStepPoints(),
@@ -2805,6 +2814,7 @@ void RunStateMachine()
 
       case STATE_CLOSED_PROFIT:
       case STATE_CLOSED_RECOVERY_LOSS:
+         ClearCycleGeometry();
       case STATE_STOP_MAX_LEVELS:
       case STATE_UNCLOSED_CYCLE:
       case STATE_DUAL_TAIL:

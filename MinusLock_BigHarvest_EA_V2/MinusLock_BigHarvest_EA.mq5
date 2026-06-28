@@ -4,11 +4,11 @@
 
 #include "Include/Config.mqh"
 #include "Include/Types.mqh"
-#include "Include/GeometryEngine.mqh"
-#include "Include/Logger.mqh"
 #include "Include/LotUtils.mqh"
 #include "Include/SimulationEngine.mqh"
 #include "Include/PositionUtils.mqh"
+#include "Include/GeometryEngine.mqh"
+#include "Include/Logger.mqh"
 #include "Include/TradeEngine.mqh"
 #include "Include/RecoveryMath.mqh"
 #include "Include/RiskManager.mqh"
@@ -50,6 +50,10 @@ bool ValidateInputs()
    if(VolumeMismatchToleranceLots <= 0.0) { Print("ERROR: VolumeMismatchToleranceLots must be > 0"); return false; }
    if(ATRPeriod <= 0) { Print("ERROR: ATRPeriod must be > 0"); return false; }
    if(GeometryRoundStep <= 0) { Print("ERROR: GeometryRoundStep must be > 0"); return false; }
+   if(InitialRoundStep < 1) { Print("ERROR: InitialRoundStep must be >= 1"); return false; }
+   if(BigStartRoundStep < 1) { Print("ERROR: BigStartRoundStep must be >= 1"); return false; }
+   if(BigStepRoundStep < 1) { Print("ERROR: BigStepRoundStep must be >= 1"); return false; }
+   if(FarDistanceRoundStep < 1) { Print("ERROR: FarDistanceRoundStep must be >= 1"); return false; }
    if(MinInitialTriggerPoints <= 0 || MaxInitialTriggerPoints < MinInitialTriggerPoints) { Print("ERROR: invalid InitialTrigger adaptive bounds"); return false; }
    if(MinBigMoveStartPoints <= 0 || MaxBigMoveStartPoints < MinBigMoveStartPoints) { Print("ERROR: invalid BigMoveStart adaptive bounds"); return false; }
    if(MinBigMoveStepPoints <= 0 || MaxBigMoveStepPoints < MinBigMoveStepPoints) { Print("ERROR: invalid BigMoveStep adaptive bounds"); return false; }

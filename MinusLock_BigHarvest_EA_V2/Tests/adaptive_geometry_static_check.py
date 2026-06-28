@@ -13,7 +13,7 @@ for token in [
     'enum GeometryModeEnum', 'GEOMETRY_MANUAL', 'GEOMETRY_ATR_SAFE',
     'GEOMETRY_ATR_BALANCED', 'GEOMETRY_ATR_PROFIT', 'GEOMETRY_ATR_CUSTOM',
     'input GeometryModeEnum GeometryMode = GEOMETRY_MANUAL', 'input ENUM_TIMEFRAMES ATRTimeframe = PERIOD_M30',
-    'input int ATRPeriod = 14', 'input bool FreezeGeometryPerCycle = true'
+    'input int ATRPeriod = 14', 'input int InitialRoundStep = 10', 'input int BigStartRoundStep = 10', 'input int BigStepRoundStep = 5', 'input int FarDistanceRoundStep = 50', 'input bool FreezeGeometryPerCycle = true'
 ]:
     assert token in config, token
 
@@ -29,7 +29,7 @@ for token in [
     'bool CalculateAdaptiveGeometry()', 'bool InitializeCycleGeometry()', 'void ApplyGeometryPresetMultipliers',
     'void PrintGeometryDiagnostics()', 'CopyBuffer(atrHandle, 0, 1, 1, atrBuffer)',
     'UseManualGeometryFallback("ATR_NOT_AVAILABLE")', 'WARNING: Adaptive geometry failed. Manual geometry fallback used.',
-    'ADAPTIVE_GEOMETRY_CALCULATED', 'GEOMETRY_MODE=MANUAL', 'UpdateGeometryPanel()'
+    'ADAPTIVE_GEOMETRY_CALCULATED', 'InitialRoundStep=', 'FarDistanceRoundStep=', 'GEOMETRY_MODE=MANUAL', 'UpdateGeometryPanel()', 'ClearCycleGeometry()'
 ]:
     assert token in geom, token
 

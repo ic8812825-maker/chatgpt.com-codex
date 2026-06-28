@@ -453,3 +453,56 @@ Manual MT5 acceptance remains required: USDJPY M30, 2026-04-01 through 2026-06-1
 - The offline search now evaluates 100,000 broad samples plus a 10,000-run local mini-search around the best accepted/current-leader zone.
 - `Optimization_Report.csv` records `StabilityScore`, `RobustnessScore`, `FinalRank`, `CoverageRatio`, and `IsSelectableForSetFile`; `Best_Parameters.md` explains selected Safe / Balanced / LowLot candidates and the AGGRESSIVE_NOT_FOUND marker when no accepted aggressive row exists.
 - Generated `.set` files under `Sets/` are created only from `Verdict=ACCEPT` rows; missing categories receive explicit NOT_FOUND marker files for manual MT5 Strategy Tester planning.
+
+## Adaptive ATR Geometry Test Plan
+
+### Manual compatibility
+
+Configuration: `GeometryMode=GEOMETRY_MANUAL`.
+
+Expected:
+- EA uses input `InitialTriggerPoints`, `BigMoveStartPoints`, `BigMoveStepPoints`, and `FarDistancePoints` directly.
+- ATR does not influence trading geometry.
+- Existing manual-mode tests remain reproducible.
+
+### ATR SAFE
+
+Given `ATRPoints=190`, `InitialRoundStep=10`, `BigStartRoundStep=10`, `BigStepRoundStep=5`, and `FarDistanceRoundStep=50`.
+
+Expected Work geometry: `190 / 190 / 75 / 250`.
+
+### ATR BALANCED
+
+Given `ATRPoints=190`, `InitialRoundStep=10`, `BigStartRoundStep=10`, `BigStepRoundStep=5`, and `FarDistanceRoundStep=50`.
+
+Expected Work geometry: `190 / 220 / 75 / 300`.
+
+### ATR PROFIT
+
+Given `ATRPoints=190`, `InitialRoundStep=10`, `BigStartRoundStep=10`, `BigStepRoundStep=5`, and `FarDistanceRoundStep=50`.
+
+Expected Work geometry: `200 / 230 / 85 / 300`.
+
+### ATR fallback
+
+Simulate unavailable ATR data.
+
+Expected:
+- No EA stop solely because of ATR.
+- Manual geometry fallback is used.
+- Logs include `ADAPTIVE_GEOMETRY_ERROR` and `WARNING: Adaptive geometry failed. Manual geometry fallback used.`
+
+### Freeze per cycle
+
+Change ATR while a recovery cycle has open Initial/Far/Big/Small, pending, or retry context.
+
+Expected:
+- `WorkInitialTriggerPoints`, `WorkBigMoveStartPoints`, `WorkBigMoveStepPoints`, and `WorkFarDistancePoints` do not change during the active cycle.
+
+### ClearCycleGeometry
+
+After a cycle is fully completed and there are no managed positions, leg tickets, pending actions, or retry operation.
+
+Expected:
+- `ClearCycleGeometry()` clears `cycleATRPoints`, all Work geometry fields, `geometryModeUsed`, and `geometryCalculatedTime` before the next independent cycle.
+- If active context still exists, log `CLEAR_CYCLE_GEOMETRY_SKIPPED reason=ACTIVE_CONTEXT_OR_POSITIONS`.

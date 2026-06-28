@@ -92,10 +92,10 @@ bool CalculateAdaptiveGeometry()
    ApplyGeometryPresetMultipliers(initialMult, bigStartMult, stepMult, farMult);
 
    Ctx.cycleATRPoints = atrPoints;
-   Ctx.workInitialTriggerPoints = ClampInt(RoundToStep(atrPoints * initialMult, GeometryRoundStep), MinInitialTriggerPoints, MaxInitialTriggerPoints);
-   Ctx.workBigMoveStartPoints = ClampInt(RoundToStep(atrPoints * bigStartMult, GeometryRoundStep), MinBigMoveStartPoints, MaxBigMoveStartPoints);
-   Ctx.workBigMoveStepPoints = ClampInt(RoundToStep(atrPoints * stepMult, GeometryRoundStep), MinBigMoveStepPoints, MaxBigMoveStepPoints);
-   Ctx.workFarDistancePoints = ClampInt(RoundToStep(atrPoints * farMult, GeometryRoundStep), MinFarDistancePoints, MaxFarDistancePoints);
+   Ctx.workInitialTriggerPoints = ClampInt(RoundToStep(atrPoints * initialMult, InitialRoundStep), MinInitialTriggerPoints, MaxInitialTriggerPoints);
+   Ctx.workBigMoveStartPoints = ClampInt(RoundToStep(atrPoints * bigStartMult, BigStartRoundStep), MinBigMoveStartPoints, MaxBigMoveStartPoints);
+   Ctx.workBigMoveStepPoints = ClampInt(RoundToStep(atrPoints * stepMult, BigStepRoundStep), MinBigMoveStepPoints, MaxBigMoveStepPoints);
+   Ctx.workFarDistancePoints = ClampInt(RoundToStep(atrPoints * farMult, FarDistanceRoundStep), MinFarDistancePoints, MaxFarDistancePoints);
    Ctx.geometryModeUsed = (int)GeometryMode;
    Ctx.geometryCalculatedTime = TimeCurrent();
    return true;
@@ -172,6 +172,10 @@ void PrintGeometryDiagnostics()
          " BigStartMultiplier=", DoubleToString(bigStartMult, 2),
          " StepMultiplier=", DoubleToString(stepMult, 2),
          " FarMultiplier=", DoubleToString(farMult, 2),
+         " InitialRoundStep=", InitialRoundStep,
+         " BigStartRoundStep=", BigStartRoundStep,
+         " BigStepRoundStep=", BigStepRoundStep,
+         " FarDistanceRoundStep=", FarDistanceRoundStep,
          " WorkInitialTriggerPoints=", WorkInitialTriggerPoints(),
          " WorkBigMoveStartPoints=", WorkBigMoveStartPoints(),
          " WorkBigMoveStepPoints=", WorkBigMoveStepPoints(),
@@ -186,7 +190,42 @@ void UpdateGeometryPanel()
            "WorkInitialTriggerPoints=", WorkInitialTriggerPoints(), "\n",
            "WorkBigMoveStartPoints=", WorkBigMoveStartPoints(), "\n",
            "WorkBigMoveStepPoints=", WorkBigMoveStepPoints(), "\n",
-           "WorkFarDistancePoints=", WorkFarDistancePoints());
+           "WorkFarDistancePoints=", WorkFarDistancePoints(), "\n",
+           "InitialRoundStep=", InitialRoundStep, "\n",
+           "BigStartRoundStep=", BigStartRoundStep, "\n",
+           "BigStepRoundStep=", BigStepRoundStep, "\n",
+           "FarDistanceRoundStep=", FarDistanceRoundStep);
+}
+
+
+bool CanClearCycleGeometry()
+{
+   return CountManagedOpenPositions() == 0
+      && Ctx.farTicket == 0
+      && Ctx.bigTicket == 0
+      && Ctx.smallTicket == 0
+      && Ctx.initialBuyTicket == 0
+      && Ctx.initialSellTicket == 0
+      && Ctx.pendingActionType == PENDING_NONE
+      && Ctx.retryTicket == 0;
+}
+
+void ClearCycleGeometry()
+{
+   if(!CanClearCycleGeometry())
+   {
+      Print("CLEAR_CYCLE_GEOMETRY_SKIPPED reason=ACTIVE_CONTEXT_OR_POSITIONS");
+      return;
+   }
+
+   Ctx.cycleATRPoints = 0.0;
+   Ctx.workInitialTriggerPoints = 0;
+   Ctx.workBigMoveStartPoints = 0;
+   Ctx.workBigMoveStepPoints = 0;
+   Ctx.workFarDistancePoints = 0;
+   Ctx.geometryModeUsed = (int)GEOMETRY_MANUAL;
+   Ctx.geometryCalculatedTime = 0;
+   Print("CLEAR_CYCLE_GEOMETRY_DONE");
 }
 
 #endif // __BH_GEOMETRY_ENGINE_MQH__

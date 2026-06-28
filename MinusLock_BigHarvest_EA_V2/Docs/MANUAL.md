@@ -738,3 +738,44 @@ On restart or reconciliation, `TryRecoverPromotedBigAsFar()` recognizes the same
 - Synthetic scenarios cover Big wins, Small wins, alternating moves, false reversals, adverse trend, MaxLevels stress, and worst-case ordering.
 - `Optimization_Report.csv` records ranked results and rejections; `Best_Parameters.md` explains selected Safe / Balanced / Aggressive / LowLot candidates and MT5 validation requirements.
 - Generated `.set` files are available under `Sets/` for manual MT5 Strategy Tester confirmation.
+
+## Adaptive ATR Geometry
+
+`GEOMETRY_MANUAL` is the legacy/manual geometry mode. It preserves the previous EA behavior exactly: the EA uses the input `InitialTriggerPoints`, `BigMoveStartPoints`, `BigMoveStepPoints`, and `FarDistancePoints` directly. In manual mode ATR is not used for trading geometry.
+
+Adaptive ATR geometry is an optional second layer for calculating only these four working geometry values. It does not change lot ratios, reserve shares, max-level limits, risk gates, or recovery math.
+
+### Modes
+
+- `GEOMETRY_MANUAL`: legacy mode; use raw manual inputs.
+- `GEOMETRY_ATR_SAFE`: uses multipliers `1.00 / 1.00 / 0.40 / 1.30`.
+- `GEOMETRY_ATR_BALANCED`: uses multipliers `1.00 / 1.15 / 0.40 / 1.50`.
+- `GEOMETRY_ATR_PROFIT`: uses multipliers `1.05 / 1.20 / 0.45 / 1.60`.
+- `GEOMETRY_ATR_CUSTOM`: uses the input multipliers `ATRInitialMultiplier`, `ATRBigStartMultiplier`, `ATRStepMultiplier`, and `ATRFarMultiplier`.
+
+### ATR inputs
+
+- `ATRTimeframe`: timeframe used for ATR, default `PERIOD_M30`.
+- `ATRPeriod`: ATR period, default `14`.
+- ATR is read from the closed candle (`shift=1`) so geometry does not jump inside the current forming candle.
+
+### Multipliers, round steps, and bounds
+
+Adaptive geometry calculates:
+
+- `WorkInitialTriggerPoints = Clamp(RoundToStep(ATRPoints * InitialMultiplier, InitialRoundStep), MinInitialTriggerPoints, MaxInitialTriggerPoints)`
+- `WorkBigMoveStartPoints = Clamp(RoundToStep(ATRPoints * BigStartMultiplier, BigStartRoundStep), MinBigMoveStartPoints, MaxBigMoveStartPoints)`
+- `WorkBigMoveStepPoints = Clamp(RoundToStep(ATRPoints * StepMultiplier, BigStepRoundStep), MinBigMoveStepPoints, MaxBigMoveStepPoints)`
+- `WorkFarDistancePoints = Clamp(RoundToStep(ATRPoints * FarMultiplier, FarDistanceRoundStep), MinFarDistancePoints, MaxFarDistancePoints)`
+
+`InitialRoundStep`, `BigStartRoundStep`, `BigStepRoundStep`, and `FarDistanceRoundStep` have priority over the legacy `GeometryRoundStep`. `GeometryRoundStep` is kept only as a deprecated / legacy compatibility input for old `.set` files. The default `FarDistanceRoundStep=50` intentionally makes Far distance less noisy than the smaller trigger/step geometry.
+
+### FreezeGeometryPerCycle
+
+When `FreezeGeometryPerCycle=true`, the EA fixes `cycleATRPoints`, `workInitialTriggerPoints`, `workBigMoveStartPoints`, `workBigMoveStepPoints`, `workFarDistancePoints`, `geometryModeUsed`, and `geometryCalculatedTime` once for the active recovery cycle. These values are saved and recovered through EA state persistence.
+
+### Fallback
+
+If ATR is unavailable in an adaptive mode, the EA logs `ADAPTIVE_GEOMETRY_ERROR`, logs `WARNING: Adaptive geometry failed. Manual geometry fallback used.`, and uses the manual input geometry instead of stopping the EA.
+
+Round-step parameters summary: `InitialRoundStep`, `BigStartRoundStep`, `BigStepRoundStep`, and `FarDistanceRoundStep` control independent rounding for adaptive ATR geometry.
