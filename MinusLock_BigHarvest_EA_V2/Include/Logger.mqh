@@ -225,6 +225,30 @@ void LogSmallAtFarTriggered(
 }
 
 
+string CsvEscapeValue(string value)
+{
+   string escaped = value;
+   StringReplace(escaped, "\"", "\"\"");
+   if(StringFind(escaped, ",") >= 0 || StringFind(escaped, "\"") >= 0 || StringFind(escaped, "\n") >= 0 || StringFind(escaped, "\r") >= 0)
+      escaped = "\"" + escaped + "\"";
+   return escaped;
+}
+
+void AppendCsvCell(string &line, string value)
+{
+   if(StringLen(line) > 0)
+      line += ",";
+   line += CsvEscapeValue(value);
+}
+
+void WriteCsvLine(int handle, string &cells[])
+{
+   string line = "";
+   for(int i = 0; i < ArraySize(cells); i++)
+      AppendCsvCell(line, cells[i]);
+   FileWriteString(handle, line + "\r\n");
+}
+
 void WriteCycleMathCsv(
    int level,
    string scenario,
@@ -312,8 +336,7 @@ void WriteCycleMathCsv(
 
    if(FileSize(handle) == 0)
    {
-      FileWrite(
-         handle,
+      string header[] = {
          "Time", "Symbol", "Level", "Scenario", "InitialFarDistancePoints",
          "CurrentBigMovePoints", "CumulativeBigMovePoints", "EffectiveFarDistancePoints",
          "FarDistanceMode", "FarOpenPrice", "CurrentClosePrice",
@@ -332,15 +355,14 @@ void WriteCycleMathCsv(
          "GeometryMode", "ATRTimeframe", "ATRPeriod", "ATRPoints",
          "InitialRoundStep", "BigStartRoundStep", "BigStepRoundStep", "FarDistanceRoundStep",
          "WorkInitialTriggerPoints", "WorkBigMoveStartPoints", "WorkBigMoveStepPoints", "WorkFarDistancePoints", "FreezeGeometryPerCycle"
-      );
+      };
+      WriteCsvLine(handle, header);
    }
 
-   FileSeek(handle, 0, SEEK_END);
-   FileWrite(
-      handle,
+   string row[] = {
       TimeToString(TimeCurrent(), TIME_DATE | TIME_SECONDS),
       _Symbol,
-      level,
+      IntegerToString(level),
       scenario,
       DoubleToString(initialFarDistancePoints, 1),
       DoubleToString(currentBigMovePoints, 1),
@@ -403,19 +425,21 @@ void WriteCycleMathCsv(
       passByRealPL ? "YES" : "NO",
       geometryMode,
       atrTimeframe,
-      atrPeriod,
+      IntegerToString(atrPeriod),
       DoubleToString(atrPoints, 1),
-      initialRoundStep,
-      bigStartRoundStep,
-      bigStepRoundStep,
-      farDistanceRoundStep,
-      workInitialTriggerPoints,
-      workBigMoveStartPoints,
-      workBigMoveStepPoints,
-      workFarDistancePoints,
+      IntegerToString(initialRoundStep),
+      IntegerToString(bigStartRoundStep),
+      IntegerToString(bigStepRoundStep),
+      IntegerToString(farDistanceRoundStep),
+      IntegerToString(workInitialTriggerPoints),
+      IntegerToString(workBigMoveStartPoints),
+      IntegerToString(workBigMoveStepPoints),
+      IntegerToString(workFarDistancePoints),
       freezeGeometryPerCycle ? "YES" : "NO"
-   );
+   };
 
+   FileSeek(handle, 0, SEEK_END);
+   WriteCsvLine(handle, row);
    FileClose(handle);
 }
 
