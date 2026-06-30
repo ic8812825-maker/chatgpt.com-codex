@@ -804,3 +804,19 @@ Existing cycles continue to be managed; the risk gate blocks only new openings, 
 ### Backward compatibility
 
 Single-symbol operation remains unchanged: if only one chart is running the EA, `MagicNumber + _Symbol` filtering selects the same positions as before, manual geometry still uses the legacy inputs, and ATR SAFE/BALANCED/PROFIT/CUSTOM modes keep their existing behaviour.
+
+### Adaptive Geometry ATR diagnostics and fallback policy
+
+Adaptive ATR modes no longer fail silently. When `GeometryMode` is one of `GEOMETRY_ATR_SAFE`, `GEOMETRY_ATR_BALANCED`, `GEOMETRY_ATR_PROFIT`, or `GEOMETRY_ATR_CUSTOM`, the EA checks the full ATR chain before accepting geometry:
+
+1. history synchronization through `SeriesInfoInteger(..., SERIES_SYNCHRONIZED, ...)`;
+2. available bars for the selected `ATRTimeframe` and `ATRPeriod`;
+3. valid `iATR` handle;
+4. positive `BarsCalculated()`;
+5. `CopyBuffer(..., shift=1, count=1, ...)` from the closed candle;
+6. valid positive ATR raw value;
+7. valid positive symbol point and `ATRPoints = ATRRaw / Point`.
+
+If any step fails, the EA logs `ATR CALCULATION FAILED reason=... fallback=MANUAL`, marks `GeometrySource=MANUAL`, `Fallback=YES`, and stores a `FallbackReason` for Comment() and CSV. If ATR succeeds, `GeometrySource=ATR`, `Fallback=NO`, and each preset applies its own multipliers to calculate Work geometry.
+
+The chart Comment() and cycle CSV include `ATRRaw`, `ATRPoints`, `GeometrySource`, `Fallback`, `FallbackReason`, and all Work geometry values so the user can immediately see whether the EA is actually trading ATR geometry or an explicit manual fallback.

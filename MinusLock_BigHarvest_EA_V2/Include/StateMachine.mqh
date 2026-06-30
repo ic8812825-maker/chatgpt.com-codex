@@ -210,7 +210,11 @@ void SaveState()
    GlobalVariableSet(StateKey("CycleId"), (double)Ctx.cycleId);
    GlobalVariableSet(StateKey("InitialProfitIgnored"), Ctx.initialProfitIgnored ? 1.0 : 0.0);
    GlobalVariableSet(StateKey("EffectiveFarDistancePoints"), Ctx.effectiveFarDistancePoints);
+   GlobalVariableSet(StateKey("CycleATRRaw"), Ctx.cycleATRRaw);
    GlobalVariableSet(StateKey("CycleATRPoints"), Ctx.cycleATRPoints);
+   GlobalVariableSet(StateKey("GeometrySource"), (double)Ctx.geometrySource);
+   GlobalVariableSet(StateKey("GeometryFallback"), (double)Ctx.geometryFallback);
+   GlobalVariableSet(StateKey("GeometryFallbackReasonCode"), (double)Ctx.geometryFallbackReasonCode);
    GlobalVariableSet(StateKey("WorkInitialTriggerPoints"), (double)Ctx.workInitialTriggerPoints);
    GlobalVariableSet(StateKey("WorkBigMoveStartPoints"), (double)Ctx.workBigMoveStartPoints);
    GlobalVariableSet(StateKey("WorkBigMoveStepPoints"), (double)Ctx.workBigMoveStepPoints);
@@ -623,7 +627,11 @@ bool RecoverState()
    if(GetStateDouble("CycleId", saved)) Ctx.cycleId = (ulong)saved;
    if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
    if(GetStateDouble("EffectiveFarDistancePoints", saved)) Ctx.effectiveFarDistancePoints = saved;
+   if(GetStateDouble("CycleATRRaw", saved)) Ctx.cycleATRRaw = saved;
    if(GetStateDouble("CycleATRPoints", saved)) Ctx.cycleATRPoints = saved;
+   if(GetStateDouble("GeometrySource", saved)) Ctx.geometrySource = (int)saved;
+   if(GetStateDouble("GeometryFallback", saved)) Ctx.geometryFallback = (int)saved;
+   if(GetStateDouble("GeometryFallbackReasonCode", saved)) Ctx.geometryFallbackReasonCode = (int)saved;
    if(GetStateDouble("WorkInitialTriggerPoints", saved)) Ctx.workInitialTriggerPoints = (int)saved;
    if(GetStateDouble("WorkBigMoveStartPoints", saved)) Ctx.workBigMoveStartPoints = (int)saved;
    if(GetStateDouble("WorkBigMoveStepPoints", saved)) Ctx.workBigMoveStepPoints = (int)saved;
@@ -801,7 +809,11 @@ void ResetRecoveryContext()
    Ctx.reverseLimitReached = false;
    Ctx.reserveProjectionOk = true;
    Ctx.smallGeometryValid = true;
+   Ctx.cycleATRRaw = 0.0;
    Ctx.cycleATRPoints = 0.0;
+   Ctx.geometrySource = 0;
+   Ctx.geometryFallback = 0;
+   Ctx.geometryFallbackReasonCode = 0;
    Ctx.workInitialTriggerPoints = 0;
    Ctx.workBigMoveStartPoints = 0;
    Ctx.workBigMoveStepPoints = 0;
@@ -1368,7 +1380,7 @@ void OpenInitialLock()
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
       RegisterInitialLockFromSnapshots(initialBuy, initialSell, "existing initial BUY/SELL lock found");
-      Ctx.workInitialTriggerPoints = 0; Ctx.geometryCalculatedTime = 0;
+      Ctx.cycleATRRaw = 0.0; Ctx.cycleATRPoints = 0.0; Ctx.workInitialTriggerPoints = 0; Ctx.workBigMoveStartPoints = 0; Ctx.workBigMoveStepPoints = 0; Ctx.workFarDistancePoints = 0; Ctx.geometrySource = 0; Ctx.geometryFallback = 0; Ctx.geometryFallbackReasonCode = 0; Ctx.geometryCalculatedTime = 0;
       InitializeCycleGeometry();
       PrintGeometryDiagnostics();
       SetState(STATE_INITIAL_LOCK_OPENED, "existing initial BUY/SELL lock found");
@@ -1451,7 +1463,7 @@ void OpenInitialLock()
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
       RegisterInitialLockFromSnapshots(initialBuy, initialSell, "initial lock opened");
-      Ctx.workInitialTriggerPoints = 0; Ctx.geometryCalculatedTime = 0;
+      Ctx.cycleATRRaw = 0.0; Ctx.cycleATRPoints = 0.0; Ctx.workInitialTriggerPoints = 0; Ctx.workBigMoveStartPoints = 0; Ctx.workBigMoveStepPoints = 0; Ctx.workFarDistancePoints = 0; Ctx.geometrySource = 0; Ctx.geometryFallback = 0; Ctx.geometryFallbackReasonCode = 0; Ctx.geometryCalculatedTime = 0;
       InitializeCycleGeometry();
       PrintGeometryDiagnostics();
    }

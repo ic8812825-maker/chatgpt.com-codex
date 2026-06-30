@@ -191,7 +191,11 @@ struct RecoveryContext
    bool reserveProjectionOk;
    bool smallGeometryValid;
 
+   double cycleATRRaw;
    double cycleATRPoints;
+   int geometrySource;
+   int geometryFallback;
+   int geometryFallbackReasonCode;
    int workInitialTriggerPoints;
    int workBigMoveStartPoints;
    int workBigMoveStepPoints;

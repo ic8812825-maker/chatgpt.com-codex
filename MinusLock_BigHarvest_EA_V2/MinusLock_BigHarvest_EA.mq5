@@ -152,7 +152,10 @@ int OnInit()
    if(!ValidateFSMIntegrity())
       return INIT_FAILED;
 
-   UseManualGeometryFallback("");
+   if(GeometryMode == GEOMETRY_MANUAL)
+      UseManualGeometryFallback("");
+   else
+      CalculateAdaptiveGeometry();
    PrintGeometryDiagnostics();
 
    LogBigMoveLevels();

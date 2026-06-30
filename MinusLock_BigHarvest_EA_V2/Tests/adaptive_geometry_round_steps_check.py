@@ -6,9 +6,9 @@ logger = (root / 'Include' / 'Logger.mqh').read_text()
 main = (root / 'MinusLock_BigHarvest_EA.mq5').read_text()
 for token in ['input int InitialRoundStep = 10', 'input int BigStartRoundStep = 10', 'input int BigStepRoundStep = 5', 'input int FarDistanceRoundStep = 50']:
     assert token in config, token
-for token in ['RoundToStep(atrPoints * initialMult, InitialRoundStep)', 'RoundToStep(atrPoints * bigStartMult, BigStartRoundStep)', 'RoundToStep(atrPoints * stepMult, BigStepRoundStep)', 'RoundToStep(atrPoints * farMult, FarDistanceRoundStep)']:
+for token in ['initialBeforeRound = atrPoints * initialMult', 'bigStartBeforeRound = atrPoints * bigStartMult', 'bigStepBeforeRound = atrPoints * stepMult', 'farBeforeRound = atrPoints * farMult', 'RoundToStep(initialBeforeRound, InitialRoundStep)', 'RoundToStep(bigStartBeforeRound, BigStartRoundStep)', 'RoundToStep(bigStepBeforeRound, BigStepRoundStep)', 'RoundToStep(farBeforeRound, FarDistanceRoundStep)']:
     assert token in geom, token
-assert 'RoundToStep(atrPoints * farMult, GeometryRoundStep)' not in geom
+assert 'RoundToStep(farBeforeRound, GeometryRoundStep)' not in geom
 for token in ['InitialRoundStep=', 'BigStartRoundStep=', 'BigStepRoundStep=', 'FarDistanceRoundStep=']:
     assert token in geom, token
     assert token[:-1] in logger, token

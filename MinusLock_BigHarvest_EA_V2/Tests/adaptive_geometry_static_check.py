@@ -28,7 +28,7 @@ for token in [
     'int RoundToStep(double value, int step)', 'int ClampInt(int value, int minValue, int maxValue)',
     'bool CalculateAdaptiveGeometry()', 'bool InitializeCycleGeometry()', 'void ApplyGeometryPresetMultipliers',
     'void PrintGeometryDiagnostics()', 'CopyBuffer(atrHandle, 0, 1, 1, atrBuffer)',
-    'UseManualGeometryFallback("ATR_NOT_AVAILABLE")', 'WARNING: Adaptive geometry failed. Manual geometry fallback used.',
+    'ATR CALCULATION FAILED', 'CopyBuffer failed', 'INVALID_HANDLE', 'WARNING: Adaptive geometry failed. Manual geometry fallback used.',
     'ADAPTIVE_GEOMETRY_CALCULATED', 'InitialRoundStep=', 'FarDistanceRoundStep=', 'GEOMETRY_MODE=MANUAL', 'UpdateGeometryPanel()', 'ClearCycleGeometry()'
 ]:
     assert token in geom, token
@@ -39,9 +39,9 @@ assert 'WorkBigMoveStartPoints() + (level - 1) * WorkBigMoveStepPoints()' in rec
 assert 'WorkFarDistancePoints()' in recovery
 for raw in ['buyProfitPoints >= WorkInitialTriggerPoints()', 'sellProfitPoints >= WorkInitialTriggerPoints()', 'InitializeCycleGeometry();']:
     assert raw in state, raw
-for token in ['CycleATRPoints', 'WorkInitialTriggerPoints', 'WorkBigMoveStartPoints', 'WorkBigMoveStepPoints', 'WorkFarDistancePoints', 'GeometryModeUsed', 'GeometryCalculatedTime']:
+for token in ['CycleATRPoints', 'WorkInitialTriggerPoints', 'WorkBigMoveStartPoints', 'WorkBigMoveStepPoints', 'WorkFarDistancePoints', 'GeometryModeUsed', 'GeometrySource', 'GeometryFallback', 'GeometryFallbackReasonCode', 'GeometryCalculatedTime']:
     assert token in state, token
-for token in ['GeometryMode', 'ATRTimeframe', 'ATRPeriod', 'ATRPoints', 'WorkInitialTriggerPoints', 'FreezeGeometryPerCycle']:
+for token in ['GeometryMode', 'ATRTimeframe', 'ATRPeriod', 'ATRRaw', 'ATRPoints', 'GeometrySource', 'FallbackReason', 'WorkInitialTriggerPoints', 'FreezeGeometryPerCycle']:
     assert token in logger, token
 for token in ['"GeometryMode"', '"ATRTimeframe"', '"FreezeGeometryPerCycle"']:
     assert token in sets, token

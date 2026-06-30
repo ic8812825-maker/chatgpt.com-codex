@@ -540,3 +540,21 @@ Set a low `MaxAccountMarginPercent` and run multiple symbols.
 Expected:
 - new cycle openings are blocked when account-level margin usage is above the limit;
 - existing positions can still be closed or recovered.
+
+## Adaptive Geometry ATR chain validation
+
+### ATR success path
+
+Run `GEOMETRY_ATR_SAFE`, `GEOMETRY_ATR_BALANCED`, `GEOMETRY_ATR_PROFIT`, and `GEOMETRY_ATR_CUSTOM` with synchronized history.
+Expected:
+- Experts log contains `========== ADAPTIVE GEOMETRY ==========` and `Geometry READY`;
+- `GeometrySource=ATR`, `Fallback=NO`, `FallbackReason=NONE`;
+- CSV contains `ATRRaw`, `ATRPoints`, `GeometrySource`, `Fallback`, and `FallbackReason`;
+- SAFE/BALANCED/PROFIT produce distinct Work geometry from their own multipliers.
+
+### ATR failure path
+
+Force unavailable/unsynchronized history or invalid ATR settings in Strategy Tester.
+Expected:
+- Experts log contains `ATR CALCULATION FAILED reason=... fallback=MANUAL`;
+- Comment() and CSV show `GeometrySource=MANUAL`, `Fallback=YES`, and a concrete `FallbackReason` such as `CopyBuffer failed`, `INVALID_HANDLE`, `Not enough bars`, `History not synchronized`, `ATR=NaN`, `ATR<=0`, or `Point<=0`.
