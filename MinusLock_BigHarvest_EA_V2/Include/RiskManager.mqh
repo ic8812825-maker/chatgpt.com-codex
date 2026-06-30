@@ -83,6 +83,13 @@ bool MarginOk()
       return false;
    }
 
+   if(marginPercent > MaxAccountMarginPercent)
+   {
+      Print("RISK GATE BLOCKED: account margin exceeds MaxAccountMarginPercent");
+      LogInfo(StringFormat("Account margin blocked: marginPercent=%.2f MaxAccountMarginPercent=%.2f", marginPercent, MaxAccountMarginPercent));
+      return false;
+   }
+
    if(drawdownPercent > MaxDrawdownPercent)
    {
       Print("RISK GATE BLOCKED: drawdown exceeds MaxDrawdownPercent");
@@ -110,6 +117,14 @@ bool SymbolRiskOk()
    if(CountManagedOpenPositions() > MaxManagedPositions)
    {
       Print("RISK GATE BLOCKED: managed positions exceed MaxManagedPositions");
+      return false;
+   }
+
+   int activeSymbols = CountActiveManagedSymbols();
+   if(!CurrentSymbolHasManagedPositions() && activeSymbols >= MaxActiveSymbols)
+   {
+      Print("RISK GATE BLOCKED: active symbols exceed MaxActiveSymbols");
+      LogInfo(StringFormat("Active symbol limit blocked: activeSymbols=%d MaxActiveSymbols=%d", activeSymbols, MaxActiveSymbols));
       return false;
    }
 

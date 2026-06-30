@@ -3,19 +3,40 @@
 
 // REAL_CYCLE_MATH logger token: detailed real recovery rows are emitted via LogRealCycleMath().
 
+string SymbolLogPrefix()
+{
+   return StringFormat("[BigHarvest][%s]", _Symbol);
+}
+
 void LogInfo(string message)
 {
-   Print("[BigHarvest] ", message);
+   Print(SymbolLogPrefix(), " ", message);
 }
 
 void LogError(string message)
 {
-   Print("[BigHarvest][ERROR] ", message);
+   Print(SymbolLogPrefix(), "[ERROR] ", message);
 }
 
 void LogTransition(EAState fromState, EAState toState, string reason)
 {
-   Print("[BigHarvest][STATE] ", StateToString(fromState), " -> ", StateToString(toState), " | ", reason);
+   Print(SymbolLogPrefix(), "[STATE] ", StateToString(fromState), " -> ", StateToString(toState), " | ", reason);
+}
+
+string CsvSafeSymbol()
+{
+   string safe = _Symbol;
+   StringReplace(safe, ".", "_");
+   StringReplace(safe, "#", "_");
+   StringReplace(safe, "/", "_");
+   StringReplace(safe, "\\", "_");
+   StringReplace(safe, ":", "_");
+   return safe;
+}
+
+string CycleMathCsvFileName()
+{
+   return StringFormat("MinusLock_CycleMath_%s.csv", CsvSafeSymbol());
 }
 
 void LogFarPosition(RecoveryContext &ctx)
@@ -327,10 +348,11 @@ void WriteCycleMathCsv(
    if(finalCloseType == "")
       finalCloseType = lastSystemCloseComment;
 
-   int handle = FileOpen("MinusLock_CycleMath.csv", FILE_READ | FILE_WRITE | FILE_CSV | FILE_ANSI, ',');
+   string csvFileName = CycleMathCsvFileName();
+   int handle = FileOpen(csvFileName, FILE_READ | FILE_WRITE | FILE_CSV | FILE_ANSI, ',');
    if(handle == INVALID_HANDLE)
    {
-      Print("[BigHarvest][ERROR] Cannot open MinusLock_CycleMath.csv, error=", GetLastError());
+      Print(SymbolLogPrefix(), "[ERROR] Cannot open ", csvFileName, ", error=", GetLastError());
       return;
    }
 

@@ -67,6 +67,17 @@ bool ReadSelectedPosition(PositionSnapshot &snapshot)
    return true;
 }
 
+bool IsManagedPositionForCurrentSymbol()
+{
+   return PositionGetString(POSITION_SYMBOL) == _Symbol &&
+          (ulong)PositionGetInteger(POSITION_MAGIC) == MagicNumber;
+}
+
+bool IsManagedPositionForMagic()
+{
+   return (ulong)PositionGetInteger(POSITION_MAGIC) == MagicNumber;
+}
+
 bool GetManagedPositionByTicket(ulong ticket, PositionSnapshot &snapshot)
 {
    snapshot.exists = false;
@@ -150,6 +161,50 @@ int CountManagedOpenPositions()
    }
 
    return count;
+}
+
+int CountActiveManagedSymbols()
+{
+   if(IsInternalSimulationMode())
+      return SimCountOpenPositions() > 0 ? 1 : 0;
+
+   string symbols[];
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   {
+      ulong ticket = PositionGetTicket(i);
+      if(ticket == 0)
+         continue;
+
+      if(!PositionSelectByTicket(ticket))
+         continue;
+
+      if(!IsManagedPositionForMagic())
+         continue;
+
+      string symbol = PositionGetString(POSITION_SYMBOL);
+      bool known = false;
+      for(int j = 0; j < ArraySize(symbols); j++)
+      {
+         if(symbols[j] == symbol)
+         {
+            known = true;
+            break;
+         }
+      }
+      if(!known)
+      {
+         int index = ArraySize(symbols);
+         ArrayResize(symbols, index + 1);
+         symbols[index] = symbol;
+      }
+   }
+
+   return ArraySize(symbols);
+}
+
+bool CurrentSymbolHasManagedPositions()
+{
+   return CountManagedOpenPositions() > 0;
 }
 
 int CountFarLikePositions(Direction expectedFarDirection)

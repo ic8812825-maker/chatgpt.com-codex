@@ -99,6 +99,12 @@ bool ClosePositionByTicket(ulong ticket, double lot)
       return false;
    }
 
+   if(!IsManagedPositionForCurrentSymbol())
+   {
+      LogError(StringFormat("ClosePositionByTicket rejected: ticket=%I64u is not managed by symbol=%s magic=%I64u", ticket, _Symbol, MagicNumber));
+      return false;
+   }
+
    double currentLot = PositionGetDouble(POSITION_VOLUME);
    double closeLot = NormalizeLotDown(lot);
 
@@ -139,6 +145,12 @@ bool ClosePositionByTicketWithComment(ulong ticket, double lot, string closeComm
    if(!PositionSelectByTicket(ticket))
    {
       LogError(StringFormat("Position not found for close with comment: ticket=%I64u comment=%s", ticket, closeComment));
+      return false;
+   }
+
+   if(!IsManagedPositionForCurrentSymbol())
+   {
+      LogError(StringFormat("ClosePositionByTicketWithComment rejected: ticket=%I64u comment=%s is not managed by symbol=%s magic=%I64u", ticket, closeComment, _Symbol, MagicNumber));
       return false;
    }
 

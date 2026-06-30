@@ -179,6 +179,12 @@ bool ValidateHarvestLevelFromHistory()
       for(int i = 0; i < totalDeals; i++)
       {
          ulong dealTicket = HistoryDealGetTicket(i);
+         if(dealTicket == 0)
+            continue;
+         if((ulong)HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber)
+            continue;
+         if(HistoryDealGetString(dealTicket, DEAL_SYMBOL) != _Symbol)
+            continue;
          string comment = HistoryDealGetString(dealTicket, DEAL_COMMENT);
          for(int level = 1; level <= WorkMaxHarvestLevels; level++)
          {

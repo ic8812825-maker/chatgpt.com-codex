@@ -779,3 +779,28 @@ When `FreezeGeometryPerCycle=true`, the EA fixes `cycleATRPoints`, `workInitialT
 If ATR is unavailable in an adaptive mode, the EA logs `ADAPTIVE_GEOMETRY_ERROR`, logs `WARNING: Adaptive geometry failed. Manual geometry fallback used.`, and uses the manual input geometry instead of stopping the EA.
 
 Round-step parameters summary: `InitialRoundStep`, `BigStartRoundStep`, `BigStepRoundStep`, and `FarDistanceRoundStep` control independent rounding for adaptive ATR geometry.
+
+## Multi-Symbol / Multi-Currency operation
+
+MinusLock_BigHarvest_EA_V2 supports running several EA instances on the same trading account, one chart per symbol. Each instance treats its chart symbol as an independent trading world.
+
+### Isolation rules
+
+- Positions are managed only when both filters match: `POSITION_MAGIC == MagicNumber` and `POSITION_SYMBOL == _Symbol`.
+- Recovery context, ATR geometry, cycle state, reserve ledger, final-close logic and reconciliation are stored per EA instance and persisted with symbol-scoped Global Variable names: `MinusLock_<Symbol>_<MagicNumber>_<Field>`.
+- Cycle math CSV output is written per symbol as `MinusLock_CycleMath_<Symbol>.csv`, while every row still includes the `Symbol` column.
+- Logs include the symbol prefix through the standard logger, for example `[BigHarvest][EURUSD] ...`.
+- `Comment()` remains chart-local and shows only the geometry/context for the current chart symbol.
+
+### Shared account risk controls
+
+The trading account deposit and margin are shared even though strategy contexts are symbol-local. Two account-level guards protect new cycle openings:
+
+- `MaxAccountMarginPercent` blocks new openings when total account margin usage is above the configured percent.
+- `MaxActiveSymbols` blocks a new symbol from starting a cycle when the number of already-active Magic-managed symbols is at the limit.
+
+Existing cycles continue to be managed; the risk gate blocks only new openings, not protective closes or recovery maintenance.
+
+### Backward compatibility
+
+Single-symbol operation remains unchanged: if only one chart is running the EA, `MagicNumber + _Symbol` filtering selects the same positions as before, manual geometry still uses the legacy inputs, and ATR SAFE/BALANCED/PROFIT/CUSTOM modes keep their existing behaviour.

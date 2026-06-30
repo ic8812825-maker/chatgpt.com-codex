@@ -157,7 +157,7 @@ void SetState(EAState nextState, string reason)
 
 string StateKey(string field)
 {
-   return StringFormat("BH_%s_%I64u_%s", _Symbol, MagicNumber, field);
+   return StringFormat("MinusLock_%s_%I64u_%s", _Symbol, MagicNumber, field);
 }
 
 void SaveState()

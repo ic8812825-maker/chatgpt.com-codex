@@ -506,3 +506,37 @@ After a cycle is fully completed and there are no managed positions, leg tickets
 Expected:
 - `ClearCycleGeometry()` clears `cycleATRPoints`, all Work geometry fields, `geometryModeUsed`, and `geometryCalculatedTime` before the next independent cycle.
 - If active context still exists, log `CLEAR_CYCLE_GEOMETRY_SKIPPED reason=ACTIVE_CONTEXT_OR_POSITIONS`.
+
+## Multi-Symbol / Multi-Currency isolation
+
+### Single-symbol compatibility
+
+Run one chart only with the previous `.set` file.
+Expected:
+- positions are selected by `MagicNumber + _Symbol`;
+- manual geometry and ATR geometry match previous single-symbol behaviour;
+- `MinusLock_CycleMath_<Symbol>.csv` contains only the current symbol rows.
+
+### Four-symbol smoke test
+
+Run separate chart instances for `EURUSD`, `GBPUSD`, `USDJPY`, and `AUDUSD` on the same account.
+Expected:
+- each symbol has independent recovery state, cycle id, ATR points and Work geometry;
+- closing or final-harvesting one symbol does not modify the context or positions of another symbol;
+- Global Variables are named `MinusLock_<Symbol>_<MagicNumber>_<Field>`;
+- logs contain `[BigHarvest][<Symbol>]` prefixes;
+- CSV output is split per symbol.
+
+### MaxActiveSymbols risk gate
+
+Set `MaxActiveSymbols=2`, start active cycles on two symbols, then attach a third chart.
+Expected:
+- the third symbol does not open a new Initial Lock while the first two are active;
+- existing active symbols continue close/recovery management.
+
+### Account margin risk gate
+
+Set a low `MaxAccountMarginPercent` and run multiple symbols.
+Expected:
+- new cycle openings are blocked when account-level margin usage is above the limit;
+- existing positions can still be closed or recovered.
