@@ -1,6 +1,8 @@
 #ifndef __BH_GEOMETRY_ENGINE_MQH__
 #define __BH_GEOMETRY_ENGINE_MQH__
 
+void SaveState();
+
 int RoundToStep(double value, int step)
 {
    if(step <= 0)
@@ -265,10 +267,35 @@ bool HasCycleGeometry()
    return Ctx.workInitialTriggerPoints > 0 && Ctx.workBigMoveStartPoints > 0 && Ctx.workBigMoveStepPoints > 0 && Ctx.workFarDistancePoints > 0;
 }
 
+void ResetCycleGeometryFields(string reason)
+{
+   Ctx.cycleATRRaw = 0.0;
+   Ctx.cycleATRPoints = 0.0;
+   Ctx.geometrySource = (int)GEOMETRY_SOURCE_MANUAL;
+   Ctx.geometryFallback = 0;
+   Ctx.geometryFallbackReasonCode = GEOMETRY_FALLBACK_NONE;
+   Ctx.workInitialTriggerPoints = 0;
+   Ctx.workBigMoveStartPoints = 0;
+   Ctx.workBigMoveStepPoints = 0;
+   Ctx.workFarDistancePoints = 0;
+   Ctx.geometryModeUsed = (int)GEOMETRY_MANUAL;
+   Ctx.geometryCalculatedTime = 0;
+   if(reason != "")
+      Print("RESET_CYCLE_GEOMETRY_FIELDS reason=", reason);
+}
+
 bool InitializeCycleGeometry()
 {
    if(FreezeGeometryPerCycle && HasCycleGeometry() && Ctx.geometryCalculatedTime > 0)
+   {
+      Print("ADAPTIVE_GEOMETRY_FREEZE_KEEP ExistingGeometry=YES Mode=", GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed),
+            " ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1),
+            " WorkInitialTriggerPoints=", Ctx.workInitialTriggerPoints,
+            " WorkBigMoveStartPoints=", Ctx.workBigMoveStartPoints,
+            " WorkBigMoveStepPoints=", Ctx.workBigMoveStepPoints,
+            " WorkFarDistancePoints=", Ctx.workFarDistancePoints);
       return true;
+   }
 
    if(GeometryMode == GEOMETRY_MANUAL)
    {
@@ -282,28 +309,48 @@ bool InitializeCycleGeometry()
    return true;
 }
 
+bool EnsureCycleGeometry(string reason)
+{
+   if(HasCycleGeometry())
+      return true;
+
+   Print("ADAPTIVE_GEOMETRY_MISSING reason=", reason, " GeometryMode=", GeometryModeToString((GeometryModeEnum)GeometryMode), " action=InitializeCycleGeometry");
+   bool ok = InitializeCycleGeometry();
+   if(!ok || !HasCycleGeometry())
+   {
+      Print("ADAPTIVE_GEOMETRY_UNAVAILABLE reason=", reason, " fallback=", Ctx.geometryFallback > 0 ? "YES" : "NO", " fallbackReason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode));
+      return false;
+   }
+   PrintGeometryDiagnostics();
+   return true;
+}
+
 int WorkInitialTriggerPoints()
 {
-   if(GeometryMode == GEOMETRY_MANUAL || Ctx.workInitialTriggerPoints <= 0) return InitialTriggerPoints;
-   return Ctx.workInitialTriggerPoints;
+   if(!HasCycleGeometry())
+      EnsureCycleGeometry("WorkInitialTriggerPoints");
+   return Ctx.workInitialTriggerPoints > 0 ? Ctx.workInitialTriggerPoints : InitialTriggerPoints;
 }
 
 int WorkBigMoveStartPoints()
 {
-   if(GeometryMode == GEOMETRY_MANUAL || Ctx.workBigMoveStartPoints <= 0) return BigMoveStartPoints;
-   return Ctx.workBigMoveStartPoints;
+   if(!HasCycleGeometry())
+      EnsureCycleGeometry("WorkBigMoveStartPoints");
+   return Ctx.workBigMoveStartPoints > 0 ? Ctx.workBigMoveStartPoints : BigMoveStartPoints;
 }
 
 int WorkBigMoveStepPoints()
 {
-   if(GeometryMode == GEOMETRY_MANUAL || Ctx.workBigMoveStepPoints <= 0) return BigMoveStepPoints;
-   return Ctx.workBigMoveStepPoints;
+   if(!HasCycleGeometry())
+      EnsureCycleGeometry("WorkBigMoveStepPoints");
+   return Ctx.workBigMoveStepPoints > 0 ? Ctx.workBigMoveStepPoints : BigMoveStepPoints;
 }
 
 int WorkFarDistancePoints()
 {
-   if(GeometryMode == GEOMETRY_MANUAL || Ctx.workFarDistancePoints <= 0) return FarDistancePoints;
-   return Ctx.workFarDistancePoints;
+   if(!HasCycleGeometry())
+      EnsureCycleGeometry("WorkFarDistancePoints");
+   return Ctx.workFarDistancePoints > 0 ? Ctx.workFarDistancePoints : FarDistancePoints;
 }
 
 void PrintGeometryDiagnostics()
@@ -381,7 +428,7 @@ bool CanClearCycleGeometry()
       && Ctx.retryTicket == 0;
 }
 
-void ClearCycleGeometry()
+void ClearCycleGeometry(bool persist = false)
 {
    if(!CanClearCycleGeometry())
    {
@@ -389,18 +436,10 @@ void ClearCycleGeometry()
       return;
    }
 
-   Ctx.cycleATRRaw = 0.0;
-   Ctx.cycleATRPoints = 0.0;
-   Ctx.geometrySource = (int)GEOMETRY_SOURCE_MANUAL;
-   Ctx.geometryFallback = 0;
-   Ctx.geometryFallbackReasonCode = GEOMETRY_FALLBACK_NONE;
-   Ctx.workInitialTriggerPoints = 0;
-   Ctx.workBigMoveStartPoints = 0;
-   Ctx.workBigMoveStepPoints = 0;
-   Ctx.workFarDistancePoints = 0;
-   Ctx.geometryModeUsed = (int)GEOMETRY_MANUAL;
-   Ctx.geometryCalculatedTime = 0;
-   Print("CLEAR_CYCLE_GEOMETRY_DONE");
+   ResetCycleGeometryFields("ClearCycleGeometry");
+   if(persist)
+      SaveState();
+   Print("CLEAR_CYCLE_GEOMETRY_DONE persist=", persist ? "YES" : "NO");
 }
 
 #endif // __BH_GEOMETRY_ENGINE_MQH__

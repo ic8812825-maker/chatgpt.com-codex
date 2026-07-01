@@ -681,6 +681,12 @@ bool RecoverState()
    if(GetStateDouble("ProjectedReserveCoverage", saved)) Ctx.projectedReserveCoverage = saved;
    if(GetStateDouble("ReverseStrength", saved)) Ctx.reverseStrength = saved;
 
+   if(!HasCycleGeometry() && (State != STATE_IDLE || HasKnownContext()))
+   {
+      EnsureCycleGeometry("RecoverState restored active or pending context without saved Work geometry");
+      SaveState();
+   }
+
    PositionSnapshot recoveredInitialBuy;
    PositionSnapshot recoveredInitialSell;
    bool recoveredHasInitialBuy = GetInitialBuy(recoveredInitialBuy);
@@ -1380,7 +1386,7 @@ void OpenInitialLock()
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
       RegisterInitialLockFromSnapshots(initialBuy, initialSell, "existing initial BUY/SELL lock found");
-      Ctx.cycleATRRaw = 0.0; Ctx.cycleATRPoints = 0.0; Ctx.workInitialTriggerPoints = 0; Ctx.workBigMoveStartPoints = 0; Ctx.workBigMoveStepPoints = 0; Ctx.workFarDistancePoints = 0; Ctx.geometrySource = 0; Ctx.geometryFallback = 0; Ctx.geometryFallbackReasonCode = 0; Ctx.geometryCalculatedTime = 0;
+      ResetCycleGeometryFields("OpenInitialLock new cycle");
       InitializeCycleGeometry();
       PrintGeometryDiagnostics();
       SetState(STATE_INITIAL_LOCK_OPENED, "existing initial BUY/SELL lock found");
@@ -1463,7 +1469,7 @@ void OpenInitialLock()
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
       RegisterInitialLockFromSnapshots(initialBuy, initialSell, "initial lock opened");
-      Ctx.cycleATRRaw = 0.0; Ctx.cycleATRPoints = 0.0; Ctx.workInitialTriggerPoints = 0; Ctx.workBigMoveStartPoints = 0; Ctx.workBigMoveStepPoints = 0; Ctx.workFarDistancePoints = 0; Ctx.geometrySource = 0; Ctx.geometryFallback = 0; Ctx.geometryFallbackReasonCode = 0; Ctx.geometryCalculatedTime = 0;
+      ResetCycleGeometryFields("OpenInitialLock new cycle");
       InitializeCycleGeometry();
       PrintGeometryDiagnostics();
    }
@@ -2826,7 +2832,7 @@ void RunStateMachine()
 
       case STATE_CLOSED_PROFIT:
       case STATE_CLOSED_RECOVERY_LOSS:
-         ClearCycleGeometry();
+         ClearCycleGeometry(true);
       case STATE_STOP_MAX_LEVELS:
       case STATE_UNCLOSED_CYCLE:
       case STATE_DUAL_TAIL:

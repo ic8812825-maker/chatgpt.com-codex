@@ -29,12 +29,12 @@ for token in [
     'bool CalculateAdaptiveGeometry()', 'bool InitializeCycleGeometry()', 'void ApplyGeometryPresetMultipliers',
     'void PrintGeometryDiagnostics()', 'CopyBuffer(atrHandle, 0, 1, 1, atrBuffer)',
     'ATR CALCULATION FAILED', 'CopyBuffer failed', 'INVALID_HANDLE', 'WARNING: Adaptive geometry failed. Manual geometry fallback used.',
-    'ADAPTIVE_GEOMETRY_CALCULATED', 'InitialRoundStep=', 'FarDistanceRoundStep=', 'GEOMETRY_MODE=MANUAL', 'UpdateGeometryPanel()', 'ClearCycleGeometry()'
+    'ADAPTIVE_GEOMETRY_CALCULATED', 'InitialRoundStep=', 'FarDistanceRoundStep=', 'GEOMETRY_MODE=MANUAL', 'UpdateGeometryPanel()', 'ClearCycleGeometry(bool persist = false)'
 ]:
     assert token in geom, token
 
 assert 'if(GeometryMode == GEOMETRY_MANUAL)' in geom
-assert 'return InitialTriggerPoints;' in geom
+assert 'EnsureCycleGeometry("WorkInitialTriggerPoints")' in geom
 assert 'WorkBigMoveStartPoints() + (level - 1) * WorkBigMoveStepPoints()' in recovery
 assert 'WorkFarDistancePoints()' in recovery
 for raw in ['buyProfitPoints >= WorkInitialTriggerPoints()', 'sellProfitPoints >= WorkInitialTriggerPoints()', 'InitializeCycleGeometry();']:
