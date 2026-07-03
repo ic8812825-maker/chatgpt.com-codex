@@ -1,0 +1,33 @@
+Parameter,Value,Metric,MeanMetric,Samples
+BigRatio,1.1,Big Levels,5.756757,37
+BigRatio,1.12,Big Levels,5.794872,78
+BigRatio,1.13,Big Levels,6.0,1
+BigRatio,1.14,Big Levels,5.75,116
+BigRatio,1.15,Big Levels,5.584906,106
+BigRatio,1.16,Big Levels,5.654206,107
+BigRatio,1.18,Big Levels,5.704545,44
+SmallRatio,0.25,RecoveryPL,27.545455,44
+SmallRatio,0.3,RecoveryPL,6.886364,44
+SmallRatio,0.34,RecoveryPL,10.953247,77
+SmallRatio,0.35,RecoveryPL,2.75,1
+SmallRatio,0.36,RecoveryPL,17.535294,136
+SmallRatio,0.38,RecoveryPL,16.391228,114
+SmallRatio,0.4,RecoveryPL,12.952055,73
+CloseFarShare,0.4,Remaining Far Proxy,6.196078,51
+CloseFarShare,0.5,Remaining Far Proxy,5.96,75
+CloseFarShare,0.65,Remaining Far Proxy,5.795918,49
+CloseFarShare,0.75,Remaining Far Proxy,5.89881,168
+CloseFarShare,0.9,Remaining Far Proxy,5.123288,146
+ReserveShare,0.1,ReserveCoverage,0.705682,146
+ReserveShare,0.25,ReserveCoverage,0.857741,168
+ReserveShare,0.35,ReserveCoverage,0.977112,49
+ReserveShare,0.5,ReserveCoverage,1.1631,75
+ReserveShare,0.6,ReserveCoverage,1.275412,51
+ATRPeriod,14,Geometry/Duration Proxy,70.918033,61
+ATRPeriod,20,Geometry/Duration Proxy,71.395095,367
+ATRPeriod,21,Geometry/Duration Proxy,72.639344,61
+FarDistancePoints,225,Recovery Time,67.928571,42
+FarDistancePoints,250,Recovery Time,68.191011,89
+FarDistancePoints,275,Recovery Time,70.143541,209
+FarDistancePoints,300,Recovery Time,75.959184,98
+FarDistancePoints,325,Recovery Time,77.117647,51
