@@ -377,7 +377,7 @@ void WriteCycleMathCsv(
          "GeometryMode", "ATRTimeframe", "ATRPeriod", "ATRRaw", "ATRPoints", "GeometrySource", "Fallback", "FallbackReason",
          "InitialRoundStep", "BigStartRoundStep", "BigStepRoundStep", "FarDistanceRoundStep",
          "WorkInitialTriggerPoints", "WorkBigMoveStartPoints", "WorkBigMoveStepPoints", "WorkFarDistancePoints", "FreezeGeometryPerCycle",
-         "BigNetProfit", "CloseFarLot", "RemainingFarLot", "ReserveCoverage"
+         "ClosedBigNet", "ClosedSmallNet", "BigScenarioNet", "CloseFarLot", "RemainingFarLot", "ReserveCoverage"
       };
       WriteCsvLine(handle, header);
    }
@@ -463,6 +463,8 @@ void WriteCycleMathCsv(
       IntegerToString(workBigMoveStepPoints),
       IntegerToString(workFarDistancePoints),
       freezeGeometryPerCycle ? "YES" : "NO",
+      DoubleToString(profitBig, 2),
+      DoubleToString(smallPL, 2),
       DoubleToString(netProfit, 2),
       DoubleToString(closeFarLotRounded, 2),
       DoubleToString(farRemainLot, 2),

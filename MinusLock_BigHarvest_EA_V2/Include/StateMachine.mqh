@@ -2288,7 +2288,7 @@ void ProcessBigHarvestCalcNet()
    Ctx.pendingCloseFarLot = CalcCloseFarLotRounded(CalcCloseFarLotRaw(Ctx.pendingCloseFarBudget, Ctx.effectiveFarDistancePoints), Ctx.farLot);
    double closeFarLotRaw = CalcCloseFarLotRaw(Ctx.pendingCloseFarBudget, Ctx.effectiveFarDistancePoints);
    double closeFarActualCost = CalcFarRemainLoss(Ctx.pendingCloseFarLot, Ctx.effectiveFarDistancePoints);
-   LogInfo(StringFormat("BIG_NET_PROFIT BigNetProfit=%.2f SmallNet=%.2f RealBigHarvestNet=%.2f Commission=%.2f Swap=%.2f", realClosedBigProfit, realClosedSmallProfit, realBigHarvestNet, realCommission, realSwap));
+   LogInfo(StringFormat("BIG_SCENARIO_NET ClosedBigNet=%.2f ClosedSmallNet=%.2f BigScenarioNet=%.2f Commission=%.2f Swap=%.2f", realClosedBigProfit, realClosedSmallProfit, realBigHarvestNet, realCommission, realSwap));
    LogInfo(StringFormat("BIG_PROFIT_SPLIT CloseFarBudget=%.2f ReserveAdd=%.2f CloseFarShare=%.5f ReserveShare=%.5f SplitSum=%.5f", Ctx.pendingCloseFarBudget, Ctx.pendingReserveAdd, WorkCloseFarShare, WorkReserveShare, WorkCloseFarShare + WorkReserveShare));
    LogInfo(StringFormat("CLOSE_FAR_BUDGET CloseFarBudget=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f CloseFarActualCost=%.2f FarLotBefore=%.2f", Ctx.pendingCloseFarBudget, closeFarLotRaw, Ctx.pendingCloseFarLot, closeFarActualCost, Ctx.farLot));
    LogInfo(StringFormat("RESERVE_ADD ReserveAdd=%.2f TotalReserveBefore=%.2f ReserveApplied=%s", Ctx.pendingReserveAdd, Ctx.totalReserve, Ctx.pendingReserveApplied ? "YES" : "NO"));
@@ -2358,7 +2358,7 @@ void ProcessBigHarvestCalcNet()
       WorkFarDistancePoints(),
       FreezeGeometryPerCycle
    );
-   LogInfo(StringFormat("BIG_HARVEST_REAL_RESERVE BIG_HARVEST_REAL_DEALS_CALC BigPositionId=%I64u SmallPositionId=%I64u FoundDeals=%s RealClosedBigProfit=%.2f RealClosedSmallProfit=%.2f Commission=%.2f Swap=%.2f RealBigHarvestNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f CloseFarLot=%.2f", Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, foundDeals ? "YES" : "NO", realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap, realBigHarvestNet, Ctx.pendingReserveAdd, Ctx.pendingCloseFarBudget, Ctx.pendingCloseFarLot));
+   LogInfo(StringFormat("BIG_HARVEST_REAL_RESERVE BIG_HARVEST_REAL_DEALS_CALC BigPositionId=%I64u SmallPositionId=%I64u FoundDeals=%s RealClosedBigProfit=%.2f RealClosedSmallProfit=%.2f Commission=%.2f Swap=%.2f BigScenarioNet=%.2f ReserveAdd=%.2f CloseFarBudget=%.2f CloseFarLot=%.2f", Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, foundDeals ? "YES" : "NO", realClosedBigProfit, realClosedSmallProfit, realCommission, realSwap, realBigHarvestNet, Ctx.pendingReserveAdd, Ctx.pendingCloseFarBudget, Ctx.pendingCloseFarLot));
    SetState(STATE_BIG_HARVEST_CLOSE_FAR, "BigHarvest real deal reserve calculated");
 }
 

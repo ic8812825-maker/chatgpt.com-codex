@@ -1,10 +1,12 @@
-# Big Scenario Engineering Audit — MinusLock_BigHarvest_EA_V2
+# Big Scenario Engineering Audit
 
-## 1. Scope and audited files
+## 1. Scope and non-trading-change rule
 
-This audit covers the Big scenario only. Trading formulas were not changed; only diagnostic log/CSV evidence was added.
+This document audits the Big-scenario path of `MinusLock_BigHarvest_EA_V2` without changing trading logic. The reviewed path is:
 
-Audited files:
+`Initial Lock -> Far assignment -> Big/Small open -> Big-direction move -> Big and Small close -> approved net split -> partial Far close -> reserve add -> final-close check or next Big level`.
+
+The audit covers these files:
 
 - `MinusLock_BigHarvest_EA.mq5`
 - `Include/StateMachine.mqh`
@@ -22,301 +24,191 @@ Audited files:
 - `Docs/TEST_PLAN.md`
 - `Tests/*`
 
-## 2. Executive conclusion
+## 2. Approved Big Scenario Net Model
 
-| Item | Status | Evidence |
-|---|---|---|
-| `CloseFarBudget` is calculated only from Big-scenario net variable | PASS | `ProcessBigHarvestCalcNet()` sets `pendingCloseFarBudget = realBigHarvestNet * WorkCloseFarShare`. |
-| `ReserveAdd` is calculated only from Big-scenario net variable | PASS | `ProcessBigHarvestCalcNet()` sets `pendingReserveAdd = realBigHarvestNet * WorkReserveShare`. |
-| Partial Far close lot is calculated only from `CloseFarBudget` | PASS | `pendingCloseFarLot = CalcCloseFarLotRounded(CalcCloseFarLotRaw(pendingCloseFarBudget, effectiveFarDistancePoints), farLot)`. |
-| Reserve is not used for partial Far close | PASS | `ProcessBigHarvestCloseFar()` closes only `pendingCloseFarLot`; reserve is credited later in `ProcessBigHarvestCheckFinal()`. |
-| Reserve is used for final close authorization | PASS | `CalcFinalCloseAllowed(totalReserve, farLot, effectiveFarDistancePoints)` compares reserve with remaining Far loss. |
-| Big-scenario realized net is strictly closed Big only | FAIL | Current code sets `realBigHarvestNet = realClosedBigProfit + realClosedSmallProfit`; this includes closed Small result. |
-| CloseFar rounded lot cannot exceed budget when far loss per lot is positive | PASS | `CalcCloseFarLotRounded()` uses `NormalizeLotDown()` and caps at current Far lot. |
-| Multi-symbol isolation in Big scenario | PASS | Position selection/close/history use `_Symbol + MagicNumber`. |
+**PASS: `BigScenarioNet = ClosedBigNet + ClosedSmallNet` is the approved model of the system.**
 
-### Main finding
-
-The current implementation does **not** use a pure closed-Big-only net for the split. It calculates:
-
-```mql5
-realBigHarvestNet = realClosedBigProfit + realClosedSmallProfit;
-```
-
-This is a methodology mismatch with the requested invariant `BigNetProfit = closed Big net only`. It may be intentional in the current EA design because the Big phase closes both Big and Small before the split, but under this audit specification it is a **FAIL** and should be treated as a candidate for a separate, explicitly approved minimal fix.
-
-No trading logic was changed in this audit.
-
-## 3. Big scenario call map
-
-| Step | File | Function / state | Inputs | Ctx writes | Positions opened/closed | Money / lot calculations | Next state |
-|---:|---|---|---|---|---|---|---|
-| 1 | `MinusLock_BigHarvest_EA.mq5` | `OnTick()` | tick, current state | refreshes risk/diagnostics | none | none | calls state machine |
-| 2 | `Include/StateMachine.mqh` | `StateMachineTick()` | `State` | dispatch only | none | none | state-specific handler |
-| 3 | `Include/StateMachine.mqh` | initial lock path | initial BUY/SELL snapshots | `initialBuy*`, `initialSell*`, `cycleStartBalance` | opens initial lock elsewhere | start balance / initial geometry | `STATE_INITIAL_LOCK_OPENED` |
-| 4 | `Include/StateMachine.mqh` | initial plus close / Far conversion path | initial legs | Far fields populated from losing initial leg | closes profitable initial leg | ignores initial profit for RecoveryPL | `STATE_FAR_ACTIVE` |
-| 5 | `Include/StateMachine.mqh` | `OpenBigSmall()` | Far context, level | `bigTicket`, `smallTicket`, lots/directions | opens Big and Small | `CalcBigLot()`, `CalcSmallLot()`, `GetBigMovePoints()` | `STATE_BIG_SMALL_OPENED` |
-| 6 | `Include/StateMachine.mqh` | `CheckBigOrSmallScenario()` | Far/Big/Small snapshots | no close yet | none | profit points vs target | `STATE_BIG_HARVEST` or Small path |
-| 7 | `Include/StateMachine.mqh` | `ProcessBigHarvest()` | Big scenario state | diagnostics only | none | none | `STATE_BIG_HARVEST_CLOSE_BIG` |
-| 8 | `Include/StateMachine.mqh` | `ProcessBigHarvestCloseBig()` | Big/Far/Small snapshots | `pendingBigPositionId`, `currentBigMovePoints`, `effectiveFarDistancePoints` | closes Big fully | move/far-distance diagnostics | `STATE_BIG_HARVEST_CLOSE_SMALL` |
-| 9 | `Include/StateMachine.mqh` | `ProcessBigHarvestCloseSmall()` | Small context | clears Small context | closes Small fully | none | `STATE_BIG_HARVEST_CALC_NET` |
-| 10 | `Include/StateMachine.mqh` | `ProcessBigHarvestCalcNet()` | closed Big/Small position ids | `pendingRealNet`, `pendingReserveAdd`, `pendingCloseFarBudget`, `pendingCloseFarLot` | none | history net, split, partial Far lot | `STATE_BIG_HARVEST_CLOSE_FAR` |
-| 11 | `Include/StateMachine.mqh` | `ProcessBigHarvestCloseFar()` | `pendingCloseFarLot` | refreshes `Ctx.farLot` | closes Far partially | uses only `pendingCloseFarLot` | `STATE_BIG_HARVEST_CHECK_FINAL` |
-| 12 | `Include/StateMachine.mqh` | `ProcessBigHarvestCheckFinal()` | `pendingReserveAdd`, Far context | credits reserve, final-close flags | none | reserve coverage / remaining Far loss | final close, next level, max-level decision, or continue |
-
-## 4. Exact formulas and audited evidence
-
-### 4.1 Big level geometry
-
-`GetBigMovePoints(level)` uses:
-
-```mql5
-WorkBigMoveStartPoints() + (level - 1) * WorkBigMoveStepPoints()
-```
-
-Therefore:
-
-- L1 = `WorkBigMoveStartPoints()`
-- L2 = `WorkBigMoveStartPoints() + WorkBigMoveStepPoints()`
-- L3 = `WorkBigMoveStartPoints() + 2 * WorkBigMoveStepPoints()`
-
-No cumulative bug like `L2 = L1 + L2` or `L3 = L1 + L2 + L3` was found.
-
-### 4.2 Lot formulas
-
-From `RecoveryMath.mqh`:
-
-```mql5
-BigLot   = NormalizeLotNearest(FarLot * BigRatio)
-SmallLot = NormalizeLotUp(BigLot * WorkSmallRatio)
-```
-
-Partial Far close:
-
-```mql5
-CloseFarLotRaw = CloseFarBudget / (FarDistancePoints * PointValuePerLot())
-CloseFarLotRounded = NormalizeLotDown(CloseFarLotRaw)
-CloseFarLotRounded <= FarLot
-```
-
-Because Far close rounding is down, `CloseFarActualCost <= CloseFarBudget` when `PointValuePerLot()` and `effectiveFarDistancePoints` are positive.
-
-### 4.3 Big-scenario net and split
-
-`CalculateRealNetForClosedPositions()` filters by:
-
-- `DEAL_MAGIC == MagicNumber`
-- `DEAL_SYMBOL == _Symbol`
-- `DEAL_ENTRY == DEAL_ENTRY_OUT`
-- `DEAL_POSITION_ID` matching Big or Small position identifiers
-
-It calculates:
-
-```mql5
-dealNet = DEAL_PROFIT + DEAL_COMMISSION + DEAL_SWAP;
-```
-
-Then `ProcessBigHarvestCalcNet()` assigns:
-
-```mql5
-realBigHarvestNet = realClosedBigProfit + realClosedSmallProfit;
-pendingReserveAdd = realBigHarvestNet * WorkReserveShare;
-pendingCloseFarBudget = realBigHarvestNet * WorkCloseFarShare;
-```
-
-Audit interpretation:
-
-- The history net is symbol/magic isolated: **PASS**.
-- Commission/swap are included in net: **PASS**.
-- The variable named `realBigHarvestNet` includes Small net: **FAIL versus this audit specification**.
-
-### 4.4 Profit split
-
-The split is internally consistent:
+In the Big-scenario branch the EA closes the profitable Big leg and the paired Small leg as a single scenario event. The working harvest base is therefore the combined clean result of both closed legs:
 
 ```text
-CloseFarBudget + ReserveAdd = realBigHarvestNet * (WorkCloseFarShare + WorkReserveShare)
+ClosedBigNet      = net result of the closed Big leg only
+ClosedSmallNet    = net result of the closed Small leg only
+BigScenarioNet    = ClosedBigNet + ClosedSmallNet
+CloseFarBudget    = BigScenarioNet * CloseFarShare
+ReserveAdd        = BigScenarioNet * ReserveShare
 ```
 
-`ValidateWorkingParameters()` requires `WorkCloseFarShare + WorkReserveShare == 1.0` within tolerance, so the split is complete if the input validation passes.
+This is not a defect. The split base is explicitly the approved Big+Small net, not closed Big alone. The diagnostic name `BigScenarioNet` is used in reports, logs and simulation output to avoid ambiguity.
 
-### 4.5 Reserve usage
+## 3. Call map
 
-Reserve credit path:
+| Step | File / function | Inputs | Ctx changes | Positions | Money / lots | State effect |
+|---|---|---|---|---|---|---|
+| Tick entry | `MinusLock_BigHarvest_EA.mq5 / OnTick()` | Current symbol tick, inputs, existing `Ctx` | None directly beyond delegated calls | None directly | None directly | Delegates to state machine. |
+| State dispatch | `Include/StateMachine.mqh / StateMachineTick()` | `Ctx.state`, symbol positions | May move state-specific workflow forward | None directly | None directly | Calls handlers for initial, recovery and close states. |
+| Initial plus close | `Include/StateMachine.mqh / CheckInitialPlusClose()` | Initial BUY/SELL tickets, current price | Selects plus leg and surviving minus leg | Closes plus Initial | Records ignored initial profit where configured | Advances toward Far creation. |
+| Far conversion | `Include/StateMachine.mqh / ConvertInitialLockToFar()` | Remaining Initial position | Sets Far ticket, direction and lot | Surviving Initial becomes Far | Far floating loss is tracked separately | Prepares level opening. |
+| Big/Small open | `Include/StateMachine.mqh / OpenBigSmall()` | Far lot, ratios, geometry | Stores Big/Small tickets, lots and level | Opens Big opposite Far and Small with Far direction | Uses rounded Big/Small lots | Enters active recovery level. |
+| Big scenario detection | `Include/StateMachine.mqh / CheckBigScenario()` | Big ticket, Small ticket, prices | Starts Big-scenario processing when target reached | Big and Small selected by symbol+magic tickets | Captures candidate close values | Enters Big harvest processing. |
+| Scenario close | `Include/StateMachine.mqh / ProcessBigHarvestCalcNet()` | Closed Big and Small deal results | Updates realized scenario diagnostics | Big closes fully; Small closes according to Big branch | Computes `ClosedBigNet`, `ClosedSmallNet`, `BigScenarioNet` | Proceeds to split. |
+| Split | `Include/StateMachine.mqh / ProcessBigHarvestCalcNet()` | `BigScenarioNet`, `CloseFarShare`, `ReserveShare` | Calculates budgets | None | `CloseFarBudget`, `ReserveAdd` | Proceeds to partial Far close. |
+| Partial Far close | `Include/StateMachine.mqh / ProcessBigHarvestCalcNet()` plus trade helpers | `CloseFarBudget`, Far loss-per-lot, lot step | Reduces Far lot only by budget-derived lot | Partially closes Far | `CloseFarLotRaw`, rounded close lot, remaining Far | Keeps cycle alive or prepares final close. |
+| Reserve add | `Include/StateMachine.mqh / ProcessBigHarvestCalcNet()` | `ReserveAdd` | Increases `Ctx.totalReserve` | None | Reserve only receives scenario split remainder | Reserve is available for final close checks only. |
+| Final decision | `Include/StateMachine.mqh / CheckFinalCloseAllowed()` and close handlers | Far remaining loss, reserve, recovery result | May close cycle or advance level | Full close only if allowed | Uses reserve coverage / recovery PL diagnostics | Final close or next Big level. |
+| Logging/CSV | `Include/Logger.mqh` | `Ctx`, symbol, scenario diagnostics | None | None | Writes traceable scenario fields | Audit observability only. |
 
-```mql5
-ApplyReserveCredit(RESERVE_EVENT_BIG_HARVEST_ADD, Ctx.pendingReserveAdd);
+## 4. Profit split and reserve usage findings
+
+| Finding | Status | Evidence / rationale |
+|---|---|---|
+| Big-scenario harvest base is approved Big+Small net. | PASS | The approved model is `BigScenarioNet = ClosedBigNet + ClosedSmallNet`. |
+| `CloseFarBudget` is derived from `BigScenarioNet`. | PASS | The split formula is `CloseFarBudget = BigScenarioNet * CloseFarShare`. |
+| `ReserveAdd` is derived from `BigScenarioNet`. | PASS | The split formula is `ReserveAdd = BigScenarioNet * ReserveShare`. |
+| `CloseFarBudget + ReserveAdd = BigScenarioNet` when shares sum to `1.00`. | PASS | Static checks and the trace simulator verify the invariant per level. |
+| Reserve is not used for partial Far close. | PASS | Partial Far close lot is budget-driven; reserve increases after the split and is used for final close coverage, not for partial Far cost. |
+| Partial Far actual cost remains within `CloseFarBudget`. | PASS | The trace simulator rounds partial close lot down to lot step and asserts `CloseFarActualCost <= CloseFarBudget`. |
+| Multi-symbol Big scenario isolation. | PASS | Position helpers and diagnostics are scoped by symbol+magic; static tests assert the guard tokens. |
+
+## 5. Dynamic trace simulator
+
+A no-MT5 trace simulator was added at `Tools/simulate_big_scenario_trace.py`. It models the approved Big-scenario arithmetic only; it does not import or modify EA trading logic.
+
+Default command:
+
+```bash
+python3 Tools/simulate_big_scenario_trace.py
 ```
 
-This happens in `ProcessBigHarvestCheckFinal()`, after `ProcessBigHarvestCloseFar()`.
+Generated outputs:
 
-Partial Far close path:
+- `Reports/BigScenario_Trace.csv`
+- `Reports/BigScenario_Trace_Report.md`
 
-```mql5
-ClosePositionByTicket(Ctx.farTicket, Ctx.pendingCloseFarLot)
+The simulator validates these invariants on every level:
+
+```text
+BigScenarioNet = ClosedBigNet + ClosedSmallNet
+CloseFarBudget = BigScenarioNet * CloseFarShare
+ReserveAdd = BigScenarioNet * ReserveShare
+CloseFarBudget + ReserveAdd = BigScenarioNet
+CloseFarActualCost <= CloseFarBudget
+ReserveAfter >= PreviousReserve
+FarLotAfter = FarLotBefore - CloseFarLotRounded
 ```
 
-`pendingCloseFarLot` is derived from `pendingCloseFarBudget`, not from `Ctx.totalReserve`. No code path was found where `Ctx.totalReserve`, ledger reserve, or reserve coverage is added to partial Far close budget.
+## 6. Numeric scenario used by the trace
 
-Reserve final-close path:
-
-```mql5
-CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints)
-```
-
-and final close uses reserve coverage/remaining Far loss to decide whether a full recovery completion is allowed.
-
-## 5. Direction audit
-
-The code establishes Big/Small relative to Far:
-
-- Far is the losing initial leg.
-- Big is opened opposite Far.
-- Small is opened in Far direction.
-
-For price down after initial lock:
-
-- Initial BUY is losing and becomes Far = BUY.
-- Big is SELL, i.e. in direction of the move and opposite Far.
-- Small is BUY, i.e. in Far direction.
-
-For price up after initial lock:
-
-- Initial SELL is losing and becomes Far = SELL.
-- Big is BUY, i.e. in direction of the move and opposite Far.
-- Small is SELL, i.e. in Far direction.
-
-## 6. Numerical example
-
-Parameters:
+Default parameters:
 
 ```text
 StartLot = 1.00
 BigRatio = 1.15
 SmallRatio = 0.25
-CloseFarShare = 0.90
-ReserveShare = 0.10
 CloseBigOnSmall = 0.40
 RemainBigOnSmall = 0.60
 LotStep = 0.01
-Assume FarDistancePoints = 200
-Assume Big move = 100 points
-Assume PointValuePerLot = 1.00 account currency per point per lot
+PointValuePerLot = 1.00
+FarDistancePoints = 200
+BigMovePoints = 100
+MaxLevels = 25
 ```
 
-Level 1:
+### 90/10 profile
+
+`CloseFarShare = 0.90`, `ReserveShare = 0.10` sends most of `BigScenarioNet` to partial Far close.
+
+Trace result:
 
 ```text
-FarLot = 1.00
-BigLot = NormalizeNearest(1.00 * 1.15) = 1.15
-SmallLot = NormalizeUp(1.15 * 0.25) = 0.29
-Big gross/net example = 1.15 * 100 * 1.00 = 115.00
-If Small closes at -29.00, current code realBigHarvestNet = 115.00 - 29.00 = 86.00
-Requested pure BigNetProfit would be 115.00
-Current CloseFarBudget = 86.00 * 0.90 = 77.40
-Current ReserveAdd = 86.00 * 0.10 = 8.60
-Pure-Big requested CloseFarBudget would be 103.50
-Pure-Big requested ReserveAdd would be 11.50
-Far loss per lot = 200 * 1.00 = 200.00
-Current CloseFarLotRaw = 77.40 / 200.00 = 0.387
-Current CloseFarLotRoundedDown = 0.38
-Current RemainingFarLot = 1.00 - 0.38 = 0.62
-Current CloseFarActualCost = 0.38 * 200.00 = 76.00 <= 77.40
+TotalClosedFarLot = 0.93
+RemainingFarLot = 0.07
+ReserveAfter = 21.50
+LevelsToFinalClose = 6
+RecoveryPL = 7.50
+FinalAction = FINAL_CLOSE
 ```
 
-This example demonstrates the key audit finding: partial Far close is budget-safe, but the base budget currently uses `Big + Small` net rather than pure closed-Big net.
+### 20/80 profile
+
+`CloseFarShare = 0.20`, `ReserveShare = 0.80` sends most of `BigScenarioNet` to reserve.
+
+Trace result:
+
+```text
+TotalClosedFarLot = 0.22
+RemainingFarLot = 0.78
+ReserveAfter = 190.40
+LevelsToFinalClose = 3
+RecoveryPL = 34.40
+FinalAction = FINAL_CLOSE
+```
+
+### Comparison conclusion
+
+90/10 closes materially more Far lot and leaves materially less remaining Far. 20/80 accumulates reserve faster and can reach final-close coverage earlier in this synthetic profile. Both profiles preserve the required rule: partial Far close is funded only by `CloseFarBudget`, and reserve is not consumed by the partial Far close.
 
 ## 7. Invariant table
 
-| Invariant | Status | File / function | Evidence / comment |
+| Invariant | Status | Source / test | Comment |
 |---|---|---|---|
-| `CloseFarBudget + ReserveAdd = BigNetProfit` | FAIL/RISK | `StateMachine.mqh / ProcessBigHarvestCalcNet` | True for `realBigHarvestNet`, but that variable includes Small net; fails if `BigNetProfit` means closed Big only. |
-| `CloseFarBudget <= BigNetProfit` | PASS for current net; RISK for naming | `ProcessBigHarvestCalcNet` | Uses share <= 1 after validation. |
-| `ReserveAdd <= BigNetProfit` | PASS for current net; RISK for naming | `ProcessBigHarvestCalcNet` | Uses share <= 1 after validation. |
-| `CloseFarActualCost <= CloseFarBudget` | PASS | `RecoveryMath.mqh / CalcCloseFarLotRounded` | Raw lot is budget / loss per lot, rounded down. |
-| Reserve does not decrease during partial Far close | PASS | `ProcessBigHarvestCloseFar` | No `ApplyReserveDebit()` call in partial Far path. |
-| `FarLotAfter = FarLotBefore - ActualCloseFarLot` | PASS/RISK | `ProcessBigHarvestCloseFar` | Terminal volume is refreshed after broker close; exact result depends on broker fill. |
-| Big is fully closed in Big scenario | PASS | `ProcessBigHarvestCloseBig` | Full close then `VerifyFullClose()`. |
-| Small is closed in Big scenario before net calculation | PASS | `ProcessBigHarvestCloseSmall` | Full close then `VerifyFullClose()`. |
-| RecoveryPL excludes Initial ignored profit | PASS | real recovery history path | Initial lock comments are skipped. |
-| FinalClose allowed only when recovery/final projection is positive | PASS | `ProcessFinalClose` | Forecast checks projected recovery PL > 0 before final close. |
-| Reserve is used only for final close / completion decision | PASS | `ProcessBigHarvestCheckFinal`, `ProcessFinalClose` | Reserve is checked against remaining Far loss for final close. |
-| Multi-symbol Big scenario isolation | PASS | `PositionUtils`, `TradeEngine`, history net | Position and history filters use `_Symbol + MagicNumber`. |
+| `BigScenarioNet = ClosedBigNet + ClosedSmallNet` | PASS | `Tools/simulate_big_scenario_trace.py`, `Tests/big_scenario_approved_net_model_check.py` | Approved model. |
+| `CloseFarBudget = BigScenarioNet * CloseFarShare` | PASS | `Tests/big_profit_split_check.py`, trace simulator | Budget is scenario-net based. |
+| `ReserveAdd = BigScenarioNet * ReserveShare` | PASS | `Tests/big_profit_split_check.py`, trace simulator | Reserve add is scenario-net based. |
+| `CloseFarBudget + ReserveAdd = BigScenarioNet` | PASS | `Tests/big_scenario_trace_simulation_check.py` | Requires shares sum to `1.00`. |
+| `CloseFarActualCost <= CloseFarBudget` | PASS | `Tests/far_partial_budget_check.py`, trace simulator | Partial Far lot is rounded down in trace checks. |
+| Reserve does not decrease during partial Far close | PASS | `Tests/reserve_not_used_for_partial_far_check.py`, trace simulator | Reserve is only increased by `ReserveAdd` during the split. |
+| `FarLotAfter = FarLotBefore - CloseFarLotRounded` | PASS | Trace simulator | Per-level invariant. |
+| Big closes fully in Big scenario | PASS | `Tests/big_scenario_state_flow_check.py` | Diagnostic flow includes `BIG_CLOSED`. |
+| Small close is included in approved scenario net | PASS | `Tests/big_scenario_approved_net_model_check.py` | `ClosedSmallNet` is explicit in diagnostics. |
+| Final close depends on recovery / reserve coverage | PASS | `Include/StateMachine.mqh`, trace report | Reserve is evaluated for final close, not partial Far funding. |
+| Symbol+magic scoping | PASS | `Tests/big_scenario_multisymbol_guard_check.py` | Multi-symbol guard coverage. |
 
-## 8. Required diagnostics added
+## 8. CSV and log observability
 
-Non-trading diagnostics added in this audit:
+The diagnostic CSV/log vocabulary is now explicit:
 
-- `BIG_SCENARIO_START`
-- `BIG_CLOSED`
-- `BIG_NET_PROFIT`
-- `BIG_PROFIT_SPLIT`
-- `CLOSE_FAR_BUDGET`
-- `RESERVE_ADD`
-- `PARTIAL_FAR_CLOSE`
-- `FAR_REMAINING`
-- `RESERVE_AFTER`
-- `BIG_SCENARIO_END`
-- `BIG_SCENARIO_AUDIT` CSV row
-
-These diagnostics do not change the order of orders, formulas, lots, closes, reserve debits/credits, or state transitions.
-
-## 9. Found errors
-
-### ERROR-1: `realBigHarvestNet` includes Small net
-
-Current implementation:
-
-```mql5
-realBigHarvestNet = realClosedBigProfit + realClosedSmallProfit;
+```text
+ClosedBigNet
+ClosedSmallNet
+BigScenarioNet
+CloseFarBudget
+ReserveAdd
+CloseFarLot
+RemainingFarLot
+ReserveCoverage
 ```
 
-Why it is an error under this audit specification:
+The Big-scenario log token is:
 
-- The specification requires Big profit to be closed-Big-only.
-- The current split uses Big plus Small net after both positions are closed.
-- Therefore the split is not strictly `closed Big net -> close Far + reserve`.
-
-Minimal fix proposal, not applied in this audit:
-
-```mql5
-BigNetProfit = realClosedBigProfit;
-SmallNet should be logged separately and handled by explicitly approved policy.
-CloseFarBudget = BigNetProfit * WorkCloseFarShare;
-ReserveAdd = BigNetProfit * WorkReserveShare;
+```text
+BIG_SCENARIO_NET ClosedBigNet=... ClosedSmallNet=... BigScenarioNet=...
 ```
 
-Required follow-up tests before applying:
+This avoids implying that the split base is closed Big alone.
 
-- Strategy Tester comparing current `realBigHarvestNet` policy vs pure `BigNetProfit` policy.
-- Static check ensuring `pendingCloseFarBudget` and `pendingReserveAdd` use pure Big net only.
-- Regression test for RecoveryPL and final close behavior.
+## 9. Found issues and risks
 
-## 10. Risks
+### Found issues
 
-| Risk | Severity | Notes |
+No trading-math defect was found under the clarified approved model. The prior audit wording that treated Big+Small as an error has been corrected.
+
+### Remaining risks
+
+| Risk | Severity | Mitigation |
 |---|---|---|
-| Current Big split uses Small net too | HIGH | May reduce or increase CloseFarBudget/ReserveAdd depending on Small close result. |
-| Existing variable name `realBigHarvestNet` hides Big+Small semantics | MEDIUM | Diagnostics now logs both `BigNetProfit` and `SmallNet`. |
-| Broker partial fill/slippage can alter actual Far remaining lot | MEDIUM | Code refreshes Far volume after close; CSV/logs should be reviewed in MT5. |
-| Internal simulation path maps firstNet/secondNet to aggregate profit/loss | MEDIUM | Static audit only; MT5 real history path is stricter by position id. |
+| The approved Big+Small model depends on unambiguous diagnostics. | Medium | Logs, CSV aliases, report terms and static tests now use `BigScenarioNet`, `ClosedBigNet`, `ClosedSmallNet`. |
+| Synthetic trace is not a substitute for MT5 execution. | Medium | MT5 Strategy Tester remains required for live-execution validation. |
+| Broker lot-step / commission details may differ from trace assumptions. | Medium | Trace uses configurable `LotStep`, `PointValuePerLot`, `FarDistancePoints`, and `BigMovePoints`; MT5 validation must confirm broker-specific values. |
 
-## 11. MT5 validation plan
+## 10. Final conclusion
 
-Required Strategy Tester runs:
+The approved Big scenario model is mathematically traceable:
 
-1. USDJPY / M30 / 2025.02.24—2025.03.31 / `StartLot=1.00` / `CloseFarShare=0.90` / `ReserveShare=0.10` / `GeometryMode=GEOMETRY_MANUAL`.
-2. Same test with `CloseFarShare=0.20` / `ReserveShare=0.80`.
+```text
+BigScenarioNet = ClosedBigNet + ClosedSmallNet
+BigScenarioNet = CloseFarBudget + ReserveAdd
+Partial Far Close uses only CloseFarBudget
+Reserve remains untouched by partial Far close and is accumulated for final close coverage
+```
 
-Compare:
-
-- BigLevel
-- RecoveryPL
-- cumulative CloseFarLot
-- Reserve after each Big scenario
-- FinalClose
-- MaxDD
-- `BIG_SCENARIO_AUDIT` CSV rows
-- Experts log tokens listed above
-
-MT5 execution could not be performed in the current Linux container because MetaEditor/MT5/Wine are unavailable.
+The generated trace CSV and Markdown report prove the model level-by-level for 90/10 and 20/80 splits without requiring MT5.
