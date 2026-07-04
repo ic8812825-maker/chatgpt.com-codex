@@ -155,7 +155,10 @@ int OnInit()
    if(GeometryMode == GEOMETRY_MANUAL)
       UseManualGeometryFallback("");
    else
+   {
+      EnsureATRIndicatorOnChart();
       CalculateAdaptiveGeometry();
+   }
    PrintGeometryDiagnostics();
 
    LogBigMoveLevels();
@@ -207,6 +210,7 @@ void OnDeinit(const int reason)
       Print("ManagedPositions=", managedPositions);
    }
 
+   ReleaseATRHandle();
    LogInfo(StringFormat("MinusLock BigHarvest EA stopped, reason=%d", reason));
 }
 

@@ -109,6 +109,8 @@ Plot-ready dependency data is written to `Reports/Parameter_Dependency_Data.csv`
 | FarDistanceRoundStep | 50 | 50 | 50 | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
 | FreezeGeometryPerCycle | true | true | true | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
 | PrintAdaptiveGeometryLog | true | true | true | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
+| AllowATRManualFallback | false | false | false | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
+| ShowATRIndicatorOnChart | true | true | true | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
 | MaxHarvestLevels | 7 | 6 | 5–6–8 | Очень сильное | Synthetic rank spread=116302.1; recommended preset anchor |
 | SmallFarTouchOffsetPoints | 0 | 0 | 0 | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
 | MaxReverseCycles | 7 | 10 | 10–12 | Сильное | Synthetic rank spread=33811.7; recommended preset anchor |

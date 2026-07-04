@@ -61,6 +61,8 @@ PARAM_RANGES: dict[str, list[Any]] = {
     "BigStepRoundStep": [5, 10],
     "FarDistanceRoundStep": [25, 50],
     "FreezeGeometryPerCycle": ["true"],
+    "AllowATRManualFallback": ["false", "true"],
+    "ShowATRIndicatorOnChart": ["true"],
     "ATRTimeframe": [30, 60],
     "ATRPeriod": [14, 20, 21],
     "ATRInitialMultiplier": [0.95, 1.00, 1.05],
@@ -133,6 +135,8 @@ RECOMMENDED: dict[str, Any] = {
     "FarDistanceRoundStep": 50,
     "FreezeGeometryPerCycle": "true",
     "PrintAdaptiveGeometryLog": "true",
+    "AllowATRManualFallback": "false",
+    "ShowATRIndicatorOnChart": "true",
     "MaxHarvestLevels": 6,
     "SmallFarTouchOffsetPoints": 0,
     "MaxReverseCycles": 10,
@@ -381,7 +385,7 @@ def write_outputs(candidates: list[tuple[Candidate, dict[str, Any]]]) -> None:
 
     with CANDIDATES_CSV.open("w", newline="", encoding="utf-8") as f:
         fieldnames = list(candidate_dict(candidates[0][0], candidates[0][1]).keys())
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for c, p in candidates:
             writer.writerow(candidate_dict(c, p))
@@ -398,12 +402,12 @@ def write_outputs(candidates: list[tuple[Candidate, dict[str, Any]]]) -> None:
         summary_rows.append({"Parameter": name, "CurrentValue": current, "RecommendedValue": best, "WorkingRange": working, "Influence": infl, "Comment": comment})
 
     with SUMMARY_CSV.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["Parameter", "CurrentValue", "RecommendedValue", "WorkingRange", "Influence", "Comment"])
+        writer = csv.DictWriter(f, fieldnames=["Parameter", "CurrentValue", "RecommendedValue", "WorkingRange", "Influence", "Comment"], lineterminator="\n")
         writer.writeheader()
         writer.writerows(summary_rows)
 
     with SENSITIVITY_CSV.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["Parameter", "BestValue", "WorkingRange", "Influence", "Comment"])
+        writer = csv.DictWriter(f, fieldnames=["Parameter", "BestValue", "WorkingRange", "Influence", "Comment"], lineterminator="\n")
         writer.writeheader()
         for row in summary_rows:
             writer.writerow({"Parameter": row["Parameter"], "BestValue": row["RecommendedValue"], "WorkingRange": row["WorkingRange"], "Influence": row["Influence"], "Comment": row["Comment"]})
@@ -425,7 +429,7 @@ def write_outputs(candidates: list[tuple[Candidate, dict[str, Any]]]) -> None:
         for value, vals in sorted(grouped.items(), key=lambda item: item[0]):
             dependency_rows.append({"Parameter": param, "Value": value, "Metric": metric_name, "MeanMetric": round(mean(vals), 6), "Samples": len(vals)})
     with DEPENDENCY_CSV.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["Parameter", "Value", "Metric", "MeanMetric", "Samples"])
+        writer = csv.DictWriter(f, fieldnames=["Parameter", "Value", "Metric", "MeanMetric", "Samples"], lineterminator="\n")
         writer.writeheader()
         writer.writerows(dependency_rows)
 

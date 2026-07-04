@@ -3,6 +3,15 @@
 
 void SaveState();
 
+int g_atrHandle = INVALID_HANDLE;
+bool g_atrIndicatorAdded = false;
+datetime g_lastATRWaitingLogTime = 0;
+
+bool IsATRGeometryMode()
+{
+   return GeometryMode == GEOMETRY_ATR_SAFE || GeometryMode == GEOMETRY_ATR_BALANCED || GeometryMode == GEOMETRY_ATR_PROFIT || GeometryMode == GEOMETRY_ATR_CUSTOM;
+}
+
 int RoundToStep(double value, int step)
 {
    if(step <= 0)
@@ -119,6 +128,8 @@ string RuntimeGeometryModeToString()
       return GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed);
    if(Ctx.geometryCleared > 0)
       return "NO_ACTIVE_CYCLE";
+   if(IsATRGeometryMode() && Ctx.geometryReady == 0 && Ctx.geometryFallback == 0)
+      return "WAITING_ATR";
    if(GeometryMode == GEOMETRY_MANUAL)
       return "GEOMETRY_MANUAL";
    return "NO_ACTIVE_CYCLE";
@@ -130,6 +141,8 @@ string GeometrySourceForDiagnostics()
       return "CLEARED";
    if(Ctx.geometryFallback > 0)
       return "MANUAL_FALLBACK";
+   if(IsATRGeometryMode() && Ctx.geometryReady == 0 && Ctx.geometryFallback == 0 && Ctx.geometryCleared == 0)
+      return "ATR_NOT_READY";
    if(!GeometryActive() && GeometryMode != GEOMETRY_MANUAL)
       return "NO_ACTIVE_CYCLE";
    return GeometrySourceToString(Ctx.geometrySource);
@@ -139,6 +152,18 @@ int DisplayWorkInitialTriggerPoints() { return GeometryActive() ? Ctx.workInitia
 int DisplayWorkBigMoveStartPoints() { return GeometryActive() ? Ctx.workBigMoveStartPoints : BigMoveStartPoints; }
 int DisplayWorkBigMoveStepPoints() { return GeometryActive() ? Ctx.workBigMoveStepPoints : BigMoveStepPoints; }
 int DisplayWorkFarDistancePoints() { return GeometryActive() ? Ctx.workFarDistancePoints : FarDistancePoints; }
+
+bool GeometryReady()
+{
+   if(GeometryMode == GEOMETRY_MANUAL)
+      return true;
+   return IsATRGeometryMode() && GeometryActive() && Ctx.geometryReady > 0 && Ctx.geometrySource == GEOMETRY_SOURCE_ATR && Ctx.cycleATRRaw > 0.0 && Ctx.cycleATRPoints > 0.0;
+}
+
+bool TradingAllowedByATRManualFallback()
+{
+   return IsATRGeometryMode() && AllowATRManualFallback && Ctx.geometryFallback > 0 && GeometryActive();
+}
 
 string GeometryFallbackReasonToString(int reasonCode)
 {
@@ -169,6 +194,8 @@ void UseManualGeometryFallback(string reason, int reasonCode = GEOMETRY_FALLBACK
    Ctx.geometryFallbackReasonCode = (reason != "") ? reasonCode : GEOMETRY_FALLBACK_NONE;
    Ctx.geometryCleared = 0;
    Ctx.geometryClearReasonCode = GEOMETRY_CLEAR_NONE;
+   Ctx.geometryReady = (reason == "" && GeometryMode == GEOMETRY_MANUAL) ? 1 : 0;
+   Ctx.tradingAllowedByFallback = (reason != "" && IsATRGeometryMode() && AllowATRManualFallback) ? 1 : 0;
    Ctx.geometryCalculatedTime = TimeCurrent();
    if(reason != "")
    {
@@ -179,66 +206,159 @@ void UseManualGeometryFallback(string reason, int reasonCode = GEOMETRY_FALLBACK
             " ManualInitial=", InitialTriggerPoints,
             " ManualBigStart=", BigMoveStartPoints,
             " ManualBigStep=", BigMoveStepPoints,
-            " ManualFar=", FarDistancePoints);
+            " ManualFar=", FarDistancePoints,
+            " TradingAllowedByFallback=", Ctx.tradingAllowedByFallback > 0 ? "YES" : "NO");
       Print("WARNING: Adaptive geometry failed. Manual geometry fallback used.");
    }
 }
 
-bool FailAdaptiveGeometry(string reason, int reasonCode, int atrHandle = INVALID_HANDLE)
+bool MarkATRGeometryWaiting(string reason, int reasonCode, int bars = -1, int barsCalculated = -1, long synchronized = -1)
 {
-   if(atrHandle != INVALID_HANDLE)
-      IndicatorRelease(atrHandle);
+   Ctx.cycleATRRaw = 0.0;
+   Ctx.cycleATRPoints = 0.0;
+   Ctx.workInitialTriggerPoints = 0;
+   Ctx.workBigMoveStartPoints = 0;
+   Ctx.workBigMoveStepPoints = 0;
+   Ctx.workFarDistancePoints = 0;
+   Ctx.geometryModeUsed = (int)GeometryMode;
+   Ctx.geometrySource = (int)GEOMETRY_SOURCE_NO_ACTIVE_CYCLE;
+   Ctx.geometryFallback = 0;
+   Ctx.geometryFallbackReasonCode = reasonCode;
+   Ctx.geometryCleared = 0;
+   Ctx.geometryClearReasonCode = GEOMETRY_CLEAR_NONE;
+   Ctx.geometryReady = 0;
+   Ctx.tradingAllowedByFallback = 0;
+   datetime now = TimeCurrent();
+   if(g_lastATRWaitingLogTime == 0 || now - g_lastATRWaitingLogTime >= RiskGateLogIntervalSeconds)
+   {
+      Print("ATR_GEOMETRY_WAITING Reason=", GeometryFallbackReasonToString(reasonCode),
+            " Details=", reason,
+            " Bars=", bars,
+            " BarsCalculated=", barsCalculated,
+            " ATRPeriod=", ATRPeriod,
+            " ATRTimeframe=", EnumToString(ATRTimeframe),
+            " ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=WAITING_ATR GeometrySource=ATR_NOT_READY TradingBlocked=YES");
+      g_lastATRWaitingLogTime = now;
+   }
+   return false;
+}
+
+bool FailAdaptiveGeometry(string reason, int reasonCode, int bars = -1, int barsCalculated = -1, long synchronized = -1)
+{
+   Print("ATR_CALC_FAIL reason=", reason, " ConfiguredGeometryMode=", ConfiguredGeometryModeToString());
+   if(IsATRGeometryMode() && !AllowATRManualFallback)
+      return MarkATRGeometryWaiting(reason, reasonCode, bars, barsCalculated, synchronized);
+
    UseManualGeometryFallback(reason, reasonCode);
    return false;
 }
 
-bool ReadClosedBarATR(double &atrRaw, string &failureReason, int &failureReasonCode)
+bool EnsureATRHandle()
+{
+   if(!IsATRGeometryMode())
+      return true;
+   if(g_atrHandle != INVALID_HANDLE)
+      return true;
+
+   Print("ATR_HANDLE_CREATE_START Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod);
+   ResetLastError();
+   g_atrHandle = iATR(_Symbol, ATRTimeframe, ATRPeriod);
+   int err = GetLastError();
+   if(g_atrHandle == INVALID_HANDLE)
+   {
+      Print("ATR_HANDLE_CREATE_FAIL Error=", err, " Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod);
+      return false;
+   }
+
+   Print("ATR_HANDLE_CREATE_OK Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Handle=", g_atrHandle);
+   return true;
+}
+
+void ReleaseATRHandle()
+{
+   if(g_atrHandle != INVALID_HANDLE)
+   {
+      IndicatorRelease(g_atrHandle);
+      Print("ATR_HANDLE_RELEASE Handle=", g_atrHandle);
+      g_atrHandle = INVALID_HANDLE;
+   }
+   g_atrIndicatorAdded = false;
+}
+
+bool EnsureATRIndicatorOnChart()
+{
+   if(!IsATRGeometryMode() || !ShowATRIndicatorOnChart)
+      return true;
+   if(g_atrIndicatorAdded)
+      return true;
+   if(!EnsureATRHandle())
+      return false;
+
+   ResetLastError();
+   bool added = ChartIndicatorAdd(0, 1, g_atrHandle);
+   int err = GetLastError();
+   if(added)
+   {
+      g_atrIndicatorAdded = true;
+      Print("ATR_INDICATOR_ADD_OK Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Handle=", g_atrHandle);
+      return true;
+   }
+
+   Print("ATR_INDICATOR_ADD_FAIL Error=", err, " Handle=", g_atrHandle, " Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe));
+   return false;
+}
+
+bool ReadClosedBarATR(double &atrRaw, string &failureReason, int &failureReasonCode, int &bars, int &calculated, long &synchronized)
 {
    atrRaw = 0.0;
    failureReason = "";
    failureReasonCode = GEOMETRY_FALLBACK_NONE;
 
-   long synchronized = 0;
+   synchronized = 0;
+   SymbolSelect(_Symbol, true);
    if(!SeriesInfoInteger(_Symbol, ATRTimeframe, SERIES_SYNCHRONIZED, synchronized) || synchronized == 0)
    {
       failureReason = StringFormat("History not synchronized Symbol=%s Timeframe=%s", _Symbol, EnumToString(ATRTimeframe));
       failureReasonCode = GEOMETRY_FALLBACK_HISTORY_NOT_SYNCHRONIZED;
+      bars = Bars(_Symbol, ATRTimeframe);
+      calculated = (g_atrHandle != INVALID_HANDLE) ? BarsCalculated(g_atrHandle) : -1;
       return false;
    }
 
-   int bars = Bars(_Symbol, ATRTimeframe);
+   bars = Bars(_Symbol, ATRTimeframe);
+   Print("ATR_HISTORY_CHECK Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Bars=", bars, " SeriesSynchronized=", synchronized > 0 ? "YES" : "NO");
    Print("ATR_CALC_START Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Bars=", bars, " SeriesSynchronized=", synchronized > 0 ? "YES" : "NO");
    if(bars <= ATRPeriod + 1)
    {
       failureReason = StringFormat("Not enough bars Bars=%d ATRPeriod=%d Required>%d", bars, ATRPeriod, ATRPeriod + 1);
       failureReasonCode = GEOMETRY_FALLBACK_NOT_ENOUGH_BARS;
+      calculated = (g_atrHandle != INVALID_HANDLE) ? BarsCalculated(g_atrHandle) : -1;
       return false;
    }
 
-   int atrHandle = iATR(_Symbol, ATRTimeframe, ATRPeriod);
-   if(atrHandle == INVALID_HANDLE)
+   if(!EnsureATRHandle())
    {
       failureReason = StringFormat("INVALID_HANDLE error=%d", GetLastError());
       failureReasonCode = GEOMETRY_FALLBACK_INVALID_HANDLE;
+      calculated = -1;
       return false;
    }
 
-   int calculated = BarsCalculated(atrHandle);
+   calculated = BarsCalculated(g_atrHandle);
    Print("ATR_CALC_STATUS Symbol=", _Symbol, " BarsCalculated=", calculated);
-   if(calculated <= 1)
+   if(calculated < ATRPeriod + 1)
    {
-      failureReason = StringFormat("BarsCalculated=%d", calculated);
+      failureReason = StringFormat("BarsCalculated=%d Required>=%d", calculated, ATRPeriod + 1);
       failureReasonCode = GEOMETRY_FALLBACK_BARS_CALCULATED;
-      IndicatorRelease(atrHandle);
       return false;
    }
 
    double atrBuffer[];
    ArraySetAsSeries(atrBuffer, true);
    ResetLastError();
-   int copied = CopyBuffer(atrHandle, 0, 1, 1, atrBuffer);
+   int copied = CopyBuffer(g_atrHandle, 0, 1, 1, atrBuffer);
    int copyError = GetLastError();
-   IndicatorRelease(atrHandle);
    if(copied != 1)
    {
       failureReason = StringFormat("CopyBuffer failed copied=%d error=%d", copied, copyError);
@@ -279,14 +399,17 @@ bool CalculateAdaptiveGeometry()
    double atrRaw = 0.0;
    string failureReason = "";
    int failureReasonCode = GEOMETRY_FALLBACK_NONE;
-   if(!ReadClosedBarATR(atrRaw, failureReason, failureReasonCode))
-      return FailAdaptiveGeometry(failureReason, failureReasonCode);
+   int bars = -1;
+   int barsCalculated = -1;
+   long synchronized = -1;
+   if(!ReadClosedBarATR(atrRaw, failureReason, failureReasonCode, bars, barsCalculated, synchronized))
+      return FailAdaptiveGeometry(failureReason, failureReasonCode, bars, barsCalculated, synchronized);
 
    double atrPoints = atrRaw / point;
    if(!MathIsValidNumber(atrPoints))
-      return FailAdaptiveGeometry("ATRPoints=NaN", GEOMETRY_FALLBACK_ATR_NAN);
+      return FailAdaptiveGeometry("ATRPoints=NaN", GEOMETRY_FALLBACK_ATR_NAN, bars, barsCalculated, synchronized);
    if(atrPoints <= 0.0)
-      return FailAdaptiveGeometry(StringFormat("ATRPoints<=0 ATRRaw=%.10f Point=%.10f", atrRaw, point), GEOMETRY_FALLBACK_ATR_NON_POSITIVE);
+      return FailAdaptiveGeometry(StringFormat("ATRPoints<=0 ATRRaw=%.10f Point=%.10f", atrRaw, point), GEOMETRY_FALLBACK_ATR_NON_POSITIVE, bars, barsCalculated, synchronized);
 
    double initialMult, bigStartMult, stepMult, farMult;
    ApplyGeometryPresetMultipliers(initialMult, bigStartMult, stepMult, farMult);
@@ -313,6 +436,8 @@ bool CalculateAdaptiveGeometry()
    Ctx.geometryFallbackReasonCode = GEOMETRY_FALLBACK_NONE;
    Ctx.geometryCleared = 0;
    Ctx.geometryClearReasonCode = GEOMETRY_CLEAR_NONE;
+   Ctx.geometryReady = 1;
+   Ctx.tradingAllowedByFallback = 0;
    Ctx.geometryCalculatedTime = TimeCurrent();
 
    if(PrintAdaptiveGeometryLog)
@@ -338,6 +463,23 @@ bool CalculateAdaptiveGeometry()
       Print("=======================================");
    }
 
+   Print("ADAPTIVE_GEOMETRY_CALCULATED ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+         " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+         " GeometrySource=ATR",
+         " ATRRaw=", DoubleToString(atrRaw, 10),
+         " ATRPoints=", DoubleToString(atrPoints, 1),
+         " ManualInitial=", InitialTriggerPoints,
+         " ManualBigStart=", BigMoveStartPoints,
+         " ManualBigStep=", BigMoveStepPoints,
+         " ManualFar=", FarDistancePoints,
+         " CalculatedInitial=", Ctx.workInitialTriggerPoints,
+         " CalculatedBigStart=", Ctx.workBigMoveStartPoints,
+         " CalculatedBigStep=", Ctx.workBigMoveStepPoints,
+         " CalculatedFar=", Ctx.workFarDistancePoints);
+   if(Ctx.workInitialTriggerPoints == InitialTriggerPoints && Ctx.workBigMoveStartPoints == BigMoveStartPoints &&
+      Ctx.workBigMoveStepPoints == BigMoveStepPoints && Ctx.workFarDistancePoints == FarDistancePoints)
+      Print("ATR_VALUES_EQUAL_MANUAL Reason=rounding_or_same_ATR ConfiguredGeometryMode=", ConfiguredGeometryModeToString());
+
    return true;
 }
 
@@ -355,6 +497,8 @@ void ResetCycleGeometryFields(string reason)
    Ctx.geometryFallbackReasonCode = GEOMETRY_FALLBACK_NONE;
    Ctx.geometryCleared = 0;
    Ctx.geometryClearReasonCode = GEOMETRY_CLEAR_NONE;
+   Ctx.geometryReady = 0;
+   Ctx.tradingAllowedByFallback = 0;
    Ctx.workInitialTriggerPoints = 0;
    Ctx.workBigMoveStartPoints = 0;
    Ctx.workBigMoveStepPoints = 0;
@@ -389,6 +533,7 @@ bool InitializeCycleGeometry()
       return true;
    }
 
+   EnsureATRIndicatorOnChart();
    bool ok = CalculateAdaptiveGeometry();
    if(!ok)
       return false;
@@ -459,6 +604,19 @@ void PrintGeometryDiagnostics()
       return;
    }
 
+   if(IsATRGeometryMode() && !GeometryReady() && !TradingAllowedByATRManualFallback())
+   {
+      Print("ADAPTIVE_GEOMETRY_NOT_READY Symbol=", _Symbol,
+            " ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+            " GeometrySource=", GeometrySourceForDiagnostics(),
+            " ATRRaw=", DoubleToString(Ctx.cycleATRRaw, 10),
+            " ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1),
+            " FallbackReason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode),
+            " TradingBlocked=YES");
+      return;
+   }
+
    Print("ADAPTIVE_GEOMETRY_CALCULATED Symbol=", _Symbol,
          " ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
          " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
@@ -477,10 +635,10 @@ void PrintGeometryDiagnostics()
          " BigStartRoundStep=", BigStartRoundStep,
          " BigStepRoundStep=", BigStepRoundStep,
          " FarDistanceRoundStep=", FarDistanceRoundStep,
-         " WorkInitialTriggerPoints=", WorkInitialTriggerPoints(),
-         " WorkBigMoveStartPoints=", WorkBigMoveStartPoints(),
-         " WorkBigMoveStepPoints=", WorkBigMoveStepPoints(),
-         " WorkFarDistancePoints=", WorkFarDistancePoints(),
+         " WorkInitialTriggerPoints=", DisplayWorkInitialTriggerPoints(),
+         " WorkBigMoveStartPoints=", DisplayWorkBigMoveStartPoints(),
+         " WorkBigMoveStepPoints=", DisplayWorkBigMoveStepPoints(),
+         " WorkFarDistancePoints=", DisplayWorkFarDistancePoints(),
          " FreezeGeometryPerCycle=", FreezeGeometryPerCycle ? "true" : "false");
 }
 
@@ -498,6 +656,9 @@ void UpdateGeometryPanel()
            "WorkBigStep=", DisplayWorkBigMoveStepPoints(), "\n",
            "WorkFar=", DisplayWorkFarDistancePoints(), "\n",
            "GeometryActive=", GeometryActive() ? "YES" : "NO", "\n",
+           "GeometryReady=", GeometryReady() ? "YES" : "NO", "\n",
+           "TradingBlocked=", (IsATRGeometryMode() && !GeometryReady() && !TradingAllowedByATRManualFallback()) ? "YES" : "NO", "\n",
+           "ATRIndicator=", (IsATRGeometryMode() && ShowATRIndicatorOnChart && g_atrIndicatorAdded) ? "VISIBLE" : "NOT_VISIBLE", "\n",
            "GeometryCleared=", Ctx.geometryCleared > 0 ? "YES" : "NO", "\n",
            "FallbackReason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode), "\n",
            "ClearReason=", GeometryClearReasonToString(Ctx.geometryClearReasonCode), "\n",
@@ -522,6 +683,9 @@ bool CanClearCycleGeometry()
 
 void ClearCycleGeometry(bool persist = false, int clearReasonCode = GEOMETRY_CLEAR_RESET_CONTEXT)
 {
+   if(Ctx.geometryCleared > 0 && Ctx.geometryClearReasonCode == clearReasonCode)
+      return;
+
    if(!CanClearCycleGeometry())
    {
       Print("CLEAR_CYCLE_GEOMETRY_SKIPPED reason=ACTIVE_CONTEXT_OR_POSITIONS ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
@@ -553,6 +717,48 @@ void ClearCycleGeometry(bool persist = false, int clearReasonCode = GEOMETRY_CLE
          " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
          " GeometrySource=", GeometrySourceForDiagnostics(),
          " persist=", persist ? "YES" : "NO");
+}
+
+bool EnsureGeometryReadyForInitialLock()
+{
+   if(GeometryMode == GEOMETRY_MANUAL)
+      return true;
+
+   if(GeometryReady())
+   {
+      Print("INITIAL_LOCK_ALLOWED_ATR_READY ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+            " GeometrySource=ATR ATRRaw=", DoubleToString(Ctx.cycleATRRaw, 10),
+            " ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1));
+      return true;
+   }
+
+   if(!HasCycleGeometry())
+      InitializeCycleGeometry();
+
+   if(GeometryReady())
+   {
+      Print("INITIAL_LOCK_ALLOWED_ATR_READY ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+            " GeometrySource=ATR ATRRaw=", DoubleToString(Ctx.cycleATRRaw, 10),
+            " ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1));
+      return true;
+   }
+
+   if(TradingAllowedByATRManualFallback())
+   {
+      Print("INITIAL_LOCK_ALLOWED_ATR_MANUAL_FALLBACK ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+            " GeometrySource=MANUAL_FALLBACK FallbackReason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode),
+            " TradingAllowedByFallback=YES");
+      return true;
+   }
+
+   Print("INITIAL_LOCK_BLOCKED_ATR_NOT_READY ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+         " RuntimeGeometryMode=WAITING_ATR GeometrySource=ATR_NOT_READY ATRRaw=", DoubleToString(Ctx.cycleATRRaw, 10),
+         " ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1),
+         " Reason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode));
+   return false;
 }
 
 #endif // __BH_GEOMETRY_ENGINE_MQH__

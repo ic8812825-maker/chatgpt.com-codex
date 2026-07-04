@@ -217,6 +217,8 @@ void SaveState()
    GlobalVariableSet(StateKey("GeometryFallbackReasonCode"), (double)Ctx.geometryFallbackReasonCode);
    GlobalVariableSet(StateKey("GeometryCleared"), (double)Ctx.geometryCleared);
    GlobalVariableSet(StateKey("GeometryClearReasonCode"), (double)Ctx.geometryClearReasonCode);
+   GlobalVariableSet(StateKey("GeometryReady"), (double)Ctx.geometryReady);
+   GlobalVariableSet(StateKey("TradingAllowedByFallback"), (double)Ctx.tradingAllowedByFallback);
    GlobalVariableSet(StateKey("WorkInitialTriggerPoints"), (double)Ctx.workInitialTriggerPoints);
    GlobalVariableSet(StateKey("WorkBigMoveStartPoints"), (double)Ctx.workBigMoveStartPoints);
    GlobalVariableSet(StateKey("WorkBigMoveStepPoints"), (double)Ctx.workBigMoveStepPoints);
@@ -364,7 +366,7 @@ void LogReconciliationContextSummary(string source)
    bool pending = HasPendingOperationContext();
    bool retry = HasRetryOperationContext();
    bool known = (initialLock || far || big || small || pending || retry);
-   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s ConfiguredGeometryMode=%s RuntimeGeometryMode=%s GeometrySource=%s GeometryActive=%s GeometryCleared=%s GeometryClearReason=%s ATRRaw=%.10f ATRPoints=%.1f WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d WorkSource=%s FallbackReason=%s",
+   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s ConfiguredGeometryMode=%s RuntimeGeometryMode=%s GeometrySource=%s GeometryActive=%s GeometryCleared=%s GeometryClearReason=%s ATRRaw=%.10f ATRPoints=%.1f WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d WorkSource=%s FallbackReason=%s GeometryReady=%s TradingAllowedByFallback=%s",
                         source,
                         StateToString(State),
                         CountManagedOpenPositions(),
@@ -388,7 +390,9 @@ void LogReconciliationContextSummary(string source)
                         DisplayWorkBigMoveStepPoints(),
                         DisplayWorkFarDistancePoints(),
                         GeometryActive() ? GeometrySourceForDiagnostics() : "MANUAL_FALLBACK_FOR_DISPLAY_ONLY",
-                        GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode)));
+                        GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode),
+                        GeometryReady() ? "YES" : "NO",
+                        Ctx.tradingAllowedByFallback > 0 ? "YES" : "NO"));
 }
 
 bool HasOpenLegContext()
@@ -644,6 +648,8 @@ bool RecoverState()
    if(GetStateDouble("GeometryFallbackReasonCode", saved)) Ctx.geometryFallbackReasonCode = (int)saved;
    if(GetStateDouble("GeometryCleared", saved)) Ctx.geometryCleared = (int)saved;
    if(GetStateDouble("GeometryClearReasonCode", saved)) Ctx.geometryClearReasonCode = (int)saved;
+   if(GetStateDouble("GeometryReady", saved)) Ctx.geometryReady = (int)saved;
+   if(GetStateDouble("TradingAllowedByFallback", saved)) Ctx.tradingAllowedByFallback = (int)saved;
    if(GetStateDouble("WorkInitialTriggerPoints", saved)) Ctx.workInitialTriggerPoints = (int)saved;
    if(GetStateDouble("WorkBigMoveStartPoints", saved)) Ctx.workBigMoveStartPoints = (int)saved;
    if(GetStateDouble("WorkBigMoveStepPoints", saved)) Ctx.workBigMoveStepPoints = (int)saved;
@@ -1401,11 +1407,15 @@ void OpenInitialLock()
       Print("State=STATE_INITIAL_LOCK");
       RegisterInitialLockFromSnapshots(initialBuy, initialSell, "existing initial BUY/SELL lock found");
       ResetCycleGeometryFields("OpenInitialLock new cycle");
-      InitializeCycleGeometry();
+      if(!EnsureGeometryReadyForInitialLock())
+         return;
       PrintGeometryDiagnostics();
       SetState(STATE_INITIAL_LOCK_OPENED, "existing initial BUY/SELL lock found");
       return;
    }
+
+   if(!EnsureGeometryReadyForInitialLock())
+      return;
 
    int managedPositions = CountManagedOpenPositions();
    if(managedPositions > 0)
@@ -1483,8 +1493,6 @@ void OpenInitialLock()
       Print("SellTicket=", initialSell.ticket);
       Print("State=STATE_INITIAL_LOCK");
       RegisterInitialLockFromSnapshots(initialBuy, initialSell, "initial lock opened");
-      ResetCycleGeometryFields("OpenInitialLock new cycle");
-      InitializeCycleGeometry();
       PrintGeometryDiagnostics();
    }
    else

@@ -838,3 +838,26 @@ ConfiguredGeometryMode=GEOMETRY_ATR_SAFE RuntimeGeometryMode=GEOMETRY_ATR_SAFE G
 ConfiguredGeometryMode=GEOMETRY_ATR_SAFE RuntimeGeometryMode=GEOMETRY_MANUAL GeometrySource=MANUAL_FALLBACK FallbackReason=CopyBuffer failed
 ConfiguredGeometryMode=GEOMETRY_ATR_SAFE RuntimeGeometryMode=NO_ACTIVE_CYCLE GeometrySource=CLEARED GeometryClearReason=STATE_STOP_MAX_LEVELS
 ```
+
+## Strict ATR Geometry Readiness
+
+When `GeometryMode` is one of `GEOMETRY_ATR_SAFE`, `GEOMETRY_ATR_BALANCED`, `GEOMETRY_ATR_PROFIT`, or `GEOMETRY_ATR_CUSTOM`, adaptive geometry is now a required source for starting a new cycle. The EA must build `WorkInitialTriggerPoints`, `WorkBigMoveStartPoints`, `WorkBigMoveStepPoints`, and `WorkFarDistancePoints` from ATR before opening a new Initial Lock.
+
+New inputs:
+
+- `AllowATRManualFallback=false` by default. If false and ATR is not ready, the EA waits and trading is blocked for new cycles. Manual fallback is allowed only when the user explicitly sets this input to true.
+- `ShowATRIndicatorOnChart=true` by default. In ATR modes, the EA creates one ATR handle and attempts to add the ATR indicator to the chart, logging `ATR_INDICATOR_ADD_OK` or `ATR_INDICATOR_ADD_FAIL`.
+
+Required ATR lifecycle logs:
+
+```text
+ATR_HANDLE_CREATE_START / ATR_HANDLE_CREATE_OK / ATR_HANDLE_CREATE_FAIL
+ATR_HISTORY_CHECK
+ATR_CALC_START
+ATR_CALC_OK / ATR_CALC_FAIL
+ATR_GEOMETRY_WAITING
+INITIAL_LOCK_BLOCKED_ATR_NOT_READY
+INITIAL_LOCK_ALLOWED_ATR_READY
+```
+
+If ATR is not ready and `AllowATRManualFallback=false`, the panel shows `Runtime=WAITING_ATR`, `Source=ATR_NOT_READY`, `GeometryReady=NO`, and `TradingBlocked=YES`. This prevents an ATR preset from silently trading with manual geometry.

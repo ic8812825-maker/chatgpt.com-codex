@@ -595,3 +595,42 @@ Expected:
 - GeometryClearReason=STATE_STOP_MAX_LEVELS
 - Reconciliation summary uses WorkSource=MANUAL_FALLBACK_FOR_DISPLAY_ONLY instead of implying live manual geometry
 ```
+
+## Strict ATR readiness tests
+
+### ATR SAFE waits for history
+
+```text
+GeometryMode=GEOMETRY_ATR_SAFE
+AllowATRManualFallback=false
+Expected:
+- ATR_HANDLE_CREATE_START and ATR_HANDLE_CREATE_OK or explicit FAIL are logged
+- ATR_HISTORY_CHECK is logged
+- if bars are not ready, ATR_GEOMETRY_WAITING is logged
+- Initial Lock is not opened while GeometryReady=NO
+- INITIAL_LOCK_BLOCKED_ATR_NOT_READY is logged
+```
+
+### ATR SAFE starts only after ATR is ready
+
+```text
+GeometryMode=GEOMETRY_ATR_SAFE
+AllowATRManualFallback=false
+Expected:
+- ATR_CALC_OK has ATRRaw > 0 and ATRPoints > 0
+- ADAPTIVE_GEOMETRY_CALCULATED has GeometrySource=ATR
+- INITIAL_LOCK_ALLOWED_ATR_READY appears before opening the Initial Lock
+- Comment() shows Runtime=GEOMETRY_ATR_SAFE, Source=ATR, GeometryReady=YES
+```
+
+### Explicit manual fallback
+
+```text
+GeometryMode=GEOMETRY_ATR_SAFE
+AllowATRManualFallback=true
+ATR unavailable
+Expected:
+- GeometrySource=MANUAL_FALLBACK
+- FallbackReason is non-empty
+- TradingAllowedByFallback=YES
+```

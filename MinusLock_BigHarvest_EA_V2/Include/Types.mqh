@@ -198,6 +198,8 @@ struct RecoveryContext
    int geometryFallbackReasonCode;
    int geometryCleared;
    int geometryClearReasonCode;
+   int geometryReady;
+   int tradingAllowedByFallback;
    int workInitialTriggerPoints;
    int workBigMoveStartPoints;
    int workBigMoveStepPoints;

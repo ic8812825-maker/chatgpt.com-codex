@@ -27,7 +27,7 @@ for token in [
 for token in [
     'int RoundToStep(double value, int step)', 'int ClampInt(int value, int minValue, int maxValue)',
     'bool CalculateAdaptiveGeometry()', 'bool InitializeCycleGeometry()', 'void ApplyGeometryPresetMultipliers',
-    'void PrintGeometryDiagnostics()', 'CopyBuffer(atrHandle, 0, 1, 1, atrBuffer)',
+    'void PrintGeometryDiagnostics()', 'CopyBuffer(g_atrHandle, 0, 1, 1, atrBuffer)',
     'ATR CALCULATION FAILED', 'CopyBuffer failed', 'INVALID_HANDLE', 'WARNING: Adaptive geometry failed. Manual geometry fallback used.',
     'ADAPTIVE_GEOMETRY_CALCULATED', 'InitialRoundStep=', 'FarDistanceRoundStep=', 'GEOMETRY_MODE=MANUAL', 'UpdateGeometryPanel()', 'ClearCycleGeometry(bool persist = false, int clearReasonCode = GEOMETRY_CLEAR_RESET_CONTEXT)'
 ]:

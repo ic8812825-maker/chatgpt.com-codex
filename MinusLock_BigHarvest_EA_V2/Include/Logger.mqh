@@ -374,7 +374,7 @@ void WriteCycleMathCsv(
          "AccountPL", "RecoveryPL", "PassByAccountPL", "PassByRecoveryPL", "RealRecoveryPL",
          "RealClosedProfit", "RealClosedLoss", "RealCommission", "RealSwap", "RealCosts",
          "TheoreticalCyclePL", "LastSystemCloseComment", "LastCloseWasSystemClose", "FinalCloseType", "PassByRealPL",
-         "ConfiguredGeometryMode", "RuntimeGeometryMode", "ATRTimeframe", "ATRPeriod", "ATRRaw", "ATRPoints", "GeometrySource", "GeometryActive", "GeometryCleared", "GeometryClearReason", "Fallback", "FallbackReason",
+         "ConfiguredGeometryMode", "RuntimeGeometryMode", "ATRTimeframe", "ATRPeriod", "ATRRaw", "ATRPoints", "GeometrySource", "GeometryActive", "GeometryReady", "TradingBlocked", "TradingAllowedByFallback", "GeometryCleared", "GeometryClearReason", "Fallback", "FallbackReason",
          "InitialRoundStep", "BigStartRoundStep", "BigStepRoundStep", "FarDistanceRoundStep",
          "WorkInitialTriggerPoints", "WorkBigMoveStartPoints", "WorkBigMoveStepPoints", "WorkFarDistancePoints", "FreezeGeometryPerCycle",
          "ClosedBigNet", "ClosedSmallNet", "BigScenarioNet", "CloseFarLot", "RemainingFarLot", "ReserveCoverage"
@@ -454,6 +454,9 @@ void WriteCycleMathCsv(
       DoubleToString(atrPoints, 1),
       GeometrySourceForDiagnostics(),
       GeometryActive() ? "YES" : "NO",
+      GeometryReady() ? "YES" : "NO",
+      (IsATRGeometryMode() && !GeometryReady() && !TradingAllowedByATRManualFallback()) ? "YES" : "NO",
+      Ctx.tradingAllowedByFallback > 0 ? "YES" : "NO",
       Ctx.geometryCleared > 0 ? "YES" : "NO",
       GeometryClearReasonToString(Ctx.geometryClearReasonCode),
       Ctx.geometryFallback > 0 ? "YES" : "NO",
@@ -548,7 +551,7 @@ void LogCycleMathDetailed(
 )
 {
    PrintFormat(
-      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s LastCloseWasSystemClose=%s FinalCloseType=%s PassByAccountPL=%s PassByRecoveryPL=%s PassByRealPL=%s ConfiguredGeometryMode=%s RuntimeGeometryMode=%s ATRTimeframe=%s ATRPeriod=%d ATRRaw=%.10f ATRPoints=%.1f GeometrySource=%s GeometryActive=%s GeometryCleared=%s GeometryClearReason=%s Fallback=%s FallbackReason=%s InitialRoundStep=%d BigStartRoundStep=%d BigStepRoundStep=%d FarDistanceRoundStep=%d WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d FreezeGeometryPerCycle=%s",
+      "CYCLE_MATH | Level=%d Scenario=%s InitialFarDistancePoints=%.1f CurrentBigMovePoints=%.1f CumulativeBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f FarDistanceMode=%s FarOpenPrice=%.5f CurrentClosePrice=%.5f FarLotBefore=%.2f BigLot=%.2f SmallLot=%.2f NetProfit=%.2f CloseFarBudget=%.2f ReserveAdd=%.2f TotalReserve=%.2f FarRemainLoss=%.2f FinalCloseAllowed=%s State=%s ProfitBig=%.2f LossSmall=%.2f SmallPL=%.2f OldFarPL=%.2f ClosedBigPL=%.2f SmallReverseNet=%.2f CloseFarLotRaw=%.5f CloseFarLotRounded=%.2f FarRemainLot=%.2f ReverseStrength=%.5f ProjectedReserveCoverage=%.5f ActionAfterValidation=%s StopReason=%s NetProfitTheoretical=%.2f NetProfitRealized=%.2f CostsRealized=%.2f TotalReserveBefore=%.2f TotalReserveAfter=%.2f ReserveUsedForFinalClose=%.2f InitialIgnoredProfit=%.2f CycleStartBalance=%.2f CurrentBalance=%.2f RealRecoveryPL=%.2f RealClosedProfit=%.2f RealClosedLoss=%.2f RealCommission=%.2f RealSwap=%.2f RealCosts=%.2f TheoreticalCyclePL=%.2f LastSystemCloseComment=%s LastCloseWasSystemClose=%s FinalCloseType=%s PassByAccountPL=%s PassByRecoveryPL=%s PassByRealPL=%s ConfiguredGeometryMode=%s RuntimeGeometryMode=%s ATRTimeframe=%s ATRPeriod=%d ATRRaw=%.10f ATRPoints=%.1f GeometrySource=%s GeometryActive=%s GeometryReady=%s TradingBlocked=%s TradingAllowedByFallback=%s GeometryCleared=%s GeometryClearReason=%s Fallback=%s FallbackReason=%s InitialRoundStep=%d BigStartRoundStep=%d BigStepRoundStep=%d FarDistanceRoundStep=%d WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d FreezeGeometryPerCycle=%s",
       level,
       scenario,
       initialFarDistancePoints,
@@ -611,6 +614,9 @@ void LogCycleMathDetailed(
       atrPoints,
       GeometrySourceForDiagnostics(),
       GeometryActive() ? "YES" : "NO",
+      GeometryReady() ? "YES" : "NO",
+      (IsATRGeometryMode() && !GeometryReady() && !TradingAllowedByATRManualFallback()) ? "YES" : "NO",
+      Ctx.tradingAllowedByFallback > 0 ? "YES" : "NO",
       Ctx.geometryCleared > 0 ? "YES" : "NO",
       GeometryClearReasonToString(Ctx.geometryClearReasonCode),
       Ctx.geometryFallback > 0 ? "YES" : "NO",

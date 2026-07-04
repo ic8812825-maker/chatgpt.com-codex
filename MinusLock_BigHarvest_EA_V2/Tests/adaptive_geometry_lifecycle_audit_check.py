@@ -24,8 +24,8 @@ for bad in [
 ]:
     assert bad not in state, bad
 
-assert 'CopyBuffer(atrHandle, 0, 1, 1, atrBuffer)' in geom
-assert 'IndicatorRelease(atrHandle)' in geom
+assert 'CopyBuffer(g_atrHandle, 0, 1, 1, atrBuffer)' in geom
+assert 'IndicatorRelease(g_atrHandle)' in geom
 assert 'WorkBigMoveStartPoints() + (level - 1) * WorkBigMoveStepPoints()' in recovery
 assert 'WorkFarDistancePoints()' in recovery
 for csv_token in ['"ConfiguredGeometryMode"', '"ATRRaw"', '"ATRPoints"', '"GeometrySource"', '"FallbackReason"', '"WorkInitialTriggerPoints"']:
