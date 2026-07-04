@@ -817,7 +817,7 @@ Adaptive ATR modes no longer fail silently. When `GeometryMode` is one of `GEOME
 6. valid positive ATR raw value;
 7. valid positive symbol point and `ATRPoints = ATRRaw / Point`.
 
-If any step fails, the EA logs `ATR CALCULATION FAILED reason=... fallback=MANUAL`, marks `GeometrySource=MANUAL`, `Fallback=YES`, and stores a `FallbackReason` for Comment() and CSV. If ATR succeeds, `GeometrySource=ATR`, `Fallback=NO`, and each preset applies its own multipliers to calculate Work geometry.
+If any step fails, the EA logs `ATR CALCULATION FAILED reason=... fallback=MANUAL`, marks `GeometrySource=MANUAL_FALLBACK`, `Fallback=YES`, and stores a `FallbackReason` for Comment() and CSV. If ATR succeeds, `GeometrySource=ATR`, `Fallback=NO`, and each preset applies its own multipliers to calculate Work geometry.
 
 The chart Comment() and cycle CSV include `ATRRaw`, `ATRPoints`, `GeometrySource`, `Fallback`, `FallbackReason`, and all Work geometry values so the user can immediately see whether the EA is actually trading ATR geometry or an explicit manual fallback.
 
