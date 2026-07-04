@@ -196,6 +196,8 @@ struct RecoveryContext
    int geometrySource;
    int geometryFallback;
    int geometryFallbackReasonCode;
+   int geometryCleared;
+   int geometryClearReasonCode;
    int workInitialTriggerPoints;
    int workBigMoveStartPoints;
    int workBigMoveStepPoints;

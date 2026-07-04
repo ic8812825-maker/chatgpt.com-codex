@@ -29,7 +29,7 @@ for token in [
     'bool CalculateAdaptiveGeometry()', 'bool InitializeCycleGeometry()', 'void ApplyGeometryPresetMultipliers',
     'void PrintGeometryDiagnostics()', 'CopyBuffer(atrHandle, 0, 1, 1, atrBuffer)',
     'ATR CALCULATION FAILED', 'CopyBuffer failed', 'INVALID_HANDLE', 'WARNING: Adaptive geometry failed. Manual geometry fallback used.',
-    'ADAPTIVE_GEOMETRY_CALCULATED', 'InitialRoundStep=', 'FarDistanceRoundStep=', 'GEOMETRY_MODE=MANUAL', 'UpdateGeometryPanel()', 'ClearCycleGeometry(bool persist = false)'
+    'ADAPTIVE_GEOMETRY_CALCULATED', 'InitialRoundStep=', 'FarDistanceRoundStep=', 'GEOMETRY_MODE=MANUAL', 'UpdateGeometryPanel()', 'ClearCycleGeometry(bool persist = false, int clearReasonCode = GEOMETRY_CLEAR_RESET_CONTEXT)'
 ]:
     assert token in geom, token
 
@@ -39,9 +39,9 @@ assert 'WorkBigMoveStartPoints() + (level - 1) * WorkBigMoveStepPoints()' in rec
 assert 'WorkFarDistancePoints()' in recovery
 for raw in ['buyProfitPoints >= WorkInitialTriggerPoints()', 'sellProfitPoints >= WorkInitialTriggerPoints()', 'InitializeCycleGeometry();']:
     assert raw in state, raw
-for token in ['CycleATRPoints', 'WorkInitialTriggerPoints', 'WorkBigMoveStartPoints', 'WorkBigMoveStepPoints', 'WorkFarDistancePoints', 'GeometryModeUsed', 'GeometrySource', 'GeometryFallback', 'GeometryFallbackReasonCode', 'GeometryCalculatedTime']:
+for token in ['CycleATRPoints', 'WorkInitialTriggerPoints', 'WorkBigMoveStartPoints', 'WorkBigMoveStepPoints', 'WorkFarDistancePoints', 'GeometryModeUsed', 'GeometrySource', 'GeometryFallback', 'GeometryFallbackReasonCode', 'GeometryCleared', 'GeometryClearReasonCode', 'GeometryCalculatedTime']:
     assert token in state, token
-for token in ['GeometryMode', 'ATRTimeframe', 'ATRPeriod', 'ATRRaw', 'ATRPoints', 'GeometrySource', 'FallbackReason', 'WorkInitialTriggerPoints', 'FreezeGeometryPerCycle']:
+for token in ['ConfiguredGeometryMode', 'RuntimeGeometryMode', 'ATRTimeframe', 'ATRPeriod', 'ATRRaw', 'ATRPoints', 'GeometrySource', 'FallbackReason', 'WorkInitialTriggerPoints', 'FreezeGeometryPerCycle']:
     assert token in logger, token
 for token in ['"GeometryMode"', '"ATRTimeframe"', '"FreezeGeometryPerCycle"']:
     assert token in sets, token

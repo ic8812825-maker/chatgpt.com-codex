@@ -19,12 +19,17 @@ int ClampInt(int value, int minValue, int maxValue)
 
 string GeometryModeToString(GeometryModeEnum mode)
 {
-   if(mode == GEOMETRY_MANUAL) return "MANUAL";
-   if(mode == GEOMETRY_ATR_SAFE) return "SAFE";
-   if(mode == GEOMETRY_ATR_BALANCED) return "BALANCED";
-   if(mode == GEOMETRY_ATR_PROFIT) return "PROFIT";
-   if(mode == GEOMETRY_ATR_CUSTOM) return "CUSTOM";
-   return "UNKNOWN";
+   if(mode == GEOMETRY_MANUAL) return "GEOMETRY_MANUAL";
+   if(mode == GEOMETRY_ATR_SAFE) return "GEOMETRY_ATR_SAFE";
+   if(mode == GEOMETRY_ATR_BALANCED) return "GEOMETRY_ATR_BALANCED";
+   if(mode == GEOMETRY_ATR_PROFIT) return "GEOMETRY_ATR_PROFIT";
+   if(mode == GEOMETRY_ATR_CUSTOM) return "GEOMETRY_ATR_CUSTOM";
+   return "GEOMETRY_UNKNOWN";
+}
+
+string ConfiguredGeometryModeToString()
+{
+   return GeometryModeToString((GeometryModeEnum)GeometryMode);
 }
 
 void ApplyGeometryPresetMultipliers(double &initialMult, double &bigStartMult, double &stepMult, double &farMult)
@@ -51,7 +56,10 @@ void ApplyGeometryPresetMultipliers(double &initialMult, double &bigStartMult, d
 enum GeometrySourceEnum
 {
    GEOMETRY_SOURCE_MANUAL = 0,
-   GEOMETRY_SOURCE_ATR = 1
+   GEOMETRY_SOURCE_ATR = 1,
+   GEOMETRY_SOURCE_MANUAL_FALLBACK = 2,
+   GEOMETRY_SOURCE_CLEARED = 3,
+   GEOMETRY_SOURCE_NO_ACTIVE_CYCLE = 4
 };
 
 enum GeometryFallbackReasonEnum
@@ -70,10 +78,67 @@ enum GeometryFallbackReasonEnum
 
 string GeometrySourceToString(int source)
 {
-   if(source == GEOMETRY_SOURCE_ATR)
-      return "ATR";
+   if(source == GEOMETRY_SOURCE_ATR) return "ATR";
+   if(source == GEOMETRY_SOURCE_MANUAL_FALLBACK) return "MANUAL_FALLBACK";
+   if(source == GEOMETRY_SOURCE_CLEARED) return "CLEARED";
+   if(source == GEOMETRY_SOURCE_NO_ACTIVE_CYCLE) return "NO_ACTIVE_CYCLE";
    return "MANUAL";
 }
+
+enum GeometryClearReasonEnum
+{
+   GEOMETRY_CLEAR_NONE = 0,
+   GEOMETRY_CLEAR_RESET_CONTEXT = 1,
+   GEOMETRY_CLEAR_CLOSED_PROFIT = 2,
+   GEOMETRY_CLEAR_CLOSED_RECOVERY_LOSS = 3,
+   GEOMETRY_CLEAR_STOP_MAX_LEVELS = 4,
+   GEOMETRY_CLEAR_OPEN_INITIAL_LOCK = 5,
+   GEOMETRY_CLEAR_MANUAL_RESET = 6
+};
+
+string GeometryClearReasonToString(int reasonCode)
+{
+   if(reasonCode == GEOMETRY_CLEAR_NONE) return "NONE";
+   if(reasonCode == GEOMETRY_CLEAR_RESET_CONTEXT) return "RESET_CONTEXT";
+   if(reasonCode == GEOMETRY_CLEAR_CLOSED_PROFIT) return "STATE_CLOSED_PROFIT";
+   if(reasonCode == GEOMETRY_CLEAR_CLOSED_RECOVERY_LOSS) return "STATE_CLOSED_RECOVERY_LOSS";
+   if(reasonCode == GEOMETRY_CLEAR_STOP_MAX_LEVELS) return "STATE_STOP_MAX_LEVELS";
+   if(reasonCode == GEOMETRY_CLEAR_OPEN_INITIAL_LOCK) return "OPEN_INITIAL_LOCK";
+   if(reasonCode == GEOMETRY_CLEAR_MANUAL_RESET) return "MANUAL_RESET";
+   return "UNKNOWN";
+}
+
+bool GeometryActive()
+{
+   return Ctx.workInitialTriggerPoints > 0 && Ctx.workBigMoveStartPoints > 0 && Ctx.workBigMoveStepPoints > 0 && Ctx.workFarDistancePoints > 0;
+}
+
+string RuntimeGeometryModeToString()
+{
+   if(GeometryActive())
+      return GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed);
+   if(Ctx.geometryCleared > 0)
+      return "NO_ACTIVE_CYCLE";
+   if(GeometryMode == GEOMETRY_MANUAL)
+      return "GEOMETRY_MANUAL";
+   return "NO_ACTIVE_CYCLE";
+}
+
+string GeometrySourceForDiagnostics()
+{
+   if(Ctx.geometryCleared > 0 && !GeometryActive())
+      return "CLEARED";
+   if(Ctx.geometryFallback > 0)
+      return "MANUAL_FALLBACK";
+   if(!GeometryActive() && GeometryMode != GEOMETRY_MANUAL)
+      return "NO_ACTIVE_CYCLE";
+   return GeometrySourceToString(Ctx.geometrySource);
+}
+
+int DisplayWorkInitialTriggerPoints() { return GeometryActive() ? Ctx.workInitialTriggerPoints : InitialTriggerPoints; }
+int DisplayWorkBigMoveStartPoints() { return GeometryActive() ? Ctx.workBigMoveStartPoints : BigMoveStartPoints; }
+int DisplayWorkBigMoveStepPoints() { return GeometryActive() ? Ctx.workBigMoveStepPoints : BigMoveStepPoints; }
+int DisplayWorkFarDistancePoints() { return GeometryActive() ? Ctx.workFarDistancePoints : FarDistancePoints; }
 
 string GeometryFallbackReasonToString(int reasonCode)
 {
@@ -99,14 +164,22 @@ void UseManualGeometryFallback(string reason, int reasonCode = GEOMETRY_FALLBACK
    Ctx.workBigMoveStepPoints = BigMoveStepPoints;
    Ctx.workFarDistancePoints = FarDistancePoints;
    Ctx.geometryModeUsed = (int)GEOMETRY_MANUAL;
-   Ctx.geometrySource = (int)GEOMETRY_SOURCE_MANUAL;
+   Ctx.geometrySource = (reason != "") ? (int)GEOMETRY_SOURCE_MANUAL_FALLBACK : (int)GEOMETRY_SOURCE_MANUAL;
    Ctx.geometryFallback = (reason != "") ? 1 : 0;
    Ctx.geometryFallbackReasonCode = (reason != "") ? reasonCode : GEOMETRY_FALLBACK_NONE;
+   Ctx.geometryCleared = 0;
+   Ctx.geometryClearReasonCode = GEOMETRY_CLEAR_NONE;
    Ctx.geometryCalculatedTime = TimeCurrent();
    if(reason != "")
    {
       Print("ATR CALCULATION FAILED reason=", reason, " fallback=MANUAL");
-      Print("ADAPTIVE_GEOMETRY_ERROR reason=", reason, " fallback=MANUAL_PARAMETERS");
+      Print("ADAPTIVE_GEOMETRY_FALLBACK ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+            " GeometrySource=MANUAL_FALLBACK FallbackReason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode),
+            " ManualInitial=", InitialTriggerPoints,
+            " ManualBigStart=", BigMoveStartPoints,
+            " ManualBigStep=", BigMoveStepPoints,
+            " ManualFar=", FarDistancePoints);
       Print("WARNING: Adaptive geometry failed. Manual geometry fallback used.");
    }
 }
@@ -134,6 +207,7 @@ bool ReadClosedBarATR(double &atrRaw, string &failureReason, int &failureReasonC
    }
 
    int bars = Bars(_Symbol, ATRTimeframe);
+   Print("ATR_CALC_START Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Bars=", bars, " SeriesSynchronized=", synchronized > 0 ? "YES" : "NO");
    if(bars <= ATRPeriod + 1)
    {
       failureReason = StringFormat("Not enough bars Bars=%d ATRPeriod=%d Required>%d", bars, ATRPeriod, ATRPeriod + 1);
@@ -150,6 +224,7 @@ bool ReadClosedBarATR(double &atrRaw, string &failureReason, int &failureReasonC
    }
 
    int calculated = BarsCalculated(atrHandle);
+   Print("ATR_CALC_STATUS Symbol=", _Symbol, " BarsCalculated=", calculated);
    if(calculated <= 1)
    {
       failureReason = StringFormat("BarsCalculated=%d", calculated);
@@ -172,6 +247,7 @@ bool ReadClosedBarATR(double &atrRaw, string &failureReason, int &failureReasonC
    }
 
    atrRaw = atrBuffer[0];
+   Print("ATR_CALC_OK ATRRaw=", DoubleToString(atrRaw, 10), " Point=", DoubleToString(SymbolInfoDouble(_Symbol, SYMBOL_POINT), 10), " ATRPoints=", DoubleToString(atrRaw / MathMax(SymbolInfoDouble(_Symbol, SYMBOL_POINT), 0.0000000001), 1));
    if(!MathIsValidNumber(atrRaw))
    {
       failureReason = "ATR=NaN";
@@ -235,12 +311,15 @@ bool CalculateAdaptiveGeometry()
    Ctx.geometrySource = (int)GEOMETRY_SOURCE_ATR;
    Ctx.geometryFallback = 0;
    Ctx.geometryFallbackReasonCode = GEOMETRY_FALLBACK_NONE;
+   Ctx.geometryCleared = 0;
+   Ctx.geometryClearReasonCode = GEOMETRY_CLEAR_NONE;
    Ctx.geometryCalculatedTime = TimeCurrent();
 
    if(PrintAdaptiveGeometryLog)
    {
       Print("========== ADAPTIVE GEOMETRY ==========");
-      Print("Mode = ", GeometryModeToString((GeometryModeEnum)GeometryMode));
+      Print("ConfiguredGeometryMode = ", ConfiguredGeometryModeToString());
+      Print("RuntimeGeometryMode = ", RuntimeGeometryModeToString());
       Print("ATR timeframe = ", EnumToString(ATRTimeframe));
       Print("ATR period = ", ATRPeriod);
       Print("ATR raw = ", DoubleToString(atrRaw, 10));
@@ -264,16 +343,18 @@ bool CalculateAdaptiveGeometry()
 
 bool HasCycleGeometry()
 {
-   return Ctx.workInitialTriggerPoints > 0 && Ctx.workBigMoveStartPoints > 0 && Ctx.workBigMoveStepPoints > 0 && Ctx.workFarDistancePoints > 0;
+   return GeometryActive();
 }
 
 void ResetCycleGeometryFields(string reason)
 {
    Ctx.cycleATRRaw = 0.0;
    Ctx.cycleATRPoints = 0.0;
-   Ctx.geometrySource = (int)GEOMETRY_SOURCE_MANUAL;
+   Ctx.geometrySource = (int)GEOMETRY_SOURCE_NO_ACTIVE_CYCLE;
    Ctx.geometryFallback = 0;
    Ctx.geometryFallbackReasonCode = GEOMETRY_FALLBACK_NONE;
+   Ctx.geometryCleared = 0;
+   Ctx.geometryClearReasonCode = GEOMETRY_CLEAR_NONE;
    Ctx.workInitialTriggerPoints = 0;
    Ctx.workBigMoveStartPoints = 0;
    Ctx.workBigMoveStepPoints = 0;
@@ -286,6 +367,11 @@ void ResetCycleGeometryFields(string reason)
 
 bool InitializeCycleGeometry()
 {
+   Print("ADAPTIVE_GEOMETRY_REQUEST ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+         " State=", StateToString(State),
+         " HaveActiveCycle=", HasCycleGeometry() ? "YES" : "NO",
+         " FreezeGeometryPerCycle=", FreezeGeometryPerCycle ? "true" : "false",
+         " ExistingGeometryCalculated=", Ctx.geometryCalculatedTime > 0 ? "YES" : "NO");
    if(FreezeGeometryPerCycle && HasCycleGeometry() && Ctx.geometryCalculatedTime > 0)
    {
       Print("ADAPTIVE_GEOMETRY_FREEZE_KEEP ExistingGeometry=YES Mode=", GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed),
@@ -314,7 +400,7 @@ bool EnsureCycleGeometry(string reason)
    if(HasCycleGeometry())
       return true;
 
-   Print("ADAPTIVE_GEOMETRY_MISSING reason=", reason, " GeometryMode=", GeometryModeToString((GeometryModeEnum)GeometryMode), " action=InitializeCycleGeometry");
+   Print("ADAPTIVE_GEOMETRY_MISSING reason=", reason, " ConfiguredGeometryMode=", ConfiguredGeometryModeToString(), " RuntimeGeometryMode=", RuntimeGeometryModeToString(), " GeometrySource=", GeometrySourceForDiagnostics(), " action=InitializeCycleGeometry");
    bool ok = InitializeCycleGeometry();
    if(!ok || !HasCycleGeometry())
    {
@@ -363,7 +449,9 @@ void PrintGeometryDiagnostics()
 
    if(GeometryMode == GEOMETRY_MANUAL)
    {
-      Print("GEOMETRY_MODE=MANUAL Manual InitialTriggerPoints=", InitialTriggerPoints,
+      Print("GEOMETRY_MODE=MANUAL ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+            " Manual InitialTriggerPoints=", InitialTriggerPoints,
             " Manual BigMoveStartPoints=", BigMoveStartPoints,
             " Manual BigMoveStepPoints=", BigMoveStepPoints,
             " Manual FarDistancePoints=", FarDistancePoints,
@@ -372,12 +460,13 @@ void PrintGeometryDiagnostics()
    }
 
    Print("ADAPTIVE_GEOMETRY_CALCULATED Symbol=", _Symbol,
+         " ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+         " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
          " Timeframe=", EnumToString(ATRTimeframe),
          " ATRPeriod=", ATRPeriod,
          " ATRRaw=", DoubleToString(Ctx.cycleATRRaw, 10),
          " ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1),
-         " Mode=", GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed),
-         " GeometrySource=", GeometrySourceToString(Ctx.geometrySource),
+         " GeometrySource=", GeometrySourceForDiagnostics(),
          " Fallback=", Ctx.geometryFallback > 0 ? "YES" : "NO",
          " FallbackReason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode),
          " InitialMultiplier=", DoubleToString(initialMult, 2),
@@ -397,18 +486,21 @@ void PrintGeometryDiagnostics()
 
 void UpdateGeometryPanel()
 {
-   Comment("GeometryMode=", GeometryModeToString((GeometryModeEnum)(GeometryMode == GEOMETRY_MANUAL ? GEOMETRY_MANUAL : Ctx.geometryModeUsed)), "\n",
+   Comment("Configured: ", ConfiguredGeometryModeToString(), "\n",
+           "Runtime: ", RuntimeGeometryModeToString(), "\n",
+           "Source: ", GeometrySourceForDiagnostics(), "\n",
            "ATRTimeframe=", EnumToString(ATRTimeframe), "\n",
            "ATRPeriod=", ATRPeriod, "\n",
            "ATRRaw=", DoubleToString(Ctx.cycleATRRaw, 10), "\n",
            "ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1), "\n",
-           "WorkInitialTriggerPoints=", WorkInitialTriggerPoints(), "\n",
-           "WorkBigMoveStartPoints=", WorkBigMoveStartPoints(), "\n",
-           "WorkBigMoveStepPoints=", WorkBigMoveStepPoints(), "\n",
-           "WorkFarDistancePoints=", WorkFarDistancePoints(), "\n",
-           "GeometrySource=", GeometrySourceToString(Ctx.geometrySource), "\n",
-           "Fallback=", Ctx.geometryFallback > 0 ? "YES" : "NO", "\n",
-           "Reason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode), "\n",
+           "WorkInitial=", DisplayWorkInitialTriggerPoints(), "\n",
+           "WorkBigStart=", DisplayWorkBigMoveStartPoints(), "\n",
+           "WorkBigStep=", DisplayWorkBigMoveStepPoints(), "\n",
+           "WorkFar=", DisplayWorkFarDistancePoints(), "\n",
+           "GeometryActive=", GeometryActive() ? "YES" : "NO", "\n",
+           "GeometryCleared=", Ctx.geometryCleared > 0 ? "YES" : "NO", "\n",
+           "FallbackReason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode), "\n",
+           "ClearReason=", GeometryClearReasonToString(Ctx.geometryClearReasonCode), "\n",
            "InitialRoundStep=", InitialRoundStep, "\n",
            "BigStartRoundStep=", BigStartRoundStep, "\n",
            "BigStepRoundStep=", BigStepRoundStep, "\n",
@@ -428,18 +520,39 @@ bool CanClearCycleGeometry()
       && Ctx.retryTicket == 0;
 }
 
-void ClearCycleGeometry(bool persist = false)
+void ClearCycleGeometry(bool persist = false, int clearReasonCode = GEOMETRY_CLEAR_RESET_CONTEXT)
 {
    if(!CanClearCycleGeometry())
    {
-      Print("CLEAR_CYCLE_GEOMETRY_SKIPPED reason=ACTIVE_CONTEXT_OR_POSITIONS");
+      Print("CLEAR_CYCLE_GEOMETRY_SKIPPED reason=ACTIVE_CONTEXT_OR_POSITIONS ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=", RuntimeGeometryModeToString());
       return;
    }
 
-   ResetCycleGeometryFields("ClearCycleGeometry");
+   string previousRuntimeMode = RuntimeGeometryModeToString();
+   double previousATRPoints = Ctx.cycleATRPoints;
+   int previousWorkInitial = Ctx.workInitialTriggerPoints;
+   int previousWorkBigStart = Ctx.workBigMoveStartPoints;
+   int previousWorkBigStep = Ctx.workBigMoveStepPoints;
+   int previousWorkFar = Ctx.workFarDistancePoints;
+
+   ResetCycleGeometryFields("");
+   Ctx.geometrySource = (int)GEOMETRY_SOURCE_CLEARED;
+   Ctx.geometryCleared = 1;
+   Ctx.geometryClearReasonCode = clearReasonCode;
    if(persist)
       SaveState();
-   Print("CLEAR_CYCLE_GEOMETRY_DONE persist=", persist ? "YES" : "NO");
+   Print("CLEAR_CYCLE_GEOMETRY_DONE PreviousRuntimeGeometryMode=", previousRuntimeMode,
+         " PreviousATRPoints=", DoubleToString(previousATRPoints, 1),
+         " PreviousWorkInitial=", previousWorkInitial,
+         " PreviousWorkBigStart=", previousWorkBigStart,
+         " PreviousWorkBigStep=", previousWorkBigStep,
+         " PreviousWorkFar=", previousWorkFar,
+         " ClearReason=", GeometryClearReasonToString(clearReasonCode),
+         " ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+         " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+         " GeometrySource=", GeometrySourceForDiagnostics(),
+         " persist=", persist ? "YES" : "NO");
 }
 
 #endif // __BH_GEOMETRY_ENGINE_MQH__

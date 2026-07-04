@@ -28,7 +28,7 @@ assert 'CopyBuffer(atrHandle, 0, 1, 1, atrBuffer)' in geom
 assert 'IndicatorRelease(atrHandle)' in geom
 assert 'WorkBigMoveStartPoints() + (level - 1) * WorkBigMoveStepPoints()' in recovery
 assert 'WorkFarDistancePoints()' in recovery
-for csv_token in ['"GeometryMode"', '"ATRRaw"', '"ATRPoints"', '"GeometrySource"', '"FallbackReason"', '"WorkInitialTriggerPoints"']:
+for csv_token in ['"ConfiguredGeometryMode"', '"ATRRaw"', '"ATRPoints"', '"GeometrySource"', '"FallbackReason"', '"WorkInitialTriggerPoints"']:
     assert csv_token in logger, csv_token
 for doc_token in ['Call map', 'ATR lifecycle', 'Work field lifecycle', 'Geometry read table', 'Freeze per cycle', 'Clear policy']:
     assert doc_token in doc, doc_token

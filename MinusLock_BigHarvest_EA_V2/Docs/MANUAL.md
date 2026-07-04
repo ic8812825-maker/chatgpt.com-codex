@@ -820,3 +820,21 @@ Adaptive ATR modes no longer fail silently. When `GeometryMode` is one of `GEOME
 If any step fails, the EA logs `ATR CALCULATION FAILED reason=... fallback=MANUAL`, marks `GeometrySource=MANUAL`, `Fallback=YES`, and stores a `FallbackReason` for Comment() and CSV. If ATR succeeds, `GeometrySource=ATR`, `Fallback=NO`, and each preset applies its own multipliers to calculate Work geometry.
 
 The chart Comment() and cycle CSV include `ATRRaw`, `ATRPoints`, `GeometrySource`, `Fallback`, `FallbackReason`, and all Work geometry values so the user can immediately see whether the EA is actually trading ATR geometry or an explicit manual fallback.
+
+## Configured vs Runtime Geometry
+
+Adaptive geometry diagnostics now separate the user's input from the active-cycle geometry state:
+
+- `ConfiguredGeometryMode` is the `input GeometryMode` selected by the user, for example `GEOMETRY_ATR_SAFE`.
+- `RuntimeGeometryMode` is the mode actually used by the current active cycle, for example `GEOMETRY_ATR_SAFE`, `GEOMETRY_MANUAL`, or `NO_ACTIVE_CYCLE` after a terminal cleanup.
+- `GeometrySource` explains why the runtime values exist: `ATR`, `MANUAL`, `MANUAL_FALLBACK`, `CLEARED`, or `NO_ACTIVE_CYCLE`.
+- `FallbackReason` is populated when ATR could not be calculated and the EA used manual geometry for safety.
+- `GeometryClearReason` is populated after cycle cleanup, including `STATE_STOP_MAX_LEVELS`, so post-cycle reconciliation cannot be confused with a live manual-mode cycle.
+
+When an ATR mode is configured, logs, CSV and `Comment()` must not show a bare `GeometryMode=MANUAL ATRPoints=0.0` without a reason. Valid examples are:
+
+```text
+ConfiguredGeometryMode=GEOMETRY_ATR_SAFE RuntimeGeometryMode=GEOMETRY_ATR_SAFE GeometrySource=ATR ATRPoints=190.0
+ConfiguredGeometryMode=GEOMETRY_ATR_SAFE RuntimeGeometryMode=GEOMETRY_MANUAL GeometrySource=MANUAL_FALLBACK FallbackReason=CopyBuffer failed
+ConfiguredGeometryMode=GEOMETRY_ATR_SAFE RuntimeGeometryMode=NO_ACTIVE_CYCLE GeometrySource=CLEARED GeometryClearReason=STATE_STOP_MAX_LEVELS
+```

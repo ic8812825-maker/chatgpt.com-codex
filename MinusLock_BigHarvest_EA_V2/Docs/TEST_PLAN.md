@@ -558,3 +558,40 @@ Force unavailable/unsynchronized history or invalid ATR settings in Strategy Tes
 Expected:
 - Experts log contains `ATR CALCULATION FAILED reason=... fallback=MANUAL`;
 - Comment() and CSV show `GeometrySource=MANUAL`, `Fallback=YES`, and a concrete `FallbackReason` such as `CopyBuffer failed`, `INVALID_HANDLE`, `Not enough bars`, `History not synchronized`, `ATR=NaN`, `ATR<=0`, or `Point<=0`.
+
+## Configured vs Runtime Geometry diagnostics
+
+### ATR mode active-cycle diagnostics
+
+```text
+GeometryMode=GEOMETRY_ATR_SAFE
+Expected:
+- ConfiguredGeometryMode=GEOMETRY_ATR_SAFE
+- RuntimeGeometryMode=GEOMETRY_ATR_SAFE
+- GeometrySource=ATR
+- ATRPoints > 0
+- WorkInitial/WorkBigStart/WorkBigStep/WorkFar are ATR-derived
+```
+
+### ATR fallback diagnostics
+
+```text
+ATR unavailable
+Expected:
+- ConfiguredGeometryMode remains the ATR input mode
+- RuntimeGeometryMode=GEOMETRY_MANUAL
+- GeometrySource=MANUAL_FALLBACK
+- FallbackReason is non-empty
+```
+
+### Stop Max Levels cleanup diagnostics
+
+```text
+State=STATE_STOP_MAX_LEVELS
+Expected:
+- CLEAR_CYCLE_GEOMETRY_DONE contains PreviousRuntimeGeometryMode and PreviousATRPoints
+- RuntimeGeometryMode=NO_ACTIVE_CYCLE
+- GeometrySource=CLEARED
+- GeometryClearReason=STATE_STOP_MAX_LEVELS
+- Reconciliation summary uses WorkSource=MANUAL_FALLBACK_FOR_DISPLAY_ONLY instead of implying live manual geometry
+```

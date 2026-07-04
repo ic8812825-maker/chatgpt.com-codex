@@ -212,3 +212,7 @@ Reserve remains untouched by partial Far close and is accumulated for final clos
 ```
 
 The generated trace CSV and Markdown report prove the model level-by-level for 90/10 and 20/80 splits without requiring MT5.
+
+## Configured vs Runtime Geometry note
+
+Big-scenario diagnostics depend on the active cycle's work geometry. For audit clarity, geometry logs and CSV now separate `ConfiguredGeometryMode` from `RuntimeGeometryMode`. After terminal cleanup such as `STATE_STOP_MAX_LEVELS`, the runtime mode is reported as `NO_ACTIVE_CYCLE` with `GeometrySource=CLEARED` and `GeometryClearReason=STATE_STOP_MAX_LEVELS`; this prevents a cleared ATR cycle from being misread as an active manual-mode Big scenario.

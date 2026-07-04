@@ -215,6 +215,8 @@ void SaveState()
    GlobalVariableSet(StateKey("GeometrySource"), (double)Ctx.geometrySource);
    GlobalVariableSet(StateKey("GeometryFallback"), (double)Ctx.geometryFallback);
    GlobalVariableSet(StateKey("GeometryFallbackReasonCode"), (double)Ctx.geometryFallbackReasonCode);
+   GlobalVariableSet(StateKey("GeometryCleared"), (double)Ctx.geometryCleared);
+   GlobalVariableSet(StateKey("GeometryClearReasonCode"), (double)Ctx.geometryClearReasonCode);
    GlobalVariableSet(StateKey("WorkInitialTriggerPoints"), (double)Ctx.workInitialTriggerPoints);
    GlobalVariableSet(StateKey("WorkBigMoveStartPoints"), (double)Ctx.workBigMoveStartPoints);
    GlobalVariableSet(StateKey("WorkBigMoveStepPoints"), (double)Ctx.workBigMoveStepPoints);
@@ -362,7 +364,7 @@ void LogReconciliationContextSummary(string source)
    bool pending = HasPendingOperationContext();
    bool retry = HasRetryOperationContext();
    bool known = (initialLock || far || big || small || pending || retry);
-   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s GeometryMode=%s ATRPoints=%.1f WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d",
+   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s ConfiguredGeometryMode=%s RuntimeGeometryMode=%s GeometrySource=%s GeometryActive=%s GeometryCleared=%s GeometryClearReason=%s ATRRaw=%.10f ATRPoints=%.1f WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d WorkSource=%s FallbackReason=%s",
                         source,
                         StateToString(State),
                         CountManagedOpenPositions(),
@@ -373,12 +375,20 @@ void LogReconciliationContextSummary(string source)
                         small ? "YES" : "NO",
                         pending ? "YES" : "NO",
                         retry ? "YES" : "NO",
-                        GeometryModeToString((GeometryModeEnum)Ctx.geometryModeUsed),
+                        ConfiguredGeometryModeToString(),
+                        RuntimeGeometryModeToString(),
+                        GeometrySourceForDiagnostics(),
+                        GeometryActive() ? "YES" : "NO",
+                        Ctx.geometryCleared > 0 ? "YES" : "NO",
+                        GeometryClearReasonToString(Ctx.geometryClearReasonCode),
+                        Ctx.cycleATRRaw,
                         Ctx.cycleATRPoints,
-                        WorkInitialTriggerPoints(),
-                        WorkBigMoveStartPoints(),
-                        WorkBigMoveStepPoints(),
-                        WorkFarDistancePoints()));
+                        DisplayWorkInitialTriggerPoints(),
+                        DisplayWorkBigMoveStartPoints(),
+                        DisplayWorkBigMoveStepPoints(),
+                        DisplayWorkFarDistancePoints(),
+                        GeometryActive() ? GeometrySourceForDiagnostics() : "MANUAL_FALLBACK_FOR_DISPLAY_ONLY",
+                        GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode)));
 }
 
 bool HasOpenLegContext()
@@ -632,6 +642,8 @@ bool RecoverState()
    if(GetStateDouble("GeometrySource", saved)) Ctx.geometrySource = (int)saved;
    if(GetStateDouble("GeometryFallback", saved)) Ctx.geometryFallback = (int)saved;
    if(GetStateDouble("GeometryFallbackReasonCode", saved)) Ctx.geometryFallbackReasonCode = (int)saved;
+   if(GetStateDouble("GeometryCleared", saved)) Ctx.geometryCleared = (int)saved;
+   if(GetStateDouble("GeometryClearReasonCode", saved)) Ctx.geometryClearReasonCode = (int)saved;
    if(GetStateDouble("WorkInitialTriggerPoints", saved)) Ctx.workInitialTriggerPoints = (int)saved;
    if(GetStateDouble("WorkBigMoveStartPoints", saved)) Ctx.workBigMoveStartPoints = (int)saved;
    if(GetStateDouble("WorkBigMoveStepPoints", saved)) Ctx.workBigMoveStepPoints = (int)saved;
@@ -820,6 +832,8 @@ void ResetRecoveryContext()
    Ctx.geometrySource = 0;
    Ctx.geometryFallback = 0;
    Ctx.geometryFallbackReasonCode = 0;
+   Ctx.geometryCleared = 0;
+   Ctx.geometryClearReasonCode = 0;
    Ctx.workInitialTriggerPoints = 0;
    Ctx.workBigMoveStartPoints = 0;
    Ctx.workBigMoveStepPoints = 0;
@@ -885,7 +899,7 @@ void ResetRecoveryContext()
    Ctx.oldFarOpenPrice = 0.0;
    Ctx.smallScenarioRealBefore = 0.0;
    Ctx.smallScenarioRealAfter = 0.0;
-   ClearCycleGeometry();
+   ClearCycleGeometry(false, GEOMETRY_CLEAR_RESET_CONTEXT);
    Ctx.cycleId = (ulong)TimeCurrent();
 }
 
@@ -2911,9 +2925,14 @@ void RunStateMachine()
          break;
 
       case STATE_CLOSED_PROFIT:
+         ClearCycleGeometry(true, GEOMETRY_CLEAR_CLOSED_PROFIT);
+         break;
       case STATE_CLOSED_RECOVERY_LOSS:
-         ClearCycleGeometry(true);
+         ClearCycleGeometry(true, GEOMETRY_CLEAR_CLOSED_RECOVERY_LOSS);
+         break;
       case STATE_STOP_MAX_LEVELS:
+         ClearCycleGeometry(true, GEOMETRY_CLEAR_STOP_MAX_LEVELS);
+         break;
       case STATE_UNCLOSED_CYCLE:
       case STATE_DUAL_TAIL:
       case STATE_INVALID_REVERSE_GEOMETRY:
