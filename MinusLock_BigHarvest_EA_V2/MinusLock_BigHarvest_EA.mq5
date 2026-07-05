@@ -134,6 +134,14 @@ bool ValidateTradingEnvironment()
 void LogBigMoveLevels()
 {
    Print("BIG_MOVE_LEVELS:");
+   if(IsATRGeometryMode() && !GeometryReady() && !TradingAllowedByATRManualFallback())
+   {
+      Print("BIG_MOVE_LEVELS_WAITING_ATR ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
+            " GeometrySource=", GeometrySourceForDiagnostics(),
+            " Reason=", GeometryFallbackReasonToString(Ctx.geometryFallbackReasonCode));
+      return;
+   }
    for(int level = 1; level <= MaxHarvestLevels; level++)
       Print("L", level, " = ", GetBigMovePoints(level), " points");
 }
@@ -256,6 +264,8 @@ void OnTick()
    if(State == STATE_RECOVERY_MISMATCH || State == STATE_INTEGRITY_ERROR || State == STATE_POSITION_RESOLUTION_ERROR)
       return;
 
+   UpdateGeometryPanel();
+
    if(State == STATE_IDLE && managedPositions == 0)
    {
       Print("EMERGENCY_START: STATE_IDLE with zero managed positions; forcing OpenInitialLock");
@@ -263,6 +273,5 @@ void OnTick()
       return;
    }
 
-   UpdateGeometryPanel();
    RunStateMachine();
 }

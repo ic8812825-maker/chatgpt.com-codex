@@ -12,6 +12,27 @@ bool IsATRGeometryMode()
    return GeometryMode == GEOMETRY_ATR_SAFE || GeometryMode == GEOMETRY_ATR_BALANCED || GeometryMode == GEOMETRY_ATR_PROFIT || GeometryMode == GEOMETRY_ATR_CUSTOM;
 }
 
+ENUM_TIMEFRAMES EffectiveATRTimeframe()
+{
+   int tf = (int)ATRTimeframe;
+   if(tf == 60) return PERIOD_H1;
+   if(tf == 120) return PERIOD_H2;
+   if(tf == 180) return PERIOD_H3;
+   if(tf == 240) return PERIOD_H4;
+   if(tf == 1440) return PERIOD_D1;
+   if(tf == 10080) return PERIOD_W1;
+   if(tf == 43200) return PERIOD_MN1;
+   return ATRTimeframe;
+}
+
+string ATRTimeframeToString()
+{
+   ENUM_TIMEFRAMES effective = EffectiveATRTimeframe();
+   if((int)effective != (int)ATRTimeframe)
+      return StringFormat("%s(normalized_from_%d)", EnumToString(effective), (int)ATRTimeframe);
+   return EnumToString(effective);
+}
+
 int RoundToStep(double value, int step)
 {
    if(step <= 0)
@@ -236,7 +257,7 @@ bool MarkATRGeometryWaiting(string reason, int reasonCode, int bars = -1, int ba
             " Bars=", bars,
             " BarsCalculated=", barsCalculated,
             " ATRPeriod=", ATRPeriod,
-            " ATRTimeframe=", EnumToString(ATRTimeframe),
+            " ATRTimeframe=", ATRTimeframeToString(),
             " ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
             " RuntimeGeometryMode=WAITING_ATR GeometrySource=ATR_NOT_READY TradingBlocked=YES");
       g_lastATRWaitingLogTime = now;
@@ -261,17 +282,17 @@ bool EnsureATRHandle()
    if(g_atrHandle != INVALID_HANDLE)
       return true;
 
-   Print("ATR_HANDLE_CREATE_START Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod);
+   Print("ATR_HANDLE_CREATE_START Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod);
    ResetLastError();
-   g_atrHandle = iATR(_Symbol, ATRTimeframe, ATRPeriod);
+   g_atrHandle = iATR(_Symbol, EffectiveATRTimeframe(), ATRPeriod);
    int err = GetLastError();
    if(g_atrHandle == INVALID_HANDLE)
    {
-      Print("ATR_HANDLE_CREATE_FAIL Error=", err, " Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod);
+      Print("ATR_HANDLE_CREATE_FAIL Error=", err, " Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod);
       return false;
    }
 
-   Print("ATR_HANDLE_CREATE_OK Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Handle=", g_atrHandle);
+   Print("ATR_HANDLE_CREATE_OK Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod, " Handle=", g_atrHandle);
    return true;
 }
 
@@ -301,11 +322,11 @@ bool EnsureATRIndicatorOnChart()
    if(added)
    {
       g_atrIndicatorAdded = true;
-      Print("ATR_INDICATOR_ADD_OK Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Handle=", g_atrHandle);
+      Print("ATR_INDICATOR_ADD_OK Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod, " Handle=", g_atrHandle);
       return true;
    }
 
-   Print("ATR_INDICATOR_ADD_FAIL Error=", err, " Handle=", g_atrHandle, " Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe));
+   Print("ATR_INDICATOR_ADD_FAIL Error=", err, " Handle=", g_atrHandle, " Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString());
    return false;
 }
 
@@ -317,18 +338,18 @@ bool ReadClosedBarATR(double &atrRaw, string &failureReason, int &failureReasonC
 
    synchronized = 0;
    SymbolSelect(_Symbol, true);
-   if(!SeriesInfoInteger(_Symbol, ATRTimeframe, SERIES_SYNCHRONIZED, synchronized) || synchronized == 0)
+   if(!SeriesInfoInteger(_Symbol, EffectiveATRTimeframe(), SERIES_SYNCHRONIZED, synchronized) || synchronized == 0)
    {
-      failureReason = StringFormat("History not synchronized Symbol=%s Timeframe=%s", _Symbol, EnumToString(ATRTimeframe));
+      failureReason = StringFormat("History not synchronized Symbol=%s Timeframe=%s", _Symbol, ATRTimeframeToString());
       failureReasonCode = GEOMETRY_FALLBACK_HISTORY_NOT_SYNCHRONIZED;
-      bars = Bars(_Symbol, ATRTimeframe);
+      bars = Bars(_Symbol, EffectiveATRTimeframe());
       calculated = (g_atrHandle != INVALID_HANDLE) ? BarsCalculated(g_atrHandle) : -1;
       return false;
    }
 
-   bars = Bars(_Symbol, ATRTimeframe);
-   Print("ATR_HISTORY_CHECK Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Bars=", bars, " SeriesSynchronized=", synchronized > 0 ? "YES" : "NO");
-   Print("ATR_CALC_START Symbol=", _Symbol, " Timeframe=", EnumToString(ATRTimeframe), " Period=", ATRPeriod, " Bars=", bars, " SeriesSynchronized=", synchronized > 0 ? "YES" : "NO");
+   bars = Bars(_Symbol, EffectiveATRTimeframe());
+   Print("ATR_HISTORY_CHECK Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod, " Bars=", bars, " SeriesSynchronized=", synchronized > 0 ? "YES" : "NO");
+   Print("ATR_CALC_START Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod, " Bars=", bars, " SeriesSynchronized=", synchronized > 0 ? "YES" : "NO");
    if(bars <= ATRPeriod + 1)
    {
       failureReason = StringFormat("Not enough bars Bars=%d ATRPeriod=%d Required>%d", bars, ATRPeriod, ATRPeriod + 1);
@@ -445,7 +466,7 @@ bool CalculateAdaptiveGeometry()
       Print("========== ADAPTIVE GEOMETRY ==========");
       Print("ConfiguredGeometryMode = ", ConfiguredGeometryModeToString());
       Print("RuntimeGeometryMode = ", RuntimeGeometryModeToString());
-      Print("ATR timeframe = ", EnumToString(ATRTimeframe));
+      Print("ATR timeframe = ", ATRTimeframeToString());
       Print("ATR period = ", ATRPeriod);
       Print("ATR raw = ", DoubleToString(atrRaw, 10));
       Print("Point = ", DoubleToString(point, 10));
@@ -620,7 +641,7 @@ void PrintGeometryDiagnostics()
    Print("ADAPTIVE_GEOMETRY_CALCULATED Symbol=", _Symbol,
          " ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
          " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
-         " Timeframe=", EnumToString(ATRTimeframe),
+         " Timeframe=", ATRTimeframeToString(),
          " ATRPeriod=", ATRPeriod,
          " ATRRaw=", DoubleToString(Ctx.cycleATRRaw, 10),
          " ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1),
@@ -647,7 +668,7 @@ void UpdateGeometryPanel()
    Comment("Configured: ", ConfiguredGeometryModeToString(), "\n",
            "Runtime: ", RuntimeGeometryModeToString(), "\n",
            "Source: ", GeometrySourceForDiagnostics(), "\n",
-           "ATRTimeframe=", EnumToString(ATRTimeframe), "\n",
+           "ATRTimeframe=", ATRTimeframeToString(), "\n",
            "ATRPeriod=", ATRPeriod, "\n",
            "ATRRaw=", DoubleToString(Ctx.cycleATRRaw, 10), "\n",
            "ATRPoints=", DoubleToString(Ctx.cycleATRPoints, 1), "\n",

@@ -6,7 +6,7 @@ types = (root / 'Include' / 'Types.mqh').read_text()
 main = (root / 'MinusLock_BigHarvest_EA.mq5').read_text()
 state = (root / 'Include' / 'StateMachine.mqh').read_text()
 
-for token in ['SeriesInfoInteger(_Symbol, ATRTimeframe, SERIES_SYNCHRONIZED', 'Bars(_Symbol, ATRTimeframe)', 'iATR(_Symbol, ATRTimeframe, ATRPeriod)', 'INVALID_HANDLE', 'BarsCalculated(g_atrHandle)', 'CopyBuffer(g_atrHandle, 0, 1, 1, atrBuffer)', 'MathIsValidNumber', 'atrRaw / point']:
+for token in ['SeriesInfoInteger(_Symbol, EffectiveATRTimeframe(), SERIES_SYNCHRONIZED', 'Bars(_Symbol, EffectiveATRTimeframe())', 'iATR(_Symbol, EffectiveATRTimeframe(), ATRPeriod)', 'INVALID_HANDLE', 'BarsCalculated(g_atrHandle)', 'CopyBuffer(g_atrHandle, 0, 1, 1, atrBuffer)', 'MathIsValidNumber', 'atrRaw / point']:
     assert token in geom, token
 for reason in ['History not synchronized', 'Not enough bars', 'INVALID_HANDLE', 'BarsCalculated=0', 'CopyBuffer failed', 'ATR=NaN', 'ATR<=0', 'Point<=0']:
     assert reason in geom, reason
