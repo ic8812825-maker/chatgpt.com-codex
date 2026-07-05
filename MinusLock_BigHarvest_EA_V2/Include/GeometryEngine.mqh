@@ -484,6 +484,13 @@ bool CalculateAdaptiveGeometry()
       Print("=======================================");
    }
 
+   bool initialClampUsed = (initialAfterRound != Ctx.workInitialTriggerPoints);
+   bool bigStartClampUsed = (bigStartAfterRound != Ctx.workBigMoveStartPoints);
+   bool stepClampUsed = (bigStepAfterRound != Ctx.workBigMoveStepPoints);
+   bool farClampUsed = (farAfterRound != Ctx.workFarDistancePoints);
+   bool geometryTooWide = (Ctx.workInitialTriggerPoints >= 240 || Ctx.workBigMoveStartPoints >= 250 ||
+                           Ctx.workBigMoveStepPoints >= 110 || Ctx.workFarDistancePoints >= 350);
+
    Print("ADAPTIVE_GEOMETRY_CALCULATED ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
          " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
          " GeometrySource=ATR",
@@ -497,6 +504,28 @@ bool CalculateAdaptiveGeometry()
          " CalculatedBigStart=", Ctx.workBigMoveStartPoints,
          " CalculatedBigStep=", Ctx.workBigMoveStepPoints,
          " CalculatedFar=", Ctx.workFarDistancePoints);
+   Print("ATR_SET_QUALITY ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+         " ATRTimeframe=", ATRTimeframeToString(),
+         " ATRPeriod=", ATRPeriod,
+         " ATRRaw=", DoubleToString(atrRaw, 10),
+         " ATRPoints=", DoubleToString(atrPoints, 1),
+         " WorkInitial=", Ctx.workInitialTriggerPoints,
+         " WorkBigStart=", Ctx.workBigMoveStartPoints,
+         " WorkBigStep=", Ctx.workBigMoveStepPoints,
+         " WorkFar=", Ctx.workFarDistancePoints,
+         " InitialClampUsed=", initialClampUsed ? "YES" : "NO",
+         " BigStartClampUsed=", bigStartClampUsed ? "YES" : "NO",
+         " StepClampUsed=", stepClampUsed ? "YES" : "NO",
+         " FarClampUsed=", farClampUsed ? "YES" : "NO",
+         " GeometryTooWide=", geometryTooWide ? "YES" : "NO");
+   if(geometryTooWide)
+      Print("WARNING_ATR_GEOMETRY_TOO_WIDE ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " ATRTimeframe=", ATRTimeframeToString(),
+            " ATRPeriod=", ATRPeriod,
+            " WorkInitial=", Ctx.workInitialTriggerPoints,
+            " WorkBigStart=", Ctx.workBigMoveStartPoints,
+            " WorkBigStep=", Ctx.workBigMoveStepPoints,
+            " WorkFar=", Ctx.workFarDistancePoints);
    if(Ctx.workInitialTriggerPoints == InitialTriggerPoints && Ctx.workBigMoveStartPoints == BigMoveStartPoints &&
       Ctx.workBigMoveStepPoints == BigMoveStepPoints && Ctx.workFarDistancePoints == FarDistancePoints)
       Print("ATR_VALUES_EQUAL_MANUAL Reason=rounding_or_same_ATR ConfiguredGeometryMode=", ConfiguredGeometryModeToString());

@@ -22,7 +22,7 @@ DEFAULTS = {
     "UseRecommended5050Preset": "false",
     "FarDistanceMode": "3",
     "GeometryMode": "0",
-    "ATRTimeframe": "30",
+    "ATRTimeframe": "0",
     "ATRPeriod": "14",
     "ATRInitialMultiplier": "1.00",
     "ATRBigStartMultiplier": "1.00",

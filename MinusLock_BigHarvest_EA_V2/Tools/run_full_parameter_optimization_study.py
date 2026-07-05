@@ -63,8 +63,8 @@ PARAM_RANGES: dict[str, list[Any]] = {
     "FreezeGeometryPerCycle": ["true"],
     "AllowATRManualFallback": ["false", "true"],
     "ShowATRIndicatorOnChart": ["true"],
-    "ATRTimeframe": [30, 60],
-    "ATRPeriod": [14, 20, 21],
+    "ATRTimeframe": [0, 30, 60],
+    "ATRPeriod": [14, 20],
     "ATRInitialMultiplier": [0.95, 1.00, 1.05],
     "ATRBigStartMultiplier": [1.00, 1.10, 1.15, 1.20],
     "ATRStepMultiplier": [0.35, 0.40, 0.45],
@@ -114,8 +114,8 @@ RECOMMENDED: dict[str, Any] = {
     "FarDistancePoints": 275,
     "FarDistanceMode": 3,
     "GeometryMode": 2,
-    "ATRTimeframe": 60,
-    "ATRPeriod": 20,
+    "ATRTimeframe": 0,
+    "ATRPeriod": 14,
     "ATRInitialMultiplier": 1.00,
     "ATRBigStartMultiplier": 1.15,
     "ATRStepMultiplier": 0.40,
@@ -174,9 +174,10 @@ RECOMMENDED: dict[str, Any] = {
 }
 
 PRESETS: dict[str, dict[str, Any]] = {
-    "Ultra_Conservative": {"GeometryMode": 1, "BigRatio": 1.12, "SmallRatio": 0.34, "CloseFarShare": 0.50, "ReserveShare": 0.50, "MaxHarvestLevels": 5, "MaxDrawdownPercent": 18.0, "MaxAccountMarginPercent": 45.0},
-    "Conservative": {"GeometryMode": 1, "BigRatio": 1.13, "SmallRatio": 0.35, "CloseFarShare": 0.65, "ReserveShare": 0.35, "MaxHarvestLevels": 6},
+    "Ultra_Conservative": {"GeometryMode": 1, "ATRPeriod": 20, "BigRatio": 1.12, "SmallRatio": 0.34, "CloseFarShare": 0.50, "ReserveShare": 0.50, "MaxHarvestLevels": 5, "MaxDrawdownPercent": 18.0, "MaxAccountMarginPercent": 45.0},
+    "Conservative": {"GeometryMode": 1, "ATRPeriod": 20, "BigRatio": 1.13, "SmallRatio": 0.35, "CloseFarShare": 0.65, "ReserveShare": 0.35, "MaxHarvestLevels": 6},
     "Universal": {},
+    "ATR_Conservative": {"GeometryMode": 1, "ATRPeriod": 20, "BigRatio": 1.13, "SmallRatio": 0.35, "CloseFarShare": 0.65, "ReserveShare": 0.35, "MaxHarvestLevels": 6},
     "Aggressive_Recovery": {"GeometryMode": 3, "BigRatio": 1.16, "SmallRatio": 0.38, "CloseFarShare": 0.90, "ReserveShare": 0.10, "MaxHarvestLevels": 7, "MaxDrawdownPercent": 25.0},
     "High_Volatility": {"GeometryMode": 1, "ATRFarMultiplier": 1.60, "ATRBigStartMultiplier": 1.20, "FarDistancePoints": 325, "MaxSpreadPoints": 60.0},
     "Low_Volatility": {"GeometryMode": 2, "ATRFarMultiplier": 1.30, "ATRBigStartMultiplier": 1.05, "FarDistancePoints": 250, "BigMoveStepPoints": 70},
@@ -472,6 +473,8 @@ def write_outputs(candidates: list[tuple[Candidate, dict[str, Any]]]) -> None:
         "",
         "The universal recommendation is the `Recommended.set` preset. The primary goal preset is `Minimum_Big_Levels.set`. Both are generated under `Sets/Optimization_Presets/`.",
         "",
+        "ATR set-file standard: primary ATR presets use ATRTimeframe=0 (PERIOD_CURRENT) and ATRPeriod=14. ATRPeriod=20 is reserved only for Conservative, Ultra_Conservative and ATR_Conservative because it is smoother, slower and intentionally more cautious.",
+        "",
         "## Sensitivity summary",
         "",
         "| Parameter | Recommended | Working range | Influence |",
@@ -511,7 +514,7 @@ def write_outputs(candidates: list[tuple[Candidate, dict[str, Any]]]) -> None:
         "",
         "## Final conclusion",
         "",
-        "The recommended mathematical operating area is ATR BALANCED/PROFIT geometry, BigRatio 1.14–1.16, SmallRatio 0.36–0.40, CloseFarShare 0.75–0.90, FarDistance 250–300, BigMoveStart 190–210 and BigMoveStep 70–80. The main production candidate is `Minimum_Big_Levels.set`; the balanced default is `Recommended.set`.",
+        "The recommended mathematical operating area is ATR BALANCED/PROFIT geometry on PERIOD_CURRENT with ATRPeriod=14, BigRatio 1.14–1.16, SmallRatio 0.36–0.40, CloseFarShare 0.75–0.90, FarDistance 250–300, BigMoveStart 190–210 and BigMoveStep 70–80. ATRPeriod=20 remains only for conservative smoothing presets. The main production candidate is `Minimum_Big_Levels.set`; the balanced default is `Recommended.set`.",
     ])
     REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 

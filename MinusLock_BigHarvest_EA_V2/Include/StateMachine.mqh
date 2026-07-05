@@ -2335,7 +2335,7 @@ void ProcessBigHarvestCalcNet()
       0.0,
       closeFarLotRaw,
       Ctx.pendingCloseFarLot,
-      NormalizeLotDown(MathMax(0.0, Ctx.farLot - Ctx.pendingCloseFarLot)),
+      Ctx.farLot,
       Ctx.reverseStrength,
       Ctx.projectedReserveCoverage,
       "BIG_PROFIT_SPLIT",

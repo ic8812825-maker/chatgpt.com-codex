@@ -2,7 +2,7 @@ from pathlib import Path
 root = Path(__file__).resolve().parents[1]
 preset_dir = root / 'Sets' / 'Optimization_Presets'
 required = [
-    'Ultra_Conservative.set', 'Conservative.set', 'Universal.set', 'Aggressive_Recovery.set',
+    'Ultra_Conservative.set', 'Conservative.set', 'ATR_Conservative.set', 'Universal.set', 'Aggressive_Recovery.set',
     'High_Volatility.set', 'Low_Volatility.set', 'Trend.set', 'Anti_Trend.set',
     'Adaptive_ATR_SAFE.set', 'Adaptive_ATR_BALANCED.set', 'Adaptive_ATR_PROFIT.set',
     'Multi_Symbol.set', 'Maximum_Recovery.set', 'Minimum_Big_Levels.set', 'Recommended.set',
