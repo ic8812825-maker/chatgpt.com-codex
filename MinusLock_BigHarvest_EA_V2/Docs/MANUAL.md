@@ -861,3 +861,28 @@ INITIAL_LOCK_ALLOWED_ATR_READY
 ```
 
 If ATR is not ready and `AllowATRManualFallback=false`, the panel shows `Runtime=WAITING_ATR`, `Source=ATR_NOT_READY`, `GeometryReady=NO`, and `TradingBlocked=YES`. This prevents an ATR preset from silently trading with manual geometry.
+
+## ATR Geometry Runtime Validation
+
+ATR geometry is considered active only when the runtime diagnostics show `GeometrySource=ATR`, `RuntimeGeometryMode=GEOMETRY_ATR_SAFE`, `GEOMETRY_ATR_BALANCED`, or `GEOMETRY_ATR_PROFIT`, and `GeometryReady=YES`.
+
+The EA now prevents duplicate ATR chart subwindows. When `ShowATRIndicatorOnChart=true`, the chart indicator path logs:
+
+```text
+ATR_INDICATOR_ADD_REQUEST
+ATR_INDICATOR_ADD_OK
+ATR_INDICATOR_ALREADY_VISIBLE
+ATR_INDICATOR_ADD_FAIL
+```
+
+After the first successful add, subsequent checks must log `ATR_INDICATOR_ALREADY_VISIBLE` instead of repeatedly calling `ChartIndicatorAdd()`.
+
+`ATR_SET_QUALITY` includes clamp diagnostics:
+
+```text
+InitialClampUsed BigStartClampUsed StepClampUsed FarClampUsed AnyClampUsed
+```
+
+If ATR geometry reaches terminal `STATE_STOP_MAX_LEVELS`, the EA emits `STOP_MAX_LEVELS_DIAGNOSIS` with the last lot, reserve, recovery, ATR and work-geometry values plus a `LikelyReason` classification.
+
+Terminal states are throttled with `TerminalStateLogIntervalSeconds` and summarized through `TERMINAL_STATE_STABLE` to avoid repeated reconciliation log spam.

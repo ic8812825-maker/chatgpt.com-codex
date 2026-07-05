@@ -87,6 +87,7 @@ input bool   CloseFarOnMaxLevels = true;
 input double ReserveMismatchTolerance = 0.01;
 input double VolumeMismatchToleranceLots = 0.001;
 input int    ReconciliationIntervalSeconds = 300;
+input int    TerminalStateLogIntervalSeconds = 300;
 input int    PositionResolutionLookbackSeconds = 10;
 
 input ulong  MagicNumber           = 20260609;

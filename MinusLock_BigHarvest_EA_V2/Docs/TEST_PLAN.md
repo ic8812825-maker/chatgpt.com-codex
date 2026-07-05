@@ -634,3 +634,37 @@ Expected:
 - FallbackReason is non-empty
 - TradingAllowedByFallback=YES
 ```
+
+## ATR Geometry Runtime Validation
+
+Baseline MT5 Strategy Tester matrix:
+
+- Symbol: USDJPY
+- Timeframe: M30
+- Period: 2026-02-01 — 2026-02-25
+- StartLot: 0.10
+- BigRatio: 1.14
+- SmallRatio: 0.36
+- CloseBigOnSmall / RemainBigOnSmall: 0.40 / 0.60
+- CloseFarShare / ReserveShare: 0.75 / 0.25
+- MaxHarvestLevels: 6
+- ATRTimeframe: PERIOD_CURRENT
+
+Run these modes:
+
+1. MANUAL 190 / 200 / 75 / 275
+2. ATR_SAFE current reference
+3. ATR_SAFE revised
+4. ATR_BALANCED revised
+5. ATR_PROFIT revised
+6. ATR_CONSERVATIVE with ATRPeriod=20
+
+Acceptance criteria:
+
+- ATR indicator appears once on the chart.
+- Runtime geometry source is ATR, not manual fallback.
+- Main ATR presets use `ATRPeriod=14` and `ATRTimeframe=PERIOD_CURRENT`.
+- Terminal states log `TERMINAL_STATE_STABLE` instead of repeated reconciliation blocks.
+- `ATR_SET_QUALITY` reports clamp flags and `AnyClampUsed`.
+- `STOP_MAX_LEVELS_DIAGNOSIS` is present whenever `STATE_STOP_MAX_LEVELS` is reached.
+- At least one ATR preset finishes with `RecoveryPL > 0` and `OnTester > 0` without `STATE_STOP_MAX_LEVELS`.

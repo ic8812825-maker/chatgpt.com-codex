@@ -46,3 +46,24 @@
 | ATR_SAFE_CONSERVATIVE | 20 | PERIOD_CURRENT | MT5 required | MT5 required | MT5 required | MT5 required | MT5 required | MT5 required | MT5 required | MT5 required | MT5 required | MT5 required | MT5 required |
 
 MT5 Strategy Tester cannot be executed in this container; this audit locks the `.set` standard and documents the exact comparison table that must be filled from MetaTester logs/reports.
+
+## ATR Geometry Runtime Validation — V2.4.23
+
+- `Adaptive_ATR_SAFE.set`: revised to `ATRTimeframe=PERIOD_CURRENT`, `ATRPeriod=14`, multipliers `0.90/0.90/0.34/1.10`, caps `220/220/90/300`.
+- `Adaptive_ATR_BALANCED.set`: revised to `ATRTimeframe=PERIOD_CURRENT`, `ATRPeriod=14`, multipliers `0.82/0.82/0.30/1.00`, caps `210/210/85/275`.
+- `Adaptive_ATR_PROFIT.set`: revised to `ATRTimeframe=PERIOD_CURRENT`, `ATRPeriod=14`, multipliers `0.72/0.72/0.26/0.90`, caps `200/200/80/250`.
+- `ATR_Conservative.set`: intentionally uses `ATRPeriod=20` with `ATRTimeframe=PERIOD_CURRENT`, multipliers `0.98/0.98/0.40/1.25`.
+- `Recommended.set` now follows revised ATR_BALANCED.
+- `Minimum_Big_Levels.set` now follows revised ATR_PROFIT.
+
+Runtime validation artifacts:
+
+- `Reports/ATR_Geometry_Runtime_Trace.md`
+- `Reports/ATR_Geometry_Runtime_Trace.csv`
+
+Acceptance checks added:
+
+- single ATR chart indicator guard (`ATR_INDICATOR_ALREADY_VISIBLE`)
+- terminal-state reconciliation throttle (`TERMINAL_STATE_STABLE`)
+- `ATR_SET_QUALITY` clamp flags including `AnyClampUsed`
+- `STOP_MAX_LEVELS_DIAGNOSIS` with likely reason classification

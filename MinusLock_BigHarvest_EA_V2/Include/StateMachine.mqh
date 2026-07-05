@@ -2583,6 +2583,37 @@ void ProcessSmallCheckReserve()
 }
 
 
+string DiagnoseStopMaxLevelsReason(double reserveCoverage)
+{
+   if(Ctx.harvestLevel >= WorkMaxHarvestLevels && reserveCoverage >= 0.90)
+      return "MAX_LEVELS_TOO_LOW";
+   if(Ctx.cycleATRPoints > 0.0 && (Ctx.workInitialTriggerPoints >= 220 || Ctx.workBigMoveStartPoints >= 220 || Ctx.workBigMoveStepPoints >= 90 || Ctx.workFarDistancePoints >= 300))
+      return "GEOMETRY_TOO_WIDE_OR_RESERVE_TOO_LOW";
+   if(BigRatio * BigRatio * WorkRemainBigOnSmall >= 0.95)
+      return "BIG_LOT_COMPRESSION_TOO_FAST";
+   return "GEOMETRY_TOO_WIDE_OR_RESERVE_TOO_LOW";
+}
+
+void LogStopMaxLevelsDiagnosis(double farCloseLoss)
+{
+   double reserveCoverage = farCloseLoss > 0.0 ? Ctx.totalReserve / farCloseLoss : 999.0;
+   LogInfo(StringFormat("STOP_MAX_LEVELS_DIAGNOSIS MaxHarvestLevels=%d ActualHarvestLevel=%d LastFarLot=%.2f LastBigLot=%.2f LastSmallLot=%.2f TotalReserve=%.2f RecoveryPL=%.2f ReserveCoverage=%.4f LastATRPoints=%.1f LastWorkInitial=%d LastWorkBigStart=%d LastWorkBigStep=%d LastWorkFar=%d LikelyReason=%s",
+                        WorkMaxHarvestLevels,
+                        Ctx.harvestLevel,
+                        Ctx.farLot,
+                        Ctx.bigLot,
+                        Ctx.smallLot,
+                        Ctx.totalReserve,
+                        Ctx.realRecoveryPL,
+                        reserveCoverage,
+                        Ctx.cycleATRPoints,
+                        Ctx.workInitialTriggerPoints,
+                        Ctx.workBigMoveStartPoints,
+                        Ctx.workBigMoveStepPoints,
+                        Ctx.workFarDistancePoints,
+                        DiagnoseStopMaxLevelsReason(reserveCoverage)));
+}
+
 double CurrentPriceForDirectionClose(Direction dir)
 {
    return ExitPriceForDirection(dir);
@@ -2629,6 +2660,8 @@ void ProcessMaxLevelsDecision()
    if(!RefreshFar())
    {
       LogMaxLevelsDecision(0.0, 0.0, 0.0, "NO_FAR_FOUND_SET_STOP_MAX_LEVELS");
+      RecalculateRealCycleStatsFromHistory();
+      LogStopMaxLevelsDiagnosis(0.0);
       SetState(STATE_STOP_MAX_LEVELS, "Max levels reached and no residual Far found");
       return;
    }
@@ -2678,6 +2711,8 @@ void ProcessMaxLevelsDecision()
       }
       ClearFarContext("STOP_MAX_LEVELS_CLOSE_FAR confirmed by VerifyFullClose");
       if(!ValidateNoOrphanManagedPositions()) return;
+      RecalculateRealCycleStatsFromHistory();
+      LogStopMaxLevelsDiagnosis(farCloseLoss);
       SetState(STATE_STOP_MAX_LEVELS, "MaxHarvestLevels reached; residual Far closed by STOP_MAX_LEVELS_CLOSE_FAR");
       return;
    }

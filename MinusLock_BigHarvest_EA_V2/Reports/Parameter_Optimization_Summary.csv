@@ -64,6 +64,7 @@ CloseFarOnMaxLevels,true,true,true,Низкое,Synthetic rank spread=0.0; recom
 ReserveMismatchTolerance,0.01,0.01,0.01,Низкое,Synthetic rank spread=0.0; recommended preset anchor
 VolumeMismatchToleranceLots,0.001,0.001,0.001,Низкое,Synthetic rank spread=0.0; recommended preset anchor
 ReconciliationIntervalSeconds,300,300,300,Низкое,Synthetic rank spread=0.0; recommended preset anchor
+TerminalStateLogIntervalSeconds,300,300,300,Низкое,Terminal-state reconciliation throttle; log hygiene only
 PositionResolutionLookbackSeconds,10,10,10,Низкое,Synthetic rank spread=0.0; recommended preset anchor
 MagicNumber,20260609,20260609,20260609,Низкое,Synthetic rank spread=0.0; recommended preset anchor
 AllowRealTrading,true,true,true,Низкое,Synthetic rank spread=0.0; recommended preset anchor

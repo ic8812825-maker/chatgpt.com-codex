@@ -5,6 +5,7 @@ void SaveState();
 
 int g_atrHandle = INVALID_HANDLE;
 bool g_atrIndicatorAdded = false;
+int g_atrIndicatorSubwindow = -1;
 datetime g_lastATRWaitingLogTime = 0;
 
 bool IsATRGeometryMode()
@@ -71,15 +72,15 @@ void ApplyGeometryPresetMultipliers(double &initialMult, double &bigStartMult, d
 
    if(GeometryMode == GEOMETRY_ATR_SAFE)
    {
-      initialMult = 1.00; bigStartMult = 1.00; stepMult = 0.40; farMult = 1.30;
+      initialMult = 0.90; bigStartMult = 0.90; stepMult = 0.34; farMult = 1.10;
    }
    else if(GeometryMode == GEOMETRY_ATR_BALANCED)
    {
-      initialMult = 1.00; bigStartMult = 1.15; stepMult = 0.40; farMult = 1.50;
+      initialMult = 0.82; bigStartMult = 0.82; stepMult = 0.30; farMult = 1.00;
    }
    else if(GeometryMode == GEOMETRY_ATR_PROFIT)
    {
-      initialMult = 1.05; bigStartMult = 1.20; stepMult = 0.45; farMult = 1.60;
+      initialMult = 0.72; bigStartMult = 0.72; stepMult = 0.26; farMult = 0.90;
    }
 }
 
@@ -305,24 +306,55 @@ void ReleaseATRHandle()
       g_atrHandle = INVALID_HANDLE;
    }
    g_atrIndicatorAdded = false;
+   g_atrIndicatorSubwindow = -1;
+}
+
+bool IsATRIndicatorAlreadyVisible()
+{
+   int windows = (int)ChartGetInteger(0, CHART_WINDOWS_TOTAL);
+   string expectedShortName = StringFormat("ATR(%d)", ATRPeriod);
+   for(int window = 0; window < windows; window++)
+   {
+      int total = ChartIndicatorsTotal(0, window);
+      for(int index = 0; index < total; index++)
+      {
+         string name = ChartIndicatorName(0, window, index);
+         if(StringFind(name, expectedShortName) >= 0 || StringFind(name, "Average True Range") >= 0)
+         {
+            g_atrIndicatorAdded = true;
+            g_atrIndicatorSubwindow = window;
+            return true;
+         }
+      }
+   }
+   return false;
 }
 
 bool EnsureATRIndicatorOnChart()
 {
    if(!IsATRGeometryMode() || !ShowATRIndicatorOnChart)
       return true;
-   if(g_atrIndicatorAdded)
+
+   Print("ATR_INDICATOR_ADD_REQUEST Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod, " Handle=", g_atrHandle);
+
+   if(g_atrIndicatorAdded || IsATRIndicatorAlreadyVisible())
+   {
+      Print("ATR_INDICATOR_ALREADY_VISIBLE Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod, " Subwindow=", g_atrIndicatorSubwindow, " Handle=", g_atrHandle);
       return true;
+   }
+
    if(!EnsureATRHandle())
       return false;
 
    ResetLastError();
-   bool added = ChartIndicatorAdd(0, 1, g_atrHandle);
+   int targetSubwindow = 1;
+   bool added = ChartIndicatorAdd(0, targetSubwindow, g_atrHandle);
    int err = GetLastError();
    if(added)
    {
       g_atrIndicatorAdded = true;
-      Print("ATR_INDICATOR_ADD_OK Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod, " Handle=", g_atrHandle);
+      g_atrIndicatorSubwindow = targetSubwindow;
+      Print("ATR_INDICATOR_ADD_OK Symbol=", _Symbol, " Timeframe=", ATRTimeframeToString(), " Period=", ATRPeriod, " Handle=", g_atrHandle, " Subwindow=", g_atrIndicatorSubwindow);
       return true;
    }
 
@@ -488,8 +520,11 @@ bool CalculateAdaptiveGeometry()
    bool bigStartClampUsed = (bigStartAfterRound != Ctx.workBigMoveStartPoints);
    bool stepClampUsed = (bigStepAfterRound != Ctx.workBigMoveStepPoints);
    bool farClampUsed = (farAfterRound != Ctx.workFarDistancePoints);
-   bool geometryTooWide = (Ctx.workInitialTriggerPoints >= 240 || Ctx.workBigMoveStartPoints >= 250 ||
-                           Ctx.workBigMoveStepPoints >= 110 || Ctx.workFarDistancePoints >= 350);
+   bool anyClampUsed = initialClampUsed || bigStartClampUsed || stepClampUsed || farClampUsed;
+   bool geometryTooWide = (Ctx.workInitialTriggerPoints >= 220 || Ctx.workBigMoveStartPoints >= 220 ||
+                           Ctx.workBigMoveStepPoints >= 90 || Ctx.workFarDistancePoints >= 300);
+   bool geometryTooTight = (Ctx.workInitialTriggerPoints <= 120 || Ctx.workBigMoveStartPoints <= 120 ||
+                            Ctx.workBigMoveStepPoints <= 45 || Ctx.workFarDistancePoints <= 180);
 
    Print("ADAPTIVE_GEOMETRY_CALCULATED ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
          " RuntimeGeometryMode=", RuntimeGeometryModeToString(),
@@ -517,9 +552,19 @@ bool CalculateAdaptiveGeometry()
          " BigStartClampUsed=", bigStartClampUsed ? "YES" : "NO",
          " StepClampUsed=", stepClampUsed ? "YES" : "NO",
          " FarClampUsed=", farClampUsed ? "YES" : "NO",
-         " GeometryTooWide=", geometryTooWide ? "YES" : "NO");
+         " AnyClampUsed=", anyClampUsed ? "YES" : "NO",
+         " GeometryTooWide=", geometryTooWide ? "YES" : "NO",
+         " GeometryTooTight=", geometryTooTight ? "YES" : "NO");
    if(geometryTooWide)
-      Print("WARNING_ATR_GEOMETRY_TOO_WIDE ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+      Print("WARNING_ATR_GEOMETRY_WIDE ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
+            " ATRTimeframe=", ATRTimeframeToString(),
+            " ATRPeriod=", ATRPeriod,
+            " WorkInitial=", Ctx.workInitialTriggerPoints,
+            " WorkBigStart=", Ctx.workBigMoveStartPoints,
+            " WorkBigStep=", Ctx.workBigMoveStepPoints,
+            " WorkFar=", Ctx.workFarDistancePoints);
+   if(geometryTooTight)
+      Print("WARNING_ATR_GEOMETRY_TOO_TIGHT ConfiguredGeometryMode=", ConfiguredGeometryModeToString(),
             " ATRTimeframe=", ATRTimeframeToString(),
             " ATRPeriod=", ATRPeriod,
             " WorkInitial=", Ctx.workInitialTriggerPoints,

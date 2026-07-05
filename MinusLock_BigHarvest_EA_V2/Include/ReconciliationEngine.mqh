@@ -1,6 +1,43 @@
 #ifndef __BH_RECONCILIATIONENGINE_MQH__
 #define __BH_RECONCILIATIONENGINE_MQH__
 
+datetime LastTerminalReconLogTime = 0;
+int SuppressedTerminalReconCount = 0;
+
+bool IsTerminalStateForReconciliationThrottle(EAState state)
+{
+   return state == STATE_STOP_MAX_LEVELS ||
+          state == STATE_CLOSED_PROFIT ||
+          state == STATE_CLOSED_RECOVERY_LOSS ||
+          state == STATE_REVERSE_LIMIT ||
+          state == STATE_ERROR ||
+          state == STATE_STOP;
+}
+
+bool ShouldThrottleTerminalReconciliation()
+{
+   if(!IsTerminalStateForReconciliationThrottle(State))
+      return false;
+
+   datetime now = TimeCurrent();
+   int interval = TerminalStateLogIntervalSeconds > 0 ? TerminalStateLogIntervalSeconds : RiskGateLogIntervalSeconds;
+   if(LastTerminalReconLogTime != 0 && now - LastTerminalReconLogTime < interval)
+   {
+      SuppressedTerminalReconCount++;
+      return true;
+   }
+
+   LogInfo(StringFormat("TERMINAL_STATE_STABLE State=%s ManagedPositions=%d SuppressedRepeatedLogs=%d TotalReserve=%.2f HarvestLevel=%d",
+                        StateToString(State),
+                        CountManagedOpenPositions(),
+                        SuppressedTerminalReconCount,
+                        Ctx.totalReserve,
+                        Ctx.harvestLevel));
+   SuppressedTerminalReconCount = 0;
+   LastTerminalReconLogTime = now;
+   return false;
+}
+
 datetime LastReconciliationTime = 0;
 datetime LastRepeatWarningLogTime = 0;
 int ReconciliationSuppressedRepeatWarnings = 0;
@@ -474,6 +511,9 @@ bool RunReconciliation()
 
 void RunPeriodicReconciliation()
 {
+   if(ShouldThrottleTerminalReconciliation())
+      return;
+
    if(State == STATE_RECOVERY_MISMATCH)
    {
       LogReconciliationRepeatWarning("STATE_RECOVERY_MISMATCH still active");

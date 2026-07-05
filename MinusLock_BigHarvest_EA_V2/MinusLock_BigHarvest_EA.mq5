@@ -49,6 +49,7 @@ bool ValidateInputs()
    if(MaxCloseRetryAttempts <= 0) { Print("ERROR: MaxCloseRetryAttempts must be > 0"); return false; }
    if(RetryLogIntervalSeconds <= 0) { Print("ERROR: RetryLogIntervalSeconds must be > 0"); return false; }
    if(RiskGateLogIntervalSeconds <= 0) { Print("ERROR: RiskGateLogIntervalSeconds must be > 0"); return false; }
+   if(TerminalStateLogIntervalSeconds <= 0) { Print("ERROR: TerminalStateLogIntervalSeconds must be > 0"); return false; }
    if(VolumeMismatchToleranceLots <= 0.0) { Print("ERROR: VolumeMismatchToleranceLots must be > 0"); return false; }
    if(ATRPeriod <= 0) { Print("ERROR: ATRPeriod must be > 0"); return false; }
    if(GeometryRoundStep <= 0) { Print("ERROR: GeometryRoundStep must be > 0"); return false; }

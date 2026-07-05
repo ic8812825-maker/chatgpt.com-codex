@@ -140,6 +140,7 @@ Plot-ready dependency data is written to `Reports/Parameter_Dependency_Data.csv`
 | ReserveMismatchTolerance | 0.01 | 0.01 | 0.01 | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
 | VolumeMismatchToleranceLots | 0.001 | 0.001 | 0.001 | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
 | ReconciliationIntervalSeconds | 300 | 300 | 300 | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
+| TerminalStateLogIntervalSeconds | 300 | 300 | 300 | Низкое | Terminal-state reconciliation throttle; log hygiene only |
 | PositionResolutionLookbackSeconds | 10 | 10 | 10 | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
 | MagicNumber | 20260609 | 20260609 | 20260609 | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
 | AllowRealTrading | true | true | true | Низкое | Synthetic rank spread=0.0; recommended preset anchor |
@@ -174,3 +175,18 @@ MT5 genetic optimization and broker Strategy Tester runs cannot be executed in t
 ## Final conclusion
 
 The recommended mathematical operating area is ATR BALANCED/PROFIT geometry on PERIOD_CURRENT with ATRPeriod=14, BigRatio 1.14–1.16, SmallRatio 0.36–0.40, CloseFarShare 0.75–0.90, FarDistance 250–300, BigMoveStart 190–210 and BigMoveStep 70–80. ATRPeriod=20 remains only for conservative smoothing presets. The main production candidate is `Minimum_Big_Levels.set`; the balanced default is `Recommended.set`.
+
+## ATR Geometry Runtime Validation — V2.4.23
+
+The previous ATR_SAFE runtime sample confirmed that ATR was technically active (`RuntimeGeometryMode=GEOMETRY_ATR_SAFE`, `GeometrySource=ATR`, `ATRTimeframe=PERIOD_CURRENT`, `ATRPeriod=14`) but still reached `STATE_STOP_MAX_LEVELS` at `HarvestLevel=6` with `TotalReserve=2.76`.
+
+The revised ATR family narrows the ATR-derived distances to improve recovery completion before the maximum level:
+
+| Mode | ATRPeriod | ATRTimeframe | Multipliers Initial/BigStart/Step/Far | Caps Initial/BigStart/Step/Far | Role |
+|---|---:|---|---|---|---|
+| ATR_SAFE | 14 | PERIOD_CURRENT | 0.90 / 0.90 / 0.34 / 1.10 | 220 / 220 / 90 / 300 | safer but less stretched than old SAFE |
+| ATR_BALANCED | 14 | PERIOD_CURRENT | 0.82 / 0.82 / 0.30 / 1.00 | 210 / 210 / 85 / 275 | primary recommended ATR mode |
+| ATR_PROFIT | 14 | PERIOD_CURRENT | 0.72 / 0.72 / 0.26 / 0.90 | 200 / 200 / 80 / 250 | minimum Big-level candidate |
+| ATR_CONSERVATIVE | 20 | PERIOD_CURRENT | 0.98 / 0.98 / 0.40 / 1.25 | 240 / 240 / 100 / 325 | smoothed cautious diagnostic mode |
+
+See `Reports/ATR_Geometry_Runtime_Trace.md` for the MANUAL vs ATR comparison table and required MT5 re-test matrix.

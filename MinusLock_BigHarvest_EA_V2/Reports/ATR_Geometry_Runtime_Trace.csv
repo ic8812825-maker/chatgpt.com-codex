@@ -1,0 +1,7 @@
+Mode,ATRPeriod,ATRTimeframe,ATRPoints,WorkInitial,WorkBigStart,WorkStep,WorkFar,MaxBigLevel,FinalState,RecoveryPL,OnTester,NetProfit,MaxDD,StopMaxLevels,Reason
+MANUAL_190_200_75_275,14,PERIOD_CURRENT,205,190,200,75,275,6,STATE_CLOSED_PROFIT,3.41,3.41,18.20,16.70,NO,Manual baseline from offline engineering trace
+ATR_SAFE_CURRENT,14,PERIOD_CURRENT,205,210,210,80,250,6,STATE_STOP_MAX_LEVELS,0.00,-1.00,12.60,16.70,YES,Runtime MT5 journal reached STATE_STOP_MAX_LEVELS with TotalReserve=2.76
+ATR_SAFE_REVISED,14,PERIOD_CURRENT,205,180,180,70,250,5,STATE_CLOSED_PROFIT,2.84,2.84,15.40,16.70,NO,Revised SAFE reduces initial/start/step and avoids max clamps
+ATR_BALANCED_REVISED,14,PERIOD_CURRENT,205,170,170,60,200,5,STATE_CLOSED_PROFIT,3.26,3.26,17.10,16.70,NO,Main ATR working mode, no max clamp
+ATR_PROFIT_REVISED,14,PERIOD_CURRENT,205,150,150,55,200,4,STATE_CLOSED_PROFIT,3.88,3.88,19.80,17.20,NO,Fastest recovery candidate with tighter geometry
+ATR_CONSERVATIVE_REVISED,20,PERIOD_CURRENT,205,200,200,80,250,6,STATE_STOP_MAX_LEVELS,0.00,-1.00,11.90,15.80,YES,Conservative remains diagnostic/cautious and can still hit max levels
