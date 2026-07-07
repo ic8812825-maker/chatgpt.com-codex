@@ -4,23 +4,23 @@ All presets keep `StartLot=1.00`. These are offline Big-only algebraic candidate
 
 ## BigScenario_Best_1.set
 
-- TestID=83, Rank=1, Score=88361.603175
-- LevelsUsed=1, RecoveryPL=26.675, ReserveCoverage=2.05853175
+- TestID=346, Rank=1, Score=-245000.753569
+- LevelsUsed=3, RecoveryPL=0.6746697, ReserveCoverage=1.02499734
 - File: `Sets/BigScenario_Best_1.set`
 
 ```ini
 StartLot=1.00
-BigRatio=1.11
+BigRatio=1.1
 SmallRatio=0.25
 CloseBigOnSmall=0.4
 RemainBigOnSmall=0.6
-CloseFarShare=0.75
-ReserveShare=0.25
+CloseFarShare=0.9
+ReserveShare=0.1
 SmallReserveShare=0.05
 UseRecommended5050Preset=false
 InitialTriggerPoints=190
-BigMoveStartPoints=250
-BigMoveStepPoints=40
+BigMoveStartPoints=260
+BigMoveStepPoints=110
 FarDistancePoints=180
 FarDistanceMode=3
 GeometryMode=0
@@ -64,23 +64,23 @@ TerminalStateLogIntervalSeconds=300
 
 ## BigScenario_Best_2.set
 
-- TestID=84, Rank=2, Score=88361.603175
-- LevelsUsed=1, RecoveryPL=26.675, ReserveCoverage=2.05853175
+- TestID=342, Rank=2, Score=-245329.8723334
+- LevelsUsed=3, RecoveryPL=13.47424496, ReserveCoverage=1.45385217
 - File: `Sets/BigScenario_Best_2.set`
 
 ```ini
 StartLot=1.00
-BigRatio=1.11
+BigRatio=1.1
 SmallRatio=0.25
 CloseBigOnSmall=0.4
 RemainBigOnSmall=0.6
-CloseFarShare=0.75
-ReserveShare=0.25
+CloseFarShare=0.85
+ReserveShare=0.15
 SmallReserveShare=0.05
 UseRecommended5050Preset=false
 InitialTriggerPoints=190
-BigMoveStartPoints=250
-BigMoveStepPoints=50
+BigMoveStartPoints=260
+BigMoveStepPoints=110
 FarDistancePoints=180
 FarDistanceMode=3
 GeometryMode=0
@@ -124,23 +124,23 @@ TerminalStateLogIntervalSeconds=300
 
 ## BigScenario_Best_3.set
 
-- TestID=81, Rank=3, Score=88324.416667
-- LevelsUsed=1, RecoveryPL=26.25, ReserveCoverage=1.72916667
+- TestID=239, Rank=3, Score=-245875.4294439
+- LevelsUsed=3, RecoveryPL=10.28229221, ReserveCoverage=1.31747634
 - File: `Sets/BigScenario_Best_3.set`
 
 ```ini
 StartLot=1.00
-BigRatio=1.11
+BigRatio=1.1
 SmallRatio=0.25
 CloseBigOnSmall=0.4
 RemainBigOnSmall=0.6
-CloseFarShare=0.7
-ReserveShare=0.3
+CloseFarShare=0.85
+ReserveShare=0.15
 SmallReserveShare=0.05
 UseRecommended5050Preset=false
 InitialTriggerPoints=190
-BigMoveStartPoints=250
-BigMoveStepPoints=40
+BigMoveStartPoints=260
+BigMoveStepPoints=100
 FarDistancePoints=180
 FarDistanceMode=3
 GeometryMode=0
@@ -167,7 +167,7 @@ FreezeGeometryPerCycle=true
 PrintAdaptiveGeometryLog=true
 AllowATRManualFallback=false
 ShowATRIndicatorOnChart=true
-MaxHarvestLevels=20
+MaxHarvestLevels=16
 MaxReverseCycles=10
 MinProjectedReserveCoverage=1.0
 MaxSpreadPoints=40.0

@@ -9,47 +9,47 @@ The model rejects parameter sets that fail `BigRatio^2 * RemainBigOnSmall < 1`, 
 
 The supplied MT5 Strategy Tester report is the source of truth and invalidates the previous one-level production claim for `BigScenario_Best_1.set`: MT5 reached `MinusLock_BIG_L11`, returned `OnTester=-1`, and ended with open managed positions. These rows are offline algebraic candidates only and must not be used as working-parameter recommendations until the optimizer is upgraded to replay MT5 deal data.
 
-## Best offline set (MT5-invalidated)
+## Top Python-calibrated candidate (MT5 not confirmed)
 
-- TOP-1: `TestID=83` / `LOCAL_ROUND_AROUND_TOP` / `Score=88361.603175`.
-- Parameters: StartLot=1.00, BigRatio=1.11, SmallRatio=0.25, CloseFarShare=0.75, ReserveShare=0.25, BigMoveStart=250, BigMoveStep=40, FarDistance=180, MaxHarvestLevels=20.
-- Result: LevelsUsed=1, TotalPositionsOpened=4, TotalPositionsClosed=5, RecoveryPL=26.675, ReserveCoverage=2.05853175, FinalState=STATE_CLOSED_PROFIT, StopReason=FINAL_CLOSE_RESERVE_COVERS_FAR.
-- Why selected by the obsolete offline score: it has the minimum algebraic level count, passes simplified full-cycle completion, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and uses the smallest total-position footprint among the highest-scoring one-level candidates. It is MT5-invalidated and not production-approved.
+- TOP-1: `TestID=346` / `LOCAL_ROUND_AROUND_TOP` / `Score=-245000.753569`.
+- Parameters: StartLot=1.00, BigRatio=1.1, SmallRatio=0.25, CloseFarShare=0.9, ReserveShare=0.1, BigMoveStart=260, BigMoveStep=110, FarDistance=180, MaxHarvestLevels=20.
+- Result: LevelsUsed=3, TotalPositionsOpened=8, TotalPositionsClosed=11, RecoveryPL=0.6746697, ReserveCoverage=1.02499734, FinalState=STATE_CLOSED_PROFIT, StopReason=FINAL_CLOSE_RESERVE_COVERS_FAR.
+- Why selected by the calibrated Python score: it has the lowest calibrated level count found in this run, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and avoids the explicitly invalidated MT5 BIG_L11 signature. It remains MT5_CANDIDATE_NOT_CONFIRMED and is not production-approved.
 
 ## TOP-10
 
 | Rank | TestID | Group | Levels | Opened | Closed | BigRatio | SmallRatio | CloseFarShare | ReserveShare | BigStart | BigStep | FarDistance | RecoveryPL | ReserveCoverage | Score |
 |---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 83 | LOCAL_ROUND_AROUND_TOP | 1 | 4 | 5 | 1.11 | 0.25 | 0.75 | 0.25 | 250 | 40 | 180 | 26.675 | 2.05853175 | 88361.603175 |
-| 2 | 84 | LOCAL_ROUND_AROUND_TOP | 1 | 4 | 5 | 1.11 | 0.25 | 0.75 | 0.25 | 250 | 50 | 180 | 26.675 | 2.05853175 | 88361.603175 |
-| 3 | 81 | LOCAL_ROUND_AROUND_TOP | 1 | 4 | 5 | 1.11 | 0.25 | 0.7 | 0.3 | 250 | 40 | 180 | 26.25 | 1.72916667 | 88324.416667 |
-| 4 | 82 | LOCAL_ROUND_AROUND_TOP | 1 | 4 | 5 | 1.11 | 0.25 | 0.7 | 0.3 | 250 | 50 | 180 | 26.25 | 1.72916667 | 88324.416667 |
-| 5 | 75 | LOCAL_ROUND_AROUND_TOP | 1 | 4 | 5 | 1.1 | 0.25 | 0.75 | 0.25 | 250 | 40 | 180 | 24.25 | 1.89814815 | 88322.314815 |
-| 6 | 76 | LOCAL_ROUND_AROUND_TOP | 1 | 4 | 5 | 1.1 | 0.25 | 0.75 | 0.25 | 250 | 50 | 180 | 24.25 | 1.89814815 | 88322.314815 |
-| 7 | 66 | FIRST_ROUND_50_PLUS | 1 | 4 | 5 | 1.1 | 0.25 | 0.7 | 0.3 | 250 | 40 | 180 | 23.7 | 1.62698413 | 88289.698413 |
-| 8 | 70 | FIRST_ROUND_50_PLUS | 1 | 4 | 5 | 1.1 | 0.25 | 0.7 | 0.3 | 250 | 60 | 180 | 23.7 | 1.62698413 | 88289.698413 |
-| 9 | 73 | LOCAL_ROUND_AROUND_TOP | 1 | 4 | 5 | 1.1 | 0.25 | 0.7 | 0.3 | 250 | 40 | 180 | 23.7 | 1.62698413 | 88289.698413 |
-| 10 | 74 | LOCAL_ROUND_AROUND_TOP | 1 | 4 | 5 | 1.1 | 0.25 | 0.7 | 0.3 | 250 | 50 | 180 | 23.7 | 1.62698413 | 88289.698413 |
+| 1 | 346 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.9 | 0.1 | 260 | 110 | 180 | 0.6746697 | 1.02499734 | -245000.753569 |
+| 2 | 342 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 110 | 180 | 13.47424496 | 1.45385217 | -245329.8723334 |
+| 3 | 239 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 180 | 10.28229221 | 1.31747634 | -245875.4294439 |
+| 4 | 240 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 220 | 10.28229221 | 1.31747634 | -245875.4294439 |
+| 5 | 241 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 275 | 10.28229221 | 1.31747634 | -245875.4294439 |
+| 6 | 242 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 350 | 10.28229221 | 1.31747634 | -245875.4294439 |
+| 7 | 341 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 180 | 10.28229221 | 1.31747634 | -245875.4294439 |
+| 8 | 358 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.27 | 0.85 | 0.15 | 260 | 110 | 180 | 10.06228137 | 1.31068328 | -245878.3088583 |
+| 9 | 370 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.11 | 0.25 | 0.8 | 0.2 | 260 | 110 | 180 | 24.28921084 | 1.69226554 | -246198.8813376 |
+| 10 | 357 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.27 | 0.85 | 0.15 | 260 | 100 | 180 | 6.87847718 | 1.19604312 | -246421.6109162 |
 
 ## TOP-1 / TOP-3 summary
 
-### TOP-1: TestID 83
+### TOP-1: TestID 346
 
-- Levels: 1; positions opened/closed: 4/5.
-- RecoveryPL=26.675; ReserveCoverage=2.05853175; RemainingFarLot=0.14; TotalClosedFarLot=0.86.
-- Parameters: BigRatio=1.11, SmallRatio=0.25, CloseFarShare=0.75, BigMoveStart=250, BigMoveStep=40, FarDistance=180.
+- Levels: 3; positions opened/closed: 8/11.
+- RecoveryPL=0.6746697; ReserveCoverage=1.02499734; RemainingFarLot=0.1; TotalClosedFarLot=0.9.
+- Parameters: BigRatio=1.1, SmallRatio=0.25, CloseFarShare=0.9, BigMoveStart=260, BigMoveStep=110, FarDistance=180.
 
-### TOP-2: TestID 84
+### TOP-2: TestID 342
 
-- Levels: 1; positions opened/closed: 4/5.
-- RecoveryPL=26.675; ReserveCoverage=2.05853175; RemainingFarLot=0.14; TotalClosedFarLot=0.86.
-- Parameters: BigRatio=1.11, SmallRatio=0.25, CloseFarShare=0.75, BigMoveStart=250, BigMoveStep=50, FarDistance=180.
+- Levels: 3; positions opened/closed: 8/11.
+- RecoveryPL=13.47424496; ReserveCoverage=1.45385217; RemainingFarLot=0.11; TotalClosedFarLot=0.89.
+- Parameters: BigRatio=1.1, SmallRatio=0.25, CloseFarShare=0.85, BigMoveStart=260, BigMoveStep=110, FarDistance=180.
 
-### TOP-3: TestID 81
+### TOP-3: TestID 239
 
-- Levels: 1; positions opened/closed: 4/5.
-- RecoveryPL=26.25; ReserveCoverage=1.72916667; RemainingFarLot=0.2; TotalClosedFarLot=0.8.
-- Parameters: BigRatio=1.11, SmallRatio=0.25, CloseFarShare=0.7, BigMoveStart=250, BigMoveStep=40, FarDistance=180.
+- Levels: 3; positions opened/closed: 8/11.
+- RecoveryPL=10.28229221; ReserveCoverage=1.31747634; RemainingFarLot=0.12; TotalClosedFarLot=0.88.
+- Parameters: BigRatio=1.1, SmallRatio=0.25, CloseFarShare=0.85, BigMoveStart=260, BigMoveStep=100, FarDistance=180.
 
 ## First-round analysis
 
@@ -63,7 +63,7 @@ The supplied MT5 Strategy Tester report is the source of truth and invalidates t
 
 ## Local-round analysis
 
-The local round around the best zone confirmed that the one-level completion area is stable when `BigMoveStartPoints=250`, `FarDistancePoints=180`, `SmallRatio≈0.25`, and `BigRatio` is kept in the lower compression-safe area around 1.10-1.11 to reduce exposure after level count is already minimized.
+The local round around the best calibrated zone found several 3-level Python-calibrated candidates with `BigMoveStartPoints≈260`, low `SmallRatio`, and high `CloseFarShare`; these are not MT5-confirmed and must be tested in Strategy Tester before use.
 
 ## Dangerous parameters / do not use
 
@@ -83,4 +83,6 @@ The local round around the best zone confirmed that the one-level completion are
 
 | Level | FarLotBefore | BigLot | SmallLot | BigMovePoints | ClosedBigNet | ClosedSmallNet | BigScenarioNet | CloseFarBudget | ReserveAdd | CloseFarLotRounded | CloseFarActualCost | FarLotAfter | ReserveAfter | RecoveryPL | ReserveCoverage | NextAction |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| 1 | 1.0 | 1.11 | 0.28 | 250 | 277.5 | -70.0 | 207.5 | 155.625 | 51.875 | 0.86 | 154.8 | 0.14 | 51.875 | 26.675 | 2.05853175 | FINAL_CLOSE |
+| 1 | 1.0 | 1.1 | 0.28 | 255.0 | 152.37787191 | -38.78709467 | 113.59077724 | 102.23169952 | 11.35907772 | 0.37 | 99.86172414 | 0.63 | 11.35907772 | -158.67574986 | 0.06680442 | NEXT_BIG_LEVEL |
+| 2 | 0.63 | 0.69 | 0.18 | 365.0 | 136.81414275 | -35.69064593 | 101.12349682 | 91.01114714 | 10.11234968 | 0.33 | 89.06586207 | 0.3 | 21.4714274 | -59.49753812 | 0.26518095 | NEXT_BIG_LEVEL |
+| 3 | 0.3 | 0.33 | 0.09 | 475.0 | 85.15234018 | -23.2233655 | 61.92897468 | 55.73607721 | 6.19289747 | 0.2 | 53.97931034 | 0.1 | 27.66432487 | 0.6746697 | 1.02499734 | FINAL_CLOSE |

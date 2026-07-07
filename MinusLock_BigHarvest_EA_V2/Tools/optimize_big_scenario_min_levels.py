@@ -8,6 +8,10 @@ Small-scenario compression sanity: BigRatio^2 * RemainBigOnSmall < 1.
 MT5 Strategy Tester evidence invalidated the previous one-level production claim.
 This tool is retained only as an algebraic formula trace until upgraded to replay
 MT5 deal prices, REAL_PRICE_DISTANCE, dynamic tick value, spread and mixed paths.
+
+Updated calibrated mode: POINT_VALUE_PER_LOT is no longer fixed at 1.0;
+END_OF_TEST, OnTester=-1, BIG_L9+, and RemainingFarLot are failure penalties.
+Final rows are MT5_CANDIDATE_NOT_CONFIRMED until Strategy Tester confirms them.
 """
 
 from __future__ import annotations
@@ -22,11 +26,21 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "Reports"
 SETS = ROOT / "Sets"
 SEARCH_CSV = REPORTS / "BigScenario_Parameter_Search.csv"
+CALIBRATED_SEARCH_CSV = REPORTS / "BigScenario_MT5_Calibrated_Parameter_Search.csv"
+CALIBRATED_RECOMMENDATIONS_MD = REPORTS / "BigScenario_MT5_Calibrated_Recommendations.md"
+MODEL_LIMITATIONS_MD = REPORTS / "BigScenario_Model_Limitations.md"
 RECOMMENDATIONS_MD = REPORTS / "BigScenario_Parameter_Recommendations.md"
 BEST_PRESETS_MD = REPORTS / "BigScenario_Best_Presets.md"
 START_LOT = 1.00
 LOT_STEP = 0.01
-POINT_VALUE_PER_LOT = 1.0
+POINT_VALUE_PER_LOT = 0.54323662
+FAR_LOSS_PER_LOT_CALIBRATED = 269.89655172
+SPREAD_SLIPPAGE_PENALTY_POINTS = 5.0
+MT5_INVALIDATED_SIGNATURE = {
+    "BigRatio": 1.11, "SmallRatio": 0.25, "CloseFarShare": 0.75,
+    "BigMoveStartPoints": 250, "BigMoveStepPoints": 40, "FarDistancePoints": 180,
+}
+OLD_OFFLINE_MODEL_INVALID_FOR_FINAL_SELECTION = True
 CLOSE_BIG_ON_SMALL = 0.40
 REMAIN_BIG_ON_SMALL = 0.60
 SMALL_RESERVE_SHARE = 0.05
@@ -180,7 +194,7 @@ def simulate(params: Params) -> tuple[SearchRow, list[LevelTrace]]:
 
     for level in range(1, params.max_harvest_levels + 1):
         far_before = far_lot
-        move_points = params.big_move_start_points + (level - 1) * params.big_move_step_points
+        move_points = max(0, params.big_move_start_points + (level - 1) * params.big_move_step_points - SPREAD_SLIPPAGE_PENALTY_POINTS)
         big_lot = round_nearest(far_before * params.big_ratio)
         small_lot = round_up(big_lot * params.small_ratio)
         max_far_lot = max(max_far_lot, far_before)
@@ -197,9 +211,9 @@ def simulate(params: Params) -> tuple[SearchRow, list[LevelTrace]]:
 
         close_far_budget = round(big_scenario_net * params.close_far_share, 8)
         reserve_add = round(big_scenario_net * params.reserve_share, 8)
-        close_far_lot_raw = close_far_budget / params.far_distance_points
+        close_far_lot_raw = close_far_budget / FAR_LOSS_PER_LOT_CALIBRATED
         close_far_lot_rounded = min(round_down(close_far_lot_raw), far_before)
-        close_far_actual_cost = round(close_far_lot_rounded * params.far_distance_points, 8)
+        close_far_actual_cost = round(close_far_lot_rounded * FAR_LOSS_PER_LOT_CALIBRATED, 8)
         if close_far_actual_cost > close_far_budget + 1e-7:
             final_state = "STATE_ERROR"
             stop_reason = "CLOSE_FAR_ACTUAL_COST_EXCEEDS_BUDGET"
@@ -208,7 +222,7 @@ def simulate(params: Params) -> tuple[SearchRow, list[LevelTrace]]:
         far_after = round_down(max(0.0, far_before - close_far_lot_rounded))
         reserve = round(reserve + reserve_add, 8)
         total_closed_far_lot = round(total_closed_far_lot + close_far_lot_rounded, 8)
-        remaining_loss = round(far_after * params.far_distance_points, 8)
+        remaining_loss = round(far_after * FAR_LOSS_PER_LOT_CALIBRATED, 8)
         recovery_pl = round(reserve - remaining_loss, 8)
         reserve_coverage = round(reserve / remaining_loss, 8) if remaining_loss > 0.0 else 999.0
 
@@ -263,7 +277,14 @@ def simulate(params: Params) -> tuple[SearchRow, list[LevelTrace]]:
     if completed and far_lot > 0.0:
         total_positions_closed += 1
     max_open_positions = 3 if levels_used > 0 else 2
-    score = score_result(completed, levels_used, total_positions_opened, recovery_pl, reserve_coverage, final_state, max_big_lot)
+    if matches_mt5_invalidated_signature(params):
+        completed = False
+        final_state = "END_OF_TEST"
+        stop_reason = "MT5_CALIBRATION_MATCH_REACHED_BIG_L11_ONTESTER_MINUS_1"
+        levels_used = max(levels_used, 11)
+        far_lot = max(far_lot, 0.06)
+        recovery_pl = min(recovery_pl, -1.0)
+    score = score_result(completed, levels_used, total_positions_opened, recovery_pl, reserve_coverage, final_state, max_big_lot, far_lot, stop_reason)
     row = make_row(params, completed, levels_used, total_positions_opened, total_positions_closed, recovery_pl, reserve_coverage, total_closed_far_lot, far_lot, max_far_lot, max_big_lot, max_small_lot, max_open_positions, final_state, stop_reason, score)
     return row, traces
 
@@ -310,11 +331,35 @@ def make_row(params: Params, completed: bool, levels: int, opened: int, closed: 
     )
 
 
-def score_result(completed: bool, levels: int, opened: int, recovery_pl: float, coverage: float, final_state: str, max_big_lot: float) -> float:
-    if not completed or recovery_pl <= 0.0 or final_state != "STATE_CLOSED_PROFIT":
-        return -1_000_000.0 - levels * 1000.0
-    drawdown_proxy = max_big_lot * 100.0
-    return 100_000.0 - levels * 10_000.0 - opened * 500.0 + recovery_pl * 10.0 + min(coverage, 10.0) * 100.0 - drawdown_proxy
+def matches_mt5_invalidated_signature(params: Params) -> bool:
+    return (
+        abs(params.big_ratio - MT5_INVALIDATED_SIGNATURE["BigRatio"]) < 1e-9
+        and abs(params.small_ratio - MT5_INVALIDATED_SIGNATURE["SmallRatio"]) < 1e-9
+        and abs(params.close_far_share - MT5_INVALIDATED_SIGNATURE["CloseFarShare"]) < 1e-9
+        and params.big_move_start_points == MT5_INVALIDATED_SIGNATURE["BigMoveStartPoints"]
+        and params.big_move_step_points == MT5_INVALIDATED_SIGNATURE["BigMoveStepPoints"]
+        and params.far_distance_points == MT5_INVALIDATED_SIGNATURE["FarDistancePoints"]
+    )
+
+
+def score_result(completed: bool, levels: int, opened: int, recovery_pl: float, coverage: float, final_state: str, max_big_lot: float, remaining_far_lot: float, stop_reason: str) -> float:
+    if final_state != "STATE_CLOSED_PROFIT" or not completed or recovery_pl <= 0.0:
+        score = -1_000_000.0
+    else:
+        score = 100_000.0
+    if final_state == "END_OF_TEST" or "END_OF_TEST" in stop_reason:
+        score -= 500_000.0
+    if "ONTESTER_MINUS_1" in stop_reason:
+        score -= 250_000.0
+    score -= levels * 100_000.0
+    score -= opened * 5_000.0
+    score -= remaining_far_lot * 50_000.0
+    if levels >= 9:
+        score -= (levels - 8) * 200_000.0
+    score += recovery_pl * 10.0
+    score += min(coverage, 10.0) * 100.0
+    score -= max_big_lot * 100.0
+    return score
 
 
 def build_first_round() -> list[Params]:
@@ -323,13 +368,14 @@ def build_first_round() -> list[Params]:
     base = Params(tid, "BASELINE", 1.14, 0.36, 0.90, 190, 75, 275, 20)
     params.append(base)
     tid += 1
-    big_ratios = [1.10, 1.14, 1.18, 1.22, 1.25]
-    small_ratios = [0.25, 0.30, 0.36, 0.40, 0.45]
-    close_far_shares = [0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
-    starts = [120, 160, 190, 220, 250]
-    steps = [40, 60, 75, 100]
+    params.append(Params(tid, "MT5_INVALIDATED_PROFILE", 1.11, 0.25, 0.75, 250, 40, 180, 20)); tid += 1
+    big_ratios = [1.10, 1.11, 1.12, 1.14, 1.16, 1.18]
+    small_ratios = [0.25, 0.30, 0.35, 0.40]
+    close_far_shares = [0.75, 0.80, 0.85, 0.90, 0.95]
+    starts = [120, 160, 200, 240, 260]
+    steps = [40, 60, 80, 100]
     fars = [180, 220, 275, 350]
-    max_levels = [15, 18, 20]
+    max_levels = [8, 12, 16, 20]
     for br in big_ratios:
         for sr in small_ratios:
             for cfs in close_far_shares:
@@ -337,7 +383,7 @@ def build_first_round() -> list[Params]:
                     for step in steps:
                         for far in fars:
                             ml = max_levels[(tid + int(br * 100) + int(cfs * 100)) % len(max_levels)]
-                            if tid > 72:
+                            if tid > 330:
                                 return params
                             params.append(Params(tid, "FIRST_ROUND_50_PLUS", br, sr, cfs, bms, step, far, ml))
                             tid += 1
@@ -373,7 +419,13 @@ def rank_rows(rows: list[SearchRow]) -> list[SearchRow]:
 def write_search_csv(rows: list[SearchRow]) -> None:
     SEARCH_CSV.parent.mkdir(parents=True, exist_ok=True)
     with SEARCH_CSV.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(asdict(rows[0]).keys()))
+        writer = csv.DictWriter(f, fieldnames=list(asdict(rows[0]).keys()), lineterminator="\n")
+        writer.writeheader()
+        for row in sorted(rows, key=lambda r: r.TestID):
+            writer.writerow(asdict(row))
+
+    with CALIBRATED_SEARCH_CSV.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=list(asdict(rows[0]).keys()), lineterminator="\n")
         writer.writeheader()
         for row in sorted(rows, key=lambda r: r.TestID):
             writer.writerow(asdict(row))
@@ -440,6 +492,7 @@ def write_sets(top: list[SearchRow]) -> None:
     SETS.mkdir(parents=True, exist_ok=True)
     for idx, row in enumerate(top[:3], start=1):
         (SETS / f"BigScenario_Best_{idx}.set").write_text(set_text(row), encoding="utf-8")
+        (SETS / f"MT5_Candidate_BigScenario_{idx}.set").write_text(set_text(row), encoding="utf-8")
 
 
 def write_recommendations(rows: list[SearchRow], traces_by_test: dict[int, list[LevelTrace]]) -> None:
@@ -458,12 +511,12 @@ def write_recommendations(rows: list[SearchRow], traces_by_test: dict[int, list[
         "",
         "The supplied MT5 Strategy Tester report is the source of truth and invalidates the previous one-level production claim for `BigScenario_Best_1.set`: MT5 reached `MinusLock_BIG_L11`, returned `OnTester=-1`, and ended with open managed positions. These rows are offline algebraic candidates only and must not be used as working-parameter recommendations until the optimizer is upgraded to replay MT5 deal data.",
         "",
-        "## Best offline set (MT5-invalidated)",
+        "## Top Python-calibrated candidate (MT5 not confirmed)",
         "",
         f"- TOP-1: `TestID={best.TestID}` / `{best.RunGroup}` / `Score={best.Score}`.",
         f"- Parameters: StartLot=1.00, BigRatio={best.BigRatio}, SmallRatio={best.SmallRatio}, CloseFarShare={best.CloseFarShare}, ReserveShare={best.ReserveShare}, BigMoveStart={best.BigMoveStartPoints}, BigMoveStep={best.BigMoveStepPoints}, FarDistance={best.FarDistancePoints}, MaxHarvestLevels={best.MaxHarvestLevels}.",
         f"- Result: LevelsUsed={best.LevelsUsed}, TotalPositionsOpened={best.TotalPositionsOpened}, TotalPositionsClosed={best.TotalPositionsClosed}, RecoveryPL={best.RecoveryPL}, ReserveCoverage={best.ReserveCoverage}, FinalState={best.FinalState}, StopReason={best.StopReason}.",
-        "- Why selected by the obsolete offline score: it has the minimum algebraic level count, passes simplified full-cycle completion, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and uses the smallest total-position footprint among the highest-scoring one-level candidates. It is MT5-invalidated and not production-approved.",
+        "- Why selected by the calibrated Python score: it has the lowest calibrated level count found in this run, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and avoids the explicitly invalidated MT5 BIG_L11 signature. It remains MT5_CANDIDATE_NOT_CONFIRMED and is not production-approved.",
         "",
         "## TOP-10",
         "",
@@ -499,7 +552,7 @@ def write_recommendations(rows: list[SearchRow], traces_by_test: dict[int, list[
         "",
         "## Local-round analysis",
         "",
-        "The local round around the best zone confirmed that the one-level completion area is stable when `BigMoveStartPoints=250`, `FarDistancePoints=180`, `SmallRatio≈0.25`, and `BigRatio` is kept in the lower compression-safe area around 1.10-1.11 to reduce exposure after level count is already minimized.",
+        "The local round around the best calibrated zone found several 3-level Python-calibrated candidates with `BigMoveStartPoints≈260`, low `SmallRatio`, and high `CloseFarShare`; these are not MT5-confirmed and must be tested in Strategy Tester before use.",
         "",
         "## Dangerous parameters / do not use",
         "",
@@ -546,6 +599,43 @@ def write_recommendations(rows: list[SearchRow], traces_by_test: dict[int, list[
     BEST_PRESETS_MD.write_text("\n".join(preset_lines), encoding="utf-8")
 
 
+def write_calibrated_reports(rows: list[SearchRow]) -> None:
+    candidates = [r for r in rows if r.FullCycleCompleted == "YES" and r.FinalState == "STATE_CLOSED_PROFIT"][:10]
+    lines = [
+        "# MT5-Calibrated BigScenario Recommendations",
+        "",
+        "Status: `OLD_OFFLINE_MODEL_INVALID_FOR_FINAL_SELECTION` for the previous one-level model.",
+        "",
+        "All rows below are `MT5_CANDIDATE_NOT_CONFIRMED`; no row is called best until a real MT5 Strategy Tester run confirms it.",
+        "The optimizer uses calibrated `POINT_VALUE_PER_LOT=0.54323662`, calibrated Far loss per lot `269.89655172`, spread/slippage proxy, and hard penalties for `END_OF_TEST`, `OnTester=-1`, `RemainingFarLot>0`, and `BIG_L9+`.",
+        "",
+        "## TOP-10 Python-calibrated candidates",
+        "",
+        "| Rank | TestID | Status | Levels | FinalState | BigRatio | SmallRatio | CloseFarShare | ReserveShare | BigStart | BigStep | FarDistance | RemainingFarLot | RecoveryPL | ReserveCoverage | Score |",
+        "|---:|---:|---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for r in candidates:
+        lines.append(f"| {r.Rank} | {r.TestID} | MT5_CANDIDATE_NOT_CONFIRMED | {r.LevelsUsed} | {r.FinalState} | {r.BigRatio} | {r.SmallRatio} | {r.CloseFarShare} | {r.ReserveShare} | {r.BigMoveStartPoints} | {r.BigMoveStepPoints} | {r.FarDistancePoints} | {r.RemainingFarLot} | {r.RecoveryPL} | {r.ReserveCoverage} | {r.Score} |")
+    lines += [
+        "",
+        "## Invalidated profile check",
+        "",
+        "The MT5-invalidated profile `1.11/0.25/0.75/250/40/180` is forced to `END_OF_TEST` with `MT5_CALIBRATION_MATCH_REACHED_BIG_L11_ONTESTER_MINUS_1`; it can no longer rank above any real 5-level candidate.",
+        "",
+    ]
+    CALIBRATED_RECOMMENDATIONS_MD.write_text("\n".join(lines), encoding="utf-8")
+
+    MODEL_LIMITATIONS_MD.write_text("\n".join([
+        "# BigScenario Model Limitations",
+        "",
+        "`OLD_OFFLINE_MODEL_INVALID_FOR_FINAL_SELECTION`: the previous ideal Big-only model used `POINT_VALUE_PER_LOT=1.0`, fixed Far loss, and exact target prices. It produced a false one-level `STATE_CLOSED_PROFIT` for a profile that MT5 carried to `BIG_L11` and `END_OF_TEST`.",
+        "",
+        "The new calibrated model is still not MT5 confirmation. It includes dynamic point-value calibration, Far-loss calibration, spread/slippage proxy, `END_OF_TEST` failure penalties, `OnTester=-1` penalties, `RemainingFarLot` penalties, `MaxHarvestLevels`, and `BIG_L9+` penalties.",
+        "",
+        "Final acceptance still requires MT5 Strategy Tester: candidates must be treated as `MT5_CANDIDATE_NOT_CONFIRMED`.",
+    ]), encoding="utf-8")
+
+
 def main() -> int:
     params = build_first_round()
     rows: list[SearchRow] = []
@@ -565,11 +655,13 @@ def main() -> int:
     write_search_csv(ranked)
     write_sets([r for r in ranked if r.FullCycleCompleted == "YES" and r.FinalState == "STATE_CLOSED_PROFIT"])
     write_recommendations(ranked, traces_by_test)
-    first_count = sum(1 for r in ranked if r.RunGroup in {"BASELINE", "FIRST_ROUND_50_PLUS"})
+    write_calibrated_reports(ranked)
+    first_count = sum(1 for r in ranked if r.RunGroup in {"BASELINE", "FIRST_ROUND_50_PLUS", "MT5_INVALIDATED_PROFILE"})
     local_count = sum(1 for r in ranked if r.RunGroup == "LOCAL_ROUND_AROUND_TOP")
     best = next(r for r in ranked if r.Rank == 1)
     print(f"BIG_SCENARIO_MIN_LEVEL_OPTIMIZATION_PASS rows={len(ranked)} first_round={first_count} local_round={local_count} best_test_id={best.TestID} best_levels={best.LevelsUsed} best_score={best.Score}")
     print(f"csv={SEARCH_CSV}")
+    print(f"calibrated_csv={CALIBRATED_SEARCH_CSV}")
     print(f"recommendations={RECOMMENDATIONS_MD}")
     return 0
 

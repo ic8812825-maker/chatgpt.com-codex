@@ -106,7 +106,7 @@ def build_rows() -> list[DivergenceRow]:
 def write_csv(rows: list[DivergenceRow]) -> None:
     CSV_PATH.parent.mkdir(parents=True, exist_ok=True)
     with CSV_PATH.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(asdict(rows[0]).keys()))
+        writer = csv.DictWriter(f, fieldnames=list(asdict(rows[0]).keys()), lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow(asdict(row))
