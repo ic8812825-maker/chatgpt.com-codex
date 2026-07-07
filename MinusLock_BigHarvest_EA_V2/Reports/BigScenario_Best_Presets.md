@@ -1,6 +1,6 @@
 # Big Scenario Best Presets
 
-All presets keep `StartLot=1.00`. These are offline Big-only candidates and require MT5 validation before live use.
+All presets keep `StartLot=1.00`. These are offline Big-only algebraic candidates. The supplied MT5 Strategy Tester report invalidated the one-level claim, so these presets are retained for investigation only and are not working recommendations.
 
 ## BigScenario_Best_1.set
 

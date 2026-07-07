@@ -1,0 +1,14 @@
+Metric,OfflinePython,MT5Tester,Difference,Verdict
+BigLot L1,1.11,1.11,0.00,MATCH
+SmallLot L1,0.28,0.28,0.00,MATCH
+Big move points used for L1,250,245.0 from deal prices,5.0,DIVERGES: bid/ask/fill prices
+Point value per lot,1.0000 hard-coded,0.5432 implied from MT5,0.4568,DIVERGES: account currency/symbol tick value
+BigScenarioNet L1,207.50,106.83,100.67,FIRST MATERIAL DIVERGENCE
+CloseFarBudget L1,155.62,80.12,75.50,DIVERGES
+ReserveAdd L1,51.88,26.71,25.17,DIVERGES
+Far loss basis,180 points fixed,~505.0 price-distance points / 269.90 money per lot,large,DIVERGES: EA uses REAL_PRICE_DISTANCE
+CloseFarLot L1,0.86,0.29,0.57,DIVERGES
+FarLotAfter L1,0.14,0.71,-0.57,DIVERGES
+ReserveCoverage after L1,2.0585,0.1394 estimate,1.9192,DIVERGES
+Next action after L1,FINAL_CLOSE,Open MinusLock_BIG_L2,opposite,FIRST STATE DIVERGENCE
+Final path,LevelsUsed=1 / STATE_CLOSED_PROFIT,Reached BIG_L11; OnTester=-1; BIG_L11/SMALL_L11/residual Far closed by end-of-test orders,invalidates optimizer claim,MT5_SOURCE_OF_TRUTH

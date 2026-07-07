@@ -5,12 +5,16 @@
 Offline Python search for the Big-only trend path. `StartLot` is fixed at `1.00` in every row and is not optimized.
 The model rejects parameter sets that fail `BigRatio^2 * RemainBigOnSmall < 1`, so Small-scenario compression is not intentionally broken.
 
-## Best found set
+## MT5 invalidation notice
+
+The supplied MT5 Strategy Tester report is the source of truth and invalidates the previous one-level production claim for `BigScenario_Best_1.set`: MT5 reached `MinusLock_BIG_L11`, returned `OnTester=-1`, and ended with open managed positions. These rows are offline algebraic candidates only and must not be used as working-parameter recommendations until the optimizer is upgraded to replay MT5 deal data.
+
+## Best offline set (MT5-invalidated)
 
 - TOP-1: `TestID=83` / `LOCAL_ROUND_AROUND_TOP` / `Score=88361.603175`.
 - Parameters: StartLot=1.00, BigRatio=1.11, SmallRatio=0.25, CloseFarShare=0.75, ReserveShare=0.25, BigMoveStart=250, BigMoveStep=40, FarDistance=180, MaxHarvestLevels=20.
 - Result: LevelsUsed=1, TotalPositionsOpened=4, TotalPositionsClosed=5, RecoveryPL=26.675, ReserveCoverage=2.05853175, FinalState=STATE_CLOSED_PROFIT, StopReason=FINAL_CLOSE_RESERVE_COVERS_FAR.
-- Why selected: it has the minimum level count, passes full-cycle completion, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and uses the smallest total-position footprint among the highest-scoring one-level candidates.
+- Why selected by the obsolete offline score: it has the minimum algebraic level count, passes simplified full-cycle completion, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and uses the smallest total-position footprint among the highest-scoring one-level candidates. It is MT5-invalidated and not production-approved.
 
 ## TOP-10
 

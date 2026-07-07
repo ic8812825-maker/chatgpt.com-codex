@@ -4,6 +4,10 @@
 This is an offline deterministic engineering model for the Big-only trend path.
 It deliberately keeps StartLot fixed at 1.00 and rejects parameter sets that fail
 Small-scenario compression sanity: BigRatio^2 * RemainBigOnSmall < 1.
+
+MT5 Strategy Tester evidence invalidated the previous one-level production claim.
+This tool is retained only as an algebraic formula trace until upgraded to replay
+MT5 deal prices, REAL_PRICE_DISTANCE, dynamic tick value, spread and mixed paths.
 """
 
 from __future__ import annotations
@@ -450,12 +454,16 @@ def write_recommendations(rows: list[SearchRow], traces_by_test: dict[int, list[
         "Offline Python search for the Big-only trend path. `StartLot` is fixed at `1.00` in every row and is not optimized.",
         "The model rejects parameter sets that fail `BigRatio^2 * RemainBigOnSmall < 1`, so Small-scenario compression is not intentionally broken.",
         "",
-        "## Best found set",
+        "## MT5 invalidation notice",
+        "",
+        "The supplied MT5 Strategy Tester report is the source of truth and invalidates the previous one-level production claim for `BigScenario_Best_1.set`: MT5 reached `MinusLock_BIG_L11`, returned `OnTester=-1`, and ended with open managed positions. These rows are offline algebraic candidates only and must not be used as working-parameter recommendations until the optimizer is upgraded to replay MT5 deal data.",
+        "",
+        "## Best offline set (MT5-invalidated)",
         "",
         f"- TOP-1: `TestID={best.TestID}` / `{best.RunGroup}` / `Score={best.Score}`.",
         f"- Parameters: StartLot=1.00, BigRatio={best.BigRatio}, SmallRatio={best.SmallRatio}, CloseFarShare={best.CloseFarShare}, ReserveShare={best.ReserveShare}, BigMoveStart={best.BigMoveStartPoints}, BigMoveStep={best.BigMoveStepPoints}, FarDistance={best.FarDistancePoints}, MaxHarvestLevels={best.MaxHarvestLevels}.",
         f"- Result: LevelsUsed={best.LevelsUsed}, TotalPositionsOpened={best.TotalPositionsOpened}, TotalPositionsClosed={best.TotalPositionsClosed}, RecoveryPL={best.RecoveryPL}, ReserveCoverage={best.ReserveCoverage}, FinalState={best.FinalState}, StopReason={best.StopReason}.",
-        "- Why selected: it has the minimum level count, passes full-cycle completion, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and uses the smallest total-position footprint among the highest-scoring one-level candidates.",
+        "- Why selected by the obsolete offline score: it has the minimum algebraic level count, passes simplified full-cycle completion, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and uses the smallest total-position footprint among the highest-scoring one-level candidates. It is MT5-invalidated and not production-approved.",
         "",
         "## TOP-10",
         "",
@@ -519,7 +527,7 @@ def write_recommendations(rows: list[SearchRow], traces_by_test: dict[int, list[
     preset_lines = [
         "# Big Scenario Best Presets",
         "",
-        "All presets keep `StartLot=1.00`. These are offline Big-only candidates and require MT5 validation before live use.",
+        "All presets keep `StartLot=1.00`. These are offline Big-only algebraic candidates. The supplied MT5 Strategy Tester report invalidated the one-level claim, so these presets are retained for investigation only and are not working recommendations.",
         "",
     ]
     for idx, row in enumerate(top10[:3], start=1):

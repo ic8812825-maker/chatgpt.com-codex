@@ -447,3 +447,43 @@ No code-level Big-scenario invariant violation was found in the audited path. Th
 ## 12. Final verdict
 
 Big-scenario implementation is mathematically consistent and auditable. The Python optimizer found `StartLot=1.00` parameter sets that complete the Big-only trend path in one Big level under deterministic assumptions while preserving Small-scenario compression. The best set is exported to `Sets/BigScenario_Best_1.set`; it should be treated as a Strategy Tester candidate, not a live-trading approval.
+
+## 13. MT5 Strategy Tester invalidation addendum
+
+The later MT5 Strategy Tester report for `BigScenario_Best_1.set` is the source of truth and invalidates the previous offline one-level completion claim.
+
+Observed MT5 facts:
+
+- Same public parameters: `StartLot=1.00`, `BigRatio=1.11`, `SmallRatio=0.25`, `CloseFarShare=0.75`, `ReserveShare=0.25`, `BigMoveStartPoints=250`, `BigMoveStepPoints=40`, `FarDistancePoints=180`.
+- MT5 result: `OnTester=-1`.
+- MT5 path reached at least `MinusLock_BIG_L11`.
+- MT5 ended with open managed exposure closed by end-of-test orders.
+
+First divergence versus the previous Python model occurs at Big level 1:
+
+```text
+Python L1:
+BigScenarioNet = 207.50
+CloseFarBudget = 155.63
+Far loss basis = fixed 180 points
+CloseFarLotRounded = 0.86
+NextAction = FINAL_CLOSE
+
+MT5 L1:
+ClosedBigNet = 147.73
+ClosedSmallNet = -40.90
+BigScenarioNet = 106.83
+CloseFarBudget = 80.12
+Far partial close = 0.29 lot for -78.27
+NextAction = open BIG_L2
+```
+
+Root causes:
+
+1. The Python optimizer hard-coded `PointValuePerLot=1.0`, while MT5 USDJPY with EUR deposit has dynamic tick/point value.
+2. The Python optimizer used fixed `FarDistancePoints=180`, while the EA was configured with `FarDistanceMode=REAL_PRICE_DISTANCE`; L1 MT5 prices imply a much larger effective distance between Far open and Big close.
+3. The Python optimizer assumed exact target-point execution, while MT5 uses real bid/ask open/close prices.
+4. The Python optimizer assumed a Big-only trend path; the MT5 order/deal sequence shows mixed path behavior with subsequent Small/reverse-style transitions and direction changes.
+5. The Python optimizer did not replay `HistoryDeals`, swap/commission, end-of-test closure, or strict `OnTester` pass conditions.
+
+Updated verdict: **the Big-scenario formula audit remains useful, but the current Python optimizer is invalid for selecting working MT5 parameters.** It is retained only as an algebraic trace until it is redesigned around MT5 deal replay or Strategy Tester CSV ingestion. See `Reports/BigScenario_MT5_Divergence_Report.md` and `Reports/BigScenario_MT5_Divergence.csv`.
