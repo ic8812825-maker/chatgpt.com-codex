@@ -11,44 +11,44 @@ The supplied MT5 Strategy Tester report is the source of truth and invalidates t
 
 ## Top Python-calibrated candidate (MT5 not confirmed)
 
-- TOP-1: `TestID=346` / `LOCAL_ROUND_AROUND_TOP` / `Score=-245000.753569`.
+- TOP-1: `TestID=346` / `LOCAL_ROUND_AROUND_TOP` / `Score=-245000.7617768`.
 - Parameters: StartLot=1.00, BigRatio=1.1, SmallRatio=0.25, CloseFarShare=0.9, ReserveShare=0.1, BigMoveStart=260, BigMoveStep=110, FarDistance=180, MaxHarvestLevels=20.
-- Result: LevelsUsed=3, TotalPositionsOpened=8, TotalPositionsClosed=11, RecoveryPL=0.6746697, ReserveCoverage=1.02499734, FinalState=STATE_CLOSED_PROFIT, StopReason=FINAL_CLOSE_RESERVE_COVERS_FAR.
+- Result: LevelsUsed=3, TotalPositionsOpened=8, TotalPositionsClosed=11, RecoveryPL=0.67407082, ReserveCoverage=1.02497515, FinalState=STATE_CLOSED_PROFIT, StopReason=FINAL_CLOSE_RESERVE_COVERS_FAR.
 - Why selected by the calibrated Python score: it has the lowest calibrated level count found in this run, keeps StartLot fixed at 1.00, satisfies Small-scenario compression, and avoids the explicitly invalidated MT5 BIG_L11 signature. It remains MT5_CANDIDATE_NOT_CONFIRMED and is not production-approved.
 
 ## TOP-10
 
 | Rank | TestID | Group | Levels | Opened | Closed | BigRatio | SmallRatio | CloseFarShare | ReserveShare | BigStart | BigStep | FarDistance | RecoveryPL | ReserveCoverage | Score |
 |---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 346 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.9 | 0.1 | 260 | 110 | 180 | 0.6746697 | 1.02499734 | -245000.753569 |
-| 2 | 342 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 110 | 180 | 13.47424496 | 1.45385217 | -245329.8723334 |
-| 3 | 239 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 180 | 10.28229221 | 1.31747634 | -245875.4294439 |
-| 4 | 240 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 220 | 10.28229221 | 1.31747634 | -245875.4294439 |
-| 5 | 241 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 275 | 10.28229221 | 1.31747634 | -245875.4294439 |
-| 6 | 242 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 350 | 10.28229221 | 1.31747634 | -245875.4294439 |
-| 7 | 341 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 180 | 10.28229221 | 1.31747634 | -245875.4294439 |
-| 8 | 358 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.27 | 0.85 | 0.15 | 260 | 110 | 180 | 10.06228137 | 1.31068328 | -245878.3088583 |
-| 9 | 370 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.11 | 0.25 | 0.8 | 0.2 | 260 | 110 | 180 | 24.28921084 | 1.69226554 | -246198.8813376 |
-| 10 | 357 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.27 | 0.85 | 0.15 | 260 | 100 | 180 | 6.87847718 | 1.19604312 | -246421.6109162 |
+| 1 | 346 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.9 | 0.1 | 260 | 110 | 180 | 0.67407082 | 1.02497515 | -245000.7617768 |
+| 2 | 342 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 110 | 180 | 13.47331056 | 1.4538207 | -245329.8848244 |
+| 3 | 239 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 180 | 10.28136848 | 1.31744782 | -245875.4415332 |
+| 4 | 240 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 220 | 10.28136848 | 1.31744782 | -245875.4415332 |
+| 5 | 241 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 275 | 10.28136848 | 1.31744782 | -245875.4415332 |
+| 6 | 242 | FIRST_ROUND_50_PLUS | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 350 | 10.28136848 | 1.31744782 | -245875.4415332 |
+| 7 | 341 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.25 | 0.85 | 0.15 | 260 | 100 | 180 | 10.28136848 | 1.31744782 | -245875.4415332 |
+| 8 | 358 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.27 | 0.85 | 0.15 | 260 | 110 | 180 | 10.06136242 | 1.3106549 | -245878.3208858 |
+| 9 | 370 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.11 | 0.25 | 0.8 | 0.2 | 260 | 110 | 180 | 24.28792547 | 1.69222891 | -246198.8978543 |
+| 10 | 357 | LOCAL_ROUND_AROUND_TOP | 3 | 8 | 11 | 1.1 | 0.27 | 0.85 | 0.15 | 260 | 100 | 180 | 6.87756872 | 1.19601723 | -246421.6225898 |
 
 ## TOP-1 / TOP-3 summary
 
 ### TOP-1: TestID 346
 
 - Levels: 3; positions opened/closed: 8/11.
-- RecoveryPL=0.6746697; ReserveCoverage=1.02499734; RemainingFarLot=0.1; TotalClosedFarLot=0.9.
+- RecoveryPL=0.67407082; ReserveCoverage=1.02497515; RemainingFarLot=0.1; TotalClosedFarLot=0.9.
 - Parameters: BigRatio=1.1, SmallRatio=0.25, CloseFarShare=0.9, BigMoveStart=260, BigMoveStep=110, FarDistance=180.
 
 ### TOP-2: TestID 342
 
 - Levels: 3; positions opened/closed: 8/11.
-- RecoveryPL=13.47424496; ReserveCoverage=1.45385217; RemainingFarLot=0.11; TotalClosedFarLot=0.89.
+- RecoveryPL=13.47331056; ReserveCoverage=1.4538207; RemainingFarLot=0.11; TotalClosedFarLot=0.89.
 - Parameters: BigRatio=1.1, SmallRatio=0.25, CloseFarShare=0.85, BigMoveStart=260, BigMoveStep=110, FarDistance=180.
 
 ### TOP-3: TestID 239
 
 - Levels: 3; positions opened/closed: 8/11.
-- RecoveryPL=10.28229221; ReserveCoverage=1.31747634; RemainingFarLot=0.12; TotalClosedFarLot=0.88.
+- RecoveryPL=10.28136848; ReserveCoverage=1.31744782; RemainingFarLot=0.12; TotalClosedFarLot=0.88.
 - Parameters: BigRatio=1.1, SmallRatio=0.25, CloseFarShare=0.85, BigMoveStart=260, BigMoveStep=100, FarDistance=180.
 
 ## First-round analysis
@@ -83,6 +83,6 @@ The local round around the best calibrated zone found several 3-level Python-cal
 
 | Level | FarLotBefore | BigLot | SmallLot | BigMovePoints | ClosedBigNet | ClosedSmallNet | BigScenarioNet | CloseFarBudget | ReserveAdd | CloseFarLotRounded | CloseFarActualCost | FarLotAfter | ReserveAfter | RecoveryPL | ReserveCoverage | NextAction |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| 1 | 1.0 | 1.1 | 0.28 | 255.0 | 152.37787191 | -38.78709467 | 113.59077724 | 102.23169952 | 11.35907772 | 0.37 | 99.86172414 | 0.63 | 11.35907772 | -158.67574986 | 0.06680442 | NEXT_BIG_LEVEL |
-| 2 | 0.63 | 0.69 | 0.18 | 365.0 | 136.81414275 | -35.69064593 | 101.12349682 | 91.01114714 | 10.11234968 | 0.33 | 89.06586207 | 0.3 | 21.4714274 | -59.49753812 | 0.26518095 | NEXT_BIG_LEVEL |
-| 3 | 0.3 | 0.33 | 0.09 | 475.0 | 85.15234018 | -23.2233655 | 61.92897468 | 55.73607721 | 6.19289747 | 0.2 | 53.97931034 | 0.1 | 27.66432487 | 0.6746697 | 1.02499734 | FINAL_CLOSE |
+| 1 | 1.0 | 1.1 | 0.28 | 255.0 | 152.37457323 | -38.786255 | 113.58831823 | 102.22948641 | 11.35883182 | 0.37 | 99.86172414 | 0.63 | 11.35883182 | -158.67599576 | 0.06680297 | NEXT_BIG_LEVEL |
+| 2 | 0.63 | 0.69 | 0.18 | 365.0 | 136.81118099 | -35.6898733 | 101.12130769 | 91.00917692 | 10.11213077 | 0.33 | 89.06586207 | 0.3 | 21.47096259 | -59.49800293 | 0.26517521 | NEXT_BIG_LEVEL |
+| 3 | 0.3 | 0.33 | 0.09 | 475.0 | 85.15049681 | -23.22286277 | 61.92763404 | 55.73487064 | 6.1927634 | 0.2 | 53.97931034 | 0.1 | 27.66372599 | 0.67407082 | 1.02497515 | FINAL_CLOSE |

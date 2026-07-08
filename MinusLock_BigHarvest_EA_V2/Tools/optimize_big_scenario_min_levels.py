@@ -33,7 +33,7 @@ RECOMMENDATIONS_MD = REPORTS / "BigScenario_Parameter_Recommendations.md"
 BEST_PRESETS_MD = REPORTS / "BigScenario_Best_Presets.md"
 START_LOT = 1.00
 LOT_STEP = 0.01
-POINT_VALUE_PER_LOT = 0.54323662
+POINT_VALUE_PER_LOT = 0.54322486
 FAR_LOSS_PER_LOT_CALIBRATED = 269.89655172
 SPREAD_SLIPPAGE_PENALTY_POINTS = 5.0
 MT5_INVALIDATED_SIGNATURE = {
@@ -636,6 +636,21 @@ def write_calibrated_reports(rows: list[SearchRow]) -> None:
     ]), encoding="utf-8")
 
 
+def run_canonical_mql5_like_search() -> None:
+    import importlib.util
+    import sys
+    canonical_path = ROOT / "Tools" / "mql5_like_big_scenario_parameter_search.py"
+    spec = importlib.util.spec_from_file_location("mql5_like_big_scenario_parameter_search", canonical_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load canonical MQL5-like search: {canonical_path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    result = module.main()
+    if result != 0:
+        raise RuntimeError("Canonical MQL5-like search failed")
+
+
 def main() -> int:
     params = build_first_round()
     rows: list[SearchRow] = []
@@ -663,6 +678,7 @@ def main() -> int:
     print(f"csv={SEARCH_CSV}")
     print(f"calibrated_csv={CALIBRATED_SEARCH_CSV}")
     print(f"recommendations={RECOMMENDATIONS_MD}")
+    run_canonical_mql5_like_search()
     return 0
 
 

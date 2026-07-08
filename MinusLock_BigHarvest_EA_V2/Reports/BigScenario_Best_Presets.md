@@ -4,8 +4,8 @@ All presets keep `StartLot=1.00`. These are offline Big-only algebraic candidate
 
 ## BigScenario_Best_1.set
 
-- TestID=346, Rank=1, Score=-245000.753569
-- LevelsUsed=3, RecoveryPL=0.6746697, ReserveCoverage=1.02499734
+- TestID=346, Rank=1, Score=-245000.7617768
+- LevelsUsed=3, RecoveryPL=0.67407082, ReserveCoverage=1.02497515
 - File: `Sets/BigScenario_Best_1.set`
 
 ```ini
@@ -64,8 +64,8 @@ TerminalStateLogIntervalSeconds=300
 
 ## BigScenario_Best_2.set
 
-- TestID=342, Rank=2, Score=-245329.8723334
-- LevelsUsed=3, RecoveryPL=13.47424496, ReserveCoverage=1.45385217
+- TestID=342, Rank=2, Score=-245329.8848244
+- LevelsUsed=3, RecoveryPL=13.47331056, ReserveCoverage=1.4538207
 - File: `Sets/BigScenario_Best_2.set`
 
 ```ini
@@ -124,8 +124,8 @@ TerminalStateLogIntervalSeconds=300
 
 ## BigScenario_Best_3.set
 
-- TestID=239, Rank=3, Score=-245875.4294439
-- LevelsUsed=3, RecoveryPL=10.28229221, ReserveCoverage=1.31747634
+- TestID=239, Rank=3, Score=-245875.4415332
+- LevelsUsed=3, RecoveryPL=10.28136848, ReserveCoverage=1.31744782
 - File: `Sets/BigScenario_Best_3.set`
 
 ```ini

@@ -11,7 +11,7 @@ sets = [root / 'Sets' / f'MT5_Candidate_BigScenario_{i}.set' for i in range(1, 4
 for path in [script, calibrator, diff, cal_csv, cal_recs, limits, *sets]:
     assert path.exists(), path
 script_text = script.read_text(encoding='utf-8')
-assert 'POINT_VALUE_PER_LOT = 0.54323662' in script_text
+assert 'POINT_VALUE_PER_LOT = 0.54322486' in script_text
 assert 'POINT_VALUE_PER_LOT = 1.0' not in script_text
 for token in ['END_OF_TEST', 'ONTESTER_MINUS_1', 'RemainingFarLot', 'BIG_L9+', 'MT5_CANDIDATE_NOT_CONFIRMED']:
     assert token in script_text or token in cal_recs.read_text(encoding='utf-8') or token in limits.read_text(encoding='utf-8'), token
