@@ -886,3 +886,68 @@ InitialClampUsed BigStartClampUsed StepClampUsed FarClampUsed AnyClampUsed
 If ATR geometry reaches terminal `STATE_STOP_MAX_LEVELS`, the EA emits `STOP_MAX_LEVELS_DIAGNOSIS` with the last lot, reserve, recovery, ATR and work-geometry values plus a `LikelyReason` classification.
 
 Terminal states are throttled with `TerminalStateLogIntervalSeconds` and summarized through `TERMINAL_STATE_STABLE` to avoid repeated reconciliation log spam.
+
+## Big monetary recovery model (Symbol + Magic safe)
+
+The Big scenario now treats the first profitable Initial-lock close as informational only: the value is stored as `InitialIgnoredProfit` and is not added to reserve, partial-Far budget, or RecoveryPL decision money. The remaining losing Initial position is the Far position and all later actions are tied to its ticket/identifier.
+
+Runtime accounting is intentionally multi-currency safe. History scans must filter by both `DEAL_MAGIC == MagicNumber` and `DEAL_SYMBOL == _Symbol`, and position-level Big/Small accounting also uses `DEAL_POSITION_ID` so another chart using the same MagicNumber cannot leak into this cycle.
+
+Big-harvest order of operations:
+
+1. Close the active Big position 100% and verify the ticket is fully closed.
+2. Close the active Small position 100% and verify the ticket is fully closed.
+3. Calculate the lifecycle net for both positions from broker history:
+
+   ```text
+   BigSmallNet = BigLifecycleNet + SmallLifecycleNet
+   LifecycleNet = DEAL_PROFIT + DEAL_COMMISSION + DEAL_SWAP + DEAL_FEE
+   ```
+
+   This includes entry and exit deals (`DEAL_ENTRY_IN`, `DEAL_ENTRY_OUT`, `DEAL_ENTRY_INOUT`, `DEAL_ENTRY_OUT_BY`) so opening commission is not lost.
+
+4. Before any partial Far close, forecast the full Far close through the symbol specification with `OrderCalcProfit()` and the current Bid/Ask close side:
+
+   ```text
+   Far BUY  closes at Bid
+   Far SELL closes at Ask
+   FarLoss = max(0, -ProjectedFarCloseNet)
+   ```
+
+5. Full Far close is attempted before partial Far only when both conditions are true:
+
+   ```text
+   ExistingReserve + BigSmallNet >= FarLoss
+   ProjectedRecoveryPLAfterFullClose > 0
+   ```
+
+6. If full Far is not covered, the current BigSmallNet is split without using Reserve for partial Far:
+
+   ```text
+   ReserveAdd = BigSmallNet * ReserveShare
+   PartialBudgetNew = BigSmallNet - ReserveAdd
+   PartialBudgetAvailable = PartialBudgetNew + partialFarBudgetCarry
+   ```
+
+   `CloseFarShare` is kept as a compatibility/configuration check and `CloseFarShare + ReserveShare` must equal exactly `1.0` at input validation time.
+
+7. Partial Far volume is calculated strictly by money. The EA searches for the largest Far lot, rounded down with `NormalizeLotDown()`, whose projected partial-close loss is less than or equal to `PartialBudgetAvailable`. Reserve is not debited for this operation.
+
+8. Any unused partial budget remains in `partialFarBudgetCarry`:
+
+   ```text
+   partialFarBudgetCarry = max(0, PartialBudgetAvailable - ActualPartialFarCloseLoss)
+   ```
+
+   This carry is reserved only for future partial Far closes; it is not moved into Reserve and it is not used for final Far close coverage.
+
+9. Reserve is credited through an idempotent ledger event key built from Symbol, MagicNumber, CycleId, harvest level, Big/Small identifiers and event type. A repeated terminal restart/recovery of the same event will log it as already applied rather than adding Reserve twice.
+
+10. Reserve can be used only for final Far completion. The final check uses the projected remaining Far close loss and requires:
+
+   ```text
+   Reserve >= RemainingFarLoss
+   ProjectedRecoveryPLAfterFinalClose > 0
+   ```
+
+Do not change BigRatio, SmallRatio, CloseFarShare, ReserveShare, MaxHarvestLevels, or risk limits without understanding that these inputs directly control level count, Far reduction speed, reserve accumulation, and margin exposure.

@@ -41,6 +41,11 @@ bool ValidateInputs()
    if(BigMoveStepPoints <= 0) { Print("ERROR: BigMoveStepPoints must be > 0"); return false; }
    if(FarDistancePoints <= 0) { Print("ERROR: FarDistancePoints must be > 0"); return false; }
    if(MaxHarvestLevels <= 0) { Print("ERROR: MaxHarvestLevels must be > 0"); return false; }
+   if(CloseFarShare < 0.0 || ReserveShare < 0.0 || MathAbs((CloseFarShare + ReserveShare) - 1.0) > 0.000001)
+   {
+      Print("ERROR: ReserveShare + CloseFarShare must be exactly 1.0");
+      return false;
+   }
    if(MaxReverseCycles <= 0) { Print("ERROR: MaxReverseCycles must be > 0"); return false; }
    if(MaxSpreadPoints <= 0.0) { Print("ERROR: MaxSpreadPoints must be > 0"); return false; }
    if(MaxMarginPercent <= 0.0) { Print("ERROR: MaxMarginPercent must be > 0"); return false; }

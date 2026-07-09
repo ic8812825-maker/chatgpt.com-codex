@@ -4,11 +4,11 @@ assert "BIG_HARVEST_REAL_RESERVE" in text
 assert "HistorySelect" in text
 assert "HistoryDealGetDouble" in text
 assert "DEAL_POSITION_ID" in text
-assert "RealBigHarvestNet" in text or "realBigHarvestNet" in text
-assert "realBigHarvestNet * WorkReserveShare" in text
-assert "realBigHarvestNet * WorkCloseFarShare" in text
+assert "BigSmallNet" in text or "bigSmallNet" in text
+assert "bigSmallNet * WorkReserveShare" in text
+assert "bigSmallNet - Ctx.pendingReserveAdd" in text
 idx_real = text.index("BIG_HARVEST_REAL_RESERVE")
-assert "Ctx.pendingReserveAdd = realBigHarvestNet * WorkReserveShare" in text
+assert "Ctx.pendingReserveAdd = bigSmallNet * WorkReserveShare" in text
 idx_add = text.index("ApplyReserveCredit(RESERVE_EVENT_BIG_HARVEST_ADD, Ctx.pendingReserveAdd)", idx_real)
 assert idx_add > idx_real
 assert "Ctx.totalReserve += Ctx.pendingReserveAdd" not in text

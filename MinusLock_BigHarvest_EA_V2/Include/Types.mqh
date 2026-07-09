@@ -101,6 +101,7 @@ struct ReserveLedgerEntry
    long farIdentifier;
    int harvestLevel;
    int reverseCycle;
+   long eventKeyHash;
 };
 
 struct PositionResolutionResult
@@ -253,6 +254,11 @@ struct RecoveryContext
    bool pendingReserveApplied;
    bool pendingSmallReserveApplied;
    double pendingCloseFarLot;
+   bool pendingFullFarClose;
+   double partialFarBudgetCarry;
+   double pendingPartialFarBudgetAvailable;
+   double pendingPartialFarBudgetCarryBefore;
+   double pendingProjectedPartialFarLoss;
    Direction pendingDirection;
    string pendingComment;
    Direction savedSmallDirection;

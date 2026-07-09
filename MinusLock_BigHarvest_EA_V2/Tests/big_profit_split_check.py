@@ -3,10 +3,10 @@ root = Path(__file__).resolve().parents[1]
 state = (root / 'Include' / 'StateMachine.mqh').read_text()
 recovery = (root / 'Include' / 'RecoveryMath.mqh').read_text()
 audit = (root / 'Docs' / 'BIG_SCENARIO_ENGINEERING_AUDIT.md').read_text()
-assert 'double realBigHarvestNet = realClosedBigProfit + realClosedSmallProfit;' in state
-assert 'Ctx.pendingReserveAdd = realBigHarvestNet * WorkReserveShare;' in state
-assert 'Ctx.pendingCloseFarBudget = realBigHarvestNet * WorkCloseFarShare;' in state
-assert 'BIG_SCENARIO_NET ClosedBigNet=' in state
+assert 'bigSmallNet = bigLifecycleNet + smallLifecycleNet;' in state
+assert 'Ctx.pendingReserveAdd = bigSmallNet * WorkReserveShare;' in state
+assert 'Ctx.pendingCloseFarBudget = bigSmallNet - Ctx.pendingReserveAdd;' in state
+assert 'BIG_SCENARIO_NET BigLifecycleNet=' in state
 assert 'return netProfit * WorkCloseFarShare;' in recovery
 assert 'return netProfit * WorkReserveShare;' in recovery
 assert 'CloseFarShare' in audit and 'ReserveShare' in audit

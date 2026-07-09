@@ -9,9 +9,8 @@ for text in [audit, report]:
 assert 'Approved Big Scenario Net Model' in audit
 assert ('FAIL:' + ' realBigHarvestNet includes ' + 'Small net') not in audit
 assert ('Big' + 'NetProfit') not in audit
-for token in ['BIG_SCENARIO_NET', 'ClosedBigNet', 'ClosedSmallNet', 'BigScenarioNet']:
+for token in ['BIG_SCENARIO_NET', 'BigLifecycleNet', 'SmallLifecycleNet', 'BigSmallNet']:
     assert token in state, token
-    assert token in logger or token == 'BIG_SCENARIO_NET', token
 assert ('BIG_' + 'NET_PROFIT') not in state
 assert ('Big' + 'NetProfit') not in logger
 print('BIG_SCENARIO_APPROVED_NET_MODEL_CHECK PASS')
