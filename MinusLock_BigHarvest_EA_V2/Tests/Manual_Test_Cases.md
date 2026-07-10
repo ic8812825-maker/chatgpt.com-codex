@@ -213,3 +213,11 @@ STATE_REVERSE_LIMIT
 2. Trigger Small-at-Far and confirm the journal enters `STATE_SMALL_CLOSE_SMALL` and each following phase performs one operation only.
 3. Force a close retry and confirm the corresponding leg context is cleared after successful retry.
 4. Force an open retry and confirm `STATE_OPEN_NEW_BIG_PENDING` / `STATE_OPEN_NEW_SMALL_PENDING` retry real opens instead of just jumping to `STATE_FAR_ACTIVE`.
+
+## Big monetary recovery hardening manual tests
+
+1. Compile `MinusLock_BigHarvest_EA.mq5` in MetaEditor and confirm no ticket/identifier/deal-id type warnings.
+2. Run two symbols with the same MagicNumber and confirm RecoveryPL, Reserve and BigSmallNet logs stay Symbol-isolated.
+3. Run a Big scenario where `ExistingReserve + BigSmallNet` covers Far and confirm `BIG_FULL_COVERAGE_CHECK`, no partial Far, then `RESERVE_DEBIT` only after verified Far close.
+4. Run a partial Far scenario and confirm `BIG_PARTIAL_FAR` shows actual deal net/loss and `ReserveUsedForPartial=NO`.
+5. Restart terminal after reserve credit/debit and confirm `WARNING_RESERVE_CREDIT` or `WARNING_RESERVE_DEBIT` prevents duplicate application.

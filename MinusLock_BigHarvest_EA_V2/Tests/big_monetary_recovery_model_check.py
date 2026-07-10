@@ -15,7 +15,7 @@ required_state_tokens = [
     "BIG_SMALL_LIFECYCLE_NET",
     "CalculateProjectedFarCloseNet",
     "OrderCalcProfit",
-    "BIG_HARVEST_FULL_FAR_CHECK",
+    "BIG_FULL_COVERAGE_CHECK",
     "FullCloseAllowed",
     "FULL_FAR_CLOSE_BEFORE_PARTIAL",
     "PartialBudgetAvailable",
@@ -23,7 +23,8 @@ required_state_tokens = [
     "partialFarBudgetCarry",
     "ReserveEventKeyHash",
     "ReserveEventAlreadyApplied",
-    "RESERVE_EVENT_ALREADY_APPLIED",
+    "WARNING_RESERVE_CREDIT",
+    "WARNING_RESERVE_DEBIT",
 ]
 for token in required_state_tokens:
     assert token in state, token

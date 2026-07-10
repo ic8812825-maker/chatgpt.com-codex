@@ -47,6 +47,9 @@ bool ValidateInputs()
       return false;
    }
    if(MaxReverseCycles <= 0) { Print("ERROR: MaxReverseCycles must be > 0"); return false; }
+   if(MinimumRecoveryProfitMoney < 0.0) { Print("ERROR: MinimumRecoveryProfitMoney must be >= 0"); return false; }
+   if(SafetyBufferMoney < 0.0) { Print("ERROR: SafetyBufferMoney must be >= 0"); return false; }
+   if(EstimatedCloseCommissionPerLot < 0.0) { Print("ERROR: EstimatedCloseCommissionPerLot must be >= 0"); return false; }
    if(MaxSpreadPoints <= 0.0) { Print("ERROR: MaxSpreadPoints must be > 0"); return false; }
    if(MaxMarginPercent <= 0.0) { Print("ERROR: MaxMarginPercent must be > 0"); return false; }
    if(MaxAccountMarginPercent <= 0.0) { Print("ERROR: MaxAccountMarginPercent must be > 0"); return false; }

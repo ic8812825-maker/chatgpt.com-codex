@@ -67,30 +67,45 @@ void AppendReserveLedgerEntry(ReserveEventType type, double amount, double reser
                         ReserveLedger[index].eventKeyHash));
 }
 
-void ApplyReserveCredit(ReserveEventType type, double amount)
+bool ApplyReserveCredit(ReserveEventType type, double amount)
 {
    if(amount <= 0.0)
-      return;
+      return true;
    long eventKeyHash = ReserveEventKeyHash(type);
    if(ReserveEventAlreadyApplied(eventKeyHash))
    {
-      LogInfo(StringFormat("RESERVE_EVENT_ALREADY_APPLIED Type=%d ReserveEventKeyHash=%I64d Amount=%.2f", (int)type, eventKeyHash, amount));
-      return;
+      LogInfo(StringFormat("WARNING_RESERVE_CREDIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=YES", eventKeyHash, (int)type, amount, Ctx.totalReserve, Ctx.totalReserve));
+      return true;
    }
    double before = Ctx.totalReserve;
    Ctx.totalReserve = before + amount;
    AppendReserveLedgerEntry(type, amount, before, Ctx.totalReserve);
+   LogInfo(StringFormat("RESERVE_CREDIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=NO", eventKeyHash, (int)type, amount, before, Ctx.totalReserve));
    SaveState();
+   return true;
 }
 
-void ApplyReserveDebit(ReserveEventType type, double amount)
+bool ApplyReserveDebit(ReserveEventType type, double amount)
 {
    if(amount <= 0.0)
-      return;
+      return true;
+   long eventKeyHash = ReserveEventKeyHash(type);
+   if(ReserveEventAlreadyApplied(eventKeyHash))
+   {
+      LogInfo(StringFormat("WARNING_RESERVE_DEBIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=YES", eventKeyHash, (int)type, amount, Ctx.totalReserve, Ctx.totalReserve));
+      return true;
+   }
+   if(Ctx.totalReserve + ReserveMismatchTolerance < amount)
+   {
+      LogError(StringFormat("ERROR_RESERVE_DEBIT_EXCEEDS_BALANCE EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f", eventKeyHash, (int)type, amount, Ctx.totalReserve));
+      return false;
+   }
    double before = Ctx.totalReserve;
    Ctx.totalReserve = MathMax(0.0, before - amount);
    AppendReserveLedgerEntry(type, -amount, before, Ctx.totalReserve);
+   LogInfo(StringFormat("RESERVE_DEBIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=NO", eventKeyHash, (int)type, amount, before, Ctx.totalReserve));
    SaveState();
+   return true;
 }
 
 void ApplyReserveReset(double amount, string reason)
@@ -1745,6 +1760,7 @@ void OpenBigSmall()
       GetBigMovePoints(Ctx.harvestLevel)
    ));
 
+   SaveState();
    SetState(STATE_BIG_SMALL_OPENED, "Big/Small pair opened from Far");
 }
 
@@ -1849,6 +1865,55 @@ bool CalculateBigSmallLifecycleNet(ulong bigPositionId, ulong smallPositionId, d
    bigSmallNet = bigLifecycleNet + smallLifecycleNet;
    LogInfo(StringFormat("BIG_SMALL_LIFECYCLE_NET Symbol=%s Magic=%I64u BigPositionId=%I64u SmallPositionId=%I64u Found=%s BigLifecycleNet=%.2f SmallLifecycleNet=%.2f BigSmallNet=%.2f Commission=%.2f Swap=%.2f Fee=%.2f", _Symbol, MagicNumber, bigPositionId, smallPositionId, found ? "YES" : "NO", bigLifecycleNet, smallLifecycleNet, bigSmallNet, commission, swap, fee));
    return found;
+}
+
+
+bool CalculatePositionCloseDealsNet(ulong positionId, datetime fromTime, double &net, double &commission, double &swap, double &fee, int &deals)
+{
+   net = 0.0;
+   commission = 0.0;
+   swap = 0.0;
+   fee = 0.0;
+   deals = 0;
+
+   if(IsInternalSimulationMode())
+      return false;
+
+   datetime startTime = fromTime > 0 ? fromTime - 2 : Ctx.cycleStartTime;
+   datetime endTime = TimeCurrent() + 86400;
+   if(!HistorySelect(startTime, endTime))
+      return false;
+
+   int totalDeals = HistoryDealsTotal();
+   for(int i = 0; i < totalDeals; i++)
+   {
+      ulong dealTicket = HistoryDealGetTicket(i);
+      if(dealTicket == 0)
+         continue;
+      if((ulong)HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber)
+         continue;
+      if(HistoryDealGetString(dealTicket, DEAL_SYMBOL) != _Symbol)
+         continue;
+      if((ulong)HistoryDealGetInteger(dealTicket, DEAL_POSITION_ID) != positionId)
+         continue;
+
+      ENUM_DEAL_ENTRY dealEntry = (ENUM_DEAL_ENTRY)HistoryDealGetInteger(dealTicket, DEAL_ENTRY);
+      if(dealEntry != DEAL_ENTRY_OUT && dealEntry != DEAL_ENTRY_INOUT && dealEntry != DEAL_ENTRY_OUT_BY)
+         continue;
+
+      double dealProfit = HistoryDealGetDouble(dealTicket, DEAL_PROFIT);
+      double dealCommission = HistoryDealGetDouble(dealTicket, DEAL_COMMISSION);
+      double dealSwap = HistoryDealGetDouble(dealTicket, DEAL_SWAP);
+      double dealFee = HistoryDealGetDouble(dealTicket, DEAL_FEE);
+      double dealNet = dealProfit + dealCommission + dealSwap + dealFee;
+      net += dealNet;
+      commission += dealCommission;
+      swap += dealSwap;
+      fee += dealFee;
+      deals++;
+      LogInfo(StringFormat("POSITION_CLOSE_DEAL_NET Symbol=%s Magic=%I64u PositionId=%I64u Deal=%I64u Entry=%d Profit=%.2f Commission=%.2f Swap=%.2f Fee=%.2f Net=%.2f", _Symbol, MagicNumber, positionId, dealTicket, (int)dealEntry, dealProfit, dealCommission, dealSwap, dealFee, dealNet));
+   }
+   return deals > 0;
 }
 
 void SetPendingOperation(PendingActionType actionType, string operation, EAState pendingState, ulong ticket, double lot, string comment, EAState nextState, string reason)
@@ -2132,6 +2197,7 @@ void ProcessBigHarvestCloseBig()
       return;
    }
    ClearBigContext("BigHarvest close Big phase confirmed by VerifyFullClose");
+   SaveState();
    LogInfo(StringFormat("BIG_CLOSED Level=%d BigPositionId=%I64u CurrentBigMovePoints=%.1f EffectiveFarDistancePoints=%.1f",
                         Ctx.harvestLevel, Ctx.pendingBigPositionId, Ctx.currentBigMovePoints, Ctx.effectiveFarDistancePoints));
    if(!ValidateNoOrphanManagedPositions()) return;
@@ -2251,8 +2317,8 @@ bool CalculateProjectedPositionCloseNet(ulong ticket, double lot, ProjectedClose
 
    result.projectedGrossProfit = profit;
    result.projectedSwapPart = swapPart;
-   result.estimatedCommission = 0.0;
-   result.projectedNet = profit + swapPart + result.estimatedCommission;
+   result.estimatedCommission = closeLot * EstimatedCloseCommissionPerLot;
+   result.projectedNet = profit + swapPart - result.estimatedCommission - SafetyBufferMoney;
    result.projectedLoss = MathMax(0.0, -result.projectedNet);
    return true;
 }
@@ -2339,13 +2405,13 @@ void ProcessFinalClose()
                         projectedFarPL,
                         farRemainLoss,
                         Ctx.totalReserve));
-   if(projectedRecoveryPLAfterFinalClose <= 0.0)
+   if(projectedRecoveryPLAfterFinalClose < MinimumRecoveryProfitMoney || Ctx.totalReserve < farRemainLoss + SafetyBufferMoney - 0.000001)
    {
       Ctx.finalCloseAllowed = false;
       if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
-         SetState(STATE_MAX_LEVELS_DECISION, "FINAL_CLOSE_STOP: projected recovery PL is not positive");
+         SetState(STATE_MAX_LEVELS_DECISION, "FINAL_CLOSE_STOP: reserve or projected recovery PL is below minimum");
       else
-         SetState(STATE_FAR_ACTIVE, "FINAL_CLOSE_STOP: wait for positive recovery PL");
+         SetState(STATE_FAR_ACTIVE, "FINAL_CLOSE_STOP: wait for reserve coverage and minimum recovery PL");
       return;
    }
 
@@ -2436,10 +2502,24 @@ void ProcessFinalClose()
       SetPendingOperation(PENDING_CLOSE_FAR_FULL, "FINAL_CLOSE_NEW_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.farLot, "RETRY_FINAL_CLOSE", STATE_CLOSED_PROFIT, "FULL_CLOSE_INCOMPLETE after FinalClose; retry pending");
       return;
    }
+   RecalculateRealCycleStatsFromHistory();
+   double reserveUsed = MathMin(farRemainLoss, Ctx.totalReserve);
+   if(Ctx.realRecoveryPL < MinimumRecoveryProfitMoney)
+   {
+      LogError(StringFormat("FINAL_CLOSE_RECOVERY_BELOW_MIN ActualRecoveryPL=%.2f MinimumRecoveryProfitMoney=%.2f", Ctx.realRecoveryPL, MinimumRecoveryProfitMoney));
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Final close actual recovery below minimum");
+      return;
+   }
+   if(!ApplyReserveDebit(RESERVE_EVENT_FINAL_CLOSE_DEBIT, reserveUsed))
+   {
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Final close reserve debit failed");
+      return;
+   }
    ClearFarContext("FINAL_CLOSE_PROFIT confirmed by VerifyFullClose");
+   SaveState();
+   LogInfo(StringFormat("CYCLE_CLOSED ActualRecoveryPL=%.2f ReserveUsed=%.2f InitialProfitIgnored=%.2f FinalBalance=%.2f CycleStartBalance=%.2f", Ctx.realRecoveryPL, reserveUsed, Ctx.initialIgnoredProfit, AccountInfoDouble(ACCOUNT_BALANCE), Ctx.cycleStartBalance));
    if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_CLOSED_PROFIT, "cycle closed in profit; no new levels");
-   RecalculateRealCycleStatsFromHistory();
    LogRealCycleMath(State, IsRealRecoveryPass() ? Ctx.realRecoveryPL : -1.0);
 }
 
@@ -2464,6 +2544,7 @@ void ProcessBigHarvestCloseSmall()
       return;
    }
    ClearSmallContext("BigHarvest close Small phase confirmed by VerifyFullClose");
+   SaveState();
    if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_BIG_HARVEST_CALC_NET, "BigHarvest Small close phase done");
 }
@@ -2494,12 +2575,12 @@ void ProcessBigHarvestCalcNet()
    double farCloseLoss = projectedFullFarOk ? fullFarProjection.projectedLoss : CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
    double coverageAvailable = Ctx.totalReserve + bigSmallNet;
    double projectedRecoveryPLAfterFullClose = (IsInternalSimulationMode() ? Ctx.cycleCurrentBalance : AccountInfoDouble(ACCOUNT_BALANCE)) + (projectedFullFarOk ? fullFarProjection.projectedNet : -farCloseLoss) - Ctx.cycleStartBalance;
-   bool fullCloseAllowed = foundDeals && bigSmallNet > 0.0 && projectedFullFarOk && coverageAvailable >= farCloseLoss - 0.000001 && projectedRecoveryPLAfterFullClose > 0.0;
+   bool fullCloseAllowed = foundDeals && bigSmallNet > 0.0 && projectedFullFarOk && coverageAvailable >= farCloseLoss + SafetyBufferMoney - 0.000001 && projectedRecoveryPLAfterFullClose >= MinimumRecoveryProfitMoney;
 
    LogInfo(StringFormat("BIG_SCENARIO_NET BigLifecycleNet=%.2f SmallLifecycleNet=%.2f BigSmallNet=%.2f Commission=%.2f Swap=%.2f Fee=%.2f FoundDeals=%s",
       bigLifecycleNet, smallLifecycleNet, bigSmallNet, lifecycleCommission, lifecycleSwap, lifecycleFee, foundDeals ? "YES" : "NO"));
-   LogInfo(StringFormat("BIG_HARVEST_FULL_FAR_CHECK Symbol=%s MagicNumber=%I64u CycleId=%I64u Level=%d FarTicket=%I64u FarIdentifier=%I64d FarLot=%.2f FarDirection=%s FarOpenPrice=%.5f ProjectedFarCloseNet=%.2f FarCloseLoss=%.2f ExistingReserve=%.2f CoverageAvailable=%.2f ProjectedRecoveryPLAfterFullClose=%.2f FullCloseAllowed=%s",
-      _Symbol, MagicNumber, Ctx.cycleId, Ctx.harvestLevel, Ctx.farTicket, Ctx.farIdentifier, Ctx.farLot, DirectionToString(Ctx.farDirection), Ctx.farOpenPrice, projectedFullFarOk ? fullFarProjection.projectedNet : 0.0, farCloseLoss, Ctx.totalReserve, coverageAvailable, projectedRecoveryPLAfterFullClose, fullCloseAllowed ? "YES" : "NO"));
+   LogInfo(StringFormat("BIG_FULL_COVERAGE_CHECK Symbol=%s MagicNumber=%I64u CycleId=%I64u Level=%d FarTicket=%I64u FarIdentifier=%I64d FarLot=%.2f FarDirection=%s FarOpenPrice=%.5f ProjectedFarCloseNet=%.2f FarCloseLoss=%.2f SafetyBufferMoney=%.2f ExistingReserve=%.2f CoverageAvailable=%.2f ProjectedRecoveryPLAfterFullClose=%.2f MinimumRecoveryProfitMoney=%.2f FullCloseAllowed=%s",
+      _Symbol, MagicNumber, Ctx.cycleId, Ctx.harvestLevel, Ctx.farTicket, Ctx.farIdentifier, Ctx.farLot, DirectionToString(Ctx.farDirection), Ctx.farOpenPrice, projectedFullFarOk ? fullFarProjection.projectedNet : 0.0, farCloseLoss, SafetyBufferMoney, Ctx.totalReserve, coverageAvailable, projectedRecoveryPLAfterFullClose, MinimumRecoveryProfitMoney, fullCloseAllowed ? "YES" : "NO"));
 
    if(!foundDeals || bigSmallNet <= 0.0)
    {
@@ -2535,7 +2616,7 @@ void ProcessBigHarvestCalcNet()
       closeFarLotRaw = Ctx.pendingCloseFarLot;
       closeFarActualCost = Ctx.pendingProjectedPartialFarLoss;
       LogInfo(StringFormat("BIG_PROFIT_SPLIT ReserveAdd=%.2f PartialBudgetNew=%.2f ReserveShare=%.5f CloseFarShare=%.5f SplitSum=%.5f", Ctx.pendingReserveAdd, Ctx.pendingCloseFarBudget, WorkReserveShare, WorkCloseFarShare, WorkCloseFarShare + WorkReserveShare));
-      LogInfo(StringFormat("PARTIAL_FAR_BUDGET ReserveShare=%.5f ReserveAdd=%.2f PartialBudgetNew=%.2f PartialFarBudgetCarryBefore=%.2f PartialBudgetAvailable=%.2f CalculatedPartialFarLot=%.2f NormalizedPartialFarLot=%.2f ProjectedPartialFarLoss=%.2f ReserveUsedForPartial=NO",
+      LogInfo(StringFormat("BIG_PARTIAL_FAR ReserveShare=%.5f ReserveAdd=%.2f PartialBudgetNew=%.2f PartialFarBudgetCarryBefore=%.2f PartialBudgetAvailable=%.2f CalculatedPartialFarLot=%.2f NormalizedPartialFarLot=%.2f ProjectedPartialFarLoss=%.2f ReserveUsedForPartial=NO",
          WorkReserveShare, Ctx.pendingReserveAdd, Ctx.pendingCloseFarBudget, Ctx.pendingPartialFarBudgetCarryBefore, Ctx.pendingPartialFarBudgetAvailable, closeFarLotRaw, Ctx.pendingCloseFarLot, Ctx.pendingProjectedPartialFarLoss));
    }
 
@@ -2609,6 +2690,7 @@ void ProcessBigHarvestCalcNet()
       FreezeGeometryPerCycle
    );
    LogInfo(StringFormat("BIG_HARVEST_REAL_RESERVE BIG_HARVEST_REAL_DEALS_CALC BigPositionId=%I64u SmallPositionId=%I64u FoundDeals=%s BigLifecycleNet=%.2f SmallLifecycleNet=%.2f Commission=%.2f Swap=%.2f Fee=%.2f BigSmallNet=%.2f ReserveAdd=%.2f PartialFarBudget=%.2f CloseFarLot=%.2f FullCloseBeforePartial=%s", Ctx.pendingBigPositionId, Ctx.pendingSmallPositionId, foundDeals ? "YES" : "NO", bigLifecycleNet, smallLifecycleNet, lifecycleCommission, lifecycleSwap, lifecycleFee, bigSmallNet, Ctx.pendingReserveAdd, Ctx.pendingCloseFarBudget, Ctx.pendingCloseFarLot, Ctx.pendingFullFarClose ? "YES" : "NO"));
+   SaveState();
    SetState(STATE_BIG_HARVEST_CLOSE_FAR, "BigHarvest real deal reserve calculated");
 }
 
@@ -2623,7 +2705,11 @@ void ProcessBigHarvestCloseFar()
    if(Ctx.pendingFullFarClose)
    {
       ulong closingTicket = Ctx.farTicket;
+      ulong closingIdentifier = Ctx.farIdentifier;
       double closingLot = Ctx.pendingCloseFarLot;
+      double reserveBeforeFull = Ctx.totalReserve;
+      double projectedFarLoss = Ctx.pendingProjectedPartialFarLoss;
+      datetime fullCloseStartTime = TimeCurrent();
       if(!ClosePositionByTicket(closingTicket, closingLot))
       {
          SetPendingOperation(PENDING_CLOSE_FAR_FULL, "BIG_HARVEST_FULL_CLOSE_FAR", STATE_CLOSE_NEW_FAR_PENDING, closingTicket, closingLot, "RETRY_FULL_FAR_COVERAGE_CLOSE", STATE_BIG_HARVEST_CHECK_FINAL, "BigHarvest full Far close failed; retry pending");
@@ -2635,19 +2721,39 @@ void ProcessBigHarvestCloseFar()
          SetPendingOperation(PENDING_CLOSE_FAR_FULL, "BIG_HARVEST_FULL_CLOSE_FAR", STATE_CLOSE_NEW_FAR_PENDING, closingTicket, Ctx.farLot, "RETRY_FULL_FAR_COVERAGE_CLOSE", STATE_BIG_HARVEST_CHECK_FINAL, "FULL_CLOSE_INCOMPLETE after BigHarvest full Far close; retry pending");
          return;
       }
-      ClearFarContext("BigHarvest full Far close before partial confirmed by VerifyFullClose");
+      double actualFarNet = 0.0, actualCommission = 0.0, actualSwap = 0.0, actualFee = 0.0;
+      int actualDeals = 0;
+      bool foundActualFarDeals = CalculatePositionCloseDealsNet(closingIdentifier, fullCloseStartTime, actualFarNet, actualCommission, actualSwap, actualFee, actualDeals);
+      double actualFarLoss = foundActualFarDeals ? MathMax(0.0, -actualFarNet) : projectedFarLoss;
       RecalculateRealCycleStatsFromHistory();
-      LogInfo(StringFormat("BIG_HARVEST_FULL_FAR_CLOSE_DONE ClosedFarTicket=%I64u ClosedFarLot=%.2f RecoveryPLAfterFinalClose=%.2f CycleResult=%s", closingTicket, closingLot, Ctx.realRecoveryPL, Ctx.realRecoveryPL > 0.0 ? "PROFIT" : "RECOVERY_LOSS"));
+      if(Ctx.realRecoveryPL < MinimumRecoveryProfitMoney)
+      {
+         LogError(StringFormat("BIG_FULL_FAR_CLOSE_RECOVERY_BELOW_MIN ActualRecoveryPL=%.2f MinimumRecoveryProfitMoney=%.2f", Ctx.realRecoveryPL, MinimumRecoveryProfitMoney));
+         SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "BigHarvest full Far close actual recovery below minimum");
+         return;
+      }
+      double reserveUsed = MathMin(MathMax(0.0, actualFarLoss - Ctx.pendingRealNet), reserveBeforeFull);
+      if(!ApplyReserveDebit(RESERVE_EVENT_BIG_FULL_FAR_CLOSE_DEBIT, reserveUsed))
+      {
+         SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "BigHarvest full Far close reserve debit failed");
+         return;
+      }
+      LogInfo(StringFormat("BIG_HARVEST_FULL_FAR_CLOSE_DONE ReserveBefore=%.2f BigSmallNet=%.2f FarCloseLoss=%.2f ReserveUsed=%.2f ReserveAfter=%.2f ProjectedRecoveryPL=%.2f ActualRecoveryPL=%.2f ActualFarNet=%.2f ActualDeals=%d", reserveBeforeFull, Ctx.pendingRealNet, actualFarLoss, reserveUsed, Ctx.totalReserve, Ctx.realRecoveryPL, Ctx.realRecoveryPL, actualFarNet, actualDeals));
+      LogInfo(StringFormat("CYCLE_CLOSED ActualRecoveryPL=%.2f ReserveUsed=%.2f InitialProfitIgnored=%.2f FinalBalance=%.2f CycleStartBalance=%.2f", Ctx.realRecoveryPL, reserveUsed, Ctx.initialIgnoredProfit, AccountInfoDouble(ACCOUNT_BALANCE), Ctx.cycleStartBalance));
+      ClearFarContext("BigHarvest full Far close before partial confirmed by VerifyFullClose");
       Ctx.pendingCloseFarLot = 0.0;
       Ctx.pendingFullFarClose = false;
       Ctx.pendingCloseFarBudget = 0.0;
       Ctx.pendingReserveAdd = 0.0;
+      SaveState();
       if(!ValidateNoOrphanManagedPositions()) return;
-      MarkSystemClose(Ctx.realRecoveryPL > 0.0 ? "CLOSED_PROFIT" : "CLOSED_RECOVERY_LOSS");
-      SetState(Ctx.realRecoveryPL > 0.0 ? STATE_CLOSED_PROFIT : STATE_CLOSED_RECOVERY_LOSS, "BigHarvest full Far coverage close completed");
+      MarkSystemClose("CLOSED_PROFIT");
+      SetState(STATE_CLOSED_PROFIT, "BigHarvest full Far coverage close completed");
       return;
    }
 
+   datetime partialCloseStartTime = TimeCurrent();
+   ulong partialFarIdentifier = Ctx.farIdentifier;
    if(!ClosePositionByTicket(Ctx.farTicket, Ctx.pendingCloseFarLot))
    {
       SetPendingOperation(PENDING_CLOSE_FAR_PARTIAL, "BIG_HARVEST_CLOSE_FAR", STATE_CLOSE_NEW_FAR_PENDING, Ctx.farTicket, Ctx.pendingCloseFarLot, "RETRY_CLOSE_FAR_BUDGET", STATE_BIG_HARVEST_CHECK_FINAL, "BigHarvest close Far budget failed; retry pending");
@@ -2657,9 +2763,13 @@ void ProcessBigHarvestCloseFar()
    if(!RefreshFarVolumeFromTerminal("BIG_HARVEST_CLOSE_FAR partial close"))
       ClearFarContext("BIG_HARVEST_CLOSE_FAR actual remaining Far volume is zero");
 
-   double actualPartialFarLoss = Ctx.pendingProjectedPartialFarLoss;
+   double actualPartialFarNet = 0.0, actualPartialCommission = 0.0, actualPartialSwap = 0.0, actualPartialFee = 0.0;
+   int actualPartialDeals = 0;
+   bool foundActualPartialDeals = CalculatePositionCloseDealsNet(partialFarIdentifier, partialCloseStartTime, actualPartialFarNet, actualPartialCommission, actualPartialSwap, actualPartialFee, actualPartialDeals);
+   double actualPartialFarLoss = foundActualPartialDeals ? MathMax(0.0, -actualPartialFarNet) : Ctx.pendingProjectedPartialFarLoss;
    Ctx.partialFarBudgetCarry = MathMax(0.0, Ctx.pendingPartialFarBudgetAvailable - actualPartialFarLoss);
-   LogInfo(StringFormat("PARTIAL_FAR_CLOSE CloseFarLot=%.2f PartialBudgetNew=%.2f PartialFarBudgetCarryBefore=%.2f PartialBudgetAvailable=%.2f ActualPartialFarLoss=%.2f PartialFarBudgetCarryAfter=%.2f RemainingFarLot=%.2f ReserveUsedForPartial=NO", Ctx.pendingCloseFarLot, Ctx.pendingCloseFarBudget, Ctx.pendingPartialFarBudgetCarryBefore, Ctx.pendingPartialFarBudgetAvailable, actualPartialFarLoss, Ctx.partialFarBudgetCarry, Ctx.farLot));
+   LogInfo(StringFormat("BIG_PARTIAL_FAR PARTIAL_FAR_CLOSE CloseFarLot=%.2f PartialBudgetNew=%.2f PartialFarBudgetCarryBefore=%.2f PartialBudgetAvailable=%.2f ProjectedPartialFarLoss=%.2f ActualPartialFarNet=%.2f ActualPartialFarLoss=%.2f ActualPartialDeals=%d PartialFarBudgetCarryAfter=%.2f RemainingFarLot=%.2f ReserveUsedForPartial=NO", Ctx.pendingCloseFarLot, Ctx.pendingCloseFarBudget, Ctx.pendingPartialFarBudgetCarryBefore, Ctx.pendingPartialFarBudgetAvailable, Ctx.pendingProjectedPartialFarLoss, actualPartialFarNet, actualPartialFarLoss, actualPartialDeals, Ctx.partialFarBudgetCarry, Ctx.farLot));
+   SaveState();
    LogInfo(StringFormat("FAR_REMAINING FarTicket=%I64u FarLot=%.2f EffectiveFarDistancePoints=%.1f", Ctx.farTicket, Ctx.farLot, Ctx.effectiveFarDistancePoints));
    if(!ValidateNoOrphanManagedPositions()) return;
    SetState(STATE_BIG_HARVEST_CHECK_FINAL, "BigHarvest Far budget close done");
@@ -2679,8 +2789,8 @@ void ProcessBigHarvestCheckFinal()
    bool projectedRemainingOk = CalculateProjectedFarCloseNet(Ctx.farLot, remainingFarProjection);
    double farRemainLoss = projectedRemainingOk ? remainingFarProjection.projectedLoss : CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
    double projectedRecoveryPLAfterFinalClose = (IsInternalSimulationMode() ? Ctx.cycleCurrentBalance : AccountInfoDouble(ACCOUNT_BALANCE)) + (projectedRemainingOk ? remainingFarProjection.projectedNet : -farRemainLoss) - Ctx.cycleStartBalance;
-   Ctx.finalCloseAllowed = (Ctx.farLot > 0.0 && Ctx.totalReserve >= farRemainLoss - 0.000001 && projectedRecoveryPLAfterFinalClose > 0.0);
-   LogInfo(StringFormat("RESERVE_AFTER TotalReserve=%.2f RemainingFarLoss=%.2f ProjectedRecoveryPLAfterFinalClose=%.2f FinalCloseAllowed=%s ReserveUsedForPartial=NO", Ctx.totalReserve, farRemainLoss, projectedRecoveryPLAfterFinalClose, Ctx.finalCloseAllowed ? "YES" : "NO"));
+   Ctx.finalCloseAllowed = (Ctx.farLot > 0.0 && Ctx.totalReserve >= farRemainLoss + SafetyBufferMoney - 0.000001 && projectedRecoveryPLAfterFinalClose >= MinimumRecoveryProfitMoney);
+   LogInfo(StringFormat("RESERVE_AFTER TotalReserve=%.2f RemainingFarLoss=%.2f SafetyBufferMoney=%.2f ProjectedRecoveryPLAfterFinalClose=%.2f MinimumRecoveryProfitMoney=%.2f FinalCloseAllowed=%s ReserveUsedForPartial=NO", Ctx.totalReserve, farRemainLoss, SafetyBufferMoney, projectedRecoveryPLAfterFinalClose, MinimumRecoveryProfitMoney, Ctx.finalCloseAllowed ? "YES" : "NO"));
    Ctx.cycleFinalPL = Ctx.totalReserve - farRemainLoss;
    if(Ctx.farLot <= 0.0)
    {

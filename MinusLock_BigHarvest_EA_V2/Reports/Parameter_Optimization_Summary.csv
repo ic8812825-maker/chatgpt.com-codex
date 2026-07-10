@@ -72,3 +72,6 @@ UseInternalSimulation,false,false,false,Низкое,Synthetic rank spread=0.0; 
 UseMarketOrders,true,true,true,Низкое,Synthetic rank spread=0.0; recommended preset anchor
 EnableCycleMathCsv,true,true,true,Низкое,Synthetic rank spread=0.0; recommended preset anchor
 VerboseTickLogs,false,false,false,Низкое,Synthetic rank spread=0.0; recommended preset anchor
+MinimumRecoveryProfitMoney,1.00,0.50,5.00,Среднее,Recovery safety gate for final/full Far close
+SafetyBufferMoney,2.00,0.00,10.00,Среднее,Conservative buffer in projected Far close coverage
+EstimatedCloseCommissionPerLot,0.00,0.00,20.00,Среднее,Conservative close commission estimate per lot

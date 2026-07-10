@@ -6,11 +6,12 @@ for token in [
     "projectedRecoveryPLAfterFinalClose",
     "projectedBalanceAfterFinalClose - Ctx.cycleStartBalance",
     "FINAL_CLOSE_PROFIT_FORECAST",
-    "projectedRecoveryPLAfterFinalClose <= 0.0",
-    "FINAL_CLOSE_STOP: projected recovery PL is not positive",
+    "projectedRecoveryPLAfterFinalClose < MinimumRecoveryProfitMoney",
+    "Ctx.totalReserve < farRemainLoss + SafetyBufferMoney",
+    "FINAL_CLOSE_STOP: reserve or projected recovery PL is below minimum",
     "FINAL_CLOSE_PROFIT",
 ]:
     assert token in block, token
-neg = block.split("if(projectedRecoveryPLAfterFinalClose <= 0.0)", 1)[1].split("LogCycleMathDetailed", 1)[0]
+neg = block.split("if(projectedRecoveryPLAfterFinalClose < MinimumRecoveryProfitMoney", 1)[1].split("LogCycleMathDetailed", 1)[0]
 assert "STATE_CLOSED_PROFIT" not in neg
 print("FINAL_CLOSE_RECOVERY_PROJECTION_CHECK PASS")

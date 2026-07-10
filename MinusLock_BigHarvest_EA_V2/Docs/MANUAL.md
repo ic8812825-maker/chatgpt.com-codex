@@ -951,3 +951,39 @@ Big-harvest order of operations:
    ```
 
 Do not change BigRatio, SmallRatio, CloseFarShare, ReserveShare, MaxHarvestLevels, or risk limits without understanding that these inputs directly control level count, Far reduction speed, reserve accumulation, and margin exposure.
+
+### Big Recovery hardening: reserve debit, safety buffer, and restart safety
+
+The Big recovery money model now uses additional safety inputs:
+
+```text
+MinimumRecoveryProfitMoney
+SafetyBufferMoney
+EstimatedCloseCommissionPerLot
+```
+
+Projected Far close uses symbol-aware `OrderCalcProfit()`, proportional swap, estimated close commission and a safety buffer. Full Far close requires:
+
+```text
+ExistingReserve + BigSmallNet >= FarCloseLoss + SafetyBufferMoney
+ProjectedRecoveryPLAfterFullClose >= MinimumRecoveryProfitMoney
+```
+
+Final residual Far close is also gated by:
+
+```text
+Reserve >= RemainingFarLoss + SafetyBufferMoney
+ProjectedRecoveryPLAfterFinalClose >= MinimumRecoveryProfitMoney
+```
+
+Reserve ledger protection is symmetric: both `RESERVE_CREDIT` and `RESERVE_DEBIT` use the same event-key guard built from Symbol, MagicNumber, CycleId, harvest level, Far identifier, Big identifier, Small identifier and event type. If the terminal restarts after a debit, the recovered ledger prevents the same `FINAL_CLOSE_RESERVE_DEBIT` or `BIG_FULL_FAR_CLOSE_RESERVE_DEBIT` from being applied twice.
+
+Partial Far accounting is based on actual broker close deals when available. After a partial Far close, the EA scans history by `DEAL_SYMBOL == _Symbol`, `DEAL_MAGIC == MagicNumber`, `DEAL_POSITION_ID == FarPositionIdentifier`, and close entries only (`DEAL_ENTRY_OUT`, `DEAL_ENTRY_INOUT`, `DEAL_ENTRY_OUT_BY`). The actual deal net is:
+
+```text
+ActualPartialFarNet = DEAL_PROFIT + DEAL_COMMISSION + DEAL_SWAP + DEAL_FEE
+ActualPartialFarLoss = max(0, -ActualPartialFarNet)
+partialFarBudgetCarry = max(0, PartialBudgetAvailable - ActualPartialFarLoss)
+```
+
+Reserve is still not part of `PartialBudgetAvailable`; it is used only for full-coverage checks and final/final-equivalent Far completion. Conservative `.set` files should keep higher reserve share, lower max managed positions and wider risk limits; aggressive recovery files shorten levels but raise margin and execution sensitivity.
