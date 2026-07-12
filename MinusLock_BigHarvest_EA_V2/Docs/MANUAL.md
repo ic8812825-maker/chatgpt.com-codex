@@ -987,3 +987,28 @@ partialFarBudgetCarry = max(0, PartialBudgetAvailable - ActualPartialFarLoss)
 ```
 
 Reserve is still not part of `PartialBudgetAvailable`; it is used only for full-coverage checks and final/final-equivalent Far completion. Conservative `.set` files should keep higher reserve share, lower max managed positions and wider risk limits; aggressive recovery files shorten levels but raise margin and execution sensitivity.
+
+## Split Big Geometry stage 1: BigCore + BigTrend + SmallBase
+
+Split geometry is introduced as a two-mode foundation. `UseSplitBigGeometry=true` selects the new mathematical model; `UseLegacySingleBigGeometry=true` keeps the legacy Far + Big + Small mode. Both flags cannot be true at the same time.
+
+The split model uses:
+
+```text
+Far = F
+BigCore = F * BigCoreRatio
+BigTrend = F * BigTrendRatio
+SmallBase = F * SmallBaseToFarRatio
+```
+
+The mandatory launch checks are:
+
+```text
+BigCoreRatio + BigTrendRatio - SmallBaseToFarRatio > 1
+ReserveShare * (BigCoreRatio + BigTrendRatio - SmallBaseToFarRatio) > 1
+BigCoreRatio * RemainBigCoreOnSmall < 1
+CloseBigCoreOnSmall + RemainBigCoreOnSmall = 1
+CloseFarShare + ReserveShare = 1
+```
+
+`BigTrendNeverBecomesFar=true` documents the hard rule that only the remaining BigCore can become a new Far during a confirmed Small transition. Split-mode state is persisted with dedicated tickets, identifiers, lots, open prices and directions for BigCore, BigTrend, SmallBase and ReverseSmall.

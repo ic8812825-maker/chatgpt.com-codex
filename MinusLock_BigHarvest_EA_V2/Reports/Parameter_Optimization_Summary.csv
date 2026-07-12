@@ -75,3 +75,23 @@ VerboseTickLogs,false,false,false,Низкое,Synthetic rank spread=0.0; recomm
 MinimumRecoveryProfitMoney,1.00,0.50,5.00,Среднее,Recovery safety gate for final/full Far close
 SafetyBufferMoney,2.00,0.00,10.00,Среднее,Conservative buffer in projected Far close coverage
 EstimatedCloseCommissionPerLot,0.00,0.00,20.00,Среднее,Conservative close commission estimate per lot
+
+UseSplitBigGeometry,true,false,true,Высокое,Selects split BigCore/BigTrend/SmallBase geometry
+UseLegacySingleBigGeometry,false,false,true,Высокое,Compatibility switch for legacy single-Big geometry
+AllowCycleWithoutBigTrend,false,false,true,Среднее,Controls degraded split cycle if BigTrend cannot open
+BigCoreRatio,1.60,1.20,1.90,Высокое,Core Big lot ratio and NewFar compression driver
+BigTrendRatio,0.25,0.05,0.50,Высокое,Trend-only Big exposure amplifier
+SmallBaseToFarRatio,0.60,0.40,0.80,Высокое,Base Small hedge versus Far
+CloseBigCoreOnSmall,0.40,0.20,0.60,Высокое,BigCore share closed in Small transition
+RemainBigCoreOnSmall,0.60,0.40,0.80,Высокое,BigCore remainder becoming NewFar
+UseDynamicReverseSmall,true,false,true,Высокое,Enables dynamic ReverseSmall calculation
+ReverseDirectionBufferRatio,0.03,0.00,0.10,Среднее,Direction buffer for ReverseSmall lot
+ReverseSmallSafetyMoney,3.00,0.00,10.00,Среднее,Safety money added to reverse transition deficit
+ReverseConfirmationRetracePoints,50,20,120,Среднее,Retrace needed to confirm reverse
+BigTrendEmergencyExitOffsetPoints,0,0,50,Среднее,BigTrend emergency exit offset from entry
+CloseBigTrendAtBigEntryReturn,true,false,true,Высокое,Close BigTrend on return to entry
+BigTrendNeverBecomesFar,true,true,true,Высокое,Invariant that BigTrend is never promoted to Far
+MaxBigTrendReverseLossMoney,0.00,0.00,100.00,Среднее,Money cap for BigTrend reverse loss
+MaxBigTrendReverseLossPoints,0,0,100,Среднее,Point cap for BigTrend reverse loss
+MinimumFarCompressionLots,0.01,0.00,0.10,Высокое,Minimum lot compression required for NewFar
+MinimumFarCompressionRatio,0.01,0.00,0.10,Высокое,Minimum relative compression required for NewFar

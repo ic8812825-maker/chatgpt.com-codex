@@ -46,6 +46,35 @@ bool ValidateInputs()
       Print("ERROR: ReserveShare + CloseFarShare must be exactly 1.0");
       return false;
    }
+   if(UseSplitBigGeometry && UseLegacySingleBigGeometry)
+   {
+      Print("ERROR: UseSplitBigGeometry and UseLegacySingleBigGeometry cannot both be true");
+      return false;
+   }
+   if(!UseSplitBigGeometry && !UseLegacySingleBigGeometry)
+   {
+      Print("ERROR: one geometry mode must be enabled: split or legacy");
+      return false;
+   }
+   if(UseSplitBigGeometry)
+   {
+      double bigHarvestGrossRatio = BigCoreRatio + BigTrendRatio - SmallBaseToFarRatio;
+      double reserveGrowthRatio = ReserveShare * bigHarvestGrossRatio;
+      double newFarCompressionRatio = BigCoreRatio * RemainBigCoreOnSmall;
+      if(bigHarvestGrossRatio <= 1.0) { Print("ERROR: split geometry requires BigCoreRatio + BigTrendRatio - SmallBaseToFarRatio > 1.0"); return false; }
+      if(reserveGrowthRatio <= 1.0) { Print("ERROR: split geometry requires ReserveShare * gross ratio > 1.0"); return false; }
+      if(newFarCompressionRatio >= 1.0) { Print("ERROR: split geometry requires BigCoreRatio * RemainBigCoreOnSmall < 1.0"); return false; }
+      if(MathAbs((CloseBigCoreOnSmall + RemainBigCoreOnSmall) - 1.0) > 0.000001) { Print("ERROR: CloseBigCoreOnSmall + RemainBigCoreOnSmall must be exactly 1.0"); return false; }
+      if(BigTrendRatio <= 0.0) { Print("ERROR: BigTrendRatio must be > 0 in split geometry"); return false; }
+      if(SmallBaseToFarRatio <= 0.0) { Print("ERROR: SmallBaseToFarRatio must be > 0 in split geometry"); return false; }
+      if(ReverseDirectionBufferRatio < 0.0) { Print("ERROR: ReverseDirectionBufferRatio must be >= 0"); return false; }
+      if(ReverseSmallSafetyMoney < 0.0) { Print("ERROR: ReverseSmallSafetyMoney must be >= 0"); return false; }
+      if(ReverseConfirmationRetracePoints <= 0) { Print("ERROR: ReverseConfirmationRetracePoints must be > 0"); return false; }
+      if(BigTrendEmergencyExitOffsetPoints < 0) { Print("ERROR: BigTrendEmergencyExitOffsetPoints must be >= 0"); return false; }
+      if(MaxBigTrendReverseLossMoney < 0.0) { Print("ERROR: MaxBigTrendReverseLossMoney must be >= 0"); return false; }
+      if(MaxBigTrendReverseLossPoints < 0) { Print("ERROR: MaxBigTrendReverseLossPoints must be >= 0"); return false; }
+      if(MinimumFarCompressionLots < 0.0 || MinimumFarCompressionRatio < 0.0) { Print("ERROR: minimum Far compression thresholds must be >= 0"); return false; }
+   }
    if(MaxReverseCycles <= 0) { Print("ERROR: MaxReverseCycles must be > 0"); return false; }
    if(MinimumRecoveryProfitMoney < 0.0) { Print("ERROR: MinimumRecoveryProfitMoney must be >= 0"); return false; }
    if(SafetyBufferMoney < 0.0) { Print("ERROR: SafetyBufferMoney must be >= 0"); return false; }

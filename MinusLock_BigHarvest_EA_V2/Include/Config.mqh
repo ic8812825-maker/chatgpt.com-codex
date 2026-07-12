@@ -27,6 +27,27 @@ input double CloseFarShare         = 0.20;
 input double ReserveShare          = 0.80;
 input double SmallReserveShare     = 0.05;
 input bool   UseRecommended5050Preset = false;
+input bool   UseSplitBigGeometry = true;
+input bool   UseLegacySingleBigGeometry = false;
+input bool   AllowCycleWithoutBigTrend = false;
+
+input double BigCoreRatio = 1.60;
+input double BigTrendRatio = 0.25;
+input double SmallBaseToFarRatio = 0.60;
+input double CloseBigCoreOnSmall = 0.40;
+input double RemainBigCoreOnSmall = 0.60;
+
+input bool   UseDynamicReverseSmall = true;
+input double ReverseDirectionBufferRatio = 0.03;
+input double ReverseSmallSafetyMoney = 3.00;
+input int    ReverseConfirmationRetracePoints = 50;
+input int    BigTrendEmergencyExitOffsetPoints = 0;
+input bool   CloseBigTrendAtBigEntryReturn = true;
+input bool   BigTrendNeverBecomesFar = true;
+input double MaxBigTrendReverseLossMoney = 0.0;
+input int    MaxBigTrendReverseLossPoints = 0;
+input double MinimumFarCompressionLots = 0.01;
+input double MinimumFarCompressionRatio = 0.01;
 
 input int    InitialTriggerPoints  = 100;
 input int    BigMoveStartPoints    = 100;

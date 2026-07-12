@@ -10,13 +10,18 @@ long ReserveEventKeyHash(ReserveEventType type)
 {
    ulong bigId = (Ctx.pendingBigPositionId != 0 ? Ctx.pendingBigPositionId : Ctx.bigIdentifier);
    ulong smallId = (Ctx.pendingSmallPositionId != 0 ? Ctx.pendingSmallPositionId : Ctx.smallIdentifier);
-   string key = StringFormat("%s|%I64u|%I64u|%d|%I64u|%I64u|%I64u|%d",
+   string key = StringFormat("%s|%I64u|%I64u|%d|%d|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%d",
                              _Symbol,
                              MagicNumber,
                              Ctx.cycleId,
                              Ctx.harvestLevel,
+                             Ctx.reverseCycleCount,
                              bigId,
                              smallId,
+                             Ctx.bigCoreIdentifier,
+                             Ctx.bigTrendIdentifier,
+                             Ctx.smallBaseIdentifier,
+                             Ctx.reverseSmallIdentifier,
                              Ctx.farIdentifier,
                              (int)type);
    long hash = 1469598103934665603;
@@ -232,6 +237,43 @@ void SaveState()
    GlobalVariableSet(StateKey("SmallLot"), Ctx.smallLot);
    GlobalVariableSet(StateKey("SmallOpenPrice"), Ctx.smallOpenPrice);
    GlobalVariableSet(StateKey("SmallDirection"), (double)Ctx.smallDirection);
+   GlobalVariableSet(StateKey("BigCoreTicket"), (double)Ctx.bigCoreTicket);
+   GlobalVariableSet(StateKey("BigTrendTicket"), (double)Ctx.bigTrendTicket);
+   GlobalVariableSet(StateKey("SmallBaseTicket"), (double)Ctx.smallBaseTicket);
+   GlobalVariableSet(StateKey("ReverseSmallTicket"), (double)Ctx.reverseSmallTicket);
+   GlobalVariableSet(StateKey("BigCoreIdentifier"), (double)Ctx.bigCoreIdentifier);
+   GlobalVariableSet(StateKey("BigTrendIdentifier"), (double)Ctx.bigTrendIdentifier);
+   GlobalVariableSet(StateKey("SmallBaseIdentifier"), (double)Ctx.smallBaseIdentifier);
+   GlobalVariableSet(StateKey("ReverseSmallIdentifier"), (double)Ctx.reverseSmallIdentifier);
+   GlobalVariableSet(StateKey("BigCoreLot"), Ctx.bigCoreLot);
+   GlobalVariableSet(StateKey("BigTrendLot"), Ctx.bigTrendLot);
+   GlobalVariableSet(StateKey("SmallBaseLot"), Ctx.smallBaseLot);
+   GlobalVariableSet(StateKey("ReverseSmallLot"), Ctx.reverseSmallLot);
+   GlobalVariableSet(StateKey("BigCoreOpenPrice"), Ctx.bigCoreOpenPrice);
+   GlobalVariableSet(StateKey("BigTrendOpenPrice"), Ctx.bigTrendOpenPrice);
+   GlobalVariableSet(StateKey("SmallBaseOpenPrice"), Ctx.smallBaseOpenPrice);
+   GlobalVariableSet(StateKey("ReverseSmallOpenPrice"), Ctx.reverseSmallOpenPrice);
+   GlobalVariableSet(StateKey("BigCoreDirection"), (double)Ctx.bigCoreDirection);
+   GlobalVariableSet(StateKey("BigTrendDirection"), (double)Ctx.bigTrendDirection);
+   GlobalVariableSet(StateKey("SmallBaseDirection"), (double)Ctx.smallBaseDirection);
+   GlobalVariableSet(StateKey("ReverseSmallDirection"), (double)Ctx.reverseSmallDirection);
+   GlobalVariableSet(StateKey("SplitGeometryActive"), Ctx.splitGeometryActive ? 1.0 : 0.0);
+   GlobalVariableSet(StateKey("ReverseConfirmed"), Ctx.reverseConfirmed ? 1.0 : 0.0);
+   GlobalVariableSet(StateKey("BigTrendClosedForReverse"), Ctx.bigTrendClosedForReverse ? 1.0 : 0.0);
+   GlobalVariableSet(StateKey("ReverseSmallOpened"), Ctx.reverseSmallOpened ? 1.0 : 0.0);
+   GlobalVariableSet(StateKey("ReversePeakPrice"), Ctx.reversePeakPrice);
+   GlobalVariableSet(StateKey("ReverseTriggerPrice"), Ctx.reverseTriggerPrice);
+   GlobalVariableSet(StateKey("ReverseConfirmationPrice"), Ctx.reverseConfirmationPrice);
+   GlobalVariableSet(StateKey("ProjectedReverseSmallLot"), Ctx.projectedReverseSmallLot);
+   GlobalVariableSet(StateKey("ProjectedTransitionNet"), Ctx.projectedTransitionNet);
+   GlobalVariableSet(StateKey("ActualTransitionNet"), Ctx.actualTransitionNet);
+   GlobalVariableSet(StateKey("ActualBigTrendNet"), Ctx.actualBigTrendNet);
+   GlobalVariableSet(StateKey("BigGrossRatio"), Ctx.bigGrossRatio);
+   GlobalVariableSet(StateKey("BigNetExposureRatio"), Ctx.bigNetExposureRatio);
+   GlobalVariableSet(StateKey("ReserveGrowthRatio"), Ctx.reserveGrowthRatio);
+   GlobalVariableSet(StateKey("NewFarCompressionRatio"), Ctx.newFarCompressionRatio);
+   GlobalVariableSet(StateKey("ActualBigExposureLot"), Ctx.actualBigExposureLot);
+   GlobalVariableSet(StateKey("ActualSmallExposureLot"), Ctx.actualSmallExposureLot);
    GlobalVariableSet(StateKey("InitialBuyTicket"), (double)Ctx.initialBuyTicket);
    GlobalVariableSet(StateKey("InitialSellTicket"), (double)Ctx.initialSellTicket);
    GlobalVariableSet(StateKey("InitialBuyIdentifier"), (double)Ctx.initialBuyIdentifier);
@@ -662,6 +704,43 @@ bool RecoverState()
    Ctx.smallLot = GlobalVariableGet(StateKey("SmallLot"));
    Ctx.smallOpenPrice = GlobalVariableGet(StateKey("SmallOpenPrice"));
    Ctx.smallDirection = (Direction)(int)GlobalVariableGet(StateKey("SmallDirection"));
+   if(GetStateDouble("BigCoreTicket", saved)) Ctx.bigCoreTicket = (ulong)saved;
+   if(GetStateDouble("BigTrendTicket", saved)) Ctx.bigTrendTicket = (ulong)saved;
+   if(GetStateDouble("SmallBaseTicket", saved)) Ctx.smallBaseTicket = (ulong)saved;
+   if(GetStateDouble("ReverseSmallTicket", saved)) Ctx.reverseSmallTicket = (ulong)saved;
+   if(GetStateDouble("BigCoreIdentifier", saved)) Ctx.bigCoreIdentifier = (ulong)saved;
+   if(GetStateDouble("BigTrendIdentifier", saved)) Ctx.bigTrendIdentifier = (ulong)saved;
+   if(GetStateDouble("SmallBaseIdentifier", saved)) Ctx.smallBaseIdentifier = (ulong)saved;
+   if(GetStateDouble("ReverseSmallIdentifier", saved)) Ctx.reverseSmallIdentifier = (ulong)saved;
+   if(GetStateDouble("BigCoreLot", saved)) Ctx.bigCoreLot = saved;
+   if(GetStateDouble("BigTrendLot", saved)) Ctx.bigTrendLot = saved;
+   if(GetStateDouble("SmallBaseLot", saved)) Ctx.smallBaseLot = saved;
+   if(GetStateDouble("ReverseSmallLot", saved)) Ctx.reverseSmallLot = saved;
+   if(GetStateDouble("BigCoreOpenPrice", saved)) Ctx.bigCoreOpenPrice = saved;
+   if(GetStateDouble("BigTrendOpenPrice", saved)) Ctx.bigTrendOpenPrice = saved;
+   if(GetStateDouble("SmallBaseOpenPrice", saved)) Ctx.smallBaseOpenPrice = saved;
+   if(GetStateDouble("ReverseSmallOpenPrice", saved)) Ctx.reverseSmallOpenPrice = saved;
+   if(GetStateDouble("BigCoreDirection", saved)) Ctx.bigCoreDirection = (Direction)(int)saved;
+   if(GetStateDouble("BigTrendDirection", saved)) Ctx.bigTrendDirection = (Direction)(int)saved;
+   if(GetStateDouble("SmallBaseDirection", saved)) Ctx.smallBaseDirection = (Direction)(int)saved;
+   if(GetStateDouble("ReverseSmallDirection", saved)) Ctx.reverseSmallDirection = (Direction)(int)saved;
+   if(GetStateDouble("SplitGeometryActive", saved)) Ctx.splitGeometryActive = (saved > 0.5);
+   if(GetStateDouble("ReverseConfirmed", saved)) Ctx.reverseConfirmed = (saved > 0.5);
+   if(GetStateDouble("BigTrendClosedForReverse", saved)) Ctx.bigTrendClosedForReverse = (saved > 0.5);
+   if(GetStateDouble("ReverseSmallOpened", saved)) Ctx.reverseSmallOpened = (saved > 0.5);
+   if(GetStateDouble("ReversePeakPrice", saved)) Ctx.reversePeakPrice = saved;
+   if(GetStateDouble("ReverseTriggerPrice", saved)) Ctx.reverseTriggerPrice = saved;
+   if(GetStateDouble("ReverseConfirmationPrice", saved)) Ctx.reverseConfirmationPrice = saved;
+   if(GetStateDouble("ProjectedReverseSmallLot", saved)) Ctx.projectedReverseSmallLot = saved;
+   if(GetStateDouble("ProjectedTransitionNet", saved)) Ctx.projectedTransitionNet = saved;
+   if(GetStateDouble("ActualTransitionNet", saved)) Ctx.actualTransitionNet = saved;
+   if(GetStateDouble("ActualBigTrendNet", saved)) Ctx.actualBigTrendNet = saved;
+   if(GetStateDouble("BigGrossRatio", saved)) Ctx.bigGrossRatio = saved;
+   if(GetStateDouble("BigNetExposureRatio", saved)) Ctx.bigNetExposureRatio = saved;
+   if(GetStateDouble("ReserveGrowthRatio", saved)) Ctx.reserveGrowthRatio = saved;
+   if(GetStateDouble("NewFarCompressionRatio", saved)) Ctx.newFarCompressionRatio = saved;
+   if(GetStateDouble("ActualBigExposureLot", saved)) Ctx.actualBigExposureLot = saved;
+   if(GetStateDouble("ActualSmallExposureLot", saved)) Ctx.actualSmallExposureLot = saved;
    if(GetStateDouble("InitialBuyTicket", saved)) Ctx.initialBuyTicket = (ulong)saved;
    if(GetStateDouble("InitialSellTicket", saved)) Ctx.initialSellTicket = (ulong)saved;
    if(GetStateDouble("InitialBuyIdentifier", saved)) Ctx.initialBuyIdentifier = (ulong)saved;
@@ -858,14 +937,30 @@ void ResetRecoveryContext()
    Ctx.initialSellTicket = 0;
    Ctx.initialBuyIdentifier = 0;
    Ctx.initialSellIdentifier = 0;
+   Ctx.bigCoreTicket = 0;
+   Ctx.bigTrendTicket = 0;
+   Ctx.smallBaseTicket = 0;
+   Ctx.reverseSmallTicket = 0;
+   Ctx.bigCoreIdentifier = 0;
+   Ctx.bigTrendIdentifier = 0;
+   Ctx.smallBaseIdentifier = 0;
+   Ctx.reverseSmallIdentifier = 0;
 
    Ctx.farLot = 0.0;
    Ctx.bigLot = 0.0;
    Ctx.smallLot = 0.0;
+   Ctx.bigCoreLot = 0.0;
+   Ctx.bigTrendLot = 0.0;
+   Ctx.smallBaseLot = 0.0;
+   Ctx.reverseSmallLot = 0.0;
 
    Ctx.farOpenPrice = 0.0;
    Ctx.bigOpenPrice = 0.0;
    Ctx.smallOpenPrice = 0.0;
+   Ctx.bigCoreOpenPrice = 0.0;
+   Ctx.bigTrendOpenPrice = 0.0;
+   Ctx.smallBaseOpenPrice = 0.0;
+   Ctx.reverseSmallOpenPrice = 0.0;
    Ctx.initialBuyLot = 0.0;
    Ctx.initialSellLot = 0.0;
    Ctx.initialBuyOpenPrice = 0.0;
@@ -874,6 +969,10 @@ void ResetRecoveryContext()
    Ctx.farDirection = DIR_NONE;
    Ctx.bigDirection = DIR_NONE;
    Ctx.smallDirection = DIR_NONE;
+   Ctx.bigCoreDirection = DIR_NONE;
+   Ctx.bigTrendDirection = DIR_NONE;
+   Ctx.smallBaseDirection = DIR_NONE;
+   Ctx.reverseSmallDirection = DIR_NONE;
 
    Ctx.harvestLevel = 0;
    Ctx.totalReserve = 0.0;
@@ -885,6 +984,23 @@ void ResetRecoveryContext()
    Ctx.initialLockRecovered = false;
    Ctx.finalCloseAllowed = false;
    Ctx.dualTailDetected = false;
+   Ctx.splitGeometryActive = false;
+   Ctx.reverseConfirmed = false;
+   Ctx.bigTrendClosedForReverse = false;
+   Ctx.reverseSmallOpened = false;
+   Ctx.reversePeakPrice = 0.0;
+   Ctx.reverseTriggerPrice = 0.0;
+   Ctx.reverseConfirmationPrice = 0.0;
+   Ctx.projectedReverseSmallLot = 0.0;
+   Ctx.projectedTransitionNet = 0.0;
+   Ctx.actualTransitionNet = 0.0;
+   Ctx.actualBigTrendNet = 0.0;
+   Ctx.bigGrossRatio = 0.0;
+   Ctx.bigNetExposureRatio = 0.0;
+   Ctx.reserveGrowthRatio = 0.0;
+   Ctx.newFarCompressionRatio = 0.0;
+   Ctx.actualBigExposureLot = 0.0;
+   Ctx.actualSmallExposureLot = 0.0;
 
    Ctx.reverseCycleCount = 0;
    Ctx.oldFarLotBeforeReverse = 0.0;

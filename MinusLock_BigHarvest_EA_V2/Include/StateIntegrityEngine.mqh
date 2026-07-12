@@ -252,11 +252,23 @@ void GetStateIntegrityShape(EAState state,
          break;
 
       case STATE_BIG_SMALL_OPENED:
+      case STATE_SPLIT_BIG_OPEN_CORE:
+      case STATE_SPLIT_BIG_OPEN_TREND:
+      case STATE_SPLIT_BIG_OPEN_SMALL_BASE:
       case STATE_BIG_HARVEST:
       case STATE_BIG_HARVEST_CLOSE_BIG:
+      case STATE_BIG_HARVEST_CLOSE_CORE:
+      case STATE_BIG_HARVEST_CLOSE_TREND:
+      case STATE_BIG_HARVEST_CLOSE_SMALL_BASE:
+      case STATE_REVERSE_CONFIRMATION_WAIT:
+      case STATE_REVERSE_CLOSE_BIG_TREND:
+      case STATE_REVERSE_CALCULATE_DYNAMIC_SMALL:
+      case STATE_REVERSE_OPEN_DYNAMIC_SMALL:
       case STATE_WAIT_SMALL_TO_FAR:
       case STATE_SMALL_SCENARIO:
       case STATE_SMALL_CLOSE_SMALL:
+      case STATE_SMALL_CLOSE_SMALL_BASE:
+      case STATE_SMALL_CLOSE_DYNAMIC_SMALL:
          requireFar = true;
          requireBig = true;
          requireSmall = true;
@@ -287,6 +299,7 @@ void GetStateIntegrityShape(EAState state,
          break;
 
       case STATE_SMALL_CLOSE_BIG_PART:
+      case STATE_SMALL_CLOSE_BIG_CORE_PART:
       case STATE_SMALL_BUILD_NEW_FAR:
          requireBig = true;
          forbidInitial = true;
