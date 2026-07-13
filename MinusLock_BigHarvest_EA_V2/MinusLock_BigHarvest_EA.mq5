@@ -46,14 +46,9 @@ bool ValidateInputs()
       Print("ERROR: ReserveShare + CloseFarShare must be exactly 1.0");
       return false;
    }
-   if(UseSplitBigGeometry && UseLegacySingleBigGeometry)
+   if(UseLegacySingleBigGeometry == UseSplitBigGeometry)
    {
-      Print("ERROR: UseSplitBigGeometry and UseLegacySingleBigGeometry cannot both be true");
-      return false;
-   }
-   if(!UseSplitBigGeometry && !UseLegacySingleBigGeometry)
-   {
-      Print("ERROR: one geometry mode must be enabled: split or legacy");
+      Print("ERROR_EXACTLY_ONE_GEOMETRY_MODE_REQUIRED");
       return false;
    }
    if(UseSplitBigGeometry)
@@ -74,6 +69,7 @@ bool ValidateInputs()
       if(MaxBigTrendReverseLossMoney < 0.0) { Print("ERROR: MaxBigTrendReverseLossMoney must be >= 0"); return false; }
       if(MaxBigTrendReverseLossPoints < 0) { Print("ERROR: MaxBigTrendReverseLossPoints must be >= 0"); return false; }
       if(MinimumFarCompressionLots < 0.0 || MinimumFarCompressionRatio < 0.0) { Print("ERROR: minimum Far compression thresholds must be >= 0"); return false; }
+      if(MaximumNewFarRatio <= 0.0 || MaximumNewFarRatio >= 1.0) { Print("ERROR: MaximumNewFarRatio must be > 0 and < 1"); return false; }
    }
    if(MaxReverseCycles <= 0) { Print("ERROR: MaxReverseCycles must be > 0"); return false; }
    if(MinimumRecoveryProfitMoney < 0.0) { Print("ERROR: MinimumRecoveryProfitMoney must be >= 0"); return false; }
@@ -191,6 +187,14 @@ int OnInit()
 
    if(!ValidateInputs())
       return INIT_PARAMETERS_INCORRECT;
+
+#ifndef SPLIT_GEOMETRY_FULLY_IMPLEMENTED
+   if(UseSplitBigGeometry)
+   {
+      Print("ERROR_SPLIT_GEOMETRY_NOT_IMPLEMENTED");
+      return INIT_FAILED;
+   }
+#endif
 
    if(!ValidateWorkingParameters())
       return INIT_PARAMETERS_INCORRECT;

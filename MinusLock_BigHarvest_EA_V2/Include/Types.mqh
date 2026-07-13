@@ -11,6 +11,14 @@ enum EAState
    STATE_SPLIT_BIG_OPEN_CORE,
    STATE_SPLIT_BIG_OPEN_TREND,
    STATE_SPLIT_BIG_OPEN_SMALL_BASE,
+   STATE_SPLIT_GEOMETRY_ACTIVE,
+   STATE_SPLIT_BIG_HARVEST_CLOSE_CORE,
+   STATE_SPLIT_BIG_HARVEST_CLOSE_TREND,
+   STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE,
+   STATE_SPLIT_BIG_HARVEST_CALC_NET,
+   STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR,
+   STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR,
+   STATE_SPLIT_BIG_HARVEST_FINAL_CHECK,
    STATE_BIG_HARVEST,
    STATE_BIG_HARVEST_CLOSE_BIG,
    STATE_BIG_HARVEST_CLOSE_CORE,
@@ -25,6 +33,8 @@ enum EAState
    STATE_REVERSE_CLOSE_BIG_TREND,
    STATE_REVERSE_CALCULATE_DYNAMIC_SMALL,
    STATE_REVERSE_OPEN_DYNAMIC_SMALL,
+   STATE_REVERSE_WAIT_FAR_TOUCH,
+   STATE_REVERSE_SMALL_OPEN_FAILED,
    STATE_SMALL_SCENARIO,
    STATE_SMALL_CLOSE_SMALL,
    STATE_SMALL_CLOSE_SMALL_BASE,
@@ -42,6 +52,7 @@ enum EAState
    STATE_CLOSED_RECOVERY_LOSS,
    STATE_DUAL_TAIL,
    STATE_INVALID_REVERSE_GEOMETRY,
+   STATE_INVALID_SPLIT_GEOMETRY,
    STATE_INVALID_SMALL_GEOMETRY,
    STATE_REVERSE_LIMIT,
    STATE_REVERSE_LIMIT_CLOSED,
@@ -65,6 +76,10 @@ enum EAState
    STATE_STOP_MAX_LEVELS,
    STATE_UNCLOSED_CYCLE,
    STATE_STOP,
+   STATE_ERROR_OPEN_BIG_CORE,
+   STATE_ERROR_OPEN_SMALL_BASE,
+   STATE_ERROR_OPEN_BIG_TREND,
+   STATE_RECONCILIATION_ERROR,
    STATE_ERROR
 };
 
@@ -73,6 +88,31 @@ enum Direction
    DIR_NONE = 0,
    DIR_BUY,
    DIR_SELL
+};
+
+
+enum PositionRole
+{
+   ROLE_NONE = 0,
+   ROLE_INITIAL_BUY,
+   ROLE_INITIAL_SELL,
+   ROLE_FAR,
+   ROLE_BIG_LEGACY,
+   ROLE_SMALL_LEGACY,
+   ROLE_BIG_CORE,
+   ROLE_BIG_TREND,
+   ROLE_SMALL_BASE,
+   ROLE_REVERSE_SMALL
+};
+
+struct LifecycleNetResult
+{
+   double profit;
+   double commission;
+   double swap;
+   double fee;
+   double net;
+   int dealCount;
 };
 
 enum PendingActionType
@@ -206,9 +246,14 @@ struct RecoveryContext
    double reverseTriggerPrice;
    double reverseConfirmationPrice;
    double projectedReverseSmallLot;
+   double projectedReverseSmallMoneyLot;
+   double projectedReverseSmallDirectionLot;
+   double projectedReverseSmallFinalLot;
    double projectedTransitionNet;
    double actualTransitionNet;
    double actualBigTrendNet;
+   double actualSplitHarvestNet;
+   double actualSmallTransitionNet;
 
    double bigGrossRatio;
    double bigNetExposureRatio;
@@ -370,6 +415,14 @@ string StateToString(EAState state)
       case STATE_SPLIT_BIG_OPEN_CORE: return "STATE_SPLIT_BIG_OPEN_CORE";
       case STATE_SPLIT_BIG_OPEN_TREND: return "STATE_SPLIT_BIG_OPEN_TREND";
       case STATE_SPLIT_BIG_OPEN_SMALL_BASE: return "STATE_SPLIT_BIG_OPEN_SMALL_BASE";
+      case STATE_SPLIT_GEOMETRY_ACTIVE: return "STATE_SPLIT_GEOMETRY_ACTIVE";
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_CORE: return "STATE_SPLIT_BIG_HARVEST_CLOSE_CORE";
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_TREND: return "STATE_SPLIT_BIG_HARVEST_CLOSE_TREND";
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE: return "STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE";
+      case STATE_SPLIT_BIG_HARVEST_CALC_NET: return "STATE_SPLIT_BIG_HARVEST_CALC_NET";
+      case STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR: return "STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR";
+      case STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR: return "STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR";
+      case STATE_SPLIT_BIG_HARVEST_FINAL_CHECK: return "STATE_SPLIT_BIG_HARVEST_FINAL_CHECK";
       case STATE_BIG_HARVEST_CLOSE_SMALL: return "STATE_BIG_HARVEST_CLOSE_SMALL";
       case STATE_BIG_HARVEST_CLOSE_CORE: return "STATE_BIG_HARVEST_CLOSE_CORE";
       case STATE_BIG_HARVEST_CLOSE_TREND: return "STATE_BIG_HARVEST_CLOSE_TREND";
@@ -383,6 +436,8 @@ string StateToString(EAState state)
       case STATE_REVERSE_CLOSE_BIG_TREND: return "STATE_REVERSE_CLOSE_BIG_TREND";
       case STATE_REVERSE_CALCULATE_DYNAMIC_SMALL: return "STATE_REVERSE_CALCULATE_DYNAMIC_SMALL";
       case STATE_REVERSE_OPEN_DYNAMIC_SMALL: return "STATE_REVERSE_OPEN_DYNAMIC_SMALL";
+      case STATE_REVERSE_WAIT_FAR_TOUCH: return "STATE_REVERSE_WAIT_FAR_TOUCH";
+      case STATE_REVERSE_SMALL_OPEN_FAILED: return "STATE_REVERSE_SMALL_OPEN_FAILED";
       case STATE_SMALL_CLOSE_SMALL:    return "STATE_SMALL_CLOSE_SMALL";
       case STATE_SMALL_CLOSE_SMALL_BASE: return "STATE_SMALL_CLOSE_SMALL_BASE";
       case STATE_SMALL_CLOSE_DYNAMIC_SMALL: return "STATE_SMALL_CLOSE_DYNAMIC_SMALL";
@@ -399,6 +454,7 @@ string StateToString(EAState state)
       case STATE_CLOSED_RECOVERY_LOSS: return "STATE_CLOSED_RECOVERY_LOSS";
       case STATE_DUAL_TAIL:            return "STATE_DUAL_TAIL";
       case STATE_INVALID_REVERSE_GEOMETRY: return "STATE_INVALID_REVERSE_GEOMETRY";
+      case STATE_INVALID_SPLIT_GEOMETRY: return "STATE_INVALID_SPLIT_GEOMETRY";
       case STATE_INVALID_SMALL_GEOMETRY:   return "STATE_INVALID_SMALL_GEOMETRY";
       case STATE_REVERSE_LIMIT:            return "STATE_REVERSE_LIMIT";
       case STATE_REVERSE_LIMIT_CLOSED:     return "STATE_REVERSE_LIMIT_CLOSED";
@@ -422,6 +478,10 @@ string StateToString(EAState state)
       case STATE_STOP_MAX_LEVELS:      return "STATE_STOP_MAX_LEVELS";
       case STATE_UNCLOSED_CYCLE:       return "STATE_UNCLOSED_CYCLE";
       case STATE_STOP:                 return "STATE_STOP";
+      case STATE_ERROR_OPEN_BIG_CORE: return "STATE_ERROR_OPEN_BIG_CORE";
+      case STATE_ERROR_OPEN_SMALL_BASE: return "STATE_ERROR_OPEN_SMALL_BASE";
+      case STATE_ERROR_OPEN_BIG_TREND: return "STATE_ERROR_OPEN_BIG_TREND";
+      case STATE_RECONCILIATION_ERROR: return "STATE_RECONCILIATION_ERROR";
       case STATE_ERROR:                return "STATE_ERROR";
    }
 
@@ -435,6 +495,72 @@ Direction OppositeDirection(Direction dir)
    if(dir == DIR_SELL)
       return DIR_BUY;
    return DIR_NONE;
+}
+
+
+string PositionRoleToCode(PositionRole role)
+{
+   switch(role)
+   {
+      case ROLE_INITIAL_BUY: return "IB";
+      case ROLE_INITIAL_SELL: return "IS";
+      case ROLE_FAR: return "F";
+      case ROLE_BIG_LEGACY: return "BL";
+      case ROLE_SMALL_LEGACY: return "SL";
+      case ROLE_BIG_CORE: return "BC";
+      case ROLE_BIG_TREND: return "BT";
+      case ROLE_SMALL_BASE: return "SB";
+      case ROLE_REVERSE_SMALL: return "RS";
+      default: return "N";
+   }
+}
+
+PositionRole PositionRoleFromCode(string code)
+{
+   if(code == "IB") return ROLE_INITIAL_BUY;
+   if(code == "IS") return ROLE_INITIAL_SELL;
+   if(code == "F") return ROLE_FAR;
+   if(code == "BL") return ROLE_BIG_LEGACY;
+   if(code == "SL") return ROLE_SMALL_LEGACY;
+   if(code == "BC") return ROLE_BIG_CORE;
+   if(code == "BT") return ROLE_BIG_TREND;
+   if(code == "SB") return ROLE_SMALL_BASE;
+   if(code == "RS") return ROLE_REVERSE_SMALL;
+   return ROLE_NONE;
+}
+
+string BuildRoleComment(PositionRole role, long cycleId, int level, int reverseCycle)
+{
+   string comment = StringFormat("ML|%s|C%I64d|L%d|R%d", PositionRoleToCode(role), cycleId, level, reverseCycle);
+   if(StringLen(comment) > 31)
+      return "";
+   return comment;
+}
+
+bool ParseRoleComment(string comment, PositionRole &role, long &cycleId, int &level, int &reverseCycle)
+{
+   role = ROLE_NONE;
+   cycleId = 0;
+   level = 0;
+   reverseCycle = 0;
+   string parts[];
+   if(StringSplit(comment, '|', parts) != 5)
+      return false;
+   if(parts[0] != "ML")
+      return false;
+   role = PositionRoleFromCode(parts[1]);
+   if(role == ROLE_NONE)
+      return false;
+   if(StringLen(parts[2]) < 2 || StringGetCharacter(parts[2], 0) != 'C')
+      return false;
+   if(StringLen(parts[3]) < 2 || StringGetCharacter(parts[3], 0) != 'L')
+      return false;
+   if(StringLen(parts[4]) < 2 || StringGetCharacter(parts[4], 0) != 'R')
+      return false;
+   cycleId = (long)StringToInteger(StringSubstr(parts[2], 1));
+   level = (int)StringToInteger(StringSubstr(parts[3], 1));
+   reverseCycle = (int)StringToInteger(StringSubstr(parts[4], 1));
+   return cycleId >= 0 && level >= 0 && reverseCycle >= 0;
 }
 
 #endif // __BH_TYPES_MQH__

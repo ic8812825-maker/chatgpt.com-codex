@@ -178,3 +178,8 @@ V2.4.5 updates:
 - The offline search now evaluates 100,000 broad samples plus a 10,000-run local mini-search around the best accepted/current-leader zone.
 - `Optimization_Report.csv` records `StabilityScore`, `RobustnessScore`, `FinalRank`, `CoverageRatio`, and `IsSelectableForSetFile`; `Best_Parameters.md` explains selected Safe / Balanced / LowLot candidates and the AGGRESSIVE_NOT_FOUND marker when no accepted aggressive row exists.
 - Generated `.set` files under `Sets/` are created only from `Verdict=ACCEPT` rows; missing categories receive explicit NOT_FOUND marker files for manual MT5 Strategy Tester planning.
+
+## SplitGeometry guarded implementation note
+
+- SplitGeometry status: guarded foundation, not enabled for live trading unless `SPLIT_GEOMETRY_FULLY_IMPLEMENTED` is defined.
+- Safety reason: full trading contour is not accepted until BigCore, SmallBase, BigTrend, DynamicReverseSmall, reconciliation, pending contracts and Strategy Tester validation are complete.

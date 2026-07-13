@@ -265,9 +265,14 @@ void SaveState()
    GlobalVariableSet(StateKey("ReverseTriggerPrice"), Ctx.reverseTriggerPrice);
    GlobalVariableSet(StateKey("ReverseConfirmationPrice"), Ctx.reverseConfirmationPrice);
    GlobalVariableSet(StateKey("ProjectedReverseSmallLot"), Ctx.projectedReverseSmallLot);
+   GlobalVariableSet(StateKey("ProjectedReverseSmallMoneyLot"), Ctx.projectedReverseSmallMoneyLot);
+   GlobalVariableSet(StateKey("ProjectedReverseSmallDirectionLot"), Ctx.projectedReverseSmallDirectionLot);
+   GlobalVariableSet(StateKey("ProjectedReverseSmallFinalLot"), Ctx.projectedReverseSmallFinalLot);
    GlobalVariableSet(StateKey("ProjectedTransitionNet"), Ctx.projectedTransitionNet);
    GlobalVariableSet(StateKey("ActualTransitionNet"), Ctx.actualTransitionNet);
    GlobalVariableSet(StateKey("ActualBigTrendNet"), Ctx.actualBigTrendNet);
+   GlobalVariableSet(StateKey("ActualSplitHarvestNet"), Ctx.actualSplitHarvestNet);
+   GlobalVariableSet(StateKey("ActualSmallTransitionNet"), Ctx.actualSmallTransitionNet);
    GlobalVariableSet(StateKey("BigGrossRatio"), Ctx.bigGrossRatio);
    GlobalVariableSet(StateKey("BigNetExposureRatio"), Ctx.bigNetExposureRatio);
    GlobalVariableSet(StateKey("ReserveGrowthRatio"), Ctx.reserveGrowthRatio);
@@ -732,9 +737,14 @@ bool RecoverState()
    if(GetStateDouble("ReverseTriggerPrice", saved)) Ctx.reverseTriggerPrice = saved;
    if(GetStateDouble("ReverseConfirmationPrice", saved)) Ctx.reverseConfirmationPrice = saved;
    if(GetStateDouble("ProjectedReverseSmallLot", saved)) Ctx.projectedReverseSmallLot = saved;
+   if(GetStateDouble("ProjectedReverseSmallMoneyLot", saved)) Ctx.projectedReverseSmallMoneyLot = saved;
+   if(GetStateDouble("ProjectedReverseSmallDirectionLot", saved)) Ctx.projectedReverseSmallDirectionLot = saved;
+   if(GetStateDouble("ProjectedReverseSmallFinalLot", saved)) Ctx.projectedReverseSmallFinalLot = saved;
    if(GetStateDouble("ProjectedTransitionNet", saved)) Ctx.projectedTransitionNet = saved;
    if(GetStateDouble("ActualTransitionNet", saved)) Ctx.actualTransitionNet = saved;
    if(GetStateDouble("ActualBigTrendNet", saved)) Ctx.actualBigTrendNet = saved;
+   if(GetStateDouble("ActualSplitHarvestNet", saved)) Ctx.actualSplitHarvestNet = saved;
+   if(GetStateDouble("ActualSmallTransitionNet", saved)) Ctx.actualSmallTransitionNet = saved;
    if(GetStateDouble("BigGrossRatio", saved)) Ctx.bigGrossRatio = saved;
    if(GetStateDouble("BigNetExposureRatio", saved)) Ctx.bigNetExposureRatio = saved;
    if(GetStateDouble("ReserveGrowthRatio", saved)) Ctx.reserveGrowthRatio = saved;
@@ -992,9 +1002,14 @@ void ResetRecoveryContext()
    Ctx.reverseTriggerPrice = 0.0;
    Ctx.reverseConfirmationPrice = 0.0;
    Ctx.projectedReverseSmallLot = 0.0;
+   Ctx.projectedReverseSmallMoneyLot = 0.0;
+   Ctx.projectedReverseSmallDirectionLot = 0.0;
+   Ctx.projectedReverseSmallFinalLot = 0.0;
    Ctx.projectedTransitionNet = 0.0;
    Ctx.actualTransitionNet = 0.0;
    Ctx.actualBigTrendNet = 0.0;
+   Ctx.actualSplitHarvestNet = 0.0;
+   Ctx.actualSmallTransitionNet = 0.0;
    Ctx.bigGrossRatio = 0.0;
    Ctx.bigNetExposureRatio = 0.0;
    Ctx.reserveGrowthRatio = 0.0;
@@ -1907,6 +1922,86 @@ void CheckBigOrSmallScenario()
       SetState(STATE_WAIT_SMALL_TO_FAR, "Small direction detected. Waiting for price to reach old Far open price.");
       return;
    }
+}
+
+
+bool PositionIdInList(ulong positionId, const ulong &positionIds[])
+{
+   for(int idx = 0; idx < ArraySize(positionIds); idx++)
+   {
+      if(positionIds[idx] == positionId)
+         return true;
+   }
+   return false;
+}
+
+bool DealMatchesCurrentCycleByComment(ulong dealTicket)
+{
+   string comment = HistoryDealGetString(dealTicket, DEAL_COMMENT);
+   if(comment == "")
+      return true;
+
+   PositionRole role;
+   long parsedCycleId;
+   int parsedLevel;
+   int parsedReverseCycle;
+   if(!ParseRoleComment(comment, role, parsedCycleId, parsedLevel, parsedReverseCycle))
+      return true;
+
+   return (ulong)parsedCycleId == Ctx.cycleId;
+}
+
+bool CalculateLifecycleNetForPositionIds(const ulong &positionIds[], LifecycleNetResult &result, datetime fromTime = 0)
+{
+   result.profit = 0.0;
+   result.commission = 0.0;
+   result.swap = 0.0;
+   result.fee = 0.0;
+   result.net = 0.0;
+   result.dealCount = 0;
+
+   if(ArraySize(positionIds) <= 0)
+      return false;
+
+   datetime startTime = fromTime > 0 ? fromTime - 60 : Ctx.cycleStartTime;
+   datetime endTime = TimeCurrent() + 86400;
+   if(!HistorySelect(startTime, endTime))
+      return false;
+
+   int totalDeals = HistoryDealsTotal();
+   for(int i = 0; i < totalDeals; i++)
+   {
+      ulong dealTicket = HistoryDealGetTicket(i);
+      if(dealTicket == 0)
+         continue;
+      if((ulong)HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber)
+         continue;
+      if(HistoryDealGetString(dealTicket, DEAL_SYMBOL) != _Symbol)
+         continue;
+
+      ENUM_DEAL_ENTRY dealEntry = (ENUM_DEAL_ENTRY)HistoryDealGetInteger(dealTicket, DEAL_ENTRY);
+      if(dealEntry != DEAL_ENTRY_IN && dealEntry != DEAL_ENTRY_OUT && dealEntry != DEAL_ENTRY_INOUT && dealEntry != DEAL_ENTRY_OUT_BY)
+         continue;
+
+      ulong positionId = (ulong)HistoryDealGetInteger(dealTicket, DEAL_POSITION_ID);
+      if(!PositionIdInList(positionId, positionIds))
+         continue;
+      if(!DealMatchesCurrentCycleByComment(dealTicket))
+         continue;
+
+      double dealProfit = HistoryDealGetDouble(dealTicket, DEAL_PROFIT);
+      double dealCommission = HistoryDealGetDouble(dealTicket, DEAL_COMMISSION);
+      double dealSwap = HistoryDealGetDouble(dealTicket, DEAL_SWAP);
+      double dealFee = HistoryDealGetDouble(dealTicket, DEAL_FEE);
+      result.profit += dealProfit;
+      result.commission += dealCommission;
+      result.swap += dealSwap;
+      result.fee += dealFee;
+      result.net += dealProfit + dealCommission + dealSwap + dealFee;
+      result.dealCount++;
+   }
+
+   return result.dealCount > 0;
 }
 
 bool CalculateRealNetForClosedPositions(ulong firstPositionId, ulong secondPositionId, datetime fromTime, double &firstNet, double &secondNet, double &commission, double &swap, double &fee)

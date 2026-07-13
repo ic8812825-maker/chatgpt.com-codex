@@ -48,6 +48,7 @@ input double MaxBigTrendReverseLossMoney = 0.0;
 input int    MaxBigTrendReverseLossPoints = 0;
 input double MinimumFarCompressionLots = 0.01;
 input double MinimumFarCompressionRatio = 0.01;
+input double MaximumNewFarRatio = 0.97;
 
 input int    InitialTriggerPoints  = 100;
 input int    BigMoveStartPoints    = 100;

@@ -95,3 +95,4 @@ MaxBigTrendReverseLossMoney,0.00,0.00,100.00,Среднее,Money cap for BigTre
 MaxBigTrendReverseLossPoints,0,0,100,Среднее,Point cap for BigTrend reverse loss
 MinimumFarCompressionLots,0.01,0.00,0.10,Высокое,Minimum lot compression required for NewFar
 MinimumFarCompressionRatio,0.01,0.00,0.10,Высокое,Minimum relative compression required for NewFar
+MaximumNewFarRatio,0.97,0.80,0.99,Высокое,Upper bound for promoted NewFar ratio versus OldFar

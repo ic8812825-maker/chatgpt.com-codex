@@ -33,6 +33,49 @@ double CalcSmallLot(double bigLot)
    return NormalizeLotUp(bigLot * WorkSmallRatio);
 }
 
+
+double CalcBigCoreLot(double farLot)
+{
+   return NormalizeLotNearest(farLot * BigCoreRatio);
+}
+
+double CalcBigTrendLot(double farLot)
+{
+   return NormalizeLotNearest(farLot * BigTrendRatio);
+}
+
+double CalcSmallBaseLot(double farLot)
+{
+   return NormalizeLotUp(farLot * SmallBaseToFarRatio);
+}
+
+double CalcSplitBigGrossLot(double bigCoreLot, double bigTrendLot, double smallBaseLot)
+{
+   return NormalizeLotDown(bigCoreLot + bigTrendLot - smallBaseLot);
+}
+
+double CalcSplitNewFarLot(double bigCoreLot)
+{
+   return NormalizeLotDown(bigCoreLot * RemainBigCoreOnSmall);
+}
+
+bool ValidateRoundedSplitGeometry(double farLot,
+                                  double bigCoreLot,
+                                  double bigTrendLot,
+                                  double smallBaseLot,
+                                  double &actualBigGrossLot,
+                                  double &actualReserveGrowthLot,
+                                  double &actualNewFarLot)
+{
+   actualBigGrossLot = CalcSplitBigGrossLot(bigCoreLot, bigTrendLot, smallBaseLot);
+   actualReserveGrowthLot = NormalizeLotDown(ReserveShare * actualBigGrossLot);
+   actualNewFarLot = CalcSplitNewFarLot(bigCoreLot);
+
+   return actualBigGrossLot > farLot &&
+          actualReserveGrowthLot > farLot &&
+          actualNewFarLot < farLot;
+}
+
 double CalcProfit(double lot, int points)
 {
    return lot * points * PointValuePerLot();

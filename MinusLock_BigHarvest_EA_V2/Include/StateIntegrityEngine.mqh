@@ -13,6 +13,7 @@ bool IsStateIntegrityTerminalState(EAState state)
            state == STATE_CLOSED_RECOVERY_LOSS ||
            state == STATE_DUAL_TAIL ||
            state == STATE_INVALID_REVERSE_GEOMETRY ||
+           state == STATE_INVALID_SPLIT_GEOMETRY ||
            state == STATE_INVALID_SMALL_GEOMETRY ||
            state == STATE_REVERSE_LIMIT ||
            state == STATE_REVERSE_LIMIT_CLOSED ||
@@ -25,6 +26,10 @@ bool IsStateIntegrityTerminalState(EAState state)
            state == STATE_STOP_MAX_LEVELS ||
            state == STATE_UNCLOSED_CYCLE ||
            state == STATE_STOP ||
+           state == STATE_ERROR_OPEN_BIG_CORE ||
+           state == STATE_ERROR_OPEN_SMALL_BASE ||
+           state == STATE_ERROR_OPEN_BIG_TREND ||
+           state == STATE_RECONCILIATION_ERROR ||
            state == STATE_ERROR);
 }
 
@@ -213,11 +218,13 @@ void GetStateIntegrityShape(EAState state,
    switch(state)
    {
       case STATE_IDLE:
+      case STATE_REVERSE_SMALL_OPEN_FAILED:
       case STATE_RECOVERY_PENDING:
       case STATE_CLOSED_PROFIT:
       case STATE_CLOSED_RECOVERY_LOSS:
       case STATE_DUAL_TAIL:
       case STATE_INVALID_REVERSE_GEOMETRY:
+      case STATE_INVALID_SPLIT_GEOMETRY:
       case STATE_INVALID_SMALL_GEOMETRY:
       case STATE_REVERSE_LIMIT:
       case STATE_REVERSE_LIMIT_CLOSED:
@@ -230,6 +237,10 @@ void GetStateIntegrityShape(EAState state,
       case STATE_STOP_MAX_LEVELS:
       case STATE_UNCLOSED_CYCLE:
       case STATE_STOP:
+      case STATE_ERROR_OPEN_BIG_CORE:
+      case STATE_ERROR_OPEN_SMALL_BASE:
+      case STATE_ERROR_OPEN_BIG_TREND:
+      case STATE_RECONCILIATION_ERROR:
       case STATE_ERROR:
          break;
 
@@ -255,6 +266,14 @@ void GetStateIntegrityShape(EAState state,
       case STATE_SPLIT_BIG_OPEN_CORE:
       case STATE_SPLIT_BIG_OPEN_TREND:
       case STATE_SPLIT_BIG_OPEN_SMALL_BASE:
+      case STATE_SPLIT_GEOMETRY_ACTIVE:
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_CORE:
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_TREND:
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE:
+      case STATE_SPLIT_BIG_HARVEST_CALC_NET:
+      case STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR:
+      case STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR:
+      case STATE_SPLIT_BIG_HARVEST_FINAL_CHECK:
       case STATE_BIG_HARVEST:
       case STATE_BIG_HARVEST_CLOSE_BIG:
       case STATE_BIG_HARVEST_CLOSE_CORE:
@@ -264,6 +283,7 @@ void GetStateIntegrityShape(EAState state,
       case STATE_REVERSE_CLOSE_BIG_TREND:
       case STATE_REVERSE_CALCULATE_DYNAMIC_SMALL:
       case STATE_REVERSE_OPEN_DYNAMIC_SMALL:
+      case STATE_REVERSE_WAIT_FAR_TOUCH:
       case STATE_WAIT_SMALL_TO_FAR:
       case STATE_SMALL_SCENARIO:
       case STATE_SMALL_CLOSE_SMALL:
