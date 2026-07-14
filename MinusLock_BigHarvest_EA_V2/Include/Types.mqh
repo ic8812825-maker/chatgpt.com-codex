@@ -214,6 +214,41 @@ struct ReserveEventContextSnapshot
    ReserveEventType eventType;
 };
 
+enum ReserveTransactionPhase
+{
+   RESERVE_TX_NONE = 0,
+   RESERVE_TX_PREPARED,
+   RESERVE_TX_LEDGER_WRITTEN,
+   RESERVE_TX_CACHE_UPDATED,
+   RESERVE_TX_COMPLETED
+};
+
+enum ReserveFailPoint
+{
+   RESERVE_FAIL_NONE = 0,
+   RESERVE_FAIL_AFTER_PREPARED,
+   RESERVE_FAIL_AFTER_LEDGER_WRITE,
+   RESERVE_FAIL_AFTER_CACHE_UPDATE,
+   RESERVE_FAIL_BEFORE_COMPLETED
+};
+
+struct ReserveTransaction
+{
+   bool active;
+   long transactionId;
+   ReserveEventType eventType;
+   ReserveTransactionPhase phase;
+   double amount;
+   double reserveBefore;
+   double reserveAfter;
+   ReserveEventContextSnapshot snapshot;
+   long eventKeyHash;
+   uint eventKeyHashHigh;
+   uint eventKeyHashLow;
+   long expectedLedgerEventId;
+   datetime startedAt;
+};
+
 struct PositionResolutionResult
 {
    bool resolved;
