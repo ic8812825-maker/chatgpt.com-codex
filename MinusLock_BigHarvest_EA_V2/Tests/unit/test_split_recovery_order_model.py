@@ -208,3 +208,129 @@ def test_load_failure_is_non_destructive_and_stops_before_reconciliation():
     assert status == 'STATE_RECOVERY_MISMATCH'
     assert 'reconciliation' not in order
     assert not s.full_save_called
+
+class GateOperation(Enum):
+    NEW_TRADE = auto()
+    RECOVERY_CONTINUATION = auto()
+    READ_ONLY = auto()
+
+
+def event_context_valid(event_type: str, cycle_id=1, far=0, big=0, small=0, core=0, trend=0, small_base=0, harvest=0):
+    if cycle_id == 0:
+        return False
+    if event_type == 'RESERVE_EVENT_RESET':
+        return True
+    if event_type == 'RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD':
+        return far != 0 and core != 0 and trend != 0 and small_base != 0 and harvest > 0
+    if event_type == 'RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT':
+        return far != 0 and core != 0 and trend != 0 and small_base != 0 and harvest > 0
+    if event_type == 'RESERVE_EVENT_BIG_HARVEST_ADD':
+        return far != 0 and big != 0 and small != 0 and harvest > 0
+    return far != 0
+
+
+def test_stage7_reset_event_context_does_not_require_far_identifier():
+    assert event_context_valid('RESERVE_EVENT_RESET', cycle_id=1, far=0, core=0, trend=0, small_base=0)
+    assert not event_context_valid('RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD', cycle_id=1, far=0, core=2, trend=3, small_base=4, harvest=1)
+    assert event_context_valid('RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD', cycle_id=1, far=1, core=2, trend=3, small_base=4, harvest=1)
+
+
+def make_reset_tx(phase: Phase, before: float, after: float, ledger=False):
+    snap = Snapshot(event_key=4444, event_type='RESERVE_EVENT_RESET', far_id=0, core_id=0, trend_id=0, small_base_id=0)
+    tx = Transaction(True, 11, phase, after - before, before, after, 1, snap)
+    entries = []
+    if ledger:
+        entries.append(LedgerEntry(1, snap.event_key, tx.amount, tx.reserve_before, tx.reserve_after, snap))
+    cache = before if phase in (Phase.PREPARED, Phase.LEDGER_WRITTEN) else after
+    return SerializedState(cache_reserve=cache, next_event_id=1 if not ledger else 2, next_tx_id=12, ledger=entries, tx=tx, state='STATE_IDLE')
+
+
+def test_stage7_reserve_reset_without_far_recovers_all_phases_and_deltas():
+    for before, after in [(100.0, 0.0), (0.0, 100.0), (100.0, 50.0)]:
+        for phase, has_ledger in [
+            (Phase.PREPARED, False),
+            (Phase.PREPARED, True),
+            (Phase.LEDGER_WRITTEN, True),
+            (Phase.CACHE_UPDATED, True),
+            (Phase.COMPLETED, True),
+        ]:
+            s = make_reset_tx(phase, before, after, ledger=has_ledger)
+            status, _ = RecoveryModel().recover(s)
+            assert status == 'OK'
+            assert s.cache_reserve == after
+            assert len([e for e in s.ledger if e.event_key == 4444]) == 1
+            assert s.tx and not s.tx.active
+
+
+def can_start_reset(state='STATE_IDLE', managed=0, leg_context=False, active_tx=False, recovery=False):
+    return state in {'STATE_IDLE', 'STATE_STOP', 'STATE_CLOSED_PROFIT', 'STATE_CLOSED_RECOVERY_LOSS'} and managed == 0 and not leg_context and not active_tx and not recovery
+
+
+def test_stage7_reserve_reset_blocks_open_far_and_active_transaction():
+    assert can_start_reset()
+    assert not can_start_reset(leg_context=True)
+    assert not can_start_reset(managed=1)
+    assert not can_start_reset(active_tx=True)
+    assert not can_start_reset(recovery=True)
+
+
+def mark_failure(store: dict, reason_code: int, original_state: str):
+    before = dict(store)
+    store['RecoveryFailureActive'] = True
+    store['RecoveryFailureReasonCode'] = reason_code
+    store['RecoveryFailureOriginalState'] = original_state
+    return before
+
+
+def test_stage7_failure_marker_preserves_original_state_reason_and_context():
+    store = {'State': 'STATE_SPLIT_PARTIAL_HISTORY_PENDING', 'CycleId': 42, 'FarIdentifier': 99, 'PendingTicket': 123, 'LedgerCount': 2, 'ActiveReserveTransaction': True}
+    before = mark_failure(store, 8, store['State'])
+    assert store['RecoveryFailureOriginalState'] == 'STATE_SPLIT_PARTIAL_HISTORY_PENDING'
+    assert store['RecoveryFailureReasonCode'] == 8
+    for key in ['State', 'CycleId', 'FarIdentifier', 'PendingTicket', 'LedgerCount', 'ActiveReserveTransaction']:
+        assert store[key] == before[key]
+    store['RecoveryFailureActive'] = False
+    assert store['RecoveryFailureActive'] is False
+
+
+def recover_terminal(integrity_ok=True, reconciliation_ok=True):
+    logs = []
+    if not reconciliation_ok:
+        logs.append('RECOVERY_ABORTED')
+        return False, logs, 'RECOVERY_FAILURE_RECONCILIATION'
+    if not integrity_ok:
+        logs.append('RECOVERY_ABORTED')
+        return False, logs, 'RECOVERY_FAILURE_STATE_INTEGRITY'
+    logs.append('RECOVERY_COMPLETE Result=PASS')
+    return True, logs, 'RECOVERY_FAILURE_NONE'
+
+
+def test_stage7_integrity_and_reconciliation_failures_do_not_return_success():
+    ok, logs, reason = recover_terminal(integrity_ok=True, reconciliation_ok=True)
+    assert ok and logs == ['RECOVERY_COMPLETE Result=PASS'] and reason == 'RECOVERY_FAILURE_NONE'
+    ok, logs, reason = recover_terminal(integrity_ok=False, reconciliation_ok=True)
+    assert not ok and 'RECOVERY_COMPLETE Result=PASS' not in logs and reason == 'RECOVERY_FAILURE_STATE_INTEGRITY'
+    ok, logs, reason = recover_terminal(integrity_ok=True, reconciliation_ok=False)
+    assert not ok and 'RECOVERY_COMPLETE Result=PASS' not in logs and reason == 'RECOVERY_FAILURE_RECONCILIATION'
+
+
+def operation_allowed(recovery: bool, op: GateOperation):
+    if not recovery:
+        return True
+    return op in (GateOperation.RECOVERY_CONTINUATION, GateOperation.READ_ONLY)
+
+
+def test_stage7_recovery_in_progress_gate_blocks_new_operations_only():
+    assert not operation_allowed(True, GateOperation.NEW_TRADE)
+    assert operation_allowed(True, GateOperation.RECOVERY_CONTINUATION)
+    assert operation_allowed(True, GateOperation.READ_ONLY)
+    assert operation_allowed(False, GateOperation.NEW_TRADE)
+
+
+def split_harvest_net_context_valid(net: float, calculated: bool):
+    return calculated
+
+
+def test_stage7_zero_split_harvest_net_uses_calculated_flag():
+    assert split_harvest_net_context_valid(0.0, True)
+    assert not split_harvest_net_context_valid(0.0, False)

@@ -187,3 +187,62 @@ def test_stage6_split_close_context_states_are_validated():
         'STATE_SPLIT_MAX_LEVELS_DECISION',
     ]:
         assert state in block
+
+
+def test_stage7_reserve_transaction_event_type_rules_and_reset_without_far():
+    assert 'ValidateReserveTransactionContextByEventType' in STATE
+    required = STATE[STATE.index('bool ValidateReserveTransactionRequiredFields'):STATE.index('bool LoadReserveTransaction')]
+    assert 'ValidateReserveTransactionContextByEventType(ActiveReserveTransaction)' in required
+    rules = STATE[STATE.index('string ReserveEventTypeRequirementsToString'):STATE.index('bool ValidateReserveTransactionRequiredFields')]
+    assert 'RESERVE_EVENT_RESET' in rules
+    assert 'EventType=RESERVE_EVENT_RESET RequiredFar=NO' in rules
+
+
+def test_stage7_recovery_failure_marker_persists_original_state_and_reason_code():
+    assert 'enum RecoveryFailureReason' in TYPES
+    assert 'RecoveryFailureReasonCode' in STATE
+    assert 'bool MarkRecoveryFailure(string reason, EAState originalState)' in STATE
+    marker = STATE[STATE.index('void SaveRecoveryFailureMarker'):STATE.index('void ClearRecoveryFailureMarker')]
+    assert 'RecoveryFailureOriginalState' in marker
+    assert '(double)originalState' in marker
+    assert 'SaveState();' not in marker
+
+
+def test_stage7_recover_state_checks_reconciliation_and_integrity_before_pass():
+    recover = STATE[STATE.index('bool RecoverState()'):STATE.index('void ResetRecoveryContext()', STATE.index('bool RecoverState()'))]
+    assert 'return MarkRecoveryFailure("RECOVERY_RECONCILIATION_FAILED", recoveredState)' in recover
+    assert 'bool integrityOk = ValidateCurrentStateIntegrity();' in recover
+    assert 'return MarkRecoveryFailure("RECOVERY_STATE_INTEGRITY_FAILED", recoveredState)' in recover
+    assert recover.index('bool integrityOk = ValidateCurrentStateIntegrity();') < recover.index('RECOVERY_COMPLETE')
+    assert recover.index('ClearRecoveryFailureMarker();') < recover.index('RECOVERY_COMPLETE')
+
+
+def test_stage7_recovery_operation_gate_is_used_by_key_paths():
+    for token in [
+        'TradingOperationAllowedDuringRecovery("RunStateMachine", false)',
+        'TradingOperationAllowedDuringRecovery("OpenInitialLock", false)',
+        'TradingOperationAllowedDuringRecovery("OpenBigSmall", false)',
+        'TradingOperationAllowedDuringRecovery("OpenSplitRole", false)',
+        'TradingOperationAllowedDuringRecovery("StartReserveTransaction", false)',
+    ]:
+        assert token in STATE
+    trade = (ROOT / 'Include' / 'TradeEngine.mqh').read_text(encoding='utf-8')
+    assert 'TradingOperationAllowedDuringRecovery("OpenPosition", false)' in trade
+
+
+def test_stage7_actual_split_harvest_net_calculated_is_persisted_and_validated():
+    assert 'actualSplitHarvestNetCalculated' in TYPES
+    assert 'ActualSplitHarvestNetCalculated' in STATE
+    state_validation = STATE[STATE.index('bool ValidateRequiredRecoveredContextForState'):STATE.index('bool RecoverState()')]
+    assert 'Ctx.actualSplitHarvestNetCalculated' in state_validation
+    assert 'Ctx.actualSplitHarvestNet != 0.0' not in state_validation
+    assert 'Ctx.actualSplitHarvestNetCalculated = historyComplete' in STATE
+
+
+def test_stage7_reserve_reset_guard_blocks_unsafe_start():
+    reset = STATE[STATE.index('bool CanStartReserveReset'):STATE.index('void ApplyReserveReset')]
+    for token in ['STATE_IDLE', 'STATE_STOP', 'STATE_CLOSED_PROFIT', 'STATE_CLOSED_RECOVERY_LOSS', 'CountManagedOpenPositions()', 'HasOpenLegContext()', 'ActiveReserveTransaction.active', 'RecoveryInProgress', 'RESERVE_RESET_BLOCKED']:
+        assert token in reset
+    apply_reset = STATE[STATE.index('void ApplyReserveReset'):STATE.index('double RebuildReserveFromLedger')]
+    assert 'CanStartReserveReset()' in apply_reset
+    assert 'StartReserveTransaction(snapshot, delta)' in apply_reset
