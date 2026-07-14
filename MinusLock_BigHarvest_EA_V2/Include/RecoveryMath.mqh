@@ -36,12 +36,12 @@ double CalcSmallLot(double bigLot)
 
 double CalcBigCoreLot(double farLot)
 {
-   return NormalizeLotNearest(farLot * BigCoreRatio);
+   return NormalizeLotDown(farLot * BigCoreRatio);
 }
 
 double CalcBigTrendLot(double farLot)
 {
-   return NormalizeLotNearest(farLot * BigTrendRatio);
+   return NormalizeLotDown(farLot * BigTrendRatio);
 }
 
 double CalcSmallBaseLot(double farLot)
