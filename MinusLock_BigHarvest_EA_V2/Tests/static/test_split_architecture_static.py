@@ -111,3 +111,15 @@ def test_stage4_final_debit_uses_frozen_snapshot_before_context_clear():
     assert 'BuildReserveEventContext(RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT, finalDebitSnapshot)' in final_close
     assert final_close.index('BuildReserveEventContext(RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT, finalDebitSnapshot)') < final_close.index('ApplyReserveDebitSnapshot(finalDebitSnapshot')
     assert final_close.index('ApplyReserveDebitSnapshot(finalDebitSnapshot') < final_close.index('ClearSplitRoleContext')
+
+
+def test_stage5_recovery_and_transaction_guards_are_present():
+    assert 'MathAbs(legacy) >= 9007199254740992.0' in STATE
+    assert 'bool recoveryLoadOk = true' in STATE
+    assert 'RECOVERY_REQUIRED_FIELD_LOAD_FAILED' in STATE
+    assert 'ValidateRequiredRecoveredContextForState' in STATE
+    for token in ['ReserveTransaction', 'RESERVE_TX_PREPARED', 'RESERVE_TX_LEDGER_WRITTEN', 'RESERVE_TX_CACHE_UPDATED', 'RESERVE_TX_COMPLETED']:
+        assert token in TYPES or token in STATE
+    for token in ['SaveReserveTransaction', 'RecoverPendingReserveTransaction', 'ExecuteReserveTransaction', 'StartReserveTransaction']:
+        assert token in STATE
+    assert 'RESERVE_LEDGER_EVENT_ID_GAP' in STATE
