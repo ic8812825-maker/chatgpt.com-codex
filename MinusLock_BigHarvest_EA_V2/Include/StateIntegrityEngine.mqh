@@ -301,6 +301,21 @@ bool ValidateStateIntegrityLeg(string legName,
    return ok;
 }
 
+
+bool IsOpenPendingState(EAState state)
+{
+   return (state == STATE_OPEN_NEW_BIG_PENDING ||
+           state == STATE_OPEN_NEW_SMALL_PENDING ||
+           state == STATE_SPLIT_OPEN_CORE_PENDING ||
+           state == STATE_SPLIT_OPEN_SMALL_BASE_PENDING ||
+           state == STATE_SPLIT_OPEN_TREND_PENDING);
+}
+
+bool IsClosePendingState(EAState state)
+{
+   return IsStateIntegrityClosePendingState(state);
+}
+
 bool ValidatePendingStateIntegrity(EAState state)
 {
    if(!IsStateIntegrityPendingState(state))
@@ -310,11 +325,21 @@ bool ValidatePendingStateIntegrity(EAState state)
    ok = ValidatePendingStateContract(state) && ok;
    bool pendingOk = (Ctx.pendingActionType != PENDING_NONE &&
                      Ctx.pendingNextState != STATE_IDLE &&
-                     Ctx.pendingOperationStartTime > 0);
-   if(state == STATE_OPEN_NEW_BIG_PENDING || state == STATE_OPEN_NEW_SMALL_PENDING)
-      pendingOk = pendingOk && (Ctx.pendingLot > VolumeMismatchToleranceLots || Ctx.retryLot > VolumeMismatchToleranceLots || Ctx.pendingDirection != DIR_NONE);
+                     Ctx.pendingOperationStartTime > 0 &&
+                     Ctx.pendingAttempts >= 0);
+   if(IsOpenPendingState(state))
+   {
+      pendingOk = pendingOk &&
+                  Ctx.pendingLot > VolumeMismatchToleranceLots &&
+                  Ctx.pendingDirection != DIR_NONE &&
+                  Ctx.pendingComment != "";
+   }
    else
-      pendingOk = pendingOk && (Ctx.pendingTicket != 0 || Ctx.retryTicket != 0) && (Ctx.pendingLot > VolumeMismatchToleranceLots || Ctx.retryLot > VolumeMismatchToleranceLots);
+   {
+      pendingOk = pendingOk &&
+                  (Ctx.pendingTicket != 0 || Ctx.retryTicket != 0) &&
+                  (Ctx.pendingLot > VolumeMismatchToleranceLots || Ctx.retryLot > VolumeMismatchToleranceLots);
+   }
 
    if(!pendingOk)
    {
