@@ -89,7 +89,7 @@ def test_stage4_uses_exact_64bit_helpers_and_symbol_hash_not_length_only():
         assert token in STATE
     assert 'SymbolHash"), (double)StringToInteger(IntegerToString(StringLen' not in STATE
     assert 'SaveStateUlong64("CycleId", Ctx.cycleId)' in STATE
-    assert 'LoadStateUlong64("CycleId", Ctx.cycleId)' in STATE
+    assert 'LoadOptionalStateUlong64("CycleId", Ctx.cycleId)' in STATE
 
 
 def test_stage4_reserve_ledger_exact_fields_and_required_loaders():
@@ -123,3 +123,67 @@ def test_stage5_recovery_and_transaction_guards_are_present():
     for token in ['SaveReserveTransaction', 'RecoverPendingReserveTransaction', 'ExecuteReserveTransaction', 'StartReserveTransaction']:
         assert token in STATE
     assert 'RESERVE_LEDGER_EVENT_ID_GAP' in STATE
+
+
+def test_stage6_recover_state_order_and_phase_aware_guards():
+    recover = STATE[STATE.index('bool RecoverState()'):STATE.index('void ResetRecoveryContext()', STATE.index('bool RecoverState()'))]
+    for token in [
+        'RecoveryInProgress = true',
+        'RECOVERY_CONTEXT_LOAD_COMPLETE',
+        'RECOVERY_LEDGER_LOAD_COMPLETE',
+        'RECOVERY_TRANSACTION_LOAD_COMPLETE',
+        'ValidateReserveLedgerStructureOnly',
+        'ValidateLedgerAndCacheForTransactionPhase',
+        'RecoverPendingReserveTransaction',
+        'VerifyReserveLedgerPersistence',
+        'ValidateRequiredRecoveredContextForState',
+        'RECOVERY_RECONCILIATION_BEGIN',
+        'RecoveryInProgress = false',
+    ]:
+        assert token in recover
+    assert recover.index('PendingActionType') < recover.index('LoadReserveTransaction')
+    assert recover.index('LoadReserveTransaction') < recover.index('ValidateLedgerAndCacheForTransactionPhase')
+    assert recover.index('ValidateLedgerAndCacheForTransactionPhase') < recover.index('RecoverPendingReserveTransaction')
+    assert recover.index('RecoverPendingReserveTransaction') < recover.index('VerifyReserveLedgerPersistence')
+    assert recover.index('VerifyReserveLedgerPersistence') < recover.index('ValidateRequiredRecoveredContextForState')
+    assert recover.index('ValidateRequiredRecoveredContextForState') < recover.index('RECOVERY_RECONCILIATION_BEGIN')
+
+
+def test_stage6_transaction_matching_completed_and_next_tx_persistence():
+    for token in [
+        'ValidateLedgerEntryAgainstTransaction',
+        'entry.eventId == tx.expectedLedgerEventId',
+        'entry.bigCoreIdentifier',
+        'RESERVE_TX_COMPLETED',
+        'COMPLETED_EVENT_NOT_FOUND',
+        'COMPLETED_LEDGER_MISMATCH',
+        'NextReserveTransactionId',
+        'SaveStateLong64("NextReserveTransactionId"',
+        'RESERVE_TRANSACTION_ID_SEQUENCE_ERROR',
+    ]:
+        assert token in STATE
+
+
+def test_stage6_recovery_failure_marker_and_reset_safety():
+    assert 'SaveRecoveryFailureMarker' in STATE
+    assert 'RecoveryFailureActive' in STATE
+    assert 'SaveState();\n      return false;' not in STATE[STATE.index('bool RecoverState()'):STATE.index('void ResetRecoveryContext()', STATE.index('bool RecoverState()'))]
+    reset = STATE[STATE.index('void ApplyReserveReset'):STATE.index('double RebuildReserveFromLedger')]
+    assert 'StartReserveTransaction(snapshot, delta)' in reset
+    assert 'AppendReserveLedgerEntry(RESERVE_EVENT_RESET' not in reset
+
+
+def test_stage6_split_close_context_states_are_validated():
+    block = STATE[STATE.index('bool ValidateRequiredRecoveredContextForState'):STATE.index('bool RecoverState()')]
+    for state in [
+        'STATE_SPLIT_BIG_HARVEST_CLOSE_CORE',
+        'STATE_SPLIT_CLOSE_CORE_PENDING',
+        'STATE_SPLIT_BIG_HARVEST_CLOSE_TREND',
+        'STATE_SPLIT_CLOSE_TREND_PENDING',
+        'STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE',
+        'STATE_SPLIT_CLOSE_SMALL_BASE_PENDING',
+        'STATE_SPLIT_BIG_HARVEST_CALC_NET',
+        'STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR',
+        'STATE_SPLIT_MAX_LEVELS_DECISION',
+    ]:
+        assert state in block
