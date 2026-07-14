@@ -42,6 +42,14 @@ bool IsStateIntegrityPendingState(EAState state)
            state == STATE_CLOSE_NEW_FAR_PENDING ||
            state == STATE_OPEN_NEW_BIG_PENDING ||
            state == STATE_OPEN_NEW_SMALL_PENDING ||
+           state == STATE_SPLIT_OPEN_CORE_PENDING ||
+           state == STATE_SPLIT_OPEN_SMALL_BASE_PENDING ||
+           state == STATE_SPLIT_OPEN_TREND_PENDING ||
+           state == STATE_SPLIT_CLOSE_CORE_PENDING ||
+           state == STATE_SPLIT_CLOSE_TREND_PENDING ||
+           state == STATE_SPLIT_CLOSE_SMALL_BASE_PENDING ||
+           state == STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING ||
+           state == STATE_SPLIT_CLOSE_FAR_FULL_PENDING ||
            state == STATE_REVERSE_LIMIT_CLOSE_PENDING ||
            state == STATE_MAX_LEVELS_FINAL_CLOSE_PENDING ||
            state == STATE_STOP_MAX_LEVELS_CLOSE_PENDING);
@@ -54,6 +62,11 @@ bool IsStateIntegrityClosePendingState(EAState state)
            state == STATE_CLOSE_OLD_FAR_PENDING ||
            state == STATE_CLOSE_BIG_PART_PENDING ||
            state == STATE_CLOSE_NEW_FAR_PENDING ||
+           state == STATE_SPLIT_CLOSE_CORE_PENDING ||
+           state == STATE_SPLIT_CLOSE_TREND_PENDING ||
+           state == STATE_SPLIT_CLOSE_SMALL_BASE_PENDING ||
+           state == STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING ||
+           state == STATE_SPLIT_CLOSE_FAR_FULL_PENDING ||
            state == STATE_REVERSE_LIMIT_CLOSE_PENDING ||
            state == STATE_MAX_LEVELS_FINAL_CLOSE_PENDING ||
            state == STATE_STOP_MAX_LEVELS_CLOSE_PENDING);
@@ -62,6 +75,162 @@ bool IsStateIntegrityClosePendingState(EAState state)
 bool IsStateIntegrityRetryState(EAState state)
 {
    return IsStateIntegrityPendingState(state);
+}
+
+
+bool HasBigCoreContext()
+{
+   return (Ctx.bigCoreTicket != 0 || Ctx.bigCoreIdentifier != 0 || Ctx.bigCoreLot > VolumeMismatchToleranceLots || Ctx.bigCoreDirection != DIR_NONE);
+}
+
+bool HasBigTrendContext()
+{
+   return (Ctx.bigTrendTicket != 0 || Ctx.bigTrendIdentifier != 0 || Ctx.bigTrendLot > VolumeMismatchToleranceLots || Ctx.bigTrendDirection != DIR_NONE);
+}
+
+bool HasSmallBaseContext()
+{
+   return (Ctx.smallBaseTicket != 0 || Ctx.smallBaseIdentifier != 0 || Ctx.smallBaseLot > VolumeMismatchToleranceLots || Ctx.smallBaseDirection != DIR_NONE);
+}
+
+bool IsSplitIntegrityState(EAState state)
+{
+   return (state == STATE_SPLIT_BIG_OPEN_CORE ||
+           state == STATE_SPLIT_BIG_OPEN_SMALL_BASE ||
+           state == STATE_SPLIT_BIG_OPEN_TREND ||
+           state == STATE_SPLIT_GEOMETRY_ACTIVE ||
+           state == STATE_SPLIT_BIG_HARVEST_CLOSE_CORE ||
+           state == STATE_SPLIT_BIG_HARVEST_CLOSE_TREND ||
+           state == STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE ||
+           state == STATE_SPLIT_BIG_HARVEST_CALC_NET ||
+           state == STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR ||
+           state == STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR ||
+           state == STATE_SPLIT_BIG_HARVEST_FINAL_CHECK ||
+           state == STATE_SPLIT_OPEN_CORE_PENDING ||
+           state == STATE_SPLIT_OPEN_SMALL_BASE_PENDING ||
+           state == STATE_SPLIT_OPEN_TREND_PENDING ||
+           state == STATE_SPLIT_CLOSE_CORE_PENDING ||
+           state == STATE_SPLIT_CLOSE_TREND_PENDING ||
+           state == STATE_SPLIT_CLOSE_SMALL_BASE_PENDING ||
+           state == STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING ||
+           state == STATE_SPLIT_CLOSE_FAR_FULL_PENDING ||
+           state == STATE_SPLIT_PARTIAL_HISTORY_PENDING ||
+           state == STATE_SPLIT_MAX_LEVELS_DECISION);
+}
+
+bool ValidateSplitStateIntegrityLeg(string legName,
+                                    bool required,
+                                    bool forbidden,
+                                    ulong ticket,
+                                    ulong identifier,
+                                    double lot,
+                                    Direction direction)
+{
+   bool hasContext = (ticket != 0 || identifier != 0 || lot > VolumeMismatchToleranceLots || direction != DIR_NONE);
+   bool ok = true;
+   if(required && !hasContext)
+   {
+      LogError(StringFormat("SPLIT_STATE_INTEGRITY Result=FAIL State=%s Leg=%s StopReason=context_absent", StateToString(State), legName));
+      ok = false;
+   }
+   if(forbidden && hasContext)
+   {
+      LogError(StringFormat("SPLIT_STATE_INTEGRITY Result=FAIL State=%s Leg=%s StopReason=forbidden_context Ticket=%I64u Identifier=%I64u Lot=%.2f", StateToString(State), legName, ticket, identifier, lot));
+      ok = false;
+   }
+   if(required && (ticket == 0 || identifier == 0 || lot <= VolumeMismatchToleranceLots || direction == DIR_NONE))
+   {
+      LogError(StringFormat("SPLIT_STATE_INTEGRITY Result=FAIL State=%s Leg=%s StopReason=incomplete_context Ticket=%I64u Identifier=%I64u Lot=%.2f Direction=%s", StateToString(State), legName, ticket, identifier, lot, DirectionToString(direction)));
+      ok = false;
+   }
+   if(required && ticket != 0)
+   {
+      PositionSnapshot snapshot;
+      if(!GetManagedPositionByTicket(ticket, snapshot))
+      {
+         LogError(StringFormat("SPLIT_STATE_INTEGRITY Result=FAIL State=%s Leg=%s StopReason=position_missing Ticket=%I64u Identifier=%I64u", StateToString(State), legName, ticket, identifier));
+         ok = false;
+      }
+      else
+      {
+         double actualLot = NormalizeVolumeToStep(snapshot.lot);
+         double expectedLot = NormalizeVolumeToStep(lot);
+         if(identifier != 0 && snapshot.identifier != identifier)
+         {
+            LogError(StringFormat("SPLIT_STATE_INTEGRITY Result=FAIL State=%s Leg=%s StopReason=identifier_mismatch ExpectedIdentifier=%I64u ActualIdentifier=%I64u", StateToString(State), legName, identifier, snapshot.identifier));
+            ok = false;
+         }
+         if(direction != DIR_NONE && snapshot.direction != direction)
+         {
+            LogError(StringFormat("SPLIT_STATE_INTEGRITY Result=FAIL State=%s Leg=%s StopReason=direction_mismatch ExpectedDirection=%s ActualDirection=%s", StateToString(State), legName, DirectionToString(direction), DirectionToString(snapshot.direction)));
+            ok = false;
+         }
+         if(MathAbs(actualLot - expectedLot) > VolumeMismatchToleranceLots)
+         {
+            LogError(StringFormat("SPLIT_STATE_INTEGRITY Result=FAIL State=%s Leg=%s StopReason=volume_mismatch ExpectedLot=%.2f ActualLot=%.2f", StateToString(State), legName, expectedLot, actualLot));
+            ok = false;
+         }
+      }
+   }
+   if(ok)
+      LogInfo(StringFormat("SPLIT_STATE_INTEGRITY Result=PASS State=%s Leg=%s Required=%s Forbidden=%s Ticket=%I64u Identifier=%I64u Lot=%.2f", StateToString(State), legName, required ? "YES" : "NO", forbidden ? "YES" : "NO", ticket, identifier, lot));
+   return ok;
+}
+
+void GetSplitStateIntegrityShape(EAState state,
+                                 bool &requireFar,
+                                 bool &requireBigCore,
+                                 bool &requireBigTrend,
+                                 bool &requireSmallBase,
+                                 bool &forbidBigCore,
+                                 bool &forbidBigTrend,
+                                 bool &forbidSmallBase,
+                                 bool &allowFarAbsent)
+{
+   requireFar = false;
+   requireBigCore = false;
+   requireBigTrend = false;
+   requireSmallBase = false;
+   forbidBigCore = false;
+   forbidBigTrend = false;
+   forbidSmallBase = false;
+   allowFarAbsent = false;
+
+   switch(state)
+   {
+      case STATE_SPLIT_BIG_OPEN_CORE:
+      case STATE_SPLIT_OPEN_CORE_PENDING:
+         requireFar = true; forbidBigTrend = true; forbidSmallBase = true; break;
+      case STATE_SPLIT_BIG_OPEN_SMALL_BASE:
+      case STATE_SPLIT_OPEN_SMALL_BASE_PENDING:
+         requireFar = true; requireBigCore = true; forbidBigTrend = true; break;
+      case STATE_SPLIT_BIG_OPEN_TREND:
+      case STATE_SPLIT_OPEN_TREND_PENDING:
+         requireFar = true; requireBigCore = true; requireSmallBase = true; break;
+      case STATE_SPLIT_GEOMETRY_ACTIVE:
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_CORE:
+         requireFar = true; requireBigCore = true; requireBigTrend = true; requireSmallBase = true; break;
+      case STATE_SPLIT_CLOSE_CORE_PENDING:
+         requireFar = true; requireBigCore = true; requireBigTrend = true; requireSmallBase = true; break;
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_TREND:
+      case STATE_SPLIT_CLOSE_TREND_PENDING:
+         requireFar = true; requireBigTrend = true; requireSmallBase = true; forbidBigCore = true; break;
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE:
+      case STATE_SPLIT_CLOSE_SMALL_BASE_PENDING:
+         requireFar = true; requireSmallBase = true; forbidBigCore = true; forbidBigTrend = true; break;
+      case STATE_SPLIT_BIG_HARVEST_CALC_NET:
+      case STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR:
+      case STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR:
+      case STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING:
+      case STATE_SPLIT_CLOSE_FAR_FULL_PENDING:
+      case STATE_SPLIT_PARTIAL_HISTORY_PENDING:
+      case STATE_SPLIT_MAX_LEVELS_DECISION:
+         requireFar = true; forbidBigCore = true; forbidBigTrend = true; forbidSmallBase = true; break;
+      case STATE_SPLIT_BIG_HARVEST_FINAL_CHECK:
+         allowFarAbsent = true; forbidBigCore = true; forbidBigTrend = true; forbidSmallBase = true; break;
+      default:
+         break;
+   }
 }
 
 bool ValidateStateIntegrityLeg(string legName,
@@ -263,17 +432,6 @@ void GetStateIntegrityShape(EAState state,
          break;
 
       case STATE_BIG_SMALL_OPENED:
-      case STATE_SPLIT_BIG_OPEN_CORE:
-      case STATE_SPLIT_BIG_OPEN_TREND:
-      case STATE_SPLIT_BIG_OPEN_SMALL_BASE:
-      case STATE_SPLIT_GEOMETRY_ACTIVE:
-      case STATE_SPLIT_BIG_HARVEST_CLOSE_CORE:
-      case STATE_SPLIT_BIG_HARVEST_CLOSE_TREND:
-      case STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE:
-      case STATE_SPLIT_BIG_HARVEST_CALC_NET:
-      case STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR:
-      case STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR:
-      case STATE_SPLIT_BIG_HARVEST_FINAL_CHECK:
       case STATE_BIG_HARVEST:
       case STATE_BIG_HARVEST_CLOSE_BIG:
       case STATE_BIG_HARVEST_CLOSE_CORE:
@@ -367,6 +525,33 @@ void GetStateIntegrityShape(EAState state,
          forbidInitial = true;
          break;
 
+      case STATE_SPLIT_BIG_OPEN_CORE:
+      case STATE_SPLIT_BIG_OPEN_SMALL_BASE:
+      case STATE_SPLIT_BIG_OPEN_TREND:
+      case STATE_SPLIT_GEOMETRY_ACTIVE:
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_CORE:
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_TREND:
+      case STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE:
+      case STATE_SPLIT_BIG_HARVEST_CALC_NET:
+      case STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR:
+      case STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR:
+      case STATE_SPLIT_BIG_HARVEST_FINAL_CHECK:
+      case STATE_SPLIT_OPEN_CORE_PENDING:
+      case STATE_SPLIT_OPEN_SMALL_BASE_PENDING:
+      case STATE_SPLIT_OPEN_TREND_PENDING:
+      case STATE_SPLIT_CLOSE_CORE_PENDING:
+      case STATE_SPLIT_CLOSE_TREND_PENDING:
+      case STATE_SPLIT_CLOSE_SMALL_BASE_PENDING:
+      case STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING:
+      case STATE_SPLIT_CLOSE_FAR_FULL_PENDING:
+      case STATE_SPLIT_PARTIAL_HISTORY_PENDING:
+      case STATE_SPLIT_MAX_LEVELS_DECISION:
+         requireFar = (state != STATE_SPLIT_BIG_HARVEST_FINAL_CHECK);
+         forbidInitial = true;
+         forbidBig = true;
+         forbidSmall = true;
+         break;
+
       default:
          LogError(StringFormat("INVALID_STATE_SHAPE State=%s has no explicit integrity matrix entry", StateToString(state)));
          break;
@@ -382,6 +567,8 @@ bool ValidateCurrentStateIntegrity()
    bool ok = true;
    bool requireInitialBuy, requireInitialSell, requireFar, requireBig, requireSmall;
    bool forbidInitial, forbidFar, forbidBig, forbidSmall, requirePending, requireRetry;
+   bool requireBigCore=false, requireBigTrend=false, requireSmallBase=false;
+   bool forbidBigCore=false, forbidBigTrend=false, forbidSmallBase=false, allowFarAbsent=false;
 
    GetStateIntegrityShape(State,
                           requireInitialBuy,
@@ -396,7 +583,10 @@ bool ValidateCurrentStateIntegrity()
                           requirePending,
                           requireRetry);
 
-   LogInfo(StringFormat("STATE_INTEGRITY_MATRIX State=%s RequireInitialBuy=%s RequireInitialSell=%s RequireFar=%s RequireBig=%s RequireSmall=%s ForbidInitial=%s ForbidFar=%s ForbidBig=%s ForbidSmall=%s Pending=%s Retry=%s",
+   if(IsSplitIntegrityState(State))
+      GetSplitStateIntegrityShape(State, requireFar, requireBigCore, requireBigTrend, requireSmallBase, forbidBigCore, forbidBigTrend, forbidSmallBase, allowFarAbsent);
+
+   LogInfo(StringFormat("STATE_INTEGRITY_MATRIX State=%s RequireInitialBuy=%s RequireInitialSell=%s RequireFar=%s RequireBig=%s RequireSmall=%s ForbidInitial=%s ForbidFar=%s ForbidBig=%s ForbidSmall=%s RequireBigCore=%s RequireBigTrend=%s RequireSmallBase=%s ForbidBigCore=%s ForbidBigTrend=%s ForbidSmallBase=%s Pending=%s Retry=%s",
                         StateToString(State),
                         requireInitialBuy ? "YES" : "NO",
                         requireInitialSell ? "YES" : "NO",
@@ -407,6 +597,12 @@ bool ValidateCurrentStateIntegrity()
                         forbidFar ? "YES" : "NO",
                         forbidBig ? "YES" : "NO",
                         forbidSmall ? "YES" : "NO",
+                        requireBigCore ? "YES" : "NO",
+                        requireBigTrend ? "YES" : "NO",
+                        requireSmallBase ? "YES" : "NO",
+                        forbidBigCore ? "YES" : "NO",
+                        forbidBigTrend ? "YES" : "NO",
+                        forbidSmallBase ? "YES" : "NO",
                         requirePending ? "YES" : "NO",
                         requireRetry ? "YES" : "NO"));
 
@@ -415,6 +611,20 @@ bool ValidateCurrentStateIntegrity()
    ok = ValidateStateIntegrityLeg("FAR", requireFar, forbidFar, HasFarContext(), Ctx.farTicket, Ctx.farIdentifier, Ctx.farLot, Ctx.farDirection) && ok;
    ok = ValidateStateIntegrityLeg("BIG", requireBig, forbidBig, HasBigContext(), Ctx.bigTicket, Ctx.bigIdentifier, Ctx.bigLot, Ctx.bigDirection) && ok;
    ok = ValidateStateIntegrityLeg("SMALL", requireSmall, forbidSmall, HasSmallContext(), Ctx.smallTicket, Ctx.smallIdentifier, Ctx.smallLot, Ctx.smallDirection) && ok;
+
+   if(IsSplitIntegrityState(State))
+   {
+      if(allowFarAbsent && !HasFarContext())
+         LogInfo(StringFormat("SPLIT_STATE_INTEGRITY Result=PASS State=%s Leg=FAR OptionalClosed=YES", StateToString(State)));
+      ok = ValidateSplitStateIntegrityLeg("BIG_CORE", requireBigCore, forbidBigCore, Ctx.bigCoreTicket, Ctx.bigCoreIdentifier, Ctx.bigCoreLot, Ctx.bigCoreDirection) && ok;
+      ok = ValidateSplitStateIntegrityLeg("BIG_TREND", requireBigTrend, forbidBigTrend, Ctx.bigTrendTicket, Ctx.bigTrendIdentifier, Ctx.bigTrendLot, Ctx.bigTrendDirection) && ok;
+      ok = ValidateSplitStateIntegrityLeg("SMALL_BASE", requireSmallBase, forbidSmallBase, Ctx.smallBaseTicket, Ctx.smallBaseIdentifier, Ctx.smallBaseLot, Ctx.smallBaseDirection) && ok;
+      if(HasBigContext() || HasSmallContext())
+      {
+         LogError(StringFormat("SPLIT_STATE_INTEGRITY Result=FAIL State=%s StopReason=legacy_big_small_present BigTicket=%I64u SmallTicket=%I64u", StateToString(State), Ctx.bigTicket, Ctx.smallTicket));
+         ok = false;
+      }
+   }
 
    if(!IsStateIntegrityPendingState(State) && HasPendingOperationContext() && !IsStateIntegrityTerminalState(State))
    {
