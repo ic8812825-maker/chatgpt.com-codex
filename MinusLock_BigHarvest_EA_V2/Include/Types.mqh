@@ -172,11 +172,20 @@ struct ReserveLedgerEntry
    double amount;
    double reserveBefore;
    double reserveAfter;
+   string symbol;
+   ulong magicNumber;
+   ulong cycleId;
    long bigIdentifier;
    long smallIdentifier;
    long farIdentifier;
+   long bigCoreIdentifier;
+   long bigTrendIdentifier;
+   long smallBaseIdentifier;
+   long reverseSmallIdentifier;
    int harvestLevel;
    int reverseCycle;
+   uint eventKeyHashHigh;
+   uint eventKeyHashLow;
    long eventKeyHash;
 };
 
