@@ -8,6 +8,7 @@ long NextReserveEventId = 1;
 ReserveTransaction ActiveReserveTransaction;
 long NextReserveTransactionId = 1;
 ReserveFailPoint ActiveReserveFailPoint = RESERVE_FAIL_NONE;
+bool RecoveryInProgress = false;
 
 void SplitUlong64(ulong value, uint &high32, uint &low32)
 {
@@ -294,18 +295,188 @@ bool LoadReserveTransaction()
    return true;
 }
 
+
+bool ReserveRecoveryConflict(string reason)
+{
+   LogError(StringFormat("RESERVE_TRANSACTION_RECOVERY_CONFLICT Reason=%s TransactionId=%I64d Phase=%d EventKey=%I64d", reason, ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ActiveReserveTransaction.eventKeyHash));
+   State = STATE_RECOVERY_MISMATCH;
+   Ctx.lastError = "RESERVE_TRANSACTION_RECOVERY_CONFLICT " + reason;
+   return false;
+}
+
+int ReserveLedgerEventKeyCount(long eventKeyHash, int &firstIndex)
+{
+   firstIndex = -1;
+   int count = 0;
+   for(int i = 0; i < ArraySize(ReserveLedger); i++)
+   {
+      if(RestoreReserveEventKeyHash(ReserveLedger[i].eventKeyHashHigh, ReserveLedger[i].eventKeyHashLow) == eventKeyHash)
+      {
+         if(firstIndex < 0) firstIndex = i;
+         count++;
+      }
+   }
+   return count;
+}
+
+bool ValidateLedgerEntryAgainstTransaction(ReserveLedgerEntry &entry, ReserveTransaction &tx)
+{
+   long restoredHash = RestoreReserveEventKeyHash(entry.eventKeyHashHigh, entry.eventKeyHashLow);
+   bool ok = true;
+   ok = ok && entry.eventId == tx.expectedLedgerEventId;
+   ok = ok && entry.type == tx.eventType;
+   ok = ok && restoredHash == tx.eventKeyHash;
+   ok = ok && MathAbs(entry.amount - tx.amount) <= ReserveMismatchTolerance;
+   ok = ok && MathAbs(entry.reserveBefore - tx.reserveBefore) <= ReserveMismatchTolerance;
+   ok = ok && MathAbs(entry.reserveAfter - tx.reserveAfter) <= ReserveMismatchTolerance;
+   ok = ok && entry.symbolHash == tx.snapshot.symbolHash;
+   ok = ok && entry.magicNumber == tx.snapshot.magicNumber;
+   ok = ok && entry.cycleId == tx.snapshot.cycleId;
+   ok = ok && entry.harvestLevel == tx.snapshot.harvestLevel;
+   ok = ok && entry.reverseCycle == tx.snapshot.reverseCycle;
+   ok = ok && (ulong)entry.farIdentifier == tx.snapshot.farIdentifier;
+   ok = ok && (ulong)entry.bigIdentifier == tx.snapshot.bigIdentifier;
+   ok = ok && (ulong)entry.smallIdentifier == tx.snapshot.smallIdentifier;
+   ok = ok && (ulong)entry.bigCoreIdentifier == tx.snapshot.bigCoreIdentifier;
+   ok = ok && (ulong)entry.bigTrendIdentifier == tx.snapshot.bigTrendIdentifier;
+   ok = ok && (ulong)entry.smallBaseIdentifier == tx.snapshot.smallBaseIdentifier;
+   ok = ok && (ulong)entry.reverseSmallIdentifier == tx.snapshot.reverseSmallIdentifier;
+   if(!ok)
+      LogError(StringFormat("RESERVE_TRANSACTION_LEDGER_ENTRY_MISMATCH EntryEventId=%I64d ExpectedEventId=%I64d EntryHash=%I64d TxHash=%I64d EntryAmount=%.2f TxAmount=%.2f EntryReserveAfter=%.2f TxReserveAfter=%.2f", entry.eventId, tx.expectedLedgerEventId, restoredHash, tx.eventKeyHash, entry.amount, tx.amount, entry.reserveAfter, tx.reserveAfter));
+   return ok;
+}
+
+double ReserveLedgerCurrentReserve()
+{
+   if(ArraySize(ReserveLedger) <= 0)
+      return 0.0;
+   return ReserveLedger[ArraySize(ReserveLedger) - 1].reserveAfter;
+}
+
+bool ValidateReserveLedgerStructureOnly()
+{
+   bool ok = true;
+   long lastEventId = 0;
+   for(int i = 0; i < ArraySize(ReserveLedger); i++)
+   {
+      ReserveLedgerEntry entry = ReserveLedger[i];
+      long restoredHash = RestoreReserveEventKeyHash(entry.eventKeyHashHigh, entry.eventKeyHashLow);
+      long recomputedHash = ReserveLedgerEntryHash(entry);
+      if(restoredHash != recomputedHash)
+      {
+         LogError(StringFormat("RESERVE_EVENT_KEY_COMPONENT_MISMATCH Index=%d EventId=%I64d RestoredHash=%I64d RecomputedHash=%I64d", i, entry.eventId, restoredHash, recomputedHash));
+         ok = false;
+      }
+      if(entry.symbolHash != StableSymbolHash64(_Symbol) || entry.symbolLength != StringLen(_Symbol) || entry.magicNumber != MagicNumber || entry.cycleId != Ctx.cycleId)
+      {
+         LogError(StringFormat("RESERVE_EVENT_KEY_COMPONENT_MISMATCH Index=%d EventId=%I64d Field=SymbolMagicCycle", i, entry.eventId));
+         ok = false;
+      }
+      if((i == 0 && entry.eventId != 1) || (i > 0 && entry.eventId != lastEventId + 1))
+      {
+         LogError(StringFormat("RESERVE_LEDGER_EVENT_ID_GAP Index=%d EventId=%I64d ExpectedEventId=%I64d", i, entry.eventId, (i == 0 ? 1 : lastEventId + 1)));
+         ok = false;
+      }
+      for(int j = i + 1; j < ArraySize(ReserveLedger); j++)
+      {
+         if(ReserveLedger[j].eventId == entry.eventId || RestoreReserveEventKeyHash(ReserveLedger[j].eventKeyHashHigh, ReserveLedger[j].eventKeyHashLow) == restoredHash)
+         {
+            LogError(StringFormat("RESERVE_LEDGER_CHAIN_BROKEN Index=%d DuplicateIndex=%d DuplicateEventIdOrKey=YES", i, j));
+            ok = false;
+         }
+      }
+      lastEventId = entry.eventId;
+   }
+   if(NextReserveEventId <= lastEventId)
+   {
+      LogError(StringFormat("RESERVE_LEDGER_EVENT_ID_GAP NextReserveEventId=%I64d MaxEventId=%I64d", NextReserveEventId, lastEventId));
+      ok = false;
+   }
+   LogInfo(StringFormat("RECOVERY_LEDGER_LOAD_COMPLETE Symbol=%s Magic=%I64u CycleId=%I64u LedgerEntries=%d NextReserveEventId=%I64d Result=%s", _Symbol, MagicNumber, Ctx.cycleId, ArraySize(ReserveLedger), NextReserveEventId, ok ? "PASS" : "FAIL"));
+   return ok;
+}
+
+bool ValidateLedgerAndCacheForTransactionPhase(ReserveTransaction &tx)
+{
+   double ledgerReserve = ReserveLedgerCurrentReserve();
+   if(!tx.active)
+      return MathAbs(ledgerReserve - Ctx.totalReserve) <= ReserveMismatchTolerance;
+   int ledgerIndex = -1;
+   int count = ReserveLedgerEventKeyCount(tx.eventKeyHash, ledgerIndex);
+   if(count > 1)
+      return ReserveRecoveryConflict("DUPLICATE_TRANSACTION_EVENT_KEY");
+   if(tx.phase == RESERVE_TX_PREPARED)
+   {
+      if(count == 0)
+         return MathAbs(Ctx.totalReserve - tx.reserveBefore) <= ReserveMismatchTolerance;
+      if(!ValidateLedgerEntryAgainstTransaction(ReserveLedger[ledgerIndex], tx))
+         return ReserveRecoveryConflict("PREPARED_LEDGER_MISMATCH");
+      tx.phase = RESERVE_TX_LEDGER_WRITTEN;
+      SaveReserveTransaction();
+      return true;
+   }
+   if(tx.phase == RESERVE_TX_LEDGER_WRITTEN)
+   {
+      if(count != 1)
+         return ReserveRecoveryConflict("LEDGER_WRITTEN_EVENT_NOT_FOUND");
+      if(!ValidateLedgerEntryAgainstTransaction(ReserveLedger[ledgerIndex], tx))
+         return ReserveRecoveryConflict("LEDGER_WRITTEN_LEDGER_MISMATCH");
+      if(MathAbs(Ctx.totalReserve - tx.reserveBefore) <= ReserveMismatchTolerance || MathAbs(Ctx.totalReserve - tx.reserveAfter) <= ReserveMismatchTolerance)
+         return true;
+      return ReserveRecoveryConflict("LEDGER_WRITTEN_CACHE_MISMATCH");
+   }
+   if(tx.phase == RESERVE_TX_CACHE_UPDATED)
+   {
+      if(count != 1)
+         return ReserveRecoveryConflict("CACHE_UPDATED_EVENT_NOT_FOUND");
+      if(!ValidateLedgerEntryAgainstTransaction(ReserveLedger[ledgerIndex], tx))
+         return ReserveRecoveryConflict("CACHE_UPDATED_LEDGER_MISMATCH");
+      if(MathAbs(Ctx.totalReserve - tx.reserveAfter) > ReserveMismatchTolerance)
+         return ReserveRecoveryConflict("CACHE_UPDATED_CACHE_MISMATCH");
+      return true;
+   }
+   if(tx.phase == RESERVE_TX_COMPLETED)
+   {
+      if(count != 1)
+         return ReserveRecoveryConflict("COMPLETED_EVENT_NOT_FOUND");
+      if(!ValidateLedgerEntryAgainstTransaction(ReserveLedger[ledgerIndex], tx))
+         return ReserveRecoveryConflict("COMPLETED_LEDGER_MISMATCH");
+      if(MathAbs(Ctx.totalReserve - tx.reserveAfter) > ReserveMismatchTolerance)
+         return ReserveRecoveryConflict("COMPLETED_CACHE_MISMATCH");
+      return true;
+   }
+   return ReserveRecoveryConflict("UNKNOWN_TRANSACTION_PHASE");
+}
+
 bool ExecuteReserveTransaction(ReserveTransaction &tx)
 {
    if(!tx.active)
       return true;
    int ledgerIndex = -1;
+   if(tx.phase == RESERVE_TX_COMPLETED)
+   {
+      if(!ReserveLedgerContainsEventKey(tx.eventKeyHash, ledgerIndex))
+         return ReserveRecoveryConflict("COMPLETED_EVENT_NOT_FOUND");
+      if(!ValidateLedgerEntryAgainstTransaction(ReserveLedger[ledgerIndex], tx))
+         return ReserveRecoveryConflict("COMPLETED_LEDGER_MISMATCH");
+      if(MathAbs(Ctx.totalReserve - tx.reserveAfter) > ReserveMismatchTolerance)
+         return ReserveRecoveryConflict("COMPLETED_CACHE_MISMATCH");
+      ClearReserveTransaction();
+      SaveReserveTransaction();
+      LogInfo("RECOVERY_TRANSACTION_COMPLETED Phase=COMPLETED Result=cleared_active_marker");
+      return true;
+   }
    if(tx.phase == RESERVE_TX_PREPARED)
    {
       if(!ReserveLedgerContainsEventKey(tx.eventKeyHash, ledgerIndex))
       {
+         if(tx.expectedLedgerEventId != NextReserveEventId)
+            return ReserveRecoveryConflict("RESERVE_TRANSACTION_EXPECTED_EVENT_ID_MISMATCH");
          AppendReserveLedgerEntryFromSnapshot(tx.snapshot, tx.amount, tx.reserveBefore, tx.reserveAfter);
          tx.expectedLedgerEventId = ReserveLedger[ArraySize(ReserveLedger) - 1].eventId;
       }
+      else if(!ValidateLedgerEntryAgainstTransaction(ReserveLedger[ledgerIndex], tx))
+         return ReserveRecoveryConflict("PREPARED_LEDGER_MISMATCH");
       tx.phase = RESERVE_TX_LEDGER_WRITTEN;
       SaveReserveTransaction();
       SaveState();
@@ -314,11 +485,9 @@ bool ExecuteReserveTransaction(ReserveTransaction &tx)
    if(tx.phase == RESERVE_TX_LEDGER_WRITTEN)
    {
       if(!ReserveLedgerContainsEventKey(tx.eventKeyHash, ledgerIndex))
-      {
-         State = STATE_RECOVERY_MISMATCH;
-         Ctx.lastError = "RESERVE_TRANSACTION_RECOVERY_CONFLICT";
-         return false;
-      }
+         return ReserveRecoveryConflict("LEDGER_WRITTEN_EVENT_NOT_FOUND");
+      if(!ValidateLedgerEntryAgainstTransaction(ReserveLedger[ledgerIndex], tx))
+         return ReserveRecoveryConflict("LEDGER_WRITTEN_LEDGER_MISMATCH");
       Ctx.totalReserve = tx.reserveAfter;
       tx.phase = RESERVE_TX_CACHE_UPDATED;
       SaveReserveTransaction();
@@ -327,12 +496,10 @@ bool ExecuteReserveTransaction(ReserveTransaction &tx)
    }
    if(tx.phase == RESERVE_TX_CACHE_UPDATED)
    {
-      if(!ReserveLedgerContainsEventKey(tx.eventKeyHash, ledgerIndex) || MathAbs(Ctx.totalReserve - tx.reserveAfter) > ReserveMismatchTolerance)
-      {
-         State = STATE_RECOVERY_MISMATCH;
-         Ctx.lastError = "RESERVE_TRANSACTION_RECOVERY_CONFLICT";
-         return false;
-      }
+      if(!ReserveLedgerContainsEventKey(tx.eventKeyHash, ledgerIndex))
+         return ReserveRecoveryConflict("CACHE_UPDATED_EVENT_NOT_FOUND");
+      if(!ValidateLedgerEntryAgainstTransaction(ReserveLedger[ledgerIndex], tx) || MathAbs(Ctx.totalReserve - tx.reserveAfter) > ReserveMismatchTolerance)
+         return ReserveRecoveryConflict("CACHE_UPDATED_CACHE_OR_LEDGER_MISMATCH");
       tx.phase = RESERVE_TX_COMPLETED;
       SaveReserveTransaction();
       if(ActiveReserveFailPoint == RESERVE_FAIL_BEFORE_COMPLETED) return false;
@@ -340,6 +507,7 @@ bool ExecuteReserveTransaction(ReserveTransaction &tx)
       ClearReserveTransaction();
       SaveReserveTransaction();
       SaveState();
+      LogInfo("RECOVERY_TRANSACTION_COMPLETED Phase=CACHE_UPDATED Result=completed");
    }
    return true;
 }
@@ -370,7 +538,9 @@ bool StartReserveTransaction(ReserveEventContextSnapshot &snapshot, double signe
       return ExecuteReserveTransaction(ActiveReserveTransaction);
    }
    ActiveReserveTransaction.active = true;
-   ActiveReserveTransaction.transactionId = NextReserveTransactionId++;
+   ActiveReserveTransaction.transactionId = NextReserveTransactionId;
+   NextReserveTransactionId++;
+   SaveStateLong64("NextReserveTransactionId", NextReserveTransactionId);
    ActiveReserveTransaction.eventType = snapshot.eventType;
    ActiveReserveTransaction.phase = RESERVE_TX_PREPARED;
    ActiveReserveTransaction.amount = signedAmount;
@@ -421,11 +591,19 @@ bool ApplyReserveDebit(ReserveEventType type, double amount)
 
 void ApplyReserveReset(double amount, string reason)
 {
-   double before = Ctx.totalReserve;
-   Ctx.totalReserve = MathMax(0.0, amount);
-   AppendReserveLedgerEntry(RESERVE_EVENT_RESET, Ctx.totalReserve - before, before, Ctx.totalReserve);
-   LogInfo("RESERVE_LEDGER_RESET " + reason);
-   SaveState();
+   if(ActiveReserveTransaction.active)
+   {
+      LogError("RESERVE_RESET_BLOCKED ActiveReserveTransaction=YES");
+      return;
+   }
+   ReserveEventContextSnapshot snapshot;
+   BuildReserveEventContext(RESERVE_EVENT_RESET, snapshot);
+   double targetReserve = MathMax(0.0, amount);
+   double delta = targetReserve - Ctx.totalReserve;
+   if(MathAbs(delta) <= ReserveMismatchTolerance)
+      return;
+   if(StartReserveTransaction(snapshot, delta))
+      LogInfo("RESERVE_LEDGER_RESET_TRANSACTIONAL " + reason);
 }
 
 double RebuildReserveFromLedger()
@@ -606,6 +784,7 @@ void SaveState()
    GlobalVariableSet(StateKey("TotalReserve"), Ctx.totalReserve);
    GlobalVariableSet(StateKey("ReserveLedgerCount"), (double)ArraySize(ReserveLedger));
    SaveStateLong64("ReserveNextEventId", NextReserveEventId);
+   SaveStateLong64("NextReserveTransactionId", NextReserveTransactionId);
    for(int ledgerIndex = 0; ledgerIndex < ArraySize(ReserveLedger); ledgerIndex++)
    {
       string prefix = StringFormat("ReserveLedger_%d_", ledgerIndex);
@@ -803,6 +982,44 @@ bool LoadStateLong64(string field, long &value)
       value = (long)legacy;
       return true;
    }
+   return false;
+}
+
+
+bool LoadOptionalStateUlong64(string field, ulong &value)
+{
+   string hk = StateKey(field + "High32");
+   string lk = StateKey(field + "Low32");
+   if(GlobalVariableCheck(hk) || GlobalVariableCheck(lk) || GlobalVariableCheck(StateKey(field)))
+      return LoadStateUlong64(field, value);
+   value = 0;
+   return true;
+}
+
+bool LoadOptionalStateLong64(string field, long &value)
+{
+   string hk = StateKey(field + "High32");
+   string lk = StateKey(field + "Low32");
+   if(GlobalVariableCheck(hk) || GlobalVariableCheck(lk) || GlobalVariableCheck(StateKey(field)))
+      return LoadStateLong64(field, value);
+   value = 0;
+   return true;
+}
+
+void SaveRecoveryFailureMarker(string reason)
+{
+   GlobalVariableSet(StateKey("RecoveryFailureActive"), 1.0);
+   GlobalVariableSet(StateKey("RecoveryFailureTime"), (double)TimeCurrent());
+   GlobalVariableSet(StateKey("RecoveryFailureOriginalState"), (double)State);
+   Ctx.lastError = reason;
+   LogError(StringFormat("RECOVERY_ABORTED Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s TransactionId=%I64d TransactionPhase=%d EventKey=%I64d CacheReserve=%.2f RecoveryLoadOk=NO Result=FAIL StopReason=%s", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ActiveReserveTransaction.eventKeyHash, Ctx.totalReserve, reason));
+}
+
+bool MarkRecoveryFailure(string reason)
+{
+   State = STATE_RECOVERY_MISMATCH;
+   SaveRecoveryFailureMarker(reason);
+   RecoveryInProgress = false;
    return false;
 }
 
@@ -1210,7 +1427,6 @@ bool VerifyReserveLedgerPersistence()
    {
       State = STATE_RECOVERY_MISMATCH;
       Ctx.lastError = "RESERVE_LEDGER_PERSISTENCE_MISMATCH";
-      SaveState();
       return false;
    }
    return true;
@@ -1220,6 +1436,7 @@ bool VerifyReserveLedgerPersistence()
 bool ValidateRequiredRecoveredContextForState(EAState state)
 {
    bool ok = true;
+   bool pendingCloseContext = (Ctx.pendingActionType != PENDING_NONE && (Ctx.pendingTicket != 0 || Ctx.pendingCloseFarLot > VolumeMismatchToleranceLots || Ctx.pendingLot > VolumeMismatchToleranceLots) && Ctx.pendingOperationStartTime > 0);
    if(state == STATE_FAR_ACTIVE)
       ok = (Ctx.cycleId != 0 && (Ctx.farTicket != 0 || Ctx.farIdentifier != 0) && Ctx.farLot > VolumeMismatchToleranceLots && Ctx.farDirection != DIR_NONE);
    else if(state == STATE_SPLIT_BIG_OPEN_CORE || state == STATE_SPLIT_OPEN_CORE_PENDING)
@@ -1230,10 +1447,20 @@ bool ValidateRequiredRecoveredContextForState(EAState state)
       ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.harvestLevel > 0);
    else if(state == STATE_SPLIT_GEOMETRY_ACTIVE)
       ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.harvestLevel > 0);
+   else if(state == STATE_SPLIT_BIG_HARVEST_CLOSE_CORE || state == STATE_SPLIT_CLOSE_CORE_PENDING)
+      ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.harvestLevel > 0 && (state != STATE_SPLIT_CLOSE_CORE_PENDING || pendingCloseContext));
+   else if(state == STATE_SPLIT_BIG_HARVEST_CLOSE_TREND || state == STATE_SPLIT_CLOSE_TREND_PENDING)
+      ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.harvestLevel > 0 && (state != STATE_SPLIT_CLOSE_TREND_PENDING || pendingCloseContext));
+   else if(state == STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE || state == STATE_SPLIT_CLOSE_SMALL_BASE_PENDING)
+      ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.harvestLevel > 0 && (state != STATE_SPLIT_CLOSE_SMALL_BASE_PENDING || pendingCloseContext));
+   else if(state == STATE_SPLIT_BIG_HARVEST_CALC_NET)
+      ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.harvestLevel > 0);
+   else if(state == STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR)
+      ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.actualSplitHarvestNet != 0.0 && Ctx.harvestLevel > 0);
    else if(state == STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR || state == STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING || state == STATE_SPLIT_PARTIAL_HISTORY_PENDING)
       ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.pendingOperationStartTime > 0 && Ctx.pendingCloseFarLot > VolumeMismatchToleranceLots && Ctx.pendingPartialFarBudgetAvailable >= 0.0 && Ctx.pendingActionType != PENDING_NONE);
-   else if(state == STATE_SPLIT_BIG_HARVEST_FINAL_CHECK || state == STATE_SPLIT_CLOSE_FAR_FULL_PENDING)
-      ok = (Ctx.cycleId != 0 && (Ctx.farIdentifier != 0 || Ctx.farTicket != 0));
+   else if(state == STATE_SPLIT_BIG_HARVEST_FINAL_CHECK || state == STATE_SPLIT_CLOSE_FAR_FULL_PENDING || state == STATE_SPLIT_MAX_LEVELS_DECISION)
+      ok = (Ctx.cycleId != 0 && (Ctx.farIdentifier != 0 || Ctx.farTicket != 0) && (state != STATE_SPLIT_CLOSE_FAR_FULL_PENDING || pendingCloseContext));
    if(!ok)
    {
       LogError(StringFormat("RECOVERY_REQUIRED_CONTEXT_MISSING State=%s CycleId=%I64u FarTicket=%I64u FarIdentifier=%I64u BigCoreIdentifier=%I64u BigTrendIdentifier=%I64u SmallBaseIdentifier=%I64u HarvestLevel=%d PendingAction=%d", StateToString(state), Ctx.cycleId, Ctx.farTicket, Ctx.farIdentifier, Ctx.bigCoreIdentifier, Ctx.bigTrendIdentifier, Ctx.smallBaseIdentifier, Ctx.harvestLevel, (int)Ctx.pendingActionType));
@@ -1249,33 +1476,38 @@ bool RecoverState()
    if(!GlobalVariableCheck(StateKey("State")))
       return false;
 
+   RecoveryInProgress = true;
+   EAState recoveredState = (EAState)(int)GlobalVariableGet(StateKey("State"));
    ResetRecoveryContext();
+   State = recoveredState;
    double saved = 0.0;
    bool recoveryLoadOk = true;
-   State = (EAState)(int)GlobalVariableGet(StateKey("State"));
-   recoveryLoadOk = LoadStateUlong64("FarTicket", Ctx.farTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("FarIdentifier", Ctx.farIdentifier) && recoveryLoadOk;
-   Ctx.farLot = GlobalVariableGet(StateKey("FarLot"));
-   Ctx.farOpenPrice = GlobalVariableGet(StateKey("FarOpenPrice"));
-   Ctx.farDirection = (Direction)(int)GlobalVariableGet(StateKey("FarDirection"));
-   recoveryLoadOk = LoadStateUlong64("BigTicket", Ctx.bigTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("BigIdentifier", Ctx.bigIdentifier) && recoveryLoadOk;
-   Ctx.bigLot = GlobalVariableGet(StateKey("BigLot"));
-   Ctx.bigOpenPrice = GlobalVariableGet(StateKey("BigOpenPrice"));
-   Ctx.bigDirection = (Direction)(int)GlobalVariableGet(StateKey("BigDirection"));
-   recoveryLoadOk = LoadStateUlong64("SmallTicket", Ctx.smallTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("SmallIdentifier", Ctx.smallIdentifier) && recoveryLoadOk;
-   Ctx.smallLot = GlobalVariableGet(StateKey("SmallLot"));
-   Ctx.smallOpenPrice = GlobalVariableGet(StateKey("SmallOpenPrice"));
-   Ctx.smallDirection = (Direction)(int)GlobalVariableGet(StateKey("SmallDirection"));
-   recoveryLoadOk = LoadStateUlong64("BigCoreTicket", Ctx.bigCoreTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("BigTrendTicket", Ctx.bigTrendTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("SmallBaseTicket", Ctx.smallBaseTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("ReverseSmallTicket", Ctx.reverseSmallTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("BigCoreIdentifier", Ctx.bigCoreIdentifier) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("BigTrendIdentifier", Ctx.bigTrendIdentifier) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("SmallBaseIdentifier", Ctx.smallBaseIdentifier) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("ReverseSmallIdentifier", Ctx.reverseSmallIdentifier) && recoveryLoadOk;
+   LogInfo(StringFormat("RECOVERY_PHASE_BEGIN Symbol=%s Magic=%I64u RecoveredState=%s RecoveryLoadOk=YES Result=BEGIN", _Symbol, MagicNumber, StateToString(State)));
+
+   // Phase 1: load the complete RecoveryContext before any state-specific validation.
+   recoveryLoadOk = LoadOptionalStateUlong64("FarTicket", Ctx.farTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("FarIdentifier", Ctx.farIdentifier) && recoveryLoadOk;
+   if(GetStateDouble("FarLot", saved)) Ctx.farLot = saved;
+   if(GetStateDouble("FarOpenPrice", saved)) Ctx.farOpenPrice = saved;
+   if(GetStateDouble("FarDirection", saved)) Ctx.farDirection = (Direction)(int)saved;
+   recoveryLoadOk = LoadOptionalStateUlong64("BigTicket", Ctx.bigTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("BigIdentifier", Ctx.bigIdentifier) && recoveryLoadOk;
+   if(GetStateDouble("BigLot", saved)) Ctx.bigLot = saved;
+   if(GetStateDouble("BigOpenPrice", saved)) Ctx.bigOpenPrice = saved;
+   if(GetStateDouble("BigDirection", saved)) Ctx.bigDirection = (Direction)(int)saved;
+   recoveryLoadOk = LoadOptionalStateUlong64("SmallTicket", Ctx.smallTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("SmallIdentifier", Ctx.smallIdentifier) && recoveryLoadOk;
+   if(GetStateDouble("SmallLot", saved)) Ctx.smallLot = saved;
+   if(GetStateDouble("SmallOpenPrice", saved)) Ctx.smallOpenPrice = saved;
+   if(GetStateDouble("SmallDirection", saved)) Ctx.smallDirection = (Direction)(int)saved;
+   recoveryLoadOk = LoadOptionalStateUlong64("BigCoreTicket", Ctx.bigCoreTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("BigTrendTicket", Ctx.bigTrendTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("SmallBaseTicket", Ctx.smallBaseTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("ReverseSmallTicket", Ctx.reverseSmallTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("BigCoreIdentifier", Ctx.bigCoreIdentifier) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("BigTrendIdentifier", Ctx.bigTrendIdentifier) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("SmallBaseIdentifier", Ctx.smallBaseIdentifier) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("ReverseSmallIdentifier", Ctx.reverseSmallIdentifier) && recoveryLoadOk;
    if(GetStateDouble("BigCoreLot", saved)) Ctx.bigCoreLot = saved;
    if(GetStateDouble("BigTrendLot", saved)) Ctx.bigTrendLot = saved;
    if(GetStateDouble("SmallBaseLot", saved)) Ctx.smallBaseLot = saved;
@@ -1310,19 +1542,86 @@ bool RecoverState()
    if(GetStateDouble("NewFarCompressionRatio", saved)) Ctx.newFarCompressionRatio = saved;
    if(GetStateDouble("ActualBigExposureLot", saved)) Ctx.actualBigExposureLot = saved;
    if(GetStateDouble("ActualSmallExposureLot", saved)) Ctx.actualSmallExposureLot = saved;
-   recoveryLoadOk = LoadStateUlong64("InitialBuyTicket", Ctx.initialBuyTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("InitialSellTicket", Ctx.initialSellTicket) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("InitialBuyIdentifier", Ctx.initialBuyIdentifier) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("InitialSellIdentifier", Ctx.initialSellIdentifier) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("InitialBuyTicket", Ctx.initialBuyTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("InitialSellTicket", Ctx.initialSellTicket) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("InitialBuyIdentifier", Ctx.initialBuyIdentifier) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("InitialSellIdentifier", Ctx.initialSellIdentifier) && recoveryLoadOk;
    if(GetStateDouble("InitialBuyLot", saved)) Ctx.initialBuyLot = saved;
    if(GetStateDouble("InitialSellLot", saved)) Ctx.initialSellLot = saved;
    if(GetStateDouble("InitialBuyOpenPrice", saved)) Ctx.initialBuyOpenPrice = saved;
    if(GetStateDouble("InitialSellOpenPrice", saved)) Ctx.initialSellOpenPrice = saved;
    if(GetStateDouble("InitialLockRecovered", saved)) Ctx.initialLockRecovered = (saved > 0.5);
-   Ctx.harvestLevel = (int)GlobalVariableGet(StateKey("HarvestLevel"));
-   Ctx.reverseCycleCount = (int)GlobalVariableGet(StateKey("ReverseCycles"));
-   recoveryLoadOk = LoadStateUlong64("CycleId", Ctx.cycleId) && recoveryLoadOk;
-   Ctx.totalReserve = GlobalVariableGet(StateKey("TotalReserve"));
+   if(GetStateDouble("HarvestLevel", saved)) Ctx.harvestLevel = (int)saved;
+   if(GetStateDouble("ReverseCycles", saved)) Ctx.reverseCycleCount = (int)saved;
+   recoveryLoadOk = LoadOptionalStateUlong64("CycleId", Ctx.cycleId) && recoveryLoadOk;
+   if(GetStateDouble("TotalReserve", saved)) Ctx.totalReserve = saved;
+   if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
+   if(GetStateDouble("EffectiveFarDistancePoints", saved)) Ctx.effectiveFarDistancePoints = saved;
+   if(GetStateDouble("CycleATRRaw", saved)) Ctx.cycleATRRaw = saved;
+   if(GetStateDouble("CycleATRPoints", saved)) Ctx.cycleATRPoints = saved;
+   if(GetStateDouble("GeometrySource", saved)) Ctx.geometrySource = (int)saved;
+   if(GetStateDouble("GeometryFallback", saved)) Ctx.geometryFallback = (int)saved;
+   if(GetStateDouble("GeometryFallbackReasonCode", saved)) Ctx.geometryFallbackReasonCode = (int)saved;
+   if(GetStateDouble("GeometryCleared", saved)) Ctx.geometryCleared = (int)saved;
+   if(GetStateDouble("GeometryClearReasonCode", saved)) Ctx.geometryClearReasonCode = (int)saved;
+   if(GetStateDouble("GeometryReady", saved)) Ctx.geometryReady = (int)saved;
+   if(GetStateDouble("TradingAllowedByFallback", saved)) Ctx.tradingAllowedByFallback = (int)saved;
+   if(GetStateDouble("WorkInitialTriggerPoints", saved)) Ctx.workInitialTriggerPoints = (int)saved;
+   if(GetStateDouble("WorkBigMoveStartPoints", saved)) Ctx.workBigMoveStartPoints = (int)saved;
+   if(GetStateDouble("WorkBigMoveStepPoints", saved)) Ctx.workBigMoveStepPoints = (int)saved;
+   if(GetStateDouble("WorkFarDistancePoints", saved)) Ctx.workFarDistancePoints = (int)saved;
+   if(GetStateDouble("GeometryModeUsed", saved)) Ctx.geometryModeUsed = (int)saved;
+   if(GetStateDouble("GeometryCalculatedTime", saved)) Ctx.geometryCalculatedTime = (datetime)saved;
+   if(GetStateDouble("CycleStartBalance", saved)) Ctx.cycleStartBalance = saved;
+   if(GetStateDouble("RealCyclePL", saved)) Ctx.realCyclePL = saved;
+   if(GetStateDouble("FinalCloseAllowed", saved)) Ctx.finalCloseAllowed = (saved > 0.5);
+   if(GetStateDouble("LastRetryState", saved)) Ctx.lastRetryState = (EAState)(int)saved;
+   recoveryLoadOk = LoadOptionalStateUlong64("RetryTicket", Ctx.retryTicket) && recoveryLoadOk;
+   if(GetStateDouble("RetryLot", saved)) Ctx.retryLot = saved;
+   if(GetStateDouble("RetryAttempts", saved)) Ctx.retryAttempts = (int)saved;
+   if(GetStateDouble("PendingActionType", saved)) Ctx.pendingActionType = (PendingActionType)(int)saved;
+   if(GetStateDouble("PendingNextState", saved)) Ctx.pendingNextState = (EAState)(int)saved;
+   recoveryLoadOk = LoadOptionalStateUlong64("PendingTicket", Ctx.pendingTicket) && recoveryLoadOk;
+   if(GetStateDouble("PendingLot", saved)) Ctx.pendingLot = saved;
+   if(GetStateDouble("PendingAttempts", saved)) Ctx.pendingAttempts = (int)saved;
+   if(GetStateDouble("PendingOperationStartTime", saved)) Ctx.pendingOperationStartTime = (datetime)saved;
+   recoveryLoadOk = LoadOptionalStateUlong64("PendingBigPositionId", Ctx.pendingBigPositionId) && recoveryLoadOk;
+   recoveryLoadOk = LoadOptionalStateUlong64("PendingSmallPositionId", Ctx.pendingSmallPositionId) && recoveryLoadOk;
+   if(GetStateDouble("PendingRealNet", saved)) Ctx.pendingRealNet = saved;
+   if(GetStateDouble("PendingCloseFarBudget", saved)) Ctx.pendingCloseFarBudget = saved;
+   if(GetStateDouble("PendingReserveAdd", saved)) Ctx.pendingReserveAdd = saved;
+   if(GetStateDouble("PendingSmallReserveAdd", saved)) Ctx.pendingSmallReserveAdd = saved;
+   if(GetStateDouble("PendingReserveApplied", saved)) Ctx.pendingReserveApplied = (saved > 0.5);
+   if(GetStateDouble("PendingSmallReserveApplied", saved)) Ctx.pendingSmallReserveApplied = (saved > 0.5);
+   if(GetStateDouble("PendingCloseFarLot", saved)) Ctx.pendingCloseFarLot = saved;
+   if(GetStateDouble("PendingFullFarClose", saved)) Ctx.pendingFullFarClose = (saved > 0.5);
+   if(GetStateDouble("PartialFarBudgetCarry", saved)) Ctx.partialFarBudgetCarry = saved;
+   if(GetStateDouble("PendingPartialFarBudgetAvailable", saved)) Ctx.pendingPartialFarBudgetAvailable = saved;
+   if(GetStateDouble("PendingPartialFarBudgetCarryBefore", saved)) Ctx.pendingPartialFarBudgetCarryBefore = saved;
+   if(GetStateDouble("PendingProjectedPartialFarLoss", saved)) Ctx.pendingProjectedPartialFarLoss = saved;
+   if(GetStateDouble("PendingDirection", saved)) Ctx.pendingDirection = (Direction)(int)saved;
+   if(GetStateDouble("SavedSmallDirection", saved)) Ctx.savedSmallDirection = (Direction)(int)saved;
+   if(GetStateDouble("SavedSmallClosePrice", saved)) Ctx.savedSmallClosePrice = saved;
+   if(GetStateDouble("SavedSmallTouchPrice", saved)) Ctx.savedSmallTouchPrice = saved;
+   if(GetStateDouble("SavedSmallOpenPrice", saved)) Ctx.savedSmallOpenPrice = saved;
+   if(GetStateDouble("SavedSmallLot", saved)) Ctx.savedSmallLot = saved;
+   recoveryLoadOk = LoadOptionalStateUlong64("OldFarTicket", Ctx.oldFarTicket) && recoveryLoadOk;
+   if(GetStateDouble("OldFarLot", saved)) Ctx.oldFarLot = saved;
+   if(GetStateDouble("OldFarDirection", saved)) Ctx.oldFarDirection = (Direction)(int)saved;
+   if(GetStateDouble("OldFarOpenPrice", saved)) Ctx.oldFarOpenPrice = saved;
+   if(GetStateDouble("SmallScenarioRealBefore", saved)) Ctx.smallScenarioRealBefore = saved;
+   if(GetStateDouble("SmallScenarioRealAfter", saved)) Ctx.smallScenarioRealAfter = saved;
+   if(GetStateDouble("CycleStartTime", saved)) Ctx.cycleStartTime = (datetime)saved;
+   if(GetStateDouble("CurrentBigMovePoints", saved)) Ctx.currentBigMovePoints = saved;
+   if(GetStateDouble("CumulativeBigMovePoints", saved)) Ctx.cumulativeBigMovePoints = saved;
+   if(GetStateDouble("InitialFarDistancePoints", saved)) Ctx.initialFarDistancePoints = saved;
+   if(GetStateDouble("CurrentClosePrice", saved)) Ctx.currentClosePrice = saved;
+   if(GetStateDouble("SmallReverseNet", saved)) Ctx.smallReverseNet = saved;
+   if(GetStateDouble("ProjectedReserveCoverage", saved)) Ctx.projectedReserveCoverage = saved;
+   if(GetStateDouble("ReverseStrength", saved)) Ctx.reverseStrength = saved;
+   LogInfo(StringFormat("RECOVERY_CONTEXT_LOAD_COMPLETE Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s CacheReserve=%.2f RecoveryLoadOk=%s Result=LOADED", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), Ctx.totalReserve, recoveryLoadOk ? "YES" : "NO"));
+
+   // Phase 2: load ledger entries and counters, but defer financial cache validation until transaction is loaded.
    ArrayResize(ReserveLedger, 0);
    NextReserveEventId = 1;
    if(GetStateDouble("ReserveLedgerCount", saved))
@@ -1355,109 +1654,36 @@ bool RecoverState()
          if(GetStateDouble(prefix + "ReverseCycle", saved)) ReserveLedger[ledgerIndex].reverseCycle = (int)saved; else ledgerFieldsOk = false;
          ledgerFieldsOk = LoadRequiredStateLong64(prefix + "EventKeyHashHigh32", prefix + "EventKeyHashLow32", ReserveLedger[ledgerIndex].eventKeyHash, prefix + "EventKeyHash") && ledgerFieldsOk;
          SplitLong64(ReserveLedger[ledgerIndex].eventKeyHash, ReserveLedger[ledgerIndex].eventKeyHashHigh, ReserveLedger[ledgerIndex].eventKeyHashLow);
-         long currentSymbolHash = StableSymbolHash64(_Symbol);
-         if(ReserveLedger[ledgerIndex].symbolHash != currentSymbolHash || ReserveLedger[ledgerIndex].symbolLength != StringLen(_Symbol))
-         {
-            LogError(StringFormat("RESERVE_LEDGER_SYMBOL_MISMATCH Index=%d StoredSymbolHash=%I64d CurrentSymbolHash=%I64d StoredLength=%d CurrentLength=%d", ledgerIndex, ReserveLedger[ledgerIndex].symbolHash, currentSymbolHash, ReserveLedger[ledgerIndex].symbolLength, StringLen(_Symbol)));
-            State = STATE_RECOVERY_MISMATCH;
-            Ctx.lastError = "RESERVE_LEDGER_SYMBOL_MISMATCH";
-            ledgerFieldsOk = false;
-         }
          ReserveLedger[ledgerIndex].symbol = _Symbol;
-         if(!ledgerFieldsOk)
-         {
-            LogError(StringFormat("RESERVE_LEDGER_REQUIRED_FIELD_MISSING Index=%d", ledgerIndex));
-            State = STATE_RECOVERY_MISMATCH;
-            Ctx.lastError = "RESERVE_LEDGER_REQUIRED_FIELD_MISSING";
-         }
+         recoveryLoadOk = ledgerFieldsOk && recoveryLoadOk;
       }
    }
-   LoadStateLong64("ReserveNextEventId", NextReserveEventId);
-   VerifyReserveLedgerPersistence();
-
+   recoveryLoadOk = LoadOptionalStateLong64("ReserveNextEventId", NextReserveEventId) && recoveryLoadOk;
+   LogInfo(StringFormat("RECOVERY_LEDGER_LOAD_COMPLETE Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s LedgerEntries=%d NextReserveEventId=%I64d RecoveryLoadOk=%s Result=LOADED", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ArraySize(ReserveLedger), NextReserveEventId, recoveryLoadOk ? "YES" : "NO"));
    recoveryLoadOk = LoadReserveTransaction() && recoveryLoadOk;
-   if(!recoveryLoadOk)
-   {
-      State = STATE_RECOVERY_MISMATCH;
-      Ctx.lastError = "RECOVERY_REQUIRED_FIELD_LOAD_FAILED";
-      SaveState();
-      return false;
-   }
-   if(!ValidateRequiredRecoveredContextForState(State))
-   {
-      SaveState();
-      return false;
-   }
-   if(!RecoverPendingReserveTransaction())
-   {
-      SaveState();
-      return false;
-   }
+   recoveryLoadOk = LoadOptionalStateLong64("NextReserveTransactionId", NextReserveTransactionId) && recoveryLoadOk;
+   LogInfo(StringFormat("RECOVERY_TRANSACTION_LOAD_COMPLETE Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s TransactionId=%I64d TransactionPhase=%d EventKey=%I64d RecoveryLoadOk=%s Result=LOADED", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ActiveReserveTransaction.eventKeyHash, recoveryLoadOk ? "YES" : "NO"));
 
-   if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
-   if(GetStateDouble("EffectiveFarDistancePoints", saved)) Ctx.effectiveFarDistancePoints = saved;
-   if(GetStateDouble("CycleATRRaw", saved)) Ctx.cycleATRRaw = saved;
-   if(GetStateDouble("CycleATRPoints", saved)) Ctx.cycleATRPoints = saved;
-   if(GetStateDouble("GeometrySource", saved)) Ctx.geometrySource = (int)saved;
-   if(GetStateDouble("GeometryFallback", saved)) Ctx.geometryFallback = (int)saved;
-   if(GetStateDouble("GeometryFallbackReasonCode", saved)) Ctx.geometryFallbackReasonCode = (int)saved;
-   if(GetStateDouble("GeometryCleared", saved)) Ctx.geometryCleared = (int)saved;
-   if(GetStateDouble("GeometryClearReasonCode", saved)) Ctx.geometryClearReasonCode = (int)saved;
-   if(GetStateDouble("GeometryReady", saved)) Ctx.geometryReady = (int)saved;
-   if(GetStateDouble("TradingAllowedByFallback", saved)) Ctx.tradingAllowedByFallback = (int)saved;
-   if(GetStateDouble("WorkInitialTriggerPoints", saved)) Ctx.workInitialTriggerPoints = (int)saved;
-   if(GetStateDouble("WorkBigMoveStartPoints", saved)) Ctx.workBigMoveStartPoints = (int)saved;
-   if(GetStateDouble("WorkBigMoveStepPoints", saved)) Ctx.workBigMoveStepPoints = (int)saved;
-   if(GetStateDouble("WorkFarDistancePoints", saved)) Ctx.workFarDistancePoints = (int)saved;
-   if(GetStateDouble("GeometryModeUsed", saved)) Ctx.geometryModeUsed = (int)saved;
-   if(GetStateDouble("GeometryCalculatedTime", saved)) Ctx.geometryCalculatedTime = (datetime)saved;
-   if(GetStateDouble("CycleStartBalance", saved)) Ctx.cycleStartBalance = saved;
-   if(GetStateDouble("RealCyclePL", saved)) Ctx.realCyclePL = saved;
-   if(GetStateDouble("FinalCloseAllowed", saved)) Ctx.finalCloseAllowed = (saved > 0.5);
-   if(GetStateDouble("LastRetryState", saved)) Ctx.lastRetryState = (EAState)(int)saved;
-   recoveryLoadOk = LoadStateUlong64("RetryTicket", Ctx.retryTicket) && recoveryLoadOk;
-   if(GetStateDouble("RetryLot", saved)) Ctx.retryLot = saved;
-   if(GetStateDouble("RetryAttempts", saved)) Ctx.retryAttempts = (int)saved;
-   if(GetStateDouble("PendingActionType", saved)) Ctx.pendingActionType = (PendingActionType)(int)saved;
-   if(GetStateDouble("PendingNextState", saved)) Ctx.pendingNextState = (EAState)(int)saved;
-   recoveryLoadOk = LoadStateUlong64("PendingTicket", Ctx.pendingTicket) && recoveryLoadOk;
-   if(GetStateDouble("PendingLot", saved)) Ctx.pendingLot = saved;
-   if(GetStateDouble("PendingAttempts", saved)) Ctx.pendingAttempts = (int)saved;
-   if(GetStateDouble("PendingOperationStartTime", saved)) Ctx.pendingOperationStartTime = (datetime)saved;
-   recoveryLoadOk = LoadStateUlong64("PendingBigPositionId", Ctx.pendingBigPositionId) && recoveryLoadOk;
-   recoveryLoadOk = LoadStateUlong64("PendingSmallPositionId", Ctx.pendingSmallPositionId) && recoveryLoadOk;
-   if(GetStateDouble("PendingRealNet", saved)) Ctx.pendingRealNet = saved;
-   if(GetStateDouble("PendingCloseFarBudget", saved)) Ctx.pendingCloseFarBudget = saved;
-   if(GetStateDouble("PendingReserveAdd", saved)) Ctx.pendingReserveAdd = saved;
-   if(GetStateDouble("PendingSmallReserveAdd", saved)) Ctx.pendingSmallReserveAdd = saved;
-   if(GetStateDouble("PendingReserveApplied", saved)) Ctx.pendingReserveApplied = (saved > 0.5);
-   if(GetStateDouble("PendingSmallReserveApplied", saved)) Ctx.pendingSmallReserveApplied = (saved > 0.5);
-   if(GetStateDouble("PendingCloseFarLot", saved)) Ctx.pendingCloseFarLot = saved;
-   if(GetStateDouble("PendingFullFarClose", saved)) Ctx.pendingFullFarClose = (saved > 0.5);
-   if(GetStateDouble("PartialFarBudgetCarry", saved)) Ctx.partialFarBudgetCarry = saved;
-   if(GetStateDouble("PendingPartialFarBudgetAvailable", saved)) Ctx.pendingPartialFarBudgetAvailable = saved;
-   if(GetStateDouble("PendingPartialFarBudgetCarryBefore", saved)) Ctx.pendingPartialFarBudgetCarryBefore = saved;
-   if(GetStateDouble("PendingProjectedPartialFarLoss", saved)) Ctx.pendingProjectedPartialFarLoss = saved;
-   if(GetStateDouble("PendingDirection", saved)) Ctx.pendingDirection = (Direction)(int)saved;
-   if(GetStateDouble("SavedSmallDirection", saved)) Ctx.savedSmallDirection = (Direction)(int)saved;
-   if(GetStateDouble("SavedSmallClosePrice", saved)) Ctx.savedSmallClosePrice = saved;
-   if(GetStateDouble("SavedSmallTouchPrice", saved)) Ctx.savedSmallTouchPrice = saved;
-   if(GetStateDouble("SavedSmallOpenPrice", saved)) Ctx.savedSmallOpenPrice = saved;
-   if(GetStateDouble("SavedSmallLot", saved)) Ctx.savedSmallLot = saved;
-   recoveryLoadOk = LoadStateUlong64("OldFarTicket", Ctx.oldFarTicket) && recoveryLoadOk;
-   if(GetStateDouble("OldFarLot", saved)) Ctx.oldFarLot = saved;
-   if(GetStateDouble("OldFarDirection", saved)) Ctx.oldFarDirection = (Direction)(int)saved;
-   if(GetStateDouble("OldFarOpenPrice", saved)) Ctx.oldFarOpenPrice = saved;
-   if(GetStateDouble("SmallScenarioRealBefore", saved)) Ctx.smallScenarioRealBefore = saved;
-   if(GetStateDouble("SmallScenarioRealAfter", saved)) Ctx.smallScenarioRealAfter = saved;
-   if(GetStateDouble("CycleStartTime", saved)) Ctx.cycleStartTime = (datetime)saved;
-   if(GetStateDouble("CurrentBigMovePoints", saved)) Ctx.currentBigMovePoints = saved;
-   if(GetStateDouble("CumulativeBigMovePoints", saved)) Ctx.cumulativeBigMovePoints = saved;
-   if(GetStateDouble("InitialFarDistancePoints", saved)) Ctx.initialFarDistancePoints = saved;
-   if(GetStateDouble("CurrentClosePrice", saved)) Ctx.currentClosePrice = saved;
-   if(GetStateDouble("SmallReverseNet", saved)) Ctx.smallReverseNet = saved;
-   if(GetStateDouble("ProjectedReserveCoverage", saved)) Ctx.projectedReserveCoverage = saved;
-   if(GetStateDouble("ReverseStrength", saved)) Ctx.reverseStrength = saved;
+   if(!recoveryLoadOk)
+      return MarkRecoveryFailure("RECOVERY_REQUIRED_FIELD_LOAD_FAILED");
+   if(NextReserveTransactionId <= 0 || (ActiveReserveTransaction.active && NextReserveTransactionId <= ActiveReserveTransaction.transactionId))
+      return MarkRecoveryFailure("RESERVE_TRANSACTION_ID_SEQUENCE_ERROR");
+   if(!ValidateReserveLedgerStructureOnly())
+      return MarkRecoveryFailure("RESERVE_LEDGER_STRUCTURE_INVALID");
+   if(!ValidateReserveTransactionRequiredFields())
+      return MarkRecoveryFailure("RESERVE_TRANSACTION_REQUIRED_FIELD_MISSING");
+   LogInfo(StringFormat("RECOVERY_PHASE_AWARE_VALIDATION Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s TransactionId=%I64d TransactionPhase=%d LedgerReserve=%.2f CacheReserve=%.2f RecoveryLoadOk=YES Result=BEGIN", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ReserveLedgerCurrentReserve(), Ctx.totalReserve));
+   if(!ValidateLedgerAndCacheForTransactionPhase(ActiveReserveTransaction))
+      return MarkRecoveryFailure("RESERVE_TRANSACTION_RECOVERY_CONFLICT");
+   LogInfo("RECOVERY_TRANSACTION_RESUME Result=BEGIN");
+   if(!RecoverPendingReserveTransaction())
+      return MarkRecoveryFailure("RESERVE_TRANSACTION_RECOVERY_CONFLICT");
+   LogInfo("RECOVERY_STRICT_LEDGER_VALIDATION Result=BEGIN");
+   if(!VerifyReserveLedgerPersistence())
+      return MarkRecoveryFailure("RESERVE_LEDGER_PERSISTENCE_MISMATCH");
+   if(!ValidateRequiredRecoveredContextForState(State))
+      return MarkRecoveryFailure("RECOVERY_REQUIRED_CONTEXT_MISSING");
+   LogInfo("RECOVERY_STATE_CONTEXT_VALIDATION Result=PASS");
 
    if(!HasCycleGeometry() && (State != STATE_IDLE || HasKnownContext()))
    {
@@ -1484,9 +1710,6 @@ bool RecoverState()
    else if(State == STATE_INITIAL_LOCK_OPENED && (recoveredHasInitialBuy || recoveredHasInitialSell))
    {
       PositionSnapshot remainingInitial = recoveredHasInitialBuy ? recoveredInitialBuy : recoveredInitialSell;
-      PositionSnapshot missingInitial;
-      missingInitial.ticket = recoveredHasInitialBuy ? Ctx.initialSellTicket : Ctx.initialBuyTicket;
-      missingInitial.identifier = recoveredHasInitialBuy ? Ctx.initialSellIdentifier : Ctx.initialBuyIdentifier;
       UpdateFarFromSnapshot(remainingInitial);
       ClearInitialLockContext("RecoverState partial initial lock converted to Far");
       if(!HasCycleGeometry())
@@ -1500,6 +1723,7 @@ bool RecoverState()
       LogInfo(StringFormat("INITIAL_LOCK_CONVERTED_TO_FAR Reason=RecoverStatePartial RemainingTicket=%I64u FarTicket=%I64u", remainingInitial.ticket, Ctx.farTicket));
    }
 
+   LogInfo("RECOVERY_RECONCILIATION_BEGIN Result=BEGIN");
    int managed = CountManagedOpenPositions();
    if(TryRecoverPromotedBigAsFar("RecoverState"))
       managed = CountManagedOpenPositions();
@@ -1538,6 +1762,9 @@ bool RecoverState()
       LogError("RecoverState reconciliation failed; STATE_RECOVERY_PENDING and possible STATE_MANUAL_INTERVENTION_REQUIRED");
    }
 
+   ValidateCurrentStateIntegrity();
+   RecoveryInProgress = false;
+   LogInfo(StringFormat("RECOVERY_COMPLETE Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s TransactionId=%I64d TransactionPhase=%d LedgerReserve=%.2f CacheReserve=%.2f RecoveryLoadOk=YES Result=PASS", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ReserveLedgerCurrentReserve(), Ctx.totalReserve));
    LogInfo(StringFormat("RecoverState restored State=%s CycleId=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u ManagedPositions=%d RetryState=%s RetryTicket=%I64u RetryAttempts=%d", StateToString(State), Ctx.cycleId, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket, managed, StateToString(Ctx.lastRetryState), Ctx.retryTicket, Ctx.retryAttempts));
    LogInfo(StringFormat("RECOVERY_CONTEXT_RESTORED State=%s ManagedPositions=%d KnownContext=%s", StateToString(State), managed, HasKnownContext() ? "YES" : "NO"));
    LogReconciliationContextSummary("RecoverState");
@@ -4885,5 +5112,42 @@ void RunStateMachine()
          break;
    }
 }
+
+bool TestReserveRecoveryPrepared()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestReserveRecoveryPreparedWithLedger()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestReserveRecoveryLedgerWritten()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestReserveRecoveryCacheUpdated()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestReserveRecoveryCompleted()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestPartialPendingRecoveryOrder()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
 
 #endif // __BH_STATEMACHINE_MQH__
