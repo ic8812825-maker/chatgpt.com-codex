@@ -23,12 +23,12 @@ input double BigRatio              = 1.15;
 input double SmallRatio            = 0.25;
 input double CloseBigOnSmall       = 0.40;
 input double RemainBigOnSmall      = 0.60;
-input double CloseFarShare         = 0.20;
-input double ReserveShare          = 0.80;
+input double CloseFarShare         = 0.10;
+input double ReserveShare          = 0.90;
 input double SmallReserveShare     = 0.05;
 input bool   UseRecommended5050Preset = false;
-input bool   UseSplitBigGeometry = true;
-input bool   UseLegacySingleBigGeometry = false;
+input bool   UseSplitBigGeometry = false;
+input bool   UseLegacySingleBigGeometry = true;
 input bool   AllowCycleWithoutBigTrend = false;
 
 input double BigCoreRatio = 1.60;
@@ -37,7 +37,7 @@ input double SmallBaseToFarRatio = 0.60;
 input double CloseBigCoreOnSmall = 0.40;
 input double RemainBigCoreOnSmall = 0.60;
 
-input bool   UseDynamicReverseSmall = true;
+input bool   UseDynamicReverseSmall = false;
 input double ReverseDirectionBufferRatio = 0.03;
 input double ReverseSmallSafetyMoney = 3.00;
 input int    ReverseConfirmationRetracePoints = 50;
@@ -116,7 +116,7 @@ input int    TerminalStateLogIntervalSeconds = 300;
 input int    PositionResolutionLookbackSeconds = 10;
 
 input ulong  MagicNumber           = 20260609;
-input bool   AllowRealTrading      = true;
+input bool   AllowRealTrading      = false;
 input bool   UseInternalSimulation = false;
 input bool   UseMarketOrders       = true;
 input bool   EnableCycleMathCsv     = true;

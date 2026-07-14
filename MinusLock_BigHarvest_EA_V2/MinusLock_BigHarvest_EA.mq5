@@ -188,14 +188,6 @@ int OnInit()
    if(!ValidateInputs())
       return INIT_PARAMETERS_INCORRECT;
 
-#ifndef SPLIT_GEOMETRY_FULLY_IMPLEMENTED
-   if(UseSplitBigGeometry)
-   {
-      Print("ERROR_SPLIT_GEOMETRY_NOT_IMPLEMENTED");
-      return INIT_FAILED;
-   }
-#endif
-
    if(!ValidateWorkingParameters())
       return INIT_PARAMETERS_INCORRECT;
 
