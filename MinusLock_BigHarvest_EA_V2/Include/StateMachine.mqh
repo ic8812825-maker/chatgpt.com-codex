@@ -153,6 +153,9 @@ bool PreparePendingFinalCloseContext();
 bool ResolveOpenedPositionAfterOpen(string comment, Direction direction, double expectedLot, ulong knownIdentifier, datetime openStartTime, PositionResolutionResult &result);
 bool ApplyResolvedPositionToBig(PositionResolutionResult &result);
 bool ApplyResolvedPositionToSmall(PositionResolutionResult &result);
+bool ResolveBigCorePosition();
+bool ResolveBigTrendPosition();
+bool ResolveSmallBasePosition();
 bool TryRecoverPromotedBigAsFar(string reason);
 
 bool IsProfitSystemCloseComment(string comment)
@@ -703,6 +706,23 @@ void LogManagedPositionsForRecovery()
    }
 }
 
+
+bool VerifyReserveLedgerPersistence()
+{
+   double ledgerReserve = RebuildReserveFromLedger();
+   double diff = MathAbs(ledgerReserve - Ctx.totalReserve);
+   bool ok = diff <= ReserveMismatchTolerance;
+   LogInfo(StringFormat("SPLIT_RESERVE_LEDGER_RESTORE Symbol=%s MagicNumber=%I64u CycleId=%I64u LedgerEntries=%d LedgerReserve=%.2f ContextReserve=%.2f Difference=%.5f Result=%s", _Symbol, MagicNumber, Ctx.cycleId, ArraySize(ReserveLedger), ledgerReserve, Ctx.totalReserve, diff, ok ? "PASS" : "FAIL"));
+   if(!ok)
+   {
+      State = STATE_RECOVERY_MISMATCH;
+      Ctx.lastError = "RESERVE_LEDGER_PERSISTENCE_MISMATCH";
+      SaveState();
+      return false;
+   }
+   return true;
+}
+
 bool RecoverState()
 {
    if(!GlobalVariableCheck(StateKey("State")))
@@ -804,6 +824,7 @@ bool RecoverState()
       }
    }
    if(GetStateDouble("ReserveNextEventId", saved)) NextReserveEventId = (long)saved;
+   VerifyReserveLedgerPersistence();
 
    if(GetStateDouble("CycleId", saved)) Ctx.cycleId = (ulong)saved;
    if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
@@ -927,6 +948,13 @@ bool RecoverState()
          string smallComment = LevelComment("SMALL", Ctx.harvestLevel);
          reconcileOk = ReconcileRecoveredPosition("Big", bigComment, Ctx.bigTicket, Ctx.bigLot, Ctx.bigOpenPrice, Ctx.bigDirection) && reconcileOk;
          reconcileOk = ReconcileRecoveredPosition("Small", smallComment, Ctx.smallTicket, Ctx.smallLot, Ctx.smallOpenPrice, Ctx.smallDirection) && reconcileOk;
+      }
+      if(Ctx.splitGeometryActive || Ctx.bigCoreIdentifier != 0 || Ctx.bigTrendIdentifier != 0 || Ctx.smallBaseIdentifier != 0)
+      {
+         LogInfo(StringFormat("SPLIT_RECONCILIATION RecoverState resolving Split roles State=%s Topology=Far+BigCore+SmallBase+BigTrend", StateToString(State)));
+         if(Ctx.bigCoreIdentifier != 0 || Ctx.bigCoreTicket != 0) reconcileOk = ResolveBigCorePosition() && reconcileOk;
+         if(Ctx.smallBaseIdentifier != 0 || Ctx.smallBaseTicket != 0) reconcileOk = ResolveSmallBasePosition() && reconcileOk;
+         if(Ctx.bigTrendIdentifier != 0 || Ctx.bigTrendTicket != 0) reconcileOk = ResolveBigTrendPosition() && reconcileOk;
       }
    }
 
