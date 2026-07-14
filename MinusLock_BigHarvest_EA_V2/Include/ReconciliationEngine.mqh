@@ -164,6 +164,82 @@ bool ValidateSmallPosition()
    return ValidatePositionSnapshotAgainstContext("SMALL", "SmallVolumeCheck", Ctx.smallTicket, Ctx.smallIdentifier, Ctx.smallDirection, Ctx.smallLot, small);
 }
 
+
+bool ValidateBigCorePosition()
+{
+   if(Ctx.bigCoreTicket == 0 && Ctx.bigCoreIdentifier == 0 && Ctx.bigCoreLot <= VolumeMismatchToleranceLots)
+      return true;
+   PositionSnapshot snap;
+   bool found = GetManagedPositionByTicket(Ctx.bigCoreTicket, snap);
+   return ValidatePositionSnapshotAgainstContext("BIG_CORE", "SplitBigCoreVolumeCheck", Ctx.bigCoreTicket, Ctx.bigCoreIdentifier, Ctx.bigCoreDirection, Ctx.bigCoreLot, snap);
+}
+
+bool ValidateBigTrendPosition()
+{
+   if(Ctx.bigTrendTicket == 0 && Ctx.bigTrendIdentifier == 0 && Ctx.bigTrendLot <= VolumeMismatchToleranceLots)
+      return true;
+   PositionSnapshot snap;
+   bool found = GetManagedPositionByTicket(Ctx.bigTrendTicket, snap);
+   return ValidatePositionSnapshotAgainstContext("BIG_TREND", "SplitBigTrendVolumeCheck", Ctx.bigTrendTicket, Ctx.bigTrendIdentifier, Ctx.bigTrendDirection, Ctx.bigTrendLot, snap);
+}
+
+bool ValidateSmallBasePosition()
+{
+   if(Ctx.smallBaseTicket == 0 && Ctx.smallBaseIdentifier == 0 && Ctx.smallBaseLot <= VolumeMismatchToleranceLots)
+      return true;
+   PositionSnapshot snap;
+   bool found = GetManagedPositionByTicket(Ctx.smallBaseTicket, snap);
+   return ValidatePositionSnapshotAgainstContext("SMALL_BASE", "SplitSmallBaseVolumeCheck", Ctx.smallBaseTicket, Ctx.smallBaseIdentifier, Ctx.smallBaseDirection, Ctx.smallBaseLot, snap);
+}
+
+string CurrentSplitTopology()
+{
+   string topology = HasFarContext() ? "Far" : "NoFar";
+   if(Ctx.bigCoreTicket != 0 || Ctx.bigCoreIdentifier != 0 || Ctx.bigCoreLot > VolumeMismatchToleranceLots) topology += "+BigCore";
+   if(Ctx.smallBaseTicket != 0 || Ctx.smallBaseIdentifier != 0 || Ctx.smallBaseLot > VolumeMismatchToleranceLots) topology += "+SmallBase";
+   if(Ctx.bigTrendTicket != 0 || Ctx.bigTrendIdentifier != 0 || Ctx.bigTrendLot > VolumeMismatchToleranceLots) topology += "+BigTrend";
+   if(HasBigContext()) topology += "+LegacyBig";
+   if(HasSmallContext()) topology += "+LegacySmall";
+   return topology;
+}
+
+bool ResolveSplitPositionsForCurrentState()
+{
+   bool ok = true;
+   if(!IsSplitIntegrityState(State))
+      return true;
+
+   LogInfo(StringFormat("SPLIT_RECONCILIATION ResolveStart Symbol=%s MagicNumber=%I64u CycleId=%I64u Level=%d State=%s ActualTopology=%s", _Symbol, MagicNumber, Ctx.cycleId, Ctx.harvestLevel, StateToString(State), CurrentSplitTopology()));
+   if(Ctx.bigCoreTicket != 0 || Ctx.bigCoreIdentifier != 0)
+      ok = ResolveBigCorePosition() && ok;
+   if(Ctx.smallBaseTicket != 0 || Ctx.smallBaseIdentifier != 0)
+      ok = ResolveSmallBasePosition() && ok;
+   if(Ctx.bigTrendTicket != 0 || Ctx.bigTrendIdentifier != 0)
+      ok = ResolveBigTrendPosition() && ok;
+   LogInfo(StringFormat("SPLIT_RECONCILIATION ResolveDone Result=%s State=%s ActualTopology=%s", ok ? "PASS" : "FAIL", StateToString(State), CurrentSplitTopology()));
+   return ok;
+}
+
+bool ReconcileSplitTopology()
+{
+   if(!IsSplitIntegrityState(State))
+      return true;
+   bool ok = true;
+   if(HasBigContext() || HasSmallContext())
+   {
+      LogError(StringFormat("SPLIT_RECONCILIATION Result=FAIL StopReason=legacy_big_small_present State=%s ActualTopology=%s", StateToString(State), CurrentSplitTopology()));
+      ok = false;
+   }
+   ok = ValidateBigCorePosition() && ok;
+   ok = ValidateBigTrendPosition() && ok;
+   ok = ValidateSmallBasePosition() && ok;
+   ok = ValidateCurrentStateIntegrity() && ok;
+   LogInfo(StringFormat("SPLIT_RECONCILIATION Result=%s State=%s ExpectedTopology=state_matrix ActualTopology=%s", ok ? "PASS" : "FAIL", StateToString(State), CurrentSplitTopology()));
+   if(!ok)
+      SetState(STATE_RECONCILIATION_ERROR, "SPLIT_RECONCILIATION topology mismatch");
+   return ok;
+}
+
 double CalculateReserveFromHistory()
 {
    // V2.4.9: HistoryDeals alone are not a source of reserve truth.
@@ -252,7 +328,8 @@ bool IsManagedPositionKnownToContext(ulong ticket, ulong identifier)
    if(ticket != 0)
    {
       if(ticket == Ctx.farTicket || ticket == Ctx.bigTicket || ticket == Ctx.smallTicket ||
-         ticket == Ctx.initialBuyTicket || ticket == Ctx.initialSellTicket)
+         ticket == Ctx.initialBuyTicket || ticket == Ctx.initialSellTicket ||
+         ticket == Ctx.bigCoreTicket || ticket == Ctx.bigTrendTicket || ticket == Ctx.smallBaseTicket)
          return true;
       if(ticket == Ctx.pendingTicket || ticket == Ctx.retryTicket)
          return true;
@@ -261,7 +338,8 @@ bool IsManagedPositionKnownToContext(ulong ticket, ulong identifier)
    if(identifier != 0)
    {
       if(identifier == Ctx.farIdentifier || identifier == Ctx.bigIdentifier || identifier == Ctx.smallIdentifier ||
-         identifier == Ctx.initialBuyIdentifier || identifier == Ctx.initialSellIdentifier)
+         identifier == Ctx.initialBuyIdentifier || identifier == Ctx.initialSellIdentifier ||
+         identifier == Ctx.bigCoreIdentifier || identifier == Ctx.bigTrendIdentifier || identifier == Ctx.smallBaseIdentifier)
          return true;
    }
 
@@ -276,6 +354,9 @@ string ClassifyOrphanManagedPosition(ulong ticket, ulong identifier, string comm
       return "ORPHAN_RETRY";
    if(StringFind(comment, "FAR") >= 0 || StringFind(comment, "Far") >= 0)
       return "ORPHAN_FAR";
+   if(StringFind(comment, "|BC|") >= 0) return "ORPHAN_BIG_CORE";
+   if(StringFind(comment, "|BT|") >= 0) return "ORPHAN_BIG_TREND";
+   if(StringFind(comment, "|SB|") >= 0) return "ORPHAN_SMALL_BASE";
    if(StringFind(comment, "BIG") >= 0 || StringFind(comment, "Big") >= 0)
       return "ORPHAN_BIG";
    if(StringFind(comment, "SMALL") >= 0 || StringFind(comment, "Small") >= 0)
@@ -286,6 +367,9 @@ string ClassifyOrphanManagedPosition(ulong ticket, ulong identifier, string comm
       return "ORPHAN_BIG";
    if(identifier == Ctx.smallIdentifier)
       return "ORPHAN_SMALL";
+   if(identifier == Ctx.bigCoreIdentifier) return "ORPHAN_BIG_CORE";
+   if(identifier == Ctx.bigTrendIdentifier) return "ORPHAN_BIG_TREND";
+   if(identifier == Ctx.smallBaseIdentifier) return "ORPHAN_SMALL_BASE";
    return "ORPHAN_MANAGED_POSITION";
 }
 
@@ -384,6 +468,9 @@ bool ValidateStatePositionConsistency()
       return true;
    }
 
+   if(IsSplitIntegrityState(State))
+      return ReconcileSplitTopology();
+
    if(State == STATE_BIG_SMALL_OPENED || State == STATE_BIG_HARVEST || State == STATE_SMALL_SCENARIO || State == STATE_WAIT_SMALL_TO_FAR)
    {
       if(HasInitialBuyContext() || HasInitialSellContext() || !HasFarContext() || !HasBigContext() || !HasSmallContext())
@@ -463,15 +550,20 @@ bool RunReconciliation()
       ok = false;
    }
    ok = ValidateInitialLockIntegrity() && ok;
+   ok = ResolveSplitPositionsForCurrentState() && ok;
    if(TryRecoverPromotedBigAsFar("RunReconciliation"))
       ok = true;
    ok = ValidateStatePositionConsistency() && ok;
    ok = ValidateCurrentStateIntegrity() && ok;
    ok = ValidatePositionResolutionContext() && ok;
+   ok = ReconcileSplitTopology() && ok;
    ok = ValidateNoOrphanManagedPositions() && ok;
    ok = ValidateFarPosition() && ok;
    ok = ValidateBigPosition() && ok;
    ok = ValidateSmallPosition() && ok;
+   ok = ValidateBigCorePosition() && ok;
+   ok = ValidateBigTrendPosition() && ok;
+   ok = ValidateSmallBasePosition() && ok;
 
    double actualFarVolume = GetActualFarVolume();
 
