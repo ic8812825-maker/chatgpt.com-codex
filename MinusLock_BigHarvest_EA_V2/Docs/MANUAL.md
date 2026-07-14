@@ -1012,3 +1012,24 @@ CloseFarShare + ReserveShare = 1
 ```
 
 `BigTrendNeverBecomesFar=true` documents the hard rule that only the remaining BigCore can become a new Far during a confirmed Small transition. Split-mode state is persisted with dedicated tickets, identifiers, lots, open prices and directions for BigCore, BigTrend, SmallBase and ReverseSmall.
+
+## SplitGeometry Big-only status
+
+Status: **SPLIT BIG IMPLEMENTED** / **SPLIT SMALL NOT IMPLEMENTED**.
+
+Use this mode only for controlled Big-scenario testing:
+
+```text
+UseSplitBigGeometry=true
+UseLegacySingleBigGeometry=false
+AllowRealTrading=false unless explicitly confirmed in MT5
+```
+
+Default production-safe mode remains Legacy:
+
+```text
+UseLegacySingleBigGeometry=true
+UseSplitBigGeometry=false
+```
+
+Split Small, DynamicReverseSmall, Small-saw and BigCore remainder → NewFar reverse flow are intentionally not implemented in this stage. If Small direction reaches the target during Split Big, the EA does not enter Legacy Small and moves to manual intervention.

@@ -183,3 +183,12 @@ V2.4.5 updates:
 
 - SplitGeometry status: guarded foundation, not enabled for live trading unless `SPLIT_GEOMETRY_FULLY_IMPLEMENTED` is defined.
 - Safety reason: full trading contour is not accepted until BigCore, SmallBase, BigTrend, DynamicReverseSmall, reconciliation, pending contracts and Strategy Tester validation are complete.
+
+## 2026-07-14 SplitGeometry Big-only implementation
+
+Status: **SPLIT BIG IMPLEMENTED** / **SPLIT SMALL NOT IMPLEMENTED**.
+
+- Legacy is enabled by default; Split Big is disabled by default.
+- Split Big can be enabled only through controlled `.set` files or manual MT5 inputs.
+- Added BigCore, SmallBase and BigTrend route, lifecycle net and Far coverage checks.
+- Python pytest checks pass locally; MetaEditor/Strategy Tester must be run in MT5.

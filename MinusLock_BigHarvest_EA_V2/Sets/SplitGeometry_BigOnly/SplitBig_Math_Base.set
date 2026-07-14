@@ -1,0 +1,15 @@
+; Small reverse is not implemented.
+; Use only for controlled Big-scenario testing.
+UseSplitBigGeometry=true
+UseLegacySingleBigGeometry=false
+AllowRealTrading=false
+UseDynamicReverseSmall=false
+BigCoreRatio=1.60
+BigTrendRatio=0.25
+SmallBaseToFarRatio=0.60
+CloseFarShare=0.10
+ReserveShare=0.90
+InitialTriggerPoints=170
+BigMoveStartPoints=280
+BigMoveStepPoints=20
+LotStep=0.01
