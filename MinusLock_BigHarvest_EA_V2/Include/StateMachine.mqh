@@ -58,6 +58,7 @@ void AppendReserveLedgerEntry(ReserveEventType type, double amount, double reser
    ReserveLedger[index].harvestLevel = Ctx.harvestLevel;
    ReserveLedger[index].reverseCycle = Ctx.reverseCycleCount;
    ReserveLedger[index].eventKeyHash = ReserveEventKeyHash(type);
+   LogInfo(StringFormat("SPLIT_RESERVE_LEDGER_SAVE Symbol=%s MagicNumber=%I64u CycleId=%I64u EventId=%d EventType=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f BigCoreIdentifier=%I64u BigTrendIdentifier=%I64u SmallBaseIdentifier=%I64u FarIdentifier=%I64u Level=%d ReserveEventKeyHash=%I64d", _Symbol, MagicNumber, Ctx.cycleId, ReserveLedger[index].eventId, (int)type, amount, reserveBefore, reserveAfter, Ctx.bigCoreIdentifier, Ctx.bigTrendIdentifier, Ctx.smallBaseIdentifier, Ctx.farIdentifier, Ctx.harvestLevel, ReserveLedger[index].eventKeyHash));
    LogInfo(StringFormat("RESERVE_LEDGER eventId=%d type=%d amount=%.2f reserveBefore=%.2f reserveAfter=%.2f bigIdentifier=%I64d smallIdentifier=%I64d farIdentifier=%I64d harvestLevel=%d reverseCycle=%d ReserveEventKeyHash=%I64d",
                         ReserveLedger[index].eventId,
                         (int)type,
@@ -157,6 +158,7 @@ bool TryRecoverPromotedBigAsFar(string reason);
 bool IsProfitSystemCloseComment(string comment)
 {
    return comment == "FINAL_CLOSE_PROFIT" ||
+          comment == "SPLIT_FINAL_CLOSE_PROFIT" ||
           comment == "CLOSED_PROFIT" ||
           comment == "MAX_LEVELS_FINAL_CLOSE";
 }
@@ -179,6 +181,9 @@ void SetState(EAState nextState, string reason)
       if(Ctx.farTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.farTicket, "STATE_CLOSED_PROFIT_FAR_GUARD") && fullCloseVerified;
       if(Ctx.bigTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.bigTicket, "STATE_CLOSED_PROFIT_BIG_GUARD") && fullCloseVerified;
       if(Ctx.smallTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.smallTicket, "STATE_CLOSED_PROFIT_SMALL_GUARD") && fullCloseVerified;
+      if(Ctx.bigCoreTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.bigCoreTicket, "STATE_CLOSED_PROFIT_BIG_CORE_GUARD") && fullCloseVerified;
+      if(Ctx.bigTrendTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.bigTrendTicket, "STATE_CLOSED_PROFIT_BIG_TREND_GUARD") && fullCloseVerified;
+      if(Ctx.smallBaseTicket != 0) fullCloseVerified = VerifyFullClose(Ctx.smallBaseTicket, "STATE_CLOSED_PROFIT_SMALL_BASE_GUARD") && fullCloseVerified;
 
       if(!fullCloseVerified || !CanEnterClosedProfit())
       {
@@ -449,15 +454,21 @@ bool HasKnownContext()
    bool far = HasFarContext();
    bool big = HasBigContext();
    bool small = HasSmallContext();
+   bool splitBigCore = (Ctx.bigCoreTicket != 0 || Ctx.bigCoreIdentifier != 0 || Ctx.bigCoreLot > VolumeMismatchToleranceLots);
+   bool splitBigTrend = (Ctx.bigTrendTicket != 0 || Ctx.bigTrendIdentifier != 0 || Ctx.bigTrendLot > VolumeMismatchToleranceLots);
+   bool splitSmallBase = (Ctx.smallBaseTicket != 0 || Ctx.smallBaseIdentifier != 0 || Ctx.smallBaseLot > VolumeMismatchToleranceLots);
    bool pending = HasPendingOperationContext();
    bool retry = HasRetryOperationContext();
-   bool known = (initialBuy || initialSell || far || big || small || pending || retry);
-   LogInfo(StringFormat("KNOWN_CONTEXT_PRESENT InitialBuy=%s InitialSell=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s KnownContext=%s",
+   bool known = (initialBuy || initialSell || far || big || small || splitBigCore || splitBigTrend || splitSmallBase || pending || retry);
+   LogInfo(StringFormat("KNOWN_CONTEXT_PRESENT InitialBuy=%s InitialSell=%s Far=%s Big=%s Small=%s BigCore=%s BigTrend=%s SmallBase=%s Pending=%s Retry=%s KnownContext=%s",
                         initialBuy ? "YES" : "NO",
                         initialSell ? "YES" : "NO",
                         far ? "YES" : "NO",
                         big ? "YES" : "NO",
                         small ? "YES" : "NO",
+                        splitBigCore ? "YES" : "NO",
+                        splitBigTrend ? "YES" : "NO",
+                        splitSmallBase ? "YES" : "NO",
                         pending ? "YES" : "NO",
                         retry ? "YES" : "NO",
                         known ? "YES" : "NO"));
@@ -470,10 +481,13 @@ void LogReconciliationContextSummary(string source)
    bool far = HasFarContext();
    bool big = HasBigContext();
    bool small = HasSmallContext();
+   bool splitBigCore = (Ctx.bigCoreTicket != 0 || Ctx.bigCoreIdentifier != 0 || Ctx.bigCoreLot > VolumeMismatchToleranceLots);
+   bool splitBigTrend = (Ctx.bigTrendTicket != 0 || Ctx.bigTrendIdentifier != 0 || Ctx.bigTrendLot > VolumeMismatchToleranceLots);
+   bool splitSmallBase = (Ctx.smallBaseTicket != 0 || Ctx.smallBaseIdentifier != 0 || Ctx.smallBaseLot > VolumeMismatchToleranceLots);
    bool pending = HasPendingOperationContext();
    bool retry = HasRetryOperationContext();
-   bool known = (initialLock || far || big || small || pending || retry);
-   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s Pending=%s Retry=%s ConfiguredGeometryMode=%s RuntimeGeometryMode=%s GeometrySource=%s GeometryActive=%s GeometryCleared=%s GeometryClearReason=%s ATRRaw=%.10f ATRPoints=%.1f WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d WorkSource=%s FallbackReason=%s GeometryReady=%s TradingAllowedByFallback=%s",
+   bool known = (initialLock || far || big || small || splitBigCore || splitBigTrend || splitSmallBase || pending || retry);
+   LogInfo(StringFormat("RECONCILIATION_CONTEXT_SUMMARY Source=%s CurrentState=%s ManagedPositions=%d KnownContext=%s InitialLock=%s Far=%s Big=%s Small=%s BigCore=%s BigTrend=%s SmallBase=%s Pending=%s Retry=%s ConfiguredGeometryMode=%s RuntimeGeometryMode=%s GeometrySource=%s GeometryActive=%s GeometryCleared=%s GeometryClearReason=%s ATRRaw=%.10f ATRPoints=%.1f WorkInitialTriggerPoints=%d WorkBigMoveStartPoints=%d WorkBigMoveStepPoints=%d WorkFarDistancePoints=%d WorkSource=%s FallbackReason=%s GeometryReady=%s TradingAllowedByFallback=%s",
                         source,
                         StateToString(State),
                         CountManagedOpenPositions(),
@@ -482,6 +496,9 @@ void LogReconciliationContextSummary(string source)
                         far ? "YES" : "NO",
                         big ? "YES" : "NO",
                         small ? "YES" : "NO",
+                        splitBigCore ? "YES" : "NO",
+                        splitBigTrend ? "YES" : "NO",
+                        splitSmallBase ? "YES" : "NO",
                         pending ? "YES" : "NO",
                         retry ? "YES" : "NO",
                         ConfiguredGeometryModeToString(),
@@ -2147,6 +2164,12 @@ void SetPendingOperation(PendingActionType actionType, string operation, EAState
       Ctx.pendingDirection = Ctx.bigDirection;
    else if(actionType == PENDING_CLOSE_SMALL_FULL)
       Ctx.pendingDirection = Ctx.smallDirection;
+   else if(actionType == PENDING_CLOSE_BIG_CORE_FULL || actionType == PENDING_CLOSE_BIG_CORE_PARTIAL)
+      Ctx.pendingDirection = Ctx.bigCoreDirection;
+   else if(actionType == PENDING_CLOSE_BIG_TREND_FULL)
+      Ctx.pendingDirection = Ctx.bigTrendDirection;
+   else if(actionType == PENDING_CLOSE_SMALL_BASE_FULL)
+      Ctx.pendingDirection = Ctx.smallBaseDirection;
    else if(actionType == PENDING_CLOSE_OLD_FAR_FULL || actionType == PENDING_CLOSE_FAR_FULL || actionType == PENDING_CLOSE_FAR_PARTIAL || actionType == PENDING_MAX_LEVELS_FINAL_CLOSE || actionType == PENDING_STOP_MAX_LEVELS_CLOSE)
       Ctx.pendingDirection = Ctx.farDirection;
    else
@@ -3567,6 +3590,110 @@ bool PrepareSplitBigLevel()
    return true;
 }
 
+
+EAState SplitOpenPendingStateForRole(PositionRole role)
+{
+   if(role == ROLE_BIG_CORE) return STATE_SPLIT_OPEN_CORE_PENDING;
+   if(role == ROLE_SMALL_BASE) return STATE_SPLIT_OPEN_SMALL_BASE_PENDING;
+   if(role == ROLE_BIG_TREND) return STATE_SPLIT_OPEN_TREND_PENDING;
+   return STATE_ERROR;
+}
+
+PendingActionType SplitOpenPendingActionForRole(PositionRole role)
+{
+   if(role == ROLE_BIG_CORE) return PENDING_OPEN_BIG_CORE;
+   if(role == ROLE_SMALL_BASE) return PENDING_OPEN_SMALL_BASE;
+   if(role == ROLE_BIG_TREND) return PENDING_OPEN_BIG_TREND;
+   return PENDING_NONE;
+}
+
+EAState SplitClosePendingStateForRole(PositionRole role)
+{
+   if(role == ROLE_BIG_CORE) return STATE_SPLIT_CLOSE_CORE_PENDING;
+   if(role == ROLE_BIG_TREND) return STATE_SPLIT_CLOSE_TREND_PENDING;
+   if(role == ROLE_SMALL_BASE) return STATE_SPLIT_CLOSE_SMALL_BASE_PENDING;
+   return STATE_ERROR;
+}
+
+bool AdjustPartialFarLotForMinimumResidual()
+{
+   if(Ctx.pendingFullFarClose)
+      return true;
+   double minLot = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN);
+   double step = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP);
+   if(minLot <= 0.0) minLot = LotStep;
+   if(step <= 0.0) step = LotStep;
+   Ctx.pendingCloseFarLot = NormalizeLotDown(Ctx.pendingCloseFarLot);
+   while(Ctx.pendingCloseFarLot >= minLot && NormalizeLotDown(Ctx.farLot - Ctx.pendingCloseFarLot) < minLot)
+      Ctx.pendingCloseFarLot = NormalizeLotDown(Ctx.pendingCloseFarLot - step);
+   if(Ctx.pendingCloseFarLot < minLot)
+   {
+      Ctx.pendingCloseFarLot = 0.0;
+      Ctx.partialFarBudgetCarry = Ctx.pendingPartialFarBudgetAvailable;
+      LogInfo(StringFormat("SPLIT_PARTIAL_PROJECTED Symbol=%s MagicNumber=%I64u CycleId=%I64u Level=%d Result=SKIP StopReason=no_tradable_residual PartialBudgetCarry=%.2f", _Symbol, MagicNumber, Ctx.cycleId, Ctx.harvestLevel, Ctx.partialFarBudgetCarry));
+      return false;
+   }
+   ProjectedCloseNetResult adjusted;
+   if(CalculateProjectedFarCloseNet(Ctx.pendingCloseFarLot, adjusted))
+      Ctx.pendingProjectedPartialFarLoss = adjusted.projectedLoss;
+   LogInfo(StringFormat("SPLIT_PARTIAL_PROJECTED Symbol=%s MagicNumber=%I64u CycleId=%I64u Level=%d FarLot=%.2f PartialFarLot=%.2f ResidualFarLot=%.2f ProjectedPartialLoss=%.2f Result=PASS", _Symbol, MagicNumber, Ctx.cycleId, Ctx.harvestLevel, Ctx.farLot, Ctx.pendingCloseFarLot, NormalizeLotDown(Ctx.farLot - Ctx.pendingCloseFarLot), Ctx.pendingProjectedPartialFarLoss));
+   return true;
+}
+
+bool CalculateActualPartialFarLossFromHistory(datetime fromTime, double &actualNet, double &actualLoss)
+{
+   actualNet = 0.0;
+   actualLoss = 0.0;
+   if(IsInternalSimulationMode())
+   {
+      actualLoss = Ctx.pendingProjectedPartialFarLoss;
+      actualNet = -actualLoss;
+      return true;
+   }
+   if(Ctx.farIdentifier == 0 || !HistorySelect(fromTime, TimeCurrent() + 86400))
+      return false;
+   bool found = false;
+   for(int i = 0; i < HistoryDealsTotal(); i++)
+   {
+      ulong dealTicket = HistoryDealGetTicket(i);
+      if(dealTicket == 0) continue;
+      datetime dealTime = (datetime)HistoryDealGetInteger(dealTicket, DEAL_TIME);
+      if(dealTime < fromTime) continue;
+      if(HistoryDealGetString(dealTicket, DEAL_SYMBOL) != _Symbol) continue;
+      if((ulong)HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber) continue;
+      if((ulong)HistoryDealGetInteger(dealTicket, DEAL_POSITION_ID) != Ctx.farIdentifier) continue;
+      ENUM_DEAL_ENTRY entry = (ENUM_DEAL_ENTRY)HistoryDealGetInteger(dealTicket, DEAL_ENTRY);
+      if(entry != DEAL_ENTRY_OUT && entry != DEAL_ENTRY_INOUT && entry != DEAL_ENTRY_OUT_BY) continue;
+      actualNet += HistoryDealGetDouble(dealTicket, DEAL_PROFIT) + HistoryDealGetDouble(dealTicket, DEAL_COMMISSION) + HistoryDealGetDouble(dealTicket, DEAL_SWAP) + HistoryDealGetDouble(dealTicket, DEAL_FEE);
+      found = true;
+   }
+   actualLoss = MathMax(0.0, -actualNet);
+   return found;
+}
+
+void CompleteSplitFullFarClose(double reserveUsed)
+{
+   MarkSystemClose("SPLIT_FINAL_CLOSE_PROFIT");
+   ClearSplitRoleContext("SPLIT_FINAL_CLOSE_PROFIT clears Split roles before ClosedProfit guard");
+   ClearFarContext("SPLIT_FINAL_CLOSE_PROFIT confirmed by VerifyFullClose");
+   RecalculateRealCycleStatsFromHistory();
+   if(Ctx.realRecoveryPL < MinimumRecoveryProfitMoney)
+   {
+      LogError(StringFormat("SPLIT_FINAL_CLOSE_GUARD Result=FAIL ActualRecoveryPL=%.2f MinimumRecoveryProfitMoney=%.2f", Ctx.realRecoveryPL, MinimumRecoveryProfitMoney));
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split final close actual recovery below minimum");
+      return;
+   }
+   if(!ApplyReserveDebit(RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT, reserveUsed))
+   {
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split final reserve debit failed");
+      return;
+   }
+   if(!ValidateNoOrphanManagedPositions())
+      return;
+   LogInfo(StringFormat("SPLIT_CLOSED_PROFIT Symbol=%s MagicNumber=%I64u CycleId=%I64u Level=%d ReserveUsed=%.2f RecoveryPL=%.2f Result=PASS", _Symbol, MagicNumber, Ctx.cycleId, Ctx.harvestLevel, reserveUsed, Ctx.realRecoveryPL));
+   SetState(STATE_CLOSED_PROFIT, "SPLIT_FINAL_CLOSE_PROFIT completed");
+}
+
 bool OpenSplitRole(PositionRole role, Direction direction, double lot, EAState nextState, EAState failureState)
 {
    if(!Ctx.riskGateOk && StopOnRiskGateBlocked)
@@ -3578,7 +3705,9 @@ bool OpenSplitRole(PositionRole role, Direction direction, double lot, EAState n
    datetime openStartTime = TimeCurrent();
    if(!OpenPosition(direction, lot, comment))
    {
-      SetState(failureState, "Split role open failed: " + comment);
+      EAState pendingState = SplitOpenPendingStateForRole(role);
+      PendingActionType pendingAction = SplitOpenPendingActionForRole(role);
+      SetPendingOperation(pendingAction, "SPLIT_OPEN_" + PositionRoleToCode(role), pendingState, 0, lot, comment, nextState, "SPLIT_PENDING_CREATED open retry for " + PositionRoleToCode(role));
       return false;
    }
    PositionResolutionResult resolution;
@@ -3680,7 +3809,7 @@ bool CloseSplitRoleFull(PositionRole role, ulong ticket, double lot, string clos
    MarkSystemClose(closeComment);
    if(!ClosePositionByTicketWithComment(ticket, lot, closeComment) || !VerifyFullClose(ticket, closeComment))
    {
-      SetPendingOperation(pendingType, closeComment, State, ticket, NormalizeVolumeToStep(GetActualPositionVolume(ticket)), closeComment, nextState, "Split role close retry pending");
+      SetPendingOperation(pendingType, closeComment, SplitClosePendingStateForRole(role), ticket, NormalizeVolumeToStep(GetActualPositionVolume(ticket)), closeComment, nextState, "SPLIT_PENDING_CREATED close retry for " + PositionRoleToCode(role));
       return false;
    }
    if(role == ROLE_BIG_CORE) { Ctx.bigCoreTicket = 0; Ctx.bigCoreLot = 0.0; Ctx.bigCoreDirection = DIR_NONE; }
@@ -3753,6 +3882,8 @@ void ProcessSplitBigHarvestCheckFullFar()
    {
       Ctx.pendingFullFarClose = true;
       Ctx.pendingCloseFarLot = Ctx.farLot;
+      Ctx.pendingReserveAdd = 0.0;
+      Ctx.pendingCloseFarBudget = Ctx.actualSplitHarvestNet;
       SetState(STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR, "Immediate full Far close before partial");
       return;
    }
@@ -3760,6 +3891,7 @@ void ProcessSplitBigHarvestCheckFullFar()
    Ctx.pendingCloseFarBudget = Ctx.actualSplitHarvestNet - Ctx.pendingReserveAdd;
    Ctx.pendingPartialFarBudgetAvailable = Ctx.pendingCloseFarBudget + Ctx.partialFarBudgetCarry;
    Ctx.pendingCloseFarLot = CalculateMaxPartialFarLotByMoney(Ctx.pendingPartialFarBudgetAvailable, Ctx.pendingProjectedPartialFarLoss);
+   AdjustPartialFarLotForMinimumResidual();
    SetState(STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR, "Split partial Far calculated; Reserve not used for partial");
 }
 
@@ -3772,24 +3904,91 @@ void ProcessSplitBigHarvestPartialFar()
       SetState(STATE_SPLIT_BIG_HARVEST_FINAL_CHECK, "Partial Far skipped; carry retained");
       return;
    }
-   string comment = Ctx.pendingFullFarClose ? "SPLIT_FULL_FAR_CLOSE" : "SPLIT_PARTIAL_FAR_CLOSE";
+   datetime splitFarCloseStartTime = TimeCurrent();
+   string comment = Ctx.pendingFullFarClose ? "SPLIT_FINAL_CLOSE_PROFIT" : "SPLIT_PARTIAL_FAR_CLOSE";
    if(!ClosePositionByTicketWithComment(Ctx.farTicket, Ctx.pendingCloseFarLot, comment))
    {
-      SetPendingOperation(Ctx.pendingFullFarClose ? PENDING_CLOSE_FAR_FULL : PENDING_CLOSE_FAR_PARTIAL, comment, STATE_RECOVERY_PENDING, Ctx.farTicket, Ctx.pendingCloseFarLot, comment, STATE_SPLIT_BIG_HARVEST_FINAL_CHECK, "Split Far close retry pending");
+      SetPendingOperation(Ctx.pendingFullFarClose ? PENDING_CLOSE_FAR_FULL : PENDING_CLOSE_FAR_PARTIAL, comment, Ctx.pendingFullFarClose ? STATE_SPLIT_CLOSE_FAR_FULL_PENDING : STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING, Ctx.farTicket, Ctx.pendingCloseFarLot, comment, STATE_SPLIT_BIG_HARVEST_FINAL_CHECK, "SPLIT_PENDING_CREATED Far close retry pending");
       return;
    }
    if(Ctx.pendingFullFarClose)
    {
       if(!VerifyFullClose(Ctx.farTicket, comment)) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split full Far close incomplete"); return; }
-      ClearFarContext("Split full Far close confirmed");
-      RecalculateRealCycleStatsFromHistory();
-      SetState(Ctx.realRecoveryPL >= MinimumRecoveryProfitMoney ? STATE_CLOSED_PROFIT : STATE_MANUAL_INTERVENTION_REQUIRED, "Split full Far final recovery checked");
+      CompleteSplitFullFarClose(MathMin(Ctx.totalReserve, Ctx.pendingProjectedPartialFarLoss));
+      return;
+   }
+   double actualPartialNet = 0.0;
+   double actualPartialLoss = 0.0;
+   if(!CalculateActualPartialFarLossFromHistory(splitFarCloseStartTime, actualPartialNet, actualPartialLoss))
+   {
+      LogError(StringFormat("SPLIT_PARTIAL_ACTUAL Result=FAIL StopReason=history_missing FarIdentifier=%I64u FromTime=%I64d", Ctx.farIdentifier, (long)splitFarCloseStartTime));
+      SetState(STATE_SPLIT_PARTIAL_HISTORY_PENDING, "Split partial Far history pending; carry and reserve unchanged");
       return;
    }
    RefreshFarVolumeFromTerminal("SPLIT_PARTIAL_FAR actual residual read from terminal");
-   Ctx.partialFarBudgetCarry = MathMax(0.0, Ctx.pendingPartialFarBudgetAvailable - Ctx.pendingProjectedPartialFarLoss);
-   LogInfo(StringFormat("SPLIT_PARTIAL_FAR_DONE ClosedLot=%.2f ProjectedPartialLoss=%.2f PartialBudgetCarry=%.2f FarLotActual=%.2f", Ctx.pendingCloseFarLot, Ctx.pendingProjectedPartialFarLoss, Ctx.partialFarBudgetCarry, Ctx.farLot));
-   SetState(STATE_SPLIT_BIG_HARVEST_FINAL_CHECK, "Split partial Far complete");
+   Ctx.partialFarBudgetCarry = MathMax(0.0, Ctx.pendingPartialFarBudgetAvailable - actualPartialLoss);
+   LogInfo(StringFormat("SPLIT_PARTIAL_ACTUAL ClosedLot=%.2f ProjectedPartialLoss=%.2f ActualPartialNet=%.2f ActualPartialLoss=%.2f Difference=%.2f FarLotActual=%.2f Result=PASS", Ctx.pendingCloseFarLot, Ctx.pendingProjectedPartialFarLoss, actualPartialNet, actualPartialLoss, actualPartialLoss - Ctx.pendingProjectedPartialFarLoss, Ctx.farLot));
+   LogInfo(StringFormat("SPLIT_PARTIAL_CARRY PartialBudgetAvailable=%.2f ActualPartialLoss=%.2f PartialFarBudgetCarry=%.2f ReserveUsedForPartial=NO", Ctx.pendingPartialFarBudgetAvailable, actualPartialLoss, Ctx.partialFarBudgetCarry));
+   SetState(STATE_SPLIT_BIG_HARVEST_FINAL_CHECK, "Split partial Far complete with actual deals");
+}
+
+
+void RetrySplitOpenPending(PositionRole role, EAState successState, EAState failureState)
+{
+   if(Ctx.pendingAttempts >= MaxCloseRetryAttempts)
+   {
+      LogError(StringFormat("SPLIT_PENDING_FAILED Operation=%s Action=%d Attempts=%d", Ctx.pendingOperation, (int)Ctx.pendingActionType, Ctx.pendingAttempts));
+      if(role == ROLE_SMALL_BASE) RollbackSplitAfterSmallBaseFailure();
+      else if(role == ROLE_BIG_TREND) RollbackSplitAfterBigTrendFailure();
+      else SetState(failureState, "Split open pending exceeded retry attempts");
+      return;
+   }
+   PositionResolutionResult resolved;
+   if(ResolveOpenedPositionAfterOpen(Ctx.pendingComment, Ctx.pendingDirection, Ctx.pendingLot, 0, Ctx.pendingOperationStartTime, resolved))
+   {
+      ApplyResolvedPositionToSplitRole(role, resolved);
+      ClearPendingOperationContext();
+      LogInfo(StringFormat("SPLIT_PENDING_RESOLVED Operation=%s Role=%s Result=resolved_existing", Ctx.pendingOperation, PositionRoleToCode(role)));
+      SetState(successState, "Split pending open resolved after restart");
+      return;
+   }
+   Ctx.pendingAttempts++;
+   LogInfo(StringFormat("SPLIT_PENDING_RETRY Operation=%s Role=%s Attempt=%d", Ctx.pendingOperation, PositionRoleToCode(role), Ctx.pendingAttempts));
+   datetime retryTime = TimeCurrent();
+   if(!OpenPosition(Ctx.pendingDirection, Ctx.pendingLot, Ctx.pendingComment))
+      return;
+   if(!ResolveOpenedPositionAfterOpen(Ctx.pendingComment, Ctx.pendingDirection, Ctx.pendingLot, 0, retryTime, resolved))
+      return;
+   ApplyResolvedPositionToSplitRole(role, resolved);
+   ClearPendingOperationContext();
+   SetState(successState, "Split pending open retry succeeded");
+}
+
+void RetrySplitClosePending(EAState successState)
+{
+   if(Ctx.pendingAttempts >= MaxCloseRetryAttempts)
+   {
+      LogError(StringFormat("SPLIT_PENDING_FAILED Operation=%s Action=%d Attempts=%d", Ctx.pendingOperation, (int)Ctx.pendingActionType, Ctx.pendingAttempts));
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split close pending exceeded retry attempts");
+      return;
+   }
+   if(Ctx.pendingTicket != 0 && VerifyFullClose(Ctx.pendingTicket, Ctx.pendingOperation))
+   {
+      ClearPendingOperationContext();
+      LogInfo(StringFormat("SPLIT_PENDING_RESOLVED Operation=%s Result=already_closed", Ctx.pendingOperation));
+      SetState(successState, "Split close already completed before restart");
+      return;
+   }
+   Ctx.pendingAttempts++;
+   LogInfo(StringFormat("SPLIT_PENDING_RETRY Operation=%s Action=%d Attempt=%d", Ctx.pendingOperation, (int)Ctx.pendingActionType, Ctx.pendingAttempts));
+   if(ClosePositionByTicketWithComment(Ctx.pendingTicket, Ctx.pendingLot, Ctx.pendingComment) && VerifyFullClose(Ctx.pendingTicket, Ctx.pendingOperation))
+   {
+      if(Ctx.pendingActionType == PENDING_CLOSE_BIG_CORE_FULL) { Ctx.bigCoreTicket = 0; Ctx.bigCoreLot = 0.0; Ctx.bigCoreDirection = DIR_NONE; }
+      if(Ctx.pendingActionType == PENDING_CLOSE_BIG_TREND_FULL) { Ctx.bigTrendTicket = 0; Ctx.bigTrendLot = 0.0; Ctx.bigTrendDirection = DIR_NONE; }
+      if(Ctx.pendingActionType == PENDING_CLOSE_SMALL_BASE_FULL) { Ctx.smallBaseTicket = 0; Ctx.smallBaseLot = 0.0; Ctx.smallBaseDirection = DIR_NONE; }
+      ClearPendingOperationContext();
+      SetState(successState, "Split close pending retry succeeded");
+   }
 }
 
 void ProcessSplitBigHarvestFinalCheck()
@@ -3808,7 +4007,7 @@ void ProcessSplitBigHarvestFinalCheck()
    }
    if(Ctx.harvestLevel >= WorkMaxHarvestLevels)
    {
-      SetState(STATE_MAX_LEVELS_DECISION, "STATE_SPLIT_MAX_LEVELS_DECISION: Split max levels reached without forced Far close");
+      SetState(STATE_SPLIT_MAX_LEVELS_DECISION, "STATE_SPLIT_MAX_LEVELS_DECISION: Split max levels reached without forced Far close");
       return;
    }
    ClearSplitRoleContext("Prepare next Split level from actual Far");
@@ -3869,12 +4068,24 @@ void RunStateMachine()
          ProcessSplitBigOpenCore();
          break;
 
+      case STATE_SPLIT_OPEN_CORE_PENDING:
+         RetrySplitOpenPending(ROLE_BIG_CORE, STATE_SPLIT_BIG_OPEN_SMALL_BASE, STATE_ERROR_OPEN_BIG_CORE);
+         break;
+
       case STATE_SPLIT_BIG_OPEN_SMALL_BASE:
          ProcessSplitBigOpenSmallBase();
          break;
 
+      case STATE_SPLIT_OPEN_SMALL_BASE_PENDING:
+         RetrySplitOpenPending(ROLE_SMALL_BASE, STATE_SPLIT_BIG_OPEN_TREND, STATE_ERROR_OPEN_SMALL_BASE);
+         break;
+
       case STATE_SPLIT_BIG_OPEN_TREND:
          ProcessSplitBigOpenTrend();
+         break;
+
+      case STATE_SPLIT_OPEN_TREND_PENDING:
+         RetrySplitOpenPending(ROLE_BIG_TREND, STATE_SPLIT_GEOMETRY_ACTIVE, STATE_ERROR_OPEN_BIG_TREND);
          break;
 
       case STATE_SPLIT_GEOMETRY_ACTIVE:
@@ -3885,12 +4096,24 @@ void RunStateMachine()
          ProcessSplitBigHarvestCloseCore();
          break;
 
+      case STATE_SPLIT_CLOSE_CORE_PENDING:
+         RetrySplitClosePending(STATE_SPLIT_BIG_HARVEST_CLOSE_TREND);
+         break;
+
       case STATE_SPLIT_BIG_HARVEST_CLOSE_TREND:
          ProcessSplitBigHarvestCloseTrend();
          break;
 
+      case STATE_SPLIT_CLOSE_TREND_PENDING:
+         RetrySplitClosePending(STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE);
+         break;
+
       case STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE:
          ProcessSplitBigHarvestCloseSmallBase();
+         break;
+
+      case STATE_SPLIT_CLOSE_SMALL_BASE_PENDING:
+         RetrySplitClosePending(STATE_SPLIT_BIG_HARVEST_CALC_NET);
          break;
 
       case STATE_SPLIT_BIG_HARVEST_CALC_NET:
@@ -3905,8 +4128,21 @@ void RunStateMachine()
          ProcessSplitBigHarvestPartialFar();
          break;
 
+      case STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING:
+      case STATE_SPLIT_CLOSE_FAR_FULL_PENDING:
+         RetrySplitClosePending(STATE_SPLIT_BIG_HARVEST_FINAL_CHECK);
+         break;
+
+      case STATE_SPLIT_PARTIAL_HISTORY_PENDING:
+         ProcessSplitBigHarvestPartialFar();
+         break;
+
       case STATE_SPLIT_BIG_HARVEST_FINAL_CHECK:
          ProcessSplitBigHarvestFinalCheck();
+         break;
+
+      case STATE_SPLIT_MAX_LEVELS_DECISION:
+         ProcessMaxLevelsDecision();
          break;
 
       case STATE_BIG_HARVEST:

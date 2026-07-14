@@ -9,6 +9,14 @@ bool IsPendingContractState(EAState state)
    return (state == STATE_SPLIT_BIG_OPEN_CORE ||
            state == STATE_SPLIT_BIG_OPEN_SMALL_BASE ||
            state == STATE_SPLIT_BIG_OPEN_TREND ||
+           state == STATE_SPLIT_OPEN_CORE_PENDING ||
+           state == STATE_SPLIT_OPEN_SMALL_BASE_PENDING ||
+           state == STATE_SPLIT_OPEN_TREND_PENDING ||
+           state == STATE_SPLIT_CLOSE_CORE_PENDING ||
+           state == STATE_SPLIT_CLOSE_TREND_PENDING ||
+           state == STATE_SPLIT_CLOSE_SMALL_BASE_PENDING ||
+           state == STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING ||
+           state == STATE_SPLIT_CLOSE_FAR_FULL_PENDING ||
            state == STATE_REVERSE_OPEN_DYNAMIC_SMALL ||
            state == STATE_SPLIT_BIG_HARVEST_CLOSE_CORE ||
            state == STATE_SPLIT_BIG_HARVEST_CLOSE_TREND ||
@@ -36,7 +44,22 @@ bool PendingActionMatchesState(EAState targetState, PendingActionType actionType
       case STATE_SPLIT_BIG_OPEN_SMALL_BASE:
          return actionType == PENDING_OPEN_SMALL_BASE;
       case STATE_SPLIT_BIG_OPEN_TREND:
+      case STATE_SPLIT_OPEN_TREND_PENDING:
          return actionType == PENDING_OPEN_BIG_TREND;
+      case STATE_SPLIT_OPEN_CORE_PENDING:
+         return actionType == PENDING_OPEN_BIG_CORE;
+      case STATE_SPLIT_OPEN_SMALL_BASE_PENDING:
+         return actionType == PENDING_OPEN_SMALL_BASE;
+      case STATE_SPLIT_CLOSE_CORE_PENDING:
+         return actionType == PENDING_CLOSE_BIG_CORE_FULL;
+      case STATE_SPLIT_CLOSE_TREND_PENDING:
+         return actionType == PENDING_CLOSE_BIG_TREND_FULL;
+      case STATE_SPLIT_CLOSE_SMALL_BASE_PENDING:
+         return actionType == PENDING_CLOSE_SMALL_BASE_FULL;
+      case STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING:
+         return actionType == PENDING_CLOSE_FAR_PARTIAL;
+      case STATE_SPLIT_CLOSE_FAR_FULL_PENDING:
+         return actionType == PENDING_CLOSE_FAR_FULL;
       case STATE_REVERSE_OPEN_DYNAMIC_SMALL:
          return actionType == PENDING_OPEN_REVERSE_SMALL;
       case STATE_SPLIT_BIG_HARVEST_CLOSE_CORE:
@@ -81,6 +104,14 @@ string PendingContractActionMatrix(EAState targetState)
       case STATE_SPLIT_BIG_OPEN_CORE: return "STATE_SPLIT_BIG_OPEN_CORE <-> PENDING_OPEN_BIG_CORE";
       case STATE_SPLIT_BIG_OPEN_SMALL_BASE: return "STATE_SPLIT_BIG_OPEN_SMALL_BASE <-> PENDING_OPEN_SMALL_BASE";
       case STATE_SPLIT_BIG_OPEN_TREND: return "STATE_SPLIT_BIG_OPEN_TREND <-> PENDING_OPEN_BIG_TREND";
+      case STATE_SPLIT_OPEN_CORE_PENDING: return "STATE_SPLIT_OPEN_CORE_PENDING <-> PENDING_OPEN_BIG_CORE";
+      case STATE_SPLIT_OPEN_SMALL_BASE_PENDING: return "STATE_SPLIT_OPEN_SMALL_BASE_PENDING <-> PENDING_OPEN_SMALL_BASE";
+      case STATE_SPLIT_OPEN_TREND_PENDING: return "STATE_SPLIT_OPEN_TREND_PENDING <-> PENDING_OPEN_BIG_TREND";
+      case STATE_SPLIT_CLOSE_CORE_PENDING: return "STATE_SPLIT_CLOSE_CORE_PENDING <-> PENDING_CLOSE_BIG_CORE_FULL";
+      case STATE_SPLIT_CLOSE_TREND_PENDING: return "STATE_SPLIT_CLOSE_TREND_PENDING <-> PENDING_CLOSE_BIG_TREND_FULL";
+      case STATE_SPLIT_CLOSE_SMALL_BASE_PENDING: return "STATE_SPLIT_CLOSE_SMALL_BASE_PENDING <-> PENDING_CLOSE_SMALL_BASE_FULL";
+      case STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING: return "STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING <-> PENDING_CLOSE_FAR_PARTIAL";
+      case STATE_SPLIT_CLOSE_FAR_FULL_PENDING: return "STATE_SPLIT_CLOSE_FAR_FULL_PENDING <-> PENDING_CLOSE_FAR_FULL";
       case STATE_REVERSE_OPEN_DYNAMIC_SMALL: return "STATE_REVERSE_OPEN_DYNAMIC_SMALL <-> PENDING_OPEN_REVERSE_SMALL";
       case STATE_SPLIT_BIG_HARVEST_CLOSE_CORE: return "STATE_SPLIT_BIG_HARVEST_CLOSE_CORE <-> PENDING_CLOSE_BIG_CORE_FULL";
       case STATE_SPLIT_BIG_HARVEST_CLOSE_TREND: return "STATE_SPLIT_BIG_HARVEST_CLOSE_TREND <-> PENDING_CLOSE_BIG_TREND_FULL";
@@ -124,7 +155,8 @@ bool ValidatePendingContract(EAState targetState)
       ok = false;
    }
 
-   bool openState = (targetState == STATE_OPEN_NEW_BIG_PENDING || targetState == STATE_OPEN_NEW_SMALL_PENDING);
+   bool openState = (targetState == STATE_OPEN_NEW_BIG_PENDING || targetState == STATE_OPEN_NEW_SMALL_PENDING ||
+                     targetState == STATE_SPLIT_OPEN_CORE_PENDING || targetState == STATE_SPLIT_OPEN_SMALL_BASE_PENDING || targetState == STATE_SPLIT_OPEN_TREND_PENDING);
    if(openState)
    {
       if(Ctx.pendingLot <= VolumeMismatchToleranceLots || Ctx.pendingDirection == DIR_NONE || Ctx.pendingComment == "")
@@ -151,7 +183,22 @@ bool ValidatePendingContract(EAState targetState)
          LogError(StringFormat("PENDING_CONTRACT_INVALID TargetState=%s ticket must equal Small Ticket=%I64u PendingTicket=%I64u", StateToString(targetState), Ctx.smallTicket, Ctx.pendingTicket));
          ok = false;
       }
-      if((targetState == STATE_CLOSE_NEW_FAR_PENDING || targetState == STATE_CLOSE_OLD_FAR_PENDING || targetState == STATE_REVERSE_LIMIT_CLOSE_PENDING || targetState == STATE_MAX_LEVELS_FINAL_CLOSE_PENDING || targetState == STATE_STOP_MAX_LEVELS_CLOSE_PENDING) && Ctx.pendingTicket != Ctx.farTicket)
+      if(targetState == STATE_SPLIT_CLOSE_CORE_PENDING && Ctx.pendingTicket != Ctx.bigCoreTicket)
+      {
+         LogError(StringFormat("PENDING_CONTRACT_INVALID TargetState=%s ticket must equal BigCore Ticket=%I64u PendingTicket=%I64u", StateToString(targetState), Ctx.bigCoreTicket, Ctx.pendingTicket));
+         ok = false;
+      }
+      if(targetState == STATE_SPLIT_CLOSE_TREND_PENDING && Ctx.pendingTicket != Ctx.bigTrendTicket)
+      {
+         LogError(StringFormat("PENDING_CONTRACT_INVALID TargetState=%s ticket must equal BigTrend Ticket=%I64u PendingTicket=%I64u", StateToString(targetState), Ctx.bigTrendTicket, Ctx.pendingTicket));
+         ok = false;
+      }
+      if(targetState == STATE_SPLIT_CLOSE_SMALL_BASE_PENDING && Ctx.pendingTicket != Ctx.smallBaseTicket)
+      {
+         LogError(StringFormat("PENDING_CONTRACT_INVALID TargetState=%s ticket must equal SmallBase Ticket=%I64u PendingTicket=%I64u", StateToString(targetState), Ctx.smallBaseTicket, Ctx.pendingTicket));
+         ok = false;
+      }
+      if((targetState == STATE_CLOSE_NEW_FAR_PENDING || targetState == STATE_CLOSE_OLD_FAR_PENDING || targetState == STATE_REVERSE_LIMIT_CLOSE_PENDING || targetState == STATE_MAX_LEVELS_FINAL_CLOSE_PENDING || targetState == STATE_STOP_MAX_LEVELS_CLOSE_PENDING || targetState == STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING || targetState == STATE_SPLIT_CLOSE_FAR_FULL_PENDING) && Ctx.pendingTicket != Ctx.farTicket)
       {
          LogError(StringFormat("PENDING_CONTRACT_INVALID TargetState=%s ticket must equal Far Ticket=%I64u PendingTicket=%I64u", StateToString(targetState), Ctx.farTicket, Ctx.pendingTicket));
          ok = false;
