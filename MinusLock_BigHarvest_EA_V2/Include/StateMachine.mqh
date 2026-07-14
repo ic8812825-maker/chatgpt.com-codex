@@ -6,51 +6,103 @@ bool StateIntegrityValidationInProgress = false;
 ReserveLedgerEntry ReserveLedger[];
 long NextReserveEventId = 1;
 
-long ReserveEventKeyHash(ReserveEventType type)
+void SplitUlong64(ulong value, uint &high32, uint &low32)
 {
-   ulong bigId = (Ctx.pendingBigPositionId != 0 ? Ctx.pendingBigPositionId : Ctx.bigIdentifier);
-   ulong smallId = (Ctx.pendingSmallPositionId != 0 ? Ctx.pendingSmallPositionId : Ctx.smallIdentifier);
-   string key = StringFormat("%s|%I64u|%I64u|%d|%d|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%d",
-                             _Symbol,
-                             MagicNumber,
-                             Ctx.cycleId,
-                             Ctx.harvestLevel,
-                             Ctx.reverseCycleCount,
-                             bigId,
-                             smallId,
-                             Ctx.bigCoreIdentifier,
-                             Ctx.bigTrendIdentifier,
-                             Ctx.smallBaseIdentifier,
-                             Ctx.reverseSmallIdentifier,
-                             Ctx.farIdentifier,
-                             (int)type);
+   high32 = (uint)(value >> 32);
+   low32 = (uint)(value & 0xFFFFFFFF);
+}
+
+ulong RestoreUlong64(uint high32, uint low32)
+{
+   return ((ulong)high32 << 32) | (ulong)low32;
+}
+
+void SplitLong64(long value, uint &high32, uint &low32)
+{
+   SplitUlong64((ulong)value, high32, low32);
+}
+
+long RestoreLong64(uint high32, uint low32)
+{
+   return (long)RestoreUlong64(high32, low32);
+}
+
+long StableSymbolHash64(string symbol)
+{
    long hash = 1469598103934665603;
-   for(int i = 0; i < StringLen(key); i++)
-   {
-      hash = (hash ^ StringGetCharacter(key, i)) * 1099511628211;
-   }
+   for(int i = 0; i < StringLen(symbol); i++)
+      hash = (hash ^ StringGetCharacter(symbol, i)) * 1099511628211;
    return hash;
 }
 
 void SplitReserveEventKeyHash(long hash, uint &high, uint &low)
 {
-   ulong raw = (ulong)hash;
-   high = (uint)(raw >> 32);
-   low = (uint)(raw & 0xFFFFFFFF);
+   SplitLong64(hash, high, low);
 }
 
 long RestoreReserveEventKeyHash(uint high, uint low)
 {
-   ulong raw = ((ulong)high << 32) | (ulong)low;
-   return (long)raw;
+   return RestoreLong64(high, low);
+}
+
+bool BuildReserveEventContext(ReserveEventType type, ReserveEventContextSnapshot &snapshot)
+{
+   snapshot.symbol = _Symbol;
+   snapshot.symbolHash = StableSymbolHash64(_Symbol);
+   SplitLong64(snapshot.symbolHash, snapshot.symbolHashHigh, snapshot.symbolHashLow);
+   snapshot.symbolLength = StringLen(_Symbol);
+   snapshot.magicNumber = MagicNumber;
+   snapshot.cycleId = Ctx.cycleId;
+   snapshot.harvestLevel = Ctx.harvestLevel;
+   snapshot.reverseCycle = Ctx.reverseCycleCount;
+   snapshot.bigIdentifier = (Ctx.pendingBigPositionId != 0 ? Ctx.pendingBigPositionId : Ctx.bigIdentifier);
+   snapshot.smallIdentifier = (Ctx.pendingSmallPositionId != 0 ? Ctx.pendingSmallPositionId : Ctx.smallIdentifier);
+   snapshot.farIdentifier = Ctx.farIdentifier;
+   snapshot.bigCoreIdentifier = Ctx.bigCoreIdentifier;
+   snapshot.bigTrendIdentifier = Ctx.bigTrendIdentifier;
+   snapshot.smallBaseIdentifier = Ctx.smallBaseIdentifier;
+   snapshot.reverseSmallIdentifier = Ctx.reverseSmallIdentifier;
+   snapshot.eventType = type;
+   return true;
+}
+
+long ReserveEventKeyHash(ReserveEventContextSnapshot &snapshot)
+{
+   string key = StringFormat("%I64d|%d|%I64u|%I64u|%d|%d|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%d",
+                             snapshot.symbolHash,
+                             snapshot.symbolLength,
+                             snapshot.magicNumber,
+                             snapshot.cycleId,
+                             snapshot.harvestLevel,
+                             snapshot.reverseCycle,
+                             snapshot.bigIdentifier,
+                             snapshot.smallIdentifier,
+                             snapshot.bigCoreIdentifier,
+                             snapshot.bigTrendIdentifier,
+                             snapshot.smallBaseIdentifier,
+                             snapshot.reverseSmallIdentifier,
+                             snapshot.farIdentifier,
+                             (int)snapshot.eventType);
+   long hash = 1469598103934665603;
+   for(int i = 0; i < StringLen(key); i++)
+      hash = (hash ^ StringGetCharacter(key, i)) * 1099511628211;
+   return hash;
+}
+
+long ReserveEventKeyHash(ReserveEventType type)
+{
+   ReserveEventContextSnapshot snapshot;
+   BuildReserveEventContext(type, snapshot);
+   return ReserveEventKeyHash(snapshot);
 }
 
 long ReserveLedgerEntryHash(ReserveLedgerEntry &entry)
 {
    ulong bigId = (ulong)entry.bigIdentifier;
    ulong smallId = (ulong)entry.smallIdentifier;
-   string key = StringFormat("%s|%I64u|%I64u|%d|%d|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%d",
-                             entry.symbol,
+   string key = StringFormat("%I64d|%d|%I64u|%I64u|%d|%d|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%I64u|%d",
+                             entry.symbolHash,
+                             entry.symbolLength,
                              entry.magicNumber,
                              entry.cycleId,
                              entry.harvestLevel,
@@ -80,84 +132,99 @@ bool ReserveEventAlreadyApplied(long eventKeyHash)
    return false;
 }
 
-void AppendReserveLedgerEntry(ReserveEventType type, double amount, double reserveBefore, double reserveAfter)
+void AppendReserveLedgerEntryFromSnapshot(ReserveEventContextSnapshot &snapshot, double amount, double reserveBefore, double reserveAfter)
 {
    int index = ArraySize(ReserveLedger);
    ArrayResize(ReserveLedger, index + 1);
    ReserveLedger[index].eventId = NextReserveEventId++;
    ReserveLedger[index].timestamp = TimeCurrent();
-   ReserveLedger[index].type = type;
+   ReserveLedger[index].type = snapshot.eventType;
    ReserveLedger[index].amount = amount;
    ReserveLedger[index].reserveBefore = reserveBefore;
    ReserveLedger[index].reserveAfter = reserveAfter;
-   ReserveLedger[index].symbol = _Symbol;
-   ReserveLedger[index].magicNumber = MagicNumber;
-   ReserveLedger[index].cycleId = Ctx.cycleId;
-   ReserveLedger[index].bigIdentifier = (long)Ctx.bigIdentifier;
-   ReserveLedger[index].smallIdentifier = (long)Ctx.smallIdentifier;
-   ReserveLedger[index].farIdentifier = (long)Ctx.farIdentifier;
-   ReserveLedger[index].bigCoreIdentifier = (long)Ctx.bigCoreIdentifier;
-   ReserveLedger[index].bigTrendIdentifier = (long)Ctx.bigTrendIdentifier;
-   ReserveLedger[index].smallBaseIdentifier = (long)Ctx.smallBaseIdentifier;
-   ReserveLedger[index].reverseSmallIdentifier = (long)Ctx.reverseSmallIdentifier;
-   ReserveLedger[index].harvestLevel = Ctx.harvestLevel;
-   ReserveLedger[index].reverseCycle = Ctx.reverseCycleCount;
-   ReserveLedger[index].eventKeyHash = ReserveEventKeyHash(type);
+   ReserveLedger[index].symbol = snapshot.symbol;
+   ReserveLedger[index].symbolHash = snapshot.symbolHash;
+   ReserveLedger[index].symbolHashHigh = snapshot.symbolHashHigh;
+   ReserveLedger[index].symbolHashLow = snapshot.symbolHashLow;
+   ReserveLedger[index].symbolLength = snapshot.symbolLength;
+   ReserveLedger[index].magicNumber = snapshot.magicNumber;
+   ReserveLedger[index].cycleId = snapshot.cycleId;
+   ReserveLedger[index].bigIdentifier = (long)snapshot.bigIdentifier;
+   ReserveLedger[index].smallIdentifier = (long)snapshot.smallIdentifier;
+   ReserveLedger[index].farIdentifier = (long)snapshot.farIdentifier;
+   ReserveLedger[index].bigCoreIdentifier = (long)snapshot.bigCoreIdentifier;
+   ReserveLedger[index].bigTrendIdentifier = (long)snapshot.bigTrendIdentifier;
+   ReserveLedger[index].smallBaseIdentifier = (long)snapshot.smallBaseIdentifier;
+   ReserveLedger[index].reverseSmallIdentifier = (long)snapshot.reverseSmallIdentifier;
+   ReserveLedger[index].harvestLevel = snapshot.harvestLevel;
+   ReserveLedger[index].reverseCycle = snapshot.reverseCycle;
+   ReserveLedger[index].eventKeyHash = ReserveEventKeyHash(snapshot);
    SplitReserveEventKeyHash(ReserveLedger[index].eventKeyHash, ReserveLedger[index].eventKeyHashHigh, ReserveLedger[index].eventKeyHashLow);
-   LogInfo(StringFormat("SPLIT_RESERVE_LEDGER_SAVE Symbol=%s MagicNumber=%I64u CycleId=%I64u EventId=%d EventType=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f BigCoreIdentifier=%I64u BigTrendIdentifier=%I64u SmallBaseIdentifier=%I64u FarIdentifier=%I64u Level=%d ReserveEventKeyHash=%I64d EventKeyHashHigh32=%u EventKeyHashLow32=%u", _Symbol, MagicNumber, Ctx.cycleId, ReserveLedger[index].eventId, (int)type, amount, reserveBefore, reserveAfter, Ctx.bigCoreIdentifier, Ctx.bigTrendIdentifier, Ctx.smallBaseIdentifier, Ctx.farIdentifier, Ctx.harvestLevel, ReserveLedger[index].eventKeyHash, ReserveLedger[index].eventKeyHashHigh, ReserveLedger[index].eventKeyHashLow));
-   LogInfo(StringFormat("RESERVE_LEDGER eventId=%d type=%d amount=%.2f reserveBefore=%.2f reserveAfter=%.2f bigIdentifier=%I64d smallIdentifier=%I64d farIdentifier=%I64d harvestLevel=%d reverseCycle=%d ReserveEventKeyHash=%I64d",
-                        ReserveLedger[index].eventId,
-                        (int)type,
-                        amount,
-                        reserveBefore,
-                        reserveAfter,
-                        ReserveLedger[index].bigIdentifier,
-                        ReserveLedger[index].smallIdentifier,
-                        ReserveLedger[index].farIdentifier,
-                        ReserveLedger[index].harvestLevel,
-                        ReserveLedger[index].reverseCycle,
-                        ReserveLedger[index].eventKeyHash));
+   LogInfo(StringFormat("SPLIT_RESERVE_LEDGER_SAVE Symbol=%s SymbolHash=%I64d MagicNumber=%I64u CycleId=%I64u EventId=%d EventType=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f BigCoreIdentifier=%I64u BigTrendIdentifier=%I64u SmallBaseIdentifier=%I64u FarIdentifier=%I64u Level=%d ReserveEventKeyHash=%I64d EventKeyHashHigh32=%u EventKeyHashLow32=%u", snapshot.symbol, snapshot.symbolHash, snapshot.magicNumber, snapshot.cycleId, ReserveLedger[index].eventId, (int)snapshot.eventType, amount, reserveBefore, reserveAfter, snapshot.bigCoreIdentifier, snapshot.bigTrendIdentifier, snapshot.smallBaseIdentifier, snapshot.farIdentifier, snapshot.harvestLevel, ReserveLedger[index].eventKeyHash, ReserveLedger[index].eventKeyHashHigh, ReserveLedger[index].eventKeyHashLow));
+}
+
+void AppendReserveLedgerEntry(ReserveEventType type, double amount, double reserveBefore, double reserveAfter)
+{
+   ReserveEventContextSnapshot snapshot;
+   BuildReserveEventContext(type, snapshot);
+   AppendReserveLedgerEntryFromSnapshot(snapshot, amount, reserveBefore, reserveAfter);
+}
+
+bool ApplyReserveCreditSnapshot(ReserveEventContextSnapshot &snapshot, double amount)
+{
+   if(amount <= 0.0)
+      return true;
+   long eventKeyHash = ReserveEventKeyHash(snapshot);
+   if(ReserveEventAlreadyApplied(eventKeyHash))
+   {
+      LogInfo(StringFormat("WARNING_RESERVE_CREDIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=YES", eventKeyHash, (int)snapshot.eventType, amount, Ctx.totalReserve, Ctx.totalReserve));
+      return true;
+   }
+   double before = Ctx.totalReserve;
+   double after = before + amount;
+   AppendReserveLedgerEntryFromSnapshot(snapshot, amount, before, after);
+   Ctx.totalReserve = after;
+   LogInfo(StringFormat("RESERVE_CREDIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=NO AtomicPhase=LEDGER_THEN_CACHE", eventKeyHash, (int)snapshot.eventType, amount, before, Ctx.totalReserve));
+   SaveState();
+   return true;
 }
 
 bool ApplyReserveCredit(ReserveEventType type, double amount)
 {
+   ReserveEventContextSnapshot snapshot;
+   BuildReserveEventContext(type, snapshot);
+   return ApplyReserveCreditSnapshot(snapshot, amount);
+}
+
+bool ApplyReserveDebitSnapshot(ReserveEventContextSnapshot &snapshot, double amount)
+{
    if(amount <= 0.0)
       return true;
-   long eventKeyHash = ReserveEventKeyHash(type);
+   long eventKeyHash = ReserveEventKeyHash(snapshot);
    if(ReserveEventAlreadyApplied(eventKeyHash))
    {
-      LogInfo(StringFormat("WARNING_RESERVE_CREDIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=YES", eventKeyHash, (int)type, amount, Ctx.totalReserve, Ctx.totalReserve));
+      LogInfo(StringFormat("WARNING_RESERVE_DEBIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=YES", eventKeyHash, (int)snapshot.eventType, amount, Ctx.totalReserve, Ctx.totalReserve));
       return true;
    }
+   if(Ctx.totalReserve + ReserveMismatchTolerance < amount)
+   {
+      LogError(StringFormat("ERROR_RESERVE_DEBIT_EXCEEDS_BALANCE EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f", eventKeyHash, (int)snapshot.eventType, amount, Ctx.totalReserve));
+      return false;
+   }
    double before = Ctx.totalReserve;
-   Ctx.totalReserve = before + amount;
-   AppendReserveLedgerEntry(type, amount, before, Ctx.totalReserve);
-   LogInfo(StringFormat("RESERVE_CREDIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=NO", eventKeyHash, (int)type, amount, before, Ctx.totalReserve));
+   double after = MathMax(0.0, before - amount);
+   AppendReserveLedgerEntryFromSnapshot(snapshot, -amount, before, after);
+   Ctx.totalReserve = after;
+   LogInfo(StringFormat("RESERVE_DEBIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=NO AtomicPhase=LEDGER_THEN_CACHE", eventKeyHash, (int)snapshot.eventType, amount, before, Ctx.totalReserve));
    SaveState();
    return true;
 }
 
 bool ApplyReserveDebit(ReserveEventType type, double amount)
 {
-   if(amount <= 0.0)
-      return true;
-   long eventKeyHash = ReserveEventKeyHash(type);
-   if(ReserveEventAlreadyApplied(eventKeyHash))
-   {
-      LogInfo(StringFormat("WARNING_RESERVE_DEBIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=YES", eventKeyHash, (int)type, amount, Ctx.totalReserve, Ctx.totalReserve));
-      return true;
-   }
-   if(Ctx.totalReserve + ReserveMismatchTolerance < amount)
-   {
-      LogError(StringFormat("ERROR_RESERVE_DEBIT_EXCEEDS_BALANCE EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f", eventKeyHash, (int)type, amount, Ctx.totalReserve));
-      return false;
-   }
-   double before = Ctx.totalReserve;
-   Ctx.totalReserve = MathMax(0.0, before - amount);
-   AppendReserveLedgerEntry(type, -amount, before, Ctx.totalReserve);
-   LogInfo(StringFormat("RESERVE_DEBIT EventKey=%I64d Type=%d Amount=%.2f ReserveBefore=%.2f ReserveAfter=%.2f AlreadyApplied=NO", eventKeyHash, (int)type, amount, before, Ctx.totalReserve));
-   SaveState();
-   return true;
+   ReserveEventContextSnapshot snapshot;
+   BuildReserveEventContext(type, snapshot);
+   return ApplyReserveDebitSnapshot(snapshot, amount);
 }
 
 void ApplyReserveReset(double amount, string reason)
@@ -276,29 +343,29 @@ string StateKey(string field)
 void SaveState()
 {
    GlobalVariableSet(StateKey("State"), (double)State);
-   GlobalVariableSet(StateKey("FarTicket"), (double)Ctx.farTicket);
-   GlobalVariableSet(StateKey("FarIdentifier"), (double)Ctx.farIdentifier);
+   SaveStateUlong64("FarTicket", Ctx.farTicket);
+   SaveStateUlong64("FarIdentifier", Ctx.farIdentifier);
    GlobalVariableSet(StateKey("FarLot"), Ctx.farLot);
    GlobalVariableSet(StateKey("FarOpenPrice"), Ctx.farOpenPrice);
    GlobalVariableSet(StateKey("FarDirection"), (double)Ctx.farDirection);
-   GlobalVariableSet(StateKey("BigTicket"), (double)Ctx.bigTicket);
-   GlobalVariableSet(StateKey("BigIdentifier"), (double)Ctx.bigIdentifier);
+   SaveStateUlong64("BigTicket", Ctx.bigTicket);
+   SaveStateUlong64("BigIdentifier", Ctx.bigIdentifier);
    GlobalVariableSet(StateKey("BigLot"), Ctx.bigLot);
    GlobalVariableSet(StateKey("BigOpenPrice"), Ctx.bigOpenPrice);
    GlobalVariableSet(StateKey("BigDirection"), (double)Ctx.bigDirection);
-   GlobalVariableSet(StateKey("SmallTicket"), (double)Ctx.smallTicket);
-   GlobalVariableSet(StateKey("SmallIdentifier"), (double)Ctx.smallIdentifier);
+   SaveStateUlong64("SmallTicket", Ctx.smallTicket);
+   SaveStateUlong64("SmallIdentifier", Ctx.smallIdentifier);
    GlobalVariableSet(StateKey("SmallLot"), Ctx.smallLot);
    GlobalVariableSet(StateKey("SmallOpenPrice"), Ctx.smallOpenPrice);
    GlobalVariableSet(StateKey("SmallDirection"), (double)Ctx.smallDirection);
-   GlobalVariableSet(StateKey("BigCoreTicket"), (double)Ctx.bigCoreTicket);
-   GlobalVariableSet(StateKey("BigTrendTicket"), (double)Ctx.bigTrendTicket);
-   GlobalVariableSet(StateKey("SmallBaseTicket"), (double)Ctx.smallBaseTicket);
-   GlobalVariableSet(StateKey("ReverseSmallTicket"), (double)Ctx.reverseSmallTicket);
-   GlobalVariableSet(StateKey("BigCoreIdentifier"), (double)Ctx.bigCoreIdentifier);
-   GlobalVariableSet(StateKey("BigTrendIdentifier"), (double)Ctx.bigTrendIdentifier);
-   GlobalVariableSet(StateKey("SmallBaseIdentifier"), (double)Ctx.smallBaseIdentifier);
-   GlobalVariableSet(StateKey("ReverseSmallIdentifier"), (double)Ctx.reverseSmallIdentifier);
+   SaveStateUlong64("BigCoreTicket", Ctx.bigCoreTicket);
+   SaveStateUlong64("BigTrendTicket", Ctx.bigTrendTicket);
+   SaveStateUlong64("SmallBaseTicket", Ctx.smallBaseTicket);
+   SaveStateUlong64("ReverseSmallTicket", Ctx.reverseSmallTicket);
+   SaveStateUlong64("BigCoreIdentifier", Ctx.bigCoreIdentifier);
+   SaveStateUlong64("BigTrendIdentifier", Ctx.bigTrendIdentifier);
+   SaveStateUlong64("SmallBaseIdentifier", Ctx.smallBaseIdentifier);
+   SaveStateUlong64("ReverseSmallIdentifier", Ctx.reverseSmallIdentifier);
    GlobalVariableSet(StateKey("BigCoreLot"), Ctx.bigCoreLot);
    GlobalVariableSet(StateKey("BigTrendLot"), Ctx.bigTrendLot);
    GlobalVariableSet(StateKey("SmallBaseLot"), Ctx.smallBaseLot);
@@ -333,10 +400,10 @@ void SaveState()
    GlobalVariableSet(StateKey("NewFarCompressionRatio"), Ctx.newFarCompressionRatio);
    GlobalVariableSet(StateKey("ActualBigExposureLot"), Ctx.actualBigExposureLot);
    GlobalVariableSet(StateKey("ActualSmallExposureLot"), Ctx.actualSmallExposureLot);
-   GlobalVariableSet(StateKey("InitialBuyTicket"), (double)Ctx.initialBuyTicket);
-   GlobalVariableSet(StateKey("InitialSellTicket"), (double)Ctx.initialSellTicket);
-   GlobalVariableSet(StateKey("InitialBuyIdentifier"), (double)Ctx.initialBuyIdentifier);
-   GlobalVariableSet(StateKey("InitialSellIdentifier"), (double)Ctx.initialSellIdentifier);
+   SaveStateUlong64("InitialBuyTicket", Ctx.initialBuyTicket);
+   SaveStateUlong64("InitialSellTicket", Ctx.initialSellTicket);
+   SaveStateUlong64("InitialBuyIdentifier", Ctx.initialBuyIdentifier);
+   SaveStateUlong64("InitialSellIdentifier", Ctx.initialSellIdentifier);
    GlobalVariableSet(StateKey("InitialBuyLot"), Ctx.initialBuyLot);
    GlobalVariableSet(StateKey("InitialSellLot"), Ctx.initialSellLot);
    GlobalVariableSet(StateKey("InitialBuyOpenPrice"), Ctx.initialBuyOpenPrice);
@@ -346,32 +413,32 @@ void SaveState()
    GlobalVariableSet(StateKey("ReverseCycles"), (double)Ctx.reverseCycleCount);
    GlobalVariableSet(StateKey("TotalReserve"), Ctx.totalReserve);
    GlobalVariableSet(StateKey("ReserveLedgerCount"), (double)ArraySize(ReserveLedger));
-   GlobalVariableSet(StateKey("ReserveNextEventId"), (double)NextReserveEventId);
+   SaveStateLong64("ReserveNextEventId", NextReserveEventId);
    for(int ledgerIndex = 0; ledgerIndex < ArraySize(ReserveLedger); ledgerIndex++)
    {
       string prefix = StringFormat("ReserveLedger_%d_", ledgerIndex);
-      GlobalVariableSet(StateKey(prefix + "EventId"), (double)ReserveLedger[ledgerIndex].eventId);
+      SaveStateLong64(prefix + "EventId", ReserveLedger[ledgerIndex].eventId);
       GlobalVariableSet(StateKey(prefix + "Timestamp"), (double)ReserveLedger[ledgerIndex].timestamp);
       GlobalVariableSet(StateKey(prefix + "Type"), (double)ReserveLedger[ledgerIndex].type);
       GlobalVariableSet(StateKey(prefix + "Amount"), ReserveLedger[ledgerIndex].amount);
       GlobalVariableSet(StateKey(prefix + "ReserveBefore"), ReserveLedger[ledgerIndex].reserveBefore);
       GlobalVariableSet(StateKey(prefix + "ReserveAfter"), ReserveLedger[ledgerIndex].reserveAfter);
-      GlobalVariableSet(StateKey(prefix + "SymbolHash"), (double)StringToInteger(IntegerToString(StringLen(ReserveLedger[ledgerIndex].symbol))));
-      GlobalVariableSet(StateKey(prefix + "MagicNumber"), (double)ReserveLedger[ledgerIndex].magicNumber);
-      GlobalVariableSet(StateKey(prefix + "CycleId"), (double)ReserveLedger[ledgerIndex].cycleId);
-      GlobalVariableSet(StateKey(prefix + "BigIdentifier"), (double)ReserveLedger[ledgerIndex].bigIdentifier);
-      GlobalVariableSet(StateKey(prefix + "SmallIdentifier"), (double)ReserveLedger[ledgerIndex].smallIdentifier);
-      GlobalVariableSet(StateKey(prefix + "FarIdentifier"), (double)ReserveLedger[ledgerIndex].farIdentifier);
-      GlobalVariableSet(StateKey(prefix + "BigCoreIdentifier"), (double)ReserveLedger[ledgerIndex].bigCoreIdentifier);
-      GlobalVariableSet(StateKey(prefix + "BigTrendIdentifier"), (double)ReserveLedger[ledgerIndex].bigTrendIdentifier);
-      GlobalVariableSet(StateKey(prefix + "SmallBaseIdentifier"), (double)ReserveLedger[ledgerIndex].smallBaseIdentifier);
-      GlobalVariableSet(StateKey(prefix + "ReverseSmallIdentifier"), (double)ReserveLedger[ledgerIndex].reverseSmallIdentifier);
+      SaveStateLong64(prefix + "SymbolHash", ReserveLedger[ledgerIndex].symbolHash);
+      GlobalVariableSet(StateKey(prefix + "SymbolLength"), (double)ReserveLedger[ledgerIndex].symbolLength);
+      SaveStateUlong64(prefix + "MagicNumber", ReserveLedger[ledgerIndex].magicNumber);
+      SaveStateUlong64(prefix + "CycleId", ReserveLedger[ledgerIndex].cycleId);
+      SaveStateLong64(prefix + "BigIdentifier", ReserveLedger[ledgerIndex].bigIdentifier);
+      SaveStateLong64(prefix + "SmallIdentifier", ReserveLedger[ledgerIndex].smallIdentifier);
+      SaveStateLong64(prefix + "FarIdentifier", ReserveLedger[ledgerIndex].farIdentifier);
+      SaveStateLong64(prefix + "BigCoreIdentifier", ReserveLedger[ledgerIndex].bigCoreIdentifier);
+      SaveStateLong64(prefix + "BigTrendIdentifier", ReserveLedger[ledgerIndex].bigTrendIdentifier);
+      SaveStateLong64(prefix + "SmallBaseIdentifier", ReserveLedger[ledgerIndex].smallBaseIdentifier);
+      SaveStateLong64(prefix + "ReverseSmallIdentifier", ReserveLedger[ledgerIndex].reverseSmallIdentifier);
       GlobalVariableSet(StateKey(prefix + "HarvestLevel"), (double)ReserveLedger[ledgerIndex].harvestLevel);
       GlobalVariableSet(StateKey(prefix + "ReverseCycle"), (double)ReserveLedger[ledgerIndex].reverseCycle);
-      GlobalVariableSet(StateKey(prefix + "EventKeyHashHigh32"), (double)ReserveLedger[ledgerIndex].eventKeyHashHigh);
-      GlobalVariableSet(StateKey(prefix + "EventKeyHashLow32"), (double)ReserveLedger[ledgerIndex].eventKeyHashLow);
+      SaveStateLong64(prefix + "EventKeyHash", ReserveLedger[ledgerIndex].eventKeyHash);
    }
-   GlobalVariableSet(StateKey("CycleId"), (double)Ctx.cycleId);
+   SaveStateUlong64("CycleId", Ctx.cycleId);
    GlobalVariableSet(StateKey("InitialProfitIgnored"), Ctx.initialProfitIgnored ? 1.0 : 0.0);
    GlobalVariableSet(StateKey("EffectiveFarDistancePoints"), Ctx.effectiveFarDistancePoints);
    GlobalVariableSet(StateKey("CycleATRRaw"), Ctx.cycleATRRaw);
@@ -393,17 +460,17 @@ void SaveState()
    GlobalVariableSet(StateKey("RealCyclePL"), Ctx.realCyclePL);
    GlobalVariableSet(StateKey("FinalCloseAllowed"), Ctx.finalCloseAllowed ? 1.0 : 0.0);
    GlobalVariableSet(StateKey("LastRetryState"), (double)Ctx.lastRetryState);
-   GlobalVariableSet(StateKey("RetryTicket"), (double)Ctx.retryTicket);
+   SaveStateUlong64("RetryTicket", Ctx.retryTicket);
    GlobalVariableSet(StateKey("RetryLot"), Ctx.retryLot);
    GlobalVariableSet(StateKey("RetryAttempts"), (double)Ctx.retryAttempts);
    GlobalVariableSet(StateKey("PendingActionType"), (double)Ctx.pendingActionType);
    GlobalVariableSet(StateKey("PendingNextState"), (double)Ctx.pendingNextState);
-   GlobalVariableSet(StateKey("PendingTicket"), (double)Ctx.pendingTicket);
+   SaveStateUlong64("PendingTicket", Ctx.pendingTicket);
    GlobalVariableSet(StateKey("PendingLot"), Ctx.pendingLot);
    GlobalVariableSet(StateKey("PendingAttempts"), (double)Ctx.pendingAttempts);
    GlobalVariableSet(StateKey("PendingOperationStartTime"), (double)Ctx.pendingOperationStartTime);
-   GlobalVariableSet(StateKey("PendingBigPositionId"), (double)Ctx.pendingBigPositionId);
-   GlobalVariableSet(StateKey("PendingSmallPositionId"), (double)Ctx.pendingSmallPositionId);
+   SaveStateUlong64("PendingBigPositionId", Ctx.pendingBigPositionId);
+   SaveStateUlong64("PendingSmallPositionId", Ctx.pendingSmallPositionId);
    GlobalVariableSet(StateKey("PendingRealNet"), Ctx.pendingRealNet);
    GlobalVariableSet(StateKey("PendingCloseFarBudget"), Ctx.pendingCloseFarBudget);
    GlobalVariableSet(StateKey("PendingReserveAdd"), Ctx.pendingReserveAdd);
@@ -423,7 +490,7 @@ void SaveState()
    GlobalVariableSet(StateKey("SavedSmallTouchPrice"), Ctx.savedSmallTouchPrice);
    GlobalVariableSet(StateKey("SavedSmallOpenPrice"), Ctx.savedSmallOpenPrice);
    GlobalVariableSet(StateKey("SavedSmallLot"), Ctx.savedSmallLot);
-   GlobalVariableSet(StateKey("OldFarTicket"), (double)Ctx.oldFarTicket);
+   SaveStateUlong64("OldFarTicket", Ctx.oldFarTicket);
    GlobalVariableSet(StateKey("OldFarLot"), Ctx.oldFarLot);
    GlobalVariableSet(StateKey("OldFarDirection"), (double)Ctx.oldFarDirection);
    GlobalVariableSet(StateKey("OldFarOpenPrice"), Ctx.oldFarOpenPrice);
@@ -447,6 +514,104 @@ bool GetStateDouble(string field, double &value)
       return false;
    value = GlobalVariableGet(key);
    return true;
+}
+
+void SaveStateUlong64(string field, ulong value)
+{
+   uint high32, low32;
+   SplitUlong64(value, high32, low32);
+   GlobalVariableSet(StateKey(field + "High32"), (double)high32);
+   GlobalVariableSet(StateKey(field + "Low32"), (double)low32);
+}
+
+void SaveStateLong64(string field, long value)
+{
+   uint high32, low32;
+   SplitLong64(value, high32, low32);
+   GlobalVariableSet(StateKey(field + "High32"), (double)high32);
+   GlobalVariableSet(StateKey(field + "Low32"), (double)low32);
+}
+
+bool LoadRequiredStateUlong64(string highKey, string lowKey, ulong &value, string fieldName)
+{
+   string hk = StateKey(highKey);
+   string lk = StateKey(lowKey);
+   if(!GlobalVariableCheck(hk) || !GlobalVariableCheck(lk))
+   {
+      LogError("RESERVE_LEDGER_REQUIRED_FIELD_MISSING Field=" + fieldName);
+      State = STATE_RECOVERY_MISMATCH;
+      Ctx.lastError = "RESERVE_LEDGER_REQUIRED_FIELD_MISSING " + fieldName;
+      return false;
+   }
+   value = RestoreUlong64((uint)GlobalVariableGet(hk), (uint)GlobalVariableGet(lk));
+   return true;
+}
+
+bool LoadRequiredStateLong64(string highKey, string lowKey, long &value, string fieldName)
+{
+   string hk = StateKey(highKey);
+   string lk = StateKey(lowKey);
+   if(!GlobalVariableCheck(hk) || !GlobalVariableCheck(lk))
+   {
+      LogError("RESERVE_LEDGER_REQUIRED_FIELD_MISSING Field=" + fieldName);
+      State = STATE_RECOVERY_MISMATCH;
+      Ctx.lastError = "RESERVE_LEDGER_REQUIRED_FIELD_MISSING " + fieldName;
+      return false;
+   }
+   value = RestoreLong64((uint)GlobalVariableGet(hk), (uint)GlobalVariableGet(lk));
+   return true;
+}
+
+bool LoadStateUlong64(string field, ulong &value)
+{
+   string hk = StateKey(field + "High32");
+   string lk = StateKey(field + "Low32");
+   if(GlobalVariableCheck(hk) && GlobalVariableCheck(lk))
+   {
+      value = RestoreUlong64((uint)GlobalVariableGet(hk), (uint)GlobalVariableGet(lk));
+      return true;
+   }
+   double legacy = 0.0;
+   if(GetStateDouble(field, legacy))
+   {
+      bool risk = (MathAbs(legacy) > 9007199254740992.0);
+      LogInfo(StringFormat("LEGACY_64BIT_STATE_MIGRATION Field=%s LegacyValue=%.0f RestoredValue=%.0f PrecisionRisk=%s", field, legacy, legacy, risk ? "YES" : "NO"));
+      if(risk)
+      {
+         State = STATE_RECOVERY_MISMATCH;
+         Ctx.lastError = "LEGACY_64BIT_STATE_MIGRATION_PRECISION_RISK " + field;
+         return false;
+      }
+      value = (ulong)legacy;
+      return true;
+   }
+   return false;
+}
+
+bool LoadStateLong64(string field, long &value)
+{
+   string hk = StateKey(field + "High32");
+   string lk = StateKey(field + "Low32");
+   if(GlobalVariableCheck(hk) && GlobalVariableCheck(lk))
+   {
+      value = RestoreLong64((uint)GlobalVariableGet(hk), (uint)GlobalVariableGet(lk));
+      return true;
+   }
+   double legacy = 0.0;
+   if(GetStateDouble(field, legacy))
+   {
+      bool risk = (MathAbs(legacy) > 9007199254740992.0);
+      LogInfo(StringFormat("LEGACY_64BIT_STATE_MIGRATION Field=%s LegacyValue=%.0f RestoredValue=%.0f PrecisionRisk=%s", field, legacy, legacy, risk ? "YES" : "NO"));
+      if(risk)
+      {
+         State = STATE_RECOVERY_MISMATCH;
+         Ctx.lastError = "LEGACY_64BIT_STATE_MIGRATION_PRECISION_RISK " + field;
+         return false;
+      }
+      value = (long)legacy;
+      return true;
+   }
+   return false;
 }
 
 bool IsPositionFullyClosed(double actualVolume)
@@ -761,6 +926,30 @@ void LogManagedPositionsForRecovery()
 }
 
 
+
+bool ValidateReserveEventRequiredIdentifiers(ReserveLedgerEntry &entry)
+{
+   bool ok = true;
+   if(entry.cycleId == 0)
+   {
+      LogError(StringFormat("RESERVE_LEDGER_REQUIRED_IDENTIFIER_MISSING EventId=%I64d CycleId=%I64u", entry.eventId, entry.cycleId));
+      ok = false;
+   }
+   if(entry.type == RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD)
+   {
+      if(entry.bigCoreIdentifier == 0 || entry.bigTrendIdentifier == 0 || entry.smallBaseIdentifier == 0)
+      {
+         LogError(StringFormat("RESERVE_LEDGER_REQUIRED_IDENTIFIER_MISSING EventId=%I64d EventType=SPLIT_BIG_HARVEST BigCore=%I64d BigTrend=%I64d SmallBase=%I64d Far=%I64d", entry.eventId, entry.bigCoreIdentifier, entry.bigTrendIdentifier, entry.smallBaseIdentifier, entry.farIdentifier));
+         ok = false;
+      }
+   }
+   if(entry.type == RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT && entry.farIdentifier == 0)
+   {
+      LogError(StringFormat("RESERVE_LEDGER_REQUIRED_IDENTIFIER_MISSING EventId=%I64d EventType=SPLIT_BIG_FINAL_DEBIT FarIdentifier=%I64d", entry.eventId, entry.farIdentifier));
+      ok = false;
+   }
+   return ok;
+}
 bool VerifyReserveLedgerPersistence()
 {
    double ledgerReserve = 0.0;
@@ -773,14 +962,21 @@ bool VerifyReserveLedgerPersistence()
       long recomputedHash = ReserveLedgerEntryHash(entry);
       if(restoredHash != recomputedHash)
       {
-         LogError(StringFormat("RESERVE_EVENT_KEY_RESTORE_FAILED Index=%d EventId=%I64d RestoredHash=%I64d RecomputedHash=%I64d High32=%u Low32=%u", i, entry.eventId, restoredHash, recomputedHash, entry.eventKeyHashHigh, entry.eventKeyHashLow));
+         LogError(StringFormat("RESERVE_EVENT_KEY_COMPONENT_MISMATCH RESERVE_EVENT_KEY_RESTORE_FAILED Index=%d EventId=%I64d RestoredHash=%I64d RecomputedHash=%I64d High32=%u Low32=%u", i, entry.eventId, restoredHash, recomputedHash, entry.eventKeyHashHigh, entry.eventKeyHashLow));
          ok = false;
       }
-      if(entry.symbol != _Symbol || entry.magicNumber != MagicNumber || entry.cycleId != Ctx.cycleId)
+      long currentSymbolHash = StableSymbolHash64(_Symbol);
+      if(entry.symbolHash != currentSymbolHash || entry.symbolLength != StringLen(_Symbol))
       {
-         LogError(StringFormat("RESERVE_LEDGER_CONTEXT_MISMATCH Index=%d EventId=%I64d EntrySymbol=%s CurrentSymbol=%s EntryMagic=%I64u CurrentMagic=%I64u EntryCycle=%I64u CurrentCycle=%I64u", i, entry.eventId, entry.symbol, _Symbol, entry.magicNumber, MagicNumber, entry.cycleId, Ctx.cycleId));
+         LogError(StringFormat("RESERVE_LEDGER_SYMBOL_MISMATCH Index=%d EventId=%I64d StoredSymbolHash=%I64d CurrentSymbolHash=%I64d StoredLength=%d CurrentLength=%d", i, entry.eventId, entry.symbolHash, currentSymbolHash, entry.symbolLength, StringLen(_Symbol)));
          ok = false;
       }
+      if(entry.magicNumber != MagicNumber || entry.cycleId != Ctx.cycleId)
+      {
+         LogError(StringFormat("RESERVE_EVENT_KEY_COMPONENT_MISMATCH Index=%d EventId=%I64d Field=MagicOrCycle EntryMagic=%I64u CurrentMagic=%I64u EntryCycle=%I64u CurrentCycle=%I64u", i, entry.eventId, entry.magicNumber, MagicNumber, entry.cycleId, Ctx.cycleId));
+         ok = false;
+      }
+      ok = ValidateReserveEventRequiredIdentifiers(entry) && ok;
       if(entry.eventId <= lastEventId)
       {
          LogError(StringFormat("RESERVE_LEDGER_CHAIN_BROKEN Index=%d StopReason=event_id_order EventId=%I64d LastEventId=%I64d", i, entry.eventId, lastEventId));
@@ -826,29 +1022,29 @@ bool RecoverState()
    ResetRecoveryContext();
    double saved = 0.0;
    State = (EAState)(int)GlobalVariableGet(StateKey("State"));
-   Ctx.farTicket = (ulong)GlobalVariableGet(StateKey("FarTicket"));
-   if(GetStateDouble("FarIdentifier", saved)) Ctx.farIdentifier = (ulong)saved;
+   LoadStateUlong64("FarTicket", Ctx.farTicket);
+   LoadStateUlong64("FarIdentifier", Ctx.farIdentifier);
    Ctx.farLot = GlobalVariableGet(StateKey("FarLot"));
    Ctx.farOpenPrice = GlobalVariableGet(StateKey("FarOpenPrice"));
    Ctx.farDirection = (Direction)(int)GlobalVariableGet(StateKey("FarDirection"));
-   Ctx.bigTicket = (ulong)GlobalVariableGet(StateKey("BigTicket"));
-   if(GetStateDouble("BigIdentifier", saved)) Ctx.bigIdentifier = (ulong)saved;
+   LoadStateUlong64("BigTicket", Ctx.bigTicket);
+   LoadStateUlong64("BigIdentifier", Ctx.bigIdentifier);
    Ctx.bigLot = GlobalVariableGet(StateKey("BigLot"));
    Ctx.bigOpenPrice = GlobalVariableGet(StateKey("BigOpenPrice"));
    Ctx.bigDirection = (Direction)(int)GlobalVariableGet(StateKey("BigDirection"));
-   Ctx.smallTicket = (ulong)GlobalVariableGet(StateKey("SmallTicket"));
-   if(GetStateDouble("SmallIdentifier", saved)) Ctx.smallIdentifier = (ulong)saved;
+   LoadStateUlong64("SmallTicket", Ctx.smallTicket);
+   LoadStateUlong64("SmallIdentifier", Ctx.smallIdentifier);
    Ctx.smallLot = GlobalVariableGet(StateKey("SmallLot"));
    Ctx.smallOpenPrice = GlobalVariableGet(StateKey("SmallOpenPrice"));
    Ctx.smallDirection = (Direction)(int)GlobalVariableGet(StateKey("SmallDirection"));
-   if(GetStateDouble("BigCoreTicket", saved)) Ctx.bigCoreTicket = (ulong)saved;
-   if(GetStateDouble("BigTrendTicket", saved)) Ctx.bigTrendTicket = (ulong)saved;
-   if(GetStateDouble("SmallBaseTicket", saved)) Ctx.smallBaseTicket = (ulong)saved;
-   if(GetStateDouble("ReverseSmallTicket", saved)) Ctx.reverseSmallTicket = (ulong)saved;
-   if(GetStateDouble("BigCoreIdentifier", saved)) Ctx.bigCoreIdentifier = (ulong)saved;
-   if(GetStateDouble("BigTrendIdentifier", saved)) Ctx.bigTrendIdentifier = (ulong)saved;
-   if(GetStateDouble("SmallBaseIdentifier", saved)) Ctx.smallBaseIdentifier = (ulong)saved;
-   if(GetStateDouble("ReverseSmallIdentifier", saved)) Ctx.reverseSmallIdentifier = (ulong)saved;
+   LoadStateUlong64("BigCoreTicket", Ctx.bigCoreTicket);
+   LoadStateUlong64("BigTrendTicket", Ctx.bigTrendTicket);
+   LoadStateUlong64("SmallBaseTicket", Ctx.smallBaseTicket);
+   LoadStateUlong64("ReverseSmallTicket", Ctx.reverseSmallTicket);
+   LoadStateUlong64("BigCoreIdentifier", Ctx.bigCoreIdentifier);
+   LoadStateUlong64("BigTrendIdentifier", Ctx.bigTrendIdentifier);
+   LoadStateUlong64("SmallBaseIdentifier", Ctx.smallBaseIdentifier);
+   LoadStateUlong64("ReverseSmallIdentifier", Ctx.reverseSmallIdentifier);
    if(GetStateDouble("BigCoreLot", saved)) Ctx.bigCoreLot = saved;
    if(GetStateDouble("BigTrendLot", saved)) Ctx.bigTrendLot = saved;
    if(GetStateDouble("SmallBaseLot", saved)) Ctx.smallBaseLot = saved;
@@ -883,10 +1079,10 @@ bool RecoverState()
    if(GetStateDouble("NewFarCompressionRatio", saved)) Ctx.newFarCompressionRatio = saved;
    if(GetStateDouble("ActualBigExposureLot", saved)) Ctx.actualBigExposureLot = saved;
    if(GetStateDouble("ActualSmallExposureLot", saved)) Ctx.actualSmallExposureLot = saved;
-   if(GetStateDouble("InitialBuyTicket", saved)) Ctx.initialBuyTicket = (ulong)saved;
-   if(GetStateDouble("InitialSellTicket", saved)) Ctx.initialSellTicket = (ulong)saved;
-   if(GetStateDouble("InitialBuyIdentifier", saved)) Ctx.initialBuyIdentifier = (ulong)saved;
-   if(GetStateDouble("InitialSellIdentifier", saved)) Ctx.initialSellIdentifier = (ulong)saved;
+   LoadStateUlong64("InitialBuyTicket", Ctx.initialBuyTicket);
+   LoadStateUlong64("InitialSellTicket", Ctx.initialSellTicket);
+   LoadStateUlong64("InitialBuyIdentifier", Ctx.initialBuyIdentifier);
+   LoadStateUlong64("InitialSellIdentifier", Ctx.initialSellIdentifier);
    if(GetStateDouble("InitialBuyLot", saved)) Ctx.initialBuyLot = saved;
    if(GetStateDouble("InitialSellLot", saved)) Ctx.initialSellLot = saved;
    if(GetStateDouble("InitialBuyOpenPrice", saved)) Ctx.initialBuyOpenPrice = saved;
@@ -894,7 +1090,7 @@ bool RecoverState()
    if(GetStateDouble("InitialLockRecovered", saved)) Ctx.initialLockRecovered = (saved > 0.5);
    Ctx.harvestLevel = (int)GlobalVariableGet(StateKey("HarvestLevel"));
    Ctx.reverseCycleCount = (int)GlobalVariableGet(StateKey("ReverseCycles"));
-   if(GetStateDouble("CycleId", saved)) Ctx.cycleId = (ulong)saved;
+   LoadStateUlong64("CycleId", Ctx.cycleId);
    Ctx.totalReserve = GlobalVariableGet(StateKey("TotalReserve"));
    ArrayResize(ReserveLedger, 0);
    NextReserveEventId = 1;
@@ -905,30 +1101,47 @@ bool RecoverState()
       for(int ledgerIndex = 0; ledgerIndex < ledgerCount; ledgerIndex++)
       {
          string prefix = StringFormat("ReserveLedger_%d_", ledgerIndex);
-         if(GetStateDouble(prefix + "EventId", saved)) ReserveLedger[ledgerIndex].eventId = (long)saved;
-         if(GetStateDouble(prefix + "Timestamp", saved)) ReserveLedger[ledgerIndex].timestamp = (datetime)saved;
-         if(GetStateDouble(prefix + "Type", saved)) ReserveLedger[ledgerIndex].type = (ReserveEventType)(int)saved;
-         if(GetStateDouble(prefix + "Amount", saved)) ReserveLedger[ledgerIndex].amount = saved;
-         if(GetStateDouble(prefix + "ReserveBefore", saved)) ReserveLedger[ledgerIndex].reserveBefore = saved;
-         if(GetStateDouble(prefix + "ReserveAfter", saved)) ReserveLedger[ledgerIndex].reserveAfter = saved;
+         bool ledgerFieldsOk = true;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "EventIdHigh32", prefix + "EventIdLow32", ReserveLedger[ledgerIndex].eventId, prefix + "EventId") && ledgerFieldsOk;
+         if(GetStateDouble(prefix + "Timestamp", saved)) ReserveLedger[ledgerIndex].timestamp = (datetime)saved; else ledgerFieldsOk = false;
+         if(GetStateDouble(prefix + "Type", saved)) ReserveLedger[ledgerIndex].type = (ReserveEventType)(int)saved; else ledgerFieldsOk = false;
+         if(GetStateDouble(prefix + "Amount", saved)) ReserveLedger[ledgerIndex].amount = saved; else ledgerFieldsOk = false;
+         if(GetStateDouble(prefix + "ReserveBefore", saved)) ReserveLedger[ledgerIndex].reserveBefore = saved; else ledgerFieldsOk = false;
+         if(GetStateDouble(prefix + "ReserveAfter", saved)) ReserveLedger[ledgerIndex].reserveAfter = saved; else ledgerFieldsOk = false;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "SymbolHashHigh32", prefix + "SymbolHashLow32", ReserveLedger[ledgerIndex].symbolHash, prefix + "SymbolHash") && ledgerFieldsOk;
+         if(GetStateDouble(prefix + "SymbolLength", saved)) ReserveLedger[ledgerIndex].symbolLength = (int)saved; else ledgerFieldsOk = false;
+         ulong restoredUlong = 0; long restoredLong = 0;
+         ledgerFieldsOk = LoadRequiredStateUlong64(prefix + "MagicNumberHigh32", prefix + "MagicNumberLow32", restoredUlong, prefix + "MagicNumber") && ledgerFieldsOk; ReserveLedger[ledgerIndex].magicNumber = restoredUlong;
+         ledgerFieldsOk = LoadRequiredStateUlong64(prefix + "CycleIdHigh32", prefix + "CycleIdLow32", restoredUlong, prefix + "CycleId") && ledgerFieldsOk; ReserveLedger[ledgerIndex].cycleId = restoredUlong;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "BigIdentifierHigh32", prefix + "BigIdentifierLow32", restoredLong, prefix + "BigIdentifier") && ledgerFieldsOk; ReserveLedger[ledgerIndex].bigIdentifier = restoredLong;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "SmallIdentifierHigh32", prefix + "SmallIdentifierLow32", restoredLong, prefix + "SmallIdentifier") && ledgerFieldsOk; ReserveLedger[ledgerIndex].smallIdentifier = restoredLong;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "FarIdentifierHigh32", prefix + "FarIdentifierLow32", restoredLong, prefix + "FarIdentifier") && ledgerFieldsOk; ReserveLedger[ledgerIndex].farIdentifier = restoredLong;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "BigCoreIdentifierHigh32", prefix + "BigCoreIdentifierLow32", restoredLong, prefix + "BigCoreIdentifier") && ledgerFieldsOk; ReserveLedger[ledgerIndex].bigCoreIdentifier = restoredLong;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "BigTrendIdentifierHigh32", prefix + "BigTrendIdentifierLow32", restoredLong, prefix + "BigTrendIdentifier") && ledgerFieldsOk; ReserveLedger[ledgerIndex].bigTrendIdentifier = restoredLong;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "SmallBaseIdentifierHigh32", prefix + "SmallBaseIdentifierLow32", restoredLong, prefix + "SmallBaseIdentifier") && ledgerFieldsOk; ReserveLedger[ledgerIndex].smallBaseIdentifier = restoredLong;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "ReverseSmallIdentifierHigh32", prefix + "ReverseSmallIdentifierLow32", restoredLong, prefix + "ReverseSmallIdentifier") && ledgerFieldsOk; ReserveLedger[ledgerIndex].reverseSmallIdentifier = restoredLong;
+         if(GetStateDouble(prefix + "HarvestLevel", saved)) ReserveLedger[ledgerIndex].harvestLevel = (int)saved; else ledgerFieldsOk = false;
+         if(GetStateDouble(prefix + "ReverseCycle", saved)) ReserveLedger[ledgerIndex].reverseCycle = (int)saved; else ledgerFieldsOk = false;
+         ledgerFieldsOk = LoadRequiredStateLong64(prefix + "EventKeyHashHigh32", prefix + "EventKeyHashLow32", ReserveLedger[ledgerIndex].eventKeyHash, prefix + "EventKeyHash") && ledgerFieldsOk;
+         SplitLong64(ReserveLedger[ledgerIndex].eventKeyHash, ReserveLedger[ledgerIndex].eventKeyHashHigh, ReserveLedger[ledgerIndex].eventKeyHashLow);
+         long currentSymbolHash = StableSymbolHash64(_Symbol);
+         if(ReserveLedger[ledgerIndex].symbolHash != currentSymbolHash || ReserveLedger[ledgerIndex].symbolLength != StringLen(_Symbol))
+         {
+            LogError(StringFormat("RESERVE_LEDGER_SYMBOL_MISMATCH Index=%d StoredSymbolHash=%I64d CurrentSymbolHash=%I64d StoredLength=%d CurrentLength=%d", ledgerIndex, ReserveLedger[ledgerIndex].symbolHash, currentSymbolHash, ReserveLedger[ledgerIndex].symbolLength, StringLen(_Symbol)));
+            State = STATE_RECOVERY_MISMATCH;
+            Ctx.lastError = "RESERVE_LEDGER_SYMBOL_MISMATCH";
+            ledgerFieldsOk = false;
+         }
          ReserveLedger[ledgerIndex].symbol = _Symbol;
-         if(GetStateDouble(prefix + "MagicNumber", saved)) ReserveLedger[ledgerIndex].magicNumber = (ulong)saved; else ReserveLedger[ledgerIndex].magicNumber = MagicNumber;
-         if(GetStateDouble(prefix + "CycleId", saved)) ReserveLedger[ledgerIndex].cycleId = (ulong)saved; else ReserveLedger[ledgerIndex].cycleId = Ctx.cycleId;
-         if(GetStateDouble(prefix + "BigIdentifier", saved)) ReserveLedger[ledgerIndex].bigIdentifier = (long)saved;
-         if(GetStateDouble(prefix + "SmallIdentifier", saved)) ReserveLedger[ledgerIndex].smallIdentifier = (long)saved;
-         if(GetStateDouble(prefix + "FarIdentifier", saved)) ReserveLedger[ledgerIndex].farIdentifier = (long)saved;
-         if(GetStateDouble(prefix + "BigCoreIdentifier", saved)) ReserveLedger[ledgerIndex].bigCoreIdentifier = (long)saved;
-         if(GetStateDouble(prefix + "BigTrendIdentifier", saved)) ReserveLedger[ledgerIndex].bigTrendIdentifier = (long)saved;
-         if(GetStateDouble(prefix + "SmallBaseIdentifier", saved)) ReserveLedger[ledgerIndex].smallBaseIdentifier = (long)saved;
-         if(GetStateDouble(prefix + "ReverseSmallIdentifier", saved)) ReserveLedger[ledgerIndex].reverseSmallIdentifier = (long)saved;
-         if(GetStateDouble(prefix + "HarvestLevel", saved)) ReserveLedger[ledgerIndex].harvestLevel = (int)saved;
-         if(GetStateDouble(prefix + "ReverseCycle", saved)) ReserveLedger[ledgerIndex].reverseCycle = (int)saved;
-         if(GetStateDouble(prefix + "EventKeyHashHigh32", saved)) ReserveLedger[ledgerIndex].eventKeyHashHigh = (uint)saved;
-         if(GetStateDouble(prefix + "EventKeyHashLow32", saved)) ReserveLedger[ledgerIndex].eventKeyHashLow = (uint)saved;
-         ReserveLedger[ledgerIndex].eventKeyHash = RestoreReserveEventKeyHash(ReserveLedger[ledgerIndex].eventKeyHashHigh, ReserveLedger[ledgerIndex].eventKeyHashLow);
+         if(!ledgerFieldsOk)
+         {
+            LogError(StringFormat("RESERVE_LEDGER_REQUIRED_FIELD_MISSING Index=%d", ledgerIndex));
+            State = STATE_RECOVERY_MISMATCH;
+            Ctx.lastError = "RESERVE_LEDGER_REQUIRED_FIELD_MISSING";
+         }
       }
    }
-   if(GetStateDouble("ReserveNextEventId", saved)) NextReserveEventId = (long)saved;
+   LoadStateLong64("ReserveNextEventId", NextReserveEventId);
    VerifyReserveLedgerPersistence();
 
    if(GetStateDouble("InitialProfitIgnored", saved)) Ctx.initialProfitIgnored = (saved > 0.5);
@@ -952,17 +1165,17 @@ bool RecoverState()
    if(GetStateDouble("RealCyclePL", saved)) Ctx.realCyclePL = saved;
    if(GetStateDouble("FinalCloseAllowed", saved)) Ctx.finalCloseAllowed = (saved > 0.5);
    if(GetStateDouble("LastRetryState", saved)) Ctx.lastRetryState = (EAState)(int)saved;
-   if(GetStateDouble("RetryTicket", saved)) Ctx.retryTicket = (ulong)saved;
+   LoadStateUlong64("RetryTicket", Ctx.retryTicket);
    if(GetStateDouble("RetryLot", saved)) Ctx.retryLot = saved;
    if(GetStateDouble("RetryAttempts", saved)) Ctx.retryAttempts = (int)saved;
    if(GetStateDouble("PendingActionType", saved)) Ctx.pendingActionType = (PendingActionType)(int)saved;
    if(GetStateDouble("PendingNextState", saved)) Ctx.pendingNextState = (EAState)(int)saved;
-   if(GetStateDouble("PendingTicket", saved)) Ctx.pendingTicket = (ulong)saved;
+   LoadStateUlong64("PendingTicket", Ctx.pendingTicket);
    if(GetStateDouble("PendingLot", saved)) Ctx.pendingLot = saved;
    if(GetStateDouble("PendingAttempts", saved)) Ctx.pendingAttempts = (int)saved;
    if(GetStateDouble("PendingOperationStartTime", saved)) Ctx.pendingOperationStartTime = (datetime)saved;
-   if(GetStateDouble("PendingBigPositionId", saved)) Ctx.pendingBigPositionId = (ulong)saved;
-   if(GetStateDouble("PendingSmallPositionId", saved)) Ctx.pendingSmallPositionId = (ulong)saved;
+   LoadStateUlong64("PendingBigPositionId", Ctx.pendingBigPositionId);
+   LoadStateUlong64("PendingSmallPositionId", Ctx.pendingSmallPositionId);
    if(GetStateDouble("PendingRealNet", saved)) Ctx.pendingRealNet = saved;
    if(GetStateDouble("PendingCloseFarBudget", saved)) Ctx.pendingCloseFarBudget = saved;
    if(GetStateDouble("PendingReserveAdd", saved)) Ctx.pendingReserveAdd = saved;
@@ -981,7 +1194,7 @@ bool RecoverState()
    if(GetStateDouble("SavedSmallTouchPrice", saved)) Ctx.savedSmallTouchPrice = saved;
    if(GetStateDouble("SavedSmallOpenPrice", saved)) Ctx.savedSmallOpenPrice = saved;
    if(GetStateDouble("SavedSmallLot", saved)) Ctx.savedSmallLot = saved;
-   if(GetStateDouble("OldFarTicket", saved)) Ctx.oldFarTicket = (ulong)saved;
+   LoadStateUlong64("OldFarTicket", Ctx.oldFarTicket);
    if(GetStateDouble("OldFarLot", saved)) Ctx.oldFarLot = saved;
    if(GetStateDouble("OldFarDirection", saved)) Ctx.oldFarDirection = (Direction)(int)saved;
    if(GetStateDouble("OldFarOpenPrice", saved)) Ctx.oldFarOpenPrice = saved;
@@ -3805,9 +4018,11 @@ bool CalculateActualPartialFarLossFromHistory(datetime fromTime, double &actualN
 
 void CompleteSplitFullFarClose(double reserveUsed)
 {
+   ReserveEventContextSnapshot finalDebitSnapshot;
+   BuildReserveEventContext(RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT, finalDebitSnapshot);
+   long frozenEventKey = ReserveEventKeyHash(finalDebitSnapshot);
+   LogInfo(StringFormat("SPLIT_FINAL_CLOSE_GUARD FrozenEventKey=%I64d FarIdentifier=%I64u BigCoreIdentifier=%I64u BigTrendIdentifier=%I64u SmallBaseIdentifier=%I64u CycleId=%I64u Level=%d", frozenEventKey, finalDebitSnapshot.farIdentifier, finalDebitSnapshot.bigCoreIdentifier, finalDebitSnapshot.bigTrendIdentifier, finalDebitSnapshot.smallBaseIdentifier, finalDebitSnapshot.cycleId, finalDebitSnapshot.harvestLevel));
    MarkSystemClose("SPLIT_FINAL_CLOSE_PROFIT");
-   ClearSplitRoleContext("SPLIT_FINAL_CLOSE_PROFIT clears Split roles before ClosedProfit guard");
-   ClearFarContext("SPLIT_FINAL_CLOSE_PROFIT confirmed by VerifyFullClose");
    RecalculateRealCycleStatsFromHistory();
    if(Ctx.realRecoveryPL < MinimumRecoveryProfitMoney)
    {
@@ -3815,14 +4030,16 @@ void CompleteSplitFullFarClose(double reserveUsed)
       SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split final close actual recovery below minimum");
       return;
    }
-   if(!ApplyReserveDebit(RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT, reserveUsed))
+   if(!ApplyReserveDebitSnapshot(finalDebitSnapshot, reserveUsed))
    {
       SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split final reserve debit failed");
       return;
    }
+   ClearSplitRoleContext("SPLIT_FINAL_CLOSE_PROFIT clears Split roles after frozen debit ledger");
+   ClearFarContext("SPLIT_FINAL_CLOSE_PROFIT confirmed by VerifyFullClose after frozen debit ledger");
    if(!ValidateNoOrphanManagedPositions())
       return;
-   LogInfo(StringFormat("SPLIT_CLOSED_PROFIT Symbol=%s MagicNumber=%I64u CycleId=%I64u Level=%d ReserveUsed=%.2f RecoveryPL=%.2f Result=PASS", _Symbol, MagicNumber, Ctx.cycleId, Ctx.harvestLevel, reserveUsed, Ctx.realRecoveryPL));
+   LogInfo(StringFormat("SPLIT_CLOSED_PROFIT Symbol=%s MagicNumber=%I64u CycleId=%I64u Level=%d ReserveUsed=%.2f RecoveryPL=%.2f Result=PASS", _Symbol, MagicNumber, finalDebitSnapshot.cycleId, finalDebitSnapshot.harvestLevel, reserveUsed, Ctx.realRecoveryPL));
    SetState(STATE_CLOSED_PROFIT, "SPLIT_FINAL_CLOSE_PROFIT completed");
 }
 

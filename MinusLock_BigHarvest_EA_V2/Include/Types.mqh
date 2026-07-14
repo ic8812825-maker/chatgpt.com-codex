@@ -173,6 +173,10 @@ struct ReserveLedgerEntry
    double reserveBefore;
    double reserveAfter;
    string symbol;
+   long symbolHash;
+   uint symbolHashHigh;
+   uint symbolHashLow;
+   int symbolLength;
    ulong magicNumber;
    ulong cycleId;
    long bigIdentifier;
@@ -187,6 +191,27 @@ struct ReserveLedgerEntry
    uint eventKeyHashHigh;
    uint eventKeyHashLow;
    long eventKeyHash;
+};
+
+struct ReserveEventContextSnapshot
+{
+   string symbol;
+   long symbolHash;
+   uint symbolHashHigh;
+   uint symbolHashLow;
+   int symbolLength;
+   ulong magicNumber;
+   ulong cycleId;
+   int harvestLevel;
+   int reverseCycle;
+   ulong bigIdentifier;
+   ulong smallIdentifier;
+   ulong farIdentifier;
+   ulong bigCoreIdentifier;
+   ulong bigTrendIdentifier;
+   ulong smallBaseIdentifier;
+   ulong reverseSmallIdentifier;
+   ReserveEventType eventType;
 };
 
 struct PositionResolutionResult
