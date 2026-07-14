@@ -82,3 +82,32 @@ def test_stage3_open_pending_classifier_does_not_require_ticket():
     assert 'retryTicket' not in open_block
     assert 'pendingLot > VolumeMismatchToleranceLots' in open_block
     assert 'pendingDirection != DIR_NONE' in open_block
+
+
+def test_stage4_uses_exact_64bit_helpers_and_symbol_hash_not_length_only():
+    for token in ['SplitUlong64', 'RestoreUlong64', 'SplitLong64', 'RestoreLong64', 'StableSymbolHash64']:
+        assert token in STATE
+    assert 'SymbolHash"), (double)StringToInteger(IntegerToString(StringLen' not in STATE
+    assert 'SaveStateUlong64("CycleId", Ctx.cycleId)' in STATE
+    assert 'LoadStateUlong64("CycleId", Ctx.cycleId)' in STATE
+
+
+def test_stage4_reserve_ledger_exact_fields_and_required_loaders():
+    for token in [
+        'SaveStateLong64(prefix + "EventId"',
+        'SaveStateUlong64(prefix + "MagicNumber"',
+        'SaveStateUlong64(prefix + "CycleId"',
+        'SaveStateLong64(prefix + "BigCoreIdentifier"',
+        'LoadRequiredStateLong64(prefix + "EventKeyHashHigh32"',
+        'RESERVE_LEDGER_REQUIRED_FIELD_MISSING',
+        'RESERVE_LEDGER_SYMBOL_MISMATCH',
+        'RESERVE_EVENT_KEY_COMPONENT_MISMATCH',
+    ]:
+        assert token in STATE
+
+
+def test_stage4_final_debit_uses_frozen_snapshot_before_context_clear():
+    final_close = STATE[STATE.index('void CompleteSplitFullFarClose'):STATE.index('void ProcessSplitBigOpenCore')]
+    assert 'BuildReserveEventContext(RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT, finalDebitSnapshot)' in final_close
+    assert final_close.index('BuildReserveEventContext(RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT, finalDebitSnapshot)') < final_close.index('ApplyReserveDebitSnapshot(finalDebitSnapshot')
+    assert final_close.index('ApplyReserveDebitSnapshot(finalDebitSnapshot') < final_close.index('ClearSplitRoleContext')
