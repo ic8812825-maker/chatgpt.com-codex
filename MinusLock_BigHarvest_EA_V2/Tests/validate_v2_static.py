@@ -59,8 +59,8 @@ for token in [
 
 assert "if(!riskOk && AllowRealTrading && StopOnRiskGateBlocked)" not in main
 assert "input double MaxSpreadPoints       = 40.0;" in config
-assert "input double CloseFarShare         = 0.20;" in config
-assert "input double ReserveShare          = 0.80;" in config
+assert "input double CloseFarShare         = 0.10;" in config
+assert "input double ReserveShare          = 0.90;" in config
 assert "input int    MaxReverseCycles              = 7;" in config
 
 
