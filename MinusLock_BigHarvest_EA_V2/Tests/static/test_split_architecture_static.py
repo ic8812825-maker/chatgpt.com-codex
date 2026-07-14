@@ -65,3 +65,20 @@ def test_split_max_levels_is_isolated_from_legacy_state():
     assert 'STATE_SPLIT_MAX_LEVELS_DECISION' in TYPES
     assert 'STATE_SPLIT_MAX_LEVELS_DECISION' in STATE
     assert 'STATE_SPLIT_MAX_LEVELS_DECISION' in INTEGRITY
+
+
+def test_stage3_event_key_hash_is_not_persisted_as_single_double():
+    assert 'EventKeyHashHigh32' in STATE
+    assert 'EventKeyHashLow32' in STATE
+    assert 'GlobalVariableSet(StateKey(prefix + "EventKeyHash"), (double)ReserveLedger[ledgerIndex].eventKeyHash)' not in STATE
+    assert 'RestoreReserveEventKeyHash' in STATE
+    assert 'RESERVE_EVENT_KEY_RESTORE_FAILED' in STATE
+
+
+def test_stage3_open_pending_classifier_does_not_require_ticket():
+    assert 'IsOpenPendingState' in INTEGRITY
+    open_block = INTEGRITY[INTEGRITY.index('if(IsOpenPendingState(state))'):INTEGRITY.index('else', INTEGRITY.index('if(IsOpenPendingState(state))'))]
+    assert 'pendingTicket' not in open_block
+    assert 'retryTicket' not in open_block
+    assert 'pendingLot > VolumeMismatchToleranceLots' in open_block
+    assert 'pendingDirection != DIR_NONE' in open_block
