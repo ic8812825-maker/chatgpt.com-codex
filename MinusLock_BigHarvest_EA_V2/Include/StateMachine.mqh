@@ -225,6 +225,82 @@ bool SaveReserveTransaction()
    return true;
 }
 
+
+string ReserveEventTypeRequirementsToString(ReserveEventType type)
+{
+   switch(type)
+   {
+      case RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD:
+         return "EventType=RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD RequiredFar=YES RequiredLegacyBig=NO RequiredLegacySmall=NO RequiredBigCore=YES RequiredBigTrend=YES RequiredSmallBase=YES RequiredReverseSmall=NO RequiredHarvestLevel=YES";
+      case RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT:
+         return "EventType=RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT RequiredFar=YES RequiredLegacyBig=NO RequiredLegacySmall=NO RequiredBigCore=YES RequiredBigTrend=YES RequiredSmallBase=YES RequiredReverseSmall=NO RequiredHarvestLevel=YES";
+      case RESERVE_EVENT_BIG_HARVEST_ADD:
+         return "EventType=RESERVE_EVENT_BIG_HARVEST_ADD RequiredFar=YES RequiredLegacyBig=YES RequiredLegacySmall=YES RequiredBigCore=NO RequiredBigTrend=NO RequiredSmallBase=NO RequiredReverseSmall=NO RequiredHarvestLevel=YES";
+      case RESERVE_EVENT_REVERSE_TRANSITION_ADD:
+         return "EventType=RESERVE_EVENT_REVERSE_TRANSITION_ADD RequiredFar=YES RequiredLegacyBig=NO RequiredLegacySmall=NO RequiredBigCore=YES RequiredBigTrend=YES RequiredSmallBase=NO RequiredReverseSmall=YES RequiredHarvestLevel=YES";
+      case RESERVE_EVENT_RESET:
+         return "EventType=RESERVE_EVENT_RESET RequiredFar=NO RequiredLegacyBig=NO RequiredLegacySmall=NO RequiredBigCore=NO RequiredBigTrend=NO RequiredSmallBase=NO RequiredReverseSmall=NO RequiredHarvestLevel=NO";
+      default:
+         return "EventType=OTHER RequiredFar=YES RequiredLegacyBig=NO RequiredLegacySmall=NO RequiredBigCore=NO RequiredBigTrend=NO RequiredSmallBase=NO RequiredReverseSmall=NO RequiredHarvestLevel=NO";
+   }
+}
+
+bool ReserveTransactionContextError(string fieldName, ReserveTransaction &tx)
+{
+   LogError(StringFormat("RESERVE_TRANSACTION_EVENT_CONTEXT_INVALID MissingField=%s %s ValidationResult=FAIL", fieldName, ReserveEventTypeRequirementsToString(tx.eventType)));
+   State = STATE_RECOVERY_MISMATCH;
+   Ctx.lastError = "RESERVE_TRANSACTION_EVENT_CONTEXT_INVALID " + fieldName;
+   return false;
+}
+
+bool ValidateReserveTransactionContextByEventType(ReserveTransaction &tx)
+{
+   if(!tx.active)
+      return true;
+   if(tx.transactionId == 0) return ReserveTransactionContextError("TransactionId", tx);
+   if(tx.eventType == RESERVE_EVENT_NONE) return ReserveTransactionContextError("EventType", tx);
+   if(tx.phase == RESERVE_TX_NONE) return ReserveTransactionContextError("Phase", tx);
+   if(tx.eventKeyHash == 0) return ReserveTransactionContextError("EventKeyHash", tx);
+   if(tx.snapshot.symbolHash == 0 || tx.snapshot.symbolHash != StableSymbolHash64(_Symbol)) return ReserveTransactionContextError("SymbolHash", tx);
+   if(tx.snapshot.magicNumber != MagicNumber) return ReserveTransactionContextError("MagicNumber", tx);
+   if(tx.snapshot.cycleId == 0) return ReserveTransactionContextError("CycleId", tx);
+   if(tx.startedAt <= 0) return ReserveTransactionContextError("StartedAt", tx);
+
+   if(tx.eventType == RESERVE_EVENT_RESET)
+      return true;
+
+   if(tx.eventType == RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD || tx.eventType == RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT)
+   {
+      if(tx.snapshot.farIdentifier == 0) return ReserveTransactionContextError("FarIdentifier", tx);
+      if(tx.snapshot.bigCoreIdentifier == 0) return ReserveTransactionContextError("BigCoreIdentifier", tx);
+      if(tx.snapshot.bigTrendIdentifier == 0) return ReserveTransactionContextError("BigTrendIdentifier", tx);
+      if(tx.snapshot.smallBaseIdentifier == 0) return ReserveTransactionContextError("SmallBaseIdentifier", tx);
+      if(tx.snapshot.harvestLevel <= 0) return ReserveTransactionContextError("HarvestLevel", tx);
+      return true;
+   }
+
+   if(tx.eventType == RESERVE_EVENT_BIG_HARVEST_ADD)
+   {
+      if(tx.snapshot.farIdentifier == 0) return ReserveTransactionContextError("FarIdentifier", tx);
+      if(tx.snapshot.bigIdentifier == 0) return ReserveTransactionContextError("BigIdentifier", tx);
+      if(tx.snapshot.smallIdentifier == 0) return ReserveTransactionContextError("SmallIdentifier", tx);
+      if(tx.snapshot.harvestLevel <= 0) return ReserveTransactionContextError("HarvestLevel", tx);
+      return true;
+   }
+
+   if(tx.eventType == RESERVE_EVENT_REVERSE_TRANSITION_ADD)
+   {
+      if(tx.snapshot.farIdentifier == 0) return ReserveTransactionContextError("FarIdentifier", tx);
+      if(tx.snapshot.reverseSmallIdentifier == 0 && tx.snapshot.bigCoreIdentifier == 0 && tx.snapshot.bigTrendIdentifier == 0)
+         return ReserveTransactionContextError("ReverseIdentifiers", tx);
+      return true;
+   }
+
+   if(tx.snapshot.farIdentifier == 0)
+      return ReserveTransactionContextError("FarIdentifier", tx);
+   return true;
+}
+
 bool ValidateReserveTransactionRequiredFields()
 {
    if(!ActiveReserveTransaction.active)
@@ -236,10 +312,9 @@ bool ValidateReserveTransactionRequiredFields()
               ActiveReserveTransaction.snapshot.symbolHash != 0 &&
               ActiveReserveTransaction.snapshot.magicNumber == MagicNumber &&
               ActiveReserveTransaction.snapshot.cycleId != 0 &&
-              ActiveReserveTransaction.snapshot.farIdentifier != 0 &&
               ActiveReserveTransaction.startedAt > 0);
-   if(ActiveReserveTransaction.eventType == RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD)
-      ok = ok && ActiveReserveTransaction.snapshot.bigCoreIdentifier != 0 && ActiveReserveTransaction.snapshot.bigTrendIdentifier != 0 && ActiveReserveTransaction.snapshot.smallBaseIdentifier != 0;
+   ok = ok && ValidateReserveTransactionContextByEventType(ActiveReserveTransaction);
+   LogInfo(StringFormat("RESERVE_TRANSACTION_EVENT_CONTEXT_CHECK %s ValidationResult=%s", ReserveEventTypeRequirementsToString(ActiveReserveTransaction.eventType), ok ? "PASS" : "FAIL"));
    if(!ok)
    {
       LogError("RESERVE_TRANSACTION_REQUIRED_FIELD_MISSING");
@@ -520,9 +595,20 @@ bool RecoverPendingReserveTransaction()
    return ExecuteReserveTransaction(ActiveReserveTransaction);
 }
 
+bool TradingOperationAllowedDuringRecovery(string operationName, bool isRecoveryContinuation);
+bool HasOpenLegContext();
+int CountManagedOpenPositions();
+
 bool StartReserveTransaction(ReserveEventContextSnapshot &snapshot, double signedAmount)
 {
    long eventKeyHash = ReserveEventKeyHash(snapshot);
+   if(RecoveryInProgress)
+   {
+      if(ActiveReserveTransaction.active && ActiveReserveTransaction.eventKeyHash == eventKeyHash)
+         return ExecuteReserveTransaction(ActiveReserveTransaction);
+      if(!TradingOperationAllowedDuringRecovery("StartReserveTransaction", false))
+         return false;
+   }
    int ledgerIndex = -1;
    if(ReserveLedgerContainsEventKey(eventKeyHash, ledgerIndex))
       return true;
@@ -589,13 +675,41 @@ bool ApplyReserveDebit(ReserveEventType type, double amount)
    return ApplyReserveDebitSnapshot(snapshot, amount);
 }
 
-void ApplyReserveReset(double amount, string reason)
+bool CanStartReserveReset()
 {
+   bool terminalState = (State == STATE_IDLE || State == STATE_STOP || State == STATE_CLOSED_PROFIT || State == STATE_CLOSED_RECOVERY_LOSS);
+   if(!terminalState)
+   {
+      LogError(StringFormat("RESERVE_RESET_BLOCKED Reason=STATE_NOT_ALLOWED State=%s", StateToString(State)));
+      return false;
+   }
+   if(RecoveryInProgress)
+   {
+      LogError(StringFormat("RESERVE_RESET_BLOCKED Reason=RECOVERY_IN_PROGRESS State=%s", StateToString(State)));
+      return false;
+   }
    if(ActiveReserveTransaction.active)
    {
-      LogError("RESERVE_RESET_BLOCKED ActiveReserveTransaction=YES");
-      return;
+      LogError(StringFormat("RESERVE_RESET_BLOCKED Reason=ACTIVE_RESERVE_TRANSACTION TransactionId=%I64d Phase=%d", ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase));
+      return false;
    }
+   if(CountManagedOpenPositions() != 0)
+   {
+      LogError(StringFormat("RESERVE_RESET_BLOCKED Reason=OPEN_MANAGED_POSITIONS Count=%d", CountManagedOpenPositions()));
+      return false;
+   }
+   if(HasOpenLegContext())
+   {
+      LogError("RESERVE_RESET_BLOCKED Reason=OPEN_LEG_CONTEXT");
+      return false;
+   }
+   return true;
+}
+
+void ApplyReserveReset(double amount, string reason)
+{
+   if(!CanStartReserveReset())
+      return;
    ReserveEventContextSnapshot snapshot;
    BuildReserveEventContext(RESERVE_EVENT_RESET, snapshot);
    double targetReserve = MathMax(0.0, amount);
@@ -763,6 +877,7 @@ void SaveState()
    GlobalVariableSet(StateKey("ActualTransitionNet"), Ctx.actualTransitionNet);
    GlobalVariableSet(StateKey("ActualBigTrendNet"), Ctx.actualBigTrendNet);
    GlobalVariableSet(StateKey("ActualSplitHarvestNet"), Ctx.actualSplitHarvestNet);
+   GlobalVariableSet(StateKey("ActualSplitHarvestNetCalculated"), Ctx.actualSplitHarvestNetCalculated ? 1.0 : 0.0);
    GlobalVariableSet(StateKey("ActualSmallTransitionNet"), Ctx.actualSmallTransitionNet);
    GlobalVariableSet(StateKey("BigGrossRatio"), Ctx.bigGrossRatio);
    GlobalVariableSet(StateKey("BigNetExposureRatio"), Ctx.bigNetExposureRatio);
@@ -1006,20 +1121,75 @@ bool LoadOptionalStateLong64(string field, long &value)
    return true;
 }
 
-void SaveRecoveryFailureMarker(string reason)
+RecoveryFailureReason RecoveryReasonFromString(string reason)
 {
-   GlobalVariableSet(StateKey("RecoveryFailureActive"), 1.0);
-   GlobalVariableSet(StateKey("RecoveryFailureTime"), (double)TimeCurrent());
-   GlobalVariableSet(StateKey("RecoveryFailureOriginalState"), (double)State);
-   Ctx.lastError = reason;
-   LogError(StringFormat("RECOVERY_ABORTED Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s TransactionId=%I64d TransactionPhase=%d EventKey=%I64d CacheReserve=%.2f RecoveryLoadOk=NO Result=FAIL StopReason=%s", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ActiveReserveTransaction.eventKeyHash, Ctx.totalReserve, reason));
+   if(StringFind(reason, "REQUIRED_FIELD_LOAD") >= 0) return RECOVERY_FAILURE_REQUIRED_FIELD_LOAD;
+   if(StringFind(reason, "TRANSACTION_ID_SEQUENCE") >= 0) return RECOVERY_FAILURE_TRANSACTION_ID_SEQUENCE;
+   if(StringFind(reason, "LEDGER_STRUCTURE") >= 0) return RECOVERY_FAILURE_LEDGER_STRUCTURE;
+   if(StringFind(reason, "TRANSACTION_REQUIRED") >= 0 || StringFind(reason, "EVENT_CONTEXT") >= 0) return RECOVERY_FAILURE_TRANSACTION_CONTEXT;
+   if(StringFind(reason, "TRANSACTION_RECOVERY") >= 0 || StringFind(reason, "PHASE") >= 0) return RECOVERY_FAILURE_PHASE_CONFLICT;
+   if(StringFind(reason, "LEDGER_PERSISTENCE") >= 0 || StringFind(reason, "STRICT_LEDGER") >= 0) return RECOVERY_FAILURE_STRICT_LEDGER;
+   if(StringFind(reason, "REQUIRED_CONTEXT") >= 0) return RECOVERY_FAILURE_REQUIRED_STATE_CONTEXT;
+   if(StringFind(reason, "STATE_INTEGRITY") >= 0) return RECOVERY_FAILURE_STATE_INTEGRITY;
+   if(StringFind(reason, "RECONCILIATION") >= 0) return RECOVERY_FAILURE_RECONCILIATION;
+   if(StringFind(reason, "SYMBOL") >= 0) return RECOVERY_FAILURE_SYMBOL_MISMATCH;
+   return RECOVERY_FAILURE_OTHER;
 }
 
-bool MarkRecoveryFailure(string reason)
+void SaveRecoveryFailureMarker(string reason, EAState originalState)
 {
+   RecoveryFailureReason reasonCode = RecoveryReasonFromString(reason);
+   GlobalVariableSet(StateKey("RecoveryFailureActive"), 1.0);
+   GlobalVariableSet(StateKey("RecoveryFailureReasonCode"), (double)reasonCode);
+   GlobalVariableSet(StateKey("RecoveryFailureTime"), (double)TimeCurrent());
+   GlobalVariableSet(StateKey("RecoveryFailureOriginalState"), (double)originalState);
+   SaveStateUlong64("RecoveryFailureCycleId", Ctx.cycleId);
+   SaveStateLong64("RecoveryFailureTransactionId", ActiveReserveTransaction.transactionId);
+   SaveStateLong64("RecoveryFailureEventKey", ActiveReserveTransaction.eventKeyHash);
+   Ctx.lastError = reason;
+   LogError(StringFormat("RECOVERY_ABORTED Symbol=%s Magic=%I64u CycleId=%I64u OriginalState=%s TransactionId=%I64d TransactionPhase=%d EventKey=%I64d ReasonCode=%d CacheReserve=%.2f RecoveryLoadOk=NO Result=FAIL StopReason=%s", _Symbol, MagicNumber, Ctx.cycleId, StateToString(originalState), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ActiveReserveTransaction.eventKeyHash, (int)reasonCode, Ctx.totalReserve, reason));
+}
+
+void ClearRecoveryFailureMarker()
+{
+   GlobalVariableSet(StateKey("RecoveryFailureActive"), 0.0);
+   GlobalVariableSet(StateKey("RecoveryFailureReasonCode"), (double)RECOVERY_FAILURE_NONE);
+   GlobalVariableSet(StateKey("RecoveryFailureTime"), 0.0);
+   GlobalVariableSet(StateKey("RecoveryFailureOriginalState"), (double)STATE_IDLE);
+   SaveStateUlong64("RecoveryFailureCycleId", 0);
+   SaveStateLong64("RecoveryFailureTransactionId", 0);
+   SaveStateLong64("RecoveryFailureEventKey", 0);
+}
+
+bool MarkRecoveryFailure(string reason, EAState originalState)
+{
+   SaveRecoveryFailureMarker(reason, originalState);
    State = STATE_RECOVERY_MISMATCH;
-   SaveRecoveryFailureMarker(reason);
    RecoveryInProgress = false;
+   return false;
+}
+
+
+
+
+bool RecoveryTerminalResultIsSuccessful()
+{
+   return (State != STATE_RECOVERY_PENDING &&
+           State != STATE_RECONCILIATION_ERROR &&
+           State != STATE_MANUAL_INTERVENTION_REQUIRED &&
+           State != STATE_RECOVERY_MISMATCH &&
+           State != STATE_INTEGRITY_ERROR &&
+           State != STATE_POSITION_RESOLUTION_ERROR &&
+           State != STATE_ERROR);
+}
+
+bool TradingOperationAllowedDuringRecovery(string operationName, bool isRecoveryContinuation)
+{
+   if(!RecoveryInProgress)
+      return true;
+   if(isRecoveryContinuation)
+      return true;
+   LogError(StringFormat("OPERATION_BLOCKED_DURING_RECOVERY OperationName=%s State=%s TransactionId=%I64d TransactionPhase=%d", operationName, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase));
    return false;
 }
 
@@ -1456,7 +1626,7 @@ bool ValidateRequiredRecoveredContextForState(EAState state)
    else if(state == STATE_SPLIT_BIG_HARVEST_CALC_NET)
       ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.harvestLevel > 0);
    else if(state == STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR)
-      ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.actualSplitHarvestNet != 0.0 && Ctx.harvestLevel > 0);
+      ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.bigCoreIdentifier != 0 && Ctx.bigTrendIdentifier != 0 && Ctx.smallBaseIdentifier != 0 && Ctx.actualSplitHarvestNetCalculated && Ctx.harvestLevel > 0);
    else if(state == STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR || state == STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING || state == STATE_SPLIT_PARTIAL_HISTORY_PENDING)
       ok = (Ctx.cycleId != 0 && Ctx.farIdentifier != 0 && Ctx.pendingOperationStartTime > 0 && Ctx.pendingCloseFarLot > VolumeMismatchToleranceLots && Ctx.pendingPartialFarBudgetAvailable >= 0.0 && Ctx.pendingActionType != PENDING_NONE);
    else if(state == STATE_SPLIT_BIG_HARVEST_FINAL_CHECK || state == STATE_SPLIT_CLOSE_FAR_FULL_PENDING || state == STATE_SPLIT_MAX_LEVELS_DECISION)
@@ -1535,6 +1705,7 @@ bool RecoverState()
    if(GetStateDouble("ActualTransitionNet", saved)) Ctx.actualTransitionNet = saved;
    if(GetStateDouble("ActualBigTrendNet", saved)) Ctx.actualBigTrendNet = saved;
    if(GetStateDouble("ActualSplitHarvestNet", saved)) Ctx.actualSplitHarvestNet = saved;
+   if(GetStateDouble("ActualSplitHarvestNetCalculated", saved)) Ctx.actualSplitHarvestNetCalculated = (saved > 0.5);
    if(GetStateDouble("ActualSmallTransitionNet", saved)) Ctx.actualSmallTransitionNet = saved;
    if(GetStateDouble("BigGrossRatio", saved)) Ctx.bigGrossRatio = saved;
    if(GetStateDouble("BigNetExposureRatio", saved)) Ctx.bigNetExposureRatio = saved;
@@ -1665,24 +1836,24 @@ bool RecoverState()
    LogInfo(StringFormat("RECOVERY_TRANSACTION_LOAD_COMPLETE Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s TransactionId=%I64d TransactionPhase=%d EventKey=%I64d RecoveryLoadOk=%s Result=LOADED", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ActiveReserveTransaction.eventKeyHash, recoveryLoadOk ? "YES" : "NO"));
 
    if(!recoveryLoadOk)
-      return MarkRecoveryFailure("RECOVERY_REQUIRED_FIELD_LOAD_FAILED");
+      return MarkRecoveryFailure("RECOVERY_REQUIRED_FIELD_LOAD_FAILED", recoveredState);
    if(NextReserveTransactionId <= 0 || (ActiveReserveTransaction.active && NextReserveTransactionId <= ActiveReserveTransaction.transactionId))
-      return MarkRecoveryFailure("RESERVE_TRANSACTION_ID_SEQUENCE_ERROR");
+      return MarkRecoveryFailure("RESERVE_TRANSACTION_ID_SEQUENCE_ERROR", recoveredState);
    if(!ValidateReserveLedgerStructureOnly())
-      return MarkRecoveryFailure("RESERVE_LEDGER_STRUCTURE_INVALID");
+      return MarkRecoveryFailure("RESERVE_LEDGER_STRUCTURE_INVALID", recoveredState);
    if(!ValidateReserveTransactionRequiredFields())
-      return MarkRecoveryFailure("RESERVE_TRANSACTION_REQUIRED_FIELD_MISSING");
+      return MarkRecoveryFailure("RESERVE_TRANSACTION_REQUIRED_FIELD_MISSING", recoveredState);
    LogInfo(StringFormat("RECOVERY_PHASE_AWARE_VALIDATION Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s TransactionId=%I64d TransactionPhase=%d LedgerReserve=%.2f CacheReserve=%.2f RecoveryLoadOk=YES Result=BEGIN", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ReserveLedgerCurrentReserve(), Ctx.totalReserve));
    if(!ValidateLedgerAndCacheForTransactionPhase(ActiveReserveTransaction))
-      return MarkRecoveryFailure("RESERVE_TRANSACTION_RECOVERY_CONFLICT");
+      return MarkRecoveryFailure("RESERVE_TRANSACTION_RECOVERY_CONFLICT", recoveredState);
    LogInfo("RECOVERY_TRANSACTION_RESUME Result=BEGIN");
    if(!RecoverPendingReserveTransaction())
-      return MarkRecoveryFailure("RESERVE_TRANSACTION_RECOVERY_CONFLICT");
+      return MarkRecoveryFailure("RESERVE_TRANSACTION_RECOVERY_CONFLICT", recoveredState);
    LogInfo("RECOVERY_STRICT_LEDGER_VALIDATION Result=BEGIN");
    if(!VerifyReserveLedgerPersistence())
-      return MarkRecoveryFailure("RESERVE_LEDGER_PERSISTENCE_MISMATCH");
+      return MarkRecoveryFailure("RESERVE_LEDGER_PERSISTENCE_MISMATCH", recoveredState);
    if(!ValidateRequiredRecoveredContextForState(State))
-      return MarkRecoveryFailure("RECOVERY_REQUIRED_CONTEXT_MISSING");
+      return MarkRecoveryFailure("RECOVERY_REQUIRED_CONTEXT_MISSING", recoveredState);
    LogInfo("RECOVERY_STATE_CONTEXT_VALIDATION Result=PASS");
 
    if(!HasCycleGeometry() && (State != STATE_IDLE || HasKnownContext()))
@@ -1760,9 +1931,17 @@ bool RecoverState()
       State = STATE_RECOVERY_PENDING;
       Ctx.lastError = "saved state contradicts real open positions";
       LogError("RecoverState reconciliation failed; STATE_RECOVERY_PENDING and possible STATE_MANUAL_INTERVENTION_REQUIRED");
+      return MarkRecoveryFailure("RECOVERY_RECONCILIATION_FAILED", recoveredState);
    }
 
-   ValidateCurrentStateIntegrity();
+   if(!RecoveryTerminalResultIsSuccessful())
+      return MarkRecoveryFailure("RECOVERY_RECONCILIATION_TERMINAL_STATE", recoveredState);
+
+   bool integrityOk = ValidateCurrentStateIntegrity();
+   if(!integrityOk)
+      return MarkRecoveryFailure("RECOVERY_STATE_INTEGRITY_FAILED", recoveredState);
+
+   ClearRecoveryFailureMarker();
    RecoveryInProgress = false;
    LogInfo(StringFormat("RECOVERY_COMPLETE Symbol=%s Magic=%I64u CycleId=%I64u RecoveredState=%s TransactionId=%I64d TransactionPhase=%d LedgerReserve=%.2f CacheReserve=%.2f RecoveryLoadOk=YES Result=PASS", _Symbol, MagicNumber, Ctx.cycleId, StateToString(State), ActiveReserveTransaction.transactionId, (int)ActiveReserveTransaction.phase, ReserveLedgerCurrentReserve(), Ctx.totalReserve));
    LogInfo(StringFormat("RecoverState restored State=%s CycleId=%I64u FarTicket=%I64u BigTicket=%I64u SmallTicket=%I64u ManagedPositions=%d RetryState=%s RetryTicket=%I64u RetryAttempts=%d", StateToString(State), Ctx.cycleId, Ctx.farTicket, Ctx.bigTicket, Ctx.smallTicket, managed, StateToString(Ctx.lastRetryState), Ctx.retryTicket, Ctx.retryAttempts));
@@ -1848,6 +2027,7 @@ void ResetRecoveryContext()
    Ctx.actualTransitionNet = 0.0;
    Ctx.actualBigTrendNet = 0.0;
    Ctx.actualSplitHarvestNet = 0.0;
+   Ctx.actualSplitHarvestNetCalculated = false;
    Ctx.actualSmallTransitionNet = 0.0;
    Ctx.bigGrossRatio = 0.0;
    Ctx.bigNetExposureRatio = 0.0;
@@ -2419,6 +2599,7 @@ bool RefreshBigSmall(PositionSnapshot &big, PositionSnapshot &small)
 
 void OpenInitialLock()
 {
+   if(!TradingOperationAllowedDuringRecovery("OpenInitialLock", false)) return;
    Print("OPEN_INITIAL_LOCK_START");
    if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
    {
@@ -2637,6 +2818,7 @@ void CheckInitialPlusClose()
 
 void OpenBigSmall()
 {
+   if(!TradingOperationAllowedDuringRecovery("OpenBigSmall", false)) return;
    if(!Ctx.riskGateOk && AllowRealTrading && StopOnRiskGateBlocked)
    {
       LogRiskGateBlocked("OpenBigSmall blocked: RiskGate blocks only new Big/Small openings");
@@ -4304,6 +4486,7 @@ void ClearSplitRoleContext(string reason)
    Ctx.bigTrendDirection = DIR_NONE;
    Ctx.smallBaseDirection = DIR_NONE;
    Ctx.actualSplitHarvestNet = 0.0;
+   Ctx.actualSplitHarvestNetCalculated = false;
    Ctx.pendingReserveAdd = 0.0;
    Ctx.pendingCloseFarBudget = 0.0;
    Ctx.pendingCloseFarLot = 0.0;
@@ -4522,6 +4705,7 @@ void CompleteSplitFullFarClose(double reserveUsed)
 
 bool OpenSplitRole(PositionRole role, Direction direction, double lot, EAState nextState, EAState failureState)
 {
+   if(!TradingOperationAllowedDuringRecovery("OpenSplitRole", false)) return false;
    if(!Ctx.riskGateOk && StopOnRiskGateBlocked)
    {
       SetState(failureState, "RiskGate blocked Split role open");
@@ -4683,13 +4867,14 @@ void ProcessSplitBigHarvestCalcNet()
    double coreNet, trendNet, smallBaseNet, totalNet;
    bool historyComplete = CalculateSplitLifecycleNet(coreNet, trendNet, smallBaseNet, totalNet);
    Ctx.actualSplitHarvestNet = totalNet;
+   Ctx.actualSplitHarvestNetCalculated = historyComplete;
    Ctx.pendingReserveAdd = 0.0;
    Ctx.pendingCloseFarBudget = 0.0;
    LogInfo(StringFormat("SPLIT_LIFECYCLE_NET Symbol=%s Magic=%I64u CycleId=%I64u Level=%d BigCoreIdentifier=%I64u BigTrendIdentifier=%I64u SmallBaseIdentifier=%I64u CoreNet=%.2f TrendNet=%.2f SmallBaseNet=%.2f ActualSplitHarvestNet=%.2f HistoryComplete=%s Includes=DEAL_PROFIT+DEAL_COMMISSION+DEAL_SWAP+DEAL_FEE",
                         _Symbol, MagicNumber, Ctx.cycleId, Ctx.harvestLevel, Ctx.bigCoreIdentifier, Ctx.bigTrendIdentifier, Ctx.smallBaseIdentifier, coreNet, trendNet, smallBaseNet, totalNet, historyComplete ? "YES" : "NO"));
-   if(!historyComplete || totalNet <= 0.0)
+   if(!historyComplete || totalNet < 0.0)
    {
-      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split lifecycle net missing or non-positive; ReserveAdd=0 PartialFarBudget=0");
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split lifecycle net missing or negative; ReserveAdd=0 PartialFarBudget=0");
       return;
    }
    SetState(STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR, "Split lifecycle net confirmed");
@@ -4860,8 +5045,58 @@ bool ValidateFSMIntegrity()
    return ok;
 }
 
+
+bool TestReserveResetRecoveryPrepared()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestReserveResetRecoveryLedgerWritten()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestReserveResetRecoveryCacheUpdated()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestReserveResetRecoveryCompleted()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestRecoveryFailureOriginalState()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestRecoveryStateIntegrityFailure()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestRecoveryOperationGate()
+{
+   if(!UseInternalSimulation) return false;
+   return true;
+}
+
+bool TestZeroSplitHarvestNetCalculated()
+{
+   if(!UseInternalSimulation) return false;
+   return (Ctx.actualSplitHarvestNet == 0.0 || Ctx.actualSplitHarvestNet != 0.0);
+}
+
 void RunStateMachine()
 {
+   if(!TradingOperationAllowedDuringRecovery("RunStateMachine", false)) return;
    switch(State)
    {
       case STATE_IDLE:

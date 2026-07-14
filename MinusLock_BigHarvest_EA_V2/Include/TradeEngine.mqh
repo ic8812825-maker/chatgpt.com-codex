@@ -5,6 +5,8 @@
 
 CTrade BigHarvestTrade;
 
+bool TradingOperationAllowedDuringRecovery(string operationName, bool isRecoveryContinuation);
+
 ENUM_ORDER_TYPE_FILLING ResolveSymbolFillingMode(string symbol)
 {
    int filling = (int)SymbolInfoInteger(symbol, SYMBOL_FILLING_MODE);
@@ -37,6 +39,9 @@ bool OpenPosition(Direction dir, double lot, string comment)
       LogError(StringFormat("OpenPosition rejected: comment=%s lot=%.2f", comment, lot));
       return false;
    }
+
+   if(!TradingOperationAllowedDuringRecovery("OpenPosition", false))
+      return false;
 
    if(!PrepareTradeEngine())
       return false;

@@ -214,6 +214,23 @@ struct ReserveEventContextSnapshot
    ReserveEventType eventType;
 };
 
+
+enum RecoveryFailureReason
+{
+   RECOVERY_FAILURE_NONE = 0,
+   RECOVERY_FAILURE_REQUIRED_FIELD_LOAD,
+   RECOVERY_FAILURE_TRANSACTION_ID_SEQUENCE,
+   RECOVERY_FAILURE_LEDGER_STRUCTURE,
+   RECOVERY_FAILURE_TRANSACTION_CONTEXT,
+   RECOVERY_FAILURE_PHASE_CONFLICT,
+   RECOVERY_FAILURE_STRICT_LEDGER,
+   RECOVERY_FAILURE_REQUIRED_STATE_CONTEXT,
+   RECOVERY_FAILURE_STATE_INTEGRITY,
+   RECOVERY_FAILURE_RECONCILIATION,
+   RECOVERY_FAILURE_SYMBOL_MISMATCH,
+   RECOVERY_FAILURE_OTHER
+};
+
 enum ReserveTransactionPhase
 {
    RESERVE_TX_NONE = 0,
@@ -332,6 +349,7 @@ struct RecoveryContext
    double actualTransitionNet;
    double actualBigTrendNet;
    double actualSplitHarvestNet;
+   bool actualSplitHarvestNetCalculated;
    double actualSmallTransitionNet;
 
    double bigGrossRatio;
