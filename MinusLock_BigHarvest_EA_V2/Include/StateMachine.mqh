@@ -4226,10 +4226,60 @@ void ProcessSmallBuildNewFar()
    SetState(STATE_SMALL_CHECK_RESERVE, "Small scenario NewFar built from remaining Big");
 }
 
+
+bool EvaluateFinalCloseGate(FinalCloseEvaluation &result)
+{
+   result.calculationValid = false;
+   result.farCloseLossWorstCase = 0.0;
+   result.expectedCurrentHarvestNet = 0.0;
+   result.reserveAvailable = Ctx.totalReserve;
+   result.partialCarryAvailable = Ctx.partialFarBudgetCarry;
+   result.totalCoverageAvailable = Ctx.totalReserve + Ctx.partialFarBudgetCarry;
+   result.projectedRecoveryPL = 0.0;
+   result.projectedCommission = 0.0;
+   result.projectedSpreadCost = 0.0;
+   result.projectedSlippageCost = 0.0;
+   result.safetyBuffer = SafetyBufferMoney + ExecutionSafetyBufferMoney;
+   result.coveragePass = false;
+   result.recoveryPass = false;
+   result.positionsPass = false;
+   result.finalAllowed = false;
+   result.reason = "";
+
+   if(ActiveReserveTransaction.active || Ctx.pendingActionType != PENDING_NONE || State == STATE_RECOVERY_MISMATCH)
+   {
+      result.reason = "FINAL_CLOSE_GATE_BLOCKED_BY_PENDING_OR_RECOVERY";
+      return false;
+   }
+
+   ProjectedCloseNetResult farProjection;
+   if(!CalculateProjectedFarCloseNet(Ctx.farLot, farProjection))
+   {
+      result.reason = "FINAL_CLOSE_GATE_MONEY_CALC_FAILED";
+      return false;
+   }
+
+   result.calculationValid = true;
+   result.farCloseLossWorstCase = farProjection.projectedLoss;
+   result.projectedCommission = farProjection.estimatedCommission;
+   result.expectedCurrentHarvestNet = Ctx.actualSplitHarvestNetCalculated ? Ctx.actualSplitHarvestNet : 0.0;
+   result.totalCoverageAvailable = Ctx.totalReserve + Ctx.partialFarBudgetCarry + MathMax(0.0, result.expectedCurrentHarvestNet);
+   result.projectedRecoveryPL = result.totalCoverageAvailable - result.farCloseLossWorstCase - result.safetyBuffer;
+   result.coveragePass = (result.totalCoverageAvailable + ReserveMismatchTolerance >= result.farCloseLossWorstCase + result.safetyBuffer);
+   result.recoveryPass = (result.projectedRecoveryPL + ReserveMismatchTolerance >= MinimumRecoveryProfitMoney);
+   result.positionsPass = (Ctx.farTicket != 0 || Ctx.farIdentifier != 0) && Ctx.farLot > VolumeMismatchToleranceLots;
+   result.finalAllowed = result.calculationValid && result.coveragePass && result.recoveryPass && result.positionsPass;
+   result.reason = result.finalAllowed ? "FINAL_CLOSE_GATE_PASS" : "FINAL_CLOSE_GATE_FAIL";
+   LogInfo(StringFormat("FINAL_CLOSE_GATE CalculationValid=%s FarCloseLossWorstCase=%.2f Coverage=%.2f ProjectedRecoveryPL=%.2f CoveragePass=%s RecoveryPass=%s PositionsPass=%s FinalAllowed=%s Reason=%s",
+                        result.calculationValid ? "YES" : "NO", result.farCloseLossWorstCase, result.totalCoverageAvailable, result.projectedRecoveryPL,
+                        result.coveragePass ? "YES" : "NO", result.recoveryPass ? "YES" : "NO", result.positionsPass ? "YES" : "NO", result.finalAllowed ? "YES" : "NO", result.reason));
+   return result.finalAllowed;
+}
+
 void ProcessSmallCheckReserve()
 {
-   double farRemainLoss = CalcFarRemainLoss(Ctx.farLot, Ctx.effectiveFarDistancePoints);
-   Ctx.finalCloseAllowed = CalcFinalCloseAllowed(Ctx.totalReserve, Ctx.farLot, Ctx.effectiveFarDistancePoints);
+   FinalCloseEvaluation finalGate;
+   Ctx.finalCloseAllowed = EvaluateFinalCloseGate(finalGate);
    if(Ctx.finalCloseAllowed)
       SetState(STATE_FINAL_CLOSE, "Small scenario reserve covers NewFar");
    else if(Ctx.harvestLevel >= WorkMaxHarvestLevels)

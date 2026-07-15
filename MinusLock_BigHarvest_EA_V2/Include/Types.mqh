@@ -300,6 +300,26 @@ struct ClosedDealSnapshot
    string comment;
 };
 
+struct FinalCloseEvaluation
+{
+   bool calculationValid;
+   double farCloseLossWorstCase;
+   double expectedCurrentHarvestNet;
+   double reserveAvailable;
+   double partialCarryAvailable;
+   double totalCoverageAvailable;
+   double projectedRecoveryPL;
+   double projectedCommission;
+   double projectedSpreadCost;
+   double projectedSlippageCost;
+   double safetyBuffer;
+   bool coveragePass;
+   bool recoveryPass;
+   bool positionsPass;
+   bool finalAllowed;
+   string reason;
+};
+
 struct RecoveryContext
 {
    ulong farTicket;

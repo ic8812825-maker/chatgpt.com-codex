@@ -281,3 +281,14 @@ def test_money_model_replaces_ordercalcprofit_fallback_in_projected_close():
     assert 'CalcProjectedCloseNetMoney' in block
     assert 'BROKER_MONEY_MODEL_REQUIRED' in block
     assert 'else if(!OrderCalcProfit' not in block
+
+
+def test_final_close_gate_exists_and_small_reserve_uses_it():
+    assert 'struct FinalCloseEvaluation' in TYPES
+    assert 'bool EvaluateFinalCloseGate' in STATE
+    gate = STATE[STATE.index('bool EvaluateFinalCloseGate'):STATE.index('void ProcessSmallCheckReserve')]
+    for token in ['farCloseLossWorstCase', 'totalCoverageAvailable', 'projectedRecoveryPL', 'coveragePass', 'recoveryPass', 'finalAllowed']:
+        assert token in gate
+    small = STATE[STATE.index('void ProcessSmallCheckReserve'):STATE.index('string DiagnoseStopMaxLevelsReason')]
+    assert 'EvaluateFinalCloseGate(finalGate)' in small
+    assert 'CalcFinalCloseAllowed' not in small
