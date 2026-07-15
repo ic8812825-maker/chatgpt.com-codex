@@ -11,6 +11,7 @@
 #include "Include/Logger.mqh"
 #include "Include/TradeEngine.mqh"
 #include "Include/RecoveryMath.mqh"
+#include "Include/BrokerMoneyModel.mqh"
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
 #include "Include/PendingContractEngine.mqh"
@@ -74,7 +75,13 @@ bool ValidateInputs()
    if(MaxReverseCycles <= 0) { Print("ERROR: MaxReverseCycles must be > 0"); return false; }
    if(MinimumRecoveryProfitMoney < 0.0) { Print("ERROR: MinimumRecoveryProfitMoney must be >= 0"); return false; }
    if(SafetyBufferMoney < 0.0) { Print("ERROR: SafetyBufferMoney must be >= 0"); return false; }
+   if(EstimatedOpenCommissionPerLot < 0.0) { Print("ERROR: EstimatedOpenCommissionPerLot must be >= 0"); return false; }
    if(EstimatedCloseCommissionPerLot < 0.0) { Print("ERROR: EstimatedCloseCommissionPerLot must be >= 0"); return false; }
+   if(EstimatedSwapBufferMoney < 0.0) { Print("ERROR: EstimatedSwapBufferMoney must be >= 0"); return false; }
+   if(SpreadExpansionBufferPoints < 0.0) { Print("ERROR: SpreadExpansionBufferPoints must be >= 0"); return false; }
+   if(SlippageSafetyMultiplier < 0.0) { Print("ERROR: SlippageSafetyMultiplier must be >= 0"); return false; }
+   if(ExecutionSafetyBufferMoney < 0.0) { Print("ERROR: ExecutionSafetyBufferMoney must be >= 0"); return false; }
+   if(MinimumBigRecoveryImprovementMoney < 0.0) { Print("ERROR: MinimumBigRecoveryImprovementMoney must be >= 0"); return false; }
    if(MaxSpreadPoints <= 0.0) { Print("ERROR: MaxSpreadPoints must be > 0"); return false; }
    if(MaxMarginPercent <= 0.0) { Print("ERROR: MaxMarginPercent must be > 0"); return false; }
    if(MaxAccountMarginPercent <= 0.0) { Print("ERROR: MaxAccountMarginPercent must be > 0"); return false; }

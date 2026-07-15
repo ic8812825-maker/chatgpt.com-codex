@@ -260,3 +260,24 @@ def test_next_stage_oninit_recovery_failure_never_resets_unless_clean_start():
     assert 'bool IsProvenCleanStart()' in state
     for token in ['CLEAN_START_CONFIRMED', 'RECOVERY_CONTEXT_RESET_FORBIDDEN', 'MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE']:
         assert token in state
+
+
+def test_money_model_file_and_inputs_exist_and_ordercalc_is_primary():
+    money = (ROOT / 'Include' / 'BrokerMoneyModel.mqh').read_text(encoding='utf-8')
+    config = (ROOT / 'Include' / 'Config.mqh').read_text(encoding='utf-8')
+    main = (ROOT / 'MinusLock_BigHarvest_EA.mq5').read_text(encoding='utf-8')
+    for token in ['CalcProjectedPositionNetMoney', 'CalcProjectedCloseNetMoney', 'CalcProjectedOpenAndCloseCosts', 'CalcProjectedMarginMoney', 'CalcProjectedBasketNetMoney', 'CalcFarCloseLossWorstCaseMoney', 'CalcMoveRecoveryDeltaMoney']:
+        assert token in money
+    assert 'OrderCalcProfit' in money
+    assert 'OrderCalcMargin' in money
+    assert 'SYMBOL_TRADE_TICK_VALUE_PROFIT' in money or 'SYMBOL_TRADE_TICK_VALUE_LOSS' in money
+    for token in ['EstimatedOpenCommissionPerLot', 'EstimatedCloseCommissionPerLot', 'EstimatedSwapBufferMoney', 'SpreadExpansionBufferPoints', 'SlippageSafetyMultiplier', 'ExecutionSafetyBufferMoney']:
+        assert token in config
+    assert '#include "Include/BrokerMoneyModel.mqh"' in main
+
+
+def test_money_model_replaces_ordercalcprofit_fallback_in_projected_close():
+    block = STATE[STATE.index('bool CalculateProjectedPositionCloseNet'):STATE.index('bool CalculateProjectedFarCloseNet')]
+    assert 'CalcProjectedCloseNetMoney' in block
+    assert 'BROKER_MONEY_MODEL_REQUIRED' in block
+    assert 'else if(!OrderCalcProfit' not in block

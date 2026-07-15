@@ -3573,12 +3573,19 @@ bool CalculateProjectedPositionCloseNet(ulong ticket, double lot, ProjectedClose
       return false;
 
    double closePrice = CurrentPriceForDirectionClose(pos.direction);
-   ENUM_ORDER_TYPE orderType = (pos.direction == DIR_BUY ? ORDER_TYPE_BUY : ORDER_TYPE_SELL);
+   BrokerMoneyResult money;
    double profit = 0.0;
    if(IsInternalSimulationMode())
       profit = CalcSignedPositionPL(pos.direction, closeLot, pos.openPrice, closePrice);
-   else if(!OrderCalcProfit(orderType, _Symbol, closeLot, pos.openPrice, closePrice, profit))
-      profit = CalcSignedPositionPL(pos.direction, closeLot, pos.openPrice, closePrice);
+   else
+   {
+      if(!CalcProjectedCloseNetMoney(pos.direction, closeLot, pos.openPrice, closePrice, money))
+      {
+         LogError("BROKER_MONEY_MODEL_REQUIRED " + money.reason);
+         return false;
+      }
+      profit = money.grossProfit;
+   }
 
    double swapPart = 0.0;
    if(PositionSelectByTicket(ticket))
@@ -3591,7 +3598,10 @@ bool CalculateProjectedPositionCloseNet(ulong ticket, double lot, ProjectedClose
    result.projectedGrossProfit = profit;
    result.projectedSwapPart = swapPart;
    result.estimatedCommission = closeLot * EstimatedCloseCommissionPerLot;
-   result.projectedNet = profit + swapPart - result.estimatedCommission - SafetyBufferMoney;
+   if(IsInternalSimulationMode())
+      result.projectedNet = profit + swapPart - result.estimatedCommission - SafetyBufferMoney;
+   else
+      result.projectedNet = money.netMoney + swapPart;
    result.projectedLoss = MathMax(0.0, -result.projectedNet);
    return true;
 }
