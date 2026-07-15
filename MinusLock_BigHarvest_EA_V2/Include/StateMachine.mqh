@@ -1641,6 +1641,41 @@ bool ValidateRequiredRecoveredContextForState(EAState state)
    return true;
 }
 
+
+bool IsProvenCleanStart()
+{
+   bool hasState = GlobalVariableCheck(StateKey("State"));
+   bool hasLedger = GlobalVariableCheck(StateKey("ReserveLedgerCount")) && GlobalVariableGet(StateKey("ReserveLedgerCount")) > 0.5;
+   bool hasReserveTx = GlobalVariableCheck(StateKey("ReserveTxActive")) && GlobalVariableGet(StateKey("ReserveTxActive")) > 0.5;
+   bool hasFailure = GlobalVariableCheck(StateKey("RecoveryFailureActive")) && GlobalVariableGet(StateKey("RecoveryFailureActive")) > 0.5;
+   bool hasPending = GlobalVariableCheck(StateKey("PendingActionType")) && GlobalVariableGet(StateKey("PendingActionType")) > 0.5;
+   bool hasRetry = GlobalVariableCheck(StateKey("RetryTicketHigh32")) || GlobalVariableCheck(StateKey("RetryTicketLow32")) || GlobalVariableCheck(StateKey("LastRetryState"));
+   bool hasInitial = GlobalVariableCheck(StateKey("InitialBuyTicketHigh32")) || GlobalVariableCheck(StateKey("InitialSellTicketHigh32")) || GlobalVariableCheck(StateKey("InitialBuyIdentifierHigh32")) || GlobalVariableCheck(StateKey("InitialSellIdentifierHigh32"));
+   bool hasContext = GlobalVariableCheck(StateKey("CycleIdHigh32")) || GlobalVariableCheck(StateKey("FarTicketHigh32")) || GlobalVariableCheck(StateKey("FarIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigTicketHigh32")) || GlobalVariableCheck(StateKey("SmallTicketHigh32"));
+   int managed = CountManagedOpenPositions();
+
+   if(managed > 0)
+      LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
+
+   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !hasContext && managed == 0);
+   LogInfo(StringFormat("CLEAN_START_CHECK State=%s Ledger=%s ReserveTx=%s Failure=%s Pending=%s Retry=%s Initial=%s Context=%s Managed=%d Result=%s",
+                        hasState ? "YES" : "NO",
+                        hasLedger ? "YES" : "NO",
+                        hasReserveTx ? "YES" : "NO",
+                        hasFailure ? "YES" : "NO",
+                        hasPending ? "YES" : "NO",
+                        hasRetry ? "YES" : "NO",
+                        hasInitial ? "YES" : "NO",
+                        hasContext ? "YES" : "NO",
+                        managed,
+                        clean ? "CLEAN_START_CONFIRMED" : "RECOVERY_CONTEXT_RESET_FORBIDDEN"));
+   if(clean)
+      LogInfo("CLEAN_START_CONFIRMED");
+   else
+      LogError("RECOVERY_CONTEXT_RESET_FORBIDDEN");
+   return clean;
+}
+
 bool RecoverState()
 {
    if(!GlobalVariableCheck(StateKey("State")))

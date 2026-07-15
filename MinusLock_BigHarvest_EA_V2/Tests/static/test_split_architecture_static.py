@@ -246,3 +246,17 @@ def test_stage7_reserve_reset_guard_blocks_unsafe_start():
     apply_reset = STATE[STATE.index('void ApplyReserveReset'):STATE.index('double RebuildReserveFromLedger')]
     assert 'CanStartReserveReset()' in apply_reset
     assert 'StartReserveTransaction(snapshot, delta)' in apply_reset
+
+
+def test_next_stage_oninit_recovery_failure_never_resets_unless_clean_start():
+    main = (ROOT / 'MinusLock_BigHarvest_EA.mq5').read_text(encoding='utf-8')
+    oninit = main[main.index('int OnInit()'):main.index('void OnDeinit')]
+    assert 'IsProvenCleanStart()' in oninit
+    assert 'RECOVERY_FAILURE_INIT_BLOCKED' in oninit
+    failure_block = oninit[oninit.index('if(!RecoverState())'):oninit.index('else if(!ValidateNoOrphanManagedPositions())')]
+    assert failure_block.index('IsProvenCleanStart()') < failure_block.index('ResetRecoveryContext()')
+    assert 'return INIT_FAILED;' in failure_block
+    state = STATE
+    assert 'bool IsProvenCleanStart()' in state
+    for token in ['CLEAN_START_CONFIRMED', 'RECOVERY_CONTEXT_RESET_FORBIDDEN', 'MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE']:
+        assert token in state

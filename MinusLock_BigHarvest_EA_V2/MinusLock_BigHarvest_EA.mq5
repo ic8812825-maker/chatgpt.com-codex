@@ -216,8 +216,17 @@ int OnInit()
 
    if(!RecoverState())
    {
-      ResetRecoveryContext();
-      State = STATE_IDLE;
+      if(IsProvenCleanStart())
+      {
+         ResetRecoveryContext();
+         State = STATE_IDLE;
+      }
+      else
+      {
+         LogError("RECOVERY_FAILURE_INIT_BLOCKED");
+         MarkRecoveryFailure("RECOVERY_FAILURE_INIT_BLOCKED", State);
+         return INIT_FAILED;
+      }
    }
    else if(!ValidateNoOrphanManagedPositions())
       return INIT_FAILED;
