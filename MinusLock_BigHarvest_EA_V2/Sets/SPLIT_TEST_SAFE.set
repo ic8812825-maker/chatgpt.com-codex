@@ -1,0 +1,9 @@
+UseSplitBigGeometry=true
+UseLegacySingleBigGeometry=false
+UseDynamicReverseSmall=true
+AllowRealTrading=false
+UseInternalSimulation=true
+CloseFarShare=0.10
+ReserveShare=0.90
+MaxHarvestLevels=3
+MaxReverseCycles=3

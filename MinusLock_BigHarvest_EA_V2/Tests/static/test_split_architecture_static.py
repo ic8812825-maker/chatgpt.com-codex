@@ -292,3 +292,15 @@ def test_final_close_gate_exists_and_small_reserve_uses_it():
     small = STATE[STATE.index('void ProcessSmallCheckReserve'):STATE.index('string DiagnoseStopMaxLevelsReason')]
     assert 'EvaluateFinalCloseGate(finalGate)' in small
     assert 'CalcFinalCloseAllowed' not in small
+
+
+def test_isolated_split_test_sets_and_geometry_assert():
+    safe = (ROOT / 'Sets' / 'SPLIT_TEST_SAFE.set').read_text(encoding='utf-8')
+    balanced = (ROOT / 'Sets' / 'SPLIT_TEST_BALANCED.set').read_text(encoding='utf-8')
+    for content in [safe, balanced]:
+        assert 'UseSplitBigGeometry=true' in content
+        assert 'UseLegacySingleBigGeometry=false' in content
+        assert 'UseDynamicReverseSmall=true' in content
+        assert 'AllowRealTrading=false' in content
+    main = (ROOT / 'MinusLock_BigHarvest_EA.mq5').read_text(encoding='utf-8')
+    assert 'ERROR_EXACTLY_ONE_GEOMETRY_MODE_REQUIRED' in main
