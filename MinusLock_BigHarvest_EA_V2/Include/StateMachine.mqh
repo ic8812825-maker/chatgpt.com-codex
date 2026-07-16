@@ -1648,26 +1648,59 @@ bool IsProvenCleanStart()
    bool hasLedger = GlobalVariableCheck(StateKey("ReserveLedgerCount")) && GlobalVariableGet(StateKey("ReserveLedgerCount")) > 0.5;
    bool hasReserveTx = GlobalVariableCheck(StateKey("ReserveTxActive")) && GlobalVariableGet(StateKey("ReserveTxActive")) > 0.5;
    bool hasFailure = GlobalVariableCheck(StateKey("RecoveryFailureActive")) && GlobalVariableGet(StateKey("RecoveryFailureActive")) > 0.5;
-   bool hasPending = GlobalVariableCheck(StateKey("PendingActionType")) && GlobalVariableGet(StateKey("PendingActionType")) > 0.5;
-   bool hasRetry = GlobalVariableCheck(StateKey("RetryTicketHigh32")) || GlobalVariableCheck(StateKey("RetryTicketLow32")) || GlobalVariableCheck(StateKey("LastRetryState"));
-   bool hasInitial = GlobalVariableCheck(StateKey("InitialBuyTicketHigh32")) || GlobalVariableCheck(StateKey("InitialSellTicketHigh32")) || GlobalVariableCheck(StateKey("InitialBuyIdentifierHigh32")) || GlobalVariableCheck(StateKey("InitialSellIdentifierHigh32"));
-   bool hasContext = GlobalVariableCheck(StateKey("CycleIdHigh32")) || GlobalVariableCheck(StateKey("FarTicketHigh32")) || GlobalVariableCheck(StateKey("FarIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigTicketHigh32")) || GlobalVariableCheck(StateKey("SmallTicketHigh32"));
+   bool hasPending = (GlobalVariableCheck(StateKey("PendingActionType")) && GlobalVariableGet(StateKey("PendingActionType")) > (double)PENDING_NONE) ||
+                     (GlobalVariableCheck(StateKey("PendingAttempts")) && GlobalVariableGet(StateKey("PendingAttempts")) > 0.5) ||
+                     (GlobalVariableCheck(StateKey("PendingLot")) && GlobalVariableGet(StateKey("PendingLot")) > VolumeMismatchToleranceLots);
+
+   bool retryHighExists = GlobalVariableCheck(StateKey("RetryTicketHigh32"));
+   bool retryLowExists = GlobalVariableCheck(StateKey("RetryTicketLow32"));
+   bool retryTicketMalformed = (retryHighExists != retryLowExists);
+   bool retryTicketActive = (retryHighExists && GlobalVariableGet(StateKey("RetryTicketHigh32")) > 0.5) ||
+                            (retryLowExists && GlobalVariableGet(StateKey("RetryTicketLow32")) > 0.5);
+   bool hasRetry = retryTicketMalformed || retryTicketActive ||
+                   (GlobalVariableCheck(StateKey("LastRetryState")) && GlobalVariableGet(StateKey("LastRetryState")) != (double)STATE_IDLE) ||
+                   (GlobalVariableCheck(StateKey("RetryAttempts")) && GlobalVariableGet(StateKey("RetryAttempts")) > 0.5) ||
+                   (GlobalVariableCheck(StateKey("RetryLot")) && GlobalVariableGet(StateKey("RetryLot")) > VolumeMismatchToleranceLots);
+
+   bool hasInitial = GlobalVariableCheck(StateKey("InitialBuyTicketHigh32")) || GlobalVariableCheck(StateKey("InitialBuyTicketLow32")) ||
+                     GlobalVariableCheck(StateKey("InitialSellTicketHigh32")) || GlobalVariableCheck(StateKey("InitialSellTicketLow32")) ||
+                     GlobalVariableCheck(StateKey("InitialBuyIdentifierHigh32")) || GlobalVariableCheck(StateKey("InitialBuyIdentifierLow32")) ||
+                     GlobalVariableCheck(StateKey("InitialSellIdentifierHigh32")) || GlobalVariableCheck(StateKey("InitialSellIdentifierLow32"));
+   bool hasLegacyContext = GlobalVariableCheck(StateKey("CycleIdHigh32")) || GlobalVariableCheck(StateKey("CycleIdLow32")) ||
+                           GlobalVariableCheck(StateKey("FarTicketHigh32")) || GlobalVariableCheck(StateKey("FarTicketLow32")) ||
+                           GlobalVariableCheck(StateKey("FarIdentifierHigh32")) || GlobalVariableCheck(StateKey("FarIdentifierLow32")) ||
+                           GlobalVariableCheck(StateKey("BigTicketHigh32")) || GlobalVariableCheck(StateKey("BigTicketLow32")) ||
+                           GlobalVariableCheck(StateKey("BigIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigIdentifierLow32")) ||
+                           GlobalVariableCheck(StateKey("SmallTicketHigh32")) || GlobalVariableCheck(StateKey("SmallTicketLow32")) ||
+                           GlobalVariableCheck(StateKey("SmallIdentifierHigh32")) || GlobalVariableCheck(StateKey("SmallIdentifierLow32"));
+   bool hasSplitContext = GlobalVariableCheck(StateKey("BigCoreTicketHigh32")) || GlobalVariableCheck(StateKey("BigCoreTicketLow32")) ||
+                          GlobalVariableCheck(StateKey("BigCoreIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigCoreIdentifierLow32")) ||
+                          GlobalVariableCheck(StateKey("BigTrendTicketHigh32")) || GlobalVariableCheck(StateKey("BigTrendTicketLow32")) ||
+                          GlobalVariableCheck(StateKey("BigTrendIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigTrendIdentifierLow32")) ||
+                          GlobalVariableCheck(StateKey("SmallBaseTicketHigh32")) || GlobalVariableCheck(StateKey("SmallBaseTicketLow32")) ||
+                          GlobalVariableCheck(StateKey("SmallBaseIdentifierHigh32")) || GlobalVariableCheck(StateKey("SmallBaseIdentifierLow32")) ||
+                          GlobalVariableCheck(StateKey("ReverseSmallTicketHigh32")) || GlobalVariableCheck(StateKey("ReverseSmallTicketLow32")) ||
+                          GlobalVariableCheck(StateKey("ReverseSmallIdentifierHigh32")) || GlobalVariableCheck(StateKey("ReverseSmallIdentifierLow32")) ||
+                          GlobalVariableCheck(StateKey("SplitGeometryActive")) || GlobalVariableCheck(StateKey("ActualSplitHarvestNet")) ||
+                          GlobalVariableCheck(StateKey("ActualSplitHarvestNetCalculated")) || GlobalVariableCheck(StateKey("CycleATRRaw")) ||
+                          GlobalVariableCheck(StateKey("CycleATRPoints"));
    int managed = CountManagedOpenPositions();
 
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !hasContext && managed == 0);
-   LogInfo(StringFormat("CLEAN_START_CHECK State=%s Ledger=%s ReserveTx=%s Failure=%s Pending=%s Retry=%s Initial=%s Context=%s Managed=%d Result=%s",
-                        hasState ? "YES" : "NO",
-                        hasLedger ? "YES" : "NO",
-                        hasReserveTx ? "YES" : "NO",
-                        hasFailure ? "YES" : "NO",
-                        hasPending ? "YES" : "NO",
-                        hasRetry ? "YES" : "NO",
-                        hasInitial ? "YES" : "NO",
-                        hasContext ? "YES" : "NO",
+   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !hasLegacyContext && !hasSplitContext && managed == 0);
+   LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
+                        hasLegacyContext ? "ACTIVE" : "CLEAR",
+                        hasSplitContext ? "ACTIVE" : "CLEAR",
+                        hasInitial ? "ACTIVE" : "CLEAR",
+                        hasPending ? "ACTIVE" : "CLEAR",
+                        hasRetry ? (retryTicketMalformed ? "MALFORMED" : "ACTIVE") : "CLEAR",
+                        hasLedger ? "ACTIVE" : "CLEAR",
+                        hasReserveTx ? "ACTIVE" : "CLEAR",
+                        hasFailure ? "ACTIVE" : "CLEAR",
                         managed,
+                        hasState ? "PRESENT" : "ABSENT",
                         clean ? "CLEAN_START_CONFIRMED" : "RECOVERY_CONTEXT_RESET_FORBIDDEN"));
    if(clean)
       LogInfo("CLEAN_START_CONFIRMED");
