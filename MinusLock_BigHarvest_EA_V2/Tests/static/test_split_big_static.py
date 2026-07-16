@@ -60,8 +60,10 @@ def test_lifecycle_net_filters_symbol_magic_identifier_and_fee():
         assert entry in fn
 
 
-def test_split_small_direction_goes_to_manual_intervention_not_legacy_small():
+def test_split_small_direction_enters_explicit_reverse_fsm_not_legacy_small():
     fn = block_between(STATE, 'void ProcessSplitBigActive()', 'bool CloseSplitRoleFull')
-    assert 'STATE_SPLIT_REVERSE_NOT_IMPLEMENTED' in fn
-    assert 'STATE_MANUAL_INTERVENTION_REQUIRED' in fn
+    assert 'STATE_REVERSE_CLOSE_BIG_TREND' in fn
+    assert 'ProcessReverseCalculateDynamicSmall' in fn
+    assert 'ProcessSplitSmallCloseCorePart' in fn
+    assert 'STATE_SMALL_COMPRESSION_FAILED' in fn
     assert 'STATE_SMALL_SCENARIO' not in fn

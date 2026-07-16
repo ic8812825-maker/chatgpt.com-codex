@@ -5054,6 +5054,10 @@ bool ApplyResolvedPositionToSplitRole(PositionRole role, PositionResolutionResul
       Ctx.bigTrendOpenPrice = result.openPrice;
       Ctx.bigTrendDirection = resolvedDirection;
    }
+   else if(role == ROLE_REVERSE_SMALL)
+   {
+      Ctx.reverseSmallTicket=result.ticket; Ctx.reverseSmallIdentifier=result.identifier; Ctx.reverseSmallLot=result.lot; Ctx.reverseSmallOpenPrice=result.openPrice; Ctx.reverseSmallDirection=resolvedDirection; Ctx.reverseSmallOpened=true;
+   }
    else
       return false;
 
@@ -5144,6 +5148,7 @@ EAState SplitOpenPendingStateForRole(PositionRole role)
    if(role == ROLE_BIG_CORE) return STATE_SPLIT_OPEN_CORE_PENDING;
    if(role == ROLE_SMALL_BASE) return STATE_SPLIT_OPEN_SMALL_BASE_PENDING;
    if(role == ROLE_BIG_TREND) return STATE_SPLIT_OPEN_TREND_PENDING;
+   if(role == ROLE_REVERSE_SMALL) return STATE_REVERSE_OPEN_DYNAMIC_SMALL;
    return STATE_ERROR;
 }
 
@@ -5152,6 +5157,7 @@ PendingActionType SplitOpenPendingActionForRole(PositionRole role)
    if(role == ROLE_BIG_CORE) return PENDING_OPEN_BIG_CORE;
    if(role == ROLE_SMALL_BASE) return PENDING_OPEN_SMALL_BASE;
    if(role == ROLE_BIG_TREND) return PENDING_OPEN_BIG_TREND;
+   if(role == ROLE_REVERSE_SMALL) return PENDING_OPEN_REVERSE_SMALL;
    return PENDING_NONE;
 }
 
@@ -5160,6 +5166,7 @@ EAState SplitClosePendingStateForRole(PositionRole role)
    if(role == ROLE_BIG_CORE) return STATE_SPLIT_CLOSE_CORE_PENDING;
    if(role == ROLE_BIG_TREND) return STATE_SPLIT_CLOSE_TREND_PENDING;
    if(role == ROLE_SMALL_BASE) return STATE_SPLIT_CLOSE_SMALL_BASE_PENDING;
+   if(role == ROLE_REVERSE_SMALL) return STATE_SMALL_CLOSE_DYNAMIC_SMALL;
    return STATE_ERROR;
 }
 
@@ -5349,11 +5356,69 @@ void ProcessSplitBigActive()
    double smallProfitPoints = ProfitPoints(Ctx.smallBaseDirection, Ctx.smallBaseOpenPrice);
    if(smallProfitPoints >= GetBigMovePoints(Ctx.harvestLevel))
    {
-      SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "STATE_SPLIT_REVERSE_NOT_IMPLEMENTED: Small direction reached target in Split Big mode");
+      Ctx.smallScenarioRealBefore=AccountInfoDouble(ACCOUNT_BALANCE)-Ctx.cycleStartBalance;
+      SetState(STATE_REVERSE_CLOSE_BIG_TREND,"Split Small trigger confirmed; close BigTrend first");
       return;
    }
    if(SplitBigTargetReached())
       SetState(STATE_SPLIT_BIG_HARVEST_CLOSE_CORE, "Split Big target reached from BigCoreOpenPrice");
+}
+
+void ProcessReverseCloseBigTrend()
+{
+   CloseSplitRoleFull(ROLE_BIG_TREND,Ctx.bigTrendTicket,Ctx.bigTrendLot,"SMALL_CLOSE_BIG_TREND",STATE_REVERSE_CALCULATE_DYNAMIC_SMALL,PENDING_CLOSE_BIG_TREND_FULL);
+}
+void ProcessReverseCalculateDynamicSmall()
+{
+   double minimum=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN);
+   Ctx.reverseSmallDirection=Ctx.farDirection;
+   Ctx.reverseSmallLot=NormalizeLotUp(MathMax(minimum,Ctx.bigCoreLot-Ctx.farLot-Ctx.smallBaseLot+Ctx.farLot*ReverseDirectionBufferRatio));
+   double netSmall=Ctx.farLot+Ctx.smallBaseLot+Ctx.reverseSmallLot-Ctx.bigCoreLot;
+   if(Ctx.reverseSmallLot<=0||netSmall<=VolumeMismatchToleranceLots) { SetState(STATE_INVALID_SMALL_GEOMETRY,"REVERSE_SMALL_EXPOSURE_NOT_POSITIVE"); return; }
+   SetState(STATE_REVERSE_OPEN_DYNAMIC_SMALL,"ReverseSmall normalized exposure approved");
+}
+void ProcessReverseOpenDynamicSmall()
+{
+   if(Ctx.reverseSmallTicket!=0||Ctx.reverseSmallOpened) { SetState(STATE_REVERSE_WAIT_FAR_TOUCH,"ReverseSmall exactly-once restored"); return; }
+   if(OpenSplitRole(ROLE_REVERSE_SMALL,Ctx.reverseSmallDirection,Ctx.reverseSmallLot,STATE_REVERSE_WAIT_FAR_TOUCH,STATE_REVERSE_SMALL_OPEN_FAILED)) Ctx.reverseSmallOpened=true;
+}
+void ProcessReverseWaitFarTouch()
+{
+   double price=Ctx.farDirection==DIR_BUY?SymbolInfoDouble(_Symbol,SYMBOL_ASK):SymbolInfoDouble(_Symbol,SYMBOL_BID);
+   bool touched=Ctx.farDirection==DIR_BUY?price>=Ctx.farOpenPrice:price<=Ctx.farOpenPrice;
+   bool falseReverse=Ctx.bigCoreDirection==DIR_BUY?SymbolInfoDouble(_Symbol,SYMBOL_BID)>=Ctx.bigCoreOpenPrice:SymbolInfoDouble(_Symbol,SYMBOL_ASK)<=Ctx.bigCoreOpenPrice;
+   if(falseReverse&&!touched) { LogError("FALSE_SMALL_REVERSE_BLOCKED SecondReverseSmall=NO SecondFar=NO"); SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"FALSE_REVERSE_EMERGENCY_REVIEW_REQUIRED"); return; }
+   if(touched) SetState(STATE_SMALL_CLOSE_OLD_FAR,"Old Far touch confirmed for Split Small transition");
+}
+
+void ProcessSplitSmallCloseOldFar()
+{
+   Ctx.oldFarTicket=Ctx.farTicket; Ctx.oldFarLot=Ctx.farLot; Ctx.oldFarDirection=Ctx.farDirection; Ctx.oldFarOpenPrice=Ctx.farOpenPrice;
+   if(!ClosePositionByTicketWithComment(Ctx.farTicket,Ctx.farLot,"SPLIT_SMALL_CLOSE_OLD_FAR")||!VerifyFullClose(Ctx.farTicket,"SPLIT_SMALL_CLOSE_OLD_FAR")) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"Split Old Far close not confirmed"); return; }
+   ClearFarContext("Split Small old Far confirmed closed"); SetState(STATE_SMALL_CLOSE_SMALL_BASE,"Close SmallBase after Old Far");
+}
+void ProcessSplitSmallCloseSmallBase()
+{
+   CloseSplitRoleFull(ROLE_SMALL_BASE,Ctx.smallBaseTicket,Ctx.smallBaseLot,"SPLIT_SMALL_CLOSE_BASE",STATE_SMALL_CLOSE_DYNAMIC_SMALL,PENDING_CLOSE_SMALL_BASE_FULL);
+}
+void ProcessSplitSmallCloseReverse()
+{
+   CloseSplitRoleFull(ROLE_REVERSE_SMALL,Ctx.reverseSmallTicket,Ctx.reverseSmallLot,"SPLIT_SMALL_CLOSE_REVERSE",STATE_SMALL_CLOSE_BIG_CORE_PART,PENDING_CLOSE_REVERSE_SMALL_FULL);
+}
+void ProcessSplitSmallCloseCorePart()
+{
+   double target=CalcTargetNewFarLot(Ctx.oldFarLot),closeLot=NormalizeLotDown(Ctx.bigCoreLot-target);
+   if(target<=0||target>=Ctx.oldFarLot||Ctx.oldFarLot-target<MinimumFarCompressionLots||closeLot<=0) { SetState(STATE_INVALID_SMALL_GEOMETRY,"SMALL_TARGET_NEW_FAR_INVALID"); return; }
+   if(!ClosePositionByTicket(Ctx.bigCoreTicket,closeLot)) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"BigCore compression close failed"); return; }
+   double actual=NormalizeVolumeToStep(GetActualPositionVolume(Ctx.bigCoreTicket));
+   if(actual<=0||actual>=Ctx.oldFarLot||actual/ Ctx.oldFarLot>MaximumNewFarRatio+0.000001) { SetState(STATE_INVALID_SMALL_GEOMETRY,"STATE_SMALL_COMPRESSION_FAILED"); return; }
+   Ctx.farTicket=Ctx.bigCoreTicket; Ctx.farIdentifier=Ctx.bigCoreIdentifier; Ctx.farLot=actual; Ctx.farDirection=Ctx.bigCoreDirection; Ctx.farOpenPrice=Ctx.bigCoreOpenPrice;
+   Ctx.bigCoreTicket=0; Ctx.bigCoreIdentifier=0; Ctx.bigCoreLot=0; Ctx.bigCoreDirection=DIR_NONE;
+   RecalculateRealCycleStatsFromHistory(); Ctx.smallScenarioRealAfter=Ctx.realCyclePL;
+   if(Ctx.smallScenarioRealAfter-Ctx.smallScenarioRealBefore<MinimumTransitionProfitMoney) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"SMALL_TRANSITION_MONEY_FAIL"); return; }
+   int required=EvaluateRequiredReverseCycles(Ctx.farLot,SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),MathMin(MaximumNewFarRatio,actual/Ctx.oldFarLot));
+   if(required>WorkMaxReverseCycles) { SetState(STATE_REVERSE_LIMIT,"REQUIRED_REVERSE_CYCLES_EXCEED_LIMIT"); return; }
+   SetState(STATE_SMALL_CHECK_RESERVE,"Split Small transition actual New Far confirmed");
 }
 
 bool CloseSplitRoleFull(PositionRole role, ulong ticket, double lot, string closeComment, EAState nextState, PendingActionType pendingType)
@@ -5368,6 +5433,7 @@ bool CloseSplitRoleFull(PositionRole role, ulong ticket, double lot, string clos
    if(role == ROLE_BIG_CORE) { Ctx.bigCoreTicket = 0; Ctx.bigCoreLot = 0.0; Ctx.bigCoreDirection = DIR_NONE; }
    if(role == ROLE_BIG_TREND) { Ctx.bigTrendTicket = 0; Ctx.bigTrendLot = 0.0; Ctx.bigTrendDirection = DIR_NONE; }
    if(role == ROLE_SMALL_BASE) { Ctx.smallBaseTicket = 0; Ctx.smallBaseLot = 0.0; Ctx.smallBaseDirection = DIR_NONE; }
+   if(role == ROLE_REVERSE_SMALL) { Ctx.reverseSmallTicket=0; Ctx.reverseSmallLot=0.0; Ctx.reverseSmallDirection=DIR_NONE; Ctx.reverseSmallOpened=false; }
    SaveState();
    SetState(nextState, "Split role full close confirmed: " + PositionRoleToCode(role));
    return true;
@@ -5784,6 +5850,15 @@ void RunStateMachine()
          CheckSmallToFarTouch();
          break;
 
+      case STATE_REVERSE_CLOSE_BIG_TREND: ProcessReverseCloseBigTrend(); break;
+      case STATE_REVERSE_CALCULATE_DYNAMIC_SMALL: ProcessReverseCalculateDynamicSmall(); break;
+      case STATE_REVERSE_OPEN_DYNAMIC_SMALL: ProcessReverseOpenDynamicSmall(); break;
+      case STATE_REVERSE_WAIT_FAR_TOUCH: ProcessReverseWaitFarTouch(); break;
+
+      case STATE_SMALL_CLOSE_SMALL_BASE: ProcessSplitSmallCloseSmallBase(); break;
+      case STATE_SMALL_CLOSE_DYNAMIC_SMALL: ProcessSplitSmallCloseReverse(); break;
+      case STATE_SMALL_CLOSE_BIG_CORE_PART: ProcessSplitSmallCloseCorePart(); break;
+
       case STATE_SMALL_SCENARIO:
          ProcessSmallScenario();
          break;
@@ -5793,7 +5868,7 @@ void RunStateMachine()
          break;
 
       case STATE_SMALL_CLOSE_OLD_FAR:
-         ProcessSmallCloseOldFar();
+         if(Ctx.splitGeometryActive||Ctx.bigCoreTicket!=0) ProcessSplitSmallCloseOldFar(); else ProcessSmallCloseOldFar();
          break;
 
       case STATE_SMALL_CLOSE_BIG_PART:
