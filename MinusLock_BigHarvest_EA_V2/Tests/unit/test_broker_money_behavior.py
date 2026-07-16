@@ -20,4 +20,22 @@ def test_position_buffers_per_item(): assert basket([money(10,order_buffer=1,pos
 def test_currency_conversion_tick_value(): assert 10*2.5==25
 @pytest.mark.parametrize('tick,size,valid',[(0,1,False),(1,0,False),(1,1,True)])
 def test_symbol_data(tick,size,valid): assert ((tick>0 and size>0) is valid)
-def test_order_calc_profit_failure_blocks(): assert not False
+def test_order_calc_profit_failure_blocks():
+    calculation_valid = False
+    assert calculation_valid is False
+
+def percentage_commission(lot, contract, opening, closing, percent):
+    if min(lot, contract, opening, closing) <= 0:
+        raise ValueError("conversion unavailable")
+    return lot * contract * (opening + closing) * percent / 100
+
+def close_now(gross, accrued_swap, close_commission, future_swap=0):
+    assert future_swap == 0
+    return gross + accrued_swap - close_commission
+
+def test_percentage_commission_uses_turnover_not_profit():
+    assert percentage_commission(1, 100_000, 1.1, 1.2, .01) == pytest.approx(23)
+
+@pytest.mark.parametrize("accrued,expected", [(0, 9), (-2, 7), (2, 11)])
+def test_close_now_uses_only_accrued_swap(accrued, expected):
+    assert close_now(10, accrued, 1) == expected

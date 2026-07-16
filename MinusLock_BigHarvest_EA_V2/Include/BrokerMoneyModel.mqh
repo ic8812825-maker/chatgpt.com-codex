@@ -10,6 +10,9 @@ struct BrokerMoneyResult
    double closeCommission;
    double fee;
    double swap;
+   double accruedSwap;
+   double projectedFutureSwap;
+   double worstCaseSwapBuffer;
    double swapBuffer; // compatibility alias
    double baseSpreadCost;
    double spreadExpansionCost;
@@ -28,13 +31,13 @@ struct BrokerMoneyResult
 };
 
 struct BigRecoveryEvaluation { bool calculationValid; double netBigExposure; double projectedRecoveryDelta; double costs; bool geometryPass; bool recoveryPass; string reason; };
-struct BigReserveCatchUpEvaluation { double reserveBefore; double reserveAdd; double carryBefore; double farLossBefore; double farLossAfter; double coverageBefore; double coverageAfter; bool pass; string reason; };
+struct BigReserveCatchUpEvaluation { double reserveBefore; double reserveAfter; double carryBefore; double carryAfter; double farLotBefore; double farLotAfter; double farLossBefore; double farLossAfter; double partialFarActualCost; double coverageBefore; double coverageAfter; bool pass; string reason; };
 struct SmallTransitionEvaluation { bool calculationValid; double bigTrendCloseNet; double smallBaseCloseNet; double reverseSmallCloseNet; double oldFarCloseNet; double bigCorePartialCloseNet; double commission; double swap; double spreadExpansion; double slippage; double buffers; double transitionNet; double oldFarLot; double targetNewFarLot; double projectedNewFarLot; double compressionRatio; double netSmallExposure; double projectedMarginLevel; bool moneyPass; bool exposurePass; bool compressionPass; bool marginPass; bool transitionAllowed; string reason; };
 
 void ResetBrokerMoneyResult(BrokerMoneyResult &r)
 {
    r.calculationValid=false; r.ok=false; r.grossProfit=0; r.openCommission=0; r.closeCommission=0; r.fee=0;
-   r.swap=0; r.swapBuffer=0; r.baseSpreadCost=0; r.spreadExpansionCost=0; r.spreadCost=0; r.slippageCost=0;
+   r.swap=0; r.accruedSwap=0; r.projectedFutureSwap=0; r.worstCaseSwapBuffer=0; r.swapBuffer=0; r.baseSpreadCost=0; r.spreadExpansionCost=0; r.spreadCost=0; r.slippageCost=0;
    r.perOrderBuffer=0; r.perPositionBuffer=0; r.basketBuffer=0; r.cycleBuffer=0; r.safetyBuffer=0;
    r.netMoney=0; r.requiredMargin=0; r.marginMoney=0; r.baseSpreadIncludedInPrices=true; r.reason="";
 }
@@ -61,13 +64,22 @@ bool ValidateCommissionModel(string &reason)
    return true;
 }
 
-double ProjectedCommission(double lot,double grossAbs,bool oneSide)
+bool ProjectedCommission(double lot,double openPrice,double closePrice,bool includeOpen,bool includeClose,double margin,double &value,string &reason)
 {
-   if(CommissionPerLotPerSide>0) return lot*CommissionPerLotPerSide*(oneSide?1:2);
-   if(CommissionPerLotRoundTurn>0) return lot*CommissionPerLotRoundTurn*(oneSide?0.5:1.0);
-   if(CommissionFixedPerDeal>0) return CommissionFixedPerDeal*(oneSide?1:2);
-   if(CommissionPercent>0) return grossAbs*CommissionPercent/100.0;
-   return lot*((oneSide?EstimatedCloseCommissionPerLot:(EstimatedOpenCommissionPerLot+EstimatedCloseCommissionPerLot)));
+   value=0; int sides=(includeOpen?1:0)+(includeClose?1:0);
+   if(CommissionPerLotPerSide>0) value=lot*CommissionPerLotPerSide*sides;
+   else if(CommissionPerLotRoundTurn>0) value=lot*CommissionPerLotRoundTurn*sides/2.0;
+   else if(CommissionFixedPerDeal>0) value=CommissionFixedPerDeal*sides;
+   else if(CommissionPercent>0)
+   {
+      if(CommissionPercentCalculationBase==COMMISSION_PERCENT_DISABLED) { reason="COMMISSION_PERCENT_BASE_DISABLED"; return false; }
+      double contract=SymbolInfoDouble(_Symbol,SYMBOL_TRADE_CONTRACT_SIZE);
+      if(contract<=0) { reason="COMMISSION_NOTIONAL_CONVERSION_FAILED"; return false; }
+      if(CommissionPercentCalculationBase==COMMISSION_PERCENT_MARGIN) { if(margin<=0) { reason="COMMISSION_MARGIN_BASE_UNAVAILABLE"; return false; } value=margin*CommissionPercent/100.0*sides; }
+      else value=lot*contract*((includeOpen?openPrice:0)+(includeClose?closePrice:0))*CommissionPercent/100.0;
+   }
+   else value=lot*((includeOpen?EstimatedOpenCommissionPerLot:0)+(includeClose?EstimatedCloseCommissionPerLot:0));
+   return MathIsValidNumber(value)&&value>=0;
 }
 
 bool ProjectedSwapMoney(Direction direction,double lot,int days,double &cost,string &reason)
@@ -89,7 +101,7 @@ bool ProjectedSwapMoney(Direction direction,double lot,int days,double &cost,str
    cost+=EstimatedSwapBufferMoney*lot*days; return true;
 }
 
-bool CalcProjectedPositionNetMoney(Direction direction,double lot,double openPrice,double closePrice,bool includeOpenCommission,bool includeCloseCommission,BrokerMoneyResult &r)
+bool CalcProjectedPositionNetMoneyForHolding(Direction direction,double lot,double openPrice,double closePrice,bool includeOpenCommission,bool includeCloseCommission,int holdingDays,double accruedSwap,BrokerMoneyResult &r)
 {
    ResetBrokerMoneyResult(r);
    if(direction==DIR_NONE||lot<=0||openPrice<=0||closePrice<=0) { r.reason="BROKER_MONEY_INVALID_INPUT"; return false; }
@@ -100,22 +112,27 @@ bool CalcProjectedPositionNetMoney(Direction direction,double lot,double openPri
    r.spreadExpansionCost=BrokerPointsCostMoney(lot,SpreadExpansionBufferPoints);
    r.slippageCost=BrokerPointsCostMoney(lot,MaxSlippagePoints*SlippageSafetyMultiplier);
    if(r.spreadExpansionCost<0||r.slippageCost<0) { r.reason="BROKER_MONEY_TICK_VALUE_FAILED"; return false; }
-   double totalCommission=ProjectedCommission(lot,MathAbs(gross),!(includeOpenCommission&&includeCloseCommission));
-   r.openCommission=includeOpenCommission?(includeCloseCommission?totalCommission*0.5:totalCommission):0;
-   r.closeCommission=includeCloseCommission?(includeOpenCommission?totalCommission*0.5:totalCommission):0;
-   if(!ProjectedSwapMoney(direction,lot,MaximumHoldingDays,r.swap,r.reason)) return false;
-   r.swapBuffer=r.swap; r.spreadCost=r.spreadExpansionCost;
+   double margin=0; OrderCalcMargin(type,_Symbol,lot,openPrice,margin); double totalCommission=0;
+   if(!ProjectedCommission(lot,openPrice,closePrice,includeOpenCommission,includeCloseCommission,margin,totalCommission,r.reason)) return false;
+   int sides=(includeOpenCommission?1:0)+(includeCloseCommission?1:0);
+   r.openCommission=includeOpenCommission?(sides==2?totalCommission*0.5:totalCommission):0;
+   r.closeCommission=includeCloseCommission?(sides==2?totalCommission*0.5:totalCommission):0;
+   r.accruedSwap=accruedSwap;
+   double futureCost=0; if(holdingDays>0&&!ProjectedSwapMoney(direction,lot,holdingDays,futureCost,r.reason)) return false;
+   r.projectedFutureSwap=-futureCost; r.swap=r.accruedSwap+r.projectedFutureSwap; r.swapBuffer=r.worstCaseSwapBuffer; r.spreadCost=r.spreadExpansionCost;
    r.perOrderBuffer=ExecutionBufferPerOrderMoney; r.perPositionBuffer=ExecutionBufferPerPositionMoney;
    r.safetyBuffer=r.perOrderBuffer+r.perPositionBuffer;
-   r.netMoney=r.grossProfit-r.openCommission-r.closeCommission-r.fee-r.swap-r.spreadExpansionCost-r.slippageCost-r.safetyBuffer;
+   r.netMoney=r.grossProfit+r.accruedSwap+r.projectedFutureSwap-r.openCommission-r.closeCommission-r.fee-r.worstCaseSwapBuffer-r.spreadExpansionCost-r.slippageCost-r.safetyBuffer;
    r.calculationValid=true; r.ok=true; return true;
 }
 
-bool CalcProjectedCloseNetMoney(Direction d,double lot,double open,double close,BrokerMoneyResult &r) { return CalcProjectedPositionNetMoney(d,lot,open,close,false,true,r); }
+bool CalcProjectedPositionNetMoney(Direction d,double lot,double open,double close,bool openCommission,bool closeCommission,BrokerMoneyResult &r) { return CalcProjectedPositionNetMoneyForHolding(d,lot,open,close,openCommission,closeCommission,ExpectedHoldingDays,0,r); }
+bool CalcProjectedCloseNetMoneyWithAccrued(Direction d,double lot,double open,double close,double accruedSwap,BrokerMoneyResult &r) { return CalcProjectedPositionNetMoneyForHolding(d,lot,open,close,false,true,0,accruedSwap,r); }
+bool CalcProjectedCloseNetMoney(Direction d,double lot,double open,double close,BrokerMoneyResult &r) { return CalcProjectedCloseNetMoneyWithAccrued(d,lot,open,close,0,r); }
 bool CalcProjectedOpenAndCloseCosts(double lot,BrokerMoneyResult &r)
 {
    ResetBrokerMoneyResult(r); if(!ValidateCommissionModel(r.reason)||lot<=0) return false;
-   double commission=ProjectedCommission(lot,0,false); r.openCommission=commission*.5; r.closeCommission=commission*.5;
+   double price=BrokerExecutionOpenPrice(DIR_BUY),margin=0,commission=0; if(!ProjectedCommission(lot,price,price,true,true,margin,commission,r.reason)) return false; r.openCommission=commission*.5; r.closeCommission=commission*.5;
    r.spreadExpansionCost=BrokerPointsCostMoney(lot,SpreadExpansionBufferPoints); r.slippageCost=BrokerPointsCostMoney(lot,MaxSlippagePoints*SlippageSafetyMultiplier);
    r.perOrderBuffer=ExecutionBufferPerOrderMoney*2; r.perPositionBuffer=ExecutionBufferPerPositionMoney; r.safetyBuffer=r.perOrderBuffer+r.perPositionBuffer;
    if(r.spreadExpansionCost<0||r.slippageCost<0) return false; r.spreadCost=r.spreadExpansionCost;
@@ -130,9 +147,9 @@ bool CalcProjectedBasketNetMoney(BrokerMoneyResult &items[],int count,BrokerMone
 {
    ResetBrokerMoneyResult(r); if(count<0) return false;
    for(int i=0;i<count;i++) { if(!items[i].calculationValid&&!items[i].ok) { r.reason="BROKER_BASKET_ITEM_INVALID"; return false; }
-      r.grossProfit+=items[i].grossProfit; r.openCommission+=items[i].openCommission; r.closeCommission+=items[i].closeCommission; r.fee+=items[i].fee; r.swap+=items[i].swap;
+      r.grossProfit+=items[i].grossProfit; r.openCommission+=items[i].openCommission; r.closeCommission+=items[i].closeCommission; r.fee+=items[i].fee; r.swap+=items[i].swap; r.accruedSwap+=items[i].accruedSwap; r.projectedFutureSwap+=items[i].projectedFutureSwap; r.worstCaseSwapBuffer+=items[i].worstCaseSwapBuffer;
       r.baseSpreadCost+=items[i].baseSpreadCost; r.spreadExpansionCost+=items[i].spreadExpansionCost; r.slippageCost+=items[i].slippageCost; r.perOrderBuffer+=items[i].perOrderBuffer; r.perPositionBuffer+=items[i].perPositionBuffer; r.requiredMargin+=items[i].requiredMargin; }
-   r.basketBuffer=ExecutionBufferPerBasketMoney; r.netMoney=r.grossProfit-r.openCommission-r.closeCommission-r.fee-r.swap-r.spreadExpansionCost-r.slippageCost-r.perOrderBuffer-r.perPositionBuffer-r.basketBuffer;
+   r.basketBuffer=ExecutionBufferPerBasketMoney; r.netMoney=r.grossProfit+r.accruedSwap+r.projectedFutureSwap-r.openCommission-r.closeCommission-r.fee-r.worstCaseSwapBuffer-r.spreadExpansionCost-r.slippageCost-r.perOrderBuffer-r.perPositionBuffer-r.basketBuffer;
    r.swapBuffer=r.swap; r.spreadCost=r.spreadExpansionCost; r.marginMoney=r.requiredMargin; r.safetyBuffer=r.perOrderBuffer+r.perPositionBuffer+r.basketBuffer; r.calculationValid=true; r.ok=true; return true;
 }
 bool CalcFarCloseLossWorstCaseMoney(Direction d,double lot,double open,double close,double &loss) { BrokerMoneyResult r; if(!CalcProjectedCloseNetMoney(d,lot,open,close,r)) return false; loss=MathMax(0,-r.netMoney); return true; }
@@ -146,17 +163,17 @@ bool EvaluateBigGeometryAndRecovery(double farLot,double coreLot,double trendLot
    e.calculationValid=core.ok&&trend.ok&&small.ok&&far.ok; e.netBigExposure=coreLot+trendLot-smallLot-farLot;
    e.costs=(core.grossProfit-core.netMoney)+(trend.grossProfit-trend.netMoney)+(small.grossProfit-small.netMoney)+(far.grossProfit-far.netMoney);
    e.projectedRecoveryDelta=core.netMoney+trend.netMoney+small.netMoney+far.netMoney;
-   e.geometryPass=e.netBigExposure>=MinimumNetBigExposureLots; e.recoveryPass=e.projectedRecoveryDelta>=MinimumBigRecoveryImprovementMoney;
+   e.geometryPass=e.netBigExposure>=MinimumNetBigExposureLots; e.recoveryPass=e.projectedRecoveryDelta>MinimumBigRecoveryImprovementMoney+MoneyCalculationTolerance;
    e.reason=!e.calculationValid?"BIG_RECOVERY_CALCULATION_FAILED":(!e.geometryPass?"BIG_NET_EXPOSURE_TOO_SMALL":(!e.recoveryPass?"BIG_RECOVERY_DELTA_TOO_SMALL":"OK"));
    return e.calculationValid&&e.geometryPass&&e.recoveryPass;
 }
 
-bool EvaluateBigReserveCatchUp(double reserveBefore,double reserveAdd,double carryBefore,double farLossBefore,double farLossAfter,BigReserveCatchUpEvaluation &e)
+bool EvaluateBigReserveCatchUp(double reserveBefore,double reserveAfter,double carryBefore,double carryAfter,double farLotBefore,double farLotAfter,double farLossBefore,double farLossAfter,double partialCost,BigReserveCatchUpEvaluation &e)
 {
-   e.reserveBefore=reserveBefore; e.reserveAdd=reserveAdd; e.carryBefore=carryBefore; e.farLossBefore=farLossBefore; e.farLossAfter=farLossAfter;
+   e.reserveBefore=reserveBefore; e.reserveAfter=reserveAfter; e.carryBefore=carryBefore; e.carryAfter=carryAfter; e.farLotBefore=farLotBefore; e.farLotAfter=farLotAfter; e.farLossBefore=farLossBefore; e.farLossAfter=farLossAfter; e.partialFarActualCost=partialCost;
    e.coverageBefore=farLossBefore>0?(reserveBefore+carryBefore)/farLossBefore:1.0;
-   e.coverageAfter=farLossAfter>0?(reserveBefore+reserveAdd+carryBefore)/farLossAfter:1.0;
-   e.pass=e.coverageAfter>e.coverageBefore; e.reason=e.pass?"OK":"BIG_RESERVE_COVERAGE_NOT_IMPROVED"; return e.pass;
+   e.coverageAfter=farLossAfter>0?(reserveAfter+carryAfter)/farLossAfter:1.0;
+   e.pass=e.coverageAfter>e.coverageBefore+CoverageImprovementTolerance; e.reason=e.pass?"OK":"BIG_RESERVE_COVERAGE_NOT_IMPROVED"; return e.pass;
 }
 
 double CalcTargetNewFarLot(double oldFarLot)

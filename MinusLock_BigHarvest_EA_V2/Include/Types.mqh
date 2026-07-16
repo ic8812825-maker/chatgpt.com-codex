@@ -1,6 +1,14 @@
 #ifndef __BH_TYPES_MQH__
 #define __BH_TYPES_MQH__
 
+enum CommissionPercentBase
+{
+   COMMISSION_PERCENT_NOTIONAL = 0,
+   COMMISSION_PERCENT_TURNOVER,
+   COMMISSION_PERCENT_MARGIN,
+   COMMISSION_PERCENT_DISABLED
+};
+
 enum EAState
 {
    STATE_IDLE = 0,
@@ -403,6 +411,7 @@ struct RecoveryContext
    double reverseSmallOpenPrice;
    double bigCoverageBefore;
    double bigFarLossBefore;
+   double bigFarLotBefore;
 
    Direction bigCoreDirection;
    Direction bigTrendDirection;

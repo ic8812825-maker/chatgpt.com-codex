@@ -3986,13 +3986,19 @@ bool CalculateProjectedPositionCloseNet(ulong ticket, double lot, ProjectedClose
       return false;
 
    double closePrice = CurrentPriceForDirectionClose(pos.direction);
-   BrokerMoneyResult money;
+   BrokerMoneyResult money; ResetBrokerMoneyResult(money);
+   double swapPart = 0.0;
+   if(PositionSelectByTicket(ticket))
+   {
+      double fullSwap = PositionGetDouble(POSITION_SWAP);
+      if(pos.lot > 0.0) swapPart = fullSwap * (closeLot / pos.lot);
+   }
    double profit = 0.0;
    if(IsInternalSimulationMode())
       profit = CalcSignedPositionPL(pos.direction, closeLot, pos.openPrice, closePrice);
    else
    {
-      if(!CalcProjectedCloseNetMoney(pos.direction, closeLot, pos.openPrice, closePrice, money))
+      if(!CalcProjectedCloseNetMoneyWithAccrued(pos.direction, closeLot, pos.openPrice, closePrice, swapPart, money))
       {
          LogError("BROKER_MONEY_MODEL_REQUIRED " + money.reason);
          return false;
@@ -4000,19 +4006,11 @@ bool CalculateProjectedPositionCloseNet(ulong ticket, double lot, ProjectedClose
       profit = money.grossProfit;
    }
 
-   double swapPart = 0.0;
-   if(PositionSelectByTicket(ticket))
-   {
-      double fullSwap = PositionGetDouble(POSITION_SWAP);
-      if(pos.lot > 0.0)
-         swapPart = fullSwap * (closeLot / pos.lot);
-   }
-
    result.projectedGrossProfit = profit;
    result.projectedSwapPart = swapPart;
    result.estimatedCommission = money.closeCommission;
    // One account-currency model for simulation and live projection. Reserve is never part of this budget.
-   result.projectedNet = money.netMoney + swapPart;
+   result.projectedNet = money.netMoney;
    result.projectedLoss = MathMax(0.0, -result.projectedNet);
    return true;
 }
@@ -4686,8 +4684,8 @@ bool EvaluateFinalCloseGate(FinalCloseEvaluation &result)
       if(PositionGetString(POSITION_SYMBOL)!=_Symbol||(ulong)PositionGetInteger(POSITION_MAGIC)!=MagicNumber) continue;
       Direction d=(PositionGetInteger(POSITION_TYPE)==POSITION_TYPE_BUY?DIR_BUY:DIR_SELL);
       double lot=PositionGetDouble(POSITION_VOLUME),open=PositionGetDouble(POSITION_PRICE_OPEN),close=SymbolInfoDouble(_Symbol,d==DIR_BUY?SYMBOL_BID:SYMBOL_ASK);
-      BrokerMoneyResult item; if(!CalcProjectedCloseNetMoney(d,lot,open,close,item)) { basketValid=false; break; }
-      projectedOpenPositionsNet+=item.netMoney+PositionGetDouble(POSITION_SWAP); result.projectedCommission+=item.closeCommission; result.projectedSpreadCost+=item.spreadExpansionCost; result.projectedSlippageCost+=item.slippageCost; projectedPositions++;
+      BrokerMoneyResult item; if(!CalcProjectedCloseNetMoneyWithAccrued(d,lot,open,close,PositionGetDouble(POSITION_SWAP),item)) { basketValid=false; break; }
+      projectedOpenPositionsNet+=item.netMoney; result.projectedCommission+=item.closeCommission; result.projectedSpreadCost+=item.spreadExpansionCost; result.projectedSlippageCost+=item.slippageCost; projectedPositions++;
    }
    result.calculationValid=result.calculationValid&&basketValid;
    result.projectedRecoveryPL=AccountInfoDouble(ACCOUNT_BALANCE)+projectedOpenPositionsNet-Ctx.cycleStartBalance-result.safetyBuffer;
@@ -5496,6 +5494,7 @@ void ProcessSplitBigHarvestCheckFullFar()
    if(!CalculateProjectedFarCloseNet(Ctx.farLot, full)) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split full Far projection unavailable"); return; }
    double coverage = Ctx.totalReserve + Ctx.actualSplitHarvestNet;
    Ctx.bigFarLossBefore=full.projectedLoss;
+   Ctx.bigFarLotBefore=Ctx.farLot;
    Ctx.bigCoverageBefore=full.projectedLoss>0.0?(Ctx.totalReserve+Ctx.partialFarBudgetCarry)/full.projectedLoss:1.0;
    double projectedRecoveryPL = AccountInfoDouble(ACCOUNT_BALANCE) + full.projectedNet - Ctx.cycleStartBalance;
    bool allowed = coverage >= full.projectedLoss + SafetyBufferMoney - 0.000001 && projectedRecoveryPL >= MinimumRecoveryProfitMoney;
@@ -5625,7 +5624,7 @@ void ProcessSplitBigHarvestFinalCheck()
    BigReserveCatchUpEvaluation catchUp;
    double reserveBefore=Ctx.totalReserve-(Ctx.pendingReserveApplied?Ctx.pendingReserveAdd:0.0);
    if(Ctx.farLot>0.0&&CalculateProjectedFarCloseNet(Ctx.farLot,full)&&Ctx.bigFarLossBefore>0.0&&
-      !EvaluateBigReserveCatchUp(reserveBefore,Ctx.pendingReserveAdd,Ctx.partialFarBudgetCarry,Ctx.bigFarLossBefore,full.projectedLoss,catchUp))
+      !EvaluateBigReserveCatchUp(reserveBefore,Ctx.totalReserve,Ctx.partialFarBudgetCarry+MathMax(0.0,Ctx.actualSplitHarvestNet-Ctx.pendingReserveAdd),Ctx.partialFarBudgetCarry,Ctx.bigFarLotBefore,Ctx.farLot,Ctx.bigFarLossBefore,full.projectedLoss,0.0,catchUp))
    { LogError(StringFormat("BIG_RESERVE_CATCH_UP_FAIL Before=%.6f After=%.6f FarBefore=%.2f FarAfter=%.2f",catchUp.coverageBefore,catchUp.coverageAfter,catchUp.farLossBefore,catchUp.farLossAfter)); SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"BIG_RESERVE_COVERAGE_NOT_IMPROVED"); return; }
    if(Ctx.farLot > 0.0 && CalculateProjectedFarCloseNet(Ctx.farLot, full) && Ctx.totalReserve >= full.projectedLoss + SafetyBufferMoney)
    {
