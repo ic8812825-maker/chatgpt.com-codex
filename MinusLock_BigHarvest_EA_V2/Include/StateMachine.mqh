@@ -1748,6 +1748,37 @@ void EvaluateLegacyPersistence(bool &active, bool &malformed, string &reason)
    reason = malformed ? "LEGACY_CONTEXT_MALFORMED" : (active ? "LEGACY_CONTEXT_ACTIVE" : "LEGACY_CONTEXT_CLEAR");
 }
 
+void EvaluateSplitPersistence(bool &active, bool &malformed, string &reason)
+{
+   string roles[] = {"BigCore", "BigTrend", "SmallBase", "ReverseSmall"};
+   active = false;
+   malformed = false;
+   for(int i = 0; i < ArraySize(roles); i++)
+   {
+      PersistedUInt64Inspection ticket, identifier;
+      InspectPersistedUInt64(roles[i] + "Ticket", ticket);
+      InspectPersistedUInt64(roles[i] + "Identifier", identifier);
+      bool ticketActive = PersistedUInt64IsActive(ticket);
+      bool identifierActive = PersistedUInt64IsActive(identifier);
+      bool numeric = PersistedDoubleNonZero(roles[i] + "Lot", VolumeMismatchToleranceLots) ||
+                     PersistedDoubleNonZero(roles[i] + "OpenPrice") || PersistedDoubleNonZero(roles[i] + "Direction");
+      active = active || ticketActive || identifierActive;
+      if(PersistedUInt64IsMalformed(ticket) || PersistedUInt64IsMalformed(identifier) ||
+         ticketActive != identifierActive || (numeric && !(ticketActive && identifierActive)))
+         malformed = true;
+   }
+   bool splitFlag = PersistedDoubleNonZero("SplitGeometryActive", 0.5) || PersistedDoubleNonZero("ReverseConfirmed", 0.5) ||
+                    PersistedDoubleNonZero("ReverseSmallOpened", 0.5);
+   bool projected = PersistedDoubleNonZero("ProjectedReverseSmallLot", VolumeMismatchToleranceLots) ||
+                    PersistedDoubleNonZero("ProjectedReverseSmallFinalLot", VolumeMismatchToleranceLots) ||
+                    PersistedDoubleNonZero("ActualTransitionNet") || PersistedDoubleNonZero("ActualSmallTransitionNet");
+   bool harvestCalculated = PersistedDoubleNonZero("ActualSplitHarvestNetCalculated", 0.5);
+   if((splitFlag || projected) && !active) malformed = true;
+   active = active || splitFlag || projected;
+   if(harvestCalculated && active) active = true;
+   reason = malformed ? "SPLIT_CONTEXT_MALFORMED" : (active ? "SPLIT_CONTEXT_ACTIVE" : "SPLIT_CONTEXT_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
@@ -1776,26 +1807,19 @@ bool IsProvenCleanStart()
    bool legacyMalformed = false;
    string legacyReason = "";
    EvaluateLegacyPersistence(hasLegacyContext, legacyMalformed, legacyReason);
-   bool hasSplitContext = GlobalVariableCheck(StateKey("BigCoreTicketHigh32")) || GlobalVariableCheck(StateKey("BigCoreTicketLow32")) ||
-                          GlobalVariableCheck(StateKey("BigCoreIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigCoreIdentifierLow32")) ||
-                          GlobalVariableCheck(StateKey("BigTrendTicketHigh32")) || GlobalVariableCheck(StateKey("BigTrendTicketLow32")) ||
-                          GlobalVariableCheck(StateKey("BigTrendIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigTrendIdentifierLow32")) ||
-                          GlobalVariableCheck(StateKey("SmallBaseTicketHigh32")) || GlobalVariableCheck(StateKey("SmallBaseTicketLow32")) ||
-                          GlobalVariableCheck(StateKey("SmallBaseIdentifierHigh32")) || GlobalVariableCheck(StateKey("SmallBaseIdentifierLow32")) ||
-                          GlobalVariableCheck(StateKey("ReverseSmallTicketHigh32")) || GlobalVariableCheck(StateKey("ReverseSmallTicketLow32")) ||
-                          GlobalVariableCheck(StateKey("ReverseSmallIdentifierHigh32")) || GlobalVariableCheck(StateKey("ReverseSmallIdentifierLow32")) ||
-                          GlobalVariableCheck(StateKey("SplitGeometryActive")) || GlobalVariableCheck(StateKey("ActualSplitHarvestNet")) ||
-                          GlobalVariableCheck(StateKey("ActualSplitHarvestNetCalculated")) || GlobalVariableCheck(StateKey("CycleATRRaw")) ||
-                          GlobalVariableCheck(StateKey("CycleATRPoints"));
+   bool hasSplitContext = false;
+   bool splitMalformed = false;
+   string splitReason = "";
+   EvaluateSplitPersistence(hasSplitContext, splitMalformed, splitReason);
    int managed = CountManagedOpenPositions();
 
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && managed == 0);
+   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
-                        hasSplitContext ? "ACTIVE" : "CLEAR",
+                        splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
                         initialMalformed ? "MALFORMED" : (hasInitial ? "ACTIVE" : "CLEAR"),
                         hasPending ? "ACTIVE" : "CLEAR",
                         hasRetry ? (retryTicketMalformed ? "MALFORMED" : "ACTIVE") : "CLEAR",
