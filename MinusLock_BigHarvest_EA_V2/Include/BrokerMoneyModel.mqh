@@ -46,6 +46,12 @@ double BrokerPointsCostMoney(double lot,double points)
    return lot*points*point/size*tick;
 }
 double BrokerSpreadCostMoney(double lot,double points) { return BrokerPointsCostMoney(lot,points); }
+double BrokerExecutionOpenPrice(Direction d) { return SymbolInfoDouble(_Symbol,d==DIR_BUY?SYMBOL_ASK:SYMBOL_BID); }
+double BrokerClosePriceAtMid(Direction d,double mid)
+{
+   double spread=SymbolInfoDouble(_Symbol,SYMBOL_ASK)-SymbolInfoDouble(_Symbol,SYMBOL_BID);
+   return d==DIR_BUY?mid-spread*.5:mid+spread*.5;
+}
 
 bool ValidateCommissionModel(string &reason)
 {

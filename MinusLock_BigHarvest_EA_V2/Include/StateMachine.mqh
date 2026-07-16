@@ -5081,6 +5081,21 @@ bool PrepareSplitBigLevel()
       LogError(StringFormat("BIG_GEOMETRY_GATE_FAIL Far=%.2f Core=%.2f Trend=%.2f Small=%.2f Net=%.2f Minimum=%.2f",Ctx.farLot,Ctx.bigCoreLot,Ctx.bigTrendLot,Ctx.smallBaseLot,netBigExposureActual,MinimumNetBigExposureLots));
       SetState(STATE_INVALID_SPLIT_GEOMETRY,"BIG_NET_EXPOSURE_TOO_SMALL after broker volume normalization"); return false;
    }
+   Ctx.currentBigMovePoints=GetBigMovePoints(Ctx.harvestLevel);
+   double point=SymbolInfoDouble(_Symbol,SYMBOL_POINT), mid=(SymbolInfoDouble(_Symbol,SYMBOL_ASK)+SymbolInfoDouble(_Symbol,SYMBOL_BID))*.5;
+   double targetMid=mid+(Ctx.bigCoreDirection==DIR_BUY?1.0:-1.0)*Ctx.currentBigMovePoints*point;
+   BrokerMoneyResult coreMoney,trendMoney,smallMoney,farMoney;
+   bool moneyOk=CalcProjectedPositionNetMoney(Ctx.bigCoreDirection,Ctx.bigCoreLot,BrokerExecutionOpenPrice(Ctx.bigCoreDirection),BrokerClosePriceAtMid(Ctx.bigCoreDirection,targetMid),true,true,coreMoney)&&
+                CalcProjectedPositionNetMoney(Ctx.bigTrendDirection,Ctx.bigTrendLot,BrokerExecutionOpenPrice(Ctx.bigTrendDirection),BrokerClosePriceAtMid(Ctx.bigTrendDirection,targetMid),true,true,trendMoney)&&
+                CalcProjectedPositionNetMoney(Ctx.smallBaseDirection,Ctx.smallBaseLot,BrokerExecutionOpenPrice(Ctx.smallBaseDirection),BrokerClosePriceAtMid(Ctx.smallBaseDirection,targetMid),true,true,smallMoney)&&
+                CalcProjectedCloseNetMoney(Ctx.farDirection,Ctx.farLot,Ctx.farOpenPrice,BrokerClosePriceAtMid(Ctx.farDirection,targetMid),farMoney);
+   BigRecoveryEvaluation bigGate;
+   if(!moneyOk||!EvaluateBigGeometryAndRecovery(Ctx.farLot,Ctx.bigCoreLot,Ctx.bigTrendLot,Ctx.smallBaseLot,coreMoney,trendMoney,smallMoney,farMoney,bigGate))
+   {
+      LogError(StringFormat("BIG_RECOVERY_GATE_FAIL Delta=%.2f Costs=%.2f NetExposure=%.2f Reason=%s",bigGate.projectedRecoveryDelta,bigGate.costs,bigGate.netBigExposure,bigGate.reason));
+      SetState(STATE_INVALID_SPLIT_GEOMETRY,"BIG_RECOVERY_IMPROVEMENT_GATE_FAILED"); return false;
+   }
+   LogInfo(StringFormat("BIG_RECOVERY_GATE_PASS Delta=%.2f Costs=%.2f NetExposure=%.2f",bigGate.projectedRecoveryDelta,bigGate.costs,bigGate.netBigExposure));
 
    double actualBigGrossLot = 0.0;
    double actualReserveGrowthLot = 0.0;
