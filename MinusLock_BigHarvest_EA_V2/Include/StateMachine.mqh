@@ -4672,12 +4672,24 @@ bool EvaluateFinalCloseGate(FinalCloseEvaluation &result)
    result.calculationValid = true;
    result.farCloseLossWorstCase = farProjection.projectedLoss;
    result.projectedCommission = farProjection.estimatedCommission;
-   result.expectedCurrentHarvestNet = Ctx.actualSplitHarvestNetCalculated ? Ctx.actualSplitHarvestNet : 0.0;
+   // Current Harvest is available only before it is distributed into Reserve/partial carry.
+   result.expectedCurrentHarvestNet = (Ctx.actualSplitHarvestNetCalculated && !Ctx.pendingReserveApplied) ? Ctx.actualSplitHarvestNet : 0.0;
    result.totalCoverageAvailable = Ctx.totalReserve + Ctx.partialFarBudgetCarry + MathMax(0.0, result.expectedCurrentHarvestNet);
-   result.projectedRecoveryPL = result.totalCoverageAvailable - result.farCloseLossWorstCase - result.safetyBuffer;
+   double projectedOpenPositionsNet=0.0; int projectedPositions=0; bool basketValid=true;
+   for(int i=PositionsTotal()-1;i>=0;i--)
+   {
+      ulong ticket=PositionGetTicket(i); if(ticket==0||!PositionSelectByTicket(ticket)) continue;
+      if(PositionGetString(POSITION_SYMBOL)!=_Symbol||(ulong)PositionGetInteger(POSITION_MAGIC)!=MagicNumber) continue;
+      Direction d=(PositionGetInteger(POSITION_TYPE)==POSITION_TYPE_BUY?DIR_BUY:DIR_SELL);
+      double lot=PositionGetDouble(POSITION_VOLUME),open=PositionGetDouble(POSITION_PRICE_OPEN),close=SymbolInfoDouble(_Symbol,d==DIR_BUY?SYMBOL_BID:SYMBOL_ASK);
+      BrokerMoneyResult item; if(!CalcProjectedCloseNetMoney(d,lot,open,close,item)) { basketValid=false; break; }
+      projectedOpenPositionsNet+=item.netMoney+PositionGetDouble(POSITION_SWAP); result.projectedCommission+=item.closeCommission; result.projectedSpreadCost+=item.spreadExpansionCost; result.projectedSlippageCost+=item.slippageCost; projectedPositions++;
+   }
+   result.calculationValid=result.calculationValid&&basketValid;
+   result.projectedRecoveryPL=AccountInfoDouble(ACCOUNT_BALANCE)+projectedOpenPositionsNet-Ctx.cycleStartBalance-result.safetyBuffer;
    result.coveragePass = (result.totalCoverageAvailable + ReserveMismatchTolerance >= result.farCloseLossWorstCase + result.safetyBuffer);
    result.recoveryPass = (result.projectedRecoveryPL + ReserveMismatchTolerance >= MinimumRecoveryProfitMoney);
-   result.positionsPass = (Ctx.farTicket != 0 || Ctx.farIdentifier != 0) && Ctx.farLot > VolumeMismatchToleranceLots;
+   result.positionsPass = basketValid&&projectedPositions>0&&(Ctx.farTicket != 0 || Ctx.farIdentifier != 0)&&Ctx.farLot>VolumeMismatchToleranceLots&&ValidateNoOrphanManagedPositions();
    result.finalAllowed = result.calculationValid && result.coveragePass && result.recoveryPass && result.positionsPass;
    result.reason = result.finalAllowed ? "FINAL_CLOSE_GATE_PASS" : "FINAL_CLOSE_GATE_FAIL";
    LogInfo(StringFormat("FINAL_CLOSE_GATE CalculationValid=%s FarCloseLossWorstCase=%.2f Coverage=%.2f ProjectedRecoveryPL=%.2f CoveragePass=%s RecoveryPass=%s PositionsPass=%s FinalAllowed=%s Reason=%s",
