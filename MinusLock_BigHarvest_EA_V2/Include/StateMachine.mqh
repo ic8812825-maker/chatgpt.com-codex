@@ -5094,6 +5094,10 @@ bool PrepareSplitBigLevel()
    Ctx.bigTrendLot = CalcBigTrendLot(Ctx.farLot);
    Ctx.smallBaseLot = CalcSmallBaseLot(Ctx.farLot);
 
+   Direction basketDirections[3]={Ctx.bigCoreDirection,Ctx.bigTrendDirection,Ctx.smallBaseDirection};
+   double basketLots[3]={Ctx.bigCoreLot,Ctx.bigTrendLot,Ctx.smallBaseLot}; BigBasketGate basketGate;
+   if(!EvaluateBigBasketGate(basketDirections,basketLots,CountManagedOpenPositions(),basketGate)) { LogError("BIG_ATOMIC_BASKET_GATE_FAIL "+basketGate.reason); SetState(STATE_INVALID_SPLIT_GEOMETRY,basketGate.reason); return false; }
+
    double netBigExposureActual=Ctx.bigCoreLot+Ctx.bigTrendLot-Ctx.smallBaseLot-Ctx.farLot;
    if(netBigExposureActual<MinimumNetBigExposureLots)
    {
