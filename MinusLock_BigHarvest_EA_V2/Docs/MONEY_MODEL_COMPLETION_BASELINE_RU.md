@@ -1,0 +1,447 @@
+# Исходное состояние этапа завершения денежной модели
+
+## Идентификаторы
+
+- `START_SHA=89bd0948b938f2d0157ea25695e97543bba98f0c`
+- Дата и время фиксации: `2026-07-16 00:00 UTC` (дата среды выполнения; точное время не является торговым событием).
+- Ветка: `work`.
+- Папка: `MinusLock_BigHarvest_EA_V2`.
+- В исходном дереве: 339 файлов проекта; полный воспроизводимый список приведён в приложении.
+
+## Режимы и безопасность
+
+| Параметр | Исходное значение | Статус |
+|---|---:|---|
+| `UseLegacySingleBigGeometry` | `true` | Legacy активен по умолчанию |
+| `UseSplitBigGeometry` | `false` | Split реализован частично, но не активен по умолчанию |
+| `UseDynamicReverseSmall` | `false` | Dynamic Reverse Small отключён |
+| `AllowRealTrading` | `false` | Реальная торговля запрещена |
+| `UseInternalSimulation` | `false` | Из-за `AllowRealTrading=false` функция режима всё равно выбирает internal simulation |
+| `GeometryMode` | `GEOMETRY_MANUAL` | Ручная геометрия |
+| `UseRecommended5050Preset` | `false` | Экспериментальный preset отключён |
+
+## Текущие входные параметры
+
+Единственным источником исходных defaults является `Include/Config.mqh`. Зафиксированы группы:
+
+- базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;
+- Split: `BigCoreRatio=1.60`, `BigTrendRatio=0.25`, `SmallBaseToFarRatio=0.60`, `CloseBigCoreOnSmall=0.40`, `RemainBigCoreOnSmall=0.60`;
+- Dynamic Small: `MaximumNewFarRatio=0.97`, `MinimumFarCompressionLots=0.01`, `MinimumFarCompressionRatio=0.01`, `MaxReverseCycles=7`;
+- дистанции: `InitialTriggerPoints=100`, `BigMoveStartPoints=100`, `BigMoveStepPoints=50`, `FarDistancePoints=200`, `FarDistanceMode=REAL_PRICE_DISTANCE`;
+- Recovery: `MaxHarvestLevels=7`, `MinimumRecoveryProfitMoney=1.00`, `SafetyBufferMoney=2.00`, `MinProjectedReserveCoverage=1.00`;
+- исходная broker model: обе projected commission равны `0.00`, постоянный swap buffer `0.00`, spread expansion `0.00`, execution buffer `0.00`, `MaxSlippagePoints=30`;
+- risk: `MaxSpreadPoints=40`, `MaxMarginPercent=60`, `MaxDrawdownPercent=25`, `MaxManagedPositions=8`, `MaxAccountMarginPercent=60`;
+- идентификация: `MagicNumber=20260609`.
+
+## Существующие проверки и исходные результаты
+
+### Python
+
+Команда `python3 -m pytest MinusLock_BigHarvest_EA_V2/Tests -q` завершилась на collection со статусом `FAIL` (`exit 2`):
+
+- отсутствует ожидаемый старым набором тестов вызов `ReserveEventAlreadyApplied(eventKeyHash)` — 3 ошибки;
+- старый restart-тест ожидает persistence `EventKeyHash` — 1 ошибка;
+- тест блокировки Split ожидает удалённый compile-time guard — 1 ошибка.
+
+Итого на baseline: 5 collection errors, тестовый набор не был исполнен полностью.
+
+### Static validators
+
+- `python3 MinusLock_BigHarvest_EA_V2/Tests/validate_v2_static.py` — `PASS`.
+- `python3 MinusLock_BigHarvest_EA_V2/Tools/validate_optimization_outputs.py` — `FAIL`: `BigScenario_Best_1.set` не подтверждён accepted selectable CSV row.
+
+### MQL5 environment
+
+- MetaEditor: `NOT_RUN`, исполняемый файл отсутствует в Linux-контейнере.
+- MT5 terminal / Strategy Tester: `NOT_RUN`, исполняемый файл отсутствует.
+- Следовательно, текущие MQL5 compile/runtime статусы — `UNKNOWN`, а не `PASS`.
+
+## Известные незавершённые пункты и исходные риски
+
+1. `IsProvenCleanStart()` не перечисляет весь Split-контекст и считает retry активным по самому факту существования отдельных ключей.
+2. Базовый spread повторно вычитается после `OrderCalcProfit` на реальных ценах.
+3. Один execution buffer может использоваться на нескольких уровнях агрегации.
+4. Swap не зависит от направления, лота и времени.
+5. Модель комиссии не различает side, round-turn, fixed deal и percent.
+6. Basket aggregation суммирует только `netMoney`.
+7. Final Close Gate смешивает RecoveryPL и coverage и не проектирует полный cycle balance.
+8. Harvest не имеет явной сохраняемой accounting phase и exactly-once event key.
+9. Partial Far требует полного денежного projected/actual протокола.
+10. Нет завершённых денежных доказательств Big improvement, Reserve catch-up, Small transition и конечности разворотов.
+11. Нет завершённого протокола False Reverse.
+12. Нет исполненных MetaEditor и MT5 результатов данного этапа.
+13. `AllowRealTrading=false` обязан сохраниться.
+
+Подробные первоначальные замечания зарегистрированы в `Docs/ЗАМЕЧАНИЯ_И_ПРЕДЛОЖЕНИЯ_ПО_СОВЕТНИКУ.md` как REM-001—REM-007 и PROP-001.
+
+## Baseline-статусы
+
+```text
+CLEAN_START_SPLIT_SAFETY = FAIL
+SPREAD_DOUBLE_COUNTING = FAIL
+EXECUTION_BUFFER_ACCOUNTING = FAIL
+SWAP_MONEY_MODEL = FAIL
+COMMISSION_MONEY_MODEL = FAIL
+BASKET_MONEY_AGGREGATION = FAIL
+HARVEST_EXACTLY_ONCE = FAIL
+PARTIAL_FAR_MONEY_SAFETY = UNKNOWN
+FINAL_CLOSE_RECOVERYPL = FAIL
+FINAL_CLOSE_COVERAGE = UNKNOWN
+BIG_RECOVERY_IMPROVEMENT = UNKNOWN
+RESERVE_CATCH_UP = UNKNOWN
+SMALL_TRANSITION_MONEY_SAFETY = UNKNOWN
+NEW_FAR_COMPRESSION = UNKNOWN
+FINITE_REVERSE_COUNT = UNKNOWN
+FALSE_REVERSE_PROTOCOL = FAIL
+PYTHON_TESTS = FAIL
+MQL5_INTERNAL_TESTS = NOT_RUN
+METAEDITOR_COMPILE = NOT_RUN
+MT5_STRATEGY_TESTER = NOT_RUN
+REAL_TRADING_ALLOWED = NO
+```
+
+## Приложение A. Список файлов на START_SHA
+
+Список получен командой `git ls-tree -r --name-only START_SHA -- MinusLock_BigHarvest_EA_V2`.
+
+```text
+MinusLock_BigHarvest_EA_V2/.gitkeep
+MinusLock_BigHarvest_EA_V2/BUILD_INFO.md
+MinusLock_BigHarvest_EA_V2/Best_Parameters.md
+MinusLock_BigHarvest_EA_V2/CHANGELOG_SPLIT_BIG.md
+MinusLock_BigHarvest_EA_V2/CHANGELOG_SPLIT_GEOMETRY.md
+MinusLock_BigHarvest_EA_V2/Docs/.gitkeep
+MinusLock_BigHarvest_EA_V2/Docs/ADAPTIVE_GEOMETRY_LIFECYCLE_AUDIT.md
+MinusLock_BigHarvest_EA_V2/Docs/BIG_SCENARIO_ENGINEERING_AUDIT.md
+MinusLock_BigHarvest_EA_V2/Docs/BIG_SCENARIO_FULL_AUDIT.md
+MinusLock_BigHarvest_EA_V2/Docs/FULL_AUDIT_REPORT.md
+MinusLock_BigHarvest_EA_V2/Docs/MANUAL.md
+MinusLock_BigHarvest_EA_V2/Docs/MIGRATION_FROM_LEGACY.md
+MinusLock_BigHarvest_EA_V2/Docs/NEXT_STAGE_BASELINE_AUDIT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_BIG_ARCHITECTURE_FIX_REPORT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_BIG_EXACT_PERSISTENCE_REPORT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_BIG_FINAL_RECOVERY_SAFETY_REPORT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_BIG_FINAL_SAFETY_REPORT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_BIG_RECOVERY_ORDER_REPORT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_BIG_TRANSACTION_SAFETY_REPORT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_GEOMETRY_MATH.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_GEOMETRY_STATE_MACHINE.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_GEOMETRY_TEST_PLAN.md
+MinusLock_BigHarvest_EA_V2/Docs/SPLIT_MONEY_MODEL_FINAL_REPORT_RU.md
+MinusLock_BigHarvest_EA_V2/Docs/TEST_PLAN.md
+MinusLock_BigHarvest_EA_V2/Docs/TEST_PLAN_SPLIT_GEOMETRY.md
+MinusLock_BigHarvest_EA_V2/Include/.gitkeep
+MinusLock_BigHarvest_EA_V2/Include/BrokerMoneyModel.mqh
+MinusLock_BigHarvest_EA_V2/Include/Config.mqh
+MinusLock_BigHarvest_EA_V2/Include/GeometryEngine.mqh
+MinusLock_BigHarvest_EA_V2/Include/Logger.mqh
+MinusLock_BigHarvest_EA_V2/Include/LotUtils.mqh
+MinusLock_BigHarvest_EA_V2/Include/PendingContractEngine.mqh
+MinusLock_BigHarvest_EA_V2/Include/PositionResolutionEngine.mqh
+MinusLock_BigHarvest_EA_V2/Include/PositionUtils.mqh
+MinusLock_BigHarvest_EA_V2/Include/ReconciliationEngine.mqh
+MinusLock_BigHarvest_EA_V2/Include/RecoveryMath.mqh
+MinusLock_BigHarvest_EA_V2/Include/RiskManager.mqh
+MinusLock_BigHarvest_EA_V2/Include/SimulationEngine.mqh
+MinusLock_BigHarvest_EA_V2/Include/StateIntegrityEngine.mqh
+MinusLock_BigHarvest_EA_V2/Include/StateMachine.mqh
+MinusLock_BigHarvest_EA_V2/Include/TradeEngine.mqh
+MinusLock_BigHarvest_EA_V2/Include/Types.mqh
+MinusLock_BigHarvest_EA_V2/MinusLock_BigHarvest_EA.mq5
+MinusLock_BigHarvest_EA_V2/Optimization_Report.csv
+MinusLock_BigHarvest_EA_V2/Reports/ATR_Geometry_Runtime_Trace.csv
+MinusLock_BigHarvest_EA_V2/Reports/ATR_Geometry_Runtime_Trace.md
+MinusLock_BigHarvest_EA_V2/Reports/ATR_Set_Files_Audit.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_Best_Presets.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MQL5_Level1_Verification.csv
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MQL5_Minimum_Level_Limit.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MQL5_Model_Audit.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MQL5_Programmer_Recommendations.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MQL5_Search_Journal.csv
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MQL5_Top10.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MQL5_Top50.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MT5_Calibrated_Parameter_Search.csv
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MT5_Calibrated_Recommendations.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MT5_Divergence.csv
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_MT5_Divergence_Report.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_Model_Limitations.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_Parameter_Recommendations.md
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_Parameter_Search.csv
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_Trace.csv
+MinusLock_BigHarvest_EA_V2/Reports/BigScenario_Trace_Report.md
+MinusLock_BigHarvest_EA_V2/Reports/Full_Parameter_Optimization_Candidates.csv
+MinusLock_BigHarvest_EA_V2/Reports/Full_Parameter_Optimization_Report.md
+MinusLock_BigHarvest_EA_V2/Reports/Parameter_Dependency_Data.csv
+MinusLock_BigHarvest_EA_V2/Reports/Parameter_Optimization_Summary.csv
+MinusLock_BigHarvest_EA_V2/Reports/Parameter_Sensitivity.csv
+MinusLock_BigHarvest_EA_V2/Reports/Python_vs_MT5_BigScenario_Diff.csv
+MinusLock_BigHarvest_EA_V2/Reports/Python_vs_MT5_BigScenario_Diff.md
+MinusLock_BigHarvest_EA_V2/Scripts/compile_metaeditor_windows.ps1
+MinusLock_BigHarvest_EA_V2/Sets/BigScenario_Best_1.set
+MinusLock_BigHarvest_EA_V2/Sets/BigScenario_Best_2.set
+MinusLock_BigHarvest_EA_V2/Sets/BigScenario_Best_3.set
+MinusLock_BigHarvest_EA_V2/Sets/Legacy/README.md
+MinusLock_BigHarvest_EA_V2/Sets/MQL5_Aggressive_Recovery.set
+MinusLock_BigHarvest_EA_V2/Sets/MQL5_Conservative.set
+MinusLock_BigHarvest_EA_V2/Sets/MQL5_Minimum_Big_Levels.set
+MinusLock_BigHarvest_EA_V2/Sets/MQL5_Top_1.set
+MinusLock_BigHarvest_EA_V2/Sets/MQL5_Top_2.set
+MinusLock_BigHarvest_EA_V2/Sets/MQL5_Top_3.set
+MinusLock_BigHarvest_EA_V2/Sets/MQL5_Universal.set
+MinusLock_BigHarvest_EA_V2/Sets/MT5_Candidate_BigScenario_1.set
+MinusLock_BigHarvest_EA_V2/Sets/MT5_Candidate_BigScenario_2.set
+MinusLock_BigHarvest_EA_V2/Sets/MT5_Candidate_BigScenario_3.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/ATR_Conservative.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Adaptive_ATR_BALANCED.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Adaptive_ATR_PROFIT.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Adaptive_ATR_SAFE.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Aggressive_Recovery.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Anti_Trend.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Conservative.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/High_Volatility.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Low_Volatility.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Maximum_Recovery.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Minimum_Big_Levels.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Multi_Symbol.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Recommended.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Trend.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Ultra_Conservative.set
+MinusLock_BigHarvest_EA_V2/Sets/Optimization_Presets/Universal.set
+MinusLock_BigHarvest_EA_V2/Sets/SPLIT_TEST_BALANCED.set
+MinusLock_BigHarvest_EA_V2/Sets/SPLIT_TEST_SAFE.set
+MinusLock_BigHarvest_EA_V2/Sets/SplitGeometry/SplitGeometry_LowLot.set
+MinusLock_BigHarvest_EA_V2/Sets/SplitGeometry/SplitGeometry_Math_Base.set
+MinusLock_BigHarvest_EA_V2/Sets/SplitGeometry/SplitGeometry_Stress.set
+MinusLock_BigHarvest_EA_V2/Sets/SplitGeometry/SplitGeometry_USDJPY_M30.set
+MinusLock_BigHarvest_EA_V2/Sets/SplitGeometry_BigOnly/SplitBig_LowLot.set
+MinusLock_BigHarvest_EA_V2/Sets/SplitGeometry_BigOnly/SplitBig_Math_Base.set
+MinusLock_BigHarvest_EA_V2/Sets/SplitGeometry_BigOnly/SplitBig_Stress.set
+MinusLock_BigHarvest_EA_V2/Sets/USDJPY_M30_AGGRESSIVE_NOT_FOUND.txt
+MinusLock_BigHarvest_EA_V2/Sets/USDJPY_M30_BALANCED.set
+MinusLock_BigHarvest_EA_V2/Sets/USDJPY_M30_LOWLOT_SAFE.set
+MinusLock_BigHarvest_EA_V2/Sets/USDJPY_M30_SAFE.set
+MinusLock_BigHarvest_EA_V2/TEST_REPORT_SPLIT_GEOMETRY.md
+MinusLock_BigHarvest_EA_V2/Tests/.gitkeep
+MinusLock_BigHarvest_EA_V2/Tests/Manual_Test_Cases.md
+MinusLock_BigHarvest_EA_V2/Tests/actual_volume_after_partial_close_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_atr_chain_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_atr_indicator_chart_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_blocks_initial_without_atr_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_clear_cycle_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_clear_reason_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_clear_spam_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_comment_panel_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_configured_vs_runtime_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_docs_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_formula_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_gv_persistence_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_handle_lifecycle_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_lifecycle_audit_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_no_auto_manual_fallback_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_no_false_manual_after_stop_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_panel_before_initial_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_reconciliation_summary_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_round_steps_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_set_files_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_static_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_timeframe_normalization_check.py
+MinusLock_BigHarvest_EA_V2/Tests/adaptive_geometry_waits_for_atr_check.py
+MinusLock_BigHarvest_EA_V2/Tests/atr_indicator_single_instance_check.py
+MinusLock_BigHarvest_EA_V2/Tests/atr_revised_presets_check.py
+MinusLock_BigHarvest_EA_V2/Tests/atr_set_files_standard_check.py
+MinusLock_BigHarvest_EA_V2/Tests/atr_set_quality_log_check.py
+MinusLock_BigHarvest_EA_V2/Tests/atr_stop_max_levels_diagnosis_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_harvest_real_deals_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_monetary_recovery_model_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_move_levels_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_profit_split_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_20_80_vs_90_10_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_90_10_split_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_approved_net_model_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_full_audit_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_math_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_mql5_like_search_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_mt5_calibrated_optimizer_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_mt5_divergence_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_multisymbol_guard_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_parameter_search_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_state_flow_check.py
+MinusLock_BigHarvest_EA_V2/Tests/big_scenario_trace_simulation_check.py
+MinusLock_BigHarvest_EA_V2/Tests/bigharvest_far_partial_uses_actual_volume_check.py
+MinusLock_BigHarvest_EA_V2/Tests/bigharvest_phase_forbids_closed_legs_check.py
+MinusLock_BigHarvest_EA_V2/Tests/bigharvest_real_reserve_check.py
+MinusLock_BigHarvest_EA_V2/Tests/closed_profit_guard_check.py
+MinusLock_BigHarvest_EA_V2/Tests/closed_profit_requires_full_close_check.py
+MinusLock_BigHarvest_EA_V2/Tests/closed_recovery_loss_state_check.py
+MinusLock_BigHarvest_EA_V2/Tests/context_cleared_guard_check.py
+MinusLock_BigHarvest_EA_V2/Tests/context_cleared_with_live_position_check.py
+MinusLock_BigHarvest_EA_V2/Tests/csv_recovery_fields_check.py
+MinusLock_BigHarvest_EA_V2/Tests/default_parameters_v241_check.py
+MinusLock_BigHarvest_EA_V2/Tests/far_partial_budget_check.py
+MinusLock_BigHarvest_EA_V2/Tests/far_volume_reconciliation_check.py
+MinusLock_BigHarvest_EA_V2/Tests/final_close_recovery_projection_check.py
+MinusLock_BigHarvest_EA_V2/Tests/fsm_integrity_check.py
+MinusLock_BigHarvest_EA_V2/Tests/fsm_integrity_strict_check.py
+MinusLock_BigHarvest_EA_V2/Tests/full_close_incomplete_guard_check.py
+MinusLock_BigHarvest_EA_V2/Tests/full_close_not_min_lot_check.py
+MinusLock_BigHarvest_EA_V2/Tests/full_close_volume_tolerance_check.py
+MinusLock_BigHarvest_EA_V2/Tests/full_parameter_optimization_study_check.py
+MinusLock_BigHarvest_EA_V2/Tests/identifier_reconciliation_check.py
+MinusLock_BigHarvest_EA_V2/Tests/initial_ignored_profit_excluded_check.py
+MinusLock_BigHarvest_EA_V2/Tests/initial_lock_context_fields_check.py
+MinusLock_BigHarvest_EA_V2/Tests/initial_lock_orphan_protection_check.py
+MinusLock_BigHarvest_EA_V2/Tests/initial_lock_reconciliation_check.py
+MinusLock_BigHarvest_EA_V2/Tests/initial_lock_save_restore_check.py
+MinusLock_BigHarvest_EA_V2/Tests/initial_lock_state_consistency_check.py
+MinusLock_BigHarvest_EA_V2/Tests/invalid_geometry_emergency_check.py
+MinusLock_BigHarvest_EA_V2/Tests/known_context_check.py
+MinusLock_BigHarvest_EA_V2/Tests/known_context_diagnostics_check.py
+MinusLock_BigHarvest_EA_V2/Tests/legacy_path_removed_check.py
+MinusLock_BigHarvest_EA_V2/Tests/max_levels_decision_state_check.py
+MinusLock_BigHarvest_EA_V2/Tests/max_levels_no_new_big_small_check.py
+MinusLock_BigHarvest_EA_V2/Tests/multi_symbol_static_check.py
+MinusLock_BigHarvest_EA_V2/Tests/normalize_volume_to_step_check.py
+MinusLock_BigHarvest_EA_V2/Tests/offline_lowlot_priority_check.py
+MinusLock_BigHarvest_EA_V2/Tests/offline_optimizer_contract_check.py
+MinusLock_BigHarvest_EA_V2/Tests/offline_optimizer_files_check.py
+MinusLock_BigHarvest_EA_V2/Tests/offline_optimizer_report_check.py
+MinusLock_BigHarvest_EA_V2/Tests/offline_rejected_not_selectable_check.py
+MinusLock_BigHarvest_EA_V2/Tests/offline_set_files_check.py
+MinusLock_BigHarvest_EA_V2/Tests/old_far_cleanup_after_close_check.py
+MinusLock_BigHarvest_EA_V2/Tests/on_tester_recovery_only_check.py
+MinusLock_BigHarvest_EA_V2/Tests/open_bigsmall_resolution_check.py
+MinusLock_BigHarvest_EA_V2/Tests/open_new_small_pending_context_check.py
+MinusLock_BigHarvest_EA_V2/Tests/open_new_small_requires_big_context_check.py
+MinusLock_BigHarvest_EA_V2/Tests/open_pending_retry_check.py
+MinusLock_BigHarvest_EA_V2/Tests/open_pending_state_check.py
+MinusLock_BigHarvest_EA_V2/Tests/optimization_presets_check.py
+MinusLock_BigHarvest_EA_V2/Tests/orphan_position_after_close_check.py
+MinusLock_BigHarvest_EA_V2/Tests/orphan_position_after_recover_check.py
+MinusLock_BigHarvest_EA_V2/Tests/orphan_position_detection_check.py
+MinusLock_BigHarvest_EA_V2/Tests/orphan_position_identifier_check.py
+MinusLock_BigHarvest_EA_V2/Tests/orphan_position_recovery_mismatch_check.py
+MinusLock_BigHarvest_EA_V2/Tests/partial_close_no_theoretical_lot_subtraction_check.py
+MinusLock_BigHarvest_EA_V2/Tests/partial_far_retry_preserves_context_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_action_type_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_close_big_contract_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_close_small_contract_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_contract_engine_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_fsm_progression_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_open_big_contract_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_open_small_contract_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_state_integrity_check.py
+MinusLock_BigHarvest_EA_V2/Tests/pending_states_are_handled_check.py
+MinusLock_BigHarvest_EA_V2/Tests/phase_big_harvest_fsm_check.py
+MinusLock_BigHarvest_EA_V2/Tests/phase_small_scenario_fsm_check.py
+MinusLock_BigHarvest_EA_V2/Tests/phase_state_matrix_check.py
+MinusLock_BigHarvest_EA_V2/Tests/position_identifier_history_deals_check.py
+MinusLock_BigHarvest_EA_V2/Tests/position_resolution_engine_check.py
+MinusLock_BigHarvest_EA_V2/Tests/position_resolution_excludes_existing_context_check.py
+MinusLock_BigHarvest_EA_V2/Tests/position_resolution_fail_check.py
+MinusLock_BigHarvest_EA_V2/Tests/position_resolution_lookback_config_check.py
+MinusLock_BigHarvest_EA_V2/Tests/position_resolution_reference_only_check.py
+MinusLock_BigHarvest_EA_V2/Tests/position_resolution_time_window_check.py
+MinusLock_BigHarvest_EA_V2/Tests/preset_validation_order_check.py
+MinusLock_BigHarvest_EA_V2/Tests/promote_remaining_big_to_far_check.py
+MinusLock_BigHarvest_EA_V2/Tests/real_recovery_examples_check.py
+MinusLock_BigHarvest_EA_V2/Tests/real_recovery_pl_cycle_balance_check.py
+MinusLock_BigHarvest_EA_V2/Tests/recommended_preset_guard_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reconciliation_context_summary_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reconciliation_engine_static_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reconciliation_soft_volume_sync_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reconciliation_stops_after_fatal_error_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reconciliation_terminal_throttle_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reconciliation_volume_stability_check.py
+MinusLock_BigHarvest_EA_V2/Tests/recover_promoted_big_as_far_check.py
+MinusLock_BigHarvest_EA_V2/Tests/recover_state_position_reconcile_check.py
+MinusLock_BigHarvest_EA_V2/Tests/recovery_mismatch_state_check.py
+MinusLock_BigHarvest_EA_V2/Tests/recovery_reconcile_check.py
+MinusLock_BigHarvest_EA_V2/Tests/recovery_uses_actual_volume_check.py
+MinusLock_BigHarvest_EA_V2/Tests/refresh_leg_volume_from_terminal_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reserve_apply_once_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reserve_ledger_credit_debit_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reserve_mismatch_not_fatal_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reserve_not_used_for_partial_far_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reserve_rebuild_from_history_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reserve_rebuild_from_ledger_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reserve_rebuild_skips_initial_profit_check.py
+MinusLock_BigHarvest_EA_V2/Tests/restart_recovery_static_check.py
+MinusLock_BigHarvest_EA_V2/Tests/retry_context_cleanup_check.py
+MinusLock_BigHarvest_EA_V2/Tests/retry_fsm_static_check.py
+MinusLock_BigHarvest_EA_V2/Tests/retry_next_state_check.py
+MinusLock_BigHarvest_EA_V2/Tests/retry_open_big_must_resolve_ticket_check.py
+MinusLock_BigHarvest_EA_V2/Tests/retry_open_big_resolution_check.py
+MinusLock_BigHarvest_EA_V2/Tests/retry_open_small_resolution_check.py
+MinusLock_BigHarvest_EA_V2/Tests/retry_state_integrity_check.py
+MinusLock_BigHarvest_EA_V2/Tests/reverse_limit_close_check.py
+MinusLock_BigHarvest_EA_V2/Tests/risk_gate_does_not_block_closes_check.py
+MinusLock_BigHarvest_EA_V2/Tests/risk_gate_does_not_block_max_levels_close_check.py
+MinusLock_BigHarvest_EA_V2/Tests/scenario/test_split_architecture_restart.py
+MinusLock_BigHarvest_EA_V2/Tests/scenario/test_split_big_scenario.py
+MinusLock_BigHarvest_EA_V2/Tests/small_at_far_scenario_log.py
+MinusLock_BigHarvest_EA_V2/Tests/small_build_new_far_no_active_small_direction_check.py
+MinusLock_BigHarvest_EA_V2/Tests/small_real_net_check.py
+MinusLock_BigHarvest_EA_V2/Tests/small_reserve_add_check.py
+MinusLock_BigHarvest_EA_V2/Tests/small_reverse_compression_check.py
+MinusLock_BigHarvest_EA_V2/Tests/small_saved_direction_required_check.py
+MinusLock_BigHarvest_EA_V2/Tests/small_scenario_promote_no_integrity_error_check.py
+MinusLock_BigHarvest_EA_V2/Tests/spread_log_throttle_check.py
+MinusLock_BigHarvest_EA_V2/Tests/state_action_matrix_check.py
+MinusLock_BigHarvest_EA_V2/Tests/state_integrity_engine_check.py
+MinusLock_BigHarvest_EA_V2/Tests/state_requires_resolved_position_check.py
+MinusLock_BigHarvest_EA_V2/Tests/state_shape_validation_check.py
+MinusLock_BigHarvest_EA_V2/Tests/static/test_split_architecture_static.py
+MinusLock_BigHarvest_EA_V2/Tests/static/test_split_big_static.py
+MinusLock_BigHarvest_EA_V2/Tests/stop_max_levels_close_pending_check.py
+MinusLock_BigHarvest_EA_V2/Tests/strategy_report_no_end_of_test_far_check.py
+MinusLock_BigHarvest_EA_V2/Tests/synthetic_volume_forbidden_check.py
+MinusLock_BigHarvest_EA_V2/Tests/terminal_states_never_open_positions_check.py
+MinusLock_BigHarvest_EA_V2/Tests/terminal_states_separated_from_pending_check.py
+MinusLock_BigHarvest_EA_V2/Tests/test_actual_rounded_big_exposure.py
+MinusLock_BigHarvest_EA_V2/Tests/test_big_full_close_before_partial.py
+MinusLock_BigHarvest_EA_V2/Tests/test_big_net_exposure.py
+MinusLock_BigHarvest_EA_V2/Tests/test_big_partial_far_budget.py
+MinusLock_BigHarvest_EA_V2/Tests/test_bigtrend_never_becomes_far.py
+MinusLock_BigHarvest_EA_V2/Tests/test_commission_projection.py
+MinusLock_BigHarvest_EA_V2/Tests/test_dynamic_reverse_small_direction.py
+MinusLock_BigHarvest_EA_V2/Tests/test_dynamic_reverse_small_money.py
+MinusLock_BigHarvest_EA_V2/Tests/test_lifecycle_net_multiple_positions.py
+MinusLock_BigHarvest_EA_V2/Tests/test_new_far_compression.py
+MinusLock_BigHarvest_EA_V2/Tests/test_partial_far_actual_deal_result.py
+MinusLock_BigHarvest_EA_V2/Tests/test_position_role_comments.py
+MinusLock_BigHarvest_EA_V2/Tests/test_reserve_credit_idempotency.py
+MinusLock_BigHarvest_EA_V2/Tests/test_reserve_debit_idempotency.py
+MinusLock_BigHarvest_EA_V2/Tests/test_reserve_growth_ratio.py
+MinusLock_BigHarvest_EA_V2/Tests/test_reserve_ledger_idempotency.py
+MinusLock_BigHarvest_EA_V2/Tests/test_restart_after_bigtrend_close.py
+MinusLock_BigHarvest_EA_V2/Tests/test_restart_after_reverse_small_open.py
+MinusLock_BigHarvest_EA_V2/Tests/test_restart_recovery.py
+MinusLock_BigHarvest_EA_V2/Tests/test_share_validation.py
+MinusLock_BigHarvest_EA_V2/Tests/test_small_transition.py
+MinusLock_BigHarvest_EA_V2/Tests/test_split_big_full_harvest.py
+MinusLock_BigHarvest_EA_V2/Tests/test_split_geometry_blocked_until_full.py
+MinusLock_BigHarvest_EA_V2/Tests/test_split_geometry_validation.py
+MinusLock_BigHarvest_EA_V2/Tests/test_symbol_magic_cycle_isolation.py
+MinusLock_BigHarvest_EA_V2/Tests/test_symbol_magic_isolation.py
+MinusLock_BigHarvest_EA_V2/Tests/unit/test_split_architecture_model.py
+MinusLock_BigHarvest_EA_V2/Tests/unit/test_split_big_math.py
+MinusLock_BigHarvest_EA_V2/Tests/unit/test_split_exact_persistence_model.py
+MinusLock_BigHarvest_EA_V2/Tests/unit/test_split_final_safety_model.py
+MinusLock_BigHarvest_EA_V2/Tests/unit/test_split_recovery_order_model.py
+MinusLock_BigHarvest_EA_V2/Tests/unit/test_split_reserve_transaction_model.py
+MinusLock_BigHarvest_EA_V2/Tests/validate_v2_static.py
+MinusLock_BigHarvest_EA_V2/Tests/verify_full_close_check.py
+MinusLock_BigHarvest_EA_V2/Tests/volume_integrity_guard_check.py
+MinusLock_BigHarvest_EA_V2/Tools/analyze_mt5_big_scenario_divergence.py
+MinusLock_BigHarvest_EA_V2/Tools/calibrate_big_scenario_model_from_mt5_report.py
+MinusLock_BigHarvest_EA_V2/Tools/generate_set_files.py
+MinusLock_BigHarvest_EA_V2/Tools/mql5_like_big_scenario_parameter_search.py
+MinusLock_BigHarvest_EA_V2/Tools/offline_optimizer.py
+MinusLock_BigHarvest_EA_V2/Tools/offline_scenarios.py
+MinusLock_BigHarvest_EA_V2/Tools/optimize_big_scenario_min_levels.py
+MinusLock_BigHarvest_EA_V2/Tools/run_full_parameter_optimization_study.py
+MinusLock_BigHarvest_EA_V2/Tools/score_parameters.py
+MinusLock_BigHarvest_EA_V2/Tools/simulate_big_scenario_trace.py
+MinusLock_BigHarvest_EA_V2/Tools/validate_optimization_outputs.py
+```
