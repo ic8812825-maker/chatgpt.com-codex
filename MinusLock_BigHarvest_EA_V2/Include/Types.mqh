@@ -136,6 +136,13 @@ struct PersistedRoleInspection
    string reason;
 };
 
+struct RecoveryFailureMarkerInspection
+{
+   bool active; bool malformed; int reasonCode; datetime failureTime; EAState originalState;
+   PersistedUInt64Inspection cycleId; PersistedUInt64Inspection transactionId; PersistedUInt64Inspection eventKey;
+   string reason;
+};
+
 
 enum PositionRole
 {

@@ -1990,6 +1990,21 @@ void EvaluateReserveTransactionPersistence(bool &active, bool &malformed, string
    reason=malformed?"RESERVE_TRANSACTION_CONTEXT_MALFORMED":(active?"RESERVE_TRANSACTION_CONTEXT_ACTIVE":"RESERVE_TRANSACTION_CONTEXT_CLEAR");
 }
 
+void EvaluateRecoveryFailureMarkerPersistence(RecoveryFailureMarkerInspection &result)
+{
+   result.active=PersistedDoubleNonZero("RecoveryFailureActive",0.5);
+   result.reasonCode=GlobalVariableCheck(StateKey("RecoveryFailureReasonCode"))?(int)GlobalVariableGet(StateKey("RecoveryFailureReasonCode")):RECOVERY_FAILURE_NONE;
+   result.failureTime=GlobalVariableCheck(StateKey("RecoveryFailureTime"))?(datetime)GlobalVariableGet(StateKey("RecoveryFailureTime")):0;
+   result.originalState=GlobalVariableCheck(StateKey("RecoveryFailureOriginalState"))?(EAState)(int)GlobalVariableGet(StateKey("RecoveryFailureOriginalState")):STATE_IDLE;
+   InspectPersistedUInt64("RecoveryFailureCycleId",result.cycleId); InspectPersistedUInt64("RecoveryFailureTransactionId",result.transactionId); InspectPersistedUInt64("RecoveryFailureEventKey",result.eventKey);
+   bool ids=PersistedUInt64IsActive(result.cycleId)||PersistedUInt64IsActive(result.transactionId)||PersistedUInt64IsActive(result.eventKey);
+   bool invalidIds=PersistedUInt64IsMalformed(result.cycleId)||PersistedUInt64IsMalformed(result.transactionId)||PersistedUInt64IsMalformed(result.eventKey);
+   bool residual=result.reasonCode!=RECOVERY_FAILURE_NONE||result.failureTime>0||result.originalState!=STATE_IDLE||ids;
+   result.malformed=invalidIds||(!result.active&&residual)||(result.active&&(result.reasonCode<=RECOVERY_FAILURE_NONE||result.reasonCode>RECOVERY_FAILURE_OTHER||result.failureTime<=0||result.originalState<STATE_IDLE||result.originalState>STATE_ERROR))||
+                    (PersistedUInt64IsActive(result.transactionId)&&!PersistedUInt64IsActive(result.eventKey));
+   result.reason=result.malformed?"RECOVERY_FAILURE_MARKER_MALFORMED":(result.active?"RECOVERY_FAILURE_MARKER_ACTIVE":"RECOVERY_FAILURE_MARKER_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
@@ -1999,7 +2014,8 @@ bool IsProvenCleanStart()
    EvaluateReserveLedgerPersistence(hasLedger, ledgerMalformed, ledgerReason);
    bool hasReserveTx=false, reserveTxMalformed=false; string reserveTxReason="";
    EvaluateReserveTransactionPersistence(hasReserveTx,reserveTxMalformed,reserveTxReason);
-   bool hasFailure = GlobalVariableCheck(StateKey("RecoveryFailureActive")) && GlobalVariableGet(StateKey("RecoveryFailureActive")) > 0.5;
+   RecoveryFailureMarkerInspection failureInspection; EvaluateRecoveryFailureMarkerPersistence(failureInspection);
+   bool hasFailure=failureInspection.active, failureMalformed=failureInspection.malformed;
    bool hasPending = false;
    bool pendingMalformed = false;
    string pendingReason = "";
@@ -2033,7 +2049,7 @@ bool IsProvenCleanStart()
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !ledgerMalformed && !hasReserveTx && !reserveTxMalformed && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !splitHarvestActive && !splitHarvestMalformed && !geometryActive && !geometryMalformed && managed == 0);
+   bool clean = (!hasState && !hasLedger && !ledgerMalformed && !hasReserveTx && !reserveTxMalformed && !hasFailure && !failureMalformed && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !splitHarvestActive && !splitHarvestMalformed && !geometryActive && !geometryMalformed && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
                         splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
