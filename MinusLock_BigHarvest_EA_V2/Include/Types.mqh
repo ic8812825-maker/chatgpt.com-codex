@@ -100,6 +100,26 @@ enum Direction
    DIR_SELL
 };
 
+enum PersistedUInt64State
+{
+   PERSISTED_UINT64_ABSENT = 0,
+   PERSISTED_UINT64_ZERO,
+   PERSISTED_UINT64_ACTIVE,
+   PERSISTED_UINT64_MALFORMED
+};
+
+struct PersistedUInt64Inspection
+{
+   PersistedUInt64State state;
+   bool highExists;
+   bool lowExists;
+   uint highValue;
+   uint lowValue;
+   ulong restoredValue;
+   string fieldName;
+   string reason;
+};
+
 
 enum PositionRole
 {

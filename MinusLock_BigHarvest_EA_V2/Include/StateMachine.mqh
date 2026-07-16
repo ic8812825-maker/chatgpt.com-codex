@@ -1010,6 +1010,39 @@ void SaveStateUlong64(string field, ulong value)
    GlobalVariableSet(StateKey(field + "Low32"), (double)low32);
 }
 
+bool InspectPersistedUInt64(string fieldName, PersistedUInt64Inspection &result)
+{
+   result.fieldName = fieldName;
+   result.highExists = GlobalVariableCheck(StateKey(fieldName + "High32"));
+   result.lowExists = GlobalVariableCheck(StateKey(fieldName + "Low32"));
+   result.highValue = 0;
+   result.lowValue = 0;
+   result.restoredValue = 0;
+   result.reason = "";
+
+   if(!result.highExists && !result.lowExists)
+   {
+      result.state = PERSISTED_UINT64_ABSENT;
+      result.reason = "PERSISTED_UINT64_ABSENT";
+      return true;
+   }
+   if(result.highExists != result.lowExists)
+   {
+      result.state = PERSISTED_UINT64_MALFORMED;
+      result.reason = "PERSISTED_UINT64_MALFORMED";
+      LogError(StringFormat("PERSISTED_UINT64_MALFORMED Field=%s HighExists=%s LowExists=%s RECOVERY_CONTEXT_RESET_FORBIDDEN",
+                            fieldName, result.highExists ? "YES" : "NO", result.lowExists ? "YES" : "NO"));
+      return false;
+   }
+
+   result.highValue = (uint)GlobalVariableGet(StateKey(fieldName + "High32"));
+   result.lowValue = (uint)GlobalVariableGet(StateKey(fieldName + "Low32"));
+   result.restoredValue = RestoreUlong64(result.highValue, result.lowValue);
+   result.state = (result.restoredValue == 0 ? PERSISTED_UINT64_ZERO : PERSISTED_UINT64_ACTIVE);
+   result.reason = (result.state == PERSISTED_UINT64_ZERO ? "PERSISTED_UINT64_ZERO" : "PERSISTED_UINT64_ACTIVE");
+   return true;
+}
+
 void SaveStateLong64(string field, long value)
 {
    uint high32, low32;
