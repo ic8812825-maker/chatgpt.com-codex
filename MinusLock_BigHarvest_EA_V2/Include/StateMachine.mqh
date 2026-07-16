@@ -1796,15 +1796,52 @@ void EvaluateFrozenGeometryPersistence(bool &active, bool &malformed, string &re
    reason = malformed ? "FROZEN_GEOMETRY_CONTEXT_MALFORMED" : (active ? "FROZEN_GEOMETRY_CONTEXT_ACTIVE" : "FROZEN_GEOMETRY_CONTEXT_CLEAR");
 }
 
+void EvaluatePendingPersistence(bool &active, bool &malformed, string &reason)
+{
+   PersistedUInt64Inspection ticket, bigId, smallId;
+   InspectPersistedUInt64("PendingTicket", ticket);
+   InspectPersistedUInt64("PendingBigPositionId", bigId);
+   InspectPersistedUInt64("PendingSmallPositionId", smallId);
+   PendingActionType action = PENDING_NONE;
+   if(GlobalVariableCheck(StateKey("PendingActionType"))) action = (PendingActionType)(int)GlobalVariableGet(StateKey("PendingActionType"));
+   bool ticketActive = PersistedUInt64IsActive(ticket);
+   bool idsActive = PersistedUInt64IsActive(bigId) || PersistedUInt64IsActive(smallId);
+   bool amounts = PersistedDoubleNonZero("PendingLot", VolumeMismatchToleranceLots) || PersistedDoubleNonZero("PendingAttempts") ||
+                  PersistedDoubleNonZero("PendingOperationStartTime") || PersistedDoubleNonZero("PendingRealNet") ||
+                  PersistedDoubleNonZero("PendingCloseFarBudget") || PersistedDoubleNonZero("PendingReserveAdd") ||
+                  PersistedDoubleNonZero("PendingSmallReserveAdd") || PersistedDoubleNonZero("PendingCloseFarLot", VolumeMismatchToleranceLots) ||
+                  PersistedDoubleNonZero("PendingPartialFarBudgetAvailable") || PersistedDoubleNonZero("PendingPartialFarBudgetCarryBefore") ||
+                  PersistedDoubleNonZero("PendingProjectedPartialFarLoss") || PersistedDoubleNonZero("PendingDirection") ||
+                  PersistedDoubleNonZero("PendingReserveApplied", 0.5) || PersistedDoubleNonZero("PendingSmallReserveApplied", 0.5) ||
+                  PersistedDoubleNonZero("PendingFullFarClose", 0.5);
+   active = action != PENDING_NONE;
+   malformed = PersistedUInt64IsMalformed(ticket) || PersistedUInt64IsMalformed(bigId) || PersistedUInt64IsMalformed(smallId);
+   if(!active && (ticketActive || idsActive || amounts)) malformed = true;
+   if(active)
+   {
+      bool hasStart = PersistedDoubleNonZero("PendingOperationStartTime");
+      bool hasNext = GlobalVariableCheck(StateKey("PendingNextState")) && (EAState)(int)GlobalVariableGet(StateKey("PendingNextState")) != STATE_IDLE;
+      if(!hasStart || !hasNext) malformed = true;
+      if(GlobalVariableCheck(StateKey("State")))
+      {
+         EAState persistedState = (EAState)(int)GlobalVariableGet(StateKey("State"));
+         if(IsPendingContractState(persistedState) && !PendingActionMatchesState(persistedState, action)) malformed = true;
+      }
+   }
+   if(PersistedDoubleNonZero("PendingCloseFarLot", VolumeMismatchToleranceLots) && !ticketActive) malformed = true;
+   reason = malformed ? "PENDING_CONTEXT_MALFORMED" : (active ? "PENDING_CONTEXT_ACTIVE" : "PENDING_CONTEXT_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
    bool hasLedger = GlobalVariableCheck(StateKey("ReserveLedgerCount")) && GlobalVariableGet(StateKey("ReserveLedgerCount")) > 0.5;
    bool hasReserveTx = GlobalVariableCheck(StateKey("ReserveTxActive")) && GlobalVariableGet(StateKey("ReserveTxActive")) > 0.5;
    bool hasFailure = GlobalVariableCheck(StateKey("RecoveryFailureActive")) && GlobalVariableGet(StateKey("RecoveryFailureActive")) > 0.5;
-   bool hasPending = (GlobalVariableCheck(StateKey("PendingActionType")) && GlobalVariableGet(StateKey("PendingActionType")) > (double)PENDING_NONE) ||
-                     (GlobalVariableCheck(StateKey("PendingAttempts")) && GlobalVariableGet(StateKey("PendingAttempts")) > 0.5) ||
-                     (GlobalVariableCheck(StateKey("PendingLot")) && GlobalVariableGet(StateKey("PendingLot")) > VolumeMismatchToleranceLots);
+   bool hasPending = false;
+   bool pendingMalformed = false;
+   string pendingReason = "";
+   EvaluatePendingPersistence(hasPending, pendingMalformed, pendingReason);
 
    bool retryHighExists = GlobalVariableCheck(StateKey("RetryTicketHigh32"));
    bool retryLowExists = GlobalVariableCheck(StateKey("RetryTicketLow32"));
@@ -1837,12 +1874,12 @@ bool IsProvenCleanStart()
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
+   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
                         splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
                         initialMalformed ? "MALFORMED" : (hasInitial ? "ACTIVE" : "CLEAR"),
-                        hasPending ? "ACTIVE" : "CLEAR",
+                        pendingMalformed ? "MALFORMED" : (hasPending ? "ACTIVE" : "CLEAR"),
                         hasRetry ? (retryTicketMalformed ? "MALFORMED" : "ACTIVE") : "CLEAR",
                         hasLedger ? "ACTIVE" : "CLEAR",
                         hasReserveTx ? "ACTIVE" : "CLEAR",
