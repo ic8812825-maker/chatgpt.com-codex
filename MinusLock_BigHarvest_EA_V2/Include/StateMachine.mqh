@@ -1977,9 +1977,16 @@ void EvaluateReserveTransactionPersistence(bool &active, bool &malformed, string
    double amount=GlobalVariableCheck(StateKey("ReserveTxAmount"))?GlobalVariableGet(StateKey("ReserveTxAmount")):0.0;
    double before=GlobalVariableCheck(StateKey("ReserveTxReserveBefore"))?GlobalVariableGet(StateKey("ReserveTxReserveBefore")):0.0;
    double after=GlobalVariableCheck(StateKey("ReserveTxReserveAfter"))?GlobalVariableGet(StateKey("ReserveTxReserveAfter")):0.0;
+   int eventType=GlobalVariableCheck(StateKey("ReserveTxEventType"))?(int)GlobalVariableGet(StateKey("ReserveTxEventType")):RESERVE_EVENT_NONE;
+   bool eventValid=eventType>=RESERVE_EVENT_NONE&&eventType<=RESERVE_EVENT_RESET;
+   bool phaseValid=phase>=RESERVE_TX_NONE&&phase<=RESERVE_TX_COMPLETED&&phase==MathFloor(phase);
+   bool credit=(eventType==RESERVE_EVENT_BIG_HARVEST_ADD||eventType==RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD||eventType==RESERVE_EVENT_REVERSE_TRANSITION_ADD||eventType==RESERVE_EVENT_SMALL_HARVEST_ADD);
+   bool debit=(eventType==RESERVE_EVENT_SPLIT_BIG_FINAL_DEBIT||eventType==RESERVE_EVENT_FAR_COVER_DEBIT||eventType==RESERVE_EVENT_BIG_FULL_FAR_CLOSE_DEBIT||eventType==RESERVE_EVENT_SMALL_FAR_DEBIT||eventType==RESERVE_EVENT_FINAL_CLOSE_DEBIT);
    residual=residual||phase!=RESERVE_TX_NONE||MathAbs(amount)>ReserveMismatchTolerance||PersistedDoubleNonZero("ReserveTxStartedAt");
    if(!active && residual) malformed=true;
-   if(active && (!residual || MathAbs(MathAbs(after-before)-MathAbs(amount))>ReserveMismatchTolerance)) malformed=true;
+   if(active && (!residual||!eventValid||!phaseValid||MathAbs(after-(before+amount))>ReserveMismatchTolerance||
+      (credit&&(amount<=0.0||after<=before))||(debit&&(amount>=0.0||after>=before))||
+      (eventType==RESERVE_EVENT_RESET&&MathAbs(after)>ReserveMismatchTolerance))) malformed=true;
    reason=malformed?"RESERVE_TRANSACTION_CONTEXT_MALFORMED":(active?"RESERVE_TRANSACTION_CONTEXT_ACTIVE":"RESERVE_TRANSACTION_CONTEXT_CLEAR");
 }
 
