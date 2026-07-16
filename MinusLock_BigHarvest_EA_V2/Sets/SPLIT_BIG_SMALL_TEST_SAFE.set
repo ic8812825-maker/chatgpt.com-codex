@@ -1,0 +1,9 @@
+; SAFE INTERNAL-SIMULATION PRESET. NOT FOR PRODUCTION OR REAL TRADING.
+UseSplitBigGeometry=true
+UseLegacySingleBigGeometry=false
+UseDynamicReverseSmall=true
+UseInternalSimulation=true
+AllowRealTrading=false
+MinimumBigRecoveryImprovementMoney=1.00
+MinimumNetBigExposureLots=0.01
+CommissionPercentCalculationBase=3
