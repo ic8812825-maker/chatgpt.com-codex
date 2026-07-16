@@ -91,13 +91,15 @@ bool CalcPercentCommissionSide(double lot,double price,double otherPrice,double 
    {
       double notionalOpen=lot*contract*price;
       double notionalClose=lot*contract*otherPrice;
-      double notionalChargeSide=opening?notionalOpen:notionalClose;
+      double notionalChargeSide=(opening==CommissionNotionalChargeOnOpen)?(opening?notionalOpen:notionalClose):0;
       value=notionalChargeSide*CommissionPercent/100.0;
    }
    else if(CommissionPercentCalculationBase==COMMISSION_PERCENT_TURNOVER)
    {
-      double turnover=lot*contract*(price+otherPrice);
-      value=turnover*CommissionPercent/100.0;
+      double turnoverOpen=lot*contract*(opening?price:otherPrice);
+      double turnoverClose=lot*contract*(opening?otherPrice:price);
+      double turnover=turnoverOpen+turnoverClose;
+      value=(opening?turnoverOpen:turnoverClose)*CommissionPercent/100.0;
    }
    else if(CommissionPercentCalculationBase==COMMISSION_PERCENT_MARGIN)
    {

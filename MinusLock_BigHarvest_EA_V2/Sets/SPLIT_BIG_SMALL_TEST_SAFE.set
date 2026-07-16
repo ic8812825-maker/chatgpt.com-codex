@@ -1,5 +1,5 @@
 ; SAFE INTERNAL-SIMULATION PRESET. NOT FOR PRODUCTION OR REAL TRADING.
-; SHA256 of parameter lines below: 9f081b28cfe82a93e02d722c3077b42ac5987c6bda18580b5247c4c9ac971fda
+; SHA256 of parameter lines below: e9c6f4c43d5471d252201bd80736f6363622d5a32d4dcf2248dc66e03d66066a
 UseSplitBigGeometry=true
 UseLegacySingleBigGeometry=false
 UseDynamicReverseSmall=true
@@ -26,6 +26,7 @@ CommissionPerLotRoundTurn=0.00
 CommissionFixedPerDeal=0.00
 CommissionPercent=0.00
 CommissionPercentCalculationBase=3
+CommissionNotionalChargeOnOpen=true
 ExpectedHoldingDays=1
 MaximumHoldingDays=3
 UseBrokerSwapProperties=true

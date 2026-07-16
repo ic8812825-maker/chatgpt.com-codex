@@ -109,6 +109,7 @@ input double CommissionPerLotRoundTurn = 0.00;
 input double CommissionFixedPerDeal = 0.00;
 input double CommissionPercent = 0.00;
 input CommissionPercentBase CommissionPercentCalculationBase = COMMISSION_PERCENT_DISABLED;
+input bool CommissionNotionalChargeOnOpen = true;
 input int ExpectedHoldingDays = 1;
 input int MaximumHoldingDays = 3;
 input bool UseBrokerSwapProperties = true;

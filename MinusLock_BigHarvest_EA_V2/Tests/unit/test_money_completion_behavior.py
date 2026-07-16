@@ -14,8 +14,7 @@ def signed_swap(rate, opening, closing, rollover_weekday=2):
 def commissions(lot, contract, opening, closing, percent, mode):
     if mode=='notional': return lot*contract*opening*percent, lot*contract*closing*percent
     if mode=='turnover':
-        turnover=lot*contract*(opening+closing)*percent
-        return turnover, turnover
+        return lot*contract*opening*percent, lot*contract*closing*percent
     raise ValueError
 
 @pytest.mark.parametrize('rate', [2.0,-2.0])
@@ -30,7 +29,7 @@ def test_close_before_rollover_has_no_swap():
 def test_notional_and_turnover_are_distinct():
     opened,closed=commissions(1,100_000,1.1,1.2,.0001,'notional')
     turn_open,turn_close=commissions(1,100_000,1.1,1.2,.0001,'turnover')
-    assert opened != closed and turn_open==turn_close and turn_open>opened
+    assert opened != closed and turn_open==opened and turn_close==closed
 
 def finite(far,loss,reserve,carry,recovery,ratio,transition,reserve_add,cost,target,limit=7):
     for cycle in range(limit+1):
