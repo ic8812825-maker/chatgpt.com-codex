@@ -1017,6 +1017,10 @@ bool InspectPersistedUInt64(string fieldName, PersistedUInt64Inspection &result)
    result.lowExists = GlobalVariableCheck(StateKey(fieldName + "Low32"));
    result.highValue = 0;
    result.lowValue = 0;
+   result.highRaw = 0.0;
+   result.lowRaw = 0.0;
+   result.highValueValid = false;
+   result.lowValueValid = false;
    result.restoredValue = 0;
    result.reason = "";
 
@@ -1035,8 +1039,31 @@ bool InspectPersistedUInt64(string fieldName, PersistedUInt64Inspection &result)
       return false;
    }
 
-   result.highValue = (uint)GlobalVariableGet(StateKey(fieldName + "High32"));
-   result.lowValue = (uint)GlobalVariableGet(StateKey(fieldName + "Low32"));
+   result.highRaw = GlobalVariableGet(StateKey(fieldName + "High32"));
+   result.lowRaw = GlobalVariableGet(StateKey(fieldName + "Low32"));
+   if(!MathIsValidNumber(result.highRaw) || !MathIsValidNumber(result.lowRaw))
+   {
+      result.state=PERSISTED_UINT64_MALFORMED; result.reason="PERSISTED_UINT64_NOT_FINITE"; return false;
+   }
+   if(result.highRaw < 0.0 || result.highRaw > 4294967295.0)
+   {
+      result.state=PERSISTED_UINT64_MALFORMED; result.reason="PERSISTED_UINT64_HIGH_OUT_OF_RANGE"; return false;
+   }
+   if(result.lowRaw < 0.0 || result.lowRaw > 4294967295.0)
+   {
+      result.state=PERSISTED_UINT64_MALFORMED; result.reason="PERSISTED_UINT64_LOW_OUT_OF_RANGE"; return false;
+   }
+   if(result.highRaw != MathFloor(result.highRaw))
+   {
+      result.state=PERSISTED_UINT64_MALFORMED; result.reason="PERSISTED_UINT64_HIGH_NOT_INTEGER"; return false;
+   }
+   if(result.lowRaw != MathFloor(result.lowRaw))
+   {
+      result.state=PERSISTED_UINT64_MALFORMED; result.reason="PERSISTED_UINT64_LOW_NOT_INTEGER"; return false;
+   }
+   result.highValueValid=true; result.lowValueValid=true;
+   result.highValue = (uint)result.highRaw;
+   result.lowValue = (uint)result.lowRaw;
    result.restoredValue = RestoreUlong64(result.highValue, result.lowValue);
    result.state = (result.restoredValue == 0 ? PERSISTED_UINT64_ZERO : PERSISTED_UINT64_ACTIVE);
    result.reason = (result.state == PERSISTED_UINT64_ZERO ? "PERSISTED_UINT64_ZERO" : "PERSISTED_UINT64_ACTIVE");

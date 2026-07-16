@@ -115,6 +115,10 @@ struct PersistedUInt64Inspection
    bool lowExists;
    uint highValue;
    uint lowValue;
+   double highRaw;
+   double lowRaw;
+   bool highValueValid;
+   bool lowValueValid;
    ulong restoredValue;
    string fieldName;
    string reason;
