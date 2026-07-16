@@ -1958,6 +1958,7 @@ bool PersistedKeyPrefixExists(string fieldPrefix)
 
 void EvaluateReserveLedgerPersistence(bool &active, bool &malformed, string &reason)
 {
+   const int MAX_PERSISTED_RESERVE_LEDGER_ROWS=10000;
    double countRaw = GlobalVariableCheck(StateKey("ReserveLedgerCount")) ? GlobalVariableGet(StateKey("ReserveLedgerCount")) : 0.0;
    int count = (int)countRaw;
    PersistedUInt64Inspection nextEvent, nextTx;
@@ -1966,16 +1967,29 @@ void EvaluateReserveLedgerPersistence(bool &active, bool &malformed, string &rea
    bool rowsExist = PersistedKeyPrefixExists("ReserveLedger_");
    double reserve = GlobalVariableCheck(StateKey("TotalReserve")) ? GlobalVariableGet(StateKey("TotalReserve")) : 0.0;
    active = count > 0 || MathAbs(reserve) > ReserveMismatchTolerance;
-   malformed = countRaw < 0.0 || MathAbs(countRaw - count) > 0.000001 || count > 10000 ||
+   malformed = !MathIsValidNumber(countRaw)||countRaw < 0.0 || MathAbs(countRaw - count) > 0.000001 || count > MAX_PERSISTED_RESERVE_LEDGER_ROWS ||
                PersistedUInt64IsMalformed(nextEvent) || PersistedUInt64IsMalformed(nextTx) ||
                (count == 0 && rowsExist) || (count == 0 && PersistedUInt64IsActive(nextEvent) && nextEvent.restoredValue > 1) ||
                (count == 0 && MathAbs(reserve) > ReserveMismatchTolerance);
-   if(count > 0)
+   double previousAfter=0.0,lastAfter=0.0;
+   for(int i=0;i<count;i++)
    {
-      PersistedUInt64Inspection firstEvent;
-      InspectPersistedUInt64("ReserveLedger_0_EventId", firstEvent);
-      if(firstEvent.state != PERSISTED_UINT64_ACTIVE) malformed = true;
+      string p=StringFormat("ReserveLedger_%d_",i);
+      PersistedUInt64Inspection eventId,eventKey,symbolHash,magic,cycleId;
+      InspectPersistedUInt64(p+"EventId",eventId); InspectPersistedUInt64(p+"EventKeyHash",eventKey); InspectPersistedUInt64(p+"SymbolHash",symbolHash); InspectPersistedUInt64(p+"MagicNumber",magic); InspectPersistedUInt64(p+"CycleId",cycleId);
+      string scalar[]={"Timestamp","Type","Amount","ReserveBefore","ReserveAfter","SymbolLength","HarvestLevel","ReverseCycle"};
+      for(int s=0;s<ArraySize(scalar);s++) if(!GlobalVariableCheck(StateKey(p+scalar[s]))) malformed=true;
+      if(eventId.state!=PERSISTED_UINT64_ACTIVE||eventId.restoredValue!=(ulong)(i+1)||eventKey.state!=PERSISTED_UINT64_ACTIVE||symbolHash.state!=PERSISTED_UINT64_ACTIVE||magic.state!=PERSISTED_UINT64_ACTIVE) malformed=true;
+      double type=GlobalVariableCheck(StateKey(p+"Type"))?GlobalVariableGet(StateKey(p+"Type")):-1;
+      double amount=GlobalVariableCheck(StateKey(p+"Amount"))?GlobalVariableGet(StateKey(p+"Amount")):0;
+      double before=GlobalVariableCheck(StateKey(p+"ReserveBefore"))?GlobalVariableGet(StateKey(p+"ReserveBefore")):0;
+      double after=GlobalVariableCheck(StateKey(p+"ReserveAfter"))?GlobalVariableGet(StateKey(p+"ReserveAfter")):0;
+      double stamp=GlobalVariableCheck(StateKey(p+"Timestamp"))?GlobalVariableGet(StateKey(p+"Timestamp")):0;
+      if(!MathIsValidNumber(amount)||!MathIsValidNumber(before)||!MathIsValidNumber(after)||type<=RESERVE_EVENT_NONE||type>RESERVE_EVENT_RESET||type!=MathFloor(type)||stamp<=0||MathAbs(after-(before+amount))>ReserveMismatchTolerance||(i>0&&MathAbs(before-previousAfter)>ReserveMismatchTolerance)) malformed=true;
+      previousAfter=after; lastAfter=after;
    }
+   if(PersistedKeyPrefixExists(StringFormat("ReserveLedger_%d_",count))) malformed=true;
+   if(count>0 && (!PersistedUInt64IsActive(nextEvent)||nextEvent.restoredValue!=(ulong)(count+1)||MathAbs(reserve-lastAfter)>ReserveMismatchTolerance)) malformed=true;
    reason = malformed ? "RESERVE_LEDGER_CONTEXT_MALFORMED" : (active ? "RESERVE_LEDGER_CONTEXT_ACTIVE" : "RESERVE_LEDGER_CONTEXT_CLEAR");
 }
 
