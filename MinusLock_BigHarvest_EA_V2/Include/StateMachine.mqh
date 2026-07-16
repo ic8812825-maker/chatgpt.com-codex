@@ -1712,8 +1712,32 @@ bool PersistedUInt64IsMalformed(PersistedUInt64Inspection &value)
    return value.state == PERSISTED_UINT64_MALFORMED;
 }
 
+bool InspectPersistedRole(string role, string ticketField, string identifierField, string lotField,
+                          string openPriceField, string directionField, PersistedRoleInspection &result)
+{
+   result.role=role;
+   InspectPersistedUInt64(ticketField,result.ticket);
+   InspectPersistedUInt64(identifierField,result.identifier);
+   bool ticketActive=PersistedUInt64IsActive(result.ticket), idActive=PersistedUInt64IsActive(result.identifier);
+   result.ticketIdentifierMismatch=(ticketActive!=idActive);
+   double lot=GlobalVariableCheck(StateKey(lotField))?GlobalVariableGet(StateKey(lotField)):0.0;
+   double price=GlobalVariableCheck(StateKey(openPriceField))?GlobalVariableGet(StateKey(openPriceField)):0.0;
+   int direction=(directionField=="" ? (role=="INITIAL_BUY"?DIR_BUY:(role=="INITIAL_SELL"?DIR_SELL:DIR_NONE)) :
+                  (GlobalVariableCheck(StateKey(directionField))?(int)GlobalVariableGet(StateKey(directionField)):DIR_NONE));
+   result.active=ticketActive&&idActive;
+   result.numericContextWithoutIdentity=(!result.active && (MathAbs(lot)>VolumeMismatchToleranceLots || price!=0.0 || direction!=DIR_NONE));
+   result.malformed=PersistedUInt64IsMalformed(result.ticket)||PersistedUInt64IsMalformed(result.identifier)||
+                    result.ticketIdentifierMismatch||result.numericContextWithoutIdentity||lot<0.0||price<0.0||direction<DIR_NONE||direction>DIR_SELL||
+                    (result.active && (lot<=VolumeMismatchToleranceLots||price<=0.0||direction==DIR_NONE));
+   result.reason=result.malformed?role+"_ROLE_MALFORMED":(result.active?role+"_ROLE_ACTIVE":role+"_ROLE_CLEAR");
+   return !result.malformed;
+}
+
 void EvaluateInitialPersistence(bool &active, bool &malformed, string &reason)
 {
+   PersistedRoleInspection buyRole,sellRole;
+   InspectPersistedRole("INITIAL_BUY","InitialBuyTicket","InitialBuyIdentifier","InitialBuyLot","InitialBuyOpenPrice","",buyRole);
+   InspectPersistedRole("INITIAL_SELL","InitialSellTicket","InitialSellIdentifier","InitialSellLot","InitialSellOpenPrice","",sellRole);
    PersistedUInt64Inspection buyTicket, sellTicket, buyIdentifier, sellIdentifier;
    InspectPersistedUInt64("InitialBuyTicket", buyTicket);
    InspectPersistedUInt64("InitialSellTicket", sellTicket);
@@ -1725,7 +1749,7 @@ void EvaluateInitialPersistence(bool &active, bool &malformed, string &reason)
    bool buyIdentifierActive = PersistedUInt64IsActive(buyIdentifier);
    bool sellIdentifierActive = PersistedUInt64IsActive(sellIdentifier);
    active = buyTicketActive || sellTicketActive || buyIdentifierActive || sellIdentifierActive;
-   malformed = PersistedUInt64IsMalformed(buyTicket) || PersistedUInt64IsMalformed(sellTicket) ||
+   malformed = buyRole.malformed || sellRole.malformed || PersistedUInt64IsMalformed(buyTicket) || PersistedUInt64IsMalformed(sellTicket) ||
                PersistedUInt64IsMalformed(buyIdentifier) || PersistedUInt64IsMalformed(sellIdentifier);
 
    if(buyTicketActive != buyIdentifierActive || sellTicketActive != sellIdentifierActive)
@@ -1748,6 +1772,10 @@ bool PersistedDoubleNonZero(string field, double tolerance = 0.0000001)
 
 void EvaluateLegacyPersistence(bool &active, bool &malformed, string &reason)
 {
+   PersistedRoleInspection farRole,bigRole,smallRole;
+   InspectPersistedRole("FAR","FarTicket","FarIdentifier","FarLot","FarOpenPrice","FarDirection",farRole);
+   InspectPersistedRole("BIG","BigTicket","BigIdentifier","BigLot","BigOpenPrice","BigDirection",bigRole);
+   InspectPersistedRole("SMALL","SmallTicket","SmallIdentifier","SmallLot","SmallOpenPrice","SmallDirection",smallRole);
    PersistedUInt64Inspection cycleId, farTicket, farIdentifier, bigTicket, bigIdentifier, smallTicket, smallIdentifier;
    InspectPersistedUInt64("CycleId", cycleId);
    InspectPersistedUInt64("FarTicket", farTicket); InspectPersistedUInt64("FarIdentifier", farIdentifier);
@@ -1758,7 +1786,7 @@ void EvaluateLegacyPersistence(bool &active, bool &malformed, string &reason)
    bool bigActive = PersistedUInt64IsActive(bigTicket) || PersistedUInt64IsActive(bigIdentifier);
    bool smallActive = PersistedUInt64IsActive(smallTicket) || PersistedUInt64IsActive(smallIdentifier);
    active = PersistedUInt64IsActive(cycleId) || farActive || bigActive || smallActive;
-   malformed = PersistedUInt64IsMalformed(cycleId) || PersistedUInt64IsMalformed(farTicket) || PersistedUInt64IsMalformed(farIdentifier) ||
+   malformed = farRole.malformed||bigRole.malformed||smallRole.malformed||PersistedUInt64IsMalformed(cycleId) || PersistedUInt64IsMalformed(farTicket) || PersistedUInt64IsMalformed(farIdentifier) ||
                PersistedUInt64IsMalformed(bigTicket) || PersistedUInt64IsMalformed(bigIdentifier) ||
                PersistedUInt64IsMalformed(smallTicket) || PersistedUInt64IsMalformed(smallIdentifier);
    if(PersistedUInt64IsActive(farTicket) != PersistedUInt64IsActive(farIdentifier) ||
@@ -1783,6 +1811,8 @@ void EvaluateSplitPersistence(bool &active, bool &malformed, string &reason)
    for(int i = 0; i < ArraySize(roles); i++)
    {
       PersistedUInt64Inspection ticket, identifier;
+      PersistedRoleInspection roleInspection;
+      InspectPersistedRole(roles[i],roles[i]+"Ticket",roles[i]+"Identifier",roles[i]+"Lot",roles[i]+"OpenPrice",roles[i]+"Direction",roleInspection);
       InspectPersistedUInt64(roles[i] + "Ticket", ticket);
       InspectPersistedUInt64(roles[i] + "Identifier", identifier);
       bool ticketActive = PersistedUInt64IsActive(ticket);
@@ -1790,7 +1820,7 @@ void EvaluateSplitPersistence(bool &active, bool &malformed, string &reason)
       bool numeric = PersistedDoubleNonZero(roles[i] + "Lot", VolumeMismatchToleranceLots) ||
                      PersistedDoubleNonZero(roles[i] + "OpenPrice") || PersistedDoubleNonZero(roles[i] + "Direction");
       active = active || ticketActive || identifierActive;
-      if(PersistedUInt64IsMalformed(ticket) || PersistedUInt64IsMalformed(identifier) ||
+      if(roleInspection.malformed || PersistedUInt64IsMalformed(ticket) || PersistedUInt64IsMalformed(identifier) ||
          ticketActive != identifierActive || (numeric && !(ticketActive && identifierActive)))
          malformed = true;
    }

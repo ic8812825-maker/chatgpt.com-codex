@@ -124,6 +124,18 @@ struct PersistedUInt64Inspection
    string reason;
 };
 
+struct PersistedRoleInspection
+{
+   PersistedUInt64Inspection ticket;
+   PersistedUInt64Inspection identifier;
+   bool active;
+   bool malformed;
+   bool ticketIdentifierMismatch;
+   bool numericContextWithoutIdentity;
+   string role;
+   string reason;
+};
+
 
 enum PositionRole
 {
