@@ -1869,9 +1869,13 @@ void EvaluateFrozenGeometryPersistence(bool &active, bool &malformed, string &re
    bool levelsReady = PersistedDoubleNonZero("WorkInitialTriggerPoints") && PersistedDoubleNonZero("WorkBigMoveStartPoints") &&
                       PersistedDoubleNonZero("WorkBigMoveStepPoints") && PersistedDoubleNonZero("WorkFarDistancePoints");
    bool atrValues = PersistedDoubleNonZero("CycleATRRaw") || PersistedDoubleNonZero("CycleATRPoints");
-   bool atrMode = GeometryMode != GEOMETRY_MANUAL;
+   double modeRaw=GlobalVariableCheck(StateKey("GeometryModeUsed"))?GlobalVariableGet(StateKey("GeometryModeUsed")):(double)GEOMETRY_MANUAL;
+   bool modeValid=MathIsValidNumber(modeRaw)&&modeRaw==MathFloor(modeRaw)&&modeRaw>=GEOMETRY_MANUAL&&modeRaw<=GEOMETRY_ATR_CUSTOM;
+   GeometryModeEnum persistedMode=modeValid?(GeometryModeEnum)(int)modeRaw:GEOMETRY_MANUAL;
+   bool atrMode = persistedMode != GEOMETRY_MANUAL;
+   bool configurationMismatch=ready&&modeValid&&persistedMode!=GeometryMode;
    active = cycleActive && ready && calculated && levelsReady && (!atrMode || atrValues);
-   malformed = PersistedUInt64IsMalformed(cycleId) || (ready && (!cycleActive || !calculated || !levelsReady)) ||
+   malformed = !modeValid || configurationMismatch || PersistedUInt64IsMalformed(cycleId) || (ready && (!cycleActive || !calculated || !levelsReady)) ||
                (atrMode && ready && !atrValues) || (atrValues && !ready && atrMode);
    reason = malformed ? "FROZEN_GEOMETRY_CONTEXT_MALFORMED" : (active ? "FROZEN_GEOMETRY_CONTEXT_ACTIVE" : "FROZEN_GEOMETRY_CONTEXT_CLEAR");
 }
