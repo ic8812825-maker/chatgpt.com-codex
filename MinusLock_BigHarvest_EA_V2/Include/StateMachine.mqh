@@ -1832,6 +1832,26 @@ void EvaluatePendingPersistence(bool &active, bool &malformed, string &reason)
    reason = malformed ? "PENDING_CONTEXT_MALFORMED" : (active ? "PENDING_CONTEXT_ACTIVE" : "PENDING_CONTEXT_CLEAR");
 }
 
+void EvaluateRetryPersistence(bool &active, bool &malformed, string &reason)
+{
+   PersistedUInt64Inspection ticket;
+   InspectPersistedUInt64("RetryTicket", ticket);
+   bool ticketActive = PersistedUInt64IsActive(ticket);
+   double lot = GlobalVariableCheck(StateKey("RetryLot")) ? GlobalVariableGet(StateKey("RetryLot")) : 0.0;
+   int attempts = GlobalVariableCheck(StateKey("RetryAttempts")) ? (int)GlobalVariableGet(StateKey("RetryAttempts")) : 0;
+   EAState retryState = GlobalVariableCheck(StateKey("LastRetryState")) ? (EAState)(int)GlobalVariableGet(StateKey("LastRetryState")) : STATE_IDLE;
+   bool lotActive = lot > VolumeMismatchToleranceLots;
+   bool attemptsActive = attempts > 0;
+   bool stateActive = retryState != STATE_IDLE;
+   active = ticketActive || lotActive || attemptsActive || stateActive;
+   malformed = PersistedUInt64IsMalformed(ticket) || (lotActive != ticketActive) ||
+               (attemptsActive && !stateActive) || (ticketActive && !stateActive) ||
+               (stateActive && !IsPendingContractState(retryState));
+   PendingActionType action = GlobalVariableCheck(StateKey("PendingActionType")) ? (PendingActionType)(int)GlobalVariableGet(StateKey("PendingActionType")) : PENDING_NONE;
+   if(stateActive && (action == PENDING_NONE || !PendingActionMatchesState(retryState, action))) malformed = true;
+   reason = malformed ? "RETRY_CONTEXT_MALFORMED" : (active ? "RETRY_CONTEXT_ACTIVE" : "RETRY_CONTEXT_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
@@ -1843,15 +1863,10 @@ bool IsProvenCleanStart()
    string pendingReason = "";
    EvaluatePendingPersistence(hasPending, pendingMalformed, pendingReason);
 
-   bool retryHighExists = GlobalVariableCheck(StateKey("RetryTicketHigh32"));
-   bool retryLowExists = GlobalVariableCheck(StateKey("RetryTicketLow32"));
-   bool retryTicketMalformed = (retryHighExists != retryLowExists);
-   bool retryTicketActive = (retryHighExists && GlobalVariableGet(StateKey("RetryTicketHigh32")) > 0.5) ||
-                            (retryLowExists && GlobalVariableGet(StateKey("RetryTicketLow32")) > 0.5);
-   bool hasRetry = retryTicketMalformed || retryTicketActive ||
-                   (GlobalVariableCheck(StateKey("LastRetryState")) && GlobalVariableGet(StateKey("LastRetryState")) != (double)STATE_IDLE) ||
-                   (GlobalVariableCheck(StateKey("RetryAttempts")) && GlobalVariableGet(StateKey("RetryAttempts")) > 0.5) ||
-                   (GlobalVariableCheck(StateKey("RetryLot")) && GlobalVariableGet(StateKey("RetryLot")) > VolumeMismatchToleranceLots);
+   bool hasRetry = false;
+   bool retryMalformed = false;
+   string retryReason = "";
+   EvaluateRetryPersistence(hasRetry, retryMalformed, retryReason);
 
    bool hasInitial = false;
    bool initialMalformed = false;
@@ -1874,13 +1889,13 @@ bool IsProvenCleanStart()
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
+   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
                         splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
                         initialMalformed ? "MALFORMED" : (hasInitial ? "ACTIVE" : "CLEAR"),
                         pendingMalformed ? "MALFORMED" : (hasPending ? "ACTIVE" : "CLEAR"),
-                        hasRetry ? (retryTicketMalformed ? "MALFORMED" : "ACTIVE") : "CLEAR",
+                        retryMalformed ? "MALFORMED" : (hasRetry ? "ACTIVE" : "CLEAR"),
                         hasLedger ? "ACTIVE" : "CLEAR",
                         hasReserveTx ? "ACTIVE" : "CLEAR",
                         hasFailure ? "ACTIVE" : "CLEAR",
