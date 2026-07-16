@@ -5710,8 +5710,32 @@ bool TestZeroSplitHarvestNetCalculated()
    return (Ctx.actualSplitHarvestNet == 0.0 || Ctx.actualSplitHarvestNet != 0.0);
 }
 
+ScenarioMode CurrentScenarioMode()
+{
+   if(State==STATE_SPLIT_GEOMETRY_ACTIVE||State==STATE_FAR_ACTIVE) return SCENARIO_BIG_ACTIVE;
+   if(State>=STATE_SPLIT_BIG_HARVEST_CLOSE_CORE&&State<=STATE_SPLIT_BIG_HARVEST_CLOSE_SMALL_BASE) return SCENARIO_BIG_CLOSING;
+   if(State==STATE_SPLIT_BIG_HARVEST_CALC_NET||State==STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR||State==STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR||State==STATE_SPLIT_BIG_HARVEST_FINAL_CHECK) return SCENARIO_BIG_ACCOUNTING;
+   if(State>=STATE_REVERSE_CLOSE_BIG_TREND&&State<=STATE_REVERSE_WAIT_FAR_TOUCH) return SCENARIO_SMALL_SWITCH_PENDING;
+   if(State==STATE_SMALL_SCENARIO) return SCENARIO_SMALL_ACTIVE;
+   if(State>=STATE_SMALL_CLOSE_SMALL&&State<=STATE_SMALL_BUILD_NEW_FAR) return SCENARIO_SMALL_CLOSING;
+   if(State==STATE_FINAL_CLOSE) return SCENARIO_FINAL_CLOSE;
+   if(State==STATE_RECOVERY_PENDING||State==STATE_RECOVERY_MISMATCH) return SCENARIO_RECOVERY;
+   if(State>=STATE_INTEGRITY_ERROR) return SCENARIO_ERROR; return SCENARIO_IDLE;
+}
+bool ValidateScenarioIsolation()
+{
+   ScenarioMode mode=CurrentScenarioMode(); bool ok=true;
+   if((mode==SCENARIO_BIG_ACTIVE||mode==SCENARIO_BIG_CLOSING||mode==SCENARIO_BIG_ACCOUNTING)&&Ctx.reverseSmallTicket!=0) ok=false;
+   if((mode==SCENARIO_SMALL_SWITCH_PENDING||mode==SCENARIO_SMALL_ACTIVE||mode==SCENARIO_SMALL_CLOSING)&&
+      (State==STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR||Ctx.pendingActionType==PENDING_CLOSE_FAR_PARTIAL)) ok=false;
+   if(ActiveReserveTransaction.active&&Ctx.pendingReserveApplied&&Ctx.pendingSmallReserveApplied) ok=false;
+   if(!ok) { LogError(StringFormat("SCENARIO_ISOLATION_FAIL State=%s Mode=%d",StateToString(State),(int)mode)); return false; }
+   return true;
+}
+
 void RunStateMachine()
 {
+   if(!ValidateScenarioIsolation()) { SetState(STATE_INTEGRITY_ERROR,"BIG_SMALL_SCENARIO_ISOLATION_FAILED"); return; }
    if(!TradingOperationAllowedDuringRecovery("RunStateMachine", false)) return;
    switch(State)
    {
