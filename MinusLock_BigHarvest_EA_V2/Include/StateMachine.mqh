@@ -1882,6 +1882,23 @@ void EvaluateReserveLedgerPersistence(bool &active, bool &malformed, string &rea
    reason = malformed ? "RESERVE_LEDGER_CONTEXT_MALFORMED" : (active ? "RESERVE_LEDGER_CONTEXT_ACTIVE" : "RESERVE_LEDGER_CONTEXT_CLEAR");
 }
 
+void EvaluateReserveTransactionPersistence(bool &active, bool &malformed, string &reason)
+{
+   active = PersistedDoubleNonZero("ReserveTxActive", 0.5);
+   string ids[] = {"ReserveTxTransactionId","ReserveTxEventKeyHash","ReserveTxExpectedLedgerEventId","ReserveTxSymbolHash","ReserveTxMagicNumber","ReserveTxCycleId","ReserveTxFarIdentifier","ReserveTxBigIdentifier","ReserveTxSmallIdentifier","ReserveTxBigCoreIdentifier","ReserveTxBigTrendIdentifier","ReserveTxSmallBaseIdentifier","ReserveTxReverseSmallIdentifier"};
+   bool residual = false;
+   malformed = false;
+   for(int i=0;i<ArraySize(ids);i++) { PersistedUInt64Inspection value; InspectPersistedUInt64(ids[i],value); residual=residual||PersistedUInt64IsActive(value); malformed=malformed||PersistedUInt64IsMalformed(value); }
+   double phase=GlobalVariableCheck(StateKey("ReserveTxPhase"))?GlobalVariableGet(StateKey("ReserveTxPhase")):0.0;
+   double amount=GlobalVariableCheck(StateKey("ReserveTxAmount"))?GlobalVariableGet(StateKey("ReserveTxAmount")):0.0;
+   double before=GlobalVariableCheck(StateKey("ReserveTxReserveBefore"))?GlobalVariableGet(StateKey("ReserveTxReserveBefore")):0.0;
+   double after=GlobalVariableCheck(StateKey("ReserveTxReserveAfter"))?GlobalVariableGet(StateKey("ReserveTxReserveAfter")):0.0;
+   residual=residual||phase!=RESERVE_TX_NONE||MathAbs(amount)>ReserveMismatchTolerance||PersistedDoubleNonZero("ReserveTxStartedAt");
+   if(!active && residual) malformed=true;
+   if(active && (!residual || MathAbs(MathAbs(after-before)-MathAbs(amount))>ReserveMismatchTolerance)) malformed=true;
+   reason=malformed?"RESERVE_TRANSACTION_CONTEXT_MALFORMED":(active?"RESERVE_TRANSACTION_CONTEXT_ACTIVE":"RESERVE_TRANSACTION_CONTEXT_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
@@ -1889,7 +1906,8 @@ bool IsProvenCleanStart()
    bool ledgerMalformed = false;
    string ledgerReason = "";
    EvaluateReserveLedgerPersistence(hasLedger, ledgerMalformed, ledgerReason);
-   bool hasReserveTx = GlobalVariableCheck(StateKey("ReserveTxActive")) && GlobalVariableGet(StateKey("ReserveTxActive")) > 0.5;
+   bool hasReserveTx=false, reserveTxMalformed=false; string reserveTxReason="";
+   EvaluateReserveTransactionPersistence(hasReserveTx,reserveTxMalformed,reserveTxReason);
    bool hasFailure = GlobalVariableCheck(StateKey("RecoveryFailureActive")) && GlobalVariableGet(StateKey("RecoveryFailureActive")) > 0.5;
    bool hasPending = false;
    bool pendingMalformed = false;
@@ -1922,7 +1940,7 @@ bool IsProvenCleanStart()
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !ledgerMalformed && !hasReserveTx && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
+   bool clean = (!hasState && !hasLedger && !ledgerMalformed && !hasReserveTx && !reserveTxMalformed && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
                         splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
@@ -1930,7 +1948,7 @@ bool IsProvenCleanStart()
                         pendingMalformed ? "MALFORMED" : (hasPending ? "ACTIVE" : "CLEAR"),
                         retryMalformed ? "MALFORMED" : (hasRetry ? "ACTIVE" : "CLEAR"),
                         ledgerMalformed ? "MALFORMED" : (hasLedger ? "ACTIVE" : "CLEAR"),
-                        hasReserveTx ? "ACTIVE" : "CLEAR",
+                        reserveTxMalformed ? "MALFORMED" : (hasReserveTx ? "ACTIVE" : "CLEAR"),
                         hasFailure ? "ACTIVE" : "CLEAR",
                         managed,
                         hasState ? "PRESENT" : "ABSENT",
