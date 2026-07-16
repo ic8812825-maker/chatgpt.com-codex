@@ -4006,11 +4006,9 @@ bool CalculateProjectedPositionCloseNet(ulong ticket, double lot, ProjectedClose
 
    result.projectedGrossProfit = profit;
    result.projectedSwapPart = swapPart;
-   result.estimatedCommission = closeLot * EstimatedCloseCommissionPerLot;
-   if(IsInternalSimulationMode())
-      result.projectedNet = profit + swapPart - result.estimatedCommission - SafetyBufferMoney;
-   else
-      result.projectedNet = money.netMoney + swapPart;
+   result.estimatedCommission = money.closeCommission;
+   // One account-currency model for simulation and live projection. Reserve is never part of this budget.
+   result.projectedNet = money.netMoney + swapPart;
    result.projectedLoss = MathMax(0.0, -result.projectedNet);
    return true;
 }
@@ -4035,8 +4033,11 @@ double CalculateMaxPartialFarLotByMoney(double budget, double &projectedLoss)
       return 0.0;
    if(full.projectedLoss <= budget + 0.000001)
    {
-      projectedLoss = full.projectedLoss;
-      return NormalizeLotDown(Ctx.farLot);
+      // Partial route must leave at least one broker volume step; full close belongs to FinalCloseGate.
+      double residualSafe=NormalizeLotDown(Ctx.farLot-MathMax(minLot,SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP)));
+      if(residualSafe<minLot) return 0.0;
+      ProjectedCloseNetResult safe; if(!CalculateProjectedFarCloseNet(residualSafe,safe)||safe.projectedLoss>budget+0.000001) return 0.0;
+      projectedLoss=safe.projectedLoss; return residualSafe;
    }
 
    double low = 0.0;
