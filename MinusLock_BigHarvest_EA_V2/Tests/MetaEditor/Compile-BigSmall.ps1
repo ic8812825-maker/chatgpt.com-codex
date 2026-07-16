@@ -4,7 +4,8 @@ $ErrorActionPreference='Stop'
 $targets=@(
  'MinusLock_BigHarvest_EA.mq5',
  'Tests\MQL5\CleanStartPersistenceTest.mq5',
- 'Tests\MQL5\BigSmallScenarioTest.mq5'
+ 'Tests\MQL5\BigSmallEvaluatorTest.mq5',
+ 'Tests\MQL5\BigSmallStateMachineTest.mq5'
 )
 $logDir=Join-Path $ProjectRoot 'Tests\MetaEditor\logs'
 New-Item -ItemType Directory -Force $logDir | Out-Null
