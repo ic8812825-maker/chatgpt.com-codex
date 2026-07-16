@@ -7,3 +7,5 @@ AllowRealTrading=false
 MinimumBigRecoveryImprovementMoney=1.00
 MinimumNetBigExposureLots=0.01
 CommissionPercentCalculationBase=3
+
+MagicNumber=9900260717
