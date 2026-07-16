@@ -1078,6 +1078,15 @@ void SaveStateLong64(string field, long value)
    GlobalVariableSet(StateKey(field + "Low32"), (double)low32);
 }
 
+bool StrictLoadPersistedPair(string highKey,string lowKey,uint &high,uint &low,string fieldName)
+{
+   if(!GlobalVariableCheck(StateKey(highKey))||!GlobalVariableCheck(StateKey(lowKey))) { State=STATE_RECOVERY_MISMATCH; Ctx.lastError="PERSISTED_64_REQUIRED_PAIR_MISSING "+fieldName; return false; }
+   double h=GlobalVariableGet(StateKey(highKey)),l=GlobalVariableGet(StateKey(lowKey));
+   if(!MathIsValidNumber(h)||!MathIsValidNumber(l)||h<0.0||l<0.0||h>4294967295.0||l>4294967295.0||h!=MathFloor(h)||l!=MathFloor(l))
+   { State=STATE_RECOVERY_MISMATCH; Ctx.lastError="PERSISTED_64_PAIR_MALFORMED "+fieldName; LogError(Ctx.lastError+" RECOVERY_CONTEXT_RESET_FORBIDDEN"); return false; }
+   high=(uint)h; low=(uint)l; return true;
+}
+
 bool LoadRequiredStateUlong64(string highKey, string lowKey, ulong &value, string fieldName)
 {
    string hk = StateKey(highKey);
@@ -1089,7 +1098,8 @@ bool LoadRequiredStateUlong64(string highKey, string lowKey, ulong &value, strin
       Ctx.lastError = "RESERVE_LEDGER_REQUIRED_FIELD_MISSING " + fieldName;
       return false;
    }
-   value = RestoreUlong64((uint)GlobalVariableGet(hk), (uint)GlobalVariableGet(lk));
+   uint high,low; if(!StrictLoadPersistedPair(highKey,lowKey,high,low,fieldName)) return false;
+   value = RestoreUlong64(high,low);
    return true;
 }
 
@@ -1104,7 +1114,8 @@ bool LoadRequiredStateLong64(string highKey, string lowKey, long &value, string 
       Ctx.lastError = "RESERVE_LEDGER_REQUIRED_FIELD_MISSING " + fieldName;
       return false;
    }
-   value = RestoreLong64((uint)GlobalVariableGet(hk), (uint)GlobalVariableGet(lk));
+   uint high,low; if(!StrictLoadPersistedPair(highKey,lowKey,high,low,fieldName)) return false;
+   value = RestoreLong64(high,low);
    return true;
 }
 
@@ -1114,13 +1125,14 @@ bool LoadStateUlong64(string field, ulong &value)
    string lk = StateKey(field + "Low32");
    if(GlobalVariableCheck(hk) && GlobalVariableCheck(lk))
    {
-      value = RestoreUlong64((uint)GlobalVariableGet(hk), (uint)GlobalVariableGet(lk));
+      uint high,low; if(!StrictLoadPersistedPair(field+"High32",field+"Low32",high,low,field)) return false;
+      value = RestoreUlong64(high,low);
       return true;
    }
    double legacy = 0.0;
    if(GetStateDouble(field, legacy))
    {
-      bool risk = (MathAbs(legacy) >= 9007199254740992.0);
+      bool risk = (!MathIsValidNumber(legacy)||legacy<0.0||legacy!=MathFloor(legacy)||MathAbs(legacy) >= 9007199254740992.0);
       LogInfo(StringFormat("LEGACY_64BIT_STATE_MIGRATION Field=%s LegacyValue=%.0f RestoredValue=%.0f PrecisionRisk=%s", field, legacy, legacy, risk ? "YES" : "NO"));
       if(risk)
       {
@@ -1140,13 +1152,14 @@ bool LoadStateLong64(string field, long &value)
    string lk = StateKey(field + "Low32");
    if(GlobalVariableCheck(hk) && GlobalVariableCheck(lk))
    {
-      value = RestoreLong64((uint)GlobalVariableGet(hk), (uint)GlobalVariableGet(lk));
+      uint high,low; if(!StrictLoadPersistedPair(field+"High32",field+"Low32",high,low,field)) return false;
+      value = RestoreLong64(high,low);
       return true;
    }
    double legacy = 0.0;
    if(GetStateDouble(field, legacy))
    {
-      bool risk = (MathAbs(legacy) >= 9007199254740992.0);
+      bool risk = (!MathIsValidNumber(legacy)||legacy!=MathFloor(legacy)||MathAbs(legacy) >= 9007199254740992.0);
       LogInfo(StringFormat("LEGACY_64BIT_STATE_MIGRATION Field=%s LegacyValue=%.0f RestoredValue=%.0f PrecisionRisk=%s", field, legacy, legacy, risk ? "YES" : "NO"));
       if(risk)
       {
