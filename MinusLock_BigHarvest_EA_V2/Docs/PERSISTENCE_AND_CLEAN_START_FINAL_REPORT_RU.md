@@ -1,10 +1,10 @@
 # Итоговый отчёт безопасности persistence
 
 START_SHA=7e24c34d08fb1cd35e810ac208eb9d181c3b84a4
-FINAL_SHA=a2e07ef37c7d671a4ae6232245e0a9a95f75f9d6
+FINAL_SHA=ec7ac386edeb38b5e79bae44afcb45013f7235dc
 BRANCH=work
 PROJECT_FOLDER=MinusLock_BigHarvest_EA_V2
-COMPARE_URL=https://github.com/ic8812825-maker/chatgpt.com-codex/compare/7e24c34d08fb1cd35e810ac208eb9d181c3b84a4...a2e07ef37c7d671a4ae6232245e0a9a95f75f9d6
+COMPARE_URL=https://github.com/ic8812825-maker/chatgpt.com-codex/compare/7e24c34d08fb1cd35e810ac208eb9d181c3b84a4...ec7ac386edeb38b5e79bae44afcb45013f7235dc
 
 ## Синхронизация
 
