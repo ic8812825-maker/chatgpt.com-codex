@@ -1951,11 +1951,14 @@ void EvaluateRetryPersistence(bool &active, bool &malformed, string &reason)
    bool attemptsActive = attempts > 0;
    bool stateActive = retryState != STATE_IDLE;
    active = ticketActive || lotActive || attemptsActive || stateActive;
-   malformed = PersistedUInt64IsMalformed(ticket) || (lotActive != ticketActive) ||
+   malformed = PersistedUInt64IsMalformed(ticket) || lot<0.0 || attempts<0 || attempts>MaxCloseRetryAttempts || (lotActive != ticketActive) ||
                (attemptsActive && !stateActive) || (ticketActive && !stateActive) ||
                (stateActive && !IsPendingContractState(retryState));
    PendingActionType action = GlobalVariableCheck(StateKey("PendingActionType")) ? (PendingActionType)(int)GlobalVariableGet(StateKey("PendingActionType")) : PENDING_NONE;
    if(stateActive && (action == PENDING_NONE || !PendingActionMatchesState(retryState, action))) malformed = true;
+   PersistedUInt64Inspection pendingTicket; InspectPersistedUInt64("PendingTicket",pendingTicket);
+   if(ticketActive&&PersistedUInt64IsActive(pendingTicket)&&ticket.restoredValue!=pendingTicket.restoredValue) malformed=true;
+   if(stateActive&&!PersistedDoubleNonZero("PendingOperationStartTime")) malformed=true;
    reason = malformed ? "RETRY_CONTEXT_MALFORMED" : (active ? "RETRY_CONTEXT_ACTIVE" : "RETRY_CONTEXT_CLEAR");
 }
 
