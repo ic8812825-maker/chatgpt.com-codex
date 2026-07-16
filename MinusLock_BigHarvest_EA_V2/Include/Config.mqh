@@ -1,6 +1,14 @@
 #ifndef __BH_CONFIG_MQH__
 #define __BH_CONFIG_MQH__
 
+enum CommissionPercentBase
+{
+   COMMISSION_PERCENT_NOTIONAL = 0,
+   COMMISSION_PERCENT_TURNOVER,
+   COMMISSION_PERCENT_MARGIN,
+   COMMISSION_PERCENT_DISABLED
+};
+
 enum FarDistanceModeEnum
 {
    FIXED_200 = 0,
