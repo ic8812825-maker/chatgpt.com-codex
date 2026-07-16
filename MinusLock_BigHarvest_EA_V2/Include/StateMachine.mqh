@@ -1779,6 +1779,23 @@ void EvaluateSplitPersistence(bool &active, bool &malformed, string &reason)
    reason = malformed ? "SPLIT_CONTEXT_MALFORMED" : (active ? "SPLIT_CONTEXT_ACTIVE" : "SPLIT_CONTEXT_CLEAR");
 }
 
+void EvaluateFrozenGeometryPersistence(bool &active, bool &malformed, string &reason)
+{
+   PersistedUInt64Inspection cycleId;
+   InspectPersistedUInt64("CycleId", cycleId);
+   bool cycleActive = PersistedUInt64IsActive(cycleId);
+   bool ready = PersistedDoubleNonZero("GeometryReady", 0.5);
+   bool calculated = PersistedDoubleNonZero("GeometryCalculatedTime");
+   bool levelsReady = PersistedDoubleNonZero("WorkInitialTriggerPoints") && PersistedDoubleNonZero("WorkBigMoveStartPoints") &&
+                      PersistedDoubleNonZero("WorkBigMoveStepPoints") && PersistedDoubleNonZero("WorkFarDistancePoints");
+   bool atrValues = PersistedDoubleNonZero("CycleATRRaw") || PersistedDoubleNonZero("CycleATRPoints");
+   bool atrMode = GeometryMode != GEOMETRY_MANUAL;
+   active = cycleActive && ready && calculated && levelsReady && (!atrMode || atrValues);
+   malformed = PersistedUInt64IsMalformed(cycleId) || (ready && (!cycleActive || !calculated || !levelsReady)) ||
+               (atrMode && ready && !atrValues) || (atrValues && !ready && atrMode);
+   reason = malformed ? "FROZEN_GEOMETRY_CONTEXT_MALFORMED" : (active ? "FROZEN_GEOMETRY_CONTEXT_ACTIVE" : "FROZEN_GEOMETRY_CONTEXT_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
@@ -1811,12 +1828,16 @@ bool IsProvenCleanStart()
    bool splitMalformed = false;
    string splitReason = "";
    EvaluateSplitPersistence(hasSplitContext, splitMalformed, splitReason);
+   bool geometryActive = false;
+   bool geometryMalformed = false;
+   string geometryReason = "";
+   EvaluateFrozenGeometryPersistence(geometryActive, geometryMalformed, geometryReason);
    int managed = CountManagedOpenPositions();
 
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && managed == 0);
+   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
                         splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
