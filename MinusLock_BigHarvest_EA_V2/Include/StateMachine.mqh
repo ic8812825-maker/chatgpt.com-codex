@@ -970,6 +970,8 @@ void SaveState()
    GlobalVariableSet(StateKey("PendingPartialFarBudgetCarryBefore"), Ctx.pendingPartialFarBudgetCarryBefore);
    GlobalVariableSet(StateKey("PendingProjectedPartialFarLoss"), Ctx.pendingProjectedPartialFarLoss);
    GlobalVariableSet(StateKey("PendingDirection"), (double)Ctx.pendingDirection);
+   GlobalVariableSet(StateKey("BigCoverageBefore"), Ctx.bigCoverageBefore);
+   GlobalVariableSet(StateKey("BigFarLossBefore"), Ctx.bigFarLossBefore);
    // PendingComment is rebuilt from the pending phase after restart.
    GlobalVariableSet(StateKey("SavedSmallDirection"), (double)Ctx.savedSmallDirection);
    GlobalVariableSet(StateKey("SavedSmallClosePrice"), Ctx.savedSmallClosePrice);
@@ -2215,6 +2217,8 @@ bool RecoverState()
    if(GetStateDouble("PendingPartialFarBudgetCarryBefore", saved)) Ctx.pendingPartialFarBudgetCarryBefore = saved;
    if(GetStateDouble("PendingProjectedPartialFarLoss", saved)) Ctx.pendingProjectedPartialFarLoss = saved;
    if(GetStateDouble("PendingDirection", saved)) Ctx.pendingDirection = (Direction)(int)saved;
+   if(GetStateDouble("BigCoverageBefore", saved)) Ctx.bigCoverageBefore=saved;
+   if(GetStateDouble("BigFarLossBefore", saved)) Ctx.bigFarLossBefore=saved;
    if(GetStateDouble("SavedSmallDirection", saved)) Ctx.savedSmallDirection = (Direction)(int)saved;
    if(GetStateDouble("SavedSmallClosePrice", saved)) Ctx.savedSmallClosePrice = saved;
    if(GetStateDouble("SavedSmallTouchPrice", saved)) Ctx.savedSmallTouchPrice = saved;
@@ -5425,6 +5429,8 @@ void ProcessSplitBigHarvestCheckFullFar()
    ProjectedCloseNetResult full;
    if(!CalculateProjectedFarCloseNet(Ctx.farLot, full)) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED, "Split full Far projection unavailable"); return; }
    double coverage = Ctx.totalReserve + Ctx.actualSplitHarvestNet;
+   Ctx.bigFarLossBefore=full.projectedLoss;
+   Ctx.bigCoverageBefore=full.projectedLoss>0.0?(Ctx.totalReserve+Ctx.partialFarBudgetCarry)/full.projectedLoss:1.0;
    double projectedRecoveryPL = AccountInfoDouble(ACCOUNT_BALANCE) + full.projectedNet - Ctx.cycleStartBalance;
    bool allowed = coverage >= full.projectedLoss + SafetyBufferMoney - 0.000001 && projectedRecoveryPL >= MinimumRecoveryProfitMoney;
    LogInfo(StringFormat("SPLIT_FULL_FAR_CHECK ExistingReserve=%.2f CurrentHarvestNet=%.2f AvailableCoverage=%.2f FarProjectedLoss=%.2f SafetyBufferMoney=%.2f ProjectedRecoveryPL=%.2f MinimumRecoveryProfitMoney=%.2f Allowed=%s", Ctx.totalReserve, Ctx.actualSplitHarvestNet, coverage, full.projectedLoss, SafetyBufferMoney, projectedRecoveryPL, MinimumRecoveryProfitMoney, allowed ? "YES" : "NO"));
@@ -5550,6 +5556,11 @@ void ProcessSplitBigHarvestFinalCheck()
    }
    RefreshFarVolumeFromTerminal("SPLIT_FINAL_CHECK actual Far");
    ProjectedCloseNetResult full;
+   BigReserveCatchUpEvaluation catchUp;
+   double reserveBefore=Ctx.totalReserve-(Ctx.pendingReserveApplied?Ctx.pendingReserveAdd:0.0);
+   if(Ctx.farLot>0.0&&CalculateProjectedFarCloseNet(Ctx.farLot,full)&&Ctx.bigFarLossBefore>0.0&&
+      !EvaluateBigReserveCatchUp(reserveBefore,Ctx.pendingReserveAdd,Ctx.partialFarBudgetCarry,Ctx.bigFarLossBefore,full.projectedLoss,catchUp))
+   { LogError(StringFormat("BIG_RESERVE_CATCH_UP_FAIL Before=%.6f After=%.6f FarBefore=%.2f FarAfter=%.2f",catchUp.coverageBefore,catchUp.coverageAfter,catchUp.farLossBefore,catchUp.farLossAfter)); SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"BIG_RESERVE_COVERAGE_NOT_IMPROVED"); return; }
    if(Ctx.farLot > 0.0 && CalculateProjectedFarCloseNet(Ctx.farLot, full) && Ctx.totalReserve >= full.projectedLoss + SafetyBufferMoney)
    {
       SetState(STATE_FINAL_CLOSE, "Split reserve covers remaining Far after partial");

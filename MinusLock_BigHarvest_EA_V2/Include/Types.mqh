@@ -400,6 +400,8 @@ struct RecoveryContext
    double bigTrendOpenPrice;
    double smallBaseOpenPrice;
    double reverseSmallOpenPrice;
+   double bigCoverageBefore;
+   double bigFarLossBefore;
 
    Direction bigCoreDirection;
    Direction bigTrendDirection;
