@@ -1916,9 +1916,16 @@ void EvaluatePendingPersistence(bool &active, bool &malformed, string &reason)
    if(!active && (ticketActive || idsActive || amounts)) malformed = true;
    if(active)
    {
+      bool actionValid=action>PENDING_NONE&&action<=PENDING_STOP_MAX_LEVELS_CLOSE;
+      bool openAction=action==PENDING_OPEN_BIG||action==PENDING_OPEN_SMALL||action==PENDING_OPEN_BIG_CORE||action==PENDING_OPEN_BIG_TREND||action==PENDING_OPEN_SMALL_BASE||action==PENDING_OPEN_REVERSE_SMALL;
+      bool closeAction=!openAction;
+      double lot=GlobalVariableCheck(StateKey("PendingLot"))?GlobalVariableGet(StateKey("PendingLot")):0.0;
+      double attempts=GlobalVariableCheck(StateKey("PendingAttempts"))?GlobalVariableGet(StateKey("PendingAttempts")):0.0;
+      int direction=GlobalVariableCheck(StateKey("PendingDirection"))?(int)GlobalVariableGet(StateKey("PendingDirection")):DIR_NONE;
       bool hasStart = PersistedDoubleNonZero("PendingOperationStartTime");
       bool hasNext = GlobalVariableCheck(StateKey("PendingNextState")) && (EAState)(int)GlobalVariableGet(StateKey("PendingNextState")) != STATE_IDLE;
-      if(!hasStart || !hasNext) malformed = true;
+      if(!actionValid||!hasStart||!hasNext||lot<=VolumeMismatchToleranceLots||attempts<0||attempts>MaxCloseRetryAttempts||
+         (openAction&&(direction<DIR_BUY||direction>DIR_SELL))||(closeAction&&!ticketActive)) malformed=true;
       if(GlobalVariableCheck(StateKey("State")))
       {
          EAState persistedState = (EAState)(int)GlobalVariableGet(StateKey("State"));
@@ -1926,6 +1933,9 @@ void EvaluatePendingPersistence(bool &active, bool &malformed, string &reason)
       }
    }
    if(PersistedDoubleNonZero("PendingCloseFarLot", VolumeMismatchToleranceLots) && !ticketActive) malformed = true;
+   if(action==PENDING_CLOSE_FAR_PARTIAL && (!ticketActive||!PersistedDoubleNonZero("PendingCloseFarLot",VolumeMismatchToleranceLots)||
+      !GlobalVariableCheck(StateKey("PendingPartialFarBudgetAvailable"))||!GlobalVariableCheck(StateKey("PendingProjectedPartialFarLoss"))||
+      GlobalVariableGet(StateKey("PendingPartialFarBudgetAvailable"))<0.0||GlobalVariableGet(StateKey("PendingProjectedPartialFarLoss"))<0.0||PersistedDoubleNonZero("PendingFullFarClose",0.5))) malformed=true;
    reason = malformed ? "PENDING_CONTEXT_MALFORMED" : (active ? "PENDING_CONTEXT_ACTIVE" : "PENDING_CONTEXT_CLEAR");
 }
 
