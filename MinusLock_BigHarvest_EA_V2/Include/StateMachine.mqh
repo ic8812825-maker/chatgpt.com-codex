@@ -5075,6 +5075,13 @@ bool PrepareSplitBigLevel()
    Ctx.bigTrendLot = CalcBigTrendLot(Ctx.farLot);
    Ctx.smallBaseLot = CalcSmallBaseLot(Ctx.farLot);
 
+   double netBigExposureActual=Ctx.bigCoreLot+Ctx.bigTrendLot-Ctx.smallBaseLot-Ctx.farLot;
+   if(netBigExposureActual<MinimumNetBigExposureLots)
+   {
+      LogError(StringFormat("BIG_GEOMETRY_GATE_FAIL Far=%.2f Core=%.2f Trend=%.2f Small=%.2f Net=%.2f Minimum=%.2f",Ctx.farLot,Ctx.bigCoreLot,Ctx.bigTrendLot,Ctx.smallBaseLot,netBigExposureActual,MinimumNetBigExposureLots));
+      SetState(STATE_INVALID_SPLIT_GEOMETRY,"BIG_NET_EXPOSURE_TOO_SMALL after broker volume normalization"); return false;
+   }
+
    double actualBigGrossLot = 0.0;
    double actualReserveGrowthLot = 0.0;
    double actualNewFarLot = 0.0;

@@ -27,6 +27,10 @@ struct BrokerMoneyResult
    string reason;
 };
 
+struct BigRecoveryEvaluation { bool calculationValid; double netBigExposure; double projectedRecoveryDelta; double costs; bool geometryPass; bool recoveryPass; string reason; };
+struct BigReserveCatchUpEvaluation { double reserveBefore; double reserveAdd; double carryBefore; double farLossBefore; double farLossAfter; double coverageBefore; double coverageAfter; bool pass; string reason; };
+struct SmallTransitionEvaluation { bool calculationValid; double bigTrendCloseNet; double smallBaseCloseNet; double reverseSmallCloseNet; double oldFarCloseNet; double bigCorePartialCloseNet; double commission; double swap; double spreadExpansion; double slippage; double buffers; double transitionNet; double oldFarLot; double targetNewFarLot; double projectedNewFarLot; double compressionRatio; double netSmallExposure; double projectedMarginLevel; bool moneyPass; bool exposurePass; bool compressionPass; bool marginPass; bool transitionAllowed; string reason; };
+
 void ResetBrokerMoneyResult(BrokerMoneyResult &r)
 {
    r.calculationValid=false; r.ok=false; r.grossProfit=0; r.openCommission=0; r.closeCommission=0; r.fee=0;
@@ -128,5 +132,48 @@ bool CalcProjectedBasketNetMoney(BrokerMoneyResult &items[],int count,BrokerMone
 bool CalcFarCloseLossWorstCaseMoney(Direction d,double lot,double open,double close,double &loss) { BrokerMoneyResult r; if(!CalcProjectedCloseNetMoney(d,lot,open,close,r)) return false; loss=MathMax(0,-r.netMoney); return true; }
 bool CalcMoveRecoveryDeltaMoney(Direction d,double lot,double open,double close,double &delta) { BrokerMoneyResult r; if(!CalcProjectedPositionNetMoney(d,lot,open,close,true,true,r)) return false; delta=r.netMoney; return true; }
 bool CalcProjectedTransitionNetMoney(BrokerMoneyResult &legs[],int count,BrokerMoneyResult &r) { return CalcProjectedBasketNetMoney(legs,count,r); }
+
+bool EvaluateBigGeometryAndRecovery(double farLot,double coreLot,double trendLot,double smallLot,
+                                    BrokerMoneyResult &core,BrokerMoneyResult &trend,BrokerMoneyResult &small,BrokerMoneyResult &far,
+                                    BigRecoveryEvaluation &e)
+{
+   e.calculationValid=core.ok&&trend.ok&&small.ok&&far.ok; e.netBigExposure=coreLot+trendLot-smallLot-farLot;
+   e.costs=(core.grossProfit-core.netMoney)+(trend.grossProfit-trend.netMoney)+(small.grossProfit-small.netMoney)+(far.grossProfit-far.netMoney);
+   e.projectedRecoveryDelta=core.netMoney+trend.netMoney+small.netMoney+far.netMoney;
+   e.geometryPass=e.netBigExposure>=MinimumNetBigExposureLots; e.recoveryPass=e.projectedRecoveryDelta>=MinimumBigRecoveryImprovementMoney;
+   e.reason=!e.calculationValid?"BIG_RECOVERY_CALCULATION_FAILED":(!e.geometryPass?"BIG_NET_EXPOSURE_TOO_SMALL":(!e.recoveryPass?"BIG_RECOVERY_DELTA_TOO_SMALL":"OK"));
+   return e.calculationValid&&e.geometryPass&&e.recoveryPass;
+}
+
+bool EvaluateBigReserveCatchUp(double reserveBefore,double reserveAdd,double carryBefore,double farLossBefore,double farLossAfter,BigReserveCatchUpEvaluation &e)
+{
+   e.reserveBefore=reserveBefore; e.reserveAdd=reserveAdd; e.carryBefore=carryBefore; e.farLossBefore=farLossBefore; e.farLossAfter=farLossAfter;
+   e.coverageBefore=farLossBefore>0?(reserveBefore+carryBefore)/farLossBefore:1.0;
+   e.coverageAfter=farLossAfter>0?(reserveBefore+reserveAdd+carryBefore)/farLossAfter:1.0;
+   e.pass=e.coverageAfter>e.coverageBefore; e.reason=e.pass?"OK":"BIG_RESERVE_COVERAGE_NOT_IMPROVED"; return e.pass;
+}
+
+double CalcTargetNewFarLot(double oldFarLot)
+{
+   if(oldFarLot<=0) return 0; return NormalizeLotDown(oldFarLot*MaximumNewFarRatio);
+}
+
+bool EvaluateSmallTransition(BrokerMoneyResult &legs[],int count,double oldFarLot,double projectedNewFarLot,double netSmallExposure,double marginLevel,SmallTransitionEvaluation &e)
+{
+   BrokerMoneyResult basket; ResetBrokerMoneyResult(basket); e.calculationValid=CalcProjectedTransitionNetMoney(legs,count,basket);
+   e.transitionNet=basket.netMoney; e.commission=basket.openCommission+basket.closeCommission; e.swap=basket.swap; e.spreadExpansion=basket.spreadExpansionCost; e.slippage=basket.slippageCost; e.buffers=basket.safetyBuffer;
+   e.oldFarLot=oldFarLot; e.targetNewFarLot=CalcTargetNewFarLot(oldFarLot); e.projectedNewFarLot=projectedNewFarLot; e.compressionRatio=oldFarLot>0?projectedNewFarLot/oldFarLot:1; e.netSmallExposure=netSmallExposure; e.projectedMarginLevel=marginLevel;
+   e.moneyPass=e.calculationValid&&e.transitionNet>=MinimumTransitionProfitMoney; e.exposurePass=netSmallExposure>VolumeMismatchToleranceLots;
+   e.compressionPass=projectedNewFarLot<oldFarLot&&(oldFarLot-projectedNewFarLot)>=MinimumFarCompressionLots&&e.compressionRatio<=MaximumNewFarRatio;
+   e.marginPass=marginLevel>=MinimumSafeMarginLevel; e.transitionAllowed=e.moneyPass&&e.exposurePass&&e.compressionPass&&e.marginPass;
+   e.reason=e.transitionAllowed?"OK":(!e.moneyPass?"SMALL_TRANSITION_MONEY_FAIL":(!e.compressionPass?"SMALL_COMPRESSION_FAIL":(!e.marginPass?"SMALL_MARGIN_FAIL":"SMALL_EXPOSURE_FAIL"))); return e.transitionAllowed;
+}
+
+int EvaluateRequiredReverseCycles(double currentFar,double targetLot,double compressionRatio)
+{
+   if(currentFar<=targetLot) return 0; if(compressionRatio<=0||compressionRatio>=1) return MaxReverseCycles+1;
+   double lot=currentFar; for(int n=1;n<=MaxReverseCycles;n++) { lot=NormalizeLotDown(lot*compressionRatio); if(lot<=targetLot) return n; }
+   return MaxReverseCycles+1;
+}
 
 #endif
