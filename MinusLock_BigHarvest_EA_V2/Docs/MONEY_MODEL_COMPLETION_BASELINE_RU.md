@@ -48,7 +48,7 @@
 ### Static validators
 
 - `python3 MinusLock_BigHarvest_EA_V2/Tests/validate_v2_static.py` — `PASS`.
-- `python3 MinusLock_BigHarvest_EA_V2/Tools/validate_optimization_outputs.py` — `FAIL`: `BigScenario_Best_1.set` не подтверждён accepted selectable CSV row.
+- `python3 MinusLock_BigHarvest_EA_V2/Tools/validate_optimization_outputs.py` — `FAIL`: `Sets/Unverified/BigScenario_Best_1.set` (UNVERIFIED) не подтверждён accepted selectable CSV row.
 
 ### MQL5 environment
 
@@ -178,7 +178,7 @@ MinusLock_BigHarvest_EA_V2/Reports/Parameter_Sensitivity.csv
 MinusLock_BigHarvest_EA_V2/Reports/Python_vs_MT5_BigScenario_Diff.csv
 MinusLock_BigHarvest_EA_V2/Reports/Python_vs_MT5_BigScenario_Diff.md
 MinusLock_BigHarvest_EA_V2/Scripts/compile_metaeditor_windows.ps1
-MinusLock_BigHarvest_EA_V2/Sets/BigScenario_Best_1.set
+MinusLock_BigHarvest_EA_V2/Sets/Unverified/BigScenario_Best_1.set (UNVERIFIED, NOT_FOR_MT5_TESTING)
 MinusLock_BigHarvest_EA_V2/Sets/BigScenario_Best_2.set
 MinusLock_BigHarvest_EA_V2/Sets/BigScenario_Best_3.set
 MinusLock_BigHarvest_EA_V2/Sets/Legacy/README.md

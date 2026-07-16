@@ -446,11 +446,11 @@ No code-level Big-scenario invariant violation was found in the audited path. Th
 
 ## 12. Final verdict
 
-Big-scenario implementation is mathematically consistent and auditable. The Python optimizer found `StartLot=1.00` parameter sets that complete the Big-only trend path in one Big level under deterministic assumptions while preserving Small-scenario compression. The best set is exported to `Sets/BigScenario_Best_1.set`; it should be treated as a Strategy Tester candidate, not a live-trading approval.
+Big-scenario implementation is mathematically consistent and auditable. The Python optimizer found `StartLot=1.00` parameter sets that complete the Big-only trend path in one Big level under deterministic assumptions while preserving Small-scenario compression. The best set is exported to `Sets/Unverified/BigScenario_Best_1.set (UNVERIFIED, NOT_FOR_MT5_TESTING)`; it should be treated as a Strategy Tester candidate, not a live-trading approval.
 
 ## 13. MT5 Strategy Tester invalidation addendum
 
-The later MT5 Strategy Tester report for `BigScenario_Best_1.set` is the source of truth and invalidates the previous offline one-level completion claim.
+The later MT5 Strategy Tester report for `Sets/Unverified/BigScenario_Best_1.set` (UNVERIFIED) is the source of truth and invalidates the previous offline one-level completion claim.
 
 Observed MT5 facts:
 
