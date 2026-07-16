@@ -1714,6 +1714,40 @@ void EvaluateInitialPersistence(bool &active, bool &malformed, string &reason)
    reason = malformed ? "INITIAL_CONTEXT_MALFORMED" : (active ? "INITIAL_CONTEXT_ACTIVE" : "INITIAL_CONTEXT_CLEAR");
 }
 
+bool PersistedDoubleNonZero(string field, double tolerance = 0.0000001)
+{
+   return GlobalVariableCheck(StateKey(field)) && MathAbs(GlobalVariableGet(StateKey(field))) > tolerance;
+}
+
+void EvaluateLegacyPersistence(bool &active, bool &malformed, string &reason)
+{
+   PersistedUInt64Inspection cycleId, farTicket, farIdentifier, bigTicket, bigIdentifier, smallTicket, smallIdentifier;
+   InspectPersistedUInt64("CycleId", cycleId);
+   InspectPersistedUInt64("FarTicket", farTicket); InspectPersistedUInt64("FarIdentifier", farIdentifier);
+   InspectPersistedUInt64("BigTicket", bigTicket); InspectPersistedUInt64("BigIdentifier", bigIdentifier);
+   InspectPersistedUInt64("SmallTicket", smallTicket); InspectPersistedUInt64("SmallIdentifier", smallIdentifier);
+
+   bool farActive = PersistedUInt64IsActive(farTicket) || PersistedUInt64IsActive(farIdentifier);
+   bool bigActive = PersistedUInt64IsActive(bigTicket) || PersistedUInt64IsActive(bigIdentifier);
+   bool smallActive = PersistedUInt64IsActive(smallTicket) || PersistedUInt64IsActive(smallIdentifier);
+   active = PersistedUInt64IsActive(cycleId) || farActive || bigActive || smallActive;
+   malformed = PersistedUInt64IsMalformed(cycleId) || PersistedUInt64IsMalformed(farTicket) || PersistedUInt64IsMalformed(farIdentifier) ||
+               PersistedUInt64IsMalformed(bigTicket) || PersistedUInt64IsMalformed(bigIdentifier) ||
+               PersistedUInt64IsMalformed(smallTicket) || PersistedUInt64IsMalformed(smallIdentifier);
+   if(PersistedUInt64IsActive(farTicket) != PersistedUInt64IsActive(farIdentifier) ||
+      PersistedUInt64IsActive(bigTicket) != PersistedUInt64IsActive(bigIdentifier) ||
+      PersistedUInt64IsActive(smallTicket) != PersistedUInt64IsActive(smallIdentifier))
+      malformed = true;
+
+   bool farNumeric = PersistedDoubleNonZero("FarLot", VolumeMismatchToleranceLots) || PersistedDoubleNonZero("FarOpenPrice") || PersistedDoubleNonZero("FarDirection");
+   bool bigNumeric = PersistedDoubleNonZero("BigLot", VolumeMismatchToleranceLots) || PersistedDoubleNonZero("BigOpenPrice") || PersistedDoubleNonZero("BigDirection");
+   bool smallNumeric = PersistedDoubleNonZero("SmallLot", VolumeMismatchToleranceLots) || PersistedDoubleNonZero("SmallOpenPrice") || PersistedDoubleNonZero("SmallDirection");
+   if((farNumeric && !farActive) || (bigNumeric && !bigActive) || (smallNumeric && !smallActive)) malformed = true;
+   if(PersistedDoubleNonZero("HarvestLevel") || PersistedDoubleNonZero("ReverseCycles")) active = true;
+   if(PersistedUInt64IsActive(cycleId) && !farActive && !bigActive && !smallActive) malformed = true;
+   reason = malformed ? "LEGACY_CONTEXT_MALFORMED" : (active ? "LEGACY_CONTEXT_ACTIVE" : "LEGACY_CONTEXT_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
@@ -1738,13 +1772,10 @@ bool IsProvenCleanStart()
    bool initialMalformed = false;
    string initialReason = "";
    EvaluateInitialPersistence(hasInitial, initialMalformed, initialReason);
-   bool hasLegacyContext = GlobalVariableCheck(StateKey("CycleIdHigh32")) || GlobalVariableCheck(StateKey("CycleIdLow32")) ||
-                           GlobalVariableCheck(StateKey("FarTicketHigh32")) || GlobalVariableCheck(StateKey("FarTicketLow32")) ||
-                           GlobalVariableCheck(StateKey("FarIdentifierHigh32")) || GlobalVariableCheck(StateKey("FarIdentifierLow32")) ||
-                           GlobalVariableCheck(StateKey("BigTicketHigh32")) || GlobalVariableCheck(StateKey("BigTicketLow32")) ||
-                           GlobalVariableCheck(StateKey("BigIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigIdentifierLow32")) ||
-                           GlobalVariableCheck(StateKey("SmallTicketHigh32")) || GlobalVariableCheck(StateKey("SmallTicketLow32")) ||
-                           GlobalVariableCheck(StateKey("SmallIdentifierHigh32")) || GlobalVariableCheck(StateKey("SmallIdentifierLow32"));
+   bool hasLegacyContext = false;
+   bool legacyMalformed = false;
+   string legacyReason = "";
+   EvaluateLegacyPersistence(hasLegacyContext, legacyMalformed, legacyReason);
    bool hasSplitContext = GlobalVariableCheck(StateKey("BigCoreTicketHigh32")) || GlobalVariableCheck(StateKey("BigCoreTicketLow32")) ||
                           GlobalVariableCheck(StateKey("BigCoreIdentifierHigh32")) || GlobalVariableCheck(StateKey("BigCoreIdentifierLow32")) ||
                           GlobalVariableCheck(StateKey("BigTrendTicketHigh32")) || GlobalVariableCheck(StateKey("BigTrendTicketLow32")) ||
@@ -1761,9 +1792,9 @@ bool IsProvenCleanStart()
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !hasSplitContext && managed == 0);
+   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
-                        hasLegacyContext ? "ACTIVE" : "CLEAR",
+                        legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
                         hasSplitContext ? "ACTIVE" : "CLEAR",
                         initialMalformed ? "MALFORMED" : (hasInitial ? "ACTIVE" : "CLEAR"),
                         hasPending ? "ACTIVE" : "CLEAR",
