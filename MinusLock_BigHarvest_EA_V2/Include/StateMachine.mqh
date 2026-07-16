@@ -1675,6 +1675,45 @@ bool ValidateRequiredRecoveredContextForState(EAState state)
 }
 
 
+bool PersistedUInt64IsActive(PersistedUInt64Inspection &value)
+{
+   return value.state == PERSISTED_UINT64_ACTIVE;
+}
+
+bool PersistedUInt64IsMalformed(PersistedUInt64Inspection &value)
+{
+   return value.state == PERSISTED_UINT64_MALFORMED;
+}
+
+void EvaluateInitialPersistence(bool &active, bool &malformed, string &reason)
+{
+   PersistedUInt64Inspection buyTicket, sellTicket, buyIdentifier, sellIdentifier;
+   InspectPersistedUInt64("InitialBuyTicket", buyTicket);
+   InspectPersistedUInt64("InitialSellTicket", sellTicket);
+   InspectPersistedUInt64("InitialBuyIdentifier", buyIdentifier);
+   InspectPersistedUInt64("InitialSellIdentifier", sellIdentifier);
+
+   bool buyTicketActive = PersistedUInt64IsActive(buyTicket);
+   bool sellTicketActive = PersistedUInt64IsActive(sellTicket);
+   bool buyIdentifierActive = PersistedUInt64IsActive(buyIdentifier);
+   bool sellIdentifierActive = PersistedUInt64IsActive(sellIdentifier);
+   active = buyTicketActive || sellTicketActive || buyIdentifierActive || sellIdentifierActive;
+   malformed = PersistedUInt64IsMalformed(buyTicket) || PersistedUInt64IsMalformed(sellTicket) ||
+               PersistedUInt64IsMalformed(buyIdentifier) || PersistedUInt64IsMalformed(sellIdentifier);
+
+   if(buyTicketActive != buyIdentifierActive || sellTicketActive != sellIdentifierActive)
+      malformed = true;
+   if(buyTicketActive && sellTicketActive && buyTicket.restoredValue == sellTicket.restoredValue)
+      malformed = true;
+   if(buyIdentifierActive && sellIdentifierActive && buyIdentifier.restoredValue == sellIdentifier.restoredValue)
+      malformed = true;
+
+   if(GlobalVariableCheck(StateKey("State")) && (EAState)(int)GlobalVariableGet(StateKey("State")) == STATE_INITIAL_LOCK_OPENED &&
+      (!(buyTicketActive && buyIdentifierActive) || !(sellTicketActive && sellIdentifierActive)))
+      malformed = true;
+   reason = malformed ? "INITIAL_CONTEXT_MALFORMED" : (active ? "INITIAL_CONTEXT_ACTIVE" : "INITIAL_CONTEXT_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
@@ -1695,10 +1734,10 @@ bool IsProvenCleanStart()
                    (GlobalVariableCheck(StateKey("RetryAttempts")) && GlobalVariableGet(StateKey("RetryAttempts")) > 0.5) ||
                    (GlobalVariableCheck(StateKey("RetryLot")) && GlobalVariableGet(StateKey("RetryLot")) > VolumeMismatchToleranceLots);
 
-   bool hasInitial = GlobalVariableCheck(StateKey("InitialBuyTicketHigh32")) || GlobalVariableCheck(StateKey("InitialBuyTicketLow32")) ||
-                     GlobalVariableCheck(StateKey("InitialSellTicketHigh32")) || GlobalVariableCheck(StateKey("InitialSellTicketLow32")) ||
-                     GlobalVariableCheck(StateKey("InitialBuyIdentifierHigh32")) || GlobalVariableCheck(StateKey("InitialBuyIdentifierLow32")) ||
-                     GlobalVariableCheck(StateKey("InitialSellIdentifierHigh32")) || GlobalVariableCheck(StateKey("InitialSellIdentifierLow32"));
+   bool hasInitial = false;
+   bool initialMalformed = false;
+   string initialReason = "";
+   EvaluateInitialPersistence(hasInitial, initialMalformed, initialReason);
    bool hasLegacyContext = GlobalVariableCheck(StateKey("CycleIdHigh32")) || GlobalVariableCheck(StateKey("CycleIdLow32")) ||
                            GlobalVariableCheck(StateKey("FarTicketHigh32")) || GlobalVariableCheck(StateKey("FarTicketLow32")) ||
                            GlobalVariableCheck(StateKey("FarIdentifierHigh32")) || GlobalVariableCheck(StateKey("FarIdentifierLow32")) ||
@@ -1722,11 +1761,11 @@ bool IsProvenCleanStart()
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !hasLegacyContext && !hasSplitContext && managed == 0);
+   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !hasRetry && !hasInitial && !initialMalformed && !hasLegacyContext && !hasSplitContext && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         hasLegacyContext ? "ACTIVE" : "CLEAR",
                         hasSplitContext ? "ACTIVE" : "CLEAR",
-                        hasInitial ? "ACTIVE" : "CLEAR",
+                        initialMalformed ? "MALFORMED" : (hasInitial ? "ACTIVE" : "CLEAR"),
                         hasPending ? "ACTIVE" : "CLEAR",
                         hasRetry ? (retryTicketMalformed ? "MALFORMED" : "ACTIVE") : "CLEAR",
                         hasLedger ? "ACTIVE" : "CLEAR",
