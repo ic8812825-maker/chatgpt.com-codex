@@ -1852,10 +1852,43 @@ void EvaluateRetryPersistence(bool &active, bool &malformed, string &reason)
    reason = malformed ? "RETRY_CONTEXT_MALFORMED" : (active ? "RETRY_CONTEXT_ACTIVE" : "RETRY_CONTEXT_CLEAR");
 }
 
+bool PersistedKeyPrefixExists(string fieldPrefix)
+{
+   string prefix = StateKey(fieldPrefix);
+   for(int i = 0; i < GlobalVariablesTotal(); i++) if(StringFind(GlobalVariableName(i), prefix) == 0) return true;
+   return false;
+}
+
+void EvaluateReserveLedgerPersistence(bool &active, bool &malformed, string &reason)
+{
+   double countRaw = GlobalVariableCheck(StateKey("ReserveLedgerCount")) ? GlobalVariableGet(StateKey("ReserveLedgerCount")) : 0.0;
+   int count = (int)countRaw;
+   PersistedUInt64Inspection nextEvent, nextTx;
+   InspectPersistedUInt64("ReserveNextEventId", nextEvent);
+   InspectPersistedUInt64("NextReserveTransactionId", nextTx);
+   bool rowsExist = PersistedKeyPrefixExists("ReserveLedger_");
+   double reserve = GlobalVariableCheck(StateKey("TotalReserve")) ? GlobalVariableGet(StateKey("TotalReserve")) : 0.0;
+   active = count > 0 || MathAbs(reserve) > ReserveMismatchTolerance;
+   malformed = countRaw < 0.0 || MathAbs(countRaw - count) > 0.000001 || count > 10000 ||
+               PersistedUInt64IsMalformed(nextEvent) || PersistedUInt64IsMalformed(nextTx) ||
+               (count == 0 && rowsExist) || (count == 0 && PersistedUInt64IsActive(nextEvent) && nextEvent.restoredValue > 1) ||
+               (count == 0 && MathAbs(reserve) > ReserveMismatchTolerance);
+   if(count > 0)
+   {
+      PersistedUInt64Inspection firstEvent;
+      InspectPersistedUInt64("ReserveLedger_0_EventId", firstEvent);
+      if(firstEvent.state != PERSISTED_UINT64_ACTIVE) malformed = true;
+   }
+   reason = malformed ? "RESERVE_LEDGER_CONTEXT_MALFORMED" : (active ? "RESERVE_LEDGER_CONTEXT_ACTIVE" : "RESERVE_LEDGER_CONTEXT_CLEAR");
+}
+
 bool IsProvenCleanStart()
 {
    bool hasState = GlobalVariableCheck(StateKey("State"));
-   bool hasLedger = GlobalVariableCheck(StateKey("ReserveLedgerCount")) && GlobalVariableGet(StateKey("ReserveLedgerCount")) > 0.5;
+   bool hasLedger = false;
+   bool ledgerMalformed = false;
+   string ledgerReason = "";
+   EvaluateReserveLedgerPersistence(hasLedger, ledgerMalformed, ledgerReason);
    bool hasReserveTx = GlobalVariableCheck(StateKey("ReserveTxActive")) && GlobalVariableGet(StateKey("ReserveTxActive")) > 0.5;
    bool hasFailure = GlobalVariableCheck(StateKey("RecoveryFailureActive")) && GlobalVariableGet(StateKey("RecoveryFailureActive")) > 0.5;
    bool hasPending = false;
@@ -1889,14 +1922,14 @@ bool IsProvenCleanStart()
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !hasReserveTx && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
+   bool clean = (!hasState && !hasLedger && !ledgerMalformed && !hasReserveTx && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
                         splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
                         initialMalformed ? "MALFORMED" : (hasInitial ? "ACTIVE" : "CLEAR"),
                         pendingMalformed ? "MALFORMED" : (hasPending ? "ACTIVE" : "CLEAR"),
                         retryMalformed ? "MALFORMED" : (hasRetry ? "ACTIVE" : "CLEAR"),
-                        hasLedger ? "ACTIVE" : "CLEAR",
+                        ledgerMalformed ? "MALFORMED" : (hasLedger ? "ACTIVE" : "CLEAR"),
                         hasReserveTx ? "ACTIVE" : "CLEAR",
                         hasFailure ? "ACTIVE" : "CLEAR",
                         managed,
