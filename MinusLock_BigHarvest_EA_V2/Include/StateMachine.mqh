@@ -2029,6 +2029,7 @@ bool EvaluateCleanStart(CleanStartEvaluation &r)
    string splitHarvestReason=""; EvaluateSplitHarvestPersistence(r.splitHarvestActive,r.splitHarvestMalformed,splitHarvestReason);
    string geometryReason = "";
    EvaluateFrozenGeometryPersistence(r.geometryActive,r.geometryMalformed,geometryReason); r.managedPositions=CountManagedOpenPositions();
+   if(r.managedPositions>0) LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d",r.managedPositions));
    if(r.managedPositions>0) AddCleanStartReason("MANAGED_POSITIONS_PRESENT",r.allReasons);
    if(r.reserveTransactionMalformed) AddCleanStartReason(reserveTxReason,r.allReasons); if(r.ledgerMalformed) AddCleanStartReason(ledgerReason,r.allReasons);
    if(r.pendingMalformed) AddCleanStartReason(pendingReason,r.allReasons); if(r.retryMalformed) AddCleanStartReason(retryReason,r.allReasons);
