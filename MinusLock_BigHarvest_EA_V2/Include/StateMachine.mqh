@@ -2005,69 +2005,44 @@ void EvaluateRecoveryFailureMarkerPersistence(RecoveryFailureMarkerInspection &r
    result.reason=result.malformed?"RECOVERY_FAILURE_MARKER_MALFORMED":(result.active?"RECOVERY_FAILURE_MARKER_ACTIVE":"RECOVERY_FAILURE_MARKER_CLEAR");
 }
 
-bool IsProvenCleanStart()
+void AddCleanStartReason(string reason,string &allReasons)
+{ if(reason=="") return; if(allReasons!="") allReasons+=";"; allReasons+=reason; }
+
+bool EvaluateCleanStart(CleanStartEvaluation &r)
 {
-   bool hasState = GlobalVariableCheck(StateKey("State"));
-   bool hasLedger = false;
-   bool ledgerMalformed = false;
+   r.stateKeyPresent=GlobalVariableCheck(StateKey("State")); r.allReasons=""; r.primaryReason="";
    string ledgerReason = "";
-   EvaluateReserveLedgerPersistence(hasLedger, ledgerMalformed, ledgerReason);
-   bool hasReserveTx=false, reserveTxMalformed=false; string reserveTxReason="";
-   EvaluateReserveTransactionPersistence(hasReserveTx,reserveTxMalformed,reserveTxReason);
+   EvaluateReserveLedgerPersistence(r.ledgerActive,r.ledgerMalformed,ledgerReason);
+   string reserveTxReason=""; EvaluateReserveTransactionPersistence(r.reserveTransactionActive,r.reserveTransactionMalformed,reserveTxReason);
    RecoveryFailureMarkerInspection failureInspection; EvaluateRecoveryFailureMarkerPersistence(failureInspection);
-   bool hasFailure=failureInspection.active, failureMalformed=failureInspection.malformed;
-   bool hasPending = false;
-   bool pendingMalformed = false;
+   r.failureMarkerActive=failureInspection.active; r.failureMarkerMalformed=failureInspection.malformed;
    string pendingReason = "";
-   EvaluatePendingPersistence(hasPending, pendingMalformed, pendingReason);
-
-   bool hasRetry = false;
-   bool retryMalformed = false;
+   EvaluatePendingPersistence(r.pendingActive,r.pendingMalformed,pendingReason);
    string retryReason = "";
-   EvaluateRetryPersistence(hasRetry, retryMalformed, retryReason);
-
-   bool hasInitial = false;
-   bool initialMalformed = false;
+   EvaluateRetryPersistence(r.retryActive,r.retryMalformed,retryReason);
    string initialReason = "";
-   EvaluateInitialPersistence(hasInitial, initialMalformed, initialReason);
-   bool hasLegacyContext = false;
-   bool legacyMalformed = false;
+   EvaluateInitialPersistence(r.initialActive,r.initialMalformed,initialReason);
    string legacyReason = "";
-   EvaluateLegacyPersistence(hasLegacyContext, legacyMalformed, legacyReason);
-   bool hasSplitContext = false;
-   bool splitMalformed = false;
+   EvaluateLegacyPersistence(r.legacyActive,r.legacyMalformed,legacyReason);
    string splitReason = "";
-   EvaluateSplitPersistence(hasSplitContext, splitMalformed, splitReason);
-   bool splitHarvestActive=false,splitHarvestMalformed=false; string splitHarvestReason="";
-   EvaluateSplitHarvestPersistence(splitHarvestActive,splitHarvestMalformed,splitHarvestReason);
-   bool geometryActive = false;
-   bool geometryMalformed = false;
+   EvaluateSplitPersistence(r.splitActive,r.splitMalformed,splitReason);
+   string splitHarvestReason=""; EvaluateSplitHarvestPersistence(r.splitHarvestActive,r.splitHarvestMalformed,splitHarvestReason);
    string geometryReason = "";
-   EvaluateFrozenGeometryPersistence(geometryActive, geometryMalformed, geometryReason);
-   int managed = CountManagedOpenPositions();
-
-   if(managed > 0)
-      LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
-
-   bool clean = (!hasState && !hasLedger && !ledgerMalformed && !hasReserveTx && !reserveTxMalformed && !hasFailure && !failureMalformed && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !splitHarvestActive && !splitHarvestMalformed && !geometryActive && !geometryMalformed && managed == 0);
-   LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
-                        legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
-                        splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
-                        initialMalformed ? "MALFORMED" : (hasInitial ? "ACTIVE" : "CLEAR"),
-                        pendingMalformed ? "MALFORMED" : (hasPending ? "ACTIVE" : "CLEAR"),
-                        retryMalformed ? "MALFORMED" : (hasRetry ? "ACTIVE" : "CLEAR"),
-                        ledgerMalformed ? "MALFORMED" : (hasLedger ? "ACTIVE" : "CLEAR"),
-                        reserveTxMalformed ? "MALFORMED" : (hasReserveTx ? "ACTIVE" : "CLEAR"),
-                        hasFailure ? "ACTIVE" : "CLEAR",
-                        managed,
-                        hasState ? "PRESENT" : "ABSENT",
-                        clean ? "CLEAN_START_CONFIRMED" : "RECOVERY_CONTEXT_RESET_FORBIDDEN"));
-   if(clean)
-      LogInfo("CLEAN_START_CONFIRMED");
-   else
-      LogError("RECOVERY_CONTEXT_RESET_FORBIDDEN");
-   return clean;
+   EvaluateFrozenGeometryPersistence(r.geometryActive,r.geometryMalformed,geometryReason); r.managedPositions=CountManagedOpenPositions();
+   if(r.managedPositions>0) AddCleanStartReason("MANAGED_POSITIONS_PRESENT",r.allReasons);
+   if(r.reserveTransactionMalformed) AddCleanStartReason(reserveTxReason,r.allReasons); if(r.ledgerMalformed) AddCleanStartReason(ledgerReason,r.allReasons);
+   if(r.pendingMalformed) AddCleanStartReason(pendingReason,r.allReasons); if(r.retryMalformed) AddCleanStartReason(retryReason,r.allReasons);
+   if(r.initialMalformed) AddCleanStartReason(initialReason,r.allReasons); if(r.legacyMalformed) AddCleanStartReason(legacyReason,r.allReasons); if(r.splitMalformed) AddCleanStartReason(splitReason,r.allReasons);
+   if(r.splitHarvestMalformed) AddCleanStartReason(splitHarvestReason,r.allReasons); if(r.geometryMalformed) AddCleanStartReason(geometryReason,r.allReasons); if(r.failureMarkerMalformed) AddCleanStartReason(failureInspection.reason,r.allReasons);
+   bool anyActive=r.initialActive||r.legacyActive||r.splitActive||r.splitHarvestActive||r.geometryActive||r.pendingActive||r.retryActive||r.ledgerActive||r.reserveTransactionActive||r.failureMarkerActive;
+   if(anyActive) AddCleanStartReason("ACTIVE_PERSISTENCE_CONTEXT",r.allReasons); if(r.stateKeyPresent) AddCleanStartReason("STATE_KEY_PRESENT",r.allReasons);
+   r.cleanStartAllowed=r.managedPositions==0&&!anyActive&&r.allReasons=="";
+   if(r.managedPositions>0) r.primaryReason="MANAGED_POSITIONS_PRESENT"; else if(r.reserveTransactionMalformed) r.primaryReason=reserveTxReason; else if(r.ledgerMalformed) r.primaryReason=ledgerReason; else if(r.pendingMalformed) r.primaryReason=pendingReason; else if(r.retryMalformed) r.primaryReason=retryReason; else if(r.allReasons!="") r.primaryReason=r.allReasons; else r.primaryReason="CLEAN_START_CONFIRMED";
+   LogInfo(StringFormat("CLEAN_START_EVALUATION Initial=%s Legacy=%s Split=%s SplitHarvest=%s Geometry=%s Pending=%s Retry=%s Ledger=%s ReserveTx=%s FailureMarker=%s ManagedPositions=%d Allowed=%s PrimaryReason=%s AllReasons=%s",initialReason,legacyReason,splitReason,splitHarvestReason,geometryReason,pendingReason,retryReason,ledgerReason,reserveTxReason,failureInspection.reason,r.managedPositions,r.cleanStartAllowed?"YES":"NO",r.primaryReason,r.allReasons));
+   return r.cleanStartAllowed;
 }
+
+bool IsProvenCleanStart() { CleanStartEvaluation evaluation; EvaluateCleanStart(evaluation); if(!evaluation.cleanStartAllowed) LogError("RECOVERY_CONTEXT_RESET_FORBIDDEN"); return evaluation.cleanStartAllowed; }
 
 bool RecoverState()
 {

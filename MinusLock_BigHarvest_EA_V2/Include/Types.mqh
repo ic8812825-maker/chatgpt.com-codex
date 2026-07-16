@@ -143,6 +143,16 @@ struct RecoveryFailureMarkerInspection
    string reason;
 };
 
+struct CleanStartEvaluation
+{
+   bool stateKeyPresent; bool initialActive; bool initialMalformed; bool legacyActive; bool legacyMalformed;
+   bool splitActive; bool splitMalformed; bool splitHarvestActive; bool splitHarvestMalformed;
+   bool geometryActive; bool geometryMalformed; bool pendingActive; bool pendingMalformed;
+   bool retryActive; bool retryMalformed; bool ledgerActive; bool ledgerMalformed;
+   bool reserveTransactionActive; bool reserveTransactionMalformed; bool failureMarkerActive; bool failureMarkerMalformed;
+   int managedPositions; bool cleanStartAllowed; string primaryReason; string allReasons;
+};
+
 
 enum PositionRole
 {
