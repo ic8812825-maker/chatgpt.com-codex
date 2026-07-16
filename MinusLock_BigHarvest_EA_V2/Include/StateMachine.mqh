@@ -1836,6 +1836,29 @@ void EvaluateSplitPersistence(bool &active, bool &malformed, string &reason)
    reason = malformed ? "SPLIT_CONTEXT_MALFORMED" : (active ? "SPLIT_CONTEXT_ACTIVE" : "SPLIT_CONTEXT_CLEAR");
 }
 
+bool IsSplitHarvestPersistenceState(EAState state)
+{
+   return state==STATE_SPLIT_BIG_HARVEST_CALC_NET||state==STATE_SPLIT_BIG_HARVEST_CHECK_FULL_FAR||
+          state==STATE_SPLIT_BIG_HARVEST_PARTIAL_FAR||state==STATE_SPLIT_PARTIAL_HISTORY_PENDING||
+          state==STATE_SPLIT_BIG_HARVEST_FINAL_CHECK||state==STATE_SPLIT_CLOSE_FAR_PARTIAL_PENDING||
+          state==STATE_SPLIT_CLOSE_FAR_FULL_PENDING||state==STATE_RECOVERY_PENDING;
+}
+
+void EvaluateSplitHarvestPersistence(bool &active,bool &malformed,string &reason)
+{
+   bool calculated=PersistedDoubleNonZero("ActualSplitHarvestNetCalculated",0.5);
+   string moneyFields[]={"ActualSplitHarvestNet","ActualBigTrendNet","ActualTransitionNet","ActualSmallTransitionNet","BigGrossRatio","BigNetExposureRatio","ReserveGrowthRatio","NewFarCompressionRatio","ActualBigExposureLot","ActualSmallExposureLot"};
+   bool nonzero=false,invalid=false;
+   for(int i=0;i<ArraySize(moneyFields);i++) if(GlobalVariableCheck(StateKey(moneyFields[i]))) { double v=GlobalVariableGet(StateKey(moneyFields[i])); invalid=invalid||!MathIsValidNumber(v)||MathAbs(v)>1.0e12; nonzero=nonzero||MathAbs(v)>0.0000001; }
+   PersistedUInt64Inspection cycle,far; InspectPersistedUInt64("CycleId",cycle); InspectPersistedUInt64("FarIdentifier",far);
+   bool splitActive=false,splitMalformed=false; string splitReason=""; EvaluateSplitPersistence(splitActive,splitMalformed,splitReason);
+   EAState state=GlobalVariableCheck(StateKey("State"))?(EAState)(int)GlobalVariableGet(StateKey("State")):STATE_IDLE;
+   active=calculated||nonzero;
+   malformed=invalid||(!calculated&&PersistedDoubleNonZero("ActualSplitHarvestNet"))||
+             (calculated&&(!PersistedUInt64IsActive(cycle)||!PersistedUInt64IsActive(far)||!splitActive||!IsSplitHarvestPersistenceState(state)));
+   reason=malformed?"SPLIT_HARVEST_LIFECYCLE_MALFORMED":(active?"SPLIT_HARVEST_LIFECYCLE_ACTIVE":"SPLIT_HARVEST_LIFECYCLE_CLEAR");
+}
+
 void EvaluateFrozenGeometryPersistence(bool &active, bool &malformed, string &reason)
 {
    PersistedUInt64Inspection cycleId;
@@ -1988,6 +2011,8 @@ bool IsProvenCleanStart()
    bool splitMalformed = false;
    string splitReason = "";
    EvaluateSplitPersistence(hasSplitContext, splitMalformed, splitReason);
+   bool splitHarvestActive=false,splitHarvestMalformed=false; string splitHarvestReason="";
+   EvaluateSplitHarvestPersistence(splitHarvestActive,splitHarvestMalformed,splitHarvestReason);
    bool geometryActive = false;
    bool geometryMalformed = false;
    string geometryReason = "";
@@ -1997,7 +2022,7 @@ bool IsProvenCleanStart()
    if(managed > 0)
       LogError(StringFormat("MANAGED_POSITIONS_PRESENT_DURING_RECOVERY_FAILURE Count=%d", managed));
 
-   bool clean = (!hasState && !hasLedger && !ledgerMalformed && !hasReserveTx && !reserveTxMalformed && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !geometryActive && !geometryMalformed && managed == 0);
+   bool clean = (!hasState && !hasLedger && !ledgerMalformed && !hasReserveTx && !reserveTxMalformed && !hasFailure && !hasPending && !pendingMalformed && !hasRetry && !retryMalformed && !hasInitial && !initialMalformed && !hasLegacyContext && !legacyMalformed && !hasSplitContext && !splitMalformed && !splitHarvestActive && !splitHarvestMalformed && !geometryActive && !geometryMalformed && managed == 0);
    LogInfo(StringFormat("CLEAN_START_CHECK LegacyContext=%s SplitContext=%s InitialContext=%s PendingContext=%s RetryContext=%s ReserveLedger=%s ReserveTransaction=%s FailureMarker=%s ManagedPositions=%d StateKey=%s CleanStartResult=%s",
                         legacyMalformed ? "MALFORMED" : (hasLegacyContext ? "ACTIVE" : "CLEAR"),
                         splitMalformed ? "MALFORMED" : (hasSplitContext ? "ACTIVE" : "CLEAR"),
