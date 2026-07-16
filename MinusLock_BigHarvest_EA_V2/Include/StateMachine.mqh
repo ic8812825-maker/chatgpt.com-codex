@@ -878,6 +878,9 @@ void SaveState()
    GlobalVariableSet(StateKey("ActualBigTrendNet"), Ctx.actualBigTrendNet);
    GlobalVariableSet(StateKey("ActualSplitHarvestNet"), Ctx.actualSplitHarvestNet);
    GlobalVariableSet(StateKey("ActualSplitHarvestNetCalculated"), Ctx.actualSplitHarvestNetCalculated ? 1.0 : 0.0);
+   GlobalVariableSet(StateKey("HarvestPhase"),(double)Ctx.harvestPhase); SaveStateUlong64("HarvestId",Ctx.harvestId); SaveStateLong64("HarvestDealFrom",Ctx.harvestDealFrom); SaveStateLong64("HarvestDealTo",Ctx.harvestDealTo);
+   GlobalVariableSet(StateKey("HarvestReserveAdd"),Ctx.harvestReserveAdd); GlobalVariableSet(StateKey("HarvestPartialBudgetAdd"),Ctx.harvestPartialBudgetAdd); GlobalVariableSet(StateKey("HarvestCarryBefore"),Ctx.harvestCarryBefore); GlobalVariableSet(StateKey("HarvestCarryAfter"),Ctx.harvestCarryAfter);
+   GlobalVariableSet(StateKey("ActualPartialFarCost"),Ctx.actualPartialFarCost);
    GlobalVariableSet(StateKey("ActualSmallTransitionNet"), Ctx.actualSmallTransitionNet);
    GlobalVariableSet(StateKey("BigGrossRatio"), Ctx.bigGrossRatio);
    GlobalVariableSet(StateKey("BigNetExposureRatio"), Ctx.bigNetExposureRatio);
@@ -2152,6 +2155,9 @@ bool RecoverState()
    if(GetStateDouble("ActualBigTrendNet", saved)) Ctx.actualBigTrendNet = saved;
    if(GetStateDouble("ActualSplitHarvestNet", saved)) Ctx.actualSplitHarvestNet = saved;
    if(GetStateDouble("ActualSplitHarvestNetCalculated", saved)) Ctx.actualSplitHarvestNetCalculated = (saved > 0.5);
+   if(GetStateDouble("HarvestPhase",saved)) Ctx.harvestPhase=(HarvestPhase)((int)saved); LoadOptionalStateUlong64("HarvestId",Ctx.harvestId); LoadOptionalStateLong64("HarvestDealFrom",Ctx.harvestDealFrom); LoadOptionalStateLong64("HarvestDealTo",Ctx.harvestDealTo);
+   if(GetStateDouble("HarvestReserveAdd",saved)) Ctx.harvestReserveAdd=saved; if(GetStateDouble("HarvestPartialBudgetAdd",saved)) Ctx.harvestPartialBudgetAdd=saved; if(GetStateDouble("HarvestCarryBefore",saved)) Ctx.harvestCarryBefore=saved; if(GetStateDouble("HarvestCarryAfter",saved)) Ctx.harvestCarryAfter=saved;
+   if(GetStateDouble("ActualPartialFarCost",saved)) Ctx.actualPartialFarCost=saved;
    if(GetStateDouble("ActualSmallTransitionNet", saved)) Ctx.actualSmallTransitionNet = saved;
    if(GetStateDouble("BigGrossRatio", saved)) Ctx.bigGrossRatio = saved;
    if(GetStateDouble("BigNetExposureRatio", saved)) Ctx.bigNetExposureRatio = saved;
@@ -5479,6 +5485,7 @@ void ProcessSplitBigHarvestCalcNet()
    bool historyComplete = CalculateSplitLifecycleNet(coreNet, trendNet, smallBaseNet, totalNet);
    Ctx.actualSplitHarvestNet = totalNet;
    Ctx.actualSplitHarvestNetCalculated = historyComplete;
+   Ctx.harvestPhase=HARVEST_CALCULATED; Ctx.harvestId=(ulong)TimeCurrent(); Ctx.harvestCarryBefore=Ctx.partialFarBudgetCarry;
    Ctx.pendingReserveAdd = 0.0;
    Ctx.pendingCloseFarBudget = 0.0;
    LogInfo(StringFormat("SPLIT_LIFECYCLE_NET Symbol=%s Magic=%I64u CycleId=%I64u Level=%d BigCoreIdentifier=%I64u BigTrendIdentifier=%I64u SmallBaseIdentifier=%I64u CoreNet=%.2f TrendNet=%.2f SmallBaseNet=%.2f ActualSplitHarvestNet=%.2f HistoryComplete=%s Includes=DEAL_PROFIT+DEAL_COMMISSION+DEAL_SWAP+DEAL_FEE",
@@ -5514,6 +5521,7 @@ void ProcessSplitBigHarvestCheckFullFar()
    }
    Ctx.pendingReserveAdd = Ctx.actualSplitHarvestNet * WorkReserveShare;
    Ctx.pendingCloseFarBudget = Ctx.actualSplitHarvestNet - Ctx.pendingReserveAdd;
+   Ctx.harvestReserveAdd=Ctx.pendingReserveAdd; Ctx.harvestPartialBudgetAdd=Ctx.pendingCloseFarBudget; Ctx.harvestPhase=HARVEST_LEDGER_PREPARED; SaveState();
    Ctx.pendingPartialFarBudgetAvailable = Ctx.pendingCloseFarBudget + Ctx.partialFarBudgetCarry;
    Ctx.pendingCloseFarLot = CalculateMaxPartialFarLotByMoney(Ctx.pendingPartialFarBudgetAvailable, Ctx.pendingProjectedPartialFarLoss);
    AdjustPartialFarLotForMinimumResidual();
@@ -5552,6 +5560,8 @@ void ProcessSplitBigHarvestPartialFar()
    }
    RefreshFarVolumeFromTerminal("SPLIT_PARTIAL_FAR actual residual read from terminal");
    Ctx.partialFarBudgetCarry = MathMax(0.0, Ctx.pendingPartialFarBudgetAvailable - actualPartialLoss);
+   Ctx.actualPartialFarCost=actualPartialLoss;
+   Ctx.harvestCarryAfter=Ctx.partialFarBudgetCarry; Ctx.harvestPhase=HARVEST_CARRY_UPDATED; SaveState();
    LogInfo(StringFormat("SPLIT_PARTIAL_ACTUAL ClosedLot=%.2f ProjectedPartialLoss=%.2f ActualPartialNet=%.2f ActualPartialLoss=%.2f Difference=%.2f FarLotActual=%.2f Result=PASS", Ctx.pendingCloseFarLot, Ctx.pendingProjectedPartialFarLoss, actualPartialNet, actualPartialLoss, actualPartialLoss - Ctx.pendingProjectedPartialFarLoss, Ctx.farLot));
    LogInfo(StringFormat("SPLIT_PARTIAL_CARRY PartialBudgetAvailable=%.2f ActualPartialLoss=%.2f PartialFarBudgetCarry=%.2f ReserveUsedForPartial=NO", Ctx.pendingPartialFarBudgetAvailable, actualPartialLoss, Ctx.partialFarBudgetCarry));
    SetState(STATE_SPLIT_BIG_HARVEST_FINAL_CHECK, "Split partial Far complete with actual deals");
@@ -5622,14 +5632,15 @@ void ProcessSplitBigHarvestFinalCheck()
    {
       ApplyReserveCredit(RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD, Ctx.pendingReserveAdd);
       Ctx.pendingReserveApplied = true;
+      Ctx.harvestPhase=HARVEST_RESERVE_UPDATED; SaveState();
    }
    RefreshFarVolumeFromTerminal("SPLIT_FINAL_CHECK actual Far");
    ProjectedCloseNetResult full;
    BigReserveCatchUpEvaluation catchUp;
    double reserveBefore=Ctx.totalReserve-(Ctx.pendingReserveApplied?Ctx.pendingReserveAdd:0.0);
    if(Ctx.farLot>0.0&&CalculateProjectedFarCloseNet(Ctx.farLot,full)&&Ctx.bigFarLossBefore>0.0&&
-      !EvaluateBigReserveCatchUp(reserveBefore,Ctx.totalReserve,Ctx.partialFarBudgetCarry+MathMax(0.0,Ctx.actualSplitHarvestNet-Ctx.pendingReserveAdd),Ctx.partialFarBudgetCarry,Ctx.bigFarLotBefore,Ctx.farLot,Ctx.bigFarLossBefore,full.projectedLoss,0.0,catchUp))
-   { LogError(StringFormat("BIG_RESERVE_CATCH_UP_FAIL Before=%.6f After=%.6f FarBefore=%.2f FarAfter=%.2f",catchUp.coverageBefore,catchUp.coverageAfter,catchUp.farLossBefore,catchUp.farLossAfter)); SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"BIG_RESERVE_COVERAGE_NOT_IMPROVED"); return; }
+      !EvaluateBigReserveCatchUp(reserveBefore,Ctx.totalReserve,Ctx.harvestCarryBefore,Ctx.partialFarBudgetCarry,Ctx.bigFarLotBefore,Ctx.farLot,Ctx.bigFarLossBefore,full.projectedLoss,Ctx.actualPartialFarCost,catchUp))
+   { LogError(StringFormat("BIG_RESERVE_CATCH_UP_ACTUAL_FAIL Before=%.6f After=%.6f FarBefore=%.2f FarAfter=%.2f",catchUp.coverageBefore,catchUp.coverageAfter,catchUp.farLossBefore,catchUp.farLossAfter)); SetState(STATE_BIG_COVERAGE_RECONCILIATION_FAILED,"BIG_RESERVE_COVERAGE_ACTUAL_NOT_IMPROVED"); return; }
    if(Ctx.farLot > 0.0 && CalculateProjectedFarCloseNet(Ctx.farLot, full) && Ctx.totalReserve >= full.projectedLoss + SafetyBufferMoney)
    {
       SetState(STATE_FINAL_CLOSE, "Split reserve covers remaining Far after partial");

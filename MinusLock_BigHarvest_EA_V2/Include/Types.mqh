@@ -64,6 +64,7 @@ enum EAState
    STATE_INVALID_REVERSE_GEOMETRY,
    STATE_INVALID_SPLIT_GEOMETRY,
    STATE_INVALID_SMALL_GEOMETRY,
+   STATE_BIG_COVERAGE_RECONCILIATION_FAILED,
    STATE_REVERSE_LIMIT,
    STATE_REVERSE_LIMIT_CLOSED,
    STATE_REVERSE_LIMIT_CLOSE_PENDING,
@@ -92,6 +93,8 @@ enum EAState
    STATE_RECONCILIATION_ERROR,
    STATE_ERROR
 };
+
+enum HarvestPhase { HARVEST_NONE=0, HARVEST_CALCULATED, HARVEST_LEDGER_PREPARED, HARVEST_LEDGER_WRITTEN, HARVEST_RESERVE_UPDATED, HARVEST_CARRY_UPDATED, HARVEST_DISTRIBUTED, HARVEST_CONSUMED };
 
 enum Direction
 {
@@ -427,6 +430,15 @@ struct RecoveryContext
    double actualBigTrendNet;
    double actualSplitHarvestNet;
    bool actualSplitHarvestNetCalculated;
+   HarvestPhase harvestPhase;
+   ulong harvestId;
+   long harvestDealFrom;
+   long harvestDealTo;
+   double harvestReserveAdd;
+   double harvestPartialBudgetAdd;
+   double harvestCarryBefore;
+   double harvestCarryAfter;
+   double actualPartialFarCost;
    double actualSmallTransitionNet;
 
    double bigGrossRatio;
