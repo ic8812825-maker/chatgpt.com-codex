@@ -71,10 +71,10 @@ double BrokerPointsCostMoney(double lot,double points)
    return lot*points*point/size*tick;
 }
 double BrokerSpreadCostMoney(double lot,double points) { return BrokerPointsCostMoney(lot,points); }
-double BrokerExecutionOpenPrice(Direction d) { return SymbolInfoDouble(_Symbol,d==DIR_BUY?SYMBOL_ASK:SYMBOL_BID); }
+double BrokerExecutionOpenPrice(Direction d) { return d==DIR_BUY?MarketAsk():MarketBid(); }
 double BrokerClosePriceAtMid(Direction d,double mid)
 {
-   double spread=SymbolInfoDouble(_Symbol,SYMBOL_ASK)-SymbolInfoDouble(_Symbol,SYMBOL_BID);
+   double spread=MarketAsk()-MarketBid();
    return d==DIR_BUY?mid-spread*.5:mid+spread*.5;
 }
 
@@ -203,7 +203,7 @@ bool CalcProjectedOpenAndCloseCosts(double lot,BrokerMoneyResult &r)
 }
 bool CalcProjectedMarginMoney(ENUM_ORDER_TYPE type,double lot,double price,BrokerMoneyResult &r)
 {
-   ResetBrokerMoneyResult(r); double margin=0; if(lot<=0||price<=0||!OrderCalcMargin(type,_Symbol,lot,price,margin)) { r.reason="BROKER_MARGIN_FAILED"; return false; }
+   ResetBrokerMoneyResult(r); double margin=0; if(UseInternalSimulation&&TestMarketEventActive&&ActiveTestMarketEvent.marginPerLot>0)margin=lot*ActiveTestMarketEvent.marginPerLot;else if(lot<=0||price<=0||!OrderCalcMargin(type,_Symbol,lot,price,margin)) { r.reason="BROKER_MARGIN_FAILED"; return false; }
    r.requiredMargin=margin; r.marginMoney=margin; r.calculationValid=true; r.ok=true; return true;
 }
 bool CalcProjectedBasketNetMoney(BrokerMoneyResult &items[],int count,BrokerMoneyResult &r)
@@ -271,9 +271,10 @@ bool EvaluateBigBasketGate(Direction directions[],double lots[],int managedPosit
    g.newBasketMargin=0; g.projectedMargin=0; g.projectedEquityAfterOpen=0; g.projectedMarginLevel=0; g.projectedMarginPercent=0; g.projectedOpenCommission=0; g.projectedInitialSpreadLoss=0; g.projectedSlippage=0; g.executionBuffers=0; g.volumePass=true; g.marginPass=false; g.positionsPass=(managedPositions+3<=MaxManagedPositions); g.reason="";
    g.volume.managedBuy=0;g.volume.managedSell=0;g.volume.brokerTotalBuy=0;g.volume.brokerTotalSell=0;g.volume.plannedBuy=0;g.volume.plannedSell=0;
    if(ArraySize(directions)!=3||ArraySize(lots)!=3) { g.reason="BIG_BASKET_REQUIRES_THREE_LEGS"; return false; }
-   double minLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),maxLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MAX),step=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP),limit=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_LIMIT);
+   double minLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),maxLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MAX),step=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP),limit=(UseInternalSimulation&&TestMarketEventActive&&ActiveTestMarketEvent.brokerVolumeLimit>0?ActiveTestMarketEvent.brokerVolumeLimit:SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_LIMIT));
    for(int j=0;j<3;j++) { if(directions[j]==DIR_BUY) g.volume.plannedBuy+=lots[j]; else if(directions[j]==DIR_SELL) g.volume.plannedSell+=lots[j]; else g.volumePass=false; }
    for(int p=0;p<PositionsTotal();p++) { ulong ticket=PositionGetTicket(p); if(ticket==0||!PositionSelectByTicket(ticket)||PositionGetString(POSITION_SYMBOL)!=_Symbol) continue; double lot=PositionGetDouble(POSITION_VOLUME); bool buy=PositionGetInteger(POSITION_TYPE)==POSITION_TYPE_BUY; if(buy) g.volume.brokerTotalBuy+=lot; else g.volume.brokerTotalSell+=lot; if((ulong)PositionGetInteger(POSITION_MAGIC)==MagicNumber) { if(buy) g.volume.managedBuy+=lot; else g.volume.managedSell+=lot; } }
+   if(UseInternalSimulation){g.volume.brokerTotalBuy=ActiveTestMarketEvent.brokerBuyVolume;g.volume.brokerTotalSell=ActiveTestMarketEvent.brokerSellVolume;for(int sp=0;sp<ArraySize(SimPositions);sp++)if(SimPositions[sp].exists){if(SimPositions[sp].direction==DIR_BUY)g.volume.managedBuy+=SimPositions[sp].lot;else if(SimPositions[sp].direction==DIR_SELL)g.volume.managedSell+=SimPositions[sp].lot;}}
    if(limit>0&&(g.volume.brokerTotalBuy+g.volume.plannedBuy>limit+VolumeMismatchToleranceLots||g.volume.brokerTotalSell+g.volume.plannedSell>limit+VolumeMismatchToleranceLots)) g.volumePass=false;
    double bid=SymbolInfoDouble(_Symbol,SYMBOL_BID),ask=SymbolInfoDouble(_Symbol,SYMBOL_ASK),point=SymbolInfoDouble(_Symbol,SYMBOL_POINT),spreadPoints=(point>0?(ask-bid)/point:0);
    for(int i=0;i<3;i++)
@@ -283,7 +284,7 @@ bool EvaluateBigBasketGate(Direction directions[],double lots[],int managedPosit
       double commission=0,margin=m.requiredMargin; string commissionReason=""; if(!CalcProjectedOpenCommission(lots[i],openPrice,openPrice,margin,commission,commissionReason)) { g.reason=commissionReason; return false; } g.projectedOpenCommission+=commission;
       double spreadCost=BrokerPointsCostMoney(lots[i],spreadPoints),slippage=BrokerPointsCostMoney(lots[i],MaxSlippagePoints*SlippageSafetyMultiplier); if(spreadCost<0||slippage<0) { g.reason="BIG_BASKET_OPEN_COST_FAILED"; return false; } g.projectedInitialSpreadLoss+=spreadCost; g.projectedSlippage+=slippage; g.executionBuffers+=ExecutionBufferPerOrderMoney+ExecutionBufferPerPositionMoney;
    }
-   g.executionBuffers+=ExecutionBufferPerBasketMoney; double equity=AccountInfoDouble(ACCOUNT_EQUITY),currentMargin=AccountInfoDouble(ACCOUNT_MARGIN); g.projectedEquityAfterOpen=equity-g.projectedOpenCommission-g.projectedInitialSpreadLoss-g.projectedSlippage-g.executionBuffers; g.projectedMargin=currentMargin+g.newBasketMargin; g.projectedMarginLevel=g.projectedMargin>0?g.projectedEquityAfterOpen/g.projectedMargin*100.0:999999; g.projectedMarginPercent=g.projectedEquityAfterOpen>0?g.projectedMargin/g.projectedEquityAfterOpen*100.0:999999;
+   g.executionBuffers+=ExecutionBufferPerBasketMoney; double equity=ModelAccountEquity(),currentMargin=ModelAccountMargin(); g.projectedEquityAfterOpen=equity-g.projectedOpenCommission-g.projectedInitialSpreadLoss-g.projectedSlippage-g.executionBuffers; g.projectedMargin=currentMargin+g.newBasketMargin; g.projectedMarginLevel=g.projectedMargin>0?g.projectedEquityAfterOpen/g.projectedMargin*100.0:999999; g.projectedMarginPercent=g.projectedEquityAfterOpen>0?g.projectedMargin/g.projectedEquityAfterOpen*100.0:999999;
    g.marginPass=g.projectedEquityAfterOpen>0&&g.projectedMarginLevel>=MinimumSafeMarginLevel&&g.projectedMarginPercent<=MaxAccountMarginPercent;
    g.pass=g.volumePass&&g.marginPass&&g.positionsPass; if(!g.pass&&g.reason=="") g.reason=!g.volumePass?"BIG_BASKET_VOLUME_FAIL":(!g.marginPass?"BIG_BASKET_MARGIN_FAIL":"BIG_BASKET_POSITION_LIMIT"); return g.pass;
 }

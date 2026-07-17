@@ -3074,8 +3074,8 @@ void OpenInitialLock()
       LogRiskGateBlocked("OpenInitialLock blocked: RiskGate blocks only new openings, not closes");
       return;
    }
-   double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID);
-   double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+   double bid = MarketBid();
+   double ask = MarketAsk();
    double point = SymbolInfoDouble(_Symbol, SYMBOL_POINT);
    double spreadPoints = 0.0;
    if(point > 0.0 && ask > 0.0 && bid > 0.0)
@@ -4703,7 +4703,7 @@ bool EvaluateFinalCloseGate(FinalCloseEvaluation &result)
       ulong ticket=PositionGetTicket(i); if(ticket==0||!PositionSelectByTicket(ticket)) continue;
       if(PositionGetString(POSITION_SYMBOL)!=_Symbol||(ulong)PositionGetInteger(POSITION_MAGIC)!=MagicNumber) continue;
       Direction d=(PositionGetInteger(POSITION_TYPE)==POSITION_TYPE_BUY?DIR_BUY:DIR_SELL);
-      double lot=PositionGetDouble(POSITION_VOLUME),open=PositionGetDouble(POSITION_PRICE_OPEN),close=SymbolInfoDouble(_Symbol,d==DIR_BUY?SYMBOL_BID:SYMBOL_ASK);
+      double lot=PositionGetDouble(POSITION_VOLUME),open=PositionGetDouble(POSITION_PRICE_OPEN),close=d==DIR_BUY?MarketBid():MarketAsk();
       BrokerMoneyResult item; if(!CalcProjectedCloseNetMoneyWithAccrued(d,lot,open,close,PositionGetDouble(POSITION_SWAP),item)) { basketValid=false; break; }
       projectedOpenPositionsNet+=item.netMoney; result.projectedCommission+=item.closeCommission; result.projectedSpreadCost+=item.spreadExpansionCost; result.projectedSlippageCost+=item.slippageCost; projectedPositions++;
    }
@@ -5125,7 +5125,7 @@ bool PrepareSplitBigLevel()
       SetState(STATE_INVALID_SPLIT_GEOMETRY,"BIG_NET_EXPOSURE_TOO_SMALL after broker volume normalization"); return false;
    }
    Ctx.currentBigMovePoints=GetBigMovePoints(Ctx.harvestLevel);
-   double point=SymbolInfoDouble(_Symbol,SYMBOL_POINT), mid=(SymbolInfoDouble(_Symbol,SYMBOL_ASK)+SymbolInfoDouble(_Symbol,SYMBOL_BID))*.5;
+   double point=SymbolInfoDouble(_Symbol,SYMBOL_POINT), mid=(MarketAsk()+MarketBid())*.5;
    double targetMid=mid+(Ctx.bigCoreDirection==DIR_BUY?1.0:-1.0)*Ctx.currentBigMovePoints*point;
    BrokerMoneyResult coreMoney,trendMoney,smallMoney,farMoney;
    bool moneyOk=CalcProjectedPositionNetMoney(Ctx.bigCoreDirection,Ctx.bigCoreLot,BrokerExecutionOpenPrice(Ctx.bigCoreDirection),BrokerClosePriceAtMid(Ctx.bigCoreDirection,targetMid),true,true,coreMoney)&&
@@ -5372,9 +5372,9 @@ bool SplitBigTargetReached()
    if(point <= 0.0 || Ctx.bigCoreOpenPrice <= 0.0)
       return false;
    if(Ctx.bigCoreDirection == DIR_BUY)
-      return SymbolInfoDouble(_Symbol, SYMBOL_BID) >= Ctx.bigCoreOpenPrice + distance;
+      return MarketBid() >= Ctx.bigCoreOpenPrice + distance;
    if(Ctx.bigCoreDirection == DIR_SELL)
-      return SymbolInfoDouble(_Symbol, SYMBOL_ASK) <= Ctx.bigCoreOpenPrice - distance;
+      return MarketAsk() <= Ctx.bigCoreOpenPrice - distance;
    return false;
 }
 
@@ -5478,9 +5478,9 @@ bool EvaluateCurrentFalseReverse(FalseReverseEvaluation &evaluation)
 }
 void ProcessReverseWaitFarTouch()
 {
-   double price=Ctx.farDirection==DIR_BUY?SymbolInfoDouble(_Symbol,SYMBOL_ASK):SymbolInfoDouble(_Symbol,SYMBOL_BID);
+   double price=Ctx.farDirection==DIR_BUY?MarketAsk():MarketBid();
    bool touched=Ctx.farDirection==DIR_BUY?price>=Ctx.farOpenPrice:price<=Ctx.farOpenPrice;
-   bool falseReverse=Ctx.bigCoreDirection==DIR_BUY?SymbolInfoDouble(_Symbol,SYMBOL_BID)>=Ctx.bigCoreOpenPrice:SymbolInfoDouble(_Symbol,SYMBOL_ASK)<=Ctx.bigCoreOpenPrice;
+   bool falseReverse=Ctx.bigCoreDirection==DIR_BUY?MarketBid()>=Ctx.bigCoreOpenPrice:MarketAsk()<=Ctx.bigCoreOpenPrice;
    if(falseReverse&&!touched)
    {
       SetState(STATE_FALSE_REVERSE_DECISION,"FALSE_REVERSE_MARKET_EVENT");return;

@@ -114,6 +114,15 @@ enum Direction
 };
 enum ScenarioMode { SCENARIO_IDLE=0,SCENARIO_BIG_ACTIVE,SCENARIO_BIG_CLOSING,SCENARIO_BIG_ACCOUNTING,SCENARIO_SMALL_SWITCH_PENDING,SCENARIO_SMALL_ACTIVE,SCENARIO_SMALL_CLOSING,SCENARIO_FINAL_CLOSE,SCENARIO_RECOVERY,SCENARIO_ERROR };
 
+struct TestMarketEvent { double bid; double ask; datetime time; bool rejectOpen; bool rejectClose; double partialFillRatio; double accountEquity; double accountMargin; double accountFreeMargin; double brokerBuyVolume; double brokerSellVolume; double brokerVolumeLimit; double marginPerLot; };
+bool TestMarketEventActive=false;TestMarketEvent ActiveTestMarketEvent;
+void ApplyTestMarketEvent(TestMarketEvent &event){ActiveTestMarketEvent=event;TestMarketEventActive=true;}
+double MarketBid(){return UseInternalSimulation&&TestMarketEventActive?ActiveTestMarketEvent.bid:SymbolInfoDouble(_Symbol,SYMBOL_BID);}
+double MarketAsk(){return UseInternalSimulation&&TestMarketEventActive?ActiveTestMarketEvent.ask:SymbolInfoDouble(_Symbol,SYMBOL_ASK);}
+double ModelAccountEquity(){return UseInternalSimulation&&TestMarketEventActive&&ActiveTestMarketEvent.accountEquity>0?ActiveTestMarketEvent.accountEquity:AccountInfoDouble(ACCOUNT_EQUITY);}
+double ModelAccountMargin(){return UseInternalSimulation&&TestMarketEventActive&&ActiveTestMarketEvent.accountMargin>=0?ActiveTestMarketEvent.accountMargin:AccountInfoDouble(ACCOUNT_MARGIN);}
+double ModelAccountFreeMargin(){return UseInternalSimulation&&TestMarketEventActive&&ActiveTestMarketEvent.accountFreeMargin>0?ActiveTestMarketEvent.accountFreeMargin:AccountInfoDouble(ACCOUNT_MARGIN_FREE);}
+
 enum PersistedUInt64State
 {
    PERSISTED_UINT64_ABSENT = 0,

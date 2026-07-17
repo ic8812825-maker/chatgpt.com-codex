@@ -13,9 +13,9 @@ Direction PositionTypeToDirection(long positionType)
 double ExitPriceForDirection(Direction dir)
 {
    if(dir == DIR_BUY)
-      return SymbolInfoDouble(_Symbol, SYMBOL_BID);
+      return MarketBid();
    if(dir == DIR_SELL)
-      return SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+      return MarketAsk();
 
    return 0.0;
 }
@@ -23,9 +23,9 @@ double ExitPriceForDirection(Direction dir)
 double EntryPriceForDirection(Direction dir)
 {
    if(dir == DIR_BUY)
-      return SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+      return MarketAsk();
    if(dir == DIR_SELL)
-      return SymbolInfoDouble(_Symbol, SYMBOL_BID);
+      return MarketBid();
 
    return 0.0;
 }
@@ -37,10 +37,10 @@ double ProfitPoints(Direction dir, double openPrice)
       return 0.0;
 
    if(dir == DIR_BUY)
-      return (SymbolInfoDouble(_Symbol, SYMBOL_BID) - openPrice) / point;
+      return (MarketBid() - openPrice) / point;
 
    if(dir == DIR_SELL)
-      return (openPrice - SymbolInfoDouble(_Symbol, SYMBOL_ASK)) / point;
+      return (openPrice - MarketAsk()) / point;
 
    return 0.0;
 }

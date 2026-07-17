@@ -16,14 +16,15 @@ void SimResetHistory()
    SimRealizedPL = 0.0;
    SimClosedProfit = 0.0;
    SimClosedLoss = 0.0;
+   TestMarketEventActive=false;
 }
 
 double SimEntryPrice(Direction dir)
 {
    if(dir == DIR_BUY)
-      return SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+      return MarketAsk();
    if(dir == DIR_SELL)
-      return SymbolInfoDouble(_Symbol, SYMBOL_BID);
+      return MarketBid();
 
    return 0.0;
 }
@@ -31,9 +32,9 @@ double SimEntryPrice(Direction dir)
 double SimExitPrice(Direction dir)
 {
    if(dir == DIR_BUY)
-      return SymbolInfoDouble(_Symbol, SYMBOL_BID);
+      return MarketBid();
    if(dir == DIR_SELL)
-      return SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+      return MarketAsk();
 
    return 0.0;
 }
@@ -161,6 +162,7 @@ int SimCountFarLikePositions(Direction expectedFarDirection)
 
 bool SimOpenPosition(Direction dir, double lot, string comment)
 {
+   if(TestMarketEventActive&&ActiveTestMarketEvent.rejectOpen) return false;
    if(dir == DIR_NONE || lot <= 0.0)
       return false;
 
@@ -190,11 +192,13 @@ bool SimOpenPosition(Direction dir, double lot, string comment)
 
 bool SimClosePositionByTicket(ulong ticket, double lot)
 {
+   if(TestMarketEventActive&&ActiveTestMarketEvent.rejectClose) return false;
    int index = SimFindIndexByTicket(ticket);
    if(index < 0 || lot <= 0.0)
       return false;
 
    double closeLot = lot;
+   if(TestMarketEventActive&&ActiveTestMarketEvent.partialFillRatio>0&&ActiveTestMarketEvent.partialFillRatio<1) closeLot*=ActiveTestMarketEvent.partialFillRatio;
    if(closeLot > SimPositions[index].lot)
       closeLot = SimPositions[index].lot;
 
