@@ -92,3 +92,21 @@ def test_random_execution_sequences_preserve_nonnegative_accounting():
     for _ in range(200):
         e=Engine(); amount=random.uniform(0,100); share=random.uniform(0,1); e.harvest(1,amount,share)
         assert e.reserve>=0 and e.carry>=0 and math.isclose(e.reserve+e.carry,amount)
+
+def open_split_atomically(engine, legs, margins, free_margin, volume_limit):
+    planned=sum(lot for _,lot in legs)
+    if sum(margins)>free_margin or planned>volume_limit: return 0
+    snapshot=engine.restart()
+    for role,lot in legs:
+        if not engine.open(role,lot,margin=0):
+            engine.positions=snapshot.positions; return 0
+    return len(legs)
+
+def test_core_individually_valid_but_basket_margin_failure_opens_zero():
+    e=Engine(); legs=[('CORE',.6),('TREND',.3),('BASE',.2)]
+    assert 40<100 and sum([40,40,40])>100
+    assert open_split_atomically(e,legs,[40,40,40],100,2)==0
+    assert set(e.positions)=={'FAR'}
+
+def test_directional_planned_volume_is_aggregated_before_open():
+    e=Engine(); assert open_split_atomically(e,[('CORE',.7),('TREND',.5),('BASE',.2)],[1,1,1],100,1.0)==0

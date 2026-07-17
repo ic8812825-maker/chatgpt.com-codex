@@ -262,11 +262,13 @@ bool EvaluateBigBasketGate(Direction directions[],double lots[],int managedPosit
    g.totalMargin=0; g.projectedMarginLevel=0; g.volumePass=true; g.marginPass=false; g.positionsPass=(managedPositions+3<=MaxManagedPositions); g.reason="";
    if(ArraySize(directions)!=3||ArraySize(lots)!=3) { g.reason="BIG_BASKET_REQUIRES_THREE_LEGS"; return false; }
    double minLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),maxLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MAX),step=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP),limit=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_LIMIT);
+   double plannedBuy=0,plannedSell=0,existingBuy=0,existingSell=0;
+   for(int j=0;j<3;j++) { if(directions[j]==DIR_BUY) plannedBuy+=lots[j]; else if(directions[j]==DIR_SELL) plannedSell+=lots[j]; else g.volumePass=false; }
+   for(int p=0;p<PositionsTotal();p++) { ulong ticket=PositionGetTicket(p); if(ticket==0||!PositionSelectByTicket(ticket)||PositionGetString(POSITION_SYMBOL)!=_Symbol) continue; if(PositionGetInteger(POSITION_TYPE)==POSITION_TYPE_BUY) existingBuy+=PositionGetDouble(POSITION_VOLUME); else existingSell+=PositionGetDouble(POSITION_VOLUME); }
+   if(limit>0&&(existingBuy+plannedBuy>limit+VolumeMismatchToleranceLots||existingSell+plannedSell>limit+VolumeMismatchToleranceLots)) g.volumePass=false;
    for(int i=0;i<3;i++)
    {
       if(lots[i]<minLot||lots[i]>maxLot||step<=0||MathAbs(lots[i]/step-MathRound(lots[i]/step))>VolumeMismatchToleranceLots) g.volumePass=false;
-      double directional=lots[i]; for(int p=0;p<PositionsTotal();p++) { ulong ticket=PositionGetTicket(p); if(ticket==0||!PositionSelectByTicket(ticket)||PositionGetString(POSITION_SYMBOL)!=_Symbol) continue; Direction d=PositionGetInteger(POSITION_TYPE)==POSITION_TYPE_BUY?DIR_BUY:DIR_SELL; if(d==directions[i]) directional+=PositionGetDouble(POSITION_VOLUME); }
-      if(limit>0&&directional>limit+VolumeMismatchToleranceLots) g.volumePass=false;
       BrokerMoneyResult m; if(!CalcProjectedMarginMoney(directions[i]==DIR_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL,lots[i],BrokerExecutionOpenPrice(directions[i]),m)) { g.reason="BIG_BASKET_MARGIN_CALC_FAILED"; return false; } g.totalMargin+=m.requiredMargin;
    }
    double equity=AccountInfoDouble(ACCOUNT_EQUITY),currentMargin=AccountInfoDouble(ACCOUNT_MARGIN); g.projectedMarginLevel=(currentMargin+g.totalMargin)>0?equity/(currentMargin+g.totalMargin)*100.0:999999;

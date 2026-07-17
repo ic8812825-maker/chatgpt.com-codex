@@ -5126,6 +5126,11 @@ bool PrepareSplitBigLevel()
    }
    LogInfo(StringFormat("BIG_RECOVERY_GATE_PASS Delta=%.2f Costs=%.2f NetExposure=%.2f",bigGate.projectedRecoveryDelta,bigGate.costs,bigGate.netBigExposure));
 
+   ProjectedCloseNetResult farNow; BigReserveCatchUpEvaluation projectedCatchUp;
+   double projectedHarvest=MathMax(0.0,bigGate.projectedRecoveryDelta),projectedReserveAdd=projectedHarvest*WorkReserveShare,projectedCarryAdd=projectedHarvest-projectedReserveAdd;
+   if(!CalculateProjectedFarCloseNet(Ctx.farLot,farNow)||!EvaluateBigReserveCatchUp(Ctx.totalReserve,Ctx.totalReserve+projectedReserveAdd,Ctx.partialFarBudgetCarry,Ctx.partialFarBudgetCarry+projectedCarryAdd,Ctx.farLot,Ctx.farLot,farNow.projectedLoss,MathMax(0.0,-farMoney.netMoney),0.0,projectedCatchUp))
+   { LogError("BIG_ATOMIC_RESERVE_PROJECTION_FAIL "+projectedCatchUp.reason); SetState(STATE_INVALID_SPLIT_GEOMETRY,"BIG_ATOMIC_RESERVE_PROJECTION_FAIL"); return false; }
+
    double actualBigGrossLot = 0.0;
    double actualReserveGrowthLot = 0.0;
    double actualNewFarLot = 0.0;
