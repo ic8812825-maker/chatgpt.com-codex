@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field, replace
 import math, random
+import pytest
 
 @dataclass
 class Position:
@@ -143,3 +144,25 @@ def test_false_reverse_selects_only_safe_best_money_option():
 
 def test_false_reverse_uses_manual_when_no_option_safe():
     assert choose_false_reverse([{'action':'WAIT','net':1,'recovery':-2,'margin':300,'reserve_impact':0}])=='MANUAL'
+
+def directional_snapshot(positions, magic, planned_buy, planned_sell):
+    managed_buy=sum(p['lot'] for p in positions if p['symbol']=='X' and p['magic']==magic and p['side']=='BUY')
+    managed_sell=sum(p['lot'] for p in positions if p['symbol']=='X' and p['magic']==magic and p['side']=='SELL')
+    broker_buy=sum(p['lot'] for p in positions if p['symbol']=='X' and p['side']=='BUY')
+    broker_sell=sum(p['lot'] for p in positions if p['symbol']=='X' and p['side']=='SELL')
+    return managed_buy,managed_sell,broker_buy,broker_sell,planned_buy,planned_sell
+
+def projected_margin(equity,current_margin,new_margin,commission,spread,slippage,buffers):
+    projected_equity=equity-commission-spread-slippage-buffers
+    projected_total_margin=current_margin+new_margin
+    return projected_equity,projected_total_margin,projected_equity/projected_total_margin*100,projected_total_margin/projected_equity*100
+
+def test_magic_volume_is_separate_from_broker_total_limit():
+    positions=[{'symbol':'X','magic':7,'side':'BUY','lot':.2},{'symbol':'X','magic':8,'side':'BUY','lot':.5},{'symbol':'Y','magic':7,'side':'BUY','lot':9}]
+    managed_buy,_,broker_buy,_,planned,_=directional_snapshot(positions,7,.4,0)
+    assert managed_buy==.2 and broker_buy==.7 and broker_buy+planned>1
+
+def test_projected_margin_includes_current_margin_and_open_costs():
+    equity,margin,level,percent=projected_margin(1000,300,250,10,20,5,15)
+    assert equity==950 and margin==550 and level==pytest.approx(172.7272727) and percent==pytest.approx(57.8947368)
+    assert level<200

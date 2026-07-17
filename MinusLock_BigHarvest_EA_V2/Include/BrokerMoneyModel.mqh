@@ -50,7 +50,8 @@ enum SmallTransitionLegRole { SMALL_LEG_BIG_TREND_CLOSE=0, SMALL_LEG_SMALL_BASE_
 struct SmallTransitionLeg { SmallTransitionLegRole role; BrokerMoneyResult money; double requestedLot; double residualLot; bool fullClose; bool includesOpenAndClose; };
 struct ReverseCyclesEvaluation { int requiredCycles; double finalFarLot; double finalFarLoss; double projectedReserve; double projectedCarry; double projectedRecoveryPL; double finalCoverage; bool pass; string reason; };
 struct ReverseCycleProjection { double compressionRatio; double transitionNet; double signedSwap; double commission; double spread; double slippage; double reserveAdd; double carryAdd; double requiredMargin; double availableMargin; };
-struct BigBasketGate { double totalMargin; double projectedMarginLevel; bool volumePass; bool marginPass; bool positionsPass; bool pass; string reason; };
+struct DirectionalVolumeSnapshot { double managedBuy; double managedSell; double brokerTotalBuy; double brokerTotalSell; double plannedBuy; double plannedSell; };
+struct BigBasketGate { DirectionalVolumeSnapshot volume; double newBasketMargin; double projectedMargin; double projectedEquityAfterOpen; double projectedMarginLevel; double projectedMarginPercent; double projectedOpenCommission; double projectedInitialSpreadLoss; double projectedSlippage; double executionBuffers; bool volumePass; bool marginPass; bool positionsPass; bool pass; string reason; };
 enum FalseReverseAction { FALSE_REVERSE_CONTINUE_WAIT=0, FALSE_REVERSE_CLOSE_REVERSE, FALSE_REVERSE_CLOSE_BASE, FALSE_REVERSE_CLOSE_TAILS, FALSE_REVERSE_CLOSE_BASKET, FALSE_REVERSE_KEEP_LOCK, FALSE_REVERSE_MANUAL };
 struct FalseReverseOption { FalseReverseAction action; double projectedNet; double projectedRecoveryPL; double reserveImpact; double projectedMarginLevel; double remainingExposure; bool safe; };
 struct FalseReverseEvaluation { FalseReverseOption options[6]; FalseReverseAction selected; bool automaticAllowed; string reason; };
@@ -260,20 +261,23 @@ bool EvaluateSmallTransition(SmallTransitionLeg &legs[],double oldFarLot,double 
 
 bool EvaluateBigBasketGate(Direction directions[],double lots[],int managedPositions,BigBasketGate &g)
 {
-   g.totalMargin=0; g.projectedMarginLevel=0; g.volumePass=true; g.marginPass=false; g.positionsPass=(managedPositions+3<=MaxManagedPositions); g.reason="";
+   g.newBasketMargin=0; g.projectedMargin=0; g.projectedEquityAfterOpen=0; g.projectedMarginLevel=0; g.projectedMarginPercent=0; g.projectedOpenCommission=0; g.projectedInitialSpreadLoss=0; g.projectedSlippage=0; g.executionBuffers=0; g.volumePass=true; g.marginPass=false; g.positionsPass=(managedPositions+3<=MaxManagedPositions); g.reason="";
+   g.volume.managedBuy=0;g.volume.managedSell=0;g.volume.brokerTotalBuy=0;g.volume.brokerTotalSell=0;g.volume.plannedBuy=0;g.volume.plannedSell=0;
    if(ArraySize(directions)!=3||ArraySize(lots)!=3) { g.reason="BIG_BASKET_REQUIRES_THREE_LEGS"; return false; }
    double minLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),maxLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MAX),step=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP),limit=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_LIMIT);
-   double plannedBuy=0,plannedSell=0,existingBuy=0,existingSell=0;
-   for(int j=0;j<3;j++) { if(directions[j]==DIR_BUY) plannedBuy+=lots[j]; else if(directions[j]==DIR_SELL) plannedSell+=lots[j]; else g.volumePass=false; }
-   for(int p=0;p<PositionsTotal();p++) { ulong ticket=PositionGetTicket(p); if(ticket==0||!PositionSelectByTicket(ticket)||PositionGetString(POSITION_SYMBOL)!=_Symbol) continue; if(PositionGetInteger(POSITION_TYPE)==POSITION_TYPE_BUY) existingBuy+=PositionGetDouble(POSITION_VOLUME); else existingSell+=PositionGetDouble(POSITION_VOLUME); }
-   if(limit>0&&(existingBuy+plannedBuy>limit+VolumeMismatchToleranceLots||existingSell+plannedSell>limit+VolumeMismatchToleranceLots)) g.volumePass=false;
+   for(int j=0;j<3;j++) { if(directions[j]==DIR_BUY) g.volume.plannedBuy+=lots[j]; else if(directions[j]==DIR_SELL) g.volume.plannedSell+=lots[j]; else g.volumePass=false; }
+   for(int p=0;p<PositionsTotal();p++) { ulong ticket=PositionGetTicket(p); if(ticket==0||!PositionSelectByTicket(ticket)||PositionGetString(POSITION_SYMBOL)!=_Symbol) continue; double lot=PositionGetDouble(POSITION_VOLUME); bool buy=PositionGetInteger(POSITION_TYPE)==POSITION_TYPE_BUY; if(buy) g.volume.brokerTotalBuy+=lot; else g.volume.brokerTotalSell+=lot; if((ulong)PositionGetInteger(POSITION_MAGIC)==MagicNumber) { if(buy) g.volume.managedBuy+=lot; else g.volume.managedSell+=lot; } }
+   if(limit>0&&(g.volume.brokerTotalBuy+g.volume.plannedBuy>limit+VolumeMismatchToleranceLots||g.volume.brokerTotalSell+g.volume.plannedSell>limit+VolumeMismatchToleranceLots)) g.volumePass=false;
+   double bid=SymbolInfoDouble(_Symbol,SYMBOL_BID),ask=SymbolInfoDouble(_Symbol,SYMBOL_ASK),point=SymbolInfoDouble(_Symbol,SYMBOL_POINT),spreadPoints=(point>0?(ask-bid)/point:0);
    for(int i=0;i<3;i++)
    {
       if(lots[i]<minLot||lots[i]>maxLot||step<=0||MathAbs(lots[i]/step-MathRound(lots[i]/step))>VolumeMismatchToleranceLots) g.volumePass=false;
-      BrokerMoneyResult m; if(!CalcProjectedMarginMoney(directions[i]==DIR_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL,lots[i],BrokerExecutionOpenPrice(directions[i]),m)) { g.reason="BIG_BASKET_MARGIN_CALC_FAILED"; return false; } g.totalMargin+=m.requiredMargin;
+      double openPrice=BrokerExecutionOpenPrice(directions[i]); BrokerMoneyResult m; if(!CalcProjectedMarginMoney(directions[i]==DIR_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL,lots[i],openPrice,m)) { g.reason="BIG_BASKET_MARGIN_CALC_FAILED"; return false; } g.newBasketMargin+=m.requiredMargin;
+      double commission=0,margin=m.requiredMargin; string commissionReason=""; if(!CalcProjectedOpenCommission(lots[i],openPrice,openPrice,margin,commission,commissionReason)) { g.reason=commissionReason; return false; } g.projectedOpenCommission+=commission;
+      double spreadCost=BrokerPointsCostMoney(lots[i],spreadPoints),slippage=BrokerPointsCostMoney(lots[i],MaxSlippagePoints*SlippageSafetyMultiplier); if(spreadCost<0||slippage<0) { g.reason="BIG_BASKET_OPEN_COST_FAILED"; return false; } g.projectedInitialSpreadLoss+=spreadCost; g.projectedSlippage+=slippage; g.executionBuffers+=ExecutionBufferPerOrderMoney+ExecutionBufferPerPositionMoney;
    }
-   double equity=AccountInfoDouble(ACCOUNT_EQUITY),currentMargin=AccountInfoDouble(ACCOUNT_MARGIN); g.projectedMarginLevel=(currentMargin+g.totalMargin)>0?equity/(currentMargin+g.totalMargin)*100.0:999999;
-   g.marginPass=g.projectedMarginLevel>=MinimumSafeMarginLevel&&(equity>0?g.totalMargin/equity*100.0:999999)<=MaxAccountMarginPercent;
+   g.executionBuffers+=ExecutionBufferPerBasketMoney; double equity=AccountInfoDouble(ACCOUNT_EQUITY),currentMargin=AccountInfoDouble(ACCOUNT_MARGIN); g.projectedEquityAfterOpen=equity-g.projectedOpenCommission-g.projectedInitialSpreadLoss-g.projectedSlippage-g.executionBuffers; g.projectedMargin=currentMargin+g.newBasketMargin; g.projectedMarginLevel=g.projectedMargin>0?g.projectedEquityAfterOpen/g.projectedMargin*100.0:999999; g.projectedMarginPercent=g.projectedEquityAfterOpen>0?g.projectedMargin/g.projectedEquityAfterOpen*100.0:999999;
+   g.marginPass=g.projectedEquityAfterOpen>0&&g.projectedMarginLevel>=MinimumSafeMarginLevel&&g.projectedMarginPercent<=MaxAccountMarginPercent;
    g.pass=g.volumePass&&g.marginPass&&g.positionsPass; if(!g.pass&&g.reason=="") g.reason=!g.volumePass?"BIG_BASKET_VOLUME_FAIL":(!g.marginPass?"BIG_BASKET_MARGIN_FAIL":"BIG_BASKET_POSITION_LIMIT"); return g.pass;
 }
 
