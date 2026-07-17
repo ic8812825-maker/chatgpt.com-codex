@@ -5418,12 +5418,32 @@ void ProcessReverseOpenDynamicSmall()
    if(Ctx.reverseSmallTicket!=0||Ctx.reverseSmallOpened) { SetState(STATE_REVERSE_WAIT_FAR_TOUCH,"ReverseSmall exactly-once restored"); return; }
    if(OpenSplitRole(ROLE_REVERSE_SMALL,Ctx.reverseSmallDirection,Ctx.reverseSmallLot,STATE_REVERSE_WAIT_FAR_TOUCH,STATE_REVERSE_SMALL_OPEN_FAILED)) Ctx.reverseSmallOpened=true;
 }
+bool EvaluateCurrentFalseReverse(FalseReverseEvaluation &evaluation)
+{
+   FalseReverseOption candidates[6]; double margin=AccountInfoDouble(ACCOUNT_MARGIN_LEVEL); if(margin<=0) margin=999999; double realized=AccountInfoDouble(ACCOUNT_BALANCE)-Ctx.cycleStartBalance;
+   BrokerMoneyResult reverseClose,baseClose,farClose,coreClose; bool valid=CalcProjectedCloseNetMoney(Ctx.reverseSmallDirection,Ctx.reverseSmallLot,Ctx.reverseSmallOpenPrice,CurrentPriceForDirectionClose(Ctx.reverseSmallDirection),reverseClose)&&CalcProjectedCloseNetMoney(Ctx.smallBaseDirection,Ctx.smallBaseLot,Ctx.smallBaseOpenPrice,CurrentPriceForDirectionClose(Ctx.smallBaseDirection),baseClose)&&CalcProjectedCloseNetMoney(Ctx.farDirection,Ctx.farLot,Ctx.farOpenPrice,CurrentPriceForDirectionClose(Ctx.farDirection),farClose)&&CalcProjectedCloseNetMoney(Ctx.bigCoreDirection,Ctx.bigCoreLot,Ctx.bigCoreOpenPrice,CurrentPriceForDirectionClose(Ctx.bigCoreDirection),coreClose);
+   if(!valid) { evaluation.reason="FALSE_REVERSE_MONEY_UNAVAILABLE"; return false; }
+   double net[6]={Ctx.projectedTransitionNet,reverseClose.netMoney,baseClose.netMoney,reverseClose.netMoney+baseClose.netMoney,reverseClose.netMoney+baseClose.netMoney+farClose.netMoney+coreClose.netMoney,0};
+   double exposure[6]={Ctx.farLot+Ctx.smallBaseLot+Ctx.reverseSmallLot-Ctx.bigCoreLot,Ctx.farLot+Ctx.smallBaseLot-Ctx.bigCoreLot,Ctx.farLot+Ctx.reverseSmallLot-Ctx.bigCoreLot,Ctx.farLot-Ctx.bigCoreLot,0,Ctx.farLot+Ctx.smallBaseLot+Ctx.reverseSmallLot-Ctx.bigCoreLot};
+   for(int i=0;i<6;i++) { candidates[i].action=(FalseReverseAction)i; candidates[i].projectedNet=net[i]; candidates[i].projectedRecoveryPL=realized+net[i]; candidates[i].reserveImpact=0; candidates[i].projectedMarginLevel=margin; candidates[i].remainingExposure=exposure[i]; }
+   return EvaluateFalseReverseMoney(candidates,MinimumRecoveryProfitMoney,evaluation);
+}
 void ProcessReverseWaitFarTouch()
 {
    double price=Ctx.farDirection==DIR_BUY?SymbolInfoDouble(_Symbol,SYMBOL_ASK):SymbolInfoDouble(_Symbol,SYMBOL_BID);
    bool touched=Ctx.farDirection==DIR_BUY?price>=Ctx.farOpenPrice:price<=Ctx.farOpenPrice;
    bool falseReverse=Ctx.bigCoreDirection==DIR_BUY?SymbolInfoDouble(_Symbol,SYMBOL_BID)>=Ctx.bigCoreOpenPrice:SymbolInfoDouble(_Symbol,SYMBOL_ASK)<=Ctx.bigCoreOpenPrice;
-   if(falseReverse&&!touched) { LogError("FALSE_SMALL_REVERSE_BLOCKED SecondReverseSmall=NO SecondFar=NO"); SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"FALSE_REVERSE_EMERGENCY_REVIEW_REQUIRED"); return; }
+   if(falseReverse&&!touched)
+   {
+      FalseReverseEvaluation decision; if(!EvaluateCurrentFalseReverse(decision)) { LogError("FALSE_SMALL_REVERSE_NO_SAFE_OPTION "+decision.reason); SetState(STATE_MANUAL_INTERVENTION_REQUIRED,decision.reason); return; }
+      LogInfo(StringFormat("FALSE_REVERSE_DECISION Action=%d Reason=%s",(int)decision.selected,decision.reason));
+      if(decision.selected==FALSE_REVERSE_CONTINUE_WAIT||decision.selected==FALSE_REVERSE_KEEP_LOCK) return;
+      if(decision.selected==FALSE_REVERSE_CLOSE_REVERSE) { SetState(STATE_SMALL_CLOSE_DYNAMIC_SMALL,"FALSE_REVERSE_CLOSE_REVERSE"); return; }
+      if(decision.selected==FALSE_REVERSE_CLOSE_BASE) { SetState(STATE_SMALL_CLOSE_SMALL_BASE,"FALSE_REVERSE_CLOSE_BASE"); return; }
+      if(decision.selected==FALSE_REVERSE_CLOSE_TAILS) { SetState(STATE_SMALL_CLOSE_SMALL_BASE,"FALSE_REVERSE_CLOSE_TAILS"); return; }
+      if(decision.selected==FALSE_REVERSE_CLOSE_BASKET) { SetState(STATE_FINAL_CLOSE,"FALSE_REVERSE_CLOSE_BASKET"); return; }
+      SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"FALSE_REVERSE_MANUAL"); return;
+   }
    if(touched) SetState(STATE_SMALL_CLOSE_OLD_FAR,"Old Far touch confirmed for Split Small transition");
 }
 

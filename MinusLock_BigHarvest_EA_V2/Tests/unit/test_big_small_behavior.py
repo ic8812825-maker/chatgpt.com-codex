@@ -132,3 +132,14 @@ def test_harvest_resume_after_every_phase_is_exactly_once():
         if crash in {'CARRY_UPDATED','DISTRIBUTED'}: tx.carry=4
         restored=replace(tx,ledger=list(tx.ledger)).resume(7,10,6,4).resume(7,10,6,4)
         assert restored.reserve==6 and restored.carry==4 and restored.ledger==[7]
+
+def choose_false_reverse(options, minimum=1, margin_min=200):
+    safe=[o for o in options if o['recovery']>=minimum and o['margin']>=margin_min and o['reserve_impact']<=0]
+    return max(safe,key=lambda o:o['net'])['action'] if safe else 'MANUAL'
+
+def test_false_reverse_selects_only_safe_best_money_option():
+    options=[{'action':'WAIT','net':-2,'recovery':2,'margin':300,'reserve_impact':0}, {'action':'CLOSE_REVERSE','net':1,'recovery':3,'margin':300,'reserve_impact':0}, {'action':'CLOSE_ALL','net':5,'recovery':-1,'margin':300,'reserve_impact':0}]
+    assert choose_false_reverse(options)=='CLOSE_REVERSE'
+
+def test_false_reverse_uses_manual_when_no_option_safe():
+    assert choose_false_reverse([{'action':'WAIT','net':1,'recovery':-2,'margin':300,'reserve_impact':0}])=='MANUAL'

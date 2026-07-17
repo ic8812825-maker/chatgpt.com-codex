@@ -43,6 +43,8 @@ void OnStart()
  CalcSignedSwapCalendar(-2.0,monday,monday,3,0,swap); Check("CLOSE_NOW_NO_FUTURE_SWAP",swap.expectedSignedSwap==0);
  CommissionBaseResult cb; CalcCommissionBases(1,100000,1.10,1.20,0.01,COMMISSION_PERCENT_TURNOVER,true,cb); Check("TURNOVER_OPEN_CLOSE",cb.openCommission==11&&cb.closeCommission==12&&cb.totalTurnover==230000);
  CalcCommissionBases(1,100000,1.10,1.20,0.01,COMMISSION_PERCENT_NOTIONAL,true,cb); Check("NOTIONAL_ONE_SIDE",cb.openCommission==11&&cb.closeCommission==0);
+ FalseReverseOption options[6]; for(int q=0;q<6;q++){options[q].action=(FalseReverseAction)q;options[q].projectedNet=-q;options[q].projectedRecoveryPL=-1;options[q].reserveImpact=0;options[q].projectedMarginLevel=MinimumSafeMarginLevel;options[q].remainingExposure=1;} options[2].projectedRecoveryPL=2;options[2].projectedNet=1;FalseReverseEvaluation falseReverse; Check("FALSE_REVERSE_SAFE_OPTION",EvaluateFalseReverseMoney(options,MinimumRecoveryProfitMoney,falseReverse)&&falseReverse.selected==FALSE_REVERSE_CLOSE_BASE);
+ for(int u=0;u<6;u++) options[u].projectedRecoveryPL=-10; Check("FALSE_REVERSE_MANUAL_FALLBACK",!EvaluateFalseReverseMoney(options,MinimumRecoveryProfitMoney,falseReverse)&&falseReverse.selected==FALSE_REVERSE_MANUAL);
  Check("REAL_TRADING_DISABLED",!AllowRealTrading);
  PrintFormat("BIG_SMALL_SCENARIO_TEST %s Passed=%d Total=%d",passed==total?"PASS":"FAIL",passed,total);
 }
