@@ -41,6 +41,7 @@ struct SignedSwapResult
    string dailyBreakdown;
    string reason;
 };
+struct CommissionBaseResult { double notionalOpen; double notionalClose; double openTurnover; double closeTurnover; double totalTurnover; double openCommission; double closeCommission; bool valid; string reason; };
 
 struct BigRecoveryEvaluation { bool calculationValid; double netBigExposure; double projectedRecoveryDelta; double costs; bool geometryPass; bool recoveryPass; string reason; };
 struct BigReserveCatchUpEvaluation { double reserveBefore; double reserveAfter; double carryBefore; double carryAfter; double farLotBefore; double farLotAfter; double farLossBefore; double farLossAfter; double partialFarActualCost; double coverageBefore; double coverageAfter; bool pass; string reason; };
@@ -110,6 +111,16 @@ bool CalcPercentCommissionSide(double lot,double price,double otherPrice,double 
    return MathIsValidNumber(value)&&value>=0;
 }
 
+bool CalcCommissionBases(double lot,double contractSize,double openPrice,double closePrice,double percent,CommissionPercentBase mode,bool chargeNotionalOnOpen,CommissionBaseResult &r)
+{
+   r.valid=false; r.reason=""; r.notionalOpen=lot*contractSize*openPrice; r.notionalClose=lot*contractSize*closePrice; r.openTurnover=r.notionalOpen; r.closeTurnover=r.notionalClose; r.totalTurnover=r.openTurnover+r.closeTurnover; r.openCommission=0; r.closeCommission=0;
+   if(lot<=0||contractSize<=0||openPrice<=0||closePrice<=0||percent<0) { r.reason="COMMISSION_BASE_INVALID"; return false; }
+   if(mode==COMMISSION_PERCENT_NOTIONAL) { if(chargeNotionalOnOpen) r.openCommission=r.notionalOpen*percent/100.0; else r.closeCommission=r.notionalClose*percent/100.0; }
+   else if(mode==COMMISSION_PERCENT_TURNOVER) { r.openCommission=r.openTurnover*percent/100.0; r.closeCommission=r.closeTurnover*percent/100.0; }
+   else { r.reason="COMMISSION_BASE_UNSUPPORTED"; return false; }
+   r.valid=true; return true;
+}
+
 bool CalcProjectedOpenCommission(double lot,double openPrice,double closePrice,double margin,double &value,string &reason)
 {
    if(CommissionPerLotPerSide>0) { value=lot*CommissionPerLotPerSide; return true; }
@@ -153,6 +164,14 @@ bool CalcSignedBrokerSwap(Direction direction,double lot,datetime openTime,datet
       result.dailyBreakdown+=StringFormat("%04d-%02d-%02d:x%d;",dt.year,dt.mon,dt.day,multiplier);
    }
    result.worstCaseSwapCost=MathMax(0.0,-result.expectedSignedSwap); result.calculationValid=true; return true;
+}
+
+bool CalcSignedSwapCalendar(double signedDailyMoney,datetime openTime,datetime closeTime,int rolloverDay,double additionalBuffer,SignedSwapResult &result)
+{
+   result.calculationValid=false; result.expectedSignedSwap=0; result.worstCaseSwapCost=0; result.additionalSwapBuffer=MathMax(0.0,additionalBuffer); result.chargedDays=0; result.rolloverMultipliers=0; result.dailyBreakdown=""; result.reason="";
+   if(closeTime<=openTime) { result.calculationValid=true; return true; }
+   datetime cursor=openTime; while(cursor<closeTime) { cursor+=86400; if(cursor>closeTime) break; MqlDateTime dt; TimeToStruct(cursor,dt); if(dt.day_of_week==0||dt.day_of_week==6) continue; int multiplier=(dt.day_of_week==rolloverDay?3:1); result.expectedSignedSwap+=signedDailyMoney*multiplier; result.chargedDays++; result.rolloverMultipliers+=multiplier; result.dailyBreakdown+=StringFormat("%04d-%02d-%02d:x%d;",dt.year,dt.mon,dt.day,multiplier); }
+   result.worstCaseSwapCost=MathMax(0.0,-result.expectedSignedSwap)+result.additionalSwapBuffer; result.calculationValid=true; return true;
 }
 
 bool CalcProjectedPositionNetMoneyForHolding(Direction direction,double lot,double openPrice,double closePrice,bool includeOpenCommission,bool includeCloseCommission,int holdingDays,double accruedSwap,BrokerMoneyResult &r)

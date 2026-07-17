@@ -42,3 +42,12 @@ def test_finite_reverse_requires_money_and_lot_together():
     cycles,coverage=finite(1,100,20,0,0,.5,5,20,1,.2)
     assert cycles is not None and coverage>=1
     assert finite(1,100,0,0,-20,.5,0,0,5,.2)[0] is None
+
+def test_worst_case_buffer_is_separate_from_signed_swap():
+    signed=-6.0; additional=1.5
+    worst=max(0,-signed)+additional
+    assert signed==-6 and worst==7.5
+
+def test_close_now_never_adds_future_swap():
+    now=datetime(2026,7,13,12)
+    assert signed_swap(5,now,now)==(0,[])

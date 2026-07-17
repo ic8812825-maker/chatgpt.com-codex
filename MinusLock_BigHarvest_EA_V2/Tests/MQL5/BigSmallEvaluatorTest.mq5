@@ -33,6 +33,13 @@ void OnStart()
  BrokerMoneyResult raw[5]; for(int j=0;j<5;j++) raw[j]=legs[j].money; BrokerMoneyResult basket; Check("BASKET_COMPONENTS",CalcProjectedBasketNetMoney(raw,5,basket)&&basket.grossProfit==20);
  Check("COMMISSION_CONFLICT",CommissionPerLotPerSide==0||CommissionPerLotRoundTurn==0);
  Check("GEOMETRY_MODE_EXCLUSIVE",UseSplitBigGeometry!=UseLegacySingleBigGeometry);
+ SignedSwapResult swap; datetime monday=D'2026.07.13 00:00';
+ CalcSignedSwapCalendar(2.0,monday,monday+86400,3,1.0,swap); Check("BUY_POSITIVE_SWAP",swap.expectedSignedSwap==2.0&&swap.additionalSwapBuffer==1.0);
+ CalcSignedSwapCalendar(-2.0,monday,monday+86400,3,1.0,swap); Check("BUY_NEGATIVE_SWAP",swap.expectedSignedSwap==-2.0&&swap.worstCaseSwapCost==3.0);
+ CalcSignedSwapCalendar(2.0,monday,monday+3*86400,3,0,swap); Check("TRIPLE_SWAP",swap.rolloverMultipliers==5&&swap.expectedSignedSwap==10.0);
+ CalcSignedSwapCalendar(-2.0,monday,monday,3,0,swap); Check("CLOSE_NOW_NO_FUTURE_SWAP",swap.expectedSignedSwap==0);
+ CommissionBaseResult cb; CalcCommissionBases(1,100000,1.10,1.20,0.01,COMMISSION_PERCENT_TURNOVER,true,cb); Check("TURNOVER_OPEN_CLOSE",cb.openCommission==11&&cb.closeCommission==12&&cb.totalTurnover==230000);
+ CalcCommissionBases(1,100000,1.10,1.20,0.01,COMMISSION_PERCENT_NOTIONAL,true,cb); Check("NOTIONAL_ONE_SIDE",cb.openCommission==11&&cb.closeCommission==0);
  Check("REAL_TRADING_DISABLED",!AllowRealTrading);
  PrintFormat("BIG_SMALL_SCENARIO_TEST %s Passed=%d Total=%d",passed==total?"PASS":"FAIL",passed,total);
 }
