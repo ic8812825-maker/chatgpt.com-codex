@@ -882,6 +882,7 @@ void SaveState()
    GlobalVariableSet(StateKey("HarvestReserveAdd"),Ctx.harvestReserveAdd); GlobalVariableSet(StateKey("HarvestPartialBudgetAdd"),Ctx.harvestPartialBudgetAdd); GlobalVariableSet(StateKey("HarvestCarryBefore"),Ctx.harvestCarryBefore); GlobalVariableSet(StateKey("HarvestCarryAfter"),Ctx.harvestCarryAfter);
    GlobalVariableSet(StateKey("ActualPartialFarCost"),Ctx.actualPartialFarCost);
    GlobalVariableSet(StateKey("ActualSmallTransitionNet"), Ctx.actualSmallTransitionNet);
+   GlobalVariableSet(StateKey("FalseReverseAction"),(double)Ctx.falseReverseAction);SaveStateUlong64("FalseReverseExpectedTicket",Ctx.falseReverseExpectedTicket);GlobalVariableSet(StateKey("FalseReverseExpectedLot"),Ctx.falseReverseExpectedLot);
    GlobalVariableSet(StateKey("SmallOperationAuditCount"),(double)Ctx.smallOperationAuditCount);
    for(int auditIndex=0;auditIndex<5;auditIndex++) { string ap=StringFormat("SmallAudit_%d_",auditIndex); SmallOperationAudit a=Ctx.smallOperationAudits[auditIndex]; SaveStateUlong64(ap+"OperationId",a.operationId); GlobalVariableSet(StateKey(ap+"LegRole"),(double)a.legRole); GlobalVariableSet(StateKey(ap+"RequestedLot"),a.requestedLot); GlobalVariableSet(StateKey(ap+"FilledLot"),a.filledLot); GlobalVariableSet(StateKey(ap+"ResidualLot"),a.residualLot); GlobalVariableSet(StateKey(ap+"ProjectedNet"),a.projectedNet); GlobalVariableSet(StateKey(ap+"ActualNet"),a.actualNet); GlobalVariableSet(StateKey(ap+"ProjectedCommission"),a.projectedCommission); GlobalVariableSet(StateKey(ap+"ActualCommission"),a.actualCommission); GlobalVariableSet(StateKey(ap+"ProjectedSwap"),a.projectedSwap); GlobalVariableSet(StateKey(ap+"ActualSwap"),a.actualSwap); GlobalVariableSet(StateKey(ap+"ProjectedFee"),a.projectedFee); GlobalVariableSet(StateKey(ap+"ActualFee"),a.actualFee); SaveStateUlong64(ap+"Ticket",a.ticket); SaveStateUlong64(ap+"Identifier",a.identifier); SaveStateLong64(ap+"DealFrom",a.dealFrom); SaveStateLong64(ap+"DealTo",a.dealTo); GlobalVariableSet(StateKey(ap+"Completed"),a.completed?1.0:0.0); }
    GlobalVariableSet(StateKey("BigGrossRatio"), Ctx.bigGrossRatio);
@@ -2169,6 +2170,7 @@ bool RecoverState()
    if(GetStateDouble("HarvestReserveAdd",saved)) Ctx.harvestReserveAdd=saved; if(GetStateDouble("HarvestPartialBudgetAdd",saved)) Ctx.harvestPartialBudgetAdd=saved; if(GetStateDouble("HarvestCarryBefore",saved)) Ctx.harvestCarryBefore=saved; if(GetStateDouble("HarvestCarryAfter",saved)) Ctx.harvestCarryAfter=saved;
    if(GetStateDouble("ActualPartialFarCost",saved)) Ctx.actualPartialFarCost=saved;
    if(GetStateDouble("ActualSmallTransitionNet", saved)) Ctx.actualSmallTransitionNet = saved;
+   if(GetStateDouble("FalseReverseAction",saved))Ctx.falseReverseAction=(int)saved;LoadOptionalStateUlong64("FalseReverseExpectedTicket",Ctx.falseReverseExpectedTicket);if(GetStateDouble("FalseReverseExpectedLot",saved))Ctx.falseReverseExpectedLot=saved;
    if(GetStateDouble("SmallOperationAuditCount",saved)) Ctx.smallOperationAuditCount=(int)saved;
    for(int auditIndex=0;auditIndex<5;auditIndex++) { string ap=StringFormat("SmallAudit_%d_",auditIndex); SmallOperationAudit a; LoadOptionalStateUlong64(ap+"OperationId",a.operationId); if(GetStateDouble(ap+"LegRole",saved))a.legRole=(int)saved; if(GetStateDouble(ap+"RequestedLot",saved))a.requestedLot=saved; if(GetStateDouble(ap+"FilledLot",saved))a.filledLot=saved; if(GetStateDouble(ap+"ResidualLot",saved))a.residualLot=saved; if(GetStateDouble(ap+"ProjectedNet",saved))a.projectedNet=saved; if(GetStateDouble(ap+"ActualNet",saved))a.actualNet=saved; if(GetStateDouble(ap+"ProjectedCommission",saved))a.projectedCommission=saved; if(GetStateDouble(ap+"ActualCommission",saved))a.actualCommission=saved; if(GetStateDouble(ap+"ProjectedSwap",saved))a.projectedSwap=saved; if(GetStateDouble(ap+"ActualSwap",saved))a.actualSwap=saved; if(GetStateDouble(ap+"ProjectedFee",saved))a.projectedFee=saved; if(GetStateDouble(ap+"ActualFee",saved))a.actualFee=saved; LoadOptionalStateUlong64(ap+"Ticket",a.ticket); LoadOptionalStateUlong64(ap+"Identifier",a.identifier); LoadOptionalStateLong64(ap+"DealFrom",a.dealFrom); LoadOptionalStateLong64(ap+"DealTo",a.dealTo); if(GetStateDouble(ap+"Completed",saved))a.completed=saved>0.5; Ctx.smallOperationAudits[auditIndex]=a; }
    if(GetStateDouble("BigGrossRatio", saved)) Ctx.bigGrossRatio = saved;
@@ -5464,13 +5466,15 @@ void ProcessReverseOpenDynamicSmall()
 }
 bool EvaluateCurrentFalseReverse(FalseReverseEvaluation &evaluation)
 {
-   FalseReverseOption candidates[6]; double margin=AccountInfoDouble(ACCOUNT_MARGIN_LEVEL); if(margin<=0) margin=999999; double realized=AccountInfoDouble(ACCOUNT_BALANCE)-Ctx.cycleStartBalance;
+   FalseReverseOption candidates[6]; double realized=Ctx.realCyclePL,currentMargin=AccountInfoDouble(ACCOUNT_MARGIN),equity=AccountInfoDouble(ACCOUNT_EQUITY);
    BrokerMoneyResult reverseClose,baseClose,farClose,coreClose; bool valid=CalcProjectedCloseNetMoney(Ctx.reverseSmallDirection,Ctx.reverseSmallLot,Ctx.reverseSmallOpenPrice,CurrentPriceForDirectionClose(Ctx.reverseSmallDirection),reverseClose)&&CalcProjectedCloseNetMoney(Ctx.smallBaseDirection,Ctx.smallBaseLot,Ctx.smallBaseOpenPrice,CurrentPriceForDirectionClose(Ctx.smallBaseDirection),baseClose)&&CalcProjectedCloseNetMoney(Ctx.farDirection,Ctx.farLot,Ctx.farOpenPrice,CurrentPriceForDirectionClose(Ctx.farDirection),farClose)&&CalcProjectedCloseNetMoney(Ctx.bigCoreDirection,Ctx.bigCoreLot,Ctx.bigCoreOpenPrice,CurrentPriceForDirectionClose(Ctx.bigCoreDirection),coreClose);
    if(!valid) { evaluation.reason="FALSE_REVERSE_MONEY_UNAVAILABLE"; return false; }
-   double net[6]={Ctx.projectedTransitionNet,reverseClose.netMoney,baseClose.netMoney,reverseClose.netMoney+baseClose.netMoney,reverseClose.netMoney+baseClose.netMoney+farClose.netMoney+coreClose.netMoney,0};
+   BrokerMoneyResult reverseMargin,baseMargin,farMargin,coreMargin;if(!CalcProjectedMarginMoney(Ctx.reverseSmallDirection==DIR_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL,Ctx.reverseSmallLot,BrokerExecutionOpenPrice(Ctx.reverseSmallDirection),reverseMargin)||!CalcProjectedMarginMoney(Ctx.smallBaseDirection==DIR_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL,Ctx.smallBaseLot,BrokerExecutionOpenPrice(Ctx.smallBaseDirection),baseMargin)||!CalcProjectedMarginMoney(Ctx.farDirection==DIR_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL,Ctx.farLot,BrokerExecutionOpenPrice(Ctx.farDirection),farMargin)||!CalcProjectedMarginMoney(Ctx.bigCoreDirection==DIR_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL,Ctx.bigCoreLot,BrokerExecutionOpenPrice(Ctx.bigCoreDirection),coreMargin)){evaluation.reason="FALSE_REVERSE_MARGIN_UNAVAILABLE";return false;}
+   double legNet[4]={reverseClose.netMoney,baseClose.netMoney,farClose.netMoney,coreClose.netMoney},legMargin[4]={reverseMargin.requiredMargin,baseMargin.requiredMargin,farMargin.requiredMargin,coreMargin.requiredMargin};
+   int masks[6]={0,1,2,3,15,0};EAState nextStates[6]={STATE_REVERSE_WAIT_FAR_TOUCH,STATE_FALSE_REVERSE_CLOSE_REVERSE,STATE_FALSE_REVERSE_CLOSE_BASE,STATE_FALSE_REVERSE_CLOSE_TAILS_REVERSE,STATE_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_COMPLETED};
    double exposure[6]={Ctx.farLot+Ctx.smallBaseLot+Ctx.reverseSmallLot-Ctx.bigCoreLot,Ctx.farLot+Ctx.smallBaseLot-Ctx.bigCoreLot,Ctx.farLot+Ctx.reverseSmallLot-Ctx.bigCoreLot,Ctx.farLot-Ctx.bigCoreLot,0,Ctx.farLot+Ctx.smallBaseLot+Ctx.reverseSmallLot-Ctx.bigCoreLot};
-   for(int i=0;i<6;i++) { candidates[i].action=(FalseReverseAction)i; candidates[i].projectedNet=net[i]; candidates[i].projectedRecoveryPL=realized+net[i]; candidates[i].reserveImpact=0; candidates[i].projectedMarginLevel=margin; candidates[i].remainingExposure=exposure[i]; }
-   return EvaluateFalseReverseMoney(candidates,MinimumRecoveryProfitMoney,evaluation);
+   for(int i=0;i<6;i++) { double closed=0,floating=0,released=0;for(int leg=0;leg<4;leg++){if((masks[i]&(1<<leg))!=0){closed+=legNet[leg];released+=legMargin[leg];}else floating+=legNet[leg];}candidates[i].action=(FalseReverseAction)i;candidates[i].projectedClosedNet=closed;candidates[i].projectedFloatingNetRemaining=floating;candidates[i].realizedRecoveryPL=realized;candidates[i].projectedNet=closed+floating;candidates[i].projectedRecoveryPL=realized+closed+floating;candidates[i].reserveImpact=MathMax(0.0,-closed);candidates[i].projectedMarginReleased=released;candidates[i].projectedMarginAfter=MathMax(0.0,currentMargin-released);double projectedEquity=equity+closed;candidates[i].projectedMarginLevel=candidates[i].projectedMarginAfter>0?projectedEquity/candidates[i].projectedMarginAfter*100.0:999999;candidates[i].remainingExposure=exposure[i];candidates[i].secondTailRisk=(i==0);candidates[i].nextState=nextStates[i]; }
+   return EvaluateFalseReverseMoney(candidates,MinimumRecoveryProfitMoney,Ctx.totalReserve,evaluation);
 }
 void ProcessReverseWaitFarTouch()
 {
@@ -5479,17 +5483,26 @@ void ProcessReverseWaitFarTouch()
    bool falseReverse=Ctx.bigCoreDirection==DIR_BUY?SymbolInfoDouble(_Symbol,SYMBOL_BID)>=Ctx.bigCoreOpenPrice:SymbolInfoDouble(_Symbol,SYMBOL_ASK)<=Ctx.bigCoreOpenPrice;
    if(falseReverse&&!touched)
    {
-      FalseReverseEvaluation decision; if(!EvaluateCurrentFalseReverse(decision)) { LogError("FALSE_SMALL_REVERSE_NO_SAFE_OPTION "+decision.reason); SetState(STATE_MANUAL_INTERVENTION_REQUIRED,decision.reason); return; }
-      LogInfo(StringFormat("FALSE_REVERSE_DECISION Action=%d Reason=%s",(int)decision.selected,decision.reason));
-      if(decision.selected==FALSE_REVERSE_CONTINUE_WAIT||decision.selected==FALSE_REVERSE_KEEP_LOCK) return;
-      if(decision.selected==FALSE_REVERSE_CLOSE_REVERSE) { SetState(STATE_SMALL_CLOSE_DYNAMIC_SMALL,"FALSE_REVERSE_CLOSE_REVERSE"); return; }
-      if(decision.selected==FALSE_REVERSE_CLOSE_BASE) { SetState(STATE_SMALL_CLOSE_SMALL_BASE,"FALSE_REVERSE_CLOSE_BASE"); return; }
-      if(decision.selected==FALSE_REVERSE_CLOSE_TAILS) { SetState(STATE_SMALL_CLOSE_SMALL_BASE,"FALSE_REVERSE_CLOSE_TAILS"); return; }
-      if(decision.selected==FALSE_REVERSE_CLOSE_BASKET) { SetState(STATE_FINAL_CLOSE,"FALSE_REVERSE_CLOSE_BASKET"); return; }
-      SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"FALSE_REVERSE_MANUAL"); return;
+      SetState(STATE_FALSE_REVERSE_DECISION,"FALSE_REVERSE_MARKET_EVENT");return;
    }
    if(touched) SetState(STATE_SMALL_CLOSE_OLD_FAR,"Old Far touch confirmed for Split Small transition");
 }
+
+void ProcessFalseReverseDecision()
+{
+   FalseReverseEvaluation decision;if(!EvaluateCurrentFalseReverse(decision)){SetState(STATE_MANUAL_INTERVENTION_REQUIRED,decision.reason);return;}Ctx.falseReverseAction=(int)decision.selected;SaveState();SetState(decision.options[(int)decision.selected].nextState,"FALSE_REVERSE_DECISION_APPLIED");
+}
+bool ExecuteFalseReverseClose(ulong ticket,double lot,PendingActionType pending,EAState current,EAState next,string comment)
+{
+   if(ticket==0||GetActualPositionVolume(ticket)<=VolumeMismatchToleranceLots){ClearPendingOperationContext();SetState(next,comment+" already complete");return true;}Ctx.falseReverseExpectedTicket=ticket;Ctx.falseReverseExpectedLot=lot;SaveState();if(!ClosePositionByTicketWithComment(ticket,lot,comment)||!VerifyFullClose(ticket,comment)){SetPendingOperation(pending,comment,current,ticket,lot,comment,next,"FALSE_REVERSE_CLOSE_PENDING");return false;}ClearPendingOperationContext();SetState(next,comment+" confirmed");return true;
+}
+void ProcessFalseReverseCloseReverse(){ExecuteFalseReverseClose(Ctx.reverseSmallTicket,Ctx.reverseSmallLot,PENDING_FALSE_REVERSE_CLOSE_REVERSE,STATE_FALSE_REVERSE_CLOSE_REVERSE,STATE_FALSE_REVERSE_RECONCILIATION,"FALSE_REVERSE_CLOSE_REVERSE");}
+void ProcessFalseReverseCloseBase(){ExecuteFalseReverseClose(Ctx.smallBaseTicket,Ctx.smallBaseLot,PENDING_FALSE_REVERSE_CLOSE_BASE,STATE_FALSE_REVERSE_CLOSE_BASE,STATE_FALSE_REVERSE_RECONCILIATION,"FALSE_REVERSE_CLOSE_BASE");}
+void ProcessFalseReverseCloseTailsReverse(){ExecuteFalseReverseClose(Ctx.reverseSmallTicket,Ctx.reverseSmallLot,PENDING_FALSE_REVERSE_CLOSE_TAILS_REVERSE,STATE_FALSE_REVERSE_CLOSE_TAILS_REVERSE,STATE_FALSE_REVERSE_CLOSE_TAILS_BASE,"FALSE_REVERSE_CLOSE_TAIL_REVERSE");}
+void ProcessFalseReverseCloseTailsBase(){ExecuteFalseReverseClose(Ctx.smallBaseTicket,Ctx.smallBaseLot,PENDING_FALSE_REVERSE_CLOSE_TAILS_BASE,STATE_FALSE_REVERSE_CLOSE_TAILS_BASE,STATE_FALSE_REVERSE_RECONCILIATION,"FALSE_REVERSE_CLOSE_TAIL_BASE");}
+void ProcessFalseReverseCloseBasket(){if(GetActualPositionVolume(Ctx.reverseSmallTicket)>VolumeMismatchToleranceLots){ExecuteFalseReverseClose(Ctx.reverseSmallTicket,Ctx.reverseSmallLot,PENDING_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_CLOSE_BASKET,"FALSE_REVERSE_BASKET_REVERSE");return;}if(GetActualPositionVolume(Ctx.smallBaseTicket)>VolumeMismatchToleranceLots){ExecuteFalseReverseClose(Ctx.smallBaseTicket,Ctx.smallBaseLot,PENDING_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_CLOSE_BASKET,"FALSE_REVERSE_BASKET_BASE");return;}if(GetActualPositionVolume(Ctx.farTicket)>VolumeMismatchToleranceLots){ExecuteFalseReverseClose(Ctx.farTicket,Ctx.farLot,PENDING_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_CLOSE_BASKET,"FALSE_REVERSE_BASKET_FAR");return;}ExecuteFalseReverseClose(Ctx.bigCoreTicket,Ctx.bigCoreLot,PENDING_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_CLOSE_BASKET,STATE_FALSE_REVERSE_RECONCILIATION,"FALSE_REVERSE_BASKET_CORE");}
+void ProcessFalseReverseReconciliation(){RecalculateRealCycleStatsFromHistory();if(Ctx.realCyclePL+ReserveMismatchTolerance<MinimumRecoveryProfitMoney||!ValidateNoOrphanManagedPositions()){SetState(STATE_FALSE_REVERSE_FAILED,"FALSE_REVERSE_RECONCILIATION_FAIL");return;}SetState(STATE_FALSE_REVERSE_COMPLETED,"FALSE_REVERSE_RECONCILIATION_PASS");}
+void ProcessFalseReverseFailed(){SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"FALSE_REVERSE_EXECUTION_FAILED");}
 
 void ProcessSplitSmallCloseOldFar()
 {
@@ -6015,6 +6028,16 @@ void RunStateMachine()
       case STATE_REVERSE_CALCULATE_DYNAMIC_SMALL: ProcessReverseCalculateDynamicSmall(); break;
       case STATE_REVERSE_OPEN_DYNAMIC_SMALL: ProcessReverseOpenDynamicSmall(); break;
       case STATE_REVERSE_WAIT_FAR_TOUCH: ProcessReverseWaitFarTouch(); break;
+      case STATE_FALSE_REVERSE_DECISION: ProcessFalseReverseDecision(); break;
+      case STATE_FALSE_REVERSE_CLOSE_REVERSE: ProcessFalseReverseCloseReverse(); break;
+      case STATE_FALSE_REVERSE_CLOSE_BASE: ProcessFalseReverseCloseBase(); break;
+      case STATE_FALSE_REVERSE_CLOSE_TAILS_REVERSE: ProcessFalseReverseCloseTailsReverse(); break;
+      case STATE_FALSE_REVERSE_CLOSE_TAILS_BASE: ProcessFalseReverseCloseTailsBase(); break;
+      case STATE_FALSE_REVERSE_CLOSE_BASKET: ProcessFalseReverseCloseBasket(); break;
+      case STATE_FALSE_REVERSE_RECONCILIATION: ProcessFalseReverseReconciliation(); break;
+      case STATE_FALSE_REVERSE_COMPLETED: break;
+      case STATE_FALSE_REVERSE_FAILED: ProcessFalseReverseFailed(); break;
+      case STATE_SMALL_RECONCILIATION_FAILED: break;
 
       case STATE_SMALL_CLOSE_SMALL_BASE: ProcessSplitSmallCloseSmallBase(); break;
       case STATE_SMALL_CLOSE_DYNAMIC_SMALL: ProcessSplitSmallCloseReverse(); break;

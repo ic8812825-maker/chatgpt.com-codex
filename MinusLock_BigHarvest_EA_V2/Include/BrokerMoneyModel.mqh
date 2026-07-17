@@ -53,7 +53,7 @@ struct ReverseCycleProjection { double farLotBefore; double bigCoreLot; double b
 struct DirectionalVolumeSnapshot { double managedBuy; double managedSell; double brokerTotalBuy; double brokerTotalSell; double plannedBuy; double plannedSell; };
 struct BigBasketGate { DirectionalVolumeSnapshot volume; double newBasketMargin; double projectedMargin; double projectedEquityAfterOpen; double projectedMarginLevel; double projectedMarginPercent; double projectedOpenCommission; double projectedInitialSpreadLoss; double projectedSlippage; double executionBuffers; bool volumePass; bool marginPass; bool positionsPass; bool pass; string reason; };
 enum FalseReverseAction { FALSE_REVERSE_CONTINUE_WAIT=0, FALSE_REVERSE_CLOSE_REVERSE, FALSE_REVERSE_CLOSE_BASE, FALSE_REVERSE_CLOSE_TAILS, FALSE_REVERSE_CLOSE_BASKET, FALSE_REVERSE_KEEP_LOCK, FALSE_REVERSE_MANUAL };
-struct FalseReverseOption { FalseReverseAction action; double projectedNet; double projectedRecoveryPL; double reserveImpact; double projectedMarginLevel; double remainingExposure; bool safe; };
+struct FalseReverseOption { FalseReverseAction action; double projectedNet; double projectedClosedNet; double projectedFloatingNetRemaining; double realizedRecoveryPL; double projectedRecoveryPL; double reserveImpact; double projectedMarginReleased; double projectedMarginAfter; double projectedMarginLevel; double remainingExposure; bool secondTailRisk; EAState nextState; bool safe; };
 struct FalseReverseEvaluation { FalseReverseOption options[6]; FalseReverseAction selected; bool automaticAllowed; string reason; };
 
 void ResetBrokerMoneyResult(BrokerMoneyResult &r)
@@ -317,12 +317,12 @@ bool EvaluateSmallPreTradeGate(SmallTransitionLeg &legs[],double oldFar,double n
    return EvaluateSmallTransition(legs,oldFar,newFar,exposure,marginLevel,transition)&&transition.transitionNet>=MinimumTransitionProfitMoney&&newFar<oldFar&&marginLevel>=MinimumSafeMarginLevel;
 }
 
-bool EvaluateFalseReverseMoney(FalseReverseOption &candidates[],double minimumRecovery,FalseReverseEvaluation &evaluation)
+bool EvaluateFalseReverseMoney(FalseReverseOption &candidates[],double minimumRecovery,double reserveAvailable,FalseReverseEvaluation &evaluation)
 {
    evaluation.selected=FALSE_REVERSE_MANUAL; evaluation.automaticAllowed=false; evaluation.reason="NO_SAFE_FALSE_REVERSE_OPTION";
    if(ArraySize(candidates)!=6) return false;
    double best=-DBL_MAX;
-   for(int i=0;i<6;i++) { evaluation.options[i]=candidates[i]; evaluation.options[i].safe=candidates[i].projectedRecoveryPL>=minimumRecovery&&candidates[i].projectedMarginLevel>=MinimumSafeMarginLevel&&candidates[i].reserveImpact<=0; if(evaluation.options[i].safe&&evaluation.options[i].projectedNet>best) { best=evaluation.options[i].projectedNet; evaluation.selected=evaluation.options[i].action; evaluation.automaticAllowed=true; } }
+   for(int i=0;i<6;i++) { evaluation.options[i]=candidates[i]; double recomputedRecovery=candidates[i].realizedRecoveryPL+candidates[i].projectedClosedNet+candidates[i].projectedFloatingNetRemaining; evaluation.options[i].projectedRecoveryPL=recomputedRecovery; evaluation.options[i].safe=recomputedRecovery>=minimumRecovery&&candidates[i].projectedMarginLevel>=MinimumSafeMarginLevel&&candidates[i].reserveImpact<=reserveAvailable&&!candidates[i].secondTailRisk; if(evaluation.options[i].safe&&evaluation.options[i].projectedNet>best) { best=evaluation.options[i].projectedNet; evaluation.selected=evaluation.options[i].action; evaluation.automaticAllowed=true; } }
    if(evaluation.automaticAllowed) evaluation.reason="SAFE_FALSE_REVERSE_OPTION_SELECTED"; return evaluation.automaticAllowed;
 }
 

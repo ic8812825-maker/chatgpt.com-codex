@@ -197,3 +197,14 @@ def test_partial_old_far_and_core_mismatch_fail_reconciliation():
 def test_orphan_and_ledger_mismatch_fail_small_reconciliation():
     assert not reconcile_small(valid_small_audits(),1,.7,{'NEW_FAR','ORPHAN'},10,10)[0]
     assert not reconcile_small(valid_small_audits(),1,.7,{'NEW_FAR'},10,9)[0]
+
+def full_false_option(action, realized, closed, floating, reserve, current_margin, released, equity, exposure, second_tail=False):
+    recovery=realized+closed+floating; impact=max(0,-closed); margin_after=max(0,current_margin-released); level=(equity+closed)/margin_after*100 if margin_after else 999999
+    return {'action':action,'net':closed+floating,'recovery':recovery,'reserve_impact':impact,'margin':level,'margin_after':margin_after,'exposure':exposure,'second_tail':second_tail,'safe':recovery>=1 and impact<=reserve and level>=200 and not second_tail}
+
+def test_false_reverse_options_recalculate_recovery_reserve_and_margin():
+    wait=full_false_option('WAIT',5,0,-8,10,500,0,1000,1,True)
+    close_tail=full_false_option('CLOSE_REVERSE',5,-2,4,10,500,120,1000,.4)
+    close_all=full_false_option('CLOSE_ALL',5,-12,0,10,500,500,1000,0)
+    assert not wait['safe'] and close_tail['safe'] and not close_all['safe']
+    assert close_tail['reserve_impact']==2 and close_tail['margin_after']==380 and close_tail['recovery']==7
