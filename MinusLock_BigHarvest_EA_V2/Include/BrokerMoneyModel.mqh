@@ -84,24 +84,14 @@ bool ValidateCommissionModel(string &reason)
    return true;
 }
 
+bool CalcCommissionBases(double lot,double contractSize,double openPrice,double closePrice,double percent,CommissionPercentBase mode,bool chargeNotionalOnOpen,CommissionBaseResult &r);
+
 bool CalcPercentCommissionSide(double lot,double price,double otherPrice,double margin,bool opening,double &value,string &reason)
 {
    value=0; double contract=SymbolInfoDouble(_Symbol,SYMBOL_TRADE_CONTRACT_SIZE);
    if(contract<=0||price<=0) { reason="COMMISSION_CONVERSION_FAILED"; return false; }
-   if(CommissionPercentCalculationBase==COMMISSION_PERCENT_NOTIONAL)
-   {
-      double notionalOpen=lot*contract*price;
-      double notionalClose=lot*contract*otherPrice;
-      double notionalChargeSide=(opening==CommissionNotionalChargeOnOpen)?(opening?notionalOpen:notionalClose):0;
-      value=notionalChargeSide*CommissionPercent/100.0;
-   }
-   else if(CommissionPercentCalculationBase==COMMISSION_PERCENT_TURNOVER)
-   {
-      double turnoverOpen=lot*contract*(opening?price:otherPrice);
-      double turnoverClose=lot*contract*(opening?otherPrice:price);
-      double turnover=turnoverOpen+turnoverClose;
-      value=(opening?turnoverOpen:turnoverClose)*CommissionPercent/100.0;
-   }
+   if(CommissionPercentCalculationBase==COMMISSION_PERCENT_NOTIONAL||CommissionPercentCalculationBase==COMMISSION_PERCENT_TURNOVER)
+   { CommissionBaseResult base; double openPrice=opening?price:otherPrice,closePrice=opening?otherPrice:price; if(!CalcCommissionBases(lot,contract,openPrice,closePrice,CommissionPercent,CommissionPercentCalculationBase,CommissionNotionalChargeOnOpen,base)) { reason=base.reason; return false; } value=opening?base.openCommission:base.closeCommission; }
    else if(CommissionPercentCalculationBase==COMMISSION_PERCENT_MARGIN)
    {
       if(margin<=0) { reason="COMMISSION_MARGIN_BASE_UNAVAILABLE"; return false; }
