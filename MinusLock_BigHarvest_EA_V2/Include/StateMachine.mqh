@@ -5452,8 +5452,10 @@ void ProcessSplitSmallCloseCorePart()
    Ctx.bigCoreTicket=0; Ctx.bigCoreIdentifier=0; Ctx.bigCoreLot=0; Ctx.bigCoreDirection=DIR_NONE;
    RecalculateRealCycleStatsFromHistory(); Ctx.smallScenarioRealAfter=Ctx.realCyclePL;
    if(Ctx.smallScenarioRealAfter-Ctx.smallScenarioRealBefore<MinimumTransitionProfitMoney) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"SMALL_TRANSITION_MONEY_FAIL"); return; }
-   int required=EvaluateRequiredReverseCycles(Ctx.farLot,SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),MathMin(MaximumNewFarRatio,actual/Ctx.oldFarLot));
-   if(required>WorkMaxReverseCycles) { SetState(STATE_REVERSE_LIMIT,"REQUIRED_REVERSE_CYCLES_EXCEED_LIMIT"); return; }
+   ProjectedCloseNetResult remainingFar; ReverseCyclesEvaluation reverseEvaluation; ReverseCycleProjection cycle;
+   if(!CalculateProjectedFarCloseNet(Ctx.farLot,remainingFar)) { SetState(STATE_REVERSE_LIMIT,"REVERSE_FAR_MONEY_UNAVAILABLE"); return; }
+   cycle.compressionRatio=MathMin(MaximumNewFarRatio,actual/Ctx.oldFarLot); cycle.transitionNet=Ctx.smallScenarioRealAfter-Ctx.smallScenarioRealBefore; cycle.signedSwap=-MathMax(0.0,EstimatedSwapBufferMoney); cycle.commission=EstimatedOpenCommissionPerLot+EstimatedCloseCommissionPerLot; cycle.spread=BrokerPointsCostMoney(Ctx.farLot,SpreadExpansionBufferPoints); cycle.slippage=BrokerPointsCostMoney(Ctx.farLot,MaxSlippagePoints*SlippageSafetyMultiplier); cycle.reserveAdd=MathMax(0.0,cycle.transitionNet*SmallReserveShare); cycle.carryAdd=0; cycle.requiredMargin=0; cycle.availableMargin=AccountInfoDouble(ACCOUNT_MARGIN_FREE);
+   if(!EvaluateReverseCyclesWithCosts(Ctx.farLot,remainingFar.projectedLoss,Ctx.totalReserve,Ctx.partialFarBudgetCarry,Ctx.realCyclePL,SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),cycle,reverseEvaluation)||reverseEvaluation.requiredCycles>WorkMaxReverseCycles) { SetState(STATE_REVERSE_LIMIT,reverseEvaluation.reason); return; }
    SetState(STATE_SMALL_CHECK_RESERVE,"Split Small transition actual New Far confirmed");
 }
 

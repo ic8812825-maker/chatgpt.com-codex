@@ -60,3 +60,11 @@ def test_small_contract_rejects_missing_and_duplicate_roles():
     assert validate_five_legs(['BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR','BIG_CORE'])
     assert not validate_five_legs(['BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR'])
     assert not validate_five_legs(['BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR','OLD_FAR'])
+
+def test_far_can_shrink_while_money_proof_still_fails():
+    cycles,coverage=finite(1,100,0,0,0,.5,0,0,5,.01)
+    assert cycles is None and coverage<1
+
+def test_cycle_costs_can_destroy_recovery_even_with_reserve_growth():
+    cycles,coverage=finite(1,100,0,0,0,.5,2,30,10,.01)
+    assert cycles is None or coverage>=1

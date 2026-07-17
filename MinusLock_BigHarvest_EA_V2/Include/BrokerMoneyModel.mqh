@@ -49,6 +49,7 @@ struct SmallTransitionEvaluation { bool calculationValid; double bigTrendCloseNe
 enum SmallTransitionLegRole { SMALL_LEG_BIG_TREND_CLOSE=0, SMALL_LEG_SMALL_BASE_CLOSE, SMALL_LEG_REVERSE_SMALL, SMALL_LEG_OLD_FAR_CLOSE, SMALL_LEG_BIG_CORE_PARTIAL };
 struct SmallTransitionLeg { SmallTransitionLegRole role; BrokerMoneyResult money; double requestedLot; double residualLot; bool fullClose; bool includesOpenAndClose; };
 struct ReverseCyclesEvaluation { int requiredCycles; double finalFarLot; double finalFarLoss; double projectedReserve; double projectedCarry; double projectedRecoveryPL; double finalCoverage; bool pass; string reason; };
+struct ReverseCycleProjection { double compressionRatio; double transitionNet; double signedSwap; double commission; double spread; double slippage; double reserveAdd; double carryAdd; double requiredMargin; double availableMargin; };
 struct BigBasketGate { double totalMargin; double projectedMarginLevel; bool volumePass; bool marginPass; bool positionsPass; bool pass; string reason; };
 enum FalseReverseAction { FALSE_REVERSE_CONTINUE_WAIT=0, FALSE_REVERSE_CLOSE_REVERSE, FALSE_REVERSE_CLOSE_BASE, FALSE_REVERSE_CLOSE_TAILS, FALSE_REVERSE_CLOSE_BASKET, FALSE_REVERSE_KEEP_LOCK, FALSE_REVERSE_MANUAL };
 struct FalseReverseOption { FalseReverseAction action; double projectedNet; double projectedRecoveryPL; double reserveImpact; double projectedMarginLevel; double remainingExposure; bool safe; };
@@ -283,6 +284,14 @@ bool EvaluateRequiredReverseCyclesMoney(double farLot,double farLoss,double rese
    return false;
 }
 
+bool EvaluateReverseCyclesWithCosts(double farLot,double farLoss,double reserve,double carry,double recovery,double targetLot,ReverseCycleProjection &cycle,ReverseCyclesEvaluation &e)
+{
+   e.requiredCycles=0; e.finalFarLot=farLot; e.finalFarLoss=farLoss; e.projectedReserve=reserve; e.projectedCarry=carry; e.projectedRecoveryPL=recovery; e.finalCoverage=farLoss>0?(reserve+carry)/farLoss:1; e.pass=false; e.reason="REVERSE_LIMIT";
+   if(cycle.compressionRatio<=0||cycle.compressionRatio>=1||cycle.requiredMargin>cycle.availableMargin) { e.reason="REVERSE_CYCLE_INPUT_OR_MARGIN_FAIL"; return false; }
+   for(int n=0;n<=MaxReverseCycles;n++) { e.requiredCycles=n; e.finalCoverage=e.finalFarLoss>0?(e.projectedReserve+e.projectedCarry)/e.finalFarLoss:1; if(e.finalFarLot<=targetLot&&e.finalCoverage>=1&&e.projectedRecoveryPL>=MinimumRecoveryProfitMoney) { e.pass=true; e.reason="OK"; return true; } if(n==MaxReverseCycles) break; e.finalFarLot=NormalizeLotDown(e.finalFarLot*cycle.compressionRatio); e.finalFarLoss*=cycle.compressionRatio; e.projectedReserve+=cycle.reserveAdd; e.projectedCarry+=cycle.carryAdd; e.projectedRecoveryPL+=cycle.transitionNet+cycle.signedSwap-cycle.commission-cycle.spread-cycle.slippage; }
+   return false;
+}
+
 bool EvaluateSmallPreTradeGate(SmallTransitionLeg &legs[],double oldFar,double newFar,double exposure,double marginLevel,ReverseCyclesEvaluation &cycles,SmallTransitionEvaluation &transition)
 {
    if(!cycles.pass||cycles.requiredCycles>MaxReverseCycles) { transition.reason="SMALL_REVERSE_COUNT_FAIL"; return false; }
@@ -296,13 +305,6 @@ bool EvaluateFalseReverseMoney(FalseReverseOption &candidates[],double minimumRe
    double best=-DBL_MAX;
    for(int i=0;i<6;i++) { evaluation.options[i]=candidates[i]; evaluation.options[i].safe=candidates[i].projectedRecoveryPL>=minimumRecovery&&candidates[i].projectedMarginLevel>=MinimumSafeMarginLevel&&candidates[i].reserveImpact<=0; if(evaluation.options[i].safe&&evaluation.options[i].projectedNet>best) { best=evaluation.options[i].projectedNet; evaluation.selected=evaluation.options[i].action; evaluation.automaticAllowed=true; } }
    if(evaluation.automaticAllowed) evaluation.reason="SAFE_FALSE_REVERSE_OPTION_SELECTED"; return evaluation.automaticAllowed;
-}
-
-int EvaluateRequiredReverseCycles(double currentFar,double targetLot,double compressionRatio)
-{
-   if(currentFar<=targetLot) return 0; if(compressionRatio<=0||compressionRatio>=1) return MaxReverseCycles+1;
-   double lot=currentFar; for(int n=1;n<=MaxReverseCycles;n++) { lot=NormalizeLotDown(lot*compressionRatio); if(lot<=targetLot) return n; }
-   return MaxReverseCycles+1;
 }
 
 #endif
