@@ -80,3 +80,24 @@ def test_big_core_partial_contract_uses_target_residual():
     actual,target=1.2,.97
     requested=actual-target
     assert requested==pytest.approx(.23) and target<actual
+
+def dynamic_reverse(initial, projections, target=.1, minimum_recovery=1):
+    state=dict(initial)
+    for index,p in enumerate(projections,1):
+        assert p['before_far']==pytest.approx(state['far'])
+        state['far']=p['after_far'];state['loss']=p['after_loss'];state['reserve']+=p['reserve_add'];state['carry']+=p['carry_add']
+        state['recovery']+=p['transition']+p['swap']-p['commission']-p['spread']-p['slippage']
+        coverage=(state['reserve']+state['carry'])/state['loss']
+        if state['far']<=target and coverage>=1 and state['recovery']>=minimum_recovery and state['loss']<=state['reserve']+state['carry']:
+            return index,state
+    return None,state
+
+def test_dynamic_reverse_recalculates_every_cycle():
+    projections=[{'before_far':1,'after_far':.7,'after_loss':70,'reserve_add':20,'carry_add':3,'transition':8,'swap':-1,'commission':2,'spread':1,'slippage':1}, {'before_far':.7,'after_far':.4,'after_loss':35,'reserve_add':25,'carry_add':4,'transition':10,'swap':-2,'commission':1.5,'spread':.7,'slippage':.5}, {'before_far':.4,'after_far':.1,'after_loss':15,'reserve_add':15,'carry_add':2,'transition':5,'swap':-.5,'commission':1,'spread':.4,'slippage':.3}]
+    cycles,state=dynamic_reverse({'far':1,'loss':100,'reserve':0,'carry':0,'recovery':0},projections)
+    assert cycles==3 and state['reserve']==60 and state['far']==.1
+
+def test_dynamic_reverse_rejects_money_shortfall_despite_compression():
+    projections=[{'before_far':1,'after_far':.5,'after_loss':50,'reserve_add':0,'carry_add':0,'transition':0,'swap':-2,'commission':2,'spread':1,'slippage':1}, {'before_far':.5,'after_far':.1,'after_loss':10,'reserve_add':0,'carry_add':0,'transition':0,'swap':-2,'commission':2,'spread':1,'slippage':1}]
+    cycles,state=dynamic_reverse({'far':1,'loss':100,'reserve':0,'carry':0,'recovery':0},projections)
+    assert cycles is None and state['far']==.1 and state['recovery']<0
