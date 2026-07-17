@@ -208,3 +208,14 @@ def test_false_reverse_options_recalculate_recovery_reserve_and_margin():
     close_all=full_false_option('CLOSE_ALL',5,-12,0,10,500,500,1000,0)
     assert not wait['safe'] and close_tail['safe'] and not close_all['safe']
     assert close_tail['reserve_impact']==2 and close_tail['margin_after']==380 and close_tail['recovery']==7
+
+def false_reverse_fsm(action, reject_at=None):
+    sequences={'CLOSE_REVERSE':['DECISION','CLOSE_REVERSE','RECONCILIATION','COMPLETED'], 'CLOSE_BASE':['DECISION','CLOSE_BASE','RECONCILIATION','COMPLETED'], 'CLOSE_TAILS':['DECISION','CLOSE_TAILS_REVERSE','CLOSE_TAILS_BASE','RECONCILIATION','COMPLETED'], 'CLOSE_BASKET':['DECISION','CLOSE_BASKET','RECONCILIATION','COMPLETED']}
+    path=sequences[action]
+    if reject_at in path:return path[:path.index(reject_at)+1]+['FAILED']
+    return path
+
+def test_false_reverse_actions_have_distinct_execution_paths():
+    assert false_reverse_fsm('CLOSE_REVERSE')!=false_reverse_fsm('CLOSE_BASE')
+    assert false_reverse_fsm('CLOSE_TAILS')[1:3]==['CLOSE_TAILS_REVERSE','CLOSE_TAILS_BASE']
+    assert false_reverse_fsm('CLOSE_BASKET',reject_at='CLOSE_BASKET')[-1]=='FAILED'
