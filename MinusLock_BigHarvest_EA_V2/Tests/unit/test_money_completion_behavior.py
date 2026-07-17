@@ -67,4 +67,4 @@ def test_far_can_shrink_while_money_proof_still_fails():
 
 def test_cycle_costs_can_destroy_recovery_even_with_reserve_growth():
     cycles,coverage=finite(1,100,0,0,0,.5,2,30,10,.01)
-    assert cycles is None or coverage>=1
+    assert cycles is None and coverage>=1
