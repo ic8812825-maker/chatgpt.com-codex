@@ -5543,7 +5543,7 @@ void ProcessSplitSmallCloseCorePart()
    if(!PrepareSmallCloseAudit(SMALL_LEG_BIG_CORE_PARTIAL,Ctx.bigCoreDirection,Ctx.bigCoreTicket,Ctx.bigCoreIdentifier,closeLot,Ctx.bigCoreOpenPrice)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"BIG_CORE_PROJECTION_FAILED");return;}if(!ClosePositionByTicket(Ctx.bigCoreTicket,closeLot)) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"BigCore compression close failed"); return; }
    double actual=NormalizeVolumeToStep(GetActualPositionVolume(Ctx.bigCoreTicket));
    if(!CompleteSmallOperationAudit(SMALL_LEG_BIG_CORE_PARTIAL,actual)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"BIG_CORE_AUDIT_FAILED");return;}
-   if(actual<=0||actual>=Ctx.oldFarLot||actual/ Ctx.oldFarLot>MaximumNewFarRatio+0.000001) { SetState(STATE_INVALID_SMALL_GEOMETRY,"STATE_SMALL_COMPRESSION_FAILED"); return; }
+   if(actual<=0||actual>=Ctx.oldFarLot||actual/ Ctx.oldFarLot>MaximumNewFarRatio+0.000001) { SetState(STATE_SMALL_COMPRESSION_FAILED,"ACTUAL_NEW_FAR_COMPRESSION_FAILED"); return; }
    Ctx.farTicket=Ctx.bigCoreTicket; Ctx.farIdentifier=Ctx.bigCoreIdentifier; Ctx.farLot=actual; Ctx.farDirection=Ctx.bigCoreDirection; Ctx.farOpenPrice=Ctx.bigCoreOpenPrice;
    Ctx.bigCoreTicket=0; Ctx.bigCoreIdentifier=0; Ctx.bigCoreLot=0; Ctx.bigCoreDirection=DIR_NONE;
    RecalculateRealCycleStatsFromHistory(); Ctx.smallScenarioRealAfter=Ctx.realCyclePL;
@@ -6047,6 +6047,7 @@ void RunStateMachine()
       case STATE_FALSE_REVERSE_COMPLETED: break;
       case STATE_FALSE_REVERSE_FAILED: ProcessFalseReverseFailed(); break;
       case STATE_SMALL_RECONCILIATION_FAILED: break;
+      case STATE_SMALL_COMPRESSION_FAILED: break;
 
       case STATE_SMALL_CLOSE_SMALL_BASE: ProcessSplitSmallCloseSmallBase(); break;
       case STATE_SMALL_CLOSE_DYNAMIC_SMALL: ProcessSplitSmallCloseReverse(); break;
