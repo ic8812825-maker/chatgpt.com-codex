@@ -5566,7 +5566,7 @@ void ProcessSplitBigHarvestPartialFar()
    RefreshFarVolumeFromTerminal("SPLIT_PARTIAL_FAR actual residual read from terminal");
    Ctx.partialFarBudgetCarry = MathMax(0.0, Ctx.pendingPartialFarBudgetAvailable - actualPartialLoss);
    Ctx.actualPartialFarCost=actualPartialLoss;
-   Ctx.harvestCarryAfter=Ctx.partialFarBudgetCarry; Ctx.harvestPhase=HARVEST_CARRY_UPDATED; SaveState();
+   Ctx.harvestCarryAfter=Ctx.partialFarBudgetCarry; Ctx.harvestPhase=HARVEST_LEDGER_PREPARED; SaveState();
    LogInfo(StringFormat("SPLIT_PARTIAL_ACTUAL ClosedLot=%.2f ProjectedPartialLoss=%.2f ActualPartialNet=%.2f ActualPartialLoss=%.2f Difference=%.2f FarLotActual=%.2f Result=PASS", Ctx.pendingCloseFarLot, Ctx.pendingProjectedPartialFarLoss, actualPartialNet, actualPartialLoss, actualPartialLoss - Ctx.pendingProjectedPartialFarLoss, Ctx.farLot));
    LogInfo(StringFormat("SPLIT_PARTIAL_CARRY PartialBudgetAvailable=%.2f ActualPartialLoss=%.2f PartialFarBudgetCarry=%.2f ReserveUsedForPartial=NO", Ctx.pendingPartialFarBudgetAvailable, actualPartialLoss, Ctx.partialFarBudgetCarry));
    SetState(STATE_SPLIT_BIG_HARVEST_FINAL_CHECK, "Split partial Far complete with actual deals");
@@ -5631,13 +5631,24 @@ void RetrySplitClosePending(EAState successState)
    }
 }
 
+bool ContinueSplitHarvestDistribution()
+{
+   if(Ctx.harvestPhase==HARVEST_LEDGER_PREPARED)
+   {
+      if(!ApplyReserveCredit(RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD,Ctx.harvestReserveAdd)) return false;
+      Ctx.pendingReserveApplied=true; Ctx.harvestPhase=HARVEST_LEDGER_WRITTEN; SaveState();
+   }
+   if(Ctx.harvestPhase==HARVEST_LEDGER_WRITTEN) { Ctx.harvestPhase=HARVEST_RESERVE_UPDATED; SaveState(); }
+   if(Ctx.harvestPhase==HARVEST_RESERVE_UPDATED) { Ctx.partialFarBudgetCarry=Ctx.harvestCarryAfter; Ctx.harvestPhase=HARVEST_CARRY_UPDATED; SaveState(); }
+   if(Ctx.harvestPhase==HARVEST_CARRY_UPDATED) { Ctx.harvestPhase=HARVEST_DISTRIBUTED; SaveState(); }
+   return Ctx.harvestPhase>=HARVEST_DISTRIBUTED;
+}
+
 void ProcessSplitBigHarvestFinalCheck()
 {
-   if(!Ctx.pendingFullFarClose && !Ctx.pendingReserveApplied)
+   if(!Ctx.pendingFullFarClose && !ContinueSplitHarvestDistribution())
    {
-      ApplyReserveCredit(RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD, Ctx.pendingReserveAdd);
-      Ctx.pendingReserveApplied = true;
-      Ctx.harvestPhase=HARVEST_RESERVE_UPDATED; SaveState();
+      SetState(STATE_RECOVERY_PENDING,"HARVEST_DISTRIBUTION_RECOVERY_REQUIRED"); return;
    }
    RefreshFarVolumeFromTerminal("SPLIT_FINAL_CHECK actual Far");
    ProjectedCloseNetResult full;
@@ -5657,6 +5668,7 @@ void ProcessSplitBigHarvestFinalCheck()
       return;
    }
    ClearSplitRoleContext("Prepare next Split level from actual Far");
+   Ctx.harvestPhase=HARVEST_CONSUMED; SaveState();
    SetState(STATE_FAR_ACTIVE, "Split next level from actual residual Far");
 }
 

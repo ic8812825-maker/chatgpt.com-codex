@@ -110,3 +110,25 @@ def test_core_individually_valid_but_basket_margin_failure_opens_zero():
 
 def test_directional_planned_volume_is_aggregated_before_open():
     e=Engine(); assert open_split_atomically(e,[('CORE',.7),('TREND',.5),('BASE',.2)],[1,1,1],100,1.0)==0
+
+@dataclass
+class HarvestTxn:
+    phase: str='CALCULATED'; reserve: float=0; carry: float=0; ledger: list=field(default_factory=list)
+    def resume(self,event,amount,reserve_add,carry_after):
+        if self.phase=='CALCULATED': self.phase='LEDGER_PREPARED'
+        if self.phase=='LEDGER_PREPARED':
+            if event not in self.ledger: self.ledger.append(event); self.reserve+=reserve_add
+            self.phase='LEDGER_WRITTEN'
+        if self.phase=='LEDGER_WRITTEN': self.phase='RESERVE_UPDATED'
+        if self.phase=='RESERVE_UPDATED': self.carry=carry_after; self.phase='CARRY_UPDATED'
+        if self.phase=='CARRY_UPDATED': self.phase='DISTRIBUTED'
+        return self
+
+def test_harvest_resume_after_every_phase_is_exactly_once():
+    phases=['CALCULATED','LEDGER_PREPARED','LEDGER_WRITTEN','RESERVE_UPDATED','CARRY_UPDATED','DISTRIBUTED']
+    for crash in phases:
+        tx=HarvestTxn(phase=crash)
+        if crash in {'LEDGER_WRITTEN','RESERVE_UPDATED','CARRY_UPDATED','DISTRIBUTED'}: tx.ledger=[7];tx.reserve=6
+        if crash in {'CARRY_UPDATED','DISTRIBUTED'}: tx.carry=4
+        restored=replace(tx,ledger=list(tx.ledger)).resume(7,10,6,4).resume(7,10,6,4)
+        assert restored.reserve==6 and restored.carry==4 and restored.ledger==[7]
