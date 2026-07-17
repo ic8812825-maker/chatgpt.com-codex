@@ -2090,6 +2090,14 @@ bool EvaluateCleanStart(CleanStartEvaluation &r)
 
 bool IsProvenCleanStart() { CleanStartEvaluation evaluation; EvaluateCleanStart(evaluation); if(!evaluation.cleanStartAllowed) LogError("RECOVERY_CONTEXT_RESET_FORBIDDEN"); return evaluation.cleanStartAllowed; }
 
+bool ReloadHarvestPersistence()
+{
+   double saved=0; if(!GetStateDouble("HarvestPhase",saved)) return false; int phase=(int)saved; if(phase<HARVEST_NONE||phase>HARVEST_CONSUMED) return false; Ctx.harvestPhase=(HarvestPhase)phase;
+   if(!LoadOptionalStateUlong64("HarvestId",Ctx.harvestId)||!LoadOptionalStateLong64("HarvestDealFrom",Ctx.harvestDealFrom)||!LoadOptionalStateLong64("HarvestDealTo",Ctx.harvestDealTo)) return false;
+   if(GetStateDouble("HarvestReserveAdd",saved)) Ctx.harvestReserveAdd=saved; if(GetStateDouble("HarvestPartialBudgetAdd",saved)) Ctx.harvestPartialBudgetAdd=saved; if(GetStateDouble("HarvestCarryBefore",saved)) Ctx.harvestCarryBefore=saved; if(GetStateDouble("HarvestCarryAfter",saved)) Ctx.harvestCarryAfter=saved;
+   return Ctx.harvestPhase==HARVEST_NONE||Ctx.harvestId!=0;
+}
+
 bool RecoverState()
 {
    if(!GlobalVariableCheck(StateKey("State")))
