@@ -25,9 +25,11 @@ void OnStart()
  double target=CalcTargetNewFarLot(1.0);
  Check("NEW_FAR_COMPRESSES",target>0&&target<1.0&&target/1.0<=MaximumNewFarRatio);
  SmallTransitionEvaluation s;
- Check("SMALL_TRANSITION_PASS",EvaluateSmallTransition(legs,1,target,.1,MinimumSafeMarginLevel,s)&&s.transitionNet==8);
+ Check("SMALL_TRANSITION_PASS",EvaluateSmallTransition(legs,1,target,.1,MinimumSafeMarginLevel,s)&&s.transitionNet==20);
  Check("SMALL_COMPRESSION_FAIL",!EvaluateSmallTransition(legs,1,1,.1,MinimumSafeMarginLevel,s)&&!s.compressionPass);
  Check("SMALL_MARGIN_FAIL",!EvaluateSmallTransition(legs,1,target,.1,MinimumSafeMarginLevel-1,s)&&!s.marginPass);
+ SmallTransitionLeg shuffled[5]; for(int k=0;k<5;k++) shuffled[k]=legs[k]; SmallTransitionLeg temp=shuffled[0]; shuffled[0]=shuffled[4]; shuffled[4]=temp; Check("SMALL_SHUFFLED_ROLES",EvaluateSmallTransition(shuffled,1,target,.1,MinimumSafeMarginLevel,s));
+ shuffled[0].role=shuffled[1].role; Check("SMALL_DUPLICATE_ROLE_REJECTED",!EvaluateSmallTransition(shuffled,1,target,.1,MinimumSafeMarginLevel,s));
  Check("REVERSE_LIMIT",EvaluateRequiredReverseCycles(1,.01,.999)>MaxReverseCycles);
  Check("REVERSE_REACHABLE",EvaluateRequiredReverseCycles(.02,.01,.5)==1);
  BrokerMoneyResult raw[5]; for(int j=0;j<5;j++) raw[j]=legs[j].money; BrokerMoneyResult basket; Check("BASKET_COMPONENTS",CalcProjectedBasketNetMoney(raw,5,basket)&&basket.grossProfit==20);

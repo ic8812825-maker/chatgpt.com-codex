@@ -51,3 +51,12 @@ def test_worst_case_buffer_is_separate_from_signed_swap():
 def test_close_now_never_adds_future_swap():
     now=datetime(2026,7,13,12)
     assert signed_swap(5,now,now)==(0,[])
+
+def validate_five_legs(legs):
+    required={'BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR','BIG_CORE'}
+    return len(legs)==5 and set(legs)==required
+
+def test_small_contract_rejects_missing_and_duplicate_roles():
+    assert validate_five_legs(['BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR','BIG_CORE'])
+    assert not validate_five_legs(['BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR'])
+    assert not validate_five_legs(['BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR','OLD_FAR'])

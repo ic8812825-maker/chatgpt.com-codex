@@ -245,9 +245,9 @@ double CalcTargetNewFarLot(double oldFarLot)
 bool EvaluateSmallTransition(SmallTransitionLeg &legs[],double oldFarLot,double projectedNewFarLot,double netSmallExposure,double marginLevel,SmallTransitionEvaluation &e)
 {
    if(ArraySize(legs)!=5) { e.calculationValid=false; e.transitionAllowed=false; e.reason="SMALL_REQUIRES_EXACTLY_FIVE_LEGS"; return false; }
-   BrokerMoneyResult money[5]; bool seen[5]={false,false,false,false,false};
-   for(int i=0;i<5;i++) { int role=(int)legs[i].role; if(role<0||role>=5||seen[role]||!legs[i].money.calculationValid) { e.calculationValid=false; e.transitionAllowed=false; e.reason="SMALL_LEG_CONTRACT_INVALID"; return false; } seen[role]=true; money[i]=legs[i].money; }
-   if(!legs[SMALL_LEG_OLD_FAR_CLOSE].fullClose||legs[SMALL_LEG_BIG_CORE_PARTIAL].residualLot<=0||!legs[SMALL_LEG_REVERSE_SMALL].includesOpenAndClose) { e.calculationValid=false; e.transitionAllowed=false; e.reason="SMALL_LEG_SEMANTICS_INVALID"; return false; }
+   BrokerMoneyResult money[5]; bool seen[5]={false,false,false,false,false}; int oldFarIndex=-1,coreIndex=-1,reverseIndex=-1;
+   for(int i=0;i<5;i++) { int role=(int)legs[i].role; if(role<0||role>=5||seen[role]||!legs[i].money.calculationValid) { e.calculationValid=false; e.transitionAllowed=false; e.reason="SMALL_LEG_CONTRACT_INVALID"; return false; } seen[role]=true; money[i]=legs[i].money; if(role==SMALL_LEG_OLD_FAR_CLOSE) oldFarIndex=i; if(role==SMALL_LEG_BIG_CORE_PARTIAL) coreIndex=i; if(role==SMALL_LEG_REVERSE_SMALL) reverseIndex=i; }
+   if(oldFarIndex<0||coreIndex<0||reverseIndex<0||!legs[oldFarIndex].fullClose||legs[coreIndex].residualLot<=0||!legs[reverseIndex].includesOpenAndClose) { e.calculationValid=false; e.transitionAllowed=false; e.reason="SMALL_LEG_SEMANTICS_INVALID"; return false; }
    BrokerMoneyResult basket; ResetBrokerMoneyResult(basket); e.calculationValid=CalcProjectedTransitionNetMoney(money,5,basket);
    e.transitionNet=basket.netMoney; e.commission=basket.openCommission+basket.closeCommission; e.swap=basket.swap; e.spreadExpansion=basket.spreadExpansionCost; e.slippage=basket.slippageCost; e.buffers=basket.safetyBuffer;
    e.oldFarLot=oldFarLot; e.targetNewFarLot=CalcTargetNewFarLot(oldFarLot); e.projectedNewFarLot=projectedNewFarLot; e.compressionRatio=oldFarLot>0?projectedNewFarLot/oldFarLot:1; e.netSmallExposure=netSmallExposure; e.projectedMarginLevel=marginLevel;

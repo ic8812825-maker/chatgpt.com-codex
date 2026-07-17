@@ -5364,11 +5364,34 @@ bool SplitBigTargetReached()
    return false;
 }
 
+bool EvaluateCurrentSmallPreTrade(string &reason)
+{
+   SmallTransitionLeg legs[5]; double targetFar=CalcTargetNewFarLot(Ctx.farLot),closeMid=Ctx.farOpenPrice;
+   double reverseLot=NormalizeLotUp(MathMax(SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),Ctx.bigCoreLot-Ctx.farLot-Ctx.smallBaseLot+Ctx.farLot*ReverseDirectionBufferRatio));
+   double coreCloseLot=NormalizeLotDown(Ctx.bigCoreLot-targetFar); if(targetFar<=0||coreCloseLot<=0||reverseLot<=0) { reason="SMALL_PRETRADE_VOLUME_INVALID"; return false; }
+   BrokerMoneyResult projected[5];
+   bool ok=CalcProjectedCloseNetMoney(Ctx.bigTrendDirection,Ctx.bigTrendLot,Ctx.bigTrendOpenPrice,BrokerClosePriceAtMid(Ctx.bigTrendDirection,closeMid),projected[0])&&
+           CalcProjectedCloseNetMoney(Ctx.smallBaseDirection,Ctx.smallBaseLot,Ctx.smallBaseOpenPrice,BrokerClosePriceAtMid(Ctx.smallBaseDirection,closeMid),projected[1])&&
+           CalcProjectedPositionNetMoney(Ctx.farDirection,reverseLot,BrokerExecutionOpenPrice(Ctx.farDirection),BrokerClosePriceAtMid(Ctx.farDirection,closeMid),true,true,projected[2])&&
+           CalcProjectedCloseNetMoney(Ctx.farDirection,Ctx.farLot,Ctx.farOpenPrice,BrokerClosePriceAtMid(Ctx.farDirection,closeMid),projected[3])&&
+           CalcProjectedCloseNetMoney(Ctx.bigCoreDirection,coreCloseLot,Ctx.bigCoreOpenPrice,BrokerClosePriceAtMid(Ctx.bigCoreDirection,closeMid),projected[4]);
+   if(!ok) { reason="SMALL_PRETRADE_MONEY_UNAVAILABLE"; return false; }
+   for(int i=0;i<5;i++) { legs[i].role=(SmallTransitionLegRole)i; legs[i].money=projected[i]; legs[i].requestedLot=(i==2?reverseLot:(i==4?coreCloseLot:0)); }
+   legs[3].fullClose=true; legs[4].residualLot=targetFar; legs[2].includesOpenAndClose=true;
+   double marginLevel=AccountInfoDouble(ACCOUNT_MARGIN_LEVEL); if(marginLevel<=0) marginLevel=999999;
+   SmallTransitionEvaluation transition; if(!EvaluateSmallTransition(legs,Ctx.farLot,targetFar,Ctx.farLot+Ctx.smallBaseLot+reverseLot-Ctx.bigCoreLot,marginLevel,transition)) { reason=transition.reason; return false; }
+   ReverseCyclesEvaluation cycles; double farLoss=MathMax(0.0,-projected[3].netMoney);
+   EvaluateRequiredReverseCyclesMoney(Ctx.farLot,farLoss,Ctx.totalReserve,Ctx.partialFarBudgetCarry,AccountInfoDouble(ACCOUNT_BALANCE)-Ctx.cycleStartBalance,MaximumNewFarRatio,transition.transitionNet,MathMax(0.0,transition.transitionNet*SmallReserveShare),0,0,SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),cycles);
+   if(!EvaluateSmallPreTradeGate(legs,Ctx.farLot,targetFar,Ctx.farLot+Ctx.smallBaseLot+reverseLot-Ctx.bigCoreLot,marginLevel,cycles,transition)) { reason=transition.reason; return false; }
+   Ctx.projectedTransitionNet=transition.transitionNet; Ctx.projectedReverseSmallLot=reverseLot; reason="OK"; return true;
+}
+
 void ProcessSplitBigActive()
 {
    double smallProfitPoints = ProfitPoints(Ctx.smallBaseDirection, Ctx.smallBaseOpenPrice);
    if(smallProfitPoints >= GetBigMovePoints(Ctx.harvestLevel))
    {
+      string preTradeReason; if(!EvaluateCurrentSmallPreTrade(preTradeReason)) { LogError("SMALL_PRETRADE_GATE_FAIL "+preTradeReason); SetState(STATE_INVALID_SMALL_GEOMETRY,preTradeReason); return; }
       Ctx.smallScenarioRealBefore=AccountInfoDouble(ACCOUNT_BALANCE)-Ctx.cycleStartBalance;
       SetState(STATE_REVERSE_CLOSE_BIG_TREND,"Split Small trigger confirmed; close BigTrend first");
       return;
