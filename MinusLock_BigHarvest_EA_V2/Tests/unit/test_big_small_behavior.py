@@ -166,3 +166,34 @@ def test_projected_margin_includes_current_margin_and_open_costs():
     equity,margin,level,percent=projected_margin(1000,300,250,10,20,5,15)
     assert equity==950 and margin==550 and level==pytest.approx(172.7272727) and percent==pytest.approx(57.8947368)
     assert level<200
+
+@dataclass
+class SmallAudit:
+    role:str; requested:float; filled:float; residual:float; net:float; completed:bool=True
+
+def reconcile_small(audits, old_far, new_far, remaining_roles, reserve, ledger_reserve, tolerance=.005):
+    required={'BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR','BIG_CORE'}
+    if {a.role for a in audits}!=required or len(audits)!=5:return False,0
+    if any(not a.completed or abs(a.requested-a.filled)>tolerance for a in audits):return False,0
+    by={a.role:a for a in audits}
+    if any(by[r].residual>tolerance for r in ('BIG_TREND','SMALL_BASE','REVERSE','OLD_FAR')):return False,0
+    if remaining_roles!={'NEW_FAR'} or not 0<new_far<old_far:return False,0
+    if abs(by['BIG_CORE'].residual-new_far)>tolerance or abs(reserve-ledger_reserve)>.01:return False,0
+    return True,sum(a.net for a in audits)
+
+def valid_small_audits():
+    return [SmallAudit('BIG_TREND',.2,.2,0,3),SmallAudit('SMALL_BASE',.3,.3,0,2),SmallAudit('REVERSE',.4,.4,0,1),SmallAudit('OLD_FAR',1,1,0,-4),SmallAudit('BIG_CORE',.3,.3,.7,5)]
+
+def test_full_small_post_trade_reconciliation():
+    ok,net=reconcile_small(valid_small_audits(),1,.7,{'NEW_FAR'},10,10)
+    assert ok and net==7
+
+def test_partial_old_far_and_core_mismatch_fail_reconciliation():
+    audits=valid_small_audits();audits[3].filled=.8
+    assert not reconcile_small(audits,1,.7,{'NEW_FAR'},10,10)[0]
+    audits=valid_small_audits();audits[4].residual=.8
+    assert not reconcile_small(audits,1,.7,{'NEW_FAR'},10,10)[0]
+
+def test_orphan_and_ledger_mismatch_fail_small_reconciliation():
+    assert not reconcile_small(valid_small_audits(),1,.7,{'NEW_FAR','ORPHAN'},10,10)[0]
+    assert not reconcile_small(valid_small_audits(),1,.7,{'NEW_FAR'},10,9)[0]

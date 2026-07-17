@@ -64,6 +64,7 @@ enum EAState
    STATE_INVALID_REVERSE_GEOMETRY,
    STATE_INVALID_SPLIT_GEOMETRY,
    STATE_INVALID_SMALL_GEOMETRY,
+   STATE_SMALL_RECONCILIATION_FAILED,
    STATE_BIG_COVERAGE_RECONCILIATION_FAILED,
    STATE_REVERSE_LIMIT,
    STATE_REVERSE_LIMIT_CLOSED,
@@ -377,6 +378,14 @@ struct FinalCloseEvaluation
    string reason;
 };
 
+struct SmallOperationAudit
+{
+   ulong operationId; int legRole; double requestedLot; double filledLot; double residualLot;
+   double projectedNet; double actualNet; double projectedCommission; double actualCommission;
+   double projectedSwap; double actualSwap; double projectedFee; double actualFee;
+   ulong ticket; ulong identifier; long dealFrom; long dealTo; bool completed;
+};
+
 struct RecoveryContext
 {
    ulong farTicket;
@@ -440,6 +449,8 @@ struct RecoveryContext
    double harvestCarryAfter;
    double actualPartialFarCost;
    double actualSmallTransitionNet;
+   SmallOperationAudit smallOperationAudits[5];
+   int smallOperationAuditCount;
 
    double bigGrossRatio;
    double bigNetExposureRatio;
