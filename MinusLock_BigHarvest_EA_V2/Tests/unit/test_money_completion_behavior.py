@@ -68,3 +68,15 @@ def test_far_can_shrink_while_money_proof_still_fails():
 def test_cycle_costs_can_destroy_recovery_even_with_reserve_growth():
     cycles,coverage=finite(1,100,0,0,0,.5,2,30,10,.01)
     assert cycles is None and coverage>=1
+
+def exact_small_lots(actual, requested, residual, full, tolerance=.005):
+    return full and abs(actual-requested)<=tolerance and residual<=tolerance
+
+def test_exact_small_full_close_contracts():
+    assert exact_small_lots(.25,.25,0,True)
+    assert not exact_small_lots(.25,.20,.05,True)
+
+def test_big_core_partial_contract_uses_target_residual():
+    actual,target=1.2,.97
+    requested=actual-target
+    assert requested==pytest.approx(.23) and target<actual

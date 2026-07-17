@@ -5384,8 +5384,12 @@ bool EvaluateCurrentSmallPreTrade(string &reason)
            CalcProjectedCloseNetMoney(Ctx.farDirection,Ctx.farLot,Ctx.farOpenPrice,BrokerClosePriceAtMid(Ctx.farDirection,closeMid),projected[3])&&
            CalcProjectedCloseNetMoney(Ctx.bigCoreDirection,coreCloseLot,Ctx.bigCoreOpenPrice,BrokerClosePriceAtMid(Ctx.bigCoreDirection,closeMid),projected[4]);
    if(!ok) { reason="SMALL_PRETRADE_MONEY_UNAVAILABLE"; return false; }
-   for(int i=0;i<5;i++) { legs[i].role=(SmallTransitionLegRole)i; legs[i].money=projected[i]; legs[i].requestedLot=(i==2?reverseLot:(i==4?coreCloseLot:0)); }
-   legs[3].fullClose=true; legs[4].residualLot=targetFar; legs[2].includesOpenAndClose=true;
+   for(int i=0;i<5;i++) { legs[i].role=(SmallTransitionLegRole)i; legs[i].money=projected[i]; }
+   legs[0].actualPositionLot=Ctx.bigTrendLot;legs[0].requestedLot=Ctx.bigTrendLot;legs[0].fullClose=true;
+   legs[1].actualPositionLot=Ctx.smallBaseLot;legs[1].requestedLot=Ctx.smallBaseLot;legs[1].fullClose=true;
+   legs[2].actualPositionLot=reverseLot;legs[2].requestedLot=reverseLot;legs[2].openLot=reverseLot;legs[2].closeLot=reverseLot;legs[2].includesOpenAndClose=true;
+   legs[3].actualPositionLot=Ctx.farLot;legs[3].requestedLot=Ctx.farLot;legs[3].fullClose=true;
+   legs[4].actualPositionLot=Ctx.bigCoreLot;legs[4].requestedLot=coreCloseLot;legs[4].residualLot=targetFar;
    double marginLevel=AccountInfoDouble(ACCOUNT_MARGIN_LEVEL); if(marginLevel<=0) marginLevel=999999;
    SmallTransitionEvaluation transition; if(!EvaluateSmallTransition(legs,Ctx.farLot,targetFar,Ctx.farLot+Ctx.smallBaseLot+reverseLot-Ctx.bigCoreLot,marginLevel,transition)) { reason=transition.reason; return false; }
    ReverseCyclesEvaluation cycles; double farLoss=MathMax(0.0,-projected[3].netMoney);

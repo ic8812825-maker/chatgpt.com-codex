@@ -14,7 +14,7 @@ BrokerMoneyResult Money(double net)
 void OnStart()
 {
  if(MagicNumber!=BIG_SMALL_TEST_MAGIC||AllowRealTrading||!UseInternalSimulation){Print("BIG_SMALL_TEST_CONFIGURATION_REFUSED");return;}
- BrokerMoneyResult p=Money(4),n=Money(-4),z=Money(0); SmallTransitionLeg legs[5]; for(int i=0;i<5;i++){legs[i].role=(SmallTransitionLegRole)i; legs[i].money=p; legs[i].requestedLot=.2;} legs[SMALL_LEG_OLD_FAR_CLOSE].fullClose=true; legs[SMALL_LEG_BIG_CORE_PARTIAL].residualLot=.5; legs[SMALL_LEG_REVERSE_SMALL].includesOpenAndClose=true;
+ BrokerMoneyResult p=Money(4),n=Money(-4),z=Money(0); SmallTransitionLeg legs[5]; for(int i=0;i<5;i++){legs[i].role=(SmallTransitionLegRole)i; legs[i].money=p;} double contractTarget=CalcTargetNewFarLot(1.0); legs[0].actualPositionLot=.25;legs[0].requestedLot=.25;legs[0].fullClose=true;legs[1].actualPositionLot=.60;legs[1].requestedLot=.60;legs[1].fullClose=true;legs[2].actualPositionLot=.20;legs[2].openLot=.20;legs[2].closeLot=.20;legs[2].includesOpenAndClose=true;legs[3].actualPositionLot=1;legs[3].requestedLot=1;legs[3].fullClose=true;legs[4].actualPositionLot=1.2;legs[4].requestedLot=1.2-contractTarget;legs[4].residualLot=contractTarget;
  BigRecoveryEvaluation big;
  Check("BIG_GATE_PASS",EvaluateBigGeometryAndRecovery(1,1.6,.25,.6,p,p,p,p,big)&&big.projectedRecoveryDelta==16);
  Check("BIG_GATE_NEGATIVE",!EvaluateBigGeometryAndRecovery(1,1.6,.25,.6,n,n,n,n,big)&&big.projectedRecoveryDelta<0);
@@ -22,7 +22,7 @@ void OnStart()
  BigReserveCatchUpEvaluation c;
  Check("COVERAGE_IMPROVES",EvaluateBigReserveCatchUp(5,11,1,2,1,.8,10,10,0,c)&&c.coverageAfter>c.coverageBefore);
  Check("COVERAGE_WORSENS",!EvaluateBigReserveCatchUp(5,5,2,1,1,1,10,12,2,c)&&c.coverageAfter<c.coverageBefore);
- double target=CalcTargetNewFarLot(1.0);
+ double target=contractTarget;
  Check("NEW_FAR_COMPRESSES",target>0&&target<1.0&&target/1.0<=MaximumNewFarRatio);
  SmallTransitionEvaluation s;
  Check("SMALL_TRANSITION_PASS",EvaluateSmallTransition(legs,1,target,.1,MinimumSafeMarginLevel,s)&&s.transitionNet==20);
