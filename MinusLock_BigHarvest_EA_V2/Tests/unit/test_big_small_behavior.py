@@ -219,3 +219,13 @@ def test_false_reverse_actions_have_distinct_execution_paths():
     assert false_reverse_fsm('CLOSE_REVERSE')!=false_reverse_fsm('CLOSE_BASE')
     assert false_reverse_fsm('CLOSE_TAILS')[1:3]==['CLOSE_TAILS_REVERSE','CLOSE_TAILS_BASE']
     assert false_reverse_fsm('CLOSE_BASKET',reject_at='CLOSE_BASKET')[-1]=='FAILED'
+
+def test_all_harvest_phases_resume_without_duplicate_side_effects():
+    phases=['CALCULATED','LEDGER_PREPARED','LEDGER_WRITTEN','RESERVE_UPDATED','CARRY_UPDATED','DISTRIBUTED','CONSUMED']
+    for phase in phases:
+        tx=HarvestTxn(phase=phase)
+        if phase in phases[2:]:tx.ledger=[9];tx.reserve=6
+        if phase in phases[4:]:tx.carry=4
+        first=replace(tx,ledger=list(tx.ledger)).resume(9,10,6,4)
+        second=first.resume(9,10,6,4)
+        assert second.ledger==[9] and second.reserve==6 and second.carry==4

@@ -5752,6 +5752,11 @@ void RetrySplitClosePending(EAState successState)
 
 bool ContinueSplitHarvestDistribution()
 {
+   if(Ctx.harvestPhase==HARVEST_CALCULATED)
+   {
+      if(Ctx.harvestReserveAdd==0&&Ctx.harvestPartialBudgetAdd==0){Ctx.harvestReserveAdd=Ctx.actualSplitHarvestNet*WorkReserveShare;Ctx.harvestPartialBudgetAdd=Ctx.actualSplitHarvestNet-Ctx.harvestReserveAdd;}
+      if(MathAbs(Ctx.actualSplitHarvestNet-Ctx.harvestReserveAdd-Ctx.harvestPartialBudgetAdd)>ReserveMismatchTolerance)return false;Ctx.harvestPhase=HARVEST_LEDGER_PREPARED;SaveState();
+   }
    if(Ctx.harvestPhase==HARVEST_LEDGER_PREPARED)
    {
       if(!ApplyReserveCredit(RESERVE_EVENT_SPLIT_BIG_HARVEST_ADD,Ctx.harvestReserveAdd)) return false;
@@ -5760,7 +5765,7 @@ bool ContinueSplitHarvestDistribution()
    if(Ctx.harvestPhase==HARVEST_LEDGER_WRITTEN) { Ctx.harvestPhase=HARVEST_RESERVE_UPDATED; SaveState(); }
    if(Ctx.harvestPhase==HARVEST_RESERVE_UPDATED) { Ctx.partialFarBudgetCarry=Ctx.harvestCarryAfter; Ctx.harvestPhase=HARVEST_CARRY_UPDATED; SaveState(); }
    if(Ctx.harvestPhase==HARVEST_CARRY_UPDATED) { Ctx.harvestPhase=HARVEST_DISTRIBUTED; SaveState(); }
-   return Ctx.harvestPhase>=HARVEST_DISTRIBUTED;
+   return Ctx.harvestPhase==HARVEST_DISTRIBUTED||Ctx.harvestPhase==HARVEST_CONSUMED;
 }
 
 void ProcessSplitBigHarvestFinalCheck()
