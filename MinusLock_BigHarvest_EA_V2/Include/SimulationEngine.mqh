@@ -68,24 +68,32 @@ double SimSignedPositionPL(Direction dir, double lot, double openPrice, double c
    return 0.0;
 }
 
-void SimRecordClosedDeal(ulong ticket, Direction dir, double lot, double openPrice, double closePrice, double profitMoney, string comment)
+void SimRecordClosedDeal(ulong ticket, ulong identifier, Direction dir, double lot, double openPrice, double closePrice, double profitMoney, double commission, double swap, double fee, string comment)
 {
    int index = ArraySize(SimClosedDeals);
    ArrayResize(SimClosedDeals, index + 1);
 
-   SimClosedDeals[index].ticket = ticket;
+   SimClosedDeals[index].ticket = SimNextTicket++;
+   SimClosedDeals[index].positionTicket = ticket;
+   SimClosedDeals[index].positionIdentifier = identifier;
+   SimClosedDeals[index].entry = DEAL_ENTRY_OUT;
+   SimClosedDeals[index].dealTime = TestMarketEventActive && ActiveTestMarketEvent.time > 0 ? ActiveTestMarketEvent.time : TimeCurrent();
    SimClosedDeals[index].direction = dir;
    SimClosedDeals[index].lot = lot;
    SimClosedDeals[index].openPrice = openPrice;
    SimClosedDeals[index].closePrice = closePrice;
    SimClosedDeals[index].profitMoney = profitMoney;
+   SimClosedDeals[index].commission = commission;
+   SimClosedDeals[index].swap = swap;
+   SimClosedDeals[index].fee = fee;
+   SimClosedDeals[index].netMoney = profitMoney + commission + swap + fee;
    SimClosedDeals[index].comment = comment;
 
-   SimRealizedPL += profitMoney;
-   if(profitMoney >= 0.0)
-      SimClosedProfit += profitMoney;
+   SimRealizedPL += SimClosedDeals[index].netMoney;
+   if(SimClosedDeals[index].netMoney >= 0.0)
+      SimClosedProfit += SimClosedDeals[index].netMoney;
    else
-      SimClosedLoss += profitMoney;
+      SimClosedLoss += SimClosedDeals[index].netMoney;
 }
 
 int SimFindIndexByTicket(ulong ticket)
@@ -204,6 +212,7 @@ bool SimClosePositionByTicket(ulong ticket, double lot)
 
    double closePrice = SimExitPrice(SimPositions[index].direction);
    double realizedPL = SimSignedPositionPL(
+      SimPositions[index].identifier,
       SimPositions[index].direction,
       closeLot,
       SimPositions[index].openPrice,
@@ -224,11 +233,15 @@ bool SimClosePositionByTicket(ulong ticket, double lot)
 
    SimRecordClosedDeal(
       ticket,
+      SimPositions[index].identifier,
       SimPositions[index].direction,
       closeLot,
       SimPositions[index].openPrice,
       closePrice,
       realizedPL,
+      TestMarketEventActive ? ActiveTestMarketEvent.closeCommissionMoney : 0.0,
+      TestMarketEventActive ? ActiveTestMarketEvent.swapMoney : 0.0,
+      TestMarketEventActive ? ActiveTestMarketEvent.feeMoney : 0.0,
       SimPositions[index].comment
    );
 

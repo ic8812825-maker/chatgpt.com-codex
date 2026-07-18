@@ -115,7 +115,7 @@ enum Direction
 };
 enum ScenarioMode { SCENARIO_IDLE=0,SCENARIO_BIG_ACTIVE,SCENARIO_BIG_CLOSING,SCENARIO_BIG_ACCOUNTING,SCENARIO_SMALL_SWITCH_PENDING,SCENARIO_SMALL_ACTIVE,SCENARIO_SMALL_CLOSING,SCENARIO_FINAL_CLOSE,SCENARIO_RECOVERY,SCENARIO_ERROR };
 
-struct TestMarketEvent { double bid; double ask; datetime time; bool rejectOpen; bool rejectClose; double partialFillRatio; double accountEquity; double accountMargin; double accountFreeMargin; double brokerBuyVolume; double brokerSellVolume; double brokerVolumeLimit; double marginPerLot; };
+struct TestMarketEvent { double bid; double ask; datetime time; bool rejectOpen; bool rejectClose; double partialFillRatio; double openCommissionMoney; double closeCommissionMoney; double swapMoney; double feeMoney; double slippageMoney; double accountEquity; double accountMargin; double accountFreeMargin; double brokerBuyVolume; double brokerSellVolume; double brokerVolumeLimit; double marginPerLot; };
 bool TestMarketEventActive=false;TestMarketEvent ActiveTestMarketEvent;
 void ApplyTestMarketEvent(TestMarketEvent &event){ActiveTestMarketEvent=event;TestMarketEventActive=true;}
 double MarketBid(){return UseInternalSimulation&&TestMarketEventActive?ActiveTestMarketEvent.bid:SymbolInfoDouble(_Symbol,SYMBOL_BID);}
@@ -374,11 +374,19 @@ struct PositionSnapshot
 struct ClosedDealSnapshot
 {
    ulong ticket;
+   ulong positionTicket;
+   ulong positionIdentifier;
+   ENUM_DEAL_ENTRY entry;
+   datetime dealTime;
    Direction direction;
    double lot;
    double openPrice;
    double closePrice;
    double profitMoney;
+   double commission;
+   double swap;
+   double fee;
+   double netMoney;
    string comment;
 };
 
