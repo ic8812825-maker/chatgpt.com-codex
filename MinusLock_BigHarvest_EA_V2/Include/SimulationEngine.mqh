@@ -3,7 +3,8 @@
 
 PositionSnapshot SimPositions[];
 ClosedDealSnapshot SimClosedDeals[];
-ulong SimNextTicket = 900000001;
+ulong SimNextPositionTicket = 900000001;
+ulong SimNextDealTicket = 990000001;
 double SimRealizedPL = 0.0;
 double SimClosedProfit = 0.0;
 double SimClosedLoss = 0.0;
@@ -12,7 +13,8 @@ void SimResetHistory()
 {
    ArrayResize(SimPositions, 0);
    ArrayResize(SimClosedDeals, 0);
-   SimNextTicket = 900000001;
+   SimNextPositionTicket = 900000001;
+   SimNextDealTicket = 990000001;
    SimRealizedPL = 0.0;
    SimClosedProfit = 0.0;
    SimClosedLoss = 0.0;
@@ -73,7 +75,7 @@ void SimRecordClosedDeal(ulong ticket, ulong identifier, Direction dir, double l
    int index = ArraySize(SimClosedDeals);
    ArrayResize(SimClosedDeals, index + 1);
 
-   SimClosedDeals[index].ticket = SimNextTicket++;
+   SimClosedDeals[index].ticket = SimNextDealTicket++;
    SimClosedDeals[index].positionTicket = ticket;
    SimClosedDeals[index].positionIdentifier = identifier;
    SimClosedDeals[index].entry = DEAL_ENTRY_OUT;
@@ -178,7 +180,7 @@ bool SimOpenPosition(Direction dir, double lot, string comment)
    ArrayResize(SimPositions, index + 1);
 
    SimPositions[index].exists = true;
-   SimPositions[index].ticket = SimNextTicket++;
+   SimPositions[index].ticket = SimNextPositionTicket++;
    SimPositions[index].identifier = SimPositions[index].ticket;
    SimPositions[index].direction = dir;
    SimPositions[index].lot = lot;
@@ -212,7 +214,6 @@ bool SimClosePositionByTicket(ulong ticket, double lot)
 
    double closePrice = SimExitPrice(SimPositions[index].direction);
    double realizedPL = SimSignedPositionPL(
-      SimPositions[index].identifier,
       SimPositions[index].direction,
       closeLot,
       SimPositions[index].openPrice,
