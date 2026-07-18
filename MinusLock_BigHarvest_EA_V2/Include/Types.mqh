@@ -371,7 +371,7 @@ struct PositionSnapshot
    string comment;
 };
 
-struct ClosedDealSnapshot
+struct SimDealSnapshot
 {
    ulong ticket;
    ulong positionTicket;

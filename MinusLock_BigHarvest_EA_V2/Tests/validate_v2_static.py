@@ -28,7 +28,7 @@ assert "Ctx.farOpenPrice = currentPrice;" not in state
 assert "double expectedNextFarLoss = 0.0;" not in state
 assert "if(!AllowRealTrading && Ctx.farLot > 0.0 && Ctx.farDirection != DIR_NONE)" not in state
 assert "ROLLBACK_BIG_WITHOUT_SMALL" in state
-assert "SimClosedDeals" in sim
+assert "SimDeals" in sim
 assert "SimRecordClosedDeal" in sim
 assert "SimRecalculateClosedStats" in sim
 assert "ACCOUNT_MARGIN_MODE_RETAIL_HEDGING" in main

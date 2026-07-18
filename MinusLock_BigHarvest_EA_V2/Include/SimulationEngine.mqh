@@ -2,7 +2,7 @@
 #define __BH_SIMULATIONENGINE_MQH__
 
 PositionSnapshot SimPositions[];
-ClosedDealSnapshot SimClosedDeals[];
+SimDealSnapshot SimDeals[];
 ulong SimNextPositionTicket = 900000001;
 ulong SimNextDealTicket = 990000001;
 double SimRealizedPL = 0.0;
@@ -12,7 +12,7 @@ double SimClosedLoss = 0.0;
 void SimResetHistory()
 {
    ArrayResize(SimPositions, 0);
-   ArrayResize(SimClosedDeals, 0);
+   ArrayResize(SimDeals, 0);
    SimNextPositionTicket = 900000001;
    SimNextDealTicket = 990000001;
    SimRealizedPL = 0.0;
@@ -72,30 +72,30 @@ double SimSignedPositionPL(Direction dir, double lot, double openPrice, double c
 
 void SimRecordClosedDeal(ulong ticket, ulong identifier, Direction dir, double lot, double openPrice, double closePrice, double profitMoney, double commission, double swap, double fee, string comment)
 {
-   int index = ArraySize(SimClosedDeals);
-   ArrayResize(SimClosedDeals, index + 1);
+   int index = ArraySize(SimDeals);
+   ArrayResize(SimDeals, index + 1);
 
-   SimClosedDeals[index].ticket = SimNextDealTicket++;
-   SimClosedDeals[index].positionTicket = ticket;
-   SimClosedDeals[index].positionIdentifier = identifier;
-   SimClosedDeals[index].entry = DEAL_ENTRY_OUT;
-   SimClosedDeals[index].dealTime = TestMarketEventActive && ActiveTestMarketEvent.time > 0 ? ActiveTestMarketEvent.time : TimeCurrent();
-   SimClosedDeals[index].direction = dir;
-   SimClosedDeals[index].lot = lot;
-   SimClosedDeals[index].openPrice = openPrice;
-   SimClosedDeals[index].closePrice = closePrice;
-   SimClosedDeals[index].profitMoney = profitMoney;
-   SimClosedDeals[index].commission = commission;
-   SimClosedDeals[index].swap = swap;
-   SimClosedDeals[index].fee = fee;
-   SimClosedDeals[index].netMoney = profitMoney + commission + swap + fee;
-   SimClosedDeals[index].comment = comment;
+   SimDeals[index].ticket = SimNextDealTicket++;
+   SimDeals[index].positionTicket = ticket;
+   SimDeals[index].positionIdentifier = identifier;
+   SimDeals[index].entry = DEAL_ENTRY_OUT;
+   SimDeals[index].dealTime = TestMarketEventActive && ActiveTestMarketEvent.time > 0 ? ActiveTestMarketEvent.time : TimeCurrent();
+   SimDeals[index].direction = dir;
+   SimDeals[index].lot = lot;
+   SimDeals[index].openPrice = openPrice;
+   SimDeals[index].closePrice = closePrice;
+   SimDeals[index].profitMoney = profitMoney;
+   SimDeals[index].commission = commission;
+   SimDeals[index].swap = swap;
+   SimDeals[index].fee = fee;
+   SimDeals[index].netMoney = profitMoney + commission + swap + fee;
+   SimDeals[index].comment = comment;
 
-   SimRealizedPL += SimClosedDeals[index].netMoney;
-   if(SimClosedDeals[index].netMoney >= 0.0)
-      SimClosedProfit += SimClosedDeals[index].netMoney;
+   SimRealizedPL += SimDeals[index].netMoney;
+   if(SimDeals[index].netMoney >= 0.0)
+      SimClosedProfit += SimDeals[index].netMoney;
    else
-      SimClosedLoss += SimClosedDeals[index].netMoney;
+      SimClosedLoss += SimDeals[index].netMoney;
 }
 
 int SimFindIndexByTicket(ulong ticket)
@@ -264,7 +264,7 @@ bool SimRecalculateClosedStats(double &realCyclePL, double &closedProfit, double
    realCyclePL = SimRealizedPL;
    closedProfit = SimClosedProfit;
    closedLoss = SimClosedLoss;
-   return ArraySize(SimClosedDeals) > 0;
+   return ArraySize(SimDeals) > 0;
 }
 
 #endif // __BH_SIMULATIONENGINE_MQH__
