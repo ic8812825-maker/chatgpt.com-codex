@@ -10,7 +10,7 @@ def test_simulation_deal_keeps_all_mt5_money_components():
     for field in ("profitMoney", "commissionMoney", "swapMoney", "feeMoney", "netMoney", "positionIdentifier", "dealTime"):
         assert field in TYPES
     assert "profitMoney+commissionMoney+swapMoney+feeMoney" in SIMULATION
-    assert "SimRealizedPL+=d.netMoney" in SIMULATION
+    assert "SimRealizedPL+=deal.netMoney" in SIMULATION
 
 
 def test_small_simulation_audit_uses_deal_identity_and_net_money():

@@ -89,9 +89,14 @@ bool SimRecordDeal(ulong positionTicket,ulong positionIdentifier,ENUM_DEAL_ENTRY
    SimDeals[oldSize]=deal; SimNextDealTicket++; createdDealTicket=candidate; SimRealizedPL+=deal.netMoney; if(deal.netMoney>=0)SimClosedProfit+=deal.netMoney;else SimClosedLoss+=deal.netMoney; return true;
 }
 
+bool SimValidatePositionCandidate(const PositionSnapshot &position,string &reason)
+{
+ reason="";
+ if(!position.exists){reason="SIM_POSITION_NOT_EXISTS";return false;} if(position.ticket==0){reason="SIM_POSITION_INVALID_TICKET";return false;} if(position.identifier==0){reason="SIM_POSITION_INVALID_IDENTIFIER";return false;} if(position.direction==DIR_NONE){reason="SIM_POSITION_INVALID_DIRECTION";return false;} if(position.initialLot<=0){reason="SIM_POSITION_INVALID_INITIAL_LOT";return false;} if(position.remainingLot<=0){reason="SIM_POSITION_INVALID_REMAINING_LOT";return false;} if(position.remainingLot>position.initialLot+VolumeMismatchToleranceLots){reason="SIM_POSITION_REMAINING_EXCEEDS_INITIAL";return false;} if(MathAbs(position.lot-position.remainingLot)>VolumeMismatchToleranceLots){reason="SIM_POSITION_LOT_ALIAS_MISMATCH";return false;} if(position.openPrice<=0){reason="SIM_POSITION_INVALID_OPEN_PRICE";return false;} if(position.openTime<=0){reason="SIM_POSITION_INVALID_OPEN_TIME";return false;} return true;
+}
 bool SimValidatePositionSnapshot(const PositionSnapshot &position,string &reason)
 {
- reason=""; if(!position.exists){reason="SIM_POSITION_NOT_EXISTS";return false;} if(position.ticket==0){reason="SIM_POSITION_INVALID_TICKET";return false;} if(position.identifier==0){reason="SIM_POSITION_INVALID_IDENTIFIER";return false;} if(position.direction==DIR_NONE){reason="SIM_POSITION_INVALID_DIRECTION";return false;} if(position.initialLot<=0){reason="SIM_POSITION_INVALID_INITIAL_LOT";return false;} if(position.remainingLot<=0){reason="SIM_POSITION_INVALID_REMAINING_LOT";return false;} if(position.remainingLot>position.initialLot+VolumeMismatchToleranceLots){reason="SIM_POSITION_REMAINING_EXCEEDS_INITIAL";return false;} if(MathAbs(position.lot-position.remainingLot)>VolumeMismatchToleranceLots){reason="SIM_POSITION_LOT_ALIAS_MISMATCH";return false;} if(position.openPrice<=0){reason="SIM_POSITION_INVALID_OPEN_PRICE";return false;} if(position.openTime<=0){reason="SIM_POSITION_INVALID_OPEN_TIME";return false;} if(position.entryDealTicket==0){reason="SIM_POSITION_ENTRY_DEAL_MISSING";return false;} return true;
+ if(!SimValidatePositionCandidate(position,reason))return false; if(position.entryDealTicket==0){reason="SIM_POSITION_ENTRY_DEAL_MISSING";return false;} return true;
 }
 
 int SimFindIndexByTicket(ulong ticket)
@@ -166,35 +171,12 @@ int SimCountFarLikePositions(Direction expectedFarDirection)
    return count;
 }
 
-bool SimOpenPosition(Direction dir, double lot, string comment)
+bool SimOpenPosition(Direction dir,double lot,string comment)
 {
-   if(TestMarketEventActive&&ActiveTestMarketEvent.rejectOpen) return false;
-   if(dir == DIR_NONE || lot <= 0.0)
-      return false;
-
-   int index = ArraySize(SimPositions);
-   ArrayResize(SimPositions, index + 1);
-
-   SimPositions[index].exists = true;
-   SimPositions[index].ticket = SimNextPositionTicket++;
-   SimPositions[index].identifier = SimPositions[index].ticket;
-   SimPositions[index].direction = dir;
-   SimPositions[index].lot = lot;
-   SimPositions[index].openPrice = SimEntryPrice(dir);
-   SimPositions[index].profitMoney = 0.0;
-   SimPositions[index].comment = comment;
-   ulong entryDeal=0; if(!SimRecordDeal(SimPositions[index].ticket,SimPositions[index].identifier,DEAL_ENTRY_IN,dir,lot,lot,SimPositions[index].openPrice,SimPositions[index].openPrice,0,0,0,0,0,comment,entryDeal)){ArrayResize(SimPositions,index);return false;}
-
-   PrintFormat(
-      "[BigHarvest][SIMULATION] OPEN comment=%s ticket=%I64u direction=%s lot=%.2f openPrice=%.5f",
-      comment,
-      SimPositions[index].ticket,
-      DirectionToString(dir),
-      lot,
-      SimPositions[index].openPrice
-   );
-
-   return true;
+ if(TestMarketEventActive&&ActiveTestMarketEvent.rejectOpen)return false; if(dir==DIR_NONE||lot<=0)return false;
+ ulong candidatePositionTicket=SimNextPositionTicket; PositionSnapshot candidate; ZeroMemory(candidate); candidate.exists=true; candidate.ticket=candidatePositionTicket; candidate.identifier=candidatePositionTicket; candidate.direction=dir; candidate.initialLot=lot; candidate.remainingLot=lot; candidate.lot=lot; candidate.openPrice=SimEntryPrice(dir); candidate.openTime=TestMarketEventActive&&ActiveTestMarketEvent.time>0?ActiveTestMarketEvent.time:TimeCurrent(); candidate.comment=comment;
+ string reason=""; if(!SimValidatePositionCandidate(candidate,reason)){Print("SIM_OPEN_CANDIDATE_INVALID "+reason);return false;} ulong entryDealTicket=0; if(!SimRecordDeal(candidate.ticket,candidate.identifier,DEAL_ENTRY_IN,dir,lot,lot,candidate.openPrice,candidate.openPrice,0,0,0,0,0,comment,entryDealTicket))return false; candidate.entryDealTicket=entryDealTicket; if(!SimValidatePositionSnapshot(candidate,reason))return false;
+ int oldCount=ArraySize(SimPositions); if(ArrayResize(SimPositions,oldCount+1)!=oldCount+1){Print("SIM_POSITION_ARRAY_RESIZE_FAILED");return false;} SimPositions[oldCount]=candidate; if(!SimValidatePositionSnapshot(SimPositions[oldCount],reason)){ArrayResize(SimPositions,oldCount);return false;} SimNextPositionTicket++; return true;
 }
 
 bool SimClosePositionByTicket(ulong ticket, double lot)
