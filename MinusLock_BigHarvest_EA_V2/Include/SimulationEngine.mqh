@@ -72,8 +72,21 @@ double SimSignedPositionPL(Direction dir, double lot, double openPrice, double c
 
 bool SimRecordDeal(ulong positionTicket,ulong positionIdentifier,ENUM_DEAL_ENTRY entry,Direction direction,double requestedLot,double filledLot,double positionOpenPrice,double executionPrice,double profitMoney,double commissionMoney,double swapMoney,double feeMoney,double slippageMoney,string comment,ulong &createdDealTicket)
 {
-   createdDealTicket=0; if(positionTicket==0||positionIdentifier==0||direction==DIR_NONE||requestedLot<=0||filledLot<=0||filledLot>requestedLot+VolumeMismatchToleranceLots||executionPrice<=0||(entry!=DEAL_ENTRY_IN&&entry!=DEAL_ENTRY_OUT&&entry!=DEAL_ENTRY_INOUT&&entry!=DEAL_ENTRY_OUT_BY))return false;
-   int index=ArraySize(SimDeals); ArrayResize(SimDeals,index+1); SimDealSnapshot d; d.dealTicket=SimNextDealTicket++; d.positionTicket=positionTicket; d.positionIdentifier=positionIdentifier; d.entry=entry; d.dealTime=TestMarketEventActive&&ActiveTestMarketEvent.time>0?ActiveTestMarketEvent.time:TimeCurrent(); d.direction=direction; d.requestedLot=requestedLot; d.filledLot=filledLot; d.positionOpenPrice=positionOpenPrice; d.executionPrice=executionPrice; d.profitMoney=profitMoney; d.commissionMoney=commissionMoney; d.swapMoney=swapMoney; d.feeMoney=feeMoney; d.slippageMoney=slippageMoney; d.netMoney=profitMoney+commissionMoney+swapMoney+feeMoney+slippageMoney; d.comment=comment; SimDeals[index]=d; SimRealizedPL+=d.netMoney; if(d.netMoney>=0)SimClosedProfit+=d.netMoney;else SimClosedLoss+=d.netMoney; createdDealTicket=d.dealTicket; return true;
+   createdDealTicket=0;
+   string reason="";
+   if(positionTicket==0) reason="SIM_DEAL_INVALID_POSITION_TICKET";
+   else if(positionIdentifier==0) reason="SIM_DEAL_INVALID_IDENTIFIER";
+   else if(direction==DIR_NONE) reason="SIM_DEAL_INVALID_DIRECTION";
+   else if(requestedLot<=0) reason="SIM_DEAL_INVALID_REQUESTED_LOT";
+   else if(filledLot<=0) reason="SIM_DEAL_INVALID_FILLED_LOT";
+   else if(filledLot>requestedLot+VolumeMismatchToleranceLots) reason="SIM_DEAL_OVERFILL";
+   else if(executionPrice<=0) reason="SIM_DEAL_INVALID_PRICE";
+   else if(entry!=DEAL_ENTRY_IN&&entry!=DEAL_ENTRY_OUT&&entry!=DEAL_ENTRY_INOUT&&entry!=DEAL_ENTRY_OUT_BY) reason="SIM_DEAL_INVALID_ENTRY";
+   if(reason!=""){Print("[BigHarvest][SIMULATION] "+reason);return false;}
+   int oldSize=ArraySize(SimDeals); if(ArrayResize(SimDeals,oldSize+1)!=oldSize+1){Print("[BigHarvest][SIMULATION] SIM_DEAL_ARRAY_RESIZE_FAILED");return false;}
+   SimDealSnapshot deal; ZeroMemory(deal); ulong candidate=SimNextDealTicket;
+   deal.dealTicket=candidate; deal.positionTicket=positionTicket; deal.positionIdentifier=positionIdentifier; deal.entry=entry; deal.dealTime=TestMarketEventActive&&ActiveTestMarketEvent.time>0?ActiveTestMarketEvent.time:TimeCurrent(); deal.direction=direction; deal.requestedLot=requestedLot; deal.filledLot=filledLot; deal.positionOpenPrice=positionOpenPrice; deal.executionPrice=executionPrice; deal.profitMoney=profitMoney; deal.commissionMoney=commissionMoney; deal.swapMoney=swapMoney; deal.feeMoney=feeMoney; deal.slippageMoney=slippageMoney; deal.netMoney=profitMoney+commissionMoney+swapMoney+feeMoney+slippageMoney; deal.comment=comment;
+   SimDeals[oldSize]=deal; SimNextDealTicket++; createdDealTicket=candidate; SimRealizedPL+=deal.netMoney; if(deal.netMoney>=0)SimClosedProfit+=deal.netMoney;else SimClosedLoss+=deal.netMoney; return true;
 }
 
 int SimFindIndexByTicket(ulong ticket)
