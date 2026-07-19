@@ -8,6 +8,7 @@ ulong SimNextDealTicket = 990000001;
 double SimRealizedPL = 0.0;
 double SimClosedProfit = 0.0;
 double SimClosedLoss = 0.0;
+bool SimIntegrityFailed=false; string SimIntegrityFailureReason="";
 
 void SimResetHistory()
 {
@@ -18,7 +19,7 @@ void SimResetHistory()
    SimRealizedPL = 0.0;
    SimClosedProfit = 0.0;
    SimClosedLoss = 0.0;
-   TestMarketEventActive=false;
+   TestMarketEventActive=false; SimIntegrityFailed=false; SimIntegrityFailureReason="";
 }
 
 double SimEntryPrice(Direction dir)
@@ -87,6 +88,12 @@ bool SimRecordDeal(ulong positionTicket,ulong positionIdentifier,ENUM_DEAL_ENTRY
    SimDealSnapshot deal; ZeroMemory(deal); ulong candidate=SimNextDealTicket;
    deal.dealTicket=candidate; deal.positionTicket=positionTicket; deal.positionIdentifier=positionIdentifier; deal.entry=entry; deal.dealTime=TestMarketEventActive&&ActiveTestMarketEvent.time>0?ActiveTestMarketEvent.time:TimeCurrent(); deal.direction=direction; deal.requestedLot=requestedLot; deal.filledLot=filledLot; deal.positionOpenPrice=positionOpenPrice; deal.executionPrice=executionPrice; deal.profitMoney=profitMoney; deal.commissionMoney=commissionMoney; deal.swapMoney=swapMoney; deal.feeMoney=feeMoney; deal.slippageMoney=slippageMoney; deal.netMoney=profitMoney+commissionMoney+swapMoney+feeMoney+slippageMoney; deal.comment=comment;
    SimDeals[oldSize]=deal; SimNextDealTicket++; createdDealTicket=candidate; SimRealizedPL+=deal.netMoney; if(deal.netMoney>=0)SimClosedProfit+=deal.netMoney;else SimClosedLoss+=deal.netMoney; return true;
+}
+
+void SimSetIntegrityFailure(string reason){SimIntegrityFailed=true;SimIntegrityFailureReason=reason;Print("[BigHarvest][SIMULATION][CRITICAL] "+reason);}
+bool SimRollbackLastDeal(ulong expectedDealTicket,string &reason)
+{
+ reason=""; if(expectedDealTicket==0){reason="SIM_ROLLBACK_INVALID_EXPECTED_TICKET";return false;} int count=ArraySize(SimDeals); if(count<=0){reason="SIM_ROLLBACK_EMPTY_HISTORY";return false;} SimDealSnapshot d=SimDeals[count-1]; if(d.dealTicket!=expectedDealTicket){reason="SIM_ROLLBACK_NOT_LAST_DEAL";return false;} if(SimNextDealTicket!=expectedDealTicket+1){reason="SIM_ROLLBACK_SEQUENCE_MISMATCH";return false;} SimRealizedPL-=d.netMoney; if(d.netMoney>=0)SimClosedProfit-=d.netMoney;else SimClosedLoss-=d.netMoney; if(ArrayResize(SimDeals,count-1)!=count-1){SimRealizedPL+=d.netMoney;if(d.netMoney>=0)SimClosedProfit+=d.netMoney;else SimClosedLoss+=d.netMoney;reason="SIM_ROLLBACK_DEAL_ARRAY_RESIZE_FAILED";return false;} SimNextDealTicket=expectedDealTicket; return true;
 }
 
 bool SimValidatePositionCandidate(const PositionSnapshot &position,string &reason)
@@ -173,10 +180,10 @@ int SimCountFarLikePositions(Direction expectedFarDirection)
 
 bool SimOpenPosition(Direction dir,double lot,string comment)
 {
- if(TestMarketEventActive&&ActiveTestMarketEvent.rejectOpen)return false; if(dir==DIR_NONE||lot<=0)return false;
+ if(SimIntegrityFailed)return false; if(TestMarketEventActive&&ActiveTestMarketEvent.rejectOpen)return false; if(dir==DIR_NONE||lot<=0)return false;
  ulong candidatePositionTicket=SimNextPositionTicket; PositionSnapshot candidate; ZeroMemory(candidate); candidate.exists=true; candidate.ticket=candidatePositionTicket; candidate.identifier=candidatePositionTicket; candidate.direction=dir; candidate.initialLot=lot; candidate.remainingLot=lot; candidate.lot=lot; candidate.openPrice=SimEntryPrice(dir); candidate.openTime=TestMarketEventActive&&ActiveTestMarketEvent.time>0?ActiveTestMarketEvent.time:TimeCurrent(); candidate.comment=comment;
- string reason=""; if(!SimValidatePositionCandidate(candidate,reason)){Print("SIM_OPEN_CANDIDATE_INVALID "+reason);return false;} ulong entryDealTicket=0; if(!SimRecordDeal(candidate.ticket,candidate.identifier,DEAL_ENTRY_IN,dir,lot,lot,candidate.openPrice,candidate.openPrice,0,0,0,0,0,comment,entryDealTicket))return false; candidate.entryDealTicket=entryDealTicket; if(!SimValidatePositionSnapshot(candidate,reason))return false;
- int oldCount=ArraySize(SimPositions); if(ArrayResize(SimPositions,oldCount+1)!=oldCount+1){Print("SIM_POSITION_ARRAY_RESIZE_FAILED");return false;} SimPositions[oldCount]=candidate; if(!SimValidatePositionSnapshot(SimPositions[oldCount],reason)){ArrayResize(SimPositions,oldCount);return false;} SimNextPositionTicket++; return true;
+ string reason=""; if(!SimValidatePositionCandidate(candidate,reason)){Print("SIM_OPEN_CANDIDATE_INVALID "+reason);return false;} ulong entryDealTicket=0; if(!SimRecordDeal(candidate.ticket,candidate.identifier,DEAL_ENTRY_IN,dir,lot,lot,candidate.openPrice,candidate.openPrice,0,0,0,0,0,comment,entryDealTicket))return false; candidate.entryDealTicket=entryDealTicket; if(!SimValidatePositionSnapshot(candidate,reason)){string rr="";if(!SimRollbackLastDeal(entryDealTicket,rr))SimSetIntegrityFailure("SIM_OPEN_SNAPSHOT_ROLLBACK_FAILED:"+rr);return false;}
+ int oldCount=ArraySize(SimPositions); if(ArrayResize(SimPositions,oldCount+1)!=oldCount+1){string rr="";if(!SimRollbackLastDeal(entryDealTicket,rr))SimSetIntegrityFailure("SIM_OPEN_RESIZE_ROLLBACK_FAILED:"+rr);return false;} SimPositions[oldCount]=candidate; if(!SimValidatePositionSnapshot(SimPositions[oldCount],reason)){ArrayResize(SimPositions,oldCount);return false;} SimNextPositionTicket++; return true;
 }
 
 bool SimClosePositionByTicket(ulong ticket, double lot)
