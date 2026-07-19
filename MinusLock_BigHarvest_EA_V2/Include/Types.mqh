@@ -373,21 +373,9 @@ struct PositionSnapshot
 
 struct SimDealSnapshot
 {
-   ulong ticket;
-   ulong positionTicket;
-   ulong positionIdentifier;
-   ENUM_DEAL_ENTRY entry;
-   datetime dealTime;
-   Direction direction;
-   double lot;
-   double openPrice;
-   double closePrice;
-   double profitMoney;
-   double commission;
-   double swap;
-   double fee;
-   double netMoney;
-   string comment;
+   ulong dealTicket; ulong positionTicket; ulong positionIdentifier; ENUM_DEAL_ENTRY entry; datetime dealTime; Direction direction;
+   double requestedLot; double filledLot; double positionOpenPrice; double executionPrice;
+   double profitMoney; double commissionMoney; double swapMoney; double feeMoney; double slippageMoney; double netMoney; string comment;
 };
 
 struct FinalCloseEvaluation

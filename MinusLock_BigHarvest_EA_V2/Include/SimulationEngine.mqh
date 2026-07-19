@@ -70,32 +70,10 @@ double SimSignedPositionPL(Direction dir, double lot, double openPrice, double c
    return 0.0;
 }
 
-void SimRecordClosedDeal(ulong ticket, ulong identifier, Direction dir, double lot, double openPrice, double closePrice, double profitMoney, double commission, double swap, double fee, string comment)
+bool SimRecordDeal(ulong positionTicket,ulong positionIdentifier,ENUM_DEAL_ENTRY entry,Direction direction,double requestedLot,double filledLot,double positionOpenPrice,double executionPrice,double profitMoney,double commissionMoney,double swapMoney,double feeMoney,double slippageMoney,string comment,ulong &createdDealTicket)
 {
-   int index = ArraySize(SimDeals);
-   ArrayResize(SimDeals, index + 1);
-
-   SimDeals[index].ticket = SimNextDealTicket++;
-   SimDeals[index].positionTicket = ticket;
-   SimDeals[index].positionIdentifier = identifier;
-   SimDeals[index].entry = DEAL_ENTRY_OUT;
-   SimDeals[index].dealTime = TestMarketEventActive && ActiveTestMarketEvent.time > 0 ? ActiveTestMarketEvent.time : TimeCurrent();
-   SimDeals[index].direction = dir;
-   SimDeals[index].lot = lot;
-   SimDeals[index].openPrice = openPrice;
-   SimDeals[index].closePrice = closePrice;
-   SimDeals[index].profitMoney = profitMoney;
-   SimDeals[index].commission = commission;
-   SimDeals[index].swap = swap;
-   SimDeals[index].fee = fee;
-   SimDeals[index].netMoney = profitMoney + commission + swap + fee;
-   SimDeals[index].comment = comment;
-
-   SimRealizedPL += SimDeals[index].netMoney;
-   if(SimDeals[index].netMoney >= 0.0)
-      SimClosedProfit += SimDeals[index].netMoney;
-   else
-      SimClosedLoss += SimDeals[index].netMoney;
+   createdDealTicket=0; if(positionTicket==0||positionIdentifier==0||direction==DIR_NONE||requestedLot<=0||filledLot<=0||filledLot>requestedLot+VolumeMismatchToleranceLots||executionPrice<=0||(entry!=DEAL_ENTRY_IN&&entry!=DEAL_ENTRY_OUT&&entry!=DEAL_ENTRY_INOUT&&entry!=DEAL_ENTRY_OUT_BY))return false;
+   int index=ArraySize(SimDeals); ArrayResize(SimDeals,index+1); SimDealSnapshot d; d.dealTicket=SimNextDealTicket++; d.positionTicket=positionTicket; d.positionIdentifier=positionIdentifier; d.entry=entry; d.dealTime=TestMarketEventActive&&ActiveTestMarketEvent.time>0?ActiveTestMarketEvent.time:TimeCurrent(); d.direction=direction; d.requestedLot=requestedLot; d.filledLot=filledLot; d.positionOpenPrice=positionOpenPrice; d.executionPrice=executionPrice; d.profitMoney=profitMoney; d.commissionMoney=commissionMoney; d.swapMoney=swapMoney; d.feeMoney=feeMoney; d.slippageMoney=slippageMoney; d.netMoney=profitMoney+commissionMoney+swapMoney+feeMoney+slippageMoney; d.comment=comment; SimDeals[index]=d; SimRealizedPL+=d.netMoney; if(d.netMoney>=0)SimClosedProfit+=d.netMoney;else SimClosedLoss+=d.netMoney; createdDealTicket=d.dealTicket; return true;
 }
 
 int SimFindIndexByTicket(ulong ticket)
@@ -187,6 +165,7 @@ bool SimOpenPosition(Direction dir, double lot, string comment)
    SimPositions[index].openPrice = SimEntryPrice(dir);
    SimPositions[index].profitMoney = 0.0;
    SimPositions[index].comment = comment;
+   ulong entryDeal=0; if(!SimRecordDeal(SimPositions[index].ticket,SimPositions[index].identifier,DEAL_ENTRY_IN,dir,lot,lot,SimPositions[index].openPrice,SimPositions[index].openPrice,0,0,0,0,0,comment,entryDeal)){ArrayResize(SimPositions,index);return false;}
 
    PrintFormat(
       "[BigHarvest][SIMULATION] OPEN comment=%s ticket=%I64u direction=%s lot=%.2f openPrice=%.5f",
@@ -232,19 +211,7 @@ bool SimClosePositionByTicket(ulong ticket, double lot)
       realizedPL
    );
 
-   SimRecordClosedDeal(
-      ticket,
-      SimPositions[index].identifier,
-      SimPositions[index].direction,
-      closeLot,
-      SimPositions[index].openPrice,
-      closePrice,
-      realizedPL,
-      TestMarketEventActive ? ActiveTestMarketEvent.closeCommissionMoney : 0.0,
-      TestMarketEventActive ? ActiveTestMarketEvent.swapMoney : 0.0,
-      TestMarketEventActive ? ActiveTestMarketEvent.feeMoney : 0.0,
-      SimPositions[index].comment
-   );
+   ulong exitDeal=0; if(!SimRecordDeal(ticket,SimPositions[index].identifier,DEAL_ENTRY_OUT,SimPositions[index].direction,lot,closeLot,SimPositions[index].openPrice,closePrice,realizedPL,TestMarketEventActive?ActiveTestMarketEvent.closeCommissionMoney:0,TestMarketEventActive?ActiveTestMarketEvent.swapMoney:0,TestMarketEventActive?ActiveTestMarketEvent.feeMoney:0,0,SimPositions[index].comment,exitDeal)) return false;
 
    if(closeLot >= SimPositions[index].lot - 0.000000001)
    {
