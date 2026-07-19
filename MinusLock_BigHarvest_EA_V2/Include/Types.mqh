@@ -361,14 +361,9 @@ struct PositionResolutionResult
 
 struct PositionSnapshot
 {
-   bool exists;
-   ulong ticket;
-   ulong identifier;
-   Direction direction;
-   double lot;
-   double openPrice;
-   double profitMoney;
-   string comment;
+   bool exists; ulong ticket; ulong identifier; Direction direction;
+   double initialLot; double remainingLot; double lot; double openPrice; datetime openTime; ulong entryDealTicket;
+   double profitMoney; double accruedSwapMoney; double appliedOpenCommissionMoney; double appliedOpenFeeMoney; string comment;
 };
 
 struct SimDealSnapshot

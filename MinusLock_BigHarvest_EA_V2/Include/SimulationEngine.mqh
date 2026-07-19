@@ -89,6 +89,11 @@ bool SimRecordDeal(ulong positionTicket,ulong positionIdentifier,ENUM_DEAL_ENTRY
    SimDeals[oldSize]=deal; SimNextDealTicket++; createdDealTicket=candidate; SimRealizedPL+=deal.netMoney; if(deal.netMoney>=0)SimClosedProfit+=deal.netMoney;else SimClosedLoss+=deal.netMoney; return true;
 }
 
+bool SimValidatePositionSnapshot(const PositionSnapshot &position,string &reason)
+{
+ reason=""; if(!position.exists){reason="SIM_POSITION_NOT_EXISTS";return false;} if(position.ticket==0){reason="SIM_POSITION_INVALID_TICKET";return false;} if(position.identifier==0){reason="SIM_POSITION_INVALID_IDENTIFIER";return false;} if(position.direction==DIR_NONE){reason="SIM_POSITION_INVALID_DIRECTION";return false;} if(position.initialLot<=0){reason="SIM_POSITION_INVALID_INITIAL_LOT";return false;} if(position.remainingLot<=0){reason="SIM_POSITION_INVALID_REMAINING_LOT";return false;} if(position.remainingLot>position.initialLot+VolumeMismatchToleranceLots){reason="SIM_POSITION_REMAINING_EXCEEDS_INITIAL";return false;} if(MathAbs(position.lot-position.remainingLot)>VolumeMismatchToleranceLots){reason="SIM_POSITION_LOT_ALIAS_MISMATCH";return false;} if(position.openPrice<=0){reason="SIM_POSITION_INVALID_OPEN_PRICE";return false;} if(position.openTime<=0){reason="SIM_POSITION_INVALID_OPEN_TIME";return false;} if(position.entryDealTicket==0){reason="SIM_POSITION_ENTRY_DEAL_MISSING";return false;} return true;
+}
+
 int SimFindIndexByTicket(ulong ticket)
 {
    for(int i = 0; i < ArraySize(SimPositions); i++)
