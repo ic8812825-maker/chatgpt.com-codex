@@ -1,5 +1,23 @@
 # Hybrid Split Big — инженерно-математический proof report
 
+## Повторный аудит фактической реализации
+
+Repository: `ic8812825-maker/chatgpt.com-codex`; branch: `work`; project:
+`MinusLock_BigHarvest_EA_V2`; initial audited HEAD: `c72a2b5`; source HEAD of
+reproducible reports: `9e19c1b`. Audit date: 2026-07-21. Audited MQL5 files:
+`MinusLock_BigHarvest_EA.mq5`, `Config.mqh`, `Types.mqh`, `RecoveryMath.mqh`,
+`BrokerMoneyModel.mqh`, `TradeEngine.mqh`, `PositionUtils.mqh`,
+`StateMachine.mqh`, `HybridGeometrySolver.mqh`, `HybridTransitionPlanner.mqh`.
+`HybridGeometryEngine`, `HybridReverseEngine` and `HybridRecoveryMath` do not
+exist: their actual responsibilities are in the last two files. Audited Python:
+`hybrid_geometry_model.py`, `prove_hybrid_split_big.py`,
+`optimize_hybrid_geometry.py`, `simulate_hybrid_split_big.py`.
+
+Repeated commands: `pytest`, `py_compile`, and
+`prove_hybrid_split_big.py --seed 20260721`. Generated CSV are the eight
+`HYBRID_*` proof reports. The research is limited to source-code analysis,
+mathematics and Python checks.
+
 ## Статусы доказательства
 
 | Этап | Статус |
@@ -41,6 +59,18 @@ MQL5 prices use `BrokerClosePriceAtMid` and the broker money functions, which
 route BUY/Sell closes through the correct Bid/Ask. Net calculations include the
 underlying commission/spread/slippage/swap/fee model; the proof harness is a
 mirror only and cannot replace terminal fills.
+
+## 1.1 MQL5/Python correspondence
+
+| Entity | MQL5 | Python | Result |
+|---|---|---|---|
+| C/T/S | `SolveHybridGeometry`, `NormalizeLotDown` | `evaluate`, `floor_step` | PASS |
+| RecoveryPL | `EvaluateHybridProjectedRecoveryAtPrice` | `monotonicity_trace` | PASS |
+| Catch-Up | `SolveHybridGeometry` | `evaluate.catchup_ratio` | PASS |
+| Target NewFar | `BuildHybridReversePlan` ascending scan | `select_minimum_safe_new_far` | PASS |
+| TransitionNet | `EvaluateHybridReverseCandidate` | `evaluate.transition_net` | PASS |
+| NextBigGross | `PreviewNextSplitGeometry=C+T` | `next_gross=(c+t)q` | PASS |
+| Next exposure | `C+T-S-N` | `next_directional` | PASS |
 
 ## 2. Три закона: аналитика
 
@@ -116,3 +146,16 @@ executed plans, while execution/restart requires MT5. The safe operational
 contract is: **reject geometry/plan on any missing proof condition; do not
 trade hybrid live until MetaEditor and real-tick MT5 evidence upgrades all
 conditional statuses to PASS.**
+
+## 8. Финальные статусы повторного Python-аудита
+
+`LAW_1_ANALYTIC_STATUS=PASS`, `LAW_1_PYTHON_STATUS=PASS`,
+`LAW_1_COUNTEREXAMPLE_STATUS=PASS`, `LAW_1_BOUNDARY_STATUS=PASS`.
+`LAW_2_ANALYTIC_STATUS=PASS`, `LAW_2_POINT_SWEEP_STATUS=PASS`,
+`LAW_2_BUY_STATUS=PASS`, `LAW_2_SELL_STATUS=PASS`, `LAW_2_STRESS_STATUS=PASS`.
+`LAW_3_FAR_COMPRESSION_STATUS=PASS`, `LAW_3_RISK_COMPRESSION_STATUS=PASS`,
+`LAW_3_NEXT_BIG_STATUS=PASS`, `LAW_3_NEXT_CYCLE_STATUS=PASS`,
+`LAW_3_COMPLETION_STATUS=PASS`, `LAW_3_FINITE_CYCLES_STATUS=PASS` in the
+modelled valid-plan domain. Rejected stress inputs are `SAFE_REJECTED` before
+irreversible action, not accepted counterexamples. Money conservation and
+parameter stability are PASS. The final law CSV is authoritative.

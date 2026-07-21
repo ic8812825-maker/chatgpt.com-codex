@@ -18,7 +18,7 @@ def write(path, rows):
     path.parent.mkdir(parents=True,exist_ok=True)
     fields=list(COMMON)+[x for x in rows[0] if x not in COMMON]
     with path.open("w",newline="",encoding="utf-8") as f:
-        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n");w.writeheader();w.writerows(rows)
 def meta(i,direction,seed,commit,result="PASS",reason=""):
     return dict(GeneratedAt=datetime.now(timezone.utc).isoformat(),GitCommit=commit,Seed=seed,ScenarioId=i,Direction=direction,SymbolModel="POINT_VALUE_1_BID_ASK_COST_MODEL",InputSet="HYBRID_CORE_TARGET",Result=result,Law1Status="PASS",Law2Status="PASS",Law3Status="PASS",RejectReason=reason)
 def terminal(far,b): return far<=b.min_lot+1e-12
@@ -98,6 +98,6 @@ def main():
  big=big_rows(a.seed,commit);small=small_rows(a.seed,commit);stress=stress_rows(a.seed,commit);counter=counter_rows(a.seed,commit);stability=stability_rows(a.seed,commit);money=conservation_rows(a.seed,commit,big,small)
  for name,rows in (("HYBRID_BIG_100_SCENARIOS.csv",big),("HYBRID_SMALL_100_REVERSALS.csv",small),("HYBRID_STRESS_TEST.csv",stress),("HYBRID_COUNTEREXAMPLES.csv",counter),("HYBRID_PARAMETER_STABILITY.csv",stability),("HYBRID_MONEY_CONSERVATION.csv",money)) : write(a.reports/name,rows)
  final=[dict(Repository="ic8812825-maker/chatgpt.com-codex",Branch="work",CommitSHA=commit,Law1="PASS",Law2="PASS",Law3="PASS",Pytest=a.pytest_status,PyCompile=a.pycompile_status,BigScenarios="PASS",SmallScenarios="PASS",StressScenarios="PASS",Counterexamples="PASS" if all(r["Result"]=="PASS" for r in counter) else "FAIL",MoneyConservation="PASS",ParameterStability="PASS" if all(r["Result"]=="PASS" for r in stability) else "FAIL",ManualCreated="false",OverallResult="PASS")]
- with (a.reports/"HYBRID_FINAL_LAW_STATUS.csv").open("w",newline="",encoding="utf-8") as f:w=csv.DictWriter(f,fieldnames=list(final[0]));w.writeheader();w.writerows(final)
+ with (a.reports/"HYBRID_FINAL_LAW_STATUS.csv").open("w",newline="",encoding="utf-8") as f:w=csv.DictWriter(f,fieldnames=list(final[0]),lineterminator="\n");w.writeheader();w.writerows(final)
  print(f"seed={a.seed} commit={commit} big={len(big)} small={len(small)} stress={len(stress)} counter={len(counter)}")
 if __name__=="__main__":main()
