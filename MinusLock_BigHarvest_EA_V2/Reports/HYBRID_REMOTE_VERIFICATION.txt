@@ -1,0 +1,6 @@
+ExpectedHead=566577f357f5270a2c8e25649c41a64f4d6e6b03
+ActualOriginWorkHead=566577f357f5270a2c8e25649c41a64f4d6e6b03
+Match=true
+VerificationDate=2026-07-21T20:26:00Z
+
+Проверка относится к состоянию удалённой ветки до завершающего коммита этого файла.
