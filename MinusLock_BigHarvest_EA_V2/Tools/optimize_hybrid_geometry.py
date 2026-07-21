@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Iterable, List
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hybrid_geometry_model import ARCHITECTURES, Broker, Candidate, Evaluation, evaluate, monotonicity_trace
+from hybrid_geometry_model import ARCHITECTURES, Broker, Candidate, Evaluation, evaluate, monotonicity_trace, select_minimum_safe_new_far
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = ["architecture", "core_ratio", "trend_ratio", "small_ratio", "reserve_share", "target_far_ratio", "safety_factor", "min_net_exposure", "max_new_big_ratio", "minimum_improvement", "accepted", "reject_reason", "core_lot", "trend_lot", "small_lot", "new_far_lot", "net_big_exposure", "recovery_slope", "reserve_slope", "far_loss_slope", "catchup_ratio", "new_far_ratio", "new_big_gross_ratio", "new_big_directional_ratio", "margin_percent", "transition_gross", "transition_costs", "transition_net", "reserve_credit", "transition_budget", "reverse_bound", "score", "method"]
@@ -25,7 +25,7 @@ def candidate(r: random.Random, i: int, n: int, method: str) -> Candidate:
 def robust(e: Evaluation, broker: Broker) -> bool:
     points = (0, 1, 5, 10, 25, 50, 100, 150, 200, 300, 400)
     for multiplier in (1.0, 2.0):
-        test = evaluate(e.candidate, broker, 1.0, 200.0, multiplier)
+        test = select_minimum_safe_new_far(e.candidate, broker, 1.0, 200.0, multiplier)
         trace = monotonicity_trace(e.candidate, broker, 1.0, points, multiplier)
         if not test.accepted or any(b < a + e.candidate.minimum_improvement - 1e-9 for a, b in zip(trace, trace[1:])):
             return False
@@ -59,7 +59,7 @@ def main() -> int:
     a=ap.parse_args(); r=random.Random(a.seed); broker=Broker(); all_rows=[]; methods={}
     for method in ("lhs", "random"):
         for i in range(a.runs // 2):
-            e=evaluate(candidate(r,i,a.runs//2,method),broker)
+            e=select_minimum_safe_new_far(candidate(r,i,a.runs//2,method),broker)
             if e.accepted and not robust(e,broker):
                 e.accepted=False; e.reject_reason="STRESS_OR_MONOTONICITY"; e.score=-1e9
             all_rows.append(e); methods[id(e)]=method

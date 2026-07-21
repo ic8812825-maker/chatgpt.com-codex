@@ -6,7 +6,7 @@ All monetary buckets are mutually exclusive by construction.
 """
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from math import ceil, log
 from typing import Dict, Iterable, List, Tuple
 
@@ -153,6 +153,28 @@ def evaluate(c: Candidate, broker: Broker = Broker(), far_lot: float = 1.0,
                       reserve_slope, far_slope, catchup, q, next_gross, next_directional,
                       margin_percent, transition_gross, transition_costs, transition_net,
                       reserve_credit, transition_budget, bound, score)
+
+
+def select_minimum_safe_new_far(c: Candidate, broker: Broker = Broker(), far_lot: float = 1.0,
+                                far_distance: float = 200.0, cost_multiplier: float = 1.0) -> Evaluation:
+    """Mirror MQL5 BuildHybridReversePlan's ascending broker-step scan.
+
+    The configured target is an upper bound, not a fixed remainder.  The
+    first accepted rounded lot is therefore the smallest safe NewFar.
+    """
+    upper = floor_step(min(c.target_far_ratio * far_lot, c.core_ratio * far_lot - broker.lot_step), broker)
+    target = broker.min_lot
+    last = evaluate(c, broker, far_lot, far_distance, cost_multiplier)
+    while target <= upper + broker.lot_step * .25:
+        candidate = replace(c, target_far_ratio=target / far_lot)
+        result = evaluate(candidate, broker, far_lot, far_distance, cost_multiplier)
+        if result.accepted:
+            return result
+        last = result
+        target = floor_step(target + broker.lot_step, broker)
+    last.accepted = False
+    last.reject_reason = "NO_SAFE_NEW_FAR"
+    return last
 
 
 def monotonicity_trace(c: Candidate, broker: Broker, far_lot: float, points: Iterable[float], cost_multiplier: float = 1.0) -> List[float]:

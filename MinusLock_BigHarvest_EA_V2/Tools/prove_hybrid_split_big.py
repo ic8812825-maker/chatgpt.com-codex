@@ -10,7 +10,7 @@ from dataclasses import replace
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hybrid_geometry_model import Broker, Candidate, evaluate, monotonicity_trace, reverse_count
+from hybrid_geometry_model import Broker, Candidate, evaluate, monotonicity_trace, reverse_count, select_minimum_safe_new_far
 
 ROOT=Path(__file__).resolve().parents[1]
 BEST=Candidate("core_target",2.0,.8,.2,.9,.3,1.10,.05,.99,.01)
@@ -24,7 +24,7 @@ def big_rows():
     rows=[]; lots=[.01,.05,.1,.5,1,2,5,10]; distances=[100,200,300,500,1000]; steps=[.001,.01,.1]
     for i in range(100):
         b=Broker(lot_step=steps[i%3],min_lot=steps[i%3],spread_points=20*(1+(i//20)%3),commission_per_lot=2*(1+(i//10)%2),slippage_points=(i%6)*10)
-        far=lots[i%len(lots)]; distance=distances[i%len(distances)]; e=evaluate(BEST,b,far,distance,2 if i>=80 else 1)
+        far=lots[i%len(lots)]; distance=distances[i%len(distances)]; e=select_minimum_safe_new_far(BEST,b,far,distance,2 if i>=80 else 1)
         trace=monotonicity_trace(BEST,b,far,range(0,501),2 if i>=80 else 1)
         monotonic=all(y>=x+BEST.minimum_improvement-1e-9 for x,y in zip(trace,trace[1:]))
         for move in (10,20,50,100,200,500):
@@ -38,7 +38,7 @@ def small_rows():
     rows=[]; lots=[.01,.05,.1,.5,1,2,5,10]; steps=[.001,.01,.1]
     for i in range(100):
         b=Broker(lot_step=steps[i%3],min_lot=steps[i%3],spread_points=20*(1+(i//20)%2),commission_per_lot=2*(1+(i//10)%2),slippage_points=(i%6)*10)
-        old=lots[i%len(lots)]; e=evaluate(BEST,b,old,200,2 if i>=80 else 1)
+        old=lots[i%len(lots)]; e=select_minimum_safe_new_far(BEST,b,old,200,2 if i>=80 else 1)
         oldrisk=old*200*b.point_value; newrisk=e.new_far_lot*200*b.point_value
         oldgross=old+e.core_lot+e.trend_lot+e.small_lot
         nextgross=e.new_far_lot*(1+BEST.core_ratio+BEST.trend_ratio+BEST.small_ratio)

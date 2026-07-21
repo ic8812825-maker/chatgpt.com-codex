@@ -21,14 +21,9 @@ bool PreviewNextSplitGeometry(double oldFarLot,double targetFar,HybridReversePla
    p.validationReason="PASS";return true;
 }
 
-bool BuildHybridReversePlan(HybridReversePlan &p)
+bool EvaluateHybridReverseCandidate(double targetFar,HybridReversePlan &p)
 {
-   p.valid=false;p.selectedArchitecture="TARGET_NEW_FAR_STAGED";p.validationReason="PLAN_NOT_BUILT";
-   p.oldFarIdentifier=Ctx.farIdentifier;p.bigCoreIdentifier=Ctx.bigCoreIdentifier;p.bigTrendIdentifier=Ctx.bigTrendIdentifier;p.smallBaseIdentifier=Ctx.smallBaseIdentifier;
-   p.oldFarLot=Ctx.farLot;p.reserveBefore=Ctx.totalReserve;
-   if(!UseHybridSplitBigGeometry){p.validationReason="HYBRID_DISABLED";return false;}
-   if(p.oldFarIdentifier==0||p.bigCoreIdentifier==0||p.bigTrendIdentifier==0||p.smallBaseIdentifier==0){p.validationReason="IDENTIFIER";return false;}
-   p.targetNewFarLot=CalcTargetNewFarLot(p.oldFarLot);p.requiredBigCoreCloseLot=NormalizeLotDown(Ctx.bigCoreLot-p.targetNewFarLot);
+   p.targetNewFarLot=targetFar;p.requiredBigCoreCloseLot=NormalizeLotDown(Ctx.bigCoreLot-p.targetNewFarLot);
    if(p.targetNewFarLot<=0||p.targetNewFarLot>=p.oldFarLot||p.requiredBigCoreCloseLot<=0){p.validationReason="TARGET";return false;}
    BrokerMoneyResult s,f,t,c;
    bool money=CalcProjectedCloseNetMoney(Ctx.smallBaseDirection,Ctx.smallBaseLot,Ctx.smallBaseOpenPrice,CurrentPriceForDirectionClose(Ctx.smallBaseDirection),s)&&CalcProjectedCloseNetMoney(Ctx.farDirection,Ctx.farLot,Ctx.farOpenPrice,CurrentPriceForDirectionClose(Ctx.farDirection),f)&&CalcProjectedCloseNetMoney(Ctx.bigTrendDirection,Ctx.bigTrendLot,Ctx.bigTrendOpenPrice,CurrentPriceForDirectionClose(Ctx.bigTrendDirection),t)&&CalcProjectedCloseNetMoney(Ctx.bigCoreDirection,p.requiredBigCoreCloseLot,Ctx.bigCoreOpenPrice,CurrentPriceForDirectionClose(Ctx.bigCoreDirection),c);
@@ -38,5 +33,27 @@ bool BuildHybridReversePlan(HybridReversePlan &p)
    if(p.projectedTransitionNet<MaximumTransitionLossMoney||p.projectedReserveAfter<MinimumReserveAfterTransition){p.validationReason="TRANSITION_MONEY";return false;}
    if(!PreviewNextSplitGeometry(p.oldFarLot,p.targetNewFarLot,p))return false;
    p.valid=true;p.validationReason="PASS";return true;
+}
+
+bool BuildHybridReversePlan(HybridReversePlan &p)
+{
+   p.valid=false;p.selectedArchitecture="TARGET_NEW_FAR_MINIMUM_SAFE";p.validationReason="PLAN_NOT_BUILT";
+   p.oldFarIdentifier=Ctx.farIdentifier;p.bigCoreIdentifier=Ctx.bigCoreIdentifier;p.bigTrendIdentifier=Ctx.bigTrendIdentifier;p.smallBaseIdentifier=Ctx.smallBaseIdentifier;
+   p.oldFarLot=Ctx.farLot;p.reserveBefore=Ctx.totalReserve;
+   if(!UseHybridSplitBigGeometry){p.validationReason="HYBRID_DISABLED";return false;}
+   if(p.oldFarIdentifier==0||p.bigCoreIdentifier==0||p.bigTrendIdentifier==0||p.smallBaseIdentifier==0){p.validationReason="IDENTIFIER";return false;}
+   double minLot=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN),step=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP);
+   double upper=NormalizeLotDown(MathMin(Ctx.bigCoreLot-step,Ctx.farLot*TargetNewFarRatio));
+   if(step<=0||upper<minLot){p.validationReason="NO_COMPRESSIBLE_BROKER_VOLUME";return false;}
+   // Ascending scan is intentional: the first PASS is mathematically the
+   // minimum broker-valid NewFar, not merely the configured target.
+   HybridReversePlan candidate;
+   for(double target=minLot;target<=upper+step*.25;target=NormalizeLotDown(target+step))
+   {
+      candidate=p;
+      if(EvaluateHybridReverseCandidate(target,candidate)) { p=candidate; return true; }
+      if(target+step<=target) break;
+   }
+   p.valid=false;p.validationReason="NO_SAFE_NEW_FAR";return false;
 }
 #endif

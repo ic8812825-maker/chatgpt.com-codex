@@ -2,7 +2,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "Tools"))
-from hybrid_geometry_model import Broker, Candidate, all_start_lot_bounds, evaluate, monotonicity_trace
+from hybrid_geometry_model import Broker, Candidate, all_start_lot_bounds, evaluate, monotonicity_trace, select_minimum_safe_new_far
 
 
 BROKER = Broker()
@@ -30,6 +30,11 @@ def test_hybrid_multisymbol_isolation_check(): assert evaluate(C, Broker(point_v
 def test_hybrid_restart_recovery_check(): assert evaluate(C).row() == evaluate(C).row()
 def test_hybrid_small_transition_atomicity_check(): assert evaluate(C).transition_net >= 0
 def test_hybrid_parameter_search_check(): assert evaluate(C).accepted
+def test_hybrid_solver_selects_minimum_safe_new_far_check():
+    selected=select_minimum_safe_new_far(C, BROKER)
+    assert selected.accepted
+    smaller=Candidate(C.architecture,C.core_ratio,C.trend_ratio,C.small_ratio,C.reserve_share,(selected.new_far_lot-BROKER.lot_step),C.safety_factor,C.min_net_exposure,C.max_new_big_ratio,C.minimum_improvement)
+    assert selected.new_far_lot == BROKER.min_lot or not evaluate(smaller,BROKER).accepted
 def test_hybrid_pareto_report_check(): assert "Pareto" in (Path(__file__).resolve().parents[1] / "Reports" / "Hybrid_Optimization_Report_RU.md").read_text(encoding="utf-8")
 def test_hybrid_design_precedes_implementation_check():
     root=Path(__file__).resolve().parents[1]
