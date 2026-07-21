@@ -1,0 +1,5 @@
+[
+  {"architecture":"dynamic","core_ratio":2.36895,"trend_ratio":0.99731,"small_ratio":0.20404,"reserve_share":0.93168,"target_far_ratio":0.20639,"catchup_ratio":2.93479,"new_big_gross_ratio":0.71406,"status":"SCREENING_PASS_NOT_MT5_VALIDATED"},
+  {"architecture":"two_stage","core_ratio":2.49295,"trend_ratio":0.64228,"small_ratio":0.13602,"reserve_share":0.99889,"target_far_ratio":0.22998,"catchup_ratio":2.99666,"new_big_gross_ratio":0.71968,"status":"SCREENING_PASS_NOT_MT5_VALIDATED"},
+  {"architecture":"core_target","core_ratio":2.00000,"trend_ratio":0.80000,"small_ratio":0.20000,"reserve_share":0.90000,"target_far_ratio":0.30000,"status":"TEST_REFERENCE"}
+]

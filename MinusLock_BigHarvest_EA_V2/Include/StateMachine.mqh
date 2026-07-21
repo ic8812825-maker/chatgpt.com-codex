@@ -882,6 +882,9 @@ void SaveState()
    GlobalVariableSet(StateKey("HarvestReserveAdd"),Ctx.harvestReserveAdd); GlobalVariableSet(StateKey("HarvestPartialBudgetAdd"),Ctx.harvestPartialBudgetAdd); GlobalVariableSet(StateKey("HarvestCarryBefore"),Ctx.harvestCarryBefore); GlobalVariableSet(StateKey("HarvestCarryAfter"),Ctx.harvestCarryAfter);
    GlobalVariableSet(StateKey("ActualPartialFarCost"),Ctx.actualPartialFarCost);
    GlobalVariableSet(StateKey("ActualSmallTransitionNet"), Ctx.actualSmallTransitionNet);
+   GlobalVariableSet(StateKey("HybridPlanValid"),Ctx.hybridReversePlan.valid?1.0:0.0);
+   SaveStateUlong64("HybridPlanFarIdentifier",Ctx.hybridReversePlan.oldFarIdentifier); SaveStateUlong64("HybridPlanCoreIdentifier",Ctx.hybridReversePlan.bigCoreIdentifier); SaveStateUlong64("HybridPlanTrendIdentifier",Ctx.hybridReversePlan.bigTrendIdentifier); SaveStateUlong64("HybridPlanSmallIdentifier",Ctx.hybridReversePlan.smallBaseIdentifier);
+   GlobalVariableSet(StateKey("HybridPlanTarget"),Ctx.hybridReversePlan.targetNewFarLot); GlobalVariableSet(StateKey("HybridPlanCloseCore"),Ctx.hybridReversePlan.requiredBigCoreCloseLot); GlobalVariableSet(StateKey("HybridPlanTransitionNet"),Ctx.hybridReversePlan.projectedTransitionNet); GlobalVariableSet(StateKey("HybridPlanNextGross"),Ctx.hybridReversePlan.nextBigGrossLot);
    GlobalVariableSet(StateKey("FalseReverseAction"),(double)Ctx.falseReverseAction);SaveStateUlong64("FalseReverseExpectedTicket",Ctx.falseReverseExpectedTicket);GlobalVariableSet(StateKey("FalseReverseExpectedLot"),Ctx.falseReverseExpectedLot);
    GlobalVariableSet(StateKey("SmallOperationAuditCount"),(double)Ctx.smallOperationAuditCount);
    for(int auditIndex=0;auditIndex<5;auditIndex++) { string ap=StringFormat("SmallAudit_%d_",auditIndex); SmallOperationAudit a=Ctx.smallOperationAudits[auditIndex]; SaveStateUlong64(ap+"OperationId",a.operationId); GlobalVariableSet(StateKey(ap+"LegRole"),(double)a.legRole); GlobalVariableSet(StateKey(ap+"RequestedLot"),a.requestedLot); GlobalVariableSet(StateKey(ap+"FilledLot"),a.filledLot); GlobalVariableSet(StateKey(ap+"ResidualLot"),a.residualLot); GlobalVariableSet(StateKey(ap+"ProjectedNet"),a.projectedNet); GlobalVariableSet(StateKey(ap+"ActualNet"),a.actualNet); GlobalVariableSet(StateKey(ap+"ProjectedCommission"),a.projectedCommission); GlobalVariableSet(StateKey(ap+"ActualCommission"),a.actualCommission); GlobalVariableSet(StateKey(ap+"ProjectedSwap"),a.projectedSwap); GlobalVariableSet(StateKey(ap+"ActualSwap"),a.actualSwap); GlobalVariableSet(StateKey(ap+"ProjectedFee"),a.projectedFee); GlobalVariableSet(StateKey(ap+"ActualFee"),a.actualFee); SaveStateUlong64(ap+"Ticket",a.ticket); SaveStateUlong64(ap+"Identifier",a.identifier); SaveStateLong64(ap+"DealFrom",a.dealFrom); SaveStateLong64(ap+"DealTo",a.dealTo); GlobalVariableSet(StateKey(ap+"Completed"),a.completed?1.0:0.0); }
@@ -2170,6 +2173,9 @@ bool RecoverState()
    if(GetStateDouble("HarvestReserveAdd",saved)) Ctx.harvestReserveAdd=saved; if(GetStateDouble("HarvestPartialBudgetAdd",saved)) Ctx.harvestPartialBudgetAdd=saved; if(GetStateDouble("HarvestCarryBefore",saved)) Ctx.harvestCarryBefore=saved; if(GetStateDouble("HarvestCarryAfter",saved)) Ctx.harvestCarryAfter=saved;
    if(GetStateDouble("ActualPartialFarCost",saved)) Ctx.actualPartialFarCost=saved;
    if(GetStateDouble("ActualSmallTransitionNet", saved)) Ctx.actualSmallTransitionNet = saved;
+   if(GetStateDouble("HybridPlanValid",saved)) Ctx.hybridReversePlan.valid=saved>0.5;
+   LoadOptionalStateUlong64("HybridPlanFarIdentifier",Ctx.hybridReversePlan.oldFarIdentifier); LoadOptionalStateUlong64("HybridPlanCoreIdentifier",Ctx.hybridReversePlan.bigCoreIdentifier); LoadOptionalStateUlong64("HybridPlanTrendIdentifier",Ctx.hybridReversePlan.bigTrendIdentifier); LoadOptionalStateUlong64("HybridPlanSmallIdentifier",Ctx.hybridReversePlan.smallBaseIdentifier);
+   if(GetStateDouble("HybridPlanTarget",saved))Ctx.hybridReversePlan.targetNewFarLot=saved; if(GetStateDouble("HybridPlanCloseCore",saved))Ctx.hybridReversePlan.requiredBigCoreCloseLot=saved; if(GetStateDouble("HybridPlanTransitionNet",saved))Ctx.hybridReversePlan.projectedTransitionNet=saved; if(GetStateDouble("HybridPlanNextGross",saved))Ctx.hybridReversePlan.nextBigGrossLot=saved;
    if(GetStateDouble("FalseReverseAction",saved))Ctx.falseReverseAction=(int)saved;LoadOptionalStateUlong64("FalseReverseExpectedTicket",Ctx.falseReverseExpectedTicket);if(GetStateDouble("FalseReverseExpectedLot",saved))Ctx.falseReverseExpectedLot=saved;
    if(GetStateDouble("SmallOperationAuditCount",saved)) Ctx.smallOperationAuditCount=(int)saved;
    for(int auditIndex=0;auditIndex<5;auditIndex++) { string ap=StringFormat("SmallAudit_%d_",auditIndex); SmallOperationAudit a; LoadOptionalStateUlong64(ap+"OperationId",a.operationId); if(GetStateDouble(ap+"LegRole",saved))a.legRole=(int)saved; if(GetStateDouble(ap+"RequestedLot",saved))a.requestedLot=saved; if(GetStateDouble(ap+"FilledLot",saved))a.filledLot=saved; if(GetStateDouble(ap+"ResidualLot",saved))a.residualLot=saved; if(GetStateDouble(ap+"ProjectedNet",saved))a.projectedNet=saved; if(GetStateDouble(ap+"ActualNet",saved))a.actualNet=saved; if(GetStateDouble(ap+"ProjectedCommission",saved))a.projectedCommission=saved; if(GetStateDouble(ap+"ActualCommission",saved))a.actualCommission=saved; if(GetStateDouble(ap+"ProjectedSwap",saved))a.projectedSwap=saved; if(GetStateDouble(ap+"ActualSwap",saved))a.actualSwap=saved; if(GetStateDouble(ap+"ProjectedFee",saved))a.projectedFee=saved; if(GetStateDouble(ap+"ActualFee",saved))a.actualFee=saved; LoadOptionalStateUlong64(ap+"Ticket",a.ticket); LoadOptionalStateUlong64(ap+"Identifier",a.identifier); LoadOptionalStateLong64(ap+"DealFrom",a.dealFrom); LoadOptionalStateLong64(ap+"DealTo",a.dealTo); if(GetStateDouble(ap+"Completed",saved))a.completed=saved>0.5; Ctx.smallOperationAudits[auditIndex]=a; }
@@ -5113,6 +5119,20 @@ bool PrepareSplitBigLevel()
    Ctx.bigCoreLot = CalcBigCoreLot(Ctx.farLot);
    Ctx.bigTrendLot = CalcBigTrendLot(Ctx.farLot);
    Ctx.smallBaseLot = CalcSmallBaseLot(Ctx.farLot);
+   HybridGeometryDecision hybrid;
+   if(!SolveHybridGeometry(Ctx.farLot,hybrid))
+   {
+      SetState(STATE_INVALID_SPLIT_GEOMETRY,"HYBRID_GEOMETRY_REJECTED: "+hybrid.reason);
+      return false;
+   }
+   if(UseHybridSplitBigGeometry)
+   {
+      Ctx.bigCoreLot=hybrid.bigCoreLot;
+      Ctx.bigTrendLot=hybrid.bigTrendLot;
+      Ctx.smallBaseLot=hybrid.smallBaseLot;
+      Ctx.newFarCompressionRatio=hybrid.targetNewFarLot/Ctx.farLot;
+      LogInfo(StringFormat("HYBRID_RECOVERY_SLOPE=%.5f HYBRID_RESERVE_CATCHUP=%.5f HYBRID_TARGET_NEW_FAR=%.2f HYBRID_NEW_BIG_COMPRESSION=%.5f",hybrid.recoverySlopeMoneyPerPoint,hybrid.reserveCatchUpRatio,hybrid.targetNewFarLot,hybrid.expectedNewBigGrossLot/Ctx.farLot));
+   }
 
    Direction basketDirections[3]={Ctx.bigCoreDirection,Ctx.bigTrendDirection,Ctx.smallBaseDirection};
    double basketLots[3]={Ctx.bigCoreLot,Ctx.bigTrendLot,Ctx.smallBaseLot}; BigBasketGate basketGate;
@@ -5139,6 +5159,13 @@ bool PrepareSplitBigLevel()
       SetState(STATE_INVALID_SPLIT_GEOMETRY,"BIG_RECOVERY_IMPROVEMENT_GATE_FAILED"); return false;
    }
    LogInfo(StringFormat("BIG_RECOVERY_GATE_PASS Delta=%.2f Costs=%.2f NetExposure=%.2f",bigGate.projectedRecoveryDelta,bigGate.costs,bigGate.netBigExposure));
+   if(UseHybridSplitBigGeometry)
+   {
+      string monotonicReason;
+      if(!ValidateHybridRecoveryMonotonicity(Ctx.farDirection,Ctx.farLot,Ctx.farOpenPrice,Ctx.bigCoreDirection,Ctx.bigCoreLot,BrokerExecutionOpenPrice(Ctx.bigCoreDirection),Ctx.bigTrendDirection,Ctx.bigTrendLot,BrokerExecutionOpenPrice(Ctx.bigTrendDirection),Ctx.smallBaseDirection,Ctx.smallBaseLot,BrokerExecutionOpenPrice(Ctx.smallBaseDirection),Ctx.currentBigMovePoints,monotonicReason))
+      { SetState(STATE_INVALID_SPLIT_GEOMETRY,monotonicReason); return false; }
+      LogInfo("HYBRID_RECOVERY_MONOTONICITY PASS EveryPoint=0..Target+max(500,FarDistance)");
+   }
 
    ProjectedCloseNetResult farNow; BigReserveCatchUpEvaluation projectedCatchUp;
    double projectedHarvest=MathMax(0.0,bigGate.projectedRecoveryDelta),projectedReserveAdd=projectedHarvest*WorkReserveShare,projectedCarryAdd=projectedHarvest-projectedReserveAdd;
@@ -5410,6 +5437,17 @@ void ProcessSplitBigActive()
    if(smallProfitPoints >= GetBigMovePoints(Ctx.harvestLevel))
    {
       string preTradeReason; if(!EvaluateCurrentSmallPreTrade(preTradeReason)) { LogError("SMALL_PRETRADE_GATE_FAIL "+preTradeReason); SetState(STATE_INVALID_SMALL_GEOMETRY,preTradeReason); return; }
+      if(UseHybridSplitBigGeometry)
+      {
+         if(!BuildHybridReversePlan(Ctx.hybridReversePlan)) { LogError("HYBRID_REVERSE_PLAN_REJECTED "+Ctx.hybridReversePlan.validationReason); SetState(STATE_INVALID_SMALL_GEOMETRY,Ctx.hybridReversePlan.validationReason); return; }
+         Ctx.projectedTransitionNet=Ctx.hybridReversePlan.projectedTransitionNet;
+         LogInfo(StringFormat("HYBRID_SMALL_TRANSITION_FORECAST TargetNewFar=%.2f CloseCore=%.2f TransitionNet=%.2f NextGross=%.2f NextSlope=%.5f NextCatchUp=%.5f",Ctx.hybridReversePlan.targetNewFarLot,Ctx.hybridReversePlan.requiredBigCoreCloseLot,Ctx.hybridReversePlan.projectedTransitionNet,Ctx.hybridReversePlan.nextBigGrossLot,Ctx.hybridReversePlan.nextRecoverySlope,Ctx.hybridReversePlan.nextReserveCatchUpRatio));
+         SaveState();
+         // Hybrid transition is deliberately plan-first: do not open the
+         // legacy ReverseSmall tail before the validated compression path.
+         SetState(STATE_SMALL_CLOSE_SMALL_BASE,"HYBRID_REVERSE_PLAN_VALIDATED");
+         return;
+      }
       Ctx.smallScenarioRealBefore=AccountInfoDouble(ACCOUNT_BALANCE)-Ctx.cycleStartBalance;
       SetState(STATE_REVERSE_CLOSE_BIG_TREND,"Split Small trigger confirmed; close BigTrend first");
       return;
@@ -5438,8 +5476,8 @@ bool PrepareSmallCloseAudit(int legRole,Direction direction,ulong ticket,ulong i
 
 bool ReconcileCompletedSmallTransition(double expectedNewFar)
 {
-   double total=0;for(int i=0;i<5;i++){SmallOperationAudit a=Ctx.smallOperationAudits[i];if(!a.completed||MathAbs(a.filledLot-a.requestedLot)>MathMax(VolumeMismatchToleranceLots,SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP)*.5))return false;total+=a.actualNet;}
-   if(GetActualPositionVolume(Ctx.smallOperationAudits[SMALL_LEG_OLD_FAR_CLOSE].ticket)>VolumeMismatchToleranceLots||GetActualPositionVolume(Ctx.smallOperationAudits[SMALL_LEG_BIG_TREND_CLOSE].ticket)>VolumeMismatchToleranceLots||GetActualPositionVolume(Ctx.smallOperationAudits[SMALL_LEG_SMALL_BASE_CLOSE].ticket)>VolumeMismatchToleranceLots||GetActualPositionVolume(Ctx.smallOperationAudits[SMALL_LEG_REVERSE_SMALL].ticket)>VolumeMismatchToleranceLots)return false;
+   double total=0;for(int i=0;i<5;i++){if(UseHybridSplitBigGeometry&&i==SMALL_LEG_REVERSE_SMALL)continue;SmallOperationAudit a=Ctx.smallOperationAudits[i];if(!a.completed||MathAbs(a.filledLot-a.requestedLot)>MathMax(VolumeMismatchToleranceLots,SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP)*.5))return false;total+=a.actualNet;}
+   if(GetActualPositionVolume(Ctx.smallOperationAudits[SMALL_LEG_OLD_FAR_CLOSE].ticket)>VolumeMismatchToleranceLots||GetActualPositionVolume(Ctx.smallOperationAudits[SMALL_LEG_BIG_TREND_CLOSE].ticket)>VolumeMismatchToleranceLots||GetActualPositionVolume(Ctx.smallOperationAudits[SMALL_LEG_SMALL_BASE_CLOSE].ticket)>VolumeMismatchToleranceLots||(!UseHybridSplitBigGeometry&&GetActualPositionVolume(Ctx.smallOperationAudits[SMALL_LEG_REVERSE_SMALL].ticket)>VolumeMismatchToleranceLots))return false;
    if(Ctx.farTicket==0||Ctx.farIdentifier==0||Ctx.farLot<=0||Ctx.farLot>=Ctx.oldFarLot||MathAbs(Ctx.farLot-expectedNewFar)>MathMax(VolumeMismatchToleranceLots,SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP)*.5))return false;
    if(!ValidateNoOrphanManagedPositions()||CountManagedOpenPositions()!=1)return false;
    if(ArraySize(ReserveLedger)>0&&MathAbs(ReserveLedger[ArraySize(ReserveLedger)-1].reserveAfter-Ctx.totalReserve)>ReserveMismatchTolerance)return false;
@@ -5448,7 +5486,7 @@ bool ReconcileCompletedSmallTransition(double expectedNewFar)
 
 void ProcessReverseCloseBigTrend()
 {
-   if(!PrepareSmallCloseAudit(SMALL_LEG_BIG_TREND_CLOSE,Ctx.bigTrendDirection,Ctx.bigTrendTicket,Ctx.bigTrendIdentifier,Ctx.bigTrendLot,Ctx.bigTrendOpenPrice)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"BIG_TREND_PROJECTION_FAILED");return;} if(CloseSplitRoleFull(ROLE_BIG_TREND,Ctx.bigTrendTicket,Ctx.bigTrendLot,"SMALL_CLOSE_BIG_TREND",STATE_REVERSE_CALCULATE_DYNAMIC_SMALL,PENDING_CLOSE_BIG_TREND_FULL)&&!CompleteSmallOperationAudit(SMALL_LEG_BIG_TREND_CLOSE,0)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"BIG_TREND_AUDIT_FAILED");}
+   if(!PrepareSmallCloseAudit(SMALL_LEG_BIG_TREND_CLOSE,Ctx.bigTrendDirection,Ctx.bigTrendTicket,Ctx.bigTrendIdentifier,Ctx.bigTrendLot,Ctx.bigTrendOpenPrice)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"BIG_TREND_PROJECTION_FAILED");return;} if(CloseSplitRoleFull(ROLE_BIG_TREND,Ctx.bigTrendTicket,Ctx.bigTrendLot,"SMALL_CLOSE_BIG_TREND",UseHybridSplitBigGeometry?STATE_SMALL_CLOSE_BIG_CORE_PART:STATE_REVERSE_CALCULATE_DYNAMIC_SMALL,PENDING_CLOSE_BIG_TREND_FULL)&&!CompleteSmallOperationAudit(SMALL_LEG_BIG_TREND_CLOSE,0)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"BIG_TREND_AUDIT_FAILED");}
 }
 void ProcessReverseCalculateDynamicSmall()
 {
@@ -5509,15 +5547,16 @@ void ProcessFalseReverseFailed(){SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"FA
 
 void ProcessSplitSmallCloseOldFar()
 {
+   if(UseHybridSplitBigGeometry && !Ctx.hybridReversePlan.valid) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"HYBRID_OLD_FAR_CLOSE_BLOCKED_NO_PLAN"); return; }
    Ctx.oldFarTicket=Ctx.farTicket; Ctx.oldFarLot=Ctx.farLot; Ctx.oldFarDirection=Ctx.farDirection; Ctx.oldFarOpenPrice=Ctx.farOpenPrice;
    if(!PrepareSmallCloseAudit(SMALL_LEG_OLD_FAR_CLOSE,Ctx.farDirection,Ctx.farTicket,Ctx.farIdentifier,Ctx.farLot,Ctx.farOpenPrice)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"OLD_FAR_PROJECTION_FAILED");return;}
    if(!ClosePositionByTicketWithComment(Ctx.farTicket,Ctx.farLot,"SPLIT_SMALL_CLOSE_OLD_FAR")||!VerifyFullClose(Ctx.farTicket,"SPLIT_SMALL_CLOSE_OLD_FAR")) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"Split Old Far close not confirmed"); return; }
    if(!CompleteSmallOperationAudit(SMALL_LEG_OLD_FAR_CLOSE,0)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"OLD_FAR_AUDIT_FAILED");return;}
-   ClearFarContext("Split Small old Far confirmed closed"); SetState(STATE_SMALL_CLOSE_SMALL_BASE,"Close SmallBase after Old Far");
+   ClearFarContext("Split Small old Far confirmed closed"); SetState(UseHybridSplitBigGeometry?STATE_REVERSE_CLOSE_BIG_TREND:STATE_SMALL_CLOSE_SMALL_BASE,"Continue validated Small transition");
 }
 void ProcessSplitSmallCloseSmallBase()
 {
-   if(!PrepareSmallCloseAudit(SMALL_LEG_SMALL_BASE_CLOSE,Ctx.smallBaseDirection,Ctx.smallBaseTicket,Ctx.smallBaseIdentifier,Ctx.smallBaseLot,Ctx.smallBaseOpenPrice)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"SMALL_BASE_PROJECTION_FAILED");return;}if(CloseSplitRoleFull(ROLE_SMALL_BASE,Ctx.smallBaseTicket,Ctx.smallBaseLot,"SPLIT_SMALL_CLOSE_BASE",STATE_SMALL_CLOSE_DYNAMIC_SMALL,PENDING_CLOSE_SMALL_BASE_FULL)&&!CompleteSmallOperationAudit(SMALL_LEG_SMALL_BASE_CLOSE,0))SetState(STATE_SMALL_RECONCILIATION_FAILED,"SMALL_BASE_AUDIT_FAILED");
+   if(!PrepareSmallCloseAudit(SMALL_LEG_SMALL_BASE_CLOSE,Ctx.smallBaseDirection,Ctx.smallBaseTicket,Ctx.smallBaseIdentifier,Ctx.smallBaseLot,Ctx.smallBaseOpenPrice)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"SMALL_BASE_PROJECTION_FAILED");return;}if(CloseSplitRoleFull(ROLE_SMALL_BASE,Ctx.smallBaseTicket,Ctx.smallBaseLot,"SPLIT_SMALL_CLOSE_BASE",UseHybridSplitBigGeometry?STATE_SMALL_CLOSE_OLD_FAR:STATE_SMALL_CLOSE_DYNAMIC_SMALL,PENDING_CLOSE_SMALL_BASE_FULL)&&!CompleteSmallOperationAudit(SMALL_LEG_SMALL_BASE_CLOSE,0))SetState(STATE_SMALL_RECONCILIATION_FAILED,"SMALL_BASE_AUDIT_FAILED");
 }
 void ProcessSplitSmallCloseReverse()
 {
@@ -5539,12 +5578,13 @@ bool BuildDynamicReverseProjections(double startFarLot,double startFarLoss,Rever
 }
 void ProcessSplitSmallCloseCorePart()
 {
-   double target=CalcTargetNewFarLot(Ctx.oldFarLot),closeLot=NormalizeLotDown(Ctx.bigCoreLot-target);
+   double target=UseHybridSplitBigGeometry?Ctx.hybridReversePlan.targetNewFarLot:CalcTargetNewFarLot(Ctx.oldFarLot),closeLot=NormalizeLotDown(Ctx.bigCoreLot-target);
    if(target<=0||target>=Ctx.oldFarLot||Ctx.oldFarLot-target<MinimumFarCompressionLots||closeLot<=0) { SetState(STATE_INVALID_SMALL_GEOMETRY,"SMALL_TARGET_NEW_FAR_INVALID"); return; }
    if(!PrepareSmallCloseAudit(SMALL_LEG_BIG_CORE_PARTIAL,Ctx.bigCoreDirection,Ctx.bigCoreTicket,Ctx.bigCoreIdentifier,closeLot,Ctx.bigCoreOpenPrice)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"BIG_CORE_PROJECTION_FAILED");return;}if(!ClosePositionByTicket(Ctx.bigCoreTicket,closeLot)) { SetState(STATE_MANUAL_INTERVENTION_REQUIRED,"BigCore compression close failed"); return; }
    double actual=NormalizeVolumeToStep(GetActualPositionVolume(Ctx.bigCoreTicket));
    if(!CompleteSmallOperationAudit(SMALL_LEG_BIG_CORE_PARTIAL,actual)){SetState(STATE_SMALL_RECONCILIATION_FAILED,"BIG_CORE_AUDIT_FAILED");return;}
-   if(actual<=0||actual>=Ctx.oldFarLot||actual/ Ctx.oldFarLot>MaximumNewFarRatio+0.000001) { SetState(STATE_SMALL_COMPRESSION_FAILED,"ACTUAL_NEW_FAR_COMPRESSION_FAILED"); return; }
+   if(actual<=0||actual>=Ctx.oldFarLot||actual/ Ctx.oldFarLot>(UseHybridSplitBigGeometry?TargetNewFarRatio:MaximumNewFarRatio)+0.000001) { SetState(STATE_SMALL_COMPRESSION_FAILED,"ACTUAL_NEW_FAR_COMPRESSION_FAILED"); return; }
+   if(UseHybridSplitBigGeometry && !PreviewNextSplitGeometry(Ctx.oldFarLot,actual,Ctx.hybridReversePlan)) { SetState(STATE_SMALL_COMPRESSION_FAILED,"HYBRID_NEXT_GEOMETRY_FAILED: "+Ctx.hybridReversePlan.validationReason); return; }
    Ctx.farTicket=Ctx.bigCoreTicket; Ctx.farIdentifier=Ctx.bigCoreIdentifier; Ctx.farLot=actual; Ctx.farDirection=Ctx.bigCoreDirection; Ctx.farOpenPrice=Ctx.bigCoreOpenPrice;
    Ctx.bigCoreTicket=0; Ctx.bigCoreIdentifier=0; Ctx.bigCoreLot=0; Ctx.bigCoreDirection=DIR_NONE;
    RecalculateRealCycleStatsFromHistory(); Ctx.smallScenarioRealAfter=Ctx.realCyclePL;
@@ -5728,6 +5768,7 @@ void RetrySplitOpenPending(PositionRole role, EAState successState, EAState fail
 
 void RetrySplitClosePending(EAState successState)
 {
+   EAState plannedNext=Ctx.pendingNextState!=STATE_IDLE?Ctx.pendingNextState:successState;
    if(Ctx.pendingAttempts >= MaxCloseRetryAttempts)
    {
       LogError(StringFormat("SPLIT_PENDING_FAILED Operation=%s Action=%d Attempts=%d", Ctx.pendingOperation, (int)Ctx.pendingActionType, Ctx.pendingAttempts));
@@ -5738,7 +5779,7 @@ void RetrySplitClosePending(EAState successState)
    {
       ClearPendingOperationContext();
       LogInfo(StringFormat("SPLIT_PENDING_RESOLVED Operation=%s Result=already_closed", Ctx.pendingOperation));
-      SetState(successState, "Split close already completed before restart");
+      SetState(plannedNext, "Split close already completed before restart");
       return;
    }
    Ctx.pendingAttempts++;
@@ -5749,7 +5790,7 @@ void RetrySplitClosePending(EAState successState)
       if(Ctx.pendingActionType == PENDING_CLOSE_BIG_TREND_FULL) { Ctx.bigTrendTicket = 0; Ctx.bigTrendLot = 0.0; Ctx.bigTrendDirection = DIR_NONE; }
       if(Ctx.pendingActionType == PENDING_CLOSE_SMALL_BASE_FULL) { Ctx.smallBaseTicket = 0; Ctx.smallBaseLot = 0.0; Ctx.smallBaseDirection = DIR_NONE; }
       ClearPendingOperationContext();
-      SetState(successState, "Split close pending retry succeeded");
+      SetState(plannedNext, "Split close pending retry succeeded");
    }
 }
 

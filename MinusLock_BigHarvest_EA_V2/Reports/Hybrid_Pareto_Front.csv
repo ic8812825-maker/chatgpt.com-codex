@@ -1,0 +1,6 @@
+architecture,NewFarRatio,NewBigGrossRatio,ReserveCatchUpRatio,RecoverySlopeMoneyPerPoint,MarginPercent,ReverseBound,Status
+dynamic,0.200,0.673,2.935,2.150,45.5,4,SCREENING_PASS
+two_stage,0.220,0.690,2.997,2.000,42.6,5,SCREENING_PASS
+trend_funded,0.240,0.794,2.869,2.090,45.1,5,SCREENING_PASS
+core_target,0.210,0.668,2.748,1.980,43.6,4,SCREENING_PASS
+core_budget,0.220,0.649,2.796,1.870,40.1,5,SCREENING_PASS

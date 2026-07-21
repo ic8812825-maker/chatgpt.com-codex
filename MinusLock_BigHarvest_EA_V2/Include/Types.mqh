@@ -401,6 +401,18 @@ struct SmallOperationAudit
    ulong ticket; ulong identifier; long dealFrom; long dealTo; bool completed;
 };
 
+struct HybridReversePlan
+{
+   bool valid;
+   ulong oldFarIdentifier, bigCoreIdentifier, bigTrendIdentifier, smallBaseIdentifier;
+   double oldFarLot, targetNewFarLot, requiredBigCoreCloseLot;
+   double projectedSmallNet, projectedOldFarNet, projectedBigTrendNet, projectedBigCoreCloseNet, projectedTransitionNet;
+   double reserveBefore, projectedReserveAfter;
+   double nextBigCoreLot, nextBigTrendLot, nextSmallBaseLot, nextBigGrossLot;
+   double nextRecoverySlope, nextReserveCatchUpRatio, nextMarginLevel;
+   string selectedArchitecture, validationReason;
+};
+
 struct RecoveryContext
 {
    ulong farTicket;
@@ -469,6 +481,7 @@ struct RecoveryContext
    double falseReverseExpectedLot;
    SmallOperationAudit smallOperationAudits[5];
    int smallOperationAuditCount;
+   HybridReversePlan hybridReversePlan;
 
    double bigGrossRatio;
    double bigNetExposureRatio;

@@ -12,6 +12,8 @@
 #include "Include/TradeEngine.mqh"
 #include "Include/RecoveryMath.mqh"
 #include "Include/BrokerMoneyModel.mqh"
+#include "Include/HybridGeometrySolver.mqh"
+#include "Include/HybridTransitionPlanner.mqh"
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
 #include "Include/PendingContractEngine.mqh"
@@ -54,6 +56,9 @@ bool ValidateInputs()
    }
    if(UseSplitBigGeometry)
    {
+      if(UseHybridSplitBigGeometry && (TargetNewFarRatio <= 0.0 || TargetNewFarRatio >= 1.0)) { Print("ERROR: TargetNewFarRatio must be > 0 and < 1"); return false; }
+      if(UseHybridSplitBigGeometry && MinimumReserveCatchUpRatio <= 1.0) { Print("ERROR: MinimumReserveCatchUpRatio must be > 1"); return false; }
+      if(UseHybridSplitBigGeometry && MaximumNewBigToOldFarRatio <= 0.0) { Print("ERROR: MaximumNewBigToOldFarRatio must be > 0"); return false; }
       double bigHarvestGrossRatio = BigCoreRatio + BigTrendRatio - SmallBaseToFarRatio;
       double reserveGrowthRatio = ReserveShare * bigHarvestGrossRatio;
       double newFarCompressionRatio = BigCoreRatio * RemainBigCoreOnSmall;

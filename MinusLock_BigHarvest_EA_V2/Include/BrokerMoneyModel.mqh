@@ -241,7 +241,11 @@ bool EvaluateBigReserveCatchUp(double reserveBefore,double reserveAfter,double c
 
 double CalcTargetNewFarLot(double oldFarLot)
 {
-   if(oldFarLot<=0) return 0; return NormalizeLotDown(oldFarLot*MaximumNewFarRatio);
+   if(oldFarLot<=0) return 0;
+   // The hybrid reverse contract is target-first.  Existing Split behaviour
+   // remains byte-for-byte compatible while the opt-in solver is disabled.
+   double ratio=UseHybridSplitBigGeometry ? TargetNewFarRatio : MaximumNewFarRatio;
+   return NormalizeLotDown(oldFarLot*ratio);
 }
 
 bool EvaluateSmallTransition(SmallTransitionLeg &legs[],double oldFarLot,double projectedNewFarLot,double netSmallExposure,double marginLevel,SmallTransitionEvaluation &e)

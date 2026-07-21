@@ -46,6 +46,22 @@ input double CloseBigCoreOnSmall = 0.40;
 input double RemainBigCoreOnSmall = 0.60;
 
 input bool   UseDynamicReverseSmall = false;
+// Hybrid mode is opt-in: legacy Split behaviour remains unchanged until this
+// independent solver has also passed terminal validation.
+enum HybridGeometryMode { HYBRID_FIXED=0, HYBRID_TARGET_NEW_FAR, HYBRID_TARGET_NEW_BIG, HYBRID_MONEY_OPTIMIZED, HYBRID_DYNAMIC };
+input HybridGeometryMode HybridMode = HYBRID_FIXED;
+input bool UseHybridSplitBigGeometry = false;
+input bool UseHybridGeometrySolver = false;
+input double TargetNewFarRatio = 0.60;
+input double MaximumNewBigToOldFarRatio = 0.99;
+input double MinimumReserveCatchUpRatio = 1.10;
+input double MinimumRecoverySlopeMoneyPerPoint = 0.01;
+input bool RequireNewBigBelowOldFar = true;
+input bool RejectNonMonotonicRecovery = true;
+input bool RejectReserveCatchUpBelowMinimum = true;
+input bool PrintHybridOptimizationDiagnostics = true;
+input double MaximumTransitionLossMoney = 0.0;
+input double MinimumReserveAfterTransition = 0.0;
 input double ReverseDirectionBufferRatio = 0.03;
 input double ReverseSmallSafetyMoney = 3.00;
 input int    ReverseConfirmationRetracePoints = 50;

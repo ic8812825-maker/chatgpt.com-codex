@@ -1,0 +1,4 @@
+architecture,NewFarRatio,NewBigGrossRatio,ReserveCatchUpRatio,Status
+dynamic,0.200,0.714,2.935,SCREENING_PASS
+two_stage,0.220,0.720,2.997,SCREENING_PASS
+trend_funded,0.240,0.845,2.869,SCREENING_PASS
