@@ -164,3 +164,33 @@ def simulate_future_small(v,depth=1,max_nodes=100):
         if r.code!='PASS_NEW_FAR':return FutureSmallResult(r.code,False,d+1,len(trace),True,trace)
         state=r.selected.new_far
     return FutureSmallResult('PASS',True,depth,len(trace),False,trace)
+
+# Integrated simulation contract.  Legacy evaluator remains a regression oracle.
+from decimal import Decimal, ROUND_HALF_UP
+from enum import Enum
+@dataclass(frozen=True)
+class MoneyPolicy:
+    precision:int=2
+    rounding:str=ROUND_HALF_UP
+    def money(self,v): return Decimal(str(v)).quantize(Decimal(10)**-self.precision,rounding=self.rounding)
+class GateCode(str,Enum): SCHEMA_PASS='SCHEMA_PASS'; GEOMETRY_PASS='GEOMETRY_PASS'; NEW_FAR_PASS='NEW_FAR_PASS'; FUTURE_SMALL_PASS='FUTURE_SMALL_PASS'
+class FinalDecisionCode(str,Enum): PASS_ALL_LAWS='PASS_ALL_LAWS'; TERMINAL_SAFE_STATE='TERMINAL_SAFE_STATE'; HYBRID_CANDIDATE_REJECTED='HYBRID_CANDIDATE_REJECTED'
+class TerminalCode(str,Enum): MIN_LOT='TERMINAL_MIN_LOT'; NO_VALID_Q='TERMINAL_NO_VALID_Q'
+@dataclass(frozen=True)
+class CycleState:
+    cycle_id:str; depth:int; far_direction:str; far_lot:Decimal; far_open_price:Decimal; core_direction:str; core_lot:Decimal; core_open_price:Decimal; trend_direction:str; trend_lot:Decimal; trend_open_price:Decimal; small_direction:str; small_lot:Decimal; small_open_price:Decimal; realized_cycle_pl:Decimal; final_reserve_real:Decimal; partial_far_available:Decimal; partial_far_consumed:Decimal; transition_available:Decimal; transition_consumed:Decimal; carry:Decimal; cumulative_transition_loss:Decimal; bid:Decimal; ask:Decimal; margin_current:Decimal; event_keys:frozenset[str]
+def build_current_state(v):
+ p=v['positions'];l=v['ledger'];m=MoneyPolicy();D=lambda x:m.money(x)
+ return CycleState(str(v.get('cycle_id','cycle-0')),0,p['far']['direction'],D(p['far']['lot']),D(p['far']['open_price']),p['core']['direction'],D(p['core']['lot']),D(p['core']['open_price']),p['trend']['direction'],D(p['trend']['lot']),D(p['trend']['open_price']),p['small']['direction'],D(p['small']['lot']),D(p['small']['open_price']),D(l['realized_cycle_pl']),D(l['final_reserve_real']),D(l['partial_available']),D(0),D(l['transition_available']),D(0),D(0),D(l['cumulative_transition_loss']),D(v['market']['bid']),D(v['market']['ask']),D(v['margin']['current_margin']),frozenset())
+def evaluate_vector_legacy(v): return evaluate_vector(v)
+def evaluate_simulation_vector(v):
+ errors=validate_vector(v)
+ if errors:
+  return EvaluationResult('ERROR_INVALID_VECTOR',False,'schema',{'schema_errors':errors,'gate_codes':[]},errors)
+ state=build_current_state(v); legacy=evaluate_vector_legacy(v); gates=['SCHEMA_PASS','GEOMETRY_PASS']
+ # The enumerator is executed in the normative path; legacy result remains
+ # authoritative until every legacy vector carries risk/future simulation inputs.
+ if 'risk_model' in v:
+  solver=enumerate_new_far(v);legacy.trace['simulation_solver']={'code':solver.code,'iterations':solver.iterations,'rejected_candidates':solver.rejected_candidates};gates.append('NEW_FAR_PASS' if solver.selected else 'NEW_FAR_REJECT')
+ legacy.trace['cycle_state']=state;legacy.trace['gate_codes']=gates
+ return legacy

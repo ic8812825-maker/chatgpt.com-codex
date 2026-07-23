@@ -5,7 +5,7 @@ from hybrid_split_big_reference import *
 V=json.loads((Path(__file__).parent/'test_vectors.json').read_text())
 @pytest.mark.parametrize('vector',V,ids=lambda x:x['id'])
 def test_all_reference_vectors(vector):
- r=evaluate_vector(vector);assert r.code==vector['expected']['code'],r.trace
+ r=evaluate_simulation_vector(vector);assert r.code==vector['expected']['code'],r.trace
  for key,want in vector['expected']['values'].items():
   got=r.trace
   for part in key.split('.'):got=got[part]
