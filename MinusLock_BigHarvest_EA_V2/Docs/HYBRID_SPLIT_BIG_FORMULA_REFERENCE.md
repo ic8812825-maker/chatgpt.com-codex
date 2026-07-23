@@ -34,3 +34,20 @@
 
 ## Mandatory gates
 `IDENTITY`, `LOTS`, `MONEY`, `FINITE_CATCHUP`, `FUTURE_SMALL`, `ROUNDING`, `RISK`, `MARGIN`, `WORST_CASE`, `RECONCILIATION`.
+
+## Final Close, allocation and limits
+$$
+ProjectedFinalRecoveryPL=RealizedCyclePL_{before}+ProjectedCloseNetAllManagedPositions
+$$
+passes only with the configured final-close safety buffer. After confirmed closes:
+$$
+ActualFinalRecoveryPL=RealizedCyclePL_{after\ all\ closes}.
+$$
+These identifiers must not be merged.
+
+For `α+β+γ=1` and `E=max(HarvestNetActual,0)`: `PartialAdd=αE`, `ReserveAdd=βE`, `CarryAdd=E-PartialAdd-ReserveAdd`; residual always enters carry. `CoverageDeficit=max(-ProjectedFarCloseNet,0)+CoverageSafetyBuffer-FinalReserveReal`.
+
+`CumulativeTransitionLossNew=CumulativeTransitionLossOld+max(-TransitionNet,0)`. A transition requires its per-loss, cumulative-money and cumulative-percent caps. `FinalReserveReal` is not a transition source.
+
+## Margin and terminal rule
+`MarginConservativeUpperBound=CurrentMargin+ΣIndividualNewOrderMargin`; use it even if broker-aware basket estimate is available. If `Nraw<VolumeMin`, `Nnorm<VolumeMin`, or `Nnorm>=Fold`, no new cycle is legal; use Final Close precheck or `TERMINAL_SAFE_STATE`.

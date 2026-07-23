@@ -1,19 +1,16 @@
-# Hybrid Split Big — открытые вопросы владельцу системы
+# Hybrid Split Big — решения, требующие Администратора
 
-## Q1. Допустимый убыток Small-перехода
-**Вариант A (рекомендуемый для первоначальной реализации):** `MaximumAllowedTransitionLoss=0`; каждый переход обязан быть неотрицательным. Плюс: простая бухгалтерия и более строгий риск. Минус: больше `REJECT_FUTURE_SMALL`.
+Ни один вопрос ниже не решён Математиком. Рекомендация — безопасная стартовая позиция, а не изменение торгового кода.
 
-**Вариант B:** разрешить `TransitionNet>=-L`. Плюс: шире допустимая область. Минус: L немедленно уменьшает `RealizedCyclePL`; требуется лимит cumulative transition loss и отдельный testing.
-
-## Q2. Что делать в TERMINAL_SAFE_STATE без денег на Final Close
-**Вариант A:** stop-new-risk, сохранить позицию и запросить ручное решение. Плюс: не маскирует убыток. Минус: остаётся market exposure.
-
-**Вариант B:** обязательное аварийное закрытие. Плюс: исключает дальнейший market risk. Минус: фиксирует loss; нужны account-level limits.
-
-## Q3. Политика будущего Small
-**Вариант A:** проверять один следующий Small с bounded recursion depth (рекомендуется). Плюс: конечный Solver. Минус: не доказывает всю бесконечную ценовую траекторию.
-
-**Вариант B:** требовать универсальный analytical bound для всех будущих циклов. Плюс: сильнее теоретически. Минус: может чрезмерно отклонять реальные кандидаты.
-
-## Q4. Worst-case параметры
-Владелец должен задать SpreadBuffer, MaxSlippagePoints, swap horizon и commission policy по каждому broker/symbol. Без них математически невозможно назначить единственный `WORST_CASE_PASS`.
+| ID | Решение | Варианты | Рекомендация Математика | Последствия | Блокирует кодирование |
+|---|---|---|---|---|---|
+| ADMIN-Q01 | `MaximumAllowedTransitionLoss` | 0; положительный money cap | 0 на первом профиле | positive cap требует ledger loss | Да |
+| ADMIN-Q02 | `MaxCumulativeTransitionLoss` | 0; money; % InitialFarRisk | 0 на первом профиле | определяет допустимость серии переходов | Да |
+| ADMIN-Q03 | `FutureSmallDepth` | local; depth D; analytic bound | depth=1 + q bound | глубина повышает CPU, не доказывает рынок | Да |
+| ADMIN-Q04 | `TerminalSafeStatePolicy` | manual hold; emergency close | manual hold без новых рисков | определяет fate residual exposure | Да |
+| ADMIN-Q05 | Worst Case profile | broker-specific values | values from broker and admin | TBD blocks normative Worst Case PASS | Да |
+| ADMIN-Q06 | BigTrend optional | strict T>0; optional T=0 | strict | optional mode меняет gates/tests | Да |
+| ADMIN-Q07 | SmallBase optional | strict S>0; optional S=0 | strict | optional mode меняет slope/flow | Да |
+| ADMIN-Q08 | Harvest shares α/β/γ | any nonnegative sum=1 | explicit approved profile | governs all money buckets | Да |
+| ADMIN-Q09 | Final Close buffers | money/tolerance values | nonzero broker-derived buffers | determines false-positive close risk | Да |
+| ADMIN-Q10 | conservative margin policy | upper bound only; broker-aware+upper | both, upper is mandatory fallback | affects opening eligibility | Да |

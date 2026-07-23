@@ -79,7 +79,7 @@ Initial Lock → initial plus close → Far → BuildHybridCandidate
 1. Получить актуальные Bid/Ask, позиции и Worst Case prices. 2. Пересчитать все gates. 3. Закрыть BigCore, BigTrend, SmallBase только по plan; при ошибке — reconciliation. 4. Собрать deal net: `HarvestNetActual=Σ(profit+commission+swap+fee)`. 5. При положительном net распределить `PartialFarBudget` и `FinalReserveAdd` по заранее сохранённым долям; Reserve не является источником Partial Far. 6. Выполнить partial Far только в пределах PartialFarBudget и сверить actual remaining lot. 7. Пересчитать ledger, Deficit, RecoveryClose и возможность Final Close. При любом deviation выше tolerance — `ERROR_PARTIAL_EXECUTION` или terminal safe state.
 
 ## Глава 13. Закон 3: меньший следующий цикл
-`N=qF`, обязательно `0<N<F`. `BigGrossNext=Cnext+Tnext`; при постоянных ratio `BigGrossNext=(c+t)qF`, поэтому усиленное условие `q<1/(c+t)` даёт `BigGrossNext<F`. В реальной модели проверяются normalized lots напрямую: `Cnext+Tnext<Fold`. Также `GrossNext<N+Cnext+Tnext+Snext < GrossOld` и `RiskNext<RiskOld`, где риск — money loss до явно заданной control price, а не просто lot.
+`N=qF`, обязательно `0<N<F`. `BigGrossNext=Cnext+Tnext`; при постоянных ratio `BigGrossNext=(c+t)qF`, поэтому усиленное условие `q<1/(c+t)` даёт `BigGrossNext<F`. В реальной модели проверяются normalized lots напрямую: `Cnext+Tnext<Fold`. Также `GrossNext=N+Cnext+Tnext+Snext` and `GrossNext<GrossOld` и `RiskNext<RiskOld`, где риск — money loss до явно заданной control price, а не просто lot.
 
 ## Глава 14. Полная математика Small Transition
 `CloseC=C-N=(c-q)F`; `CloseCoreShare=1-q/c`. Основная **знаковая** форма:
@@ -178,3 +178,118 @@ GEOMETRY_PASS + MONEY_PASS + FUTURE_SMALL_PASS + FINITE_CATCHUP_PASS
 ```
 
 Отсутствие любого PASS означает `HYBRID_CANDIDATE_REJECTED`. После каждого irreversible action используются только actual deal results и reconciliation.
+
+# Нормативное дополнение: обязательные операционные контракты
+
+Каждая из тридцати глав выше использует одинаковый контракт: **назначение** — определить допускаемое действие; **вход** — последний подтверждённый broker snapshot и config; **выход** — значения с категорией размерности и один PASS/REJECT/ERROR; **предусловие** — identity и valid broker properties; **постусловие** — сохранённый trace и отсутствие неучтённых денег; **инвариант** — real ledger меняется только подтверждённым event; **реализация** — отдельная pure function плюс reconciliation boundary. Ни одна глава не разрешает неявный budget или raw-volume trade.
+
+## A. Final Close: два разных результата
+
+**Вход:** `RealizedCyclePLBefore` [MONEY], список открытых leg, worst prices и `FinalCloseSafetyBuffer` [MONEY]. **Формула прогноза:**
+
+$$
+ProjectedFinalRecoveryPL=RealizedCyclePL_{before}+ProjectedCloseNetAllManagedPositions.
+$$
+
+`ProjectedCloseNetAllManagedPositions` уже включает Bid/Ask, только ещё не включённые commission/swap/fee, slippage и close costs. PASS: `ProjectedFinalRecoveryPL >= MinimumFinalRecoveryProfit + FinalCloseSafetyBuffer`; код `FINAL_CLOSE_PRECHECK_PASS`. После всех confirmed deals единственный факт:
+
+$$
+ActualFinalRecoveryPL=RealizedCyclePL_{after\ all\ closes}.
+$$
+
+`CYCLE_CLOSED_PROFIT` требует нуль managed positions и `ActualFinalRecoveryPL >= MinimumFinalRecoveryProfit-FinalResultTolerance`. Иначе `ERROR_FINAL_RESULT_MISMATCH`; запрещено называть оба значения `RecoveryPLCloseNow`.
+
+## B. Полные money buckets и Harvest allocation
+
+| Bucket [MONEY] | Пополнение | Списание | Запрещено | Event/restart/reconciliation |
+|---|---|---|---|---|
+| `RealizedCyclePL` | каждый confirmed deal net | нет (это журнал) | подмена Reserve | history by Symbol/Magic/CycleID |
+| `FinalReserveReal` | `β*EligibleHarvestNet` | только Final Far Close по утверждённой политике | Partial/Transition | immutable event key; restore ledger |
+| `PartialFarBudgetAvailable` | `α*EligibleHarvestNet` | actual partial Far costs | Transition/Reserve | carry before/after event |
+| `TransitionBudgetAvailable` | только approved non-reserve source | confirmed transition cost | Final Reserve | separate event required |
+| `UnallocatedHarvestCarry` | `γ*EligibleHarvestNet+rounding residual` | только approved future allocation | automatic profit claim | persisted ledger |
+| `CumulativeTransitionLoss` | `max(-TransitionNet,0)` | never during cycle | reset on restart | CycleID-scoped monotonic counter |
+
+Для `α,β,γ>=0`, `α+β+γ=1` и `E=max(HarvestNetActual,0)`:
+
+$$
+PAdd=\alpha E,\quad RAdd=\beta E,\quad CarryAdd=E-PAdd-RAdd.
+$$
+
+Последняя формула направляет currency-rounding residual в carry. При `HarvestNetActual<=0` все три add равны нулю, а loss попадает исключительно в `RealizedCyclePL`. Неподтверждённая сделка имеет состояние `PENDING_UNCONFIRMED` и не увеличивает `FinalReserveReal`.
+
+$$
+CoverageDeficit=\max(-ProjectedFarCloseNet,0)+CoverageSafetyBuffer-FinalReserveReal.
+$$
+
+После partial Far в формуле используется только actual remaining lot и новая close projection.
+
+## C. Строгий/опциональный component mode
+
+Нормативный рекомендуемый профиль до решения Администратора — **Strict Hybrid Split**: `F>0,C>0,T>0,S>0`; `N=0` не является циклом и переводит в terminal procedure. Optional profile (`T>=0,S>=0`) допустим только после ADMIN-Q06/Q07, с отдельными flow, vectors и MQL5 parity tests. Current source has strict nonzero Hybrid checks; документация не объявляет optional profile реализованным.
+
+## D. Cumulative transition loss и Future Small
+
+$$
+CumulativeTransitionLoss_{new}=CumulativeTransitionLoss_{old}+\max(-TransitionNet,0).
+$$
+
+Transition PASS только если одновременно `TransitionNet>=-MaximumAllowedTransitionLoss`, cumulative value не превышает `MaxCumulativeTransitionLoss` и `MaxTransitionLossPercent*InitialFarRisk`. До решения Администратора консервативная **рекомендация**, не кодовая настройка: оба money limit равны нулю.
+
+Future Small modes: local checks one trigger in O(K); bounded depth D searches approximately O(K^D); analytic bound checks `q_n<=qmax<1`, но не доказывает liquidity/price path. Recommended unapproved default is `FutureSmallDepth=1` плюс next Catch-Up, NextBig, risk, margin и q bound. Каждый режим обязан вернуть, что он доказал и чего не доказал.
+
+## E. Margin, Worst Case и terminal state
+
+`MarginBaseEstimate` может использовать broker-aware evaluation. `MarginConservativeUpperBound=CurrentMargin+ΣIndividualNewOrderMargin` игнорирует hedge benefit и является mandatory fallback: отдельный `OrderCalcMargin` не всегда даёт итог всей hedged basket. Обе оценки обязаны пройти limits перед irreversible action.
+
+| Worst parameter | Name | Unit | Default | Status |
+|---|---|---|---|---|
+| spread buffer | `SpreadBufferPoints` | points | TBD | ADMIN-Q05 |
+| slippage | `MaxSlippagePoints` | points | config value | requires approval |
+| commission | `CommissionPerLotRoundTurn` | money/lot | TBD | ADMIN-Q05 |
+| swap horizon | `WorstCaseSwapDays` | days | TBD | ADMIN-Q05 |
+| gap buffer | `GapBufferPoints` | points | TBD | ADMIN-Q05 |
+| margin safety | `MarginSafetyPercent` | percent | TBD | ADMIN-Q10 |
+
+Unknown value yields `WORST_CASE_PROFILE_INCOMPLETE`, which blocks normative `WORST_CASE_PASS` but not explicitly parameterised tests.
+
+`TERMINAL_SAFE_STATE` inputs: min-lot stall, no q, final close not covered, partial execution, ledger mismatch or post-market Future Small failure. It forbids new Big/Small, compensating orders, NewFar uplift, ledger reset and CycleID replacement. It permits pending cancellation, immutable snapshot, periodic Final Close precheck, administrator notification and only a close satisfying both `WorstCaseRiskAfter<WorstCaseRiskBefore` and `MarginAfter<=MarginBefore` without spending protected reserve. Exit only through `FINAL_CLOSE_PRECHECK_PASS`, `MANUAL_ADMIN_DECISION` or approved `EMERGENCY_CLOSE_POLICY`.
+
+## F. Полные денежные примеры (линейный test adapter)
+
+Adapter: one price unit per point, `point_value=10 MONEY/(price*lot)`, commission already stated per close, swap/fee zero. Он служит reproducible reference vector, не заменяет MT5.
+
+### A — Far BUY, PASS
+Bid/Ask `99.90/100.10`; Far BUY 1@100, Small BUY .2@100, Core SELL 2@100, Trend SELL .8@100. At Big price Bid/Ask `97.90/98.10`, close nets with commission 2 per leg: Far `-23`, Small `-6.2`, Core `+36`, Trend `+14.4`; Harvest net excluding Far=`44.2`. For `α=.2,β=.7,γ=.1`: partial `8.84`, reserve `30.94`, carry `4.42`; allocation reconciles exactly. `KR=.9*(2+.8-.2)=2.34`, slope `1.6`, target N=.30 and next Big gross `.84<1`. With old risk 100 and `Risk(N)=100N`, next risk=30. Conservative margin input 100/lot gives old gross 4 and 400 margin; next gross 1.2 and 120 margin. Expected `PASS_ALL_LAWS` only if all configured buffers are supplied.
+
+### B — mirrored Far SELL
+Mirror all prices around 100: Far/Small SELL @100, Core/Trend BUY @100; Big Bid/Ask `101.90/102.10`. The linear adapter returns the same four nets and all allocation/ratio decisions as A, proving symmetry at tolerance 0.
+
+### C — geometry PASS, money REJECT
+Use A lots and N=.30, but at Small trigger set `NetF=-200, NetS=-40, NetT=30, NetCoreClosed=-100, TransitionBudget=0, OtherCosts=0`. Then `TransitionNet=-310`; with `MaximumAllowedTransitionLoss=0`, `REJECT_TRANSITION_BUDGET` despite all lot inequalities passing.
+
+### D — rounding/minimum lot
+`Fold=.01`, `q=.30`, raw `N=.003`, `VolumeMin=VolumeStep=.01`; Down gives zero, so no NewFar can be promoted. If final precheck fails, result is `TERMINAL_SAFE_STATE`; if it passes, `FINAL_CLOSE`. It is never `.01→.01`.
+
+## G. Матрица обязательного контракта по всем главам
+
+Эта матрица делает каждую главу implementable: вход — только подтверждённые данные; выход — typed values и code; числовой пример — соответствующий TV; implementer обязан сохранять указанный trace.
+
+| Главы | Назначение, вход → выход | Пред-/постусловие и пример | Реализация / code |
+|---|---|---|---|
+| 1–3 | Cycle и directions: positions/config → role map/signs | identity valid; TV-01/02 | parse roles; `ERROR_POSITION_MISMATCH` |
+| 4–5 | analytic/real P/L: PL0/prices → slope/leg net | units fixed; TV-01 | `OrderCalcProfit`; `ERROR_ORDER_CALC_PROFIT` |
+| 6 | ledger: deals → projected/actual final result | no duplicate cost; TV-12/14 | separate names; mismatch error |
+| 7–8 | reserve: confirmed Harvest → reserve/carry | event unique; TV-11 | event-key ledger |
+| 9–10 | Catch-Up: level table → finite n* | deficit gain and terminal level; TV-05/06 | reject pre-open |
+| 11 | recovery slope: normalized basket → money slope | static composition; TV-03/04 | point scenario scan |
+| 12 | Big Harvest: deal results → allocation | positive net only; TV-01 | α/β/γ transaction |
+| 13–16 | smaller cycle/q: actual lots/prices → selected N | strict N/risk/gross, loss caps; TV-07/08 | step enumeration |
+| 17 | Future Small: trigger snapshot → feasibility | bounded policy; TV-18 | no-open on reject |
+| 18–19 | rounding/min lot: raw lots → normalized/terminal | rerun gates; TV-09/10 | `REJECT_ROUNDING` |
+| 20 | finiteness: q bound → Nmin/Nmax | qmax<1; TV-10 | terminal instead of stall |
+| 21–22 | margin/worst: account/profile → base/upper PASS | profile complete; TV-15/19 | `OrderCalcMargin` + fallback |
+| 23–25 | transaction/invariants: plan/deals → reconciled state | no mismatch; TV-13/20 | stop on error |
+| 26 | Solver: complete snapshot → immutable plan | all gates pass; TV-01 | pure functions + trace |
+| 27–28 | examples/tests: deterministic input → expected code | vectors reproducible | pytest oracle |
+| 29–30 | logs/readiness: trace → audit decision | no missing inputs | readiness only with all PASS |

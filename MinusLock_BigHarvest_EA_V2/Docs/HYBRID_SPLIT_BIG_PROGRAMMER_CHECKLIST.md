@@ -17,3 +17,10 @@
 15. On mismatch/error: do not open a compensating leg; enter terminal-safe/reconciliation path.
 16. Log all fields from chapter 29 of the manual and add tester assertions for all vectors.
 17. Compile in MetaEditor and validate real ticks, spread shocks, restart, partial fill and order rejection before live enablement.
+18. Keep `ProjectedFinalRecoveryPL` and `ActualFinalRecoveryPL` distinct; produce `ERROR_FINAL_RESULT_MISMATCH` on tolerance failure.
+19. Allocate positive Harvest via approved `α/β/γ`; route rounding residual to carry and never create reserve from a negative Harvest.
+20. Persist available/consumed partial and transition budgets plus cumulative transition loss.
+21. Enforce per-transition, cumulative money and percent loss caps.
+22. Implement `PENDING_UNCONFIRMED`: no reserve credit before confirmed deal reconciliation.
+23. Enforce the terminal-safe action filter and the conservative margin upper bound.
+24. Execute the shared JSON vectors against the reference oracle before claiming parity.

@@ -1,0 +1,1202 @@
+[
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-01",
+    "expected_code": "PASS_ALL_LAWS"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "SELL",
+    "bid": 100.1,
+    "ask": 100.3,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-02",
+    "expected_code": "PASS_ALL_LAWS"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-03",
+    "expected_code": "REJECT_RESERVE_CATCHUP"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-04",
+    "expected_code": "REJECT_BIG_SLOPE"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-05",
+    "expected_code": "REJECT_NO_FINITE_HARVEST_LEVEL"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-06",
+    "expected_code": "PASS_FINITE_CATCHUP"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-07",
+    "expected_code": "REJECT_TRANSITION_BUDGET"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-08",
+    "expected_code": "REJECT_CUMULATIVE_TRANSITION_LOSS"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-09",
+    "expected_code": "REJECT_ROUNDING"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-10",
+    "expected_code": "TERMINAL_SAFE_STATE"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-11",
+    "expected_code": "ERROR_DOUBLE_COUNT_DETECTED"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-12",
+    "expected_code": "ERROR_DOUBLE_COMMISSION"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-13",
+    "expected_code": "ERROR_PARTIAL_EXECUTION"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-14",
+    "expected_code": "ERROR_FINAL_RESULT_MISMATCH"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-15",
+    "expected_code": "REJECT_MARGIN"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-16",
+    "expected_code": "REJECT_OPTIONAL_BIGTREND_POLICY"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-17",
+    "expected_code": "REJECT_OPTIONAL_SMALLBASE_POLICY"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-18",
+    "expected_code": "REJECT_FUTURE_SMALL"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-19",
+    "expected_code": "WORST_CASE_FAIL"
+  },
+  {
+    "symbol": {
+      "name": "TEST",
+      "currency": "USD",
+      "point_value": 10
+    },
+    "direction": "BUY",
+    "bid": 99.9,
+    "ask": 100.1,
+    "spread": 0.2,
+    "positions": {
+      "far": {
+        "lot": 1,
+        "open": 100
+      },
+      "core": {
+        "lot": 2,
+        "open": 100
+      },
+      "trend": {
+        "lot": 0.8,
+        "open": 100
+      },
+      "small": {
+        "lot": 0.2,
+        "open": 100
+      }
+    },
+    "commission": 2,
+    "swap": 0,
+    "fee": 0,
+    "slippage": 0.1,
+    "reserve": 0,
+    "shares": {
+      "partial": 0.2,
+      "reserve": 0.7,
+      "carry": 0.1
+    },
+    "transition_limits": {
+      "per_loss": 0,
+      "cumulative": 0
+    },
+    "volume": {
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01
+    },
+    "margin": {
+      "current": 0,
+      "per_lot": 100,
+      "limit": 60
+    },
+    "harvest_levels": [
+      100,
+      200,
+      300
+    ],
+    "id": "TV-20",
+    "expected_code": "ERROR_RESTORE_RECONCILIATION"
+  }
+]
