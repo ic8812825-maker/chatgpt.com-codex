@@ -121,3 +121,46 @@ def evaluate_vector(v:dict)->EvaluationResult:
     if restore_reconcile(v['restore'])!='RECONCILED':return EvaluationResult('ERROR_RESTORE_RECONCILIATION',False,'restore',trace)
     if v.get('final_check')=='MISMATCH':return EvaluationResult('ERROR_FINAL_RESULT_MISMATCH',False,'actual-final',trace)
     return EvaluationResult('PASS_ALL_LAWS',True,'complete',trace)
+
+# Simulation-oracle extensions.  They are pure functions so an MT5 adapter can
+# substitute broker money/margin without changing the search contract.
+@dataclass
+class NewFarCandidate:
+    new_far:float; q:float; core:float; trend:float; small:float; transition_net:float; next_risk:float; next_margin:float; gate_results:dict
+@dataclass
+class NewFarSolverResult:
+    code:str; selected:NewFarCandidate|None; rejected_candidates:list[dict]; iterations:int
+@dataclass
+class FutureSmallResult:
+    code:str; passed:bool; proven_depth:int; nodes_visited:int; terminal_reached:bool; trace:list[dict]
+def validate_vector(v):
+    errors=[]
+    def num(path,x,low=None):
+        if not isinstance(x,(int,float)) or x!=x or x in (float('inf'),float('-inf')) or (low is not None and x<low):errors.append(f'{path} must be finite and >= {low}')
+    for key in ('bid','ask'):num('market.'+key,v.get('market',{}).get(key),0)
+    if not errors and v['market']['ask']<v['market']['bid']:errors.append('market.ask must be >= market.bid')
+    for role,p in v.get('positions',{}).items():
+        if p.get('direction') not in ('BUY','SELL'):errors.append(f'positions.{role}.direction must be BUY/SELL')
+        num(f'positions.{role}.lot',p.get('lot'),0)
+    a=v.get('allocation',{});shares=[a.get(k) for k in ('alpha_partial','beta_reserve','gamma_carry')]
+    if all(isinstance(x,(int,float)) for x in shares) and abs(sum(shares)-1)>1e-9:errors.append('allocation shares must sum to 1')
+    vol=v.get('volume',{});num('volume.step',vol.get('step'),1e-12)
+    if vol.get('minimum',0)>vol.get('maximum',-1):errors.append('volume.minimum must be <= volume.maximum')
+    return errors
+def price_risk(position,bid,ask,pv,cost): return max(-leg_net(position,bid,ask,pv,cost,0,0),0)
+def enumerate_new_far(v, transition_net=0.):
+    p=v['positions'];g=v['geometry'];vol=v['volume'];F=p['far']['lot'];profile=PROFILES[vol['rounding_profile']];oldgross=sum(x['lot'] for x in p.values());oldrisk=sum(price_risk(x,v['risk_model']['old_control_bid'],v['risk_model']['old_control_ask'],v['symbol']['point_value'],v['costs']['commission_per_leg']) for x in p.values()); bad=[]
+    for i in range(int((F-vol['minimum'])/vol['step'])+1):
+        n=down(vol['minimum']+i*vol['step'],vol['step']);c=apply_round(n*g['core_ratio'],profile.core,vol['step']);t=apply_round(n*g['trend_ratio'],profile.trend,vol['step']);s=apply_round(n*g['small_ratio'],profile.small,vol['step']); nrisk=price_risk({'direction':p['core']['direction'],'lot':n,'open_price':p['core']['open_price']},v['risk_model']['next_control_bid'],v['risk_model']['next_control_ask'],v['symbol']['point_value'],v['costs']['commission_per_leg']); ngross=n+c+t+s; gates={'compression':n<F,'big':c+t<F,'gross':ngross<oldgross,'risk':nrisk+v['risk_model'].get('safety_buffer',0)<oldrisk,'lots':min(c,t,s)>=vol['minimum']}
+        if all(gates.values()):return NewFarSolverResult('PASS_NEW_FAR',NewFarCandidate(n,n/F,c,t,s,transition_net,nrisk,v['margin']['current_margin']+(c+t+s)*v['margin']['individual_margin_per_lot'],gates),bad,i+1)
+        bad.append({'new_far':n,'gates':gates})
+    return NewFarSolverResult('REJECT_NO_VALID_Q',None,bad,len(bad))
+def simulate_future_small(v,depth=1,max_nodes=100):
+    seen=set();trace=[];state=v['positions']['far']['lot']
+    for d in range(depth):
+        if len(trace)>=max_nodes or state in seen:return FutureSmallResult('REJECT_FUTURE_SMALL',False,d,len(trace),False,trace)
+        seen.add(state);r=enumerate_new_far(v)
+        trace.append({'depth':d+1,'far':state,'solver':r.code})
+        if r.code!='PASS_NEW_FAR':return FutureSmallResult(r.code,False,d+1,len(trace),True,trace)
+        state=r.selected.new_far
+    return FutureSmallResult('PASS',True,depth,len(trace),False,trace)

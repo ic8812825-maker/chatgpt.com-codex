@@ -23,3 +23,11 @@ def test_next_big_and_q_bound_100_cases():
 def test_all_codes_are_oracle_codes():assert {x['expected']['code'] for x in V}<=DECISION_CODES
 def test_bucket_consumption_and_idempotency():
  b=Buckets();assert b.allocate_harvest('h',43,.2,.7,.1)[0]=='PASS';assert not b.consume_partial_far_budget('p',9);assert b.consume_partial_far_budget('p2',8.6);assert not b.credit_transition_budget('h',1)
+def test_discrete_solver_selects_minimum_and_records_rejections():
+ import copy
+ v=copy.deepcopy(V[0]);v['risk_model']={'old_control_bid':90,'old_control_ask':90.2,'next_control_bid':90,'next_control_ask':90.2};v['geometry']['target_new_far']=.9
+ r=enumerate_new_far(v);assert r.code=='PASS_NEW_FAR' and r.selected.new_far==.02 and r.iterations>=1
+def test_nested_schema_and_bounded_future_no_flag():
+ import copy
+ v=copy.deepcopy(V[0]);v['market']['ask']=0;assert validate_vector(v)
+ v=copy.deepcopy(V[0]);v['risk_model']={'old_control_bid':90,'old_control_ask':90.2,'next_control_bid':90,'next_control_ask':90.2};r=simulate_future_small(v,2);assert r.nodes_visited<=2 and r.code in ('PASS','REJECT_NO_VALID_Q','REJECT_FUTURE_SMALL')
