@@ -28,6 +28,8 @@
 | TV-19 | Worst Case | base pass, configured worst fails; `WORST_CASE_FAIL` |
 | TV-20 | restart | restored ledger/context mismatch; `ERROR_RESTORE_RECONCILIATION` |
 
-Expected allocation for the completed positive Harvest example `E=44.20`: Partial=`8.84`, Reserve=`30.94`, Carry=`4.42`, residual=`0.00`. Negative Harvest creates zero allocations and is recorded only in `RealizedCyclePL`.
+Expected allocation for the completed positive Harvest example `E=43.00`: Partial=`8.60`, Reserve=`30.10`, Carry=`4.30`, residual=`0.00`. Negative Harvest creates zero allocations and is recorded only in `RealizedCyclePL`.
 
 **Единые определения:** `TransitionNet` — знаковый итог Small Transition; `FinalReserveReal` — только confirmed protected reserve; `CoverageDeficit` — remaining Far close cost plus buffer minus `FinalReserveReal`. Эти определения идентичны основному мануалу и formula reference.
+
+**Проверяемая арифметика TV-01/TV-02:** BigTrend close net `13.20`; `HarvestNet=43.00`; `PartialFarBudgetAdd=8.60`; `FinalReserveAdd=30.10`; `CarryAdd=4.30`. Эти значения вычисляются `evaluate_vector()`, а не принимаются на веру из Markdown.

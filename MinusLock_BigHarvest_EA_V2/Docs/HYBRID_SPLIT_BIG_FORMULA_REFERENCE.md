@@ -51,3 +51,5 @@ For `α+β+γ=1` and `E=max(HarvestNetActual,0)`: `PartialAdd=αE`, `ReserveAdd=
 
 ## Margin and terminal rule
 `MarginConservativeUpperBound=CurrentMargin+ΣIndividualNewOrderMargin`; use it even if broker-aware basket estimate is available. If `Nraw<VolumeMin`, `Nnorm<VolumeMin`, or `Nnorm>=Fold`, no new cycle is legal; use Final Close precheck or `TERMINAL_SAFE_STATE`.
+
+**Oracle rounding profile:** `EA_CURRENT` means BigCore DOWN, BigTrend DOWN, SmallBase UP and NewFar DOWN; every gate is rerun on these rounded lots.
