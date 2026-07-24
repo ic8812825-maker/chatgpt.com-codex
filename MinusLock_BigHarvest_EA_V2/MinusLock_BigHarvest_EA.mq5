@@ -14,6 +14,7 @@
 #include "Include/BrokerMoneyModel.mqh"
 #include "Include/HybridGeometrySolver.mqh"
 #include "Include/HybridTransitionPlanner.mqh"
+#include "Include/HybridDecisionEngine.mqh"
 #include "Include/RiskManager.mqh"
 #include "Include/StateMachine.mqh"
 #include "Include/PendingContractEngine.mqh"

@@ -43,3 +43,11 @@ $$
 ## ADM-MQL5-04 — terminal risk-reducing close policy
 
 ТЗ разрешает risk-reducing closes в terminal state, но не утверждает, закрывать ли residual exposure автоматически, удерживать до Manual Admin Decision или использовать emergency loss cap. Это определяет торговое действие и не может быть выбрано программистом.
+
+## Утверждено Администратором (2026-07-24)
+
+* `TargetNewFarRatio=0.50`; при `(1.60+0.25)*0.50=0.925<0.99` Third Law проходит с запасом `0.065`.
+* Rounding profile: Core DOWN, Trend DOWN, SmallBase UP, NewFar DOWN (`EA_CURRENT`).
+* Harvest allocation: `α=0.20`, `β=0.70`, `γ=0.10`; negative Harvest не кредитует ни Reserve, ни Partial budget, rounding residual идёт в Carry, allocation event idempotent.
+* FinalReserveReal не является источником Partial Far или Small Transition.
+* Terminal mode: no new positions/NewFar/reserve transfers; разрешены только доказанные worst-case risk-reducing closes, после каждого — Final Close recheck, иначе Manual Hold.

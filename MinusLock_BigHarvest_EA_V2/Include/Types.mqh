@@ -803,4 +803,15 @@ bool ParseRoleComment(string comment, PositionRole &role, long &cycleId, int &le
    return cycleId >= 0 && level >= 0 && reverseCycle >= 0;
 }
 
+// Hybrid Decision Engine contract.  These types keep intermediate gates distinct
+// from the final decision and are intentionally independent from legacy roles.
+enum HybridGateCode { HYBRID_GATE_IDENTITY,HYBRID_GATE_CONFIG,HYBRID_GATE_VOLUME,HYBRID_GATE_ROUNDING,HYBRID_GATE_LAW1,HYBRID_GATE_LAW2,HYBRID_GATE_BASE_MONEY,HYBRID_GATE_FINITE_CATCHUP,HYBRID_GATE_TRANSITION,HYBRID_GATE_CUMULATIVE_LOSS,HYBRID_GATE_NEW_FAR,HYBRID_GATE_NEXT_BIG,HYBRID_GATE_GROSS,HYBRID_GATE_RISK,HYBRID_GATE_MARGIN,HYBRID_GATE_WORST_CASE,HYBRID_GATE_FUTURE_SMALL,HYBRID_GATE_FINAL_CLOSE_PREVIEW };
+enum HybridFinalDecisionCode { HYBRID_FINAL_NONE=0,HYBRID_CANDIDATE_ALLOWED,HYBRID_CYCLE_CLOSED_PROFIT,HYBRID_CANDIDATE_REJECTED,HYBRID_TERMINAL_SAFE };
+enum HybridRejectCode { HYBRID_REJECT_NONE=0,HYBRID_REJECT_IDENTITY,HYBRID_REJECT_CONFIG,HYBRID_REJECT_VOLUME,HYBRID_REJECT_LAW1,HYBRID_REJECT_LAW2,HYBRID_REJECT_NEXT_BIG,HYBRID_REJECT_ROUNDING };
+enum HybridErrorCode { HYBRID_ERROR_NONE=0,HYBRID_ERROR_RESERVE_LEDGER,HYBRID_ERROR_FINAL_RESULT_MISMATCH };
+enum HybridTerminalCode { HYBRID_TERMINAL_NONE=0,HYBRID_TERMINAL_MIN_LOT,HYBRID_TERMINAL_NO_VALID_Q,HYBRID_TERMINAL_MANUAL_HOLD };
+struct HybridCycleSnapshot { string symbol; ulong magic,cycleId; Direction farDirection,coreDirection,trendDirection,smallDirection; double farLot,farOpenPrice,coreLot,coreOpenPrice,trendLot,trendOpenPrice,smallLot,smallOpenPrice; ulong farIdentifier,coreIdentifier,trendIdentifier,smallIdentifier; double realizedCyclePL,finalReserveReal,partialFarAvailable,transitionAvailable,cumulativeTransitionLoss,bid,ask,equity,margin,freeMargin; };
+struct HybridCandidatePlan { double coreLot,trendLot,smallLot,newFarLot,nextBigGross; string trace; };
+struct HybridEvaluationResult { HybridFinalDecisionCode finalCode; HybridRejectCode rejectCode; HybridErrorCode errorCode; HybridTerminalCode terminalCode; bool passed,terminal; string failedStage,reason,trace; };
+
 #endif // __BH_TYPES_MQH__
