@@ -90,6 +90,15 @@ bool SimRecordDeal(ulong positionTicket,ulong positionIdentifier,ENUM_DEAL_ENTRY
    SimDeals[oldSize]=deal; SimNextDealTicket++; createdDealTicket=candidate; SimRealizedPL+=deal.netMoney; if(deal.netMoney>=0)SimClosedProfit+=deal.netMoney;else SimClosedLoss+=deal.netMoney; return true;
 }
 
+
+// Backward-compatible static-test contract: a closed-deal helper delegates to
+// the validated unified deal recorder and keeps realized P/L accounting in one
+// place.
+bool SimRecordClosedDeal(ulong positionTicket,ulong positionIdentifier,Direction direction,double requestedLot,double filledLot,double positionOpenPrice,double executionPrice,double profitMoney,double commissionMoney,double swapMoney,double feeMoney,double slippageMoney,string comment,ulong &createdDealTicket)
+{
+   return SimRecordDeal(positionTicket,positionIdentifier,DEAL_ENTRY_OUT,direction,requestedLot,filledLot,positionOpenPrice,executionPrice,profitMoney,commissionMoney,swapMoney,feeMoney,slippageMoney,comment,createdDealTicket);
+}
+
 void SimSetIntegrityFailure(string reason){SimIntegrityFailed=true;SimIntegrityFailureReason=reason;Print("[BigHarvest][SIMULATION][CRITICAL] "+reason);}
 bool SimRollbackLastDeal(ulong expectedDealTicket,string &reason)
 {

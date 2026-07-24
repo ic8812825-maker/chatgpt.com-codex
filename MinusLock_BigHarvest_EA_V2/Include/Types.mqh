@@ -805,13 +805,259 @@ bool ParseRoleComment(string comment, PositionRole &role, long &cycleId, int &le
 
 // Hybrid Decision Engine contract.  These types keep intermediate gates distinct
 // from the final decision and are intentionally independent from legacy roles.
-enum HybridGateCode { HYBRID_GATE_IDENTITY,HYBRID_GATE_CONFIG,HYBRID_GATE_VOLUME,HYBRID_GATE_ROUNDING,HYBRID_GATE_LAW1,HYBRID_GATE_LAW2,HYBRID_GATE_BASE_MONEY,HYBRID_GATE_FINITE_CATCHUP,HYBRID_GATE_TRANSITION,HYBRID_GATE_CUMULATIVE_LOSS,HYBRID_GATE_NEW_FAR,HYBRID_GATE_NEXT_BIG,HYBRID_GATE_GROSS,HYBRID_GATE_RISK,HYBRID_GATE_MARGIN,HYBRID_GATE_WORST_CASE,HYBRID_GATE_FUTURE_SMALL,HYBRID_GATE_FINAL_CLOSE_PREVIEW };
-enum HybridFinalDecisionCode { HYBRID_FINAL_NONE=0,HYBRID_CANDIDATE_ALLOWED,HYBRID_CYCLE_CLOSED_PROFIT,HYBRID_CANDIDATE_REJECTED,HYBRID_TERMINAL_SAFE };
-enum HybridRejectCode { HYBRID_REJECT_NONE=0,HYBRID_REJECT_IDENTITY,HYBRID_REJECT_CONFIG,HYBRID_REJECT_VOLUME,HYBRID_REJECT_LAW1,HYBRID_REJECT_LAW2,HYBRID_REJECT_NEXT_BIG,HYBRID_REJECT_ROUNDING };
-enum HybridErrorCode { HYBRID_ERROR_NONE=0,HYBRID_ERROR_RESERVE_LEDGER,HYBRID_ERROR_FINAL_RESULT_MISMATCH };
-enum HybridTerminalCode { HYBRID_TERMINAL_NONE=0,HYBRID_TERMINAL_MIN_LOT,HYBRID_TERMINAL_NO_VALID_Q,HYBRID_TERMINAL_MANUAL_HOLD };
-struct HybridCycleSnapshot { string symbol; ulong magic,cycleId; Direction farDirection,coreDirection,trendDirection,smallDirection; double farLot,farOpenPrice,coreLot,coreOpenPrice,trendLot,trendOpenPrice,smallLot,smallOpenPrice; ulong farIdentifier,coreIdentifier,trendIdentifier,smallIdentifier; double realizedCyclePL,finalReserveReal,partialFarAvailable,transitionAvailable,cumulativeTransitionLoss,bid,ask,equity,margin,freeMargin; };
-struct HybridCandidatePlan { double coreLot,trendLot,smallLot,newFarLot,nextBigGross; string trace; };
-struct HybridEvaluationResult { HybridFinalDecisionCode finalCode; HybridRejectCode rejectCode; HybridErrorCode errorCode; HybridTerminalCode terminalCode; bool passed,terminal; string failedStage,reason,trace; };
+enum HybridGateCode
+{
+   HYBRID_GATE_IDENTITY = 0,
+   HYBRID_GATE_CONFIG,
+   HYBRID_GATE_VOLUME,
+   HYBRID_GATE_ROUNDING,
+   HYBRID_GATE_LAW1,
+   HYBRID_GATE_LAW2,
+   HYBRID_GATE_BASE_MONEY,
+   HYBRID_GATE_FINITE_CATCHUP,
+   HYBRID_GATE_TRANSITION,
+   HYBRID_GATE_CUMULATIVE_LOSS,
+   HYBRID_GATE_NEW_FAR,
+   HYBRID_GATE_NEXT_BIG,
+   HYBRID_GATE_GROSS,
+   HYBRID_GATE_RISK,
+   HYBRID_GATE_MARGIN,
+   HYBRID_GATE_WORST_CASE,
+   HYBRID_GATE_FUTURE_SMALL,
+   HYBRID_GATE_FINAL_CLOSE_PREVIEW
+};
+
+enum HybridFinalDecisionCode
+{
+   HYBRID_FINAL_NONE = 0,
+   HYBRID_CANDIDATE_ALLOWED,
+   HYBRID_CYCLE_CLOSED_PROFIT,
+   HYBRID_CANDIDATE_REJECTED,
+   HYBRID_TERMINAL_SAFE
+};
+
+enum HybridRejectCode
+{
+   HYBRID_REJECT_NONE = 0,
+   HYBRID_REJECT_IDENTITY,
+   HYBRID_REJECT_CONFIG,
+   HYBRID_REJECT_CONFIG_ALLOCATION,
+   HYBRID_REJECT_VOLUME,
+   HYBRID_REJECT_ROUNDING,
+   HYBRID_REJECT_LAW1,
+   HYBRID_REJECT_LAW2,
+   HYBRID_REJECT_BASE_MONEY,
+   HYBRID_REJECT_FINITE_CATCHUP,
+   HYBRID_REJECT_TRANSITION,
+   HYBRID_REJECT_CUMULATIVE_LOSS,
+   HYBRID_REJECT_NEW_FAR,
+   HYBRID_REJECT_NEXT_BIG,
+   HYBRID_REJECT_GROSS,
+   HYBRID_REJECT_RISK,
+   HYBRID_REJECT_MARGIN,
+   HYBRID_REJECT_WORST_CASE,
+   HYBRID_REJECT_FUTURE_SMALL,
+   HYBRID_REJECT_MIN_LOT
+};
+
+enum HybridErrorCode
+{
+   HYBRID_ERROR_NONE = 0,
+   HYBRID_ERROR_RESERVE_LEDGER,
+   HYBRID_ERROR_FINAL_RESULT_MISMATCH,
+   HYBRID_ERROR_ORDER_CALC_PROFIT,
+   HYBRID_ERROR_ORDER_CALC_MARGIN,
+   HYBRID_ERROR_INVALID_SNAPSHOT,
+   HYBRID_ERROR_INTERNAL_CONTRACT
+};
+
+enum HybridTerminalCode
+{
+   HYBRID_TERMINAL_NONE = 0,
+   HYBRID_TERMINAL_MIN_LOT,
+   HYBRID_TERMINAL_NO_VALID_Q,
+   HYBRID_TERMINAL_MANUAL_HOLD,
+   HYBRID_TERMINAL_FINAL_CLOSE_AVAILABLE
+};
+
+enum HybridRoundingProfile
+{
+   HYBRID_ROUND_EA_CURRENT = 0,
+   HYBRID_ROUND_ALL_DOWN
+};
+
+struct HybridCycleSnapshot
+{
+   string symbol;
+   ulong magic;
+   ulong cycleId;
+   datetime snapshotTime;
+   ulong stateRevision;
+   long positionFingerprint;
+
+   Direction farDirection;
+   double farLot;
+   double farOpenPrice;
+   ulong farIdentifier;
+
+   Direction coreDirection;
+   double coreLot;
+   double coreOpenPrice;
+   ulong coreIdentifier;
+
+   Direction trendDirection;
+   double trendLot;
+   double trendOpenPrice;
+   ulong trendIdentifier;
+
+   Direction smallDirection;
+   double smallLot;
+   double smallOpenPrice;
+   ulong smallIdentifier;
+
+   double realizedCyclePL;
+   double finalReserveReal;
+   double partialFarAvailable;
+   double transitionAvailable;
+   double cumulativeTransitionLoss;
+
+   double bid;
+   double ask;
+   double equity;
+   double margin;
+   double freeMargin;
+};
+
+struct HybridCandidatePlan
+{
+   ulong planId;
+   ulong cycleId;
+   datetime createdAt;
+   long snapshotFingerprint;
+
+   Direction farDirection;
+   Direction bigDirection;
+   Direction smallDirection;
+
+   double rawCoreLot;
+   double rawTrendLot;
+   double rawSmallLot;
+   double rawNewFarLot;
+
+   double coreLot;
+   double trendLot;
+   double smallLot;
+   double newFarLot;
+
+   double closeCoreLot;
+
+   double catchUpRatio;
+   double recoverySlopeLots;
+   double recoverySlopeMoney;
+
+   double currentBigGross;
+   double nextBigGross;
+   double currentGross;
+   double nextGross;
+
+   double projectedHarvestNet;
+   double projectedReserveAdd;
+   double projectedTransitionNet;
+
+   double oldRisk;
+   double nextRisk;
+
+   double projectedMarginBase;
+   double projectedMarginUpper;
+   double projectedMarginLevel;
+
+   double worstCaseNet;
+
+   int finiteCatchUpLevel;
+   int futureSmallDepthProven;
+
+   bool finalCloseAvailable;
+   string trace;
+};
+
+struct HybridEvaluationResult
+{
+   bool applicable;
+   bool evaluated;
+   bool passed;
+   bool terminal;
+
+   HybridFinalDecisionCode finalCode;
+   HybridGateCode failedGate;
+   HybridRejectCode rejectCode;
+   HybridErrorCode errorCode;
+   HybridTerminalCode terminalCode;
+
+   ulong evaluatedGateMask;
+   ulong passedGateMask;
+
+   string failedStage;
+   string reason;
+   string trace;
+};
+
+struct HybridCatchUpRow
+{
+   int level;
+   double price;
+   double harvestNet;
+   double partialAdd;
+   double reserveAdd;
+   double carryAdd;
+   double farCloseCost;
+   double coverageDeficit;
+   double recoveryPL;
+   bool basePass;
+   bool worstPass;
+};
+
+struct HybridCatchUpResult
+{
+   bool pass;
+   int finiteLevel;
+   double finalCoverageDeficit;
+   double finalRecoveryPL;
+   string reason;
+};
+
+struct HybridMarginPreview
+{
+   bool pass;
+   double coreMargin;
+   double trendMargin;
+   double smallMargin;
+   double totalNewMargin;
+   double conservativeUpper;
+   double projectedMarginLevel;
+   double projectedMarginPercent;
+   double projectedFreeMargin;
+   string reason;
+};
+
+struct HybridWorstCasePreview
+{
+   bool pass;
+   double worstBid;
+   double worstAsk;
+   double worstNet;
+   string reason;
+};
+
+struct HybridFutureSmallResult
+{
+   bool pass;
+   int depthProven;
+   double triggerPrice;
+   double transitionNet;
+   double nextNewFar;
+   double nextBigGross;
+   double nextMarginLevel;
+   string reason;
+};
 
 #endif // __BH_TYPES_MQH__

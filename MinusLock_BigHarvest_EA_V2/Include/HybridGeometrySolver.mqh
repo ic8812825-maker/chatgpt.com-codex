@@ -1,5 +1,6 @@
 #ifndef __BH_HYBRID_GEOMETRY_SOLVER_MQH__
 #define __BH_HYBRID_GEOMETRY_SOLVER_MQH__
+#include "HybridRoundingModel.mqh"
 
 // A deterministic pre-open gate.  It does not create orders and therefore
 // cannot bypass the existing atomic basket/pending/reconciliation contracts.
@@ -61,7 +62,7 @@ bool SolveHybridGeometry(double farLot, HybridGeometryDecision &d)
    d.valid=false; d.reason="HYBRID_NOT_EVALUATED";
    d.bigCoreLot=NormalizeLotDown(farLot*BigCoreRatio);
    d.bigTrendLot=NormalizeLotDown(farLot*BigTrendRatio);
-   d.smallBaseLot=NormalizeLotDown(farLot*SmallBaseToFarRatio);
+   d.smallBaseLot=NormalizeHybridSmallLot(farLot*SmallBaseToFarRatio);
    d.targetNewFarLot=NormalizeLotDown(farLot*TargetNewFarRatio);
    if(!UseHybridSplitBigGeometry) { d.valid=true; d.reason="HYBRID_DISABLED"; return true; }
    if(farLot<=0 || d.bigCoreLot<=0 || d.bigTrendLot<=0 || d.smallBaseLot<=0) { d.reason="HYBRID_INVALID_VOLUME"; return false; }
@@ -69,7 +70,7 @@ bool SolveHybridGeometry(double farLot, HybridGeometryDecision &d)
    double pointValue=PointValuePerLot();
    d.netBigExposureLot=d.bigCoreLot+d.bigTrendLot-d.smallBaseLot-farLot;
    d.recoverySlopeMoneyPerPoint=d.netBigExposureLot*pointValue;
-   d.reserveSlopeMoneyPerPoint=WorkReserveShare*(d.bigCoreLot+d.bigTrendLot-d.smallBaseLot)*pointValue;
+   d.reserveSlopeMoneyPerPoint=HybridFinalReserveShare*(d.bigCoreLot+d.bigTrendLot-d.smallBaseLot)*pointValue;
    d.farLossSlopeMoneyPerPoint=farLot*pointValue;
    d.reserveCatchUpRatio=d.farLossSlopeMoneyPerPoint>0?d.reserveSlopeMoneyPerPoint/d.farLossSlopeMoneyPerPoint:0;
    // Gross Big is only BigCore + BigTrend; SmallBase is tracked separately

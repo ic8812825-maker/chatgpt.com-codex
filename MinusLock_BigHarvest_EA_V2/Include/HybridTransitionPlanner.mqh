@@ -1,5 +1,6 @@
 #ifndef __BH_HYBRID_TRANSITION_PLANNER_MQH__
 #define __BH_HYBRID_TRANSITION_PLANNER_MQH__
+#include "HybridRoundingModel.mqh"
 
 // Plan-before-close contract.  This uses the EA broker money functions rather
 // than a synthetic P/L approximation and never credits Final Reserve.
@@ -7,13 +8,13 @@ bool PreviewNextSplitGeometry(double oldFarLot,double targetFar,HybridReversePla
 {
    p.nextBigCoreLot=NormalizeLotDown(targetFar*BigCoreRatio);
    p.nextBigTrendLot=NormalizeLotDown(targetFar*BigTrendRatio);
-   p.nextSmallBaseLot=NormalizeLotDown(targetFar*SmallBaseToFarRatio);
+   p.nextSmallBaseLot=NormalizeHybridSmallLot(targetFar*SmallBaseToFarRatio);
    if(targetFar<=0||targetFar>=oldFarLot||p.nextBigCoreLot<=0||p.nextBigTrendLot<=0||p.nextSmallBaseLot<=0){p.validationReason="NEXT_VOLUME";return false;}
    p.nextBigGrossLot=p.nextBigCoreLot+p.nextBigTrendLot;
    double net=p.nextBigCoreLot+p.nextBigTrendLot-p.nextSmallBaseLot-targetFar;
    p.nextRecoverySlope=net*PointValuePerLot();
    double farSlope=targetFar*PointValuePerLot();
-   p.nextReserveCatchUpRatio=farSlope>0?WorkReserveShare*(p.nextBigCoreLot+p.nextBigTrendLot-p.nextSmallBaseLot)*PointValuePerLot()/farSlope:0;
+   p.nextReserveCatchUpRatio=farSlope>0?HybridFinalReserveShare*(p.nextBigCoreLot+p.nextBigTrendLot-p.nextSmallBaseLot)*PointValuePerLot()/farSlope:0;
    p.nextMarginLevel=AccountInfoDouble(ACCOUNT_MARGIN_LEVEL);
    if(net<MinimumNetBigExposureLots||p.nextRecoverySlope<MinimumRecoverySlopeMoneyPerPoint){p.validationReason="NEXT_RECOVERY";return false;}
    if(p.nextReserveCatchUpRatio<MinimumReserveCatchUpRatio){p.validationReason="NEXT_CATCHUP";return false;}

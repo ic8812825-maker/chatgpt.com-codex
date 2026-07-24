@@ -16,3 +16,11 @@
 | GAP-10 | reference-model parity | no MQL5 parity suite against supplied oracle | `Tests/MQL5` | semantic drift | feed shared vectors into tester |
 
 The concrete code locations above must be re-audited by the programmer against the target commit before implementation.
+
+## Stage 2 MQL5 pre-open gaps
+
+| ID | Математическое требование | Текущее состояние кода | Файл/строка | Риск | Требуемое будущее изменение |
+| -- | ------------------------- | ---------------------- | ----------- | ---- | --------------------------- |
+| MQL5-STAGE2-01 | Подтверждённая MetaEditor компиляция `0/0` | В контейнере MetaEditor отсутствует | `Docs/HYBRID_SPLIT_BIG_METAEDITOR_COMPILE.md` | Нельзя объявить READY | Запустить compile в MT5 окружении |
+| MQL5-STAGE2-02 | ADM-MQL5-05 должен быть решён | Текущая конфигурация честно rejected Law 1 | `Docs/HYBRID_SPLIT_BIG_ADMIN_DECISIONS_REQUIRED.md` | Hybrid candidate не будет разрешён | Администратор выбирает A/B/C/D |
+| MQL5-STAGE2-03 | Полная рекурсия Future Small | Реализован только depth-1 preview этапа 2 | `Include/HybridFutureSmallSolver.mqh` | Future-depth >1 не доказан | Следующий этап: recursive solver |

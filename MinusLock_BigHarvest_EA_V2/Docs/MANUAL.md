@@ -1033,3 +1033,9 @@ UseSplitBigGeometry=false
 ```
 
 Split Small, DynamicReverseSmall, Small-saw and BigCore remainder → NewFar reverse flow are intentionally not implemented in this stage. If Small direction reaches the target during Split Big, the EA does not enter Legacy Small and moves to manual intervention.
+
+## Hybrid Split Big — этап 2 pre-open evaluator
+
+Этап 2 не подключает Hybrid к торговому исполнению. Единственный допустимый путь — чистый вызов `EvaluateHybridCandidate()` с frozen `HybridCycleSnapshot`; результат содержит typed `HybridEvaluationResult`, полный trace формул и не меняет торговое состояние.
+
+Текущая утверждённая комбинация `HybridFinalReserveShare=0.70`, `BigCoreRatio=1.60`, `BigTrendRatio=0.25`, `SmallBaseToFarRatio=0.60` обязана отклоняться по `HYBRID_REJECT_LAW1`, потому что `K_R=0.875<1.10`.
