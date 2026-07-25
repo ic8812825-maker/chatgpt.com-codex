@@ -48,15 +48,15 @@ $$
 
 * `TargetNewFarRatio=0.50`; при `(1.60+0.25)*0.50=0.925<0.99` Third Law проходит с запасом `0.065`.
 * Rounding profile: Core DOWN, Trend DOWN, SmallBase UP, NewFar DOWN (`EA_CURRENT`).
-* Harvest allocation: `α=0.20`, `β=0.70`, `γ=0.10`; negative Harvest не кредитует ни Reserve, ни Partial budget, rounding residual идёт в Carry, allocation event idempotent.
+* Harvest allocation (superseded 2026-07-25 by ADM-MQL5-05): `.20/.70/.10` больше не является MQL5 default; negative Harvest не кредитует Reserve/Partial, residual идёт в Carry, event idempotent.
 * FinalReserveReal не является источником Partial Far или Small Transition.
 * Terminal mode: no new positions/NewFar/reserve transfers; разрешены только доказанные worst-case risk-reducing closes, после каждого — Final Close recheck, иначе Manual Hold.
 
 ## ADM-MQL5-05 — согласование Hybrid allocation и Law 1
 
-**Статус:** ADMIN_DECISION_REQUIRED.
+**Статус:** RESOLVED — выбран вариант A (2026-07-25).
 
-Обнаружен обязательный математический конфликт этапа 2: утверждённые Hybrid-доли `α=0.20`, `β=0.70`, `γ=0.10` теперь отделены от legacy `WorkCloseFarShare`/`WorkReserveShare`, поэтому Law 1 обязан использовать именно `HybridFinalReserveShare=0.70`.
+Исторически был обнаружен обязательный математический конфликт этапа 2: прежние Hybrid-доли `α=0.20`, `β=0.70`, `γ=0.10` теперь отделены от legacy `WorkCloseFarShare`/`WorkReserveShare`, поэтому Law 1 обязан использовать именно `HybridFinalReserveShare=0.70`.
 
 Текущая геометрия:
 
@@ -73,7 +73,7 @@ MinimumReserveCatchUpRatio = 1.10
 K_R = 0.70 * (1.60 + 0.25 - 0.60) = 0.875 < 1.10
 ```
 
-До решения Администратора `EvaluateHybridCandidate()` обязан честно возвращать `HYBRID_REJECT_LAW1`; запрещено подменять `β=0.70` legacy-значением `WorkReserveShare=0.90`.
+До решения конфигурация обязана была возвращать `HYBRID_REJECT_LAW1`; подмена legacy `WorkReserveShare` запрещалась и остаётся запрещённой. Решение ниже заменяет Hybrid inputs на `.10/.90/.00`.
 
 ### Вариант A — сохранить геометрию и увеличить β
 
@@ -90,3 +90,7 @@ K_R = 0.70 * (1.60 + 0.25 - 0.60) = 0.875 < 1.10
 ### Вариант D — разделить HarvestFinalReserveShare и CatchUpEffectiveReserveShare
 
 Разрешается только при доказанном дополнительном источнике Reserve; фиктивная доля в Law 1 запрещена.
+
+### Решение Администратора — ПРИНЯТО (этап 0)
+
+Выбран вариант A: `HybridPartialFarShare=0.10`, `HybridFinalReserveShare=0.90`, `HybridCarryShare=0.00`. Для утверждённой геометрии `K_R=0.90*(1.60+0.25-0.60)=1.125>=1.10`; ADM-MQL5-05 закрыт. CarryBase равен нулю, но денежный residual округления продолжает кредитоваться в Carry. Защитные запреты FinalReserve остаются без изменений.

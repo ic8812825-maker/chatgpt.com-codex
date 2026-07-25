@@ -33,3 +33,7 @@ Expected allocation for the completed positive Harvest example `E=43.00`: Partia
 **Единые определения:** `TransitionNet` — знаковый итог Small Transition; `FinalReserveReal` — только confirmed protected reserve; `CoverageDeficit` — remaining Far close cost plus buffer minus `FinalReserveReal`. Эти определения идентичны основному мануалу и formula reference.
 
 **Проверяемая арифметика TV-01/TV-02:** BigTrend close net `13.20`; `HarvestNet=43.00`; `PartialFarBudgetAdd=8.60`; `FinalReserveAdd=30.10`; `CarryAdd=4.30`. Эти значения вычисляются `evaluate_vector()`, а не принимаются на веру из Markdown.
+
+## Профиль после ADM-MQL5-05
+
+TV-01/TV-02 сохраняют исторический oracle-regression profile `.20/.70/.10` и не являются MQL5 default parity fixtures. Для утверждённого MQL5 profile `.10/.90/.00` при `E=43.00` ожидаются `Partial=4.30`, `Reserve=38.70`, `CarryBase=0.00`; Carry получает только возможный residual округления. Новые MQL5 parity fixtures обязаны явно указывать profile и не смешивать эти ожидания.

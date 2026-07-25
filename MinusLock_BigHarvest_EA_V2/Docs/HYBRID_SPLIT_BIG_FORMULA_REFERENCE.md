@@ -53,3 +53,7 @@ For `α+β+γ=1` and `E=max(HarvestNetActual,0)`: `PartialAdd=αE`, `ReserveAdd=
 `MarginConservativeUpperBound=CurrentMargin+ΣIndividualNewOrderMargin`; use it even if broker-aware basket estimate is available. If `Nraw<VolumeMin`, `Nnorm<VolumeMin`, or `Nnorm>=Fold`, no new cycle is legal; use Final Close precheck or `TERMINAL_SAFE_STATE`.
 
 **Oracle rounding profile:** `EA_CURRENT` means BigCore DOWN, BigTrend DOWN, SmallBase UP and NewFar DOWN; every gate is rerun on these rounded lots.
+
+## Утверждённый MQL5 allocation profile (ADM-MQL5-05)
+
+`alpha=.10`, `beta=.90`, `gamma=.00`; `K_R=.90*(1.60+.25-.60)=1.125>=1.10`. Allocation: `Partial=round(alpha*E)`, `Reserve=round(beta*E)`, `CarryBase=round(gamma*E)`, `Residual=round(E-Partial-Reserve-CarryBase)`, `Carry=round(CarryBase+Residual)`. Защитный Reserve не является дополнительной прибылью и не финансирует Partial/Transition.

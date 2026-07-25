@@ -1038,4 +1038,8 @@ Split Small, DynamicReverseSmall, Small-saw and BigCore remainder → NewFar rev
 
 Этап 2 не подключает Hybrid к торговому исполнению. Единственный допустимый путь — чистый вызов `EvaluateHybridCandidate()` с frozen `HybridCycleSnapshot`; результат содержит typed `HybridEvaluationResult`, полный trace формул и не меняет торговое состояние.
 
-Текущая утверждённая комбинация `HybridFinalReserveShare=0.70`, `BigCoreRatio=1.60`, `BigTrendRatio=0.25`, `SmallBaseToFarRatio=0.60` обязана отклоняться по `HYBRID_REJECT_LAW1`, потому что `K_R=0.875<1.10`.
+Историческая комбинация `HybridFinalReserveShare=0.70`, `BigCoreRatio=1.60`, `BigTrendRatio=0.25`, `SmallBaseToFarRatio=0.60` отклонялась по `HYBRID_REJECT_LAW1`, потому что `K_R=0.875<1.10`; ADM-MQL5-05 заменил её профилем `.10/.90/.00`.
+
+### Hybrid Split Big: нормативный этап 0
+
+ADM-MQL5-05 принят: Hybrid allocation `.10/.90/.00`, поэтому для `1.60/.25/.60` Law 1 даёт `K_R=1.125`. Это не меняет legacy `CloseFarShare/ReserveShare`. Алгоритмический контракт находится в `HYBRID_SPLIT_BIG_MQL5_NORMATIVE_ALGORITHMS_RU.md`; State Machine integration запрещена до READY этапов 1–6.

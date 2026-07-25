@@ -14,3 +14,24 @@ def test_vectors_are_unique_executable_and_documented():
  assert len(V)==20 and len({x['id'] for x in V})==20
  docs='\n'.join(p.read_text() for p in D.glob('HYBRID_SPLIT_BIG*.md'))
  for x in V:assert x['expected']['code'] in DECISION_CODES and x['id'] in docs and x['expected']['code'] in docs
+
+def test_stage0_normative_contract_and_resolved_allocation():
+ config=(ROOT/'Include'/'Config.mqh').read_text()
+ admin=(D/'HYBRID_SPLIT_BIG_ADMIN_DECISIONS_REQUIRED.md').read_text()
+ normative=(D/'HYBRID_SPLIT_BIG_MQL5_NORMATIVE_ALGORITHMS_RU.md').read_text()
+ coverage=(D/'HYBRID_SPLIT_BIG_ORACLE_COVERAGE.md').read_text()
+ assert 'HybridPartialFarShare = 0.10' in config
+ assert 'HybridFinalReserveShare = 0.90' in config
+ assert 'HybridCarryShare = 0.00' in config
+ assert 'Статус:** RESOLVED' in admin and '1.125>=1.10' in admin
+ for chapter in range(1,9): assert f'## {chapter}.' in normative
+ for term in ('PositionFingerprint','FarCloseCost_n=max(-FarCloseNet_n,0)',
+              'nextRisk=oldRisk*q','TargetNewFarRatio','ManagedPositions==0',
+              'PREPARED → EVENT_WRITTEN → CACHE_UPDATED → RECONCILED → COMPLETED'):
+  assert term in normative
+ assert '| FULLY_COVERED |' not in coverage
+
+def test_strategy_tester_plan_is_administrator_owned():
+ plan=(D/'HYBRID_SPLIT_BIG_STRATEGY_TESTER_ADMIN_PLAN_RU.md').read_text()
+ for n in range(1,17): assert f'ST-{n:02d}' in plan
+ assert 'Администратор' in plan and 'Every tick based on real ticks' in plan

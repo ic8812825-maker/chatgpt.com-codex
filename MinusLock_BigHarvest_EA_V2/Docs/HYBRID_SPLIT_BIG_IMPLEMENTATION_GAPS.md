@@ -24,3 +24,5 @@ The concrete code locations above must be re-audited by the programmer against t
 | MQL5-STAGE2-01 | Подтверждённая MetaEditor компиляция `0/0` | В контейнере MetaEditor отсутствует | `Docs/HYBRID_SPLIT_BIG_METAEDITOR_COMPILE.md` | Нельзя объявить READY | Запустить compile в MT5 окружении |
 | MQL5-STAGE2-02 | ADM-MQL5-05 должен быть решён | Текущая конфигурация честно rejected Law 1 | `Docs/HYBRID_SPLIT_BIG_ADMIN_DECISIONS_REQUIRED.md` | Hybrid candidate не будет разрешён | Администратор выбирает A/B/C/D |
 | MQL5-STAGE2-03 | Полная рекурсия Future Small | Реализован только depth-1 preview этапа 2 | `Include/HybridFutureSmallSolver.mqh` | Future-depth >1 не доказан | Следующий этап: recursive solver |
+| MQL5-STAGE0-04 | ADM-MQL5-05 | Утверждены `.10/.90/.00`; `K_R=1.125` | `Config.mqh`, normative algorithms | математический конфликт закрыт | RESOLVED |
+| MQL5-STAGE0-05 | Полный алгоритмический контракт | State/Harvest/Risk/NewFar/Future/Final/Ledger/State Machine описаны нормативно | normative algorithms | реализация этапов 1–8 ещё отсутствует | staged implementation |

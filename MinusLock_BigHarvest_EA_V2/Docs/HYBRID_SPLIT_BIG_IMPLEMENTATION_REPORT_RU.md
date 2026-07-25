@@ -14,7 +14,7 @@
 
 ## ADM-MQL5-05
 
-Текущие утверждённые `β=0.70`, `Core=1.60`, `Trend=0.25`, `Small=0.60` дают `K_R=0.875`, поэтому текущая комбинация обязана завершаться `HYBRID_REJECT_LAW1` до решения Администратора.
+Исторический профиль `β=0.70`, `Core=1.60`, `Trend=0.25`, `Small=0.60` давал `K_R=0.875` и отклонялся по `HYBRID_REJECT_LAW1`. ADM-MQL5-05 теперь закрыт профилем `.10/.90/.00`.
 
 ## Static baseline
 
@@ -24,3 +24,11 @@
 
 * Полной интеграции в реальные торговые open/close paths нет по заданию этапа 2.
 * MetaEditor в текущем контейнере недоступен, поэтому фактический compile result должен быть получен в MT5 окружении.
+
+## Этап 0 — нормативная документация (2026-07-25)
+
+* Base SHA: `0d0a8d195cb704859fa541257dd25bdc980c64b1`.
+* ADM-MQL5-05 принят Администратором: `.10/.90/.00`, `K_R=1.125`.
+* Создан полный алгоритмический контракт состояния, level table, risk prices, единого solver, Future transition, Final Close, ledgers и State Machine mapping.
+* Торговая логика и State Machine не интегрировались; следующие этапы остаются обязательными.
+* Strategy Tester: `NOT_EXECUTED_BY_PROGRAMMER`. Reason: Administrator will execute Strategy Tester independently.
