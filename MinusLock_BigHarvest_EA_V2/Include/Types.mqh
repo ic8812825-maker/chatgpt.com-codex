@@ -1038,11 +1038,30 @@ struct HybridReopenPrices
 };
 
 enum HybridCatchUpProfileKind { HYBRID_CATCHUP_BASE=0, HYBRID_CATCHUP_WORST };
+enum HybridCatchUpOutcome
+{
+   HYBRID_CATCHUP_OUTCOME_NOT_EVALUATED=0, HYBRID_CATCHUP_OUTCOME_CONTINUE,
+   HYBRID_CATCHUP_OUTCOME_FINITE_PASS, HYBRID_CATCHUP_OUTCOME_FINAL_CLOSE_PREVIEW_REQUIRED,
+   HYBRID_CATCHUP_OUTCOME_TERMINAL_MIN_VOLUME, HYBRID_CATCHUP_OUTCOME_NO_FINITE_LEVEL,
+   HYBRID_CATCHUP_OUTCOME_REJECT_CONFIG, HYBRID_CATCHUP_OUTCOME_REJECT_STATE,
+   HYBRID_CATCHUP_OUTCOME_REJECT_GEOMETRY, HYBRID_CATCHUP_OUTCOME_REJECT_MARGIN,
+   HYBRID_CATCHUP_OUTCOME_REJECT_TEMPORAL_INVARIANT, HYBRID_CATCHUP_OUTCOME_REJECT_OUTCOME_DIVERGENCE,
+   HYBRID_CATCHUP_OUTCOME_REJECT_WORST_NON_ADVERSE,
+   HYBRID_CATCHUP_OUTCOME_ERROR_BROKER_MONEY, HYBRID_CATCHUP_OUTCOME_ERROR_MARGIN_CALCULATION,
+   HYBRID_CATCHUP_OUTCOME_ERROR_PARTIAL_SOLVER, HYBRID_CATCHUP_OUTCOME_ERROR_INTERNAL
+};
+enum HybridCatchUpOutcomeClass
+{
+   HYBRID_CATCHUP_CLASS_NONE=0, HYBRID_CATCHUP_CLASS_CONTINUE, HYBRID_CATCHUP_CLASS_SUCCESS,
+   HYBRID_CATCHUP_CLASS_ROUTE, HYBRID_CATCHUP_CLASS_TERMINAL,
+   HYBRID_CATCHUP_CLASS_REJECT, HYBRID_CATCHUP_CLASS_ERROR
+};
 struct HybridCatchUpProfile
 {
    HybridCatchUpProfileKind kind;
-   double adversePoints;
-   double marginSafetyPercent;
+   double bidAdversePoints; double askAdversePoints;
+   double marginSafetyPercent; double gapBufferPoints; double slippageMultiplier;
+   bool cumulativeSpreadStress;
 };
 
 struct HybridCatchUpState
@@ -1052,7 +1071,8 @@ struct HybridCatchUpState
    Direction farDirection; double farLot; double farOpenPrice;
    Direction bigDirection; double coreLot; double coreOpenPrice; double trendLot; double trendOpenPrice;
    Direction smallDirection; double smallLot; double smallOpenPrice;
-   double anchorBid; double anchorAsk; double spread;
+   double anchorMid; double anchorBid; double anchorAsk; double baselineSpread;
+   double lastExecutionBid; double lastExecutionAsk;
    double realizedCyclePL; double partialFarBudgetAvailable; double finalReserveReal; double carryAvailable;
    double cumulativeHarvestNet; double cumulativePartialFarNet; double cumulativeOpeningCosts;
    double equity; double currentMargin; double freeMargin;
@@ -1063,7 +1083,8 @@ struct HybridCatchUpState
 
 struct HybridPartialFarPreviewResult
 {
-   bool calculationValid; bool partialCloseAvailable; bool fullFarCandidate; bool requiresFinalClosePreview;
+   bool calculationValid; bool partialCloseAvailable;
+   bool partialBudgetCanCoverFullFarLoss; bool finalClosePreviewRouteCandidate;
    double budgetBefore; double budgetAdded; double budgetGross;
    double rawCloseLot; double normalizedCloseLot; double farLotBefore; double farLotAfter;
    BrokerMoneyResult partialCloseMoney;
@@ -1074,8 +1095,12 @@ struct HybridPartialFarPreviewResult
 
 struct HybridHarvestLevelResult
 {
+   bool calculationValid; HybridCatchUpOutcome outcome; HybridCatchUpOutcomeClass outcomeClass;
+   bool continuationAllowed; bool finalClosePreviewRequired; bool terminal; bool reject; bool error;
+   string reasonCode;
    int level; ulong stateBeforeFingerprint; ulong stateAfterFingerprint;
-   double triggerBid; double triggerAsk;
+   double baseTriggerBid; double baseTriggerAsk; double triggerBid; double triggerAsk;
+   double baselineSpread; double executionSpread; bool cumulativeSpreadStress;
    double farLotBefore; double farLotClosed; double farLotAfter; double farOpenPrice;
    double coreLot; double coreOpenPrice; double trendLot; double trendOpenPrice; double smallLot; double smallOpenPrice;
    BrokerMoneyResult coreClose; BrokerMoneyResult trendClose; BrokerMoneyResult smallClose;
@@ -1089,7 +1114,12 @@ struct HybridHarvestLevelResult
    double recoveryAfterPartial; double recoveryAfterReopen;
    double nextCoreLot; double nextTrendLot; double nextSmallLot;
    double nextAnchorBid; double nextAnchorAsk;
-   double marginBefore; double marginReleased; double marginAfter; double peakMargin; double overlapUpper;
+   double marginBeforeSnapshot;
+   double estimatedOldCoreMargin; double estimatedOldTrendMargin; double estimatedOldSmallMargin;
+   double estimatedPartialFarMarginRelease; double estimatedReleasedMarginUpper;
+   double remainingFarMargin; double nextCoreMargin; double nextTrendMargin; double nextSmallMargin;
+   double steadyStateMarginUpper; double peakExecutionMarginUpper; double overlapMarginUpper;
+   double marginLevelAfter; double marginUsageAfter; double projectedFreeMarginAfter;
    bool allocationPass; bool partialBudgetPass; bool temporalPass; bool coveragePass;
    bool recoveryPass; bool marginPass; bool nextStatePass; bool pass;
    HybridCatchUpState stateAfter;
@@ -1098,7 +1128,12 @@ struct HybridHarvestLevelResult
 
 struct HybridCatchUpResult
 {
-   bool calculationValid; bool pass; int finiteLevel; int evaluatedLevels;
+   bool calculationValid; bool finiteCatchUpPass; bool pass;
+   HybridCatchUpOutcome outcome; HybridCatchUpOutcomeClass outcomeClass;
+   HybridCatchUpOutcome baseOutcome; HybridCatchUpOutcome worstOutcome;
+   int finiteLevel; int routedAtLevel; int terminalAtLevel; int rejectedAtLevel; int errorAtLevel; int evaluatedLevels;
+   bool finalClosePreviewRequired; bool terminal; bool reject; bool error;
+   string failedProfile; string reasonCode;
    HybridHarvestLevelResult baseLevels[]; HybridHarvestLevelResult worstLevels[];
    HybridCatchUpState finalBaseState; HybridCatchUpState finalWorstState;
    double finalCoverageDeficit; double finalRecoveryPL;

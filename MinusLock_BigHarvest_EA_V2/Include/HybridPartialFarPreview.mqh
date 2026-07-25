@@ -22,8 +22,8 @@ bool SolveHybridPartialFarPreview(const HybridCatchUpState &state,double budgetA
    if(!HybridPartialFarCloseMoney(state,state.farLot,closeBid,closeAsk,fullMoney))
    { result.reason="CATCHUP_PARTIAL_SOLVER_FAILED"; return false; }
    double fullCost=MathMax(-fullMoney.netMoney,0.0);
-   result.fullFarCandidate=fullCost<=budgetAvailable+MoneyCalculationTolerance;
-   result.requiresFinalClosePreview=result.fullFarCandidate;
+   result.partialBudgetCanCoverFullFarLoss=fullCost<=budgetAvailable+MoneyCalculationTolerance;
+   result.finalClosePreviewRouteCandidate=result.partialBudgetCanCoverFullFarLoss;
 
    // Full Far is never consumed by Partial policy. Descending scan selects the
    // maximum affordable lot leaving a broker-valid residual.
@@ -53,7 +53,7 @@ bool SolveHybridPartialFarPreview(const HybridCatchUpState &state,double budgetA
    result.budgetConsumed=0; result.budgetAfter=NormalizeDouble(MathMax(0.0,budgetAvailable),2);
    result.remainderVolumeValid=state.farLot+MoneyCalculationTolerance>=minLot;
    result.budgetConservationPass=MathAbs(result.budgetBefore+result.budgetAdded-result.budgetAfter)<=MoneyCalculationTolerance;
-   result.reason=result.fullFarCandidate?"CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW":"NO_AFFORDABLE_PARTIAL_LOT";
+   result.reason=result.partialBudgetCanCoverFullFarLoss?"CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW":"NO_AFFORDABLE_PARTIAL_LOT";
    return result.budgetConservationPass && result.remainderVolumeValid;
 }
 
