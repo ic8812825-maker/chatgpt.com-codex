@@ -5,10 +5,32 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 PROJECT_ROOT="$REPO_ROOT/MinusLock_BigHarvest_EA_V2"
 SOURCE_BASE="4413a05bd785cbef398fc418ad12b008fa090a00"
 SOURCE_COMMIT="11ae620f717cf011436db52cf4b3b76d0015c606"
-FORBIDDEN_PATTERN='^MinusLock_BigHarvest_EA_V2/Include/(StateMachine|TradeEngine|PositionUtils|SimulationEngine|HybridPartialFarPreview|BrokerMoneyModel|Types|Config)\.mqh$'
+FORBIDDEN_INCLUDE_FILES=(
+  "MinusLock_BigHarvest_EA_V2/Include/StateMachine.mqh"
+  "MinusLock_BigHarvest_EA_V2/Include/TradeEngine.mqh"
+  "MinusLock_BigHarvest_EA_V2/Include/PositionUtils.mqh"
+  "MinusLock_BigHarvest_EA_V2/Include/SimulationEngine.mqh"
+  "MinusLock_BigHarvest_EA_V2/Include/HybridCatchUpModel.mqh"
+  "MinusLock_BigHarvest_EA_V2/Include/HybridPartialFarPreview.mqh"
+  "MinusLock_BigHarvest_EA_V2/Include/BrokerMoneyModel.mqh"
+  "MinusLock_BigHarvest_EA_V2/Include/Types.mqh"
+  "MinusLock_BigHarvest_EA_V2/Include/Config.mqh"
+)
 
-match_forbidden_paths() {
-  grep -E "$FORBIDDEN_PATTERN"
+is_forbidden_path() {
+  local candidate="$1" forbidden
+  for forbidden in "${FORBIDDEN_INCLUDE_FILES[@]}"; do
+    [[ "$candidate" == "$forbidden" ]] && return 0
+  done
+  return 1
+}
+
+collect_forbidden_paths() {
+  local candidate
+  while IFS= read -r candidate; do
+    [[ -n "$candidate" ]] || continue
+    is_forbidden_path "$candidate" && printf '%s\n' "$candidate"
+  done
 }
 
 check_forbidden_files() {
@@ -36,7 +58,7 @@ check_forbidden_files() {
     return 4
   fi
 
-  forbidden_files="$(printf '%s\n' "$changed_files" | match_forbidden_paths || true)"
+  forbidden_files="$(printf '%s\n' "$changed_files" | collect_forbidden_paths || true)"
   if [[ -n "$forbidden_files" ]]; then
     {
       printf 'FORBIDDEN_FILES_FOUND\nSOURCE_BASE=%s\nSOURCE_COMMIT=%s\nFILES_BEGIN\n' "$base_sha" "$source_sha"
@@ -52,24 +74,45 @@ check_forbidden_files() {
 }
 
 run_guard_self_tests() {
-  local passed=0 failed=0 status tmp
+  local core_passed=0 core_failed=0 forbidden_passed=0 forbidden_failed=0 allowed_passed=0 allowed_failed=0 status tmp path
   tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' RETURN
   set +e
   check_forbidden_files 0000000000000000000000000000000000000000 "$SOURCE_COMMIT" "$tmp/01.log" >/dev/null; status=$?
   set -e
-  if (( status == 2 )) && grep -q 'REASON=SOURCE_BASE_NOT_FOUND' "$tmp/01.log"; then ((passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-01|PASS'; else ((failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-01|FAIL'; fi
+  if (( status == 2 )) && grep -q 'REASON=SOURCE_BASE_NOT_FOUND' "$tmp/01.log"; then ((core_passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-01|PASS'; else ((core_failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-01|FAIL'; fi
   set +e
   check_forbidden_files "$SOURCE_BASE" 0000000000000000000000000000000000000000 "$tmp/02.log" >/dev/null; status=$?
   set -e
-  if (( status == 3 )) && grep -q 'REASON=SOURCE_COMMIT_NOT_FOUND' "$tmp/02.log"; then ((passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-02|PASS'; else ((failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-02|FAIL'; fi
+  if (( status == 3 )) && grep -q 'REASON=SOURCE_COMMIT_NOT_FOUND' "$tmp/02.log"; then ((core_passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-02|PASS'; else ((core_failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-02|FAIL'; fi
   set +e
-  check_forbidden_files "$SOURCE_BASE" "$SOURCE_COMMIT" "$tmp/03.log" >/dev/null; status=$?
+  check_forbidden_files "$SOURCE_COMMIT" "$SOURCE_COMMIT" "$tmp/03.log" >/dev/null; status=$?
   set -e
-  if (( status == 0 )) && grep -q '^FORBIDDEN_FILES_EMPTY$' "$tmp/03.log"; then ((passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-03|PASS'; else ((failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-03|FAIL'; fi
-  if printf '%s\n' 'MinusLock_BigHarvest_EA_V2/Include/StateMachine.mqh' | match_forbidden_paths >/dev/null; then ((passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-04|PASS'; else ((failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-04|FAIL'; fi
-  if ! printf '%s\n' 'MinusLock_BigHarvest_EA_V2/Docs/STAGE_1_2_4_1_EVIDENCE_RU.md' | match_forbidden_paths >/dev/null; then ((passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-05|PASS'; else ((failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-05|FAIL'; fi
-  printf 'FORBIDDEN_GUARD_SELF_TEST|SUMMARY|Passed=%d|Failed=%d\n' "$passed" "$failed"
-  (( failed == 0 ))
+  if (( status == 0 )) && grep -q '^FORBIDDEN_FILES_EMPTY$' "$tmp/03.log"; then ((core_passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-03|PASS'; else ((core_failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-03|FAIL'; fi
+  if is_forbidden_path 'MinusLock_BigHarvest_EA_V2/Include/StateMachine.mqh'; then ((core_passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-04|PASS'; else ((core_failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-04|FAIL'; fi
+  if ! is_forbidden_path 'MinusLock_BigHarvest_EA_V2/Docs/STAGE_1_2_4_1_EVIDENCE_RU.md'; then ((core_passed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-05|PASS'; else ((core_failed+=1)); echo 'FORBIDDEN_GUARD_SELF_TEST|SELF-GUARD-05|FAIL'; fi
+
+  for path in "${FORBIDDEN_INCLUDE_FILES[@]}"; do
+    if printf '%s\n' "$path" | collect_forbidden_paths | grep -Fxq "$path"; then
+      ((forbidden_passed+=1)); printf 'FORBIDDEN_GUARD_MATRIX|%s|PASS\n' "$path"
+    else
+      ((forbidden_failed+=1)); printf 'FORBIDDEN_GUARD_MATRIX|%s|FAIL\n' "$path"
+    fi
+  done
+  for path in \
+    'MinusLock_BigHarvest_EA_V2/Docs/STAGE_1_2_4_1_EVIDENCE_RU.md' \
+    'MinusLock_BigHarvest_EA_V2/Tests/run_stage_1_2_4_1_source_validation.sh' \
+    '.github/workflows/stage-1.2.4.1-source-validation.yml' \
+    'MinusLock_BigHarvest_EA_V2/Include/StateMachine.mqh.bak' \
+    'MinusLock_BigHarvest_EA_V2/Tests/HybridCatchUpModel.mqh'; do
+    if ! is_forbidden_path "$path"; then
+      ((allowed_passed+=1)); printf 'ALLOWED_GUARD_MATRIX|%s|PASS\n' "$path"
+    else
+      ((allowed_failed+=1)); printf 'ALLOWED_GUARD_MATRIX|%s|FAIL\n' "$path"
+    fi
+  done
+  printf 'FORBIDDEN_GUARD_SELF_TEST|SUMMARY|CorePassed=%d|CoreFailed=%d|ForbiddenMatrixPassed=%d|ForbiddenMatrixFailed=%d|AllowedMatrixPassed=%d|AllowedMatrixFailed=%d\n' \
+    "$core_passed" "$core_failed" "$forbidden_passed" "$forbidden_failed" "$allowed_passed" "$allowed_failed"
+  (( core_failed == 0 && forbidden_failed == 0 && allowed_failed == 0 ))
 }
 
 if [[ "${1:-}" == "--self-test-forbidden-guard" ]]; then
@@ -77,6 +120,11 @@ if [[ "${1:-}" == "--self-test-forbidden-guard" ]]; then
   exit $?
 fi
 
+controlled_failure=0
+if [[ "${1:-}" == "--controlled-failure" ]]; then
+  controlled_failure=1
+  shift
+fi
 OUTPUT_DIR="${1:-$REPO_ROOT/.stage_1_2_4_1_evidence}"
 BRANCH="${EVIDENCE_BRANCH_NAME:-$(git -C "$REPO_ROOT" branch --show-current)}"
 CI_COMMIT="${EVIDENCE_BRANCH_SHA:-$(git -C "$REPO_ROOT" rev-parse HEAD)}"
@@ -106,10 +154,20 @@ run_logged 04_all_tests.log python3 -m pytest -q "$PROJECT_ROOT/Tests"
 run_logged 05_big_move_levels_check.log python3 "$PROJECT_ROOT/Tests/big_move_levels_check.py"
 run_logged 06_validate_v2_static.log python3 "$PROJECT_ROOT/Tests/validate_v2_static.py"
 
-set +e; check_forbidden_files "$SOURCE_BASE" "$SOURCE_COMMIT" "$OUTPUT_DIR/07_forbidden_files.log"; guard_status=$?; set -e
+set +e; check_forbidden_files "$SOURCE_COMMIT" "$CI_COMMIT" "$OUTPUT_DIR/07_forbidden_files.log"; guard_status=$?; set -e
 (( guard_status == 0 )) || overall_status=1
 run_logged 09_forbidden_guard_self_tests.log bash "$PROJECT_ROOT/Tests/run_stage_1_2_4_1_source_validation.sh" --self-test-forbidden-guard
-grep -q 'SUMMARY|Passed=5|Failed=0' "$OUTPUT_DIR/09_forbidden_guard_self_tests.log" && self_test_status=0 || { self_test_status=1; overall_status=1; }
+summary="$(grep '^FORBIDDEN_GUARD_SELF_TEST|SUMMARY|' "$OUTPUT_DIR/09_forbidden_guard_self_tests.log" || true)"
+core_failed="$(sed -n 's/.*|CoreFailed=\([0-9][0-9]*\).*/\1/p' <<<"$summary")"
+forbidden_matrix_failed="$(sed -n 's/.*|ForbiddenMatrixFailed=\([0-9][0-9]*\).*/\1/p' <<<"$summary")"
+allowed_matrix_failed="$(sed -n 's/.*|AllowedMatrixFailed=\([0-9][0-9]*\).*/\1/p' <<<"$summary")"
+if [[ "$core_failed" == 0 && "$forbidden_matrix_failed" == 0 && "$allowed_matrix_failed" == 0 ]]; then
+  self_test_status=0
+else
+  self_test_status=1
+  overall_status=1
+fi
+(( controlled_failure == 0 )) || overall_status=1
 
 base_exists=0; source_exists=0
 git -C "$REPO_ROOT" cat-file -e "${SOURCE_BASE}^{commit}" 2>/dev/null && base_exists=1
@@ -121,9 +179,10 @@ git -C "$REPO_ROOT" cat-file -e "${SOURCE_COMMIT}^{commit}" 2>/dev/null && sourc
   printf 'CHANGED_FILES_BEGIN\n'; git -C "$REPO_ROOT" diff --name-only "$SOURCE_COMMIT" HEAD; printf 'CHANGED_FILES_END\n'
 } 2>&1 | tee "$OUTPUT_DIR/08_git_metadata.log"
 
-cat > "$OUTPUT_DIR/evidence_manifest.txt" <<EOF
+write_evidence_manifest() {
+  cat > "$OUTPUT_DIR/evidence_manifest.txt" <<EOF
 STAGE=1.2.4.1
-EVIDENCE_STAGE=1.2.4.2.1
+EVIDENCE_STAGE=1.2.4.2.1-HOTFIX
 REPOSITORY=$(git -C "$REPO_ROOT" remote get-url origin)
 BRANCH=$BRANCH
 SOURCE_BASE=$SOURCE_BASE
@@ -147,13 +206,23 @@ FORBIDDEN_GUARD_STATUS=$guard_status
 SELF_TEST_STATUS=$self_test_status
 ARTIFACT_CONTENTS=01_py_compile.log,02_dimension_contract.log,03_hybrid_split_big.log,04_all_tests.log,05_big_move_levels_check.log,06_validate_v2_static.log,07_forbidden_files.log,08_git_metadata.log,09_forbidden_guard_self_tests.log,evidence_manifest.txt,SHA256SUMS.txt
 EOF
+}
 
-(
-  cd "$OUTPUT_DIR"
-  sha256sum 01_py_compile.log 02_dimension_contract.log 03_hybrid_split_big.log 04_all_tests.log 05_big_move_levels_check.log 06_validate_v2_static.log 07_forbidden_files.log 08_git_metadata.log 09_forbidden_guard_self_tests.log evidence_manifest.txt > SHA256SUMS.txt
-)
+write_checksums() {
+  (
+    cd "$OUTPUT_DIR"
+    sha256sum 01_py_compile.log 02_dimension_contract.log 03_hybrid_split_big.log 04_all_tests.log 05_big_move_levels_check.log 06_validate_v2_static.log 07_forbidden_files.log 08_git_metadata.log 09_forbidden_guard_self_tests.log evidence_manifest.txt > SHA256SUMS.txt
+  )
+}
+
+write_evidence_manifest
+write_checksums
 set +e; (cd "$OUTPUT_DIR" && sha256sum -c SHA256SUMS.txt); checksum_status=$?; set -e
-(( checksum_status == 0 )) || overall_status=1
-if (( overall_status != 0 )); then sed -i 's/^EXIT_STATUS=.*/EXIT_STATUS=1/' "$OUTPUT_DIR/evidence_manifest.txt"; fi
+if (( checksum_status != 0 )); then
+  overall_status=1
+  write_evidence_manifest
+  write_checksums
+  (cd "$OUTPUT_DIR" && sha256sum -c SHA256SUMS.txt)
+fi
 printf 'SOURCE_VALIDATION_SUMMARY|ExitStatus=%d|Evidence=%s\n' "$overall_status" "$OUTPUT_DIR"
 exit "$overall_status"

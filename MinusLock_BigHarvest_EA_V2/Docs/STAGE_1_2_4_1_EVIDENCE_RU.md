@@ -68,6 +68,14 @@ validation exit status=0
 
 `EVIDENCE_DOCUMENT_COMMIT_B` содержит эти фактические данные Primary run. Финальный status check выполняется на Commit B; его ID приводится в итоговом отчёте, чтобы обновление документа не создавало бесконечный цикл commit/run.
 
+## STAGE_1_2_4_2_1_HOTFIX
+
+```text
+HOTFIX_CI_VALUES_PENDING
+```
+
+HOTFIX расширяет нормативный forbidden-list до девяти точных путей, включая `HybridCatchUpModel.mqh`, проверяет forbidden/allowed matrix и сохраняет целостный диагностический package даже при controlled failure.
+
 ## Граница доказательства
 
 GitHub Actions подтверждает только Python/static source validation. CI не подтверждает MetaEditor compilation, MQL5 runner execution, Strategy Tester, broker-specific calculations, торговое исполнение или production readiness.
