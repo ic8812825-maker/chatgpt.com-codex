@@ -28,14 +28,45 @@ SOURCE_COMMIT=11ae620f717cf011436db52cf4b3b76d0015c606
 ## PRIMARY_IMPLEMENTATION_RUN
 
 ```text
-FINAL_CI_VALUES_PENDING
+VALIDATED_SOURCE_COMMIT_A=8eb8fe8616a4966ddcc44e2285d5cc7bec6566b3
+WORKFLOW_NAME=Stage 1.2.4.1 Source Validation
+WORKFLOW_RUN_ID=30170647795
+WORKFLOW_RUN_URL=https://github.com/ic8812825-maker/chatgpt.com-codex/actions/runs/30170647795
+WORKFLOW_RUN_ATTEMPT=1
+WORKFLOW_STATUS=completed
+WORKFLOW_CONCLUSION=success
+WORKFLOW_HEAD_BRANCH=work
+WORKFLOW_HEAD_SHA=8eb8fe8616a4966ddcc44e2285d5cc7bec6566b3
+CI_COMMIT=8eb8fe8616a4966ddcc44e2285d5cc7bec6566b3
+JOB_ID=89711077231
+ARTIFACT_NAME=stage-1.2.4.2.1-source-validation-8eb8fe8616a4966ddcc44e2285d5cc7bec6566b3
+ARTIFACT_ID=8622818843
+ARTIFACT_SIZE=4005
+ARTIFACT_DIGEST=sha256:70eafa2742df42f72a0b906ea0d639f3a53617c44dc5f239b217ecfcc539a8df
+ARTIFACT_EXPIRED=false
+ARTIFACT_CREATED_AT=2026-07-25T18:57:30Z
+ARTIFACT_EXPIRES_AT=2026-08-24T18:57:29Z
+SHA256SUMS_FILE_SHA256=ec0886f08c662d54e151d29939e58ae7ee915c0a20cc27cc280db8400b9b0617
 ```
 
-Фактические run, artifact и test-count значения вносятся только после успешного запуска Commit A и проверки скачанного artifact.
+Artifact скачан через GitHub API. В нём присутствуют ровно 11 обязательных evidence-файлов, а `sha256sum -c SHA256SUMS.txt` завершён с `ALL OK`.
+
+Фактические результаты из artifact:
+
+```text
+dimension-contract tests=17 passed in 0.08s
+HybridSplitBig tests=186 passed in 0.49s
+all project tests=391 passed in 0.86s
+big_move_levels_check=PASS
+validate_v2_static=PASS
+forbidden-files guard=FORBIDDEN_FILES_EMPTY
+guard self-tests=Passed=5,Failed=0
+validation exit status=0
+```
 
 ## FINAL_EVIDENCE_CONFIRMATION_RUN
 
-Финальный status check выполняется на Evidence Commit B. Его ID приводится в итоговом отчёте, чтобы обновление документа не создавало бесконечный цикл commit/run.
+`EVIDENCE_DOCUMENT_COMMIT_B` содержит эти фактические данные Primary run. Финальный status check выполняется на Commit B; его ID приводится в итоговом отчёте, чтобы обновление документа не создавало бесконечный цикл commit/run.
 
 ## Граница доказательства
 
