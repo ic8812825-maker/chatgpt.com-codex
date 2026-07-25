@@ -132,7 +132,7 @@ bool HybridCatchUpMarginTransition(const HybridCatchUpState &before,const Hybrid
       !HybridCatchUpMarginMoney(before.bigDirection,before.trendLot,oldBigPrice,oldTrend) ||
       !HybridCatchUpMarginMoney(before.smallDirection,before.smallLot,oldSmallPrice,oldSmall)) return false;
    ResetBrokerMoneyResult(partial);
-   if(partialLot>0 && !HybridCatchUpMarginMoney(before.farDirection,partialLot,HybridMarginControlPrice(before.farDirection,executionBid,executionAsk),partial)) return false;
+   if(HybridLotGreater(before.symbol,partialLot,0.0) && !HybridCatchUpMarginMoney(before.farDirection,partialLot,HybridMarginControlPrice(before.farDirection,executionBid,executionAsk),partial)) return false;
    if(!HybridCatchUpMarginMoney(after.farDirection,after.farLot,HybridMarginControlPrice(after.farDirection,executionBid,executionAsk),remain) ||
       !HybridCatchUpMarginMoney(after.bigDirection,after.coreLot,HybridMarginControlPrice(after.bigDirection,reopenBid,reopenAsk),nextCore) ||
       !HybridCatchUpMarginMoney(after.bigDirection,after.trendLot,HybridMarginControlPrice(after.bigDirection,reopenBid,reopenAsk),nextTrend) ||

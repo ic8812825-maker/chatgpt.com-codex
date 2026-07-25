@@ -125,3 +125,9 @@ Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 - **DIM-INV-08:** строгая Far compression превышает lot tolerance.
 - **DIM-INV-09:** New Big на лимите отклоняется.
 - **DIM-INV-10:** Worst helpers получают symbol из обязательного source context.
+
+## Stage 1.2.4.1 money/Partial clarification
+
+- `HybridMoneyEqual(a,b)` проверяет ledger-normalized значения: `abs(Round2(a)-Round2(b)) <= MoneyCalculationTolerance`.
+- `HybridMoneyGreater`, `HybridMoneyGreaterOrEqual`, `HybridMoneyLessOrEqual` применяются к raw projected money без предварительного округления и реализуют консервативные boundary inequalities.
+- Partial margin существует только при `HybridLotGreater(symbol,partialLot,0.0)`; noise внутри lot tolerance не вызывает Partial margin calculation.

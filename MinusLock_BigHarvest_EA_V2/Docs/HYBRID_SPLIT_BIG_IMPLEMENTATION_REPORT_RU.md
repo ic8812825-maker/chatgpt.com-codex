@@ -93,3 +93,11 @@ Status: `HYBRID_FINAL_CLOSE_ROUTE_SOURCE_READY`; общий статус `HYBRID
 | Coverage/Recovery/Reserve | money | money tolerance | unchanged money context | VALID |
 | Worst trigger | price | optional symbol | explicit `snapshot.symbol` | FIXED |
 | Worst leg/full-Far results | money | money tolerance | unchanged money context | VALID |
+
+## Stage 1.2.4.1 — closure hotfix
+
+`HybridCatchUpMarginTransition` заменил прямое `partialLot > 0` на symbol-aware `HybridLotGreater`. Call site передаёт `row.farLotClosed`, формируемый `SolveHybridPartialFarPreview`: solver выдаёт только ноль либо нормализованный положительный broker lot, поэтому отрицательное значение этим путём не создаётся; отдельный negative guard не добавлялся.
+
+`HybridMoneyEqual` намеренно сравнивает ledger-normalized `Round2` values. Money inequalities работают с raw projected money и tolerance без предварительного округления: equality и boundary contracts намеренно не полностью симметричны.
+
+Python audit является эвристическим source-level guard, а не AST-анализатором MQL5 и не заменяет compilation/runtime. Он контролирует известные запрещённые patterns, inventory `MoneyCalculationTolerance` и обязательные typed calls.

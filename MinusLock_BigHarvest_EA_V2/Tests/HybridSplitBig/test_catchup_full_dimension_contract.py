@@ -39,3 +39,17 @@ def test_static_forbidden_patterns_and_symbol_provenance():
  assert 'HybridWorstRowIsAdverse(snapshot.symbol' in source
  assert 'stateAfter.symbol!=""' not in source
  for helper in ('HybridLotLess','HybridLotLessOrEqual','HybridLotGreater','HybridLotGreaterOrEqual','HybridRatioLess','HybridPercentGreaterOrEqual','HybridPercentLessOrEqual'): assert helper in source
+
+def partial_exists(partial_lot): return lot_greater(partial_lot,0)
+def test_dim_hotfix_01_noise_partial_absent(): assert not partial_exists('1e-10')
+def test_dim_hotfix_02_real_partial_present(): assert partial_exists('.01')
+def test_dim_hotfix_03_half_tolerance_absent(): assert not partial_exists(LOT_TOL/2)
+def test_dim_hotfix_04_twice_tolerance_present(): assert partial_exists(LOT_TOL*2)
+def margin_transition_body():
+ source=SOURCE.read_text(); start=source.index('bool HybridCatchUpMarginTransition('); end=source.index('\nbool BuildInitialHybridCatchUpState',start); return source[start:end]
+def test_dim_hotfix_05_no_direct_partial_zero_comparisons():
+ compact=re.sub(r'\s+','',margin_transition_body())
+ forbidden=(r'partialLot(?:>|>=|!=|==)0(?:\.0)?',r'MathAbs\(partialLot\)(?:<=|<)MoneyCalculationTolerance',r'partialLot(?:>|<=)MoneyCalculationTolerance')
+ assert not any(re.search(pattern,compact) for pattern in forbidden)
+def test_dim_hotfix_06_scoped_lot_aware_partial():
+ compact=re.sub(r'\s+','',margin_transition_body()); assert 'HybridLotGreater(before.symbol,partialLot,0.0)' in compact
