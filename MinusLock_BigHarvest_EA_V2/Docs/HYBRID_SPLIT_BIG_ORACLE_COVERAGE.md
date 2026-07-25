@@ -25,3 +25,4 @@ Oracle is broker-agnostic; MT5 parity still requires a future adapter around `Or
 | Stage 1.2 non-cumulative Worst | temporal/outcome contracts | `trigger` | WP-01..WP-08 | Python + MQL5 runner source | PARTIALLY_COVERED — MQL5 runtime absent |
 | Stage 1.2 margin controls | temporal contract | `margin_price/margins` | MG-01..MG-10 | Python + MQL5 runner source | PARTIALLY_COVERED — MQL5 runtime absent |
 | Stage 1.2.1 Final Close route state | temporal/outcome contracts | route-state oracle | ROUTE-01..12, ADV-01..05 | source tests pending | PARTIALLY_COVERED — MQL5 runtime absent |
+| Stage 1.2.1 route preservation source | immutable pre-Partial route state | `test_catchup_route_state` | ROUTE-01..12, ADV-01..05 | Python numeric/static + MQL5 source | PARTIALLY_COVERED — runtime absent |

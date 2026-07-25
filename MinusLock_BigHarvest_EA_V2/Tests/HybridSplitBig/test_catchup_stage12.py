@@ -20,8 +20,8 @@ def combine(a,b):
     for cls in (Class.ERROR,Class.TERMINAL,Class.REJECT):
         if ca==cls:return a
         if cb==cls:return b
-    if ca==cb==Class.ROUTE:return Outcome.FINAL_ROUTE
-    if {ca,cb}=={Class.ROUTE,Class.SUCCESS}:return Outcome.REJECT
+    if Class.ROUTE in (ca,cb):
+        return Outcome.FINAL_ROUTE if ca==cb==Class.ROUTE else Outcome.REJECT
     if ca==cb==Class.SUCCESS:return Outcome.FINITE_PASS
     return Outcome.CONTINUE
 
@@ -47,7 +47,7 @@ def test_outcome_classes(outcome,expected): assert classify(outcome)==expected
  (Outcome.FINITE_PASS,Outcome.FINITE_PASS,Outcome.FINITE_PASS),
  (Outcome.FINITE_PASS,Outcome.CONTINUE,Outcome.CONTINUE),
  (Outcome.FINAL_ROUTE,Outcome.FINAL_ROUTE,Outcome.FINAL_ROUTE),
- (Outcome.FINAL_ROUTE,Outcome.CONTINUE,Outcome.CONTINUE),
+ (Outcome.FINAL_ROUTE,Outcome.CONTINUE,Outcome.REJECT),
  (Outcome.ERROR,Outcome.FINITE_PASS,Outcome.ERROR),
  (Outcome.CONTINUE,Outcome.TERMINAL,Outcome.TERMINAL)],ids=['FO-06','FO-07','FO-08','FO-09','FO-10','FO-11'])
 def test_truth_table(base,worst,expected): assert combine(base,worst)==expected
