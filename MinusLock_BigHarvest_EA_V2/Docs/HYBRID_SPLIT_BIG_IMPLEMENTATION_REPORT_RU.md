@@ -36,3 +36,9 @@
 ## Этап 1 — finite Catch-Up (2026-07-25)
 
 Упрощение с повторным `plan.projectedHarvestNet` удалено. Каждый level имеет собственные Bid/Ask и четыре `BrokerMoneyResult`; PASS объединяет coverage, RecoveryPL, margin Base/Worst и Worst Case. StateMachine, TradeEngine, DecisionEngine и execution не изменялись. FC-01…FC-11 добавлены. Strategy Tester: `NOT_EXECUTED_BY_PROGRAMMER`.
+
+## Stage 1.1-A — temporal semantics
+
+Последовательная модель утверждена: каждый Harvest закрывает текущие working legs ровно один раз, PartialFarNet входит в RealizedPL, residual Far порождает next basket и независимые Base/Worst states. Код Stage 1.1-B выполняется отдельным commit.
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

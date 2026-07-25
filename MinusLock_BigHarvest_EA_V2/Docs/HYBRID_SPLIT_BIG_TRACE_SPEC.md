@@ -35,3 +35,26 @@ FinalCode= | RejectCode= | ErrorCode= | TerminalCode= | Reason=
 ```
 
 Money печатается с account-currency precision, lots с broker volume digits, prices с symbol digits. Secrets и unordered map serialization запрещены. Trace должен воспроизводиться из immutable snapshot/config/model version.
+
+## Sequential `HYBRID_CATCHUP_LEVEL` fields
+
+```text
+StateBeforeFingerprint= | StateAfterFingerprint= |
+FarLotBefore= | FarLotClosed= | FarLotAfter= | FarOpenPrice= |
+CoreLot= | CoreOpenPrice= | CoreCloseNet= |
+TrendLot= | TrendOpenPrice= | TrendCloseNet= |
+SmallLot= | SmallOpenPrice= | SmallCloseNet= |
+HarvestNet= |
+PartialAdd= | PartialBudgetBefore= | PartialBudgetConsumed= | PartialBudgetAfter= | PartialFarNet= |
+ReserveBefore= | ReserveAdd= | ReserveAfter= |
+CarryBefore= | CarryAdd= | CarryAfter= |
+RealizedPLBefore= | RealizedPLAfterHarvest= | RealizedPLAfterPartial= |
+NextCoreLot= | NextTrendLot= | NextSmallLot= | NextOpenBid= | NextOpenAsk= |
+RecoveryBefore= | RecoveryAfter= |
+MarginBefore= | MarginReleased= | MarginAfter= | MarginPeak= |
+CoverageBefore= | CoverageAfter= | Decision= | Reason=
+```
+
+Sequential records additionally require `Profile`, `TriggerBid/Ask`, `EligibleHarvest`, `RemainingFarNet/Cost`, `RecoveryAfterPartial/Reopen`, `OverlapUpper`, and every allocation/budget/temporal pass flag. Field omission is a trace-contract failure.
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

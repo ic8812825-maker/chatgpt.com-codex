@@ -96,3 +96,5 @@ Fingerprint включает direction, normalized lots, rounded trigger, reserv
 ## Нормативные companion contracts
 
 Неизменяемые требования вынесены в `HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; допустимые переходы — в `HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`; порядок gates — в `HYBRID_SPLIT_BIG_GATE_GRAPH.md`; разрешённые денежные рёбра — в `HYBRID_SPLIT_BIG_MONEY_FLOW.md`; формат воспроизводимого журнала — в `HYBRID_SPLIT_BIG_TRACE_SPEC.md`. Эти документы имеют такую же нормативную силу, как главы 1–8.
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

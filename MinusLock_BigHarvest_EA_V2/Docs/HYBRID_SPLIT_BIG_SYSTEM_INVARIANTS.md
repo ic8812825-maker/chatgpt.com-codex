@@ -44,3 +44,28 @@
 | REC-03 | RecoveryPL не уменьшается из-за внутреннего double count/rounding; допустимое ухудшение имеет market, commission, swap, fee или slippage provenance. |
 | SAFE-01 | Base PASS без Worst PASS не разрешает действие. |
 | SAFE-02 | Terminal state запрещает opens, NewFar promotion и Reserve transfer. |
+
+## Temporal and Far invariants
+
+| ID | Инвариант |
+|---|---|
+| TIME-01 | Полностью закрытая позиция не рассчитывается и не закрывается повторно. |
+| TIME-02 | Каждый Harvest использует lots/open prices только текущего `StateBefore[n]`. |
+| TIME-03 | `StateBefore[n+1]` создаётся только из `StateAfter[n]`. |
+| TIME-04 | Cumulative Harvest — сумма непересекающихся deals `Open[k]→Close[k]`. |
+| FAR-01 | `PartialFarNet` входит в `RealizedCyclePL`. |
+| FAR-02 | Partial budget consumption равен projected/actual Far loss в tolerance. |
+| FAR-03 | FinalReserve отсутствует во входах Partial Far solver. |
+| FAR-04 | Residual Far равен 0 либо `>=VolumeMin`. |
+| FAR-05 | Следующие Core/Trend/Small рассчитываются от residual Far. |
+| TIME-05 | Следующий trigger строится от anchor следующего состояния. |
+| TIME-06 | Base и Worst имеют независимые последовательности states и fingerprints. |
+| FAR-06 | Remaining Far close cost пересчитывается после каждого partial close. |
+| FAR-07 | Full Far candidate маршрутизируется в Final Close preview, не в Partial Far completion. |
+| ACC-01 | Каждый HarvestNet учитывается ровно один раз. |
+| ACC-02 | Каждый PartialFarNet учитывается ровно один раз. |
+| ACC-03 | Open commission каждого projected leg учитывается ровно один раз. |
+| ACC-04 | Partial budget conservation выполняется на каждом level. |
+| ACC-05 | Allocation conservation выполняется на каждом level. |
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

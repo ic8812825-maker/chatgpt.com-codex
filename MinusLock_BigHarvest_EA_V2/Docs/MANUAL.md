@@ -1043,3 +1043,5 @@ Split Small, DynamicReverseSmall, Small-saw and BigCore remainder → NewFar rev
 ### Hybrid Split Big: нормативный этап 0
 
 ADM-MQL5-05 принят: Hybrid allocation `.10/.90/.00`, поэтому для `1.60/.25/.60` Law 1 даёт `K_R=1.125`. Это не меняет legacy `CloseFarShare/ReserveShare`. Алгоритмический контракт находится в `HYBRID_SPLIT_BIG_MQL5_NORMATIVE_ALGORITHMS_RU.md`; State Machine integration запрещена до READY этапов 1–6.
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

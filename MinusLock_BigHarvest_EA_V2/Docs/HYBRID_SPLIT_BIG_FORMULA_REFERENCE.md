@@ -57,3 +57,5 @@ For `α+β+γ=1` and `E=max(HarvestNetActual,0)`: `PartialAdd=αE`, `ReserveAdd=
 ## Утверждённый MQL5 allocation profile (ADM-MQL5-05)
 
 `alpha=.10`, `beta=.90`, `gamma=.00`; `K_R=.90*(1.60+.25-.60)=1.125>=1.10`. Allocation: `Partial=round(alpha*E)`, `Reserve=round(beta*E)`, `CarryBase=round(gamma*E)`, `Residual=round(E-Partial-Reserve-CarryBase)`, `Carry=round(CarryBase+Residual)`. Защитный Reserve не является дополнительной прибылью и не финансирует Partial/Transition.
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

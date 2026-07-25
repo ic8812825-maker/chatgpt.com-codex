@@ -35,3 +35,11 @@ Projected money -X-> persisted bucket
 ```
 
 Каждое ребро существует только после confirmed event. Allocation residual всегда идёт Carry. Reserve — защищённая классификация уже реализованной прибыли, а не новая прибыль.
+
+## Sequential Harvest refinement
+
+Каждый Harvest credit возникает из нового непересекающегося close set. `PartialBudgetBefore + PartialAdd - PartialFarCost = PartialBudgetAfter`; `PartialFarNet` одновременно входит в RealizedCyclePL. FinalReserve не является source или parameter Partial Far solver.
+
+Open commission provenance: already-realized old-leg open costs are never debited again; projected reopen cost is recorded once in the new state; each projected close cost belongs to one disjoint close event.
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

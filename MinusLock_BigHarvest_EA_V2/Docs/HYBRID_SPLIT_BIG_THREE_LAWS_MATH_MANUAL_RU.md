@@ -297,3 +297,5 @@ Use A lots and N=.30, but at Small trigger set `NetF=-200, NetS=-40, NetT=30, Ne
 ## Нормативное дополнение этапа 0 (ADM-MQL5-05)
 
 Для MQL5-профиля утверждены `alpha=.10`, `beta=.90`, `gamma=.00`; при `c=1.60,t=.25,s=.60` получаем `K_R=1.125>=1.10`. CarryBase не создаётся, но residual денежного округления всегда поступает в Carry. Полный state, level-by-level Catch-Up, risk control prices, единый NewFar, Future transition, Final Close, ledger и State Machine contract определены в `HYBRID_SPLIT_BIG_MQL5_NORMATIVE_ALGORITHMS_RU.md`. До реализации соответствующего этапа описание не является доказательством MQL5 parity.
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

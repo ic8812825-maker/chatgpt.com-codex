@@ -19,3 +19,4 @@
 Oracle is broker-agnostic; MT5 parity still requires a future adapter around `OrderCalcProfit` and `OrderCalcMargin`.
 
 **MQL5 parity note:** ни одна строка не получает `FULLY_COVERED`, пока отсутствуют MQL5 parity fixture, MetaEditor compilation/run и broker adapter evidence. Python coverage и MQL5 parity являются разными доказательствами.
+| Stage 1.1 sequential temporal Catch-Up | temporal model | source implementation pending audit | FT-01..FT-47 | pending | PARTIALLY_COVERED |

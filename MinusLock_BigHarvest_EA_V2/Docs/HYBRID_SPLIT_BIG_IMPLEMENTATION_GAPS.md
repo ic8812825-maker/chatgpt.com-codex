@@ -27,3 +27,6 @@ The concrete code locations above must be re-audited by the programmer against t
 | MQL5-STAGE0-04 | ADM-MQL5-05 | Утверждены `.10/.90/.00`; `K_R=1.125` | `Config.mqh`, normative algorithms | математический конфликт закрыт | RESOLVED |
 | MQL5-STAGE0-05 | Полный алгоритмический контракт | State/Harvest/Risk/NewFar/Future/Final/Ledger/State Machine описаны нормативно | normative algorithms | реализация этапов 1–8 ещё отсутствует | staged implementation |
 | MQL5-STAGE1-01 | Finite Catch-Up | Level-by-level BrokerMoney, cumulative allocation, margin/worst and monotonic invariants implemented | `HybridCatchUpModel.mqh` | MetaEditor/runtime parity pending | Stage 8 fixture execution |
+| MQL5-STAGE1.1 | Temporal Catch-Up | Sequential semantics и Partial Far evolution нормативно определены | temporal model | code/runtime pending until 1.1-B/8 | separate implementation commit |
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

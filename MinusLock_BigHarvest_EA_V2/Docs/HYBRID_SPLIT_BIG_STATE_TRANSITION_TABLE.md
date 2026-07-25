@@ -19,3 +19,7 @@
 | RECONCILIATION | exact match restored | no pending mismatch | event replay idempotent | persisted safe state | TERMINAL_SAFE |
 | TERMINAL_SAFE | proven close-only action | WorstRiskAfter < WorstRiskBefore | confirmed close, recheck final | TERMINAL_SAFE / FINAL_CLOSE_PENDING | MANUAL_HOLD |
 | MANUAL_HOLD | administrator reset | explicit audited decision | reconciliation complete | IDLE / TERMINAL_SAFE | MANUAL_HOLD |
+
+**Temporal refinement:** строка HARVEST_RECONCILE выполняется для каждого последовательного level: confirmed/projected working legs текущего state закрыты один раз, Partial Far применяется, затем next basket создаёт новый `StateBefore`. Повторный расчёт исходных legs запрещён.
+
+Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.

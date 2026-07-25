@@ -49,3 +49,34 @@ def test_stage0_safety_contract_documents():
  assert 'IDENTITY' in texts[names[2]] and 'FINAL_CLOSE_PREVIEW' in texts[names[2]]
  assert 'FinalReserve -X-> Transition' in texts[names[3]]
  assert 'HYBRID_CATCHUP_LEVEL' in texts[names[4]] and 'DurationMicros=' in texts[names[4]]
+
+def test_temporal_catchup_contract_is_unambiguous():
+ temporal=(D/'HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md').read_text()
+ invariants=(D/'HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md').read_text()
+ trace=(D/'HYBRID_SPLIT_BIG_TRACE_SPEC.md').read_text()
+ for term in ('HybridCatchUpState','StateBefore[n+1] = Transition','Open[k]→Close[k]',
+              'PartialBudgetGross','requiresFinalCloseCheck','SteadyStateUpper',
+              'BaseState[n]','WorstState[n]'):
+  assert term in temporal
+ for code in ('TIME-01','TIME-02','TIME-03','TIME-04','FAR-01','FAR-02','FAR-03','FAR-04','FAR-05'):
+  assert code in invariants
+ for field in ('StateBeforeFingerprint','StateAfterFingerprint','FarLotClosed',
+               'PartialBudgetConsumed','RealizedPLAfterPartial','MarginReleased','CoverageAfter'):
+  assert field in trace
+
+def test_stage_11_normative_temporal_contract():
+ temporal=(D/'HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md').read_text()
+ inv=(D/'HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md').read_text()
+ gate=(D/'HYBRID_SPLIT_BIG_GATE_GRAPH.md').read_text()
+ coverage=(D/'HYBRID_SPLIT_BIG_ORACLE_COVERAGE.md').read_text()
+ assert '`NORMATIVE`' in temporal
+ for term in ('BuildProjectedReopenPrices','openCommissionAlreadyRealized',
+              'CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW','Worst per-leg adverse policy',
+              'OverlapUpper'):
+  assert term in temporal
+ for code in [*(f'TIME-{n:02d}' for n in range(1,7)),
+              *(f'FAR-{n:02d}' for n in range(1,8)),
+              *(f'ACC-{n:02d}' for n in range(1,6))]:
+  assert code in inv
+ assert 'STATE_VALIDATION → TRIGGER_PRICE → CURRENT_LEG_MONEY' in gate
+ assert 'Stage 1.1 sequential temporal Catch-Up' in coverage and 'PARTIALLY_COVERED' in coverage
