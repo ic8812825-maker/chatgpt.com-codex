@@ -101,3 +101,24 @@ Status: `HYBRID_FINAL_CLOSE_ROUTE_SOURCE_READY`; общий статус `HYBRID
 `HybridMoneyEqual` намеренно сравнивает ledger-normalized `Round2` values. Money inequalities работают с raw projected money и tolerance без предварительного округления: equality и boundary contracts намеренно не полностью симметричны.
 
 Python audit является эвристическим source-level guard, а не AST-анализатором MQL5 и не заменяет compilation/runtime. Он контролирует известные запрещённые patterns, inventory `MoneyCalculationTolerance` и обязательные typed calls.
+
+## Stage 1.2.4.2 — административный provenance и CI evidence
+
+Commit `11ae620f717cf011436db52cf4b3b76d0015c606` был отправлен прямым обычным push в `origin/work`. Отдельный implementation pull request для Stage 1.2.4.1 не создавался либо его фактическое создание не подтверждено номером и URL GitHub. Подготовка title/body или `make_pr` payload не считается фактом создания pull request.
+
+| Объект | Статус | Доказательство |
+|---|---|---|
+| Base SHA | подтверждён | `4413a05bd785cbef398fc418ad12b008fa090a00` |
+| Implementation commit | подтверждён | `11ae620f717cf011436db52cf4b3b76d0015c606` |
+| Push в `origin/work` | подтверждён | `origin/work == 11ae620f717cf011436db52cf4b3b76d0015c606` |
+| Implementation PR | не подтверждён | PR number/URL отсутствуют |
+| Локальные Python-тесты | `LOCAL_TEST_REPORTED` | terminal report исполнителя |
+| GitHub CI run Stage 1.2.4.1 | отсутствовал | status checks отсутствовали |
+| CI artifact Stage 1.2.4.1 | отсутствовал | artifact ID отсутствовал |
+| MQL5 compile/run | не выполнялся программистом | ответственность Администратора |
+
+Термины: `CI_TEST_VERIFIED` требует успешный GitHub Actions run с URL, run ID и logs; `CI_ARTIFACT_AVAILABLE` требует artifact name/ID и привязку к commit; `PR_CREATED` требует PR number, URL, state, base/head; без этих данных действует только `PR_PREPARED_ONLY`.
+
+## Stage 1.2.4.2.1 — fail-closed evidence
+
+Интеграция выполняется как `DIRECT_COMMIT_AND_PUSH_TO_WORK`. Источник Stage 1.2.4.1 остаётся `11ae620f717cf011436db52cf4b3b76d0015c606`; CI-инфраструктура проверяет существование source/base SHA, отделяет ошибку `git diff` от пустого результата, запускает пять guard self-tests и проверяет строгий пакет из 11 файлов до upload. GitHub Actions доказывает только Python/static source validation; MQL5 и MT5 остаются ответственностью Администратора.

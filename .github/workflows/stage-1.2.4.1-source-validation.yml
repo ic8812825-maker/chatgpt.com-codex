@@ -1,0 +1,76 @@
+name: Stage 1.2.4.1 Source Validation
+
+on:
+  push:
+    branches:
+      - work
+    paths:
+      - ".github/workflows/stage-1.2.4.1-source-validation.yml"
+      - "MinusLock_BigHarvest_EA_V2/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependency
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+      - name: Run reproducible source validation
+        env:
+          EVIDENCE_BRANCH_NAME: ${{ github.ref_name }}
+          EVIDENCE_BRANCH_SHA: ${{ github.sha }}
+          WORKFLOW_RUN_ID_VALUE: ${{ github.run_id }}
+          WORKFLOW_RUN_ATTEMPT_VALUE: ${{ github.run_attempt }}
+          GITHUB_EVENT_NAME_VALUE: ${{ github.event_name }}
+          GITHUB_REPOSITORY_VALUE: ${{ github.repository }}
+          EXPECTED_BRANCH_NAME: work
+        run: |
+          chmod +x MinusLock_BigHarvest_EA_V2/Tests/run_stage_1_2_4_1_source_validation.sh
+          MinusLock_BigHarvest_EA_V2/Tests/run_stage_1_2_4_1_source_validation.sh \
+            "$RUNNER_TEMP/stage_1_2_4_1_evidence"
+      - name: Verify evidence package
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          EVIDENCE_DIR="$RUNNER_TEMP/stage_1_2_4_1_evidence"
+          required=(01_py_compile.log 02_dimension_contract.log 03_hybrid_split_big.log 04_all_tests.log 05_big_move_levels_check.log 06_validate_v2_static.log 07_forbidden_files.log 08_git_metadata.log 09_forbidden_guard_self_tests.log evidence_manifest.txt SHA256SUMS.txt)
+          for file in "${required[@]}"; do
+            if [[ ! -s "$EVIDENCE_DIR/$file" ]]; then
+              printf 'EVIDENCE_FILE_MISSING_OR_EMPTY=%s\n' "$file"
+              exit 1
+            fi
+          done
+          (cd "$EVIDENCE_DIR" && sha256sum -c SHA256SUMS.txt)
+      - name: Upload source-validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage-1.2.4.2.1-source-validation-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/01_py_compile.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/02_dimension_contract.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/03_hybrid_split_big.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/04_all_tests.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/05_big_move_levels_check.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/06_validate_v2_static.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/07_forbidden_files.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/08_git_metadata.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/09_forbidden_guard_self_tests.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/evidence_manifest.txt
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 30
