@@ -97,7 +97,9 @@ if [[ -n "${EXPECTED_BRANCH_NAME:-}" && "$BRANCH" != "$EXPECTED_BRANCH_NAME" ]];
   overall_status=1
 fi
 
-run_logged 01_py_compile.log python3 -m py_compile "$PROJECT_ROOT"/Tests/HybridSplitBig/*.py
+run_logged 01_py_compile.log bash -c \
+  'python3 -m py_compile "$1"/Tests/HybridSplitBig/*.py && printf "PY_COMPILE=PASS\n"' \
+  _ "$PROJECT_ROOT"
 run_logged 02_dimension_contract.log python3 -m pytest -q "$PROJECT_ROOT/Tests/HybridSplitBig/test_catchup_full_dimension_contract.py"
 run_logged 03_hybrid_split_big.log python3 -m pytest -q "$PROJECT_ROOT/Tests/HybridSplitBig"
 run_logged 04_all_tests.log python3 -m pytest -q "$PROJECT_ROOT/Tests"
