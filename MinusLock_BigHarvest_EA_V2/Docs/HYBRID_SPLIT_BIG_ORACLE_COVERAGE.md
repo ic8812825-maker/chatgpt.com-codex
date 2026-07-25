@@ -28,3 +28,4 @@ Oracle is broker-agnostic; MT5 parity still requires a future adapter around `Or
 | Stage 1.2.1 route preservation source | immutable pre-Partial route state | `test_catchup_route_state` | ROUTE-01..12, ADV-01..05 | Python numeric/static + MQL5 source | PARTIALLY_COVERED — runtime absent |
 | Stage 1.2.2 route hardening | strict validator/fingerprint/revisions | `test_catchup_route_hardening` | RV-01..15, FP-01..08, CV-01..07 | Python/source parity | PARTIALLY_COVERED — Administrator MT5 validation required |
 | Stage 1.2.3 dimension-safe validation | typed money/lot/price equality | `test_catchup_dimension_safe` | TOL-01..12 | Python/source parity | PARTIALLY_COVERED — Administrator MT5 validation required |
+| Stage 1.2.4 full dimension contract | continuation typed gates | `test_catchup_full_dimension_contract` | DIM-CONT-01..10 | Python/static + MQL5 source | PARTIALLY_COVERED — Administrator runtime required |
