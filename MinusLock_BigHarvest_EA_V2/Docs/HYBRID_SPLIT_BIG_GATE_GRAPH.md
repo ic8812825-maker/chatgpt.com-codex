@@ -52,3 +52,12 @@ Downstream evaluation stops on predecessor error.
 Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 
 Stage 1.2 aggregation: classify Base/Worst typed outcomes, then apply the normative truth table. ERROR/TERMINAL dominate; FINITE_PASS and Final Route require branch agreement.
+
+## Stage 1.2.1 route fork
+
+`STATE_VALIDATION → TRIGGER → CURRENT_LEG_MONEY → HARVEST → ALLOCATION → FULL_FAR_AFFORDABILITY`
+
+- YES: `BUILD_FINAL_CLOSE_ROUTE_STATE → FINAL_CLOSE_PREVIEW_REQUIRED`.
+- NO: `PARTIAL_FAR → RESIDUAL_FAR → NEXT_BASKET → GEOMETRY → RECOVERY → MARGIN → CONTINUE / FINITE_PASS`.
+
+YES-ветка завершается до Partial scan и не исполняет continuation gates.

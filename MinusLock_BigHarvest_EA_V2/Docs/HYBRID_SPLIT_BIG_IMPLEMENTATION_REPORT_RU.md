@@ -60,3 +60,5 @@ Final status: `HYBRID_FINITE_CATCHUP_SOURCE_READY`; `HYBRID_FINITE_CATCHUP_RUNTI
 MetaEditor compile: `NOT_EXECUTED_IN_CONTAINER`. Reason: MetaEditor executable not available.
 MQL5 runtime fixtures: `NOT_EXECUTED`.
 Strategy Tester: `NOT_EXECUTED_BY_PROGRAMMER`. Reason: Administrator will execute Strategy Tester independently.
+
+Stage 1.2.1 authority: Final Close route сохраняет отдельный pre-Partial immutable state; route не строит continuation basket. См. `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `HYBRID_SPLIT_BIG_CATCHUP_OUTCOME_TRUTH_TABLE.md`.

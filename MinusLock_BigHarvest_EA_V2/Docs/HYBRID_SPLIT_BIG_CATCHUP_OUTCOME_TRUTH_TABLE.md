@@ -23,8 +23,8 @@
 | FINITE_PASS | CONTINUE | CONTINUE | yes |
 | CONTINUE | FINITE_PASS | CONTINUE | yes |
 | FINAL_ROUTE | FINAL_ROUTE | FINAL_ROUTE | no |
-| FINAL_ROUTE | CONTINUE | CONTINUE if both next states valid; otherwise REJECT_DIVERGENCE | conditional |
-| CONTINUE | FINAL_ROUTE | CONTINUE if both next states valid; otherwise REJECT_DIVERGENCE | conditional |
+| FINAL_ROUTE | CONTINUE | REJECT_DIVERGENCE | no |
+| CONTINUE | FINAL_ROUTE | REJECT_DIVERGENCE | no |
 | FINITE_PASS | FINAL_ROUTE | REJECT_DIVERGENCE | no |
 | FINAL_ROUTE | FINITE_PASS | REJECT_DIVERGENCE | no |
 | TERMINAL | any non-error | TERMINAL | no |
@@ -34,4 +34,4 @@
 | ERROR | any | ERROR | no |
 | any | ERROR | ERROR | no |
 
-Priority is `ERROR > TERMINAL > REJECT > agreed ROUTE > agreed SUCCESS > CONTINUE`. Mixed route/continue is CONTINUE only when both branches produced a valid next state. ReasonCode is stable machine data; Reason is explanatory text.
+Priority is `ERROR > TERMINAL > REJECT > agreed ROUTE > agreed SUCCESS > CONTINUE`. Mixed route/continue and mixed route/success are REJECT_DIVERGENCE because a route branch has no continuation StateAfter. ReasonCode is stable machine data; Reason is explanatory text.

@@ -80,3 +80,16 @@ Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 | MARGIN-02 | Historical open price is not automatic margin control price. |
 | MARGIN-03 | EstimatedReleasedMarginUpper is not actual release. |
 | MARGIN-04 | PASS uses conservative state-after margin upper bound. |
+
+## Final Close route invariants — Stage 1.2.1
+
+- **ROUTE-INV-01:** full-affordability route не выполняет Partial Far.
+- **ROUTE-INV-02:** `FarLotForFinalClosePreview == FarLotBefore`.
+- **ROUTE-INV-03:** `PartialBudgetConsumed == 0`.
+- **ROUTE-INV-04:** route budget равен `PartialBudgetBefore + PartialAdd`.
+- **ROUTE-INV-05:** route RealizedPL включает Harvest и не включает PartialFarNet.
+- **ROUTE-INV-06:** Next Basket при route не строится.
+- **ROUTE-INV-07:** geometry, margin и reopen Recovery не участвуют в route outcome.
+- **ROUTE-INV-08:** aggregate route требует Base route и Worst route.
+- **ROUTE-INV-09:** mixed Route/Continue и Route/Success являются divergence.
+- **ROUTE-INV-10:** Worst adverse validation выполняется только для полностью рассчитанных current legs.

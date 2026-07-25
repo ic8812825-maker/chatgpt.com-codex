@@ -62,3 +62,9 @@ Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 ## Stage 1.2 fields
 
 `Outcome`, `OutcomeClass`, `CalculationValid`, `ContinuationAllowed`, `FinalClosePreviewRequired`, `Terminal`, `Reject`, `Error`, `BaseOutcome`, `WorstOutcome`, `AggregateOutcome`, `BaseTriggerBid/Ask`, `ExecutionBid/Ask`, `BaselineSpread`, `ExecutionSpread`, `CumulativeSpreadStress`, `MarginBeforeSnapshot`, `EstimatedReleasedMarginUpper`, `RemainingFarMargin`, `NextCoreMargin`, `NextTrendMargin`, `NextSmallMargin`, `SteadyStateMarginUpper`, `PeakExecutionMarginUpper`, `OverlapMarginUpper`, `MarginLevelAfter`, `MarginUsageAfter`, `ProjectedFreeMarginAfter` are mandatory.
+
+## Stage 1.2.1 route fields
+
+`FullFarAffordabilityEvaluated`, `PartialBudgetCanCoverFullFarLoss`, `FinalClosePreviewRouteCandidate`, `FullFarNet`, `FullFarLoss`, `PartialFarEvaluated`, `PartialCloseLot`, `PartialConsumed`, `FarLotForFinalClosePreview`, `RealizedForFinalClosePreview`, `PartialBudgetGross`, `PartialBudgetForFinalClosePreview`, `ReserveForFinalClosePreview`, `CarryForFinalClosePreview`, `NextBasketEvaluated`, `NextBasketGeometryEvaluated`, `NextBasketMarginEvaluated`, `RecoveryAfterReopenEvaluated`, `RouteStateFingerprint`.
+
+Route trace обязан фиксировать нулевые Partial close/consumption и все четыре continuation evaluation flags равными 0.

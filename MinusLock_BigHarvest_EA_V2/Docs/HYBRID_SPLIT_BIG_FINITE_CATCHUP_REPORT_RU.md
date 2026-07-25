@@ -31,3 +31,5 @@ FC-01…FC-11 покрывают level 1/2/N, no coverage, Recovery, margin, Wor
 ## Stage 1.1 correction
 
 The earlier FC table model is superseded. Normative implementation is sequential `StateBefore→Harvest→PartialFar→StateAfter→NextBasket`; Base/Worst states evolve independently. Source/tests status: `HYBRID_FINITE_CATCHUP_SOURCE_READY`. `HYBRID_FINITE_CATCHUP_READY` is explicitly not claimed before MetaEditor and MQL5 fixture parity.
+
+Stage 1.2.1 authority: Final Close route сохраняет отдельный pre-Partial immutable state; route не строит continuation basket. См. `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `HYBRID_SPLIT_BIG_CATCHUP_OUTCOME_TRUTH_TABLE.md`.

@@ -112,3 +112,15 @@ def test_stage12_outcome_contract_documents():
  assert 'cumulativeSpreadStress=false' in temporal and 'BUY→Ask' in temporal
  for field in ('OutcomeClass','BaseTriggerBid/Ask','EstimatedReleasedMarginUpper','SteadyStateMarginUpper'):
   assert field in trace
+
+def test_stage121_route_state_contract():
+ temporal=(D/'HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md').read_text()
+ truth=(D/'HYBRID_SPLIT_BIG_CATCHUP_OUTCOME_TRUTH_TABLE.md').read_text()
+ inv=(D/'HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md').read_text()
+ gate=(D/'HYBRID_SPLIT_BIG_GATE_GRAPH.md').read_text()
+ trace=(D/'HYBRID_SPLIT_BIG_TRACE_SPEC.md').read_text()
+ assert 'HybridFinalCloseRouteState' in temporal and 'до Partial scan' in gate
+ assert '| FINAL_ROUTE | CONTINUE | REJECT_DIVERGENCE | no |' in truth
+ for n in range(1,11): assert f'ROUTE-INV-{n:02d}' in inv
+ for field in ('FullFarAffordabilityEvaluated','FarLotForFinalClosePreview','RouteStateFingerprint'):
+  assert field in trace

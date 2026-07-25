@@ -162,3 +162,9 @@ Typed outcome/class and aggregation are normative in `HYBRID_SPLIT_BIG_CATCHUP_O
 Worst execution shock is non-cumulative: state retains `anchorMid`, `anchorBid/Ask` and `baselineSpread`; `lastExecutionBid/Ask` records stressed execution. Next geometric anchor is the unstressed base trigger. Profile contains independent bid/ask adverse points and `cumulativeSpreadStress=false`.
 
 Margin uses current control side (`BUY→Ask`, `SELL→Bid`), never historical position open price merely because it is stored. `EstimatedReleasedMarginUpper` is diagnostic individual-margin sum, not actual hedging release. PASS uses `SteadyStateMarginUpper`; peak and overlap are separate.
+
+## Stage 1.2.1 — состояние маршрута Final Close (`NORMATIVE`)
+
+После CURRENT_LEG_MONEY, Harvest allocation и вычисления `PartialBudgetGross` выполняется `FULL_FAR_AFFORDABILITY`. Если `FullFarLoss <= PartialBudgetGross + MoneyCalculationTolerance`, обычная ветка немедленно прекращается и строится immutable `HybridFinalCloseRouteState`.
+
+Route state сохраняет полный `FarLotBefore`, исходную цену Far, `RealizedPLBefore + HarvestNet`, полный нерасходованный `PartialBudgetGross`, `ReserveBefore + ReserveAdd`, `CarryBefore + CarryAdd`, execution Bid/Ask, full-Far money и Base/Worst provenance. Partial Far, residual Far, Next Basket, geometry, margin и RecoveryAfterReopen на route-пути не вычисляются. Route не означает Final Close PASS и не выполняет ledger или trade effects.
