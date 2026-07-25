@@ -803,6 +803,37 @@ bool ParseRoleComment(string comment, PositionRole &role, long &cycleId, int &le
    return cycleId >= 0 && level >= 0 && reverseCycle >= 0;
 }
 
+// Broker-aware money result is a shared value type.  It lives in Types so
+// level-by-level Hybrid results can retain the complete calculation provenance.
+struct BrokerMoneyResult
+{
+   bool calculationValid;
+   bool ok;
+   double grossProfit;
+   double openCommission;
+   double closeCommission;
+   double fee;
+   double swap;
+   double accruedSwap;
+   double projectedFutureSwap;
+   double worstCaseSwapBuffer;
+   double swapBuffer;
+   double baseSpreadCost;
+   double spreadExpansionCost;
+   double spreadCost;
+   double slippageCost;
+   double perOrderBuffer;
+   double perPositionBuffer;
+   double basketBuffer;
+   double cycleBuffer;
+   double safetyBuffer;
+   double netMoney;
+   double requiredMargin;
+   double marginMoney;
+   bool baseSpreadIncludedInPrices;
+   string reason;
+};
+
 // Hybrid Decision Engine contract.  These types keep intermediate gates distinct
 // from the final decision and are intentionally independent from legacy roles.
 enum HybridGateCode
@@ -1001,27 +1032,51 @@ struct HybridEvaluationResult
    string trace;
 };
 
-struct HybridCatchUpRow
+struct HybridHarvestLevelResult
 {
    int level;
-   double price;
+   double levelBid;
+   double levelAsk;
+   BrokerMoneyResult far;
+   BrokerMoneyResult core;
+   BrokerMoneyResult trend;
+   BrokerMoneyResult small;
    double harvestNet;
+   double eligibleHarvestNet;
    double partialAdd;
    double reserveAdd;
    double carryAdd;
+   double partialBudgetAfter;
+   double reserveAfter;
+   double carryAfter;
    double farCloseCost;
    double coverageDeficit;
-   double recoveryPL;
+   double projectedRealizedPL;
+   double projectedFloatingPL;
+   double projectedExitCosts;
+   double projectedRecoveryPL;
+   double marginBase;
+   double marginWorst;
+   double riskBase;
+   double riskWorst;
+   bool coverageImproved;
+   bool finalCoveragePass;
+   bool recoveryPass;
+   bool marginPass;
    bool basePass;
    bool worstPass;
+   bool pass;
+   string reason;
 };
 
 struct HybridCatchUpResult
 {
    bool pass;
    int finiteLevel;
+   HybridHarvestLevelResult levels[];
    double finalCoverageDeficit;
    double finalRecoveryPL;
+   string trace;
    string reason;
 };
 

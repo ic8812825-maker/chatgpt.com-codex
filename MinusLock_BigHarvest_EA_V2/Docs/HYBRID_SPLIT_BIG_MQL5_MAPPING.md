@@ -23,3 +23,4 @@
 | Recursive Future Small | Stage 4 | `HYBRID_GATE_FUTURE_SMALL` | pending | NOT_COVERED |
 | Projected/actual Final Close | Stage 5 | final preview/actual | pending | NOT_COVERED |
 | Persisted money ledger | Stage 6 | reconciliation | pending | NOT_COVERED |
+| Level-by-level finite Catch-Up | `EvaluateHybridFiniteCatchUpPreview` | `HYBRID_GATE_FINITE_CATCHUP` | FC-01..FC-11 | PARTIALLY_COVERED — source/tests ready, MetaEditor parity pending |

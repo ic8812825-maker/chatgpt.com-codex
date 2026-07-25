@@ -1,35 +1,6 @@
 #ifndef __BH_BROKERMONEYMODEL_MQH__
 #define __BH_BROKERMONEYMODEL_MQH__
 
-struct BrokerMoneyResult
-{
-   bool calculationValid;
-   bool ok; // compatibility alias
-   double grossProfit;
-   double openCommission;
-   double closeCommission;
-   double fee;
-   double swap;
-   double accruedSwap;
-   double projectedFutureSwap;
-   double worstCaseSwapBuffer;
-   double swapBuffer; // compatibility alias
-   double baseSpreadCost;
-   double spreadExpansionCost;
-   double spreadCost; // compatibility alias: expansion only
-   double slippageCost;
-   double perOrderBuffer;
-   double perPositionBuffer;
-   double basketBuffer;
-   double cycleBuffer;
-   double safetyBuffer; // compatibility aggregate
-   double netMoney;
-   double requiredMargin;
-   double marginMoney; // compatibility alias
-   bool baseSpreadIncludedInPrices;
-   string reason;
-};
-
 struct SignedSwapResult
 {
    bool calculationValid;
