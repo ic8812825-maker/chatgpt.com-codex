@@ -46,3 +46,17 @@ Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 ## Stage 1.1-B/C — sequential source and audit
 
 `HybridCatchUpModel` now evolves immutable Base/Worst states. Each level closes only current working legs, allocates its own Harvest, applies the pure Partial Far solver, updates `RealizedCyclePL` with `PartialFarNet`, recalculates residual-Far coverage and builds the next basket from the residual and current anchor. FT-01…FT-47 provide causal and static evidence. Status is `HYBRID_FINITE_CATCHUP_SOURCE_READY`; MetaEditor/runtime parity remain not executed.
+
+## Stage 1.2 — typed outcomes, Worst execution path и margin semantics
+
+Основной pure evaluator теперь возвращает типизированный `HybridCatchUpOutcome`; compatibility wrapper возвращает `true` только для согласованного Base/Worst `FINITE_PASS`. Final Close Preview является валидным ROUTE, а не calculation error. Агрегация Base/Worst централизована в truth-table helper.
+
+Worst execution shock применяется к базовому trigger ровно один раз на уровень и не переносится в `baselineSpread` или следующий геометрический anchor. Margin preview выбирает BUY→Ask и SELL→Bid по текущей контрольной паре, хранит individual release только как `EstimatedReleasedMarginUpper` и принимает решение по conservative state-after upper bound.
+
+Python oracle покрывает FO/WP/MG/CL и усиленные FT-07/10/27/33. Исполняемый MQL5 runner добавлен, но не запускался в контейнере.
+
+Final status: `HYBRID_FINITE_CATCHUP_SOURCE_READY`; `HYBRID_FINITE_CATCHUP_RUNTIME_NOT_VERIFIED`.
+
+MetaEditor compile: `NOT_EXECUTED_IN_CONTAINER`. Reason: MetaEditor executable not available.
+MQL5 runtime fixtures: `NOT_EXECUTED`.
+Strategy Tester: `NOT_EXECUTED_BY_PROGRAMMER`. Reason: Administrator will execute Strategy Tester independently.

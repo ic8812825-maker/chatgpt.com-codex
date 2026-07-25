@@ -21,3 +21,6 @@ Oracle is broker-agnostic; MT5 parity still requires a future adapter around `Or
 **MQL5 parity note:** ни одна строка не получает `FULLY_COVERED`, пока отсутствуют MQL5 parity fixture, MetaEditor compilation/run и broker adapter evidence. Python coverage и MQL5 parity являются разными доказательствами.
 | Stage 1.1 sequential temporal Catch-Up | temporal model | source implementation pending audit | FT-01..FT-47 | pending | PARTIALLY_COVERED |
 | Stage 1.1 source audit | sequential MQL5 source | `EvaluateHybridCatchUpLevel` | FT-01..FT-47 | Python/static | PARTIALLY_COVERED — runtime parity absent |
+| Stage 1.2 typed outcomes | outcome truth table | `classify/combine` | FO-01..FO-12 | Python + MQL5 runner source | PARTIALLY_COVERED — MQL5 runtime absent |
+| Stage 1.2 non-cumulative Worst | temporal/outcome contracts | `trigger` | WP-01..WP-08 | Python + MQL5 runner source | PARTIALLY_COVERED — MQL5 runtime absent |
+| Stage 1.2 margin controls | temporal contract | `margin_price/margins` | MG-01..MG-10 | Python + MQL5 runner source | PARTIALLY_COVERED — MQL5 runtime absent |

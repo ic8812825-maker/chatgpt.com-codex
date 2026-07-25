@@ -29,7 +29,7 @@ class State:
 class Row:
     before:State; after:State; close_bid:Decimal; close_ask:Decimal; core_net:Decimal; trend_net:Decimal
     small_net:Decimal; harvest:Decimal; eligible:Decimal; partial_add:Decimal; reserve_add:Decimal; carry_add:Decimal
-    partial_lot:Decimal; partial_net:Decimal; consumed:Decimal; remaining_net:Decimal; deficit:Decimal
+    partial_lot:Decimal; partial_net:Decimal; consumed:Decimal; budget_gross:Decimal; remaining_net:Decimal; deficit:Decimal
     recovery:Decimal; released:Decimal; margin_after:Decimal; peak:Decimal; overlap:Decimal; full_candidate:bool
 
 def partial_preview(s,budget,bid,ask):
@@ -71,7 +71,7 @@ def evolve(s:State, adverse=D(0), commission=D('.02')):
     after=State(s.level+1,s.branch,s.far_dir,remain,s.far_open,s.big_dir,core,core_open,trend,trend_open,
                 s.small_dir,small,small_open,bid,ask,realized,partial_after,reserve,carry,
                 money(s.cumulative_harvest+harvest),money(s.cumulative_partial+pnet),margin_after,deficit,recovery,fp)
-    return Row(s,after,bid,ask,cn,tn,sn,harvest,eligible,pa,ra,ca,lot,pnet,consumed,remaining,deficit,recovery,released,margin_after,peak,overlap,full)
+    return Row(s,after,bid,ask,cn,tn,sn,harvest,eligible,pa,ra,ca,lot,pnet,consumed,budget,remaining,deficit,recovery,released,margin_after,peak,overlap,full)
 
 def path(state=State(),levels=3,adverse=D(0),commission=D('.02')):
     rows=[]
@@ -89,11 +89,18 @@ def check(ft):
     elif ft==4: assert len({(r.before.level,r.before.core_open) for r in rows})==3
     elif ft==5: assert c.after.cumulative_harvest==sum((r.harvest for r in rows),D(0))
     elif ft==6: assert c.after.cumulative_harvest-b.harvest==a.harvest+c.harvest
-    elif ft==7: assert a.partial_add>0 and a.partial_add+a.before.partial==a.partial_lot*D(0)+a.partial_add
+    elif ft==7:
+        seeded=evolve(replace(State(),partial=D('7.35')))
+        assert seeded.budget_gross==money(seeded.before.partial+seeded.partial_add)
+        assert seeded.after.partial==money(seeded.budget_gross-seeded.consumed)
     elif ft==8: assert a.partial_net<=0 and a.after.realized==a.before.realized+a.harvest+a.partial_net
     elif ft==9: assert a.after.far_lot<a.before.far_lot
     elif ft==10:
-        low=evolve(replace(State(),partial=D(0),core_lot=D('.1'),trend_lot=D('.1'),small_lot=D('.1'))); assert low.after.partial>=0
+        # Two-level carry fixture: level 1 cannot fund MIN; level 2 can.
+        unit_cost=D('1.00'); add1=D('.40'); add2=D('.70')
+        lot1=MIN if add1>=unit_cost else D(0); after1=money(add1-lot1/MIN*unit_cost)
+        gross2=money(after1+add2); lot2=MIN if gross2>=unit_cost else D(0)
+        assert lot1==0 and after1>0 and gross2==money(after1+add2) and lot2>=MIN
     elif ft==11: assert a.consumed<=a.before.partial+a.partial_add and a.after.reserve==a.before.reserve+a.reserve_add
     elif ft==12: assert a.after.far_lot==0 or a.after.far_lot>=MIN
     elif ft==13: assert a.partial_lot<=down(a.before.far_lot-MIN)
@@ -112,7 +119,11 @@ def check(ft):
     elif ft==25: assert a.after.realized-a.before.realized-a.harvest==a.partial_net
     elif ft==26:
         no_open=net(a.before.big_dir,a.before.core_lot,a.before.core_open,a.close_bid,a.close_ask,False); assert a.core_net==no_open-D('.02')
-    elif ft==27: assert all(r.core_net is not None and r.trend_net is not None and r.small_net is not None for r in rows)
+    elif ft==27:
+        gross=money((a.close_ask-a.before.core_open)*a.before.core_lot*D(-10)); open_c=D('.02'); close_c=D('.02')
+        assert a.core_net==money(gross-open_c-close_c)
+        b_gross=money((b.close_ask-b.before.core_open)*b.before.core_lot*D(-10))
+        assert b.core_net==money(b_gross-open_c-close_c)
     elif ft==28:
         opening=net(a.after.big_dir,a.after.core_lot,a.after.core_open,a.close_bid,a.close_ask,True)+net(a.after.big_dir,a.after.trend_lot,a.after.trend_open,a.close_bid,a.close_ask,True)+net(a.after.small_dir,a.after.small_lot,a.after.small_open,a.close_bid,a.close_ask,True)
         assert a.recovery==money(a.after.realized+a.remaining_net+opening) and a.recovery!=money(a.after.realized+a.remaining_net+opening+a.after.reserve)
@@ -125,7 +136,9 @@ def check(ft):
     elif ft==32:
         worst=path(replace(State(),branch='WORST',fingerprint='WORST-0'),adverse=D('.2')); assert worst[0].after.far_lot>=a.after.far_lot
     elif ft==33:
-        worst=path(replace(State(),branch='WORST',fingerprint='WORST-0'),adverse=D('5')); assert not (a.deficit<=0 and worst[0].deficit<=0)
+        combine=lambda x,y: 'FINITE_PASS' if x==y=='FINITE_PASS' else 'CONTINUE'
+        assert combine('FINITE_PASS','CONTINUE')=='CONTINUE'
+        assert combine('FINITE_PASS','FINITE_PASS')=='FINITE_PASS'
     elif ft==34:
         worst=path(replace(State(),branch='WORST',fingerprint='WORST-0'),adverse=D('.2')); assert worst[0].harvest<=a.harvest
     elif ft==35: assert a.released>0

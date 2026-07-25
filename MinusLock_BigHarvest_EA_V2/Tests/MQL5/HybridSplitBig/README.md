@@ -10,3 +10,5 @@ Minimum expected checks:
 * `SmallBase` uses UP rounding.
 
 Run in MetaEditor/MT5 after compiling the EA headers. The container used by Codex does not include MetaEditor, so compile status is recorded separately in `Docs/HYBRID_SPLIT_BIG_METAEDITOR_COMPILE.md`.
+
+`HybridCatchUpStage12Tests.mq5` is the executable Stage 1.2 source runner for typed outcomes, aggregate truth-table decisions, non-cumulative execution shock, and margin control sides. Its presence is not runtime parity evidence: MetaEditor compile and MT5 execution remain required.
