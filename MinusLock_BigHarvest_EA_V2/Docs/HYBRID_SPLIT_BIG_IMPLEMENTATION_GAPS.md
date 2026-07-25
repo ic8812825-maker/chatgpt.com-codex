@@ -30,3 +30,4 @@ The concrete code locations above must be re-audited by the programmer against t
 | MQL5-STAGE1.1 | Temporal Catch-Up | Sequential semantics и Partial Far evolution нормативно определены | temporal model | code/runtime pending until 1.1-B/8 | separate implementation commit |
 
 Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
+| MQL5-STAGE1.1-RUNTIME | Sequential Catch-Up source complete | FT-01..FT-47 Python/static pass | Catch-Up source | MetaEditor and MQL5 fixture execution absent | Stage 8 runtime parity |

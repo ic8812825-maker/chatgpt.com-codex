@@ -30,3 +30,6 @@ int BuildHybridCatchUpFixtures(HybridCatchUpFixture &rows[])
 }
 
 #endif
+
+// SUPERSEDED_TEMPORAL_MODEL: FC-01..FC-11 are retained only as historical
+// catalogue entries. FT-01..FT-47 are the normative sequential fixtures.

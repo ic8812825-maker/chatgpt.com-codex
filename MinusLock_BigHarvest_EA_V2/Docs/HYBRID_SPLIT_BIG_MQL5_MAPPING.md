@@ -24,3 +24,5 @@
 | Projected/actual Final Close | Stage 5 | final preview/actual | pending | NOT_COVERED |
 | Persisted money ledger | Stage 6 | reconciliation | pending | NOT_COVERED |
 | Level-by-level finite Catch-Up | `EvaluateHybridFiniteCatchUpPreview` | `HYBRID_GATE_FINITE_CATCHUP` | FC-01..FC-11 | PARTIALLY_COVERED — source/tests ready, MetaEditor parity pending |
+| Sequential Catch-Up temporal state | `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` | Catch-Up subgraph | FT-01..FT-24 planned | DOCUMENTED |
+| Sequential Catch-Up source | `EvaluateHybridCatchUpLevel`, `SolveHybridPartialFarPreview` | internal temporal gates | FT-01..FT-47 | PARTIALLY_COVERED — MetaEditor/MQL5 parity pending |

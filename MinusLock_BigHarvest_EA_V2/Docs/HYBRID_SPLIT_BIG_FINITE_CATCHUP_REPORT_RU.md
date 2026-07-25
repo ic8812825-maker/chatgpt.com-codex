@@ -26,4 +26,8 @@ FC-01…FC-11 покрывают level 1/2/N, no coverage, Recovery, margin, Wor
 
 ## Статус
 
-`HYBRID_FINITE_CATCHUP_READY` на уровне исходного кода и воспроизводимых contract tests; MQL5 compile/runtime parity остаётся обязательным этапом 8.
+`HYBRID_FINITE_CATCHUP_NOT_READY` was the correct runtime status for the superseded FC model; Stage 1.1 replaces it with source-only evidence pending MetaEditor/parity.
+
+## Stage 1.1 correction
+
+The earlier FC table model is superseded. Normative implementation is sequential `StateBefore→Harvest→PartialFar→StateAfter→NextBasket`; Base/Worst states evolve independently. Source/tests status: `HYBRID_FINITE_CATCHUP_SOURCE_READY`. `HYBRID_FINITE_CATCHUP_READY` is explicitly not claimed before MetaEditor and MQL5 fixture parity.

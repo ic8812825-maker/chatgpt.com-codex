@@ -80,3 +80,22 @@ def test_stage_11_normative_temporal_contract():
   assert code in inv
  assert 'STATE_VALIDATION → TRIGGER_PRICE → CURRENT_LEG_MONEY' in gate
  assert 'Stage 1.1 sequential temporal Catch-Up' in coverage and 'PARTIALLY_COVERED' in coverage
+
+
+def test_stage_11_audit_status_and_companion_links():
+ docs=('HYBRID_SPLIT_BIG_MQL5_NORMATIVE_ALGORITHMS_RU.md','HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md',
+       'HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md','HYBRID_SPLIT_BIG_GATE_GRAPH.md',
+       'HYBRID_SPLIT_BIG_MONEY_FLOW.md','HYBRID_SPLIT_BIG_TRACE_SPEC.md',
+       'HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md','HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md',
+       'HYBRID_SPLIT_BIG_IMPLEMENTATION_GAPS.md','HYBRID_SPLIT_BIG_MQL5_MAPPING.md',
+       'HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md','MANUAL.md')
+ for name in docs:
+  assert 'HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU' in (D/name).read_text(), name
+ report=(D/'HYBRID_SPLIT_BIG_FINITE_CATCHUP_REPORT_RU.md').read_text()
+ assert 'HYBRID_FINITE_CATCHUP_SOURCE_READY' in report
+ assert 'explicitly not claimed' in report
+ assert not (Path(__file__).parent/'test_catchup_level_model.py').exists()
+ fixture=(ROOT/'Tests'/'MQL5'/'HybridSplitBig'/'HybridCatchUpFixtures.mqh').read_text()
+ assert 'SUPERSEDED_TEMPORAL_MODEL' in fixture
+ temporal=(Path(__file__).parent/'test_catchup_temporal_model.py').read_text()
+ for n in range(1,48): assert f'FT-{n:02d}' in temporal or 'range(1,48)' in temporal

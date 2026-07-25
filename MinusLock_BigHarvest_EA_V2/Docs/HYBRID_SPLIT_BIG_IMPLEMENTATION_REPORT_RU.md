@@ -42,3 +42,7 @@
 Последовательная модель утверждена: каждый Harvest закрывает текущие working legs ровно один раз, PartialFarNet входит в RealizedPL, residual Far порождает next basket и независимые Base/Worst states. Код Stage 1.1-B выполняется отдельным commit.
 
 Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
+
+## Stage 1.1-B/C — sequential source and audit
+
+`HybridCatchUpModel` now evolves immutable Base/Worst states. Each level closes only current working legs, allocates its own Harvest, applies the pure Partial Far solver, updates `RealizedCyclePL` with `PartialFarNet`, recalculates residual-Far coverage and builds the next basket from the residual and current anchor. FT-01…FT-47 provide causal and static evidence. Status is `HYBRID_FINITE_CATCHUP_SOURCE_READY`; MetaEditor/runtime parity remain not executed.
