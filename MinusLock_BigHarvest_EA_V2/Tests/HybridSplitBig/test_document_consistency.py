@@ -131,3 +131,9 @@ def test_stage122_route_validation_contract():
  for n in range(1,9): assert f'ROUTE-VALID-{n:02d}' in inv
  for field in ('SourceStateRevision','RouteStateRevision','RouteStateValidationCode','FullFarCloseCommission'): assert field in trace
  assert (D/'ADMIN_STAGE_1_2_2_MT5_CHECKLIST_RU.md').is_file()
+
+def test_stage123_dimension_safe_route_validation():
+ source=(ROOT/'Include'/'HybridCatchUpModel.mqh').read_text()
+ assert 'HybridRouteMoneyEqual' not in source
+ for helper in ('HybridMoneyEqual','HybridLotEqual','HybridPriceEqual'): assert helper in source
+ assert 'CATCHUP_ROUTE_CANDIDATE_INVALID' in source and '(int)s.routeCandidate' in source

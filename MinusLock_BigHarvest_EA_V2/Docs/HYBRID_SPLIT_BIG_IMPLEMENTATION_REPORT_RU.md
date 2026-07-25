@@ -74,3 +74,7 @@ Status: `HYBRID_FINAL_CLOSE_ROUTE_SOURCE_READY`; общий статус `HYBRID
 Добавлены полный canonical fingerprint payload, отдельный validator с typed validation codes, `sourceStateRevision`/`routeStateRevision`, explicit continuation validity и раздельные Worst current-leg/full-Far adverse helpers. Builder использует `partial.budgetGross` и успешен только после validator PASS. Подготовлены RV/FP/CV Python tests, отдельный MQL5 source runner и инструкция Администратору. Runtime проверки программистом не выполнялись.
 
 Статус: `HYBRID_FINAL_CLOSE_ROUTE_HARDENING_SOURCE_READY`, `HYBRID_FINITE_CATCHUP_SOURCE_READY`, `ADMIN_MT5_VALIDATION_REQUIRED`.
+
+## Stage 1.2.3 — dimension-safe route validation
+
+Универсальный money tolerance удалён из lot/price validation. Добавлены `HybridMoneyEqual`, `HybridLotEqual`, `HybridPriceEqual`; route candidate валидируется и включён в fingerprint; Worst Far identity использует typed comparisons; NOT_APPLICABLE adverse flags остаются false/false. Добавлены TOL-01…12 и MQL-TOL source fixtures. Статус: `HYBRID_FINAL_CLOSE_ROUTE_HARDENING_SOURCE_READY`; Administrator validation required.

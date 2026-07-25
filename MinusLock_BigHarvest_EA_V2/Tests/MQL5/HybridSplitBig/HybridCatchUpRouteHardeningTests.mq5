@@ -23,6 +23,14 @@ void OnStart()
  HybridPartialFarPreviewResult badP=p;badP.budgetConsumed=1;Check("MQL-RV-03",!ValidateHybridFinalCloseRouteState(s,row,badP,route,code,reason),code);
  HybridHarvestLevelResult badRow=row;badRow.nextBasketEvaluated=true;Check("MQL-RV-04",!ValidateHybridFinalCloseRouteState(s,badRow,p,route,code,reason),code);
  bad=route;bad.carryAfter+=1;Check("MQL-RV-05",!ValidateHybridFinalCloseRouteState(s,row,p,bad,code,reason),code);
+ double volumeStep=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP),point=SymbolInfoDouble(_Symbol,SYMBOL_POINT);
+ bad=route;bad.farLot=route.farLot-volumeStep;Check("MQL-TOL-01",!ValidateHybridFinalCloseRouteState(s,row,p,bad,code,reason),code);
+ bad=route;bad.farLot=route.farLot+volumeStep;Check("MQL-TOL-02",!ValidateHybridFinalCloseRouteState(s,row,p,bad,code,reason),code);
+ bad=route;bad.farOpenPrice=route.farOpenPrice+point;Check("MQL-TOL-03",!ValidateHybridFinalCloseRouteState(s,row,p,bad,code,reason),code);
+ bad=route;bad.farLot=route.farLot+HybridLotTolerance(_Symbol)*0.1;bad.routeStateFingerprint=HybridFinalCloseRouteFingerprint(bad);Check("MQL-TOL-04",ValidateHybridFinalCloseRouteState(s,row,p,bad,code,reason),code);
+ bad=route;bad.routeCandidate=false;bad.routeStateFingerprint=HybridFinalCloseRouteFingerprint(bad);Check("MQL-TOL-05",!ValidateHybridFinalCloseRouteState(s,row,p,bad,code,reason),code);
+ bad=route;bad.routeCandidate=false;Check("MQL-TOL-06",HybridFinalCloseRouteFingerprint(bad)!=HybridFinalCloseRouteFingerprint(route));
+ Check("MQL-TOL-07",HybridMoneyEqual(10.0,10.009)&&!HybridMoneyEqual(10.0,10.02));
  bad=route;bad.carryAfter+=1;Check("MQL-FP-01",HybridFinalCloseRouteFingerprint(bad)!=HybridFinalCloseRouteFingerprint(route));bad=route;bad.fullFarCloseMoney.closeCommission+=1;Check("MQL-FP-02",HybridFinalCloseRouteFingerprint(bad)!=HybridFinalCloseRouteFingerprint(route));bad=route;bad.routeStateRevision++;Check("MQL-FP-03",HybridFinalCloseRouteFingerprint(bad)!=HybridFinalCloseRouteFingerprint(route));
  HybridHarvestLevelResult levelRow;HybridCatchUpState after;HybridCatchUpOutcome out=EvaluateHybridCatchUpLevel(s,profile,levelRow,after);
  Check("MQL-LVL-01",out==HYBRID_CATCHUP_OUTCOME_FINAL_CLOSE_PREVIEW_REQUIRED);Check("MQL-LVL-02",!levelRow.partialFarEvaluated);Check("MQL-LVL-03",!levelRow.nextBasketEvaluated);Check("MQL-LVL-04",!levelRow.nextBasketGeometryEvaluated);Check("MQL-LVL-05",!levelRow.nextBasketMarginEvaluated);Check("MQL-LVL-06",!levelRow.recoveryAfterReopenEvaluated);Check("MQL-LVL-07",!levelRow.continuationStateValid);Check("MQL-LVL-08",levelRow.finalCloseRouteState.validationPass);string afterReason;Check("MQL-LVL-09",!ValidateHybridCatchUpState(after,afterReason));

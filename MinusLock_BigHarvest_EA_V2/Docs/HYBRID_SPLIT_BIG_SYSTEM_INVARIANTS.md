@@ -105,3 +105,11 @@ Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 - **ROUTE-VALID-08:** Full Far adverse check имеет evaluated/pass status.
 - **ROUTE-FP-01…08:** одинаковое состояние даёт тот же hash; Far, execution price, gross budget, Reserve, Carry, full-Far commission или route revision меняют hash.
 - **ROUTE-REV-01…04:** source revision равна before revision; route revision равна source+1; обе входят в fingerprint.
+
+## Dimension-safe route invariants — Stage 1.2.3
+- **ROUTE-TOL-01:** money tolerance не применяется к lot или price.
+- **ROUTE-TOL-02:** изменение Far на один volume step отклоняется.
+- **ROUTE-TOL-03:** изменение price на один broker point отклоняется.
+- **ROUTE-TOL-04:** floating representation noise меньше typed tolerance допускается.
+- **ROUTE-TOL-05:** `routeCandidate=true` обязателен и включён в fingerprint.
+- **ROUTE-TOL-06:** Full-Far adverse flags равны false/false при NOT_APPLICABLE.

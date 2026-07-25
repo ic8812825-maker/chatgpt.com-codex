@@ -174,3 +174,7 @@ Route state сохраняет полный `FarLotBefore`, исходную ц�
 `HybridFinalCloseRouteState` проходит отдельный validator до признания builder успешным. Fingerprint строится из identity, `sourceStateRevision`, `routeStateRevision=source+1`, Far, execution prices, всех фактических компонентов `BrokerMoneyResult`, Harvest, realized PL, Partial/Reserve/Carry before/add/after и source fingerprint. Нормативный источник gross budget — `partial.budgetGross`.
 
 При ROUTE continuation state отсутствует: `continuationStateValid=false`; aggregate `finalBaseStateValid=false`, `finalWorstStateValid=false`, а использовать разрешено только обе валидные структуры `finalCloseRouteBaseState`/`finalCloseRouteWorstState`.
+
+## Stage 1.2.3 — dimension-safe equality
+
+Money, lot и price сравниваются разными helpers. `HybridMoneyEqual` применим только к account money; `HybridLotEqual` использует tolerance значительно меньше `SYMBOL_VOLUME_STEP`; `HybridPriceEqual` использует `SYMBOL_POINT`/`SYMBOL_DIGITS` и не принимает отклонение на один point. Identity/revisions/enums/fingerprints сравниваются точно. `routeCandidate=true` обязателен и входит в fingerprint.
