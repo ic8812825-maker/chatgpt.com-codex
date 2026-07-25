@@ -30,6 +30,9 @@ jobs:
           python -m pip install pytest
 
       - name: Run reproducible source validation
+        env:
+          EVIDENCE_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+          EVIDENCE_BRANCH_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           chmod +x MinusLock_BigHarvest_EA_V2/Tests/run_stage_1_2_4_1_source_validation.sh
           MinusLock_BigHarvest_EA_V2/Tests/run_stage_1_2_4_1_source_validation.sh \

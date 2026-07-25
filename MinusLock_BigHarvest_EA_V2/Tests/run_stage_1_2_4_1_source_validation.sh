@@ -6,6 +6,8 @@ PROJECT_ROOT="$REPO_ROOT/MinusLock_BigHarvest_EA_V2"
 OUTPUT_DIR="${1:-$REPO_ROOT/.stage_1_2_4_1_evidence}"
 SOURCE_BASE="4413a05bd785cbef398fc418ad12b008fa090a00"
 SOURCE_COMMIT="11ae620f717cf011436db52cf4b3b76d0015c606"
+EVIDENCE_BRANCH_NAME="${EVIDENCE_BRANCH_NAME:-$(git -C "$REPO_ROOT" branch --show-current)}"
+EVIDENCE_BRANCH_SHA="${EVIDENCE_BRANCH_SHA:-$(git -C "$REPO_ROOT" rev-parse HEAD)}"
 FORBIDDEN_PATTERN='MinusLock_BigHarvest_EA_V2/Include/(StateMachine|TradeEngine|PositionUtils|SimulationEngine|HybridPartialFarPreview|BrokerMoneyModel|Types|Config)\.mqh'
 overall_status=0
 
@@ -56,8 +58,8 @@ set -e
 
 {
   printf 'REPOSITORY=%s\n' "$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || printf 'NOT_AVAILABLE')"
-  printf 'BRANCH=%s\n' "$(git -C "$REPO_ROOT" branch --show-current)"
-  printf 'CI_COMMIT=%s\n' "$(git -C "$REPO_ROOT" rev-parse HEAD)"
+  printf 'BRANCH=%s\n' "$EVIDENCE_BRANCH_NAME"
+  printf 'CI_COMMIT=%s\n' "$EVIDENCE_BRANCH_SHA"
   printf 'SOURCE_BASE=%s\nSOURCE_COMMIT=%s\n' "$SOURCE_BASE" "$SOURCE_COMMIT"
   printf 'CHANGED_FILES_BEGIN\n'
   git -C "$REPO_ROOT" diff --name-only "$SOURCE_COMMIT" HEAD
@@ -68,10 +70,10 @@ cat > "$OUTPUT_DIR/evidence_manifest.txt" <<EOF
 STAGE=1.2.4.1
 EVIDENCE_STAGE=1.2.4.2
 REPOSITORY=$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || printf 'NOT_AVAILABLE')
-BRANCH=$(git -C "$REPO_ROOT" branch --show-current)
+BRANCH=$EVIDENCE_BRANCH_NAME
 SOURCE_COMMIT=$SOURCE_COMMIT
 SOURCE_BASE=$SOURCE_BASE
-CI_COMMIT=$(git -C "$REPO_ROOT" rev-parse HEAD)
+CI_COMMIT=$EVIDENCE_BRANCH_SHA
 UTC_TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 PYTHON_VERSION=$(python3 --version 2>&1)
 PYTEST_VERSION=$(python3 -m pytest --version 2>&1 | head -n 1)
