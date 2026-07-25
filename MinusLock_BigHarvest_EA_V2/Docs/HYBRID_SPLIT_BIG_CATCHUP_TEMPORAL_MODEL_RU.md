@@ -154,3 +154,11 @@ Worst profile applies adverse close-side prices per leg: BUY close Bid moves dow
 ## 16. Margin fields
 
 Each row retains MarginBeforeHarvest, ReleasedCore/Trend/Small/PartialFarMargin, RemainingFarMargin, NextCore/Trend/SmallMargin, SteadyStateMarginAfterReopen, PeakExecutionMargin and OverlapUpper. Close-before-open gives `Peak=max(MarginBefore,SteadyState)`; `OverlapUpper=MarginBefore+NextOrders` remains separate diagnostic evidence.
+
+## Stage 1.2 typed outcomes, Worst execution and margin
+
+Typed outcome/class and aggregation are normative in `HYBRID_SPLIT_BIG_CATCHUP_OUTCOME_TRUTH_TABLE.md`. Final Close routing is calculation-valid and is not a Catch-Up PASS.
+
+Worst execution shock is non-cumulative: state retains `anchorMid`, `anchorBid/Ask` and `baselineSpread`; `lastExecutionBid/Ask` records stressed execution. Next geometric anchor is the unstressed base trigger. Profile contains independent bid/ask adverse points and `cumulativeSpreadStress=false`.
+
+Margin uses current control side (`BUY→Ask`, `SELL→Bid`), never historical position open price merely because it is stored. `EstimatedReleasedMarginUpper` is diagnostic individual-margin sum, not actual hedging release. PASS uses `SteadyStateMarginUpper`; peak and overlap are separate.

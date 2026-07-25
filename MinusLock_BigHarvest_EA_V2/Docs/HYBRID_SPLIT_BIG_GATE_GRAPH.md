@@ -50,3 +50,5 @@ STATE_VALIDATION → TRIGGER_PRICE → CURRENT_LEG_MONEY → HARVEST_ALLOCATION
 Downstream evaluation stops on predecessor error.
 
 Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
+
+Stage 1.2 aggregation: classify Base/Worst typed outcomes, then apply the normative truth table. ERROR/TERMINAL dominate; FINITE_PASS and Final Route require branch agreement.

@@ -1045,3 +1045,7 @@ Split Small, DynamicReverseSmall, Small-saw and BigCore remainder → NewFar rev
 ADM-MQL5-05 принят: Hybrid allocation `.10/.90/.00`, поэтому для `1.60/.25/.60` Law 1 даёт `K_R=1.125`. Это не меняет legacy `CloseFarShare/ReserveShare`. Алгоритмический контракт находится в `HYBRID_SPLIT_BIG_MQL5_NORMATIVE_ALGORITHMS_RU.md`; State Machine integration запрещена до READY этапов 1–6.
 
 Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
+
+### Catch-Up Stage 1.2 outcomes
+
+Catch-Up distinguishes CONTINUE, FINITE_PASS, Final Close route, terminal, no finite level, reject and calculation error. See `HYBRID_SPLIT_BIG_CATCHUP_OUTCOME_TRUTH_TABLE.md`. Worst shock is non-cumulative and margin uses current control prices.

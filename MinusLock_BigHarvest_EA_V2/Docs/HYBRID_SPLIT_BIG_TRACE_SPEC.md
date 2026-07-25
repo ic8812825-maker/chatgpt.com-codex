@@ -58,3 +58,7 @@ CoverageBefore= | CoverageAfter= | Decision= | Reason=
 Sequential records additionally require `Profile`, `TriggerBid/Ask`, `EligibleHarvest`, `RemainingFarNet/Cost`, `RecoveryAfterPartial/Reopen`, `OverlapUpper`, and every allocation/budget/temporal pass flag. Field omission is a trace-contract failure.
 
 Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
+
+## Stage 1.2 fields
+
+`Outcome`, `OutcomeClass`, `CalculationValid`, `ContinuationAllowed`, `FinalClosePreviewRequired`, `Terminal`, `Reject`, `Error`, `BaseOutcome`, `WorstOutcome`, `AggregateOutcome`, `BaseTriggerBid/Ask`, `ExecutionBid/Ask`, `BaselineSpread`, `ExecutionSpread`, `CumulativeSpreadStress`, `MarginBeforeSnapshot`, `EstimatedReleasedMarginUpper`, `RemainingFarMargin`, `NextCoreMargin`, `NextTrendMargin`, `NextSmallMargin`, `SteadyStateMarginUpper`, `PeakExecutionMarginUpper`, `OverlapMarginUpper`, `MarginLevelAfter`, `MarginUsageAfter`, `ProjectedFreeMarginAfter` are mandatory.

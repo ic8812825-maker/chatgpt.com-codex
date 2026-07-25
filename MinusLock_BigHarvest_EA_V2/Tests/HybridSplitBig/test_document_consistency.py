@@ -99,3 +99,16 @@ def test_stage_11_audit_status_and_companion_links():
  assert 'SUPERSEDED_TEMPORAL_MODEL' in fixture
  temporal=(Path(__file__).parent/'test_catchup_temporal_model.py').read_text()
  for n in range(1,48): assert f'FT-{n:02d}' in temporal or 'range(1,48)' in temporal
+
+def test_stage12_outcome_contract_documents():
+ truth=(D/'HYBRID_SPLIT_BIG_CATCHUP_OUTCOME_TRUTH_TABLE.md').read_text()
+ inv=(D/'HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md').read_text()
+ temporal=(D/'HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md').read_text()
+ trace=(D/'HYBRID_SPLIT_BIG_TRACE_SPEC.md').read_text()
+ for term in ('ERROR > TERMINAL > REJECT','FINAL_ROUTE | FINAL_ROUTE','FINITE_PASS | FINITE_PASS'):
+  assert term in truth
+ for prefix,count in (('OUTCOME',4),('WORST',3),('MARGIN',4)):
+  for n in range(1,count+1): assert f'{prefix}-{n:02d}' in inv
+ assert 'cumulativeSpreadStress=false' in temporal and 'BUY→Ask' in temporal
+ for field in ('OutcomeClass','BaseTriggerBid/Ask','EstimatedReleasedMarginUpper','SteadyStateMarginUpper'):
+  assert field in trace

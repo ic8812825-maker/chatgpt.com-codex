@@ -69,3 +69,14 @@
 | ACC-05 | Allocation conservation выполняется на каждом level. |
 
 Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
+| OUTCOME-01 | Route outcome is calculation-valid, not an error. |
+| OUTCOME-02 | FINITE_PASS requires Base and Worst FINITE_PASS. |
+| OUTCOME-03 | ERROR and TERMINAL dominate per outcome truth table. |
+| OUTCOME-04 | ReasonCode is a stable typed code, not free text. |
+| WORST-01 | Execution adverse spread never changes baseline spread. |
+| WORST-02 | With cumulativeSpreadStress=false shock applies once per level. |
+| WORST-03 | Worst leg net cannot improve over Base without provenance. |
+| MARGIN-01 | Margin control price uses current market side. |
+| MARGIN-02 | Historical open price is not automatic margin control price. |
+| MARGIN-03 | EstimatedReleasedMarginUpper is not actual release. |
+| MARGIN-04 | PASS uses conservative state-after margin upper bound. |
