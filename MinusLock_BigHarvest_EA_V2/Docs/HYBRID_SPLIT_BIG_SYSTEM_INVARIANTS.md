@@ -113,3 +113,15 @@ Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 - **ROUTE-TOL-04:** floating representation noise меньше typed tolerance допускается.
 - **ROUTE-TOL-05:** `routeCandidate=true` обязателен и включён в fingerprint.
 - **ROUTE-TOL-06:** Full-Far adverse flags равны false/false при NOT_APPLICABLE.
+
+## Full Catch-Up dimensions — Stage 1.2.4
+- **DIM-INV-01:** `MoneyCalculationTolerance` применяется только к account money.
+- **DIM-INV-02:** lot comparisons используют symbol-aware lot tolerance.
+- **DIM-INV-03:** price comparisons используют symbol-aware price tolerance.
+- **DIM-INV-04:** ratio comparisons используют ratio tolerance.
+- **DIM-INV-05:** margin level/usage используют percent tolerance.
+- **DIM-INV-06:** points не сравниваются money/price tolerance.
+- **DIM-INV-07:** Far ниже `SYMBOL_VOLUME_MIN` не продолжает Catch-Up.
+- **DIM-INV-08:** строгая Far compression превышает lot tolerance.
+- **DIM-INV-09:** New Big на лимите отклоняется.
+- **DIM-INV-10:** Worst helpers получают symbol из обязательного source context.

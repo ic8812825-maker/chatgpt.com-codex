@@ -149,7 +149,7 @@ bool HybridCatchUpMarginTransition(const HybridCatchUpState &before,const Hybrid
    row.projectedFreeMarginAfter=before.equity-gatedMargin;
    row.marginLevelAfter=gatedMargin>0?before.equity/gatedMargin*100.0:DBL_MAX;
    row.marginUsageAfter=gatedMargin/before.equity*100.0;
-   return row.projectedFreeMarginAfter>0 && row.marginLevelAfter+MoneyCalculationTolerance>=MinimumSafeMarginLevel && row.marginUsageAfter<=MaxMarginPercent+MoneyCalculationTolerance;
+   return HybridMoneyGreater(row.projectedFreeMarginAfter,0.0) && HybridPercentGreaterOrEqual(row.marginLevelAfter,MinimumSafeMarginLevel) && HybridPercentLessOrEqual(row.marginUsageAfter,MaxMarginPercent);
 }
 
 bool BuildInitialHybridCatchUpState(const HybridCycleSnapshot &snapshot,const HybridCandidatePlan &plan,const HybridCatchUpProfile &profile,HybridCatchUpState &state)
@@ -191,6 +191,9 @@ ulong HybridFinalCloseRouteFingerprint(const HybridFinalCloseRouteState &s)
 }
 
 bool HybridMoneyEqual(double a,double b) { return MathAbs(HybridCatchUpMoneyRound(a)-HybridCatchUpMoneyRound(b))<=MoneyCalculationTolerance; }
+bool HybridMoneyGreater(double a,double b) { return a>b+MoneyCalculationTolerance; }
+bool HybridMoneyLessOrEqual(double a,double b) { return a<=b+MoneyCalculationTolerance; }
+bool HybridMoneyGreaterOrEqual(double a,double b) { return a>=b-MoneyCalculationTolerance; }
 double HybridLotTolerance(const string symbol)
 {
    double step=SymbolInfoDouble(symbol,SYMBOL_VOLUME_STEP);
@@ -198,6 +201,10 @@ double HybridLotTolerance(const string symbol)
    return MathMax(1e-9,MathMin(VolumeMismatchToleranceLots,step*1e-4));
 }
 bool HybridLotEqual(const string symbol,double a,double b) { return MathAbs(a-b)<=HybridLotTolerance(symbol); }
+bool HybridLotLess(const string symbol,double a,double b) { return a<b-HybridLotTolerance(symbol); }
+bool HybridLotLessOrEqual(const string symbol,double a,double b) { return a<=b+HybridLotTolerance(symbol); }
+bool HybridLotGreater(const string symbol,double a,double b) { return a>b+HybridLotTolerance(symbol); }
+bool HybridLotGreaterOrEqual(const string symbol,double a,double b) { return a>=b-HybridLotTolerance(symbol); }
 double HybridPriceTolerance(const string symbol)
 {
    double point=SymbolInfoDouble(symbol,SYMBOL_POINT); int digits=(int)SymbolInfoInteger(symbol,SYMBOL_DIGITS);
@@ -205,6 +212,12 @@ double HybridPriceTolerance(const string symbol)
    return MathMax(point*1e-3,MathPow(10.0,-(digits+2)));
 }
 bool HybridPriceEqual(const string symbol,double a,double b) { return MathAbs(a-b)<=HybridPriceTolerance(symbol); }
+double HybridRatioTolerance() { return MathMax(CoverageImprovementTolerance,1e-9); }
+bool HybridRatioLess(double a,double b) { return a<b-HybridRatioTolerance(); }
+bool HybridRatioGreaterOrEqual(double a,double b) { return a>=b-HybridRatioTolerance(); }
+double HybridPercentTolerance() { return 1e-6; }
+bool HybridPercentLessOrEqual(double a,double b) { return a<=b+HybridPercentTolerance(); }
+bool HybridPercentGreaterOrEqual(double a,double b) { return a>=b-HybridPercentTolerance(); }
 bool HybridRouteBrokerMoneyEqual(const BrokerMoneyResult &a,const BrokerMoneyResult &b)
 {
    return a.calculationValid==b.calculationValid && HybridMoneyEqual(a.grossProfit,b.grossProfit) &&
@@ -335,13 +348,15 @@ HybridCatchUpOutcome EvaluateHybridCatchUpLevel(const HybridCatchUpState &before
    after.baselineSpread=before.baselineSpread; after.lastExecutionBid=row.triggerBid; after.lastExecutionAsk=row.triggerAsk;
    row.reserveAfter=after.finalReserveReal; row.carryAfter=after.carryAvailable;
    double minLot=SymbolInfoDouble(before.symbol,SYMBOL_VOLUME_MIN);
-   if(after.farLot<minLot-MoneyCalculationTolerance) return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_TERMINAL_MIN_VOLUME,"Far below minimum");
+   if(HybridLotLess(before.symbol,after.farLot,minLot)) return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_TERMINAL_MIN_VOLUME,"Far below minimum");
    after.coreLot=NormalizeHybridCoreLot(after.farLot*BigCoreRatio); after.trendLot=NormalizeHybridTrendLot(after.farLot*BigTrendRatio); after.smallLot=NormalizeHybridSmallLot(after.farLot*SmallBaseToFarRatio);
    row.nextBasketEvaluated=true;
-   row.nextCoreLot=after.coreLot; row.nextTrendLot=after.trendLot; row.nextSmallLot=after.smallLot; row.nextStatePass=after.coreLot>=minLot && after.trendLot>=minLot && after.smallLot>=minLot;
+   row.nextCoreLot=after.coreLot; row.nextTrendLot=after.trendLot; row.nextSmallLot=after.smallLot;
+   row.nextStatePass=HybridLotGreaterOrEqual(before.symbol,after.coreLot,minLot) && HybridLotGreaterOrEqual(before.symbol,after.trendLot,minLot) && HybridLotGreaterOrEqual(before.symbol,after.smallLot,minLot);
    if(!row.nextStatePass) return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_TERMINAL_MIN_VOLUME,"Next basket below minimum");
    double kr=HybridFinalReserveShare*(after.coreLot+after.trendLot-after.smallLot)/after.farLot, slope=after.coreLot+after.trendLot-after.smallLot-after.farLot;
-   if(kr+MoneyCalculationTolerance<MinimumReserveCatchUpRatio || slope<=0 || after.coreLot+after.trendLot>=before.farLot*MaximumNewBigToOldFarRatio)
+   double maximumAllowedNewBigLot=before.farLot*MaximumNewBigToOldFarRatio;
+   if(HybridRatioLess(kr,MinimumReserveCatchUpRatio) || !HybridLotGreater(before.symbol,slope,0.0) || HybridLotGreaterOrEqual(before.symbol,after.coreLot+after.trendLot,maximumAllowedNewBigLot))
       return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_REJECT_GEOMETRY,"Next basket geometry failed");
    row.nextBasketGeometryEvaluated=true;
    HybridReopenPrices reopen; if(!BuildProjectedReopenPrices(after.bigDirection,row.baseTriggerBid,row.baseTriggerAsk,reopen)) return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_REJECT_GEOMETRY,"Reopen prices failed");
@@ -362,10 +377,13 @@ HybridCatchUpOutcome EvaluateHybridCatchUpLevel(const HybridCatchUpState &before
    row.nextBasketMarginEvaluated=true;
    if(!row.marginPass) return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_REJECT_MARGIN,"Conservative margin gate failed");
    after.currentMargin=row.steadyStateMarginUpper; after.freeMargin=after.equity-after.currentMargin;
-   row.temporalPass=after.finalReserveReal+MoneyCalculationTolerance>=before.finalReserveReal && after.farLot<=before.farLot+MoneyCalculationTolerance &&
-      (row.farLotClosed<=MoneyCalculationTolerance || after.farLot<before.farLot-MoneyCalculationTolerance) &&
+   bool farDidNotIncrease=HybridLotLessOrEqual(before.symbol,after.farLot,before.farLot);
+   bool noPartialClose=HybridLotEqual(before.symbol,row.farLotClosed,0.0);
+   bool farStrictlyCompressed=HybridLotLess(before.symbol,after.farLot,before.farLot);
+   row.temporalPass=after.finalReserveReal+MoneyCalculationTolerance>=before.finalReserveReal && farDidNotIncrease &&
+      (noPartialClose || farStrictlyCompressed) &&
       (before.levelIndex==0 || row.coverageDeficit<=before.lastCoverageDeficit-HybridMinimumCoverageGainMoney+MoneyCalculationTolerance) &&
-      (before.levelIndex==0 || row.recoveryAfterReopen+HybridAllowedMarketCostDeteriorationMoney+MoneyCalculationTolerance>=before.lastRecoveryPL);
+      (before.levelIndex==0 || HybridMoneyGreaterOrEqual(row.recoveryAfterReopen+HybridAllowedMarketCostDeteriorationMoney,before.lastRecoveryPL));
    if(!row.temporalPass) return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_REJECT_TEMPORAL_INVARIANT,"Temporal invariant failed");
    after.lastCoverageDeficit=row.coverageDeficit; after.lastRecoveryPL=row.recoveryAfterReopen; after.projectedOpenCommissionIncluded=true;
    after.cumulativeOpeningCosts=HybridCatchUpMoneyRound(before.cumulativeOpeningCosts+nextCore.openCommission+nextTrend.openCommission+nextSmall.openCommission);
@@ -375,22 +393,23 @@ HybridCatchUpOutcome EvaluateHybridCatchUpLevel(const HybridCatchUpState &before
    return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_CONTINUE,!row.coveragePass?"Remaining Far not covered":"Recovery threshold not reached");
 }
 
-bool HybridWorstCurrentLegsAreAdverse(const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
+bool HybridWorstCurrentLegsAreAdverse(const string symbol,const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
 {
-   double priceTolerance=HybridPriceTolerance(base.stateAfter.symbol!=""?base.stateAfter.symbol:worst.stateAfter.symbol);
+   double priceTolerance=HybridPriceTolerance(symbol);
    return worst.triggerBid<=base.triggerBid+priceTolerance && worst.triggerAsk+priceTolerance>=base.triggerAsk &&
       worst.coreClose.netMoney<=base.coreClose.netMoney+MoneyCalculationTolerance && worst.trendClose.netMoney<=base.trendClose.netMoney+MoneyCalculationTolerance && worst.smallClose.netMoney<=base.smallClose.netMoney+MoneyCalculationTolerance;
 }
-bool HybridWorstFullFarIsAdverse(const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
+bool HybridWorstFullFarIsAdverse(const string symbol,const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
 {
    if(!base.fullFarAffordabilityEvaluated || !worst.fullFarAffordabilityEvaluated) return true;
-   string symbol=base.finalCloseRouteState.symbol!=""?base.finalCloseRouteState.symbol:worst.finalCloseRouteState.symbol;
    double pt=HybridPriceTolerance(symbol);
-   return worst.fullFarLoss+MoneyCalculationTolerance>=base.fullFarLoss && worst.triggerBid<=base.triggerBid+pt && worst.triggerAsk+pt>=base.triggerAsk &&
+   bool lossAdverse=HybridMoneyGreaterOrEqual(worst.fullFarLoss,base.fullFarLoss);
+   bool executionAdverse=worst.triggerBid<=base.triggerBid+pt && worst.triggerAsk+pt>=base.triggerAsk;
+   return lossAdverse && executionAdverse &&
       HybridLotEqual(symbol,base.farLotBefore,worst.farLotBefore) && HybridPriceEqual(symbol,base.farOpenPrice,worst.farOpenPrice);
 }
-bool HybridWorstRowIsAdverse(const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
-{ return HybridWorstCurrentLegsAreAdverse(base,worst) && HybridWorstFullFarIsAdverse(base,worst); }
+bool HybridWorstRowIsAdverse(const string symbol,const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
+{ return HybridWorstCurrentLegsAreAdverse(symbol,base,worst) && HybridWorstFullFarIsAdverse(symbol,base,worst); }
 
 string HybridCatchUpTraceRow(const HybridHarvestLevelResult &r,string profile)
 {
@@ -434,9 +453,9 @@ HybridCatchUpOutcome EvaluateHybridFiniteCatchUpPreviewTyped(const HybridCycleSn
       HybridCatchUpOutcome worstOutcome=EvaluateHybridCatchUpLevel(worstState,worstProfile,worstRow,nextWorst);
       baseRow.fullFarAdverseEvaluated=baseRow.fullFarAffordabilityEvaluated && worstRow.fullFarAffordabilityEvaluated;
       worstRow.fullFarAdverseEvaluated=baseRow.fullFarAdverseEvaluated;
-      baseRow.fullFarAdversePass=baseRow.fullFarAdverseEvaluated && HybridWorstFullFarIsAdverse(baseRow,worstRow);
+      baseRow.fullFarAdversePass=baseRow.fullFarAdverseEvaluated && HybridWorstFullFarIsAdverse(snapshot.symbol,baseRow,worstRow);
       worstRow.fullFarAdversePass=baseRow.fullFarAdversePass;
-      if(baseRow.currentLegMoneyEvaluated && worstRow.currentLegMoneyEvaluated && !HybridWorstRowIsAdverse(baseRow,worstRow))
+      if(baseRow.currentLegMoneyEvaluated && worstRow.currentLegMoneyEvaluated && !HybridWorstRowIsAdverse(snapshot.symbol,baseRow,worstRow))
          worstOutcome=SetHybridCatchUpRowOutcome(worstRow,HYBRID_CATCHUP_OUTCOME_REJECT_WORST_NON_ADVERSE,"Worst execution improved a projected leg");
       ArrayResize(result.baseLevels,level); ArrayResize(result.worstLevels,level); result.baseLevels[level-1]=baseRow; result.worstLevels[level-1]=worstRow;
       result.evaluatedLevels=level; result.baseOutcome=baseOutcome; result.worstOutcome=worstOutcome;

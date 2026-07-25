@@ -78,3 +78,18 @@ Status: `HYBRID_FINAL_CLOSE_ROUTE_SOURCE_READY`; общий статус `HYBRID
 ## Stage 1.2.3 — dimension-safe route validation
 
 Универсальный money tolerance удалён из lot/price validation. Добавлены `HybridMoneyEqual`, `HybridLotEqual`, `HybridPriceEqual`; route candidate валидируется и включён в fingerprint; Worst Far identity использует typed comparisons; NOT_APPLICABLE adverse flags остаются false/false. Добавлены TOL-01…12 и MQL-TOL source fixtures. Статус: `HYBRID_FINAL_CLOSE_ROUTE_HARDENING_SOURCE_READY`; Administrator validation required.
+
+## Stage 1.2.4 — полный dimension audit continuation
+
+| Выражение | Размерность | До | После | Статус |
+|---|---|---|---|---|
+| `after.farLot < minLot` | lot | money tolerance | `HybridLotLess` | FIXED |
+| next Core/Trend/Small minimum | lot | direct | `HybridLotGreaterOrEqual` | FIXED |
+| Far monotonicity/partial zero | lot | money tolerance | typed lot helpers | FIXED |
+| `kr < MinimumReserveCatchUpRatio` | ratio | money tolerance | `HybridRatioLess` | FIXED |
+| lot slope | lot | direct zero | `HybridLotGreater` | FIXED |
+| New Big limit | lot | direct | lot-aware inclusive reject | FIXED |
+| margin level/usage | percent | money tolerance | percent helpers | FIXED |
+| Coverage/Recovery/Reserve | money | money tolerance | unchanged money context | VALID |
+| Worst trigger | price | optional symbol | explicit `snapshot.symbol` | FIXED |
+| Worst leg/full-Far results | money | money tolerance | unchanged money context | VALID |

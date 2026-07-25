@@ -1053,3 +1053,5 @@ Catch-Up distinguishes CONTINUE, FINITE_PASS, Final Close route, terminal, no fi
 Stage 1.2.1 authority: Final Close route сохраняет отдельный pre-Partial immutable state; route не строит continuation basket. См. `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `HYBRID_SPLIT_BIG_CATCHUP_OUTCOME_TRUTH_TABLE.md`.
 
 Stage 1.2.2: Final Close route использует строгий validator, полный fingerprint и отдельные revisions. Route continuation state всегда invalid. Ручная проверка Администратором описана в `ADMIN_STAGE_1_2_2_MT5_CHECKLIST_RU.md`.
+
+Stage 1.2.4: Hybrid Catch-Up разделяет допуски money, lot, price, ratio и percent. Один volume step Far и один broker point execution price не являются floating noise.

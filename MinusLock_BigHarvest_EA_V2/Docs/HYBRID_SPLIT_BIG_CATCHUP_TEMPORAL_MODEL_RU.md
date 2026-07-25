@@ -178,3 +178,7 @@ Route state сохраняет полный `FarLotBefore`, исходную ц�
 ## Stage 1.2.3 — dimension-safe equality
 
 Money, lot и price сравниваются разными helpers. `HybridMoneyEqual` применим только к account money; `HybridLotEqual` использует tolerance значительно меньше `SYMBOL_VOLUME_STEP`; `HybridPriceEqual` использует `SYMBOL_POINT`/`SYMBOL_DIGITS` и не принимает отклонение на один point. Identity/revisions/enums/fingerprints сравниваются точно. `routeCandidate=true` обязателен и входит в fingerprint.
+
+## Stage 1.2.4 — полный dimension contract (`NORMATIVE`)
+
+Continuation использует независимые money, lot, price, ratio и percent tolerances. Minimum Far, basket lots, compression, lot slope и New Big boundary являются lot-aware; `kr` — ratio-aware; margin level/usage — percent-aware. Worst helpers получают обязательный `snapshot.symbol`, а не optional `StateAfter`.
