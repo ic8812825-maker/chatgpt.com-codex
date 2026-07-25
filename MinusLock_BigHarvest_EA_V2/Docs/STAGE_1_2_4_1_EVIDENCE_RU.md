@@ -71,10 +71,28 @@ validation exit status=0
 ## STAGE_1_2_4_2_1_HOTFIX
 
 ```text
-HOTFIX_CI_VALUES_PENDING
+HOTFIX_COMMIT=cac3faa83c89a2cf7f5b8aadafcb830e55c9b6ce
+HOTFIX_RUN_ID=30171819711
+HOTFIX_RUN_URL=https://github.com/ic8812825-maker/chatgpt.com-codex/actions/runs/30171819711
+HOTFIX_JOB_ID=89714141071
+HOTFIX_ARTIFACT_ID=8623122693
+HOTFIX_ARTIFACT_NAME=stage-1.2.4.2.1-source-validation-cac3faa83c89a2cf7f5b8aadafcb830e55c9b6ce
+HOTFIX_ARTIFACT_DIGEST=sha256:7a6a12efa90d1e7a1c366fc68fcde1b857ac3825e2dfc3bca80f9cdfe9655979
+HOTFIX_ARTIFACT_SIZE=4298
+HOTFIX_ARTIFACT_EXPIRED=false
+HOTFIX_ARTIFACT_CREATED_AT=2026-07-25T19:33:07Z
+HOTFIX_ARTIFACT_EXPIRES_AT=2026-08-24T19:33:06Z
+HOTFIX_SHA256SUMS_FILE_SHA256=f124fb182909554cc46a1c9a20f6711abbca38e49546e1152f6e34c59d1beba2
+HOTFIX_CHECKSUM_STATUS=ALL_OK
+HOTFIX_CORE_RESULT=Passed=5,Failed=0
+HOTFIX_FORBIDDEN_MATRIX_RESULT=Passed=9,Failed=0
+HOTFIX_ALLOWED_MATRIX_RESULT=Passed=5,Failed=0
+HYBRID_CATCHUP_MODEL_GUARD_RESULT=PASS
 ```
 
 HOTFIX расширяет нормативный forbidden-list до девяти точных путей, включая `HybridCatchUpModel.mqh`, проверяет forbidden/allowed matrix и сохраняет целостный диагностический package даже при controlled failure.
+
+Фактические HOTFIX test counts: dimension-contract `17 passed`, `HybridSplitBig` `186 passed`, все тесты проекта `391 passed`; legacy static checks завершены `PASS`. Final confirmation run выполняется на evidence commit и фиксируется в итоговом отчёте без нового цикла изменения документа.
 
 ## Граница доказательства
 
