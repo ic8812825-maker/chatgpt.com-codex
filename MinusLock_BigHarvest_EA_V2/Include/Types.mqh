@@ -1032,52 +1032,77 @@ struct HybridEvaluationResult
    string trace;
 };
 
+struct HybridReopenPrices
+{
+   double coreOpenPrice; double trendOpenPrice; double smallOpenPrice;
+};
+
+enum HybridCatchUpProfileKind { HYBRID_CATCHUP_BASE=0, HYBRID_CATCHUP_WORST };
+struct HybridCatchUpProfile
+{
+   HybridCatchUpProfileKind kind;
+   double adversePoints;
+   double marginSafetyPercent;
+};
+
+struct HybridCatchUpState
+{
+   int levelIndex;
+   string symbol; long magic; ulong cycleId; ulong stateRevision; datetime snapshotTime; ulong fingerprint;
+   Direction farDirection; double farLot; double farOpenPrice;
+   Direction bigDirection; double coreLot; double coreOpenPrice; double trendLot; double trendOpenPrice;
+   Direction smallDirection; double smallLot; double smallOpenPrice;
+   double anchorBid; double anchorAsk; double spread;
+   double realizedCyclePL; double partialFarBudgetAvailable; double finalReserveReal; double carryAvailable;
+   double cumulativeHarvestNet; double cumulativePartialFarNet; double cumulativeOpeningCosts;
+   double equity; double currentMargin; double freeMargin;
+   double lastCoverageDeficit; double lastRecoveryPL;
+   bool openCommissionAlreadyRealized; bool projectedOpenCommissionIncluded; bool projectedCloseCommissionIncluded;
+   bool terminal; string terminalReason;
+};
+
+struct HybridPartialFarPreviewResult
+{
+   bool calculationValid; bool partialCloseAvailable; bool fullFarCandidate; bool requiresFinalClosePreview;
+   double budgetBefore; double budgetAdded; double budgetGross;
+   double rawCloseLot; double normalizedCloseLot; double farLotBefore; double farLotAfter;
+   BrokerMoneyResult partialCloseMoney;
+   double budgetConsumed; double budgetAfter;
+   bool remainderVolumeValid; bool budgetConservationPass;
+   string reason;
+};
+
 struct HybridHarvestLevelResult
 {
-   int level;
-   double levelBid;
-   double levelAsk;
-   BrokerMoneyResult far;
-   BrokerMoneyResult core;
-   BrokerMoneyResult trend;
-   BrokerMoneyResult small;
-   double harvestNet;
-   double eligibleHarvestNet;
-   double partialAdd;
-   double reserveAdd;
-   double carryAdd;
-   double partialBudgetAfter;
-   double reserveAfter;
-   double carryAfter;
-   double farCloseCost;
-   double coverageDeficit;
-   double projectedRealizedPL;
-   double projectedFloatingPL;
-   double projectedExitCosts;
-   double projectedRecoveryPL;
-   double marginBase;
-   double marginWorst;
-   double riskBase;
-   double riskWorst;
-   bool coverageImproved;
-   bool finalCoveragePass;
-   bool recoveryPass;
-   bool marginPass;
-   bool basePass;
-   bool worstPass;
-   bool pass;
+   int level; ulong stateBeforeFingerprint; ulong stateAfterFingerprint;
+   double triggerBid; double triggerAsk;
+   double farLotBefore; double farLotClosed; double farLotAfter; double farOpenPrice;
+   double coreLot; double coreOpenPrice; double trendLot; double trendOpenPrice; double smallLot; double smallOpenPrice;
+   BrokerMoneyResult coreClose; BrokerMoneyResult trendClose; BrokerMoneyResult smallClose;
+   BrokerMoneyResult partialFarClose; BrokerMoneyResult remainingFar;
+   double harvestNet; double eligibleHarvest;
+   double partialBudgetBefore; double partialAdd; double partialConsumed; double partialBudgetAfter;
+   double reserveBefore; double reserveAdd; double reserveAfter;
+   double carryBefore; double carryAdd; double carryAfter;
+   double realizedPLBefore; double realizedPLAfterHarvest; double realizedPLAfterPartial;
+   double remainingFarCloseCost; double coverageDeficit;
+   double recoveryAfterPartial; double recoveryAfterReopen;
+   double nextCoreLot; double nextTrendLot; double nextSmallLot;
+   double nextAnchorBid; double nextAnchorAsk;
+   double marginBefore; double marginReleased; double marginAfter; double peakMargin; double overlapUpper;
+   bool allocationPass; bool partialBudgetPass; bool temporalPass; bool coveragePass;
+   bool recoveryPass; bool marginPass; bool nextStatePass; bool pass;
+   HybridCatchUpState stateAfter;
    string reason;
 };
 
 struct HybridCatchUpResult
 {
-   bool pass;
-   int finiteLevel;
-   HybridHarvestLevelResult levels[];
-   double finalCoverageDeficit;
-   double finalRecoveryPL;
-   string trace;
-   string reason;
+   bool calculationValid; bool pass; int finiteLevel; int evaluatedLevels;
+   HybridHarvestLevelResult baseLevels[]; HybridHarvestLevelResult worstLevels[];
+   HybridCatchUpState finalBaseState; HybridCatchUpState finalWorstState;
+   double finalCoverageDeficit; double finalRecoveryPL;
+   string trace; string reason;
 };
 
 struct HybridMarginPreview
