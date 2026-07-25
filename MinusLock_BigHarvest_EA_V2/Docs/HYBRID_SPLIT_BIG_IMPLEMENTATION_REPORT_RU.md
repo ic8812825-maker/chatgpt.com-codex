@@ -68,3 +68,9 @@ Stage 1.2.1 authority: Final Close route сохраняет отдельный p
 Full-Far affordability теперь завершает Partial solver до descending scan. Route сохраняет полный Far, нерасходованный `PartialBudgetGross`, RealizedPL после Harvest, Reserve/Carry allocation и отдельные Base/Worst fingerprints. Catch-Up level возвращает ROUTE до Next Basket, geometry, margin и reopen Recovery. Mixed Route/Continue или Route/Pass является divergence. Python ROUTE-01…12 и ADV-01…05 добавлены; MQL5 fixture source подготовлен, runtime не выполнен.
 
 Status: `HYBRID_FINAL_CLOSE_ROUTE_SOURCE_READY`; общий статус `HYBRID_FINITE_CATCHUP_SOURCE_READY`, `HYBRID_FINITE_CATCHUP_RUNTIME_NOT_VERIFIED`.
+
+## Stage 1.2.2 — route validation/source parity hardening
+
+Добавлены полный canonical fingerprint payload, отдельный validator с typed validation codes, `sourceStateRevision`/`routeStateRevision`, explicit continuation validity и раздельные Worst current-leg/full-Far adverse helpers. Builder использует `partial.budgetGross` и успешен только после validator PASS. Подготовлены RV/FP/CV Python tests, отдельный MQL5 source runner и инструкция Администратору. Runtime проверки программистом не выполнялись.
+
+Статус: `HYBRID_FINAL_CLOSE_ROUTE_HARDENING_SOURCE_READY`, `HYBRID_FINITE_CATCHUP_SOURCE_READY`, `ADMIN_MT5_VALIDATION_REQUIRED`.
