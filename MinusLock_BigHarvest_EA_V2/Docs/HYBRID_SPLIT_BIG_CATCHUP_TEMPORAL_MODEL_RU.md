@@ -168,3 +168,9 @@ Margin uses current control side (`BUY→Ask`, `SELL→Bid`), never historical p
 После CURRENT_LEG_MONEY, Harvest allocation и вычисления `PartialBudgetGross` выполняется `FULL_FAR_AFFORDABILITY`. Если `FullFarLoss <= PartialBudgetGross + MoneyCalculationTolerance`, обычная ветка немедленно прекращается и строится immutable `HybridFinalCloseRouteState`.
 
 Route state сохраняет полный `FarLotBefore`, исходную цену Far, `RealizedPLBefore + HarvestNet`, полный нерасходованный `PartialBudgetGross`, `ReserveBefore + ReserveAdd`, `CarryBefore + CarryAdd`, execution Bid/Ask, full-Far money и Base/Worst provenance. Partial Far, residual Far, Next Basket, geometry, margin и RecoveryAfterReopen на route-пути не вычисляются. Route не означает Final Close PASS и не выполняет ledger или trade effects.
+
+## Stage 1.2.2 — строгая валидация route state (`NORMATIVE`)
+
+`HybridFinalCloseRouteState` проходит отдельный validator до признания builder успешным. Fingerprint строится из identity, `sourceStateRevision`, `routeStateRevision=source+1`, Far, execution prices, всех фактических компонентов `BrokerMoneyResult`, Harvest, realized PL, Partial/Reserve/Carry before/add/after и source fingerprint. Нормативный источник gross budget — `partial.budgetGross`.
+
+При ROUTE continuation state отсутствует: `continuationStateValid=false`; aggregate `finalBaseStateValid=false`, `finalWorstStateValid=false`, а использовать разрешено только обе валидные структуры `finalCloseRouteBaseState`/`finalCloseRouteWorstState`.

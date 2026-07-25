@@ -93,3 +93,15 @@ Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 - **ROUTE-INV-08:** aggregate route требует Base route и Worst route.
 - **ROUTE-INV-09:** mixed Route/Continue и Route/Success являются divergence.
 - **ROUTE-INV-10:** Worst adverse validation выполняется только для полностью рассчитанных current legs.
+
+## Route hardening invariants — Stage 1.2.2
+- **ROUTE-VALID-01:** route state проходит отдельную строгую валидацию.
+- **ROUTE-VALID-02:** builder успешен только после validator PASS.
+- **ROUTE-VALID-03:** fingerprint охватывает Far, money, allocation, Carry и обе revisions.
+- **ROUTE-VALID-04:** gross budget берётся из `partial.budgetGross`.
+- **ROUTE-VALID-05:** route не имеет valid continuation state.
+- **ROUTE-VALID-06:** aggregate route хранит две valid Base/Worst route states.
+- **ROUTE-VALID-07:** source и route revision различаются ровно на один.
+- **ROUTE-VALID-08:** Full Far adverse check имеет evaluated/pass status.
+- **ROUTE-FP-01…08:** одинаковое состояние даёт тот же hash; Far, execution price, gross budget, Reserve, Carry, full-Far commission или route revision меняют hash.
+- **ROUTE-REV-01…04:** source revision равна before revision; route revision равна source+1; обе входят в fingerprint.

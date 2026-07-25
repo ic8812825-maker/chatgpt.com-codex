@@ -124,3 +124,10 @@ def test_stage121_route_state_contract():
  for n in range(1,11): assert f'ROUTE-INV-{n:02d}' in inv
  for field in ('FullFarAffordabilityEvaluated','FarLotForFinalClosePreview','RouteStateFingerprint'):
   assert field in trace
+
+def test_stage122_route_validation_contract():
+ temporal=(D/'HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md').read_text(); inv=(D/'HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md').read_text(); trace=(D/'HYBRID_SPLIT_BIG_TRACE_SPEC.md').read_text()
+ assert 'partial.budgetGross' in temporal and 'continuationStateValid=false' in temporal
+ for n in range(1,9): assert f'ROUTE-VALID-{n:02d}' in inv
+ for field in ('SourceStateRevision','RouteStateRevision','RouteStateValidationCode','FullFarCloseCommission'): assert field in trace
+ assert (D/'ADMIN_STAGE_1_2_2_MT5_CHECKLIST_RU.md').is_file()

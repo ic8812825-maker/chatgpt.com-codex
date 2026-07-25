@@ -68,3 +68,6 @@ Temporal authority: `HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`.
 `FullFarAffordabilityEvaluated`, `PartialBudgetCanCoverFullFarLoss`, `FinalClosePreviewRouteCandidate`, `FullFarNet`, `FullFarLoss`, `PartialFarEvaluated`, `PartialCloseLot`, `PartialConsumed`, `FarLotForFinalClosePreview`, `RealizedForFinalClosePreview`, `PartialBudgetGross`, `PartialBudgetForFinalClosePreview`, `ReserveForFinalClosePreview`, `CarryForFinalClosePreview`, `NextBasketEvaluated`, `NextBasketGeometryEvaluated`, `NextBasketMarginEvaluated`, `RecoveryAfterReopenEvaluated`, `RouteStateFingerprint`.
 
 Route trace обязан фиксировать нулевые Partial close/consumption и все четыре continuation evaluation flags равными 0.
+
+## Stage 1.2.2 validation/parity fields
+`CurrentLegMoneyEvaluated`, `HarvestAllocationEvaluated`, `FullFarAdverseEvaluated`, `FullFarAdversePass`, `ContinuationStateValid`, `RouteStateCalculationValid`, `RouteStateValidationPass`, `RouteStateValidationCode`, `SourceStateRevision`, `RouteStateRevision`, `RouteFingerprintPayloadHash`, `FullFarGrossProfit`, `FullFarOpenCommission`, `FullFarCloseCommission`, `FullFarSwap`, `FullFarFee`, `FullFarSlippageCost`, `FullFarNetMoney`.
