@@ -30,3 +30,4 @@ Oracle is broker-agnostic; MT5 parity still requires a future adapter around `Or
 | Stage 1.2.3 dimension-safe validation | typed money/lot/price equality | `test_catchup_dimension_safe` | TOL-01..12 | Python/source parity | PARTIALLY_COVERED — Administrator MT5 validation required |
 | Stage 1.2.4 full dimension contract | continuation typed gates | `test_catchup_full_dimension_contract` | DIM-CONT-01..10 | Python/static + MQL5 source | PARTIALLY_COVERED — Administrator runtime required |
 | Stage 1.2.4.1 closure hotfix | Partial lot zero + strict continuation runner | dimension hotfix tests | DIM-HOTFIX-01..06 | Python/static + MQL5 source | PARTIALLY_COVERED — Administrator runtime required |
+| Stage 1.2.4.2 reproducible evidence | Stage 1.2.4.1 source commit and forbidden-file boundary | unified validation script + GitHub Actions | logs, manifest, SHA256SUMS | Python/static CI | CI evidence is distinct from Administrator MQL5 runtime evidence |

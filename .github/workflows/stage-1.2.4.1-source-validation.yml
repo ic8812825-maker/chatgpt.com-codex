@@ -1,0 +1,51 @@
+name: Stage 1.2.4.1 Source Validation
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/stage-1.2.4.1-source-validation.yml"
+      - "MinusLock_BigHarvest_EA_V2/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependency
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+
+      - name: Run reproducible source validation
+        env:
+          EVIDENCE_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+          EVIDENCE_BRANCH_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          chmod +x MinusLock_BigHarvest_EA_V2/Tests/run_stage_1_2_4_1_source_validation.sh
+          MinusLock_BigHarvest_EA_V2/Tests/run_stage_1_2_4_1_source_validation.sh \
+            "$RUNNER_TEMP/stage_1_2_4_1_evidence"
+
+      - name: Upload source-validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage-1.2.4.1-source-validation-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/*.log
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/evidence_manifest.txt
+            ${{ runner.temp }}/stage_1_2_4_1_evidence/SHA256SUMS.txt
+          if-no-files-found: warn
+          retention-days: 30
