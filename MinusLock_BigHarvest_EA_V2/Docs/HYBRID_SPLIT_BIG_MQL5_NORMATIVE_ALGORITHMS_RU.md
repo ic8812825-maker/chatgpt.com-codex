@@ -92,3 +92,7 @@ Fingerprint включает direction, normalized lots, rounded trigger, reserv
 | Limited risk reduction | terminal, provable WorstRisk decrease | close-only action | re-run Final Close | unsafe/no action → Manual Hold |
 
 До этапа 7 эта таблица является контрактом, но не разрешением подключать evaluator к торговому execution.
+
+## Нормативные companion contracts
+
+Неизменяемые требования вынесены в `HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; допустимые переходы — в `HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`; порядок gates — в `HYBRID_SPLIT_BIG_GATE_GRAPH.md`; разрешённые денежные рёбра — в `HYBRID_SPLIT_BIG_MONEY_FLOW.md`; формат воспроизводимого журнала — в `HYBRID_SPLIT_BIG_TRACE_SPEC.md`. Эти документы имеют такую же нормативную силу, как главы 1–8.

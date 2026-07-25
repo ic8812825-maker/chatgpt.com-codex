@@ -35,3 +35,17 @@ def test_strategy_tester_plan_is_administrator_owned():
  plan=(D/'HYBRID_SPLIT_BIG_STRATEGY_TESTER_ADMIN_PLAN_RU.md').read_text()
  for n in range(1,17): assert f'ST-{n:02d}' in plan
  assert 'Администратор' in plan and 'Every tick based on real ticks' in plan
+
+def test_stage0_safety_contract_documents():
+ names=('HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md',
+        'HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md',
+        'HYBRID_SPLIT_BIG_GATE_GRAPH.md',
+        'HYBRID_SPLIT_BIG_MONEY_FLOW.md',
+        'HYBRID_SPLIT_BIG_TRACE_SPEC.md')
+ texts={name:(D/name).read_text() for name in names}
+ assert all((D/name).is_file() for name in names)
+ assert all(key in texts[names[0]] for key in ('GEO-01','MONEY-01','LOGIC-01','REC-01'))
+ assert '| Current | Event | Condition |' in texts[names[1]]
+ assert 'IDENTITY' in texts[names[2]] and 'FINAL_CLOSE_PREVIEW' in texts[names[2]]
+ assert 'FinalReserve -X-> Transition' in texts[names[3]]
+ assert 'HYBRID_CATCHUP_LEVEL' in texts[names[4]] and 'DurationMicros=' in texts[names[4]]
