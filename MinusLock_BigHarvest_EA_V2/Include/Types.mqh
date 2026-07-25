@@ -1096,8 +1096,8 @@ struct HybridPartialFarPreviewResult
 
 struct HybridFinalCloseRouteState
 {
-   bool calculationValid; bool routeCandidate;
-   string symbol; long magic; ulong cycleId; ulong stateRevision; int level;
+   bool calculationValid; bool validationPass; bool routeCandidate;
+   string symbol; long magic; ulong cycleId; ulong sourceStateRevision; ulong routeStateRevision; int level;
    HybridCatchUpProfileKind profileKind;
    Direction farDirection; double farLot; double farOpenPrice;
    double executionBid; double executionAsk;
@@ -1107,7 +1107,7 @@ struct HybridFinalCloseRouteState
    double reserveBefore; double reserveAdd; double reserveAfter;
    double carryBefore; double carryAdd; double carryAfter;
    ulong sourceStateFingerprint; ulong routeStateFingerprint;
-   string reasonCode; string reason;
+   string validationCode; string reasonCode; string reason;
 };
 
 struct HybridHarvestLevelResult
@@ -1118,6 +1118,7 @@ struct HybridHarvestLevelResult
    bool currentLegMoneyEvaluated; bool harvestAllocationEvaluated; bool fullFarAffordabilityEvaluated;
    bool partialFarEvaluated; bool nextBasketEvaluated; bool nextBasketGeometryEvaluated;
    bool nextBasketMarginEvaluated; bool recoveryAfterReopenEvaluated;
+   bool continuationStateValid; bool fullFarAdverseEvaluated; bool fullFarAdversePass;
    bool partialBudgetCanCoverFullFarLoss; bool finalClosePreviewRouteCandidate;
    double fullFarNet; double fullFarLoss; double partialBudgetGross; double realizedPLForFinalClosePreview;
    int level; ulong stateBeforeFingerprint; ulong stateAfterFingerprint;
@@ -1159,6 +1160,7 @@ struct HybridCatchUpResult
    string failedProfile; string reasonCode;
    HybridHarvestLevelResult baseLevels[]; HybridHarvestLevelResult worstLevels[];
    HybridCatchUpState finalBaseState; HybridCatchUpState finalWorstState;
+   bool finalBaseStateValid; bool finalWorstStateValid;
    HybridFinalCloseRouteState finalCloseRouteBaseState; HybridFinalCloseRouteState finalCloseRouteWorstState;
    bool finalCloseRouteStatesValid;
    double finalCoverageDeficit; double finalRecoveryPL;

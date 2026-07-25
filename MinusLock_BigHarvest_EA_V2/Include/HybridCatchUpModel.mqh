@@ -168,32 +168,97 @@ bool BuildInitialHybridCatchUpState(const HybridCycleSnapshot &snapshot,const Hy
    string reason; return ValidateHybridCatchUpState(state,reason);
 }
 
+string HybridFinalCloseRouteFingerprintPayload(const HybridFinalCloseRouteState &s)
+{
+   BrokerMoneyResult m=s.fullFarCloseMoney;
+   return StringFormat("%s|%I64d|%I64u|%I64u|%I64u|%d|%d|%d|%.8f|%.10f|%.10f|%.10f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%I64u",
+      s.symbol,s.magic,s.cycleId,s.sourceStateRevision,s.routeStateRevision,s.level,(int)s.profileKind,(int)s.farDirection,
+      s.farLot,s.farOpenPrice,s.executionBid,s.executionAsk,HybridCatchUpMoneyRound(m.grossProfit),HybridCatchUpMoneyRound(m.openCommission),
+      HybridCatchUpMoneyRound(m.closeCommission),HybridCatchUpMoneyRound(m.swap),HybridCatchUpMoneyRound(m.fee),HybridCatchUpMoneyRound(m.slippageCost),
+      HybridCatchUpMoneyRound(m.spreadExpansionCost),HybridCatchUpMoneyRound(m.safetyBuffer),HybridCatchUpMoneyRound(m.netMoney),
+      HybridCatchUpMoneyRound(s.fullFarLoss),HybridCatchUpMoneyRound(s.harvestNet),HybridCatchUpMoneyRound(s.realizedPLBefore),
+      HybridCatchUpMoneyRound(s.realizedPLAfterHarvest),HybridCatchUpMoneyRound(s.partialBudgetBefore),HybridCatchUpMoneyRound(s.partialAdd),
+      HybridCatchUpMoneyRound(s.partialBudgetGross),HybridCatchUpMoneyRound(s.reserveBefore),HybridCatchUpMoneyRound(s.reserveAdd),
+      HybridCatchUpMoneyRound(s.reserveAfter),HybridCatchUpMoneyRound(s.carryBefore),HybridCatchUpMoneyRound(s.carryAdd),
+      HybridCatchUpMoneyRound(s.carryAfter),s.sourceStateFingerprint);
+}
+
 ulong HybridFinalCloseRouteFingerprint(const HybridFinalCloseRouteState &s)
 {
-   string value=StringFormat("%s|%I64d|%I64u|%I64u|%d|%d|%d|%.8f|%.10f|%.10f|%.10f|%.2f|%.2f|%.2f|%.2f|%.2f|%I64u",
-      s.symbol,s.magic,s.cycleId,s.stateRevision,s.level,(int)s.profileKind,(int)s.farDirection,s.farLot,s.farOpenPrice,
-      s.executionBid,s.executionAsk,s.fullFarLoss,s.harvestNet,s.realizedPLAfterHarvest,s.partialBudgetGross,s.reserveAfter,s.sourceStateFingerprint);
-   ulong hash=1469598103934665603;
+   string value=HybridFinalCloseRouteFingerprintPayload(s); ulong hash=1469598103934665603;
    for(int i=0;i<StringLen(value);i++) { hash^=(ulong)StringGetCharacter(value,i); hash*=1099511628211; }
    return hash;
 }
 
+bool HybridRouteMoneyEqual(double a,double b) { return MathAbs(a-b)<=MoneyCalculationTolerance; }
+bool HybridRouteBrokerMoneyEqual(const BrokerMoneyResult &a,const BrokerMoneyResult &b)
+{
+   return a.calculationValid==b.calculationValid && HybridRouteMoneyEqual(a.grossProfit,b.grossProfit) &&
+      HybridRouteMoneyEqual(a.openCommission,b.openCommission) && HybridRouteMoneyEqual(a.closeCommission,b.closeCommission) &&
+      HybridRouteMoneyEqual(a.swap,b.swap) && HybridRouteMoneyEqual(a.fee,b.fee) && HybridRouteMoneyEqual(a.slippageCost,b.slippageCost) &&
+      HybridRouteMoneyEqual(a.spreadExpansionCost,b.spreadExpansionCost) && HybridRouteMoneyEqual(a.safetyBuffer,b.safetyBuffer) && HybridRouteMoneyEqual(a.netMoney,b.netMoney);
+}
+
+bool ValidateHybridFinalCloseRouteState(const HybridCatchUpState &before,const HybridHarvestLevelResult &row,const HybridPartialFarPreviewResult &partial,const HybridFinalCloseRouteState &route,string &reasonCode,string &reason)
+{
+   reasonCode="CATCHUP_ROUTE_STATE_VALID"; reason="PASS";
+   if(route.symbol=="" || route.symbol!=before.symbol || route.magic!=before.magic || route.cycleId==0 || route.cycleId!=before.cycleId ||
+      (route.profileKind!=HYBRID_CATCHUP_BASE && route.profileKind!=HYBRID_CATCHUP_WORST) || route.level!=before.levelIndex+1)
+   { reasonCode="CATCHUP_ROUTE_IDENTITY_INVALID"; reason="Route identity mismatch"; return false; }
+   if(route.farDirection==DIR_NONE || route.farDirection!=before.farDirection || route.farLot<=0 || !HybridRouteMoneyEqual(route.farLot,before.farLot) ||
+      route.farOpenPrice<=0 || !HybridRouteMoneyEqual(route.farOpenPrice,before.farOpenPrice))
+   { reasonCode="CATCHUP_ROUTE_FAR_INVALID"; reason="Route Far mismatch"; return false; }
+   if(route.executionBid<=0 || route.executionAsk<route.executionBid || !HybridRouteMoneyEqual(route.executionBid,row.triggerBid) || !HybridRouteMoneyEqual(route.executionAsk,row.triggerAsk))
+   { reasonCode="CATCHUP_ROUTE_EXECUTION_PRICE_INVALID"; reason="Execution price mismatch"; return false; }
+   if(!partial.fullFarCloseMoney.calculationValid || !HybridRouteBrokerMoneyEqual(route.fullFarCloseMoney,partial.fullFarCloseMoney) ||
+      !HybridRouteMoneyEqual(route.fullFarLoss,MathMax(-route.fullFarCloseMoney.netMoney,0.0)))
+   { reasonCode="CATCHUP_ROUTE_FULL_FAR_MONEY_INVALID"; reason="Full Far money mismatch"; return false; }
+   if(!partial.calculationValid || !partial.finalClosePreviewRouteCandidate || !partial.partialBudgetCanCoverFullFarLoss || partial.partialCloseAvailable ||
+      MathAbs(partial.rawCloseLot)>MoneyCalculationTolerance || MathAbs(partial.normalizedCloseLot)>MoneyCalculationTolerance ||
+      !HybridRouteMoneyEqual(partial.farLotBefore,before.farLot) || !HybridRouteMoneyEqual(partial.farLotAfter,before.farLot) ||
+      MathAbs(partial.budgetConsumed)>MoneyCalculationTolerance || !HybridRouteMoneyEqual(partial.budgetAfter,partial.budgetGross) ||
+      MathAbs(partial.partialCloseMoney.netMoney)>MoneyCalculationTolerance || !partial.remainderVolumeValid || !partial.budgetConservationPass)
+   { reasonCode="CATCHUP_ROUTE_PARTIAL_POLICY_VIOLATION"; reason="Partial policy changed route state"; return false; }
+   if(!HybridRouteMoneyEqual(route.realizedPLBefore,before.realizedCyclePL) || !HybridRouteMoneyEqual(route.harvestNet,row.harvestNet) ||
+      !HybridRouteMoneyEqual(route.realizedPLAfterHarvest,HybridCatchUpMoneyRound(before.realizedCyclePL+row.harvestNet)))
+   { reasonCode="CATCHUP_ROUTE_REALIZED_PL_INVALID"; reason="Realized PL mismatch"; return false; }
+   if(!HybridRouteMoneyEqual(route.partialBudgetBefore,before.partialFarBudgetAvailable) || !HybridRouteMoneyEqual(route.partialAdd,row.partialAdd) ||
+      !HybridRouteMoneyEqual(route.partialBudgetGross,HybridCatchUpMoneyRound(before.partialFarBudgetAvailable+row.partialAdd)) ||
+      !HybridRouteMoneyEqual(route.partialBudgetGross,partial.budgetGross) || !HybridRouteMoneyEqual(route.partialBudgetGross,partial.budgetAfter))
+   { reasonCode="CATCHUP_ROUTE_PARTIAL_BUDGET_INVALID"; reason="Partial budget mismatch"; return false; }
+   if(!HybridRouteMoneyEqual(route.reserveBefore,before.finalReserveReal) || !HybridRouteMoneyEqual(route.reserveAdd,row.reserveAdd) ||
+      !HybridRouteMoneyEqual(route.reserveAfter,HybridCatchUpMoneyRound(before.finalReserveReal+row.reserveAdd)))
+   { reasonCode="CATCHUP_ROUTE_RESERVE_INVALID"; reason="Reserve mismatch"; return false; }
+   if(!HybridRouteMoneyEqual(route.carryBefore,before.carryAvailable) || !HybridRouteMoneyEqual(route.carryAdd,row.carryAdd) ||
+      !HybridRouteMoneyEqual(route.carryAfter,HybridCatchUpMoneyRound(before.carryAvailable+row.carryAdd)))
+   { reasonCode="CATCHUP_ROUTE_CARRY_INVALID"; reason="Carry mismatch"; return false; }
+   if(!row.currentLegMoneyEvaluated || !row.harvestAllocationEvaluated || !row.fullFarAffordabilityEvaluated || row.partialFarEvaluated ||
+      row.nextBasketEvaluated || row.nextBasketGeometryEvaluated || row.nextBasketMarginEvaluated || row.recoveryAfterReopenEvaluated ||
+      MathAbs(row.farLotClosed)>MoneyCalculationTolerance || !HybridRouteMoneyEqual(row.farLotAfter,before.farLot) ||
+      MathAbs(row.partialConsumed)>MoneyCalculationTolerance || !HybridRouteMoneyEqual(row.realizedPLAfterPartial,row.realizedPLAfterHarvest))
+   { reasonCode="CATCHUP_ROUTE_STAGE_FLAGS_INVALID"; reason="Route stage flags invalid"; return false; }
+   if(route.sourceStateRevision!=before.stateRevision || route.routeStateRevision!=before.stateRevision+1)
+   { reasonCode="CATCHUP_ROUTE_REVISION_INVALID"; reason="Route revision mismatch"; return false; }
+   if(route.sourceStateFingerprint!=before.fingerprint || route.routeStateFingerprint==0 || route.routeStateFingerprint!=HybridFinalCloseRouteFingerprint(route))
+   { reasonCode="CATCHUP_ROUTE_FINGERPRINT_INVALID"; reason="Route fingerprint mismatch"; return false; }
+   return true;
+}
+
 bool BuildHybridFinalCloseRouteState(const HybridCatchUpState &before,const HybridHarvestLevelResult &row,const HybridPartialFarPreviewResult &partial,const HybridCatchUpProfile &profile,HybridFinalCloseRouteState &route)
 {
-   ZeroMemory(route); route.calculationValid=partial.calculationValid && partial.finalClosePreviewRouteCandidate;
-   route.routeCandidate=partial.finalClosePreviewRouteCandidate; route.symbol=before.symbol; route.magic=before.magic;
-   route.cycleId=before.cycleId; route.stateRevision=before.stateRevision; route.level=row.level; route.profileKind=profile.kind;
+   ZeroMemory(route); route.routeCandidate=partial.finalClosePreviewRouteCandidate; route.symbol=before.symbol; route.magic=before.magic;
+   route.cycleId=before.cycleId; route.sourceStateRevision=before.stateRevision; route.routeStateRevision=before.stateRevision+1; route.level=row.level; route.profileKind=profile.kind;
    route.farDirection=before.farDirection; route.farLot=before.farLot; route.farOpenPrice=before.farOpenPrice;
    route.executionBid=row.triggerBid; route.executionAsk=row.triggerAsk; route.fullFarCloseMoney=partial.fullFarCloseMoney;
    route.fullFarLoss=partial.fullFarLoss; route.harvestNet=row.harvestNet; route.realizedPLBefore=before.realizedCyclePL;
    route.realizedPLAfterHarvest=row.realizedPLAfterHarvest; route.partialBudgetBefore=before.partialFarBudgetAvailable;
-   route.partialAdd=row.partialAdd; route.partialBudgetGross=partial.budgetAfter; route.reserveBefore=before.finalReserveReal;
+   route.partialAdd=row.partialAdd; route.partialBudgetGross=partial.budgetGross; route.reserveBefore=before.finalReserveReal;
    route.reserveAdd=row.reserveAdd; route.reserveAfter=HybridCatchUpMoneyRound(before.finalReserveReal+row.reserveAdd);
    route.carryBefore=before.carryAvailable; route.carryAdd=row.carryAdd; route.carryAfter=HybridCatchUpMoneyRound(before.carryAvailable+row.carryAdd);
-   route.sourceStateFingerprint=before.fingerprint; route.reasonCode="CATCHUP_FINAL_CLOSE_PREVIEW_REQUIRED";
-   route.reason="Full Far loss affordable; immutable pre-Partial route state";
-   route.routeStateFingerprint=HybridFinalCloseRouteFingerprint(route);
-   return route.calculationValid && route.farLot==before.farLot && route.partialBudgetGross>=0 && route.routeStateFingerprint!=0;
+   route.sourceStateFingerprint=before.fingerprint; route.routeStateFingerprint=HybridFinalCloseRouteFingerprint(route);
+   string code,reason; route.validationPass=ValidateHybridFinalCloseRouteState(before,row,partial,route,code,reason);
+   route.calculationValid=route.validationPass; route.validationCode=code; route.reasonCode=code; route.reason=reason;
+   return route.validationPass;
 }
 
 HybridCatchUpOutcome EvaluateHybridCatchUpLevel(const HybridCatchUpState &before,const HybridCatchUpProfile &profile,HybridHarvestLevelResult &row,HybridCatchUpState &after)
@@ -289,21 +354,30 @@ HybridCatchUpOutcome EvaluateHybridCatchUpLevel(const HybridCatchUpState &before
    after.lastCoverageDeficit=row.coverageDeficit; after.lastRecoveryPL=row.recoveryAfterReopen; after.projectedOpenCommissionIncluded=true;
    after.cumulativeOpeningCosts=HybridCatchUpMoneyRound(before.cumulativeOpeningCosts+nextCore.openCommission+nextTrend.openCommission+nextSmall.openCommission);
    after.fingerprint=HybridCatchUpFingerprint(after,profile.kind); row.stateAfterFingerprint=after.fingerprint; row.stateAfter=after;
+   row.continuationStateValid=true;
    if(row.coveragePass && row.recoveryPass) return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_FINITE_PASS,"Finite Catch-Up gates passed");
    return SetHybridCatchUpRowOutcome(row,HYBRID_CATCHUP_OUTCOME_CONTINUE,!row.coveragePass?"Remaining Far not covered":"Recovery threshold not reached");
 }
 
-bool HybridWorstRowIsAdverse(const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
+bool HybridWorstCurrentLegsAreAdverse(const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
 {
    double t=MoneyCalculationTolerance;
-   bool fullFarAdverse=!base.fullFarAffordabilityEvaluated || !worst.fullFarAffordabilityEvaluated || worst.fullFarLoss+t>=base.fullFarLoss;
-   return fullFarAdverse && worst.triggerBid<=base.triggerBid+t && worst.triggerAsk+t>=base.triggerAsk &&
+   return worst.triggerBid<=base.triggerBid+t && worst.triggerAsk+t>=base.triggerAsk &&
       worst.coreClose.netMoney<=base.coreClose.netMoney+t && worst.trendClose.netMoney<=base.trendClose.netMoney+t && worst.smallClose.netMoney<=base.smallClose.netMoney+t;
 }
+bool HybridWorstFullFarIsAdverse(const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
+{
+   if(!base.fullFarAffordabilityEvaluated || !worst.fullFarAffordabilityEvaluated) return true;
+   double t=MoneyCalculationTolerance;
+   return worst.fullFarLoss+t>=base.fullFarLoss && worst.triggerBid<=base.triggerBid+t && worst.triggerAsk+t>=base.triggerAsk &&
+      base.farLotBefore==worst.farLotBefore && base.farOpenPrice==worst.farOpenPrice;
+}
+bool HybridWorstRowIsAdverse(const HybridHarvestLevelResult &base,const HybridHarvestLevelResult &worst)
+{ return HybridWorstCurrentLegsAreAdverse(base,worst) && HybridWorstFullFarIsAdverse(base,worst); }
 
 string HybridCatchUpTraceRow(const HybridHarvestLevelResult &r,string profile)
 {
-   return StringFormat("HYBRID_CATCHUP_LEVEL|Profile=%s|Level=%d|Outcome=%d|OutcomeClass=%d|CalculationValid=%d|ContinuationAllowed=%d|FinalClosePreviewRequired=%d|Terminal=%d|Reject=%d|Error=%d|StateBeforeFingerprint=%I64u|StateAfterFingerprint=%I64u|BaseTriggerBid=%.10f|BaseTriggerAsk=%.10f|ExecutionBid=%.10f|ExecutionAsk=%.10f|BaselineSpread=%.10f|ExecutionSpread=%.10f|CumulativeSpreadStress=%d|FullFarAffordabilityEvaluated=%d|PartialBudgetCanCoverFullFarLoss=%d|FinalClosePreviewRouteCandidate=%d|FullFarNet=%.2f|FullFarLoss=%.2f|PartialFarEvaluated=%d|FarLotBefore=%.8f|FarCloseLot=%.8f|FarLotAfter=%.8f|FarLotForFinalClosePreview=%.8f|HarvestNet=%.2f|PartialBudgetBefore=%.2f|PartialAdd=%.2f|PartialBudgetGross=%.2f|PartialConsumed=%.2f|PartialBudgetAfter=%.2f|PartialBudgetForFinalClosePreview=%.2f|ReserveAfter=%.2f|ReserveForFinalClosePreview=%.2f|CarryAfter=%.2f|CarryForFinalClosePreview=%.2f|RealizedAfterHarvest=%.2f|RealizedForFinalClosePreview=%.2f|RealizedAfterPartial=%.2f|NextBasketEvaluated=%d|NextBasketGeometryEvaluated=%d|NextBasketMarginEvaluated=%d|RecoveryAfterReopenEvaluated=%d|RouteStateFingerprint=%I64u|RemainingFarCost=%.2f|CoverageDeficit=%.2f|RecoveryAfterReopen=%.2f|MarginBeforeSnapshot=%.2f|EstimatedReleasedMarginUpper=%.2f|RemainingFarMargin=%.2f|NextCoreMargin=%.2f|NextTrendMargin=%.2f|NextSmallMargin=%.2f|SteadyStateMarginUpper=%.2f|PeakExecutionMarginUpper=%.2f|OverlapMarginUpper=%.2f|MarginLevelAfter=%.2f|MarginUsageAfter=%.2f|ProjectedFreeMarginAfter=%.2f|ReasonCode=%s|Reason=%s;",
+   string trace=StringFormat("HYBRID_CATCHUP_LEVEL|Profile=%s|Level=%d|Outcome=%d|OutcomeClass=%d|CalculationValid=%d|ContinuationAllowed=%d|FinalClosePreviewRequired=%d|Terminal=%d|Reject=%d|Error=%d|StateBeforeFingerprint=%I64u|StateAfterFingerprint=%I64u|BaseTriggerBid=%.10f|BaseTriggerAsk=%.10f|ExecutionBid=%.10f|ExecutionAsk=%.10f|BaselineSpread=%.10f|ExecutionSpread=%.10f|CumulativeSpreadStress=%d|FullFarAffordabilityEvaluated=%d|PartialBudgetCanCoverFullFarLoss=%d|FinalClosePreviewRouteCandidate=%d|FullFarNet=%.2f|FullFarLoss=%.2f|PartialFarEvaluated=%d|FarLotBefore=%.8f|FarCloseLot=%.8f|FarLotAfter=%.8f|FarLotForFinalClosePreview=%.8f|HarvestNet=%.2f|PartialBudgetBefore=%.2f|PartialAdd=%.2f|PartialBudgetGross=%.2f|PartialConsumed=%.2f|PartialBudgetAfter=%.2f|PartialBudgetForFinalClosePreview=%.2f|ReserveAfter=%.2f|ReserveForFinalClosePreview=%.2f|CarryAfter=%.2f|CarryForFinalClosePreview=%.2f|RealizedAfterHarvest=%.2f|RealizedForFinalClosePreview=%.2f|RealizedAfterPartial=%.2f|NextBasketEvaluated=%d|NextBasketGeometryEvaluated=%d|NextBasketMarginEvaluated=%d|RecoveryAfterReopenEvaluated=%d|RouteStateFingerprint=%I64u|RemainingFarCost=%.2f|CoverageDeficit=%.2f|RecoveryAfterReopen=%.2f|MarginBeforeSnapshot=%.2f|EstimatedReleasedMarginUpper=%.2f|RemainingFarMargin=%.2f|NextCoreMargin=%.2f|NextTrendMargin=%.2f|NextSmallMargin=%.2f|SteadyStateMarginUpper=%.2f|PeakExecutionMarginUpper=%.2f|OverlapMarginUpper=%.2f|MarginLevelAfter=%.2f|MarginUsageAfter=%.2f|ProjectedFreeMarginAfter=%.2f|ReasonCode=%s|Reason=%s;",
       profile,r.level,(int)r.outcome,(int)r.outcomeClass,(int)r.calculationValid,(int)r.continuationAllowed,(int)r.finalClosePreviewRequired,(int)r.terminal,(int)r.reject,(int)r.error,
       r.stateBeforeFingerprint,r.stateAfterFingerprint,r.baseTriggerBid,r.baseTriggerAsk,r.triggerBid,r.triggerAsk,r.baselineSpread,r.executionSpread,(int)r.cumulativeSpreadStress,
       (int)r.fullFarAffordabilityEvaluated,(int)r.partialBudgetCanCoverFullFarLoss,(int)r.finalClosePreviewRouteCandidate,r.fullFarNet,r.fullFarLoss,(int)r.partialFarEvaluated,
@@ -311,6 +385,9 @@ string HybridCatchUpTraceRow(const HybridHarvestLevelResult &r,string profile)
       r.realizedPLAfterHarvest,r.realizedPLForFinalClosePreview,r.realizedPLAfterPartial,(int)r.nextBasketEvaluated,(int)r.nextBasketGeometryEvaluated,(int)r.nextBasketMarginEvaluated,(int)r.recoveryAfterReopenEvaluated,r.finalCloseRouteState.routeStateFingerprint,
       r.remainingFarCloseCost,r.coverageDeficit,r.recoveryAfterReopen,r.marginBeforeSnapshot,r.estimatedReleasedMarginUpper,r.remainingFarMargin,
       r.nextCoreMargin,r.nextTrendMargin,r.nextSmallMargin,r.steadyStateMarginUpper,r.peakExecutionMarginUpper,r.overlapMarginUpper,r.marginLevelAfter,r.marginUsageAfter,r.projectedFreeMarginAfter,r.reasonCode,r.reason);
+   BrokerMoneyResult m=r.finalCloseRouteState.fullFarCloseMoney;
+   trace+=StringFormat("CurrentLegMoneyEvaluated=%d|HarvestAllocationEvaluated=%d|FullFarAdverseEvaluated=%d|FullFarAdversePass=%d|ContinuationStateValid=%d|RouteStateCalculationValid=%d|RouteStateValidationPass=%d|RouteStateValidationCode=%s|SourceStateRevision=%I64u|RouteStateRevision=%I64u|RouteFingerprintPayloadHash=%I64u|FullFarGrossProfit=%.2f|FullFarOpenCommission=%.2f|FullFarCloseCommission=%.2f|FullFarSwap=%.2f|FullFarFee=%.2f|FullFarSlippageCost=%.2f|FullFarNetMoney=%.2f;",(int)r.currentLegMoneyEvaluated,(int)r.harvestAllocationEvaluated,(int)r.fullFarAdverseEvaluated,(int)r.fullFarAdversePass,(int)r.continuationStateValid,(int)r.finalCloseRouteState.calculationValid,(int)r.finalCloseRouteState.validationPass,r.finalCloseRouteState.validationCode,r.finalCloseRouteState.sourceStateRevision,r.finalCloseRouteState.routeStateRevision,HybridFinalCloseRouteFingerprint(r.finalCloseRouteState),m.grossProfit,m.openCommission,m.closeCommission,m.swap,m.fee,m.slippageCost,m.netMoney);
+   return trace;
 }
 
 HybridCatchUpOutcome SetHybridCatchUpResultOutcome(HybridCatchUpResult &result,HybridCatchUpOutcome outcome,string reason)
@@ -338,11 +415,16 @@ HybridCatchUpOutcome EvaluateHybridFiniteCatchUpPreviewTyped(const HybridCycleSn
       HybridHarvestLevelResult baseRow,worstRow; HybridCatchUpState nextBase,nextWorst;
       HybridCatchUpOutcome baseOutcome=EvaluateHybridCatchUpLevel(baseState,baseProfile,baseRow,nextBase);
       HybridCatchUpOutcome worstOutcome=EvaluateHybridCatchUpLevel(worstState,worstProfile,worstRow,nextWorst);
+      baseRow.fullFarAdverseEvaluated=baseRow.fullFarAffordabilityEvaluated && worstRow.fullFarAffordabilityEvaluated;
+      worstRow.fullFarAdverseEvaluated=baseRow.fullFarAdverseEvaluated;
+      baseRow.fullFarAdversePass=!baseRow.fullFarAdverseEvaluated || HybridWorstFullFarIsAdverse(baseRow,worstRow);
+      worstRow.fullFarAdversePass=baseRow.fullFarAdversePass;
       if(baseRow.currentLegMoneyEvaluated && worstRow.currentLegMoneyEvaluated && !HybridWorstRowIsAdverse(baseRow,worstRow))
          worstOutcome=SetHybridCatchUpRowOutcome(worstRow,HYBRID_CATCHUP_OUTCOME_REJECT_WORST_NON_ADVERSE,"Worst execution improved a projected leg");
       ArrayResize(result.baseLevels,level); ArrayResize(result.worstLevels,level); result.baseLevels[level-1]=baseRow; result.worstLevels[level-1]=worstRow;
       result.evaluatedLevels=level; result.baseOutcome=baseOutcome; result.worstOutcome=worstOutcome;
       result.trace+=HybridCatchUpTraceRow(baseRow,"BASE")+HybridCatchUpTraceRow(worstRow,"WORST"); result.finalBaseState=nextBase; result.finalWorstState=nextWorst;
+      result.finalBaseStateValid=baseRow.continuationStateValid; result.finalWorstStateValid=worstRow.continuationStateValid;
       result.finalCoverageDeficit=baseRow.coverageDeficit; result.finalRecoveryPL=baseRow.recoveryAfterReopen;
       HybridCatchUpOutcome aggregate=CombineHybridCatchUpOutcomes(baseOutcome,worstOutcome); HybridCatchUpOutcomeClass cls=ClassifyHybridCatchUpOutcome(aggregate);
       if(aggregate==HYBRID_CATCHUP_OUTCOME_FINITE_PASS) { result.finiteLevel=level; return SetHybridCatchUpResultOutcome(result,aggregate,"Base and Worst finite gates passed"); }
@@ -350,6 +432,7 @@ HybridCatchUpOutcome EvaluateHybridFiniteCatchUpPreviewTyped(const HybridCycleSn
       {
          result.routedAtLevel=level; result.finalCloseRouteBaseState=baseRow.finalCloseRouteState;
          result.finalCloseRouteWorstState=worstRow.finalCloseRouteState;
+         result.finalBaseStateValid=false; result.finalWorstStateValid=false;
          result.finalCloseRouteStatesValid=baseRow.finalCloseRouteState.calculationValid && worstRow.finalCloseRouteState.calculationValid;
          if(!result.finalCloseRouteStatesValid) return SetHybridCatchUpResultOutcome(result,HYBRID_CATCHUP_OUTCOME_ERROR_INTERNAL,"CATCHUP_ROUTE_STATE_INVALID");
          return SetHybridCatchUpResultOutcome(result,aggregate,"Base and Worst route to Final Close preview");
