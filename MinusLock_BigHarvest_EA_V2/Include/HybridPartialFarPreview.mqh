@@ -22,8 +22,20 @@ bool SolveHybridPartialFarPreview(const HybridCatchUpState &state,double budgetA
    if(!HybridPartialFarCloseMoney(state,state.farLot,closeBid,closeAsk,fullMoney))
    { result.reason="CATCHUP_PARTIAL_SOLVER_FAILED"; return false; }
    double fullCost=MathMax(-fullMoney.netMoney,0.0);
+   result.fullFarCloseMoney=fullMoney; result.fullFarLoss=fullCost;
    result.partialBudgetCanCoverFullFarLoss=fullCost<=budgetAvailable+MoneyCalculationTolerance;
    result.finalClosePreviewRouteCandidate=result.partialBudgetCanCoverFullFarLoss;
+   if(result.finalClosePreviewRouteCandidate)
+   {
+      result.calculationValid=true; result.partialCloseAvailable=false;
+      result.rawCloseLot=0.0; result.normalizedCloseLot=0.0;
+      result.farLotAfter=state.farLot; ResetBrokerMoneyResult(result.partialCloseMoney);
+      result.budgetConsumed=0.0; result.budgetAfter=NormalizeDouble(MathMax(0.0,budgetAvailable),2);
+      result.remainderVolumeValid=true;
+      result.budgetConservationPass=MathAbs(result.budgetBefore+result.budgetAdded-result.budgetAfter)<=MoneyCalculationTolerance;
+      result.reason="CATCHUP_FINAL_CLOSE_PREVIEW_REQUIRED";
+      return result.budgetConservationPass;
+   }
 
    // Full Far is never consumed by Partial policy. Descending scan selects the
    // maximum affordable lot leaving a broker-valid residual.

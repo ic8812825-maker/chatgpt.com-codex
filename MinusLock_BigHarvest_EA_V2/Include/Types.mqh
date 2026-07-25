@@ -1088,9 +1088,26 @@ struct HybridPartialFarPreviewResult
    double budgetBefore; double budgetAdded; double budgetGross;
    double rawCloseLot; double normalizedCloseLot; double farLotBefore; double farLotAfter;
    BrokerMoneyResult partialCloseMoney;
+   BrokerMoneyResult fullFarCloseMoney; double fullFarLoss;
    double budgetConsumed; double budgetAfter;
    bool remainderVolumeValid; bool budgetConservationPass;
    string reason;
+};
+
+struct HybridFinalCloseRouteState
+{
+   bool calculationValid; bool routeCandidate;
+   string symbol; long magic; ulong cycleId; ulong stateRevision; int level;
+   HybridCatchUpProfileKind profileKind;
+   Direction farDirection; double farLot; double farOpenPrice;
+   double executionBid; double executionAsk;
+   BrokerMoneyResult fullFarCloseMoney; double fullFarLoss; double harvestNet;
+   double realizedPLBefore; double realizedPLAfterHarvest;
+   double partialBudgetBefore; double partialAdd; double partialBudgetGross;
+   double reserveBefore; double reserveAdd; double reserveAfter;
+   double carryBefore; double carryAdd; double carryAfter;
+   ulong sourceStateFingerprint; ulong routeStateFingerprint;
+   string reasonCode; string reason;
 };
 
 struct HybridHarvestLevelResult
@@ -1098,6 +1115,11 @@ struct HybridHarvestLevelResult
    bool calculationValid; HybridCatchUpOutcome outcome; HybridCatchUpOutcomeClass outcomeClass;
    bool continuationAllowed; bool finalClosePreviewRequired; bool terminal; bool reject; bool error;
    string reasonCode;
+   bool currentLegMoneyEvaluated; bool harvestAllocationEvaluated; bool fullFarAffordabilityEvaluated;
+   bool partialFarEvaluated; bool nextBasketEvaluated; bool nextBasketGeometryEvaluated;
+   bool nextBasketMarginEvaluated; bool recoveryAfterReopenEvaluated;
+   bool partialBudgetCanCoverFullFarLoss; bool finalClosePreviewRouteCandidate;
+   double fullFarNet; double fullFarLoss; double partialBudgetGross; double realizedPLForFinalClosePreview;
    int level; ulong stateBeforeFingerprint; ulong stateAfterFingerprint;
    double baseTriggerBid; double baseTriggerAsk; double triggerBid; double triggerAsk;
    double baselineSpread; double executionSpread; bool cumulativeSpreadStress;
@@ -1123,6 +1145,7 @@ struct HybridHarvestLevelResult
    bool allocationPass; bool partialBudgetPass; bool temporalPass; bool coveragePass;
    bool recoveryPass; bool marginPass; bool nextStatePass; bool pass;
    HybridCatchUpState stateAfter;
+   HybridFinalCloseRouteState finalCloseRouteState;
    string reason;
 };
 
@@ -1136,6 +1159,8 @@ struct HybridCatchUpResult
    string failedProfile; string reasonCode;
    HybridHarvestLevelResult baseLevels[]; HybridHarvestLevelResult worstLevels[];
    HybridCatchUpState finalBaseState; HybridCatchUpState finalWorstState;
+   HybridFinalCloseRouteState finalCloseRouteBaseState; HybridFinalCloseRouteState finalCloseRouteWorstState;
+   bool finalCloseRouteStatesValid;
    double finalCoverageDeficit; double finalRecoveryPL;
    string trace; string reason;
 };
