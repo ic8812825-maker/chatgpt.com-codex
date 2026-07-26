@@ -58,3 +58,51 @@ METAEDITOR_COMPILE=NOT_RUN
 MT5_STRATEGY_TESTER=NOT_RUN
 REAL_TRADING_ALLOWED=NO
 ```
+
+## 5. Место в gate graph
+
+Существующий граф сохраняется без перестановки:
+
+```text
+IDENTITY → CONFIGURATION → VOLUME → ROUNDING → VOLUME_RECHECK
+→ GEOMETRY → BASE_MONEY → FINITE_CATCHUP → TRANSITION → NEW_FAR
+→ RISK → MARGIN → WORST_CASE → FUTURE_SMALL
+→ FINAL_CLOSE_PREVIEW → FINAL_DECISION
+```
+
+Basket Risk концептуально расширяет разрешающий контур только после получения calculation-valid CandidatePlan и согласованных Base/Worst результатов:
+
+```text
+existing predecessors PASS
+→ CandidatePlan calculation-valid and frozen
+→ existing Candidate RISK PASS
+→ existing MARGIN PASS
+→ Base/Worst agreement
+→ Cycle Basket Risk
+→ Account Basket Risk
+→ final typed Basket Risk decision
+→ Execution Freshness Gate
+→ TradeEngine
+→ confirmed TradeTransaction/deals
+→ Post-Execution Reconciliation Gate
+→ new snapshot or terminal result
+```
+
+`FINAL_CLOSE_PREVIEW` остаётся route fork существующего графа. Для Final route Basket Risk возвращает разрешение preview/risk-reducing execution, а не continuation нового basket и не cycle success.
+
+### 5.1. Predecessor contract
+
+Basket Risk имеет `CalculationValid=false` и не выполняет собственные Cycle/Account checks, если не прошёл хотя бы один из: identity, configuration, volume, rounding recheck, geometry, Base/Worst consistency, обязательный existing Risk/Margin gate; либо predecessor вернул ERROR, state terminal, plan не calculation-valid.
+
+Первый failed predecessor определяет ReasonCode. Все downstream-поля получают `Evaluated=false`, а не ложный `Passed=false/true`. Basket Risk не может повторно вычислить predecessor, исправить его вход или разрешить downstream после failure.
+
+### 5.2. Gate responsibilities
+
+| Gate | Ответственность | Basket Risk relationship |
+|---|---|---|
+| Existing Candidate Risk | Риск готового candidate по существующим laws/limits | Обязательный predecessor, не дублируется |
+| Existing Margin | Margin конкретного candidate/маршрута | Обязательный predecessor, не заменяется account aggregation |
+| Cycle Basket Risk | Совокупность legs/buckets активного recovery cycle | Новый additive restrictive gate |
+| Account Basket Risk | Совокупность managed cycles и account state | Новый additive restrictive gate |
+| Execution Freshness | Неизменность identity/revision/fingerprint/state/prices | Обязательный recheck непосредственно перед execution |
+| Reconciliation | Actual positions/deals/ledger после execution | Обязателен до следующего open при partial/reject/mismatch |
