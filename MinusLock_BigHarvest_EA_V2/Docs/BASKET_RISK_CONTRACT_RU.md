@@ -484,3 +484,42 @@ Reconciliation MUST:
 7. повторно провести обязательный gate chain перед следующим open.
 
 Risk-reducing retry может продолжить только заранее определённый close route с actual ticket/volume и duplicate guard; он не разрешает новый open. Если reconciliation невозможно, результат ERROR/TERMINAL/manual intervention согласно существующему lifecycle.
+
+## 18. Exactly-once contract
+
+Exactly once применяется к каждому `HarvestNet`, `PartialFarNet`, open commission leg и ledger event. Projected event не является commit. Один event имеет ровно один terminal commit outcome (`COMMITTED` или typed rejected/rolled-back status по существующему ledger contract) и не может быть повторно credited/debited после restart.
+
+Нормативный состав EventKey:
+
+```text
+Symbol + Magic + CycleID + DealTicket + PositionIdentifier
++ LedgerEventType + PlanID + Revision
+```
+
+Поля сериализуются deterministic и namespace-aware. Один текст comment, ticket без identifier/cycle или PlanID без deal identity недостаточны. Profile forecast не создаёт отдельный financial event. Basket Risk может только проверить наличие/уникальность/provenance key; commit выполняет существующий ledger после confirmed deal.
+
+## 19. Совместимое расширение trace
+
+Не создаётся отдельный несовместимый лог. Будущие поля добавляются к `HYBRID_GATE`, `HYBRID_CATCHUP_LEVEL`, `HYBRID_DECISION` согласно их fixed-order/version contract:
+
+| Поле | Unit/type | Semantics |
+|---|---|---|
+| `CycleRiskEvaluated` | bool | Gate реально исполнялся |
+| `CycleRiskPassed` | bool/NA | NA если не evaluated |
+| `CycleRiskCode` | typed code | Первый cycle result code |
+| `AccountRiskEvaluated` | bool | Account gate реально исполнялся |
+| `AccountRiskPassed` | bool/NA | NA если short-circuit |
+| `AccountRiskCode` | typed code | Первый account result code |
+| `ProjectedAccountMarginUpper` | money | Conservative forecast |
+| `ProjectedAccountFreeMargin` | money | Forecast, не actual |
+| `ProjectedAccountMarginLevel` | percent | Forecast |
+| `ProjectedAccountDrawdown` | percent | Forecast |
+| `CycleGrossLots` | lot | Active cycle gross |
+| `CycleNetExposure` | lot | Signed recovery exposure |
+| `CycleWorstLoss` | money | Worst profile forecast |
+| `BasketRiskOutcome` | typed outcome | Итог раздела 11 |
+| `BasketRiskReasonCode` | typed code | Первый failed gate/result |
+| `ExecutionFreshnessPassed` | bool/NA | Recheck непосредственно перед action |
+| `ReconciliationRequired` | bool | Блокирует следующий open |
+
+Каждая запись также содержит Timestamp, Symbol, Magic, CycleID, PlanID, ModelVersion, Profile, Fingerprint, Revision и state/route identity. Serialization deterministic, numeric precision/unit versioned, field order fixed. Base/Worst пишутся отдельными profile records плюс aggregate decision; исходные records не переписываются aggregate результатом.
