@@ -106,3 +106,44 @@ Basket Risk имеет `CalculationValid=false` и не выполняет со�
 | Account Basket Risk | Совокупность managed cycles и account state | Новый additive restrictive gate |
 | Execution Freshness | Неизменность identity/revision/fingerprint/state/prices | Обязательный recheck непосредственно перед execution |
 | Reconciliation | Actual positions/deals/ledger после execution | Обязателен до следующего open при partial/reject/mismatch |
+
+## 6. Граница ответственности и read-only contract
+
+### 6.1. Разрешено
+
+Basket Risk MUST:
+
+- принять immutable `StateBefore`, `CandidatePlan`, `RouteState`, Base/Worst profiles, fingerprint и revision;
+- проверить готовые значения по существующим invariants;
+- вычислить в будущем только отдельно утверждённые Cycle/Account aggregate risk metrics без изменения исходного plan;
+- вернуть typed outcome и первый typed ReasonCode;
+- сохранить provenance каждого input/output;
+- short-circuit при predecessor failure;
+- различать forecast и confirmed actual.
+
+### 6.2. Запрещено
+
+Basket Risk MUST NOT:
+
+- рассчитывать или выбирать Core, Trend, Small, NewFar, Reverse geometry или next trigger;
+- менять `MinimumSafeNewFar`, `TargetNewFarRatio`, `MaximumNewBigToOldFarRatio`;
+- менять normalized lots либо повторять rounding с иным результатом;
+- распределять Harvest или перемещать деньги между buckets;
+- использовать FinalReserve в Partial Far/Transition/margin/opens;
+- менять CandidatePlan, RouteState, profile, revision или fingerprint;
+- строить Next Basket на Final Close route;
+- считать Final Close preview подтверждённым close;
+- ослаблять strict bound или law при отсутствии safe candidate;
+- вызывать TradeEngine, StateMachine либо ledger commit на Этапе 2.0.
+
+Отсутствие безопасного candidate означает `SAFE_REJECTED`, no-trade/manual-safe typed outcome либо более сильный ERROR/TERMINAL; это не разрешение изменить закон.
+
+### 6.3. Route classification
+
+- **Risk-increasing:** любой open, следующий Big basket, Reverse/Future Small open, рост gross или overlap margin. Требует всех predecessor, Base/Worst, Cycle и Account PASS.
+- **Risk-reducing:** managed close, Partial Far, Final Close, emergency close, завершение partially executed close route. Drawdown/margin breach сам по себе не блокирует однозначное уменьшение риска, но identity, ticket, Symbol/Magic/Cycle, volume, freshness, duplicate guard, terminal action filter и reconciliation остаются обязательными.
+- Неоднозначное действие не классифицируется автоматически как risk-reducing: требуется доказательство state-after exposure/margin upper bounds для Base и Worst.
+
+### 6.4. Запрещённые интерпретации
+
+Запрещено трактовать Basket Risk как замену existing Risk или Margin; обход predecessor; mutating optimizer; новый money model; источник confirmed P/L; разрешение Base-only; общий Base/Worst state; разрешение open после partial; средство promotion любого Big; identity по одному comment; основание MQL5/runtime/production PASS. Historical open price не становится margin control price, а `EstimatedReleasedMarginUpper` — фактическим освобождением.
