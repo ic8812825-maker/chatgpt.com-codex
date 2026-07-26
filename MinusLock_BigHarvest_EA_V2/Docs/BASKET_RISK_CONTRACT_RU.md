@@ -264,3 +264,51 @@ Basket Risk MUST получить два независимо frozen profile sta
 | PASS | REJECT/NOT_EVALUATED | `REJECT_WORST_CASE` |
 
 Calculation-valid route остаётся route, а не confirmed execution.
+
+## 10. Классификация действий и маршрутов
+
+ActionCode типизирован и связан с существующим route; он не является командой исполнения.
+
+### 10.1. Initial
+
+`OPEN_INITIAL_BUY`, `OPEN_INITIAL_SELL`, `CLOSE_INITIAL_PROFIT_LEG`, `PROMOTE_INITIAL_LOSS_LEG_TO_FAR`. Первый plus leg не входит в RecoveryPL, Reserve или TransitionBudget.
+
+### 10.2. Legacy Big/Small
+
+`OPEN_LEGACY_BIG`, `OPEN_LEGACY_SMALL`, `CLOSE_LEGACY_BIG`, `CLOSE_LEGACY_SMALL`, `PARTIAL_CLOSE_FAR`, `FINAL_CLOSE_FAR`.
+
+### 10.3. Hybrid Big
+
+`OPEN_BIG_CORE`, `OPEN_BIG_TREND`, `OPEN_SMALL_BASE`, `CLOSE_BIG_CORE`, `CLOSE_BIG_TREND`, `CLOSE_SMALL_BASE`, `ALLOCATE_CONFIRMED_HARVEST`, `PARTIAL_CLOSE_FAR`, `BUILD_NEXT_BASKET`.
+
+Allocation допустима только из confirmed Harvest deals и сама не является open. `BUILD_NEXT_BASKET` risk-increasing и требует полного gate chain.
+
+### 10.4. Hybrid Small transition
+
+Порядок неизменяем:
++
++```text
++PLAN_CREATED → PLAN_VALIDATED → SMALLBASE_CLOSED → OLDFAR_CLOSED
++→ BIGTREND_CLOSED → BIGCORE_COMPRESSED → ACTUAL_REMAIN_VERIFIED
++→ NEXT_GEOMETRY_PREVIEWED → NEWFAR_PROMOTED
++→ FINAL_GATE_CHECKED → NEXT_CYCLE_CREATED
++```
++
++Ни Basket Risk, ни safe route не пропускают phase. Promotion разрешена только после actual remainder verification; partial/unknown outcome останавливает цепь для reconciliation.
++
++### 10.5. Final route
++
++```text
++FULL_FAR_AFFORDABILITY_EVALUATION
++→ BUILD_FINAL_CLOSE_ROUTE_STATE
++→ FINAL_CLOSE_PREVIEW_REQUIRED
++→ FINAL_CLOSE_EXECUTION
++→ ZERO_MANAGED_POSITIONS_CONFIRMATION
++→ RECONCILIATION
++```
++
++`FINAL_CLOSE_PREVIEW_REQUIRED` не означает `CYCLE_SUCCESS`. Success требует confirmed deals, confirmed financial result, ноль managed positions и reconciliation success.
++
++### 10.6. Action allow policy
++
++Risk-increasing action получает `ExecutionAllowed=true` только после всех existing gates, Base/Worst agreement, Cycle PASS, Account PASS и freshness PASS. Risk-reducing action может получить специальный allow при breached risk/margin limits, только если identity/freshness/volume/duplicate/terminal-action checks пройдены и conservative Base/Worst state-after действительно уменьшает риск.
