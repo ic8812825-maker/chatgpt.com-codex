@@ -234,3 +234,33 @@ Snapshot хранит раздельно: `RealizedPLBefore`, `RealizedPLAfterHa
 После freeze запрещено менять ticket, identifier, lot, role, bucket, revision, profile, plan или price snapshot. Любое изменение экономически mutable input создаёт новый fingerprint/revision и новый preview. Mismatch → `BASKET_RISK_STALE_PLAN` либо `BASKET_RISK_RECONCILIATION_REQUIRED`; execution запрещён.
 
 Fingerprint serialization MUST быть deterministic, с fixed field order, units, normalized numeric representation, ModelVersion и Profile. Base fingerprint не используется как Worst fingerprint.
+
+## 9. Независимые профили BASE и WORST
+
+Basket Risk MUST получить два независимо frozen profile state. Для каждого существуют собственные state sequence, fingerprint, price inputs, spread provenance, margin calculations, risk metrics, gate states, outcome и ReasonCode.
+
+### 9.1. Запрет смешения
+
+- Worst spread/shock не мутирует baseline spread/state.
+- При `cumulativeSpreadStress=false` execution shock применяется один раз на level.
+- Worst leg/net не может улучшиться относительно Base без явного market/model provenance; иначе `WORST_PROFILE_OPTIMISTIC_DIVERGENCE`.
+- Base и Worst lots, prices, states или route outcomes не усредняются.
+- `CONTINUE`/`FINAL_ROUTE`, `PASS`/`REJECT` и иные mixed outcomes — divergence, не PASS.
+
+### 9.2. Агрегация
+
+Приоритет: `ERROR` → `TERMINAL` → reconciliation/stale → reject/divergence → согласованный calculation-valid route/pass. `FINITE_PASS` существует только при `BASE=FINITE_PASS` и `WORST=FINITE_PASS`. Final route разрешён только при согласованном Final route обоих profiles.
+
+| Base | Worst | Aggregate |
+|---|---|---|
+| ERROR/любой | любой | `BASKET_RISK_ERROR` |
+| любой | ERROR | `BASKET_RISK_ERROR` |
+| TERMINAL | любой не ERROR | `BASKET_RISK_TERMINAL` |
+| любой не ERROR | TERMINAL | `BASKET_RISK_TERMINAL` |
+| FINITE_PASS | FINITE_PASS | Допускает переход к Basket gates |
+| FINAL_ROUTE | FINAL_ROUTE | `ALLOW_FINAL_CLOSE_PREVIEW` после Basket checks |
+| CONTINUE | CONTINUE | `ALLOW_CONTINUATION` после Basket checks |
+| различные valid routes | различные | `REJECT_WORST_CASE`/typed divergence |
+| PASS | REJECT/NOT_EVALUATED | `REJECT_WORST_CASE` |
+
+Calculation-valid route остаётся route, а не confirmed execution.
