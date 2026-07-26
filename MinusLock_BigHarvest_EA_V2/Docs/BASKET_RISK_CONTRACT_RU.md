@@ -459,3 +459,28 @@ Basket Risk проверяет route state/fingerprint/revision, Cycle/Account e
 - `NaN`, infinity, отсутствующая dimension/provenance или несовместимая unit → `INTERNAL_ERROR_DIMENSION`/typed predecessor reject, не PASS.
 
 Каждое trace field фиксирует unit. Конверсия points↔price или percent↔ratio допустима только явно, с symbol/profile inputs и provenance; скрытая конверсия запрещена.
+
+## 17. Partial execution и reconciliation
+
+Typed execution observations:
+
+- `OPEN_PARTIAL` — requested open исполнен не полностью;
+- `CLOSE_PARTIAL` — один close исполнен не полностью;
+- `PAIR_PARTIAL` — legs парной операции имеют неполный/асимметричный результат;
+- `TRANSITION_PARTIAL` — остановка между transition phases;
+- `FINAL_CLOSE_PARTIAL` — Far остаётся после final-close attempt;
+- `UNKNOWN_EXECUTION_RESULT` — terminal/deal result нельзя однозначно подтвердить.
+
+Любой partial, reject, timeout, ambiguous ticket/deal или actual/projected mismatch MUST вернуть `BASKET_RISK_RECONCILIATION_REQUIRED`. До reconciliation запрещено: строить следующий open; продолжать старый plan; считать forecast confirmed; повторно начислять деньги; менять role; promote NewFar; очищать context как fully closed.
+
+Reconciliation MUST:
+
+1. заново получить actual managed positions и deals;
+2. разрешить ticket+identifier+Symbol+Magic+CycleID+role;
+3. проверить actual remaining volumes и lifecycle nets;
+4. применить idempotent confirmed ledger events exactly once;
+5. сопоставить state/phase с partial result;
+6. повысить revision, создать новые profile fingerprints и новый snapshot;
+7. повторно провести обязательный gate chain перед следующим open.
+
+Risk-reducing retry может продолжить только заранее определённый close route с actual ticket/volume и duplicate guard; он не разрешает новый open. Если reconciliation невозможно, результат ERROR/TERMINAL/manual intervention согласно существующему lifecycle.
