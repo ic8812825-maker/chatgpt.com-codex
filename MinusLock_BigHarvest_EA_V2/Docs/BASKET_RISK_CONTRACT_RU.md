@@ -523,3 +523,49 @@ Symbol + Magic + CycleID + DealTicket + PositionIdentifier
 | `ReconciliationRequired` | bool | Блокирует следующий open |
 
 Каждая запись также содержит Timestamp, Symbol, Magic, CycleID, PlanID, ModelVersion, Profile, Fingerprint, Revision и state/route identity. Serialization deterministic, numeric precision/unit versioned, field order fixed. Base/Worst пишутся отдельными profile records плюс aggregate decision; исходные records не переписываются aggregate результатом.
+
+## 20. Таблица совместимости gates и invariants
+
+| Existing gate/invariant | Basket Risk input | Basket Risk check | Возможный outcome | Продолжение |
+|---|---|---|---|---|
+| Identity | Symbol/Magic/Cycle/identifier | Exact namespace | IDENTITY reject/error | Нет при failure |
+| Configuration | config validity/profile | predecessor PASS | CONFIG reject | Нет |
+| Volume | raw/normalized lots, broker limits | validity + units | VOLUME reject | Нет |
+| Rounding | directions/provenance | required DOWN/UP | ROUNDING reject | Нет |
+| Volume recheck | rounded lots | min/max/step/dust | VOLUME reject | Нет |
+| Geometry | OldFar/NewFar/legs | GEO-01…05 | GEOMETRY reject | Нет |
+| Law 1 | ready plan results | existing law PASS | GEOMETRY reject | Нет |
+| Law 2 lots | lots result | existing strict result | GEOMETRY/VOLUME reject | Нет |
+| Law 2 money | BrokerMoney result | money law PASS | MONEY reject | Нет |
+| Compression | Old/Residual Far | strict tolerance | GEOMETRY reject | Нет |
+| Next Big | Core+Trend and limit | strict below limit | GEOMETRY reject | Нет на equality |
+| Gross | Core/Trend/Small roles | correct definitions | CYCLE_RISK/error | Только PASS |
+| Base Money | Base profile money | valid/provenance | MONEY reject/error | Нет |
+| Finite Catch-Up | typed catch-up result | calculation-valid/finite | CATCHUP reject/route | Только valid agreement |
+| Transition | plan phase/budget | order and confirmed inputs | TRANSITION reject/recon | Нет при mismatch |
+| New Far | verified remainder/plan | role and actual verification | NEWFAR reject/recon | Нет |
+| Existing Risk | candidate risk result | predecessor PASS | corresponding reject | Нет |
+| Existing Margin | steady/peak/overlap | predecessor PASS/provenance | MARGIN reject | Нет open |
+| Worst Case | independent profile | SAFE/WORST/outcome table | WORST reject/error | Только agreement |
+| Future Small | typed preview | predecessor result | FUTURE_SMALL reject | Нет open |
+| Final Close Preview | RouteState | ROUTE-* invariants | ALLOW_FINAL_CLOSE_PREVIEW | Только preview |
+| Cycle Basket Risk | active cycle metrics | future approved limits | CYCLE_RISK reject/allow | PASS required for open |
+| Account Basket Risk | account metrics | future approved limits | ACCOUNT_RISK reject/allow | PASS required for open |
+| Execution Freshness | current vs frozen identity | fingerprint/revision/state/price | STALE/recon/allow | Только PASS |
+| Reconciliation | actual positions/deals/ledger | actual parity/exactly-once | recon/error/new snapshot | Open только после success |
+
+## 21. Полный запрет неверных трактовок
+
+Ни implementation, ни review не вправе утверждать, что Basket Risk: заменяет Risk/Margin Gate; пропускает predecessor failure; меняет CandidatePlan или normalized lot; использует Reserve для Partial; повторно добавляет Reserve к RecoveryPL; сохраняет projected money как confirmed; превращает Final preview в success; разрешает Base без Worst; объединяет profiles; использует historical price для margin control; считает released-margin estimate actual; продолжает open после partial; promotes NewFar без actual Core remainder; затрагивает чужой namespace; использует comment как единственный identity; доказывает MQL5 без MetaEditor; доказывает runtime без Strategy Tester; повышает documentation stage до production ready.
+
+## 22. Acceptance boundary и переход
+
+Этап 2.0 разрешает только:
+
+```text
+STAGE_2_0_DOCUMENTATION_AUDIT_COMPLETE
+BASKET_RISK_CONTRACT_READY_FOR_REVIEW
+BASKET_RISK_EXISTING_INVARIANT_COMPATIBILITY_DOCUMENTED
+```
+
+`BASKET_RISK_CONTRACT_APPROVED` может установить только отдельная приёмка. До этого Этап 2.1 не начинается. Даже после approval Этап 2.1 остаётся математической/размерностной документацией без Python Oracle, MQL5, StateMachine и trading changes.
