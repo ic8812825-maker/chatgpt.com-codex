@@ -364,3 +364,43 @@ ReasonCode — stable typed uppercase identifier; free text разрешён т�
 | `INTERNAL_ERROR_*` | `INTERNAL_ERROR_INVARIANT`, `INTERNAL_ERROR_DIMENSION`, `INTERNAL_ERROR_SERIALIZATION` |
 
 Новые коды добавляются versioned append-only; смысл существующего кода не переиспользуется.
+
+## 13. Cycle Basket Risk и Account Basket Risk
+
+Этап 2.0 определяет структуру и dependencies, но не утверждает формулы/лимиты/score; это предмет Этапа 2.1 после `BASKET_RISK_CONTRACT_APPROVED`.
+
+### 13.1. Cycle Basket Risk
+
+Namespace: точное сочетание `Symbol + Magic + CycleID + role identifier`. В cycle aggregation не входят чужие symbol/magic/cycle и unmanaged positions.
+
+| Metric | Dimension | Contract |
+|---|---|---|
+| `CycleGrossLots` | lot | Сумма gross managed lots активного cycle |
+| `CycleDirectionalLots` | lot | Signed directional exposure |
+| `CycleNetRecoveryExposure` | lot | Recovery exposure по profile |
+| `CycleWorstFloatingLoss` | money | Worst profile forecast |
+| `CycleRealizedPL` | money | Confirmed realized only |
+| `CycleFloatingNet` | money | Profile floating forecast |
+| `CycleRecoveryPL` | money | Без повторного Reserve |
+| `CycleReserve` | money | Отдельная классификация |
+| `CyclePartialBudget` | money | Только Partial budget |
+| `CycleCarry` | money | Carry bucket |
+| `CycleTransitionBudget` | money | Transition bucket |
+| `CycleRequiredMargin` | money | Conservative state-after |
+| `CyclePeakExecutionMargin` | money | Peak execution upper |
+| `CycleReverseCount` | count | Целое неотрицательное |
+| `CycleHarvestLevel` | count | Текущий level |
+| `CycleManagedPositionCount` | count | Verified managed positions |
+| `CycleRiskScore` | versioned score | Формула не утверждена Этапом 2.0 |
+
+Для Hybrid: `BigGross=Core+Trend`; `DirectionalExposure=Core+Trend−Small`; `NetRecoveryExposure=Core+Trend−Small−Far`. SmallBase не добавляется к BigGross. Direction signs обязаны следовать фактическому profile direction.
+
+### 13.2. Account Basket Risk
+
+Account layer выполняется после Cycle PASS и не заменяет его. Inputs: `AccountBalance`, `AccountEquity`, `AccountMargin`, `AccountFreeMargin`, `AccountMarginLevel`, `AccountDrawdown`, `AccountManagedGross`, `AccountManagedNet`, `AccountManagedPositionCount`, `ProjectedAccountMarginUpper`, `ProjectedAccountFreeMargin`, `ProjectedAccountMarginLevel`, `ProjectedAccountDrawdown`.
+
+Account aggregation включает все managed cycles по утверждённой identity policy, но не присваивает их позиции текущему CycleID. Unmanaged exposure либо учитывается отдельным account input согласно будущей математике, либо вызывает typed incomplete/unsafe outcome; оно не может молча игнорироваться.
+
+### 13.3. Разрешающее условие
+
+Risk-increasing action допускается только если `predecessors PASS ∧ Base/Worst agreement ∧ CycleRisk PASS ∧ AccountRisk PASS ∧ freshness PASS`. Любой conjunct failure запрещает open. Risk-reducing policy применяется отдельно по разделу 6.3 и не превращает breach в общий PASS.
