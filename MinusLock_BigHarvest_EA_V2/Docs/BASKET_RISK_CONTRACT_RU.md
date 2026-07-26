@@ -434,3 +434,28 @@ RouteOutcome = FINAL_CLOSE_PREVIEW_REQUIRED
 Basket Risk проверяет route state/fingerprint/revision, Cycle/Account effects риск-уменьшающего close и freshness. Он не перенаправляет route в Partial Far/continuation. `ALLOW_FINAL_CLOSE_PREVIEW` разрешает только preview. Перед actual close требуется отдельное risk-reducing execution permission; после него — confirmed deals, actual financial result, zero managed positions и reconciliation. Только тогда внешний существующий lifecycle может определить success/loss terminal state.
 
 Нулевое число managed positions проверяется по Symbol/Magic/Cycle/identifier и orphan protection, а не только по очищенному context или comment.
+
+## 16. Typed dimensions и граничные сравнения
+
+| Dimension | Примеры | Только свой tolerance |
+|---|---|---|
+| money | P/L, reserve, margin, costs | money tolerance |
+| lot | volumes, exposure | lot tolerance |
+| price | Bid/Ask/open/close price | price tolerance |
+| ratio | coverage, compression ratio | ratio tolerance |
+| percent | margin usage, drawdown | percent tolerance |
+| points | distance, spread offset | points tolerance |
+| count/identity | level, revision, ticket | точное integer/identity equality |
+
+Правила:
+
+- lot не сравнивается money tolerance; price — money tolerance; points — price tolerance.
+- Raw projected money не округляется перед conservative inequality. Форматирование trace не меняет gate value.
+- Lot noise `≤ lot tolerance` не является реальным partial volume.
+- Strict inequality сохраняется strict с нормативной tolerance semantics: New Big на лимите отклоняется.
+- Far compression обязана превышать lot tolerance, а не быть только положительной математически.
+- Residual Far равен zero в lot tolerance либо `≥ SYMBOL_VOLUME_MIN`; Far ниже minimum не продолжает Catch-Up.
+- Normalization contract неизменен: Core/Trend/NewFar DOWN, Small UP; после него выполняется volume recheck и все обязательные downstream gates.
+- `NaN`, infinity, отсутствующая dimension/provenance или несовместимая unit → `INTERNAL_ERROR_DIMENSION`/typed predecessor reject, не PASS.
+
+Каждое trace field фиксирует unit. Конверсия points↔price или percent↔ratio допустима только явно, с symbol/profile inputs и provenance; скрытая конверсия запрещена.
