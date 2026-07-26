@@ -195,3 +195,42 @@ Initial ignored profit -X-> RecoveryPL / Reserve / TransitionBudget
 - Negative Harvest не создаёт credits.
 - Reserve в level model не уменьшается; debit — только confirmed Final Far Close по действующему контракту.
 - Mismatch даёт `MONEY_*` reject/error или reconciliation, но не корректировку plan/ledger внутри Basket Risk.
+
+## 8. Immutable Basket Risk snapshot
+
+Basket Risk snapshot расширяет существующие `StateBefore`, `CandidatePlan`, `RouteState` и два profile snapshots; не создаёт параллельный temporal model.
+
+### 8.1. Identity header
+
+| Поле | Тип/единица | Contract |
+|---|---|---|
+| Timestamp | UTC datetime | Момент freeze; не execution confirmation |
+| Symbol | string | Непустой, точное совпадение managed symbol |
+| Magic | integer identity | Точное совпадение |
+| CycleID | stable identity | Уникален в namespace |
+| Revision | monotonic integer | Любое изменение требует нового result |
+| Fingerprint | deterministic identity hash | Profile-specific, включает mutable economics |
+| PlanID | stable plan identity | Persisted plan binding |
+| State | typed state | StateBefore/RouteState binding |
+| Profile | BASE/WORST | Неизменяем и независим |
+| ModelVersion | stable schema version | Обязателен для serialization |
+
+### 8.2. Managed position record
+
+Для каждого leg: `Ticket`, `Identifier`, `Role`, `Direction`, `Lot`, `OpenPrice`, `CurrentClosePrice`, `ProjectedClosePrice`, `LifecycleNet`, `ConfirmedState`. Допустимые роли: `Far`, `LegacyBig`, `LegacySmall`, `BigCore`, `BigTrend`, `SmallBase`, `ReverseSmall`.
+
+Только actual verified remainder `BigCore` может быть promoted в NewFar на соответствующем route. `BigTrend` и Legacy `ReverseSmall` NewFar не становятся. Ticket/comment не заменяют identifier и namespace.
+
+### 8.3. Money state
+
+Snapshot хранит раздельно: `RealizedPLBefore`, `RealizedPLAfterHarvest`, `RealizedPLAfterPartial`; `PartialBudgetBefore/Add/Consumed/After`; `ReserveBefore/Add/After`; `CarryBefore/Add/After`; `TransitionBudget`; `CumulativeTransitionLoss`; `RecoveryBefore/After`; `CoverageBefore/After`. Каждое поле имеет money/ratio dimension и projected/confirmed provenance.
+
+### 8.4. Margin state
+
+Обязательны `MarginBeforeSnapshot`, `EstimatedReleasedMarginUpper`, `RemainingFarMargin`, `NextCoreMargin`, `NextTrendMargin`, `NextSmallMargin`, `SteadyStateMarginUpper`, `PeakExecutionMarginUpper`, `OverlapMarginUpper`, `MarginLevelAfter`, `MarginUsageAfter`, `ProjectedFreeMarginAfter`. Единое `ProjectedMargin` не заменяет эти состояния.
+
+### 8.5. Freeze и freshness
+
+После freeze запрещено менять ticket, identifier, lot, role, bucket, revision, profile, plan или price snapshot. Любое изменение экономически mutable input создаёт новый fingerprint/revision и новый preview. Mismatch → `BASKET_RISK_STALE_PLAN` либо `BASKET_RISK_RECONCILIATION_REQUIRED`; execution запрещён.
+
+Fingerprint serialization MUST быть deterministic, с fixed field order, units, normalized numeric representation, ModelVersion и Profile. Base fingerprint не используется как Worst fingerprint.
