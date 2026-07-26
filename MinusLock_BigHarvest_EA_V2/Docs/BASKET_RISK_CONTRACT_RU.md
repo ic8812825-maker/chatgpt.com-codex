@@ -286,29 +286,81 @@ Allocation допустима только из confirmed Harvest deals и са�
 ### 10.4. Hybrid Small transition
 
 Порядок неизменяем:
-+
-+```text
-+PLAN_CREATED → PLAN_VALIDATED → SMALLBASE_CLOSED → OLDFAR_CLOSED
-+→ BIGTREND_CLOSED → BIGCORE_COMPRESSED → ACTUAL_REMAIN_VERIFIED
-+→ NEXT_GEOMETRY_PREVIEWED → NEWFAR_PROMOTED
-+→ FINAL_GATE_CHECKED → NEXT_CYCLE_CREATED
-+```
-+
-+Ни Basket Risk, ни safe route не пропускают phase. Promotion разрешена только после actual remainder verification; partial/unknown outcome останавливает цепь для reconciliation.
-+
-+### 10.5. Final route
-+
-+```text
-+FULL_FAR_AFFORDABILITY_EVALUATION
-+→ BUILD_FINAL_CLOSE_ROUTE_STATE
-+→ FINAL_CLOSE_PREVIEW_REQUIRED
-+→ FINAL_CLOSE_EXECUTION
-+→ ZERO_MANAGED_POSITIONS_CONFIRMATION
-+→ RECONCILIATION
-+```
-+
-+`FINAL_CLOSE_PREVIEW_REQUIRED` не означает `CYCLE_SUCCESS`. Success требует confirmed deals, confirmed financial result, ноль managed positions и reconciliation success.
-+
-+### 10.6. Action allow policy
-+
-+Risk-increasing action получает `ExecutionAllowed=true` только после всех existing gates, Base/Worst agreement, Cycle PASS, Account PASS и freshness PASS. Risk-reducing action может получить специальный allow при breached risk/margin limits, только если identity/freshness/volume/duplicate/terminal-action checks пройдены и conservative Base/Worst state-after действительно уменьшает риск.
+
+```text
+PLAN_CREATED → PLAN_VALIDATED → SMALLBASE_CLOSED → OLDFAR_CLOSED
+→ BIGTREND_CLOSED → BIGCORE_COMPRESSED → ACTUAL_REMAIN_VERIFIED
+→ NEXT_GEOMETRY_PREVIEWED → NEWFAR_PROMOTED
+→ FINAL_GATE_CHECKED → NEXT_CYCLE_CREATED
+```
+
+Ни Basket Risk, ни safe route не пропускают phase. Promotion разрешена только после actual remainder verification; partial/unknown outcome останавливает цепь для reconciliation.
+
+### 10.5. Final route
+
+```text
+FULL_FAR_AFFORDABILITY_EVALUATION
+→ BUILD_FINAL_CLOSE_ROUTE_STATE
+→ FINAL_CLOSE_PREVIEW_REQUIRED
+→ FINAL_CLOSE_EXECUTION
+→ ZERO_MANAGED_POSITIONS_CONFIRMATION
+→ RECONCILIATION
+```
+
+`FINAL_CLOSE_PREVIEW_REQUIRED` не означает `CYCLE_SUCCESS`. Success требует confirmed deals, confirmed financial result, ноль managed positions и reconciliation success.
+
+### 10.6. Action allow policy
+
+Risk-increasing action получает `ExecutionAllowed=true` только после всех existing gates, Base/Worst agreement, Cycle PASS, Account PASS и freshness PASS. Risk-reducing action может получить специальный allow при breached risk/margin limits, только если identity/freshness/volume/duplicate/terminal-action checks пройдены и conservative Base/Worst state-after действительно уменьшает риск.
+
+## 11. Typed outcomes
+
+| Outcome | CalcValid | Continue | FinalPreview | Terminal | Reject | Error | Recon | Execution |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `BASKET_RISK_NOT_EVALUATED` | N | N | N | N | N | N | N | N |
+| `BASKET_RISK_ALLOW_CONTINUATION` | Y | Y | N | N | N | N | N | Y после freshness |
+| `BASKET_RISK_ALLOW_FINAL_CLOSE_PREVIEW` | Y | N | Y | N | N | N | N | Только preview; close отдельно |
+| `BASKET_RISK_ALLOW_RISK_REDUCING_EXECUTION` | Y | N | route-dependent | N | N | N | post-exec | Y после freshness |
+| `BASKET_RISK_REJECT_CONFIGURATION` | N | N | N | N | Y | N | N | N |
+| `BASKET_RISK_REJECT_VOLUME` | N | N | N | N | Y | N | возможно | N |
+| `BASKET_RISK_REJECT_GEOMETRY` | N | N | N | N | Y | N | N | N |
+| `BASKET_RISK_REJECT_CYCLE_RISK` | Y | N | N | N | Y | N | N | N |
+| `BASKET_RISK_REJECT_ACCOUNT_RISK` | Y | N | N | N | Y | N | N | N |
+| `BASKET_RISK_REJECT_MARGIN` | predecessor-dependent | N | N | N | Y | N | N | N |
+| `BASKET_RISK_REJECT_WORST_CASE` | Y | N | N | N | Y | N | N | N |
+| `BASKET_RISK_REJECT_FUTURE_SMALL` | Y | N | N | N | Y | N | N | N |
+| `BASKET_RISK_STALE_PLAN` | N | N | N | N | Y | N | возможно | N |
+| `BASKET_RISK_RECONCILIATION_REQUIRED` | N | N | N | N | N | N | Y | N |
+| `BASKET_RISK_ERROR` | N | N | N | N | N | Y | возможно | N |
+| `BASKET_RISK_TERMINAL` | route-dependent | N | N | Y | N | N | возможно | Только явно разрешён emergency close |
+
+`ExecutionAllowed` для allow outcome — необходимое, но не достаточное разрешение: непосредственно перед execution обязательна freshness. Preview outcome никогда не разрешает пометить actual close confirmed.
+
+## 12. Нормативный каталог ReasonCode
+
+ReasonCode — stable typed uppercase identifier; free text разрешён только как diagnostic detail. Он одинаков во всех pre-open/transition/Future Small/restart contexts и указывает первый failed gate. Downstream gates остаются `Evaluated=false`.
+
+| Группа | Минимальные нормативные коды |
+|---|---|
+| `IDENTITY_*` | `IDENTITY_SYMBOL_MISMATCH`, `IDENTITY_MAGIC_MISMATCH`, `IDENTITY_CYCLE_MISMATCH`, `IDENTITY_ROLE_IDENTIFIER_MISSING` |
+| `CONFIG_*` | `CONFIG_INVALID`, `CONFIG_PROFILE_UNSUPPORTED` |
+| `VOLUME_*` | `VOLUME_INVALID`, `VOLUME_BELOW_MIN`, `VOLUME_STEP_MISMATCH` |
+| `ROUNDING_*` | `ROUNDING_RECHECK_FAILED`, `ROUNDING_PROVENANCE_MISSING` |
+| `GEOMETRY_*` | `GEOMETRY_LAW_FAILED`, `GEOMETRY_COMPRESSION_FAILED`, `GEOMETRY_NEXT_BIG_STRICT_LIMIT` |
+| `MONEY_*` | `MONEY_CONSERVATION_FAILED`, `MONEY_FORBIDDEN_EDGE`, `MONEY_PROJECTED_AS_CONFIRMED` |
+| `CATCHUP_*` | `CATCHUP_NOT_FINITE`, `CATCHUP_LEVEL_INVALID` |
+| `TRANSITION_*` | `TRANSITION_ORDER_INVALID`, `TRANSITION_BUDGET_INVALID` |
+| `NEWFAR_*` | `NEWFAR_INVALID`, `NEWFAR_ACTUAL_REMAINDER_UNVERIFIED` |
+| `CYCLE_RISK_*` | `CYCLE_RISK_LIMIT_EXCEEDED`, `CYCLE_RISK_INPUT_INCOMPLETE` |
+| `ACCOUNT_RISK_*` | `ACCOUNT_RISK_LIMIT_EXCEEDED`, `ACCOUNT_RISK_INPUT_INCOMPLETE` |
+| `MARGIN_*` | `MARGIN_STEADY_LIMIT`, `MARGIN_PEAK_LIMIT`, `MARGIN_OVERLAP_LIMIT`, `MARGIN_CONTROL_PRICE_INVALID` |
+| `WORST_*` | `WORST_REJECTED`, `WORST_PROFILE_OPTIMISTIC_DIVERGENCE`, `WORST_ROUTE_DIVERGENCE` |
+| `FUTURE_SMALL_*` | `FUTURE_SMALL_REJECTED`, `FUTURE_SMALL_NOT_EVALUATED` |
+| `FINAL_ROUTE_*` | `FINAL_ROUTE_PREVIEW_REQUIRED`, `FINAL_ROUTE_STATE_INVALID`, `FINAL_ROUTE_NOT_CONFIRMED` |
+| `STALE_*` | `STALE_FINGERPRINT`, `STALE_REVISION`, `STALE_PRICE`, `STALE_STATE` |
+| `PARTIAL_EXECUTION_*` | `PARTIAL_EXECUTION_OPEN`, `PARTIAL_EXECUTION_CLOSE`, `PARTIAL_EXECUTION_PAIR`, `PARTIAL_EXECUTION_TRANSITION`, `PARTIAL_EXECUTION_FINAL_CLOSE`, `PARTIAL_EXECUTION_UNKNOWN` |
+| `RECONCILIATION_*` | `RECONCILIATION_REQUIRED`, `RECONCILIATION_MISMATCH`, `RECONCILIATION_ACTUAL_UNAVAILABLE` |
+| `TERMINAL_*` | `TERMINAL_STATE_ACTIVE`, `TERMINAL_ACTION_FORBIDDEN` |
+| `INTERNAL_ERROR_*` | `INTERNAL_ERROR_INVARIANT`, `INTERNAL_ERROR_DIMENSION`, `INTERNAL_ERROR_SERIALIZATION` |
+
+Новые коды добавляются versioned append-only; смысл существующего кода не переиспользуется.
