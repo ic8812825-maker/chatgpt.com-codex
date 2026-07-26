@@ -404,3 +404,33 @@ Account aggregation включает все managed cycles по утверждё
 ### 13.3. Разрешающее условие
 
 Risk-increasing action допускается только если `predecessors PASS ∧ Base/Worst agreement ∧ CycleRisk PASS ∧ AccountRisk PASS ∧ freshness PASS`. Любой conjunct failure запрещает open. Risk-reducing policy применяется отдельно по разделу 6.3 и не превращает breach в общий PASS.
+
+## 14. Margin contract
+
+Basket Risk потребляет результат существующего Margin Gate и его provenance; не вызывает альтернативную money/margin model.
+
+1. `MARGIN-01`: control price использует текущую рыночную сторону для соответствующей операции/profile.
+2. `MARGIN-02`: historical OpenPrice не становится control price автоматически.
+3. `MARGIN-03`: `EstimatedReleasedMarginUpper` — forecast bound, не actual release и не confirmed free margin.
+4. `MARGIN-04`: PASS использует conservative state-after upper bound.
+
+Обязательны три разные оценки: `SteadyStateMarginUpper`, `PeakExecutionMarginUpper`, `OverlapMarginUpper`. PASS требует соблюдения применимых limits во всех состояниях последовательности, включая временный overlap «новая позиция открыта, старая ещё существует». Только конечная steady-state margin недостаточна. Base/Worst имеют независимые market-side prices и margins.
+
+## 15. Final Close route contract
+
+Если existing full-Far affordability evaluation выбирает Final route:
+
+```text
+Partial Far не выполняется
+FarLotForFinalClosePreview == FarLotBefore (lot tolerance)
+PartialBudgetConsumed == 0 (money tolerance)
+Next Basket не строится
+continuation geometry не вычисляется
+reopen margin не вычисляется
+RecoveryAfterReopen не вычисляется
+RouteOutcome = FINAL_CLOSE_PREVIEW_REQUIRED
+```
+
+Basket Risk проверяет route state/fingerprint/revision, Cycle/Account effects риск-уменьшающего close и freshness. Он не перенаправляет route в Partial Far/continuation. `ALLOW_FINAL_CLOSE_PREVIEW` разрешает только preview. Перед actual close требуется отдельное risk-reducing execution permission; после него — confirmed deals, actual financial result, zero managed positions и reconciliation. Только тогда внешний существующий lifecycle может определить success/loss terminal state.
+
+Нулевое число managed positions проверяется по Symbol/Magic/Cycle/identifier и orphan protection, а не только по очищенному context или comment.
