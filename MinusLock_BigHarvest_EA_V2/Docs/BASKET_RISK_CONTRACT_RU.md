@@ -147,3 +147,51 @@ Basket Risk MUST NOT:
 ### 6.4. Запрещённые интерпретации
 
 Запрещено трактовать Basket Risk как замену existing Risk или Margin; обход predecessor; mutating optimizer; новый money model; источник confirmed P/L; разрешение Base-only; общий Base/Worst state; разрешение open после partial; средство promotion любого Big; identity по одному comment; основание MQL5/runtime/production PASS. Historical open price не становится margin control price, а `EstimatedReleasedMarginUpper` — фактическим освобождением.
+
+## 7. Совместимость с денежными корзинами
+
+Basket Risk использует существующие buckets без нового ledger: `RealizedCyclePL`, `PartialBudget`, `FinalReserve`, `Carry`, `TransitionBudget`, `CumulativeTransitionLoss`.
+
+```text
+Confirmed Harvest deals → Actual HarvestNet → EligibleHarvest
+→ PartialAdd + ReserveAdd + CarryAdd
+
+Confirmed Transition credits → TransitionBudget
+```
+
+Нормативные рёбра и conservation проверяются, но Basket Risk ничего не начисляет и не списывает. `FinalReserve` — защищённая классификация уже реализованной прибыли внутри `RealizedCyclePL`, а не дополнительная прибыль.
+
+### 7.1. Запрещённые рёбра
+
+```text
+FinalReserve -X-> Partial Far / Transition / Margin / Opens
+PartialBudget -X-> Final Close / Transition / Opens
+TransitionBudget -X-> Opens / Final Close
+Projected money -X-> persisted bucket
+Initial ignored profit -X-> RecoveryPL / Reserve / TransitionBudget
+```
+
+### 7.2. Нормативные отдельные показатели
+
+| Поле | Единица | Смысл |
+|---|---|---|
+| `EconomicRecoveryPL` | money | Экономический результат по утверждённой формуле; provenance обязателен |
+| `RealizedCyclePL` | money | Только confirmed realized cycle entries |
+| `FloatingBasketNet` | money | Плавающая net оценка, не persisted credit |
+| `FinalReserveAvailable` | money | Доступная reserve, уже внутри realized |
+| `PartialBudgetAvailable` | money | Доступный только Partial Far budget |
+| `CarryAvailable` | money | Carry по существующему контракту |
+| `TransitionBudgetAvailable` | money | Только confirmed transition bucket |
+| `RequiredFinalFarCloseLoss` | money | Прогноз/actual явно маркируется |
+| `CoverageRatio` | ratio | Dimensionless coverage, отдельно от money |
+| `ProjectedFinalCycleNet` | money | Forecast, никогда не confirmed |
+
+Формула `RealizedCyclePL + FloatingPL + FinalReserve` запрещена как double count. Projected и actual имеют разные provenance/status.
+
+### 7.3. Conservation checks
+
+- `PartialAdd + ReserveAdd + CarryAdd = EligibleHarvest` в money tolerance.
+- Для каждого bucket: opening + confirmed credits − confirmed debits = closing.
+- Negative Harvest не создаёт credits.
+- Reserve в level model не уменьшается; debit — только confirmed Final Far Close по действующему контракту.
+- Mismatch даёт `MONEY_*` reject/error или reconciliation, но не корректировку plan/ledger внутри Basket Risk.
