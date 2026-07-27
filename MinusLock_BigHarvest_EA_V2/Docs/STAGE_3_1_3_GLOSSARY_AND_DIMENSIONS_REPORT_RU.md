@@ -1,57 +1,339 @@
-# Отчёт второй коррекции Этапа 3.1.3
+# Отчёт третьей коррекции Этапа 3.1.3
 
-## Причина второй коррекции
+## Причина и устранение vacuous PASS
 
-Первая коррекция подтверждала в основном наличие token, а не объявление и использование программного identifier. Validator также пропускал смысловое противоречие `BigGross`: определение объёма было ошибочно связано с `ROLE_ID`. Вторая коррекция не меняет runtime и не начинает Этап 3.1.4.
+Вторая коррекция оставляла 230 `MISSING` в обоих языках. Теперь каждый canonical term имеет generated/found/accepted/rejected candidate audit, а validator блокирует полный MISSING, audit gaps и coverage ниже 25 non-missing mappings.
 
-## BigGross correction
+## Candidate generation and scoring
 
-`BigGross` теперь однозначно означает projected сумму `BigCoreLotProjected + BigTrendLotProjected` одного immutable plan: `LOT_CALCULATED`, unit `lot`, класс `PROJECTED`, допуск `VolumeToleranceLots`. Это не role, ticket или actual position volume. Статус `DOCUMENTED_NOT_APPROVED` не выбирает business policy.
+Candidates создаются из canonical name, aliases, Camel/Pascal/snake variants и lifecycle suffix removal. Declaration discovery исключает comments/strings; identifiers получают name/family score, declaration context и read/write evidence. Score не даёт EXACT автоматически: принятые результаты консервативно классифицированы `PARTIAL_MATCH`, потому что полная authoritative/lifecycle эквивалентность не доказана.
 
-## Semantic type audit methodology
+## Parser methodology
 
-Все 230 строк проверяются между canonical table и extended record. `Semantic category` связывается с Type; далее независимо проверяются Unit, Sign/Class, Source, Rounding, Tolerance и lifecycle class. Для каждого record добавлены конкретные creation, validation, freeze, mutation, stale, replacement, terminal, persistence и restart события, а также `Отличие от`.
+MQL5 audit распознаёт declarations, inputs, functions and fields и отдельно собирает read/write sites вне declaration. Python audit использует `ast` для functions, classes, arguments, assignments, names and attributes. Mapping фиксирует file, line, kind, type, declaration, scope, uses, semantic/lifecycle role, cache/authority и projected/actual class.
 
-## MQL5 parser methodology
-
-Lightweight parser удаляет line/block comments и string/character literals, затем индексирует function signatures, parameters, struct/class fields, global/local declarations, reads и writes. Проверено 37 MQL5/MQH source files только в режиме чтения.
-
-## Python AST methodology
-
-Все Python sources проекта разобраны стандартным `ast`: `FunctionDef`, `ClassDef`, arguments, `Name`, `Attribute`, assignments и uses. Regex token presence не считается mapping evidence.
-
-## Declaration evidence and use evidence methodology
-
-Статусы EXACT/SEMANTIC требуют declaration evidence, реальный read/write site, semantic note и lifecycle role. Cache не может считаться authoritative exact actual value. Поскольку прежние 161 status `SEMANTIC_MATCH` были основаны на token presence, все они честно понижены до `MISSING`; фиктивная переклассификация token в другой kind не выполнялась.
-
-## Mapping status downgrade report
+## Candidate audit totals
 
 ```text
-PREVIOUS_MQL5_SEMANTIC_MATCH=88
-PREVIOUS_PYTHON_SEMANTIC_MATCH=73
-CONFIRMED_AFTER_DECLARATION_USE_AUDIT=0
-MQL5_DOWNGRADED_TO_PARTIAL=0
-MQL5_DOWNGRADED_TO_AMBIGUOUS=0
-MQL5_DOWNGRADED_TO_MISSING=88
-PYTHON_DOWNGRADED_TO_PARTIAL=0
-PYTHON_DOWNGRADED_TO_AMBIGUOUS=0
-PYTHON_DOWNGRADED_TO_MISSING=73
-REASON=token occurrence did not prove one complete canonical entity, authoritative source and lifecycle
+MQL5_FOUND_CANDIDATES=1504
+MQL5_ACCEPTED_CANDIDATES=126
+MQL5_REJECTED_CANDIDATES=1378
+PYTHON_FOUND_CANDIDATES=1232
+PYTHON_ACCEPTED_CANDIDATES=108
+PYTHON_REJECTED_CANDIDATES=1124
+MQL5_MANUAL_MAPPING_REVIEWS=30
+PYTHON_MANUAL_MAPPING_REVIEWS=30
 ```
 
-## Lifecycle rewrite methodology
+## Semantic audit
 
-Logical lifecycle classes (`POLICY`, `ROLE`, `PROJECTED_VALUE`, `REQUESTED`, `DEAL`, `ACTUAL_POSITION`, `LEDGER`, `SYMBOL_PROPERTY`, `STATE`, `IDENTITY`, `OBJECT`) define required events, while every record names its own object, source, stale trigger and replacement. Normalization removes canonical names before duplicate detection.
+Sign normalization distinguishes quantities from identities/enums. Source matrix covers requested/filled/actual lots, realized/cost money, executed/symbol prices. Position terms are `POSITION_ID`; plan/preview/execution terms are structured objects. Lifecycle matrix checks projected, deal, ledger and actual-position invariants. Similarity combines Jaccard and `SequenceMatcher` at 0.85; exceptions identify shared lifecycle class and distinct source/type contract.
 
-## Negative test isolation methodology
+## Full validator output
 
-20 mutations assert one named semantic counter each. Controls include definition/type contradiction, money/lot tolerance, projected source for realized money, actual rounding, enum/identity tolerance, token/comment/string mapping, absent declaration/use evidence, authoritative cache, MISSING/NOT_APPLICABLE conflict, normalized duplicates, projected-to-actual assignment, unresolved policy, Markdown/JSON parity and lifecycle class. Ten positive controls protect legitimate MISSING, NOT_APPLICABLE, role, realized money, actual lot, enum, projected, ledger, symbol property and ratio cases.
+`STATISTICS_SOURCE=validator generated`
 
-## Remaining mappings
+```text
+CANONICAL_TERMS=230
+EXTENDED_RECORDS=230
+MQL5_TERMS_WITH_CANDIDATE_AUDIT=230
+PYTHON_TERMS_WITH_CANDIDATE_AUDIT=230
+MQL5_TERMS_WITH_FOUND_CANDIDATES=219
+PYTHON_TERMS_WITH_FOUND_CANDIDATES=213
+MQL5_TERMS_WITH_ACCEPTED_CANDIDATES=126
+PYTHON_TERMS_WITH_ACCEPTED_CANDIDATES=108
+MQL5_TERMS_WITH_REJECTED_CANDIDATES=217
+PYTHON_TERMS_WITH_REJECTED_CANDIDATES=210
+MQL5_EXACT_MATCH=0
+MQL5_SEMANTIC_MATCH=0
+MQL5_PARTIAL_MATCH=126
+MQL5_AMBIGUOUS=0
+MQL5_MISSING=104
+MQL5_NOT_APPLICABLE=0
+MQL5_NON_MISSING=126
+MQL5_ALL_MAPPINGS_MISSING=0
+PYTHON_EXACT_MATCH=0
+PYTHON_SEMANTIC_MATCH=0
+PYTHON_PARTIAL_MATCH=108
+PYTHON_AMBIGUOUS=0
+PYTHON_MISSING=122
+PYTHON_NOT_APPLICABLE=0
+PYTHON_NON_MISSING=108
+PYTHON_ALL_MAPPINGS_MISSING=0
+TABLE_RECORD_MISMATCH=0
+MAPPING_STATUS_PARITY_ERROR=0
+MQL5_NON_MISSING_BELOW_MINIMUM=0
+PYTHON_NON_MISSING_BELOW_MINIMUM=0
+MISSING_WITHOUT_CANDIDATE_AUDIT=0
+MISSING_WITH_UNREVIEWED_CANDIDATES=0
+MISSING_WITH_ACCEPTED_CANDIDATE=0
+MISSING_WITH_NONEMPTY_ENTRIES=0
+NON_MISSING_WITH_EMPTY_ENTRIES=0
+CANDIDATE_WITHOUT_REJECTION_REASON=0
+CANDIDATE_WITHOUT_SCORE=0
+CANDIDATE_STATUS_INCONSISTENT=0
+MAPPING_FILES_NOT_FOUND=0
+MAPPING_WITHOUT_DECLARATION_EVIDENCE=0
+MAPPING_WITHOUT_USE_EVIDENCE=0
+TOKEN_IDENTIFIER_KINDS=0
+INVALID_DEFINITION_TYPE_SEMANTICS=0
+INVALID_TYPE_UNIT=0
+INVALID_TYPE_CLASS=0
+INVALID_TYPE_TOLERANCE=0
+INVALID_TYPE_SOURCE=0
+INVALID_TYPE_SIGN=0
+INVALID_SIGN_SEMANTICS=0
+INVALID_SOURCE_MATRIX=0
+INVALID_LIFECYCLE_MATRIX=0
+POSITION_ROLE_AMBIGUITY=0
+PLAN_STATE_AMBIGUITY=0
+NEAR_DUPLICATE_DEFINITIONS=0
+NEAR_DUPLICATE_LIFECYCLES=0
+UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID=0
+UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE=0
+NEGATIVE_TESTS_TOTAL=30
+NEGATIVE_TESTS_PASSED=30
+POSITIVE_TESTS_TOTAL=15
+POSITIVE_TESTS_PASSED=15
+STAGE_3_1_3_THIRD_CORRECTION_VALIDATION=PASS
+```
 
-All MQL5 and Python records are `MISSING` with empty identifier arrays. Это сознательный conservative результат: отсутствие доказанного mapping лучше ложного `SEMANTIC_MATCH`. `identifier_kind=token` отсутствует.
+## Per-term candidate and semantic audit
 
-## Conflict control and scope control
+| Canonical term | Semantic category | Type | Sign audit | Source audit | Lifecycle audit | MQL5 found | MQL5 accepted | MQL5 rejected | MQL5 status | Python found | Python accepted | Python rejected | Python status | Review result |
+| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | ---: | ---: | ---: | --- | --- |
+| Legacy | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 1 | 5 | PARTIAL_MATCH | 1 | 1 | 0 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| LegacyMode | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 3 | 0 | 3 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| LegacyBig | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 5 | 1 | 4 | PARTIAL_MATCH | 3 | 1 | 2 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| LegacySmall | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| LegacyFar | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 2 | 1 | 1 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| MonolithicBig | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Split | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 5 | 0 | 5 | MISSING | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SplitMode | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 3 | 0 | 3 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SplitBig | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 0 | 5 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| BigCore | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| BigTrend | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| BigGross | LOT_VALUE | `LOT_CALCULATED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| SmallBase | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| Hybrid | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 1 | 0 | 1 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| HybridSplitBig | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 5 | 0 | 5 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| HybridMode | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 3 | 0 | 3 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| HybridPlan | STRUCTURED_OBJECT | `PLAN_OBJECT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 3 | 0 | 3 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| HybridPreview | STRUCTURED_OBJECT | `PREVIEW_OBJECT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| HybridExecution | STRUCTURED_OBJECT | `EXECUTION_OBJECT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 0 | 6 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| InitialBuy | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 2 | 1 | 1 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| InitialSell | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 0 | 5 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| InitialProfitLeg | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| InitialLosingLeg | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 0 | 6 | MISSING | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| InitialIgnoredProfit | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| OldFar | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 1 | 4 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| CurrentFar | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 5 | 1 | 4 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| ResidualFar | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 3 | 1 | 2 | PARTIAL_MATCH | 1 | 1 | 0 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| NewFar | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| LegacyBigPosition | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 2 | 0 | 2 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| BigCorePosition | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 0 | 5 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| BigTrendPosition | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 6 | 0 | 6 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| LegacySmallPosition | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 0 | 0 | 0 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| SmallBasePosition | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| ManagedPosition | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| UnmanagedPosition | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 0 | 6 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ForeignCyclePosition | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FarDirection | STRUCTURED_OBJECT | `DIRECTION_ENUM` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| OppositeFarDirection | STRUCTURED_OBJECT | `DIRECTION_ENUM` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 1 | 5 | PARTIAL_MATCH | 4 | 0 | 4 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| SameAsFarDirection | STRUCTURED_OBJECT | `DIRECTION_ENUM` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 1 | 5 | PARTIAL_MATCH | 5 | 0 | 5 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| BigDirection | STRUCTURED_OBJECT | `DIRECTION_ENUM` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| SmallDirection | STRUCTURED_OBJECT | `DIRECTION_ENUM` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| TrendDirection | STRUCTURED_OBJECT | `DIRECTION_ENUM` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReverseDirection | STRUCTURED_OBJECT | `DIRECTION_ENUM` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| RawLot | LOT_VALUE | `LOT_RAW` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| CalculatedLot | LOT_VALUE | `LOT_CALCULATED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| NormalizedLot | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH |
+| RequestedLot | LOT_VALUE | `LOT_REQUESTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=MQL declaration/use entry; decision=PARTIAL_MATCH; MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| FilledLot | LOT_VALUE | `LOT_FILLED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| ActualPositionLot | LOT_VALUE | `LOT_POSITION_ACTUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ResidualLotProjected | LOT_VALUE | `LOT_RESIDUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 0 | 4 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ResidualLotActual | LOT_VALUE | `LOT_POSITION_ACTUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 0 | 6 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FarLotRaw | LOT_VALUE | `LOT_RAW` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| FarLotCalculated | LOT_VALUE | `LOT_CALCULATED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| FarLotNormalized | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FarLotRequested | LOT_VALUE | `LOT_REQUESTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| FarLotFilled | LOT_VALUE | `LOT_FILLED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| FarLotActual | LOT_VALUE | `LOT_POSITION_ACTUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| BigCoreLotRaw | LOT_VALUE | `LOT_RAW` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| BigCoreLotNormalized | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BigCoreLotRequested | LOT_VALUE | `LOT_REQUESTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BigCoreLotFilled | LOT_VALUE | `LOT_FILLED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BigCoreLotActual | LOT_VALUE | `LOT_POSITION_ACTUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BigTrendLotRaw | LOT_VALUE | `LOT_RAW` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| BigTrendLotNormalized | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 0 | 6 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SmallBaseLotRaw | LOT_VALUE | `LOT_RAW` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| SmallBaseLotNormalized | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarCloseLotCalculated | LOT_VALUE | `LOT_CALCULATED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarCloseLotNormalized | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarCloseLotRequested | LOT_VALUE | `LOT_REQUESTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarCloseLotFilled | LOT_VALUE | `LOT_FILLED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FarResidualProjected | LOT_VALUE | `LOT_RESIDUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FarResidualActual | LOT_VALUE | `LOT_POSITION_ACTUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 0 | 4 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| NewFarCandidateLot | LOT_VALUE | `LOT_CALCULATED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 1 | 7 | PARTIAL_MATCH | MANUAL_REVIEWED: agent; evidence=Python AST declaration/use entry; decision=PARTIAL_MATCH |
+| NewFarProjectedLot | LOT_VALUE | `LOT_RAW` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| NewFarNormalizedLot | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| NewFarPromotedLot | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| NewFarActualLot | LOT_VALUE | `LOT_POSITION_ACTUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Point | PRICE_OR_DISTANCE | `PRICE_POINT_SIZE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 3 | 1 | 2 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| TickSize | PRICE_OR_DISTANCE | `PRICE_TICK_SIZE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 3 | 1 | 2 | PARTIAL_MATCH | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| TickValue | PRICE_OR_DISTANCE | `PRICE_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| MarketBidPrice | PRICE_OR_DISTANCE | `PRICE_BID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 1 | 0 | PARTIAL_MATCH | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| MarketAskPrice | PRICE_OR_DISTANCE | `PRICE_ASK` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 1 | 0 | PARTIAL_MATCH | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PositionOpenPrice | PRICE_OR_DISTANCE | `PRICE_OPEN` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| TriggerPrice | PRICE_OR_DISTANCE | `PRICE_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| TargetPrice | PRICE_OR_DISTANCE | `PRICE_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 7 | 0 | 7 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ControlPrice | PRICE_OR_DISTANCE | `PRICE_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 3 | 0 | 3 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ProjectedExitPrice | PRICE_OR_DISTANCE | `PRICE_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ExecutedDealPrice | PRICE_OR_DISTANCE | `PRICE_EXECUTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 2 | 0 | 2 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PriceDelta | PRICE_OR_DISTANCE | `PRICE_DELTA` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 2 | 0 | 2 | MISSING | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| DistancePoints | PRICE_OR_DISTANCE | `DISTANCE_POINTS` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| DistanceTicks | PRICE_OR_DISTANCE | `DISTANCE_TICKS` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 0 | 4 | MISSING | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BidAwareClosePrice | PRICE_OR_DISTANCE | `PRICE_BID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 0 | 6 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| AskAwareClosePrice | PRICE_OR_DISTANCE | `PRICE_ASK` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 0 | 4 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FarOpenPriceActual | PRICE_OR_DISTANCE | `PRICE_OPEN` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 7 | 1 | 6 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BigCoreOpenPriceActual | PRICE_OR_DISTANCE | `PRICE_OPEN` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BigTrendOpenPriceActual | PRICE_OR_DISTANCE | `PRICE_OPEN` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SmallBaseOpenPriceActual | PRICE_OR_DISTANCE | `PRICE_OPEN` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| GrossProfit | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| GrossLoss | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| NetProfit | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| LegNet | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BasketNet | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 1 | 4 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| HarvestGross | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| HarvestNet | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 6 | 1 | 5 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SmallReverseNet | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| TransitionNet | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RealizedCyclePL | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 3 | 1 | 2 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FloatingManagedPL | MONEY_VALUE | `MONEY_FLOATING` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 2 | 1 | 1 | PARTIAL_MATCH | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ProjectedFloatingPL | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 3 | 0 | 3 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RecoveryPLAnalytic | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RecoveryPLProjected | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RecoveryPLCloseNow | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RealRecoveryPL | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RecoverySlope | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RecoveryMonotonicity | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 0 | 6 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ExpectedExitCosts | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 7 | 1 | 6 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CommissionCost | MONEY_VALUE | `MONEY_COST` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SwapCost | MONEY_VALUE | `MONEY_COST` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 6 | 0 | 6 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FeeCost | MONEY_VALUE | `MONEY_COST` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SpreadCost | MONEY_VALUE | `MONEY_COST` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 0 | 6 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SlippageCost | MONEY_VALUE | `MONEY_COST` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 1 | 4 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PositionPLSigned | MONEY_VALUE | `MONEY_FLOATING` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 3 | 0 | 3 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FarLossSigned | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FarLossMagnitude | MONEY_VALUE | `MONEY_REALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarBudgetProjected | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 1 | 5 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarBudgetReal | MONEY_VALUE | `MONEY_RESERVED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarBudgetAvailable | MONEY_VALUE | `MONEY_AVAILABLE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarBudgetConsumed | MONEY_VALUE | `MONEY_CONSUMED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PartialFarBudgetResidual | MONEY_VALUE | `MONEY_RESIDUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FinalReserveProjected | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FinalReserveReal | MONEY_VALUE | `MONEY_RESERVED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveAddProjected | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveAddReal | MONEY_VALUE | `MONEY_RESERVED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveAvailable | MONEY_VALUE | `MONEY_AVAILABLE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveConsumed | MONEY_VALUE | `MONEY_CONSUMED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveResidual | MONEY_VALUE | `MONEY_RESIDUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CarryAvailable | MONEY_VALUE | `MONEY_AVAILABLE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CarryConsumed | MONEY_VALUE | `MONEY_CONSUMED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 0 | 4 | MISSING | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CarryResidual | MONEY_VALUE | `MONEY_RESIDUAL` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 0 | 4 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| TransitionBudgetAvailable | MONEY_VALUE | `MONEY_AVAILABLE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 5 | 1 | 4 | PARTIAL_MATCH | 7 | 1 | 6 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FinalCloseRequirement | MONEY_VALUE | `MONEY_RESERVED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BasketRiskMoney | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 0 | 6 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| AccountRiskMoney | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 0 | 6 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BigRatio | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SmallRatio | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CloseBigOnSmallShare | POLICY | `SHARE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RemainBigOnSmallShare | POLICY | `SHARE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 1 | 4 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CloseFarShare | POLICY | `SHARE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveShare | POLICY | `SHARE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SmallReserveShare | POLICY | `SHARE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 6 | 1 | 5 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CompressionRatio | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 1 | 5 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveCoverageRatio | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 1 | 5 | PARTIAL_MATCH | 7 | 1 | 6 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RecoveryCoverageRatio | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 2 | 0 | 2 | MISSING | 3 | 1 | 2 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| MaximumNewBigToOldFarRatio | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 3 | 0 | 3 | MISSING | 5 | 1 | 4 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| MinimumReserveCatchUpRatio | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 0 | 6 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PercentValue | POLICY | `PERCENT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 0 | 6 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ScaleMultiplier | POLICY | `MULTIPLIER` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 1 | 5 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RiskThresholdRatio | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SymbolId | IDENTITY | `SYMBOL_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| MagicId | IDENTITY | `MAGIC_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 7 | 0 | 7 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CycleId | IDENTITY | `CYCLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RoleId | ROLE | `ROLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 4 | 1 | 3 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PositionIdentifier | IDENTITY | `POSITION_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 4 | 1 | 3 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PositionTicket | IDENTITY | `POSITION_TICKET` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| OrderTicket | IDENTITY | `ORDER_TICKET` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 2 | 1 | 1 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| DealTicket | IDENTITY | `DEAL_TICKET` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 1 | 1 | 0 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| EventId | IDENTITY | `EVENT_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| EventKey | IDENTITY | `EVENT_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SnapshotFingerprint | IDENTITY | `FINGERPRINT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 5 | 1 | 4 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PlanFingerprint | IDENTITY | `FINGERPRINT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 3 | 1 | 2 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PositionComment | STATE_OR_RESULT | `DIAGNOSTIC_TEXT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 7 | 0 | 7 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SnapshotRevision | IDENTITY | `EVENT_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 0 | 4 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| StateRevision | IDENTITY | `EVENT_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| State | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Phase | STATE_OR_RESULT | `PHASE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 1 | 3 | PARTIAL_MATCH | 6 | 1 | 5 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Event | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Observation | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| GateResult | STATE_OR_RESULT | `GATE_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 1 | 3 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ExecutionResult | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 1 | 5 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Outcome | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 5 | 1 | 4 | PARTIAL_MATCH | 3 | 1 | 2 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReasonCode | STATE_OR_RESULT | `REASON_CODE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ErrorCode | STATE_OR_RESULT | `REASON_CODE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 1 | 4 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| DiagnosticText | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CandidatePlan | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 3 | 1 | 2 | PARTIAL_MATCH | 7 | 1 | 6 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ApprovedImmutablePlan | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ExecutionRequest | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BrokerExecutionResult | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 5 | 0 | 5 | MISSING | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReconciledResult | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 0 | 4 | MISSING | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CommittedLedgerEvent | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 0 | 1 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| BaseSnapshot | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| WorstSnapshot | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ActualSnapshot | STATE_OR_RESULT | `STATE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 0 | 7 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| SnapshotStaleFlag | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 2 | 0 | 2 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FinalClosePreview | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 7 | 1 | 6 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FinalCloseActualSuccess | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 4 | 0 | 4 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| MoneyTolerance | MONEY_VALUE | `MONEY_AVAILABLE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| VolumeToleranceLots | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PriceTolerance | PRICE_OR_DISTANCE | `PRICE_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 6 | 1 | 5 | PARTIAL_MATCH | 4 | 1 | 3 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PointTolerance | PRICE_OR_DISTANCE | `POINTS` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 5 | 0 | 5 | MISSING | 5 | 0 | 5 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RatioTolerance | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 7 | 0 | 7 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ComparisonEpsilon | IDENTITY | `FINGERPRINT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveMismatchTolerance | MONEY_VALUE | `MONEY_AVAILABLE` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| GeometryTolerance | LOT_VALUE | `LOT_NORMALIZED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 0 | 6 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| FingerprintTolerance | IDENTITY | `FINGERPRINT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 6 | 1 | 5 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ProjectedData | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 6 | 0 | 6 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| RequestedData | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 0 | 1 | MISSING | 2 | 1 | 1 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ExecutedData | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ConfirmedData | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 0 | 1 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReconciledData | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| PersistedData | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 2 | 0 | 2 | MISSING | 0 | 0 | 0 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| StaleData | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| InvalidData | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 0 | 1 | MISSING | 2 | 0 | 2 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| NotApplicableValue | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 0 | 1 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| NotCalculatedValue | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 0 | 1 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| NotAvailableValue | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| UnknownValue | STRUCTURED_OBJECT | `BOOLEAN_RESULT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 3 | 0 | 3 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CurrentBid | PRICE_OR_DISTANCE | `PRICE_BID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 1 | 4 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CurrentAsk | PRICE_OR_DISTANCE | `PRICE_ASK` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 5 | 1 | 4 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveProjected | MONEY_VALUE | `MONEY_PROJECTED` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 0 | 8 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ReserveCoverage | POLICY | `RATIO` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Symbol | IDENTITY | `SYMBOL_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 7 | 1 | 6 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| MagicNumber | IDENTITY | `MAGIC_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 7 | 1 | 6 | PARTIAL_MATCH | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| CycleID | IDENTITY | `CYCLE_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| EventID | IDENTITY | `EVENT_ID` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Fingerprint | IDENTITY | `FINGERPRINT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 0 | 8 | MISSING | 3 | 1 | 2 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Comment | STATE_OR_RESULT | `DIAGNOSTIC_TEXT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 8 | 1 | 7 | PARTIAL_MATCH | 3 | 1 | 2 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Preview | STRUCTURED_OBJECT | `PREVIEW_OBJECT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 0 | 1 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Candidate | STATE_OR_RESULT | `OUTCOME` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 4 | 1 | 3 | PARTIAL_MATCH | 8 | 1 | 7 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| Plan | STRUCTURED_OBJECT | `PLAN_OBJECT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 1 | 0 | 1 | MISSING | 3 | 1 | 2 | PARTIAL_MATCH | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+| ApprovedPlan | STRUCTURED_OBJECT | `PLAN_OBJECT` | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | VALIDATOR_VERIFIED | 0 | 0 | 0 | MISSING | 1 | 0 | 1 | MISSING | VALIDATOR_VERIFIED: candidate audit + semantic matrices |
+
+## Conflict and scope control
 
 ```text
 PARAMETER_PROFILE_SELECTED=NO
@@ -60,366 +342,15 @@ CONFLICT_020_RESOLVED=NO
 CONFLICT_022_RESOLVED=NO
 CONFLICT_023_RESOLVED=NO
 CONFLICT_031_RESOLVED=NO
+NEW_CONFLICTS_FOUND=0
 MQL5_CHANGED=NO
 MQH_CHANGED=NO
 TRADING_LOGIC_CHANGED=NO
 STAGE_3_1_4_STARTED=NO
-NEW_CONFLICTS_FOUND=0
 ```
-
-## Validator output
-
-`STATISTICS_SOURCE=validator generated`
-
-```text
-CANONICAL_TERMS=230
-EXTENDED_RECORDS=230
-INVALID_DEFINITION_TYPE_SEMANTICS=0
-INVALID_TYPE_UNIT=0
-INVALID_TYPE_CLASS=0
-INVALID_TYPE_TOLERANCE=0
-INVALID_TYPE_SOURCE=0
-INVALID_ACTUAL_ROUNDING=0
-INVALID_LIFECYCLE_CLASS=0
-TOKEN_IDENTIFIER_KINDS=0
-MAPPING_WITHOUT_DECLARATION_EVIDENCE=0
-MAPPING_WITHOUT_USE_EVIDENCE=0
-IDENTIFIER_ONLY_IN_COMMENT=0
-IDENTIFIER_ONLY_IN_STRING=0
-UNPROVEN_EXACT_MAPPING=0
-UNPROVEN_SEMANTIC_MAPPING=0
-CACHE_MARKED_AUTHORITATIVE=0
-MAPPING_STATUS_PARITY_ERROR=0
-MISSING_NOT_APPLICABLE_CONFLICT=0
-NORMALIZED_DUPLICATE_LIFECYCLES=0
-GENERIC_LIFECYCLES=0
-MISSING_CREATION_EVENT=0
-MISSING_STALE_TRIGGER=0
-MISSING_REPLACEMENT_SOURCE=0
-MISSING_TERMINAL_CONDITION=0
-NEAR_DUPLICATE_DEFINITIONS=0
-DEFINITIONS_WITHOUT_DISTINGUISHING_CLAUSE=0
-FORBIDDEN_PROJECTED_TO_ACTUAL_TRANSITION=0
-UNRESOLVED_POLICY_APPROVED=0
-UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID=0
-UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE=0
-MQL5_FILES_PARSED=37
-MQL5_DECLARATIONS_FOUND=4075
-MQL5_USE_SITES_FOUND=13288
-PYTHON_FILES_PARSED=258
-PYTHON_AST_DECLARATIONS_FOUND=5643
-PYTHON_USE_SITES_FOUND=18558
-MQL5_EXACT_MATCH=0
-MQL5_SEMANTIC_MATCH=0
-MQL5_PARTIAL_MATCH=0
-MQL5_AMBIGUOUS=0
-MQL5_MISSING=230
-MQL5_NOT_APPLICABLE=0
-PYTHON_EXACT_MATCH=0
-PYTHON_SEMANTIC_MATCH=0
-PYTHON_PARTIAL_MATCH=0
-PYTHON_AMBIGUOUS=0
-PYTHON_MISSING=230
-PYTHON_NOT_APPLICABLE=0
-NEGATIVE_TESTS_TOTAL=20
-NEGATIVE_TESTS_PASSED=20
-POSITIVE_TESTS_TOTAL=10
-POSITIVE_TESTS_PASSED=10
-STAGE_3_1_3_SECOND_CORRECTION_VALIDATION=PASS
-```
-
-## Per-term audit summary
-
-| Canonical term | Semantic category | Type audit result | Lifecycle class | MQL5 status | Python status | Authoritative source verified | Manual review status | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Legacy | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| LegacyMode | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| LegacyBig | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| LegacySmall | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| LegacyFar | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| MonolithicBig | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Split | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SplitMode | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SplitBig | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigCore | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigTrend | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigGross | LOT_VALUE | PASS (`LOT_CALCULATED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | BigGross corrected as projected lot sum |
-| SmallBase | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Hybrid | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| HybridSplitBig | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| HybridMode | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| HybridPlan | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| HybridPreview | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| HybridExecution | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| InitialBuy | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| InitialSell | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| InitialProfitLeg | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| InitialLosingLeg | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| InitialIgnoredProfit | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| OldFar | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CurrentFar | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ResidualFar | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NewFar | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| LegacyBigPosition | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigCorePosition | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigTrendPosition | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| LegacySmallPosition | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SmallBasePosition | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ManagedPosition | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| UnmanagedPosition | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ForeignCyclePosition | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarDirection | STRUCTURED_OBJECT | PASS (`DIRECTION_ENUM`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| OppositeFarDirection | STRUCTURED_OBJECT | PASS (`DIRECTION_ENUM`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SameAsFarDirection | STRUCTURED_OBJECT | PASS (`DIRECTION_ENUM`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigDirection | STRUCTURED_OBJECT | PASS (`DIRECTION_ENUM`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SmallDirection | STRUCTURED_OBJECT | PASS (`DIRECTION_ENUM`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| TrendDirection | STRUCTURED_OBJECT | PASS (`DIRECTION_ENUM`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReverseDirection | STRUCTURED_OBJECT | PASS (`DIRECTION_ENUM`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RawLot | LOT_VALUE | PASS (`LOT_RAW`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CalculatedLot | LOT_VALUE | PASS (`LOT_CALCULATED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NormalizedLot | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RequestedLot | LOT_VALUE | PASS (`LOT_REQUESTED`) | REQUESTED | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FilledLot | LOT_VALUE | PASS (`LOT_FILLED`) | DEAL | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ActualPositionLot | LOT_VALUE | PASS (`LOT_POSITION_ACTUAL`) | ACTUAL_POSITION | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ResidualLotProjected | LOT_VALUE | PASS (`LOT_RESIDUAL`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ResidualLotActual | LOT_VALUE | PASS (`LOT_POSITION_ACTUAL`) | ACTUAL_POSITION | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarLotRaw | LOT_VALUE | PASS (`LOT_RAW`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarLotCalculated | LOT_VALUE | PASS (`LOT_CALCULATED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarLotNormalized | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarLotRequested | LOT_VALUE | PASS (`LOT_REQUESTED`) | REQUESTED | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarLotFilled | LOT_VALUE | PASS (`LOT_FILLED`) | DEAL | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarLotActual | LOT_VALUE | PASS (`LOT_POSITION_ACTUAL`) | ACTUAL_POSITION | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigCoreLotRaw | LOT_VALUE | PASS (`LOT_RAW`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigCoreLotNormalized | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigCoreLotRequested | LOT_VALUE | PASS (`LOT_REQUESTED`) | REQUESTED | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigCoreLotFilled | LOT_VALUE | PASS (`LOT_FILLED`) | DEAL | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigCoreLotActual | LOT_VALUE | PASS (`LOT_POSITION_ACTUAL`) | ACTUAL_POSITION | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigTrendLotRaw | LOT_VALUE | PASS (`LOT_RAW`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigTrendLotNormalized | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SmallBaseLotRaw | LOT_VALUE | PASS (`LOT_RAW`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SmallBaseLotNormalized | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarCloseLotCalculated | LOT_VALUE | PASS (`LOT_CALCULATED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarCloseLotNormalized | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarCloseLotRequested | LOT_VALUE | PASS (`LOT_REQUESTED`) | REQUESTED | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarCloseLotFilled | LOT_VALUE | PASS (`LOT_FILLED`) | DEAL | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarResidualProjected | LOT_VALUE | PASS (`LOT_RESIDUAL`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarResidualActual | LOT_VALUE | PASS (`LOT_POSITION_ACTUAL`) | ACTUAL_POSITION | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NewFarCandidateLot | LOT_VALUE | PASS (`LOT_CALCULATED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NewFarProjectedLot | LOT_VALUE | PASS (`LOT_RAW`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NewFarNormalizedLot | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NewFarPromotedLot | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NewFarActualLot | LOT_VALUE | PASS (`LOT_POSITION_ACTUAL`) | ACTUAL_POSITION | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Point | PRICE_OR_DISTANCE | PASS (`PRICE_POINT_SIZE`) | SYMBOL_PROPERTY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| TickSize | PRICE_OR_DISTANCE | PASS (`PRICE_TICK_SIZE`) | SYMBOL_PROPERTY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| TickValue | PRICE_OR_DISTANCE | PASS (`PRICE_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| MarketBidPrice | PRICE_OR_DISTANCE | PASS (`PRICE_BID`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| MarketAskPrice | PRICE_OR_DISTANCE | PASS (`PRICE_ASK`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PositionOpenPrice | PRICE_OR_DISTANCE | PASS (`PRICE_OPEN`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| TriggerPrice | PRICE_OR_DISTANCE | PASS (`PRICE_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| TargetPrice | PRICE_OR_DISTANCE | PASS (`PRICE_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ControlPrice | PRICE_OR_DISTANCE | PASS (`PRICE_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ProjectedExitPrice | PRICE_OR_DISTANCE | PASS (`PRICE_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ExecutedDealPrice | PRICE_OR_DISTANCE | PASS (`PRICE_EXECUTED`) | DEAL | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PriceDelta | PRICE_OR_DISTANCE | PASS (`PRICE_DELTA`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| DistancePoints | PRICE_OR_DISTANCE | PASS (`DISTANCE_POINTS`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| DistanceTicks | PRICE_OR_DISTANCE | PASS (`DISTANCE_TICKS`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BidAwareClosePrice | PRICE_OR_DISTANCE | PASS (`PRICE_BID`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| AskAwareClosePrice | PRICE_OR_DISTANCE | PASS (`PRICE_ASK`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarOpenPriceActual | PRICE_OR_DISTANCE | PASS (`PRICE_OPEN`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigCoreOpenPriceActual | PRICE_OR_DISTANCE | PASS (`PRICE_OPEN`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigTrendOpenPriceActual | PRICE_OR_DISTANCE | PASS (`PRICE_OPEN`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SmallBaseOpenPriceActual | PRICE_OR_DISTANCE | PASS (`PRICE_OPEN`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| GrossProfit | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| GrossLoss | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NetProfit | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| LegNet | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BasketNet | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| HarvestGross | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| HarvestNet | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SmallReverseNet | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| TransitionNet | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RealizedCyclePL | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FloatingManagedPL | MONEY_VALUE | PASS (`MONEY_FLOATING`) | ACTUAL_POSITION | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ProjectedFloatingPL | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RecoveryPLAnalytic | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RecoveryPLProjected | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RecoveryPLCloseNow | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RealRecoveryPL | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RecoverySlope | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RecoveryMonotonicity | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ExpectedExitCosts | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CommissionCost | MONEY_VALUE | PASS (`MONEY_COST`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SwapCost | MONEY_VALUE | PASS (`MONEY_COST`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FeeCost | MONEY_VALUE | PASS (`MONEY_COST`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SpreadCost | MONEY_VALUE | PASS (`MONEY_COST`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SlippageCost | MONEY_VALUE | PASS (`MONEY_COST`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PositionPLSigned | MONEY_VALUE | PASS (`MONEY_FLOATING`) | ACTUAL_POSITION | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarLossSigned | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FarLossMagnitude | MONEY_VALUE | PASS (`MONEY_REALIZED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarBudgetProjected | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarBudgetReal | MONEY_VALUE | PASS (`MONEY_RESERVED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarBudgetAvailable | MONEY_VALUE | PASS (`MONEY_AVAILABLE`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarBudgetConsumed | MONEY_VALUE | PASS (`MONEY_CONSUMED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PartialFarBudgetResidual | MONEY_VALUE | PASS (`MONEY_RESIDUAL`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FinalReserveProjected | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FinalReserveReal | MONEY_VALUE | PASS (`MONEY_RESERVED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveAddProjected | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveAddReal | MONEY_VALUE | PASS (`MONEY_RESERVED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveAvailable | MONEY_VALUE | PASS (`MONEY_AVAILABLE`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveConsumed | MONEY_VALUE | PASS (`MONEY_CONSUMED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveResidual | MONEY_VALUE | PASS (`MONEY_RESIDUAL`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CarryAvailable | MONEY_VALUE | PASS (`MONEY_AVAILABLE`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CarryConsumed | MONEY_VALUE | PASS (`MONEY_CONSUMED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CarryResidual | MONEY_VALUE | PASS (`MONEY_RESIDUAL`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| TransitionBudgetAvailable | MONEY_VALUE | PASS (`MONEY_AVAILABLE`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FinalCloseRequirement | MONEY_VALUE | PASS (`MONEY_RESERVED`) | LEDGER | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BasketRiskMoney | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| AccountRiskMoney | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BigRatio | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SmallRatio | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CloseBigOnSmallShare | POLICY | PASS (`SHARE`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RemainBigOnSmallShare | POLICY | PASS (`SHARE`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CloseFarShare | POLICY | PASS (`SHARE`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveShare | POLICY | PASS (`SHARE`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SmallReserveShare | POLICY | PASS (`SHARE`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CompressionRatio | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveCoverageRatio | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RecoveryCoverageRatio | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| MaximumNewBigToOldFarRatio | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| MinimumReserveCatchUpRatio | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PercentValue | POLICY | PASS (`PERCENT`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ScaleMultiplier | POLICY | PASS (`MULTIPLIER`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RiskThresholdRatio | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SymbolId | IDENTITY | PASS (`SYMBOL_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| MagicId | IDENTITY | PASS (`MAGIC_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CycleId | IDENTITY | PASS (`CYCLE_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RoleId | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PositionIdentifier | IDENTITY | PASS (`POSITION_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PositionTicket | IDENTITY | PASS (`POSITION_TICKET`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| OrderTicket | IDENTITY | PASS (`ORDER_TICKET`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| DealTicket | IDENTITY | PASS (`DEAL_TICKET`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| EventId | IDENTITY | PASS (`EVENT_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| EventKey | IDENTITY | PASS (`EVENT_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SnapshotFingerprint | IDENTITY | PASS (`FINGERPRINT`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PlanFingerprint | IDENTITY | PASS (`FINGERPRINT`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PositionComment | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SnapshotRevision | ROLE | PASS (`ROLE_ID`) | ROLE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| StateRevision | IDENTITY | PASS (`EVENT_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| State | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Phase | STATE_OR_RESULT | PASS (`PHASE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Event | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Observation | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| GateResult | STATE_OR_RESULT | PASS (`GATE_RESULT`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ExecutionResult | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Outcome | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReasonCode | STATE_OR_RESULT | PASS (`REASON_CODE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ErrorCode | STATE_OR_RESULT | PASS (`REASON_CODE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| DiagnosticText | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CandidatePlan | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ApprovedImmutablePlan | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ExecutionRequest | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BrokerExecutionResult | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReconciledResult | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CommittedLedgerEvent | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| BaseSnapshot | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| WorstSnapshot | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ActualSnapshot | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| SnapshotStaleFlag | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FinalClosePreview | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FinalCloseActualSuccess | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| MoneyTolerance | MONEY_VALUE | PASS (`MONEY_AVAILABLE`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| VolumeToleranceLots | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PriceTolerance | PRICE_OR_DISTANCE | PASS (`PRICE_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PointTolerance | PRICE_OR_DISTANCE | PASS (`POINTS`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RatioTolerance | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ComparisonEpsilon | IDENTITY | PASS (`FINGERPRINT`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveMismatchTolerance | MONEY_VALUE | PASS (`MONEY_AVAILABLE`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| GeometryTolerance | LOT_VALUE | PASS (`LOT_NORMALIZED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| FingerprintTolerance | IDENTITY | PASS (`FINGERPRINT`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ProjectedData | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| RequestedData | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ExecutedData | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ConfirmedData | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReconciledData | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| PersistedData | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| StaleData | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| InvalidData | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NotApplicableValue | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NotCalculatedValue | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| NotAvailableValue | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| UnknownValue | STRUCTURED_OBJECT | PASS (`BOOLEAN_RESULT`) | OBJECT | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CurrentBid | PRICE_OR_DISTANCE | PASS (`PRICE_BID`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CurrentAsk | PRICE_OR_DISTANCE | PASS (`PRICE_ASK`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveProjected | MONEY_VALUE | PASS (`MONEY_PROJECTED`) | PROJECTED_VALUE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ReserveCoverage | POLICY | PASS (`RATIO`) | POLICY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Symbol | IDENTITY | PASS (`SYMBOL_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| MagicNumber | IDENTITY | PASS (`MAGIC_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| CycleID | IDENTITY | PASS (`CYCLE_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| EventID | IDENTITY | PASS (`EVENT_ID`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Fingerprint | IDENTITY | PASS (`FINGERPRINT`) | IDENTITY | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Comment | STATE_OR_RESULT | PASS (`DIAGNOSTIC_TEXT`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Preview | STATE_OR_RESULT | PASS (`PHASE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Candidate | STATE_OR_RESULT | PASS (`OUTCOME`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| Plan | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
-| ApprovedPlan | STATE_OR_RESULT | PASS (`STATE`) | STATE | MISSING | MISSING | PASS | PASS | type/unit/class/source/tolerance/lifecycle contract checked |
 
 ## Final status
 
-```text
-SUMMARY
-STAGE=3.1.3_SECOND_CORRECTION
-STATUS=PASS
-BASE_COMMIT=6026b44d4e6d83f509b91a254b7313124dc2aad3
-
-SCOPE
-FILES_OUTSIDE_PROJECT=0
-MQL5_CHANGED=NO
-MQH_CHANGED=NO
-TRADING_LOGIC_CHANGED=NO
-STAGE_3_1_4_STARTED=NO
-
-SEMANTIC_TYPE_AUDIT
-CANONICAL_TERMS=230
-TERMS_AUDITED=230
-BIG_GROSS_TYPE=PASS
-INVALID_DEFINITION_TYPE_SEMANTICS=0
-INVALID_TYPE_UNIT=0
-INVALID_TYPE_CLASS=0
-INVALID_TYPE_TOLERANCE=0
-INVALID_TYPE_SOURCE=0
-INVALID_LIFECYCLE_CLASS=0
-
-MAPPING_EVIDENCE
-TOKEN_IDENTIFIER_KINDS=0
-MAPPING_WITHOUT_DECLARATION_EVIDENCE=0
-MAPPING_WITHOUT_USE_EVIDENCE=0
-IDENTIFIER_ONLY_IN_COMMENT=0
-IDENTIFIER_ONLY_IN_STRING=0
-UNPROVEN_EXACT_MAPPING=0
-UNPROVEN_SEMANTIC_MAPPING=0
-CACHE_MARKED_AUTHORITATIVE=0
-MISSING_NOT_APPLICABLE_CONFLICT=0
-
-LIFECYCLE_AUDIT
-NORMALIZED_DUPLICATE_LIFECYCLES=0
-GENERIC_LIFECYCLES=0
-MISSING_CREATION_EVENT=0
-MISSING_STALE_TRIGGER=0
-MISSING_REPLACEMENT_SOURCE=0
-MISSING_TERMINAL_CONDITION=0
-
-DEFINITION_AUDIT
-NEAR_DUPLICATE_DEFINITIONS=0
-DEFINITIONS_WITHOUT_DISTINGUISHING_CLAUSE=0
-
-TESTING
-NEGATIVE_TESTS_TOTAL=20
-NEGATIVE_TESTS_PASSED=20
-POSITIVE_TESTS_TOTAL=10
-POSITIVE_TESTS_PASSED=10
-VALIDATOR_RESULT=PASS
-```
-
-STAGE_3_1_3_SECOND_CORRECTION_STATUS=PASS
+STAGE_3_1_3_THIRD_CORRECTION_STATUS=PASS
 Этап 3.1.3 ожидает повторную независимую проверку пользователя.
 Этап 3.1.4 не выполнялся.

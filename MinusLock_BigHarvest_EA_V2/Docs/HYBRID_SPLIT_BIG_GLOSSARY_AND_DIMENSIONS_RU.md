@@ -260,26 +260,26 @@ Parameters BigRatio, SmallRatio, CloseBigOnSmallShare, RemainBigOnSmallShare, Cl
 | Hybrid | Гибридный | Hybrid | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | DOCUMENTED_NOT_APPROVED |
 | HybridSplitBig | Гибридный разделённый компенсирующая позиция | HybridSplitBig | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | HybridMode | Гибридный режим | Hybrid | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| HybridPlan | Гибридный план | HybridPlan | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| HybridPreview | Гибридный preview | HybridPreview | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| HybridExecution | Гибридный исполнение | HybridExecution | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| HybridPlan | Гибридный план | HybridPlan | PLAN_OBJECT | structured plan | not numeric | PROJECTED | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
+| HybridPreview | Гибридный preview | HybridPreview | PREVIEW_OBJECT | structured preview | not numeric | PROJECTED | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
+| HybridExecution | Гибридный исполнение | HybridExecution | EXECUTION_OBJECT | structured execution object | not numeric | REQUESTED/EXECUTED | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
 | InitialBuy | Начальная покупка | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | InitialSell | Начальная продажа | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | InitialProfitLeg | Начальная прибыль leg | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | InitialLosingLeg | Начальная убыточная leg | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| InitialIgnoredProfit | Начальная исключённая прибыль | Role-qualified architecture | MONEY_REALIZED | account money | signed confirmed result; excluded from recovery money | ACTUAL CONFIRMED | confirmed closing deal aggregation of InitialProfitLeg filtered by Symbol+Magic+CycleID+position identity | ROUND_TO_MONEY_DIGITS at ledger/report boundary | MoneyTolerance | — | APPROVED_TERM |
+| InitialIgnoredProfit | Начальная исключённая прибыль | Role-qualified architecture | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed closing deal aggregation of InitialProfitLeg filtered by Symbol+Magic+CycleID+position identity | ROUND_TO_MONEY_DIGITS at ledger/report boundary | MoneyTolerance | — | APPROVED_TERM |
 | OldFar | Предыдущая хвостовая позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | CurrentFar | Текущая хвостовая позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | Far | APPROVED_TERM |
 | ResidualFar | Остаточная хвостовая позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | NewFar | Новая хвостовая позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| LegacyBigPosition | Устаревшая архитектура компенсирующая позиция позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| BigCorePosition | Компенсирующая позиция основная часть позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| BigTrendPosition | Компенсирующая позиция трендовая часть позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| LegacySmallPosition | Устаревшая архитектура защитная позиция позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| SmallBasePosition | Защитная позиция базовая позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| ManagedPosition | Управляемая позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| UnmanagedPosition | Неуправляемая позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| ForeignCyclePosition | Чужая цикл позиция | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| LegacyBigPosition | Устаревшая архитектура компенсирующая позиция позиция | Role-qualified architecture | POSITION_ID | position reference identity | not numeric | ACTUAL CURRENT | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| BigCorePosition | Компенсирующая позиция основная часть позиция | Role-qualified architecture | POSITION_ID | position reference identity | not numeric | ACTUAL CURRENT | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| BigTrendPosition | Компенсирующая позиция трендовая часть позиция | Role-qualified architecture | POSITION_ID | position reference identity | not numeric | ACTUAL CURRENT | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| LegacySmallPosition | Устаревшая архитектура защитная позиция позиция | Role-qualified architecture | POSITION_ID | position reference identity | not numeric | ACTUAL CURRENT | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| SmallBasePosition | Защитная позиция базовая позиция | Role-qualified architecture | POSITION_ID | position reference identity | not numeric | ACTUAL CURRENT | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| ManagedPosition | Управляемая позиция | Role-qualified architecture | POSITION_ID | position reference identity | not numeric | ACTUAL CURRENT | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| UnmanagedPosition | Неуправляемая позиция | Role-qualified architecture | POSITION_ID | position reference identity | not numeric | ACTUAL CURRENT | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| ForeignCyclePosition | Чужая цикл позиция | Role-qualified architecture | POSITION_ID | position reference identity | not numeric | ACTUAL CURRENT | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | FarDirection | Хвостовая позиция направление | Role-qualified architecture | DIRECTION_ENUM | BUY/SELL enum | not numeric | ACTUAL CONFIRMED or POLICY DERIVED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | OppositeFarDirection | Противоположное хвостовая позиция направление | Role-qualified architecture | DIRECTION_ENUM | BUY/SELL enum | not numeric | ACTUAL CONFIRMED or POLICY DERIVED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | SameAsFarDirection | Совпадающее с хвостовая позиция направление | Role-qualified architecture | DIRECTION_ENUM | BUY/SELL enum | not numeric | ACTUAL CONFIRMED or POLICY DERIVED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
@@ -287,136 +287,136 @@ Parameters BigRatio, SmallRatio, CloseBigOnSmallShare, RemainBigOnSmallShare, Cl
 | SmallDirection | Защитная позиция направление | Role-qualified architecture | DIRECTION_ENUM | BUY/SELL enum | not numeric | ACTUAL CONFIRMED or POLICY DERIVED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | TrendDirection | Трендовая часть направление | Role-qualified architecture | DIRECTION_ENUM | BUY/SELL enum | not numeric | ACTUAL CONFIRMED or POLICY DERIVED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | ReverseDirection | Разворот направление | Role-qualified architecture | DIRECTION_ENUM | BUY/SELL enum | not numeric | ACTUAL CONFIRMED or POLICY DERIVED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| RawLot | Сырой объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| CalculatedLot | Расчётный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_CALCULATED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| NormalizedLot | Нормализованный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| RequestedLot | Запрошенный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_REQUESTED | lot | >=0; active position >0 | REQUESTED | approved immutable plan | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| FilledLot | Исполненный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_FILLED | lot | >=0; active position >0 | CONFIRMED | confirmed deals/trade result | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
-| ActualPositionLot | Фактический позиция объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >=0; active position >0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
-| ResidualLotProjected | Остаточная объём в лотах прогнозный | Legacy/Split/Hybrid, role-qualified | LOT_RESIDUAL | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| ResidualLotActual | Остаточная объём в лотах фактический | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >=0; active position >0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
-| FarLotRaw | Хвостовая позиция объём в лотах сырой | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| FarLotCalculated | Хвостовая позиция объём в лотах расчётный | Legacy/Split/Hybrid, role-qualified | LOT_CALCULATED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| FarLotNormalized | Хвостовая позиция объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| FarLotRequested | Хвостовая позиция объём в лотах запрошенный | Legacy/Split/Hybrid, role-qualified | LOT_REQUESTED | lot | >=0; active position >0 | REQUESTED | approved immutable plan | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| FarLotFilled | Хвостовая позиция объём в лотах исполненный | Legacy/Split/Hybrid, role-qualified | LOT_FILLED | lot | >=0; active position >0 | CONFIRMED | confirmed deals/trade result | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
-| FarLotActual | Хвостовая позиция объём в лотах фактический | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >=0; active position >0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | FarLot, Ctx.farLot | APPROVED_TERM |
-| BigCoreLotRaw | Компенсирующая позиция основная часть объём в лотах сырой | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| BigCoreLotNormalized | Компенсирующая позиция основная часть объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| BigCoreLotRequested | Компенсирующая позиция основная часть объём в лотах запрошенный | Legacy/Split/Hybrid, role-qualified | LOT_REQUESTED | lot | >=0; active position >0 | REQUESTED | approved immutable plan | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| BigCoreLotFilled | Компенсирующая позиция основная часть объём в лотах исполненный | Legacy/Split/Hybrid, role-qualified | LOT_FILLED | lot | >=0; active position >0 | CONFIRMED | confirmed deals/trade result | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
-| BigCoreLotActual | Компенсирующая позиция основная часть объём в лотах фактический | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >=0; active position >0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
-| BigTrendLotRaw | Компенсирующая позиция трендовая часть объём в лотах сырой | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| BigTrendLotNormalized | Компенсирующая позиция трендовая часть объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| SmallBaseLotRaw | Защитная позиция базовая объём в лотах сырой | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| SmallBaseLotNormalized | Защитная позиция базовая объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| PartialFarCloseLotCalculated | Частичный хвостовая позиция закрытие объём в лотах расчётный | Legacy/Split/Hybrid, role-qualified | LOT_CALCULATED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| PartialFarCloseLotNormalized | Частичный хвостовая позиция закрытие объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| PartialFarCloseLotRequested | Частичный хвостовая позиция закрытие объём в лотах запрошенный | Legacy/Split/Hybrid, role-qualified | LOT_REQUESTED | lot | >=0; active position >0 | REQUESTED | approved immutable plan | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| PartialFarCloseLotFilled | Частичный хвостовая позиция закрытие объём в лотах исполненный | Legacy/Split/Hybrid, role-qualified | LOT_FILLED | lot | >=0; active position >0 | CONFIRMED | confirmed deals/trade result | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
-| FarResidualProjected | Хвостовая позиция остаточная прогнозный | Legacy/Split/Hybrid, role-qualified | LOT_RESIDUAL | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
-| FarResidualActual | Хвостовая позиция остаточная фактический | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >=0; active position >0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
-| NewFarCandidateLot | Новая хвостовая позиция кандидат объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_CALCULATED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
-| NewFarProjectedLot | Новая хвостовая позиция прогнозный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
-| NewFarNormalizedLot | Новая хвостовая позиция нормализованный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
-| NewFarPromotedLot | Новая хвостовая позиция назначенный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >=0; active position >0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
-| NewFarActualLot | Новая хвостовая позиция фактический объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >=0; active position >0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
-| Point | Размер пункта | All profiles; Symbol-bound | PRICE_POINT_SIZE | price per point | strictly positive symbol property | SYMBOL PROPERTY | SymbolInfoDouble(symbol, SYMBOL_POINT) | NO_ADDITIONAL_ROUNDING | EXACT PROPERTY SNAPSHOT | — | APPROVED_TERM |
-| TickSize | Тик размер | All profiles; Symbol-bound | PRICE_TICK_SIZE | price per tick | strictly positive symbol property | SYMBOL PROPERTY | SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE) | NO_ADDITIONAL_ROUNDING | EXACT PROPERTY SNAPSHOT | — | APPROVED_TERM |
-| TickValue | Тик стоимость | All profiles; Symbol-bound | PRICE_PROJECTED | price | >0 for absolute price; delta signed | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| MarketBidPrice | Рыночная Bid цена | All profiles; Symbol-bound | PRICE_BID | price | strictly positive | ACTUAL CURRENT | SymbolInfoDouble(symbol, SYMBOL_BID) | NO_ADDITIONAL_ROUNDING | PriceTolerance | — | APPROVED_TERM |
-| MarketAskPrice | Рыночная Ask цена | All profiles; Symbol-bound | PRICE_ASK | price | strictly positive | ACTUAL CURRENT | SymbolInfoDouble(symbol, SYMBOL_ASK) | NO_ADDITIONAL_ROUNDING | PriceTolerance | — | APPROVED_TERM |
-| PositionOpenPrice | Позиция открытие цена | All profiles; Symbol-bound | PRICE_OPEN | price | >0 for absolute price; delta signed | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| TriggerPrice | Триггер цена | All profiles; Symbol-bound | PRICE_PROJECTED | price | >0 for absolute price; delta signed | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| TargetPrice | Целевая цена | All profiles; Symbol-bound | PRICE_PROJECTED | price | >0 for absolute price; delta signed | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| ControlPrice | Контрольная цена | All profiles; Symbol-bound | PRICE_PROJECTED | price | >0 for absolute price; delta signed | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| ProjectedExitPrice | Прогнозный выход цена | All profiles; Symbol-bound | PRICE_PROJECTED | price | >0 for absolute price; delta signed | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| ExecutedDealPrice | Исполненная сделка цена | All profiles; Symbol-bound | PRICE_EXECUTED | price | >0 for absolute price; delta signed | CONFIRMED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| PriceDelta | Цена дельта | All profiles; Symbol-bound | PRICE_DELTA | price | signed price difference | PROJECTED | difference of two explicitly named prices | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| RawLot | Сырой объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| CalculatedLot | Расчётный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_CALCULATED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| NormalizedLot | Нормализованный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| RequestedLot | Запрошенный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_REQUESTED | lot | >= 0 | REQUESTED | approved immutable plan | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| FilledLot | Исполненный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_FILLED | lot | >= 0 | CONFIRMED | confirmed deals/trade result | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
+| ActualPositionLot | Фактический позиция объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >= 0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
+| ResidualLotProjected | Остаточная объём в лотах прогнозный | Legacy/Split/Hybrid, role-qualified | LOT_RESIDUAL | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| ResidualLotActual | Остаточная объём в лотах фактический | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >= 0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
+| FarLotRaw | Хвостовая позиция объём в лотах сырой | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| FarLotCalculated | Хвостовая позиция объём в лотах расчётный | Legacy/Split/Hybrid, role-qualified | LOT_CALCULATED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| FarLotNormalized | Хвостовая позиция объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| FarLotRequested | Хвостовая позиция объём в лотах запрошенный | Legacy/Split/Hybrid, role-qualified | LOT_REQUESTED | lot | >= 0 | REQUESTED | approved immutable plan | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| FarLotFilled | Хвостовая позиция объём в лотах исполненный | Legacy/Split/Hybrid, role-qualified | LOT_FILLED | lot | >= 0 | CONFIRMED | confirmed deals/trade result | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
+| FarLotActual | Хвостовая позиция объём в лотах фактический | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >= 0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | FarLot, Ctx.farLot | APPROVED_TERM |
+| BigCoreLotRaw | Компенсирующая позиция основная часть объём в лотах сырой | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| BigCoreLotNormalized | Компенсирующая позиция основная часть объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| BigCoreLotRequested | Компенсирующая позиция основная часть объём в лотах запрошенный | Legacy/Split/Hybrid, role-qualified | LOT_REQUESTED | lot | >= 0 | REQUESTED | approved immutable plan | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| BigCoreLotFilled | Компенсирующая позиция основная часть объём в лотах исполненный | Legacy/Split/Hybrid, role-qualified | LOT_FILLED | lot | >= 0 | CONFIRMED | confirmed deals/trade result | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
+| BigCoreLotActual | Компенсирующая позиция основная часть объём в лотах фактический | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >= 0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
+| BigTrendLotRaw | Компенсирующая позиция трендовая часть объём в лотах сырой | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| BigTrendLotNormalized | Компенсирующая позиция трендовая часть объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| SmallBaseLotRaw | Защитная позиция базовая объём в лотах сырой | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| SmallBaseLotNormalized | Защитная позиция базовая объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| PartialFarCloseLotCalculated | Частичный хвостовая позиция закрытие объём в лотах расчётный | Legacy/Split/Hybrid, role-qualified | LOT_CALCULATED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| PartialFarCloseLotNormalized | Частичный хвостовая позиция закрытие объём в лотах нормализованный | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| PartialFarCloseLotRequested | Частичный хвостовая позиция закрытие объём в лотах запрошенный | Legacy/Split/Hybrid, role-qualified | LOT_REQUESTED | lot | >= 0 | REQUESTED | approved immutable plan | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| PartialFarCloseLotFilled | Частичный хвостовая позиция закрытие объём в лотах исполненный | Legacy/Split/Hybrid, role-qualified | LOT_FILLED | lot | >= 0 | CONFIRMED | confirmed deals/trade result | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
+| FarResidualProjected | Хвостовая позиция остаточная прогнозный | Legacy/Split/Hybrid, role-qualified | LOT_RESIDUAL | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | APPROVED_TERM |
+| FarResidualActual | Хвостовая позиция остаточная фактический | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >= 0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | APPROVED_TERM |
+| NewFarCandidateLot | Новая хвостовая позиция кандидат объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_CALCULATED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
+| NewFarProjectedLot | Новая хвостовая позиция прогнозный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_RAW | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
+| NewFarNormalizedLot | Новая хвостовая позиция нормализованный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
+| NewFarPromotedLot | Новая хвостовая позиция назначенный объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_NORMALIZED | lot | >= 0 | PROJECTED | typed formula + SymbolInfo volume constraints | profile-specific lot normalization | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
+| NewFarActualLot | Новая хвостовая позиция фактический объём в лотах | Legacy/Split/Hybrid, role-qualified | LOT_POSITION_ACTUAL | lot | >= 0 | ACTUAL CURRENT | current MT5 position snapshot | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | UNRESOLVED_MODE_ROUTING |
+| Point | Размер пункта | All profiles; Symbol-bound | PRICE_POINT_SIZE | price per point | > 0 | SYMBOL PROPERTY | SymbolInfoDouble(symbol, SYMBOL_POINT) | NO_ADDITIONAL_ROUNDING | EXACT PROPERTY SNAPSHOT | — | APPROVED_TERM |
+| TickSize | Тик размер | All profiles; Symbol-bound | PRICE_TICK_SIZE | price per tick | > 0 | SYMBOL PROPERTY | SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE) | NO_ADDITIONAL_ROUNDING | EXACT PROPERTY SNAPSHOT | — | APPROVED_TERM |
+| TickValue | Тик стоимость | All profiles; Symbol-bound | PRICE_PROJECTED | price | > 0 | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| MarketBidPrice | Рыночная Bid цена | All profiles; Symbol-bound | PRICE_BID | price | > 0 | ACTUAL CURRENT | SymbolInfoDouble(symbol, SYMBOL_BID) | NO_ADDITIONAL_ROUNDING | PriceTolerance | — | APPROVED_TERM |
+| MarketAskPrice | Рыночная Ask цена | All profiles; Symbol-bound | PRICE_ASK | price | > 0 | ACTUAL CURRENT | SymbolInfoDouble(symbol, SYMBOL_ASK) | NO_ADDITIONAL_ROUNDING | PriceTolerance | — | APPROVED_TERM |
+| PositionOpenPrice | Позиция открытие цена | All profiles; Symbol-bound | PRICE_OPEN | price | > 0 | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| TriggerPrice | Триггер цена | All profiles; Symbol-bound | PRICE_PROJECTED | price | > 0 | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| TargetPrice | Целевая цена | All profiles; Symbol-bound | PRICE_PROJECTED | price | > 0 | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| ControlPrice | Контрольная цена | All profiles; Symbol-bound | PRICE_PROJECTED | price | > 0 | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| ProjectedExitPrice | Прогнозный выход цена | All profiles; Symbol-bound | PRICE_PROJECTED | price | > 0 | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| ExecutedDealPrice | Исполненная сделка цена | All profiles; Symbol-bound | PRICE_EXECUTED | price | > 0 | CONFIRMED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| PriceDelta | Цена дельта | All profiles; Symbol-bound | PRICE_DELTA | price | signed | PROJECTED | difference of two explicitly named prices | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
 | DistancePoints | Расстояние пункты | All profiles; Symbol-bound | DISTANCE_POINTS | points | non-negative distance | PROJECTED or ACTUAL MEASUREMENT | explicit price delta divided by SYMBOL_POINT | NO_ADDITIONAL_ROUNDING | PointTolerance | — | APPROVED_TERM |
 | DistanceTicks | Расстояние тики | All profiles; Symbol-bound | DISTANCE_TICKS | ticks | non-negative distance | PROJECTED or ACTUAL MEASUREMENT | explicit price delta divided by SYMBOL_TRADE_TICK_SIZE | NO_ADDITIONAL_ROUNDING | PointTolerance | — | APPROVED_TERM |
-| BidAwareClosePrice | Bid учитывающая сторону рынка закрытие цена | All profiles; Symbol-bound | PRICE_BID | price | >0 for absolute price; delta signed | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| AskAwareClosePrice | Ask учитывающая сторону рынка закрытие цена | All profiles; Symbol-bound | PRICE_ASK | price | >0 for absolute price; delta signed | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| FarOpenPriceActual | Хвостовая позиция открытие цена фактический | All profiles; Symbol-bound | PRICE_OPEN | price | >0 for absolute price; delta signed | ACTUAL CURRENT | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| BigCoreOpenPriceActual | Компенсирующая позиция основная часть открытие цена фактический | All profiles; Symbol-bound | PRICE_OPEN | price | >0 for absolute price; delta signed | ACTUAL CURRENT | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| BigTrendOpenPriceActual | Компенсирующая позиция трендовая часть открытие цена фактический | All profiles; Symbol-bound | PRICE_OPEN | price | >0 for absolute price; delta signed | ACTUAL CURRENT | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| SmallBaseOpenPriceActual | Защитная позиция базовая открытие цена фактический | All profiles; Symbol-bound | PRICE_OPEN | price | >0 for absolute price; delta signed | ACTUAL CURRENT | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
-| GrossProfit | Валовая прибыль | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| GrossLoss | Валовая убыток | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| NetProfit | Чистый результат прибыль | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| LegNet | Leg чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| BasketNet | Корзина чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| HarvestGross | Сбор прибыли валовая | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| HarvestNet | Сбор прибыли чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| SmallReverseNet | Защитная позиция разворот чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | UNRESOLVED_BUSINESS_POLICY |
-| TransitionNet | Переход чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| RealizedCyclePL | Реализованный цикл pl | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| FloatingManagedPL | Плавающий управляемая pl | Cycle/account as explicitly qualified | MONEY_FLOATING | account money | signed P/L | ACTUAL CURRENT | current position or broker-aware price model | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| ProjectedFloatingPL | Прогнозный плавающий pl | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed P/L | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| RecoveryPLAnalytic | Восстановление pl аналитический | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed P/L | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| RecoveryPLProjected | Восстановление pl прогнозный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed P/L | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| RecoveryPLCloseNow | Восстановление pl закрытие сейчас | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed P/L | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| RealRecoveryPL | Подтверждённый восстановление pl | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | realRecoveryPL | APPROVED_TERM |
-| RecoverySlope | Восстановление наклон | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed P/L | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| RecoveryMonotonicity | Восстановление монотонность | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | non-negative magnitude/bucket | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| ExpectedExitCosts | Ожидаемые выход расходы | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | non-negative magnitude/bucket | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| CommissionCost | Комиссия cost | Cycle/account as explicitly qualified | MONEY_COST | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| SwapCost | Своп cost | Cycle/account as explicitly qualified | MONEY_COST | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| FeeCost | Сбор cost | Cycle/account as explicitly qualified | MONEY_COST | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| SpreadCost | Спред cost | Cycle/account as explicitly qualified | MONEY_COST | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| SlippageCost | Проскальзывание cost | Cycle/account as explicitly qualified | MONEY_COST | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| PositionPLSigned | Позиция pl со знаком | Cycle/account as explicitly qualified | MONEY_FLOATING | account money | signed P/L | ACTUAL CURRENT | current position or broker-aware price model | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| FarLossSigned | Хвостовая позиция убыток со знаком | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed P/L | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| FarLossMagnitude | Хвостовая позиция убыток модуль | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| PartialFarBudgetProjected | Частичный хвостовая позиция бюджет прогнозный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | non-negative magnitude/bucket | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| PartialFarBudgetReal | Частичный хвостовая позиция бюджет подтверждённый | Cycle/account as explicitly qualified | MONEY_RESERVED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| PartialFarBudgetAvailable | Частичный хвостовая позиция бюджет доступный | Cycle/account as explicitly qualified | MONEY_AVAILABLE | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| PartialFarBudgetConsumed | Частичный хвостовая позиция бюджет израсходованный | Cycle/account as explicitly qualified | MONEY_CONSUMED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| PartialFarBudgetResidual | Частичный хвостовая позиция бюджет остаточная | Cycle/account as explicitly qualified | MONEY_RESIDUAL | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| FinalReserveProjected | Финальный резерв прогнозный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | non-negative magnitude/bucket | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| FinalReserveReal | Финальный резерв подтверждённый | Cycle/account as explicitly qualified | MONEY_RESERVED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | TotalReserve, finalReserveReal | APPROVED_TERM |
-| ReserveAddProjected | Резерв начисление прогнозный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | non-negative magnitude/bucket | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| ReserveAddReal | Резерв начисление подтверждённый | Cycle/account as explicitly qualified | MONEY_RESERVED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| ReserveAvailable | Резерв доступный | Cycle/account as explicitly qualified | MONEY_AVAILABLE | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| ReserveConsumed | Резерв израсходованный | Cycle/account as explicitly qualified | MONEY_CONSUMED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| ReserveResidual | Резерв остаточная | Cycle/account as explicitly qualified | MONEY_RESIDUAL | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| CarryAvailable | Переносимый остаток доступный | Cycle/account as explicitly qualified | MONEY_AVAILABLE | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| CarryConsumed | Переносимый остаток израсходованный | Cycle/account as explicitly qualified | MONEY_CONSUMED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| CarryResidual | Переносимый остаток остаточная | Cycle/account as explicitly qualified | MONEY_RESIDUAL | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| TransitionBudgetAvailable | Переход бюджет доступный | Cycle/account as explicitly qualified | MONEY_AVAILABLE | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| FinalCloseRequirement | Финальный закрытие требование | Cycle/account as explicitly qualified | MONEY_RESERVED | account money | non-negative magnitude/bucket | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| BasketRiskMoney | Корзина риск денежный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | non-negative magnitude/bucket | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| AccountRiskMoney | Счёт риск денежный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | non-negative magnitude/bucket | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
-| BigRatio | Компенсирующая позиция отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
-| SmallRatio | Защитная позиция отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
-| CloseBigOnSmallShare | Закрытие компенсирующая позиция on защитная позиция доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
-| RemainBigOnSmallShare | Remain компенсирующая позиция on защитная позиция доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
-| CloseFarShare | Закрытие хвостовая позиция доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
-| ReserveShare | Резерв доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
-| SmallReserveShare | Защитная позиция резерв доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
-| CompressionRatio | Сжатие отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
-| ReserveCoverageRatio | Резерв покрытие отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
-| RecoveryCoverageRatio | Восстановление покрытие отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
-| MaximumNewBigToOldFarRatio | Максимальное новая компенсирующая позиция to предыдущая хвостовая позиция отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_BUSINESS_POLICY |
-| MinimumReserveCatchUpRatio | Минимальное резерв catch up отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
-| PercentValue | Процент стоимость | Profile-qualified; unresolved values not selected | PERCENT | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
-| ScaleMultiplier | Масштаб множитель | Profile-qualified; unresolved values not selected | MULTIPLIER | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
-| RiskThresholdRatio | Риск порог отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | non-negative; range stated per term | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
-| SymbolId | Символ идентификатор | Symbol+Magic+CycleID+role scope | SYMBOL_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| MagicId | Магический номер идентификатор | Symbol+Magic+CycleID+role scope | MAGIC_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | MagicNumber | APPROVED_TERM |
-| CycleId | Цикл идентификатор | Symbol+Magic+CycleID+role scope | CYCLE_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | CycleID, cycleId | APPROVED_TERM |
-| RoleId | Роль идентификатор | Symbol+Magic+CycleID+role scope | ROLE_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| PositionIdentifier | Позиция идентификатор | Symbol+Magic+CycleID+role scope | POSITION_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | POSITION_IDENTIFIER | APPROVED_TERM |
-| PositionTicket | Позиция тикет | Symbol+Magic+CycleID+role scope | POSITION_TICKET | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | ticket | APPROVED_TERM |
-| OrderTicket | Ордер тикет | Symbol+Magic+CycleID+role scope | ORDER_TICKET | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| DealTicket | Сделка тикет | Symbol+Magic+CycleID+role scope | DEAL_TICKET | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| EventId | Событие идентификатор | Symbol+Magic+CycleID+role scope | EVENT_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| EventKey | Событие ключ | Symbol+Magic+CycleID+role scope | EVENT_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| SnapshotFingerprint | Снимок отпечаток | Symbol+Magic+CycleID+role scope | FINGERPRINT | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
-| PlanFingerprint | План отпечаток | Symbol+Magic+CycleID+role scope | FINGERPRINT | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
-| PositionComment | Позиция комментарий | Symbol+Magic+CycleID+role scope | ROLE_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| SnapshotRevision | Снимок ревизия | Symbol+Magic+CycleID+role scope | ROLE_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
-| StateRevision | Состояние ревизия | Symbol+Magic+CycleID+role scope | EVENT_ID | integer/string identity | non-zero/valid in active scope | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| BidAwareClosePrice | Bid учитывающая сторону рынка закрытие цена | All profiles; Symbol-bound | PRICE_BID | price | > 0 | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| AskAwareClosePrice | Ask учитывающая сторону рынка закрытие цена | All profiles; Symbol-bound | PRICE_ASK | price | > 0 | PROJECTED | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| FarOpenPriceActual | Хвостовая позиция открытие цена фактический | All profiles; Symbol-bound | PRICE_OPEN | price | > 0 | ACTUAL CURRENT | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| BigCoreOpenPriceActual | Компенсирующая позиция основная часть открытие цена фактический | All profiles; Symbol-bound | PRICE_OPEN | price | > 0 | ACTUAL CURRENT | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| BigTrendOpenPriceActual | Компенсирующая позиция трендовая часть открытие цена фактический | All profiles; Symbol-bound | PRICE_OPEN | price | > 0 | ACTUAL CURRENT | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| SmallBaseOpenPriceActual | Защитная позиция базовая открытие цена фактический | All profiles; Symbol-bound | PRICE_OPEN | price | > 0 | ACTUAL CURRENT | SymbolInfo tick/current position/deal properties | ROUND_TO_PRICE_TICK or NO_ADDITIONAL_ROUNDING for actual | PriceTolerance | — | APPROVED_TERM |
+| GrossProfit | Валовая прибыль | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| GrossLoss | Валовая убыток | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| NetProfit | Чистый результат прибыль | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| LegNet | Leg чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| BasketNet | Корзина чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| HarvestGross | Сбор прибыли валовая | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| HarvestNet | Сбор прибыли чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| SmallReverseNet | Защитная позиция разворот чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | UNRESOLVED_BUSINESS_POLICY |
+| TransitionNet | Переход чистый результат | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| RealizedCyclePL | Реализованный цикл pl | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| FloatingManagedPL | Плавающий управляемая pl | Cycle/account as explicitly qualified | MONEY_FLOATING | account money | signed | ACTUAL CURRENT | current position or broker-aware price model | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| ProjectedFloatingPL | Прогнозный плавающий pl | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| RecoveryPLAnalytic | Восстановление pl аналитический | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| RecoveryPLProjected | Восстановление pl прогнозный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| RecoveryPLCloseNow | Восстановление pl закрытие сейчас | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| RealRecoveryPL | Подтверждённый восстановление pl | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | realRecoveryPL | APPROVED_TERM |
+| RecoverySlope | Восстановление наклон | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | signed | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| RecoveryMonotonicity | Восстановление монотонность | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | >= 0 | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| ExpectedExitCosts | Ожидаемые выход расходы | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | >= 0 | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| CommissionCost | Комиссия cost | Cycle/account as explicitly qualified | MONEY_COST | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| SwapCost | Своп cost | Cycle/account as explicitly qualified | MONEY_COST | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| FeeCost | Сбор cost | Cycle/account as explicitly qualified | MONEY_COST | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| SpreadCost | Спред cost | Cycle/account as explicitly qualified | MONEY_COST | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| SlippageCost | Проскальзывание cost | Cycle/account as explicitly qualified | MONEY_COST | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| PositionPLSigned | Позиция pl со знаком | Cycle/account as explicitly qualified | MONEY_FLOATING | account money | signed | ACTUAL CURRENT | current position or broker-aware price model | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| FarLossSigned | Хвостовая позиция убыток со знаком | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | signed | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| FarLossMagnitude | Хвостовая позиция убыток модуль | Cycle/account as explicitly qualified | MONEY_REALIZED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| PartialFarBudgetProjected | Частичный хвостовая позиция бюджет прогнозный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | >= 0 | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| PartialFarBudgetReal | Частичный хвостовая позиция бюджет подтверждённый | Cycle/account as explicitly qualified | MONEY_RESERVED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| PartialFarBudgetAvailable | Частичный хвостовая позиция бюджет доступный | Cycle/account as explicitly qualified | MONEY_AVAILABLE | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| PartialFarBudgetConsumed | Частичный хвостовая позиция бюджет израсходованный | Cycle/account as explicitly qualified | MONEY_CONSUMED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| PartialFarBudgetResidual | Частичный хвостовая позиция бюджет остаточная | Cycle/account as explicitly qualified | MONEY_RESIDUAL | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| FinalReserveProjected | Финальный резерв прогнозный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | >= 0 | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| FinalReserveReal | Финальный резерв подтверждённый | Cycle/account as explicitly qualified | MONEY_RESERVED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | TotalReserve, finalReserveReal | APPROVED_TERM |
+| ReserveAddProjected | Резерв начисление прогнозный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | >= 0 | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| ReserveAddReal | Резерв начисление подтверждённый | Cycle/account as explicitly qualified | MONEY_RESERVED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| ReserveAvailable | Резерв доступный | Cycle/account as explicitly qualified | MONEY_AVAILABLE | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| ReserveConsumed | Резерв израсходованный | Cycle/account as explicitly qualified | MONEY_CONSUMED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| ReserveResidual | Резерв остаточная | Cycle/account as explicitly qualified | MONEY_RESIDUAL | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| CarryAvailable | Переносимый остаток доступный | Cycle/account as explicitly qualified | MONEY_AVAILABLE | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| CarryConsumed | Переносимый остаток израсходованный | Cycle/account as explicitly qualified | MONEY_CONSUMED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| CarryResidual | Переносимый остаток остаточная | Cycle/account as explicitly qualified | MONEY_RESIDUAL | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| TransitionBudgetAvailable | Переход бюджет доступный | Cycle/account as explicitly qualified | MONEY_AVAILABLE | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| FinalCloseRequirement | Финальный закрытие требование | Cycle/account as explicitly qualified | MONEY_RESERVED | account money | >= 0 | ACTUAL CONFIRMED | confirmed deal history / exactly-once ledger | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| BasketRiskMoney | Корзина риск денежный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | >= 0 | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| AccountRiskMoney | Счёт риск денежный | Cycle/account as explicitly qualified | MONEY_PROJECTED | account money | >= 0 | PROJECTED | OrderCalcProfit + explicit projected costs | ROUND_TO_MONEY_DIGITS only at ledger boundary/display; never before conservative gate | MoneyTolerance | — | APPROVED_TERM |
+| BigRatio | Компенсирующая позиция отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
+| SmallRatio | Защитная позиция отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
+| CloseBigOnSmallShare | Закрытие компенсирующая позиция on защитная позиция доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
+| RemainBigOnSmallShare | Remain компенсирующая позиция on защитная позиция доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
+| CloseFarShare | Закрытие хвостовая позиция доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
+| ReserveShare | Резерв доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_PARAMETER_PROFILE |
+| SmallReserveShare | Защитная позиция резерв доля | Profile-qualified; unresolved values not selected | SHARE | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| CompressionRatio | Сжатие отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| ReserveCoverageRatio | Резерв покрытие отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| RecoveryCoverageRatio | Восстановление покрытие отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| MaximumNewBigToOldFarRatio | Максимальное новая компенсирующая позиция to предыдущая хвостовая позиция отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | UNRESOLVED_BUSINESS_POLICY |
+| MinimumReserveCatchUpRatio | Минимальное резерв catch up отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| PercentValue | Процент стоимость | Profile-qualified; unresolved values not selected | PERCENT | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| ScaleMultiplier | Масштаб множитель | Profile-qualified; unresolved values not selected | MULTIPLIER | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| RiskThresholdRatio | Риск порог отношение | Profile-qualified; unresolved values not selected | RATIO | 1 (dimensionless) | >= 0 | POLICY/PROJECTED | approved profile or typed formula | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| SymbolId | Символ идентификатор | Symbol+Magic+CycleID+role scope | SYMBOL_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| MagicId | Магический номер идентификатор | Symbol+Magic+CycleID+role scope | MAGIC_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | MagicNumber | APPROVED_TERM |
+| CycleId | Цикл идентификатор | Symbol+Magic+CycleID+role scope | CYCLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | CycleID, cycleId | APPROVED_TERM |
+| RoleId | Роль идентификатор | Symbol+Magic+CycleID+role scope | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| PositionIdentifier | Позиция идентификатор | Symbol+Magic+CycleID+role scope | POSITION_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | POSITION_IDENTIFIER | APPROVED_TERM |
+| PositionTicket | Позиция тикет | Symbol+Magic+CycleID+role scope | POSITION_TICKET | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | ticket | APPROVED_TERM |
+| OrderTicket | Ордер тикет | Symbol+Magic+CycleID+role scope | ORDER_TICKET | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| DealTicket | Сделка тикет | Symbol+Magic+CycleID+role scope | DEAL_TICKET | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| EventId | Событие идентификатор | Symbol+Magic+CycleID+role scope | EVENT_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| EventKey | Событие ключ | Symbol+Magic+CycleID+role scope | EVENT_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| SnapshotFingerprint | Снимок отпечаток | Symbol+Magic+CycleID+role scope | FINGERPRINT | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
+| PlanFingerprint | План отпечаток | Symbol+Magic+CycleID+role scope | FINGERPRINT | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
+| PositionComment | Позиция комментарий | Symbol+Magic+CycleID+role scope | DIAGNOSTIC_TEXT | diagnostic text | not numeric | ACTUAL OBSERVATION | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
+| SnapshotRevision | Снимок ревизия | Symbol+Magic+CycleID+role scope | EVENT_ID | integer revision identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| StateRevision | Состояние ревизия | Symbol+Magic+CycleID+role scope | EVENT_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | MT5 properties / persisted reconciled namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | State | Состояние | Cycle lifecycle | STATE | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | Phase | Фаза | Cycle lifecycle | PHASE | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | Event | Событие | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
@@ -460,20 +460,20 @@ Parameters BigRatio, SmallRatio, CloseBigOnSmallShare, RemainBigOnSmallShare, Cl
 | NotCalculatedValue | Не расчётный стоимость | All | BOOLEAN_RESULT | data-state enum | not numeric | NOTCALCULATEDVALUE | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
 | NotAvailableValue | Не доступный стоимость | All | BOOLEAN_RESULT | data-state enum | not numeric | NOTAVAILABLEVALUE | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
 | UnknownValue | Неизвестное стоимость | All | BOOLEAN_RESULT | data-state enum | not numeric | UNKNOWNVALUE | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
-| CurrentBid | текущая цена Bid | All | PRICE_BID | price | non-negative | ACTUAL CURRENT | SymbolInfoDouble(symbol, SYMBOL_BID) | NO_ADDITIONAL_ROUNDING | PriceTolerance | — | APPROVED_TERM |
-| CurrentAsk | текущая цена Ask | All | PRICE_ASK | price | non-negative | ACTUAL CURRENT | SymbolInfoDouble(symbol, SYMBOL_ASK) | NO_ADDITIONAL_ROUNDING | PriceTolerance | — | APPROVED_TERM |
-| ReserveProjected | прогнозный резерв до подтверждения | All | MONEY_PROJECTED | account money | non-negative | PROJECTED | OrderCalcProfit outputs plus explicit projected allocation model | NO_ADDITIONAL_ROUNDING | MoneyTolerance | — | APPROVED_TERM |
-| ReserveCoverage | отношение доступного резерва к требованию закрытия | All | RATIO | dimensionless | non-negative | PROJECTED or ACTUAL RATIO | ReserveAvailable divided by FinalCloseRequirement | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
+| CurrentBid | текущая цена Bid | All | PRICE_BID | price | > 0 | ACTUAL CURRENT | SymbolInfoDouble(symbol, SYMBOL_BID) | NO_ADDITIONAL_ROUNDING | PriceTolerance | — | APPROVED_TERM |
+| CurrentAsk | текущая цена Ask | All | PRICE_ASK | price | > 0 | ACTUAL CURRENT | SymbolInfoDouble(symbol, SYMBOL_ASK) | NO_ADDITIONAL_ROUNDING | PriceTolerance | — | APPROVED_TERM |
+| ReserveProjected | прогнозный резерв до подтверждения | All | MONEY_PROJECTED | account money | >= 0 | PROJECTED | OrderCalcProfit outputs plus explicit projected allocation model | NO_ADDITIONAL_ROUNDING | MoneyTolerance | — | APPROVED_TERM |
+| ReserveCoverage | отношение доступного резерва к требованию закрытия | All | RATIO | dimensionless | >= 0 | PROJECTED or ACTUAL RATIO | ReserveAvailable divided by FinalCloseRequirement | NO_ADDITIONAL_ROUNDING | RatioTolerance | — | APPROVED_TERM |
 | Symbol | торговый символ цикла | All | SYMBOL_ID | string identity | not numeric | ACTUAL CONFIRMED | current chart/request symbol and reconciled position symbol | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | MagicNumber | магический номер стратегии | All | MAGIC_ID | integer identity | not numeric | POLICY/ACTUAL CONFIRMED | configured MagicNumber verified against position/deal properties | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | CycleID | идентификатор recovery-цикла | All | CYCLE_ID | integer identity | not numeric | ACTUAL CONFIRMED | persisted cycle creation event confirmed by reconciliation | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | EventID | идентификатор ledger-события | All | EVENT_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | exactly-once ledger event namespace | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | Fingerprint | типизированный отпечаток snapshot или plan | All | FINGERPRINT | hash identity | not numeric | PROJECTED or RECONCILED | canonical serialization of typed fields and revision | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
 | Comment | комментарий торгового объекта | All | DIAGNOSTIC_TEXT | text | not numeric | ACTUAL OBSERVATION | MT5 position/order/deal comment property | NO_ADDITIONAL_ROUNDING | EXACT TEXT; never identity | — | APPROVED_TERM |
-| Preview | read-only предварительная оценка | All | PHASE | structured record | not numeric | PROJECTED | fresh immutable snapshot evaluator | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
+| Preview | read-only предварительная оценка | All | PREVIEW_OBJECT | structured preview | not numeric | PROJECTED | fresh immutable snapshot evaluator | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
 | Candidate | кандидат плана до полного gate-chain | All | OUTCOME | structured record | not numeric | PROJECTED | solver output tied to source fingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
-| Plan | расчётный набор действий и ожиданий | All | STATE | structured record | not numeric | PROJECTED | candidate planner output with revision | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
-| ApprovedPlan | неизменяемый план после всех обязательных gates | All | STATE | structured record | not numeric | PROJECTED APPROVED | approved immutable plan and fingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |<!-- STAGE_3_1_3_CANONICAL_TABLE_END -->
+| Plan | расчётный набор действий и ожиданий | All | PLAN_OBJECT | structured plan | not numeric | PROJECTED | candidate planner output with revision | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
+| ApprovedPlan | неизменяемый план после всех обязательных gates | All | PLAN_OBJECT | structured approved plan | not numeric | PROJECTED APPROVED | approved immutable plan and fingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |<!-- STAGE_3_1_3_CANONICAL_TABLE_END -->
 
 ## Расширенные records canonical terms
 
@@ -501,9 +501,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Legacy нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Legacy, тип STATE, class POLICY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::legacy
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::legacy
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-031`
 Resolution stage: `3.1.8`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -520,7 +520,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Legacy отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Legacy`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Legacy` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Legacy`; MQL5 found=6, accepted=1; Python found=1, accepted=1.
 
 ### LegacyMode
 CanonicalName: `LegacyMode`
@@ -565,7 +566,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: LegacyMode отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `LegacyMode`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `LegacyMode` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `LegacyMode`; MQL5 found=7, accepted=0; Python found=3, accepted=0.
 
 ### LegacyBig
 CanonicalName: `LegacyBig`
@@ -591,9 +593,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: LegacyBig нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: LegacyBig, тип ROLE_ID, class POLICY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::legacy
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::legacy
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -610,7 +612,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: LegacyBig отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `LegacyBig`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `LegacyBig` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `LegacyBig`; MQL5 found=5, accepted=1; Python found=3, accepted=1.
 
 ### LegacySmall
 CanonicalName: `LegacySmall`
@@ -655,7 +658,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: LegacySmall отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `LegacySmall`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `LegacySmall` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `LegacySmall`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### LegacyFar
 CanonicalName: `LegacyFar`
@@ -681,9 +685,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: LegacyFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: LegacyFar, тип ROLE_ID, class POLICY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::legacy
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::legacy
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -700,7 +704,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: LegacyFar отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `LegacyFar`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `LegacyFar` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `LegacyFar`; MQL5 found=8, accepted=1; Python found=2, accepted=1.
 
 ### MonolithicBig
 CanonicalName: `MonolithicBig`
@@ -745,7 +750,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: MonolithicBig отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `MonolithicBig`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `MonolithicBig` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `MonolithicBig`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
 
 ### Split
 CanonicalName: `Split`
@@ -790,7 +796,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Split отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Split`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Split` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Split`; MQL5 found=5, accepted=0; Python found=5, accepted=0.
 
 ### SplitMode
 CanonicalName: `SplitMode`
@@ -835,7 +842,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: SplitMode отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SplitMode`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `SplitMode` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SplitMode`; MQL5 found=7, accepted=0; Python found=3, accepted=0.
 
 ### SplitBig
 CanonicalName: `SplitBig`
@@ -861,9 +869,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: SplitBig нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SplitBig, тип ROLE_ID, class POLICY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::splitBigCore
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -880,7 +888,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: SplitBig отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SplitBig`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `SplitBig` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SplitBig`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
 
 ### BigCore
 CanonicalName: `BigCore`
@@ -906,9 +915,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: BigCore нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigCore, тип ROLE_ID, class POLICY.
 Legacy aliases: Core
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::splitBigCore
+Python mapping: Tests/test_dynamic_reverse_small_direction.py::big_core
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -925,7 +934,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: BigCore отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigCore`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `BigCore` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigCore`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### BigTrend
 CanonicalName: `BigTrend`
@@ -951,9 +961,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: BigTrend нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigTrend, тип ROLE_ID, class POLICY.
 Legacy aliases: Trend
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::splitBigTrend
+Python mapping: Tools/hybrid_small_state_machine.py::big_trend
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -970,7 +980,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: BigTrend отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigTrend`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `BigTrend` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigTrend`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### BigGross
 CanonicalName: `BigGross`
@@ -996,9 +1007,9 @@ Authoritative replacement: пересчёт BigGross на новом immutable s
 Запрещённые подмены: BigGross нельзя подменять BigCore/BigTrend role identity, actual position volume, requested/filled lot или stale plan.
 Связанные сущности: BigCoreLotProjected, BigTrendLotProjected; тип LOT_CALCULATED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::nextBigGross
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -1015,7 +1026,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BigGross отличается от sibling-терминов источником `BigCoreLotProjected + BigTrendLotProjected из одного immutable plan`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigGross`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigGross` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigGross`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### SmallBase
 CanonicalName: `SmallBase`
@@ -1041,9 +1053,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: SmallBase нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SmallBase, тип ROLE_ID, class POLICY.
 Legacy aliases: Small
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::splitSmallBase
+Python mapping: Tests/test_dynamic_reverse_small_direction.py::small_base
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1060,7 +1072,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: SmallBase отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallBase`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `SmallBase` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallBase`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### Hybrid
 CanonicalName: `Hybrid`
@@ -1086,9 +1099,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Hybrid нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Hybrid, тип STATE, class POLICY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::hybrid
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-031`
 Resolution stage: `3.1.8`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -1105,7 +1118,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Hybrid отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Hybrid`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Hybrid` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Hybrid`; MQL5 found=8, accepted=1; Python found=1, accepted=0.
 
 ### HybridSplitBig
 CanonicalName: `HybridSplitBig`
@@ -1150,7 +1164,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: HybridSplitBig отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `HybridSplitBig`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `HybridSplitBig` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `HybridSplitBig`; MQL5 found=5, accepted=0; Python found=2, accepted=0.
 
 ### HybridMode
 CanonicalName: `HybridMode`
@@ -1195,7 +1210,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: HybridMode отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `HybridMode`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `HybridMode` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `HybridMode`; MQL5 found=8, accepted=0; Python found=3, accepted=0.
 
 ### HybridPlan
 CanonicalName: `HybridPlan`
@@ -1203,18 +1219,18 @@ CanonicalName: `HybridPlan`
 Краткое определение: HybridPlan — Immutable projected action set с revision/fingerprint и role-qualified lots; отличается от HybridPreview отсутствием права изменять frozen inputs. Отличительный объект записи: «Гибридный план»; его authoritative provenance — «explicit mode discriminator + plan role».
 Архитектурный профиль: HybridPlan
 Торговая роль: HybridPlan
-Размерность: `STATE`
-Unit: `enum/structured record`
+Размерность: `PLAN_OBJECT`
+Unit: `structured plan`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: explicit mode discriminator + plan role
 Authoritative source: explicit mode discriminator + plan role
 Время фиксации: POLICY stage для HybridPlan.
-Projected/Actual class: `POLICY`
+Projected/Actual class: `PROJECTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `EXACT ENUM MATCH`
-Lifecycle: HybridPlan создаётся соответствующим transition, gate или observation event. Изменяется только явно разрешённым событием своего класса. Новая state revision делает прежнее current значение HybridPlan историческим. последнее confirmed state/event значение того же класса. Terminal outcome завершает current lifecycle, сохраняя audit. Этот lifecycle относится именно к объекту «Гибридный план» и его собственному type/source contract.
+Tolerance: `EXACT STRUCTURE`
+Lifecycle: HybridPlan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение HybridPlan историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
 Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT ENUM MATCH` и explicit provenance.
@@ -1227,20 +1243,21 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
-Creation event: HybridPlan создаётся соответствующим transition, gate или observation event.
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: PROJECTED_VALUE
+Creation event: HybridPlan создаётся из immutable calculation snapshot.
 Validation event: HybridPlan проверяется точным enum/schema сравнением.
 Freeze/confirmation event: HybridPlan фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
-Stale triggers: Новая state revision делает прежнее current значение HybridPlan историческим.
-Replacement source: последнее confirmed state/event значение того же класса.
-Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
-Persistence behavior: Persisted с event identity, если требуется recovery.
-Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
+Mutation events: Не мутирует; новая revision создаёт новый object.
+Stale triggers: input or snapshot revision делает object stale.
+Replacement source: пересчёт на новом immutable snapshot.
+Terminal condition: завершается перед execution либо freeze approved plan.
+Persistence behavior: plan/audit evidence, не actual ledger commit.
+Restart behavior: после restart сверяется fingerprint и пересчитывается.
 Отличие от: HybridPlan отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `HybridPlan`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `HybridPlan` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `HybridPlan`; MQL5 found=7, accepted=0; Python found=3, accepted=0.
 
 ### HybridPreview
 CanonicalName: `HybridPreview`
@@ -1248,18 +1265,18 @@ CanonicalName: `HybridPreview`
 Краткое определение: HybridPreview — Read-only расчёт Base/Worst candidate до approval; PASS не является broker execution success. Отличительный объект записи: «Гибридный preview»; его authoritative provenance — «explicit mode discriminator + plan role».
 Архитектурный профиль: HybridPreview
 Торговая роль: HybridPreview
-Размерность: `STATE`
-Unit: `enum/structured record`
+Размерность: `PREVIEW_OBJECT`
+Unit: `structured preview`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: explicit mode discriminator + plan role
 Authoritative source: explicit mode discriminator + plan role
 Время фиксации: POLICY stage для HybridPreview.
-Projected/Actual class: `POLICY`
+Projected/Actual class: `PROJECTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `EXACT ENUM MATCH`
-Lifecycle: HybridPreview создаётся соответствующим transition, gate или observation event. Изменяется только явно разрешённым событием своего класса. Новая state revision делает прежнее current значение HybridPreview историческим. последнее confirmed state/event значение того же класса. Terminal outcome завершает current lifecycle, сохраняя audit. Этот lifecycle относится именно к объекту «Гибридный preview» и его собственному type/source contract.
+Tolerance: `EXACT STRUCTURE`
+Lifecycle: HybridPreview создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение HybridPreview историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
 Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT ENUM MATCH` и explicit provenance.
@@ -1272,20 +1289,21 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
-Creation event: HybridPreview создаётся соответствующим transition, gate или observation event.
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: PROJECTED_VALUE
+Creation event: HybridPreview создаётся из immutable calculation snapshot.
 Validation event: HybridPreview проверяется точным enum/schema сравнением.
 Freeze/confirmation event: HybridPreview фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
-Stale triggers: Новая state revision делает прежнее current значение HybridPreview историческим.
-Replacement source: последнее confirmed state/event значение того же класса.
-Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
-Persistence behavior: Persisted с event identity, если требуется recovery.
-Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
+Mutation events: Не мутирует; новая revision создаёт новый object.
+Stale triggers: input or snapshot revision делает object stale.
+Replacement source: пересчёт на новом immutable snapshot.
+Terminal condition: завершается перед execution либо freeze approved plan.
+Persistence behavior: plan/audit evidence, не actual ledger commit.
+Restart behavior: после restart сверяется fingerprint и пересчитывается.
 Отличие от: HybridPreview отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `HybridPreview`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `HybridPreview` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `HybridPreview`; MQL5 found=8, accepted=0; Python found=1, accepted=0.
 
 ### HybridExecution
 CanonicalName: `HybridExecution`
@@ -1293,17 +1311,17 @@ CanonicalName: `HybridExecution`
 Краткое определение: HybridExecution — Исполнение ApprovedPlan с broker result, deals и reconciliation; отличается от preview фактическими evidence и возможным partial outcome. Отличительный объект записи: «Гибридный исполнение»; его authoritative provenance — «explicit mode discriminator + plan role».
 Архитектурный профиль: HybridExecution
 Торговая роль: HybridExecution
-Размерность: `STATE`
-Unit: `enum/structured record`
+Размерность: `EXECUTION_OBJECT`
+Unit: `structured execution object`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: explicit mode discriminator + plan role
 Authoritative source: explicit mode discriminator + plan role
 Время фиксации: POLICY stage для HybridExecution.
-Projected/Actual class: `POLICY`
+Projected/Actual class: `REQUESTED/EXECUTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `EXACT ENUM MATCH`
+Tolerance: `EXACT STRUCTURE`
 Lifecycle: HybridExecution создаётся соответствующим transition, gate или observation event. Изменяется только явно разрешённым событием своего класса. Новая state revision делает прежнее current значение HybridExecution историческим. последнее confirmed state/event значение того же класса. Terminal outcome завершает current lifecycle, сохраняя audit. Этот lifecycle относится именно к объекту «Гибридный исполнение» и его собственному type/source contract.
 Условия stale: Новая state revision делает прежнее current значение HybridExecution историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
@@ -1317,8 +1335,8 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: OBJECT
 Creation event: HybridExecution создаётся соответствующим transition, gate или observation event.
 Validation event: HybridExecution проверяется точным enum/schema сравнением.
 Freeze/confirmation event: HybridExecution фиксируется вместе с CycleID и EventID.
@@ -1330,7 +1348,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: HybridExecution отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `HybridExecution`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `HybridExecution` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `HybridExecution`; MQL5 found=6, accepted=0; Python found=2, accepted=0.
 
 ### InitialBuy
 CanonicalName: `InitialBuy`
@@ -1356,9 +1375,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: InitialBuy нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: InitialBuy, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::initialBuy
+Python mapping: Tests/unit/test_money_completion_behavior.py::initial
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1375,7 +1394,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: InitialBuy отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `InitialBuy`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `InitialBuy` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `InitialBuy`; MQL5 found=8, accepted=1; Python found=2, accepted=1.
 
 ### InitialSell
 CanonicalName: `InitialSell`
@@ -1401,9 +1421,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: InitialSell нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: InitialSell, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::initialSell
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1420,7 +1440,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: InitialSell отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `InitialSell`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `InitialSell` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `InitialSell`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
 
 ### InitialProfitLeg
 CanonicalName: `InitialProfitLeg`
@@ -1465,7 +1486,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: InitialProfitLeg отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `InitialProfitLeg`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `InitialProfitLeg` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `InitialProfitLeg`; MQL5 found=8, accepted=0; Python found=4, accepted=0.
 
 ### InitialLosingLeg
 CanonicalName: `InitialLosingLeg`
@@ -1510,7 +1532,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: InitialLosingLeg отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `InitialLosingLeg`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `InitialLosingLeg` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `InitialLosingLeg`; MQL5 found=6, accepted=0; Python found=4, accepted=0.
 
 ### InitialIgnoredProfit
 CanonicalName: `InitialIgnoredProfit`
@@ -1520,7 +1543,7 @@ CanonicalName: `InitialIgnoredProfit`
 Торговая роль: InitialIgnoredProfit
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed confirmed result; excluded from recovery money
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed closing deal aggregation of InitialProfitLeg filtered by Symbol+Magic+CycleID+position identity
 Authoritative source: confirmed closing deal aggregation of InitialProfitLeg filtered by Symbol+Magic+CycleID+position identity
@@ -1537,8 +1560,8 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Связанные сущности: InitialIgnoredProfit, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/real_recovery_examples_check.py::initial_ignored_profit
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1555,7 +1578,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: InitialIgnoredProfit отличается от sibling-терминов источником `confirmed closing deal aggregation of InitialProfitLeg filtered by Symbol+Magic+CycleID+position identity`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `InitialIgnoredProfit`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `InitialIgnoredProfit` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `InitialIgnoredProfit`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
 
 ### OldFar
 CanonicalName: `OldFar`
@@ -1581,9 +1605,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: OldFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: OldFar, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/BrokerMoneyModel.mqh::oldFar
+Python mapping: Tests/small_reverse_compression_check.py::old_far
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1600,7 +1624,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: OldFar отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `OldFar`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `OldFar` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `OldFar`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
 
 ### CurrentFar
 CanonicalName: `CurrentFar`
@@ -1626,9 +1651,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: CurrentFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CurrentFar, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: Far
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::current
+Python mapping: Tools/run_full_parameter_optimization_study.py::current
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1645,7 +1670,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: CurrentFar отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CurrentFar`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `CurrentFar` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CurrentFar`; MQL5 found=7, accepted=1; Python found=5, accepted=1.
 
 ### ResidualFar
 CanonicalName: `ResidualFar`
@@ -1671,9 +1697,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: ResidualFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ResidualFar, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::residual
+Python mapping: Tests/unit/test_money_completion_behavior.py::residual
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1690,7 +1716,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: ResidualFar отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ResidualFar`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `ResidualFar` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ResidualFar`; MQL5 found=3, accepted=1; Python found=1, accepted=1.
 
 ### NewFar
 CanonicalName: `NewFar`
@@ -1716,9 +1743,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: NewFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: NewFar, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/BrokerMoneyModel.mqh::newFar
+Python mapping: Tests/small_reverse_compression_check.py::new_far
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1735,7 +1762,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: NewFar отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NewFar`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `NewFar` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NewFar`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### LegacyBigPosition
 CanonicalName: `LegacyBigPosition`
@@ -1743,14 +1771,14 @@ CanonicalName: `LegacyBigPosition`
 Краткое определение: LegacyBigPosition — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Устаревшая архитектура компенсирующая позиция позиция»; его authoritative provenance — «reconciled MT5 position identity and role mapping».
 Архитектурный профиль: Role-qualified architecture
 Торговая роль: LegacyBig
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
+Размерность: `POSITION_ID`
+Unit: `position reference identity`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: reconciled MT5 position identity and role mapping
 Authoritative source: reconciled MT5 position identity and role mapping
 Время фиксации: ACTUAL CONFIRMED stage для LegacyBigPosition.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL CURRENT`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT`
@@ -1761,14 +1789,14 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: LegacyBigPosition нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: LegacyBig, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::bigPositionId
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: LegacyBigPosition назначается approved role rule и связывается с position identity.
 Validation event: Связка LegacyBigPosition проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -1780,7 +1808,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: LegacyBigPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `LegacyBigPosition`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `LegacyBigPosition` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `LegacyBigPosition`; MQL5 found=8, accepted=1; Python found=2, accepted=0.
 
 ### BigCorePosition
 CanonicalName: `BigCorePosition`
@@ -1788,14 +1817,14 @@ CanonicalName: `BigCorePosition`
 Краткое определение: BigCorePosition — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Компенсирующая позиция основная часть позиция»; его authoritative provenance — «reconciled MT5 position identity and role mapping».
 Архитектурный профиль: Role-qualified architecture
 Торговая роль: BigCore
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
+Размерность: `POSITION_ID`
+Unit: `position reference identity`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: reconciled MT5 position identity and role mapping
 Authoritative source: reconciled MT5 position identity and role mapping
 Время фиксации: ACTUAL CONFIRMED stage для BigCorePosition.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL CURRENT`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT`
@@ -1806,14 +1835,14 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: BigCorePosition нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigCore, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/ReconciliationEngine.mqh::ValidateBigCorePosition
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: BigCorePosition назначается approved role rule и связывается с position identity.
 Validation event: Связка BigCorePosition проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -1825,7 +1854,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: BigCorePosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigCorePosition`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `BigCorePosition` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigCorePosition`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
 
 ### BigTrendPosition
 CanonicalName: `BigTrendPosition`
@@ -1833,14 +1863,14 @@ CanonicalName: `BigTrendPosition`
 Краткое определение: BigTrendPosition — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Компенсирующая позиция трендовая часть позиция»; его authoritative provenance — «reconciled MT5 position identity and role mapping».
 Архитектурный профиль: Role-qualified architecture
 Торговая роль: BigTrend
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
+Размерность: `POSITION_ID`
+Unit: `position reference identity`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: reconciled MT5 position identity and role mapping
 Authoritative source: reconciled MT5 position identity and role mapping
 Время фиксации: ACTUAL CONFIRMED stage для BigTrendPosition.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL CURRENT`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT`
@@ -1851,14 +1881,14 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: BigTrendPosition нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigTrend, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/ReconciliationEngine.mqh::ValidateBigTrendPosition
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: BigTrendPosition назначается approved role rule и связывается с position identity.
 Validation event: Связка BigTrendPosition проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -1870,7 +1900,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: BigTrendPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigTrendPosition`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `BigTrendPosition` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigTrendPosition`; MQL5 found=8, accepted=1; Python found=6, accepted=0.
 
 ### LegacySmallPosition
 CanonicalName: `LegacySmallPosition`
@@ -1878,14 +1909,14 @@ CanonicalName: `LegacySmallPosition`
 Краткое определение: LegacySmallPosition — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Устаревшая архитектура защитная позиция позиция»; его authoritative provenance — «reconciled MT5 position identity and role mapping».
 Архитектурный профиль: Role-qualified architecture
 Торговая роль: LegacySmall
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
+Размерность: `POSITION_ID`
+Unit: `position reference identity`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: reconciled MT5 position identity and role mapping
 Authoritative source: reconciled MT5 position identity and role mapping
 Время фиксации: ACTUAL CONFIRMED stage для LegacySmallPosition.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL CURRENT`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT`
@@ -1896,14 +1927,14 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: LegacySmallPosition нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: LegacySmall, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::smallPositionId
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: LegacySmallPosition назначается approved role rule и связывается с position identity.
 Validation event: Связка LegacySmallPosition проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -1915,7 +1946,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: LegacySmallPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `LegacySmallPosition`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `LegacySmallPosition` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `LegacySmallPosition`; MQL5 found=8, accepted=1; Python found=0, accepted=0.
 
 ### SmallBasePosition
 CanonicalName: `SmallBasePosition`
@@ -1923,14 +1955,14 @@ CanonicalName: `SmallBasePosition`
 Краткое определение: SmallBasePosition — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Защитная позиция базовая позиция»; его authoritative provenance — «reconciled MT5 position identity and role mapping».
 Архитектурный профиль: Role-qualified architecture
 Торговая роль: SmallBase
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
+Размерность: `POSITION_ID`
+Unit: `position reference identity`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: reconciled MT5 position identity and role mapping
 Authoritative source: reconciled MT5 position identity and role mapping
 Время фиксации: ACTUAL CONFIRMED stage для SmallBasePosition.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL CURRENT`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT`
@@ -1941,14 +1973,14 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: SmallBasePosition нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SmallBase, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/ReconciliationEngine.mqh::ValidateSmallBasePosition
+Python mapping: Tests/unit/test_split_exact_persistence_model.py::small_base_id
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: SmallBasePosition назначается approved role rule и связывается с position identity.
 Validation event: Связка SmallBasePosition проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -1960,7 +1992,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: SmallBasePosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallBasePosition`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `SmallBasePosition` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallBasePosition`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### ManagedPosition
 CanonicalName: `ManagedPosition`
@@ -1968,14 +2001,14 @@ CanonicalName: `ManagedPosition`
 Краткое определение: ManagedPosition — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Управляемая позиция»; его authoritative provenance — «reconciled MT5 position identity and role mapping».
 Архитектурный профиль: Role-qualified architecture
 Торговая роль: ManagedPosition
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
+Размерность: `POSITION_ID`
+Unit: `position reference identity`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: reconciled MT5 position identity and role mapping
 Authoritative source: reconciled MT5 position identity and role mapping
 Время фиксации: ACTUAL CONFIRMED stage для ManagedPosition.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL CURRENT`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT`
@@ -1986,14 +2019,14 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: ManagedPosition нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ManagedPosition, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/PositionUtils.mqh::IsManagedPositionForMagic
+Python mapping: Tests/real_recovery_examples_check.py::managed_positions
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: ManagedPosition назначается approved role rule и связывается с position identity.
 Validation event: Связка ManagedPosition проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -2005,7 +2038,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: ManagedPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ManagedPosition`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `ManagedPosition` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ManagedPosition`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### UnmanagedPosition
 CanonicalName: `UnmanagedPosition`
@@ -2013,14 +2047,14 @@ CanonicalName: `UnmanagedPosition`
 Краткое определение: UnmanagedPosition — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Неуправляемая позиция»; его authoritative provenance — «reconciled MT5 position identity and role mapping».
 Архитектурный профиль: Role-qualified architecture
 Торговая роль: UnmanagedPosition
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
+Размерность: `POSITION_ID`
+Unit: `position reference identity`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: reconciled MT5 position identity and role mapping
 Authoritative source: reconciled MT5 position identity and role mapping
 Время фиксации: ACTUAL CONFIRMED stage для UnmanagedPosition.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL CURRENT`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT`
@@ -2037,8 +2071,8 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: UnmanagedPosition назначается approved role rule и связывается с position identity.
 Validation event: Связка UnmanagedPosition проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -2050,7 +2084,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: UnmanagedPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `UnmanagedPosition`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `UnmanagedPosition` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `UnmanagedPosition`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
 
 ### ForeignCyclePosition
 CanonicalName: `ForeignCyclePosition`
@@ -2058,14 +2093,14 @@ CanonicalName: `ForeignCyclePosition`
 Краткое определение: ForeignCyclePosition — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Чужая цикл позиция»; его authoritative provenance — «reconciled MT5 position identity and role mapping».
 Архитектурный профиль: Role-qualified architecture
 Торговая роль: ForeignCyclePosition
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
+Размерность: `POSITION_ID`
+Unit: `position reference identity`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: reconciled MT5 position identity and role mapping
 Authoritative source: reconciled MT5 position identity and role mapping
 Время фиксации: ACTUAL CONFIRMED stage для ForeignCyclePosition.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL CURRENT`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT`
@@ -2082,8 +2117,8 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: ForeignCyclePosition назначается approved role rule и связывается с position identity.
 Validation event: Связка ForeignCyclePosition проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -2095,7 +2130,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: ForeignCyclePosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ForeignCyclePosition`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `ForeignCyclePosition` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ForeignCyclePosition`; MQL5 found=8, accepted=0; Python found=0, accepted=0.
 
 ### FarDirection
 CanonicalName: `FarDirection`
@@ -2121,9 +2157,9 @@ Authoritative replacement: пересчёт FarDirection на новом immutab
 Запрещённые подмены: FarDirection нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип DIRECTION_ENUM, class ACTUAL CONFIRMED or POLICY DERIVED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::farDirection
+Python mapping: Tools/hybrid_small_state_machine.py::direction
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2140,7 +2176,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: FarDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarDirection`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `FarDirection` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarDirection`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### OppositeFarDirection
 CanonicalName: `OppositeFarDirection`
@@ -2166,9 +2203,9 @@ Authoritative replacement: пересчёт OppositeFarDirection на новом
 Запрещённые подмены: OppositeFarDirection нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: OppositeFarDirection, тип DIRECTION_ENUM, class ACTUAL CONFIRMED or POLICY DERIVED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::farDirection
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2185,7 +2222,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: OppositeFarDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `OppositeFarDirection`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `OppositeFarDirection` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `OppositeFarDirection`; MQL5 found=6, accepted=1; Python found=4, accepted=0.
 
 ### SameAsFarDirection
 CanonicalName: `SameAsFarDirection`
@@ -2211,9 +2249,9 @@ Authoritative replacement: пересчёт SameAsFarDirection на новом i
 Запрещённые подмены: SameAsFarDirection нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SameAsFarDirection, тип DIRECTION_ENUM, class ACTUAL CONFIRMED or POLICY DERIVED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::farDirection
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2230,7 +2268,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: SameAsFarDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SameAsFarDirection`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `SameAsFarDirection` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SameAsFarDirection`; MQL5 found=6, accepted=1; Python found=5, accepted=0.
 
 ### BigDirection
 CanonicalName: `BigDirection`
@@ -2256,9 +2295,9 @@ Authoritative replacement: пересчёт BigDirection на новом immutab
 Запрещённые подмены: BigDirection нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigDirection, тип DIRECTION_ENUM, class ACTUAL CONFIRMED or POLICY DERIVED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::bigDirection
+Python mapping: Tools/hybrid_small_state_machine.py::direction
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2275,7 +2314,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BigDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigDirection`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `BigDirection` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigDirection`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### SmallDirection
 CanonicalName: `SmallDirection`
@@ -2301,9 +2341,9 @@ Authoritative replacement: пересчёт SmallDirection на новом immut
 Запрещённые подмены: SmallDirection нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SmallDirection, тип DIRECTION_ENUM, class ACTUAL CONFIRMED or POLICY DERIVED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::smallDirection
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2320,7 +2360,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: SmallDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallDirection`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `SmallDirection` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallDirection`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### TrendDirection
 CanonicalName: `TrendDirection`
@@ -2365,7 +2406,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: TrendDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `TrendDirection`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `TrendDirection` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `TrendDirection`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### ReverseDirection
 CanonicalName: `ReverseDirection`
@@ -2392,8 +2434,8 @@ Authoritative replacement: пересчёт ReverseDirection на новом imm
 Связанные сущности: ReverseDirection, тип DIRECTION_ENUM, class ACTUAL CONFIRMED or POLICY DERIVED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/test_dynamic_reverse_small_direction.py::reverse_direction
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2410,7 +2452,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ReverseDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReverseDirection`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ReverseDirection` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReverseDirection`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
 
 ### RawLot
 CanonicalName: `RawLot`
@@ -2420,7 +2463,7 @@ CanonicalName: `RawLot`
 Торговая роль: RawLot
 Размерность: `LOT_RAW`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_RAW`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -2436,9 +2479,9 @@ Authoritative replacement: пересчёт RawLot на новом immutable sna
 Запрещённые подмены: RawLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RawLot, тип LOT_RAW, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/RecoveryMath.mqh::rawLot
+Python mapping: Tests/normalize_volume_to_step_check.py::lot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2455,7 +2498,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: RawLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RawLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RawLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RawLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### CalculatedLot
 CanonicalName: `CalculatedLot`
@@ -2465,7 +2509,7 @@ CanonicalName: `CalculatedLot`
 Торговая роль: CalculatedLot
 Размерность: `LOT_CALCULATED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_CALCULATED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -2481,9 +2525,9 @@ Authoritative replacement: пересчёт CalculatedLot на новом immuta
 Запрещённые подмены: CalculatedLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CalculatedLot, тип LOT_CALCULATED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::calculated
+Python mapping: Tests/unit/test_split_recovery_order_model.py::calculated
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2500,7 +2544,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: CalculatedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CalculatedLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `CalculatedLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CalculatedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### NormalizedLot
 CanonicalName: `NormalizedLot`
@@ -2510,7 +2555,7 @@ CanonicalName: `NormalizedLot`
 Торговая роль: NormalizedLot
 Размерность: `LOT_NORMALIZED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -2526,9 +2571,9 @@ Authoritative replacement: пересчёт NormalizedLot на новом immuta
 Запрещённые подмены: NormalizedLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: NormalizedLot, тип LOT_NORMALIZED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/ReconciliationEngine.mqh::normalizedCtxLot
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2545,7 +2590,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: NormalizedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NormalizedLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NormalizedLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NormalizedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### RequestedLot
 CanonicalName: `RequestedLot`
@@ -2555,7 +2601,7 @@ CanonicalName: `RequestedLot`
 Торговая роль: RequestedLot
 Размерность: `LOT_REQUESTED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_REQUESTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved immutable plan
 Authoritative source: approved immutable plan
@@ -2571,9 +2617,9 @@ Authoritative replacement: FilledLot/ExecutionResult, затем reconciled actu
 Запрещённые подмены: RequestedLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RequestedLot, тип LOT_REQUESTED, class REQUESTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::requestedLot
+Python mapping: Tests/unit/test_money_completion_behavior.py::requested
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2590,7 +2636,8 @@ Persistence behavior: Сохраняется только как audit evidence 
 Restart behavior: После restart подтверждается по order/deal history.
 Отличие от: RequestedLot отличается от sibling-терминов источником `approved immutable plan`, классом `REQUESTED` и стадией lifecycle `REQUESTED`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RequestedLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `REQUESTED`; запись `RequestedLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RequestedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### FilledLot
 CanonicalName: `FilledLot`
@@ -2600,7 +2647,7 @@ CanonicalName: `FilledLot`
 Торговая роль: FilledLot
 Размерность: `LOT_FILLED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_FILLED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deals/trade result
 Authoritative source: confirmed deals/trade result
@@ -2616,9 +2663,9 @@ Authoritative replacement: повторно построенный aggregate con
 Запрещённые подмены: FilledLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: FilledLot, тип LOT_FILLED, class CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::filledLot
+Python mapping: Tests/unit/test_big_small_behavior.py::filled
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2635,7 +2682,8 @@ Persistence behavior: Persisted audit ссылается на DealTicket/EventID
 Restart behavior: После restart реконструируется из confirmed deal history.
 Отличие от: FilledLot отличается от sibling-терминов источником `confirmed deals/trade result`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FilledLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `FilledLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FilledLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### ActualPositionLot
 CanonicalName: `ActualPositionLot`
@@ -2645,7 +2693,7 @@ CanonicalName: `ActualPositionLot`
 Торговая роль: ActualPositionLot
 Размерность: `LOT_POSITION_ACTUAL`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_POSITION_ACTUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: current MT5 position snapshot
 Authoritative source: current MT5 position snapshot
@@ -2661,9 +2709,9 @@ Authoritative replacement: новый current MT5 position snapshot.
 Запрещённые подмены: ActualPositionLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ActualPositionLot, тип LOT_POSITION_ACTUAL, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/BrokerMoneyModel.mqh::actualPositionLot
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2680,7 +2728,8 @@ Persistence behavior: Live значение не заменяется persisted 
 Restart behavior: После restart обязательно перечитывается из terminal state.
 Отличие от: ActualPositionLot отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ActualPositionLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `ActualPositionLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ActualPositionLot`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### ResidualLotProjected
 CanonicalName: `ResidualLotProjected`
@@ -2690,7 +2739,7 @@ CanonicalName: `ResidualLotProjected`
 Торговая роль: ResidualLotProjected
 Размерность: `LOT_RESIDUAL`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_RESIDUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -2725,7 +2774,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ResidualLotProjected отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ResidualLotProjected`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ResidualLotProjected` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ResidualLotProjected`; MQL5 found=4, accepted=0; Python found=0, accepted=0.
 
 ### ResidualLotActual
 CanonicalName: `ResidualLotActual`
@@ -2735,7 +2785,7 @@ CanonicalName: `ResidualLotActual`
 Торговая роль: ResidualLotActual
 Размерность: `LOT_POSITION_ACTUAL`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_POSITION_ACTUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: current MT5 position snapshot
 Authoritative source: current MT5 position snapshot
@@ -2770,7 +2820,8 @@ Persistence behavior: Live значение не заменяется persisted 
 Restart behavior: После restart обязательно перечитывается из terminal state.
 Отличие от: ResidualLotActual отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ResidualLotActual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `ResidualLotActual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ResidualLotActual`; MQL5 found=6, accepted=0; Python found=2, accepted=0.
 
 ### FarLotRaw
 CanonicalName: `FarLotRaw`
@@ -2780,7 +2831,7 @@ CanonicalName: `FarLotRaw`
 Торговая роль: Far
 Размерность: `LOT_RAW`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_RAW`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -2796,9 +2847,9 @@ Authoritative replacement: пересчёт FarLotRaw на новом immutable 
 Запрещённые подмены: FarLotRaw нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип LOT_RAW, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Logger.mqh::closeFarLotRaw
+Python mapping: Tools/optimize_big_scenario_min_levels.py::close_far_lot_raw
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2815,7 +2866,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: FarLotRaw отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarLotRaw`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarLotRaw` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarLotRaw`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### FarLotCalculated
 CanonicalName: `FarLotCalculated`
@@ -2825,7 +2877,7 @@ CanonicalName: `FarLotCalculated`
 Торговая роль: Far
 Размерность: `LOT_CALCULATED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_CALCULATED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -2841,9 +2893,9 @@ Authoritative replacement: пересчёт FarLotCalculated на новом imm
 Запрещённые подмены: FarLotCalculated нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип LOT_CALCULATED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::farLotAfter
+Python mapping: Tools/optimize_big_scenario_min_levels.py::FarLotAfter
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2860,7 +2912,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: FarLotCalculated отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarLotCalculated`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarLotCalculated` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarLotCalculated`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### FarLotNormalized
 CanonicalName: `FarLotNormalized`
@@ -2870,7 +2923,7 @@ CanonicalName: `FarLotNormalized`
 Торговая роль: Far
 Размерность: `LOT_NORMALIZED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -2905,7 +2958,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: FarLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarLotNormalized`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarLotNormalized` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarLotNormalized`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### FarLotRequested
 CanonicalName: `FarLotRequested`
@@ -2915,7 +2969,7 @@ CanonicalName: `FarLotRequested`
 Торговая роль: Far
 Размерность: `LOT_REQUESTED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_REQUESTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved immutable plan
 Authoritative source: approved immutable plan
@@ -2931,9 +2985,9 @@ Authoritative replacement: FilledLot/ExecutionResult, затем reconciled actu
 Запрещённые подмены: FarLotRequested нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип LOT_REQUESTED, class REQUESTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::requestedLot
+Python mapping: Tools/hybrid_geometry_model.py::far_lot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2950,7 +3004,8 @@ Persistence behavior: Сохраняется только как audit evidence 
 Restart behavior: После restart подтверждается по order/deal history.
 Отличие от: FarLotRequested отличается от sibling-терминов источником `approved immutable plan`, классом `REQUESTED` и стадией lifecycle `REQUESTED`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarLotRequested`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `REQUESTED`; запись `FarLotRequested` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarLotRequested`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### FarLotFilled
 CanonicalName: `FarLotFilled`
@@ -2960,7 +3015,7 @@ CanonicalName: `FarLotFilled`
 Торговая роль: Far
 Размерность: `LOT_FILLED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_FILLED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deals/trade result
 Authoritative source: confirmed deals/trade result
@@ -2976,9 +3031,9 @@ Authoritative replacement: повторно построенный aggregate con
 Запрещённые подмены: FarLotFilled нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип LOT_FILLED, class CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::farLot
+Python mapping: Tools/hybrid_geometry_model.py::far_lot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2995,7 +3050,8 @@ Persistence behavior: Persisted audit ссылается на DealTicket/EventID
 Restart behavior: После restart реконструируется из confirmed deal history.
 Отличие от: FarLotFilled отличается от sibling-терминов источником `confirmed deals/trade result`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarLotFilled`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `FarLotFilled` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarLotFilled`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### FarLotActual
 CanonicalName: `FarLotActual`
@@ -3005,7 +3061,7 @@ CanonicalName: `FarLotActual`
 Торговая роль: Far
 Размерность: `LOT_POSITION_ACTUAL`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_POSITION_ACTUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: current MT5 position snapshot
 Authoritative source: current MT5 position snapshot
@@ -3021,9 +3077,9 @@ Authoritative replacement: новый current MT5 position snapshot.
 Запрещённые подмены: FarLotActual нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип LOT_POSITION_ACTUAL, class ACTUAL CURRENT.
 Legacy aliases: FarLot, Ctx.farLot
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::farLot
+Python mapping: Tools/hybrid_geometry_model.py::far_lot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3040,7 +3096,8 @@ Persistence behavior: Live значение не заменяется persisted 
 Restart behavior: После restart обязательно перечитывается из terminal state.
 Отличие от: FarLotActual отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarLotActual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `FarLotActual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarLotActual`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### BigCoreLotRaw
 CanonicalName: `BigCoreLotRaw`
@@ -3050,7 +3107,7 @@ CanonicalName: `BigCoreLotRaw`
 Торговая роль: BigCore
 Размерность: `LOT_RAW`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_RAW`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3066,9 +3123,9 @@ Authoritative replacement: пересчёт BigCoreLotRaw на новом immuta
 Запрещённые подмены: BigCoreLotRaw нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigCore, тип LOT_RAW, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Logger.mqh::closeBigLotRaw
+Python mapping: Tools/hybrid_geometry_model.py::core_lot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3085,7 +3142,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BigCoreLotRaw отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigCoreLotRaw`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigCoreLotRaw` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigCoreLotRaw`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### BigCoreLotNormalized
 CanonicalName: `BigCoreLotNormalized`
@@ -3095,7 +3153,7 @@ CanonicalName: `BigCoreLotNormalized`
 Торговая роль: BigCore
 Размерность: `LOT_NORMALIZED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3130,7 +3188,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BigCoreLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigCoreLotNormalized`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigCoreLotNormalized` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigCoreLotNormalized`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### BigCoreLotRequested
 CanonicalName: `BigCoreLotRequested`
@@ -3140,7 +3199,7 @@ CanonicalName: `BigCoreLotRequested`
 Торговая роль: BigCore
 Размерность: `LOT_REQUESTED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_REQUESTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved immutable plan
 Authoritative source: approved immutable plan
@@ -3175,7 +3234,8 @@ Persistence behavior: Сохраняется только как audit evidence 
 Restart behavior: После restart подтверждается по order/deal history.
 Отличие от: BigCoreLotRequested отличается от sibling-терминов источником `approved immutable plan`, классом `REQUESTED` и стадией lifecycle `REQUESTED`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigCoreLotRequested`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `REQUESTED`; запись `BigCoreLotRequested` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigCoreLotRequested`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### BigCoreLotFilled
 CanonicalName: `BigCoreLotFilled`
@@ -3185,7 +3245,7 @@ CanonicalName: `BigCoreLotFilled`
 Торговая роль: BigCore
 Размерность: `LOT_FILLED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_FILLED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deals/trade result
 Authoritative source: confirmed deals/trade result
@@ -3220,7 +3280,8 @@ Persistence behavior: Persisted audit ссылается на DealTicket/EventID
 Restart behavior: После restart реконструируется из confirmed deal history.
 Отличие от: BigCoreLotFilled отличается от sibling-терминов источником `confirmed deals/trade result`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigCoreLotFilled`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `BigCoreLotFilled` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigCoreLotFilled`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### BigCoreLotActual
 CanonicalName: `BigCoreLotActual`
@@ -3230,7 +3291,7 @@ CanonicalName: `BigCoreLotActual`
 Торговая роль: BigCore
 Размерность: `LOT_POSITION_ACTUAL`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_POSITION_ACTUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: current MT5 position snapshot
 Authoritative source: current MT5 position snapshot
@@ -3265,7 +3326,8 @@ Persistence behavior: Live значение не заменяется persisted 
 Restart behavior: После restart обязательно перечитывается из terminal state.
 Отличие от: BigCoreLotActual отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigCoreLotActual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `BigCoreLotActual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigCoreLotActual`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### BigTrendLotRaw
 CanonicalName: `BigTrendLotRaw`
@@ -3275,7 +3337,7 @@ CanonicalName: `BigTrendLotRaw`
 Торговая роль: BigTrend
 Размерность: `LOT_RAW`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_RAW`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3291,9 +3353,9 @@ Authoritative replacement: пересчёт BigTrendLotRaw на новом immut
 Запрещённые подмены: BigTrendLotRaw нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigTrend, тип LOT_RAW, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::trendLot
+Python mapping: Tools/hybrid_geometry_model.py::trend_lot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3310,7 +3372,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BigTrendLotRaw отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigTrendLotRaw`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigTrendLotRaw` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigTrendLotRaw`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### BigTrendLotNormalized
 CanonicalName: `BigTrendLotNormalized`
@@ -3320,7 +3383,7 @@ CanonicalName: `BigTrendLotNormalized`
 Торговая роль: BigTrend
 Размерность: `LOT_NORMALIZED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3355,7 +3418,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BigTrendLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigTrendLotNormalized`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigTrendLotNormalized` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigTrendLotNormalized`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
 
 ### SmallBaseLotRaw
 CanonicalName: `SmallBaseLotRaw`
@@ -3365,7 +3429,7 @@ CanonicalName: `SmallBaseLotRaw`
 Торговая роль: SmallBase
 Размерность: `LOT_RAW`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_RAW`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3381,9 +3445,9 @@ Authoritative replacement: пересчёт SmallBaseLotRaw на новом immu
 Запрещённые подмены: SmallBaseLotRaw нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SmallBase, тип LOT_RAW, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::smallLot
+Python mapping: Tools/hybrid_geometry_model.py::small_lot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3400,7 +3464,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: SmallBaseLotRaw отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallBaseLotRaw`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `SmallBaseLotRaw` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallBaseLotRaw`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### SmallBaseLotNormalized
 CanonicalName: `SmallBaseLotNormalized`
@@ -3410,7 +3475,7 @@ CanonicalName: `SmallBaseLotNormalized`
 Торговая роль: SmallBase
 Размерность: `LOT_NORMALIZED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3445,7 +3510,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: SmallBaseLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallBaseLotNormalized`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `SmallBaseLotNormalized` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallBaseLotNormalized`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### PartialFarCloseLotCalculated
 CanonicalName: `PartialFarCloseLotCalculated`
@@ -3455,7 +3521,7 @@ CanonicalName: `PartialFarCloseLotCalculated`
 Торговая роль: PartialFarClose
 Размерность: `LOT_CALCULATED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_CALCULATED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3490,7 +3556,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: PartialFarCloseLotCalculated отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarCloseLotCalculated`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PartialFarCloseLotCalculated` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarCloseLotCalculated`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### PartialFarCloseLotNormalized
 CanonicalName: `PartialFarCloseLotNormalized`
@@ -3500,7 +3567,7 @@ CanonicalName: `PartialFarCloseLotNormalized`
 Торговая роль: PartialFarClose
 Размерность: `LOT_NORMALIZED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3535,7 +3602,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: PartialFarCloseLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarCloseLotNormalized`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PartialFarCloseLotNormalized` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarCloseLotNormalized`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### PartialFarCloseLotRequested
 CanonicalName: `PartialFarCloseLotRequested`
@@ -3545,7 +3613,7 @@ CanonicalName: `PartialFarCloseLotRequested`
 Торговая роль: PartialFarClose
 Размерность: `LOT_REQUESTED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_REQUESTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved immutable plan
 Authoritative source: approved immutable plan
@@ -3580,7 +3648,8 @@ Persistence behavior: Сохраняется только как audit evidence 
 Restart behavior: После restart подтверждается по order/deal history.
 Отличие от: PartialFarCloseLotRequested отличается от sibling-терминов источником `approved immutable plan`, классом `REQUESTED` и стадией lifecycle `REQUESTED`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarCloseLotRequested`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `REQUESTED`; запись `PartialFarCloseLotRequested` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarCloseLotRequested`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### PartialFarCloseLotFilled
 CanonicalName: `PartialFarCloseLotFilled`
@@ -3590,7 +3659,7 @@ CanonicalName: `PartialFarCloseLotFilled`
 Торговая роль: PartialFarClose
 Размерность: `LOT_FILLED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_FILLED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deals/trade result
 Authoritative source: confirmed deals/trade result
@@ -3625,7 +3694,8 @@ Persistence behavior: Persisted audit ссылается на DealTicket/EventID
 Restart behavior: После restart реконструируется из confirmed deal history.
 Отличие от: PartialFarCloseLotFilled отличается от sibling-терминов источником `confirmed deals/trade result`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarCloseLotFilled`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `PartialFarCloseLotFilled` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarCloseLotFilled`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### FarResidualProjected
 CanonicalName: `FarResidualProjected`
@@ -3635,7 +3705,7 @@ CanonicalName: `FarResidualProjected`
 Торговая роль: FarResidual
 Размерность: `LOT_RESIDUAL`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_RESIDUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3670,7 +3740,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: FarResidualProjected отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarResidualProjected`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarResidualProjected` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarResidualProjected`; MQL5 found=7, accepted=0; Python found=0, accepted=0.
 
 ### FarResidualActual
 CanonicalName: `FarResidualActual`
@@ -3680,7 +3751,7 @@ CanonicalName: `FarResidualActual`
 Торговая роль: FarResidual
 Размерность: `LOT_POSITION_ACTUAL`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_POSITION_ACTUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: current MT5 position snapshot
 Authoritative source: current MT5 position snapshot
@@ -3715,7 +3786,8 @@ Persistence behavior: Live значение не заменяется persisted 
 Restart behavior: После restart обязательно перечитывается из terminal state.
 Отличие от: FarResidualActual отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarResidualActual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `FarResidualActual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarResidualActual`; MQL5 found=4, accepted=0; Python found=1, accepted=0.
 
 ### NewFarCandidateLot
 CanonicalName: `NewFarCandidateLot`
@@ -3725,7 +3797,7 @@ CanonicalName: `NewFarCandidateLot`
 Торговая роль: NewFar
 Размерность: `LOT_CALCULATED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_CALCULATED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3742,8 +3814,8 @@ Authoritative replacement: пересчёт NewFarCandidateLot на новом i
 Связанные сущности: NewFar, тип LOT_CALCULATED, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::NewFarCandidate
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-020`
 Resolution stage: `3.1.6 / 3.1.8`
 Статус определения: `UNRESOLVED_MODE_ROUTING`
@@ -3760,7 +3832,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: NewFarCandidateLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NewFarCandidateLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NewFarCandidateLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NewFarCandidateLot`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
 
 ### NewFarProjectedLot
 CanonicalName: `NewFarProjectedLot`
@@ -3770,7 +3843,7 @@ CanonicalName: `NewFarProjectedLot`
 Торговая роль: NewFar
 Размерность: `LOT_RAW`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_RAW`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3786,9 +3859,9 @@ Authoritative replacement: пересчёт NewFarProjectedLot на новом i
 Запрещённые подмены: NewFarProjectedLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: NewFar, тип LOT_RAW, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/BrokerMoneyModel.mqh::projectedNewFarLot
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-020`
 Resolution stage: `3.1.6 / 3.1.8`
 Статус определения: `UNRESOLVED_MODE_ROUTING`
@@ -3805,7 +3878,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: NewFarProjectedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NewFarProjectedLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NewFarProjectedLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NewFarProjectedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### NewFarNormalizedLot
 CanonicalName: `NewFarNormalizedLot`
@@ -3815,7 +3889,7 @@ CanonicalName: `NewFarNormalizedLot`
 Торговая роль: NewFar
 Размерность: `LOT_NORMALIZED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3831,9 +3905,9 @@ Authoritative replacement: пересчёт NewFarNormalizedLot на новом 
 Запрещённые подмены: NewFarNormalizedLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: NewFar, тип LOT_NORMALIZED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/ReconciliationEngine.mqh::normalizedCtxLot
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-020`
 Resolution stage: `3.1.6 / 3.1.8`
 Статус определения: `UNRESOLVED_MODE_ROUTING`
@@ -3850,7 +3924,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: NewFarNormalizedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NewFarNormalizedLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NewFarNormalizedLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NewFarNormalizedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### NewFarPromotedLot
 CanonicalName: `NewFarPromotedLot`
@@ -3860,7 +3935,7 @@ CanonicalName: `NewFarPromotedLot`
 Торговая роль: NewFar
 Размерность: `LOT_NORMALIZED`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: typed formula + SymbolInfo volume constraints
 Authoritative source: typed formula + SymbolInfo volume constraints
@@ -3895,7 +3970,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: NewFarPromotedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NewFarPromotedLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NewFarPromotedLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NewFarPromotedLot`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### NewFarActualLot
 CanonicalName: `NewFarActualLot`
@@ -3905,7 +3981,7 @@ CanonicalName: `NewFarActualLot`
 Торговая роль: NewFar
 Размерность: `LOT_POSITION_ACTUAL`
 Unit: `lot`
-Знак: >=0; active position >0
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_POSITION_ACTUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: current MT5 position snapshot
 Authoritative source: current MT5 position snapshot
@@ -3921,9 +3997,9 @@ Authoritative replacement: новый current MT5 position snapshot.
 Запрещённые подмены: NewFarActualLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: NewFar, тип LOT_POSITION_ACTUAL, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::actualNewFarLot
+Python mapping: Tools/hybrid_small_state_machine.py::actual_new_far_lot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-020`
 Resolution stage: `3.1.6 / 3.1.8`
 Статус определения: `UNRESOLVED_MODE_ROUTING`
@@ -3940,7 +4016,8 @@ Persistence behavior: Live значение не заменяется persisted 
 Restart behavior: После restart обязательно перечитывается из terminal state.
 Отличие от: NewFarActualLot отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NewFarActualLot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `NewFarActualLot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NewFarActualLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### Point
 CanonicalName: `Point`
@@ -3950,7 +4027,7 @@ CanonicalName: `Point`
 Торговая роль: Point
 Размерность: `PRICE_POINT_SIZE`
 Unit: `price per point`
-Знак: strictly positive symbol property
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_POINT_SIZE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfoDouble(symbol, SYMBOL_POINT)
 Authoritative source: SymbolInfoDouble(symbol, SYMBOL_POINT)
@@ -3966,9 +4043,9 @@ Authoritative replacement: новый SymbolInfo* property snapshot.
 Запрещённые подмены: Point нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Point, тип PRICE_POINT_SIZE, class SYMBOL PROPERTY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/HybridFutureSmallSolver.mqh::point
+Python mapping: Tests/small_at_far_scenario_log.py::point
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3985,7 +4062,8 @@ Persistence behavior: Можно хранить только с symbol/property 
 Restart behavior: После restart перечитывается из терминала.
 Отличие от: Point отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_POINT)`, классом `SYMBOL PROPERTY` и стадией lifecycle `SYMBOL_PROPERTY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Point`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `SYMBOL_PROPERTY`; запись `Point` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Point`; MQL5 found=3, accepted=1; Python found=8, accepted=1.
 
 ### TickSize
 CanonicalName: `TickSize`
@@ -3995,7 +4073,7 @@ CanonicalName: `TickSize`
 Торговая роль: TickSize
 Размерность: `PRICE_TICK_SIZE`
 Unit: `price per tick`
-Знак: strictly positive symbol property
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_TICK_SIZE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE)
 Authoritative source: SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE)
@@ -4011,9 +4089,9 @@ Authoritative replacement: новый SymbolInfo* property snapshot.
 Запрещённые подмены: TickSize нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: TickSize, тип PRICE_TICK_SIZE, class SYMBOL PROPERTY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/SimulationEngine.mqh::tickSize
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4030,7 +4108,8 @@ Persistence behavior: Можно хранить только с symbol/property 
 Restart behavior: После restart перечитывается из терминала.
 Отличие от: TickSize отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE)`, классом `SYMBOL PROPERTY` и стадией lifecycle `SYMBOL_PROPERTY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `TickSize`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `SYMBOL_PROPERTY`; запись `TickSize` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `TickSize`; MQL5 found=3, accepted=1; Python found=4, accepted=0.
 
 ### TickValue
 CanonicalName: `TickValue`
@@ -4040,7 +4119,7 @@ CanonicalName: `TickValue`
 Торговая роль: TickValue
 Размерность: `PRICE_PROJECTED`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4056,9 +4135,9 @@ Authoritative replacement: пересчёт TickValue на новом immutable 
 Запрещённые подмены: TickValue нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: TickValue, тип PRICE_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/SimulationEngine.mqh::tickValue
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4075,7 +4154,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: TickValue отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `TickValue`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `TickValue` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `TickValue`; MQL5 found=7, accepted=1; Python found=4, accepted=0.
 
 ### MarketBidPrice
 CanonicalName: `MarketBidPrice`
@@ -4085,7 +4165,7 @@ CanonicalName: `MarketBidPrice`
 Торговая роль: MarketBidPrice
 Размерность: `PRICE_BID`
 Unit: `price`
-Знак: strictly positive
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_BID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfoDouble(symbol, SYMBOL_BID)
 Authoritative source: SymbolInfoDouble(symbol, SYMBOL_BID)
@@ -4101,9 +4181,9 @@ Authoritative replacement: пересчёт MarketBidPrice на новом immut
 Запрещённые подмены: MarketBidPrice нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: MarketBidPrice, тип PRICE_BID, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/SimulationEngine.mqh::MarketBid
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4120,7 +4200,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: MarketBidPrice отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_BID)`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `MarketBidPrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `MarketBidPrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `MarketBidPrice`; MQL5 found=1, accepted=1; Python found=2, accepted=0.
 
 ### MarketAskPrice
 CanonicalName: `MarketAskPrice`
@@ -4130,7 +4211,7 @@ CanonicalName: `MarketAskPrice`
 Торговая роль: MarketAskPrice
 Размерность: `PRICE_ASK`
 Unit: `price`
-Знак: strictly positive
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_ASK`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfoDouble(symbol, SYMBOL_ASK)
 Authoritative source: SymbolInfoDouble(symbol, SYMBOL_ASK)
@@ -4146,9 +4227,9 @@ Authoritative replacement: пересчёт MarketAskPrice на новом immut
 Запрещённые подмены: MarketAskPrice нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: MarketAskPrice, тип PRICE_ASK, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/SimulationEngine.mqh::MarketAsk
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4165,7 +4246,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: MarketAskPrice отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_ASK)`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `MarketAskPrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `MarketAskPrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `MarketAskPrice`; MQL5 found=1, accepted=1; Python found=1, accepted=0.
 
 ### PositionOpenPrice
 CanonicalName: `PositionOpenPrice`
@@ -4175,7 +4257,7 @@ CanonicalName: `PositionOpenPrice`
 Торговая роль: Position
 Размерность: `PRICE_OPEN`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_OPEN`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4191,9 +4273,9 @@ Authoritative replacement: пересчёт PositionOpenPrice на новом im
 Запрещённые подмены: PositionOpenPrice нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Position, тип PRICE_OPEN, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/SimulationEngine.mqh::positionOpenPrice
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4210,7 +4292,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: PositionOpenPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PositionOpenPrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PositionOpenPrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PositionOpenPrice`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### TriggerPrice
 CanonicalName: `TriggerPrice`
@@ -4220,7 +4303,7 @@ CanonicalName: `TriggerPrice`
 Торговая роль: TriggerPrice
 Размерность: `PRICE_PROJECTED`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4255,7 +4338,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: TriggerPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `TriggerPrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `TriggerPrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `TriggerPrice`; MQL5 found=8, accepted=0; Python found=4, accepted=0.
 
 ### TargetPrice
 CanonicalName: `TargetPrice`
@@ -4265,7 +4349,7 @@ CanonicalName: `TargetPrice`
 Торговая роль: TargetPrice
 Размерность: `PRICE_PROJECTED`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4300,7 +4384,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: TargetPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `TargetPrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `TargetPrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `TargetPrice`; MQL5 found=8, accepted=0; Python found=7, accepted=0.
 
 ### ControlPrice
 CanonicalName: `ControlPrice`
@@ -4310,7 +4395,7 @@ CanonicalName: `ControlPrice`
 Торговая роль: ControlPrice
 Размерность: `PRICE_PROJECTED`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4345,7 +4430,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ControlPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ControlPrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ControlPrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ControlPrice`; MQL5 found=8, accepted=0; Python found=3, accepted=0.
 
 ### ProjectedExitPrice
 CanonicalName: `ProjectedExitPrice`
@@ -4355,7 +4441,7 @@ CanonicalName: `ProjectedExitPrice`
 Торговая роль: ProjectedExitPrice
 Размерность: `PRICE_PROJECTED`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4390,7 +4476,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ProjectedExitPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ProjectedExitPrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ProjectedExitPrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ProjectedExitPrice`; MQL5 found=7, accepted=0; Python found=1, accepted=0.
 
 ### ExecutedDealPrice
 CanonicalName: `ExecutedDealPrice`
@@ -4400,7 +4487,7 @@ CanonicalName: `ExecutedDealPrice`
 Торговая роль: ExecutedDealPrice
 Размерность: `PRICE_EXECUTED`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_EXECUTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4435,7 +4522,8 @@ Persistence behavior: Persisted audit ссылается на DealTicket/EventID
 Restart behavior: После restart реконструируется из confirmed deal history.
 Отличие от: ExecutedDealPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ExecutedDealPrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `ExecutedDealPrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ExecutedDealPrice`; MQL5 found=2, accepted=0; Python found=0, accepted=0.
 
 ### PriceDelta
 CanonicalName: `PriceDelta`
@@ -4445,7 +4533,7 @@ CanonicalName: `PriceDelta`
 Торговая роль: PriceDelta
 Размерность: `PRICE_DELTA`
 Unit: `price`
-Знак: signed price difference
+Знак: signed
 Допустимый диапазон: соответствует типу `PRICE_DELTA`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: difference of two explicitly named prices
 Authoritative source: difference of two explicitly named prices
@@ -4480,7 +4568,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: PriceDelta отличается от sibling-терминов источником `difference of two explicitly named prices`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PriceDelta`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PriceDelta` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PriceDelta`; MQL5 found=2, accepted=0; Python found=4, accepted=0.
 
 ### DistancePoints
 CanonicalName: `DistancePoints`
@@ -4506,9 +4595,9 @@ Authoritative replacement: пересчёт DistancePoints на новом immut
 Запрещённые подмены: DistancePoints нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: DistancePoints, тип DISTANCE_POINTS, class PROJECTED or ACTUAL MEASUREMENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/HybridCatchUpModel.mqh::distancePoints
+Python mapping: Tools/mql5_like_big_scenario_parameter_search.py::distance_points
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4525,7 +4614,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: DistancePoints отличается от sibling-терминов источником `explicit price delta divided by SYMBOL_POINT`, классом `PROJECTED or ACTUAL MEASUREMENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `DistancePoints`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `DistancePoints` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `DistancePoints`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### DistanceTicks
 CanonicalName: `DistanceTicks`
@@ -4570,7 +4660,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: DistanceTicks отличается от sibling-терминов источником `explicit price delta divided by SYMBOL_TRADE_TICK_SIZE`, классом `PROJECTED or ACTUAL MEASUREMENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `DistanceTicks`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `DistanceTicks` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `DistanceTicks`; MQL5 found=4, accepted=0; Python found=5, accepted=0.
 
 ### BidAwareClosePrice
 CanonicalName: `BidAwareClosePrice`
@@ -4580,7 +4671,7 @@ CanonicalName: `BidAwareClosePrice`
 Торговая роль: BidAwareClosePrice
 Размерность: `PRICE_BID`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_BID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4615,7 +4706,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BidAwareClosePrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BidAwareClosePrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BidAwareClosePrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BidAwareClosePrice`; MQL5 found=6, accepted=0; Python found=0, accepted=0.
 
 ### AskAwareClosePrice
 CanonicalName: `AskAwareClosePrice`
@@ -4625,7 +4717,7 @@ CanonicalName: `AskAwareClosePrice`
 Торговая роль: AskAwareClosePrice
 Размерность: `PRICE_ASK`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_ASK`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4660,7 +4752,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: AskAwareClosePrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `AskAwareClosePrice`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `AskAwareClosePrice` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `AskAwareClosePrice`; MQL5 found=4, accepted=0; Python found=0, accepted=0.
 
 ### FarOpenPriceActual
 CanonicalName: `FarOpenPriceActual`
@@ -4670,7 +4763,7 @@ CanonicalName: `FarOpenPriceActual`
 Торговая роль: Far
 Размерность: `PRICE_OPEN`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_OPEN`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4686,9 +4779,9 @@ Authoritative replacement: пересчёт FarOpenPriceActual на новом i
 Запрещённые подмены: FarOpenPriceActual нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип PRICE_OPEN, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::farOpenPrice
+Python mapping: Tests/small_at_far_scenario_log.py::far_open_price
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4705,7 +4798,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: FarOpenPriceActual отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarOpenPriceActual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarOpenPriceActual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarOpenPriceActual`; MQL5 found=8, accepted=1; Python found=7, accepted=1.
 
 ### BigCoreOpenPriceActual
 CanonicalName: `BigCoreOpenPriceActual`
@@ -4715,7 +4809,7 @@ CanonicalName: `BigCoreOpenPriceActual`
 Торговая роль: BigCore
 Размерность: `PRICE_OPEN`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_OPEN`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4731,9 +4825,9 @@ Authoritative replacement: пересчёт BigCoreOpenPriceActual на ново
 Запрещённые подмены: BigCoreOpenPriceActual нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigCore, тип PRICE_OPEN, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::coreOpenPrice
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4750,7 +4844,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BigCoreOpenPriceActual отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigCoreOpenPriceActual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigCoreOpenPriceActual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigCoreOpenPriceActual`; MQL5 found=8, accepted=1; Python found=4, accepted=0.
 
 ### BigTrendOpenPriceActual
 CanonicalName: `BigTrendOpenPriceActual`
@@ -4760,7 +4855,7 @@ CanonicalName: `BigTrendOpenPriceActual`
 Торговая роль: BigTrend
 Размерность: `PRICE_OPEN`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_OPEN`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4776,9 +4871,9 @@ Authoritative replacement: пересчёт BigTrendOpenPriceActual на нов�
 Запрещённые подмены: BigTrendOpenPriceActual нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigTrend, тип PRICE_OPEN, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::trendOpenPrice
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4795,7 +4890,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BigTrendOpenPriceActual отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigTrendOpenPriceActual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigTrendOpenPriceActual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigTrendOpenPriceActual`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
 
 ### SmallBaseOpenPriceActual
 CanonicalName: `SmallBaseOpenPriceActual`
@@ -4805,7 +4901,7 @@ CanonicalName: `SmallBaseOpenPriceActual`
 Торговая роль: SmallBase
 Размерность: `PRICE_OPEN`
 Unit: `price`
-Знак: >0 for absolute price; delta signed
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_OPEN`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfo tick/current position/deal properties
 Authoritative source: SymbolInfo tick/current position/deal properties
@@ -4821,9 +4917,9 @@ Authoritative replacement: пересчёт SmallBaseOpenPriceActual на нов
 Запрещённые подмены: SmallBaseOpenPriceActual нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SmallBase, тип PRICE_OPEN, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::smallOpenPrice
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4840,7 +4936,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: SmallBaseOpenPriceActual отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallBaseOpenPriceActual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `SmallBaseOpenPriceActual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallBaseOpenPriceActual`; MQL5 found=7, accepted=1; Python found=1, accepted=0.
 
 ### GrossProfit
 CanonicalName: `GrossProfit`
@@ -4850,7 +4947,7 @@ CanonicalName: `GrossProfit`
 Торговая роль: GrossProfit
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -4866,9 +4963,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: GrossProfit нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: GrossProfit, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::projectedGrossProfit
+Python mapping: Tools/offline_optimizer.py::gross_profit
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4885,7 +4982,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: GrossProfit отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `GrossProfit`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `GrossProfit` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `GrossProfit`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### GrossLoss
 CanonicalName: `GrossLoss`
@@ -4895,7 +4993,7 @@ CanonicalName: `GrossLoss`
 Торговая роль: GrossLoss
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -4912,8 +5010,8 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Связанные сущности: GrossLoss, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tools/offline_optimizer.py::gross_loss
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4930,7 +5028,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: GrossLoss отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `GrossLoss`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `GrossLoss` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `GrossLoss`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
 
 ### NetProfit
 CanonicalName: `NetProfit`
@@ -4940,7 +5039,7 @@ CanonicalName: `NetProfit`
 Торговая роль: NetProfit
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -4956,9 +5055,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: NetProfit нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: NetProfit, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Logger.mqh::netProfit
+Python mapping: Tools/run_full_parameter_optimization_study.py::net_profit
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4975,7 +5074,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: NetProfit отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NetProfit`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `NetProfit` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NetProfit`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### LegNet
 CanonicalName: `LegNet`
@@ -4985,7 +5085,7 @@ CanonicalName: `LegNet`
 Торговая роль: LegNet
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5001,9 +5101,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: LegNet нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: LegNet, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::legNet
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::leg_net
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5020,7 +5120,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: LegNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `LegNet`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `LegNet` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `LegNet`; MQL5 found=7, accepted=1; Python found=8, accepted=1.
 
 ### BasketNet
 CanonicalName: `BasketNet`
@@ -5030,7 +5131,7 @@ CanonicalName: `BasketNet`
 Торговая роль: BasketNet
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5046,9 +5147,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: BasketNet нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BasketNet, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/BrokerMoneyModel.mqh::basket
+Python mapping: Tests/unit/test_broker_money_behavior.py::basket
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5065,7 +5166,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: BasketNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BasketNet`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `BasketNet` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BasketNet`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
 
 ### HarvestGross
 CanonicalName: `HarvestGross`
@@ -5075,7 +5177,7 @@ CanonicalName: `HarvestGross`
 Торговая роль: HarvestGross
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5110,7 +5212,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: HarvestGross отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `HarvestGross`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `HarvestGross` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `HarvestGross`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### HarvestNet
 CanonicalName: `HarvestNet`
@@ -5120,7 +5223,7 @@ CanonicalName: `HarvestNet`
 Торговая роль: HarvestNet
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5136,9 +5239,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: HarvestNet нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: HarvestNet, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::harvestNet
+Python mapping: Tools/hybrid_big_sequence_model.py::harvest
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5155,7 +5258,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: HarvestNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `HarvestNet`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `HarvestNet` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `HarvestNet`; MQL5 found=8, accepted=1; Python found=6, accepted=1.
 
 ### SmallReverseNet
 CanonicalName: `SmallReverseNet`
@@ -5165,7 +5269,7 @@ CanonicalName: `SmallReverseNet`
 Торговая роль: SmallReverseNet
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5182,8 +5286,8 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Связанные сущности: SmallReverseNet, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tools/offline_optimizer.py::small_net
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-023`
 Resolution stage: `3.1.5 / 3.1.6`
 Статус определения: `UNRESOLVED_BUSINESS_POLICY`
@@ -5200,7 +5304,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: SmallReverseNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallReverseNet`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `SmallReverseNet` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallReverseNet`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
 
 ### TransitionNet
 CanonicalName: `TransitionNet`
@@ -5210,7 +5315,7 @@ CanonicalName: `TransitionNet`
 Торговая роль: TransitionNet
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5226,9 +5331,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: TransitionNet нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: TransitionNet, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::transition
+Python mapping: Tools/hybrid_geometry_model.py::transition_net
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5245,7 +5350,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: TransitionNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `TransitionNet`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `TransitionNet` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `TransitionNet`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### RealizedCyclePL
 CanonicalName: `RealizedCyclePL`
@@ -5255,7 +5361,7 @@ CanonicalName: `RealizedCyclePL`
 Торговая роль: RealizedCyclePL
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5271,9 +5377,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: RealizedCyclePL нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RealizedCyclePL, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::realizedCyclePL
+Python mapping: Tools/hybrid_small_state_machine.py::realized_cycle_pl
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5290,7 +5396,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: RealizedCyclePL отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RealizedCyclePL`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `RealizedCyclePL` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RealizedCyclePL`; MQL5 found=8, accepted=1; Python found=3, accepted=1.
 
 ### FloatingManagedPL
 CanonicalName: `FloatingManagedPL`
@@ -5300,7 +5407,7 @@ CanonicalName: `FloatingManagedPL`
 Торговая роль: FloatingManagedPL
 Размерность: `MONEY_FLOATING`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_FLOATING`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: current position or broker-aware price model
 Authoritative source: current position or broker-aware price model
@@ -5316,9 +5423,9 @@ Authoritative replacement: новый current MT5 position snapshot.
 Запрещённые подмены: FloatingManagedPL нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: FloatingManagedPL, тип MONEY_FLOATING, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::farFloatingPL
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5335,7 +5442,8 @@ Persistence behavior: Live значение не заменяется persisted 
 Restart behavior: После restart обязательно перечитывается из terminal state.
 Отличие от: FloatingManagedPL отличается от sibling-терминов источником `current position or broker-aware price model`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FloatingManagedPL`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `FloatingManagedPL` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FloatingManagedPL`; MQL5 found=2, accepted=1; Python found=2, accepted=0.
 
 ### ProjectedFloatingPL
 CanonicalName: `ProjectedFloatingPL`
@@ -5345,7 +5453,7 @@ CanonicalName: `ProjectedFloatingPL`
 Торговая роль: ProjectedFloatingPL
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -5361,9 +5469,9 @@ Authoritative replacement: пересчёт ProjectedFloatingPL на новом 
 Запрещённые подмены: ProjectedFloatingPL нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ProjectedFloatingPL, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::projectedFarPL
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5380,7 +5488,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ProjectedFloatingPL отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ProjectedFloatingPL`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ProjectedFloatingPL` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ProjectedFloatingPL`; MQL5 found=8, accepted=1; Python found=3, accepted=0.
 
 ### RecoveryPLAnalytic
 CanonicalName: `RecoveryPLAnalytic`
@@ -5390,7 +5499,7 @@ CanonicalName: `RecoveryPLAnalytic`
 Торговая роль: RecoveryPL
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -5406,9 +5515,9 @@ Authoritative replacement: пересчёт RecoveryPLAnalytic на новом i
 Запрещённые подмены: RecoveryPLAnalytic нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RecoveryPL, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Logger.mqh::recoveryPL
+Python mapping: Tests/real_recovery_examples_check.py::recovery_pl
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5425,7 +5534,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: RecoveryPLAnalytic отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RecoveryPLAnalytic`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoveryPLAnalytic` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RecoveryPLAnalytic`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### RecoveryPLProjected
 CanonicalName: `RecoveryPLProjected`
@@ -5435,7 +5545,7 @@ CanonicalName: `RecoveryPLProjected`
 Торговая роль: RecoveryPL
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -5451,9 +5561,9 @@ Authoritative replacement: пересчёт RecoveryPLProjected на новом 
 Запрещённые подмены: RecoveryPLProjected нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RecoveryPL, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Logger.mqh::recoveryPL
+Python mapping: Tests/real_recovery_examples_check.py::recovery_pl
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5470,7 +5580,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: RecoveryPLProjected отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RecoveryPLProjected`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoveryPLProjected` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RecoveryPLProjected`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### RecoveryPLCloseNow
 CanonicalName: `RecoveryPLCloseNow`
@@ -5480,7 +5591,7 @@ CanonicalName: `RecoveryPLCloseNow`
 Торговая роль: RecoveryPL
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -5496,9 +5607,9 @@ Authoritative replacement: пересчёт RecoveryPLCloseNow на новом i
 Запрещённые подмены: RecoveryPLCloseNow нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RecoveryPL, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Logger.mqh::recoveryPL
+Python mapping: Tests/real_recovery_examples_check.py::recovery_pl
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5515,7 +5626,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: RecoveryPLCloseNow отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RecoveryPLCloseNow`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoveryPLCloseNow` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RecoveryPLCloseNow`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### RealRecoveryPL
 CanonicalName: `RealRecoveryPL`
@@ -5525,7 +5637,7 @@ CanonicalName: `RealRecoveryPL`
 Торговая роль: RealRecoveryPL
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5541,9 +5653,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: RealRecoveryPL нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RealRecoveryPL, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: realRecoveryPL
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::CalcRealRecoveryPL
+Python mapping: Tests/real_recovery_examples_check.py::recovery_pl
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5560,7 +5672,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: RealRecoveryPL отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RealRecoveryPL`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `RealRecoveryPL` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RealRecoveryPL`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### RecoverySlope
 CanonicalName: `RecoverySlope`
@@ -5570,7 +5683,7 @@ CanonicalName: `RecoverySlope`
 Торговая роль: RecoverySlope
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -5586,9 +5699,9 @@ Authoritative replacement: пересчёт RecoverySlope на новом immuta
 Запрещённые подмены: RecoverySlope нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RecoverySlope, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Logger.mqh::recoveryPL
+Python mapping: Tools/hybrid_geometry_model.py::recovery_slope
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5605,7 +5718,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: RecoverySlope отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RecoverySlope`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoverySlope` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RecoverySlope`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### RecoveryMonotonicity
 CanonicalName: `RecoveryMonotonicity`
@@ -5615,7 +5729,7 @@ CanonicalName: `RecoveryMonotonicity`
 Торговая роль: RecoveryMonotonicity
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -5650,7 +5764,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: RecoveryMonotonicity отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RecoveryMonotonicity`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoveryMonotonicity` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RecoveryMonotonicity`; MQL5 found=6, accepted=0; Python found=8, accepted=0.
 
 ### ExpectedExitCosts
 CanonicalName: `ExpectedExitCosts`
@@ -5660,7 +5775,7 @@ CanonicalName: `ExpectedExitCosts`
 Торговая роль: ExpectedExitCosts
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -5677,8 +5792,8 @@ Authoritative replacement: пересчёт ExpectedExitCosts на новом im
 Связанные сущности: ExpectedExitCosts, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::fee_in_expected_exit_costs
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5695,7 +5810,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ExpectedExitCosts отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ExpectedExitCosts`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ExpectedExitCosts` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ExpectedExitCosts`; MQL5 found=7, accepted=0; Python found=7, accepted=1.
 
 ### CommissionCost
 CanonicalName: `CommissionCost`
@@ -5705,7 +5821,7 @@ CanonicalName: `CommissionCost`
 Торговая роль: CommissionCost
 Размерность: `MONEY_COST`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_COST`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5722,8 +5838,8 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Связанные сущности: CommissionCost, тип MONEY_COST, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::commission
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5740,7 +5856,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: CommissionCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CommissionCost`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `CommissionCost` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CommissionCost`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
 
 ### SwapCost
 CanonicalName: `SwapCost`
@@ -5750,7 +5867,7 @@ CanonicalName: `SwapCost`
 Торговая роль: SwapCost
 Размерность: `MONEY_COST`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_COST`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5766,9 +5883,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: SwapCost нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SwapCost, тип MONEY_COST, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/HybridPartialFarPreview.mqh::cost
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5785,7 +5902,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: SwapCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SwapCost`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `SwapCost` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SwapCost`; MQL5 found=8, accepted=1; Python found=6, accepted=0.
 
 ### FeeCost
 CanonicalName: `FeeCost`
@@ -5795,7 +5913,7 @@ CanonicalName: `FeeCost`
 Торговая роль: FeeCost
 Размерность: `MONEY_COST`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_COST`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5811,9 +5929,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: FeeCost нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: FeeCost, тип MONEY_COST, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/HybridPartialFarPreview.mqh::cost
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5830,7 +5948,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: FeeCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FeeCost`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FeeCost` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FeeCost`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
 
 ### SpreadCost
 CanonicalName: `SpreadCost`
@@ -5840,7 +5959,7 @@ CanonicalName: `SpreadCost`
 Торговая роль: SpreadCost
 Размерность: `MONEY_COST`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_COST`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5875,7 +5994,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: SpreadCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SpreadCost`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `SpreadCost` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SpreadCost`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
 
 ### SlippageCost
 CanonicalName: `SlippageCost`
@@ -5885,7 +6005,7 @@ CanonicalName: `SlippageCost`
 Торговая роль: SlippageCost
 Размерность: `MONEY_COST`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_COST`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5901,9 +6021,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: SlippageCost нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SlippageCost, тип MONEY_COST, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/BrokerMoneyModel.mqh::slippage
+Python mapping: Tests/unit/test_big_small_behavior.py::slippage
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5920,7 +6040,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: SlippageCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SlippageCost`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `SlippageCost` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SlippageCost`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
 
 ### PositionPLSigned
 CanonicalName: `PositionPLSigned`
@@ -5930,7 +6051,7 @@ CanonicalName: `PositionPLSigned`
 Торговая роль: Position
 Размерность: `MONEY_FLOATING`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_FLOATING`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: current position or broker-aware price model
 Authoritative source: current position or broker-aware price model
@@ -5946,9 +6067,9 @@ Authoritative replacement: новый current MT5 position snapshot.
 Запрещённые подмены: PositionPLSigned нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Position, тип MONEY_FLOATING, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/SimulationEngine.mqh::SimSignedPositionPL
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5965,7 +6086,8 @@ Persistence behavior: Live значение не заменяется persisted 
 Restart behavior: После restart обязательно перечитывается из terminal state.
 Отличие от: PositionPLSigned отличается от sibling-терминов источником `current position or broker-aware price model`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PositionPLSigned`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `PositionPLSigned` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PositionPLSigned`; MQL5 found=7, accepted=1; Python found=3, accepted=0.
 
 ### FarLossSigned
 CanonicalName: `FarLossSigned`
@@ -5975,7 +6097,7 @@ CanonicalName: `FarLossSigned`
 Торговая роль: Far
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: signed P/L
+Знак: signed
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -5991,9 +6113,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: FarLossSigned нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/BrokerMoneyModel.mqh::farLoss
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6010,7 +6132,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: FarLossSigned отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarLossSigned`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FarLossSigned` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarLossSigned`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### FarLossMagnitude
 CanonicalName: `FarLossMagnitude`
@@ -6020,7 +6143,7 @@ CanonicalName: `FarLossMagnitude`
 Торговая роль: Far
 Размерность: `MONEY_REALIZED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_REALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6036,9 +6159,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: FarLossMagnitude нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/BrokerMoneyModel.mqh::farLossAfter
+Python mapping: Tools/hybrid_big_sequence_model.py::far_loss_after
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6055,7 +6178,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: FarLossMagnitude отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FarLossMagnitude`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FarLossMagnitude` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FarLossMagnitude`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### PartialFarBudgetProjected
 CanonicalName: `PartialFarBudgetProjected`
@@ -6065,7 +6189,7 @@ CanonicalName: `PartialFarBudgetProjected`
 Торговая роль: PartialFarBudgetProjected
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -6082,8 +6206,8 @@ Authoritative replacement: пересчёт PartialFarBudgetProjected на но�
 Связанные сущности: PartialFarBudgetProjected, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6100,7 +6224,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: PartialFarBudgetProjected отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarBudgetProjected`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PartialFarBudgetProjected` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarBudgetProjected`; MQL5 found=8, accepted=0; Python found=6, accepted=1.
 
 ### PartialFarBudgetReal
 CanonicalName: `PartialFarBudgetReal`
@@ -6110,7 +6235,7 @@ CanonicalName: `PartialFarBudgetReal`
 Торговая роль: PartialFarBudgetReal
 Размерность: `MONEY_RESERVED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_RESERVED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6126,9 +6251,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: PartialFarBudgetReal нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: PartialFarBudgetReal, тип MONEY_RESERVED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::partialBudgetBefore
+Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6145,7 +6270,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: PartialFarBudgetReal отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarBudgetReal`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `PartialFarBudgetReal` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarBudgetReal`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### PartialFarBudgetAvailable
 CanonicalName: `PartialFarBudgetAvailable`
@@ -6155,7 +6281,7 @@ CanonicalName: `PartialFarBudgetAvailable`
 Торговая роль: PartialFarBudgetAvailable
 Размерность: `MONEY_AVAILABLE`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_AVAILABLE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6171,9 +6297,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: PartialFarBudgetAvailable нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: PartialFarBudgetAvailable, тип MONEY_AVAILABLE, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/HybridPartialFarPreview.mqh::budgetAvailable
+Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6190,7 +6316,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: PartialFarBudgetAvailable отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarBudgetAvailable`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `PartialFarBudgetAvailable` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarBudgetAvailable`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### PartialFarBudgetConsumed
 CanonicalName: `PartialFarBudgetConsumed`
@@ -6200,7 +6327,7 @@ CanonicalName: `PartialFarBudgetConsumed`
 Торговая роль: PartialFarBudgetConsumed
 Размерность: `MONEY_CONSUMED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_CONSUMED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6217,8 +6344,8 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Связанные сущности: PartialFarBudgetConsumed, тип MONEY_CONSUMED, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6235,7 +6362,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: PartialFarBudgetConsumed отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarBudgetConsumed`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `PartialFarBudgetConsumed` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarBudgetConsumed`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
 
 ### PartialFarBudgetResidual
 CanonicalName: `PartialFarBudgetResidual`
@@ -6245,7 +6373,7 @@ CanonicalName: `PartialFarBudgetResidual`
 Торговая роль: PartialFarBudgetResidual
 Размерность: `MONEY_RESIDUAL`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_RESIDUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6262,8 +6390,8 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Связанные сущности: PartialFarBudgetResidual, тип MONEY_RESIDUAL, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6280,7 +6408,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: PartialFarBudgetResidual отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PartialFarBudgetResidual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `PartialFarBudgetResidual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PartialFarBudgetResidual`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
 
 ### FinalReserveProjected
 CanonicalName: `FinalReserveProjected`
@@ -6290,7 +6419,7 @@ CanonicalName: `FinalReserveProjected`
 Торговая роль: FinalReserveProjected
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -6306,9 +6435,9 @@ Authoritative replacement: пересчёт FinalReserveProjected на ново�
 Запрещённые подмены: FinalReserveProjected нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: FinalReserveProjected, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::finalReserveReal
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::final_reserve_real
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6325,7 +6454,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: FinalReserveProjected отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FinalReserveProjected`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FinalReserveProjected` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FinalReserveProjected`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### FinalReserveReal
 CanonicalName: `FinalReserveReal`
@@ -6335,7 +6465,7 @@ CanonicalName: `FinalReserveReal`
 Торговая роль: FinalReserveReal
 Размерность: `MONEY_RESERVED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_RESERVED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6351,9 +6481,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: FinalReserveReal нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: FinalReserveReal, тип MONEY_RESERVED, class ACTUAL CONFIRMED.
 Legacy aliases: TotalReserve, finalReserveReal
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::finalReserveReal
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::final_reserve_real
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6370,7 +6500,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: FinalReserveReal отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FinalReserveReal`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FinalReserveReal` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FinalReserveReal`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### ReserveAddProjected
 CanonicalName: `ReserveAddProjected`
@@ -6380,7 +6511,7 @@ CanonicalName: `ReserveAddProjected`
 Торговая роль: Reserve
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -6396,9 +6527,9 @@ Authoritative replacement: пересчёт ReserveAddProjected на новом 
 Запрещённые подмены: ReserveAddProjected нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Reserve, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::reserveAdd
+Python mapping: Tools/optimize_big_scenario_min_levels.py::reserve_add
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6415,7 +6546,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ReserveAddProjected отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveAddProjected`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ReserveAddProjected` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveAddProjected`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### ReserveAddReal
 CanonicalName: `ReserveAddReal`
@@ -6425,7 +6557,7 @@ CanonicalName: `ReserveAddReal`
 Торговая роль: Reserve
 Размерность: `MONEY_RESERVED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_RESERVED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6441,9 +6573,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: ReserveAddReal нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Reserve, тип MONEY_RESERVED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::reserveAdd
+Python mapping: Tools/optimize_big_scenario_min_levels.py::reserve_add
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6460,7 +6592,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: ReserveAddReal отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveAddReal`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `ReserveAddReal` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveAddReal`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### ReserveAvailable
 CanonicalName: `ReserveAvailable`
@@ -6470,7 +6603,7 @@ CanonicalName: `ReserveAvailable`
 Торговая роль: Reserve
 Размерность: `MONEY_AVAILABLE`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_AVAILABLE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6505,7 +6638,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: ReserveAvailable отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveAvailable`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `ReserveAvailable` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveAvailable`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### ReserveConsumed
 CanonicalName: `ReserveConsumed`
@@ -6515,7 +6649,7 @@ CanonicalName: `ReserveConsumed`
 Торговая роль: Reserve
 Размерность: `MONEY_CONSUMED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_CONSUMED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6531,9 +6665,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: ReserveConsumed нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Reserve, тип MONEY_CONSUMED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::reserveUsed
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6550,7 +6684,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: ReserveConsumed отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveConsumed`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `ReserveConsumed` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveConsumed`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### ReserveResidual
 CanonicalName: `ReserveResidual`
@@ -6560,7 +6695,7 @@ CanonicalName: `ReserveResidual`
 Торговая роль: Reserve
 Размерность: `MONEY_RESIDUAL`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_RESIDUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6595,7 +6730,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: ReserveResidual отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveResidual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `ReserveResidual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveResidual`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### CarryAvailable
 CanonicalName: `CarryAvailable`
@@ -6605,7 +6741,7 @@ CanonicalName: `CarryAvailable`
 Торговая роль: Carry
 Размерность: `MONEY_AVAILABLE`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_AVAILABLE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6640,7 +6776,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: CarryAvailable отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CarryAvailable`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `CarryAvailable` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CarryAvailable`; MQL5 found=8, accepted=0; Python found=5, accepted=0.
 
 ### CarryConsumed
 CanonicalName: `CarryConsumed`
@@ -6650,7 +6787,7 @@ CanonicalName: `CarryConsumed`
 Торговая роль: Carry
 Размерность: `MONEY_CONSUMED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_CONSUMED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6685,7 +6822,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: CarryConsumed отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CarryConsumed`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `CarryConsumed` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CarryConsumed`; MQL5 found=4, accepted=0; Python found=4, accepted=0.
 
 ### CarryResidual
 CanonicalName: `CarryResidual`
@@ -6695,7 +6833,7 @@ CanonicalName: `CarryResidual`
 Торговая роль: Carry
 Размерность: `MONEY_RESIDUAL`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_RESIDUAL`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6730,7 +6868,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: CarryResidual отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CarryResidual`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `CarryResidual` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CarryResidual`; MQL5 found=4, accepted=0; Python found=2, accepted=0.
 
 ### TransitionBudgetAvailable
 CanonicalName: `TransitionBudgetAvailable`
@@ -6740,7 +6879,7 @@ CanonicalName: `TransitionBudgetAvailable`
 Торговая роль: TransitionBudget
 Размерность: `MONEY_AVAILABLE`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_AVAILABLE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6756,9 +6895,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: TransitionBudgetAvailable нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: TransitionBudget, тип MONEY_AVAILABLE, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/HybridPartialFarPreview.mqh::budgetAvailable
+Python mapping: Tools/hybrid_geometry_model.py::transition_budget
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6775,7 +6914,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: TransitionBudgetAvailable отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `TransitionBudgetAvailable`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `TransitionBudgetAvailable` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `TransitionBudgetAvailable`; MQL5 found=5, accepted=1; Python found=7, accepted=1.
 
 ### FinalCloseRequirement
 CanonicalName: `FinalCloseRequirement`
@@ -6785,7 +6925,7 @@ CanonicalName: `FinalCloseRequirement`
 Торговая роль: FinalCloseRequirement
 Размерность: `MONEY_RESERVED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_RESERVED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: confirmed deal history / exactly-once ledger
 Authoritative source: confirmed deal history / exactly-once ledger
@@ -6820,7 +6960,8 @@ Persistence behavior: Persisted exactly-once event является обязат
 Restart behavior: После restart выполняется ledger/deal reconciliation; projected value не принимается.
 Отличие от: FinalCloseRequirement отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FinalCloseRequirement`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FinalCloseRequirement` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FinalCloseRequirement`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### BasketRiskMoney
 CanonicalName: `BasketRiskMoney`
@@ -6830,7 +6971,7 @@ CanonicalName: `BasketRiskMoney`
 Торговая роль: BasketRiskMoney
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -6865,7 +7006,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: BasketRiskMoney отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BasketRiskMoney`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BasketRiskMoney` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BasketRiskMoney`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
 
 ### AccountRiskMoney
 CanonicalName: `AccountRiskMoney`
@@ -6875,7 +7017,7 @@ CanonicalName: `AccountRiskMoney`
 Торговая роль: AccountRiskMoney
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: non-negative magnitude/bucket
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit + explicit projected costs
 Authoritative source: OrderCalcProfit + explicit projected costs
@@ -6910,7 +7052,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: AccountRiskMoney отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `AccountRiskMoney`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `AccountRiskMoney` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `AccountRiskMoney`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
 
 ### BigRatio
 CanonicalName: `BigRatio`
@@ -6920,7 +7063,7 @@ CanonicalName: `BigRatio`
 Торговая роль: BigRatio
 Размерность: `RATIO`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -6936,9 +7079,9 @@ Authoritative replacement: новое approved значение BigRatio из я
 Запрещённые подмены: BigRatio нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigRatio, тип RATIO, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/RecoveryMath.mqh::bigRatio
+Python mapping: Tests/small_reverse_compression_check.py::big_ratio
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-001`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -6955,7 +7098,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: BigRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BigRatio`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `BigRatio` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BigRatio`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### SmallRatio
 CanonicalName: `SmallRatio`
@@ -6965,7 +7109,7 @@ CanonicalName: `SmallRatio`
 Торговая роль: SmallRatio
 Размерность: `RATIO`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -6981,9 +7125,9 @@ Authoritative replacement: новое approved значение SmallRatio из 
 Запрещённые подмены: SmallRatio нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SmallRatio, тип RATIO, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Config.mqh::SmallRatio
+Python mapping: Tests/small_reverse_compression_check.py::small_ratio
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-002`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7000,7 +7144,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: SmallRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallRatio`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `SmallRatio` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallRatio`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### CloseBigOnSmallShare
 CanonicalName: `CloseBigOnSmallShare`
@@ -7010,7 +7155,7 @@ CanonicalName: `CloseBigOnSmallShare`
 Торговая роль: CloseBigOnSmallShare
 Размерность: `SHARE`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `SHARE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7026,9 +7171,9 @@ Authoritative replacement: новое approved значение CloseBigOnSmallS
 Запрещённые подмены: CloseBigOnSmallShare нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CloseBigOnSmallShare, тип SHARE, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Config.mqh::CloseBigOnSmall
+Python mapping: Tests/small_reverse_compression_check.py::close_big_on_small
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-003`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7045,7 +7190,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: CloseBigOnSmallShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CloseBigOnSmallShare`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `CloseBigOnSmallShare` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CloseBigOnSmallShare`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### RemainBigOnSmallShare
 CanonicalName: `RemainBigOnSmallShare`
@@ -7055,7 +7201,7 @@ CanonicalName: `RemainBigOnSmallShare`
 Торговая роль: RemainBigOnSmallShare
 Размерность: `SHARE`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `SHARE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7071,9 +7217,9 @@ Authoritative replacement: новое approved значение RemainBigOnSmall
 Запрещённые подмены: RemainBigOnSmallShare нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RemainBigOnSmallShare, тип SHARE, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/RecoveryMath.mqh::remainBigOnSmall
+Python mapping: Tests/small_reverse_compression_check.py::remain_big_on_small
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-004`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7090,7 +7236,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: RemainBigOnSmallShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RemainBigOnSmallShare`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `RemainBigOnSmallShare` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RemainBigOnSmallShare`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
 
 ### CloseFarShare
 CanonicalName: `CloseFarShare`
@@ -7100,7 +7247,7 @@ CanonicalName: `CloseFarShare`
 Торговая роль: CloseFarShare
 Размерность: `SHARE`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `SHARE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7116,9 +7263,9 @@ Authoritative replacement: новое approved значение CloseFarShare и
 Запрещённые подмены: CloseFarShare нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CloseFarShare, тип SHARE, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Config.mqh::CloseFarShare
+Python mapping: Tools/optimize_big_scenario_min_levels.py::close_far_share
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-005`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7135,7 +7282,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: CloseFarShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CloseFarShare`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `CloseFarShare` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CloseFarShare`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### ReserveShare
 CanonicalName: `ReserveShare`
@@ -7145,7 +7293,7 @@ CanonicalName: `ReserveShare`
 Торговая роль: Reserve
 Размерность: `SHARE`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `SHARE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7161,9 +7309,9 @@ Authoritative replacement: новое approved значение ReserveShare и�
 Запрещённые подмены: ReserveShare нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Reserve, тип SHARE, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Config.mqh::ReserveShare
+Python mapping: Tests/test_reserve_growth_ratio.py::reserve_share
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-006`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7180,7 +7328,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: ReserveShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveShare`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `ReserveShare` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveShare`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### SmallReserveShare
 CanonicalName: `SmallReserveShare`
@@ -7190,7 +7339,7 @@ CanonicalName: `SmallReserveShare`
 Торговая роль: SmallReserveShare
 Размерность: `SHARE`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `SHARE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7206,9 +7355,9 @@ Authoritative replacement: новое approved значение SmallReserveShar
 Запрещённые подмены: SmallReserveShare нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SmallReserveShare, тип SHARE, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Config.mqh::SmallReserveShare
+Python mapping: Tools/mql5_like_big_scenario_parameter_search.py::small_reserve_share
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7225,7 +7374,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: SmallReserveShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SmallReserveShare`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `SmallReserveShare` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SmallReserveShare`; MQL5 found=8, accepted=1; Python found=6, accepted=1.
 
 ### CompressionRatio
 CanonicalName: `CompressionRatio`
@@ -7235,7 +7385,7 @@ CanonicalName: `CompressionRatio`
 Торговая роль: CompressionRatio
 Размерность: `RATIO`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7251,9 +7401,9 @@ Authoritative replacement: новое approved значение CompressionRatio
 Запрещённые подмены: CompressionRatio нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CompressionRatio, тип RATIO, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/BrokerMoneyModel.mqh::compressionRatio
+Python mapping: Tools/offline_optimizer.py::compression_ratio
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7270,7 +7420,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: CompressionRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CompressionRatio`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `CompressionRatio` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CompressionRatio`; MQL5 found=6, accepted=1; Python found=8, accepted=1.
 
 ### ReserveCoverageRatio
 CanonicalName: `ReserveCoverageRatio`
@@ -7280,7 +7431,7 @@ CanonicalName: `ReserveCoverageRatio`
 Торговая роль: Reserve
 Размерность: `RATIO`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7296,9 +7447,9 @@ Authoritative replacement: новое approved значение ReserveCoverageR
 Запрещённые подмены: ReserveCoverageRatio нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Reserve, тип RATIO, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::reserveCoverage
+Python mapping: Tools/run_full_parameter_optimization_study.py::reserve_coverage
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7315,7 +7466,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: ReserveCoverageRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveCoverageRatio`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `ReserveCoverageRatio` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveCoverageRatio`; MQL5 found=6, accepted=1; Python found=7, accepted=1.
 
 ### RecoveryCoverageRatio
 CanonicalName: `RecoveryCoverageRatio`
@@ -7325,7 +7477,7 @@ CanonicalName: `RecoveryCoverageRatio`
 Торговая роль: RecoveryCoverageRatio
 Размерность: `RATIO`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7342,8 +7494,8 @@ Authoritative replacement: новое approved значение RecoveryCoverage
 Связанные сущности: RecoveryCoverageRatio, тип RATIO, class POLICY/PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tools/offline_optimizer.py::coverage_ratio
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7360,7 +7512,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: RecoveryCoverageRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RecoveryCoverageRatio`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `RecoveryCoverageRatio` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RecoveryCoverageRatio`; MQL5 found=2, accepted=0; Python found=3, accepted=1.
 
 ### MaximumNewBigToOldFarRatio
 CanonicalName: `MaximumNewBigToOldFarRatio`
@@ -7370,7 +7523,7 @@ CanonicalName: `MaximumNewBigToOldFarRatio`
 Торговая роль: MaximumNewBigToOldFarRatio
 Размерность: `RATIO`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7387,8 +7540,8 @@ Authoritative replacement: новое approved значение MaximumNewBigToO
 Связанные сущности: MaximumNewBigToOldFarRatio, тип RATIO, class POLICY/PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tools/offline_optimizer.py::new_big_to_old_far_ratio
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `HSB-DOC-CONFLICT-022`
 Resolution stage: `3.1.4 / 3.1.8`
 Статус определения: `UNRESOLVED_BUSINESS_POLICY`
@@ -7405,7 +7558,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: MaximumNewBigToOldFarRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `MaximumNewBigToOldFarRatio`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `MaximumNewBigToOldFarRatio` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `MaximumNewBigToOldFarRatio`; MQL5 found=3, accepted=0; Python found=5, accepted=1.
 
 ### MinimumReserveCatchUpRatio
 CanonicalName: `MinimumReserveCatchUpRatio`
@@ -7415,7 +7569,7 @@ CanonicalName: `MinimumReserveCatchUpRatio`
 Торговая роль: MinimumReserveCatchUpRatio
 Размерность: `RATIO`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7450,7 +7604,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: MinimumReserveCatchUpRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `MinimumReserveCatchUpRatio`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `MinimumReserveCatchUpRatio` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `MinimumReserveCatchUpRatio`; MQL5 found=6, accepted=0; Python found=0, accepted=0.
 
 ### PercentValue
 CanonicalName: `PercentValue`
@@ -7460,7 +7615,7 @@ CanonicalName: `PercentValue`
 Торговая роль: PercentValue
 Размерность: `PERCENT`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `PERCENT`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7495,7 +7650,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: PercentValue отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PercentValue`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `PercentValue` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PercentValue`; MQL5 found=6, accepted=0; Python found=8, accepted=0.
 
 ### ScaleMultiplier
 CanonicalName: `ScaleMultiplier`
@@ -7505,7 +7661,7 @@ CanonicalName: `ScaleMultiplier`
 Торговая роль: ScaleMultiplier
 Размерность: `MULTIPLIER`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MULTIPLIER`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7521,9 +7677,9 @@ Authoritative replacement: новое approved значение ScaleMultiplier 
 Запрещённые подмены: ScaleMultiplier нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ScaleMultiplier, тип MULTIPLIER, class POLICY/PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/BrokerMoneyModel.mqh::multiplier
+Python mapping: Tools/offline_optimizer.py::multiplier
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7540,7 +7696,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: ScaleMultiplier отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ScaleMultiplier`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `ScaleMultiplier` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ScaleMultiplier`; MQL5 found=6, accepted=1; Python found=8, accepted=1.
 
 ### RiskThresholdRatio
 CanonicalName: `RiskThresholdRatio`
@@ -7550,7 +7707,7 @@ CanonicalName: `RiskThresholdRatio`
 Торговая роль: RiskThresholdRatio
 Размерность: `RATIO`
 Unit: `1 (dimensionless)`
-Знак: non-negative; range stated per term
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved profile or typed formula
 Authoritative source: approved profile or typed formula
@@ -7585,7 +7742,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: RiskThresholdRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RiskThresholdRatio`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `RiskThresholdRatio` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RiskThresholdRatio`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
 
 ### SymbolId
 CanonicalName: `SymbolId`
@@ -7595,7 +7753,7 @@ CanonicalName: `SymbolId`
 Торговая роль: SymbolId
 Размерность: `SYMBOL_ID`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `SYMBOL_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7611,9 +7769,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: SymbolId нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SymbolId, тип SYMBOL_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::symbol
+Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::symbol
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7630,7 +7788,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: SymbolId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SymbolId`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `SymbolId` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SymbolId`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### MagicId
 CanonicalName: `MagicId`
@@ -7640,7 +7799,7 @@ CanonicalName: `MagicId`
 Торговая роль: MagicId
 Размерность: `MAGIC_ID`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `MAGIC_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7656,9 +7815,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: MagicId нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: MagicId, тип MAGIC_ID, class ACTUAL CONFIRMED.
 Legacy aliases: MagicNumber
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::magic
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7675,7 +7834,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: MagicId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `MagicId`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `MagicId` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `MagicId`; MQL5 found=8, accepted=1; Python found=7, accepted=0.
 
 ### CycleId
 CanonicalName: `CycleId`
@@ -7685,7 +7845,7 @@ CanonicalName: `CycleId`
 Торговая роль: CycleId
 Размерность: `CYCLE_ID`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `CYCLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7701,9 +7861,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: CycleId нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CycleId, тип CYCLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: CycleID, cycleId
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::cycleId
+Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::cycle
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7720,7 +7880,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: CycleId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CycleId`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `CycleId` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CycleId`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### RoleId
 CanonicalName: `RoleId`
@@ -7730,7 +7891,7 @@ CanonicalName: `RoleId`
 Торговая роль: RoleId
 Размерность: `ROLE_ID`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7746,9 +7907,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: RoleId нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RoleId, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/PositionResolutionEngine.mqh::role
+Python mapping: Tools/hybrid_small_state_machine.py::role
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7765,7 +7926,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: RoleId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RoleId`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `RoleId` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RoleId`; MQL5 found=7, accepted=1; Python found=4, accepted=1.
 
 ### PositionIdentifier
 CanonicalName: `PositionIdentifier`
@@ -7775,7 +7937,7 @@ CanonicalName: `PositionIdentifier`
 Торговая роль: Position
 Размерность: `POSITION_ID`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `POSITION_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7791,9 +7953,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: PositionIdentifier нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Position, тип POSITION_ID, class ACTUAL CONFIRMED.
 Legacy aliases: POSITION_IDENTIFIER
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::positionIdentifier
+Python mapping: Tests/unit/test_split_final_safety_model.py::identifier
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7810,7 +7972,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: PositionIdentifier отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PositionIdentifier`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `PositionIdentifier` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PositionIdentifier`; MQL5 found=8, accepted=1; Python found=4, accepted=1.
 
 ### PositionTicket
 CanonicalName: `PositionTicket`
@@ -7820,7 +7983,7 @@ CanonicalName: `PositionTicket`
 Торговая роль: Position
 Размерность: `POSITION_TICKET`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `POSITION_TICKET`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7836,9 +7999,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: PositionTicket нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Position, тип POSITION_TICKET, class ACTUAL CONFIRMED.
 Legacy aliases: ticket
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/SimulationEngine.mqh::positionTicket
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7855,7 +8018,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: PositionTicket отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PositionTicket`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `PositionTicket` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PositionTicket`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
 
 ### OrderTicket
 CanonicalName: `OrderTicket`
@@ -7865,7 +8029,7 @@ CanonicalName: `OrderTicket`
 Торговая роль: OrderTicket
 Размерность: `ORDER_TICKET`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `ORDER_TICKET`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7881,9 +8045,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: OrderTicket нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: OrderTicket, тип ORDER_TICKET, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::ticket
+Python mapping: Tests/unit/test_split_final_safety_model.py::ticket
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7900,7 +8064,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: OrderTicket отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `OrderTicket`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `OrderTicket` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `OrderTicket`; MQL5 found=8, accepted=1; Python found=2, accepted=1.
 
 ### DealTicket
 CanonicalName: `DealTicket`
@@ -7910,7 +8075,7 @@ CanonicalName: `DealTicket`
 Торговая роль: DealTicket
 Размерность: `DEAL_TICKET`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `DEAL_TICKET`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7926,9 +8091,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: DealTicket нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: DealTicket, тип DEAL_TICKET, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::entryDealTicket
+Python mapping: Tests/unit/test_split_final_safety_model.py::ticket
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7945,7 +8110,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: DealTicket отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `DealTicket`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `DealTicket` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `DealTicket`; MQL5 found=8, accepted=1; Python found=1, accepted=1.
 
 ### EventId
 CanonicalName: `EventId`
@@ -7955,7 +8121,7 @@ CanonicalName: `EventId`
 Торговая роль: EventId
 Размерность: `EVENT_ID`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `EVENT_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -7971,9 +8137,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: EventId нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: EventId, тип EVENT_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::lastEventId
+Python mapping: Tests/unit/test_split_final_safety_model.py::event_id
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7990,7 +8156,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: EventId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `EventId`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `EventId` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `EventId`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### EventKey
 CanonicalName: `EventKey`
@@ -8000,7 +8167,7 @@ CanonicalName: `EventKey`
 Торговая роль: EventKey
 Размерность: `EVENT_ID`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `EVENT_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -8016,9 +8183,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: EventKey нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: EventKey, тип EVENT_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::eventKeyHash
+Python mapping: Tests/unit/test_split_final_safety_model.py::event_key
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8035,7 +8202,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: EventKey отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `EventKey`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `EventKey` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `EventKey`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### SnapshotFingerprint
 CanonicalName: `SnapshotFingerprint`
@@ -8045,7 +8213,7 @@ CanonicalName: `SnapshotFingerprint`
 Торговая роль: Snapshot
 Размерность: `FINGERPRINT`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `FINGERPRINT`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -8062,8 +8230,8 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Связанные сущности: Snapshot, тип FINGERPRINT, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8080,7 +8248,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: SnapshotFingerprint отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SnapshotFingerprint`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `SnapshotFingerprint` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SnapshotFingerprint`; MQL5 found=8, accepted=0; Python found=5, accepted=1.
 
 ### PlanFingerprint
 CanonicalName: `PlanFingerprint`
@@ -8090,7 +8259,7 @@ CanonicalName: `PlanFingerprint`
 Торговая роль: Plan
 Размерность: `FINGERPRINT`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `FINGERPRINT`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -8107,8 +8276,8 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Связанные сущности: Plan, тип FINGERPRINT, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8125,7 +8294,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: PlanFingerprint отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PlanFingerprint`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `PlanFingerprint` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PlanFingerprint`; MQL5 found=8, accepted=0; Python found=3, accepted=1.
 
 ### PositionComment
 CanonicalName: `PositionComment`
@@ -8133,17 +8303,17 @@ CanonicalName: `PositionComment`
 Краткое определение: PositionComment — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Позиция комментарий»; его authoritative provenance — «MT5 properties / persisted reconciled namespace».
 Архитектурный профиль: Symbol+Magic+CycleID+role scope
 Торговая роль: Position
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Размерность: `DIAGNOSTIC_TEXT`
+Unit: `diagnostic text`
+Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
 Время фиксации: ACTUAL CONFIRMED stage для PositionComment.
-Projected/Actual class: `ACTUAL CONFIRMED`
+Projected/Actual class: `ACTUAL OBSERVATION`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `EXACT`
+Tolerance: `EXACT STRUCTURE`
 Lifecycle: PositionComment назначается approved role rule и связывается с position identity. PositionComment меняет привязку только через подтверждённую promotion/reconciliation. Закрытие, замена ticket или потеря cycle identity делает привязку PositionComment stale. новая reconciled role-to-position binding. После полного закрытия роль отвязывается; историческая связь сохраняется. Этот lifecycle относится именно к объекту «Позиция комментарий» и его собственному type/source contract.
 Условия stale: Закрытие, замена ticket или потеря cycle identity делает привязку PositionComment stale.
 Authoritative replacement: новая reconciled role-to-position binding.
@@ -8157,8 +8327,8 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: STATE_OR_RESULT
+Lifecycle class: STATE
 Creation event: PositionComment назначается approved role rule и связывается с position identity.
 Validation event: Связка PositionComment проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -8170,7 +8340,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: PositionComment отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PositionComment`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `PositionComment` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PositionComment`; MQL5 found=8, accepted=0; Python found=7, accepted=0.
 
 ### SnapshotRevision
 CanonicalName: `SnapshotRevision`
@@ -8178,9 +8349,9 @@ CanonicalName: `SnapshotRevision`
 Краткое определение: SnapshotRevision — identity-сущность типа `ROLE_ID` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Снимок ревизия»; его authoritative provenance — «MT5 properties / persisted reconciled namespace».
 Архитектурный профиль: Symbol+Magic+CycleID+role scope
 Торговая роль: Snapshot
-Размерность: `ROLE_ID`
-Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Размерность: `EVENT_ID`
+Unit: `integer revision identity`
+Знак: not numeric
 Допустимый диапазон: соответствует типу `ROLE_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -8202,8 +8373,8 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: ROLE
-Lifecycle class: ROLE
+Semantic category: IDENTITY
+Lifecycle class: IDENTITY
 Creation event: SnapshotRevision назначается approved role rule и связывается с position identity.
 Validation event: Связка SnapshotRevision проверяется по Symbol, MagicNumber, CycleID и ticket/identifier.
 Freeze/confirmation event: Роль фиксируется при принятии позиции в managed cycle.
@@ -8215,7 +8386,8 @@ Persistence behavior: Сохраняются CycleID, role и event evidence, н
 Restart behavior: После restart роль восстанавливается из terminal/deal state, а не из comment.
 Отличие от: SnapshotRevision отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SnapshotRevision`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `SnapshotRevision` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SnapshotRevision`; MQL5 found=4, accepted=0; Python found=2, accepted=0.
 
 ### StateRevision
 CanonicalName: `StateRevision`
@@ -8225,7 +8397,7 @@ CanonicalName: `StateRevision`
 Торговая роль: StateRevision
 Размерность: `EVENT_ID`
 Unit: `integer/string identity`
-Знак: non-zero/valid in active scope
+Знак: not numeric
 Допустимый диапазон: соответствует типу `EVENT_ID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: MT5 properties / persisted reconciled namespace
 Authoritative source: MT5 properties / persisted reconciled namespace
@@ -8241,9 +8413,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: StateRevision нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: StateRevision, тип EVENT_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::stateRevision
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8260,7 +8432,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: StateRevision отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `StateRevision`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `StateRevision` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `StateRevision`; MQL5 found=7, accepted=1; Python found=5, accepted=0.
 
 ### State
 CanonicalName: `State`
@@ -8286,9 +8459,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: State нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: State, тип STATE, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::state
+Python mapping: Tests/pending_open_big_contract_check.py::state
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8305,7 +8478,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: State отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `State`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `State` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `State`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### Phase
 CanonicalName: `Phase`
@@ -8331,9 +8505,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Phase нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Phase, тип PHASE, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::phaseValid
+Python mapping: Tools/hybrid_small_state_machine.py::phase
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8350,7 +8524,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Phase отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Phase`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Phase` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Phase`; MQL5 found=4, accepted=1; Python found=6, accepted=1.
 
 ### Event
 CanonicalName: `Event`
@@ -8376,9 +8551,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Event нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Event, тип OUTCOME, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Tests/MQL5/BigSmallStateMachineTest.mq5::Event
+Python mapping: Tests/unit/test_clean_start_persistence_behavior.py::event
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8395,7 +8570,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Event отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Event`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Event` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Event`; MQL5 found=7, accepted=1; Python found=8, accepted=1.
 
 ### Observation
 CanonicalName: `Observation`
@@ -8440,7 +8616,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Observation отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Observation`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Observation` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Observation`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
 
 ### GateResult
 CanonicalName: `GateResult`
@@ -8466,9 +8643,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: GateResult нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: GateResult, тип GATE_RESULT, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/PositionResolutionEngine.mqh::result
+Python mapping: Tools/hybrid_geometry_model.py::result
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8485,7 +8662,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: GateResult отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `GateResult`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `GateResult` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `GateResult`; MQL5 found=4, accepted=1; Python found=8, accepted=1.
 
 ### ExecutionResult
 CanonicalName: `ExecutionResult`
@@ -8512,8 +8690,8 @@ Authoritative replacement: последнее confirmed state/event значен
 Связанные сущности: ExecutionResult, тип OUTCOME, class ACTUAL/CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::EvaluationResult
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8530,7 +8708,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: ExecutionResult отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ExecutionResult`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ExecutionResult` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ExecutionResult`; MQL5 found=8, accepted=0; Python found=6, accepted=1.
 
 ### Outcome
 CanonicalName: `Outcome`
@@ -8556,9 +8735,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Outcome нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Outcome, тип OUTCOME, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::outcome
+Python mapping: Tests/HybridSplitBig/test_catchup_stage12.py::Outcome
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8575,7 +8754,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Outcome отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Outcome`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Outcome` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Outcome`; MQL5 found=5, accepted=1; Python found=3, accepted=1.
 
 ### ReasonCode
 CanonicalName: `ReasonCode`
@@ -8601,9 +8781,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: ReasonCode нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ReasonCode, тип REASON_CODE, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::reasonCode
+Python mapping: Tests/unit/test_split_recovery_order_model.py::reason_code
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8620,7 +8800,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: ReasonCode отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReasonCode`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ReasonCode` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReasonCode`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### ErrorCode
 CanonicalName: `ErrorCode`
@@ -8646,9 +8827,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: ErrorCode нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ErrorCode, тип REASON_CODE, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::error
+Python mapping: Tests/HybridSplitBig/test_catchup_stage12.py::ERROR
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8665,7 +8846,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: ErrorCode отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ErrorCode`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ErrorCode` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ErrorCode`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
 
 ### DiagnosticText
 CanonicalName: `DiagnosticText`
@@ -8710,7 +8892,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: DiagnosticText отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `DiagnosticText`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `DiagnosticText` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `DiagnosticText`; MQL5 found=0, accepted=0; Python found=2, accepted=0.
 
 ### CandidatePlan
 CanonicalName: `CandidatePlan`
@@ -8736,9 +8919,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: CandidatePlan нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CandidatePlan, тип OUTCOME, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::candidate
+Python mapping: Tools/hybrid_geometry_model.py::candidate
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8755,7 +8938,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: CandidatePlan отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CandidatePlan`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `CandidatePlan` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CandidatePlan`; MQL5 found=3, accepted=1; Python found=7, accepted=1.
 
 ### ApprovedImmutablePlan
 CanonicalName: `ApprovedImmutablePlan`
@@ -8800,7 +8984,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: ApprovedImmutablePlan отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ApprovedImmutablePlan`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ApprovedImmutablePlan` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ApprovedImmutablePlan`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
 
 ### ExecutionRequest
 CanonicalName: `ExecutionRequest`
@@ -8845,7 +9030,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: ExecutionRequest отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ExecutionRequest`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ExecutionRequest` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ExecutionRequest`; MQL5 found=7, accepted=0; Python found=2, accepted=0.
 
 ### BrokerExecutionResult
 CanonicalName: `BrokerExecutionResult`
@@ -8890,7 +9076,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: BrokerExecutionResult отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BrokerExecutionResult`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `BrokerExecutionResult` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BrokerExecutionResult`; MQL5 found=5, accepted=0; Python found=4, accepted=0.
 
 ### ReconciledResult
 CanonicalName: `ReconciledResult`
@@ -8935,7 +9122,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: ReconciledResult отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReconciledResult`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ReconciledResult` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReconciledResult`; MQL5 found=4, accepted=0; Python found=5, accepted=0.
 
 ### CommittedLedgerEvent
 CanonicalName: `CommittedLedgerEvent`
@@ -8980,7 +9168,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: CommittedLedgerEvent отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CommittedLedgerEvent`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `CommittedLedgerEvent` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CommittedLedgerEvent`; MQL5 found=1, accepted=0; Python found=0, accepted=0.
 
 ### BaseSnapshot
 CanonicalName: `BaseSnapshot`
@@ -9006,9 +9195,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: BaseSnapshot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BaseSnapshot, тип STATE, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/PositionResolutionEngine.mqh::snapshot
+Python mapping: Tests/unit/test_split_architecture_model.py::snapshot
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9025,7 +9214,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: BaseSnapshot отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `BaseSnapshot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `BaseSnapshot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `BaseSnapshot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### WorstSnapshot
 CanonicalName: `WorstSnapshot`
@@ -9070,7 +9260,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: WorstSnapshot отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `WorstSnapshot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `WorstSnapshot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `WorstSnapshot`; MQL5 found=7, accepted=0; Python found=5, accepted=0.
 
 ### ActualSnapshot
 CanonicalName: `ActualSnapshot`
@@ -9115,7 +9306,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: ActualSnapshot отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ActualSnapshot`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ActualSnapshot` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ActualSnapshot`; MQL5 found=7, accepted=0; Python found=8, accepted=0.
 
 ### SnapshotStaleFlag
 CanonicalName: `SnapshotStaleFlag`
@@ -9160,7 +9352,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: SnapshotStaleFlag отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `SnapshotStaleFlag`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `SnapshotStaleFlag` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `SnapshotStaleFlag`; MQL5 found=2, accepted=0; Python found=2, accepted=0.
 
 ### FinalClosePreview
 CanonicalName: `FinalClosePreview`
@@ -9186,9 +9379,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: FinalClosePreview нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: FinalClosePreview, тип OUTCOME, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::finalClosePreviewRequired
+Python mapping: Tests/static/test_split_architecture_static.py::final_close
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9205,7 +9398,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: FinalClosePreview отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FinalClosePreview`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `FinalClosePreview` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FinalClosePreview`; MQL5 found=8, accepted=1; Python found=7, accepted=1.
 
 ### FinalCloseActualSuccess
 CanonicalName: `FinalCloseActualSuccess`
@@ -9250,7 +9444,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: FinalCloseActualSuccess отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FinalCloseActualSuccess`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `FinalCloseActualSuccess` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FinalCloseActualSuccess`; MQL5 found=8, accepted=0; Python found=4, accepted=0.
 
 ### MoneyTolerance
 CanonicalName: `MoneyTolerance`
@@ -9295,7 +9490,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: MoneyTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `MoneyTolerance`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `MoneyTolerance` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `MoneyTolerance`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### VolumeToleranceLots
 CanonicalName: `VolumeToleranceLots`
@@ -9340,7 +9536,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: VolumeToleranceLots отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `VolumeToleranceLots`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `VolumeToleranceLots` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `VolumeToleranceLots`; MQL5 found=8, accepted=0; Python found=2, accepted=0.
 
 ### PriceTolerance
 CanonicalName: `PriceTolerance`
@@ -9366,9 +9563,9 @@ Authoritative replacement: пересчёт PriceTolerance на новом immut
 Запрещённые подмены: PriceTolerance нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: PriceTolerance, тип PRICE_PROJECTED, class POLICY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/HybridCatchUpModel.mqh::priceTolerance
+Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::price_tolerance
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9385,7 +9582,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: PriceTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PriceTolerance`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PriceTolerance` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PriceTolerance`; MQL5 found=6, accepted=1; Python found=4, accepted=1.
 
 ### PointTolerance
 CanonicalName: `PointTolerance`
@@ -9430,7 +9628,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: PointTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PointTolerance`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PointTolerance` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PointTolerance`; MQL5 found=5, accepted=0; Python found=5, accepted=0.
 
 ### RatioTolerance
 CanonicalName: `RatioTolerance`
@@ -9456,9 +9655,9 @@ Authoritative replacement: новое approved значение RatioTolerance �
 Запрещённые подмены: RatioTolerance нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RatioTolerance, тип RATIO, class POLICY.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/HybridCatchUpModel.mqh::HybridRatioTolerance
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9475,7 +9674,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: RatioTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RatioTolerance`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `RatioTolerance` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RatioTolerance`; MQL5 found=7, accepted=1; Python found=7, accepted=0.
 
 ### ComparisonEpsilon
 CanonicalName: `ComparisonEpsilon`
@@ -9520,7 +9720,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: ComparisonEpsilon отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ComparisonEpsilon`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `ComparisonEpsilon` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ComparisonEpsilon`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
 
 ### ReserveMismatchTolerance
 CanonicalName: `ReserveMismatchTolerance`
@@ -9565,7 +9766,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ReserveMismatchTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveMismatchTolerance`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ReserveMismatchTolerance` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveMismatchTolerance`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
 
 ### GeometryTolerance
 CanonicalName: `GeometryTolerance`
@@ -9610,7 +9812,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: GeometryTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `GeometryTolerance`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `GeometryTolerance` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `GeometryTolerance`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
 
 ### FingerprintTolerance
 CanonicalName: `FingerprintTolerance`
@@ -9637,8 +9840,8 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Связанные сущности: FingerprintTolerance, тип FINGERPRINT, class POLICY.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9655,7 +9858,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: FingerprintTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `FingerprintTolerance`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `FingerprintTolerance` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `FingerprintTolerance`; MQL5 found=8, accepted=0; Python found=6, accepted=1.
 
 ### ProjectedData
 CanonicalName: `ProjectedData`
@@ -9681,9 +9885,9 @@ Authoritative replacement: пересчёт ProjectedData на новом immuta
 Запрещённые подмены: ProjectedData нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ProjectedData, тип BOOLEAN_RESULT, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/StateMachine.mqh::projected
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9700,7 +9904,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ProjectedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `PROJECTED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ProjectedData`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ProjectedData` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ProjectedData`; MQL5 found=8, accepted=1; Python found=6, accepted=0.
 
 ### RequestedData
 CanonicalName: `RequestedData`
@@ -9727,8 +9932,8 @@ Authoritative replacement: пересчёт RequestedData на новом immuta
 Связанные сущности: RequestedData, тип BOOLEAN_RESULT, class REQUESTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/unit/test_money_completion_behavior.py::requested
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9745,7 +9950,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: RequestedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `REQUESTED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `RequestedData`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `RequestedData` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `RequestedData`; MQL5 found=1, accepted=0; Python found=2, accepted=1.
 
 ### ExecutedData
 CanonicalName: `ExecutedData`
@@ -9790,7 +9996,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ExecutedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `EXECUTED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ExecutedData`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ExecutedData` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ExecutedData`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
 
 ### ConfirmedData
 CanonicalName: `ConfirmedData`
@@ -9835,7 +10042,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ConfirmedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `CONFIRMED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ConfirmedData`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ConfirmedData` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ConfirmedData`; MQL5 found=1, accepted=0; Python found=0, accepted=0.
 
 ### ReconciledData
 CanonicalName: `ReconciledData`
@@ -9880,7 +10088,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ReconciledData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `RECONCILED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReconciledData`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ReconciledData` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReconciledData`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
 
 ### PersistedData
 CanonicalName: `PersistedData`
@@ -9925,7 +10134,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: PersistedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `PERSISTED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `PersistedData`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `PersistedData` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `PersistedData`; MQL5 found=2, accepted=0; Python found=0, accepted=0.
 
 ### StaleData
 CanonicalName: `StaleData`
@@ -9970,7 +10180,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: StaleData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `STALE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `StaleData`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `StaleData` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `StaleData`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
 
 ### InvalidData
 CanonicalName: `InvalidData`
@@ -10015,7 +10226,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: InvalidData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `INVALID` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `InvalidData`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `InvalidData` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `InvalidData`; MQL5 found=1, accepted=0; Python found=2, accepted=0.
 
 ### NotApplicableValue
 CanonicalName: `NotApplicableValue`
@@ -10060,7 +10272,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: NotApplicableValue отличается от sibling-терминов источником `lifecycle transition evidence`, классом `NOTAPPLICABLEVALUE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NotApplicableValue`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `NotApplicableValue` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NotApplicableValue`; MQL5 found=1, accepted=0; Python found=1, accepted=0.
 
 ### NotCalculatedValue
 CanonicalName: `NotCalculatedValue`
@@ -10105,7 +10318,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: NotCalculatedValue отличается от sibling-терминов источником `lifecycle transition evidence`, классом `NOTCALCULATEDVALUE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NotCalculatedValue`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `NotCalculatedValue` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NotCalculatedValue`; MQL5 found=1, accepted=0; Python found=1, accepted=0.
 
 ### NotAvailableValue
 CanonicalName: `NotAvailableValue`
@@ -10150,7 +10364,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: NotAvailableValue отличается от sibling-терминов источником `lifecycle transition evidence`, классом `NOTAVAILABLEVALUE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `NotAvailableValue`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `NotAvailableValue` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `NotAvailableValue`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
 
 ### UnknownValue
 CanonicalName: `UnknownValue`
@@ -10195,7 +10410,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: UnknownValue отличается от sibling-терминов источником `lifecycle transition evidence`, классом `UNKNOWNVALUE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `UnknownValue`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `UnknownValue` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `UnknownValue`; MQL5 found=3, accepted=0; Python found=1, accepted=0.
 
 ### CurrentBid
 CanonicalName: `CurrentBid`
@@ -10205,7 +10421,7 @@ CanonicalName: `CurrentBid`
 Торговая роль: CurrentBid
 Размерность: `PRICE_BID`
 Unit: `price`
-Знак: non-negative
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_BID`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfoDouble(symbol, SYMBOL_BID)
 Authoritative source: SymbolInfoDouble(symbol, SYMBOL_BID)
@@ -10221,9 +10437,9 @@ Authoritative replacement: пересчёт CurrentBid на новом immutable
 Запрещённые подмены: CurrentBid нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CurrentBid, тип PRICE_BID, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::current
+Python mapping: Tools/run_full_parameter_optimization_study.py::current
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10240,7 +10456,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: CurrentBid отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_BID)`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CurrentBid`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `CurrentBid` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CurrentBid`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
 
 ### CurrentAsk
 CanonicalName: `CurrentAsk`
@@ -10250,7 +10467,7 @@ CanonicalName: `CurrentAsk`
 Торговая роль: CurrentAsk
 Размерность: `PRICE_ASK`
 Unit: `price`
-Знак: non-negative
+Знак: > 0
 Допустимый диапазон: соответствует типу `PRICE_ASK`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: SymbolInfoDouble(symbol, SYMBOL_ASK)
 Authoritative source: SymbolInfoDouble(symbol, SYMBOL_ASK)
@@ -10266,9 +10483,9 @@ Authoritative replacement: пересчёт CurrentAsk на новом immutable
 Запрещённые подмены: CurrentAsk нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CurrentAsk, тип PRICE_ASK, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::current
+Python mapping: Tools/run_full_parameter_optimization_study.py::current
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10285,7 +10502,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: CurrentAsk отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_ASK)`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CurrentAsk`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `CurrentAsk` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CurrentAsk`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
 
 ### ReserveProjected
 CanonicalName: `ReserveProjected`
@@ -10295,7 +10513,7 @@ CanonicalName: `ReserveProjected`
 Торговая роль: Reserve
 Размерность: `MONEY_PROJECTED`
 Unit: `account money`
-Знак: non-negative
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: OrderCalcProfit outputs plus explicit projected allocation model
 Authoritative source: OrderCalcProfit outputs plus explicit projected allocation model
@@ -10311,9 +10529,9 @@ Authoritative replacement: пересчёт ReserveProjected на новом imm
 Запрещённые подмены: ReserveProjected нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Reserve, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/BrokerMoneyModel.mqh::projectedReserve
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10330,7 +10548,8 @@ Persistence behavior: Сохраняется только как plan/audit evid
 Restart behavior: После restart пересчитывается либо признаётся stale по fingerprint.
 Отличие от: ReserveProjected отличается от sibling-терминов источником `OrderCalcProfit outputs plus explicit projected allocation model`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveProjected`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ReserveProjected` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveProjected`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
 
 ### ReserveCoverage
 CanonicalName: `ReserveCoverage`
@@ -10340,7 +10559,7 @@ CanonicalName: `ReserveCoverage`
 Торговая роль: Reserve
 Размерность: `RATIO`
 Unit: `dimensionless`
-Знак: non-negative
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: ReserveAvailable divided by FinalCloseRequirement
 Authoritative source: ReserveAvailable divided by FinalCloseRequirement
@@ -10356,9 +10575,9 @@ Authoritative replacement: новое approved значение ReserveCoverage 
 Запрещённые подмены: ReserveCoverage нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Reserve, тип RATIO, class PROJECTED or ACTUAL RATIO.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::reserveCoverage
+Python mapping: Tools/run_full_parameter_optimization_study.py::reserve_coverage
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10375,7 +10594,8 @@ Persistence behavior: Хранится с profile revision и CycleID.
 Restart behavior: После restart перечитывается и сверяется с frozen cycle configuration.
 Отличие от: ReserveCoverage отличается от sibling-терминов источником `ReserveAvailable divided by FinalCloseRequirement`, классом `PROJECTED or ACTUAL RATIO` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ReserveCoverage`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `ReserveCoverage` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ReserveCoverage`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### Symbol
 CanonicalName: `Symbol`
@@ -10401,9 +10621,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: Symbol нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Symbol, тип SYMBOL_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::symbol
+Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::symbol
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10420,7 +10640,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: Symbol отличается от sibling-терминов источником `current chart/request symbol and reconciled position symbol`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Symbol`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `Symbol` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Symbol`; MQL5 found=8, accepted=1; Python found=7, accepted=1.
 
 ### MagicNumber
 CanonicalName: `MagicNumber`
@@ -10446,9 +10667,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: MagicNumber нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: MagicNumber, тип MAGIC_ID, class POLICY/ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::magicNumber
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10465,7 +10686,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: MagicNumber отличается от sibling-терминов источником `configured MagicNumber verified against position/deal properties`, классом `POLICY/ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `MagicNumber`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `MagicNumber` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `MagicNumber`; MQL5 found=7, accepted=1; Python found=1, accepted=0.
 
 ### CycleID
 CanonicalName: `CycleID`
@@ -10491,9 +10713,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: CycleID нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CycleID, тип CYCLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/Types.mqh::cycleId
+Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::cycle
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10510,7 +10732,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: CycleID отличается от sibling-терминов источником `persisted cycle creation event confirmed by reconciliation`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `CycleID`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `CycleID` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `CycleID`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### EventID
 CanonicalName: `EventID`
@@ -10536,9 +10759,9 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Запрещённые подмены: EventID нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: EventID, тип EVENT_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/StateMachine.mqh::lastEventId
+Python mapping: Tests/unit/test_split_final_safety_model.py::event_id
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10555,7 +10778,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: EventID отличается от sibling-терминов источником `exactly-once ledger event namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `EventID`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `EventID` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `EventID`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
 
 ### Fingerprint
 CanonicalName: `Fingerprint`
@@ -10582,8 +10806,8 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Связанные сущности: Fingerprint, тип FINGERPRINT, class PROJECTED or RECONCILED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10600,7 +10824,8 @@ Persistence behavior: Persisted только вместе с type и cycle scope
 Restart behavior: После restart сверяется с terminal/deal history.
 Отличие от: Fingerprint отличается от sibling-терминов источником `canonical serialization of typed fields and revision`, классом `PROJECTED or RECONCILED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Fingerprint`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `Fingerprint` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Fingerprint`; MQL5 found=8, accepted=0; Python found=3, accepted=1.
 
 ### Comment
 CanonicalName: `Comment`
@@ -10626,9 +10851,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Comment нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Comment, тип DIAGNOSTIC_TEXT, class ACTUAL OBSERVATION.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::comment
+Python mapping: Tools/run_full_parameter_optimization_study.py::comment
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10645,7 +10870,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Comment отличается от sibling-терминов источником `MT5 position/order/deal comment property`, классом `ACTUAL OBSERVATION` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Comment`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Comment` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Comment`; MQL5 found=8, accepted=1; Python found=3, accepted=1.
 
 ### Preview
 CanonicalName: `Preview`
@@ -10653,8 +10879,8 @@ CanonicalName: `Preview`
 Краткое определение: Preview — typed `PHASE` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «read-only предварительная оценка»; его authoritative provenance — «fresh immutable snapshot evaluator».
 Архитектурный профиль: All
 Торговая роль: Preview
-Размерность: `PHASE`
-Unit: `structured record`
+Размерность: `PREVIEW_OBJECT`
+Unit: `structured preview`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `PHASE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: fresh immutable snapshot evaluator
@@ -10664,7 +10890,7 @@ Projected/Actual class: `PROJECTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT STRUCTURE`
-Lifecycle: Preview создаётся соответствующим transition, gate или observation event. Изменяется только явно разрешённым событием своего класса. Новая state revision делает прежнее current значение Preview историческим. последнее confirmed state/event значение того же класса. Terminal outcome завершает current lifecycle, сохраняя audit. Этот lifecycle относится именно к объекту «read-only предварительная оценка» и его собственному type/source contract.
+Lifecycle: Preview создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение Preview историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
 Допустимые операции: сравнение и преобразование только по `PHASE` с `EXACT STRUCTURE` и explicit provenance.
@@ -10677,20 +10903,21 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
-Creation event: Preview создаётся соответствующим transition, gate или observation event.
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: PROJECTED_VALUE
+Creation event: Preview создаётся из immutable calculation snapshot.
 Validation event: Preview проверяется точным enum/schema сравнением.
 Freeze/confirmation event: Preview фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
-Stale triggers: Новая state revision делает прежнее current значение Preview историческим.
-Replacement source: последнее confirmed state/event значение того же класса.
-Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
-Persistence behavior: Persisted с event identity, если требуется recovery.
-Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
+Mutation events: Не мутирует; новая revision создаёт новый object.
+Stale triggers: input or snapshot revision делает object stale.
+Replacement source: пересчёт на новом immutable snapshot.
+Terminal condition: завершается перед execution либо freeze approved plan.
+Persistence behavior: plan/audit evidence, не actual ledger commit.
+Restart behavior: после restart сверяется fingerprint и пересчитывается.
 Отличие от: Preview отличается от sibling-терминов источником `fresh immutable snapshot evaluator`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Preview`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Preview` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Preview`; MQL5 found=1, accepted=0; Python found=1, accepted=0.
 
 ### Candidate
 CanonicalName: `Candidate`
@@ -10716,9 +10943,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Candidate нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Candidate, тип OUTCOME, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+MQL5 mapping: Include/SimulationEngine.mqh::candidate
+Python mapping: Tools/hybrid_geometry_model.py::candidate
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10735,7 +10962,8 @@ Persistence behavior: Persisted с event identity, если требуется r
 Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
 Отличие от: Candidate отличается от sibling-терминов источником `solver output tied to source fingerprint`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Candidate`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Candidate` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Candidate`; MQL5 found=4, accepted=1; Python found=8, accepted=1.
 
 ### Plan
 CanonicalName: `Plan`
@@ -10743,8 +10971,8 @@ CanonicalName: `Plan`
 Краткое определение: Plan — typed `STATE` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «расчётный набор действий и ожиданий»; его authoritative provenance — «candidate planner output with revision».
 Архитектурный профиль: All
 Торговая роль: Plan
-Размерность: `STATE`
-Unit: `structured record`
+Размерность: `PLAN_OBJECT`
+Unit: `structured plan`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: candidate planner output with revision
@@ -10754,7 +10982,7 @@ Projected/Actual class: `PROJECTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT STRUCTURE`
-Lifecycle: Plan создаётся соответствующим transition, gate или observation event. Изменяется только явно разрешённым событием своего класса. Новая state revision делает прежнее current значение Plan историческим. последнее confirmed state/event значение того же класса. Terminal outcome завершает current lifecycle, сохраняя audit. Этот lifecycle относится именно к объекту «расчётный набор действий и ожиданий» и его собственному type/source contract.
+Lifecycle: Plan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение Plan историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
 Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT STRUCTURE` и explicit provenance.
@@ -10762,25 +10990,26 @@ Authoritative replacement: последнее confirmed state/event значен
 Связанные сущности: Plan, тип STATE, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: NONE_FOUND
-Mapping status: MQL5=`MISSING`; Python=`MISSING`
+Python mapping: Tests/adaptive_geometry_docs_check.py::plan
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
-Creation event: Plan создаётся соответствующим transition, gate или observation event.
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: PROJECTED_VALUE
+Creation event: Plan создаётся из immutable calculation snapshot.
 Validation event: Plan проверяется точным enum/schema сравнением.
 Freeze/confirmation event: Plan фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
-Stale triggers: Новая state revision делает прежнее current значение Plan историческим.
-Replacement source: последнее confirmed state/event значение того же класса.
-Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
-Persistence behavior: Persisted с event identity, если требуется recovery.
-Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
+Mutation events: Не мутирует; новая revision создаёт новый object.
+Stale triggers: input or snapshot revision делает object stale.
+Replacement source: пересчёт на новом immutable snapshot.
+Terminal condition: завершается перед execution либо freeze approved plan.
+Persistence behavior: plan/audit evidence, не actual ledger commit.
+Restart behavior: после restart сверяется fingerprint и пересчитывается.
 Отличие от: Plan отличается от sibling-терминов источником `candidate planner output with revision`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `Plan`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Plan` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `Plan`; MQL5 found=1, accepted=0; Python found=3, accepted=1.
 
 ### ApprovedPlan
 CanonicalName: `ApprovedPlan`
@@ -10788,8 +11017,8 @@ CanonicalName: `ApprovedPlan`
 Краткое определение: ApprovedPlan — typed `STATE` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «неизменяемый план после всех обязательных gates»; его authoritative provenance — «approved immutable plan and fingerprint».
 Архитектурный профиль: All
 Торговая роль: ApprovedPlan
-Размерность: `STATE`
-Unit: `structured record`
+Размерность: `PLAN_OBJECT`
+Unit: `structured approved plan`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved immutable plan and fingerprint
@@ -10799,7 +11028,7 @@ Projected/Actual class: `PROJECTED APPROVED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT STRUCTURE`
-Lifecycle: ApprovedPlan создаётся соответствующим transition, gate или observation event. Изменяется только явно разрешённым событием своего класса. Новая state revision делает прежнее current значение ApprovedPlan историческим. последнее confirmed state/event значение того же класса. Terminal outcome завершает current lifecycle, сохраняя audit. Этот lifecycle относится именно к объекту «неизменяемый план после всех обязательных gates» и его собственному type/source contract.
+Lifecycle: ApprovedPlan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение ApprovedPlan историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
 Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT STRUCTURE` и explicit provenance.
@@ -10812,18 +11041,19 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
-Creation event: ApprovedPlan создаётся соответствующим transition, gate или observation event.
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: PROJECTED_VALUE
+Creation event: ApprovedPlan создаётся из immutable calculation snapshot.
 Validation event: ApprovedPlan проверяется точным enum/schema сравнением.
 Freeze/confirmation event: ApprovedPlan фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
-Stale triggers: Новая state revision делает прежнее current значение ApprovedPlan историческим.
-Replacement source: последнее confirmed state/event значение того же класса.
-Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
-Persistence behavior: Persisted с event identity, если требуется recovery.
-Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
+Mutation events: Не мутирует; новая revision создаёт новый object.
+Stale triggers: input or snapshot revision делает object stale.
+Replacement source: пересчёт на новом immutable snapshot.
+Terminal condition: завершается перед execution либо freeze approved plan.
+Persistence behavior: plan/audit evidence, не actual ledger commit.
+Restart behavior: после restart сверяется fingerprint и пересчитывается.
 Отличие от: ApprovedPlan отличается от sibling-терминов источником `approved immutable plan and fingerprint`, классом `PROJECTED APPROVED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
-Evidence: `HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json` record `ApprovedPlan`; declaration/use audit found no identifier proven to represent the complete canonical entity.
+Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ApprovedPlan` различается canonical source, type/class и полем «Отличие от».
+Evidence: candidate audit record `ApprovedPlan`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
 
