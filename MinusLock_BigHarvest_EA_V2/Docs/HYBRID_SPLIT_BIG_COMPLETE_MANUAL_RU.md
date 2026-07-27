@@ -421,7 +421,7 @@ Parameters BigRatio, SmallRatio, CloseBigOnSmallShare, RemainBigOnSmallShare, Cl
 | SplitBig | Разделённый компенсирующая позиция | SplitBig | ROLE_ID | integer/string identity | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | BigCore | Компенсирующая позиция основная часть | BigCore | ROLE_ID | integer/string identity | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT | Core | APPROVED_TERM |
 | BigTrend | Компенсирующая позиция трендовая часть | BigTrend | ROLE_ID | integer/string identity | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT | Trend | APPROVED_TERM |
-| BigGross | Компенсирующая позиция валовая | BigGross | ROLE_ID | integer/string identity | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
+| BigGross | совокупный расчётный объём частей Big | BigGross | LOT_CALCULATED | lot | >= 0 | PROJECTED | BigCoreLotProjected + BigTrendLotProjected из одного immutable plan | NO_ADDITIONAL_ROUNDING | VolumeToleranceLots | — | DOCUMENTED_NOT_APPROVED |
 | SmallBase | Защитная позиция базовая | SmallBase | ROLE_ID | integer/string identity | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT | Small | APPROVED_TERM |
 | Hybrid | Гибридный | Hybrid | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | DOCUMENTED_NOT_APPROVED |
 | HybridSplitBig | Гибридный разделённый компенсирующая позиция | HybridSplitBig | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
@@ -639,7 +639,26 @@ Parameters BigRatio, SmallRatio, CloseBigOnSmallShare, RemainBigOnSmallShare, Cl
 | Preview | read-only предварительная оценка | All | PHASE | structured record | not numeric | PROJECTED | fresh immutable snapshot evaluator | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
 | Candidate | кандидат плана до полного gate-chain | All | OUTCOME | structured record | not numeric | PROJECTED | solver output tied to source fingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
 | Plan | расчётный набор действий и ожиданий | All | STATE | structured record | not numeric | PROJECTED | candidate planner output with revision | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
-| ApprovedPlan | неизменяемый план после всех обязательных gates | All | STATE | structured record | not numeric | PROJECTED APPROVED | approved immutable plan and fingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
-<!-- STAGE_3_1_3_CANONICAL_TABLE_END -->
+| ApprovedPlan | неизменяемый план после всех обязательных gates | All | STATE | structured record | not numeric | PROJECTED APPROVED | approved immutable plan and fingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |<!-- STAGE_3_1_3_CANONICAL_TABLE_END -->
 
 <!-- STAGE_3_1_3_SECTION_END -->
+
+## Semantic category matrix (Этап 3.1.3, вторая коррекция)
+
+Матрица типизирует смысл сущности независимо от совпадения слов в имени. Она является
+machine-readable правилом validator, но не изменяет торговую математику.
+
+| Semantic category | Разрешённые Type | Unit contract | Lifecycle class | Запрещённая подмена |
+| --- | --- | --- | --- | --- |
+| `ROLE` | `ROLE_ID` | role identity | `ROLE` | role ↛ lot/money/position object |
+| `IDENTITY` | `*_ID`, `*_TICKET`, `FINGERPRINT` | typed identity/hash | `IDENTITY` | ticket ↛ position identifier |
+| `LOT_VALUE` | `LOT_*` | lot | projected/requested/deal/actual-position | volume ↛ role identity |
+| `MONEY_VALUE` | `MONEY_*` | account money | projected/deal/ledger/actual-position | projected money ↛ ledger money |
+| `PRICE_OR_DISTANCE` | `PRICE_*`, `POINTS`, `TICKS`, `PRICE_DELTA`, `DISTANCE_*` | price/point/tick | symbol-property/projected/deal | Point ↛ TickSize; distance ↛ money |
+| `POLICY` | `RATIO`, `SHARE`, `PERCENT`, `MULTIPLIER`, `BOOLEAN_POLICY` | dimensionless/boolean | `POLICY` | share ↛ money or lot |
+| `STATE_OR_RESULT` | `STATE`, `PHASE`, `OUTCOME`, `REASON_CODE`, `GATE_RESULT` | enum/schema | `STATE` | diagnostic text ↛ state/reason |
+| `STRUCTURED_OBJECT` | plan/snapshot/event/observation object types | typed structure | object-specific | preview ↛ execution result |
+
+`Semantic exception: NOT_APPLICABLE` означает, что запись следует матрице без
+исключения. Любое будущее исключение обязано содержать содержательное обоснование,
+считаться validator и перечисляться в отчёте этапа.

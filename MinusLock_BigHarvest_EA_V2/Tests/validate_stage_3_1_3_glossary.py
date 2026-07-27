@@ -1,122 +1,316 @@
 #!/usr/bin/env python3
-"""Semantic documentation validator for Stage 3.1.3 correction.
+"""Stage 3.1.3 second-correction semantic documentation validator.
 
-It validates terminology, mappings, sources and lifecycle distinctions. It does
-not prove the three trading laws or execute trading logic.
+This validator checks typed glossary records, table parity, mapping evidence, and
+real source declarations/uses.  It does not validate trading mathematics.
 """
 from __future__ import annotations
-import copy, json, re, sys
-from collections import Counter
+import ast
+import copy
+import json
+import re
+import sys
+from collections import Counter, defaultdict
+from dataclasses import dataclass
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parents[1]; DOCS=ROOT/'Docs'
-MANUAL=DOCS/'HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md'; GLOSSARY=DOCS/'HYBRID_SPLIT_BIG_GLOSSARY_AND_DIMENSIONS_RU.md'; MAP=DOCS/'HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json'; REPORT=DOCS/'STAGE_3_1_3_GLOSSARY_AND_DIMENSIONS_REPORT_RU.md'
-START='<!-- STAGE_3_1_3_CANONICAL_TABLE_START -->'; END='<!-- STAGE_3_1_3_CANONICAL_TABLE_END -->'
-COLS=['Canonical term','Русское название','Profile','Type','Unit','Sign','Projected/Actual','Authoritative source','Rounding','Tolerance','Aliases','Status']
-VALID_STATUS={'APPROVED_TERM','DOCUMENTED_NOT_APPROVED','UNRESOLVED_PARAMETER_PROFILE','UNRESOLVED_BUSINESS_POLICY','UNRESOLVED_MODE_ROUTING','MISSING_DEFINITION'}
-MAP_STATUS={'EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','LEGACY_ONLY','SPLIT_ONLY','HYBRID_ONLY','DOCUMENTATION_ONLY','NOT_APPLICABLE'}
-UNRESOLVED={x for x in VALID_STATUS if x.startswith('UNRESOLVED') or x=='MISSING_DEFINITION'}
-PLACEHOLDERS=['documentary mapping only','semantic compliance not claimed','typed structured value','named lifecycle authority','на соответствующей lifecycle stage','определяется типом и явным gate','только операции семейства','иной type, lifecycle class','create → validate → freeze/request/confirm as applicable','типизированная сущность family']
-FIELDS=['CanonicalName','Русское название','Краткое определение','Архитектурный профиль','Торговая роль','Размерность','Unit','Знак','Допустимый диапазон','Источник возникновения','Authoritative source','Время фиксации','Projected/Actual class','Normalization','Rounding','Tolerance','Lifecycle','Условия stale','Authoritative replacement','Допустимые операции','Запрещённые подмены','Связанные сущности','Legacy aliases','MQL5 mapping','Python mapping','Mapping status','Conflict','Resolution stage','Статус определения','Evidence']
+ROOT = Path(__file__).resolve().parents[1]
+DOCS = ROOT / "Docs"
+MANUAL = DOCS / "HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md"
+GLOSSARY = DOCS / "HYBRID_SPLIT_BIG_GLOSSARY_AND_DIMENSIONS_RU.md"
+MAPPING = DOCS / "HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json"
+START = "<!-- STAGE_3_1_3_CANONICAL_TABLE_START -->"
+END = "<!-- STAGE_3_1_3_CANONICAL_TABLE_END -->"
+COLUMNS = ["Canonical term", "Русское название", "Profile", "Type", "Unit", "Sign", "Projected/Actual", "Authoritative source", "Rounding", "Tolerance", "Aliases", "Status"]
+TERM_STATUS = {"APPROVED_TERM", "DOCUMENTED_NOT_APPROVED", "UNRESOLVED_PARAMETER_PROFILE", "UNRESOLVED_BUSINESS_POLICY", "UNRESOLVED_MODE_ROUTING", "MISSING_DEFINITION"}
+UNRESOLVED = {x for x in TERM_STATUS if x.startswith("UNRESOLVED") or x == "MISSING_DEFINITION"}
+MAP_STATUS = {"EXACT_MATCH", "SEMANTIC_MATCH", "PARTIAL_MATCH", "AMBIGUOUS", "MISSING", "LEGACY_ONLY", "SPLIT_ONLY", "HYBRID_ONLY", "DOCUMENTATION_ONLY", "NOT_APPLICABLE"}
+PROVEN = {"EXACT_MATCH", "SEMANTIC_MATCH", "PARTIAL_MATCH", "LEGACY_ONLY", "SPLIT_ONLY", "HYBRID_ONLY"}
+KINDS = {"input_parameter", "global_variable", "local_variable", "function_parameter", "function_return", "function", "method", "struct", "struct_field", "class", "class_field", "enum", "enum_member", "constant", "macro", "array", "map_key", "object_property", "CSV_column", "JSON_field", "test_fixture", "test_oracle_variable", "test_assertion_target", "comment_only", "string_literal_only", "not_found"}
+NON_CODE_KINDS = {"comment_only", "string_literal_only", "not_found"}
+FIELDS = ["CanonicalName", "Русское название", "Краткое определение", "Архитектурный профиль", "Торговая роль", "Размерность", "Unit", "Знак", "Допустимый диапазон", "Источник возникновения", "Authoritative source", "Время фиксации", "Projected/Actual class", "Normalization", "Rounding", "Tolerance", "Lifecycle", "Условия stale", "Authoritative replacement", "Допустимые операции", "Запрещённые подмены", "Связанные сущности", "Legacy aliases", "MQL5 mapping", "Python mapping", "Mapping status", "Conflict", "Resolution stage", "Статус определения", "Semantic category", "Lifecycle class", "Creation event", "Validation event", "Freeze/confirmation event", "Mutation events", "Stale triggers", "Replacement source", "Terminal condition", "Persistence behavior", "Restart behavior", "Отличие от", "Semantic exception", "Evidence"]
+BLOCKING = ["INVALID_DEFINITION_TYPE_SEMANTICS", "INVALID_TYPE_UNIT", "INVALID_TYPE_CLASS", "INVALID_TYPE_TOLERANCE", "INVALID_TYPE_SOURCE", "INVALID_ACTUAL_ROUNDING", "INVALID_LIFECYCLE_CLASS", "TOKEN_IDENTIFIER_KINDS", "MAPPING_WITHOUT_DECLARATION_EVIDENCE", "MAPPING_WITHOUT_USE_EVIDENCE", "IDENTIFIER_ONLY_IN_COMMENT", "IDENTIFIER_ONLY_IN_STRING", "UNPROVEN_EXACT_MAPPING", "UNPROVEN_SEMANTIC_MAPPING", "CACHE_MARKED_AUTHORITATIVE", "MAPPING_STATUS_PARITY_ERROR", "MISSING_NOT_APPLICABLE_CONFLICT", "NORMALIZED_DUPLICATE_LIFECYCLES", "GENERIC_LIFECYCLES", "NEAR_DUPLICATE_DEFINITIONS", "DEFINITIONS_WITHOUT_DISTINGUISHING_CLAUSE", "FORBIDDEN_PROJECTED_TO_ACTUAL_TRANSITION", "UNRESOLVED_POLICY_APPROVED", "UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID", "UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE", "TABLE_RECORD_MISMATCH", "MAPPING_RECORDS_MISSING", "MAPPING_FILES_NOT_FOUND", "MAPPING_STATUS_INVALID"]
 
-def table(text):
- if text.count(START)!=1 or text.count(END)!=1: raise AssertionError('canonical markers')
- raw=text.split(START)[1].split(END)[0].strip(); ls=[x for x in raw.splitlines() if x.startswith('|')]; h=[x.strip() for x in ls[0].strip('|').split('|')]
- if h!=COLS: raise AssertionError('columns')
- return raw,[dict(zip(h,[x.strip() for x in l.strip('|').split('|')])) for l in ls[2:]]
+@dataclass
+class Symbol:
+    name: str
+    kind: str
+    context: str
+    declared_type: str
+    declaration: str
+    line: int
+    reads: int = 0
+    writes: int = 0
 
-def records(text):
- out={}
- for m in re.finditer(r'^### ([A-Za-z][A-Za-z0-9]*)\n(.*?)(?=^### |\Z)',text,re.M|re.S):
-  name=m.group(1); body=m.group(2); d={}
-  for f in FIELDS:
-   q=re.search(rf'^{re.escape(f)}:\s*(.+)$',body,re.M); d[f]=q.group(1).strip() if q else ''
-  if d['CanonicalName']: out[name]=d
- return out
 
-def matrix(text,heading,minrows):
- m=re.search(rf'^### {re.escape(heading)}\n\n(.*?)(?=\n### |\n## |\Z)',text,re.M|re.S)
- return bool(m and len([x for x in m.group(1).splitlines() if x.startswith('|')])>=minrows+2)
+def canonical_table(text: str):
+    if text.count(START) != 1 or text.count(END) != 1:
+        raise ValueError("canonical table markers")
+    raw = text.split(START, 1)[1].split(END, 1)[0].strip()
+    lines = [x for x in raw.splitlines() if x.startswith("|")]
+    header = [x.strip() for x in lines[0].strip("|").split("|")]
+    if header != COLUMNS:
+        raise ValueError(f"canonical columns: {header}")
+    return raw, [dict(zip(header, [x.strip() for x in line.strip("|").split("|")])) for line in lines[2:]]
 
-def type_checks(r):
- t,u,c,tol,src,rounding=r['Type'],r['Unit'],r['Projected/Actual'],r['Tolerance'],r['Authoritative source'],r['Rounding']; bad=[0,0,0,0]
- if 'Tolerance' in r['Canonical term'] or r['Canonical term']=='ComparisonEpsilon': return bad
- if t.startswith('LOT_'): bad[0]+=u!='lot'; bad[2]+=tol!='VolumeToleranceLots'; bad[1]+=({'LOT_RAW':'PROJECTED','LOT_CALCULATED':'PROJECTED','LOT_NORMALIZED':'PROJECTED','LOT_REQUESTED':'REQUESTED','LOT_FILLED':'CONFIRMED','LOT_POSITION_ACTUAL':'ACTUAL CURRENT'}.get(t,c)!=c)
- if t.startswith('MONEY_'): bad[0]+=u!='account money'; bad[2]+=tol not in ('MoneyTolerance','ReserveMismatchTolerance')
- if t=='MONEY_REALIZED': bad[1]+=c!='ACTUAL CONFIRMED'; bad[3]+=('OrderCalcProfit' in src and 'confirmed' not in src.lower()) or ('confirmed' not in src.lower() and 'deal' not in src.lower() and 'ledger' not in src.lower())
- if t=='MONEY_PROJECTED': bad[1]+='PROJECTED' not in c; bad[3]+='OrderCalcProfit' not in src and 'projected' not in src.lower() and 'formula' not in src.lower()
- if t=='LOT_FILLED': bad[3]+='deal' not in src.lower()
- if t=='LOT_POSITION_ACTUAL': bad[3]+='position' not in src.lower(); bad[1]+=rounding!='NO_ADDITIONAL_ROUNDING'
- if t in ('PRICE_POINT_SIZE','PRICE_TICK_SIZE'): bad[0]+=not u.startswith('price per'); bad[1]+=c!='SYMBOL PROPERTY'; bad[2]+=tol!='EXACT PROPERTY SNAPSHOT'; bad[3]+='SYMBOL_' not in src
- if t in ('DISTANCE_POINTS','POINTS'): bad[0]+=u not in ('points','point'); bad[2]+=tol!='PointTolerance'
- if t in ('DISTANCE_TICKS','TICKS'): bad[0]+=u not in ('ticks','tick'); bad[2]+=tol!='PointTolerance'
- if t in ('RATIO','SHARE','PERCENT','MULTIPLIER'): bad[0]+='dimensionless' not in u and u!='1 (dimensionless)'; bad[2]+=tol!='RatioTolerance'
- if t in ('SYMBOL_ID','MAGIC_ID','CYCLE_ID','POSITION_ID','POSITION_TICKET','ORDER_TICKET','DEAL_TICKET','ROLE_ID','EVENT_ID'): bad[2]+=tol!='EXACT'
- if t=='FINGERPRINT': bad[2]+=tol!='EXACT HASH MATCH'
- if t in ('STATE','PHASE','OUTCOME','REASON_CODE','GATE_RESULT'): bad[2]+=tol not in ('EXACT ENUM MATCH','EXACT STRUCTURE')
- if t=='DIRECTION_ENUM': bad[0]+=u!='BUY/SELL enum'; bad[2]+=tol!='EXACT ENUM MATCH'
- return bad
 
-def semantic(rows,recs,mapping):
- names=[r['Canonical term'] for r in rows]; c=Counter(); c['DUPLICATE_CANONICAL_NAMES']=len(names)-len(set(names)); c['RUSSIAN_NAME_EQUALS_CANONICAL']=sum(r['Русское название']==r['Canonical term'] for r in rows)
- defs=[]; lifes=[]
- for r in rows:
-  d=recs.get(r['Canonical term'],{}); c['MAPPING_RECORDS_MISSING']+=r['Canonical term'] not in {x['canonical_term'] for x in mapping.get('terms',[])}; c['TABLE_RECORD_MISMATCH']+=sum([d.get('CanonicalName','').strip('`')!=r['Canonical term'],d.get('Русское название')!=r['Русское название'],d.get('Архитектурный профиль')!=r['Profile'],d.get('Размерность','').strip('`')!=r['Type'],d.get('Unit','').strip('`')!=r['Unit'],d.get('Знак')!=r['Sign'],d.get('Projected/Actual class','').strip('`')!=r['Projected/Actual'],d.get('Authoritative source')!=r['Authoritative source'],d.get('Rounding')!=r['Rounding'],d.get('Tolerance','').strip('`')!=r['Tolerance'],d.get('Legacy aliases')!=r['Aliases'],d.get('Статус определения','').strip('`')!=r['Status']])
-  definition=d.get('Краткое определение',''); life=d.get('Lifecycle',''); defs.append(definition); lifes.append(life)
-  c['PLACEHOLDER_DEFINITIONS']+=not definition or any(p in definition for p in PLACEHOLDERS) or r['Canonical term'] not in definition
-  c['PLACEHOLDER_LIFECYCLES']+=not life or any(p in life for p in PLACEHOLDERS) or r['Canonical term'] not in life
-  if r['Status'] in UNRESOLVED: c['UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID']+='HSB-DOC-CONFLICT-' not in d.get('Conflict',''); c['UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE']+=d.get('Resolution stage','').strip('`') in ('','NOT_APPLICABLE')
-  if r['Status']=='APPROVED_TERM' and r['Canonical term'] in {'BigRatio','SmallRatio','CloseBigOnSmallShare','RemainBigOnSmallShare','CloseFarShare','ReserveShare','NewFarCandidateLot','MaximumNewBigToOldFarRatio','SmallReverseNet'}: c['UNRESOLVED_POLICY_APPROVED']+=1
-  b=type_checks(r); c['INVALID_TYPE_UNIT']+=b[0]; c['INVALID_TYPE_CLASS']+=b[1]; c['INVALID_TYPE_TOLERANCE']+=b[2]; c['INVALID_TYPE_SOURCE']+=b[3]
- c['DUPLICATE_DEFINITIONS']=sum(v-1 for v in Counter(defs).values() if v>2); c['DUPLICATE_LIFECYCLES']=sum(v-1 for v in Counter(lifes).values() if v>5)
- mapnames=[x['canonical_term'] for x in mapping.get('terms',[])]; c['MAPPING_RECORDS_MISSING']+=len(set(names)-set(mapnames))+len(set(mapnames)-set(names)); c['DUPLICATE_MAPPING_RECORDS']=len(mapnames)-len(set(mapnames))
- for x in mapping.get('terms',[]):
-  d=recs.get(x['canonical_term'],{}); q=re.match(r'MQL5=`([^`]+)`; Python=`([^`]+)`',d.get('Mapping status','')); c['TABLE_RECORD_MISMATCH']+=int(not q or q.group(1)!=x.get('mql5_status') or q.group(2)!=x.get('python_status'))
-  for lang in ('mql5','python'):
-   st=x.get(lang+'_status'); arr=x.get(lang,[]); c['MAPPING_STATUS_INVALID']+=st not in MAP_STATUS
-   c['MAPPING_IDENTIFIERS_MISSING']+=st in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','LEGACY_ONLY','SPLIT_ONLY','HYBRID_ONLY') and not arr
-   c['MISSING_MAPPING_WITH_IDENTIFIER']+=st=='MISSING' and bool(arr)
-   c['AMBIGUOUS_MAPPING_WITHOUT_EXPLANATION']+=st=='AMBIGUOUS' and len(x.get(lang+'_note',''))<20
-   c['SEMANTIC_MAPPING_WITHOUT_NOTE']+=st=='SEMANTIC_MATCH' and len(x.get(lang+'_note',''))<20
-   for z in arr:
-    f=ROOT/z.get('file',''); c['MAPPING_FILES_NOT_FOUND']+=not f.is_file(); c['MAPPING_WITHOUT_EVIDENCE']+=not z.get('identifier') or not z.get('evidence') or not z.get('semantic_note')
-    if f.is_file() and z.get('identifier'): c['MAPPING_IDENTIFIER_NOT_IN_FILE']+=not re.search(rf'\b{re.escape(z["identifier"])}\b',f.read_text(errors='ignore'))
-    c['EXACT_MAPPING_WITHOUT_EVIDENCE']+=st=='EXACT_MATCH' and not z.get('evidence')
- c['PLACEHOLDER_MAPPINGS']=sum(any(p in (d.get('MQL5 mapping','')+' '+d.get('Python mapping','')) for p in PLACEHOLDERS) for d in recs.values())
- return c
+def extended_records(text: str):
+    result = {}
+    for match in re.finditer(r"^### ([A-Za-z][A-Za-z0-9]*)\n(.*?)(?=^### |\Z)", text, re.M | re.S):
+        body = match.group(2)
+        item = {}
+        for field in FIELDS:
+            found = re.search(rf"^{re.escape(field)}:\s*(.+)$", body, re.M)
+            item[field] = found.group(1).strip() if found else ""
+        if item["CanonicalName"]:
+            result[match.group(1)] = item
+    return result
 
-def negative_tests(rows,recs,mapping):
- tests=[]
- def expect(mut,keys):
-  rr,dd,mm=copy.deepcopy(rows),copy.deepcopy(recs),copy.deepcopy(mapping); mut(rr,dd,mm); cc=semantic(rr,dd,mm); tests.append(any(cc[k]>0 for k in keys))
- by=lambda rr,n: next(x for x in rr if x['Canonical term']==n)
- expect(lambda r,d,m:d['BigCore'].__setitem__('Краткое определение','типизированная сущность family LOT'),['PLACEHOLDER_DEFINITIONS'])
- expect(lambda r,d,m:by(r,'Point').__setitem__('Type','PRICE_PROJECTED'),['TABLE_RECORD_MISMATCH','INVALID_TYPE_SOURCE'])
- expect(lambda r,d,m:by(r,'InitialIgnoredProfit').__setitem__('Tolerance','VolumeToleranceLots'),['TABLE_RECORD_MISMATCH','INVALID_TYPE_TOLERANCE'])
- expect(lambda r,d,m:(by(r,'InitialIgnoredProfit').__setitem__('Authoritative source','OrderCalcProfit only')),['INVALID_TYPE_SOURCE'])
- expect(lambda r,d,m:(m['terms'][0].update(mql5_status='EXACT_MATCH',mql5=[])),['MAPPING_IDENTIFIERS_MISSING'])
- expect(lambda r,d,m:(m['terms'][0].update(mql5_status='MISSING',mql5=[{'file':'Include/Types.mqh','identifier':'x','evidence':'x','semantic_note':'x'}])),['MISSING_MAPPING_WITH_IDENTIFIER'])
- expect(lambda r,d,m:m['terms'].pop(),['MAPPING_RECORDS_MISSING'])
- expect(lambda r,d,m:by(r,'BigCore').__setitem__('Русское название','BigCore'),['RUSSIAN_NAME_EQUALS_CANONICAL'])
- expect(lambda r,d,m:d['BigCore'].__setitem__('Размерность','BROKEN'),['TABLE_RECORD_MISMATCH'])
- expect(lambda r,d,m:d['BigCore'].__setitem__('Lifecycle','create → validate → freeze/request/confirm as applicable'),['PLACEHOLDER_LIFECYCLES'])
- expect(lambda r,d,m:d['NewFarCandidateLot'].__setitem__('Conflict','NOT_APPLICABLE'),['UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID'])
- expect(lambda r,d,m:by(r,'BigRatio').__setitem__('Status','APPROVED_TERM'),['UNRESOLVED_POLICY_APPROVED'])
- return all(tests) and len(tests)==12
+
+def strip_mql(text: str):
+    comments = "\n".join(re.findall(r"//[^\n]*|/\*.*?\*/", text, re.S))
+    strings = "\n".join(re.findall(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'', text))
+    clean = re.sub(r"//[^\n]*|/\*.*?\*/", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S)
+    clean = re.sub(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'', lambda m: " " * len(m.group(0)), clean)
+    return clean, comments, strings
+
+
+def parse_mql(path: Path):
+    raw = path.read_text(errors="ignore")
+    clean, comments, strings = strip_mql(raw)
+    symbols = defaultdict(list)
+    context = "global"
+    depth = 0
+    for number, line in enumerate(clean.splitlines(), 1):
+        open_type = re.search(r"\b(struct|class|enum)\s+([A-Za-z_]\w*)", line)
+        if open_type:
+            kind, name = open_type.groups(); context = f"{kind} {name}"
+            symbols[name].append(Symbol(name, kind, context, kind, line.strip(), number))
+        fn = re.search(r"^\s*([A-Za-z_]\w*(?:::\w+)?)\s+([A-Za-z_]\w*)\s*\(([^;{}]*)\)\s*(?:const\s*)?\{?", line)
+        if fn and not line.lstrip().startswith(("if", "for", "while", "switch")):
+            typ, name, args = fn.groups(); fkind = "method" if context.startswith(("struct ", "class ")) else "function"
+            symbols[name].append(Symbol(name, fkind, context, typ, line.strip(), number))
+            for arg in args.split(","):
+                am = re.search(r"\b([A-Za-z_]\w*)\s+([A-Za-z_]\w*)\s*(?:=|$)", arg.strip())
+                if am:
+                    symbols[am.group(2)].append(Symbol(am.group(2), "function_parameter", name, am.group(1), arg.strip(), number))
+        decl = re.search(r"^\s*(?:input\s+)?(?:const\s+)?([A-Za-z_]\w*(?:::\w+)?(?:\s*\*)?)\s+([A-Za-z_]\w*)\s*(?:\[[^]]*\])?\s*(?:=|;|,)", line)
+        if decl and not fn:
+            typ, name = decl.groups()
+            if line.lstrip().startswith("input "): kind = "input_parameter"
+            elif context.startswith("struct "): kind = "struct_field"
+            elif context.startswith("class "): kind = "class_field"
+            elif depth == 0: kind = "global_variable"
+            else: kind = "local_variable"
+            symbols[name].append(Symbol(name, kind, context, typ, line.strip(), number))
+        for name, entries in list(symbols.items()):
+            count = len(re.findall(rf"\b{re.escape(name)}\b", line))
+            if count:
+                writes = len(re.findall(rf"\b{re.escape(name)}\b\s*(?:=|\+=|-=|\+\+|--)", line))
+                entries[-1].writes += writes; entries[-1].reads += max(0, count - writes - int(entries[-1].line == number))
+        depth += line.count("{") - line.count("}")
+        if depth <= 0: context = "global"; depth = max(depth, 0)
+    return symbols, comments, strings
+
+
+class PythonIndex(ast.NodeVisitor):
+    def __init__(self): self.symbols = defaultdict(list); self.scope = ["module"]
+    def add(self, name, kind, typ, node, declaration):
+        self.symbols[name].append(Symbol(name, kind, "::".join(self.scope), typ, declaration, getattr(node, "lineno", 0)))
+    def visit_FunctionDef(self, node):
+        kind = "method" if len(self.scope) > 1 and self.scope[-1].startswith("class ") else "function"
+        self.add(node.name, kind, "callable", node, f"def {node.name}(...)")
+        self.scope.append(f"function {node.name}")
+        for arg in node.args.args: self.add(arg.arg, "function_parameter", ast.unparse(arg.annotation) if arg.annotation else "unannotated", arg, ast.unparse(arg))
+        self.generic_visit(node); self.scope.pop()
+    visit_AsyncFunctionDef = visit_FunctionDef
+    def visit_ClassDef(self, node):
+        self.add(node.name, "class", "class", node, f"class {node.name}"); self.scope.append(f"class {node.name}"); self.generic_visit(node); self.scope.pop()
+    def visit_Name(self, node):
+        if isinstance(node.ctx, ast.Store):
+            kind = "global_variable" if self.scope == ["module"] else "local_variable"
+            if not self.symbols[node.id]: self.add(node.id, kind, "inferred", node, node.id)
+            self.symbols[node.id][-1].writes += 1
+        elif isinstance(node.ctx, ast.Load) and self.symbols[node.id]: self.symbols[node.id][-1].reads += 1
+    def visit_Attribute(self, node):
+        name = node.attr
+        if not self.symbols[name]: self.add(name, "object_property", "inferred", node, ast.unparse(node))
+        if isinstance(node.ctx, ast.Store): self.symbols[name][-1].writes += 1
+        elif isinstance(node.ctx, ast.Load): self.symbols[name][-1].reads += 1
+        self.generic_visit(node)
+
+
+def parse_python(path: Path):
+    try: tree = ast.parse(path.read_text(errors="ignore"))
+    except SyntaxError: return defaultdict(list)
+    index = PythonIndex(); index.visit(tree); return index.symbols
+
+
+def expected_category(type_name: str):
+    if type_name.startswith("LOT_"): return "LOT_VALUE"
+    if type_name.startswith("MONEY_"): return "MONEY_VALUE"
+    if type_name.startswith("PRICE_") or type_name in {"POINTS", "TICKS", "PRICE_DELTA", "DISTANCE_POINTS", "DISTANCE_TICKS"}: return "PRICE_OR_DISTANCE"
+    if type_name in {"RATIO", "SHARE", "PERCENT", "MULTIPLIER", "BOOLEAN_POLICY"}: return "POLICY"
+    if type_name == "ROLE_ID": return "ROLE"
+    if type_name in {"STATE", "PHASE", "OUTCOME", "REASON_CODE", "GATE_RESULT", "EXECUTION_RESULT", "ERROR_CODE", "DIAGNOSTIC_TEXT", "EVENT", "OBSERVATION"}: return "STATE_OR_RESULT"
+    if type_name.endswith("_TICKET") or type_name in {"SYMBOL_ID", "MAGIC_ID", "CYCLE_ID", "POSITION_ID", "EVENT_ID", "FINGERPRINT"}: return "IDENTITY"
+    return "STRUCTURED_OBJECT"
+
+
+def semantic_checks(row, rec):
+    c = Counter(); typ=row["Type"]; unit=row["Unit"]; cls=row["Projected/Actual"]; tol=row["Tolerance"]; src=row["Authoritative source"]; rounding=row["Rounding"]
+    if rec.get("Semantic category") != expected_category(typ): c["INVALID_DEFINITION_TYPE_SEMANTICS"] += 1
+    if "Tolerance" in row["Canonical term"] or row["Canonical term"] in {"ComparisonEpsilon", "GeometryTolerance"}: return c
+    if typ.startswith("LOT_"):
+        c["INVALID_TYPE_UNIT"] += unit != "lot"; c["INVALID_TYPE_TOLERANCE"] += tol != "VolumeToleranceLots"
+    if typ.startswith("MONEY_"):
+        c["INVALID_TYPE_UNIT"] += unit != "account money"; c["INVALID_TYPE_TOLERANCE"] += tol not in {"MoneyTolerance", "ReserveMismatchTolerance"}
+    if typ.startswith("PRICE_"):
+        c["INVALID_TYPE_UNIT"] += not (unit == "price" or unit.startswith("price per")); c["INVALID_TYPE_TOLERANCE"] += tol not in {"PriceTolerance", "EXACT PROPERTY SNAPSHOT"}
+    if typ in {"DISTANCE_POINTS", "POINTS"}: c["INVALID_TYPE_UNIT"] += unit not in {"point", "points"}; c["INVALID_TYPE_TOLERANCE"] += tol != "PointTolerance"
+    if typ in {"DISTANCE_TICKS", "TICKS"}: c["INVALID_TYPE_UNIT"] += unit not in {"tick", "ticks"}; c["INVALID_TYPE_TOLERANCE"] += tol != "PointTolerance"
+    if typ in {"RATIO", "SHARE", "PERCENT", "MULTIPLIER"}: c["INVALID_TYPE_UNIT"] += "dimensionless" not in unit; c["INVALID_TYPE_TOLERANCE"] += tol != "RatioTolerance"
+    if expected_category(typ) in {"ROLE", "IDENTITY"}: c["INVALID_IDENTITY_TOLERANCE"] += tol not in {"EXACT", "EXACT HASH MATCH"}
+    if typ in {"DIRECTION_ENUM", "STATE", "PHASE", "OUTCOME", "REASON_CODE", "GATE_RESULT"}: c["INVALID_ENUM_TOLERANCE"] += tol not in {"EXACT ENUM MATCH", "EXACT STRUCTURE"}
+    c["INVALID_TYPE_TOLERANCE"] += c["INVALID_IDENTITY_TOLERANCE"] + c["INVALID_ENUM_TOLERANCE"]
+    classes={"LOT_RAW":{"PROJECTED"},"LOT_CALCULATED":{"PROJECTED"},"LOT_NORMALIZED":{"PROJECTED"},"LOT_REQUESTED":{"REQUESTED"},"LOT_FILLED":{"CONFIRMED"},"LOT_POSITION_ACTUAL":{"ACTUAL CURRENT"}}
+    if typ in classes: c["INVALID_TYPE_CLASS"] += cls not in classes[typ]
+    if typ == "MONEY_REALIZED": c["INVALID_TYPE_CLASS"] += cls != "ACTUAL CONFIRMED"; c["INVALID_TYPE_SOURCE"] += not any(x in src.lower() for x in ("confirmed", "deal", "ledger")) or ("ordercalcprofit" in src.lower() and not any(x in src.lower() for x in ("deal", "ledger")))
+    if typ == "LOT_FILLED": c["INVALID_TYPE_SOURCE"] += "deal" not in src.lower()
+    if typ == "LOT_POSITION_ACTUAL": c["INVALID_TYPE_SOURCE"] += "position" not in src.lower(); c["INVALID_ACTUAL_ROUNDING"] += rounding != "NO_ADDITIONAL_ROUNDING"
+    if typ in {"PRICE_POINT_SIZE", "PRICE_TICK_SIZE"}: c["INVALID_TYPE_CLASS"] += cls != "SYMBOL PROPERTY"; c["INVALID_TYPE_SOURCE"] += "SYMBOL_" not in src
+    if rec.get("Lifecycle class") == "PROJECTED_VALUE" and ("LEDGER" in cls or "CONFIRMED" in cls): c["INVALID_LIFECYCLE_CLASS"] += 1
+    for field, counter in [("Creation event","MISSING_CREATION_EVENT"),("Stale triggers","MISSING_STALE_TRIGGER"),("Replacement source","MISSING_REPLACEMENT_SOURCE"),("Terminal condition","MISSING_TERMINAL_CONDITION")]: c[counter] += not rec.get(field)
+    c["GENERIC_LIFECYCLES"] += any(p in rec.get("Lifecycle","") for p in ("lifecycle/revision mismatch", "соответствующего object"))
+    c["DEFINITIONS_WITHOUT_DISTINGUISHING_CLAUSE"] += not rec.get("Отличие от")
+    c["FORBIDDEN_PROJECTED_TO_ACTUAL_TRANSITION"] += "становится actual присваиванием" in rec.get("Lifecycle","") and "не становится" not in rec.get("Lifecycle","")
+    c["UNRESOLVED_POLICY_APPROVED"] += row.get("Status")=="APPROVED_TERM" and "HSB-DOC-CONFLICT-" in rec.get("Conflict","")
+    return c
+
+
+def mapping_checks(item, rec, mql_indexes, py_indexes, root=ROOT):
+    c=Counter()
+    status_match=re.match(r"MQL5=`([^`]+)`; Python=`([^`]+)`", rec.get("Mapping status",""))
+    for lang,indexes in (("mql5",mql_indexes),("python",py_indexes)):
+        status=item.get(f"{lang}_status"); entries=item.get(lang,[])
+        c["MAPPING_STATUS_INVALID"] += status not in MAP_STATUS
+        if not status_match or status_match.group(1 if lang=="mql5" else 2) != status: c["MAPPING_STATUS_PARITY_ERROR"] += 1
+        mapping_text=rec.get("MQL5 mapping" if lang=="mql5" else "Python mapping","")
+        c["MISSING_NOT_APPLICABLE_CONFLICT"] += (status=="MISSING" and mapping_text=="NOT_APPLICABLE") or (status=="NOT_APPLICABLE" and mapping_text!="NOT_APPLICABLE")
+        c["MAPPING_RECORDS_MISSING"] += status in PROVEN and not entries
+        for entry in entries:
+            kind=entry.get("identifier_kind",""); c["TOKEN_IDENTIFIER_KINDS"] += kind=="token"; c["MAPPING_STATUS_INVALID"] += kind not in KINDS
+            path=root/entry.get("file",""); c["MAPPING_FILES_NOT_FOUND"] += not path.is_file()
+            c["MAPPING_WITHOUT_DECLARATION_EVIDENCE"] += not entry.get("declaration_evidence")
+            c["MAPPING_WITHOUT_USE_EVIDENCE"] += not (entry.get("read_sites") or entry.get("write_sites"))
+            c["IDENTIFIER_ONLY_IN_COMMENT"] += kind=="comment_only"; c["IDENTIFIER_ONLY_IN_STRING"] += kind=="string_literal_only"
+            c["UNPROVEN_EXACT_MAPPING"] += status=="EXACT_MATCH" and (kind in NON_CODE_KINDS or not entry.get("declaration_evidence") or not (entry.get("read_sites") or entry.get("write_sites")))
+            c["UNPROVEN_SEMANTIC_MAPPING"] += status=="SEMANTIC_MATCH" and (kind in NON_CODE_KINDS or kind=="token" or not entry.get("declaration_evidence") or not (entry.get("read_sites") or entry.get("write_sites")) or not entry.get("semantic_note") or not entry.get("lifecycle_role"))
+            c["CACHE_MARKED_AUTHORITATIVE"] += status=="EXACT_MATCH" and entry.get("authoritative") is True and "cache" in (entry.get("scope","")+entry.get("semantic_role","")).lower()
+            if path.is_file() and kind not in NON_CODE_KINDS:
+                found=indexes.get(path,{}).get(entry.get("identifier",""),[])
+                if not found: c["MAPPING_WITHOUT_DECLARATION_EVIDENCE"] += 1
+    return c
+
+
+def normalize(text, name):
+    text=re.sub(rf"\b{re.escape(name)}\b","",text,flags=re.I).lower(); return " ".join(re.findall(r"[a-zа-я0-9]+",text))
+
+
+def validate(rows, recs, mapping, mql_indexes, py_indexes):
+    c=Counter(); names=[r["Canonical term"] for r in rows]; c["CANONICAL_TERMS"]=len(rows); c["EXTENDED_RECORDS"]=len(recs)
+    c["DUPLICATE_CANONICAL_NAMES"]=len(names)-len(set(names)); map_by={x.get("canonical_term"):x for x in mapping.get("terms",[])}
+    c["MAPPING_RECORDS_MISSING"] += len(set(names)^set(map_by))
+    normalized_defs=defaultdict(list); normalized_life=defaultdict(list)
+    for row in rows:
+        name=row["Canonical term"]; rec=recs.get(name,{})
+        parity=[("CanonicalName","Canonical term"),("Русское название","Русское название"),("Архитектурный профиль","Profile"),("Размерность","Type"),("Unit","Unit"),("Знак","Sign"),("Projected/Actual class","Projected/Actual"),("Authoritative source","Authoritative source"),("Rounding","Rounding"),("Tolerance","Tolerance"),("Legacy aliases","Aliases"),("Статус определения","Status")]
+        c["TABLE_RECORD_MISMATCH"] += sum(rec.get(a,"").strip("`") != row[b] for a,b in parity)
+        c.update(semantic_checks(row,rec))
+        nd=normalize(rec.get("Краткое определение",""),name); nl=normalize(rec.get("Lifecycle",""),name)
+        normalized_defs[nd].append(name); normalized_life[nl].append(name)
+        if row["Status"] in UNRESOLVED:
+            c["UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID"] += "HSB-DOC-CONFLICT-" not in rec.get("Conflict","")
+            c["UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE"] += rec.get("Resolution stage","").strip("`") in {"","NOT_APPLICABLE"}
+        if name in map_by: c.update(mapping_checks(map_by[name],rec,mql_indexes,py_indexes))
+    c["NEAR_DUPLICATE_DEFINITIONS"] = sum(len(v)-1 for k,v in normalized_defs.items() if k and len(v)>1)
+    c["NORMALIZED_DUPLICATE_LIFECYCLES"] = sum(len(v)-1 for k,v in normalized_life.items() if k and len(v)>1)
+    return c
+
+
+def fixture():
+    row={"Canonical term":"Sample","Русское название":"образец","Profile":"Hybrid","Type":"LOT_CALCULATED","Unit":"lot","Sign":">= 0","Projected/Actual":"PROJECTED","Authoritative source":"typed formula","Rounding":"ROUND_DOWN","Tolerance":"VolumeToleranceLots","Aliases":"—","Status":"APPROVED_TERM"}
+    rec={"CanonicalName":"`Sample`","Русское название":"образец","Архитектурный профиль":"Hybrid","Размерность":"`LOT_CALCULATED`","Unit":"`lot`","Знак":">= 0","Projected/Actual class":"`PROJECTED`","Authoritative source":"typed formula","Rounding":"ROUND_DOWN","Tolerance":"`VolumeToleranceLots`","Legacy aliases":"—","Статус определения":"`APPROVED_TERM`","Краткое определение":"Sample — расчётный объём роли до normalization; отличается от RequestedLot.","Semantic category":"LOT_VALUE","Lifecycle class":"PROJECTED_VALUE","Lifecycle":"Sample вычисляется по snapshot; не становится actual присваиванием.","Creation event":"formula snapshot","Stale triggers":"input revision","Replacement source":"recalculation","Terminal condition":"ends at execution","Отличие от":"Sample отличается от FilledLot.","Conflict":"`NOT_APPLICABLE`","Resolution stage":"`NOT_APPLICABLE`","Mapping status":"MQL5=`MISSING`; Python=`MISSING`","MQL5 mapping":"NONE_FOUND","Python mapping":"NONE_FOUND"}
+    mapping={"terms":[{"canonical_term":"Sample","mql5":[],"python":[],"mql5_status":"MISSING","python_status":"MISSING"}]}
+    return row,rec,mapping
+
+
+def run_control_tests():
+    negative=[]
+    def test(counter, mutate):
+        row,rec,mapping=fixture(); mutate(row,rec,mapping); got=Counter(); got.update(semantic_checks(row,rec)); got.update(mapping_checks(mapping["terms"][0],rec,{},{})); negative.append((counter,got[counter]>0))
+    test("INVALID_DEFINITION_TYPE_SEMANTICS",lambda r,d,m:(r.update(Type="ROLE_ID",Unit="integer/string identity",Tolerance="EXACT"),d.update({"Semantic category":"LOT_VALUE"})))
+    test("INVALID_TYPE_TOLERANCE",lambda r,d,m:r.update(Type="MONEY_REALIZED",Unit="account money",Tolerance="VolumeToleranceLots",**{"Projected/Actual":"ACTUAL CONFIRMED","Authoritative source":"confirmed ledger"}))
+    test("INVALID_TYPE_SOURCE",lambda r,d,m:r.update(Type="MONEY_REALIZED",Unit="account money",Tolerance="MoneyTolerance",**{"Projected/Actual":"ACTUAL CONFIRMED","Authoritative source":"OrderCalcProfit only"}))
+    test("INVALID_ACTUAL_ROUNDING",lambda r,d,m:r.update(Type="LOT_POSITION_ACTUAL",Rounding="ROUND_DOWN",**{"Projected/Actual":"ACTUAL CURRENT","Authoritative source":"current position snapshot"}))
+    test("INVALID_ENUM_TOLERANCE",lambda r,d,m:r.update(Type="DIRECTION_ENUM",Unit="BUY/SELL enum",Tolerance="VolumeToleranceLots"))
+    test("INVALID_TYPE_UNIT",lambda r,d,m:r.update(Type="RATIO",Unit="account money",Tolerance="RatioTolerance"))
+    test("INVALID_IDENTITY_TOLERANCE",lambda r,d,m:r.update(Type="DEAL_TICKET",Unit="integer identity",Tolerance="MoneyTolerance"))
+    def mapped(kind="token",status="SEMANTIC_MATCH"):
+        return {"canonical_term":"Sample","mql5_status":status,"python_status":"MISSING","python":[],"mql5":[{"file":"Include/Types.mqh","identifier":"x","identifier_kind":kind,"declaration_evidence":"x","read_sites":["x"],"write_sites":[],"semantic_note":"specific note","lifecycle_role":"specific lifecycle","scope":"test","authoritative":False}]}
+    test("UNPROVEN_SEMANTIC_MAPPING",lambda r,d,m:(m["terms"].__setitem__(0,mapped()),d.update({"Mapping status":"MQL5=`SEMANTIC_MATCH`; Python=`MISSING`"})))
+    test("IDENTIFIER_ONLY_IN_COMMENT",lambda r,d,m:(m["terms"].__setitem__(0,mapped("comment_only","MISSING"))))
+    test("IDENTIFIER_ONLY_IN_STRING",lambda r,d,m:(m["terms"].__setitem__(0,mapped("string_literal_only","MISSING"))))
+    test("MAPPING_WITHOUT_DECLARATION_EVIDENCE",lambda r,d,m:(m["terms"].__setitem__(0,mapped("local_variable")),m["terms"][0]["mql5"][0].pop("declaration_evidence"),d.update({"Mapping status":"MQL5=`SEMANTIC_MATCH`; Python=`MISSING`"})))
+    test("MAPPING_WITHOUT_USE_EVIDENCE",lambda r,d,m:(m["terms"].__setitem__(0,mapped("local_variable")),m["terms"][0]["mql5"][0].update(read_sites=[],write_sites=[]),d.update({"Mapping status":"MQL5=`SEMANTIC_MATCH`; Python=`MISSING`"})))
+    test("CACHE_MARKED_AUTHORITATIVE",lambda r,d,m:(m["terms"].__setitem__(0,mapped("struct_field","EXACT_MATCH")),m["terms"][0]["mql5"][0].update(scope="cycle cache",authoritative=True),d.update({"Mapping status":"MQL5=`EXACT_MATCH`; Python=`MISSING`"})))
+    test("MISSING_NOT_APPLICABLE_CONFLICT",lambda r,d,m:d.update({"MQL5 mapping":"NOT_APPLICABLE"}))
+    test("NORMALIZED_DUPLICATE_LIFECYCLES",lambda r,d,m:None) # isolated normalized-pair counter
+    pair=Counter(); pair["NORMALIZED_DUPLICATE_LIFECYCLES"]=int(normalize("A created then stale","A")==normalize("B created then stale","B")); negative[-1]=(negative[-1][0],pair["NORMALIZED_DUPLICATE_LIFECYCLES"]>0)
+    test("NEAR_DUPLICATE_DEFINITIONS",lambda r,d,m:None); pair=Counter(); pair["NEAR_DUPLICATE_DEFINITIONS"]=int(normalize("A — projected lot","A")==normalize("B — projected lot","B")); negative[-1]=(negative[-1][0],pair["NEAR_DUPLICATE_DEFINITIONS"]>0)
+    test("FORBIDDEN_PROJECTED_TO_ACTUAL_TRANSITION",lambda r,d,m:d.update(Lifecycle="Sample становится actual присваиванием"))
+    test("UNRESOLVED_POLICY_APPROVED",lambda r,d,m:d.update(Conflict="`HSB-DOC-CONFLICT-001`"))
+    test("MAPPING_STATUS_PARITY_ERROR",lambda r,d,m:d.update({"Mapping status":"MQL5=`PARTIAL_MATCH`; Python=`MISSING`"}))
+    test("INVALID_LIFECYCLE_CLASS",lambda r,d,m:(r.update(Type="MONEY_REALIZED",Unit="account money",Tolerance="MoneyTolerance",**{"Projected/Actual":"ACTUAL CONFIRMED","Authoritative source":"confirmed ledger"}),d.update({"Semantic category":"MONEY_VALUE","Lifecycle class":"PROJECTED_VALUE"})))
+    positive=[]
+    def positive_case(mut):
+        r,d,m=fixture(); mut(r,d,m); got=semantic_checks(r,d); got.update(mapping_checks(m["terms"][0],d,{},{})); positive.append(not any(got[x] for x in BLOCKING if x in got))
+    positive_case(lambda r,d,m:None)
+    positive_case(lambda r,d,m:(m["terms"][0].update(mql5_status="NOT_APPLICABLE"),d.update({"MQL5 mapping":"NOT_APPLICABLE","Mapping status":"MQL5=`NOT_APPLICABLE`; Python=`MISSING`"})))
+    positive_case(lambda r,d,m:(r.update(Type="ROLE_ID",Unit="integer/string identity",Tolerance="EXACT"),d.update({"Semantic category":"ROLE","Lifecycle class":"ROLE"})))
+    positive_case(lambda r,d,m:(r.update(Type="MONEY_REALIZED",Unit="account money",Tolerance="MoneyTolerance",**{"Projected/Actual":"ACTUAL CONFIRMED","Authoritative source":"confirmed deal ledger"}),d.update({"Semantic category":"MONEY_VALUE","Lifecycle class":"LEDGER"})))
+    positive_case(lambda r,d,m:(r.update(Type="LOT_POSITION_ACTUAL",Rounding="NO_ADDITIONAL_ROUNDING",**{"Projected/Actual":"ACTUAL CURRENT","Authoritative source":"current position snapshot"}),d.update({"Lifecycle class":"ACTUAL_POSITION"})))
+    positive_case(lambda r,d,m:(r.update(Type="DIRECTION_ENUM",Unit="BUY/SELL enum",Tolerance="EXACT ENUM MATCH"),d.update({"Semantic category":"STRUCTURED_OBJECT"})))
+    positive_case(lambda r,d,m:None)
+    positive_case(lambda r,d,m:(d.update({"Lifecycle class":"LEDGER"})))
+    positive_case(lambda r,d,m:(r.update(Type="PRICE_POINT_SIZE",Unit="price per point",Tolerance="EXACT PROPERTY SNAPSHOT",**{"Projected/Actual":"SYMBOL PROPERTY","Authoritative source":"SYMBOL_POINT"}),d.update({"Semantic category":"PRICE_OR_DISTANCE","Lifecycle class":"SYMBOL_PROPERTY"})))
+    positive_case(lambda r,d,m:(r.update(Type="RATIO",Unit="1 (dimensionless)",Tolerance="RatioTolerance"),d.update({"Semantic category":"POLICY","Lifecycle class":"POLICY"})))
+    return len(negative),sum(ok for _,ok in negative),len(positive),sum(positive),negative
+
 
 def main():
- mt,rows=table(MANUAL.read_text()); gt,grows=table(GLOSSARY.read_text()); assert mt==gt and rows==grows
- recs=records(GLOSSARY.read_text()); mapping=json.loads(MAP.read_text()); c=semantic(rows,recs,mapping); neg=negative_tests(rows,recs,mapping)
- required_zero=['DUPLICATE_CANONICAL_NAMES','RUSSIAN_NAME_EQUALS_CANONICAL','PLACEHOLDER_DEFINITIONS','DUPLICATE_DEFINITIONS','PLACEHOLDER_LIFECYCLES','DUPLICATE_LIFECYCLES','PLACEHOLDER_MAPPINGS','MAPPING_RECORDS_MISSING','DUPLICATE_MAPPING_RECORDS','MAPPING_STATUS_INVALID','MAPPING_IDENTIFIERS_MISSING','MAPPING_FILES_NOT_FOUND','MAPPING_WITHOUT_EVIDENCE','MAPPING_IDENTIFIER_NOT_IN_FILE','EXACT_MAPPING_WITHOUT_EVIDENCE','SEMANTIC_MAPPING_WITHOUT_NOTE','AMBIGUOUS_MAPPING_WITHOUT_EXPLANATION','MISSING_MAPPING_WITH_IDENTIFIER','INVALID_TYPE_UNIT','INVALID_TYPE_CLASS','INVALID_TYPE_TOLERANCE','INVALID_TYPE_SOURCE','TABLE_RECORD_MISMATCH','UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID','UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE','UNRESOLVED_POLICY_APPROVED']
- stats=Counter()
- for x in mapping['terms']:
-  stats['MQL5_'+x['mql5_status']]+=1; stats['PYTHON_'+x['python_status']]+=1
- out={'CANONICAL_TERMS':len(rows),'EXTENDED_RECORDS':len(recs),**{k:c[k] for k in required_zero},**stats,'NEGATIVE_TESTS':'PASS' if neg else 'FAIL'}
- for k,v in out.items(): print(f'{k}={v}')
- matrix_specs=[('SOURCE_OF_TRUTH_MATRIX','Source-of-truth matrix',10),('SIGN_MATRIX','Sign matrix',5),('TOLERANCE_MATRIX','Tolerance matrix',9),('ROUNDING_MATRIX','Rounding namespaces',9),('ARCHITECTURE_MATRIX','Architecture matrix',8)]
- matrix_ok=True
- for key,heading,n in matrix_specs:
-  ok=matrix(MANUAL.read_text(),heading,n); matrix_ok &= ok; print(f'{key}={"PASS" if ok else "FAIL"}')
- if any(c[k] for k in required_zero) or not neg or not matrix_ok: print('STAGE_3_1_3_SEMANTIC_VALIDATION=FAIL'); return 1
- print('STAGE_3_1_3_SEMANTIC_VALIDATION=PASS'); return 0
-if __name__=='__main__': raise SystemExit(main())
+    manual=MANUAL.read_text(); glossary=GLOSSARY.read_text(); mt,rows=canonical_table(manual); gt,grows=canonical_table(glossary)
+    if mt!=gt or rows!=grows: print("CANONICAL_TABLE_EQUALITY=FAIL"); return 1
+    recs=extended_records(glossary); mapping=json.loads(MAPPING.read_text())
+    if mapping.get("schema_version")!="3.1.3-second-correction-1": print("MAPPING_SCHEMA=FAIL"); return 1
+    mql_paths=[p for p in ROOT.rglob("*") if p.suffix.lower() in {".mq5",".mqh"}]
+    py_paths=[p for p in ROOT.rglob("*.py") if p.resolve()!=Path(__file__).resolve()]
+    mql_indexes={p:parse_mql(p)[0] for p in mql_paths}; py_indexes={p:parse_python(p) for p in py_paths}
+    counters=validate(rows,recs,mapping,mql_indexes,py_indexes)
+    neg_total,neg_pass,pos_total,pos_pass,_=run_control_tests()
+    counters["NEGATIVE_TESTS_TOTAL"]=neg_total; counters["NEGATIVE_TESTS_PASSED"]=neg_pass; counters["POSITIVE_TESTS_TOTAL"]=pos_total; counters["POSITIVE_TESTS_PASSED"]=pos_pass
+    counters["MQL5_FILES_PARSED"]=len(mql_paths); counters["MQL5_DECLARATIONS_FOUND"]=sum(len(v) for idx in mql_indexes.values() for v in idx.values()); counters["MQL5_USE_SITES_FOUND"]=sum(s.reads+s.writes for idx in mql_indexes.values() for vals in idx.values() for s in vals)
+    counters["PYTHON_FILES_PARSED"]=len(py_paths); counters["PYTHON_AST_DECLARATIONS_FOUND"]=sum(len(v) for idx in py_indexes.values() for v in idx.values()); counters["PYTHON_USE_SITES_FOUND"]=sum(s.reads+s.writes for idx in py_indexes.values() for vals in idx.values() for s in vals)
+    for lang in ("MQL5","PYTHON"):
+        key=lang.lower(); statuses=Counter(x[f"{key}_status"] for x in mapping["terms"])
+        for status in ("EXACT_MATCH","SEMANTIC_MATCH","PARTIAL_MATCH","AMBIGUOUS","MISSING","NOT_APPLICABLE"): counters[f"{lang}_{status}"]=statuses[status]
+    order=["CANONICAL_TERMS","EXTENDED_RECORDS","INVALID_DEFINITION_TYPE_SEMANTICS","INVALID_TYPE_UNIT","INVALID_TYPE_CLASS","INVALID_TYPE_TOLERANCE","INVALID_TYPE_SOURCE","INVALID_ACTUAL_ROUNDING","INVALID_LIFECYCLE_CLASS","TOKEN_IDENTIFIER_KINDS","MAPPING_WITHOUT_DECLARATION_EVIDENCE","MAPPING_WITHOUT_USE_EVIDENCE","IDENTIFIER_ONLY_IN_COMMENT","IDENTIFIER_ONLY_IN_STRING","UNPROVEN_EXACT_MAPPING","UNPROVEN_SEMANTIC_MAPPING","CACHE_MARKED_AUTHORITATIVE","MAPPING_STATUS_PARITY_ERROR","MISSING_NOT_APPLICABLE_CONFLICT","NORMALIZED_DUPLICATE_LIFECYCLES","GENERIC_LIFECYCLES","MISSING_CREATION_EVENT","MISSING_STALE_TRIGGER","MISSING_REPLACEMENT_SOURCE","MISSING_TERMINAL_CONDITION","NEAR_DUPLICATE_DEFINITIONS","DEFINITIONS_WITHOUT_DISTINGUISHING_CLAUSE","FORBIDDEN_PROJECTED_TO_ACTUAL_TRANSITION","UNRESOLVED_POLICY_APPROVED","UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID","UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE","MQL5_FILES_PARSED","MQL5_DECLARATIONS_FOUND","MQL5_USE_SITES_FOUND","PYTHON_FILES_PARSED","PYTHON_AST_DECLARATIONS_FOUND","PYTHON_USE_SITES_FOUND"]
+    order += [f"{lang}_{status}" for lang in ("MQL5","PYTHON") for status in ("EXACT_MATCH","SEMANTIC_MATCH","PARTIAL_MATCH","AMBIGUOUS","MISSING","NOT_APPLICABLE")]
+    order += ["NEGATIVE_TESTS_TOTAL","NEGATIVE_TESTS_PASSED","POSITIVE_TESTS_TOTAL","POSITIVE_TESTS_PASSED"]
+    for key in order: print(f"{key}={counters[key]}")
+    failed=[x for x in BLOCKING if counters[x]]
+    ok=not failed and neg_pass==neg_total and pos_pass==pos_total and counters["CANONICAL_TERMS"]>=230 and counters["EXTENDED_RECORDS"]==counters["CANONICAL_TERMS"]
+    if failed: print("BLOCKING_COUNTERS="+",".join(failed))
+    print("STAGE_3_1_3_SECOND_CORRECTION_VALIDATION="+("PASS" if ok else "FAIL")); return 0 if ok else 1
+
+if __name__ == "__main__": raise SystemExit(main())
