@@ -504,7 +504,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::legacy, Include/HybridCatchUpModel.mqh::legacy
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::Legacy, Tests/static/test_split_architecture_static.py::legacy
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-031`
 Resolution stage: `3.1.8`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -568,7 +568,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/ReconciliationEngine.mqh::LegacyBig
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -600,7 +600,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/ReconciliationEngine.mqh::LegacySmall
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -696,7 +696,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::Split, Include/Config.mqh::Split
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::Split, Tests/HybridSplitBig/test_hybrid_split_big_reference.py::split
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-031`
 Resolution stage: `3.1.8`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -792,7 +792,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: Core
 MQL5 mapping: Include/HybridGeometrySolver.mqh::BigCore, Include/PendingContractEngine.mqh::BigCore
 Python mapping: Tests/clean_start_split_context_check.py::BigCore, Tests/split_persistence_context_check.py::BigCore
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -824,7 +824,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: Trend
 MQL5 mapping: Include/HybridGeometrySolver.mqh::BigTrend, Include/PendingContractEngine.mqh::BigTrend
 Python mapping: Tests/clean_start_split_context_check.py::BigTrend, Tests/split_persistence_context_check.py::BigTrend
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -888,7 +888,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: Small
 MQL5 mapping: Include/HybridGeometrySolver.mqh::SmallBase, Include/PendingContractEngine.mqh::SmallBase
 Python mapping: Tests/clean_start_split_context_check.py::SmallBase, Tests/scenario/test_split_architecture_restart.py::small_base
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -920,7 +920,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::hybrid, Include/Config.mqh::Hybrid
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::Hybrid, Tools/hybrid_big_sequence_model.py::Hybrid
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-031`
 Resolution stage: `3.1.8`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -952,7 +952,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: NOT_APPLICABLE
 Python mapping: Tests/HybridSplitBig/test_document_consistency.py::HybridSplitBig
-Mapping status: MQL5=`MISSING`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -984,7 +984,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::HybridMode
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1112,7 +1112,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::InitialBuy
 Python mapping: Tests/known_context_diagnostics_check.py::InitialBuy
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1144,7 +1144,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::InitialSell
 Python mapping: Tests/known_context_diagnostics_check.py::InitialSell
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1240,7 +1240,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::InitialIgnoredProfit, Include/StateMachine.mqh::InitialIgnoredProfit
 Python mapping: Tests/csv_recovery_fields_check.py::InitialIgnoredProfit, Tests/initial_ignored_profit_excluded_check.py::initialIgnoredProfit
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1272,7 +1272,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::oldFar, Include/RecoveryMath.mqh::OldFar
 Python mapping: Tests/fsm_integrity_strict_check.py::OldFar, Tests/small_reverse_compression_check.py::old_far
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1368,7 +1368,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::newFar, Include/HybridTransitionPlanner.mqh::NewFar
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::new_far, Tests/HybridSplitBig/test_hybrid_split_big_reference.py::new_far
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1656,7 +1656,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::farDirection, Include/HybridDecisionEngine.mqh::farDirection
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::far_direction, Tests/old_far_cleanup_after_close_check.py::farDirection
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1752,7 +1752,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::bigDirection, Include/HybridDecisionEngine.mqh::bigDirection
 Python mapping: Tests/retry_open_big_must_resolve_ticket_check.py::bigDirection, Tools/optimize_big_scenario_min_levels.py::BigDirection
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1784,7 +1784,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::smallDirection, Include/HybridDecisionEngine.mqh::smallDirection
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::small_direction, Tests/small_build_new_far_no_active_small_direction_check.py::smallDirection
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1816,7 +1816,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridGeometrySolver.mqh::trendDirection, Include/Types.mqh::trendDirection
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::trend_direction
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1880,7 +1880,7 @@ Authoritative replacement: следующим named lot stage, а не actual п
 Legacy aliases: —
 MQL5 mapping: Include/RecoveryMath.mqh::rawLot
 Python mapping: Tests/big_scenario_math_check.py::rawLot, Tests/far_partial_budget_check.py::rawLot
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1944,7 +1944,7 @@ Authoritative replacement: следующим named lot stage, а не actual п
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::NormalizedLot
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1976,7 +1976,7 @@ Authoritative replacement: FilledLot из confirmed deals..
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::requestedLot, Include/SimulationEngine.mqh::requestedLot
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2008,7 +2008,7 @@ Authoritative replacement: reconciled ActualPositionLot..
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::filledLot, Include/StateMachine.mqh::FilledLot
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2040,7 +2040,7 @@ Authoritative replacement: новым reconciled snapshot.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::actualPositionLot, Include/PositionUtils.mqh::actualVolume
 Python mapping: Tests/full_close_not_min_lot_check.py::actualVolume, Tests/full_close_volume_tolerance_check.py::actualVolume
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2968,7 +2968,7 @@ Authoritative replacement: новым exact property snapshot..
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::point, Include/GeometryEngine.mqh::Point
 Python mapping: Tests/adaptive_geometry_atr_chain_check.py::Point, Tests/small_at_far_scenario_log.py::point
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3000,7 +3000,7 @@ Authoritative replacement: новым exact property snapshot..
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::SYMBOL_TRADE_TICK_SIZE, Include/RecoveryMath.mqh::tickSize
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3032,7 +3032,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/RecoveryMath.mqh::tickValue, Include/SimulationEngine.mqh::tickValue
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3128,7 +3128,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::positionOpenPrice, Include/Types.mqh::positionOpenPrice
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3160,7 +3160,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridFutureSmallSolver.mqh::triggerPrice, Include/Types.mqh::triggerPrice
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3352,7 +3352,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::distancePoints
 Python mapping: Tools/mql5_like_big_scenario_parameter_search.py::distance_points
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3608,7 +3608,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::grossProfit, Include/HybridCatchUpModel.mqh::grossProfit
 Python mapping: Tools/offline_optimizer.py::gross_profit
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3672,7 +3672,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::NetProfit, Include/RecoveryMath.mqh::netProfit
 Python mapping: Tests/big_profit_split_check.py::netProfit, Tests/big_scenario_approved_net_model_check.py::NetProfit
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3704,7 +3704,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::legNet
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::leg_net
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3736,7 +3736,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/HybridGeometrySolver.mqh::basketNet
 Python mapping: Tools/prove_hybrid_split_big.py::BasketNet
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3800,7 +3800,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::HarvestNet, Include/Types.mqh::harvestNet
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::harvest_net, Tests/HybridSplitBig/test_hybrid_split_big_reference.py::harvest_net
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3832,7 +3832,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::SmallReverseNet, Include/RecoveryMath.mqh::SmallReverseNet
 Python mapping: Tests/recovery_reconcile_check.py::SmallReverseNet
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-023`
 Resolution stage: `3.1.5 / 3.1.6`
 Статус определения: `UNRESOLVED_BUSINESS_POLICY`
@@ -3864,7 +3864,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::transitionNet, Include/HybridFutureSmallSolver.mqh::transitionNet
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::transition_net, Tests/test_hybrid_geometry.py::transition_net
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3896,7 +3896,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::realizedCyclePL, Include/Types.mqh::realizedCyclePL
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4088,7 +4088,7 @@ Authoritative replacement: rebuilt reconciled ledger, не OrderCalcProfit..
 Legacy aliases: realRecoveryPL
 MQL5 mapping: Include/Logger.mqh::RealRecoveryPL, Include/StateMachine.mqh::RealRecoveryPL
 Python mapping: Tests/closed_profit_guard_check.py::realRecoveryPL, Tests/closed_recovery_loss_state_check.py::realRecoveryPL
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4120,7 +4120,7 @@ Authoritative replacement: separately named actual money, не переимен�
 Legacy aliases: —
 MQL5 mapping: Include/HybridGeometrySolver.mqh::RecoverySlope
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::recovery_slope, Tools/hybrid_big_sequence_model.py::recovery_slope
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4312,7 +4312,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::spreadCost, Include/Types.mqh::spreadCost
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4344,7 +4344,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::slippageCost, Include/HybridCatchUpModel.mqh::slippageCost
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4536,7 +4536,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::partialFarBudgetAvailable, Include/HybridPartialFarPreview.mqh::partialFarBudgetAvailable
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4664,7 +4664,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: TotalReserve, finalReserveReal
 MQL5 mapping: Include/HybridCatchUpModel.mqh::finalReserveReal, Include/HybridTransitionPlanner.mqh::totalReserve
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::final_reserve_real, Tests/HybridSplitBig/test_catchup_stage12.py::finalReserveReal
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4760,7 +4760,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::reserveAvailable, Include/HybridTransitionPlanner.mqh::totalReserve
 Python mapping: Tests/bigharvest_real_reserve_check.py::totalReserve, Tests/final_close_recovery_projection_check.py::totalReserve
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4856,7 +4856,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::carryAvailable, Include/Types.mqh::carryAvailable
 Python mapping: Tests/HybridSplitBig/test_catchup_stage12.py::carryAvailable
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5080,7 +5080,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::BigRatio, Include/RecoveryMath.mqh::BigRatio
 Python mapping: Tests/big_scenario_20_80_vs_90_10_check.py::big_ratio, Tests/big_scenario_90_10_split_check.py::big_ratio
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-001`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -5112,7 +5112,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::SmallRatio
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::small_ratio, Tests/big_scenario_20_80_vs_90_10_check.py::small_ratio
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-002`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -5208,7 +5208,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::CloseFarShare, Include/StateMachine.mqh::CloseFarShare
 Python mapping: Tests/big_monetary_recovery_model_check.py::CloseFarShare, Tests/big_profit_split_check.py::CloseFarShare
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-005`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -5240,7 +5240,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::ReserveShare, Include/RecoveryMath.mqh::ReserveShare
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::reserve_share, Tests/big_monetary_recovery_model_check.py::ReserveShare
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-006`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -5272,7 +5272,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::SmallReserveShare, Include/StateMachine.mqh::SmallReserveShare
 Python mapping: Tests/default_parameters_v241_check.py::SmallReserveShare, Tests/validate_v2_static.py::SmallReserveShare
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5304,7 +5304,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::compressionRatio
 Python mapping: Tools/offline_optimizer.py::CompressionRatio
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5400,7 +5400,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::MaximumNewBigToOldFarRatio, Include/HybridCatchUpModel.mqh::MaximumNewBigToOldFarRatio
 Python mapping: Tools/prove_hybrid_split_big.py::MaximumNewBigToOldFarRatio
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `HSB-DOC-CONFLICT-022`
 Resolution stage: `3.1.4 / 3.1.8`
 Статус определения: `UNRESOLVED_BUSINESS_POLICY`
@@ -5432,7 +5432,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::MinimumReserveCatchUpRatio, Include/HybridCatchUpModel.mqh::MinimumReserveCatchUpRatio
 Python mapping: Tools/prove_hybrid_split_big.py::MinimumReserveCatchUpRatio
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5624,7 +5624,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: CycleID, cycleId
 MQL5 mapping: Include/HybridCatchUpModel.mqh::cycleId, Include/HybridDecisionEngine.mqh::cycleId
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::cycle_id, Tests/legacy_persistence_context_check.py::CycleId
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5784,7 +5784,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/ReconciliationEngine.mqh::dealTicket, Include/SimulationEngine.mqh::dealTicket
 Python mapping: Tests/big_monetary_recovery_model_check.py::dealTicket, Tests/big_scenario_multisymbol_guard_check.py::dealTicket
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5816,7 +5816,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::EventId, Include/Types.mqh::eventId
 Python mapping: Tests/static/test_split_architecture_static.py::EventId, Tests/unit/test_split_final_safety_model.py::event_id
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5848,7 +5848,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::EventKey, Include/Types.mqh::eventKey
 Python mapping: Tests/unit/test_split_exact_persistence_model.py::event_key, Tests/unit/test_split_final_safety_model.py::event_key
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5880,7 +5880,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::fingerprint, Include/HybridDecisionEngine.mqh::snapshotFingerprint
 Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint, Tests/HybridSplitBig/test_catchup_route_state.py::fingerprint
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6008,7 +6008,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::stateRevision, Include/Types.mqh::stateRevision
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6040,7 +6040,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/GeometryEngine.mqh::State, Include/HybridCatchUpModel.mqh::state
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::state, Tests/HybridSplitBig/test_catchup_route_state.py::state
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6072,7 +6072,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/StateIntegrityEngine.mqh::Phase, Include/StateMachine.mqh::Phase
 Python mapping: Tests/phase_state_matrix_check.py::phase, Tests/unit/test_big_small_behavior.py::phase
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6104,7 +6104,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::event, Tests/MQL5/BigSmallStateMachineTest.mq5::Event
 Python mapping: Tests/HybridSplitBig/test_document_consistency.py::Event, Tests/historical/test_reserve_ledger_idempotency.historical.py::event
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6232,7 +6232,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::Outcome, Include/Types.mqh::outcome
 Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::outcome, Tests/HybridSplitBig/test_catchup_route_state.py::outcome
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6264,7 +6264,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/GeometryEngine.mqh::reasonCode, Include/HybridCatchUpModel.mqh::ReasonCode
 Python mapping: Tests/adaptive_geometry_no_auto_manual_fallback_check.py::reasonCode, Tests/unit/test_split_recovery_order_model.py::reason_code
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6296,7 +6296,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridDecisionEngine.mqh::errorCode, Include/Types.mqh::errorCode
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6808,7 +6808,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::priceTolerance
 Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::price_tolerance
-Mapping status: MQL5=`EXACT_MATCH`; Python=`SEMANTIC_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6936,7 +6936,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::ReserveMismatchTolerance, Include/ReconciliationEngine.mqh::ReserveMismatchTolerance
 Python mapping: Tests/reconciliation_soft_volume_sync_check.py::ReserveMismatchTolerance, Tests/reserve_mismatch_not_fatal_check.py::ReserveMismatchTolerance
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7512,7 +7512,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::ReserveCoverage, Include/StateMachine.mqh::ReserveCoverage
 Python mapping: Tests/atr_stop_max_levels_diagnosis_check.py::ReserveCoverage, Tests/big_scenario_math_check.py::ReserveCoverage
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7544,7 +7544,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/GeometryEngine.mqh::Symbol, Include/HybridCatchUpModel.mqh::symbol
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::symbol, Tests/HybridSplitBig/test_catchup_full_dimension_contract.py::symbol
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7576,7 +7576,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::MagicNumber, Include/Config.mqh::MagicNumber
 Python mapping: Tests/big_monetary_recovery_model_check.py::MagicNumber, Tests/big_scenario_multisymbol_guard_check.py::MagicNumber
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7608,7 +7608,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::cycleId, Include/HybridDecisionEngine.mqh::cycleId
 Python mapping: Tests/legacy_persistence_context_check.py::CycleId, Tests/recover_state_position_reconcile_check.py::CycleId
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7640,7 +7640,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::eventId, Include/Types.mqh::eventId
 Python mapping: Tests/static/test_split_architecture_static.py::eventId
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7672,7 +7672,7 @@ Authoritative replacement: reconciled value того же canonical type.
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::fingerprint, Include/Types.mqh::fingerprint
 Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint, Tests/HybridSplitBig/test_catchup_route_state.py::fingerprint
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7704,7 +7704,7 @@ Authoritative replacement: новым значением того же canonical
 Legacy aliases: —
 MQL5 mapping: Include/GeometryEngine.mqh::Comment, Include/PendingContractEngine.mqh::Comment
 Python mapping: Tests/orphan_position_detection_check.py::Comment, Tests/static/test_split_architecture_static.py::comment
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7736,7 +7736,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::preview, Include/HybridMarginModel.mqh::preview
 Python mapping: NOT_APPLICABLE
-Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7768,7 +7768,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::candidate, Include/HybridPartialFarPreview.mqh::candidate
 Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::candidate, Tests/HybridSplitBig/test_catchup_dimension_safe.py::candidate
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7800,7 +7800,7 @@ Authoritative replacement: новым exact enum/result..
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::plan, Include/HybridMarginModel.mqh::plan
 Python mapping: Tests/HybridSplitBig/test_catchup_temporal_model.py::plan, Tests/HybridSplitBig/test_document_consistency.py::plan
-Mapping status: MQL5=`EXACT_MATCH`; Python=`EXACT_MATCH`
+Mapping status: MQL5=`SEMANTIC_MATCH`; Python=`SEMANTIC_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`

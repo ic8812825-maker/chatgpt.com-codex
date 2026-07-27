@@ -71,6 +71,7 @@ def semantic(rows,recs,mapping):
  c['DUPLICATE_DEFINITIONS']=sum(v-1 for v in Counter(defs).values() if v>2); c['DUPLICATE_LIFECYCLES']=sum(v-1 for v in Counter(lifes).values() if v>5)
  mapnames=[x['canonical_term'] for x in mapping.get('terms',[])]; c['MAPPING_RECORDS_MISSING']+=len(set(names)-set(mapnames))+len(set(mapnames)-set(names)); c['DUPLICATE_MAPPING_RECORDS']=len(mapnames)-len(set(mapnames))
  for x in mapping.get('terms',[]):
+  d=recs.get(x['canonical_term'],{}); q=re.match(r'MQL5=`([^`]+)`; Python=`([^`]+)`',d.get('Mapping status','')); c['TABLE_RECORD_MISMATCH']+=int(not q or q.group(1)!=x.get('mql5_status') or q.group(2)!=x.get('python_status'))
   for lang in ('mql5','python'):
    st=x.get(lang+'_status'); arr=x.get(lang,[]); c['MAPPING_STATUS_INVALID']+=st not in MAP_STATUS
    c['MAPPING_IDENTIFIERS_MISSING']+=st in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','LEGACY_ONLY','SPLIT_ONLY','HYBRID_ONLY') and not arr
@@ -112,7 +113,10 @@ def main():
   stats['MQL5_'+x['mql5_status']]+=1; stats['PYTHON_'+x['python_status']]+=1
  out={'CANONICAL_TERMS':len(rows),'EXTENDED_RECORDS':len(recs),**{k:c[k] for k in required_zero},**stats,'NEGATIVE_TESTS':'PASS' if neg else 'FAIL'}
  for k,v in out.items(): print(f'{k}={v}')
- for h,n in [('SOURCE_OF_TRUTH_MATRIX',10),('SIGN_MATRIX',5),('TOLERANCE_MATRIX',9),('ROUNDING_MATRIX',9),('ARCHITECTURE_MATRIX',8)]: print(f'{h}={"PASS" if matrix(MANUAL.read_text(),h.replace("_"," ").title().replace("Of","of").replace("Truth","truth"),n) else "PASS"}')
- if any(c[k] for k in required_zero) or not neg: print('STAGE_3_1_3_SEMANTIC_VALIDATION=FAIL'); return 1
+ matrix_specs=[('SOURCE_OF_TRUTH_MATRIX','Source-of-truth matrix',10),('SIGN_MATRIX','Sign matrix',5),('TOLERANCE_MATRIX','Tolerance matrix',9),('ROUNDING_MATRIX','Rounding namespaces',9),('ARCHITECTURE_MATRIX','Architecture matrix',8)]
+ matrix_ok=True
+ for key,heading,n in matrix_specs:
+  ok=matrix(MANUAL.read_text(),heading,n); matrix_ok &= ok; print(f'{key}={"PASS" if ok else "FAIL"}')
+ if any(c[k] for k in required_zero) or not neg or not matrix_ok: print('STAGE_3_1_3_SEMANTIC_VALIDATION=FAIL'); return 1
  print('STAGE_3_1_3_SEMANTIC_VALIDATION=PASS'); return 0
 if __name__=='__main__': raise SystemExit(main())
