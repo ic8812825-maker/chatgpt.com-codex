@@ -160,6 +160,8 @@ def expected_category(type_name: str):
 def semantic_checks(row, rec):
     c = Counter(); typ=row["Type"]; unit=row["Unit"]; cls=row["Projected/Actual"]; tol=row["Tolerance"]; src=row["Authoritative source"]; rounding=row["Rounding"]
     if rec.get("Semantic category") != expected_category(typ): c["INVALID_DEFINITION_TYPE_SEMANTICS"] += 1
+    related=rec.get("Связанные сущности",""); operations=rec.get("Допустимые операции","")
+    c["INVALID_DEFINITION_TYPE_SEMANTICS"] += typ != "ROLE_ID" and ("тип ROLE_ID" in related or "по `ROLE_ID`" in operations)
     if "Tolerance" in row["Canonical term"] or row["Canonical term"] in {"ComparisonEpsilon", "GeometryTolerance"}: return c
     if typ.startswith("LOT_"):
         c["INVALID_TYPE_UNIT"] += unit != "lot"; c["INVALID_TYPE_TOLERANCE"] += tol != "VolumeToleranceLots"

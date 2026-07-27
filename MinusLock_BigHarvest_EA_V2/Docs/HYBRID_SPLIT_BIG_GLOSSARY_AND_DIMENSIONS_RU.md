@@ -992,9 +992,9 @@ Tolerance: `VolumeToleranceLots`
 Lifecycle: BigGross вычисляется из snapshot inputs: BigCoreLotProjected + BigTrendLotProjected из одного immutable plan. Не мутирует; изменение inputs создаёт новую revision BigGross. Market, symbol, config или snapshot revision делает BigGross stale. пересчёт BigGross на новом immutable snapshot. После execution projected BigGross завершается и не становится actual присваиванием. Этот lifecycle относится именно к объекту «совокупный расчётный объём частей Big» и его собственному type/source contract.
 Условия stale: Market, symbol, config или snapshot revision делает BigGross stale.
 Authoritative replacement: пересчёт BigGross на новом immutable snapshot.
-Допустимые операции: сравнение и преобразование только по `ROLE_ID` с `EXACT` и explicit provenance.
-Запрещённые подмены: BigGross нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
-Связанные сущности: BigGross, тип ROLE_ID, class POLICY.
+Допустимые операции: сложение только совместимых projected lot components; lot-сравнения выполняются с `VolumeToleranceLots`.
+Запрещённые подмены: BigGross нельзя подменять BigCore/BigTrend role identity, actual position volume, requested/filled lot или stale plan.
+Связанные сущности: BigCoreLotProjected, BigTrendLotProjected; тип LOT_CALCULATED, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
