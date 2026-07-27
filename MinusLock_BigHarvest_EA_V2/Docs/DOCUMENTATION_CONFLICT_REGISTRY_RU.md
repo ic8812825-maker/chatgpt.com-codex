@@ -1,926 +1,1920 @@
-# Этап 3.1.2 — формальный реестр конфликтов документации Hybrid Split Big
+# Исправление Этапа 3.1.2 — доказательный реестр конфликтов Hybrid Split Big
 
-Статус: `PASS`  
-Parent SHA: `46c06df624e09589c5bf95c597b2a0be55ebf5a8`
+Статус: `PASS`
+Parent SHA: `79676a58afaf8e926f42aeed22e4d99806b10acc`
 
 ## Ограничение полномочий реестра
 
 > Настоящий реестр является регистрационным и аналитическим документом. Он не выбирает нормативную сторону конфликта, не изменяет бизнес-логику, не назначает production candidate и не создаёт окончательный source of truth. Все бизнес-решения, влияющие на формулы, коэффициенты, состояния, денежные потоки, исполнение ордеров или завершение цикла, требуют отдельного решения пользователя.
 
-Реестр фиксирует, но не разрешает конфликты. Запись не делает сторону неверной; порядок A/B не задаёт приоритет. `NORMATIVE` inventory предварителен. Код/runtime, test PASS и implementation report не заменяют письменный контракт. Решения выполняются последующими этапами после подтверждения пользователя.
+Каждая обязательная тема проверена по фактическим фрагментам. Если стороны описывают разные scope/этапы одной совместимой цепочки, запись получает `NO_DIRECT_CONFLICT_FOUND`, а не искусственный конфликт.
 
-## 1. Scope
+## 1. Сводная таблица
 
-Прочитаны 69 baseline-документов, включая все 13 NORMATIVE и 2 CONFLICTING. Все 45 обязательных тем зарегистрированы без автоматического решения.
+| ID | Тема | Результат проверки | Критичность | User decision | Этап |
+|---|---|---|---|---|---|
+| HSB-DOC-CONFLICT-001 | BigRatio values | PARAMETER_PROFILE_CONFLICT | BLOCKER | YES | 3.1.7 |
+| HSB-DOC-CONFLICT-002 | SmallRatio values | PARAMETER_PROFILE_CONFLICT | BLOCKER | YES | 3.1.7 |
+| HSB-DOC-CONFLICT-003 | CloseBigOnSmall values | PARAMETER_PROFILE_CONFLICT | BLOCKER | YES | 3.1.7 |
+| HSB-DOC-CONFLICT-004 | RemainBigOnSmall values | PARAMETER_PROFILE_CONFLICT | BLOCKER | YES | 3.1.7 |
+| HSB-DOC-CONFLICT-005 | CloseFarShare values | PARAMETER_PROFILE_CONFLICT | BLOCKER | YES | 3.1.7 |
+| HSB-DOC-CONFLICT-006 | ReserveShare values | PARAMETER_PROFILE_CONFLICT | BLOCKER | YES | 3.1.7 |
+| HSB-DOC-CONFLICT-007 | SmallReserveShare values | PARAMETER_PROFILE_CONFLICT | BLOCKER | YES | 3.1.7 |
+| HSB-DOC-CONFLICT-008 | Reserve in Partial Far | SCOPE_CONFLICT | MEDIUM | NO | 3.1.3–3.1.8 по теме |
+| HSB-DOC-CONFLICT-009 | RecoveryPL includes Reserve | NO_DIRECT_CONFLICT_FOUND | INFORMATIONAL | NO | не требуется; сохранить результат проверки |
+| HSB-DOC-CONFLICT-010 | RecoveryPL includes Initial Plus | NO_DIRECT_CONFLICT_FOUND | INFORMATIONAL | NO | не требуется; сохранить результат проверки |
+| HSB-DOC-CONFLICT-011 | RecoveryPL Symbol filter | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-012 | RecoveryPL Magic filter | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-013 | Gross versus Net Profit | FORMULA_CONFLICT | CRITICAL | YES | 3.1.4 |
+| HSB-DOC-CONFLICT-014 | Commission swap fee | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-015 | Projected versus Realized Reserve | SCOPE_CONFLICT | MEDIUM | NO | 3.1.3–3.1.8 по теме |
+| HSB-DOC-CONFLICT-016 | Planned versus actual close result | NO_DIRECT_CONFLICT_FOUND | INFORMATIONAL | NO | не требуется; сохранить результат проверки |
+| HSB-DOC-CONFLICT-017 | Final Close preview versus actual success | AMBIGUITY | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-018 | Small close trigger | SCOPE_CONFLICT | MEDIUM | NO | 3.1.3–3.1.8 по теме |
+| HSB-DOC-CONFLICT-019 | Old Far full versus partial close | SCOPE_CONFLICT | MEDIUM | NO | 3.1.3–3.1.8 по теме |
+| HSB-DOC-CONFLICT-020 | New Far source | AUTHORITY_CONFLICT | BLOCKER | YES | 3.1.8 |
+| HSB-DOC-CONFLICT-021 | Next Big base | SCOPE_CONFLICT | MEDIUM | NO | 3.1.3–3.1.8 по теме |
+| HSB-DOC-CONFLICT-022 | new Big less than old Far | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-023 | Negative Small Reverse Net | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-024 | Small Far Big close order | ORDERING_CONFLICT | CRITICAL | YES | 3.1.6 |
+| HSB-DOC-CONFLICT-025 | Reserve credit order | AMBIGUITY | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-026 | State transition order | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-027 | Requested versus executed volume | NO_DIRECT_CONFLICT_FOUND | INFORMATIONAL | NO | не требуется; сохранить результат проверки |
+| HSB-DOC-CONFLICT-028 | FLOOR CEILING NEAREST | FORMULA_CONFLICT | CRITICAL | YES | 3.1.4 |
+| HSB-DOC-CONFLICT-029 | Python PASS versus MT5 NOT_RUN | EVIDENCE_MISMATCH | MEDIUM | NO | 3.1.8 |
+| HSB-DOC-CONFLICT-030 | Production Ready versus missing broker evidence | EVIDENCE_MISMATCH | MEDIUM | NO | 3.1.8 |
+| HSB-DOC-CONFLICT-031 | Legacy Split Hybrid terminology | AUTHORITY_CONFLICT | BLOCKER | YES | 3.1.8 |
+| HSB-DOC-CONFLICT-032 | Split test plan duplicate | DUPLICATION_WITH_DIFFERENCES | LOW | NO | 3.1.8 |
+| HSB-DOC-CONFLICT-033 | Reserve persistence | SCOPE_CONFLICT | MEDIUM | NO | 3.1.3–3.1.8 по теме |
+| HSB-DOC-CONFLICT-034 | Exactly-once Reserve credit | AMBIGUITY | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-035 | Partial fill | EVIDENCE_MISMATCH | MEDIUM | NO | 3.1.8 |
+| HSB-DOC-CONFLICT-036 | Retry idempotency | SCOPE_CONFLICT | MEDIUM | NO | 3.1.3–3.1.8 по теме |
+| HSB-DOC-CONFLICT-037 | Restart reconciliation | SCOPE_CONFLICT | MEDIUM | NO | 3.1.3–3.1.8 по теме |
+| HSB-DOC-CONFLICT-038 | Final Close partial execution | AMBIGUITY | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-039 | MaxHarvestLevels behavior | ORDERING_CONFLICT | CRITICAL | YES | 3.1.6 |
+| HSB-DOC-CONFLICT-040 | Reverse limit behavior | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-041 | Invalid geometry behavior | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-042 | Basket Risk preview versus execution | NO_DIRECT_CONFLICT_FOUND | INFORMATIONAL | NO | не требуется; сохранить результат проверки |
+| HSB-DOC-CONFLICT-043 | Cycle versus account risk | MISSING_DEFINITION | HIGH | NO | 3.1.3–3.1.6 по теме |
+| HSB-DOC-CONFLICT-044 | Terminal-safe versus mathematically-safe | NO_DIRECT_CONFLICT_FOUND | INFORMATIONAL | NO | не требуется; сохранить результат проверки |
+| HSB-DOC-CONFLICT-045 | Source-of-truth competition | AUTHORITY_CONFLICT | BLOCKER | YES | 3.1.8 |
 
-## 2. Сводная таблица
-
-| ID | Категория | Название | Документы | Критичность | User | Статус | Этап |
-|---|---|---|---|---|---|---|---|
-| HSB-DOC-CONFLICT-001 | PARAMETER | BigRatio values | `Docs/MANUAL.md`; `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` | BLOCKER | YES | NEEDS_USER_DECISION | 3.1.7 |
-| HSB-DOC-CONFLICT-002 | PARAMETER | SmallRatio values | `Docs/MANUAL.md`; `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` | BLOCKER | YES | NEEDS_USER_DECISION | 3.1.7 |
-| HSB-DOC-CONFLICT-003 | PARAMETER | CloseBigOnSmall values | `Docs/MANUAL.md`; `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.7 |
-| HSB-DOC-CONFLICT-004 | PARAMETER | RemainBigOnSmall values | `Docs/MANUAL.md`; `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.7 |
-| HSB-DOC-CONFLICT-005 | PARAMETER | CloseFarShare values | `Docs/MANUAL.md`; `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.7 |
-| HSB-DOC-CONFLICT-006 | PARAMETER | ReserveShare values | `Docs/MANUAL.md`; `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.7 |
-| HSB-DOC-CONFLICT-007 | PARAMETER | SmallReserveShare values | `Docs/MANUAL.md`; `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.7 |
-| HSB-DOC-CONFLICT-008 | RESERVE | Reserve in Partial Far | `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; `Docs/MANUAL.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-009 | RECOVERY_PL | RecoveryPL includes Reserve | `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; `Docs/FULL_AUDIT_REPORT.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-010 | RECOVERY_PL | RecoveryPL includes Initial Plus | `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; `Docs/FULL_AUDIT_REPORT.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-011 | RECOVERY_PL | RecoveryPL Symbol filter | `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; `Docs/FULL_AUDIT_REPORT.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-012 | RECOVERY_PL | RecoveryPL Magic filter | `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; `Docs/FULL_AUDIT_REPORT.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-013 | FORMULA | Gross versus Net Profit | `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.4 |
-| HSB-DOC-CONFLICT-014 | MONEY_LEDGER | Commission swap fee | `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; `Docs/BASKET_RISK_CONTRACT_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-015 | RESERVE | Projected versus Realized Reserve | `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; `Docs/MANUAL.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-016 | EXECUTION | Planned versus actual close result | `Docs/BASKET_RISK_CONTRACT_RU.md`; `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-017 | FINAL_CLOSE | Final Close preview versus actual success | `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; `Docs/MANUAL.md` | BLOCKER | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-018 | SMALL_SCENARIO | Small close trigger | `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-019 | SMALL_SCENARIO | Old Far full versus partial close | `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-020 | GEOMETRY | New Far source | `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; `Docs/MANUAL.md` | BLOCKER | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-021 | FORMULA | Next Big base | `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.4 |
-| HSB-DOC-CONFLICT-022 | GEOMETRY | new Big less than old Far | `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-023 | RISK | Negative Small Reverse Net | `Docs/BASKET_RISK_CONTRACT_RU.md`; `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md` | BLOCKER | YES | NEEDS_USER_DECISION | 3.1.8 |
-| HSB-DOC-CONFLICT-024 | SMALL_SCENARIO | Small Far Big close order | `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`; `Docs/MANUAL.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-025 | RESERVE | Reserve credit order | `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; `Docs/MANUAL.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-026 | STATE_MACHINE | State transition order | `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-027 | EXECUTION | Requested versus executed volume | `Docs/BASKET_RISK_CONTRACT_RU.md`; `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-028 | ROUNDING | FLOOR CEILING NEAREST | `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; `Docs/BIG_SCENARIO_FULL_AUDIT.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.4 |
-| HSB-DOC-CONFLICT-029 | TEST_EVIDENCE | Python PASS versus MT5 NOT_RUN | `Docs/STAGE_1_2_4_1_EVIDENCE_RU.md`; `Docs/HYBRID_SPLIT_BIG_METAEDITOR_COMPILE.md` | INFORMATIONAL | NO | DEFERRED_TO_STAGE_3_1_8 | 3.1.8 |
-| HSB-DOC-CONFLICT-030 | READINESS | Production Ready versus missing broker evidence | `Docs/BIG_SMALL_PRODUCTION_READINESS_REPORT_RU.md`; `Docs/FULL_AUDIT_REPORT.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.8 |
-| HSB-DOC-CONFLICT-031 | LEGACY_MIXING | Legacy Split Hybrid terminology | `Docs/MANUAL.md`; `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md` | BLOCKER | YES | NEEDS_USER_DECISION | 3.1.3 |
-| HSB-DOC-CONFLICT-032 | DUPLICATION | Split test plan duplicate | `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md`; `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md` | LOW | NO | DEFERRED_TO_STAGE_3_1_8 | 3.1.8 |
-| HSB-DOC-CONFLICT-033 | PERSISTENCE | Reserve persistence | `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; `Docs/SPLIT_BIG_EXACT_PERSISTENCE_REPORT_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-034 | MONEY_LEDGER | Exactly-once Reserve credit | `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; `Docs/BASKET_RISK_CONTRACT_RU.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.5 |
-| HSB-DOC-CONFLICT-035 | EXECUTION | Partial fill | `Docs/BASKET_RISK_CONTRACT_RU.md`; `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-036 | EXECUTION | Retry idempotency | `Docs/BASKET_RISK_CONTRACT_RU.md`; `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-037 | RECONCILIATION | Restart reconciliation | `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; `Docs/PERSISTENCE_AND_CLEAN_START_FINAL_REPORT_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-038 | FINAL_CLOSE | Final Close partial execution | `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; `Docs/MANUAL.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-039 | STATE_MACHINE | MaxHarvestLevels behavior | `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-040 | STATE_MACHINE | Reverse limit behavior | `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-041 | STATE_MACHINE | Invalid geometry behavior | `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; `Docs/MANUAL.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.6 |
-| HSB-DOC-CONFLICT-042 | RISK | Basket Risk preview versus execution | `Docs/BASKET_RISK_CONTRACT_RU.md`; `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.8 |
-| HSB-DOC-CONFLICT-043 | RISK | Cycle versus account risk | `Docs/BASKET_RISK_CONTRACT_RU.md`; `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md` | HIGH | YES | NEEDS_USER_DECISION | 3.1.8 |
-| HSB-DOC-CONFLICT-044 | RISK | Terminal-safe versus mathematically-safe | `Docs/BASKET_RISK_CONTRACT_RU.md`; `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md` | CRITICAL | YES | NEEDS_USER_DECISION | 3.1.8 |
-| HSB-DOC-CONFLICT-045 | DUPLICATION | Source-of-truth competition | `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md`; `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md` | BLOCKER | YES | NEEDS_USER_DECISION | 3.1.8 |
-
-## 3. Подробные записи
+## 2. Доказательные записи
 
 ### HSB-DOC-CONFLICT-001 — BigRatio values
 
-- **ID:** `HSB-DOC-CONFLICT-001`
-- **Краткое название:** BigRatio values
+- **Классификация результата:** `PARAMETER_PROFILE_CONFLICT`
 - **Категория:** `PARAMETER`
-- **Подкатегория:** BigRatio values
-- **Сторона A:** `Docs/MANUAL.md`; раздел/контекст «BigRatio values»; фрагмент: `несколько parameter profiles`.
-- **Сторона B:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`; раздел/контекст «BigRatio values»; фрагмент: `другой baseline profile`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_PARAMETER`
-- **Затрагиваемые сущности:** BigRatio values; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `BLOCKER`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «2. Параметры»
+- **Подраздел:** строка 23 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `BigRatio = 1.30`
+- **Конкретное утверждение:** BigRatio = 1.30.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`
+- **Раздел:** «Текущие входные параметры»
+- **Подраздел:** строка 27 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;`
+- **Конкретное утверждение:** - базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Все найденные документированные значения
+
+| Значение | Документ | Раздел | Профиль | Назначение | Preliminary authority |
+|---:|---|---|---|---|---|
+| 1.15 | BIG_SCENARIO_ENGINEERING_AUDIT.md | 6. Numeric scenario used by the trace | test/report | Документированное значение | предварительный |
+| 1.11 | BIG_SCENARIO_FULL_AUDIT.md | 13. MT5 Strategy Tester invalidation addendum | test/report | Документированное значение | предварительный |
+| 1.15 | BIG_SMALL_COMPLETION_BASELINE_RU.md | Defaults и режимы | baseline | Документированное значение | предварительный |
+| 1.30 | MANUAL.md | 2. Параметры | manual/profile | Документированное значение | предварительный |
+| 1.30 | MANUAL.md | Python Candidate 50/50 | manual/profile | Документированное значение | предварительный |
+| 1.20 | MANUAL.md | Risk Compression Reverse | manual/profile | Документированное значение | предварительный |
+| 1.20 | MANUAL.md | V2.4.1 RiskGate Architecture Fix | manual/profile | Документированное значение | предварительный |
+| 1.15 | MONEY_MODEL_COMPLETION_BASELINE_RU.md | Текущие входные параметры | baseline | Документированное значение | предварительный |
+| 1.14 | TEST_PLAN.md | ATR Geometry Runtime Validation | test/report | Документированное значение | предварительный |
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/MANUAL.md` и `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` без profile/scope discriminator даёт два разных правила для темы «BigRatio values»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.7`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.7`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «BigRatio values» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-002 — SmallRatio values
 
-- **ID:** `HSB-DOC-CONFLICT-002`
-- **Краткое название:** SmallRatio values
+- **Классификация результата:** `PARAMETER_PROFILE_CONFLICT`
 - **Категория:** `PARAMETER`
-- **Подкатегория:** SmallRatio values
-- **Сторона A:** `Docs/MANUAL.md`; раздел/контекст «SmallRatio values»; фрагмент: `несколько parameter profiles`.
-- **Сторона B:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`; раздел/контекст «SmallRatio values»; фрагмент: `другой baseline profile`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_PARAMETER`
-- **Затрагиваемые сущности:** SmallRatio values; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `BLOCKER`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «2. Параметры»
+- **Подраздел:** строка 24 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `SmallRatio = 0.37`
+- **Конкретное утверждение:** SmallRatio = 0.37.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`
+- **Раздел:** «Текущие входные параметры»
+- **Подраздел:** строка 27 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;`
+- **Конкретное утверждение:** - базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Все найденные документированные значения
+
+| Значение | Документ | Раздел | Профиль | Назначение | Preliminary authority |
+|---:|---|---|---|---|---|
+| 0.25 | BIG_SCENARIO_ENGINEERING_AUDIT.md | 6. Numeric scenario used by the trace | test/report | Документированное значение | предварительный |
+| 0.25 | BIG_SCENARIO_FULL_AUDIT.md | 13. MT5 Strategy Tester invalidation addendum | test/report | Документированное значение | предварительный |
+| 0.25 | BIG_SMALL_COMPLETION_BASELINE_RU.md | Defaults и режимы | baseline | Документированное значение | предварительный |
+| 0.37 | MANUAL.md | 2. Параметры | manual/profile | Документированное значение | предварительный |
+| 0.36 | MANUAL.md | Python Candidate 50/50 | manual/profile | Документированное значение | предварительный |
+| 0.35 | MANUAL.md | Risk Compression Reverse | manual/profile | Документированное значение | предварительный |
+| 0.35 | MANUAL.md | V2.4.1 RiskGate Architecture Fix | manual/profile | Документированное значение | предварительный |
+| 0.25 | MONEY_MODEL_COMPLETION_BASELINE_RU.md | Текущие входные параметры | baseline | Документированное значение | предварительный |
+| 0.36 | TEST_PLAN.md | ATR Geometry Runtime Validation | test/report | Документированное значение | предварительный |
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/MANUAL.md` и `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` без profile/scope discriminator даёт два разных правила для темы «SmallRatio values»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.7`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.7`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «SmallRatio values» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-003 — CloseBigOnSmall values
 
-- **ID:** `HSB-DOC-CONFLICT-003`
-- **Краткое название:** CloseBigOnSmall values
+- **Классификация результата:** `PARAMETER_PROFILE_CONFLICT`
 - **Категория:** `PARAMETER`
-- **Подкатегория:** CloseBigOnSmall values
-- **Сторона A:** `Docs/MANUAL.md`; раздел/контекст «CloseBigOnSmall values»; фрагмент: `несколько parameter profiles`.
-- **Сторона B:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`; раздел/контекст «CloseBigOnSmall values»; фрагмент: `другой baseline profile`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_PARAMETER`
-- **Затрагиваемые сущности:** CloseBigOnSmall values; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «2. Параметры»
+- **Подраздел:** строка 25 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `CloseBigOnSmall = 0.30`
+- **Конкретное утверждение:** CloseBigOnSmall = 0.30.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`
+- **Раздел:** «Текущие входные параметры»
+- **Подраздел:** строка 27 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;`
+- **Конкретное утверждение:** - базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Все найденные документированные значения
+
+| Значение | Документ | Раздел | Профиль | Назначение | Preliminary authority |
+|---:|---|---|---|---|---|
+| 0.40 | BIG_SCENARIO_ENGINEERING_AUDIT.md | 6. Numeric scenario used by the trace | test/report | Документированное значение | предварительный |
+| 0.30 | MANUAL.md | 2. Параметры | manual/profile | Документированное значение | предварительный |
+| 0.35 | MANUAL.md | Python Candidate 50/50 | manual/profile | Документированное значение | предварительный |
+| 0.35 | MANUAL.md | Risk Compression Reverse | manual/profile | Документированное значение | предварительный |
+| 0.35 | MANUAL.md | V2.4.1 RiskGate Architecture Fix | manual/profile | Документированное значение | предварительный |
+| 0.40 | MONEY_MODEL_COMPLETION_BASELINE_RU.md | Текущие входные параметры | baseline | Документированное значение | предварительный |
+
+- **Проверка пары:** profiles должны проверять `CloseBigOnSmall + RemainBigOnSmall = 1`; документированные пары 0.30+0.70, 0.35+0.65 и 0.40+0.60 дают 1.00, но не являются одним production profile.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/MANUAL.md` и `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` без profile/scope discriminator даёт два разных правила для темы «CloseBigOnSmall values»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.7`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.7`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «CloseBigOnSmall values» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-004 — RemainBigOnSmall values
 
-- **ID:** `HSB-DOC-CONFLICT-004`
-- **Краткое название:** RemainBigOnSmall values
+- **Классификация результата:** `PARAMETER_PROFILE_CONFLICT`
 - **Категория:** `PARAMETER`
-- **Подкатегория:** RemainBigOnSmall values
-- **Сторона A:** `Docs/MANUAL.md`; раздел/контекст «RemainBigOnSmall values»; фрагмент: `несколько parameter profiles`.
-- **Сторона B:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`; раздел/контекст «RemainBigOnSmall values»; фрагмент: `другой baseline profile`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_PARAMETER`
-- **Затрагиваемые сущности:** RemainBigOnSmall values; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «2. Параметры»
+- **Подраздел:** строка 26 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `RemainBigOnSmall = 0.70`
+- **Конкретное утверждение:** RemainBigOnSmall = 0.70.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`
+- **Раздел:** «Текущие входные параметры»
+- **Подраздел:** строка 27 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;`
+- **Конкретное утверждение:** - базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Все найденные документированные значения
+
+| Значение | Документ | Раздел | Профиль | Назначение | Preliminary authority |
+|---:|---|---|---|---|---|
+| 0.60 | BIG_SCENARIO_ENGINEERING_AUDIT.md | 6. Numeric scenario used by the trace | test/report | Документированное значение | предварительный |
+| 0.70 | MANUAL.md | 2. Параметры | manual/profile | Документированное значение | предварительный |
+| 0.65 | MANUAL.md | Python Candidate 50/50 | manual/profile | Документированное значение | предварительный |
+| 0.65 | MANUAL.md | Risk Compression Reverse | manual/profile | Документированное значение | предварительный |
+| 0.65 | MANUAL.md | V2.4.1 RiskGate Architecture Fix | manual/profile | Документированное значение | предварительный |
+| 0.60 | MONEY_MODEL_COMPLETION_BASELINE_RU.md | Текущие входные параметры | baseline | Документированное значение | предварительный |
+| 0.40 | TEST_PLAN.md | ATR Geometry Runtime Validation | test/report | Документированное значение | предварительный |
+
+- **Проверка пары:** profiles должны проверять `CloseBigOnSmall + RemainBigOnSmall = 1`; документированные пары 0.30+0.70, 0.35+0.65 и 0.40+0.60 дают 1.00, но не являются одним production profile.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/MANUAL.md` и `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` без profile/scope discriminator даёт два разных правила для темы «RemainBigOnSmall values»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.7`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.7`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «RemainBigOnSmall values» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-005 — CloseFarShare values
 
-- **ID:** `HSB-DOC-CONFLICT-005`
-- **Краткое название:** CloseFarShare values
+- **Классификация результата:** `PARAMETER_PROFILE_CONFLICT`
 - **Категория:** `PARAMETER`
-- **Подкатегория:** CloseFarShare values
-- **Сторона A:** `Docs/MANUAL.md`; раздел/контекст «CloseFarShare values»; фрагмент: `несколько parameter profiles`.
-- **Сторона B:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`; раздел/контекст «CloseFarShare values»; фрагмент: `другой baseline profile`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_PARAMETER`
-- **Затрагиваемые сущности:** CloseFarShare values; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «2. Параметры»
+- **Подраздел:** строка 27 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `CloseFarShare = 0.90`
+- **Конкретное утверждение:** CloseFarShare = 0.90.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`
+- **Раздел:** «Текущие входные параметры»
+- **Подраздел:** строка 27 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;`
+- **Конкретное утверждение:** - базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Все найденные документированные значения
+
+| Значение | Документ | Раздел | Профиль | Назначение | Preliminary authority |
+|---:|---|---|---|---|---|
+| 0.90 | BIG_SCENARIO_ENGINEERING_AUDIT.md | 90/10 profile | test/report | Документированное значение | предварительный |
+| 0.20 | BIG_SCENARIO_ENGINEERING_AUDIT.md | 20/80 profile | test/report | Документированное значение | предварительный |
+| 0.70 | BIG_SCENARIO_FULL_AUDIT.md | 11. Risks | test/report | Документированное значение | предварительный |
+| 0.75 | BIG_SCENARIO_FULL_AUDIT.md | 13. MT5 Strategy Tester invalidation addendum | test/report | Документированное значение | предварительный |
+| 0.70 | FULL_AUDIT_REPORT.md | 3. Config Check | test/report | Документированное значение | предварительный |
+| 0.90 | MANUAL.md | 2. Параметры | manual/profile | Документированное значение | предварительный |
+| 0.50 | MANUAL.md | Python Candidate 50/50 | manual/profile | Документированное значение | предварительный |
+| 0.40 | MANUAL.md | V2.4.1 RiskGate Architecture Fix | manual/profile | Документированное значение | предварительный |
+| 0.10 | MONEY_MODEL_COMPLETION_BASELINE_RU.md | Текущие входные параметры | baseline | Документированное значение | предварительный |
+| 0.10 | NEXT_STAGE_BASELINE_AUDIT_RU.md | Текущие defaults из `Include/Config.mqh` | test/report | Документированное значение | предварительный |
+| 0.10 | SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md | Изменённые файлы | test/report | Документированное значение | предварительный |
+| 0.90 | TEST_PLAN.md | Cycle Math Internal Report Tests | test/report | Документированное значение | предварительный |
+| 0.70 | TEST_PLAN.md | Cycle Math Internal Report Tests | test/report | Документированное значение | предварительный |
+| 0.50 | TEST_PLAN.md | Cycle Math Internal Report Tests | test/report | Документированное значение | предварительный |
+| 0.70 | TEST_PLAN.md | Real Recovery P/L Validation Tests | test/report | Документированное значение | предварительный |
+| 0.40 | TEST_PLAN.md | V2.4.1 RiskGate Architecture Fix Tests | test/report | Документированное значение | предварительный |
+
+- **Проверка пары:** profiles 0.90+0.10, 0.70+0.30, 0.50+0.50, 0.40+0.60 и 0.10+0.90 дают 1.00; назначение test/default/legacy/Hybrid различается.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/MANUAL.md` и `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` без profile/scope discriminator даёт два разных правила для темы «CloseFarShare values»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.7`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.7`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «CloseFarShare values» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-006 — ReserveShare values
 
-- **ID:** `HSB-DOC-CONFLICT-006`
-- **Краткое название:** ReserveShare values
+- **Классификация результата:** `PARAMETER_PROFILE_CONFLICT`
 - **Категория:** `PARAMETER`
-- **Подкатегория:** ReserveShare values
-- **Сторона A:** `Docs/MANUAL.md`; раздел/контекст «ReserveShare values»; фрагмент: `несколько parameter profiles`.
-- **Сторона B:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`; раздел/контекст «ReserveShare values»; фрагмент: `другой baseline profile`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_PARAMETER`
-- **Затрагиваемые сущности:** ReserveShare values; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «2. Параметры»
+- **Подраздел:** строка 28 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `ReserveShare = 0.10`
+- **Конкретное утверждение:** ReserveShare = 0.10.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`
+- **Раздел:** «Текущие входные параметры»
+- **Подраздел:** строка 27 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;`
+- **Конкретное утверждение:** - базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Все найденные документированные значения
+
+| Значение | Документ | Раздел | Профиль | Назначение | Preliminary authority |
+|---:|---|---|---|---|---|
+| 0.10 | BIG_SCENARIO_ENGINEERING_AUDIT.md | 90/10 profile | test/report | Документированное значение | предварительный |
+| 0.80 | BIG_SCENARIO_ENGINEERING_AUDIT.md | 20/80 profile | test/report | Документированное значение | предварительный |
+| 0.25 | BIG_SCENARIO_FULL_AUDIT.md | 13. MT5 Strategy Tester invalidation addendum | test/report | Документированное значение | предварительный |
+| 0.30 | FULL_AUDIT_REPORT.md | 3. Config Check | test/report | Документированное значение | предварительный |
+| 0.10 | MANUAL.md | 2. Параметры | manual/profile | Документированное значение | предварительный |
+| 0.50 | MANUAL.md | Python Candidate 50/50 | manual/profile | Документированное значение | предварительный |
+| 0.60 | MANUAL.md | V2.4.1 RiskGate Architecture Fix | manual/profile | Документированное значение | предварительный |
+| 1 | MANUAL.md | Split Big Geometry stage 1: BigCore + BigTrend + SmallBase | manual/profile | Документированное значение | предварительный |
+| 0.90 | MONEY_MODEL_COMPLETION_BASELINE_RU.md | Текущие входные параметры | baseline | Документированное значение | предварительный |
+| 0.90 | NEXT_STAGE_BASELINE_AUDIT_RU.md | Текущие defaults из `Include/Config.mqh` | test/report | Документированное значение | предварительный |
+| 0.90 | SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md | Изменённые файлы | test/report | Документированное значение | предварительный |
+| 0.10 | TEST_PLAN.md | Cycle Math Internal Report Tests | test/report | Документированное значение | предварительный |
+| 0.30 | TEST_PLAN.md | Cycle Math Internal Report Tests | test/report | Документированное значение | предварительный |
+| 0.50 | TEST_PLAN.md | Cycle Math Internal Report Tests | test/report | Документированное значение | предварительный |
+| 0.30 | TEST_PLAN.md | Real Recovery P/L Validation Tests | test/report | Документированное значение | предварительный |
+| 0.60 | TEST_PLAN.md | V2.4.1 RiskGate Architecture Fix Tests | test/report | Документированное значение | предварительный |
+| 0.75 | TEST_PLAN.md | ATR Geometry Runtime Validation | test/report | Документированное значение | предварительный |
+
+- **Проверка пары:** profiles 0.90+0.10, 0.70+0.30, 0.50+0.50, 0.40+0.60 и 0.10+0.90 дают 1.00; назначение test/default/legacy/Hybrid различается.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/MANUAL.md` и `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` без profile/scope discriminator даёт два разных правила для темы «ReserveShare values»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.7`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.7`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «ReserveShare values» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-007 — SmallReserveShare values
 
-- **ID:** `HSB-DOC-CONFLICT-007`
-- **Краткое название:** SmallReserveShare values
+- **Классификация результата:** `PARAMETER_PROFILE_CONFLICT`
 - **Категория:** `PARAMETER`
-- **Подкатегория:** SmallReserveShare values
-- **Сторона A:** `Docs/MANUAL.md`; раздел/контекст «SmallReserveShare values»; фрагмент: `несколько parameter profiles`.
-- **Сторона B:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`; раздел/контекст «SmallReserveShare values»; фрагмент: `другой baseline profile`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_PARAMETER`
-- **Затрагиваемые сущности:** SmallReserveShare values; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Risk Compression Reverse»
+- **Подраздел:** строка 481 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `SmallReserveShare = 0.05`
+- **Конкретное утверждение:** SmallReserveShare = 0.05.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md`
+- **Раздел:** «Текущие входные параметры»
+- **Подраздел:** строка 27 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;`
+- **Конкретное утверждение:** - базовые лоты/распределение: `StartLot=0.10`, `BigRatio=1.15`, `SmallRatio=0.25`, `CloseBigOnSmall=0.40`, `RemainBigOnSmall=0.60`, `CloseFarShare=0.10`, `ReserveShare=0.90`, `SmallReserveShare=0.05`;.
+- **Конкретное значение:** см. таблицу значений ниже
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Все найденные документированные значения
+
+| Значение | Документ | Раздел | Профиль | Назначение | Preliminary authority |
+|---:|---|---|---|---|---|
+| 0.05 | MANUAL.md | Risk Compression Reverse | manual/profile | Документированное значение | предварительный |
+| 0.05 | MANUAL.md | V2.4.1 RiskGate Architecture Fix | manual/profile | Документированное значение | предварительный |
+| 0.05 | MONEY_MODEL_COMPLETION_BASELINE_RU.md | Текущие входные параметры | baseline | Документированное значение | предварительный |
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/MANUAL.md` и `Docs/MONEY_MODEL_COMPLETION_BASELINE_RU.md` без profile/scope discriminator даёт два разных правила для темы «SmallReserveShare values»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.7`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.7`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «SmallReserveShare values» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-008 — Reserve in Partial Far
 
-- **ID:** `HSB-DOC-CONFLICT-008`
-- **Краткое название:** Reserve in Partial Far
+- **Классификация результата:** `SCOPE_CONFLICT`
 - **Категория:** `RESERVE`
-- **Подкатегория:** Reserve in Partial Far
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; раздел/контекст «Reserve in Partial Far»; фрагмент: `confirmed buckets/forbidden edges`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Reserve in Partial Far»; фрагмент: `Legacy Reserve scope`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Reserve in Partial Far; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`
+- **Раздел:** «Hybrid Split Big — Money Flow»
+- **Подраздел:** строка 14 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Partial FinalReserve Carry`
+- **Конкретное утверждение:** Partial FinalReserve Carry.
+- **Конкретное значение:** Partial FinalReserve Carry
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Small Scenario V2.4»
+- **Подраздел:** строка 461 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Small Scenario V2.4 implements a Risk Compression Reverse. The EA waits for the Small leg to reach the old Far open price, then closes Small, closes old Far, partially closes Big, and promotes the remaining Big volume to the new Far.`
+- **Конкретное утверждение:** Small Scenario V2.4 implements a Risk Compression Reverse. The EA waits for the Small leg to reach the old Far open price, then closes Small, closes old Far, partially closes Big, and promotes the remaining Big volume to the new Far..
+- **Конкретное значение:** Small Scenario V2.4 implements a Risk Compression Reverse. The EA waits for the Small leg to reach the old Far open price, then closes Small, closes old Far, partially closes Big, and promotes the remaining Big volume to the new Far.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Денежная последовательность
+- Source→EligibleHarvest→PartialBudget; FinalReserve edge to Partial is forbidden.
+- **Rollback/exactly-once:** projected amount не коммитится; confirmed event обязан иметь idempotent key и reconciliation.
+- **Partial/Final связь:** buckets не взаимозаменяются без отдельного authority.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Reserve in Partial Far»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.8 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Reserve in Partial Far» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-009 — RecoveryPL includes Reserve
 
-- **ID:** `HSB-DOC-CONFLICT-009`
-- **Краткое название:** RecoveryPL includes Reserve
+- **Классификация результата:** `NO_DIRECT_CONFLICT_FOUND`
 - **Категория:** `RECOVERY_PL`
-- **Подкатегория:** RecoveryPL includes Reserve
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «RecoveryPL includes Reserve»; фрагмент: `identity/double-count MUST`.
-- **Сторона B:** `Docs/FULL_AUDIT_REPORT.md`; раздел/контекст «RecoveryPL includes Reserve»; фрагмент: `Legacy account/recovery scope`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** RecoveryPL includes Reserve; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`
+- **Раздел:** «Money»
+- **Подраздел:** строка 24 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ MONEY-06 / Reserve уже входит в RealizedCyclePL и никогда не добавляется к RecoveryPL повторно. /`
+- **Конкретное утверждение:** / MONEY-06 / Reserve уже входит в RealizedCyclePL и никогда не добавляется к RecoveryPL повторно. /.
+- **Конкретное значение:** / MONEY-06 / Reserve уже входит в RealizedCyclePL и никогда не добавляется к RecoveryPL повторно. /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/FULL_AUDIT_REPORT.md`
+- **Раздел:** «9. RealRecoveryPL Check»
+- **Подраздел:** строка 223 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `## 9. RealRecoveryPL Check`
+- **Конкретное утверждение:** ## 9. RealRecoveryPL Check.
+- **Конкретное значение:** ## 9. RealRecoveryPL Check
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Стороны описывают разные последовательные уровни или scope и могут сосуществовать; ни одно из приведённых утверждений явно не отрицает другое.
+- **Статус:** `NO_DIRECT_CONFLICT_FOUND`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `не требуется; сохранить результат проверки`
+- **Результат:** Проверка темы завершена: прямого междокументного противоречия не найдено; запись не является основанием для пользовательского выбора.
+- **Почему выбран именно этот уровень критичности:** `INFORMATIONAL` выбран потому, что тема «RecoveryPL includes Reserve» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-010 — RecoveryPL includes Initial Plus
 
-- **ID:** `HSB-DOC-CONFLICT-010`
-- **Краткое название:** RecoveryPL includes Initial Plus
+- **Классификация результата:** `NO_DIRECT_CONFLICT_FOUND`
 - **Категория:** `RECOVERY_PL`
-- **Подкатегория:** RecoveryPL includes Initial Plus
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «RecoveryPL includes Initial Plus»; фрагмент: `identity/double-count MUST`.
-- **Сторона B:** `Docs/FULL_AUDIT_REPORT.md`; раздел/контекст «RecoveryPL includes Initial Plus»; фрагмент: `Legacy account/recovery scope`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** RecoveryPL includes Initial Plus; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`
+- **Раздел:** «Hybrid Split Big — System Invariants»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Нарушение любого `MUST` запрещает необратимое действие и переводит результат в reject/error/reconciliation. Safe default не заменяет failed invariant.`
+- **Конкретное утверждение:** Нарушение любого `MUST` запрещает необратимое действие и переводит результат в reject/error/reconciliation. Safe default не заменяет failed invariant..
+- **Конкретное значение:** Нарушение любого `MUST` запрещает необратимое действие и переводит результат в reject/error/reconciliation. Safe default не заменяет failed invariant.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/FULL_AUDIT_REPORT.md`
+- **Раздел:** «3. Config Check»
+- **Подраздел:** строка 60 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `InitialTriggerPoints, BigMoveStartPoints, BigMoveStepPoints, FarDistanceMode,`
+- **Конкретное утверждение:** InitialTriggerPoints, BigMoveStartPoints, BigMoveStepPoints, FarDistanceMode,.
+- **Конкретное значение:** InitialTriggerPoints, BigMoveStartPoints, BigMoveStepPoints, FarDistanceMode,
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Стороны описывают разные последовательные уровни или scope и могут сосуществовать; ни одно из приведённых утверждений явно не отрицает другое.
+- **Статус:** `NO_DIRECT_CONFLICT_FOUND`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `не требуется; сохранить результат проверки`
+- **Результат:** Проверка темы завершена: прямого междокументного противоречия не найдено; запись не является основанием для пользовательского выбора.
+- **Почему выбран именно этот уровень критичности:** `INFORMATIONAL` выбран потому, что тема «RecoveryPL includes Initial Plus» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-011 — RecoveryPL Symbol filter
 
-- **ID:** `HSB-DOC-CONFLICT-011`
-- **Краткое название:** RecoveryPL Symbol filter
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `RECOVERY_PL`
-- **Подкатегория:** RecoveryPL Symbol filter
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «RecoveryPL Symbol filter»; фрагмент: `identity/double-count MUST`.
-- **Сторона B:** `Docs/FULL_AUDIT_REPORT.md`; раздел/контекст «RecoveryPL Symbol filter»; фрагмент: `Legacy account/recovery scope`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** RecoveryPL Symbol filter; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`
+- **Раздел:** «Identity and logic»
+- **Подраздел:** строка 34 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ LOGIC-04 / CycleID уникален; roles идентифицируются Symbol+Magic+CycleID+identifier. /`
+- **Конкретное утверждение:** / LOGIC-04 / CycleID уникален; roles идентифицируются Symbol+Magic+CycleID+identifier. /.
+- **Конкретное значение:** / LOGIC-04 / CycleID уникален; roles идентифицируются Symbol+Magic+CycleID+identifier. /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/FULL_AUDIT_REPORT.md`
+- **Раздел:** «V2.4 Safety Audit Addendum»
+- **Подраздел:** строка 454 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- Trade setup uses `SetExpertMagicNumber`, `SetDeviationInPoints(MaxSlippagePoints)`, and `SetTypeFillingBySymbol`.`
+- **Конкретное утверждение:** - Trade setup uses `SetExpertMagicNumber`, `SetDeviationInPoints(MaxSlippagePoints)`, and `SetTypeFillingBySymbol`..
+- **Конкретное значение:** - Trade setup uses `SetExpertMagicNumber`, `SetDeviationInPoints(MaxSlippagePoints)`, and `SetTypeFillingBySymbol`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md` и `Docs/FULL_AUDIT_REPORT.md` без profile/scope discriminator даёт два разных правила для темы «RecoveryPL Symbol filter»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «RecoveryPL Symbol filter» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-012 — RecoveryPL Magic filter
 
-- **ID:** `HSB-DOC-CONFLICT-012`
-- **Краткое название:** RecoveryPL Magic filter
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `RECOVERY_PL`
-- **Подкатегория:** RecoveryPL Magic filter
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «RecoveryPL Magic filter»; фрагмент: `identity/double-count MUST`.
-- **Сторона B:** `Docs/FULL_AUDIT_REPORT.md`; раздел/контекст «RecoveryPL Magic filter»; фрагмент: `Legacy account/recovery scope`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** RecoveryPL Magic filter; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`
+- **Раздел:** «Identity and logic»
+- **Подраздел:** строка 34 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ LOGIC-04 / CycleID уникален; roles идентифицируются Symbol+Magic+CycleID+identifier. /`
+- **Конкретное утверждение:** / LOGIC-04 / CycleID уникален; roles идентифицируются Symbol+Magic+CycleID+identifier. /.
+- **Конкретное значение:** / LOGIC-04 / CycleID уникален; roles идентифицируются Symbol+Magic+CycleID+identifier. /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/FULL_AUDIT_REPORT.md`
+- **Раздел:** «3. Config Check»
+- **Подраздел:** строка 65 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `MaxSpreadPoints, MaxMarginPercent, MagicNumber, AllowRealTrading,`
+- **Конкретное утверждение:** MaxSpreadPoints, MaxMarginPercent, MagicNumber, AllowRealTrading,.
+- **Конкретное значение:** MaxSpreadPoints, MaxMarginPercent, MagicNumber, AllowRealTrading,
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md` и `Docs/FULL_AUDIT_REPORT.md` без profile/scope discriminator даёт два разных правила для темы «RecoveryPL Magic filter»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «RecoveryPL Magic filter» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-013 — Gross versus Net Profit
 
-- **ID:** `HSB-DOC-CONFLICT-013`
-- **Краткое название:** Gross versus Net Profit
+- **Классификация результата:** `FORMULA_CONFLICT`
 - **Категория:** `FORMULA`
-- **Подкатегория:** Gross versus Net Profit
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md`; раздел/контекст «Gross versus Net Profit»; фрагмент: `Hybrid split-role formula`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Gross versus Net Profit»; фрагмент: `Legacy aggregate-Big formula`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_FORMULA`
-- **Затрагиваемые сущности:** Gross versus Net Profit; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md`
+- **Раздел:** «Формулы уровня B»
+- **Подраздел:** строка 21 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `* `LegNet=OrderCalcProfit(direction,symbol,lot,open,directional Bid/Ask close)-not-yet-included costs`.`
+- **Конкретное утверждение:** * `LegNet=OrderCalcProfit(direction,symbol,lot,open,directional Bid/Ask close)-not-yet-included costs`..
+- **Конкретное значение:** * `LegNet=OrderCalcProfit(direction,symbol,lot,open,directional Bid/Ask close)-not-yet-included costs`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «5. Big-сценарий»
+- **Подраздел:** строка 82 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `3. Считает `NetProfit = ProfitBig - LossSmall - Costs`.`
+- **Конкретное утверждение:** 3. Считает `NetProfit = ProfitBig - LossSmall - Costs`..
+- **Конкретное значение:** 3. Считает `NetProfit = ProfitBig - LossSmall - Costs`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Gross versus Net Profit»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.4`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.4`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `CRITICAL` выбран потому, что тема «Gross versus Net Profit» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-014 — Commission swap fee
 
-- **ID:** `HSB-DOC-CONFLICT-014`
-- **Краткое название:** Commission swap fee
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `MONEY_LEDGER`
-- **Подкатегория:** Commission swap fee
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; раздел/контекст «Commission swap fee»; фрагмент: `confirmed ledger conservation`.
-- **Сторона B:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Commission swap fee»; фрагмент: `expanded event-key/bucket contract`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Commission swap fee; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`
+- **Раздел:** «Sequential Harvest refinement»
+- **Подраздел:** строка 43 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Open commission provenance: already-realized old-leg open costs are never debited again; projected reopen cost is recorded once in the new state; each projected close cost belongs to one disjoint close event.`
+- **Конкретное утверждение:** Open commission provenance: already-realized old-leg open costs are never debited again; projected reopen cost is recorded once in the new state; each projected close cost belongs to one disjoint close event..
+- **Конкретное значение:** Open commission provenance: already-realized old-leg open costs are never debited again; projected reopen cost is recorded once in the new state; each projected close cost belongs to one disjoint close event.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «18. Exactly-once contract»
+- **Подраздел:** строка 490 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Exactly once применяется к каждому `HarvestNet`, `PartialFarNet`, open commission leg и ledger event. Projected event не является commit. Один event имеет ровно один terminal commit outcome (`COMMITTED` или typed rejected/rolled-back status по существующему le`
+- **Конкретное утверждение:** Exactly once применяется к каждому `HarvestNet`, `PartialFarNet`, open commission leg и ledger event. Projected event не является commit. Один event имеет ровно один terminal commit outcome (`COMMITTED` или typed rejected/rolled-back status по существующему le.
+- **Конкретное значение:** Exactly once применяется к каждому `HarvestNet`, `PartialFarNet`, open commission leg и ledger event. Projected event не является commit. Один event имеет ровно один terminal commit outcome (`COMMITTED` или typed rejected/rolled-back status по существующему le
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Денежная последовательность
+- Projected costs are estimates; actual net is deal profit+swap+commission+fee with broker signs.
+- **Rollback/exactly-once:** projected amount не коммитится; confirmed event обязан иметь idempotent key и reconciliation.
+- **Partial/Final связь:** buckets не взаимозаменяются без отдельного authority.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md` и `Docs/BASKET_RISK_CONTRACT_RU.md` без profile/scope discriminator даёт два разных правила для темы «Commission swap fee»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Commission swap fee» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-015 — Projected versus Realized Reserve
 
-- **ID:** `HSB-DOC-CONFLICT-015`
-- **Краткое название:** Projected versus Realized Reserve
+- **Классификация результата:** `SCOPE_CONFLICT`
 - **Категория:** `RESERVE`
-- **Подкатегория:** Projected versus Realized Reserve
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; раздел/контекст «Projected versus Realized Reserve»; фрагмент: `confirmed buckets/forbidden edges`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Projected versus Realized Reserve»; фрагмент: `Legacy Reserve scope`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Projected versus Realized Reserve; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`
+- **Раздел:** «Forbidden edges»
+- **Подраздел:** строка 34 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Projected money -X-> persisted bucket`
+- **Конкретное утверждение:** Projected money -X-> persisted bucket.
+- **Конкретное значение:** Projected money -X-> persisted bucket
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Параметры защиты»
+- **Подраздел:** строка 179 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `input double MinProjectedReserveCoverage = 1.00;`
+- **Конкретное утверждение:** input double MinProjectedReserveCoverage = 1.00;.
+- **Конкретное значение:** input double MinProjectedReserveCoverage = 1.00;
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Денежная последовательность
+- ProjectedReserve is read-only forecast; confirmed Harvest deal creates realized bucket credit.
+- **Rollback/exactly-once:** projected amount не коммитится; confirmed event обязан иметь idempotent key и reconciliation.
+- **Partial/Final связь:** buckets не взаимозаменяются без отдельного authority.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Projected versus Realized Reserve»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.8 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Projected versus Realized Reserve» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-016 — Planned versus actual close result
 
-- **ID:** `HSB-DOC-CONFLICT-016`
-- **Краткое название:** Planned versus actual close result
+- **Классификация результата:** `NO_DIRECT_CONFLICT_FOUND`
 - **Категория:** `EXECUTION`
-- **Подкатегория:** Planned versus actual close result
-- **Сторона A:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Planned versus actual close result»; фрагмент: `actual/reconciliation required`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md`; раздел/контекст «Planned versus actual close result»; фрагмент: `source claim without MT5 runtime proof`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `PLANNED_VS_EXECUTED`
-- **Затрагиваемые сущности:** Planned versus actual close result; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «3. Термины и соответствие существующей системе»
+- **Подраздел:** строка 45 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ Post-Execution Reconciliation / LOGIC-05/06 / Подтверждение actual result и новый snapshot /`
+- **Конкретное утверждение:** / Post-Execution Reconciliation / LOGIC-05/06 / Подтверждение actual result и новый snapshot /.
+- **Конкретное значение:** / Post-Execution Reconciliation / LOGIC-05/06 / Подтверждение actual result и новый snapshot /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md`
+- **Раздел:** «Static baseline»
+- **Подраздел:** строка 21 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** ``BASELINE_STATIC_FAILURE_RESOLVED`: контракт `SimRecordClosedDeal` восстановлен как совместимый wrapper над единым `SimRecordDeal`, поэтому static test больше не должен падать на отсутствии имени функции.`
+- **Конкретное утверждение:** `BASELINE_STATIC_FAILURE_RESOLVED`: контракт `SimRecordClosedDeal` восстановлен как совместимый wrapper над единым `SimRecordDeal`, поэтому static test больше не должен падать на отсутствии имени функции..
+- **Конкретное значение:** `BASELINE_STATIC_FAILURE_RESOLVED`: контракт `SimRecordClosedDeal` восстановлен как совместимый wrapper над единым `SimRecordDeal`, поэтому static test больше не должен падать на отсутствии имени функции.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Execution lifecycle
+- **Фактическая цепь проверки:** request→retcode→deal history→actual net→ledger/reconciliation
+- Accepted request не равен actual position/deal result; partial/retry/restart требуют нового verified snapshot.
+
+#### Вывод проверки
+- **Точная несовместимость:** Стороны описывают разные последовательные уровни или scope и могут сосуществовать; ни одно из приведённых утверждений явно не отрицает другое.
+- **Статус:** `NO_DIRECT_CONFLICT_FOUND`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `не требуется; сохранить результат проверки`
+- **Результат:** Проверка темы завершена: прямого междокументного противоречия не найдено; запись не является основанием для пользовательского выбора.
+- **Почему выбран именно этот уровень критичности:** `INFORMATIONAL` выбран потому, что тема «Planned versus actual close result» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-017 — Final Close preview versus actual success
 
-- **ID:** `HSB-DOC-CONFLICT-017`
-- **Краткое название:** Final Close preview versus actual success
+- **Классификация результата:** `AMBIGUITY`
 - **Категория:** `FINAL_CLOSE`
-- **Подкатегория:** Final Close preview versus actual success
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; раздел/контекст «Final Close preview versus actual success»; фрагмент: `FINAL_CLOSE_PREVIEW_REQUIRED`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Final Close preview versus actual success»; фрагмент: `FinalCloseAllowed near CLOSED_PROFIT`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `PREVIEW_VS_ACTUAL`
-- **Затрагиваемые сущности:** Final Close preview versus actual success; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `BLOCKER`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`
+- **Раздел:** «14. Result, terminal and reason contract»
+- **Подраздел:** строка 148 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Full-Far affordability routes to `CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW`; invalid residual to `CATCHUP_REJECT_INVALID_FAR_REMAINDER`; component min-volume to `CATCHUP_TERMINAL_MIN_VOLUME`. Other exact failures: `CATCHUP_STATE_INVALID`, `CATCHUP_TRIGGER_INVALID``
+- **Конкретное утверждение:** Full-Far affordability routes to `CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW`; invalid residual to `CATCHUP_REJECT_INVALID_FAR_REMAINDER`; component min-volume to `CATCHUP_TERMINAL_MIN_VOLUME`. Other exact failures: `CATCHUP_STATE_INVALID`, `CATCHUP_TRIGGER_INVALID`.
+- **Конкретное значение:** Full-Far affordability routes to `CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW`; invalid residual to `CATCHUP_REJECT_INVALID_FAR_REMAINDER`; component min-volume to `CATCHUP_TERMINAL_MIN_VOLUME`. Other exact failures: `CATCHUP_STATE_INVALID`, `CATCHUP_TRIGGER_INVALID`
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Real Recovery P/L Validation»
+- **Подраздел:** строка 443 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `LastSystemCloseComment = FINAL_CLOSE_PROFIT or CLOSED_PROFIT`
+- **Конкретное утверждение:** LastSystemCloseComment = FINAL_CLOSE_PROFIT or CLOSED_PROFIT.
+- **Конкретное значение:** LastSystemCloseComment = FINAL_CLOSE_PROFIT or CLOSED_PROFIT
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Final Close preview versus actual success»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Final Close preview versus actual success» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-018 — Small close trigger
 
-- **ID:** `HSB-DOC-CONFLICT-018`
-- **Краткое название:** Small close trigger
+- **Классификация результата:** `SCOPE_CONFLICT`
 - **Категория:** `SMALL_SCENARIO`
-- **Подкатегория:** Small close trigger
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`; раздел/контекст «Small close trigger»; фрагмент: `Hybrid Small phase order`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Small close trigger»; фрагмент: `Legacy Small-at-Far order`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Small close trigger; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`
+- **Раздел:** «Hybrid Split Big — State Transition Truth Table»
+- **Подраздел:** строка 8 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ OPEN_TREND_PENDING / Trend fill / exact identifier/lot / persist confirmation / OPEN_SMALL_PENDING / RECONCILIATION /`
+- **Конкретное утверждение:** / OPEN_TREND_PENDING / Trend fill / exact identifier/lot / persist confirmation / OPEN_SMALL_PENDING / RECONCILIATION /.
+- **Конкретное значение:** / OPEN_TREND_PENDING / Trend fill / exact identifier/lot / persist confirmation / OPEN_SMALL_PENDING / RECONCILIATION /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «1. Назначение»
+- **Подраздел:** строка 13 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `5. От `Far` строятся `Big` и `Small` по геометрии мануала.`
+- **Конкретное утверждение:** 5. От `Far` строятся `Big` и `Small` по геометрии мануала..
+- **Конкретное значение:** 5. От `Far` строятся `Big` и `Small` по геометрии мануала.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Сравнение последовательностей
+- **Последовательность A:** 1) движение к Small; 2) ожидание Far touch; 3) close Small; 4) close OldFar; 5) partial Big; 6) NewFar.
+- **Последовательность B:** 1) Split trigger; 2) phase-state validation; 3) role-specific closes; 4) actual remainder verification.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Small close trigger»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.8 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Small close trigger» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-019 — Old Far full versus partial close
 
-- **ID:** `HSB-DOC-CONFLICT-019`
-- **Краткое название:** Old Far full versus partial close
+- **Классификация результата:** `SCOPE_CONFLICT`
 - **Категория:** `SMALL_SCENARIO`
-- **Подкатегория:** Old Far full versus partial close
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`; раздел/контекст «Old Far full versus partial close»; фрагмент: `Hybrid Small phase order`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Old Far full versus partial close»; фрагмент: `Legacy Small-at-Far order`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Old Far full versus partial close; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`
+- **Раздел:** «Hybrid Split Big — State Transition Truth Table»
+- **Подраздел:** строка 17 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ FINAL_CLOSE_PENDING / all managed closes / positions=0 and actual threshold PASS / confirmed deals reconciled / CLOSED_PROFIT / TERMINAL_SAFE /`
+- **Конкретное утверждение:** / FINAL_CLOSE_PENDING / all managed closes / positions=0 and actual threshold PASS / confirmed deals reconciled / CLOSED_PROFIT / TERMINAL_SAFE /.
+- **Конкретное значение:** / FINAL_CLOSE_PENDING / all managed closes / positions=0 and actual threshold PASS / confirmed deals reconciled / CLOSED_PROFIT / TERMINAL_SAFE /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Small-at-Far Scenario»
+- **Подраздел:** строка 162 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Small-сценарий больше не исполняется сразу при первом движении в сторону Small. Если Small достиг защитного движения, советник переводит цикл в `STATE_WAIT_SMALL_TO_FAR` и ждёт, пока текущая цена дойдёт до цены открытия старого `Far` с учётом `SmallFarTouchOff`
+- **Конкретное утверждение:** Small-сценарий больше не исполняется сразу при первом движении в сторону Small. Если Small достиг защитного движения, советник переводит цикл в `STATE_WAIT_SMALL_TO_FAR` и ждёт, пока текущая цена дойдёт до цены открытия старого `Far` с учётом `SmallFarTouchOff.
+- **Конкретное значение:** Small-сценарий больше не исполняется сразу при первом движении в сторону Small. Если Small достиг защитного движения, советник переводит цикл в `STATE_WAIT_SMALL_TO_FAR` и ждёт, пока текущая цена дойдёт до цены открытия старого `Far` с учётом `SmallFarTouchOff
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Сравнение последовательностей
+- **Последовательность A:** 1) Small close; 2) OldFar full close; 3) Big partial close.
+- **Последовательность B:** 1) budget gate; 2) Partial Far candidate; 3) residual Far re-evaluation.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Old Far full versus partial close»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.8 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Old Far full versus partial close» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-020 — New Far source
 
-- **ID:** `HSB-DOC-CONFLICT-020`
-- **Краткое название:** New Far source
+- **Классификация результата:** `AUTHORITY_CONFLICT`
 - **Категория:** `GEOMETRY`
-- **Подкатегория:** New Far source
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «New Far source»; фрагмент: `strict post-round GEO MUST`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «New Far source»; фрагмент: `Legacy compression roles`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** New Far source; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `BLOCKER`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`
+- **Раздел:** «Geometry»
+- **Подраздел:** строка 9 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ GEO-01 / `0 < NewFar < OldFar`. /`
+- **Конкретное утверждение:** / GEO-01 / `0 < NewFar < OldFar`. /.
+- **Конкретное значение:** / GEO-01 / `0 < NewFar < OldFar`. /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Geometry Validator»
+- **Подраздел:** строка 190 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `NewFarLot < OldFarLot`
+- **Конкретное утверждение:** NewFarLot < OldFarLot.
+- **Конкретное значение:** NewFarLot < OldFarLot
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Сравнение последовательностей
+- **Последовательность A:** 1) close Big part; 2) read actual remaining Big; 3) promote NewFar.
+- **Последовательность B:** 1) close SmallBase/OldFar/BigTrend; 2) verify BigCore remainder; 3) promote only BigCore.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «New Far source»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.8`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «New Far source» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-021 — Next Big base
 
-- **ID:** `HSB-DOC-CONFLICT-021`
-- **Краткое название:** Next Big base
+- **Классификация результата:** `SCOPE_CONFLICT`
 - **Категория:** `FORMULA`
-- **Подкатегория:** Next Big base
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md`; раздел/контекст «Next Big base»; фрагмент: `Hybrid split-role formula`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Next Big base»; фрагмент: `Legacy aggregate-Big formula`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_FORMULA`
-- **Затрагиваемые сущности:** Next Big base; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.4`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md`
+- **Раздел:** «Margin and terminal rule»
+- **Подраздел:** строка 55 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `**Oracle rounding profile:** `EA_CURRENT` means BigCore DOWN, BigTrend DOWN, SmallBase UP and NewFar DOWN; every gate is rerun on these rounded lots.`
+- **Конкретное утверждение:** **Oracle rounding profile:** `EA_CURRENT` means BigCore DOWN, BigTrend DOWN, SmallBase UP and NewFar DOWN; every gate is rerun on these rounded lots..
+- **Конкретное значение:** **Oracle rounding profile:** `EA_CURRENT` means BigCore DOWN, BigTrend DOWN, SmallBase UP and NewFar DOWN; every gate is rerun on these rounded lots.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Geometry Validator»
+- **Подраздел:** строка 191 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `NewBigLot > NewFarLot`
+- **Конкретное утверждение:** NewBigLot > NewFarLot.
+- **Конкретное значение:** NewBigLot > NewFarLot
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Сравнение последовательностей
+- **Последовательность A:** 1) NewFar formed; 2) NewBig=NewFar*BigRatio.
+- **Последовательность B:** 1) residual Far frozen; 2) NextCore/NextTrend normalized separately; 3) post-round gates.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Next Big base»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.8 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Next Big base» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-022 — new Big less than old Far
 
-- **ID:** `HSB-DOC-CONFLICT-022`
-- **Краткое название:** new Big less than old Far
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `GEOMETRY`
-- **Подкатегория:** new Big less than old Far
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «new Big less than old Far»; фрагмент: `strict post-round GEO MUST`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «new Big less than old Far»; фрагмент: `Legacy compression roles`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** new Big less than old Far; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`
+- **Раздел:** «Geometry»
+- **Подраздел:** строка 10 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ GEO-02 / `NextCore + NextTrend < OldFar * MaximumNewBigToOldFarRatio`. /`
+- **Конкретное утверждение:** / GEO-02 / `NextCore + NextTrend < OldFar * MaximumNewBigToOldFarRatio`. /.
+- **Конкретное значение:** / GEO-02 / `NextCore + NextTrend < OldFar * MaximumNewBigToOldFarRatio`. /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Geometry Validator»
+- **Подраздел:** строка 191 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `NewBigLot > NewFarLot`
+- **Конкретное утверждение:** NewBigLot > NewFarLot.
+- **Конкретное значение:** NewBigLot > NewFarLot
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Сравнение последовательностей
+- **Последовательность A:** 1) compute Next Big; 2) require strict comparison with OldFar.
+- **Последовательность B:** 1) legacy migration describes inputs; 2) strict ratio/tolerance is not defined there.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «new Big less than old Far»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «new Big less than old Far» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-023 — Negative Small Reverse Net
 
-- **ID:** `HSB-DOC-CONFLICT-023`
-- **Краткое название:** Negative Small Reverse Net
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `RISK`
-- **Подкатегория:** Negative Small Reverse Net
-- **Сторона A:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Negative Small Reverse Net»; фрагмент: `Cycle/Account/freshness gates`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`; раздел/контекст «Negative Small Reverse Net»; фрагмент: `analytical laws only`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Negative Small Reverse Net; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `BLOCKER`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.8`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «7.3. Conservation checks»
+- **Подраздел:** строка 195 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- Negative Harvest не создаёт credits.`
+- **Конкретное утверждение:** - Negative Harvest не создаёт credits..
+- **Конкретное значение:** - Negative Harvest не создаёт credits.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`
+- **Раздел:** «Глава 25. Инварианты»
+- **Подраздел:** строка 131 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Identity: Symbol, Magic, CycleID and identifier must match. Reserve: nonnegative, within eligible realized profit, never double-counted, nondecreasing in Small. Big: normalized monetary Catch-Up and slope PASS. Small: `0<N<F`, `NextBigGross<OldFar`, `RiskNext<`
+- **Конкретное утверждение:** Identity: Symbol, Magic, CycleID and identifier must match. Reserve: nonnegative, within eligible realized profit, never double-counted, nondecreasing in Small. Big: normalized monetary Catch-Up and slope PASS. Small: `0<N<F`, `NextBigGross<OldFar`, `RiskNext<.
+- **Конкретное значение:** Identity: Symbol, Magic, CycleID and identifier must match. Reserve: nonnegative, within eligible realized profit, never double-counted, nondecreasing in Small. Big: normalized monetary Catch-Up and slope PASS. Small: `0<N<F`, `NextBigGross<OldFar`, `RiskNext<
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Сравнение последовательностей
+- **Последовательность A:** 1) compute Small Reverse net; 2) policy input may allow negative result.
+- **Последовательность B:** 1) require transition budget/limit; 2) reject if policy not approved.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/BASKET_RISK_CONTRACT_RU.md` и `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md` без profile/scope discriminator даёт два разных правила для темы «Negative Small Reverse Net»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Negative Small Reverse Net» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-024 — Small Far Big close order
 
-- **ID:** `HSB-DOC-CONFLICT-024`
-- **Краткое название:** Small Far Big close order
+- **Классификация результата:** `ORDERING_CONFLICT`
 - **Категория:** `SMALL_SCENARIO`
-- **Подкатегория:** Small Far Big close order
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`; раздел/контекст «Small Far Big close order»; фрагмент: `Hybrid Small phase order`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Small Far Big close order»; фрагмент: `Legacy Small-at-Far order`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Small Far Big close order; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md`
+- **Раздел:** «Hybrid Split Big — State Transition Truth Table»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ Current / Event / Condition / Pending/actual requirement / Next / Failure /`
+- **Конкретное утверждение:** / Current / Event / Condition / Pending/actual requirement / Next / Failure /.
+- **Конкретное значение:** / Current / Event / Condition / Pending/actual requirement / Next / Failure /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Split Big Geometry stage 1: BigCore + BigTrend + SmallBase»
+- **Подраздел:** строка 991 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `## Split Big Geometry stage 1: BigCore + BigTrend + SmallBase`
+- **Конкретное утверждение:** ## Split Big Geometry stage 1: BigCore + BigTrend + SmallBase.
+- **Конкретное значение:** ## Split Big Geometry stage 1: BigCore + BigTrend + SmallBase
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Сравнение последовательностей
+- **Последовательность A:** 1) close Small; 2) close OldFar; 3) partial Big; 4) promote remainder.
+- **Последовательность B:** 1) close SmallBase; 2) OldFar; 3) BigTrend; 4) staged BigCore; 5) verify; 6) promote.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_STATE_TRANSITION_TABLE.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Small Far Big close order»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.6`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `CRITICAL` выбран потому, что тема «Small Far Big close order» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-025 — Reserve credit order
 
-- **ID:** `HSB-DOC-CONFLICT-025`
-- **Краткое название:** Reserve credit order
+- **Классификация результата:** `AMBIGUITY`
 - **Категория:** `RESERVE`
-- **Подкатегория:** Reserve credit order
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; раздел/контекст «Reserve credit order»; фрагмент: `confirmed buckets/forbidden edges`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Reserve credit order»; фрагмент: `Legacy Reserve scope`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Reserve credit order; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`
+- **Раздел:** «Hybrid Split Big — Money Flow»
+- **Подраздел:** строка 14 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Partial FinalReserve Carry`
+- **Конкретное утверждение:** Partial FinalReserve Carry.
+- **Конкретное значение:** Partial FinalReserve Carry
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «1. Назначение»
+- **Подраздел:** строка 11 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `3. Прибыль первого плюса не участвует в разруливании: `InitialProfitIgnored = true`, `Reserve = 0`.`
+- **Конкретное утверждение:** 3. Прибыль первого плюса не участвует в разруливании: `InitialProfitIgnored = true`, `Reserve = 0`..
+- **Конкретное значение:** 3. Прибыль первого плюса не участвует в разруливании: `InitialProfitIgnored = true`, `Reserve = 0`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Сравнение последовательностей
+- **Последовательность A:** 1) compute ReserveAdd; 2) persist pending amount; 3) apply after deal path.
+- **Последовательность B:** 1) confirm Harvest deals; 2) calculate EligibleHarvest; 3) allocate; 4) commit idempotent credit.
+
+#### Денежная последовательность
+- Credit must follow confirmed deals and allocation conservation; pre-confirmation amount is pending only.
+- **Rollback/exactly-once:** projected amount не коммитится; confirmed event обязан иметь idempotent key и reconciliation.
+- **Partial/Final связь:** buckets не взаимозаменяются без отдельного authority.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Reserve credit order»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Reserve credit order» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-026 — State transition order
 
-- **ID:** `HSB-DOC-CONFLICT-026`
-- **Краткое название:** State transition order
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `STATE_MACHINE`
-- **Подкатегория:** State transition order
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; раздел/контекст «State transition order»; фрагмент: `StateBefore/After revision`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «State transition order»; фрагмент: `Legacy terminal state namespace`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** State transition order; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`
+- **Раздел:** «Hybrid Split Big — нормативная временная модель Catch-Up»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `**Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state.`
+- **Конкретное утверждение:** **Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state..
+- **Конкретное значение:** **Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «MinusLock BigHarvest EA — технический мануал»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Документ описывает MQL5-советник, реализованный строго на базе `manual/big_harvest_system_manual_ru.md`.`
+- **Конкретное утверждение:** Документ описывает MQL5-советник, реализованный строго на базе `manual/big_harvest_system_manual_ru.md`..
+- **Конкретное значение:** Документ описывает MQL5-советник, реализованный строго на базе `manual/big_harvest_system_manual_ru.md`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «State transition order»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «State transition order» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-027 — Requested versus executed volume
 
-- **ID:** `HSB-DOC-CONFLICT-027`
-- **Краткое название:** Requested versus executed volume
+- **Классификация результата:** `NO_DIRECT_CONFLICT_FOUND`
 - **Категория:** `EXECUTION`
-- **Подкатегория:** Requested versus executed volume
-- **Сторона A:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Requested versus executed volume»; фрагмент: `actual/reconciliation required`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md`; раздел/контекст «Requested versus executed volume»; фрагмент: `source claim without MT5 runtime proof`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `PLANNED_VS_EXECUTED`
-- **Затрагиваемые сущности:** Requested versus executed volume; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «3. Термины и соответствие существующей системе»
+- **Подраздел:** строка 45 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ Post-Execution Reconciliation / LOGIC-05/06 / Подтверждение actual result и новый snapshot /`
+- **Конкретное утверждение:** / Post-Execution Reconciliation / LOGIC-05/06 / Подтверждение actual result и новый snapshot /.
+- **Конкретное значение:** / Post-Execution Reconciliation / LOGIC-05/06 / Подтверждение actual result и новый snapshot /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md`
+- **Раздел:** «Статус»
+- **Подраздел:** строка 5 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** ``HYBRID_PREOPEN_DECISION_ENGINE_NOT_READY` до подтверждённой компиляции MetaEditor `0 errors / 0 warnings`.`
+- **Конкретное утверждение:** `HYBRID_PREOPEN_DECISION_ENGINE_NOT_READY` до подтверждённой компиляции MetaEditor `0 errors / 0 warnings`..
+- **Конкретное значение:** `HYBRID_PREOPEN_DECISION_ENGINE_NOT_READY` до подтверждённой компиляции MetaEditor `0 errors / 0 warnings`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Execution lifecycle
+- **Фактическая цепь проверки:** requested/normalized lot→request→actual filled lot→position snapshot→new revision
+- Accepted request не равен actual position/deal result; partial/retry/restart требуют нового verified snapshot.
+
+#### Вывод проверки
+- **Точная несовместимость:** Стороны описывают разные последовательные уровни или scope и могут сосуществовать; ни одно из приведённых утверждений явно не отрицает другое.
+- **Статус:** `NO_DIRECT_CONFLICT_FOUND`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `не требуется; сохранить результат проверки`
+- **Результат:** Проверка темы завершена: прямого междокументного противоречия не найдено; запись не является основанием для пользовательского выбора.
+- **Почему выбран именно этот уровень критичности:** `INFORMATIONAL` выбран потому, что тема «Requested versus executed volume» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-028 — FLOOR CEILING NEAREST
 
-- **ID:** `HSB-DOC-CONFLICT-028`
-- **Краткое название:** FLOOR CEILING NEAREST
+- **Классификация результата:** `FORMULA_CONFLICT`
 - **Категория:** `ROUNDING`
-- **Подкатегория:** FLOOR CEILING NEAREST
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «FLOOR CEILING NEAREST»; фрагмент: `DOWN/UP rounding`.
-- **Сторона B:** `Docs/BIG_SCENARIO_FULL_AUDIT.md`; раздел/контекст «FLOOR CEILING NEAREST»; фрагмент: `Legacy Nearest/Up rounding`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_FORMULA`
-- **Затрагиваемые сущности:** FLOOR CEILING NEAREST; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`
+- **Раздел:** «Stage 1.2.4.1 money/Partial clarification»
+- **Подраздел:** строка 131 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `- `HybridMoneyEqual(a,b)` проверяет ledger-normalized значения: `abs(Round2(a)-Round2(b)) <= MoneyCalculationTolerance`.`
+- **Конкретное утверждение:** - `HybridMoneyEqual(a,b)` проверяет ledger-normalized значения: `abs(Round2(a)-Round2(b)) <= MoneyCalculationTolerance`..
+- **Конкретное значение:** - `HybridMoneyEqual(a,b)` проверяет ledger-normalized значения: `abs(Round2(a)-Round2(b)) <= MoneyCalculationTolerance`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/BIG_SCENARIO_FULL_AUDIT.md`
+- **Раздел:** «3. Function/file table»
+- **Подраздел:** строка 77 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ Lot rounding / `Include/LotUtils.mqh` / `NormalizeLotDown`, `NormalizeLotUp`, `NormalizeLotNearest`, `NormalizeVolumeToStep` / Broker/user lot step alignment / No direct mutation /`
+- **Конкретное утверждение:** / Lot rounding / `Include/LotUtils.mqh` / `NormalizeLotDown`, `NormalizeLotUp`, `NormalizeLotNearest`, `NormalizeVolumeToStep` / Broker/user lot step alignment / No direct mutation /.
+- **Конкретное значение:** / Lot rounding / `Include/LotUtils.mqh` / `NormalizeLotDown`, `NormalizeLotUp`, `NormalizeLotNearest`, `NormalizeVolumeToStep` / Broker/user lot step alignment / No direct mutation /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md` и `Docs/BIG_SCENARIO_FULL_AUDIT.md` без profile/scope discriminator даёт два разных правила для темы «FLOOR CEILING NEAREST»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.4`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.4`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `CRITICAL` выбран потому, что тема «FLOOR CEILING NEAREST» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-029 — Python PASS versus MT5 NOT_RUN
 
-- **ID:** `HSB-DOC-CONFLICT-029`
-- **Краткое название:** Python PASS versus MT5 NOT_RUN
+- **Классификация результата:** `EVIDENCE_MISMATCH`
 - **Категория:** `TEST_EVIDENCE`
-- **Подкатегория:** Python PASS versus MT5 NOT_RUN
-- **Сторона A:** `Docs/STAGE_1_2_4_1_EVIDENCE_RU.md`; раздел/контекст «Python PASS versus MT5 NOT_RUN»; фрагмент: `Python/static PASS`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_METAEDITOR_COMPILE.md`; раздел/контекст «Python PASS versus MT5 NOT_RUN»; фрагмент: `MetaEditor/MQL5 NOT_RUN`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_EVIDENCE_LEVEL`
-- **Затрагиваемые сущности:** Python PASS versus MT5 NOT_RUN; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `INFORMATIONAL`
-- **Статус решения:** `DEFERRED_TO_STAGE_3_1_8`
+
+#### Сторона A
+- **Документ:** `Docs/STAGE_1_2_4_1_EVIDENCE_RU.md`
+- **Раздел:** «PRIMARY_IMPLEMENTATION_RUN»
+- **Подраздел:** строка 57 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `dimension-contract tests=17 passed in 0.08s`
+- **Конкретное утверждение:** dimension-contract tests=17 passed in 0.08s.
+- **Конкретное значение:** dimension-contract tests=17 passed in 0.08s
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_METAEDITOR_COMPILE.md`
+- **Раздел:** «Hybrid Split Big — MetaEditor compile record»
+- **Подраздел:** строка 6 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ MetaTrader build / NOT_RUN_IN_CONTAINER /`
+- **Конкретное утверждение:** / MetaTrader build / NOT_RUN_IN_CONTAINER /.
+- **Конкретное значение:** / MetaTrader build / NOT_RUN_IN_CONTAINER /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/STAGE_1_2_4_1_EVIDENCE_RU.md` и `Docs/HYBRID_SPLIT_BIG_METAEDITOR_COMPILE.md` без profile/scope discriminator даёт два разных правила для темы «Python PASS versus MT5 NOT_RUN»; единая production-норма не определена.
+- **Статус:** `OPEN`
 - **Требуется решение пользователя:** `NO`
-- **Рекомендуемый этап разрешения:** `3.1.8`
-- **Временное правило:** `USE_ONLY_AS_EVIDENCE`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.8`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Python PASS versus MT5 NOT_RUN» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-030 — Production Ready versus missing broker evidence
 
-- **ID:** `HSB-DOC-CONFLICT-030`
-- **Краткое название:** Production Ready versus missing broker evidence
+- **Классификация результата:** `EVIDENCE_MISMATCH`
 - **Категория:** `READINESS`
-- **Подкатегория:** Production Ready versus missing broker evidence
-- **Сторона A:** `Docs/BIG_SMALL_PRODUCTION_READINESS_REPORT_RU.md`; раздел/контекст «Production Ready versus missing broker evidence»; фрагмент: `REAL_TRADING_ALLOWED=NO`.
-- **Сторона B:** `Docs/FULL_AUDIT_REPORT.md`; раздел/контекст «Production Ready versus missing broker evidence»; фрагмент: `static Verdict PASS`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DIFFERENT_EVIDENCE_LEVEL`
-- **Затрагиваемые сущности:** Production Ready versus missing broker evidence; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.8`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BIG_SMALL_PRODUCTION_READINESS_REPORT_RU.md`
+- **Раздел:** «Результат»
+- **Подраздел:** строка 34 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `REAL_TRADING_ALLOWED=NO`
+- **Конкретное утверждение:** REAL_TRADING_ALLOWED=NO.
+- **Конкретное значение:** REAL_TRADING_ALLOWED=NO
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/FULL_AUDIT_REPORT.md`
+- **Раздел:** «Full Audit Report — MinusLock_BigHarvest_EA Current Logic»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Audit date: 2026-06-15 UTC`
+- **Конкретное утверждение:** Audit date: 2026-06-15 UTC.
+- **Конкретное значение:** Audit date: 2026-06-15 UTC
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/BIG_SMALL_PRODUCTION_READINESS_REPORT_RU.md` и `Docs/FULL_AUDIT_REPORT.md` без profile/scope discriminator даёт два разных правила для темы «Production Ready versus missing broker evidence»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.8`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Production Ready versus missing broker evidence» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-031 — Legacy Split Hybrid terminology
 
-- **ID:** `HSB-DOC-CONFLICT-031`
-- **Краткое название:** Legacy Split Hybrid terminology
+- **Классификация результата:** `AUTHORITY_CONFLICT`
 - **Категория:** `LEGACY_MIXING`
-- **Подкатегория:** Legacy Split Hybrid terminology
-- **Сторона A:** `Docs/MANUAL.md`; раздел/контекст «Legacy Split Hybrid terminology»; фрагмент: `Legacy Big/Small/Far`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md`; раздел/контекст «Legacy Split Hybrid terminology»; фрагмент: `Hybrid Core/Trend/SmallBase`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `LEGACY_CONTAMINATION`
-- **Затрагиваемые сущности:** Legacy Split Hybrid terminology; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `BLOCKER`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Split Big Geometry stage 1: BigCore + BigTrend + SmallBase»
+- **Подраздел:** строка 991 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `## Split Big Geometry stage 1: BigCore + BigTrend + SmallBase`
+- **Конкретное утверждение:** ## Split Big Geometry stage 1: BigCore + BigTrend + SmallBase.
+- **Конкретное значение:** ## Split Big Geometry stage 1: BigCore + BigTrend + SmallBase
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md`
+- **Раздел:** «Область и назначение»
+- **Подраздел:** строка 6 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Far является единственным хвостом. BigCore и BigTrend направлены против Far,`
+- **Конкретное утверждение:** Far является единственным хвостом. BigCore и BigTrend направлены против Far,.
+- **Конкретное значение:** Far является единственным хвостом. BigCore и BigTrend направлены против Far,
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/MANUAL.md` и `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md` без profile/scope discriminator даёт два разных правила для темы «Legacy Split Hybrid terminology»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.3`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.8`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «Legacy Split Hybrid terminology» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-032 — Split test plan duplicate
 
-- **ID:** `HSB-DOC-CONFLICT-032`
-- **Краткое название:** Split test plan duplicate
+- **Классификация результата:** `DUPLICATION_WITH_DIFFERENCES`
 - **Категория:** `DUPLICATION`
-- **Подкатегория:** Split test plan duplicate
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md`; раздел/контекст «Split test plan duplicate»; фрагмент: `complete manual claim`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «Split test plan duplicate»; фрагмент: `separate MUST authority`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DUPLICATE_AUTHORITY`
-- **Затрагиваемые сущности:** Split test plan duplicate; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `LOW`
-- **Статус решения:** `DEFERRED_TO_STAGE_3_1_8`
+
+#### Сторона A
+- **Документ:** `Docs/SPLIT_GEOMETRY_TEST_PLAN.md`
+- **Раздел:** «Split Geometry Test Plan»
+- **Подраздел:** строка 1 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `# Split Geometry Test Plan`
+- **Конкретное утверждение:** # Split Geometry Test Plan.
+- **Конкретное значение:** # Split Geometry Test Plan
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/TEST_PLAN_SPLIT_GEOMETRY.md`
+- **Раздел:** «Split Geometry Test Plan»
+- **Подраздел:** строка 1 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `# Split Geometry Test Plan`
+- **Конкретное утверждение:** # Split Geometry Test Plan.
+- **Конкретное значение:** # Split Geometry Test Plan
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/SPLIT_GEOMETRY_TEST_PLAN.md` и `Docs/TEST_PLAN_SPLIT_GEOMETRY.md` без profile/scope discriminator даёт два разных правила для темы «Split test plan duplicate»; единая production-норма не определена.
+- **Статус:** `OPEN`
 - **Требуется решение пользователя:** `NO`
-- **Рекомендуемый этап разрешения:** `3.1.8`
-- **Временное правило:** `USE_ONLY_AS_EVIDENCE`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.8`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `LOW` выбран потому, что тема «Split test plan duplicate» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-033 — Reserve persistence
 
-- **ID:** `HSB-DOC-CONFLICT-033`
-- **Краткое название:** Reserve persistence
+- **Классификация результата:** `SCOPE_CONFLICT`
 - **Категория:** `PERSISTENCE`
-- **Подкатегория:** Reserve persistence
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; раздел/контекст «Reserve persistence»; фрагмент: `Hybrid fingerprint/revision`.
-- **Сторона B:** `Docs/SPLIT_BIG_EXACT_PERSISTENCE_REPORT_RU.md`; раздел/контекст «Reserve persistence»; фрагмент: `Split-only persistence evidence`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Reserve persistence; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`
+- **Раздел:** «1. `HybridCatchUpState`»
+- **Подраздел:** строка 16 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `double finalReserveReal; double carryAvailable;`
+- **Конкретное утверждение:** double finalReserveReal; double carryAvailable;.
+- **Конкретное значение:** double finalReserveReal; double carryAvailable;
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/SPLIT_BIG_EXACT_PERSISTENCE_REPORT_RU.md`
+- **Раздел:** «SplitGeometry Big — отчёт Этапа 4: точное persistence-восстановление»
+- **Подраздел:** строка 1 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `# SplitGeometry Big — отчёт Этапа 4: точное persistence-восстановление`
+- **Конкретное утверждение:** # SplitGeometry Big — отчёт Этапа 4: точное persistence-восстановление.
+- **Конкретное значение:** # SplitGeometry Big — отчёт Этапа 4: точное persistence-восстановление
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Execution lifecycle
+- **Фактическая цепь проверки:** persist confirmed reserve event→restart→rebuild event set→compare balance
+- Accepted request не равен actual position/deal result; partial/retry/restart требуют нового verified snapshot.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `Docs/SPLIT_BIG_EXACT_PERSISTENCE_REPORT_RU.md` без profile/scope discriminator даёт два разных правила для темы «Reserve persistence»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.8 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Reserve persistence» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-034 — Exactly-once Reserve credit
 
-- **ID:** `HSB-DOC-CONFLICT-034`
-- **Краткое название:** Exactly-once Reserve credit
+- **Классификация результата:** `AMBIGUITY`
 - **Категория:** `MONEY_LEDGER`
-- **Подкатегория:** Exactly-once Reserve credit
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`; раздел/контекст «Exactly-once Reserve credit»; фрагмент: `confirmed ledger conservation`.
-- **Сторона B:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Exactly-once Reserve credit»; фрагмент: `expanded event-key/bucket contract`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Exactly-once Reserve credit; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.5`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md`
+- **Раздел:** «Hybrid Split Big — Money Flow»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** ````text`
+- **Конкретное утверждение:** ```text.
+- **Конкретное значение:** ```text
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «17. Partial execution и reconciliation»
+- **Подраздел:** строка 481 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `4. применить idempotent confirmed ledger events exactly once;`
+- **Конкретное утверждение:** 4. применить idempotent confirmed ledger events exactly once;.
+- **Конкретное значение:** 4. применить idempotent confirmed ledger events exactly once;
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Денежная последовательность
+- Ledger event requires stable namespace/key and one commit outcome; replay after restart must be no-op.
+- **Rollback/exactly-once:** projected amount не коммитится; confirmed event обязан иметь idempotent key и reconciliation.
+- **Partial/Final связь:** buckets не взаимозаменяются без отдельного authority.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_MONEY_FLOW.md` и `Docs/BASKET_RISK_CONTRACT_RU.md` без profile/scope discriminator даёт два разных правила для темы «Exactly-once Reserve credit»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Exactly-once Reserve credit» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-035 — Partial fill
 
-- **ID:** `HSB-DOC-CONFLICT-035`
-- **Краткое название:** Partial fill
+- **Классификация результата:** `EVIDENCE_MISMATCH`
 - **Категория:** `EXECUTION`
-- **Подкатегория:** Partial fill
-- **Сторона A:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Partial fill»; фрагмент: `actual/reconciliation required`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md`; раздел/контекст «Partial fill»; фрагмент: `source claim without MT5 runtime proof`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `PLANNED_VS_EXECUTED`
-- **Затрагиваемые сущности:** Partial fill; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «2. Нормативная иерархия»
+- **Подраздел:** строка 23 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ 7 / status/evidence reports / Только доказанность: PASS/PARTIAL/UNKNOWN/NOT_RUN /`
+- **Конкретное утверждение:** / 7 / status/evidence reports / Только доказанность: PASS/PARTIAL/UNKNOWN/NOT_RUN /.
+- **Конкретное значение:** / 7 / status/evidence reports / Только доказанность: PASS/PARTIAL/UNKNOWN/NOT_RUN /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md`
+- **Раздел:** «Реализовано в pre-open evaluator»
+- **Подраздел:** строка 10 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `* Добавлены отдельные Hybrid inputs `HybridPartialFarShare`, `HybridFinalReserveShare`, `HybridCarryShare`.`
+- **Конкретное утверждение:** * Добавлены отдельные Hybrid inputs `HybridPartialFarShare`, `HybridFinalReserveShare`, `HybridCarryShare`..
+- **Конкретное значение:** * Добавлены отдельные Hybrid inputs `HybridPartialFarShare`, `HybridFinalReserveShare`, `HybridCarryShare`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Execution lifecycle
+- **Фактическая цепь проверки:** request→partial fill detection→block opens→reconciliation
+- Accepted request не равен actual position/deal result; partial/retry/restart требуют нового verified snapshot.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/BASKET_RISK_CONTRACT_RU.md` и `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md` без profile/scope discriminator даёт два разных правила для темы «Partial fill»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.8`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Partial fill» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-036 — Retry idempotency
 
-- **ID:** `HSB-DOC-CONFLICT-036`
-- **Краткое название:** Retry idempotency
+- **Классификация результата:** `SCOPE_CONFLICT`
 - **Категория:** `EXECUTION`
-- **Подкатегория:** Retry idempotency
-- **Сторона A:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Retry idempotency»; фрагмент: `actual/reconciliation required`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md`; раздел/контекст «Retry idempotency»; фрагмент: `source claim without MT5 runtime proof`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `PLANNED_VS_EXECUTED`
-- **Затрагиваемые сущности:** Retry idempotency; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «17. Partial execution и reconciliation»
+- **Подраздел:** строка 486 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Risk-reducing retry может продолжить только заранее определённый close route с actual ticket/volume и duplicate guard; он не разрешает новый open. Если reconciliation невозможно, результат ERROR/TERMINAL/manual intervention согласно существующему lifecycle.`
+- **Конкретное утверждение:** Risk-reducing retry может продолжить только заранее определённый close route с actual ticket/volume и duplicate guard; он не разрешает новый open. Если reconciliation невозможно, результат ERROR/TERMINAL/manual intervention согласно существующему lifecycle..
+- **Конкретное значение:** Risk-reducing retry может продолжить только заранее определённый close route с actual ticket/volume и duplicate guard; он не разрешает новый open. Если reconciliation невозможно, результат ERROR/TERMINAL/manual intervention согласно существующему lifecycle.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md`
+- **Раздел:** «Статус»
+- **Подраздел:** строка 5 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** ``HYBRID_PREOPEN_DECISION_ENGINE_NOT_READY` до подтверждённой компиляции MetaEditor `0 errors / 0 warnings`.`
+- **Конкретное утверждение:** `HYBRID_PREOPEN_DECISION_ENGINE_NOT_READY` до подтверждённой компиляции MetaEditor `0 errors / 0 warnings`..
+- **Конкретное значение:** `HYBRID_PREOPEN_DECISION_ENGINE_NOT_READY` до подтверждённой компиляции MetaEditor `0 errors / 0 warnings`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Execution lifecycle
+- **Фактическая цепь проверки:** retry key→duplicate lookup→single action→confirmed result
+- Accepted request не равен actual position/deal result; partial/retry/restart требуют нового verified snapshot.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/BASKET_RISK_CONTRACT_RU.md` и `Docs/HYBRID_SPLIT_BIG_IMPLEMENTATION_REPORT_RU.md` без profile/scope discriminator даёт два разных правила для темы «Retry idempotency»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.8 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Retry idempotency» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-037 — Restart reconciliation
 
-- **ID:** `HSB-DOC-CONFLICT-037`
-- **Краткое название:** Restart reconciliation
+- **Классификация результата:** `SCOPE_CONFLICT`
 - **Категория:** `RECONCILIATION`
-- **Подкатегория:** Restart reconciliation
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; раздел/контекст «Restart reconciliation»; фрагмент: `Hybrid freshness/state`.
-- **Сторона B:** `Docs/PERSISTENCE_AND_CLEAN_START_FINAL_REPORT_RU.md`; раздел/контекст «Restart reconciliation»; фрагмент: `Legacy RecoveryContext`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Restart reconciliation; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`
+- **Раздел:** «1. `HybridCatchUpState`»
+- **Подраздел:** строка 36 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ realizedCyclePL / account money, confirmed/projected deals / own / `+HarvestNet+PartialFarNet` / да / да / reconciliation /`
+- **Конкретное утверждение:** / realizedCyclePL / account money, confirmed/projected deals / own / `+HarvestNet+PartialFarNet` / да / да / reconciliation /.
+- **Конкретное значение:** / realizedCyclePL / account money, confirmed/projected deals / own / `+HarvestNet+PartialFarNet` / да / да / reconciliation /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/PERSISTENCE_AND_CLEAN_START_FINAL_REPORT_RU.md`
+- **Раздел:** «Итоговый отчёт безопасности persistence»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `START_SHA=7e24c34d08fb1cd35e810ac208eb9d181c3b84a4`
+- **Конкретное утверждение:** START_SHA=7e24c34d08fb1cd35e810ac208eb9d181c3b84a4.
+- **Конкретное значение:** START_SHA=7e24c34d08fb1cd35e810ac208eb9d181c3b84a4
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Execution lifecycle
+- **Фактическая цепь проверки:** persist state/revision→restart→resolve positions/deals→reconciliation outcome
+- Accepted request не равен actual position/deal result; partial/retry/restart требуют нового verified snapshot.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `Docs/PERSISTENCE_AND_CLEAN_START_FINAL_REPORT_RU.md` без profile/scope discriminator даёт два разных правила для темы «Restart reconciliation»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.8 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `MEDIUM` выбран потому, что тема «Restart reconciliation» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-038 — Final Close partial execution
 
-- **ID:** `HSB-DOC-CONFLICT-038`
-- **Краткое название:** Final Close partial execution
+- **Классификация результата:** `AMBIGUITY`
 - **Категория:** `FINAL_CLOSE`
-- **Подкатегория:** Final Close partial execution
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; раздел/контекст «Final Close partial execution»; фрагмент: `FINAL_CLOSE_PREVIEW_REQUIRED`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Final Close partial execution»; фрагмент: `FinalCloseAllowed near CLOSED_PROFIT`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `PREVIEW_VS_ACTUAL`
-- **Затрагиваемые сущности:** Final Close partial execution; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`
+- **Раздел:** «Hybrid Split Big — нормативная временная модель Catch-Up»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `**Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state.`
+- **Конкретное утверждение:** **Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state..
+- **Конкретное значение:** **Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «V2.4.11 Actual Volume After Partial Close»
+- **Подраздел:** строка 666 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `This rule now covers BigHarvest Far budget closes, Small Reverse Big partial closes, and retry paths. Full Far closes also verify that MT5 reports zero remaining volume before clearing context; otherwise the EA logs `FULL_CLOSE_INCOMPLETE` and retries instead `
+- **Конкретное утверждение:** This rule now covers BigHarvest Far budget closes, Small Reverse Big partial closes, and retry paths. Full Far closes also verify that MT5 reports zero remaining volume before clearing context; otherwise the EA logs `FULL_CLOSE_INCOMPLETE` and retries instead .
+- **Конкретное значение:** This rule now covers BigHarvest Far budget closes, Small Reverse Big partial closes, and retry paths. Full Far closes also verify that MT5 reports zero remaining volume before clearing context; otherwise the EA logs `FULL_CLOSE_INCOMPLETE` and retries instead
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Execution lifecycle
+- **Фактическая цепь проверки:** final-close request→actual residual check→retry/reconcile→zero positions confirmation
+- Accepted request не равен actual position/deal result; partial/retry/restart требуют нового verified snapshot.
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Final Close partial execution»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Final Close partial execution» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-039 — MaxHarvestLevels behavior
 
-- **ID:** `HSB-DOC-CONFLICT-039`
-- **Краткое название:** MaxHarvestLevels behavior
+- **Классификация результата:** `ORDERING_CONFLICT`
 - **Категория:** `STATE_MACHINE`
-- **Подкатегория:** MaxHarvestLevels behavior
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; раздел/контекст «MaxHarvestLevels behavior»; фрагмент: `StateBefore/After revision`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «MaxHarvestLevels behavior»; фрагмент: `Legacy terminal state namespace`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** MaxHarvestLevels behavior; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`
+- **Раздел:** «Hybrid Split Big — нормативная временная модель Catch-Up»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `**Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state.`
+- **Конкретное утверждение:** **Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state..
+- **Конкретное значение:** **Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «2. Параметры»
+- **Подраздел:** строка 31 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `MaxHarvestLevels = 7`
+- **Конкретное утверждение:** MaxHarvestLevels = 7.
+- **Конкретное значение:** MaxHarvestLevels = 7
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «MaxHarvestLevels behavior»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
 - **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+- **Этап разрешения:** `3.1.6`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `CRITICAL` выбран потому, что тема «MaxHarvestLevels behavior» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-040 — Reverse limit behavior
 
-- **ID:** `HSB-DOC-CONFLICT-040`
-- **Краткое название:** Reverse limit behavior
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `STATE_MACHINE`
-- **Подкатегория:** Reverse limit behavior
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; раздел/контекст «Reverse limit behavior»; фрагмент: `StateBefore/After revision`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Reverse limit behavior»; фрагмент: `Legacy terminal state namespace`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Reverse limit behavior; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`
+- **Раздел:** «Hybrid Split Big — нормативная временная модель Catch-Up»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `**Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state.`
+- **Конкретное утверждение:** **Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state..
+- **Конкретное значение:** **Статус:** `NORMATIVE`. Единственный нормативный источник временной семантики Big Harvest. Модель строго последовательная, не alternative-price. Каждый level закрывает только существующие в его `StateBefore` рабочие позиции, после чего строит новый state.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Параметры защиты»
+- **Подраздел:** строка 175 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `input int MaxReverseCycles = 3;`
+- **Конкретное утверждение:** input int MaxReverseCycles = 3;.
+- **Конкретное значение:** input int MaxReverseCycles = 3;
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Reverse limit behavior»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Reverse limit behavior» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-041 — Invalid geometry behavior
 
-- **ID:** `HSB-DOC-CONFLICT-041`
-- **Краткое название:** Invalid geometry behavior
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `STATE_MACHINE`
-- **Подкатегория:** Invalid geometry behavior
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`; раздел/контекст «Invalid geometry behavior»; фрагмент: `StateBefore/After revision`.
-- **Сторона B:** `Docs/MANUAL.md`; раздел/контекст «Invalid geometry behavior»; фрагмент: `Legacy terminal state namespace`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Invalid geometry behavior; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.6`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md`
+- **Раздел:** «14. Result, terminal and reason contract»
+- **Подраздел:** строка 148 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Full-Far affordability routes to `CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW`; invalid residual to `CATCHUP_REJECT_INVALID_FAR_REMAINDER`; component min-volume to `CATCHUP_TERMINAL_MIN_VOLUME`. Other exact failures: `CATCHUP_STATE_INVALID`, `CATCHUP_TRIGGER_INVALID``
+- **Конкретное утверждение:** Full-Far affordability routes to `CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW`; invalid residual to `CATCHUP_REJECT_INVALID_FAR_REMAINDER`; component min-volume to `CATCHUP_TERMINAL_MIN_VOLUME`. Other exact failures: `CATCHUP_STATE_INVALID`, `CATCHUP_TRIGGER_INVALID`.
+- **Конкретное значение:** Full-Far affordability routes to `CATCHUP_REQUIRES_FINAL_CLOSE_PREVIEW`; invalid residual to `CATCHUP_REJECT_INVALID_FAR_REMAINDER`; component min-volume to `CATCHUP_TERMINAL_MIN_VOLUME`. Other exact failures: `CATCHUP_STATE_INVALID`, `CATCHUP_TRIGGER_INVALID`
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/MANUAL.md`
+- **Раздел:** «Параметры защиты»
+- **Подраздел:** строка 180 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `input bool StopOnInvalidReverseGeometry = true;`
+- **Конкретное утверждение:** input bool StopOnInvalidReverseGeometry = true;.
+- **Конкретное значение:** input bool StopOnInvalidReverseGeometry = true;
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_CATCHUP_TEMPORAL_MODEL_RU.md` и `Docs/MANUAL.md` без profile/scope discriminator даёт два разных правила для темы «Invalid geometry behavior»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Invalid geometry behavior» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-042 — Basket Risk preview versus execution
 
-- **ID:** `HSB-DOC-CONFLICT-042`
-- **Краткое название:** Basket Risk preview versus execution
+- **Классификация результата:** `NO_DIRECT_CONFLICT_FOUND`
 - **Категория:** `RISK`
-- **Подкатегория:** Basket Risk preview versus execution
-- **Сторона A:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Basket Risk preview versus execution»; фрагмент: `Cycle/Account/freshness gates`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`; раздел/контекст «Basket Risk preview versus execution»; фрагмент: `analytical laws only`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Basket Risk preview versus execution; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.8`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «Basket Risk — нормативный контракт Этапа 2.0»
+- **Подраздел:** строка 1 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `# Basket Risk — нормативный контракт Этапа 2.0`
+- **Конкретное утверждение:** # Basket Risk — нормативный контракт Этапа 2.0.
+- **Конкретное значение:** # Basket Risk — нормативный контракт Этапа 2.0
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`
+- **Раздел:** «Глава 4. Абсолютный и относительный P/L — уровень A»
+- **Подраздел:** строка 43 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** ``PLbasket(x)=PLbasket0+(C+T-S-F)Vx`, где `PLbasket0=PLF0+PLC0+PLT0+PLS0`.`
+- **Конкретное утверждение:** `PLbasket(x)=PLbasket0+(C+T-S-F)Vx`, где `PLbasket0=PLF0+PLC0+PLT0+PLS0`..
+- **Конкретное значение:** `PLbasket(x)=PLbasket0+(C+T-S-F)Vx`, где `PLbasket0=PLF0+PLC0+PLT0+PLS0`.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Стороны описывают разные последовательные уровни или scope и могут сосуществовать; ни одно из приведённых утверждений явно не отрицает другое.
+- **Статус:** `NO_DIRECT_CONFLICT_FOUND`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `не требуется; сохранить результат проверки`
+- **Результат:** Проверка темы завершена: прямого междокументного противоречия не найдено; запись не является основанием для пользовательского выбора.
+- **Почему выбран именно этот уровень критичности:** `INFORMATIONAL` выбран потому, что тема «Basket Risk preview versus execution» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-043 — Cycle versus account risk
 
-- **ID:** `HSB-DOC-CONFLICT-043`
-- **Краткое название:** Cycle versus account risk
+- **Классификация результата:** `MISSING_DEFINITION`
 - **Категория:** `RISK`
-- **Подкатегория:** Cycle versus account risk
-- **Сторона A:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Cycle versus account risk»; фрагмент: `Cycle/Account/freshness gates`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`; раздел/контекст «Cycle versus account risk»; фрагмент: `analytical laws only`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Cycle versus account risk; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `HIGH`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.8`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «3. Термины и соответствие существующей системе»
+- **Подраздел:** строка 42 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ Cycle Basket Risk / новый будущий слой / Aggregate только активного Symbol+Magic+CycleID /`
+- **Конкретное утверждение:** / Cycle Basket Risk / новый будущий слой / Aggregate только активного Symbol+Magic+CycleID /.
+- **Конкретное значение:** / Cycle Basket Risk / новый будущий слой / Aggregate только активного Symbol+Magic+CycleID /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`
+- **Раздел:** «Глава 2. Словарь, типы и размерности»
+- **Подраздел:** строка 33 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ `CycleID` [STATE] / `cycleId` / ulong / неизменен внутри цикла; mismatch = ERROR /`
+- **Конкретное утверждение:** / `CycleID` [STATE] / `cycleId` / ulong / неизменен внутри цикла; mismatch = ERROR /.
+- **Конкретное значение:** / `CycleID` [STATE] / `cycleId` / ulong / неизменен внутри цикла; mismatch = ERROR /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/BASKET_RISK_CONTRACT_RU.md` и `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md` без profile/scope discriminator даёт два разных правила для темы «Cycle versus account risk»; единая production-норма не определена.
+- **Статус:** `OPEN`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `3.1.3–3.1.6 по теме`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `HIGH` выбран потому, что тема «Cycle versus account risk» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-044 — Terminal-safe versus mathematically-safe
 
-- **ID:** `HSB-DOC-CONFLICT-044`
-- **Краткое название:** Terminal-safe versus mathematically-safe
+- **Классификация результата:** `NO_DIRECT_CONFLICT_FOUND`
 - **Категория:** `RISK`
-- **Подкатегория:** Terminal-safe versus mathematically-safe
-- **Сторона A:** `Docs/BASKET_RISK_CONTRACT_RU.md`; раздел/контекст «Terminal-safe versus mathematically-safe»; фрагмент: `Cycle/Account/freshness gates`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`; раздел/контекст «Terminal-safe versus mathematically-safe»; фрагмент: `analytical laws only`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `AMBIGUOUS_DEFINITION`
-- **Затрагиваемые сущности:** Terminal-safe versus mathematically-safe; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `CRITICAL`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.8`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
+
+#### Сторона A
+- **Документ:** `Docs/BASKET_RISK_CONTRACT_RU.md`
+- **Раздел:** «5. Место в gate graph»
+- **Подраздел:** строка 69 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `→ RISK → MARGIN → WORST_CASE → FUTURE_SMALL`
+- **Конкретное утверждение:** → RISK → MARGIN → WORST_CASE → FUTURE_SMALL.
+- **Конкретное значение:** → RISK → MARGIN → WORST_CASE → FUTURE_SMALL
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`
+- **Раздел:** «Глава 2. Словарь, типы и размерности»
+- **Подраздел:** строка 31 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `/ `Risk` [MONEY] / `OldRisk`, `NextRisk` / double / worst-case loss до контрольной цены; неотрицателен /`
+- **Конкретное утверждение:** / `Risk` [MONEY] / `OldRisk`, `NextRisk` / double / worst-case loss до контрольной цены; неотрицателен /.
+- **Конкретное значение:** / `Risk` [MONEY] / `OldRisk`, `NextRisk` / double / worst-case loss до контрольной цены; неотрицателен /
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Стороны описывают разные последовательные уровни или scope и могут сосуществовать; ни одно из приведённых утверждений явно не отрицает другое.
+- **Статус:** `NO_DIRECT_CONFLICT_FOUND`
+- **Требуется решение пользователя:** `NO`
+- **Этап разрешения:** `не требуется; сохранить результат проверки`
+- **Результат:** Проверка темы завершена: прямого междокументного противоречия не найдено; запись не является основанием для пользовательского выбора.
+- **Почему выбран именно этот уровень критичности:** `INFORMATIONAL` выбран потому, что тема «Terminal-safe versus mathematically-safe» создаёт ограниченный scope/evidence gap без доказанного немедленного runtime ущерба.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
 
 ### HSB-DOC-CONFLICT-045 — Source-of-truth competition
 
-- **ID:** `HSB-DOC-CONFLICT-045`
-- **Краткое название:** Source-of-truth competition
+- **Классификация результата:** `AUTHORITY_CONFLICT`
 - **Категория:** `DUPLICATION`
-- **Подкатегория:** Source-of-truth competition
-- **Сторона A:** `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md`; раздел/контекст «Source-of-truth competition»; фрагмент: `complete manual claim`.
-- **Сторона B:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`; раздел/контекст «Source-of-truth competition»; фрагмент: `separate MUST authority`.
-- **Суть противоречия:** различаются value, scope, evidence либо semantics; нормативная сторона не выбирается.
-- **Тип расхождения:** `DUPLICATE_AUTHORITY`
-- **Затрагиваемые сущности:** Source-of-truth competition; lots, money, geometry, state или execution.
-- **Влияние на систему:** возможны разные lots, ledger, geometry, states, margin, recovery, final close, restart или broker execution.
-- **Критичность:** `BLOCKER`
-- **Статус решения:** `NEEDS_USER_DECISION`
-- **Требуется решение пользователя:** `YES`
-- **Рекомендуемый этап разрешения:** `3.1.8`
-- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION`
-- **Примечание:** runtime change запрещён; требуется cross-check formulas, units, profile и evidence.
 
-## 4. Индекс конфликтов по документам
+#### Сторона A
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md`
+- **Раздел:** «Three laws»
+- **Подраздел:** строка 41 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Law 1: projected coverage slope is `ReserveShare*(C+T-S)` and must exceed F.`
+- **Конкретное утверждение:** Law 1: projected coverage slope is `ReserveShare*(C+T-S)` and must exceed F..
+- **Конкретное значение:** Law 1: projected coverage slope is `ReserveShare*(C+T-S)` and must exceed F.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; смешение единиц не предполагается.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+#### Сторона B
+- **Документ:** `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md`
+- **Раздел:** «Hybrid Split Big — System Invariants»
+- **Подраздел:** строка 3 / ближайший уникальный контекст
+- **Уникальный маркер или формула:** `Нарушение любого `MUST` запрещает необратимое действие и переводит результат в reject/error/reconciliation. Safe default не заменяет failed invariant.`
+- **Конкретное утверждение:** Нарушение любого `MUST` запрещает необратимое действие и переводит результат в reject/error/reconciliation. Safe default не заменяет failed invariant..
+- **Конкретное значение:** Нарушение любого `MUST` запрещает необратимое действие и переводит результат в reject/error/reconciliation. Safe default не заменяет failed invariant.
+- **Единица измерения:** определяется маркером: ratio/lot/money/state/evidence; не переносится между scope.
+- **Профиль или режим:** профиль и evidence scope указан самим документом.
+- **Контекст применения:** только область раздела и архитектурное поколение документа.
+
+
+#### Вывод проверки
+- **Точная несовместимость:** Одновременное применение утверждений из `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md` и `Docs/HYBRID_SPLIT_BIG_SYSTEM_INVARIANTS.md` без profile/scope discriminator даёт два разных правила для темы «Source-of-truth competition»; единая production-норма не определена.
+- **Статус:** `NEEDS_USER_DECISION`
+- **Требуется решение пользователя:** `YES`
+- **Этап разрешения:** `3.1.8`
+- **Результат:** До указанного этапа оба варианта запрещено использовать как единое runtime-разрешение.
+- **Почему выбран именно этот уровень критичности:** `BLOCKER` выбран потому, что тема «Source-of-truth competition» блокирует следующий нормативный документ или способна изменить lot/money/state.
+- **Временное правило:** `DO_NOT_USE_FOR_IMPLEMENTATION` для открытого конфликта; `USE_ONLY_AS_EVIDENCE` для результата без прямого конфликта.
+
+## 3. Индекс по документам
 
 ### `Docs/BASKET_RISK_CONTRACT_RU.md`
 - HSB-DOC-CONFLICT-014
@@ -959,7 +1953,6 @@ Parent SHA: `46c06df624e09589c5bf95c597b2a0be55ebf5a8`
 
 ### `Docs/HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md`
 - HSB-DOC-CONFLICT-031
-- HSB-DOC-CONFLICT-032
 - HSB-DOC-CONFLICT-045
 
 ### `Docs/HYBRID_SPLIT_BIG_FORMULA_REFERENCE.md`
@@ -995,7 +1988,6 @@ Parent SHA: `46c06df624e09589c5bf95c597b2a0be55ebf5a8`
 - HSB-DOC-CONFLICT-020
 - HSB-DOC-CONFLICT-022
 - HSB-DOC-CONFLICT-028
-- HSB-DOC-CONFLICT-032
 - HSB-DOC-CONFLICT-045
 
 ### `Docs/HYBRID_SPLIT_BIG_THREE_LAWS_MATH_MANUAL_RU.md`
@@ -1045,206 +2037,104 @@ Parent SHA: `46c06df624e09589c5bf95c597b2a0be55ebf5a8`
 ### `Docs/SPLIT_BIG_EXACT_PERSISTENCE_REPORT_RU.md`
 - HSB-DOC-CONFLICT-033
 
+### `Docs/SPLIT_GEOMETRY_TEST_PLAN.md`
+- HSB-DOC-CONFLICT-032
+
 ### `Docs/STAGE_1_2_4_1_EVIDENCE_RU.md`
 - HSB-DOC-CONFLICT-029
 
-## 5. Индекс конфликтов по подсистемам
+### `Docs/TEST_PLAN_SPLIT_GEOMETRY.md`
+- HSB-DOC-CONFLICT-032
 
-- **Terminology:** HSB-DOC-CONFLICT-031
-- **Parameters:** HSB-DOC-CONFLICT-031
-- **Geometry:** HSB-DOC-CONFLICT-020, HSB-DOC-CONFLICT-022, HSB-DOC-CONFLICT-041
-- **Big Scenario:** HSB-DOC-CONFLICT-001, HSB-DOC-CONFLICT-003, HSB-DOC-CONFLICT-004, HSB-DOC-CONFLICT-021, HSB-DOC-CONFLICT-022, HSB-DOC-CONFLICT-024
-- **Small Scenario:** HSB-DOC-CONFLICT-002, HSB-DOC-CONFLICT-003, HSB-DOC-CONFLICT-004, HSB-DOC-CONFLICT-007, HSB-DOC-CONFLICT-018, HSB-DOC-CONFLICT-019, HSB-DOC-CONFLICT-023, HSB-DOC-CONFLICT-024
-- **Reserve:** HSB-DOC-CONFLICT-006, HSB-DOC-CONFLICT-007, HSB-DOC-CONFLICT-008, HSB-DOC-CONFLICT-009, HSB-DOC-CONFLICT-015, HSB-DOC-CONFLICT-025, HSB-DOC-CONFLICT-033, HSB-DOC-CONFLICT-034
-- **RecoveryPL:** HSB-DOC-CONFLICT-009, HSB-DOC-CONFLICT-010, HSB-DOC-CONFLICT-011, HSB-DOC-CONFLICT-012
-- **Partial Far:** HSB-DOC-CONFLICT-008, HSB-DOC-CONFLICT-019, HSB-DOC-CONFLICT-035, HSB-DOC-CONFLICT-038
-- **Final Close:** HSB-DOC-CONFLICT-017, HSB-DOC-CONFLICT-038
-- **StateMachine:** HSB-DOC-CONFLICT-037
-- **Execution:** HSB-DOC-CONFLICT-016, HSB-DOC-CONFLICT-027, HSB-DOC-CONFLICT-035, HSB-DOC-CONFLICT-036, HSB-DOC-CONFLICT-038, HSB-DOC-CONFLICT-042
-- **Persistence:** HSB-DOC-CONFLICT-033
-- **Reconciliation:** HSB-DOC-CONFLICT-037
-- **Basket Risk:** HSB-DOC-CONFLICT-042
-- **Testing:** HSB-DOC-CONFLICT-022
-- **Production Readiness:** HSB-DOC-CONFLICT-030
-- **Legacy/Split/Hybrid separation:** HSB-DOC-CONFLICT-001
+## 4. Покрытие обязательных тем
 
-## 6. Матрица документов-авторитетов
-
-| Тема | Конкурирующие документы | Вес | Конфликт | ID | Действие |
-|---|---|---|---|---|---|
-| Big lot | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-001 и связанные | Не выбирать authority |
-| Small lot | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-002 и связанные | Не выбирать authority |
-| Big close | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-003 и связанные | Не выбирать authority |
-| Small close | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-004 и связанные | Не выбирать authority |
-| Far partial | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-005 и связанные | Не выбирать authority |
-| New Far | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-006 и связанные | Не выбирать authority |
-| Reserve allocation | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-007 и связанные | Не выбирать authority |
-| RecoveryPL | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-008 и связанные | Не выбирать authority |
-| ReserveCoverage | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-009 и связанные | Не выбирать authority |
-| Final Close | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-010 и связанные | Не выбирать authority |
-| Reverse | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-011 и связанные | Не выбирать authority |
-| State transition | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-012 и связанные | Не выбирать authority |
-| Restart | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-013 и связанные | Не выбирать authority |
-| Execution confirmation | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-014 и связанные | Не выбирать authority |
-| Broker margin | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-015 и связанные | Не выбирать authority |
-| Test readiness | manual/invariants/formula/report | preliminary/mixed | YES | HSB-DOC-CONFLICT-016 и связанные | Не выбирать authority |
-
-## 7. Duplicate clusters
-
-### HSB-DOC-DUPLICATE-001
-
-- **Список файлов/тема:** Hybrid authorities.
-- **Совпадающие разделы:** terminology, formulas, gates или evidence.
-- **Различающиеся части:** scope, status, profiles и detail.
-- **Назначение:** manual/proof/report/test по своему scope.
-- **Риск параллельной нормативности:** разные implementations. 
-- **Связанные conflict-ID:** HSB-DOC-CONFLICT-001 и смежные.
-
-### HSB-DOC-DUPLICATE-002
-
-- **Список файлов/тема:** Three Laws proofs.
-- **Совпадающие разделы:** terminology, formulas, gates или evidence.
-- **Различающиеся части:** scope, status, profiles и detail.
-- **Назначение:** manual/proof/report/test по своему scope.
-- **Риск параллельной нормативности:** разные implementations. 
-- **Связанные conflict-ID:** HSB-DOC-CONFLICT-008 и смежные.
-
-### HSB-DOC-DUPLICATE-003
-
-- **Список файлов/тема:** Split test plans.
-- **Совпадающие разделы:** terminology, formulas, gates или evidence.
-- **Различающиеся части:** scope, status, profiles и detail.
-- **Назначение:** manual/proof/report/test по своему scope.
-- **Риск параллельной нормативности:** разные implementations. 
-- **Связанные conflict-ID:** HSB-DOC-CONFLICT-015 и смежные.
-
-### HSB-DOC-DUPLICATE-004
-
-- **Список файлов/тема:** Legacy/Split/Hybrid manuals.
-- **Совпадающие разделы:** terminology, formulas, gates или evidence.
-- **Различающиеся части:** scope, status, profiles и detail.
-- **Назначение:** manual/proof/report/test по своему scope.
-- **Риск параллельной нормативности:** разные implementations. 
-- **Связанные conflict-ID:** HSB-DOC-CONFLICT-022 и смежные.
-
-### HSB-DOC-DUPLICATE-005
-
-- **Список файлов/тема:** Readiness reports.
-- **Совпадающие разделы:** terminology, formulas, gates или evidence.
-- **Различающиеся части:** scope, status, profiles и detail.
-- **Назначение:** manual/proof/report/test по своему scope.
-- **Риск параллельной нормативности:** разные implementations. 
-- **Связанные conflict-ID:** HSB-DOC-CONFLICT-029 и смежные.
-
-### HSB-DOC-DUPLICATE-006
-
-- **Список файлов/тема:** Basket Risk documents.
-- **Совпадающие разделы:** terminology, formulas, gates или evidence.
-- **Различающиеся части:** scope, status, profiles и detail.
-- **Назначение:** manual/proof/report/test по своему scope.
-- **Риск параллельной нормативности:** разные implementations. 
-- **Связанные conflict-ID:** HSB-DOC-CONFLICT-036 и смежные.
-
-## 8. Покрытие 45 обязательных тем
-
-| № | Тема | Результат | ID |
+| № | ID | Тема | Результат |
 |---:|---|---|---|
-| 1 | BigRatio values | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-001 |
-| 2 | SmallRatio values | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-002 |
-| 3 | CloseBigOnSmall values | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-003 |
-| 4 | RemainBigOnSmall values | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-004 |
-| 5 | CloseFarShare values | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-005 |
-| 6 | ReserveShare values | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-006 |
-| 7 | SmallReserveShare values | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-007 |
-| 8 | Reserve in Partial Far | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-008 |
-| 9 | RecoveryPL includes Reserve | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-009 |
-| 10 | RecoveryPL includes Initial Plus | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-010 |
-| 11 | RecoveryPL Symbol filter | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-011 |
-| 12 | RecoveryPL Magic filter | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-012 |
-| 13 | Gross versus Net Profit | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-013 |
-| 14 | Commission swap fee | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-014 |
-| 15 | Projected versus Realized Reserve | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-015 |
-| 16 | Planned versus actual close result | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-016 |
-| 17 | Final Close preview versus actual success | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-017 |
-| 18 | Small close trigger | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-018 |
-| 19 | Old Far full versus partial close | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-019 |
-| 20 | New Far source | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-020 |
-| 21 | Next Big base | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-021 |
-| 22 | new Big less than old Far | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-022 |
-| 23 | Negative Small Reverse Net | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-023 |
-| 24 | Small Far Big close order | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-024 |
-| 25 | Reserve credit order | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-025 |
-| 26 | State transition order | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-026 |
-| 27 | Requested versus executed volume | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-027 |
-| 28 | FLOOR CEILING NEAREST | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-028 |
-| 29 | Python PASS versus MT5 NOT_RUN | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-029 |
-| 30 | Production Ready versus missing broker evidence | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-030 |
-| 31 | Legacy Split Hybrid terminology | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-031 |
-| 32 | Split test plan duplicate | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-032 |
-| 33 | Reserve persistence | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-033 |
-| 34 | Exactly-once Reserve credit | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-034 |
-| 35 | Partial fill | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-035 |
-| 36 | Retry idempotency | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-036 |
-| 37 | Restart reconciliation | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-037 |
-| 38 | Final Close partial execution | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-038 |
-| 39 | MaxHarvestLevels behavior | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-039 |
-| 40 | Reverse limit behavior | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-040 |
-| 41 | Invalid geometry behavior | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-041 |
-| 42 | Basket Risk preview versus execution | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-042 |
-| 43 | Cycle versus account risk | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-043 |
-| 44 | Terminal-safe versus mathematically-safe | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-044 |
-| 45 | Source-of-truth competition | CONFLICT_REGISTERED | HSB-DOC-CONFLICT-045 |
+| 1 | HSB-DOC-CONFLICT-001 | BigRatio values | PARAMETER_PROFILE_CONFLICT |
+| 2 | HSB-DOC-CONFLICT-002 | SmallRatio values | PARAMETER_PROFILE_CONFLICT |
+| 3 | HSB-DOC-CONFLICT-003 | CloseBigOnSmall values | PARAMETER_PROFILE_CONFLICT |
+| 4 | HSB-DOC-CONFLICT-004 | RemainBigOnSmall values | PARAMETER_PROFILE_CONFLICT |
+| 5 | HSB-DOC-CONFLICT-005 | CloseFarShare values | PARAMETER_PROFILE_CONFLICT |
+| 6 | HSB-DOC-CONFLICT-006 | ReserveShare values | PARAMETER_PROFILE_CONFLICT |
+| 7 | HSB-DOC-CONFLICT-007 | SmallReserveShare values | PARAMETER_PROFILE_CONFLICT |
+| 8 | HSB-DOC-CONFLICT-008 | Reserve in Partial Far | SCOPE_CONFLICT |
+| 9 | HSB-DOC-CONFLICT-009 | RecoveryPL includes Reserve | NO_DIRECT_CONFLICT_FOUND |
+| 10 | HSB-DOC-CONFLICT-010 | RecoveryPL includes Initial Plus | NO_DIRECT_CONFLICT_FOUND |
+| 11 | HSB-DOC-CONFLICT-011 | RecoveryPL Symbol filter | MISSING_DEFINITION |
+| 12 | HSB-DOC-CONFLICT-012 | RecoveryPL Magic filter | MISSING_DEFINITION |
+| 13 | HSB-DOC-CONFLICT-013 | Gross versus Net Profit | FORMULA_CONFLICT |
+| 14 | HSB-DOC-CONFLICT-014 | Commission swap fee | MISSING_DEFINITION |
+| 15 | HSB-DOC-CONFLICT-015 | Projected versus Realized Reserve | SCOPE_CONFLICT |
+| 16 | HSB-DOC-CONFLICT-016 | Planned versus actual close result | NO_DIRECT_CONFLICT_FOUND |
+| 17 | HSB-DOC-CONFLICT-017 | Final Close preview versus actual success | AMBIGUITY |
+| 18 | HSB-DOC-CONFLICT-018 | Small close trigger | SCOPE_CONFLICT |
+| 19 | HSB-DOC-CONFLICT-019 | Old Far full versus partial close | SCOPE_CONFLICT |
+| 20 | HSB-DOC-CONFLICT-020 | New Far source | AUTHORITY_CONFLICT |
+| 21 | HSB-DOC-CONFLICT-021 | Next Big base | SCOPE_CONFLICT |
+| 22 | HSB-DOC-CONFLICT-022 | new Big less than old Far | MISSING_DEFINITION |
+| 23 | HSB-DOC-CONFLICT-023 | Negative Small Reverse Net | MISSING_DEFINITION |
+| 24 | HSB-DOC-CONFLICT-024 | Small Far Big close order | ORDERING_CONFLICT |
+| 25 | HSB-DOC-CONFLICT-025 | Reserve credit order | AMBIGUITY |
+| 26 | HSB-DOC-CONFLICT-026 | State transition order | MISSING_DEFINITION |
+| 27 | HSB-DOC-CONFLICT-027 | Requested versus executed volume | NO_DIRECT_CONFLICT_FOUND |
+| 28 | HSB-DOC-CONFLICT-028 | FLOOR CEILING NEAREST | FORMULA_CONFLICT |
+| 29 | HSB-DOC-CONFLICT-029 | Python PASS versus MT5 NOT_RUN | EVIDENCE_MISMATCH |
+| 30 | HSB-DOC-CONFLICT-030 | Production Ready versus missing broker evidence | EVIDENCE_MISMATCH |
+| 31 | HSB-DOC-CONFLICT-031 | Legacy Split Hybrid terminology | AUTHORITY_CONFLICT |
+| 32 | HSB-DOC-CONFLICT-032 | Split test plan duplicate | DUPLICATION_WITH_DIFFERENCES |
+| 33 | HSB-DOC-CONFLICT-033 | Reserve persistence | SCOPE_CONFLICT |
+| 34 | HSB-DOC-CONFLICT-034 | Exactly-once Reserve credit | AMBIGUITY |
+| 35 | HSB-DOC-CONFLICT-035 | Partial fill | EVIDENCE_MISMATCH |
+| 36 | HSB-DOC-CONFLICT-036 | Retry idempotency | SCOPE_CONFLICT |
+| 37 | HSB-DOC-CONFLICT-037 | Restart reconciliation | SCOPE_CONFLICT |
+| 38 | HSB-DOC-CONFLICT-038 | Final Close partial execution | AMBIGUITY |
+| 39 | HSB-DOC-CONFLICT-039 | MaxHarvestLevels behavior | ORDERING_CONFLICT |
+| 40 | HSB-DOC-CONFLICT-040 | Reverse limit behavior | MISSING_DEFINITION |
+| 41 | HSB-DOC-CONFLICT-041 | Invalid geometry behavior | MISSING_DEFINITION |
+| 42 | HSB-DOC-CONFLICT-042 | Basket Risk preview versus execution | NO_DIRECT_CONFLICT_FOUND |
+| 43 | HSB-DOC-CONFLICT-043 | Cycle versus account risk | MISSING_DEFINITION |
+| 44 | HSB-DOC-CONFLICT-044 | Terminal-safe versus mathematically-safe | NO_DIRECT_CONFLICT_FOUND |
+| 45 | HSB-DOC-CONFLICT-045 | Source-of-truth competition | AUTHORITY_CONFLICT |
 
-## 9. Authority coverage
-
-Проверены 13 NORMATIVE: Basket Risk Contract, Outcome Truth Table, Temporal Model, Complete Manual, Formula Reference, Gate Graph, Logic Design, Money Flow, MQL5 Normative Algorithms, State Transition Table, System Invariants, Three Laws Manual, Trace Spec. Проверены 2 CONFLICTING: Admin Decisions Required и Open Questions.
+## 5. Пересчитанная статистика
 
 ```text
-NORMATIVE_DOCS_REVIEWED=13
-CONFLICTING_DOCS_REVIEWED=2
-AUTHORITY_REVIEW_COVERAGE=PASS
-```
-
-## 10. Статистика
-
-```text
-TOTAL_CONFLICTS=45
-BLOCKER=7
-CRITICAL=17
-HIGH=19
-MEDIUM=0
-LOW=1
-INFORMATIONAL=1
-NEEDS_USER_DECISION=43
-OPEN=0
-DEFERRED=2
-BUSINESS_CONFLICTS_AUTO_RESOLVED=0
-MANDATORY_CONFLICT_TOPICS=45
+TOTAL_REVIEWED_TOPICS=45
+CONFIRMED_DIRECT_CONFLICTS=39
+PARAMETER_PROFILE_CONFLICTS=7
+FORMULA_CONFLICTS=2
+ORDERING_CONFLICTS=2
+SCOPE_CONFLICTS=8
+AUTHORITY_CONFLICTS=3
+MISSING_DEFINITIONS=9
+AMBIGUITIES=4
+EVIDENCE_MISMATCHES=3
+DUPLICATION_WITH_DIFFERENCES=1
+NO_DIRECT_CONFLICT_FOUND=6
+NEEDS_USER_DECISION=14
 MANDATORY_TOPICS_REVIEWED=45
-MANDATORY_TOPICS_OMITTED=0
-STAGE_3_1_2_STATUS=PASS
+BUSINESS_CONFLICTS_AUTO_RESOLVED=0
+STAGE_3_1_2_CORRECTION_STATUS=PASS
 ```
 
-### Category statistics
-- `DUPLICATION`: 2
-- `EXECUTION`: 4
-- `FINAL_CLOSE`: 2
-- `FORMULA`: 2
-- `GEOMETRY`: 2
-- `LEGACY_MIXING`: 1
-- `MONEY_LEDGER`: 2
-- `PARAMETER`: 7
-- `PERSISTENCE`: 1
-- `READINESS`: 1
-- `RECONCILIATION`: 1
-- `RECOVERY_PL`: 4
-- `RESERVE`: 3
-- `RISK`: 4
-- `ROUNDING`: 1
-- `SMALL_SCENARIO`: 3
-- `STATE_MACHINE`: 4
-- `TEST_EVIDENCE`: 1
+## 6. Quality controls
 
-Код, параметры, MQL5, Python, Tests, Tools, Sets, workflows и runtime не менялись. Этап 3.1.3 не выполнялся; source of truth и production candidate не создавались.
+```text
+GENERIC_SIDE_TEXT_COUNT=0
+GENERIC_CONFLICT_DESCRIPTION_COUNT=0
+GENERIC_IMPACT_TEXT_COUNT=0
+RECORDS_WITH_CONCRETE_SIDE_A=45
+RECORDS_WITH_CONCRETE_SIDE_B=39
+RECORDS_WITH_SECTION_OR_UNIQUE_MARKER=45
+PARAMETER_RECORDS_WITH_VALUES=7
+FALSE_CONFLICT_032_FIXED=PASS
+SEVERITY_JUSTIFICATION_PRESENT=45
+MANDATORY_TOPICS_REVIEWED=45
+BUSINESS_CONFLICTS_AUTO_RESOLVED=0
+```
 
-Ожидается подтверждение пользователя для перехода к следующему пункту/этапу.
+HSB-DOC-CONFLICT-032 теперь сравнивает только `Docs/SPLIT_GEOMETRY_TEST_PLAN.md` и `Docs/TEST_PLAN_SPLIT_GEOMETRY.md`; исходная ложная пара Hybrid manual/invariants удалена.
+
+Код, параметры, другие Docs, MQL5, Python, Tests, Tools, Sets, workflows и runtime не менялись. Этап 3.1.3 не выполнялся.
+
+Ожидается повторная проверка и подтверждение пользователя. Этап 3.1.3 не выполнялся.
