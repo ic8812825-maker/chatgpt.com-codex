@@ -2,7 +2,8 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from stage_3_1_3.seventh_engine import build_scoped_mql_use_graphs
+from stage_3_1_3.seventh_engine import build_scoped_mql_use_graphs, entity_nature, entity_nature_relation
+from stage_3_1_3.source_evidence import Symbol
 
 
 def shadowing_control() -> None:
@@ -29,6 +30,16 @@ struct StructX {
         assert len(sites) == len(set(sites)), sites
 
 
+def entity_nature_control() -> None:
+    function = Symbol("Money", "function", "double", "x.mqh", 1, 1, "function Money", "", (), "double Money()")
+    state = Symbol("CycleState", "enum", "enum", "x.mqh", 2, 1, "module", "", (), "enum CycleState")
+    ticket = Symbol("dealTicket", "local_variable", "ulong", "x.mqh", 3, 1, "function A", "A", (), "ulong dealTicket;")
+    assert entity_nature_relation("MONEY_VALUE", entity_nature(function, "MONEY")) == "INCOMPATIBLE"
+    assert entity_nature_relation("PLAN", entity_nature(state)) == "INCOMPATIBLE"
+    assert entity_nature_relation("MONEY_VALUE", entity_nature(ticket)) == "INCOMPATIBLE"
+
+
 if __name__ == "__main__":
     shadowing_control()
+    entity_nature_control()
     print("SHADOWING_TESTS=PASS")

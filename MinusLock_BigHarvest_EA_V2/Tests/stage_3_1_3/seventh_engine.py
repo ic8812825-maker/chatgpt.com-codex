@@ -11,6 +11,8 @@ import re
 
 from stage_3_1_3.source_evidence import Symbol, index_mql, index_python, sanitise
 
+ENTITY_RELATIONS = {"EXACT", "COMPATIBLE", "PARTIAL", "INCOMPATIBLE"}
+
 
 @dataclass(frozen=True, order=True)
 class DeclarationIdentity:
@@ -34,6 +36,32 @@ class ScopedUseGraph:
     declaration: DeclarationIdentity
     reads: list[str] = field(default_factory=list)
     writes: list[str] = field(default_factory=list)
+
+
+def entity_nature(symbol: Symbol, unit: str = "UNKNOWN") -> str:
+    """Classify engineering nature solely from parsed source evidence."""
+    name = symbol.identifier.lower(); kind = symbol.kind
+    if kind in {"function", "method"}: return "FUNCTION"
+    if kind == "enum": return "STATE" if "state" in name or "phase" in name else "ENUM"
+    if kind == "enum_member": return "STATE" if "state" in symbol.declared_type.lower() else "ENUM"
+    if kind in {"struct", "class"}: return "PLAN" if "plan" in name else "STRUCT"
+    if "ticket" in name: return "TICKET"
+    if name.endswith("id") or "identifier" in name: return "IDENTITY"
+    if kind == "input_parameter": return "POLICY"
+    if "snapshot" in name: return "SNAPSHOT"
+    if "request" in name: return "REQUEST"
+    if "result" in name: return "RESULT"
+    if "event" in name: return "LEDGER_EVENT"
+    if unit in {"LOT", "MONEY", "PRICE", "RATIO"}: return f"{unit}_VALUE"
+    if kind in {"struct_field", "class_field", "global_variable", "static_variable"}: return "CACHE"
+    return "VALUE"
+
+
+def entity_nature_relation(expected: str, actual: str) -> str:
+    if expected == actual: return "EXACT"
+    if expected == "VALUE" and actual.endswith("_VALUE"): return "COMPATIBLE"
+    if actual == "CACHE" and expected in {"VALUE", "LOT_VALUE", "MONEY_VALUE", "PRICE_VALUE"}: return "PARTIAL"
+    return "INCOMPATIBLE"
 
 
 def declaration_identities(root: Path, language: str) -> tuple[list[Symbol], list[DeclarationIdentity]]:
