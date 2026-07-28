@@ -2,7 +2,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from stage_3_1_3.seventh_engine import build_scoped_mql_use_graphs, entity_nature, entity_nature_relation
+from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_scoped_mql_use_graphs, entity_nature, entity_nature_relation
 from stage_3_1_3.source_evidence import Symbol
 
 
@@ -39,7 +39,23 @@ def entity_nature_control() -> None:
     assert entity_nature_relation("MONEY_VALUE", entity_nature(ticket)) == "INCOMPATIBLE"
 
 
+def dataflow_control() -> None:
+    source = """void A(){
+ double positionVolume=PositionGetDouble(POSITION_VOLUME);
+ double farLot=positionVolume;
+ double requestLot=farLot;
+}
+"""
+    with TemporaryDirectory() as directory:
+        root = Path(directory); (root / "flow.mqh").write_text(source)
+        graph = build_resolved_mql_dataflow(root)
+        assert len(graph.edges) == 3
+        assert any(edge.source.kind == "API_RESULT" for edge in graph.edges)
+        assert not graph.unresolved_sinks
+
+
 if __name__ == "__main__":
     shadowing_control()
     entity_nature_control()
+    dataflow_control()
     print("SHADOWING_TESTS=PASS")

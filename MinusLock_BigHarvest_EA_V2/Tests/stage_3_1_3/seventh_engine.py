@@ -38,6 +38,30 @@ class ScopedUseGraph:
     writes: list[str] = field(default_factory=list)
 
 
+@dataclass(frozen=True)
+class DataflowNode:
+    key: str
+    kind: str
+    declaration: DeclarationIdentity | None = None
+
+
+@dataclass(frozen=True)
+class ResolvedDataflowEdge:
+    source: DataflowNode
+    sink: DataflowNode
+    operation: str
+    site: str
+    expression: str = ""
+
+
+@dataclass
+class ResolvedDataflowGraph:
+    nodes: dict[str, DataflowNode] = field(default_factory=dict)
+    edges: list[ResolvedDataflowEdge] = field(default_factory=list)
+    unresolved_sources: list[str] = field(default_factory=list)
+    unresolved_sinks: list[str] = field(default_factory=list)
+
+
 def entity_nature(symbol: Symbol, unit: str = "UNKNOWN") -> str:
     """Classify engineering nature solely from parsed source evidence."""
     name = symbol.identifier.lower(); kind = symbol.kind
@@ -121,3 +145,37 @@ def build_scoped_mql_use_graphs(root: Path) -> dict[DeclarationIdentity, ScopedU
     for graph in graphs.values():
         graph.reads = sorted(set(graph.reads)); graph.writes = sorted(set(graph.writes))
     return graphs
+
+
+def build_resolved_mql_dataflow(root: Path) -> ResolvedDataflowGraph:
+    symbols, identities = declaration_identities(root, "mql5")
+    graph = ResolvedDataflowGraph()
+    pairs = list(zip(symbols, identities))
+    for _, identity in pairs:
+        graph.nodes[str(identity)] = DataflowNode(str(identity), "DECLARATION", identity)
+    api_pattern = re.compile(r"(?:PositionGet\w+|HistoryDealGet\w+|SymbolInfo\w+)\s*\(\s*(\w+)")
+    for path in sorted([*root.rglob("*.mq5"), *root.rglob("*.mqh")]):
+        rel = str(path.relative_to(root)); clean = sanitise(path.read_text(errors="ignore"))[0]
+        scopes = _scope_lines(clean)
+        for number, line in enumerate(clean.splitlines(), 1):
+            assignment = re.search(r"\b(\w+)\s*=\s*(.+?);", line)
+            if not assignment: continue
+            sink_name, expression = assignment.groups(); scope = scopes[number]
+            candidates = [(s, i) for s, i in pairs if s.file == rel and s.identifier == sink_name and s.scope in {scope, "module"} and s.line <= number]
+            if not candidates: graph.unresolved_sinks.append(f"{rel}:{number}:{sink_name}"); continue
+            _, sink_id = max(candidates, key=lambda pair: (pair[0].scope == scope, pair[0].line))
+            sink = graph.nodes[str(sink_id)]; site = f"{rel}:{number}"
+            api = api_pattern.search(expression)
+            if api:
+                key = f"API:{api.group(1)}"; source = graph.nodes.setdefault(key, DataflowNode(key, "API_RESULT"))
+                graph.edges.append(ResolvedDataflowEdge(source, sink, "ASSIGN", site, expression)); continue
+            names = re.findall(r"\b[A-Za-z_]\w*\b", expression)
+            resolved = False
+            for name in names:
+                sources = [(s, i) for s, i in pairs if s.file == rel and s.identifier == name and s.scope in {scope, "module"} and s.line <= number]
+                if not sources: continue
+                _, source_id = max(sources, key=lambda pair: (pair[0].scope == scope, pair[0].line))
+                operation = "ARITHMETIC" if re.search(r"[+*/-]", expression) else "COPY"
+                graph.edges.append(ResolvedDataflowEdge(graph.nodes[str(source_id)], sink, operation, site, expression)); resolved = True
+            if not resolved and not re.fullmatch(r"[\d.\s+-]+", expression): graph.unresolved_sources.append(f"{site}:{expression}")
+    return graph
