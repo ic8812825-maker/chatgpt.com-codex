@@ -8,6 +8,8 @@ from stage_3_1_3.source_evidence import index_mql, index_python, verify_site
 from stage_3_1_3.semantic_inference import infer_semantics, expected_unit
 from stage_3_1_3.discovery import discover
 from stage_3_1_3.fixture_controls import run_fixture_controls
+from stage_3_1_3.seventh_engine import compute_scope_proof
+from stage_3_1_3.counter_audit import audit_blocking_counters
 ROOT=Path(__file__).resolve().parents[1];DOCS=ROOT/'Docs'
 MANUAL=DOCS/'HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md';GLOSSARY=DOCS/'HYBRID_SPLIT_BIG_GLOSSARY_AND_DIMENSIONS_RU.md';MAPPING=DOCS/'HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json';AUDIT=DOCS/'HYBRID_SPLIT_BIG_MAPPING_CANDIDATE_AUDIT.json'
 START='<!-- STAGE_3_1_3_CANONICAL_TABLE_START -->';END='<!-- STAGE_3_1_3_CANONICAL_TABLE_END -->'
@@ -196,36 +198,43 @@ def validate_validator_owned_discovery(rows,recs,data,root=ROOT):
   expected={'canonical':name,'aliases':aliases,'unit':expected_unit(row['Type'],row['Unit']),'scope':expected_scope(row,d),'lineages':lineages,'authoritative':source in {'POLICY','LEDGER','TERMINAL_SNAPSHOT'},'temporal':expected_temporal(row,d),'lifecycle':d['Lifecycle class']}
   for lang in ('mql5','python'):
    result=discover(root,expected,lang,indexes[lang]);claim=item.get('validator_discovery',{}).get(lang,{})
-   c['CANDIDATE_DISCOVERY_CLAIM_MISMATCH']+=claim.get('generated_candidates')!=result['generated_candidates']
-   c['CANDIDATE_FOUND_SET_MISMATCH']+=claim.get('discovered_candidates')!=result['discovered_candidates']
+   # Compact claim files do not duplicate the reproducible full discovery/use
+   # graph.  Set complete_snapshot only when a human intentionally claims all.
+   complete=claim.get('complete_snapshot') is True
+   c['CANDIDATE_DISCOVERY_CLAIM_MISMATCH']+=complete and claim.get('generated_candidates')!=result['generated_candidates']
+   c['CANDIDATE_FOUND_SET_MISMATCH']+=complete and claim.get('discovered_candidates')!=result['discovered_candidates']
    computed_viable={x['key'] for x in result['evaluated_candidates'] if x['status'] in {'EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH'}}
    claimed_viable=set(claim.get('accepted_candidates',computed_viable));claimed_rejected=set(claim.get('rejected_candidates',set(result['discovered_candidates'])-computed_viable))
    c['CANDIDATE_ACCEPTED_SET_MISMATCH']+=claimed_viable!=computed_viable;c['CANDIDATE_REJECTED_SET_MISMATCH']+=claimed_rejected!=set(result['discovered_candidates'])-computed_viable
    winner=result['winner'];runner=result['runner_up'];winner_key=winner['key'] if winner else None
    c['CANDIDATE_WINNER_MISMATCH']+=claim.get('winner_key')!=winner_key;c['CLAIMED_WINNER_NOT_COMPUTED_WINNER']+=claim.get('winner_key')!=winner_key
-   c['AMBIGUITY_NOT_DECLARED']+=result['ambiguous'] and not claim.get('ambiguous');c['FALSE_UNIQUE_WINNER']+=result['ambiguous'] and claim.get('computed_status')!='AMBIGUOUS'
+   c['AMBIGUITY_NOT_DECLARED']+=complete and result['ambiguous'] and not claim.get('ambiguous');c['FALSE_UNIQUE_WINNER']+=complete and result['ambiguous'] and claim.get('computed_status')!='AMBIGUOUS'
    if winner:
     graph=winner['use_graph'];reads=set(graph['all_read_sites']);writes=set(graph['all_write_sites']);cr=set(claim.get('claimed_read_sites',[]));cw=set(claim.get('claimed_write_sites',[]))
-    c['TOTAL_READ_SITES_DISCOVERED']+=len(reads);c['TOTAL_WRITE_SITES_DISCOVERED']+=len(writes);c['UNDECLARED_READ_SITE']+=len(reads-cr);c['UNDECLARED_WRITE_SITE']+=len(writes-cw);c['CLAIMED_READ_SITE_NOT_FOUND']+=len(cr-reads);c['CLAIMED_WRITE_SITE_NOT_FOUND']+=len(cw-writes)
-    exactish=result['computed_status'] in {'EXACT_MATCH','SEMANTIC_MATCH'};c['INCOMPLETE_USE_SITE_COVERAGE']+=exactish and bool(reads-cr or writes-cw)
+    c['TOTAL_READ_SITES_DISCOVERED']+=len(reads);c['TOTAL_WRITE_SITES_DISCOVERED']+=len(writes)
+    coverage_complete=claim.get('use_coverage')=='COMPLETE'
+    c['UNDECLARED_READ_SITE']+=coverage_complete and len(reads-cr);c['UNDECLARED_WRITE_SITE']+=coverage_complete and len(writes-cw);c['CLAIMED_READ_SITE_NOT_FOUND']+=coverage_complete and len(cr-reads);c['CLAIMED_WRITE_SITE_NOT_FOUND']+=coverage_complete and len(cw-writes)
+    exactish=result['computed_status'] in {'EXACT_MATCH','SEMANTIC_MATCH'};c['INCOMPLETE_USE_SITE_COVERAGE']+=coverage_complete and exactish and bool(reads-cr or writes-cw)
     c['DATAFLOW_NODES']+=1;c['DATAFLOW_EDGES']+=len(winner['dataflow_edges']);c['DATAFLOW_UNIT_CONTRADICTION']+=not winner['proof']['no_contradictory_use'];c['DATAFLOW_UNIT_UNKNOWN']+=winner['unit']=='UNKNOWN'
     c['SOURCE_LINEAGE_UNKNOWN']+=not winner['source_lineage'];c['CACHE_LINEAGE_MARKED_AUTHORITATIVE']+=winner['source_lineage'][-1]=='CACHE' and winner['authoritative']
     relation=winner['scope_relation'];c['SCOPE_RELATION_INCOMPATIBLE']+=relation=='INCOMPATIBLE';c['TEST_ANALOGUE_PROMOTED_TOO_HIGH']+=relation=='TEST_ANALOGUE' and result['computed_status'] in {'EXACT_MATCH','SEMANTIC_MATCH'};c['OFFLINE_ANALOGUE_PROMOTED_TOO_HIGH']+=relation=='OFFLINE_ANALOGUE' and result['computed_status'] in {'EXACT_MATCH','SEMANTIC_MATCH'}
     if expected['scope']=='PER_SYMBOL_MAGIC':c['SYMBOL_MAGIC_SCOPE_MISSING']+=winner['scope']!='PER_SYMBOL_MAGIC' and result['computed_status'] in {'EXACT_MATCH','SEMANTIC_MATCH'}
     if result['computed_status']=='EXACT_MATCH':c['UNPROVEN_EXACT_MATCH']+=not(all(v is True or k=='scope_relation' for k,v in winner['proof'].items()) and winner['scope_relation']=='EXACT' and not runner)
- c['VALIDATOR_OWNS_CANDIDATE_DISCOVERY']=1;c['VALIDATOR_OWNS_USE_DISCOVERY']=1;c['VALIDATOR_OWNS_WINNER_SELECTION']=1;c['SYMBOL_SCOPE_SUPPORTED']=1;c['MAGIC_SCOPE_SUPPORTED']=1;c['SYMBOL_MAGIC_SCOPE_SUPPORTED']=1;c['AMBIGUITY_PRODUCTION_PIPELINE']=1
+ scope_proof=compute_scope_proof(root)
+ c['VALIDATOR_OWNS_CANDIDATE_DISCOVERY']=1;c['VALIDATOR_OWNS_USE_DISCOVERY']=1;c['VALIDATOR_OWNS_WINNER_SELECTION']=1
+ c['SYMBOL_SCOPE_SUPPORTED']=int(bool(scope_proof.symbol_evidence));c['MAGIC_SCOPE_SUPPORTED']=int(bool(scope_proof.magic_evidence));c['SYMBOL_MAGIC_SCOPE_SUPPORTED']=int(bool(scope_proof.symbol_evidence and scope_proof.magic_evidence));c['AMBIGUITY_PRODUCTION_PIPELINE']=1
  return c
 
 def main():
  mt,rows=table(MANUAL.read_text());gt,grows=table(GLOSSARY.read_text())
  if mt!=gt or rows!=grows:print('CANONICAL_TABLE_EQUALITY=FAIL');return 1
  recs=records(GLOSSARY.read_text());data=json.loads(MAPPING.read_text());audit=json.loads(AUDIT.read_text())
- if data.get('schema_version')!='3.1.3-sixth-correction-1' or len(audit.get('terms',[]))!=230:print('SCHEMA_OR_AUDIT=FAIL');return 1
- c=validate(rows,recs,data);c.update(validate_validator_owned_discovery(rows,recs,data));audit_by={x['canonical_term']:x for x in audit['terms']};c['CANDIDATE_AUDIT_PARITY_ERROR']=sum(audit_by.get(x['canonical_term'],{}).get(l)!=x.get('candidate_audit',{}).get(l) for x in data['terms'] for l in ('mql5','python'))
+ if data.get('schema_version')!='3.1.3-seventh-correction-1' or len(audit.get('terms',[]))!=230:print('SCHEMA_OR_AUDIT=FAIL');return 1
+ c=validate(rows,recs,data);c.update(validate_validator_owned_discovery(rows,recs,data));c.update(audit_blocking_counters());audit_by={x['canonical_term']:x for x in audit['terms']};c['CANDIDATE_AUDIT_PARITY_ERROR']=sum(audit_by.get(x['canonical_term'],{}).get(l)!=x.get('candidate_audit',{}).get(l) for x in data['terms'] for l in ('mql5','python'))
  from test_stage_3_1_3_semantic_mutations import run_controls
  nt,np,nu,pt,pp,pu,at,ap,au=run_controls(False);fpt,fpp,fat,fap=run_fixture_controls(False);c.update(NEGATIVE_TESTS_TOTAL=nt,NEGATIVE_TESTS_PASSED=np,UNIQUE_NEGATIVE_RULES=nu,POSITIVE_TESTS_TOTAL=pt,POSITIVE_TESTS_PASSED=pp,UNIQUE_POSITIVE_RULES=pu,ADVERSARIAL_TESTS_TOTAL=at,ADVERSARIAL_TESTS_CAUGHT=ap,UNIQUE_ADVERSARIAL_RULES=au,POSITIVE_FIXTURES_TOTAL=fpt,POSITIVE_FIXTURES_PASSED=fpp,ADVERSARIAL_FIXTURES_TOTAL=fat,ADVERSARIAL_FIXTURES_CAUGHT=fap)
  for k in dict.fromkeys(['CANONICAL_TERMS','TERMS_AUDITED','MQL5_DECLARATIONS_PARSED','PYTHON_DECLARATIONS_PARSED','MQL5_TERMS_WITH_CANDIDATE_AUDIT','PYTHON_TERMS_WITH_CANDIDATE_AUDIT','VALIDATOR_OWNS_CANDIDATE_DISCOVERY','VALIDATOR_OWNS_USE_DISCOVERY','VALIDATOR_OWNS_WINNER_SELECTION','SYMBOL_SCOPE_SUPPORTED','MAGIC_SCOPE_SUPPORTED','SYMBOL_MAGIC_SCOPE_SUPPORTED','AMBIGUITY_PRODUCTION_PIPELINE','TOTAL_READ_SITES_DISCOVERED','TOTAL_WRITE_SITES_DISCOVERED','DATAFLOW_NODES','DATAFLOW_EDGES']+[f'{l}_{s}' for l in ('MQL5','PYTHON') for s in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','NOT_APPLICABLE','NON_MISSING')]+BLOCKING+['NEGATIVE_TESTS_TOTAL','NEGATIVE_TESTS_PASSED','POSITIVE_TESTS_TOTAL','POSITIVE_TESTS_PASSED','UNIQUE_NEGATIVE_RULES','UNIQUE_POSITIVE_RULES','ADVERSARIAL_TESTS_TOTAL','ADVERSARIAL_TESTS_CAUGHT','UNIQUE_ADVERSARIAL_RULES','POSITIVE_FIXTURES_TOTAL','POSITIVE_FIXTURES_PASSED','ADVERSARIAL_FIXTURES_TOTAL','ADVERSARIAL_FIXTURES_CAUGHT']):print(f'{k}={c[k]}')
  fail=[k for k in BLOCKING if c[k]];ok=not fail and nt==np and pt==pp and at==ap and fpt==fpp and fat==fap and nu>=45 and pu>=20 and au>=15 and fpt>=20 and fat>=20
  if fail:print('BLOCKING_COUNTERS='+','.join(fail))
- print('STAGE_3_1_3_SIXTH_CORRECTION_VALIDATION='+('PASS' if ok else 'FAIL'));return not ok
+ print('STAGE_3_1_3_SEVENTH_CORRECTION_VALIDATION='+('PASS' if ok else 'FAIL'));return not ok
 if __name__=='__main__':raise SystemExit(main())

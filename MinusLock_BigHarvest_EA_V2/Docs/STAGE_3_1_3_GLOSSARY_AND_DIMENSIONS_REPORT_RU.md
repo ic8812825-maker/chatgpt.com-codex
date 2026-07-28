@@ -542,3 +542,34 @@ STAGE_3_1_3_SIXTH_CORRECTION_STATUS=PASS
 ```
 
 Validator самостоятельно обнаруживает candidates и полный use graph, строит dataflow/source/scope evidence, сам выбирает winner/AMBIGUOUS/MISSING, а JSON используется только как documented claim. Этап 3.1.3 ожидает независимую проверку пользователя. Этап 3.1.4 не выполнялся.
+
+## STAGE_3_1_3_SEVENTH_CORRECTION
+
+### Baseline и воспроизведённые дефекты
+
+- Исходный опубликованный baseline шестой коррекции: `3b94a2c1e59899e1e86534db7209af2ac4a8d25e`.
+- Локальная расходящаяся документационная ветвь безопасно объединена с `origin/work` merge-коммитом `15c54ab15944da5728759f2a1c8a4fb4cf0da164`, без reset/rebase/force-push.
+- Воспроизведены объединение одноимённых declarations, константный entity-nature proof, строковый RHS dataflow, отсутствие fixed-point unit propagation, константные scope-support flags и неточные fixture assertions.
+
+### Архитектурные изменения
+
+- Use graph принадлежит `DeclarationIdentity=(language,file,scope,line,column,identifier)`, поэтому shadowing не смешивает reads/writes.
+- Entity nature вычисляется из declaration kind, engineering unit и domain role; function/state/ticket incompatibilities являются явными.
+- Dataflow содержит разрешённые declaration/API nodes и typed edges; unit engine распространяет размерности до fixed point.
+- Symbol/Magic/Cycle evidence извлекается из source filters и разрешённой helper call chain, а scope relation использует явную матрицу.
+- Полный computed graph остаётся воспроизводимым runtime artifact; JSON хранит компактные documented claims и не дублирует тысячи use sites.
+
+### Последовательность атомарных commits
+
+Подпункты 3.1.3.7.1—3.1.3.7.8 опубликованы отдельными commits. Самый большой тематический diff — strict-fixtures commit: 13 файлов, 467 additions, 50 deletions (`MEDIUM`); остальные commits имеют класс `SMALL`.
+
+### Проверки и scope control
+
+- Canonical terms: 230/230.
+- Positive fixtures: 25/25; adversarial fixtures: 25/25; shadowing controls: PASS.
+- Runtime `*.mq5` и `*.mqh` не изменялись; добавлены только синтетические `.mqh` внутри `Tests/stage_3_1_3/fixtures/`.
+- Stage 3.1.4 не начинался; business policy, parameter profiles и trading logic не менялись.
+
+### Remaining risks
+
+MQL5 parsing остаётся консервативным static analysis, а не компиляторным AST. Неразрешённые constructs блокируют строгий status вместо оптимистического повышения mapping. Полный graph вычисляется validator при каждом запуске и не хранится повторно в документации.
