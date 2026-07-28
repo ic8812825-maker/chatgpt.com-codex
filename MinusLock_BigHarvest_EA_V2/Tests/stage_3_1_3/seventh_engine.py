@@ -62,6 +62,59 @@ class ResolvedDataflowGraph:
     unresolved_sinks: list[str] = field(default_factory=list)
 
 
+@dataclass
+class UnitPropagationResult:
+    units: dict[str, str]
+    rules: dict[str, str]
+    illegal_operations: list[str]
+    conflicts: list[str]
+    unresolved: list[str]
+
+
+UNIT_API = {
+    "POSITION_VOLUME": "LOT", "DEAL_VOLUME": "LOT", "DEAL_PROFIT": "MONEY",
+    "DEAL_COMMISSION": "MONEY", "SYMBOL_BID": "PRICE", "SYMBOL_ASK": "PRICE",
+    "SYMBOL_POINT": "POINT_SIZE", "SYMBOL_TRADE_TICK_SIZE": "POINT_SIZE",
+}
+UNIT_RULES = {
+    ("LOT", "*", "RATIO"): ("LOT", "LOT_TIMES_RATIO"),
+    ("MONEY", "*", "RATIO"): ("MONEY", "MONEY_TIMES_RATIO"),
+    ("LOT", "+", "LOT"): ("LOT", "LOT_PLUS_LOT"),
+    ("MONEY", "+", "MONEY"): ("MONEY", "MONEY_PLUS_MONEY"),
+    ("PRICE", "-", "PRICE"): ("PRICE_DELTA", "PRICE_MINUS_PRICE"),
+    ("PRICE_DELTA", "/", "POINT_SIZE"): ("POINTS", "DELTA_PER_POINT"),
+    ("POINTS", "*", "POINT_SIZE"): ("PRICE_DELTA", "POINTS_TIMES_POINT"),
+    ("MONEY", "/", "LOT"): ("MONEY_PER_LOT", "MONEY_PER_LOT"),
+}
+
+
+def propagate_units(graph: ResolvedDataflowGraph, seeds: dict[str, str] | None = None) -> UnitPropagationResult:
+    units = dict(seeds or {}); rules: dict[str, str] = {}; illegal: list[str] = []; conflicts: list[str] = []
+    for key in graph.nodes:
+        if key.startswith("API:") and key[4:] in UNIT_API: units[key] = UNIT_API[key[4:]]
+    changed = True
+    while changed:
+        changed = False
+        for edge in graph.edges:
+            source_unit = units.get(edge.source.key); sink_unit = units.get(edge.sink.key)
+            if edge.operation in {"ASSIGN", "COPY"} and source_unit:
+                if sink_unit and sink_unit != source_unit: conflicts.append(edge.site)
+                elif not sink_unit: units[edge.sink.key] = source_unit; rules[edge.site] = "COPY"; changed = True
+            elif edge.operation == "ARITHMETIC":
+                operator = next((op for op in ("+", "-", "*", "/") if op in edge.expression), "")
+                operands = re.findall(r"\b[A-Za-z_]\w*\b", edge.expression)
+                operand_units = []
+                for name in operands:
+                    matches = [key for key, node in graph.nodes.items() if node.declaration and node.declaration.identifier == name]
+                    if matches and units.get(matches[-1]): operand_units.append(units[matches[-1]])
+                if len(operand_units) >= 2:
+                    rule = UNIT_RULES.get((operand_units[0], operator, operand_units[1]))
+                    if not rule: illegal.append(edge.site)
+                    elif not sink_unit: units[edge.sink.key] = rule[0]; rules[edge.site] = rule[1]; changed = True
+    unresolved = sorted({edge.sink.key for edge in graph.edges if edge.sink.key not in units})
+    return UnitPropagationResult(units, rules, sorted(set(illegal)), sorted(set(conflicts)), unresolved)
+
+
 def entity_nature(symbol: Symbol, unit: str = "UNKNOWN") -> str:
     """Classify engineering nature solely from parsed source evidence."""
     name = symbol.identifier.lower(); kind = symbol.kind

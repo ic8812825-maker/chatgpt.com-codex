@@ -2,7 +2,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_scoped_mql_use_graphs, entity_nature, entity_nature_relation
+from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_scoped_mql_use_graphs, entity_nature, entity_nature_relation, propagate_units
 from stage_3_1_3.source_evidence import Symbol
 
 
@@ -54,8 +54,28 @@ def dataflow_control() -> None:
         assert not graph.unresolved_sinks
 
 
+def unit_control() -> None:
+    source = """input double ratio;
+void A(){
+ double lot=PositionGetDouble(POSITION_VOLUME);
+ double scaled=lot*ratio;
+ double money=HistoryDealGetDouble(DEAL_PROFIT);
+ double illegal=lot+money;
+}
+"""
+    with TemporaryDirectory() as directory:
+        root = Path(directory); (root / "units.mqh").write_text(source)
+        graph = build_resolved_mql_dataflow(root)
+        ratio = next(key for key, node in graph.nodes.items() if node.declaration and node.declaration.identifier == "ratio")
+        result = propagate_units(graph, {ratio: "RATIO"})
+        scaled = next(key for key, node in graph.nodes.items() if node.declaration and node.declaration.identifier == "scaled")
+        assert result.units[scaled] == "LOT"
+        assert result.illegal_operations
+
+
 if __name__ == "__main__":
     shadowing_control()
     entity_nature_control()
     dataflow_control()
+    unit_control()
     print("SHADOWING_TESTS=PASS")
