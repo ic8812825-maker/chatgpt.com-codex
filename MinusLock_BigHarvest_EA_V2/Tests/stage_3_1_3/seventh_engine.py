@@ -173,6 +173,35 @@ def strict_scope_relation(expected: str, actual: str) -> str:
     return "INCOMPATIBLE"
 
 
+def evaluate_seventh_counters(*, entity_relation="EXACT", expected_entity="VALUE", actual_entity="VALUE",
+                              dataflow: ResolvedDataflowGraph | None = None,
+                              units: UnitPropagationResult | None = None,
+                              expected_scope="GLOBAL_RUNTIME", actual_scope="GLOBAL_RUNTIME") -> dict[str, int]:
+    counters = {name: 0 for name in (
+        "ENTITY_NATURE_UNKNOWN", "ENTITY_NATURE_INCOMPATIBLE", "ENTITY_NATURE_FALSE_EXACT",
+        "FUNCTION_PROMOTED_TO_VALUE", "STATE_PROMOTED_TO_OBJECT", "IDENTITY_ROLE_MISMATCH",
+        "UNRESOLVED_DATAFLOW_SOURCE", "UNRESOLVED_DATAFLOW_SINK", "CROSS_SCOPE_DATAFLOW_LEAK",
+        "DATAFLOW_IDENTITY_COLLISION", "ILLEGAL_DIMENSION_OPERATION", "UNIT_PROPAGATION_CONFLICT",
+        "UNIT_PROPAGATION_UNRESOLVED", "UNIT_SOURCE_CONTRADICTION", "SYMBOL_MAGIC_SCOPE_MISSING")}
+    counters["ENTITY_NATURE_UNKNOWN"] += entity_relation == "UNKNOWN"
+    counters["ENTITY_NATURE_INCOMPATIBLE"] += entity_relation == "INCOMPATIBLE"
+    counters["ENTITY_NATURE_FALSE_EXACT"] += entity_relation == "EXACT" and expected_entity != actual_entity
+    counters["FUNCTION_PROMOTED_TO_VALUE"] += actual_entity == "FUNCTION" and expected_entity.endswith("VALUE")
+    counters["STATE_PROMOTED_TO_OBJECT"] += actual_entity == "STATE" and expected_entity in {"OBJECT", "PLAN"}
+    counters["IDENTITY_ROLE_MISMATCH"] += {actual_entity, expected_entity} <= {"IDENTITY", "TICKET"} and actual_entity != expected_entity
+    if dataflow:
+        counters["UNRESOLVED_DATAFLOW_SOURCE"] += len(dataflow.unresolved_sources)
+        counters["UNRESOLVED_DATAFLOW_SINK"] += len(dataflow.unresolved_sinks)
+        ids = [node.declaration for node in dataflow.nodes.values() if node.declaration]
+        counters["DATAFLOW_IDENTITY_COLLISION"] += len(ids) - len(set(ids))
+    if units:
+        counters["ILLEGAL_DIMENSION_OPERATION"] += len(units.illegal_operations)
+        counters["UNIT_PROPAGATION_CONFLICT"] += len(units.conflicts)
+        counters["UNIT_PROPAGATION_UNRESOLVED"] += len(units.unresolved)
+    counters["SYMBOL_MAGIC_SCOPE_MISSING"] += expected_scope in {"PER_SYMBOL_MAGIC", "PER_SYMBOL_MAGIC_CYCLE"} and actual_scope not in {"PER_SYMBOL_MAGIC", "PER_SYMBOL_MAGIC_CYCLE"}
+    return counters
+
+
 def entity_nature(symbol: Symbol, unit: str = "UNKNOWN") -> str:
     """Classify engineering nature solely from parsed source evidence."""
     name = symbol.identifier.lower(); kind = symbol.kind

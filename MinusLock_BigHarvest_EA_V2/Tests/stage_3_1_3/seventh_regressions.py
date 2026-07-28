@@ -4,6 +4,7 @@ from tempfile import TemporaryDirectory
 
 from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_scoped_mql_use_graphs, compute_scope_proof, entity_nature, entity_nature_relation, propagate_units, strict_scope_relation
 from stage_3_1_3.source_evidence import Symbol
+from stage_3_1_3.counter_audit import audit_blocking_counters
 
 
 def shadowing_control() -> None:
@@ -96,4 +97,6 @@ if __name__ == "__main__":
     dataflow_control()
     unit_control()
     scope_control()
+    audit = audit_blocking_counters()
+    assert audit["VACUOUS_BLOCKING_COUNTERS"] == 0, audit
     print("SHADOWING_TESTS=PASS")
