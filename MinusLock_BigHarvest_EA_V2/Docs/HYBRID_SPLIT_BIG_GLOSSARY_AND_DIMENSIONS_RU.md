@@ -1975,7 +1975,7 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Legacy aliases: —
 MQL5 mapping: Include/ReconciliationEngine.mqh::ValidateSmallBasePosition
 Python mapping: Tests/unit/test_split_exact_persistence_model.py::small_base_id
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2159,7 +2159,7 @@ Authoritative replacement: пересчёт FarDirection на новом immutab
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::farDirection
 Python mapping: Tools/hybrid_small_state_machine.py::direction
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2297,7 +2297,7 @@ Authoritative replacement: пересчёт BigDirection на новом immutab
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::bigDirection
 Python mapping: Tools/hybrid_small_state_machine.py::direction
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2435,7 +2435,7 @@ Authoritative replacement: пересчёт ReverseDirection на новом imm
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/test_dynamic_reverse_small_direction.py::reverse_direction
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2481,7 +2481,7 @@ Authoritative replacement: пересчёт RawLot на новом immutable sna
 Legacy aliases: —
 MQL5 mapping: Include/RecoveryMath.mqh::rawLot
 Python mapping: Tests/normalize_volume_to_step_check.py::lot
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`EXACT_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2619,7 +2619,7 @@ Authoritative replacement: FilledLot/ExecutionResult, затем reconciled actu
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::requestedLot
 Python mapping: Tests/unit/test_money_completion_behavior.py::requested
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2665,7 +2665,7 @@ Authoritative replacement: повторно построенный aggregate con
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::filledLot
 Python mapping: Tests/unit/test_big_small_behavior.py::filled
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4045,7 +4045,7 @@ Authoritative replacement: новый SymbolInfo* property snapshot.
 Legacy aliases: —
 MQL5 mapping: Include/HybridFutureSmallSolver.mqh::point
 Python mapping: Tests/small_at_far_scenario_log.py::point
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5011,7 +5011,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/offline_optimizer.py::gross_loss
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5103,7 +5103,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::legNet
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5241,7 +5241,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::harvestNet
 Python mapping: Tools/hybrid_big_sequence_model.py::harvest
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5287,7 +5287,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/offline_optimizer.py::small_net
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-023`
 Resolution stage: `3.1.5 / 3.1.6`
 Статус определения: `UNRESOLVED_BUSINESS_POLICY`
@@ -5333,7 +5333,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_geometry_model.py::transition_net
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5701,7 +5701,7 @@ Authoritative replacement: пересчёт RecoverySlope на новом immuta
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::recoveryPL
 Python mapping: Tools/hybrid_geometry_model.py::recovery_slope
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6023,7 +6023,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::slippage
 Python mapping: Tests/unit/test_big_small_behavior.py::slippage
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6115,7 +6115,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::farLoss
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6161,7 +6161,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::farLossAfter
 Python mapping: Tools/hybrid_big_sequence_model.py::far_loss_after
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6207,7 +6207,7 @@ Authoritative replacement: пересчёт PartialFarBudgetProjected на но�
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6253,7 +6253,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::partialBudgetBefore
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6299,7 +6299,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/HybridPartialFarPreview.mqh::budgetAvailable
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6345,7 +6345,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6391,7 +6391,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6897,7 +6897,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/HybridPartialFarPreview.mqh::budgetAvailable
 Python mapping: Tools/hybrid_geometry_model.py::transition_budget
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7173,7 +7173,7 @@ Authoritative replacement: новое approved значение CloseBigOnSmallS
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::CloseBigOnSmall
 Python mapping: Tests/small_reverse_compression_check.py::close_big_on_small
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-003`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7219,7 +7219,7 @@ Authoritative replacement: новое approved значение RemainBigOnSmall
 Legacy aliases: —
 MQL5 mapping: Include/RecoveryMath.mqh::remainBigOnSmall
 Python mapping: Tests/small_reverse_compression_check.py::remain_big_on_small
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-004`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7311,7 +7311,7 @@ Authoritative replacement: новое approved значение ReserveShare и�
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::ReserveShare
 Python mapping: Tests/test_reserve_growth_ratio.py::reserve_share
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-006`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7357,7 +7357,7 @@ Authoritative replacement: новое approved значение SmallReserveShar
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::SmallReserveShare
 Python mapping: Tools/mql5_like_big_scenario_parameter_search.py::small_reserve_share
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7449,7 +7449,7 @@ Authoritative replacement: новое approved значение ReserveCoverageR
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::reserveCoverage
 Python mapping: Tools/run_full_parameter_optimization_study.py::reserve_coverage
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7679,7 +7679,7 @@ Authoritative replacement: новое approved значение ScaleMultiplier 
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::multiplier
 Python mapping: Tools/offline_optimizer.py::multiplier
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7863,7 +7863,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: CycleID, cycleId
 MQL5 mapping: Include/Types.mqh::cycleId
 Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::cycle
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8185,7 +8185,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::eventKeyHash
 Python mapping: Tests/unit/test_split_final_safety_model.py::event_key
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8415,7 +8415,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::stateRevision
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8461,7 +8461,7 @@ Authoritative replacement: последнее confirmed state/event значен
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::state
 Python mapping: Tests/pending_open_big_contract_check.py::state
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`EXACT_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8737,7 +8737,7 @@ Authoritative replacement: последнее confirmed state/event значен
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::outcome
 Python mapping: Tests/HybridSplitBig/test_catchup_stage12.py::Outcome
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9933,7 +9933,7 @@ Authoritative replacement: пересчёт RequestedData на новом immuta
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/unit/test_money_completion_behavior.py::requested
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10577,7 +10577,7 @@ Authoritative replacement: новое approved значение ReserveCoverage 
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::reserveCoverage
 Python mapping: Tools/run_full_parameter_optimization_study.py::reserve_coverage
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10715,7 +10715,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::cycleId
 Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::cycle
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10853,7 +10853,7 @@ Authoritative replacement: последнее confirmed state/event значен
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::comment
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10991,7 +10991,7 @@ Authoritative replacement: новый validated Plan, рассчитанный �
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/adaptive_geometry_docs_check.py::plan
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
