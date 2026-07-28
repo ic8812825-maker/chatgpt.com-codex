@@ -1,4 +1,4 @@
-"""Isolated end-to-end fixtures for the sixth-correction discovery pipeline."""
+"""Strict isolated semantic fixtures for the seventh-correction pipeline."""
 from __future__ import annotations
 import json
 import shutil
@@ -25,19 +25,30 @@ def run_fixture_controls(verbose=False):
         result=_run_one(item["file"],item)
         evaluated=result["evaluated_candidates"]
         candidate=next((x for x in evaluated if x["identifier"]==item["identifier"]),None)
-        ok=bool(candidate and candidate["unit"]==item["unit"] and candidate["use_graph"] is not None and result["computed_status"] in {"EXACT_MATCH","SEMANTIC_MATCH","PARTIAL_MATCH","AMBIGUOUS"})
-        if name=="VALID_AMBIGUOUS_PAIR":ok=result["computed_status"]=="AMBIGUOUS"
+        actual = {
+            "expected_winner": candidate and candidate["identifier"],
+            "expected_status": result["computed_status"],
+            "expected_unit": candidate and candidate["unit"],
+            "expected_scope": candidate and candidate["scope"],
+            "expected_source_lineage": candidate and candidate["source_lineage"],
+            "expected_authority": candidate and candidate["authoritative"],
+            "expected_temporal_class": candidate and candidate["temporal"],
+            "expected_lifecycle": candidate and candidate["lifecycle"],
+            "expected_blocking_counters": [],
+        }
+        ok=bool(candidate and all(actual[key] == item[key] for key in actual))
         presults.append((name,ok))
     adversarial=json.loads((HERE/"adversarial_manifest.json").read_text());aresults=[]
     for name,item in adversarial.items():
         result=_run_one(item["file"],{"identifier":"targetLot","unit":"LOT","scope":"PER_SYMBOL_MAGIC","lineage":"TERMINAL_POSITION"})
         evaluated=result["evaluated_candidates"]
-        # Each attack is caught by independent evidence: mismatch, partial/missing,
-        # ambiguity, contradictory use, or full-use discovery beyond one claimed site.
-        caught=result["computed_status"] in {"MISSING","PARTIAL_MATCH","AMBIGUOUS"}
-        if name in {"SECOND_EQUAL_CANDIDATE_HIDDEN","WRONG_UNIQUE_WINNER","EXACT_WITH_COMPETING_CANDIDATE"}:caught=result["computed_status"]=="AMBIGUOUS"
-        if name=="USE_SITE_WITH_CONTRADICTORY_ROLE_OMITTED":caught=any(not x["proof"]["no_contradictory_use"] for x in evaluated)
-        if name=="PARTIAL_USE_GRAPH_CLAIMED_COMPLETE":caught=any(len(x["use_graph"]["call_sites"])>1 for x in evaluated)
+        rule=item["expected_failure_rule"]
+        if rule=="UNIT_MISMATCH": caught=any(x["unit"]!="LOT" for x in evaluated)
+        elif rule=="SYMBOL_MAGIC_SCOPE_MISSING": caught=any(x["scope_relation"]!="EXACT" for x in evaluated)
+        elif rule=="AMBIGUOUS": caught=result["computed_status"]=="AMBIGUOUS"
+        elif rule=="INCOMPLETE_USE_SITE_COVERAGE": caught=any(not x["proof"]["no_contradictory_use"] or len(x["use_graph"]["call_sites"])>1 for x in evaluated)
+        elif rule=="CACHE_LINEAGE_MARKED_AUTHORITATIVE": caught=any("CACHE" in x["source_lineage"] and not x["authoritative"] for x in evaluated)
+        else: caught=result["computed_status"] in {"MISSING","PARTIAL_MATCH","AMBIGUOUS"}
         aresults.append((name,caught))
     if verbose:
         for name,ok in presults:print(f"POSITIVE_FIXTURE_{name}={'PASS' if ok else 'FAIL'}")
@@ -48,4 +59,4 @@ def run_fixture_controls(verbose=False):
 
 
 if __name__=="__main__":
-    pt,pp,at,ap=run_fixture_controls(True);raise SystemExit(not(pt==pp and at==ap and pt>=20 and at>=20))
+    pt,pp,at,ap=run_fixture_controls(True);raise SystemExit(not(pt==pp and at==ap and pt>=25 and at>=25))

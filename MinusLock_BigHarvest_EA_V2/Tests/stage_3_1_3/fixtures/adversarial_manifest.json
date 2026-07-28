@@ -1,62 +1,102 @@
 {
   "MONEY_VARIABLE_MAPPED_TO_LOT_TERM": {
-    "file": "adversarial/money_variable_mapped_to_lot_term.mqh"
+    "file": "adversarial/money_variable_mapped_to_lot_term.mqh",
+    "expected_failure_rule": "UNIT_MISMATCH"
   },
   "LOT_VARIABLE_MAPPED_TO_PRICE_TERM": {
-    "file": "adversarial/lot_variable_mapped_to_price_term.mqh"
+    "file": "adversarial/lot_variable_mapped_to_price_term.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
   },
   "RATIO_VARIABLE_MAPPED_TO_MONEY_TERM": {
-    "file": "adversarial/ratio_variable_mapped_to_money_term.mqh"
+    "file": "adversarial/ratio_variable_mapped_to_money_term.mqh",
+    "expected_failure_rule": "UNIT_MISMATCH"
   },
   "CACHE_MAPPED_AS_AUTHORITATIVE_ACTUAL": {
-    "file": "adversarial/cache_mapped_as_authoritative_actual.mqh"
+    "file": "adversarial/cache_mapped_as_authoritative_actual.mqh",
+    "expected_failure_rule": "CACHE_LINEAGE_MARKED_AUTHORITATIVE"
   },
   "TEST_VARIABLE_MAPPED_AS_RUNTIME_EXACT": {
-    "file": "adversarial/test_variable_mapped_as_runtime_exact.mqh"
+    "file": "adversarial/test_variable_mapped_as_runtime_exact.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
   },
   "OFFLINE_VARIABLE_MAPPED_AS_RUNTIME_EXACT": {
-    "file": "adversarial/offline_variable_mapped_as_runtime_exact.mqh"
+    "file": "adversarial/offline_variable_mapped_as_runtime_exact.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
   },
   "REQUESTED_VOLUME_MAPPED_AS_FILLED_LOT": {
-    "file": "adversarial/requested_volume_mapped_as_filled_lot.mqh"
+    "file": "adversarial/requested_volume_mapped_as_filled_lot.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
   },
   "PROJECTED_PROFIT_MAPPED_AS_REALIZED_MONEY": {
-    "file": "adversarial/projected_profit_mapped_as_realized_money.mqh"
+    "file": "adversarial/projected_profit_mapped_as_realized_money.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
   },
   "POSITION_CACHE_MAPPED_AS_TERMINAL_SOURCE": {
-    "file": "adversarial/position_cache_mapped_as_terminal_source.mqh"
+    "file": "adversarial/position_cache_mapped_as_terminal_source.mqh",
+    "expected_failure_rule": "CACHE_LINEAGE_MARKED_AUTHORITATIVE"
   },
   "PER_CYCLE_MAPPED_AS_PER_POSITION_EXACT": {
-    "file": "adversarial/per_cycle_mapped_as_per_position_exact.mqh"
+    "file": "adversarial/per_cycle_mapped_as_per_position_exact.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
   },
   "PER_POSITION_MAPPED_AS_PER_DEAL": {
-    "file": "adversarial/per_position_mapped_as_per_deal.mqh"
+    "file": "adversarial/per_position_mapped_as_per_deal.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
   },
   "SYMBOL_ONLY_MAPPED_AS_SYMBOL_MAGIC": {
-    "file": "adversarial/symbol_only_mapped_as_symbol_magic.mqh"
+    "file": "adversarial/symbol_only_mapped_as_symbol_magic.mqh",
+    "expected_failure_rule": "SYMBOL_MAGIC_SCOPE_MISSING"
   },
   "MAGIC_ONLY_MAPPED_AS_SYMBOL_MAGIC": {
-    "file": "adversarial/magic_only_mapped_as_symbol_magic.mqh"
+    "file": "adversarial/magic_only_mapped_as_symbol_magic.mqh",
+    "expected_failure_rule": "SYMBOL_MAGIC_SCOPE_MISSING"
   },
   "SECOND_EQUAL_CANDIDATE_HIDDEN": {
-    "file": "adversarial/second_equal_candidate_hidden.mqh"
+    "file": "adversarial/second_equal_candidate_hidden.mqh",
+    "expected_failure_rule": "AMBIGUOUS"
   },
   "USE_SITE_WITH_CONTRADICTORY_ROLE_OMITTED": {
-    "file": "adversarial/use_site_with_contradictory_role_omitted.mqh"
+    "file": "adversarial/use_site_with_contradictory_role_omitted.mqh",
+    "expected_failure_rule": "INCOMPLETE_USE_SITE_COVERAGE"
   },
   "PARTIAL_USE_GRAPH_CLAIMED_COMPLETE": {
-    "file": "adversarial/partial_use_graph_claimed_complete.mqh"
+    "file": "adversarial/partial_use_graph_claimed_complete.mqh",
+    "expected_failure_rule": "INCOMPLETE_USE_SITE_COVERAGE"
   },
   "WRONG_UNIQUE_WINNER": {
-    "file": "adversarial/wrong_unique_winner.mqh"
+    "file": "adversarial/wrong_unique_winner.mqh",
+    "expected_failure_rule": "AMBIGUOUS"
   },
   "EXACT_WITH_COMPETING_CANDIDATE": {
-    "file": "adversarial/exact_with_competing_candidate.mqh"
+    "file": "adversarial/exact_with_competing_candidate.mqh",
+    "expected_failure_rule": "AMBIGUOUS"
   },
   "SEMANTIC_MATCH_WITH_TEST_SCOPE": {
-    "file": "adversarial/semantic_match_with_test_scope.mqh"
+    "file": "adversarial/semantic_match_with_test_scope.mqh",
+    "expected_failure_rule": "SYMBOL_MAGIC_SCOPE_MISSING"
   },
   "EXACT_WITH_CACHE_LINEAGE": {
-    "file": "adversarial/exact_with_cache_lineage.mqh"
+    "file": "adversarial/exact_with_cache_lineage.mqh",
+    "expected_failure_rule": "CACHE_LINEAGE_MARKED_AUTHORITATIVE"
+  },
+  "SEVENTH_STRICT_ADVERSARIAL_1": {
+    "file": "adversarial/seventh_extra_1.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
+  },
+  "SEVENTH_STRICT_ADVERSARIAL_2": {
+    "file": "adversarial/seventh_extra_2.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
+  },
+  "SEVENTH_STRICT_ADVERSARIAL_3": {
+    "file": "adversarial/seventh_extra_3.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
+  },
+  "SEVENTH_STRICT_ADVERSARIAL_4": {
+    "file": "adversarial/seventh_extra_4.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
+  },
+  "SEVENTH_STRICT_ADVERSARIAL_5": {
+    "file": "adversarial/seventh_extra_5.mqh",
+    "expected_failure_rule": "SEMANTIC_PAIRING_MISMATCH"
   }
 }
