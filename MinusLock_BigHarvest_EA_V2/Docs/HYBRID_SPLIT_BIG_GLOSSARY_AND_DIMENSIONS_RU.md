@@ -135,15 +135,15 @@ DOCUMENTED does not select production profile. Point=SYMBOL_POINT; TickSize=SYMB
 
 | Tolerance | Type | Absolute/relative | Applied to | Forbidden for | Decision impact |
 |---|---|---|---|---|---|
-| MoneyTolerance | MONEY | absolute account money | money reconciliation/typed comparisons | lot/price/ratio | cannot turn negative into PASS |
-| VolumeToleranceLots | LOT | absolute lot | actual/expected volume | money/price | cannot hide executable residual |
-| PriceTolerance | PRICE | absolute symbol price | price snapshot/reconciliation | money/lot | snapshot freshness only as specified |
-| PointTolerance | POINTS | absolute points | point distances | price without conversion | no implicit conversion |
-| RatioTolerance | RATIO | absolute ratio | ratios/shares | money/lot | strict bounds remain strict |
-| ComparisonEpsilon | typed | type-bound only | named diagnostic comparison | universal use | no business weakening |
-| ReserveMismatchTolerance | MONEY | absolute | reserve ledger reconciliation | lot | mismatch detection only |
-| GeometryTolerance | LOT | symbol-aware | strict compression after normalization | money | cannot make equality strict improvement |
-| FingerprintTolerance | FINGERPRINT | exact semantic | serialized typed fields | numeric substitution | any semantic mismatch makes stale |
+| MoneyTolerance | MONEY | absolute account money | MONEY_TOLERANCE | account money | >= 0 |
+| VolumeToleranceLots | LOT | absolute lot | LOT_TOLERANCE | lot | >= 0 |
+| PriceTolerance | PRICE | absolute symbol price | PRICE_TOLERANCE | price | >= 0 |
+| PointTolerance | POINTS | absolute points | POINT_TOLERANCE | point | >= 0 |
+| RatioTolerance | RATIO | absolute ratio | RATIO_TOLERANCE | dimensionless ratio | >= 0 |
+| ComparisonEpsilon | typed | type-bound only | COMPARISON_EPSILON | dimensionless epsilon | >= 0 |
+| ReserveMismatchTolerance | MONEY | absolute | MONEY_TOLERANCE | account money | >= 0 |
+| GeometryTolerance | LOT | symbol-aware | LOT_TOLERANCE | lot | >= 0 |
+| FingerprintTolerance | FINGERPRINT | exact semantic | IDENTITY_MATCH_POLICY | dimensionless policy | >= 0 |
 
 ### Source-of-truth matrix
 
@@ -427,27 +427,27 @@ Parameters BigRatio, SmallRatio, CloseBigOnSmallShare, RemainBigOnSmallShare, Cl
 | ReasonCode | Причина код | Cycle lifecycle | REASON_CODE | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | ErrorCode | Ошибка код | Cycle lifecycle | REASON_CODE | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | DiagnosticText | Диагностический текст | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| CandidatePlan | Кандидат план | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| ApprovedImmutablePlan | Утверждённый неизменяемый план | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| ExecutionRequest | Исполнение запрос | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| BrokerExecutionResult | Брокерский исполнение результат | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| ReconciledResult | Сверенный результат | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| CommittedLedgerEvent | Зафиксированный ledger событие | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| BaseSnapshot | Базовая снимок | Cycle lifecycle | STATE | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| WorstSnapshot | Worst снимок | Cycle lifecycle | STATE | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| ActualSnapshot | Фактический снимок | Cycle lifecycle | STATE | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| CandidatePlan | Кандидат план | Cycle lifecycle | PLAN_OBJECT | structured plan | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| ApprovedImmutablePlan | Утверждённый неизменяемый план | Cycle lifecycle | PLAN_OBJECT | structured plan | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| ExecutionRequest | Исполнение запрос | Cycle lifecycle | EXECUTION_REQUEST | structured request | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| BrokerExecutionResult | Брокерский исполнение результат | Cycle lifecycle | EXECUTION_RESULT | structured result | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| ReconciledResult | Сверенный результат | Cycle lifecycle | RECONCILED_RESULT | structured result | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| CommittedLedgerEvent | Зафиксированный ledger событие | Cycle lifecycle | LEDGER_EVENT | structured event | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| BaseSnapshot | Базовая снимок | Cycle lifecycle | SNAPSHOT_PROJECTED | structured snapshot | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| WorstSnapshot | Worst снимок | Cycle lifecycle | SNAPSHOT_WORST_CASE | structured snapshot | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| ActualSnapshot | Фактический снимок | Cycle lifecycle | SNAPSHOT_ACTUAL | structured snapshot | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | SnapshotStaleFlag | Снимок устаревший признак | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | FinalClosePreview | Финальный закрытие preview | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | FinalCloseActualSuccess | Финальный закрытие фактический успех | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| MoneyTolerance | Денежный допуск | Dimension-specific only | MONEY_AVAILABLE | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| VolumeToleranceLots | Объём допуск lots | Dimension-specific only | LOT_NORMALIZED | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| PriceTolerance | Цена допуск | Dimension-specific only | PRICE_PROJECTED | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| PointTolerance | Размер пункта допуск | Dimension-specific only | POINTS | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| RatioTolerance | Отношение допуск | Dimension-specific only | RATIO | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| ComparisonEpsilon | Comparison epsilon | Dimension-specific only | FINGERPRINT | integer/string identity | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
-| ReserveMismatchTolerance | Резерв mismatch допуск | Dimension-specific only | MONEY_AVAILABLE | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| GeometryTolerance | Геометрический допуск | Dimension-specific only | LOT_NORMALIZED | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| FingerprintTolerance | Отпечаток допуск | Dimension-specific only | FINGERPRINT | integer/string identity | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
+| MoneyTolerance | Денежный допуск | Dimension-specific only | MONEY_TOLERANCE | account money | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| VolumeToleranceLots | Объём допуск lots | Dimension-specific only | LOT_TOLERANCE | lot | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| PriceTolerance | Цена допуск | Dimension-specific only | PRICE_TOLERANCE | price | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| PointTolerance | Размер пункта допуск | Dimension-specific only | POINT_TOLERANCE | point | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| RatioTolerance | Отношение допуск | Dimension-specific only | RATIO_TOLERANCE | dimensionless ratio | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| ComparisonEpsilon | Comparison epsilon | Dimension-specific only | COMPARISON_EPSILON | dimensionless epsilon | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
+| ReserveMismatchTolerance | Резерв mismatch допуск | Dimension-specific only | MONEY_TOLERANCE | account money | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| GeometryTolerance | Геометрический допуск | Dimension-specific only | LOT_TOLERANCE | lot | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| FingerprintTolerance | Отпечаток допуск | Dimension-specific only | IDENTITY_MATCH_POLICY | dimensionless policy | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
 | ProjectedData | Прогнозный данные | All | BOOLEAN_RESULT | data-state enum | not numeric | PROJECTED | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
 | RequestedData | Запрошенный данные | All | BOOLEAN_RESULT | data-state enum | not numeric | REQUESTED | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
 | ExecutedData | Исполненная данные | All | BOOLEAN_RESULT | data-state enum | not numeric | EXECUTED | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
@@ -1009,7 +1009,7 @@ Authoritative replacement: пересчёт BigGross на новом immutable s
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::nextBigGross
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -1837,7 +1837,7 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Legacy aliases: —
 MQL5 mapping: Include/ReconciliationEngine.mqh::ValidateBigCorePosition
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1883,7 +1883,7 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Legacy aliases: —
 MQL5 mapping: Include/ReconciliationEngine.mqh::ValidateBigTrendPosition
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1975,7 +1975,7 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Legacy aliases: —
 MQL5 mapping: Include/ReconciliationEngine.mqh::ValidateSmallBasePosition
 Python mapping: Tests/unit/test_split_exact_persistence_model.py::small_base_id
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2021,7 +2021,7 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Legacy aliases: —
 MQL5 mapping: Include/PositionUtils.mqh::IsManagedPositionForMagic
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2159,7 +2159,7 @@ Authoritative replacement: пересчёт FarDirection на новом immutab
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::farDirection
 Python mapping: Tools/hybrid_small_state_machine.py::direction
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2205,7 +2205,7 @@ Authoritative replacement: пересчёт OppositeFarDirection на новом
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::farDirection
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2251,7 +2251,7 @@ Authoritative replacement: пересчёт SameAsFarDirection на новом i
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::farDirection
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2297,7 +2297,7 @@ Authoritative replacement: пересчёт BigDirection на новом immutab
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::bigDirection
 Python mapping: Tools/hybrid_small_state_machine.py::direction
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2343,7 +2343,7 @@ Authoritative replacement: пересчёт SmallDirection на новом immut
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::smallDirection
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2435,7 +2435,7 @@ Authoritative replacement: пересчёт ReverseDirection на новом imm
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/test_dynamic_reverse_small_direction.py::reverse_direction
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2481,7 +2481,7 @@ Authoritative replacement: пересчёт RawLot на новом immutable sna
 Legacy aliases: —
 MQL5 mapping: Include/RecoveryMath.mqh::rawLot
 Python mapping: Tests/normalize_volume_to_step_check.py::lot
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`EXACT_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2619,7 +2619,7 @@ Authoritative replacement: FilledLot/ExecutionResult, затем reconciled actu
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::requestedLot
 Python mapping: Tests/unit/test_money_completion_behavior.py::requested
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2665,7 +2665,7 @@ Authoritative replacement: повторно построенный aggregate con
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::filledLot
 Python mapping: Tests/unit/test_big_small_behavior.py::filled
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2711,7 +2711,7 @@ Authoritative replacement: новый current MT5 position snapshot.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::actualPositionLot
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2849,7 +2849,7 @@ Authoritative replacement: пересчёт FarLotRaw на новом immutable 
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::closeFarLotRaw
 Python mapping: Tools/optimize_big_scenario_min_levels.py::close_far_lot_raw
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2895,7 +2895,7 @@ Authoritative replacement: пересчёт FarLotCalculated на новом imm
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::farLotAfter
 Python mapping: Tools/optimize_big_scenario_min_levels.py::FarLotAfter
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3125,7 +3125,7 @@ Authoritative replacement: пересчёт BigCoreLotRaw на новом immuta
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::closeBigLotRaw
 Python mapping: Tools/hybrid_geometry_model.py::core_lot
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4045,7 +4045,7 @@ Authoritative replacement: новый SymbolInfo* property snapshot.
 Legacy aliases: —
 MQL5 mapping: Include/HybridFutureSmallSolver.mqh::point
 Python mapping: Tests/small_at_far_scenario_log.py::point
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4137,7 +4137,7 @@ Authoritative replacement: пересчёт TickValue на новом immutable 
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::tickValue
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5011,7 +5011,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/offline_optimizer.py::gross_loss
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5057,7 +5057,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::netProfit
 Python mapping: Tools/run_full_parameter_optimization_study.py::net_profit
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5103,7 +5103,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::legNet
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5149,7 +5149,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::basket
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5241,7 +5241,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::harvestNet
 Python mapping: Tools/hybrid_big_sequence_model.py::harvest
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5287,7 +5287,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/offline_optimizer.py::small_net
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-023`
 Resolution stage: `3.1.5 / 3.1.6`
 Статус определения: `UNRESOLVED_BUSINESS_POLICY`
@@ -5333,7 +5333,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_geometry_model.py::transition_net
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5379,7 +5379,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::realizedCyclePL
 Python mapping: Tools/hybrid_small_state_machine.py::realized_cycle_pl
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5655,7 +5655,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: realRecoveryPL
 MQL5 mapping: Include/StateMachine.mqh::CalcRealRecoveryPL
 Python mapping: Tests/real_recovery_examples_check.py::recovery_pl
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5701,7 +5701,7 @@ Authoritative replacement: пересчёт RecoverySlope на новом immuta
 Legacy aliases: —
 MQL5 mapping: Include/Logger.mqh::recoveryPL
 Python mapping: Tools/hybrid_geometry_model.py::recovery_slope
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6023,7 +6023,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::slippage
 Python mapping: Tests/unit/test_big_small_behavior.py::slippage
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6069,7 +6069,7 @@ Authoritative replacement: новый current MT5 position snapshot.
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::SimSignedPositionPL
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6115,7 +6115,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::farLoss
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6161,7 +6161,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::farLossAfter
 Python mapping: Tools/hybrid_big_sequence_model.py::far_loss_after
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6207,7 +6207,7 @@ Authoritative replacement: пересчёт PartialFarBudgetProjected на но�
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6253,7 +6253,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::partialBudgetBefore
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6299,7 +6299,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/HybridPartialFarPreview.mqh::budgetAvailable
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6345,7 +6345,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6391,7 +6391,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_big_sequence_model.py::partial_budget
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6529,7 +6529,7 @@ Authoritative replacement: пересчёт ReserveAddProjected на новом 
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::reserveAdd
 Python mapping: Tools/optimize_big_scenario_min_levels.py::reserve_add
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6575,7 +6575,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::reserveAdd
 Python mapping: Tools/optimize_big_scenario_min_levels.py::reserve_add
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -6897,7 +6897,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Legacy aliases: —
 MQL5 mapping: Include/HybridPartialFarPreview.mqh::budgetAvailable
 Python mapping: Tools/hybrid_geometry_model.py::transition_budget
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7173,7 +7173,7 @@ Authoritative replacement: новое approved значение CloseBigOnSmallS
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::CloseBigOnSmall
 Python mapping: Tests/small_reverse_compression_check.py::close_big_on_small
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-003`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7219,7 +7219,7 @@ Authoritative replacement: новое approved значение RemainBigOnSmall
 Legacy aliases: —
 MQL5 mapping: Include/RecoveryMath.mqh::remainBigOnSmall
 Python mapping: Tests/small_reverse_compression_check.py::remain_big_on_small
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-004`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7311,7 +7311,7 @@ Authoritative replacement: новое approved значение ReserveShare и�
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::ReserveShare
 Python mapping: Tests/test_reserve_growth_ratio.py::reserve_share
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-006`
 Resolution stage: `3.1.7`
 Статус определения: `UNRESOLVED_PARAMETER_PROFILE`
@@ -7357,7 +7357,7 @@ Authoritative replacement: новое approved значение SmallReserveShar
 Legacy aliases: —
 MQL5 mapping: Include/Config.mqh::SmallReserveShare
 Python mapping: Tools/mql5_like_big_scenario_parameter_search.py::small_reserve_share
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7403,7 +7403,7 @@ Authoritative replacement: новое approved значение CompressionRatio
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::compressionRatio
 Python mapping: Tools/offline_optimizer.py::compression_ratio
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7449,7 +7449,7 @@ Authoritative replacement: новое approved значение ReserveCoverageR
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::reserveCoverage
 Python mapping: Tools/run_full_parameter_optimization_study.py::reserve_coverage
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7679,7 +7679,7 @@ Authoritative replacement: новое approved значение ScaleMultiplier 
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::multiplier
 Python mapping: Tools/offline_optimizer.py::multiplier
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7771,7 +7771,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::symbol
 Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::symbol
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7863,7 +7863,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: CycleID, cycleId
 MQL5 mapping: Include/Types.mqh::cycleId
 Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::cycle
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8093,7 +8093,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::entryDealTicket
 Python mapping: Tests/unit/test_split_final_safety_model.py::ticket
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8185,7 +8185,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::eventKeyHash
 Python mapping: Tests/unit/test_split_final_safety_model.py::event_key
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8231,7 +8231,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8277,7 +8277,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8415,7 +8415,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::stateRevision
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8461,7 +8461,7 @@ Authoritative replacement: последнее confirmed state/event значен
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::state
 Python mapping: Tests/pending_open_big_contract_check.py::state
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`EXACT_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8737,7 +8737,7 @@ Authoritative replacement: последнее confirmed state/event значен
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::outcome
 Python mapping: Tests/HybridSplitBig/test_catchup_stage12.py::Outcome
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8829,7 +8829,7 @@ Authoritative replacement: последнее confirmed state/event значен
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::error
 Python mapping: Tests/HybridSplitBig/test_catchup_stage12.py::ERROR
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8901,8 +8901,8 @@ CanonicalName: `CandidatePlan`
 Краткое определение: CandidatePlan — typed `OUTCOME` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Кандидат план»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: CandidatePlan
-Размерность: `OUTCOME`
-Unit: `enum/structured record`
+Размерность: `PLAN_OBJECT`
+Unit: `structured plan`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `OUTCOME`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -8925,12 +8925,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: PLAN
 Creation event: CandidatePlan создаётся соответствующим transition, gate или observation event.
 Validation event: CandidatePlan проверяется точным enum/schema сравнением.
 Freeze/confirmation event: CandidatePlan фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение CandidatePlan историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -8947,8 +8947,8 @@ CanonicalName: `ApprovedImmutablePlan`
 Краткое определение: ApprovedImmutablePlan — typed `OUTCOME` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Утверждённый неизменяемый план»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: ApprovedImmutablePlan
-Размерность: `OUTCOME`
-Unit: `enum/structured record`
+Размерность: `PLAN_OBJECT`
+Unit: `structured plan`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `OUTCOME`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -8971,12 +8971,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: PLAN
 Creation event: ApprovedImmutablePlan создаётся соответствующим transition, gate или observation event.
 Validation event: ApprovedImmutablePlan проверяется точным enum/schema сравнением.
 Freeze/confirmation event: ApprovedImmutablePlan фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение ApprovedImmutablePlan историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -8993,8 +8993,8 @@ CanonicalName: `ExecutionRequest`
 Краткое определение: ExecutionRequest — typed `OUTCOME` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Исполнение запрос»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: ExecutionRequest
-Размерность: `OUTCOME`
-Unit: `enum/structured record`
+Размерность: `EXECUTION_REQUEST`
+Unit: `structured request`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `OUTCOME`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -9017,12 +9017,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: EXECUTION_REQUEST
 Creation event: ExecutionRequest создаётся соответствующим transition, gate или observation event.
 Validation event: ExecutionRequest проверяется точным enum/schema сравнением.
 Freeze/confirmation event: ExecutionRequest фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение ExecutionRequest историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -9039,8 +9039,8 @@ CanonicalName: `BrokerExecutionResult`
 Краткое определение: BrokerExecutionResult — typed `OUTCOME` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Брокерский исполнение результат»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: BrokerExecutionResult
-Размерность: `OUTCOME`
-Unit: `enum/structured record`
+Размерность: `EXECUTION_RESULT`
+Unit: `structured result`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `OUTCOME`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -9063,12 +9063,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: EXECUTION_RESULT
 Creation event: BrokerExecutionResult создаётся соответствующим transition, gate или observation event.
 Validation event: BrokerExecutionResult проверяется точным enum/schema сравнением.
 Freeze/confirmation event: BrokerExecutionResult фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение BrokerExecutionResult историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -9085,8 +9085,8 @@ CanonicalName: `ReconciledResult`
 Краткое определение: ReconciledResult — typed `OUTCOME` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Сверенный результат»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: ReconciledResult
-Размерность: `OUTCOME`
-Unit: `enum/structured record`
+Размерность: `RECONCILED_RESULT`
+Unit: `structured result`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `OUTCOME`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -9109,12 +9109,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: OBJECT
 Creation event: ReconciledResult создаётся соответствующим transition, gate или observation event.
 Validation event: ReconciledResult проверяется точным enum/schema сравнением.
 Freeze/confirmation event: ReconciledResult фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение ReconciledResult историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -9131,8 +9131,8 @@ CanonicalName: `CommittedLedgerEvent`
 Краткое определение: CommittedLedgerEvent — typed `OUTCOME` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Зафиксированный ledger событие»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: CommittedLedgerEvent
-Размерность: `OUTCOME`
-Unit: `enum/structured record`
+Размерность: `LEDGER_EVENT`
+Unit: `structured event`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `OUTCOME`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -9155,12 +9155,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: LEDGER
 Creation event: CommittedLedgerEvent создаётся соответствующим transition, gate или observation event.
 Validation event: CommittedLedgerEvent проверяется точным enum/schema сравнением.
 Freeze/confirmation event: CommittedLedgerEvent фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение CommittedLedgerEvent историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -9177,8 +9177,8 @@ CanonicalName: `BaseSnapshot`
 Краткое определение: BaseSnapshot — typed `STATE` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Базовая снимок»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: BaseSnapshot
-Размерность: `STATE`
-Unit: `enum/structured record`
+Размерность: `SNAPSHOT_PROJECTED`
+Unit: `structured snapshot`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -9201,12 +9201,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: SNAPSHOT
 Creation event: BaseSnapshot создаётся соответствующим transition, gate или observation event.
 Validation event: BaseSnapshot проверяется точным enum/schema сравнением.
 Freeze/confirmation event: BaseSnapshot фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение BaseSnapshot историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -9223,8 +9223,8 @@ CanonicalName: `WorstSnapshot`
 Краткое определение: WorstSnapshot — typed `STATE` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Worst снимок»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: WorstSnapshot
-Размерность: `STATE`
-Unit: `enum/structured record`
+Размерность: `SNAPSHOT_WORST_CASE`
+Unit: `structured snapshot`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -9247,12 +9247,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: SNAPSHOT
 Creation event: WorstSnapshot создаётся соответствующим transition, gate или observation event.
 Validation event: WorstSnapshot проверяется точным enum/schema сравнением.
 Freeze/confirmation event: WorstSnapshot фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение WorstSnapshot историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -9269,8 +9269,8 @@ CanonicalName: `ActualSnapshot`
 Краткое определение: ActualSnapshot — typed `STATE` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «Фактический снимок»; его authoritative provenance — «state machine or immutable snapshot/reconciliation».
 Архитектурный профиль: Cycle lifecycle
 Торговая роль: ActualSnapshot
-Размерность: `STATE`
-Unit: `enum/structured record`
+Размерность: `SNAPSHOT_ACTUAL`
+Unit: `structured snapshot`
 Знак: not numeric
 Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: state machine or immutable snapshot/reconciliation
@@ -9293,12 +9293,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: STATE_OR_RESULT
-Lifecycle class: STATE
+Semantic category: STRUCTURED_OBJECT
+Lifecycle class: SNAPSHOT
 Creation event: ActualSnapshot создаётся соответствующим transition, gate или observation event.
 Validation event: ActualSnapshot проверяется точным enum/schema сравнением.
 Freeze/confirmation event: ActualSnapshot фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Новая state revision делает прежнее current значение ActualSnapshot историческим.
 Replacement source: последнее confirmed state/event значение того же класса.
 Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
@@ -9381,7 +9381,7 @@ Authoritative replacement: последнее confirmed state/event значен
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::finalClosePreviewRequired
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9453,17 +9453,17 @@ CanonicalName: `MoneyTolerance`
 Краткое определение: MoneyTolerance — денежная величина `MoneyTolerance` класса `POLICY` со знаком «>=0»; она отличается от gross/projected/confirmed siblings источником и допустимостью ledger commit. Отличительный объект записи: «Денежный допуск»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: MoneyTolerance
-Размерность: `MONEY_AVAILABLE`
-Unit: `same unit as compared operands`
-Знак: >=0
+Размерность: `MONEY_TOLERANCE`
+Unit: `account money`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_AVAILABLE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для MoneyTolerance.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `self`
+Tolerance: `EXACT`
 Lifecycle: MoneyTolerance вычисляется из snapshot inputs: approved config/symbol properties. Не мутирует; изменение inputs создаёт новую revision MoneyTolerance. Market, symbol, config или snapshot revision делает MoneyTolerance stale. пересчёт MoneyTolerance на новом immutable snapshot. После execution projected MoneyTolerance завершается и не становится actual присваиванием. Этот lifecycle относится именно к объекту «Денежный допуск» и его собственному type/source contract.
 Условия stale: Market, symbol, config или snapshot revision делает MoneyTolerance stale.
 Authoritative replacement: пересчёт MoneyTolerance на новом immutable snapshot.
@@ -9477,12 +9477,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: MONEY_VALUE
-Lifecycle class: PROJECTED_VALUE
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: MoneyTolerance вычисляется из snapshot inputs: approved config/symbol properties.
 Validation event: MoneyTolerance валидируется по типу, unit и входному fingerprint.
 Freeze/confirmation event: MoneyTolerance замораживается только внутри Candidate/ApprovedPlan.
-Mutation events: Не мутирует; изменение inputs создаёт новую revision MoneyTolerance.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Market, symbol, config или snapshot revision делает MoneyTolerance stale.
 Replacement source: пересчёт MoneyTolerance на новом immutable snapshot.
 Terminal condition: После execution projected MoneyTolerance завершается и не становится actual присваиванием.
@@ -9499,17 +9499,17 @@ CanonicalName: `VolumeToleranceLots`
 Краткое определение: VolumeToleranceLots — объём `VolumeToleranceLots` на стадии явно указанного lot lifecycle; он отличается от соседних lot stages источником `approved config/symbol properties` и не может использоваться как их evidence. Отличительный объект записи: «Объём допуск lots»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: VolumeToleranceLots
-Размерность: `LOT_NORMALIZED`
-Unit: `same unit as compared operands`
-Знак: >=0
+Размерность: `LOT_TOLERANCE`
+Unit: `lot`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для VolumeToleranceLots.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `self`
+Tolerance: `EXACT`
 Lifecycle: VolumeToleranceLots вычисляется из snapshot inputs: approved config/symbol properties. Не мутирует; изменение inputs создаёт новую revision VolumeToleranceLots. Market, symbol, config или snapshot revision делает VolumeToleranceLots stale. пересчёт VolumeToleranceLots на новом immutable snapshot. После execution projected VolumeToleranceLots завершается и не становится actual присваиванием. Этот lifecycle относится именно к объекту «Объём допуск lots» и его собственному type/source contract.
 Условия stale: Market, symbol, config или snapshot revision делает VolumeToleranceLots stale.
 Authoritative replacement: пересчёт VolumeToleranceLots на новом immutable snapshot.
@@ -9523,12 +9523,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: LOT_VALUE
-Lifecycle class: PROJECTED_VALUE
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: VolumeToleranceLots вычисляется из snapshot inputs: approved config/symbol properties.
 Validation event: VolumeToleranceLots валидируется по типу, unit и входному fingerprint.
 Freeze/confirmation event: VolumeToleranceLots замораживается только внутри Candidate/ApprovedPlan.
-Mutation events: Не мутирует; изменение inputs создаёт новую revision VolumeToleranceLots.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Market, symbol, config или snapshot revision делает VolumeToleranceLots stale.
 Replacement source: пересчёт VolumeToleranceLots на новом immutable snapshot.
 Terminal condition: После execution projected VolumeToleranceLots завершается и не становится actual присваиванием.
@@ -9545,17 +9545,17 @@ CanonicalName: `PriceTolerance`
 Краткое определение: PriceTolerance — symbol-bound величина `PriceTolerance` типа `PRICE_PROJECTED`, получаемая из approved config/symbol properties; она не является money или lot и не использует их tolerance. Отличительный объект записи: «Цена допуск»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: PriceTolerance
-Размерность: `PRICE_PROJECTED`
-Unit: `same unit as compared operands`
-Знак: >=0
+Размерность: `PRICE_TOLERANCE`
+Unit: `price`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `PRICE_PROJECTED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для PriceTolerance.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `self`
+Tolerance: `EXACT`
 Lifecycle: PriceTolerance вычисляется из snapshot inputs: approved config/symbol properties. Не мутирует; изменение inputs создаёт новую revision PriceTolerance. Market, symbol, config или snapshot revision делает PriceTolerance stale. пересчёт PriceTolerance на новом immutable snapshot. После execution projected PriceTolerance завершается и не становится actual присваиванием. Этот lifecycle относится именно к объекту «Цена допуск» и его собственному type/source contract.
 Условия stale: Market, symbol, config или snapshot revision делает PriceTolerance stale.
 Authoritative replacement: пересчёт PriceTolerance на новом immutable snapshot.
@@ -9565,16 +9565,16 @@ Authoritative replacement: пересчёт PriceTolerance на новом immut
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::priceTolerance
 Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::price_tolerance
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: PRICE_OR_DISTANCE
-Lifecycle class: PROJECTED_VALUE
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: PriceTolerance вычисляется из snapshot inputs: approved config/symbol properties.
 Validation event: PriceTolerance валидируется по типу, unit и входному fingerprint.
 Freeze/confirmation event: PriceTolerance замораживается только внутри Candidate/ApprovedPlan.
-Mutation events: Не мутирует; изменение inputs создаёт новую revision PriceTolerance.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Market, symbol, config или snapshot revision делает PriceTolerance stale.
 Replacement source: пересчёт PriceTolerance на новом immutable snapshot.
 Terminal condition: После execution projected PriceTolerance завершается и не становится actual присваиванием.
@@ -9591,17 +9591,17 @@ CanonicalName: `PointTolerance`
 Краткое определение: PointTolerance — самостоятельная нормативная сущность `POINTS`: её значение возникает из `approved config/symbol properties` и отличается от связанных терминов lifecycle class `POLICY`. Отличительный объект записи: «Размер пункта допуск»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: PointTolerance
-Размерность: `POINTS`
-Unit: `same unit as compared operands`
-Знак: >=0
+Размерность: `POINT_TOLERANCE`
+Unit: `point`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `POINTS`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для PointTolerance.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `self`
+Tolerance: `EXACT`
 Lifecycle: PointTolerance вычисляется из snapshot inputs: approved config/symbol properties. Не мутирует; изменение inputs создаёт новую revision PointTolerance. Market, symbol, config или snapshot revision делает PointTolerance stale. пересчёт PointTolerance на новом immutable snapshot. После execution projected PointTolerance завершается и не становится actual присваиванием. Этот lifecycle относится именно к объекту «Размер пункта допуск» и его собственному type/source contract.
 Условия stale: Market, symbol, config или snapshot revision делает PointTolerance stale.
 Authoritative replacement: пересчёт PointTolerance на новом immutable snapshot.
@@ -9615,12 +9615,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: PRICE_OR_DISTANCE
-Lifecycle class: PROJECTED_VALUE
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: PointTolerance вычисляется из snapshot inputs: approved config/symbol properties.
 Validation event: PointTolerance валидируется по типу, unit и входному fingerprint.
 Freeze/confirmation event: PointTolerance замораживается только внутри Candidate/ApprovedPlan.
-Mutation events: Не мутирует; изменение inputs создаёт новую revision PointTolerance.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Market, symbol, config или snapshot revision делает PointTolerance stale.
 Replacement source: пересчёт PointTolerance на новом immutable snapshot.
 Terminal condition: После execution projected PointTolerance завершается и не становится actual присваиванием.
@@ -9637,17 +9637,17 @@ CanonicalName: `RatioTolerance`
 Краткое определение: RatioTolerance — безразмерная величина типа `RATIO` для RatioTolerance; она не интерпретируется как lot, money или percent без явной conversion. Отличительный объект записи: «Отношение допуск»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: RatioTolerance
-Размерность: `RATIO`
-Unit: `same unit as compared operands`
-Знак: >=0
+Размерность: `RATIO_TOLERANCE`
+Unit: `dimensionless ratio`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `RATIO`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для RatioTolerance.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `self`
+Tolerance: `EXACT`
 Lifecycle: RatioTolerance загружается из выбранного документального/конфигурационного профиля. Внутри замороженного цикла RatioTolerance не изменяется; новая ревизия относится к новому plan. Изменение профиля или revision делает прежний RatioTolerance stale. новое approved значение RatioTolerance из явно выбранного профиля. Завершается вместе с конфигурационным scope цикла. Этот lifecycle относится именно к объекту «Отношение допуск» и его собственному type/source contract.
 Условия stale: Изменение профиля или revision делает прежний RatioTolerance stale.
 Authoritative replacement: новое approved значение RatioTolerance из явно выбранного профиля.
@@ -9657,16 +9657,16 @@ Authoritative replacement: новое approved значение RatioTolerance �
 Legacy aliases: —
 MQL5 mapping: Include/HybridCatchUpModel.mqh::HybridRatioTolerance
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: POLICY
-Lifecycle class: POLICY
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: RatioTolerance загружается из выбранного документального/конфигурационного профиля.
 Validation event: RatioTolerance проверяется как POLICY до фиксации цикла.
 Freeze/confirmation event: RatioTolerance замораживается в конфигурации конкретного CycleID.
-Mutation events: Внутри замороженного цикла RatioTolerance не изменяется; новая ревизия относится к новому plan.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Изменение профиля или revision делает прежний RatioTolerance stale.
 Replacement source: новое approved значение RatioTolerance из явно выбранного профиля.
 Terminal condition: Завершается вместе с конфигурационным scope цикла.
@@ -9683,17 +9683,17 @@ CanonicalName: `ComparisonEpsilon`
 Краткое определение: ComparisonEpsilon — identity-сущность типа `FINGERPRINT` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Comparison epsilon»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: ComparisonEpsilon
-Размерность: `FINGERPRINT`
-Unit: `integer/string identity`
-Знак: >=0
+Размерность: `COMPARISON_EPSILON`
+Unit: `dimensionless epsilon`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `FINGERPRINT`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для ComparisonEpsilon.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `EXACT HASH MATCH`
+Tolerance: `EXACT`
 Lifecycle: ComparisonEpsilon создаётся владельцем identity при создании соответствующего symbol/cycle/order/deal/event object. Не мутирует; новый объект получает новое identity. Несовпадение scope либо закрытие объекта делает использование ComparisonEpsilon stale. authoritative identity текущего terminal/deal/event object. После завершения объекта остаётся историческим ключом и не переиспользуется. Этот lifecycle относится именно к объекту «Comparison epsilon» и его собственному type/source contract.
 Условия stale: Несовпадение scope либо закрытие объекта делает использование ComparisonEpsilon stale.
 Authoritative replacement: authoritative identity текущего terminal/deal/event object.
@@ -9707,12 +9707,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: IDENTITY
-Lifecycle class: IDENTITY
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: ComparisonEpsilon создаётся владельцем identity при создании соответствующего symbol/cycle/order/deal/event object.
 Validation event: ComparisonEpsilon проверяется точным сравнением и scope filters.
 Freeze/confirmation event: После выдачи ComparisonEpsilon неизменяем в пределах своего объекта.
-Mutation events: Не мутирует; новый объект получает новое identity.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Несовпадение scope либо закрытие объекта делает использование ComparisonEpsilon stale.
 Replacement source: authoritative identity текущего terminal/deal/event object.
 Terminal condition: После завершения объекта остаётся историческим ключом и не переиспользуется.
@@ -9729,17 +9729,17 @@ CanonicalName: `ReserveMismatchTolerance`
 Краткое определение: ReserveMismatchTolerance — денежная величина `Reserve` класса `POLICY` со знаком «>=0»; она отличается от gross/projected/confirmed siblings источником и допустимостью ledger commit. Отличительный объект записи: «Резерв mismatch допуск»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: Reserve
-Размерность: `MONEY_AVAILABLE`
-Unit: `same unit as compared operands`
-Знак: >=0
+Размерность: `MONEY_TOLERANCE`
+Unit: `account money`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `MONEY_AVAILABLE`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для ReserveMismatchTolerance.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `self`
+Tolerance: `EXACT`
 Lifecycle: ReserveMismatchTolerance вычисляется из snapshot inputs: approved config/symbol properties. Не мутирует; изменение inputs создаёт новую revision ReserveMismatchTolerance. Market, symbol, config или snapshot revision делает ReserveMismatchTolerance stale. пересчёт ReserveMismatchTolerance на новом immutable snapshot. После execution projected ReserveMismatchTolerance завершается и не становится actual присваиванием. Этот lifecycle относится именно к объекту «Резерв mismatch допуск» и его собственному type/source contract.
 Условия stale: Market, symbol, config или snapshot revision делает ReserveMismatchTolerance stale.
 Authoritative replacement: пересчёт ReserveMismatchTolerance на новом immutable snapshot.
@@ -9753,12 +9753,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: MONEY_VALUE
-Lifecycle class: PROJECTED_VALUE
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: ReserveMismatchTolerance вычисляется из snapshot inputs: approved config/symbol properties.
 Validation event: ReserveMismatchTolerance валидируется по типу, unit и входному fingerprint.
 Freeze/confirmation event: ReserveMismatchTolerance замораживается только внутри Candidate/ApprovedPlan.
-Mutation events: Не мутирует; изменение inputs создаёт новую revision ReserveMismatchTolerance.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Market, symbol, config или snapshot revision делает ReserveMismatchTolerance stale.
 Replacement source: пересчёт ReserveMismatchTolerance на новом immutable snapshot.
 Terminal condition: После execution projected ReserveMismatchTolerance завершается и не становится actual присваиванием.
@@ -9775,17 +9775,17 @@ CanonicalName: `GeometryTolerance`
 Краткое определение: GeometryTolerance — объём `GeometryTolerance` на стадии явно указанного lot lifecycle; он отличается от соседних lot stages источником `approved config/symbol properties` и не может использоваться как их evidence. Отличительный объект записи: «Геометрический допуск»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: GeometryTolerance
-Размерность: `LOT_NORMALIZED`
-Unit: `same unit as compared operands`
-Знак: >=0
+Размерность: `LOT_TOLERANCE`
+Unit: `lot`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `LOT_NORMALIZED`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для GeometryTolerance.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `self`
+Tolerance: `EXACT`
 Lifecycle: GeometryTolerance вычисляется из snapshot inputs: approved config/symbol properties. Не мутирует; изменение inputs создаёт новую revision GeometryTolerance. Market, symbol, config или snapshot revision делает GeometryTolerance stale. пересчёт GeometryTolerance на новом immutable snapshot. После execution projected GeometryTolerance завершается и не становится actual присваиванием. Этот lifecycle относится именно к объекту «Геометрический допуск» и его собственному type/source contract.
 Условия stale: Market, symbol, config или snapshot revision делает GeometryTolerance stale.
 Authoritative replacement: пересчёт GeometryTolerance на новом immutable snapshot.
@@ -9799,12 +9799,12 @@ Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: LOT_VALUE
-Lifecycle class: PROJECTED_VALUE
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: GeometryTolerance вычисляется из snapshot inputs: approved config/symbol properties.
 Validation event: GeometryTolerance валидируется по типу, unit и входному fingerprint.
 Freeze/confirmation event: GeometryTolerance замораживается только внутри Candidate/ApprovedPlan.
-Mutation events: Не мутирует; изменение inputs создаёт новую revision GeometryTolerance.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Market, symbol, config или snapshot revision делает GeometryTolerance stale.
 Replacement source: пересчёт GeometryTolerance на новом immutable snapshot.
 Terminal condition: После execution projected GeometryTolerance завершается и не становится actual присваиванием.
@@ -9821,17 +9821,17 @@ CanonicalName: `FingerprintTolerance`
 Краткое определение: FingerprintTolerance — identity-сущность типа `FINGERPRINT` для разграничения торгового объекта/цикла; она сравнивается точно и не заменяется Comment или другим ticket kind. Отличительный объект записи: «Отпечаток допуск»; его authoritative provenance — «approved config/symbol properties».
 Архитектурный профиль: Dimension-specific only
 Торговая роль: FingerprintTolerance
-Размерность: `FINGERPRINT`
-Unit: `integer/string identity`
-Знак: >=0
+Размерность: `IDENTITY_MATCH_POLICY`
+Unit: `dimensionless policy`
+Знак: >= 0
 Допустимый диапазон: соответствует типу `FINGERPRINT`; NaN/infinity и несогласованный sentinel запрещены.
 Источник возникновения: approved config/symbol properties
-Authoritative source: approved config/symbol properties
+Authoritative source: typed tolerance policy/configuration or symbol-property threshold
 Время фиксации: POLICY stage для FingerprintTolerance.
 Projected/Actual class: `POLICY`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
-Tolerance: `EXACT HASH MATCH`
+Tolerance: `EXACT`
 Lifecycle: FingerprintTolerance создаётся владельцем identity при создании соответствующего symbol/cycle/order/deal/event object. Не мутирует; новый объект получает новое identity. Несовпадение scope либо закрытие объекта делает использование FingerprintTolerance stale. authoritative identity текущего terminal/deal/event object. После завершения объекта остаётся историческим ключом и не переиспользуется. Этот lifecycle относится именно к объекту «Отпечаток допуск» и его собственному type/source contract.
 Условия stale: Несовпадение scope либо закрытие объекта делает использование FingerprintTolerance stale.
 Authoritative replacement: authoritative identity текущего terminal/deal/event object.
@@ -9841,16 +9841,16 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
-Semantic category: IDENTITY
-Lifecycle class: IDENTITY
+Semantic category: TOLERANCE
+Lifecycle class: TOLERANCE
 Creation event: FingerprintTolerance создаётся владельцем identity при создании соответствующего symbol/cycle/order/deal/event object.
 Validation event: FingerprintTolerance проверяется точным сравнением и scope filters.
 Freeze/confirmation event: После выдачи FingerprintTolerance неизменяем в пределах своего объекта.
-Mutation events: Не мутирует; новый объект получает новое identity.
+Mutation events: immutable; replacement creates a new revision
 Stale triggers: Несовпадение scope либо закрытие объекта делает использование FingerprintTolerance stale.
 Replacement source: authoritative identity текущего terminal/deal/event object.
 Terminal condition: После завершения объекта остаётся историческим ключом и не переиспользуется.
@@ -9933,7 +9933,7 @@ Authoritative replacement: пересчёт RequestedData на новом immuta
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/unit/test_money_completion_behavior.py::requested
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10531,7 +10531,7 @@ Authoritative replacement: пересчёт ReserveProjected на новом imm
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::projectedReserve
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10577,7 +10577,7 @@ Authoritative replacement: новое approved значение ReserveCoverage 
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::reserveCoverage
 Python mapping: Tools/run_full_parameter_optimization_study.py::reserve_coverage
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10623,7 +10623,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::symbol
 Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::symbol
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10669,7 +10669,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::magicNumber
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10715,7 +10715,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::cycleId
 Python mapping: Tests/HybridSplitBig/test_catchup_route_hardening.py::cycle
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`EXACT_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10807,7 +10807,7 @@ Authoritative replacement: authoritative identity текущего terminal/deal
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/HybridSplitBig/test_catchup_dimension_safe.py::fingerprint
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10853,7 +10853,7 @@ Authoritative replacement: последнее confirmed state/event значен
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::comment
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10991,7 +10991,7 @@ Authoritative replacement: новый validated Plan, рассчитанный �
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/adaptive_geometry_docs_check.py::plan
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`

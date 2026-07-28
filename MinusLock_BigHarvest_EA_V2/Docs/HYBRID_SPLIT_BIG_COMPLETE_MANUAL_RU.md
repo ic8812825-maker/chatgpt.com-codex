@@ -301,15 +301,15 @@ DOCUMENTED does not select production profile. Point=SYMBOL_POINT; TickSize=SYMB
 
 | Tolerance | Type | Absolute/relative | Applied to | Forbidden for | Decision impact |
 |---|---|---|---|---|---|
-| MoneyTolerance | MONEY | absolute account money | money reconciliation/typed comparisons | lot/price/ratio | cannot turn negative into PASS |
-| VolumeToleranceLots | LOT | absolute lot | actual/expected volume | money/price | cannot hide executable residual |
-| PriceTolerance | PRICE | absolute symbol price | price snapshot/reconciliation | money/lot | snapshot freshness only as specified |
-| PointTolerance | POINTS | absolute points | point distances | price without conversion | no implicit conversion |
-| RatioTolerance | RATIO | absolute ratio | ratios/shares | money/lot | strict bounds remain strict |
-| ComparisonEpsilon | typed | type-bound only | named diagnostic comparison | universal use | no business weakening |
-| ReserveMismatchTolerance | MONEY | absolute | reserve ledger reconciliation | lot | mismatch detection only |
-| GeometryTolerance | LOT | symbol-aware | strict compression after normalization | money | cannot make equality strict improvement |
-| FingerprintTolerance | FINGERPRINT | exact semantic | serialized typed fields | numeric substitution | any semantic mismatch makes stale |
+| MoneyTolerance | MONEY | absolute account money | MONEY_TOLERANCE | account money | >= 0 |
+| VolumeToleranceLots | LOT | absolute lot | LOT_TOLERANCE | lot | >= 0 |
+| PriceTolerance | PRICE | absolute symbol price | PRICE_TOLERANCE | price | >= 0 |
+| PointTolerance | POINTS | absolute points | POINT_TOLERANCE | point | >= 0 |
+| RatioTolerance | RATIO | absolute ratio | RATIO_TOLERANCE | dimensionless ratio | >= 0 |
+| ComparisonEpsilon | typed | type-bound only | COMPARISON_EPSILON | dimensionless epsilon | >= 0 |
+| ReserveMismatchTolerance | MONEY | absolute | MONEY_TOLERANCE | account money | >= 0 |
+| GeometryTolerance | LOT | symbol-aware | LOT_TOLERANCE | lot | >= 0 |
+| FingerprintTolerance | FINGERPRINT | exact semantic | IDENTITY_MATCH_POLICY | dimensionless policy | >= 0 |
 
 ### Source-of-truth matrix
 
@@ -593,27 +593,27 @@ Parameters BigRatio, SmallRatio, CloseBigOnSmallShare, RemainBigOnSmallShare, Cl
 | ReasonCode | Причина код | Cycle lifecycle | REASON_CODE | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | ErrorCode | Ошибка код | Cycle lifecycle | REASON_CODE | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | DiagnosticText | Диагностический текст | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| CandidatePlan | Кандидат план | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| ApprovedImmutablePlan | Утверждённый неизменяемый план | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| ExecutionRequest | Исполнение запрос | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| BrokerExecutionResult | Брокерский исполнение результат | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| ReconciledResult | Сверенный результат | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| CommittedLedgerEvent | Зафиксированный ledger событие | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| BaseSnapshot | Базовая снимок | Cycle lifecycle | STATE | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| WorstSnapshot | Worst снимок | Cycle lifecycle | STATE | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| ActualSnapshot | Фактический снимок | Cycle lifecycle | STATE | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| CandidatePlan | Кандидат план | Cycle lifecycle | PLAN_OBJECT | structured plan | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| ApprovedImmutablePlan | Утверждённый неизменяемый план | Cycle lifecycle | PLAN_OBJECT | structured plan | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| ExecutionRequest | Исполнение запрос | Cycle lifecycle | EXECUTION_REQUEST | structured request | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| BrokerExecutionResult | Брокерский исполнение результат | Cycle lifecycle | EXECUTION_RESULT | structured result | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| ReconciledResult | Сверенный результат | Cycle lifecycle | RECONCILED_RESULT | structured result | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| CommittedLedgerEvent | Зафиксированный ledger событие | Cycle lifecycle | LEDGER_EVENT | structured event | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| BaseSnapshot | Базовая снимок | Cycle lifecycle | SNAPSHOT_PROJECTED | structured snapshot | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| WorstSnapshot | Worst снимок | Cycle lifecycle | SNAPSHOT_WORST_CASE | structured snapshot | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
+| ActualSnapshot | Фактический снимок | Cycle lifecycle | SNAPSHOT_ACTUAL | structured snapshot | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | SnapshotStaleFlag | Снимок устаревший признак | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | FinalClosePreview | Финальный закрытие preview | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | PROJECTED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | FinalCloseActualSuccess | Финальный закрытие фактический успех | Cycle lifecycle | OUTCOME | enum/structured record | not numeric | ACTUAL/CONFIRMED | state machine or immutable snapshot/reconciliation | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| MoneyTolerance | Денежный допуск | Dimension-specific only | MONEY_AVAILABLE | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| VolumeToleranceLots | Объём допуск lots | Dimension-specific only | LOT_NORMALIZED | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| PriceTolerance | Цена допуск | Dimension-specific only | PRICE_PROJECTED | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| PointTolerance | Размер пункта допуск | Dimension-specific only | POINTS | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| RatioTolerance | Отношение допуск | Dimension-specific only | RATIO | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| ComparisonEpsilon | Comparison epsilon | Dimension-specific only | FINGERPRINT | integer/string identity | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
-| ReserveMismatchTolerance | Резерв mismatch допуск | Dimension-specific only | MONEY_AVAILABLE | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| GeometryTolerance | Геометрический допуск | Dimension-specific only | LOT_NORMALIZED | same unit as compared operands | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
-| FingerprintTolerance | Отпечаток допуск | Dimension-specific only | FINGERPRINT | integer/string identity | >=0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
+| MoneyTolerance | Денежный допуск | Dimension-specific only | MONEY_TOLERANCE | account money | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| VolumeToleranceLots | Объём допуск lots | Dimension-specific only | LOT_TOLERANCE | lot | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| PriceTolerance | Цена допуск | Dimension-specific only | PRICE_TOLERANCE | price | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| PointTolerance | Размер пункта допуск | Dimension-specific only | POINT_TOLERANCE | point | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| RatioTolerance | Отношение допуск | Dimension-specific only | RATIO_TOLERANCE | dimensionless ratio | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| ComparisonEpsilon | Comparison epsilon | Dimension-specific only | COMPARISON_EPSILON | dimensionless epsilon | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
+| ReserveMismatchTolerance | Резерв mismatch допуск | Dimension-specific only | MONEY_TOLERANCE | account money | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| GeometryTolerance | Геометрический допуск | Dimension-specific only | LOT_TOLERANCE | lot | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | self | — | APPROVED_TERM |
+| FingerprintTolerance | Отпечаток допуск | Dimension-specific only | IDENTITY_MATCH_POLICY | dimensionless policy | >= 0 | POLICY | approved config/symbol properties | NO_ADDITIONAL_ROUNDING | EXACT HASH MATCH | — | APPROVED_TERM |
 | ProjectedData | Прогнозный данные | All | BOOLEAN_RESULT | data-state enum | not numeric | PROJECTED | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
 | RequestedData | Запрошенный данные | All | BOOLEAN_RESULT | data-state enum | not numeric | REQUESTED | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
 | ExecutedData | Исполненная данные | All | BOOLEAN_RESULT | data-state enum | not numeric | EXECUTED | lifecycle transition evidence | NO_ADDITIONAL_ROUNDING | exact state | — | APPROVED_TERM |
