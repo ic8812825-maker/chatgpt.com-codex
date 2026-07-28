@@ -2,7 +2,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_scoped_mql_use_graphs, entity_nature, entity_nature_relation, propagate_units
+from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_scoped_mql_use_graphs, compute_scope_proof, entity_nature, entity_nature_relation, propagate_units, strict_scope_relation
 from stage_3_1_3.source_evidence import Symbol
 
 
@@ -73,9 +73,27 @@ void A(){
         assert result.illegal_operations
 
 
+def scope_control() -> None:
+    symbol_only = "bool A(){ return PositionGetString(POSITION_SYMBOL)==_Symbol; }"
+    helper = """bool Managed(string symbol,long magic){
+ return PositionGetString(POSITION_SYMBOL)==symbol && PositionGetInteger(POSITION_MAGIC)==magic;
+}
+bool Caller(){ return Managed(_Symbol,123); }
+"""
+    with TemporaryDirectory() as directory:
+        root = Path(directory); (root / "symbol.mqh").write_text(symbol_only)
+        assert compute_scope_proof(root).scope == "PER_SYMBOL"
+        assert strict_scope_relation("PER_SYMBOL_MAGIC", "PER_SYMBOL") == "PROVEN_SUBSET"
+    with TemporaryDirectory() as directory:
+        root = Path(directory); (root / "helper.mqh").write_text(helper)
+        proof = compute_scope_proof(root)
+        assert proof.scope == "PER_SYMBOL_MAGIC" and proof.symbol_evidence and proof.magic_evidence
+
+
 if __name__ == "__main__":
     shadowing_control()
     entity_nature_control()
     dataflow_control()
     unit_control()
+    scope_control()
     print("SHADOWING_TESTS=PASS")

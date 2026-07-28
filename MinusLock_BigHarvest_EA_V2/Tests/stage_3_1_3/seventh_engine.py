@@ -115,6 +115,64 @@ def propagate_units(graph: ResolvedDataflowGraph, seeds: dict[str, str] | None =
     return UnitPropagationResult(units, rules, sorted(set(illegal)), sorted(set(conflicts)), unresolved)
 
 
+@dataclass(frozen=True)
+class ScopeProof:
+    scope: str
+    symbol_evidence: tuple[str, ...]
+    magic_evidence: tuple[str, ...]
+    cycle_evidence: tuple[str, ...]
+
+
+def compute_scope_proof(root: Path) -> ScopeProof:
+    """Prove isolation from filters, including one resolved helper call hop."""
+    symbol: list[str] = []; magic: list[str] = []; cycle: list[str] = []
+    function_evidence: dict[str, set[str]] = {}
+    calls: list[tuple[str, str]] = []
+    for path in sorted([*root.rglob("*.mq5"), *root.rglob("*.mqh")]):
+        rel = str(path.relative_to(root)); clean = sanitise(path.read_text(errors="ignore"))[0]
+        scopes = _scope_lines(clean)
+        for number, line in enumerate(clean.splitlines(), 1):
+            site = f"{rel}:{number}"; scope = scopes[number]; evidence = function_evidence.setdefault(scope, set())
+            if re.search(r"(?:POSITION|DEAL|ORDER)_SYMBOL|\b_symbol\b", line, re.I): evidence.add("symbol"); symbol.append(site)
+            if re.search(r"(?:POSITION|DEAL|ORDER)_MAGIC|\bmagic(?:number)?\b", line, re.I): evidence.add("magic"); magic.append(site)
+            if re.search(r"\bcycle(?:id)?\b", line, re.I): evidence.add("cycle"); cycle.append(site)
+            for called in re.findall(r"\b([A-Za-z_]\w*)\s*\(", line):
+                if called not in {"if", "for", "while", "switch"}: calls.append((scope, f"function {called}"))
+    changed = True
+    while changed:
+        changed = False
+        for caller, callee in calls:
+            before = len(function_evidence.setdefault(caller, set()))
+            function_evidence[caller].update(function_evidence.get(callee, set()))
+            changed |= len(function_evidence[caller]) != before
+    combined = set().union(*function_evidence.values()) if function_evidence else set()
+    if {"symbol", "magic", "cycle"} <= combined: scope = "PER_SYMBOL_MAGIC_CYCLE"
+    elif {"symbol", "magic"} <= combined: scope = "PER_SYMBOL_MAGIC"
+    elif "symbol" in combined: scope = "PER_SYMBOL"
+    elif "magic" in combined: scope = "PER_MAGIC"
+    elif "cycle" in combined: scope = "PER_CYCLE"
+    else: scope = "GLOBAL_RUNTIME"
+    return ScopeProof(scope, tuple(sorted(set(symbol))), tuple(sorted(set(magic))), tuple(sorted(set(cycle))))
+
+
+SCOPE_SETS = {
+    "GLOBAL_RUNTIME": frozenset(), "PER_SYMBOL": frozenset({"symbol"}),
+    "PER_MAGIC": frozenset({"magic"}), "PER_SYMBOL_MAGIC": frozenset({"symbol", "magic"}),
+    "PER_CYCLE": frozenset({"cycle"}), "PER_SYMBOL_MAGIC_CYCLE": frozenset({"symbol", "magic", "cycle"}),
+}
+
+
+def strict_scope_relation(expected: str, actual: str) -> str:
+    if expected == actual: return "EXACT"
+    if actual == "TEST_ONLY": return "TEST_ANALOGUE"
+    if actual == "OFFLINE_TOOL": return "OFFLINE_ANALOGUE"
+    if expected not in SCOPE_SETS or actual not in SCOPE_SETS: return "UNKNOWN"
+    wanted, found = SCOPE_SETS[expected], SCOPE_SETS[actual]
+    if wanted < found: return "PROVEN_SUPERSET"
+    if found < wanted: return "PROVEN_SUBSET"
+    return "INCOMPATIBLE"
+
+
 def entity_nature(symbol: Symbol, unit: str = "UNKNOWN") -> str:
     """Classify engineering nature solely from parsed source evidence."""
     name = symbol.identifier.lower(); kind = symbol.kind
