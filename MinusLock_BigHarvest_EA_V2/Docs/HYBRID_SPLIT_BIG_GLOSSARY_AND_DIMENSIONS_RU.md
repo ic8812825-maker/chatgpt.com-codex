@@ -260,9 +260,9 @@ Parameters BigRatio, SmallRatio, CloseBigOnSmallShare, RemainBigOnSmallShare, Cl
 | Hybrid | Гибридный | Hybrid | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | DOCUMENTED_NOT_APPROVED |
 | HybridSplitBig | Гибридный разделённый компенсирующая позиция | HybridSplitBig | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
 | HybridMode | Гибридный режим | Hybrid | STATE | enum/structured record | not numeric | POLICY | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT ENUM MATCH | — | APPROVED_TERM |
-| HybridPlan | Гибридный план | HybridPlan | PLAN_OBJECT | structured plan | not numeric | PROJECTED | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
-| HybridPreview | Гибридный preview | HybridPreview | PREVIEW_OBJECT | structured preview | not numeric | PROJECTED | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
-| HybridExecution | Гибридный исполнение | HybridExecution | EXECUTION_OBJECT | structured execution object | not numeric | REQUESTED/EXECUTED | explicit mode discriminator + plan role | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
+| HybridPlan | Гибридный план | HybridPlan | PLAN_OBJECT | structured plan | not numeric | PROJECTED | immutable planner result bound to SnapshotFingerprint and PlanFingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
+| HybridPreview | Гибридный preview | HybridPreview | PREVIEW_OBJECT | structured preview | not numeric | PROJECTED | preview calculator result bound to SnapshotFingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
+| HybridExecution | Гибридный исполнение | HybridExecution | EXECUTION_OBJECT | structured execution object | not numeric | REQUESTED/EXECUTED | broker result + confirmed deal history + current position reconciliation scoped by ApprovedPlan fingerprint | NO_ADDITIONAL_ROUNDING | EXACT STRUCTURE | — | APPROVED_TERM |
 | InitialBuy | Начальная покупка | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | InitialSell | Начальная продажа | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
 | InitialProfitLeg | Начальная прибыль leg | Role-qualified architecture | ROLE_ID | integer/string identity | not numeric | ACTUAL CONFIRMED | reconciled MT5 position identity and role mapping | NO_ADDITIONAL_ROUNDING | EXACT | — | APPROVED_TERM |
@@ -1216,23 +1216,23 @@ Evidence: candidate audit record `HybridMode`; MQL5 found=8, accepted=0; Python 
 ### HybridPlan
 CanonicalName: `HybridPlan`
 Русское название: Гибридный план
-Краткое определение: HybridPlan — Immutable projected action set с revision/fingerprint и role-qualified lots; отличается от HybridPreview отсутствием права изменять frozen inputs. Отличительный объект записи: «Гибридный план»; его authoritative provenance — «explicit mode discriminator + plan role».
+Краткое определение: HybridPlan — типизированный projected набор ролей, объёмов, цен и ожидаемых действий Hybrid mode, построенный на одном immutable snapshot; он не является runtime State или доказательством исполнения.
 Архитектурный профиль: HybridPlan
 Торговая роль: HybridPlan
 Размерность: `PLAN_OBJECT`
 Unit: `structured plan`
 Знак: not numeric
-Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
-Источник возникновения: explicit mode discriminator + plan role
-Authoritative source: explicit mode discriminator + plan role
-Время фиксации: POLICY stage для HybridPlan.
+Допустимый диапазон: валидная PLAN_OBJECT schema с согласованными CycleID, SnapshotFingerprint и PlanFingerprint; отсутствие обязательного поля означает INVALID.
+Источник возникновения: Hybrid planner output from immutable Base/Worst snapshot and explicit mode discriminator
+Authoritative source: immutable planner result bound to SnapshotFingerprint and PlanFingerprint
+Время фиксации: после candidate validation и до approval/execution.
 Projected/Actual class: `PROJECTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT STRUCTURE`
 Lifecycle: HybridPlan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
-Условия stale: Новая state revision делает прежнее current значение HybridPlan историческим.
-Authoritative replacement: последнее confirmed state/event значение того же класса.
+Условия stale: изменение input, market, symbol-property или snapshot revision делает HybridPlan stale.
+Authoritative replacement: новый HybridPlan, пересчитанный и validated на новом immutable snapshot.
 Допустимые операции: schema validation, fingerprint comparison и immutable freeze в ApprovedPlan; state-transition операции неприменимы.
 Запрещённые подмены: HybridPlan нельзя подменять Preview, runtime State, ExecutionRequest либо actual ExecutionResult.
 Связанные сущности: Candidate, ApprovedPlan, PlanFingerprint; тип PLAN_OBJECT, class PROJECTED.
@@ -1246,17 +1246,17 @@ Resolution stage: `NOT_APPLICABLE`
 Semantic category: STRUCTURED_OBJECT
 Lifecycle class: PROJECTED_VALUE
 Creation event: HybridPlan создаётся из immutable calculation snapshot.
-Validation event: HybridPlan проверяется точным enum/schema сравнением.
-Freeze/confirmation event: HybridPlan фиксируется вместе с CycleID и EventID.
+Validation event: HybridPlan проверяется по PLAN_OBJECT schema, dimensions, CycleID и fingerprint.
+Freeze/confirmation event: После gates HybridPlan может быть скопирован в immutable ApprovedPlan; сам plan не становится actual.
 Mutation events: Не мутирует; новая revision создаёт новый object.
 Stale triggers: input or snapshot revision делает object stale.
 Replacement source: пересчёт на новом immutable snapshot.
 Terminal condition: завершается перед execution либо freeze approved plan.
 Persistence behavior: plan/audit evidence, не actual ledger commit.
 Restart behavior: после restart сверяется fingerprint и пересчитывается.
-Отличие от: HybridPlan отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
+Отличие от: HybridPlan отличается от HybridPreview наличием сформированного набора действий, а от ApprovedPlan — отсутствием approval freeze.
 Semantic exception: NOT_APPLICABLE
-Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `HybridPlan` различается canonical source, type/class и полем «Отличие от».
+Similarity exception reason: Общие projected-plan lifecycle clauses разделяются с Plan; HybridPlan дополнительно фиксирует Hybrid mode roles и explicit mode discriminator.
 Evidence: candidate audit record `HybridPlan`; MQL5 found=7, accepted=0; Python found=3, accepted=0.
 
 ### HybridPreview
@@ -1268,17 +1268,17 @@ CanonicalName: `HybridPreview`
 Размерность: `PREVIEW_OBJECT`
 Unit: `structured preview`
 Знак: not numeric
-Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
-Источник возникновения: explicit mode discriminator + plan role
-Authoritative source: explicit mode discriminator + plan role
-Время фиксации: POLICY stage для HybridPreview.
+Допустимый диапазон: валидная PREVIEW_OBJECT schema для Base/Worst snapshot; broker outcome и actual deal evidence в preview запрещены.
+Источник возникновения: read-only Hybrid calculation over immutable Base/Worst snapshot
+Authoritative source: preview calculator result bound to SnapshotFingerprint
+Время фиксации: при завершении read-only formula preview до Candidate approval.
 Projected/Actual class: `PROJECTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT STRUCTURE`
 Lifecycle: HybridPreview создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
-Условия stale: Новая state revision делает прежнее current значение HybridPreview историческим.
-Authoritative replacement: последнее confirmed state/event значение того же класса.
+Условия stale: изменение input, market, symbol properties или snapshot revision делает HybridPreview stale.
+Authoritative replacement: новый read-only HybridPreview на новом immutable snapshot.
 Допустимые операции: read-only inspection, schema validation и сравнение snapshot fingerprint; исполнение и state transition запрещены.
 Запрещённые подмены: HybridPreview нельзя подменять ApprovedPlan, ExecutionRequest, broker result или current State.
 Связанные сущности: Preview, Candidate, BaseSnapshot; тип PREVIEW_OBJECT, class PROJECTED.
@@ -1292,17 +1292,17 @@ Resolution stage: `NOT_APPLICABLE`
 Semantic category: STRUCTURED_OBJECT
 Lifecycle class: PROJECTED_VALUE
 Creation event: HybridPreview создаётся из immutable calculation snapshot.
-Validation event: HybridPreview проверяется точным enum/schema сравнением.
-Freeze/confirmation event: HybridPreview фиксируется вместе с CycleID и EventID.
+Validation event: HybridPreview проверяется по PREVIEW_OBJECT schema, dimensions и SnapshotFingerprint.
+Freeze/confirmation event: NOT_APPLICABLE: preview не approved и не execution request; validated данные передаются отдельному Candidate.
 Mutation events: Не мутирует; новая revision создаёт новый object.
 Stale triggers: input or snapshot revision делает object stale.
 Replacement source: пересчёт на новом immutable snapshot.
 Terminal condition: завершается перед execution либо freeze approved plan.
 Persistence behavior: plan/audit evidence, не actual ledger commit.
 Restart behavior: после restart сверяется fingerprint и пересчитывается.
-Отличие от: HybridPreview отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
+Отличие от: HybridPreview отличается от HybridPlan отсутствием утверждаемого набора действий и от ExecutionResult отсутствием broker evidence.
 Semantic exception: NOT_APPLICABLE
-Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `HybridPreview` различается canonical source, type/class и полем «Отличие от».
+Similarity exception reason: Общие projected-value clauses разделяются с Preview; HybridPreview дополнительно содержит Hybrid Base/Worst calculation context.
 Evidence: candidate audit record `HybridPreview`; MQL5 found=8, accepted=0; Python found=1, accepted=0.
 
 ### HybridExecution
@@ -1314,10 +1314,10 @@ CanonicalName: `HybridExecution`
 Размерность: `EXECUTION_OBJECT`
 Unit: `structured execution object`
 Знак: not numeric
-Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
-Источник возникновения: explicit mode discriminator + plan role
-Authoritative source: explicit mode discriminator + plan role
-Время фиксации: POLICY stage для HybridExecution.
+Допустимый диапазон: валидная EXECUTION_OBJECT schema, связывающая ApprovedPlan, request identity, broker outcomes, deals и reconciliation revision.
+Источник возникновения: ExecutionRequest plus broker response, confirmed deal events and reconciliation snapshot
+Authoritative source: broker result + confirmed deal history + current position reconciliation scoped by ApprovedPlan fingerprint
+Время фиксации: создаётся при request submission и финализируется только после reconciliation.
 Projected/Actual class: `REQUESTED/EXECUTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
@@ -1338,17 +1338,17 @@ Resolution stage: `NOT_APPLICABLE`
 Semantic category: STRUCTURED_OBJECT
 Lifecycle class: OBJECT
 Creation event: HybridExecution создаётся при отправке ExecutionRequest из ApprovedPlan.
-Validation event: HybridExecution проверяется точным enum/schema сравнением.
-Freeze/confirmation event: HybridExecution фиксируется вместе с CycleID и EventID.
+Validation event: HybridExecution проверяется по EXECUTION_OBJECT schema, PlanFingerprint, tickets, deal identity и cycle scope.
+Freeze/confirmation event: submitted ExecutionRequest immutable; confirmed deals immutable; aggregate финализируется ReconciledResult.
 Mutation events: broker response, partial fills и confirmed deal aggregation создают новые execution revisions.
 Stale triggers: broker/deal/position revision после зафиксированного execution snapshot.
 Replacement source: ReconciledResult из broker result, deal history и current position snapshot.
 Terminal condition: full reconciliation подтверждает complete/partial/rejected outcome.
 Persistence behavior: request, broker result и deal identities сохраняются как audit evidence; projected plan не записывается как actual ledger.
 Restart behavior: после restart execution восстанавливается по order/deal history и current position reconciliation.
-Отличие от: HybridExecution отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
+Отличие от: HybridExecution отличается от ApprovedPlan наличием broker/deal evidence, а от ExecutionResult — объединением request, outcomes и reconciliation lifecycle.
 Semantic exception: NOT_APPLICABLE
-Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `HybridExecution` различается canonical source, type/class и полем «Отличие от».
+Similarity exception reason: Execution lifecycle clauses разделяются с ExecutionRequest/Result; HybridExecution является aggregate полного Hybrid execution scope.
 Evidence: candidate audit record `HybridExecution`; MQL5 found=6, accepted=0; Python found=2, accepted=0.
 
 ### InitialBuy
@@ -10968,13 +10968,13 @@ Evidence: candidate audit record `Candidate`; MQL5 found=4, accepted=1; Python f
 ### Plan
 CanonicalName: `Plan`
 Русское название: расчётный набор действий и ожиданий
-Краткое определение: Plan — typed `STATE` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «расчётный набор действий и ожиданий»; его authoritative provenance — «candidate planner output with revision».
+Краткое определение: Plan — structured projected набор рассчитанных действий и ожиданий, связанный с immutable snapshot revision; это не runtime State, Preview, request или execution evidence.
 Архитектурный профиль: All
 Торговая роль: Plan
 Размерность: `PLAN_OBJECT`
 Unit: `structured plan`
 Знак: not numeric
-Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
+Допустимый диапазон: валидная PLAN_OBJECT schema с CycleID, snapshot revision и typed actions; несогласованный fingerprint означает INVALID.
 Источник возникновения: candidate planner output with revision
 Authoritative source: candidate planner output with revision
 Время фиксации: PROJECTED stage для Plan.
@@ -10983,8 +10983,8 @@ Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT STRUCTURE`
 Lifecycle: Plan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
-Условия stale: Новая state revision делает прежнее current значение Plan историческим.
-Authoritative replacement: последнее confirmed state/event значение того же класса.
+Условия stale: input, market, symbol-property или snapshot revision делает Plan stale.
+Authoritative replacement: новый validated Plan, рассчитанный на новом immutable snapshot.
 Допустимые операции: schema validation, fingerprint comparison и immutable derivation в ApprovedPlan.
 Запрещённые подмены: Plan нельзя подменять Preview, runtime State, ExecutionRequest или broker result.
 Связанные сущности: Candidate, PlanFingerprint и ApprovedPlan; тип PLAN_OBJECT, class PROJECTED.
@@ -10998,29 +10998,29 @@ Resolution stage: `NOT_APPLICABLE`
 Semantic category: STRUCTURED_OBJECT
 Lifecycle class: PROJECTED_VALUE
 Creation event: Plan создаётся из immutable calculation snapshot.
-Validation event: Plan проверяется точным enum/schema сравнением.
-Freeze/confirmation event: Plan фиксируется вместе с CycleID и EventID.
+Validation event: Plan проверяется по PLAN_OBJECT schema, dimensions, cycle scope и SnapshotFingerprint.
+Freeze/confirmation event: Validated Plan становится отдельным immutable ApprovedPlan только после всех обязательных gates.
 Mutation events: Не мутирует; новая revision создаёт новый object.
 Stale triggers: input or snapshot revision делает object stale.
 Replacement source: пересчёт на новом immutable snapshot.
 Terminal condition: завершается перед execution либо freeze approved plan.
 Persistence behavior: plan/audit evidence, не actual ledger commit.
 Restart behavior: после restart сверяется fingerprint и пересчитывается.
-Отличие от: Plan отличается от sibling-терминов источником `candidate planner output with revision`, классом `PROJECTED` и стадией lifecycle `STATE`.
+Отличие от: Plan отличается от Preview наличием candidate actions, а от ApprovedPlan отсутствием approval freeze.
 Semantic exception: NOT_APPLICABLE
-Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Plan` различается canonical source, type/class и полем «Отличие от».
+Similarity exception reason: Общие projected-plan clauses разделяются с HybridPlan; Plan является architecture-neutral structured plan.
 Evidence: candidate audit record `Plan`; MQL5 found=1, accepted=0; Python found=3, accepted=1.
 
 ### ApprovedPlan
 CanonicalName: `ApprovedPlan`
 Русское название: неизменяемый план после всех обязательных gates
-Краткое определение: ApprovedPlan — typed `STATE` lifecycle-сущность с exact comparison; она отличается от DiagnosticText и от соседних state/result namespaces. Отличительный объект записи: «неизменяемый план после всех обязательных gates»; его authoritative provenance — «approved immutable plan and fingerprint».
+Краткое определение: ApprovedPlan — immutable structured Plan после всех обязательных gates, связанный с PlanFingerprint; это не runtime State, request acceptance или execution success.
 Архитектурный профиль: All
 Торговая роль: ApprovedPlan
 Размерность: `PLAN_OBJECT`
 Unit: `structured approved plan`
 Знак: not numeric
-Допустимый диапазон: соответствует типу `STATE`; NaN/infinity и несогласованный sentinel запрещены.
+Допустимый диапазон: валидная PLAN_OBJECT schema с passed gates, CycleID, SnapshotFingerprint и PlanFingerprint; mutation после freeze запрещена.
 Источник возникновения: approved immutable plan and fingerprint
 Authoritative source: approved immutable plan and fingerprint
 Время фиксации: PROJECTED APPROVED stage для ApprovedPlan.
@@ -11029,8 +11029,8 @@ Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT STRUCTURE`
 Lifecycle: ApprovedPlan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
-Условия stale: Новая state revision делает прежнее current значение ApprovedPlan историческим.
-Authoritative replacement: последнее confirmed state/event значение того же класса.
+Условия stale: изменение snapshot/config/market revision либо fingerprint mismatch запрещает исполнение ApprovedPlan.
+Authoritative replacement: новый ApprovedPlan, полученный повторным calculation, validation и approval на новой revision.
 Допустимые операции: exact fingerprint verification, immutable request derivation и audit comparison.
 Запрещённые подмены: ApprovedPlan нельзя подменять mutable Candidate, runtime State, request acceptance или ExecutionResult.
 Связанные сущности: Plan, PlanFingerprint и ExecutionRequest; тип PLAN_OBJECT, class PROJECTED APPROVED.
@@ -11044,16 +11044,16 @@ Resolution stage: `NOT_APPLICABLE`
 Semantic category: STRUCTURED_OBJECT
 Lifecycle class: PROJECTED_VALUE
 Creation event: ApprovedPlan создаётся из immutable calculation snapshot.
-Validation event: ApprovedPlan проверяется точным enum/schema сравнением.
-Freeze/confirmation event: ApprovedPlan фиксируется вместе с CycleID и EventID.
+Validation event: ApprovedPlan повторно проверяется по fingerprint, gate evidence, cycle scope и execution preconditions.
+Freeze/confirmation event: После approval объект immutable; broker request создаётся отдельно и не изменяет ApprovedPlan.
 Mutation events: Не мутирует; новая revision создаёт новый object.
 Stale triggers: input or snapshot revision делает object stale.
 Replacement source: пересчёт на новом immutable snapshot.
 Terminal condition: завершается перед execution либо freeze approved plan.
 Persistence behavior: plan/audit evidence, не actual ledger commit.
 Restart behavior: после restart сверяется fingerprint и пересчитывается.
-Отличие от: ApprovedPlan отличается от sibling-терминов источником `approved immutable plan and fingerprint`, классом `PROJECTED APPROVED` и стадией lifecycle `STATE`.
+Отличие от: ApprovedPlan отличается от Plan подтверждёнными gates и immutable freeze, а от ExecutionRequest отсутствием broker submission.
 Semantic exception: NOT_APPLICABLE
-Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ApprovedPlan` различается canonical source, type/class и полем «Отличие от».
+Similarity exception reason: Общие plan clauses разделяются с Plan; ApprovedPlan дополнительно требует gate evidence и immutable fingerprint freeze.
 Evidence: candidate audit record `ApprovedPlan`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
 
