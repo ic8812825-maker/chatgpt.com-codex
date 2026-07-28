@@ -501,9 +501,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Legacy нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Legacy, тип STATE, class POLICY.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::legacy
-Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::legacy
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-031`
 Resolution stage: `3.1.8`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -521,7 +521,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Legacy отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Legacy` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Legacy`; MQL5 found=6, accepted=1; Python found=1, accepted=1.
+Evidence: mapping record `Legacy` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### LegacyMode
 CanonicalName: `LegacyMode`
@@ -567,7 +567,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: LegacyMode отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `LegacyMode` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `LegacyMode`; MQL5 found=7, accepted=0; Python found=3, accepted=0.
+Evidence: mapping record `LegacyMode` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### LegacyBig
 CanonicalName: `LegacyBig`
@@ -593,9 +593,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: LegacyBig нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: LegacyBig, тип ROLE_ID, class POLICY.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::legacy
-Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::legacy
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -613,7 +613,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: LegacyBig отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `LegacyBig` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `LegacyBig`; MQL5 found=5, accepted=1; Python found=3, accepted=1.
+Evidence: mapping record `LegacyBig` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### LegacySmall
 CanonicalName: `LegacySmall`
@@ -659,7 +659,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: LegacySmall отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `LegacySmall` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `LegacySmall`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `LegacySmall` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### LegacyFar
 CanonicalName: `LegacyFar`
@@ -685,9 +685,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: LegacyFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: LegacyFar, тип ROLE_ID, class POLICY.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::legacy
-Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::legacy
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -705,7 +705,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: LegacyFar отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `LegacyFar` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `LegacyFar`; MQL5 found=8, accepted=1; Python found=2, accepted=1.
+Evidence: mapping record `LegacyFar` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### MonolithicBig
 CanonicalName: `MonolithicBig`
@@ -751,7 +751,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: MonolithicBig отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `MonolithicBig` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `MonolithicBig`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `MonolithicBig` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### Split
 CanonicalName: `Split`
@@ -797,7 +797,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Split отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Split` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Split`; MQL5 found=5, accepted=0; Python found=5, accepted=0.
+Evidence: mapping record `Split` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### SplitMode
 CanonicalName: `SplitMode`
@@ -843,7 +843,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: SplitMode отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `SplitMode` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SplitMode`; MQL5 found=7, accepted=0; Python found=3, accepted=0.
+Evidence: mapping record `SplitMode` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### SplitBig
 CanonicalName: `SplitBig`
@@ -869,9 +869,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: SplitBig нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SplitBig, тип ROLE_ID, class POLICY.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::splitBigCore
+MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -889,7 +889,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: SplitBig отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `SplitBig` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SplitBig`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
+Evidence: mapping record `SplitBig` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BigCore
 CanonicalName: `BigCore`
@@ -915,9 +915,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: BigCore нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigCore, тип ROLE_ID, class POLICY.
 Legacy aliases: Core
-MQL5 mapping: Include/StateMachine.mqh::splitBigCore
-Python mapping: Tests/test_dynamic_reverse_small_direction.py::big_core
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -935,7 +935,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: BigCore отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `BigCore` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigCore`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `BigCore` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BigTrend
 CanonicalName: `BigTrend`
@@ -961,9 +961,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: BigTrend нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BigTrend, тип ROLE_ID, class POLICY.
 Legacy aliases: Trend
-MQL5 mapping: Include/StateMachine.mqh::splitBigTrend
-Python mapping: Tools/hybrid_small_state_machine.py::big_trend
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -981,7 +981,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: BigTrend отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `BigTrend` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigTrend`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `BigTrend` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BigGross
 CanonicalName: `BigGross`
@@ -1027,7 +1027,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BigGross отличается от sibling-терминов источником `BigCoreLotProjected + BigTrendLotProjected из одного immutable plan`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigGross` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigGross`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `BigGross` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### SmallBase
 CanonicalName: `SmallBase`
@@ -1053,9 +1053,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: SmallBase нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: SmallBase, тип ROLE_ID, class POLICY.
 Legacy aliases: Small
-MQL5 mapping: Include/StateMachine.mqh::splitSmallBase
-Python mapping: Tests/test_dynamic_reverse_small_direction.py::small_base
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1073,7 +1073,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: SmallBase отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `SmallBase` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallBase`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `SmallBase` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### Hybrid
 CanonicalName: `Hybrid`
@@ -1099,9 +1099,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Hybrid нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Hybrid, тип STATE, class POLICY.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::hybrid
+MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-031`
 Resolution stage: `3.1.8`
 Статус определения: `DOCUMENTED_NOT_APPROVED`
@@ -1119,7 +1119,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Hybrid отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Hybrid` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Hybrid`; MQL5 found=8, accepted=1; Python found=1, accepted=0.
+Evidence: mapping record `Hybrid` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### HybridSplitBig
 CanonicalName: `HybridSplitBig`
@@ -1165,7 +1165,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: HybridSplitBig отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `HybridSplitBig` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `HybridSplitBig`; MQL5 found=5, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `HybridSplitBig` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### HybridMode
 CanonicalName: `HybridMode`
@@ -1211,7 +1211,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: HybridMode отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `HybridMode` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `HybridMode`; MQL5 found=8, accepted=0; Python found=3, accepted=0.
+Evidence: mapping record `HybridMode` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### HybridPlan
 CanonicalName: `HybridPlan`
@@ -1257,7 +1257,7 @@ Restart behavior: после restart сверяется fingerprint и пере�
 Отличие от: HybridPlan отличается от HybridPreview наличием сформированного набора действий, а от ApprovedPlan — отсутствием approval freeze.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие projected-plan lifecycle clauses разделяются с Plan; HybridPlan дополнительно фиксирует Hybrid mode roles и explicit mode discriminator.
-Evidence: candidate audit record `HybridPlan`; MQL5 found=7, accepted=0; Python found=3, accepted=0.
+Evidence: mapping record `HybridPlan` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### HybridPreview
 CanonicalName: `HybridPreview`
@@ -1302,8 +1302,8 @@ Persistence behavior: plan/audit evidence, не actual ledger commit.
 Restart behavior: после restart сверяется fingerprint и пересчитывается.
 Отличие от: HybridPreview отличается от HybridPlan отсутствием утверждаемого набора действий и от ExecutionResult отсутствием broker evidence.
 Semantic exception: NOT_APPLICABLE
-Similarity exception reason: Общие projected-value clauses разделяются с Preview; HybridPreview дополнительно содержит Hybrid Base/Worst calculation context.
-Evidence: candidate audit record `HybridPreview`; MQL5 found=8, accepted=0; Python found=1, accepted=0.
+Similarity exception reason: Общие lifecycle clauses класса PROJECTED_VALUE разделяются с Preview; HybridPreview отличается source-контекстом Hybrid Base/Worst calculation.
+Evidence: mapping record `HybridPreview` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### HybridExecution
 CanonicalName: `HybridExecution`
@@ -1349,7 +1349,7 @@ Restart behavior: после restart execution восстанавливаетс�
 Отличие от: HybridExecution отличается от ApprovedPlan наличием broker/deal evidence, а от ExecutionResult — объединением request, outcomes и reconciliation lifecycle.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Execution lifecycle clauses разделяются с ExecutionRequest/Result; HybridExecution является aggregate полного Hybrid execution scope.
-Evidence: candidate audit record `HybridExecution`; MQL5 found=6, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `HybridExecution` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### InitialBuy
 CanonicalName: `InitialBuy`
@@ -1375,9 +1375,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: InitialBuy нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: InitialBuy, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::initialBuy
-Python mapping: Tests/unit/test_money_completion_behavior.py::initial
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1395,7 +1395,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: InitialBuy отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `InitialBuy` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `InitialBuy`; MQL5 found=8, accepted=1; Python found=2, accepted=1.
+Evidence: mapping record `InitialBuy` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### InitialSell
 CanonicalName: `InitialSell`
@@ -1421,9 +1421,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: InitialSell нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: InitialSell, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::initialSell
+MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1441,7 +1441,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: InitialSell отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `InitialSell` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `InitialSell`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
+Evidence: mapping record `InitialSell` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### InitialProfitLeg
 CanonicalName: `InitialProfitLeg`
@@ -1487,7 +1487,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: InitialProfitLeg отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `InitialProfitLeg` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `InitialProfitLeg`; MQL5 found=8, accepted=0; Python found=4, accepted=0.
+Evidence: mapping record `InitialProfitLeg` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### InitialLosingLeg
 CanonicalName: `InitialLosingLeg`
@@ -1533,7 +1533,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: InitialLosingLeg отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `InitialLosingLeg` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `InitialLosingLeg`; MQL5 found=6, accepted=0; Python found=4, accepted=0.
+Evidence: mapping record `InitialLosingLeg` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### InitialIgnoredProfit
 CanonicalName: `InitialIgnoredProfit`
@@ -1559,7 +1559,7 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: InitialIgnoredProfit нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: InitialIgnoredProfit, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/Types.mqh::RecoveryContext.initialIgnoredProfit
+MQL5 mapping: Include/Types.mqh::initialIgnoredProfit
 Python mapping: Tests/real_recovery_examples_check.py::initial_ignored_profit
 Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
@@ -1579,7 +1579,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: InitialIgnoredProfit отличается от sibling-терминов источником `confirmed closing deal aggregation of InitialProfitLeg filtered by Symbol+Magic+CycleID+position identity`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `InitialIgnoredProfit` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `InitialIgnoredProfit`; MQL5 found=8, accepted=1, rejected=7; Python found=8, accepted=1, rejected=7.
+Evidence: mapping record `InitialIgnoredProfit` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### OldFar
 CanonicalName: `OldFar`
@@ -1605,9 +1605,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: OldFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: OldFar, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/BrokerMoneyModel.mqh::oldFar
-Python mapping: Tests/small_reverse_compression_check.py::old_far
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1625,7 +1625,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: OldFar отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `OldFar` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `OldFar`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
+Evidence: mapping record `OldFar` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CurrentFar
 CanonicalName: `CurrentFar`
@@ -1651,9 +1651,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: CurrentFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CurrentFar, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: Far
-MQL5 mapping: Include/StateMachine.mqh::current
-Python mapping: Tools/run_full_parameter_optimization_study.py::current
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1671,7 +1671,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: CurrentFar отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `CurrentFar` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CurrentFar`; MQL5 found=7, accepted=1; Python found=5, accepted=1.
+Evidence: mapping record `CurrentFar` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ResidualFar
 CanonicalName: `ResidualFar`
@@ -1697,9 +1697,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: ResidualFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ResidualFar, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::residual
-Python mapping: Tests/unit/test_money_completion_behavior.py::residual
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1717,7 +1717,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: ResidualFar отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `ResidualFar` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ResidualFar`; MQL5 found=3, accepted=1; Python found=1, accepted=1.
+Evidence: mapping record `ResidualFar` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NewFar
 CanonicalName: `NewFar`
@@ -1743,9 +1743,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: NewFar нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: NewFar, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/BrokerMoneyModel.mqh::newFar
-Python mapping: Tests/small_reverse_compression_check.py::new_far
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1763,7 +1763,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: NewFar отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `NewFar` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NewFar`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `NewFar` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### LegacyBigPosition
 CanonicalName: `LegacyBigPosition`
@@ -1809,7 +1809,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: LegacyBigPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `LegacyBigPosition` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `LegacyBigPosition`; MQL5 found=8, accepted=1; Python found=2, accepted=0.
+Evidence: mapping record `LegacyBigPosition` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### BigCorePosition
 CanonicalName: `BigCorePosition`
@@ -1855,7 +1855,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: BigCorePosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `BigCorePosition` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigCorePosition`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
+Evidence: mapping record `BigCorePosition` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### BigTrendPosition
 CanonicalName: `BigTrendPosition`
@@ -1901,7 +1901,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: BigTrendPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `BigTrendPosition` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigTrendPosition`; MQL5 found=8, accepted=1; Python found=6, accepted=0.
+Evidence: mapping record `BigTrendPosition` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### LegacySmallPosition
 CanonicalName: `LegacySmallPosition`
@@ -1947,7 +1947,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: LegacySmallPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `LegacySmallPosition` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `LegacySmallPosition`; MQL5 found=8, accepted=1; Python found=0, accepted=0.
+Evidence: mapping record `LegacySmallPosition` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### SmallBasePosition
 CanonicalName: `SmallBasePosition`
@@ -1993,7 +1993,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: SmallBasePosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `SmallBasePosition` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallBasePosition`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `SmallBasePosition` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ManagedPosition
 CanonicalName: `ManagedPosition`
@@ -2020,8 +2020,8 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Связанные сущности: ManagedPosition, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: Include/PositionUtils.mqh::IsManagedPositionForMagic
-Python mapping: Tests/real_recovery_examples_check.py::managed_positions
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2039,7 +2039,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: ManagedPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `ManagedPosition` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ManagedPosition`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `ManagedPosition` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### UnmanagedPosition
 CanonicalName: `UnmanagedPosition`
@@ -2085,7 +2085,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: UnmanagedPosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `UnmanagedPosition` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `UnmanagedPosition`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
+Evidence: mapping record `UnmanagedPosition` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ForeignCyclePosition
 CanonicalName: `ForeignCyclePosition`
@@ -2131,7 +2131,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: ForeignCyclePosition отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `ForeignCyclePosition` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ForeignCyclePosition`; MQL5 found=8, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `ForeignCyclePosition` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### FarDirection
 CanonicalName: `FarDirection`
@@ -2177,7 +2177,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: FarDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `FarDirection` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarDirection`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FarDirection` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### OppositeFarDirection
 CanonicalName: `OppositeFarDirection`
@@ -2223,7 +2223,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: OppositeFarDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `OppositeFarDirection` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `OppositeFarDirection`; MQL5 found=6, accepted=1; Python found=4, accepted=0.
+Evidence: mapping record `OppositeFarDirection` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### SameAsFarDirection
 CanonicalName: `SameAsFarDirection`
@@ -2269,7 +2269,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: SameAsFarDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `SameAsFarDirection` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SameAsFarDirection`; MQL5 found=6, accepted=1; Python found=5, accepted=0.
+Evidence: mapping record `SameAsFarDirection` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### BigDirection
 CanonicalName: `BigDirection`
@@ -2315,7 +2315,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BigDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `BigDirection` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigDirection`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `BigDirection` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### SmallDirection
 CanonicalName: `SmallDirection`
@@ -2361,7 +2361,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: SmallDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `SmallDirection` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallDirection`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `SmallDirection` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### TrendDirection
 CanonicalName: `TrendDirection`
@@ -2407,7 +2407,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: TrendDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `TrendDirection` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `TrendDirection`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `TrendDirection` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ReverseDirection
 CanonicalName: `ReverseDirection`
@@ -2453,7 +2453,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ReverseDirection отличается от sibling-терминов источником `reconciled MT5 position identity and role mapping`, классом `ACTUAL CONFIRMED or POLICY DERIVED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ReverseDirection` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReverseDirection`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
+Evidence: mapping record `ReverseDirection` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### RawLot
 CanonicalName: `RawLot`
@@ -2499,7 +2499,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: RawLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RawLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RawLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `RawLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### CalculatedLot
 CanonicalName: `CalculatedLot`
@@ -2525,9 +2525,9 @@ Authoritative replacement: пересчёт CalculatedLot на новом immuta
 Запрещённые подмены: CalculatedLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CalculatedLot, тип LOT_CALCULATED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::calculated
-Python mapping: Tests/unit/test_split_recovery_order_model.py::calculated
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -2545,7 +2545,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: CalculatedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `CalculatedLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CalculatedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `CalculatedLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NormalizedLot
 CanonicalName: `NormalizedLot`
@@ -2591,7 +2591,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: NormalizedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NormalizedLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NormalizedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `NormalizedLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### RequestedLot
 CanonicalName: `RequestedLot`
@@ -2637,7 +2637,7 @@ Restart behavior: После restart подтверждается по order/dea
 Отличие от: RequestedLot отличается от sibling-терминов источником `approved immutable plan`, классом `REQUESTED` и стадией lifecycle `REQUESTED`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `REQUESTED`; запись `RequestedLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RequestedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `RequestedLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### FilledLot
 CanonicalName: `FilledLot`
@@ -2683,7 +2683,7 @@ Restart behavior: После restart реконструируется из confi
 Отличие от: FilledLot отличается от sibling-терминов источником `confirmed deals/trade result`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `FilledLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FilledLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FilledLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ActualPositionLot
 CanonicalName: `ActualPositionLot`
@@ -2729,7 +2729,7 @@ Restart behavior: После restart обязательно перечитыва
 Отличие от: ActualPositionLot отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `ActualPositionLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ActualPositionLot`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `ActualPositionLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### ResidualLotProjected
 CanonicalName: `ResidualLotProjected`
@@ -2775,7 +2775,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ResidualLotProjected отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ResidualLotProjected` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ResidualLotProjected`; MQL5 found=4, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `ResidualLotProjected` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ResidualLotActual
 CanonicalName: `ResidualLotActual`
@@ -2821,7 +2821,7 @@ Restart behavior: После restart обязательно перечитыва
 Отличие от: ResidualLotActual отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `ResidualLotActual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ResidualLotActual`; MQL5 found=6, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `ResidualLotActual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### FarLotRaw
 CanonicalName: `FarLotRaw`
@@ -2867,7 +2867,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: FarLotRaw отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarLotRaw` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarLotRaw`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FarLotRaw` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### FarLotCalculated
 CanonicalName: `FarLotCalculated`
@@ -2913,7 +2913,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: FarLotCalculated отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarLotCalculated` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarLotCalculated`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FarLotCalculated` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### FarLotNormalized
 CanonicalName: `FarLotNormalized`
@@ -2959,7 +2959,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: FarLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarLotNormalized` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarLotNormalized`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `FarLotNormalized` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### FarLotRequested
 CanonicalName: `FarLotRequested`
@@ -2985,9 +2985,9 @@ Authoritative replacement: FilledLot/ExecutionResult, затем reconciled actu
 Запрещённые подмены: FarLotRequested нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Far, тип LOT_REQUESTED, class REQUESTED.
 Legacy aliases: —
-MQL5 mapping: Include/SimulationEngine.mqh::requestedLot
+MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_geometry_model.py::far_lot
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -3005,7 +3005,7 @@ Restart behavior: После restart подтверждается по order/dea
 Отличие от: FarLotRequested отличается от sibling-терминов источником `approved immutable plan`, классом `REQUESTED` и стадией lifecycle `REQUESTED`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `REQUESTED`; запись `FarLotRequested` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarLotRequested`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FarLotRequested` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### FarLotFilled
 CanonicalName: `FarLotFilled`
@@ -3051,7 +3051,7 @@ Restart behavior: После restart реконструируется из confi
 Отличие от: FarLotFilled отличается от sibling-терминов источником `confirmed deals/trade result`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `FarLotFilled` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarLotFilled`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FarLotFilled` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### FarLotActual
 CanonicalName: `FarLotActual`
@@ -3097,7 +3097,7 @@ Restart behavior: После restart обязательно перечитыва
 Отличие от: FarLotActual отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `FarLotActual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarLotActual`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FarLotActual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### BigCoreLotRaw
 CanonicalName: `BigCoreLotRaw`
@@ -3143,7 +3143,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BigCoreLotRaw отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigCoreLotRaw` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigCoreLotRaw`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `BigCoreLotRaw` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### BigCoreLotNormalized
 CanonicalName: `BigCoreLotNormalized`
@@ -3189,7 +3189,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BigCoreLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigCoreLotNormalized` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigCoreLotNormalized`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `BigCoreLotNormalized` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BigCoreLotRequested
 CanonicalName: `BigCoreLotRequested`
@@ -3235,7 +3235,7 @@ Restart behavior: После restart подтверждается по order/dea
 Отличие от: BigCoreLotRequested отличается от sibling-терминов источником `approved immutable plan`, классом `REQUESTED` и стадией lifecycle `REQUESTED`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `REQUESTED`; запись `BigCoreLotRequested` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigCoreLotRequested`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `BigCoreLotRequested` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BigCoreLotFilled
 CanonicalName: `BigCoreLotFilled`
@@ -3281,7 +3281,7 @@ Restart behavior: После restart реконструируется из confi
 Отличие от: BigCoreLotFilled отличается от sibling-терминов источником `confirmed deals/trade result`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `BigCoreLotFilled` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigCoreLotFilled`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `BigCoreLotFilled` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BigCoreLotActual
 CanonicalName: `BigCoreLotActual`
@@ -3327,7 +3327,7 @@ Restart behavior: После restart обязательно перечитыва
 Отличие от: BigCoreLotActual отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `BigCoreLotActual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigCoreLotActual`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `BigCoreLotActual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BigTrendLotRaw
 CanonicalName: `BigTrendLotRaw`
@@ -3373,7 +3373,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BigTrendLotRaw отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigTrendLotRaw` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigTrendLotRaw`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `BigTrendLotRaw` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### BigTrendLotNormalized
 CanonicalName: `BigTrendLotNormalized`
@@ -3419,7 +3419,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BigTrendLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigTrendLotNormalized` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigTrendLotNormalized`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
+Evidence: mapping record `BigTrendLotNormalized` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### SmallBaseLotRaw
 CanonicalName: `SmallBaseLotRaw`
@@ -3465,7 +3465,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: SmallBaseLotRaw отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `SmallBaseLotRaw` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallBaseLotRaw`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `SmallBaseLotRaw` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### SmallBaseLotNormalized
 CanonicalName: `SmallBaseLotNormalized`
@@ -3511,7 +3511,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: SmallBaseLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `SmallBaseLotNormalized` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallBaseLotNormalized`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `SmallBaseLotNormalized` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PartialFarCloseLotCalculated
 CanonicalName: `PartialFarCloseLotCalculated`
@@ -3557,7 +3557,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: PartialFarCloseLotCalculated отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PartialFarCloseLotCalculated` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarCloseLotCalculated`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `PartialFarCloseLotCalculated` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PartialFarCloseLotNormalized
 CanonicalName: `PartialFarCloseLotNormalized`
@@ -3603,7 +3603,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: PartialFarCloseLotNormalized отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PartialFarCloseLotNormalized` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarCloseLotNormalized`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `PartialFarCloseLotNormalized` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PartialFarCloseLotRequested
 CanonicalName: `PartialFarCloseLotRequested`
@@ -3649,7 +3649,7 @@ Restart behavior: После restart подтверждается по order/dea
 Отличие от: PartialFarCloseLotRequested отличается от sibling-терминов источником `approved immutable plan`, классом `REQUESTED` и стадией lifecycle `REQUESTED`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `REQUESTED`; запись `PartialFarCloseLotRequested` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarCloseLotRequested`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `PartialFarCloseLotRequested` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PartialFarCloseLotFilled
 CanonicalName: `PartialFarCloseLotFilled`
@@ -3695,7 +3695,7 @@ Restart behavior: После restart реконструируется из confi
 Отличие от: PartialFarCloseLotFilled отличается от sibling-терминов источником `confirmed deals/trade result`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `PartialFarCloseLotFilled` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarCloseLotFilled`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `PartialFarCloseLotFilled` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### FarResidualProjected
 CanonicalName: `FarResidualProjected`
@@ -3741,7 +3741,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: FarResidualProjected отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarResidualProjected` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarResidualProjected`; MQL5 found=7, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `FarResidualProjected` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### FarResidualActual
 CanonicalName: `FarResidualActual`
@@ -3787,7 +3787,7 @@ Restart behavior: После restart обязательно перечитыва
 Отличие от: FarResidualActual отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `FarResidualActual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarResidualActual`; MQL5 found=4, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `FarResidualActual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NewFarCandidateLot
 CanonicalName: `NewFarCandidateLot`
@@ -3814,8 +3814,8 @@ Authoritative replacement: пересчёт NewFarCandidateLot на новом i
 Связанные сущности: NewFar, тип LOT_CALCULATED, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::NewFarCandidate
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-020`
 Resolution stage: `3.1.6 / 3.1.8`
 Статус определения: `UNRESOLVED_MODE_ROUTING`
@@ -3833,7 +3833,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: NewFarCandidateLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NewFarCandidateLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NewFarCandidateLot`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
+Evidence: mapping record `NewFarCandidateLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NewFarProjectedLot
 CanonicalName: `NewFarProjectedLot`
@@ -3879,7 +3879,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: NewFarProjectedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NewFarProjectedLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NewFarProjectedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `NewFarProjectedLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### NewFarNormalizedLot
 CanonicalName: `NewFarNormalizedLot`
@@ -3905,9 +3905,9 @@ Authoritative replacement: пересчёт NewFarNormalizedLot на новом 
 Запрещённые подмены: NewFarNormalizedLot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: NewFar, тип LOT_NORMALIZED, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: Include/ReconciliationEngine.mqh::normalizedCtxLot
+MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `HSB-DOC-CONFLICT-020`
 Resolution stage: `3.1.6 / 3.1.8`
 Статус определения: `UNRESOLVED_MODE_ROUTING`
@@ -3925,7 +3925,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: NewFarNormalizedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NewFarNormalizedLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NewFarNormalizedLot`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `NewFarNormalizedLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NewFarPromotedLot
 CanonicalName: `NewFarPromotedLot`
@@ -3971,7 +3971,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: NewFarPromotedLot отличается от sibling-терминов источником `typed formula + SymbolInfo volume constraints`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `NewFarPromotedLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NewFarPromotedLot`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `NewFarPromotedLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NewFarActualLot
 CanonicalName: `NewFarActualLot`
@@ -4017,7 +4017,7 @@ Restart behavior: После restart обязательно перечитыва
 Отличие от: NewFarActualLot отличается от sibling-терминов источником `current MT5 position snapshot`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `NewFarActualLot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NewFarActualLot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `NewFarActualLot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### Point
 CanonicalName: `Point`
@@ -4063,7 +4063,7 @@ Restart behavior: После restart перечитывается из терм�
 Отличие от: Point отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_POINT)`, классом `SYMBOL PROPERTY` и стадией lifecycle `SYMBOL_PROPERTY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `SYMBOL_PROPERTY`; запись `Point` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Point`; MQL5 found=3, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `Point` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### TickSize
 CanonicalName: `TickSize`
@@ -4109,7 +4109,7 @@ Restart behavior: После restart перечитывается из терм�
 Отличие от: TickSize отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_TRADE_TICK_SIZE)`, классом `SYMBOL PROPERTY` и стадией lifecycle `SYMBOL_PROPERTY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `SYMBOL_PROPERTY`; запись `TickSize` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `TickSize`; MQL5 found=3, accepted=1; Python found=4, accepted=0.
+Evidence: mapping record `TickSize` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### TickValue
 CanonicalName: `TickValue`
@@ -4155,7 +4155,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: TickValue отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `TickValue` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `TickValue`; MQL5 found=7, accepted=1; Python found=4, accepted=0.
+Evidence: mapping record `TickValue` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### MarketBidPrice
 CanonicalName: `MarketBidPrice`
@@ -4181,9 +4181,9 @@ Authoritative replacement: пересчёт MarketBidPrice на новом immut
 Запрещённые подмены: MarketBidPrice нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: MarketBidPrice, тип PRICE_BID, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: Include/SimulationEngine.mqh::MarketBid
+MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4201,7 +4201,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: MarketBidPrice отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_BID)`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `MarketBidPrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `MarketBidPrice`; MQL5 found=1, accepted=1; Python found=2, accepted=0.
+Evidence: mapping record `MarketBidPrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### MarketAskPrice
 CanonicalName: `MarketAskPrice`
@@ -4227,9 +4227,9 @@ Authoritative replacement: пересчёт MarketAskPrice на новом immut
 Запрещённые подмены: MarketAskPrice нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: MarketAskPrice, тип PRICE_ASK, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: Include/SimulationEngine.mqh::MarketAsk
+MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -4247,7 +4247,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: MarketAskPrice отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_ASK)`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `MarketAskPrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `MarketAskPrice`; MQL5 found=1, accepted=1; Python found=1, accepted=0.
+Evidence: mapping record `MarketAskPrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PositionOpenPrice
 CanonicalName: `PositionOpenPrice`
@@ -4293,7 +4293,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: PositionOpenPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PositionOpenPrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PositionOpenPrice`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `PositionOpenPrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### TriggerPrice
 CanonicalName: `TriggerPrice`
@@ -4339,7 +4339,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: TriggerPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `TriggerPrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `TriggerPrice`; MQL5 found=8, accepted=0; Python found=4, accepted=0.
+Evidence: mapping record `TriggerPrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### TargetPrice
 CanonicalName: `TargetPrice`
@@ -4385,7 +4385,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: TargetPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `TargetPrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `TargetPrice`; MQL5 found=8, accepted=0; Python found=7, accepted=0.
+Evidence: mapping record `TargetPrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ControlPrice
 CanonicalName: `ControlPrice`
@@ -4431,7 +4431,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ControlPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ControlPrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ControlPrice`; MQL5 found=8, accepted=0; Python found=3, accepted=0.
+Evidence: mapping record `ControlPrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ProjectedExitPrice
 CanonicalName: `ProjectedExitPrice`
@@ -4477,7 +4477,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ProjectedExitPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ProjectedExitPrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ProjectedExitPrice`; MQL5 found=7, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `ProjectedExitPrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ExecutedDealPrice
 CanonicalName: `ExecutedDealPrice`
@@ -4523,7 +4523,7 @@ Restart behavior: После restart реконструируется из confi
 Отличие от: ExecutedDealPrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `CONFIRMED` и стадией lifecycle `DEAL`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `DEAL`; запись `ExecutedDealPrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ExecutedDealPrice`; MQL5 found=2, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `ExecutedDealPrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PriceDelta
 CanonicalName: `PriceDelta`
@@ -4569,7 +4569,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: PriceDelta отличается от sibling-терминов источником `difference of two explicitly named prices`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PriceDelta` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PriceDelta`; MQL5 found=2, accepted=0; Python found=4, accepted=0.
+Evidence: mapping record `PriceDelta` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### DistancePoints
 CanonicalName: `DistancePoints`
@@ -4615,7 +4615,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: DistancePoints отличается от sibling-терминов источником `explicit price delta divided by SYMBOL_POINT`, классом `PROJECTED or ACTUAL MEASUREMENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `DistancePoints` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `DistancePoints`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `DistancePoints` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### DistanceTicks
 CanonicalName: `DistanceTicks`
@@ -4661,7 +4661,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: DistanceTicks отличается от sibling-терминов источником `explicit price delta divided by SYMBOL_TRADE_TICK_SIZE`, классом `PROJECTED or ACTUAL MEASUREMENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `DistanceTicks` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `DistanceTicks`; MQL5 found=4, accepted=0; Python found=5, accepted=0.
+Evidence: mapping record `DistanceTicks` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BidAwareClosePrice
 CanonicalName: `BidAwareClosePrice`
@@ -4707,7 +4707,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BidAwareClosePrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BidAwareClosePrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BidAwareClosePrice`; MQL5 found=6, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `BidAwareClosePrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### AskAwareClosePrice
 CanonicalName: `AskAwareClosePrice`
@@ -4753,7 +4753,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: AskAwareClosePrice отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `AskAwareClosePrice` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `AskAwareClosePrice`; MQL5 found=4, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `AskAwareClosePrice` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### FarOpenPriceActual
 CanonicalName: `FarOpenPriceActual`
@@ -4799,7 +4799,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: FarOpenPriceActual отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FarOpenPriceActual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarOpenPriceActual`; MQL5 found=8, accepted=1; Python found=7, accepted=1.
+Evidence: mapping record `FarOpenPriceActual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### BigCoreOpenPriceActual
 CanonicalName: `BigCoreOpenPriceActual`
@@ -4845,7 +4845,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BigCoreOpenPriceActual отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigCoreOpenPriceActual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigCoreOpenPriceActual`; MQL5 found=8, accepted=1; Python found=4, accepted=0.
+Evidence: mapping record `BigCoreOpenPriceActual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### BigTrendOpenPriceActual
 CanonicalName: `BigTrendOpenPriceActual`
@@ -4891,7 +4891,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BigTrendOpenPriceActual отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BigTrendOpenPriceActual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigTrendOpenPriceActual`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
+Evidence: mapping record `BigTrendOpenPriceActual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### SmallBaseOpenPriceActual
 CanonicalName: `SmallBaseOpenPriceActual`
@@ -4937,7 +4937,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: SmallBaseOpenPriceActual отличается от sibling-терминов источником `SymbolInfo tick/current position/deal properties`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `SmallBaseOpenPriceActual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallBaseOpenPriceActual`; MQL5 found=7, accepted=1; Python found=1, accepted=0.
+Evidence: mapping record `SmallBaseOpenPriceActual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### GrossProfit
 CanonicalName: `GrossProfit`
@@ -4983,7 +4983,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: GrossProfit отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `GrossProfit` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `GrossProfit`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `GrossProfit` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### GrossLoss
 CanonicalName: `GrossLoss`
@@ -5029,7 +5029,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: GrossLoss отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `GrossLoss` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `GrossLoss`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
+Evidence: mapping record `GrossLoss` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### NetProfit
 CanonicalName: `NetProfit`
@@ -5075,7 +5075,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: NetProfit отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `NetProfit` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NetProfit`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `NetProfit` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### LegNet
 CanonicalName: `LegNet`
@@ -5102,8 +5102,8 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Связанные сущности: LegNet, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: Include/StateMachine.mqh::legNet
-Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::leg_net
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5121,7 +5121,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: LegNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `LegNet` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `LegNet`; MQL5 found=7, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `LegNet` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### BasketNet
 CanonicalName: `BasketNet`
@@ -5148,8 +5148,8 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Связанные сущности: BasketNet, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: Include/BrokerMoneyModel.mqh::basket
-Python mapping: Tests/unit/test_broker_money_behavior.py::basket
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5167,7 +5167,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: BasketNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `BasketNet` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BasketNet`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
+Evidence: mapping record `BasketNet` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### HarvestGross
 CanonicalName: `HarvestGross`
@@ -5213,7 +5213,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: HarvestGross отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `HarvestGross` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `HarvestGross`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `HarvestGross` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### HarvestNet
 CanonicalName: `HarvestNet`
@@ -5259,7 +5259,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: HarvestNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `HarvestNet` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `HarvestNet`; MQL5 found=8, accepted=1; Python found=6, accepted=1.
+Evidence: mapping record `HarvestNet` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### SmallReverseNet
 CanonicalName: `SmallReverseNet`
@@ -5305,7 +5305,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: SmallReverseNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `SmallReverseNet` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallReverseNet`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
+Evidence: mapping record `SmallReverseNet` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### TransitionNet
 CanonicalName: `TransitionNet`
@@ -5331,9 +5331,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: TransitionNet нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: TransitionNet, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::transition
+MQL5 mapping: NONE_FOUND
 Python mapping: Tools/hybrid_geometry_model.py::transition_net
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5351,7 +5351,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: TransitionNet отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `TransitionNet` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `TransitionNet`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `TransitionNet` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### RealizedCyclePL
 CanonicalName: `RealizedCyclePL`
@@ -5397,7 +5397,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: RealizedCyclePL отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `RealizedCyclePL` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RealizedCyclePL`; MQL5 found=8, accepted=1; Python found=3, accepted=1.
+Evidence: mapping record `RealizedCyclePL` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### FloatingManagedPL
 CanonicalName: `FloatingManagedPL`
@@ -5443,7 +5443,7 @@ Restart behavior: После restart обязательно перечитыва
 Отличие от: FloatingManagedPL отличается от sibling-терминов источником `current position or broker-aware price model`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `FloatingManagedPL` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FloatingManagedPL`; MQL5 found=2, accepted=1; Python found=2, accepted=0.
+Evidence: mapping record `FloatingManagedPL` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### ProjectedFloatingPL
 CanonicalName: `ProjectedFloatingPL`
@@ -5489,7 +5489,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ProjectedFloatingPL отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ProjectedFloatingPL` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ProjectedFloatingPL`; MQL5 found=8, accepted=1; Python found=3, accepted=0.
+Evidence: mapping record `ProjectedFloatingPL` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### RecoveryPLAnalytic
 CanonicalName: `RecoveryPLAnalytic`
@@ -5535,7 +5535,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: RecoveryPLAnalytic отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoveryPLAnalytic` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RecoveryPLAnalytic`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `RecoveryPLAnalytic` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RecoveryPLProjected
 CanonicalName: `RecoveryPLProjected`
@@ -5581,7 +5581,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: RecoveryPLProjected отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoveryPLProjected` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RecoveryPLProjected`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `RecoveryPLProjected` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RecoveryPLCloseNow
 CanonicalName: `RecoveryPLCloseNow`
@@ -5627,7 +5627,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: RecoveryPLCloseNow отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoveryPLCloseNow` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RecoveryPLCloseNow`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `RecoveryPLCloseNow` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RealRecoveryPL
 CanonicalName: `RealRecoveryPL`
@@ -5673,7 +5673,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: RealRecoveryPL отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `RealRecoveryPL` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RealRecoveryPL`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `RealRecoveryPL` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RecoverySlope
 CanonicalName: `RecoverySlope`
@@ -5719,7 +5719,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: RecoverySlope отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoverySlope` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RecoverySlope`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `RecoverySlope` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RecoveryMonotonicity
 CanonicalName: `RecoveryMonotonicity`
@@ -5765,7 +5765,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: RecoveryMonotonicity отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `RecoveryMonotonicity` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RecoveryMonotonicity`; MQL5 found=6, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `RecoveryMonotonicity` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ExpectedExitCosts
 CanonicalName: `ExpectedExitCosts`
@@ -5792,8 +5792,8 @@ Authoritative replacement: пересчёт ExpectedExitCosts на новом im
 Связанные сущности: ExpectedExitCosts, тип MONEY_PROJECTED, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::fee_in_expected_exit_costs
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -5811,7 +5811,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ExpectedExitCosts отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ExpectedExitCosts` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ExpectedExitCosts`; MQL5 found=7, accepted=0; Python found=7, accepted=1.
+Evidence: mapping record `ExpectedExitCosts` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CommissionCost
 CanonicalName: `CommissionCost`
@@ -5857,7 +5857,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: CommissionCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `CommissionCost` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CommissionCost`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
+Evidence: mapping record `CommissionCost` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### SwapCost
 CanonicalName: `SwapCost`
@@ -5903,7 +5903,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: SwapCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `SwapCost` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SwapCost`; MQL5 found=8, accepted=1; Python found=6, accepted=0.
+Evidence: mapping record `SwapCost` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### FeeCost
 CanonicalName: `FeeCost`
@@ -5949,7 +5949,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: FeeCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FeeCost` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FeeCost`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
+Evidence: mapping record `FeeCost` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### SpreadCost
 CanonicalName: `SpreadCost`
@@ -5995,7 +5995,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: SpreadCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `SpreadCost` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SpreadCost`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
+Evidence: mapping record `SpreadCost` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### SlippageCost
 CanonicalName: `SlippageCost`
@@ -6041,7 +6041,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: SlippageCost отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `SlippageCost` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SlippageCost`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
+Evidence: mapping record `SlippageCost` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### PositionPLSigned
 CanonicalName: `PositionPLSigned`
@@ -6087,7 +6087,7 @@ Restart behavior: После restart обязательно перечитыва
 Отличие от: PositionPLSigned отличается от sibling-терминов источником `current position or broker-aware price model`, классом `ACTUAL CURRENT` и стадией lifecycle `ACTUAL_POSITION`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ACTUAL_POSITION`; запись `PositionPLSigned` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PositionPLSigned`; MQL5 found=7, accepted=1; Python found=3, accepted=0.
+Evidence: mapping record `PositionPLSigned` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### FarLossSigned
 CanonicalName: `FarLossSigned`
@@ -6133,7 +6133,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: FarLossSigned отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FarLossSigned` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarLossSigned`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `FarLossSigned` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### FarLossMagnitude
 CanonicalName: `FarLossMagnitude`
@@ -6179,7 +6179,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: FarLossMagnitude отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FarLossMagnitude` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FarLossMagnitude`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FarLossMagnitude` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### PartialFarBudgetProjected
 CanonicalName: `PartialFarBudgetProjected`
@@ -6225,7 +6225,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: PartialFarBudgetProjected отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PartialFarBudgetProjected` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarBudgetProjected`; MQL5 found=8, accepted=0; Python found=6, accepted=1.
+Evidence: mapping record `PartialFarBudgetProjected` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### PartialFarBudgetReal
 CanonicalName: `PartialFarBudgetReal`
@@ -6271,7 +6271,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: PartialFarBudgetReal отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `PartialFarBudgetReal` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarBudgetReal`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `PartialFarBudgetReal` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### PartialFarBudgetAvailable
 CanonicalName: `PartialFarBudgetAvailable`
@@ -6317,7 +6317,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: PartialFarBudgetAvailable отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `PartialFarBudgetAvailable` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarBudgetAvailable`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `PartialFarBudgetAvailable` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### PartialFarBudgetConsumed
 CanonicalName: `PartialFarBudgetConsumed`
@@ -6363,7 +6363,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: PartialFarBudgetConsumed отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `PartialFarBudgetConsumed` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarBudgetConsumed`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
+Evidence: mapping record `PartialFarBudgetConsumed` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### PartialFarBudgetResidual
 CanonicalName: `PartialFarBudgetResidual`
@@ -6409,7 +6409,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: PartialFarBudgetResidual отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `PartialFarBudgetResidual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PartialFarBudgetResidual`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
+Evidence: mapping record `PartialFarBudgetResidual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### FinalReserveProjected
 CanonicalName: `FinalReserveProjected`
@@ -6455,7 +6455,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: FinalReserveProjected отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `FinalReserveProjected` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FinalReserveProjected`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FinalReserveProjected` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### FinalReserveReal
 CanonicalName: `FinalReserveReal`
@@ -6501,7 +6501,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: FinalReserveReal отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FinalReserveReal` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FinalReserveReal`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `FinalReserveReal` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ReserveAddProjected
 CanonicalName: `ReserveAddProjected`
@@ -6547,7 +6547,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ReserveAddProjected отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ReserveAddProjected` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveAddProjected`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `ReserveAddProjected` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ReserveAddReal
 CanonicalName: `ReserveAddReal`
@@ -6593,7 +6593,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: ReserveAddReal отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `ReserveAddReal` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveAddReal`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `ReserveAddReal` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ReserveAvailable
 CanonicalName: `ReserveAvailable`
@@ -6639,7 +6639,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: ReserveAvailable отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `ReserveAvailable` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveAvailable`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `ReserveAvailable` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ReserveConsumed
 CanonicalName: `ReserveConsumed`
@@ -6685,7 +6685,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: ReserveConsumed отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `ReserveConsumed` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveConsumed`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `ReserveConsumed` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### ReserveResidual
 CanonicalName: `ReserveResidual`
@@ -6731,7 +6731,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: ReserveResidual отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `ReserveResidual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveResidual`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `ReserveResidual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CarryAvailable
 CanonicalName: `CarryAvailable`
@@ -6777,7 +6777,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: CarryAvailable отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `CarryAvailable` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CarryAvailable`; MQL5 found=8, accepted=0; Python found=5, accepted=0.
+Evidence: mapping record `CarryAvailable` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CarryConsumed
 CanonicalName: `CarryConsumed`
@@ -6823,7 +6823,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: CarryConsumed отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `CarryConsumed` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CarryConsumed`; MQL5 found=4, accepted=0; Python found=4, accepted=0.
+Evidence: mapping record `CarryConsumed` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CarryResidual
 CanonicalName: `CarryResidual`
@@ -6869,7 +6869,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: CarryResidual отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `CarryResidual` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CarryResidual`; MQL5 found=4, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `CarryResidual` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### TransitionBudgetAvailable
 CanonicalName: `TransitionBudgetAvailable`
@@ -6915,7 +6915,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: TransitionBudgetAvailable отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `TransitionBudgetAvailable` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `TransitionBudgetAvailable`; MQL5 found=5, accepted=1; Python found=7, accepted=1.
+Evidence: mapping record `TransitionBudgetAvailable` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### FinalCloseRequirement
 CanonicalName: `FinalCloseRequirement`
@@ -6961,7 +6961,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: FinalCloseRequirement отличается от sibling-терминов источником `confirmed deal history / exactly-once ledger`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `FinalCloseRequirement` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FinalCloseRequirement`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `FinalCloseRequirement` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BasketRiskMoney
 CanonicalName: `BasketRiskMoney`
@@ -7007,7 +7007,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: BasketRiskMoney отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `BasketRiskMoney` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BasketRiskMoney`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
+Evidence: mapping record `BasketRiskMoney` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### AccountRiskMoney
 CanonicalName: `AccountRiskMoney`
@@ -7053,7 +7053,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: AccountRiskMoney отличается от sibling-терминов источником `OrderCalcProfit + explicit projected costs`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `AccountRiskMoney` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `AccountRiskMoney`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
+Evidence: mapping record `AccountRiskMoney` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BigRatio
 CanonicalName: `BigRatio`
@@ -7099,7 +7099,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: BigRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `BigRatio` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BigRatio`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `BigRatio` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### SmallRatio
 CanonicalName: `SmallRatio`
@@ -7145,7 +7145,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: SmallRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `SmallRatio` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallRatio`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `SmallRatio` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### CloseBigOnSmallShare
 CanonicalName: `CloseBigOnSmallShare`
@@ -7191,7 +7191,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: CloseBigOnSmallShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `CloseBigOnSmallShare` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CloseBigOnSmallShare`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `CloseBigOnSmallShare` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RemainBigOnSmallShare
 CanonicalName: `RemainBigOnSmallShare`
@@ -7237,7 +7237,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: RemainBigOnSmallShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `RemainBigOnSmallShare` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RemainBigOnSmallShare`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
+Evidence: mapping record `RemainBigOnSmallShare` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### CloseFarShare
 CanonicalName: `CloseFarShare`
@@ -7283,7 +7283,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: CloseFarShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `CloseFarShare` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CloseFarShare`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `CloseFarShare` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ReserveShare
 CanonicalName: `ReserveShare`
@@ -7329,7 +7329,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: ReserveShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `ReserveShare` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveShare`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `ReserveShare` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### SmallReserveShare
 CanonicalName: `SmallReserveShare`
@@ -7375,7 +7375,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: SmallReserveShare отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `SmallReserveShare` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SmallReserveShare`; MQL5 found=8, accepted=1; Python found=6, accepted=1.
+Evidence: mapping record `SmallReserveShare` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### CompressionRatio
 CanonicalName: `CompressionRatio`
@@ -7421,7 +7421,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: CompressionRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `CompressionRatio` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CompressionRatio`; MQL5 found=6, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `CompressionRatio` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ReserveCoverageRatio
 CanonicalName: `ReserveCoverageRatio`
@@ -7467,7 +7467,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: ReserveCoverageRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `ReserveCoverageRatio` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveCoverageRatio`; MQL5 found=6, accepted=1; Python found=7, accepted=1.
+Evidence: mapping record `ReserveCoverageRatio` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RecoveryCoverageRatio
 CanonicalName: `RecoveryCoverageRatio`
@@ -7513,7 +7513,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: RecoveryCoverageRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `RecoveryCoverageRatio` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RecoveryCoverageRatio`; MQL5 found=2, accepted=0; Python found=3, accepted=1.
+Evidence: mapping record `RecoveryCoverageRatio` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### MaximumNewBigToOldFarRatio
 CanonicalName: `MaximumNewBigToOldFarRatio`
@@ -7559,7 +7559,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: MaximumNewBigToOldFarRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `MaximumNewBigToOldFarRatio` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `MaximumNewBigToOldFarRatio`; MQL5 found=3, accepted=0; Python found=5, accepted=1.
+Evidence: mapping record `MaximumNewBigToOldFarRatio` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### MinimumReserveCatchUpRatio
 CanonicalName: `MinimumReserveCatchUpRatio`
@@ -7605,7 +7605,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: MinimumReserveCatchUpRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `MinimumReserveCatchUpRatio` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `MinimumReserveCatchUpRatio`; MQL5 found=6, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `MinimumReserveCatchUpRatio` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PercentValue
 CanonicalName: `PercentValue`
@@ -7651,7 +7651,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: PercentValue отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `PercentValue` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PercentValue`; MQL5 found=6, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `PercentValue` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ScaleMultiplier
 CanonicalName: `ScaleMultiplier`
@@ -7697,7 +7697,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: ScaleMultiplier отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `ScaleMultiplier` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ScaleMultiplier`; MQL5 found=6, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `ScaleMultiplier` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RiskThresholdRatio
 CanonicalName: `RiskThresholdRatio`
@@ -7743,7 +7743,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: RiskThresholdRatio отличается от sibling-терминов источником `approved profile or typed formula`, классом `POLICY/PROJECTED` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `RiskThresholdRatio` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RiskThresholdRatio`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `RiskThresholdRatio` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### SymbolId
 CanonicalName: `SymbolId`
@@ -7789,7 +7789,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: SymbolId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `SymbolId` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SymbolId`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `SymbolId` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### MagicId
 CanonicalName: `MagicId`
@@ -7835,7 +7835,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: MagicId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `MagicId` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `MagicId`; MQL5 found=8, accepted=1; Python found=7, accepted=0.
+Evidence: mapping record `MagicId` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### CycleId
 CanonicalName: `CycleId`
@@ -7881,7 +7881,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: CycleId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `CycleId` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CycleId`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `CycleId` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### RoleId
 CanonicalName: `RoleId`
@@ -7907,9 +7907,9 @@ Authoritative replacement: новая reconciled role-to-position binding.
 Запрещённые подмены: RoleId нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: RoleId, тип ROLE_ID, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/PositionResolutionEngine.mqh::role
-Python mapping: Tools/hybrid_small_state_machine.py::role
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -7927,7 +7927,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: RoleId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `RoleId` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RoleId`; MQL5 found=7, accepted=1; Python found=4, accepted=1.
+Evidence: mapping record `RoleId` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PositionIdentifier
 CanonicalName: `PositionIdentifier`
@@ -7973,7 +7973,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: PositionIdentifier отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `PositionIdentifier` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PositionIdentifier`; MQL5 found=8, accepted=1; Python found=4, accepted=1.
+Evidence: mapping record `PositionIdentifier` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### PositionTicket
 CanonicalName: `PositionTicket`
@@ -8019,7 +8019,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: PositionTicket отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `PositionTicket` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PositionTicket`; MQL5 found=8, accepted=1; Python found=5, accepted=0.
+Evidence: mapping record `PositionTicket` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### OrderTicket
 CanonicalName: `OrderTicket`
@@ -8065,7 +8065,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: OrderTicket отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `OrderTicket` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `OrderTicket`; MQL5 found=8, accepted=1; Python found=2, accepted=1.
+Evidence: mapping record `OrderTicket` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### DealTicket
 CanonicalName: `DealTicket`
@@ -8111,7 +8111,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: DealTicket отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `DealTicket` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `DealTicket`; MQL5 found=8, accepted=1; Python found=1, accepted=1.
+Evidence: mapping record `DealTicket` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### EventId
 CanonicalName: `EventId`
@@ -8157,7 +8157,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: EventId отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `EventId` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `EventId`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `EventId` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### EventKey
 CanonicalName: `EventKey`
@@ -8203,7 +8203,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: EventKey отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `EventKey` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `EventKey`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `EventKey` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### SnapshotFingerprint
 CanonicalName: `SnapshotFingerprint`
@@ -8249,7 +8249,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: SnapshotFingerprint отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `SnapshotFingerprint` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SnapshotFingerprint`; MQL5 found=8, accepted=0; Python found=5, accepted=1.
+Evidence: mapping record `SnapshotFingerprint` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### PlanFingerprint
 CanonicalName: `PlanFingerprint`
@@ -8295,7 +8295,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: PlanFingerprint отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `PlanFingerprint` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PlanFingerprint`; MQL5 found=8, accepted=0; Python found=3, accepted=1.
+Evidence: mapping record `PlanFingerprint` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### PositionComment
 CanonicalName: `PositionComment`
@@ -8341,7 +8341,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: PositionComment отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `PositionComment` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PositionComment`; MQL5 found=8, accepted=0; Python found=7, accepted=0.
+Evidence: mapping record `PositionComment` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### SnapshotRevision
 CanonicalName: `SnapshotRevision`
@@ -8387,7 +8387,7 @@ Restart behavior: После restart роль восстанавливается
 Отличие от: SnapshotRevision отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `ROLE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `ROLE`; запись `SnapshotRevision` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SnapshotRevision`; MQL5 found=4, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `SnapshotRevision` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### StateRevision
 CanonicalName: `StateRevision`
@@ -8433,7 +8433,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: StateRevision отличается от sibling-терминов источником `MT5 properties / persisted reconciled namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `StateRevision` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `StateRevision`; MQL5 found=7, accepted=1; Python found=5, accepted=0.
+Evidence: mapping record `StateRevision` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### State
 CanonicalName: `State`
@@ -8479,7 +8479,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: State отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `State` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `State`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `State` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### Phase
 CanonicalName: `Phase`
@@ -8525,7 +8525,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Phase отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Phase` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Phase`; MQL5 found=4, accepted=1; Python found=6, accepted=1.
+Evidence: mapping record `Phase` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### Event
 CanonicalName: `Event`
@@ -8551,9 +8551,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Event нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Event, тип OUTCOME, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Tests/MQL5/BigSmallStateMachineTest.mq5::Event
-Python mapping: Tests/unit/test_clean_start_persistence_behavior.py::event
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8571,7 +8571,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Event отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Event` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Event`; MQL5 found=7, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `Event` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### Observation
 CanonicalName: `Observation`
@@ -8617,7 +8617,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Observation отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Observation` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Observation`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `Observation` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### GateResult
 CanonicalName: `GateResult`
@@ -8643,9 +8643,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: GateResult нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: GateResult, тип GATE_RESULT, class ACTUAL/CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: Include/PositionResolutionEngine.mqh::result
-Python mapping: Tools/hybrid_geometry_model.py::result
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8663,7 +8663,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: GateResult отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `GateResult` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `GateResult`; MQL5 found=4, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `GateResult` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ExecutionResult
 CanonicalName: `ExecutionResult`
@@ -8690,8 +8690,8 @@ Authoritative replacement: последнее confirmed state/event значен
 Связанные сущности: ExecutionResult, тип OUTCOME, class ACTUAL/CONFIRMED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
-Python mapping: Tests/HybridSplitBig/hybrid_split_big_reference.py::EvaluationResult
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8709,7 +8709,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: ExecutionResult отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ExecutionResult` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ExecutionResult`; MQL5 found=8, accepted=0; Python found=6, accepted=1.
+Evidence: mapping record `ExecutionResult` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### Outcome
 CanonicalName: `Outcome`
@@ -8755,7 +8755,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Outcome отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Outcome` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Outcome`; MQL5 found=5, accepted=1; Python found=3, accepted=1.
+Evidence: mapping record `Outcome` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ReasonCode
 CanonicalName: `ReasonCode`
@@ -8801,7 +8801,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: ReasonCode отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ReasonCode` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReasonCode`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `ReasonCode` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### ErrorCode
 CanonicalName: `ErrorCode`
@@ -8847,7 +8847,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: ErrorCode отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ErrorCode` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ErrorCode`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
+Evidence: mapping record `ErrorCode` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### DiagnosticText
 CanonicalName: `DiagnosticText`
@@ -8893,7 +8893,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: DiagnosticText отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `DiagnosticText` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `DiagnosticText`; MQL5 found=0, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `DiagnosticText` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CandidatePlan
 CanonicalName: `CandidatePlan`
@@ -8919,9 +8919,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: CandidatePlan нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CandidatePlan, тип OUTCOME, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: Include/SimulationEngine.mqh::candidate
-Python mapping: Tools/hybrid_geometry_model.py::candidate
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -8939,7 +8939,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: CandidatePlan отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `CandidatePlan` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CandidatePlan`; MQL5 found=3, accepted=1; Python found=7, accepted=1.
+Evidence: mapping record `CandidatePlan` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ApprovedImmutablePlan
 CanonicalName: `ApprovedImmutablePlan`
@@ -8985,7 +8985,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: ApprovedImmutablePlan отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ApprovedImmutablePlan` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ApprovedImmutablePlan`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `ApprovedImmutablePlan` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ExecutionRequest
 CanonicalName: `ExecutionRequest`
@@ -9031,7 +9031,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: ExecutionRequest отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ExecutionRequest` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ExecutionRequest`; MQL5 found=7, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `ExecutionRequest` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BrokerExecutionResult
 CanonicalName: `BrokerExecutionResult`
@@ -9077,7 +9077,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: BrokerExecutionResult отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `BrokerExecutionResult` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BrokerExecutionResult`; MQL5 found=5, accepted=0; Python found=4, accepted=0.
+Evidence: mapping record `BrokerExecutionResult` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ReconciledResult
 CanonicalName: `ReconciledResult`
@@ -9123,7 +9123,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: ReconciledResult отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ReconciledResult` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReconciledResult`; MQL5 found=4, accepted=0; Python found=5, accepted=0.
+Evidence: mapping record `ReconciledResult` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CommittedLedgerEvent
 CanonicalName: `CommittedLedgerEvent`
@@ -9169,7 +9169,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: CommittedLedgerEvent отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `CommittedLedgerEvent` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CommittedLedgerEvent`; MQL5 found=1, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `CommittedLedgerEvent` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### BaseSnapshot
 CanonicalName: `BaseSnapshot`
@@ -9195,9 +9195,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: BaseSnapshot нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: BaseSnapshot, тип STATE, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: Include/PositionResolutionEngine.mqh::snapshot
-Python mapping: Tests/unit/test_split_architecture_model.py::snapshot
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9215,7 +9215,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: BaseSnapshot отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `BaseSnapshot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `BaseSnapshot`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `BaseSnapshot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### WorstSnapshot
 CanonicalName: `WorstSnapshot`
@@ -9261,7 +9261,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: WorstSnapshot отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `WorstSnapshot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `WorstSnapshot`; MQL5 found=7, accepted=0; Python found=5, accepted=0.
+Evidence: mapping record `WorstSnapshot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ActualSnapshot
 CanonicalName: `ActualSnapshot`
@@ -9307,7 +9307,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: ActualSnapshot отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `ActualSnapshot` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ActualSnapshot`; MQL5 found=7, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `ActualSnapshot` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### SnapshotStaleFlag
 CanonicalName: `SnapshotStaleFlag`
@@ -9353,7 +9353,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: SnapshotStaleFlag отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `SnapshotStaleFlag` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `SnapshotStaleFlag`; MQL5 found=2, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `SnapshotStaleFlag` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### FinalClosePreview
 CanonicalName: `FinalClosePreview`
@@ -9380,8 +9380,8 @@ Authoritative replacement: последнее confirmed state/event значен
 Связанные сущности: FinalClosePreview, тип OUTCOME, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: Include/Types.mqh::finalClosePreviewRequired
-Python mapping: Tests/static/test_split_architecture_static.py::final_close
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9399,7 +9399,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: FinalClosePreview отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `FinalClosePreview` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FinalClosePreview`; MQL5 found=8, accepted=1; Python found=7, accepted=1.
+Evidence: mapping record `FinalClosePreview` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### FinalCloseActualSuccess
 CanonicalName: `FinalCloseActualSuccess`
@@ -9445,7 +9445,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: FinalCloseActualSuccess отличается от sibling-терминов источником `state machine or immutable snapshot/reconciliation`, классом `ACTUAL/CONFIRMED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `FinalCloseActualSuccess` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FinalCloseActualSuccess`; MQL5 found=8, accepted=0; Python found=4, accepted=0.
+Evidence: mapping record `FinalCloseActualSuccess` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### MoneyTolerance
 CanonicalName: `MoneyTolerance`
@@ -9491,7 +9491,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: MoneyTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `MoneyTolerance` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `MoneyTolerance`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `MoneyTolerance` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### VolumeToleranceLots
 CanonicalName: `VolumeToleranceLots`
@@ -9537,7 +9537,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: VolumeToleranceLots отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `VolumeToleranceLots` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `VolumeToleranceLots`; MQL5 found=8, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `VolumeToleranceLots` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PriceTolerance
 CanonicalName: `PriceTolerance`
@@ -9583,7 +9583,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: PriceTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PriceTolerance` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PriceTolerance`; MQL5 found=6, accepted=1; Python found=4, accepted=1.
+Evidence: mapping record `PriceTolerance` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### PointTolerance
 CanonicalName: `PointTolerance`
@@ -9629,7 +9629,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: PointTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `PointTolerance` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PointTolerance`; MQL5 found=5, accepted=0; Python found=5, accepted=0.
+Evidence: mapping record `PointTolerance` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### RatioTolerance
 CanonicalName: `RatioTolerance`
@@ -9675,7 +9675,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: RatioTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `RatioTolerance` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RatioTolerance`; MQL5 found=7, accepted=1; Python found=7, accepted=0.
+Evidence: mapping record `RatioTolerance` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### ComparisonEpsilon
 CanonicalName: `ComparisonEpsilon`
@@ -9721,7 +9721,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: ComparisonEpsilon отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `ComparisonEpsilon` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ComparisonEpsilon`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `ComparisonEpsilon` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ReserveMismatchTolerance
 CanonicalName: `ReserveMismatchTolerance`
@@ -9767,7 +9767,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ReserveMismatchTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ReserveMismatchTolerance` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveMismatchTolerance`; MQL5 found=8, accepted=0; Python found=8, accepted=0.
+Evidence: mapping record `ReserveMismatchTolerance` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### GeometryTolerance
 CanonicalName: `GeometryTolerance`
@@ -9813,7 +9813,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: GeometryTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `GeometryTolerance` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `GeometryTolerance`; MQL5 found=8, accepted=0; Python found=6, accepted=0.
+Evidence: mapping record `GeometryTolerance` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### FingerprintTolerance
 CanonicalName: `FingerprintTolerance`
@@ -9859,7 +9859,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: FingerprintTolerance отличается от sibling-терминов источником `approved config/symbol properties`, классом `POLICY` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `FingerprintTolerance` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `FingerprintTolerance`; MQL5 found=8, accepted=0; Python found=6, accepted=1.
+Evidence: mapping record `FingerprintTolerance` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### ProjectedData
 CanonicalName: `ProjectedData`
@@ -9885,9 +9885,9 @@ Authoritative replacement: пересчёт ProjectedData на новом immuta
 Запрещённые подмены: ProjectedData нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: ProjectedData, тип BOOLEAN_RESULT, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::projected
+MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -9905,7 +9905,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ProjectedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `PROJECTED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ProjectedData` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ProjectedData`; MQL5 found=8, accepted=1; Python found=6, accepted=0.
+Evidence: mapping record `ProjectedData` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### RequestedData
 CanonicalName: `RequestedData`
@@ -9951,7 +9951,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: RequestedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `REQUESTED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `RequestedData` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `RequestedData`; MQL5 found=1, accepted=0; Python found=2, accepted=1.
+Evidence: mapping record `RequestedData` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### ExecutedData
 CanonicalName: `ExecutedData`
@@ -9997,7 +9997,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ExecutedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `EXECUTED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ExecutedData` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ExecutedData`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `ExecutedData` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ConfirmedData
 CanonicalName: `ConfirmedData`
@@ -10043,7 +10043,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ConfirmedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `CONFIRMED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ConfirmedData` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ConfirmedData`; MQL5 found=1, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `ConfirmedData` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ReconciledData
 CanonicalName: `ReconciledData`
@@ -10089,7 +10089,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ReconciledData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `RECONCILED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `ReconciledData` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReconciledData`; MQL5 found=0, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `ReconciledData` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### PersistedData
 CanonicalName: `PersistedData`
@@ -10135,7 +10135,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: PersistedData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `PERSISTED` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `PersistedData` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `PersistedData`; MQL5 found=2, accepted=0; Python found=0, accepted=0.
+Evidence: mapping record `PersistedData` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### StaleData
 CanonicalName: `StaleData`
@@ -10181,7 +10181,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: StaleData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `STALE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `StaleData` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `StaleData`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `StaleData` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### InvalidData
 CanonicalName: `InvalidData`
@@ -10227,7 +10227,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: InvalidData отличается от sibling-терминов источником `lifecycle transition evidence`, классом `INVALID` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `InvalidData` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `InvalidData`; MQL5 found=1, accepted=0; Python found=2, accepted=0.
+Evidence: mapping record `InvalidData` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NotApplicableValue
 CanonicalName: `NotApplicableValue`
@@ -10273,7 +10273,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: NotApplicableValue отличается от sibling-терминов источником `lifecycle transition evidence`, классом `NOTAPPLICABLEVALUE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `NotApplicableValue` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NotApplicableValue`; MQL5 found=1, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `NotApplicableValue` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NotCalculatedValue
 CanonicalName: `NotCalculatedValue`
@@ -10319,7 +10319,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: NotCalculatedValue отличается от sibling-терминов источником `lifecycle transition evidence`, классом `NOTCALCULATEDVALUE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `NotCalculatedValue` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NotCalculatedValue`; MQL5 found=1, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `NotCalculatedValue` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### NotAvailableValue
 CanonicalName: `NotAvailableValue`
@@ -10365,7 +10365,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: NotAvailableValue отличается от sibling-терминов источником `lifecycle transition evidence`, классом `NOTAVAILABLEVALUE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `NotAvailableValue` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `NotAvailableValue`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `NotAvailableValue` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### UnknownValue
 CanonicalName: `UnknownValue`
@@ -10411,7 +10411,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: UnknownValue отличается от sibling-терминов источником `lifecycle transition evidence`, классом `UNKNOWNVALUE` и стадией lifecycle `OBJECT`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `UnknownValue` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `UnknownValue`; MQL5 found=3, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `UnknownValue` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CurrentBid
 CanonicalName: `CurrentBid`
@@ -10437,9 +10437,9 @@ Authoritative replacement: пересчёт CurrentBid на новом immutable
 Запрещённые подмены: CurrentBid нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CurrentBid, тип PRICE_BID, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::current
-Python mapping: Tools/run_full_parameter_optimization_study.py::current
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10457,7 +10457,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: CurrentBid отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_BID)`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `CurrentBid` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CurrentBid`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
+Evidence: mapping record `CurrentBid` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### CurrentAsk
 CanonicalName: `CurrentAsk`
@@ -10483,9 +10483,9 @@ Authoritative replacement: пересчёт CurrentAsk на новом immutable
 Запрещённые подмены: CurrentAsk нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: CurrentAsk, тип PRICE_ASK, class ACTUAL CURRENT.
 Legacy aliases: —
-MQL5 mapping: Include/StateMachine.mqh::current
-Python mapping: Tools/run_full_parameter_optimization_study.py::current
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10503,7 +10503,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: CurrentAsk отличается от sibling-терминов источником `SymbolInfoDouble(symbol, SYMBOL_ASK)`, классом `ACTUAL CURRENT` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `CurrentAsk` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CurrentAsk`; MQL5 found=8, accepted=1; Python found=5, accepted=1.
+Evidence: mapping record `CurrentAsk` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### ReserveProjected
 CanonicalName: `ReserveProjected`
@@ -10549,7 +10549,7 @@ Restart behavior: После restart пересчитывается либо п�
 Отличие от: ReserveProjected отличается от sibling-терминов источником `OrderCalcProfit outputs plus explicit projected allocation model`, классом `PROJECTED` и стадией lifecycle `PROJECTED_VALUE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `PROJECTED_VALUE`; запись `ReserveProjected` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveProjected`; MQL5 found=8, accepted=1; Python found=8, accepted=0.
+Evidence: mapping record `ReserveProjected` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### ReserveCoverage
 CanonicalName: `ReserveCoverage`
@@ -10595,7 +10595,7 @@ Restart behavior: После restart перечитывается и сверя�
 Отличие от: ReserveCoverage отличается от sibling-терминов источником `ReserveAvailable divided by FinalCloseRequirement`, классом `PROJECTED or ACTUAL RATIO` и стадией lifecycle `POLICY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `POLICY`; запись `ReserveCoverage` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `ReserveCoverage`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `ReserveCoverage` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### Symbol
 CanonicalName: `Symbol`
@@ -10641,7 +10641,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: Symbol отличается от sibling-терминов источником `current chart/request symbol and reconciled position symbol`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `Symbol` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Symbol`; MQL5 found=8, accepted=1; Python found=7, accepted=1.
+Evidence: mapping record `Symbol` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### MagicNumber
 CanonicalName: `MagicNumber`
@@ -10687,7 +10687,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: MagicNumber отличается от sibling-терминов источником `configured MagicNumber verified against position/deal properties`, классом `POLICY/ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `MagicNumber` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `MagicNumber`; MQL5 found=7, accepted=1; Python found=1, accepted=0.
+Evidence: mapping record `MagicNumber` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### CycleID
 CanonicalName: `CycleID`
@@ -10733,7 +10733,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: CycleID отличается от sibling-терминов источником `persisted cycle creation event confirmed by reconciliation`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `CycleID` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `CycleID`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `CycleID` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### EventID
 CanonicalName: `EventID`
@@ -10779,7 +10779,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: EventID отличается от sibling-терминов источником `exactly-once ledger event namespace`, классом `ACTUAL CONFIRMED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `EventID` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `EventID`; MQL5 found=8, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `EventID` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=PARTIAL_MATCH.
 
 ### Fingerprint
 CanonicalName: `Fingerprint`
@@ -10825,7 +10825,7 @@ Restart behavior: После restart сверяется с terminal/deal history
 Отличие от: Fingerprint отличается от sibling-терминов источником `canonical serialization of typed fields and revision`, классом `PROJECTED or RECONCILED` и стадией lifecycle `IDENTITY`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `IDENTITY`; запись `Fingerprint` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Fingerprint`; MQL5 found=8, accepted=0; Python found=3, accepted=1.
+Evidence: mapping record `Fingerprint` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### Comment
 CanonicalName: `Comment`
@@ -10852,8 +10852,8 @@ Authoritative replacement: последнее confirmed state/event значен
 Связанные сущности: Comment, тип DIAGNOSTIC_TEXT, class ACTUAL OBSERVATION.
 Legacy aliases: —
 MQL5 mapping: Include/SimulationEngine.mqh::comment
-Python mapping: Tools/run_full_parameter_optimization_study.py::comment
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10871,7 +10871,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Comment отличается от sibling-терминов источником `MT5 position/order/deal comment property`, классом `ACTUAL OBSERVATION` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Comment` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Comment`; MQL5 found=8, accepted=1; Python found=3, accepted=1.
+Evidence: mapping record `Comment` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=PARTIAL_MATCH, Python=MISSING.
 
 ### Preview
 CanonicalName: `Preview`
@@ -10917,7 +10917,7 @@ Restart behavior: после restart сверяется fingerprint и пере�
 Отличие от: Preview отличается от sibling-терминов источником `fresh immutable snapshot evaluator`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Preview` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Preview`; MQL5 found=1, accepted=0; Python found=1, accepted=0.
+Evidence: mapping record `Preview` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### Candidate
 CanonicalName: `Candidate`
@@ -10943,9 +10943,9 @@ Authoritative replacement: последнее confirmed state/event значен
 Запрещённые подмены: Candidate нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: Candidate, тип OUTCOME, class PROJECTED.
 Legacy aliases: —
-MQL5 mapping: Include/SimulationEngine.mqh::candidate
-Python mapping: Tools/hybrid_geometry_model.py::candidate
-Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
+MQL5 mapping: NONE_FOUND
+Python mapping: NONE_FOUND
+Mapping status: MQL5=`MISSING`; Python=`MISSING`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -10963,7 +10963,7 @@ Restart behavior: После restart восстанавливается replay/r
 Отличие от: Candidate отличается от sibling-терминов источником `solver output tied to source fingerprint`, классом `PROJECTED` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `STATE`; запись `Candidate` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `Candidate`; MQL5 found=4, accepted=1; Python found=8, accepted=1.
+Evidence: mapping record `Candidate` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 
 ### Plan
 CanonicalName: `Plan`
@@ -11008,8 +11008,8 @@ Persistence behavior: plan/audit evidence, не actual ledger commit.
 Restart behavior: после restart сверяется fingerprint и пересчитывается.
 Отличие от: Plan отличается от Preview наличием candidate actions, а от ApprovedPlan отсутствием approval freeze.
 Semantic exception: NOT_APPLICABLE
-Similarity exception reason: Общие projected-plan clauses разделяются с HybridPlan; Plan является architecture-neutral structured plan.
-Evidence: candidate audit record `Plan`; MQL5 found=1, accepted=0; Python found=3, accepted=1.
+Similarity exception reason: Общие lifecycle clauses projected plan разделяются с HybridPlan; Plan отличается architecture-neutral type и source contract.
+Evidence: mapping record `Plan` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=PARTIAL_MATCH.
 
 ### ApprovedPlan
 CanonicalName: `ApprovedPlan`
@@ -11054,6 +11054,6 @@ Persistence behavior: plan/audit evidence, не actual ledger commit.
 Restart behavior: после restart сверяется fingerprint и пересчитывается.
 Отличие от: ApprovedPlan отличается от Plan подтверждёнными gates и immutable freeze, а от ExecutionRequest отсутствием broker submission.
 Semantic exception: NOT_APPLICABLE
-Similarity exception reason: Общие plan clauses разделяются с Plan; ApprovedPlan дополнительно требует gate evidence и immutable fingerprint freeze.
-Evidence: candidate audit record `ApprovedPlan`; MQL5 found=0, accepted=0; Python found=1, accepted=0.
+Similarity exception reason: Общие lifecycle clauses разделяются с Plan; ApprovedPlan отличается source gate evidence, approved type и immutable fingerprint freeze.
+Evidence: mapping record `ApprovedPlan` contains generated/found/accepted/rejected candidates, scores, declarations and use sites; final MQL5=MISSING, Python=MISSING.
 

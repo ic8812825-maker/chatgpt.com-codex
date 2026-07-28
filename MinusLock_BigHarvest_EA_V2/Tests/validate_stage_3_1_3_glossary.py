@@ -11,7 +11,7 @@ COLS=['Canonical term','Русское название','Profile','Type','Unit'
 FIELDS=['CanonicalName','Русское название','Краткое определение','Архитектурный профиль','Торговая роль','Размерность','Unit','Знак','Authoritative source','Projected/Actual class','Rounding','Tolerance','Lifecycle','Условия stale','Authoritative replacement','Связанные сущности','Допустимые операции','Legacy aliases','MQL5 mapping','Python mapping','Mapping status','Conflict','Resolution stage','Статус определения','Semantic category','Lifecycle class','Creation event','Mutation events','Stale triggers','Replacement source','Terminal condition','Persistence behavior','Restart behavior','Отличие от','Semantic exception','Similarity exception reason','Evidence']
 STATUSES={'EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','NOT_APPLICABLE'};NON_MISSING=STATUSES-{'MISSING','NOT_APPLICABLE'}
 UNRESOLVED={'UNRESOLVED_PARAMETER_PROFILE','UNRESOLVED_BUSINESS_POLICY','UNRESOLVED_MODE_ROUTING','MISSING_DEFINITION'}
-BLOCKING=['TABLE_RECORD_MISMATCH','MAPPING_STATUS_PARITY_ERROR','MQL5_ALL_MAPPINGS_MISSING','PYTHON_ALL_MAPPINGS_MISSING','MQL5_NON_MISSING_BELOW_MINIMUM','PYTHON_NON_MISSING_BELOW_MINIMUM','MISSING_WITHOUT_CANDIDATE_AUDIT','MISSING_WITH_UNREVIEWED_CANDIDATES','MISSING_WITH_ACCEPTED_CANDIDATE','MISSING_WITH_NONEMPTY_ENTRIES','NON_MISSING_WITH_EMPTY_ENTRIES','CANDIDATE_WITHOUT_REJECTION_REASON','CANDIDATE_WITHOUT_SCORE','CANDIDATE_STATUS_INCONSISTENT','MAPPING_FILES_NOT_FOUND','MAPPING_WITHOUT_DECLARATION_EVIDENCE','MAPPING_WITHOUT_USE_EVIDENCE','TOKEN_IDENTIFIER_KINDS','INVALID_DEFINITION_TYPE_SEMANTICS','INVALID_TYPE_UNIT','INVALID_TYPE_CLASS','INVALID_TYPE_TOLERANCE','INVALID_TYPE_SOURCE','INVALID_TYPE_SIGN','INVALID_SIGN_SEMANTICS','INVALID_SOURCE_MATRIX','INVALID_LIFECYCLE_MATRIX','POSITION_ROLE_AMBIGUITY','PLAN_STATE_AMBIGUITY','NEAR_DUPLICATE_DEFINITIONS','NEAR_DUPLICATE_LIFECYCLES','UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID','UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE']
+BLOCKING=['TABLE_RECORD_MISMATCH','MAPPING_STATUS_PARITY_ERROR','CANDIDATE_AUDIT_PARITY_ERROR','MQL5_ALL_MAPPINGS_MISSING','PYTHON_ALL_MAPPINGS_MISSING','MQL5_NON_MISSING_BELOW_MINIMUM','PYTHON_NON_MISSING_BELOW_MINIMUM','MISSING_WITHOUT_CANDIDATE_AUDIT','MISSING_WITH_UNREVIEWED_CANDIDATES','MISSING_WITH_ACCEPTED_CANDIDATE','MISSING_WITH_NONEMPTY_ENTRIES','NON_MISSING_WITH_EMPTY_ENTRIES','CANDIDATE_WITHOUT_REJECTION_REASON','CANDIDATE_WITHOUT_SCORE','CANDIDATE_STATUS_INCONSISTENT','MAPPING_FILES_NOT_FOUND','MAPPING_WITHOUT_DECLARATION_EVIDENCE','MAPPING_WITHOUT_USE_EVIDENCE','TOKEN_IDENTIFIER_KINDS','INVALID_DEFINITION_TYPE_SEMANTICS','INVALID_TYPE_UNIT','INVALID_TYPE_CLASS','INVALID_TYPE_TOLERANCE','INVALID_TYPE_SOURCE','INVALID_TYPE_SIGN','INVALID_SIGN_SEMANTICS','INVALID_SOURCE_MATRIX','INVALID_LIFECYCLE_MATRIX','POSITION_ROLE_AMBIGUITY','PLAN_STATE_AMBIGUITY','NEAR_DUPLICATE_DEFINITIONS','NEAR_DUPLICATE_LIFECYCLES','UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID','UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE']
 
 def table(text):
  raw=text.split(START,1)[1].split(END,1)[0].strip();ls=[x for x in raw.splitlines() if x.startswith('|')];h=[x.strip() for x in ls[0].strip('|').split('|')]
@@ -85,8 +85,9 @@ def mapping(item,d,root=ROOT):
   for f in found:c['CANDIDATE_WITHOUT_SCORE']+='score' not in f
   for q in rejected:c['CANDIDATE_WITHOUT_REJECTION_REASON']+=not q.get('reason')
   c['CANDIDATE_STATUS_INCONSISTENT']+=a.get('final_status')!=st if isinstance(a,dict) else 1
+  c['CANDIDATE_STATUS_INCONSISTENT']+=sum(not q.get('semantic_key_match') for q in accepted)
   for e in arr:
-   c['TOKEN_IDENTIFIER_KINDS']+=e.get('identifier_kind')=='token';path=root/e.get('file','');c['MAPPING_FILES_NOT_FOUND']+=not path.is_file();c['MAPPING_WITHOUT_DECLARATION_EVIDENCE']+=not e.get('declaration_evidence');c['MAPPING_WITHOUT_USE_EVIDENCE']+=not(e.get('read_sites') or e.get('write_sites'))
+   c['TOKEN_IDENTIFIER_KINDS']+=e.get('identifier_kind')=='token';path=root/e.get('file','');c['MAPPING_FILES_NOT_FOUND']+=not path.is_file();c['MAPPING_WITHOUT_DECLARATION_EVIDENCE']+=not(e.get('declaration_evidence') and e.get('declaration_context') and e.get('declared_type') and e.get('line'));c['MAPPING_WITHOUT_USE_EVIDENCE']+=not(e.get('read_sites') or e.get('write_sites'));c['CANDIDATE_STATUS_INCONSISTENT']+=e.get('mapping_status')!=st or not e.get('semantic_key_match')
    if path.is_file() and e.get('line'):
     ok=mql_declaration(path,e['line'],e.get('identifier','')) if lang=='mql5' else python_declaration(path,e['line'],e.get('identifier',''))
     c['MAPPING_WITHOUT_DECLARATION_EVIDENCE']+=not ok
@@ -106,8 +107,8 @@ def validate(rows,recs,data,enforce_floor=True,root=ROOT):
   da=recs[a['Canonical term']]
   for b in rows[i+1:]:
    db=recs[b['Canonical term']]
-   if similar(da.get('Краткое определение',''),db.get('Краткое определение',''))>=.85 and not(da.get('Similarity exception reason') and db.get('Similarity exception reason')):c['NEAR_DUPLICATE_DEFINITIONS']+=1
-   if similar(da.get('Lifecycle',''),db.get('Lifecycle',''))>=.85 and not(da.get('Similarity exception reason') and db.get('Similarity exception reason')):c['NEAR_DUPLICATE_LIFECYCLES']+=1
+   if similar(da.get('Краткое определение',''),db.get('Краткое определение',''))>=.85 and not(all(len(x.get('Similarity exception reason',''))>=30 and any(k in x.get('Similarity exception reason','').lower() for k in ('source','type','роль','identity','lifecycle')) for x in (da,db))):c['NEAR_DUPLICATE_DEFINITIONS']+=1
+   if similar(da.get('Lifecycle',''),db.get('Lifecycle',''))>=.85 and not(all(len(x.get('Similarity exception reason',''))>=30 and any(k in x.get('Similarity exception reason','').lower() for k in ('source','type','роль','identity','lifecycle')) for x in (da,db))):c['NEAR_DUPLICATE_LIFECYCLES']+=1
  for lang in ('mql5','python'):
   sts=Counter(x.get(lang+'_status') for x in data.get('terms',[]));prefix=lang.upper();non=sum(sts[s] for s in NON_MISSING)
   for s in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','NOT_APPLICABLE'):c[f'{prefix}_{s}']=sts[s]
@@ -121,6 +122,8 @@ def main():
  recs=records(GLOSSARY.read_text());data=json.loads(MAPPING.read_text());audit=json.loads(AUDIT.read_text())
  if data.get('schema_version')!='3.1.3-third-correction-1' or len(audit.get('terms',[]))!=230:print('SCHEMA_OR_AUDIT=FAIL');return 1
  c=validate(rows,recs,data)
+ audit_by={x.get('canonical_term'):x for x in audit.get('terms',[])}
+ c['CANDIDATE_AUDIT_PARITY_ERROR']=sum(audit_by.get(x['canonical_term'],{}).get(lang)!=x.get('candidate_audit',{}).get(lang) for x in data.get('terms',[]) for lang in ('mql5','python'))
  from test_stage_3_1_3_semantic_mutations import run_controls
  nt,np,pt,pp=run_controls(False);c['NEGATIVE_TESTS_TOTAL']=nt;c['NEGATIVE_TESTS_PASSED']=np;c['POSITIVE_TESTS_TOTAL']=pt;c['POSITIVE_TESTS_PASSED']=pp
  keys=['CANONICAL_TERMS','EXTENDED_RECORDS','MQL5_TERMS_WITH_CANDIDATE_AUDIT','PYTHON_TERMS_WITH_CANDIDATE_AUDIT','MQL5_TERMS_WITH_FOUND_CANDIDATES','PYTHON_TERMS_WITH_FOUND_CANDIDATES','MQL5_TERMS_WITH_ACCEPTED_CANDIDATES','PYTHON_TERMS_WITH_ACCEPTED_CANDIDATES','MQL5_TERMS_WITH_REJECTED_CANDIDATES','PYTHON_TERMS_WITH_REJECTED_CANDIDATES']+[f'{l}_{s}' for l in ('MQL5','PYTHON') for s in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','NOT_APPLICABLE','NON_MISSING','ALL_MAPPINGS_MISSING')]+BLOCKING+['NEGATIVE_TESTS_TOTAL','NEGATIVE_TESTS_PASSED','POSITIVE_TESTS_TOTAL','POSITIVE_TESTS_PASSED']

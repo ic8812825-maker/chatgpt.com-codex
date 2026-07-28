@@ -24,7 +24,7 @@ def set_status(recs,item,lang,status):
  rec=recs[item['canonical_term']];m=rec['Mapping status'];a,b=(status,item['python_status']) if lang=='mql5' else (item['mql5_status'],status);rec['Mapping status']=f'MQL5=`{a}`; Python=`{b}`';rec['MQL5 mapping' if lang=='mql5' else 'Python mapping']='NONE_FOUND' if status=='MISSING' else ('NOT_APPLICABLE' if status=='NOT_APPLICABLE' else 'Tests/test_stage_3_1_3_semantic_mutations.py::run_controls')
 def proven_entry(status='PARTIAL_MATCH'):
  line=run_controls.__code__.co_firstlineno
- return {'file':'Tests/test_stage_3_1_3_semantic_mutations.py','line':line,'identifier':'run_controls','identifier_kind':'function','declaration_evidence':'def run_controls','read_sites':['Tests/test_stage_3_1_3_semantic_mutations.py:200'],'write_sites':[],'mapping_status':status,'semantic_note':'synthetic proven declaration/use control','lifecycle_role':'test control lifecycle','score':75}
+ return {'file':'Tests/test_stage_3_1_3_semantic_mutations.py','line':line,'identifier':'run_controls','identifier_kind':'function','declaration_evidence':'def run_controls','declaration_context':'module','declared_type':'function','read_sites':['Tests/test_stage_3_1_3_semantic_mutations.py:200'],'write_sites':[],'mapping_status':status,'semantic_note':'synthetic proven declaration/use control','lifecycle_role':'test control lifecycle','score':75,'semantic_key_match':True}
 def run_controls(verbose=True):
  negative=[]
  def neg(name,mut):
@@ -68,7 +68,7 @@ def run_controls(verbose=True):
  pos(missing)
  def mapped(status):
   def f(r,d,m):
-   x=m['terms'][0];set_status(d,x,'python',status);x['python']=[proven_entry(status)];a=x['candidate_audit']['python'];a.update(found_candidates=[{'identifier':'run_controls','score':75}],accepted_candidates=[{'identifier':'run_controls','score':75,'status':status}],final_reason='accepted')
+   x=m['terms'][0];set_status(d,x,'python',status);x['python']=[proven_entry(status)];a=x['candidate_audit']['python'];a.update(found_candidates=[{'identifier':'run_controls','score':75,'semantic_key_match':True}],accepted_candidates=[{'identifier':'run_controls','score':75,'status':status,'semantic_key_match':True}],final_reason='accepted')
   return f
  pos(mapped('PARTIAL_MATCH'));pos(mapped('SEMANTIC_MATCH'));pos(mapped('AMBIGUOUS'))
  pos(lambda r,d,m:None) # NOT_APPLICABLE

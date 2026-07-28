@@ -107,15 +107,7 @@
             "score": 49
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "legacy",
-            "file": "Include/StateMachine.mqh",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "ROLE_SMALL_LEGACY",
@@ -146,11 +138,17 @@
             "file": "Include/Types.mqh",
             "score": 49,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "legacy",
+            "file": "Include/StateMachine.mqh",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'double' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -177,19 +175,18 @@
             "score": 90
           }
         ],
-        "accepted_candidates": [
+        "accepted_candidates": [],
+        "rejected_candidates": [
           {
             "identifier": "legacy",
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "rejected_candidates": [],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -560,15 +557,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "legacy",
-            "file": "Include/StateMachine.mqh",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "ROLE_SMALL_LEGACY",
@@ -593,11 +582,17 @@
             "file": "Include/StateMachine.mqh",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "legacy",
+            "file": "Include/StateMachine.mqh",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'double' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -656,15 +651,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "legacy",
-            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "big",
@@ -677,11 +664,17 @@
             "file": "Tests/unit/test_split_final_safety_model.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "legacy",
+            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -1227,15 +1220,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "legacy",
-            "file": "Include/StateMachine.mqh",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "ROLE_SMALL_LEGACY",
@@ -1278,11 +1263,17 @@
             "file": "Include/Types.mqh",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "legacy",
+            "file": "Include/StateMachine.mqh",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'double' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -1328,26 +1319,24 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "legacy",
-            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "far",
             "file": "Tools/hybrid_geometry_model.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "legacy",
+            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -2066,15 +2055,7 @@
             "score": 48
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "splitBigCore",
-            "file": "Include/StateMachine.mqh",
-            "score": 67,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "splitBigTrend",
@@ -2117,11 +2098,17 @@
             "file": "Include/StateMachine.mqh",
             "score": 48,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "splitBigCore",
+            "file": "Include/StateMachine.mqh",
+            "score": 67,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -2401,15 +2388,7 @@
             "score": 58
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "splitBigCore",
-            "file": "Include/StateMachine.mqh",
-            "score": 64,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "bigCoreLot",
@@ -2452,11 +2431,17 @@
             "file": "Include/Types.mqh",
             "score": 58,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "splitBigCore",
+            "file": "Include/StateMachine.mqh",
+            "score": 64,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -2596,15 +2581,7 @@
             "score": 48
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "big_core",
-            "file": "Tests/test_dynamic_reverse_small_direction.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "core",
@@ -2647,11 +2624,17 @@
             "file": "Tools/hybrid_small_state_machine.py",
             "score": 48,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "big_core",
+            "file": "Tests/test_dynamic_reverse_small_direction.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -2783,15 +2766,7 @@
             "score": 57
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "splitBigTrend",
-            "file": "Include/StateMachine.mqh",
-            "score": 65,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "bigTrendLot",
@@ -2834,11 +2809,17 @@
             "file": "Include/Types.mqh",
             "score": 57,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "splitBigTrend",
+            "file": "Include/StateMachine.mqh",
+            "score": 65,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -2977,15 +2958,7 @@
             "score": 48
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "big_trend",
-            "file": "Tools/hybrid_small_state_machine.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "close_big_trend",
@@ -3028,11 +3001,17 @@
             "file": "Tools/run_full_parameter_optimization_study.py",
             "score": 48,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "big_trend",
+            "file": "Tools/hybrid_small_state_machine.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'PositionState | None' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -3170,7 +3149,8 @@
             "file": "Include/Types.mqh",
             "score": 67,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -3546,15 +3526,7 @@
             "score": 57
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "splitSmallBase",
-            "file": "Include/StateMachine.mqh",
-            "score": 66,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "smallBaseLot",
@@ -3597,11 +3569,17 @@
             "file": "Include/StateMachine.mqh",
             "score": 57,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "splitSmallBase",
+            "file": "Include/StateMachine.mqh",
+            "score": 66,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -3738,15 +3716,7 @@
             "score": 51
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "small_base",
-            "file": "Tests/test_dynamic_reverse_small_direction.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "small_base_id",
@@ -3789,11 +3759,17 @@
             "file": "Tests/atr_revised_presets_check.py",
             "score": 51,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "small_base",
+            "file": "Tests/test_dynamic_reverse_small_direction.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -3939,15 +3915,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "hybrid",
-            "file": "Include/StateMachine.mqh",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "HybridError",
@@ -3990,11 +3958,17 @@
             "file": "Include/HybridCatchUpModel.mqh",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "hybrid",
+            "file": "Include/StateMachine.mqh",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'HybridGeometryDecision' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -5355,15 +5329,7 @@
             "score": 60
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "initialBuy",
-            "file": "Include/StateMachine.mqh",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "initialBuyLot",
@@ -5406,11 +5372,17 @@
             "file": "Include/Types.mqh",
             "score": 60,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "initialBuy",
+            "file": "Include/StateMachine.mqh",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -5453,26 +5425,24 @@
             "score": 48
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "initial",
-            "file": "Tests/unit/test_money_completion_behavior.py",
-            "score": 63,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "initial_cost",
             "file": "Tools/hybrid_geometry_model.py",
             "score": 48,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "initial",
+            "file": "Tests/unit/test_money_completion_behavior.py",
+            "score": 63,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['buy']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       }
     },
     {
@@ -5604,15 +5574,7 @@
             "score": 57
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "initialSell",
-            "file": "Include/StateMachine.mqh",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "initialSellLot",
@@ -5655,11 +5617,17 @@
             "file": "Include/Types.mqh",
             "score": 57,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "initialSell",
+            "file": "Include/StateMachine.mqh",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -6486,7 +6454,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "declared RecoveryContext money cache with confirmed StateMachine write/read sites; partial because confirmed deal history is authoritative"
+            "reason": "declared RecoveryContext money cache with confirmed StateMachine write/read sites; partial because confirmed deal history is authoritative",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -6675,7 +6644,8 @@
             "file": "Tests/real_recovery_examples_check.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -6855,15 +6825,7 @@
             "score": 54
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "oldFar",
-            "file": "Include/BrokerMoneyModel.mqh",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "oldFarPL",
@@ -6906,11 +6868,17 @@
             "file": "Include/Types.mqh",
             "score": 54,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "oldFar",
+            "file": "Include/BrokerMoneyModel.mqh",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'double' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -6997,15 +6965,7 @@
             "score": 54
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "old_far",
-            "file": "Tests/small_reverse_compression_check.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "old_far_loss",
@@ -7030,11 +6990,17 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 54,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "old_far",
+            "file": "Tests/small_reverse_compression_check.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -7166,15 +7132,7 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "current",
-            "file": "Include/StateMachine.mqh",
-            "score": 63,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "currentMargin",
@@ -7211,11 +7169,17 @@
             "file": "Include/HybridTransitionPlanner.mqh",
             "score": 46,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "current",
+            "file": "Include/StateMachine.mqh",
+            "score": 63,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['far']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -7303,15 +7267,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "current",
-            "file": "Tools/run_full_parameter_optimization_study.py",
-            "score": 63,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "ATR_TIMEFRAME_CURRENT",
@@ -7336,11 +7292,17 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "current",
+            "file": "Tools/run_full_parameter_optimization_study.py",
+            "score": 63,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['far']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       }
     },
     {
@@ -7407,15 +7369,7 @@
             "score": 52
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "residual",
-            "file": "Include/StateMachine.mqh",
-            "score": 64,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "residualSafe",
@@ -7428,11 +7382,17 @@
             "file": "Include/Types.mqh",
             "score": 52,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "residual",
+            "file": "Include/StateMachine.mqh",
+            "score": 64,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['far']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -7461,19 +7421,18 @@
             "score": 64
           }
         ],
-        "accepted_candidates": [
+        "accepted_candidates": [],
+        "rejected_candidates": [
           {
             "identifier": "residual",
             "file": "Tests/unit/test_money_completion_behavior.py",
             "score": 64,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['far']; name-only generic candidate is not entity evidence"
           }
         ],
-        "rejected_candidates": [],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       }
     },
     {
@@ -7598,15 +7557,7 @@
             "score": 54
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "newFar",
-            "file": "Include/BrokerMoneyModel.mqh",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "newFarLot",
@@ -7649,11 +7600,17 @@
             "file": "Include/Types.mqh",
             "score": 54,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "newFar",
+            "file": "Include/BrokerMoneyModel.mqh",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'double' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -7781,15 +7738,7 @@
             "score": 54
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "new_far",
-            "file": "Tests/small_reverse_compression_check.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "new_far_lot",
@@ -7832,11 +7781,17 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 54,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "new_far",
+            "file": "Tests/small_reverse_compression_check.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category ROLE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -7986,7 +7941,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 66,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -8232,7 +8188,8 @@
             "file": "Include/ReconciliationEngine.mqh",
             "score": 78,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -8536,7 +8493,8 @@
             "file": "Include/ReconciliationEngine.mqh",
             "score": 78,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -8877,7 +8835,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 68,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -9079,7 +9038,8 @@
             "file": "Include/ReconciliationEngine.mqh",
             "score": 79,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -9261,7 +9221,8 @@
             "file": "Tests/unit/test_split_exact_persistence_model.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -9458,7 +9419,8 @@
             "file": "Include/PositionUtils.mqh",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -9633,15 +9595,7 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "managed_positions",
-            "file": "Tests/real_recovery_examples_check.py",
-            "score": 65,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "test_managed_position_blocks",
@@ -9684,11 +9638,17 @@
             "file": "Tests/unit/test_big_small_behavior.py",
             "score": 46,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "managed_positions",
+            "file": "Tests/real_recovery_examples_check.py",
+            "score": 65,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category IDENTITY"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -10396,7 +10356,8 @@
             "file": "Include/Types.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -10567,7 +10528,8 @@
             "file": "Tools/hybrid_small_state_machine.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -10734,7 +10696,8 @@
             "file": "Include/Types.mqh",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -10992,7 +10955,8 @@
             "file": "Include/Types.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -11291,7 +11255,8 @@
             "file": "Include/Types.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -11470,7 +11435,8 @@
             "file": "Tools/hybrid_small_state_machine.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -11670,7 +11636,8 @@
             "file": "Include/Types.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -12584,7 +12551,8 @@
             "file": "Tests/test_dynamic_reverse_small_direction.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -12782,7 +12750,8 @@
             "file": "Include/RecoveryMath.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -12979,7 +12948,8 @@
             "file": "Tests/normalize_volume_to_step_check.py",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -13177,15 +13147,7 @@
             "score": 52
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "calculated",
-            "file": "Include/StateMachine.mqh",
-            "score": 65,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "filledLot",
@@ -13228,11 +13190,17 @@
             "file": "Include/RecoveryMath.mqh",
             "score": 52,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "calculated",
+            "file": "Include/StateMachine.mqh",
+            "score": 65,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category LOT_VALUE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -13364,15 +13332,7 @@
             "score": 48
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "calculated",
-            "file": "Tests/unit/test_split_recovery_order_model.py",
-            "score": 65,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "trend_lot",
@@ -13415,11 +13375,17 @@
             "file": "Tools/optimize_big_scenario_min_levels.py",
             "score": 48,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "calculated",
+            "file": "Tests/unit/test_split_recovery_order_model.py",
+            "score": 65,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category LOT_VALUE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -13571,7 +13537,8 @@
             "file": "Include/ReconciliationEngine.mqh",
             "score": 81,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -13969,7 +13936,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -14164,7 +14132,8 @@
             "file": "Tests/unit/test_money_completion_behavior.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -14384,7 +14353,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -14576,7 +14546,8 @@
             "file": "Tests/unit/test_big_small_behavior.py",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -14776,7 +14747,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -15506,7 +15478,8 @@
             "file": "Include/Logger.mqh",
             "score": 77,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -15699,7 +15672,8 @@
             "file": "Tools/optimize_big_scenario_min_levels.py",
             "score": 77,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -15901,7 +15875,8 @@
             "file": "Include/Types.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -16098,7 +16073,8 @@
             "file": "Tools/optimize_big_scenario_min_levels.py",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -16684,15 +16660,7 @@
             "score": 53
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "requestedLot",
-            "file": "Include/SimulationEngine.mqh",
-            "score": 68,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "farLot",
@@ -16735,11 +16703,17 @@
             "file": "Include/Types.mqh",
             "score": 53,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "requestedLot",
+            "file": "Include/SimulationEngine.mqh",
+            "score": 68,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['far']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -16893,7 +16867,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -17086,7 +17061,8 @@
             "file": "Include/Types.mqh",
             "score": 68,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -17276,7 +17252,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 68,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -17467,7 +17444,8 @@
             "file": "Include/Types.mqh",
             "score": 68,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -17661,7 +17639,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 68,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -17842,7 +17821,8 @@
             "file": "Include/Logger.mqh",
             "score": 66,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -18033,7 +18013,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 64,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -19733,7 +19714,8 @@
             "file": "Include/Types.mqh",
             "score": 66,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -19931,7 +19913,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 66,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -20460,7 +20443,8 @@
             "file": "Include/Types.mqh",
             "score": 64,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -20651,7 +20635,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 64,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -23275,15 +23260,7 @@
             "score": 49
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "NewFarCandidate",
-            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
-            "score": 76,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "new_far_lot",
@@ -23326,11 +23303,17 @@
             "file": "Tools/offline_optimizer.py",
             "score": 49,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "NewFarCandidate",
+            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
+            "score": 76,
+            "reason": "rejected by declared-type/category audit: declared type 'class' is incompatible with semantic category LOT_VALUE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -23482,7 +23465,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 80,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -23863,15 +23847,7 @@
             "score": 58
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "normalizedCtxLot",
-            "file": "Include/ReconciliationEngine.mqh",
-            "score": 63,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "newFarLot",
@@ -23914,11 +23890,17 @@
             "file": "Include/StateMachine.mqh",
             "score": 58,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "normalizedCtxLot",
+            "file": "Include/ReconciliationEngine.mqh",
+            "score": 63,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['far']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -24636,7 +24618,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 76,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -24828,7 +24811,8 @@
             "file": "Tools/hybrid_small_state_machine.py",
             "score": 76,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -24943,7 +24927,8 @@
             "file": "Include/HybridFutureSmallSolver.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -25104,7 +25089,8 @@
             "file": "Tests/small_at_far_scenario_log.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -25224,7 +25210,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -25473,7 +25460,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -25655,19 +25643,18 @@
             "score": 66
           }
         ],
-        "accepted_candidates": [
+        "accepted_candidates": [],
+        "rejected_candidates": [
           {
             "identifier": "MarketBid",
             "file": "Include/SimulationEngine.mqh",
             "score": 66,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "rejected by declared-type/category audit: declared type 'return' is incompatible with semantic category PRICE_OR_DISTANCE"
           }
         ],
-        "rejected_candidates": [],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -25765,19 +25752,18 @@
             "score": 66
           }
         ],
-        "accepted_candidates": [
+        "accepted_candidates": [],
+        "rejected_candidates": [
           {
             "identifier": "MarketAsk",
             "file": "Include/SimulationEngine.mqh",
             "score": 66,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "rejected by declared-type/category audit: declared type 'return' is incompatible with semantic category PRICE_OR_DISTANCE"
           }
         ],
-        "rejected_candidates": [],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -25969,7 +25955,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -27744,7 +27731,8 @@
             "file": "Include/HybridCatchUpModel.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -27937,7 +27925,8 @@
             "file": "Tools/mql5_like_big_scenario_parameter_search.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -28672,7 +28661,8 @@
             "file": "Include/Types.mqh",
             "score": 70,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -28849,7 +28839,8 @@
             "file": "Tests/small_at_far_scenario_log.py",
             "score": 70,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -29040,7 +29031,8 @@
             "file": "Include/Types.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -29333,7 +29325,8 @@
             "file": "Include/Types.mqh",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -29631,7 +29624,8 @@
             "file": "Include/Types.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -29875,7 +29869,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 70,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -30061,7 +30056,8 @@
             "file": "Tools/offline_optimizer.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -30453,7 +30449,8 @@
             "file": "Tools/offline_optimizer.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -30665,7 +30662,8 @@
             "file": "Include/Logger.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -30851,7 +30849,8 @@
             "file": "Tools/run_full_parameter_optimization_study.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -31040,7 +31039,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -31218,15 +31218,7 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "leg_net",
-            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "fee_in_leg_net",
@@ -31269,11 +31261,17 @@
             "file": "Tests/small_reserve_add_check.py",
             "score": 46,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "leg_net",
+            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'callable' is incompatible with semantic category MONEY_VALUE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -31409,7 +31407,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -31542,15 +31541,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "basket",
-            "file": "Tests/unit/test_broker_money_behavior.py",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "basket_buffer",
@@ -31575,11 +31566,17 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "basket",
+            "file": "Tests/unit/test_broker_money_behavior.py",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'callable' is incompatible with semantic category MONEY_VALUE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -32072,7 +32069,8 @@
             "file": "Include/Types.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -32233,7 +32231,8 @@
             "file": "Tools/hybrid_big_sequence_model.py",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -32605,7 +32604,8 @@
             "file": "Tools/offline_optimizer.py",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -32785,15 +32785,7 @@
             "score": 52
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "transition",
-            "file": "Include/StateMachine.mqh",
-            "score": 65,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "transitionNet",
@@ -32836,11 +32828,17 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 52,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "transition",
+            "file": "Include/StateMachine.mqh",
+            "score": 65,
+            "reason": "rejected by declared-type/category audit: declared type 'SmallTransitionEvaluation' is incompatible with semantic category MONEY_VALUE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -32981,7 +32979,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -33168,7 +33167,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -33282,7 +33282,8 @@
             "file": "Tools/hybrid_small_state_machine.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -33363,7 +33364,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -33597,7 +33599,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 69,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -33860,7 +33863,8 @@
             "file": "Include/Logger.mqh",
             "score": 71,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -34044,7 +34048,8 @@
             "file": "Tests/real_recovery_examples_check.py",
             "score": 71,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -34227,7 +34232,8 @@
             "file": "Include/Logger.mqh",
             "score": 69,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -34413,7 +34419,8 @@
             "file": "Tests/real_recovery_examples_check.py",
             "score": 69,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -34601,7 +34608,8 @@
             "file": "Include/Logger.mqh",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -34786,7 +34794,8 @@
             "file": "Tests/real_recovery_examples_check.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -34969,7 +34978,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 82,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -35160,7 +35170,8 @@
             "file": "Tests/real_recovery_examples_check.py",
             "score": 77,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -35338,7 +35349,8 @@
             "file": "Include/Logger.mqh",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -35538,7 +35550,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -36207,15 +36220,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "fee_in_expected_exit_costs",
-            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
-            "score": 77,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "swap_in_expected_exit_costs",
@@ -36252,11 +36257,17 @@
             "file": "Tools/hybrid_small_state_machine.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "fee_in_expected_exit_costs",
+            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
+            "score": 77,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category MONEY_VALUE"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -36562,7 +36573,8 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -36755,7 +36767,8 @@
             "file": "Include/HybridPartialFarPreview.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -37083,7 +37096,8 @@
             "file": "Include/HybridPartialFarPreview.mqh",
             "score": 66,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -37715,7 +37729,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -37856,7 +37871,8 @@
             "file": "Tests/unit/test_big_small_behavior.py",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -38039,7 +38055,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 66,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -38332,7 +38349,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 70,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -38733,7 +38751,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -38924,7 +38943,8 @@
             "file": "Tools/hybrid_big_sequence_model.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -39258,7 +39278,8 @@
             "file": "Tools/hybrid_big_sequence_model.py",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -39425,7 +39446,8 @@
             "file": "Include/Types.mqh",
             "score": 64,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -39606,7 +39628,8 @@
             "file": "Tools/hybrid_big_sequence_model.py",
             "score": 69,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -39791,7 +39814,8 @@
             "file": "Include/HybridPartialFarPreview.mqh",
             "score": 67,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -39977,7 +40001,8 @@
             "file": "Tools/hybrid_big_sequence_model.py",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -40337,7 +40362,8 @@
             "file": "Tools/hybrid_big_sequence_model.py",
             "score": 64,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -40695,7 +40721,8 @@
             "file": "Tools/hybrid_big_sequence_model.py",
             "score": 64,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -40884,7 +40911,8 @@
             "file": "Include/Types.mqh",
             "score": 67,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -41078,7 +41106,8 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 67,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -41270,7 +41299,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -41463,7 +41493,8 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -41650,7 +41681,8 @@
             "file": "Include/Types.mqh",
             "score": 69,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -41842,7 +41874,8 @@
             "file": "Tools/optimize_big_scenario_min_levels.py",
             "score": 69,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -42028,7 +42061,8 @@
             "file": "Include/Types.mqh",
             "score": 77,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -42218,7 +42252,8 @@
             "file": "Tools/optimize_big_scenario_min_levels.py",
             "score": 77,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -42823,7 +42858,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -44247,7 +44283,8 @@
             "file": "Include/HybridPartialFarPreview.mqh",
             "score": 73,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -44406,7 +44443,8 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 74,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -45619,7 +45657,8 @@
             "file": "Include/RecoveryMath.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -45809,7 +45848,8 @@
             "file": "Tests/small_reverse_compression_check.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -46015,7 +46055,8 @@
             "file": "Include/Config.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -46205,7 +46246,8 @@
             "file": "Tests/small_reverse_compression_check.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -46396,7 +46438,8 @@
             "file": "Include/Config.mqh",
             "score": 75,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -46593,7 +46636,8 @@
             "file": "Tests/small_reverse_compression_check.py",
             "score": 75,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -46787,7 +46831,8 @@
             "file": "Include/RecoveryMath.mqh",
             "score": 76,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -46938,7 +46983,8 @@
             "file": "Tests/small_reverse_compression_check.py",
             "score": 76,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -47120,7 +47166,8 @@
             "file": "Include/Config.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -47312,7 +47359,8 @@
             "file": "Tools/optimize_big_scenario_min_levels.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -47508,7 +47556,8 @@
             "file": "Include/Config.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -47700,7 +47749,8 @@
             "file": "Tests/test_reserve_growth_ratio.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -47878,7 +47928,8 @@
             "file": "Include/Config.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -48037,7 +48088,8 @@
             "file": "Tools/mql5_like_big_scenario_parameter_search.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -48186,7 +48238,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -48368,7 +48421,8 @@
             "file": "Tools/offline_optimizer.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -48529,7 +48583,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 70,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -48700,7 +48755,8 @@
             "file": "Tools/run_full_parameter_optimization_study.py",
             "score": 70,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -48883,7 +48939,8 @@
             "file": "Tools/offline_optimizer.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -49075,7 +49132,8 @@
             "file": "Tools/offline_optimizer.py",
             "score": 76,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -49703,7 +49761,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -49878,7 +49937,8 @@
             "file": "Tools/offline_optimizer.py",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -50120,7 +50180,8 @@
             "file": "Include/Types.mqh",
             "score": 73,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -50300,7 +50361,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_route_hardening.py",
             "score": 73,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -50497,7 +50559,8 @@
             "file": "Include/Types.mqh",
             "score": 71,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -50869,7 +50932,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -51057,7 +51121,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_route_hardening.py",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -51244,15 +51309,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "role",
-            "file": "Include/PositionResolutionEngine.mqh",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "roleCode",
@@ -51289,11 +51346,17 @@
             "file": "Tests/MQL5/HybridSplitBig/HybridCatchUpFixtures.mqh",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "role",
+            "file": "Include/PositionResolutionEngine.mqh",
+            "score": 62,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['id']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -51364,15 +51427,7 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "role",
-            "file": "Tools/hybrid_small_state_machine.py",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "core_id",
@@ -51391,11 +51446,17 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 46,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "role",
+            "file": "Tools/hybrid_small_state_machine.py",
+            "score": 62,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['id']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       }
     },
     {
@@ -51559,7 +51620,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -51687,7 +51749,8 @@
             "file": "Tests/unit/test_split_final_safety_model.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -51867,7 +51930,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -52174,7 +52238,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 64,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -52285,7 +52350,8 @@
             "file": "Tests/unit/test_split_final_safety_model.py",
             "score": 64,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -52443,7 +52509,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 75,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -52529,7 +52596,8 @@
             "file": "Tests/unit/test_split_final_safety_model.py",
             "score": 67,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [],
@@ -52698,7 +52766,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 74,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -52894,7 +52963,8 @@
             "file": "Tests/unit/test_split_final_safety_model.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -53079,7 +53149,8 @@
             "file": "Include/Types.mqh",
             "score": 67,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -53271,7 +53342,8 @@
             "file": "Tests/unit/test_split_final_safety_model.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -53592,7 +53664,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_dimension_safe.py",
             "score": 66,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -53853,7 +53926,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_dimension_safe.py",
             "score": 72,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -54533,7 +54607,8 @@
             "file": "Include/Types.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -54849,7 +54924,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -55043,7 +55119,8 @@
             "file": "Tests/pending_open_big_contract_check.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -55171,7 +55248,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -55326,7 +55404,8 @@
             "file": "Tools/hybrid_small_state_machine.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -55489,15 +55568,7 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "Event",
-            "file": "Tests/MQL5/BigSmallStateMachineTest.mq5",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "eventId",
@@ -55534,11 +55605,17 @@
             "file": "Include/StateMachine.mqh",
             "score": 46,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "Event",
+            "file": "Tests/MQL5/BigSmallStateMachineTest.mq5",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'TestMarketEvent' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -55668,15 +55745,7 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "event",
-            "file": "Tests/unit/test_clean_start_persistence_behavior.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "_event",
@@ -55719,11 +55788,17 @@
             "file": "Tests/unit/test_split_recovery_order_model.py",
             "score": 46,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "event",
+            "file": "Tests/unit/test_clean_start_persistence_behavior.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -55849,15 +55924,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "result",
-            "file": "Include/PositionResolutionEngine.mqh",
-            "score": 67,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "gate",
@@ -55876,11 +55943,17 @@
             "file": "Include/HybridDecisionEngine.mqh",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "result",
+            "file": "Include/PositionResolutionEngine.mqh",
+            "score": 67,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['gate']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -56030,15 +56103,7 @@
             "score": 47
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "result",
-            "file": "Tools/hybrid_geometry_model.py",
-            "score": 67,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "gate_results",
@@ -56081,11 +56146,17 @@
             "file": "Tools/offline_optimizer.py",
             "score": 47,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "result",
+            "file": "Tools/hybrid_geometry_model.py",
+            "score": 67,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['gate']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       }
     },
     {
@@ -56393,15 +56464,7 @@
             "score": 48
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "EvaluationResult",
-            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "execution",
@@ -56432,11 +56495,17 @@
             "file": "Tools/hybrid_geometry_model.py",
             "score": 48,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "EvaluationResult",
+            "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
+            "score": 62,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['execution']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       }
     },
     {
@@ -56521,7 +56590,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -56614,7 +56684,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_stage12.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -56794,7 +56865,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -57002,7 +57074,8 @@
             "file": "Tests/unit/test_split_recovery_order_model.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -57201,7 +57274,8 @@
             "file": "Include/Types.mqh",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -57352,7 +57426,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_stage12.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -57532,15 +57607,7 @@
             "score": 47
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "candidate",
-            "file": "Include/SimulationEngine.mqh",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "routeCandidate",
@@ -57553,11 +57620,17 @@
             "file": "Include/PositionResolutionEngine.mqh",
             "score": 47,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "candidate",
+            "file": "Include/SimulationEngine.mqh",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'ulong' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -57682,15 +57755,7 @@
             "score": 48
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "candidate",
-            "file": "Tools/hybrid_geometry_model.py",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "Candidate",
@@ -57727,11 +57792,17 @@
             "file": "Tools/score_parameters.py",
             "score": 48,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "candidate",
+            "file": "Tools/hybrid_geometry_model.py",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'Candidate' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -58698,15 +58769,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "snapshot",
-            "file": "Include/PositionResolutionEngine.mqh",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "baseState",
@@ -58749,11 +58812,17 @@
             "file": "Include/StateMachine.mqh",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "snapshot",
+            "file": "Include/PositionResolutionEngine.mqh",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'PositionSnapshot' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -58893,15 +58962,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "snapshot",
-            "file": "Tests/unit/test_split_architecture_model.py",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "Snapshot",
@@ -58944,11 +59005,17 @@
             "file": "Tests/unit/test_split_final_safety_model.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "snapshot",
+            "file": "Tests/unit/test_split_architecture_model.py",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -59884,7 +59951,8 @@
             "file": "Include/Types.mqh",
             "score": 71,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -60062,15 +60130,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "final_close",
-            "file": "Tests/static/test_split_architecture_static.py",
-            "score": 64,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "can_final_close",
@@ -60107,11 +60167,17 @@
             "file": "Tools/optimize_big_scenario_min_levels.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "final_close",
+            "file": "Tests/static/test_split_architecture_static.py",
+            "score": 64,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -61159,7 +61225,8 @@
             "file": "Include/HybridCatchUpModel.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -61273,7 +61340,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_dimension_safe.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -61687,7 +61755,8 @@
             "file": "Include/HybridCatchUpModel.mqh",
             "score": 69,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -62922,7 +62991,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_dimension_safe.py",
             "score": 65,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -63093,15 +63163,7 @@
             "score": 51
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "projected",
-            "file": "Include/StateMachine.mqh",
-            "score": 62,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "projectedNet",
@@ -63144,11 +63206,17 @@
             "file": "Include/StateMachine.mqh",
             "score": 51,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "projected",
+            "file": "Include/StateMachine.mqh",
+            "score": 62,
+            "reason": "rejected by declared-type/category audit: declared type 'bool' is incompatible with semantic category STRUCTURED_OBJECT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -63387,7 +63455,8 @@
             "file": "Tests/unit/test_money_completion_behavior.py",
             "score": 62,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -64335,15 +64404,7 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "current",
-            "file": "Include/StateMachine.mqh",
-            "score": 63,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "currentPrice",
@@ -64386,11 +64447,17 @@
             "file": "Include/HybridCatchUpModel.mqh",
             "score": 46,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "current",
+            "file": "Include/StateMachine.mqh",
+            "score": 63,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['bid']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -64477,15 +64544,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "current",
-            "file": "Tools/run_full_parameter_optimization_study.py",
-            "score": 63,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "ATR_TIMEFRAME_CURRENT",
@@ -64510,11 +64569,17 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "current",
+            "file": "Tools/run_full_parameter_optimization_study.py",
+            "score": 63,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['bid']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       }
     },
     {
@@ -64654,15 +64719,7 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "current",
-            "file": "Include/StateMachine.mqh",
-            "score": 63,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "currentGross",
@@ -64705,11 +64762,17 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 46,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "current",
+            "file": "Include/StateMachine.mqh",
+            "score": 63,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['ask']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -64796,15 +64859,7 @@
             "score": 45
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "current",
-            "file": "Tools/run_full_parameter_optimization_study.py",
-            "score": 63,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "ATR_TIMEFRAME_CURRENT",
@@ -64829,11 +64884,17 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 45,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "current",
+            "file": "Tools/run_full_parameter_optimization_study.py",
+            "score": 63,
+            "reason": "rejected after semantic-key audit: declaration lacks distinctive canonical component(s) ['ask']; name-only generic candidate is not entity evidence"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit",
+        "missing_reason": "all discovered candidates rejected by distinctive semantic-key and declaration/use audit"
       }
     },
     {
@@ -64989,7 +65050,8 @@
             "file": "Include/BrokerMoneyModel.mqh",
             "score": 74,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -65378,7 +65440,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -65564,7 +65627,8 @@
             "file": "Tools/run_full_parameter_optimization_study.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -65756,7 +65820,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -65919,7 +65984,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_route_hardening.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -66084,7 +66150,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -66325,7 +66392,8 @@
             "file": "Include/Types.mqh",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -66513,7 +66581,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_route_hardening.py",
             "score": 63,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -66726,7 +66795,8 @@
             "file": "Include/StateMachine.mqh",
             "score": 74,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -66923,7 +66993,8 @@
             "file": "Tests/unit/test_split_final_safety_model.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -67194,7 +67265,8 @@
             "file": "Tests/HybridSplitBig/test_catchup_dimension_safe.py",
             "score": 98,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -67386,7 +67458,8 @@
             "file": "Include/SimulationEngine.mqh",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
@@ -67490,15 +67563,7 @@
             "score": 50
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "comment",
-            "file": "Tools/run_full_parameter_optimization_study.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "safe_comment",
@@ -67511,11 +67576,17 @@
             "file": "Tests/real_recovery_examples_check.py",
             "score": 50,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "comment",
+            "file": "Tools/run_full_parameter_optimization_study.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'inferred' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -67667,15 +67738,7 @@
             "score": 52
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "candidate",
-            "file": "Include/SimulationEngine.mqh",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "routeCandidate",
@@ -67694,11 +67757,17 @@
             "file": "Include/StateMachine.mqh",
             "score": 52,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "candidate",
+            "file": "Include/SimulationEngine.mqh",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'ulong' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       },
       "python": {
         "candidate_search_performed": true,
@@ -67834,15 +67903,7 @@
             "score": 53
           }
         ],
-        "accepted_candidates": [
-          {
-            "identifier": "candidate",
-            "file": "Tools/hybrid_geometry_model.py",
-            "score": 90,
-            "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
-          }
-        ],
+        "accepted_candidates": [],
         "rejected_candidates": [
           {
             "identifier": "Candidate",
@@ -67885,11 +67946,17 @@
             "file": "Tests/HybridSplitBig/hybrid_split_big_reference.py",
             "score": 53,
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
+          },
+          {
+            "identifier": "candidate",
+            "file": "Tools/hybrid_geometry_model.py",
+            "score": 90,
+            "reason": "rejected by declared-type/category audit: declared type 'Candidate' is incompatible with semantic category STATE_OR_RESULT"
           }
         ],
-        "final_status": "PARTIAL_MATCH",
-        "final_reason": "accepted declaration/use candidate with conservative PARTIAL_MATCH",
-        "missing_reason": null
+        "final_status": "MISSING",
+        "final_reason": "all candidates rejected by semantic-key plus declared-type/category audit",
+        "missing_reason": "all candidates rejected by semantic-key plus declared-type/category audit"
       }
     },
     {
@@ -67988,7 +68055,8 @@
             "file": "Tests/adaptive_geometry_docs_check.py",
             "score": 90,
             "status": "PARTIAL_MATCH",
-            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven"
+            "reason": "name/type family candidate with confirmed declaration and use; partial because authoritative source and full lifecycle equivalence are not proven",
+            "semantic_key_match": true
           }
         ],
         "rejected_candidates": [
