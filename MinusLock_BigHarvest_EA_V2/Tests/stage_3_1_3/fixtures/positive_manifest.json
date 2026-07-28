@@ -1,0 +1,142 @@
+{
+  "VALID_POSITION_VOLUME_LOT": {
+    "file": "positive/valid_position_volume_lot.mqh",
+    "identifier": "positionLot",
+    "unit": "LOT",
+    "scope": "PER_POSITION",
+    "lineage": "TERMINAL_POSITION"
+  },
+  "VALID_DEAL_PROFIT_MONEY": {
+    "file": "positive/valid_deal_profit_money.mqh",
+    "identifier": "dealProfit",
+    "unit": "MONEY",
+    "scope": "PER_DEAL",
+    "lineage": "DEAL_HISTORY"
+  },
+  "VALID_RATIO_POLICY_INPUT": {
+    "file": "positive/valid_ratio_policy_input.mqh",
+    "identifier": "ReserveShare",
+    "unit": "RATIO",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "CONFIG_INPUT"
+  },
+  "VALID_CACHE_PARTIAL_MATCH": {
+    "file": "positive/valid_cache_partial_match.mqh",
+    "identifier": "positionLot",
+    "unit": "LOT",
+    "scope": "PER_POSITION",
+    "lineage": "TERMINAL_POSITION"
+  },
+  "VALID_REQUESTED_LOT": {
+    "file": "positive/valid_requested_lot.mqh",
+    "identifier": "requestVolume",
+    "unit": "LOT",
+    "scope": "PER_REQUEST",
+    "lineage": "ORDER_REQUEST"
+  },
+  "VALID_FILLED_LOT": {
+    "file": "positive/valid_filled_lot.mqh",
+    "identifier": "dealVolume",
+    "unit": "LOT",
+    "scope": "PER_DEAL",
+    "lineage": "DEAL_HISTORY"
+  },
+  "VALID_POSITION_IDENTIFIER": {
+    "file": "positive/valid_position_identifier.mqh",
+    "identifier": "positionIdentifier",
+    "unit": "IDENTITY",
+    "scope": "PER_POSITION",
+    "lineage": "TERMINAL_POSITION"
+  },
+  "VALID_DEAL_TICKET": {
+    "file": "positive/valid_deal_ticket.mqh",
+    "identifier": "dealTicket",
+    "unit": "IDENTITY",
+    "scope": "PER_DEAL",
+    "lineage": "DEAL_HISTORY"
+  },
+  "VALID_SYMBOL_MAGIC_SCOPE": {
+    "file": "positive/valid_symbol_magic_scope.mqh",
+    "identifier": "cycleLot",
+    "unit": "LOT",
+    "scope": "PER_SYMBOL_MAGIC",
+    "lineage": "TERMINAL_POSITION"
+  },
+  "VALID_PER_POSITION_SCOPE": {
+    "file": "positive/valid_per_position_scope.mqh",
+    "identifier": "positionVolume",
+    "unit": "LOT",
+    "scope": "PER_POSITION",
+    "lineage": "TERMINAL_POSITION"
+  },
+  "VALID_TEST_ANALOGUE_PARTIAL": {
+    "file": "positive/valid_test_analogue_partial.mqh",
+    "identifier": "lotOracle",
+    "unit": "LOT",
+    "scope": "TEST_ONLY",
+    "lineage": "TEST_ORACLE"
+  },
+  "VALID_OFFLINE_ANALOGUE_PARTIAL": {
+    "file": "positive/valid_offline_analogue_partial.mqh",
+    "identifier": "modelProfit",
+    "unit": "MONEY",
+    "scope": "OFFLINE_TOOL",
+    "lineage": "OFFLINE_MODEL"
+  },
+  "VALID_PROJECTED_MONEY": {
+    "file": "positive/valid_projected_money.mqh",
+    "identifier": "projectedProfit",
+    "unit": "MONEY",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "DERIVED"
+  },
+  "VALID_REALIZED_MONEY": {
+    "file": "positive/valid_realized_money.mqh",
+    "identifier": "realizedProfit",
+    "unit": "MONEY",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "DEAL_HISTORY"
+  },
+  "VALID_PLAN": {
+    "file": "positive/valid_plan.mqh",
+    "identifier": "CandidatePlan",
+    "unit": "OBJECT",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "DERIVED"
+  },
+  "VALID_REQUEST": {
+    "file": "positive/valid_request.mqh",
+    "identifier": "ExecutionRequest",
+    "unit": "OBJECT",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "DERIVED"
+  },
+  "VALID_LEDGER": {
+    "file": "positive/valid_ledger.mqh",
+    "identifier": "CommittedLedgerEvent",
+    "unit": "OBJECT",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "DERIVED"
+  },
+  "VALID_SNAPSHOT": {
+    "file": "positive/valid_snapshot.mqh",
+    "identifier": "ActualSnapshot",
+    "unit": "OBJECT",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "DERIVED"
+  },
+  "VALID_AMBIGUOUS_PAIR": {
+    "file": "positive/valid_ambiguous_pair.mqh",
+    "identifier": "targetLot",
+    "unit": "LOT",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "TERMINAL_POSITION"
+  },
+  "VALID_EXACT_UNIQUE_MAPPING": {
+    "file": "positive/valid_exact_unique_mapping.mqh",
+    "identifier": "filledLot",
+    "unit": "LOT",
+    "scope": "GLOBAL_RUNTIME",
+    "lineage": "DEAL_HISTORY"
+  }
+}

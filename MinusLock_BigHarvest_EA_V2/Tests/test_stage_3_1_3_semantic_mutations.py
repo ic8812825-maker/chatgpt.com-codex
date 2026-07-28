@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent full-validator semantic controls for the fifth correction."""
+"""Independent semantic, discovery, and pairing controls for the sixth correction."""
 from __future__ import annotations
 import copy,functools,json
 import validate_stage_3_1_3_glossary as v
@@ -111,4 +111,5 @@ def run_controls(verbose=True):
   print(f'ADVERSARIAL_TESTS_TOTAL={len(adversarial)}\nADVERSARIAL_TESTS_CAUGHT={sum(x[2] for x in adversarial)}\nUNIQUE_ADVERSARIAL_RULES={len(set(x[0] for x in adversarial))}')
  return len(negatives),sum(x[2] for x in negatives),len(set(x[0] for x in negatives)),len(positives),sum(x[2] for x in positives),len(set(x[0] for x in positives)),len(adversarial),sum(x[2] for x in adversarial),len(set(x[0] for x in adversarial))
 if __name__=='__main__':
- n,np,nu,p,pp,pu,a,ap,au=run_controls();raise SystemExit(not(n==np and p==pp and a==ap and nu>=40 and pu>=20 and au>=15))
+ from stage_3_1_3.fixture_controls import run_fixture_controls
+ n,np,nu,p,pp,pu,a,ap,au=run_controls();fp,fpp,fa,fap=run_fixture_controls(True);raise SystemExit(not(n==np and p==pp and a==ap and fp==fpp and fa==fap and nu>=45 and pu>=20 and au>=15 and fp>=20 and fa>=20))
