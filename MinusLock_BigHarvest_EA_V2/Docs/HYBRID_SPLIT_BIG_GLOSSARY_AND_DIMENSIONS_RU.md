@@ -1233,9 +1233,9 @@ Tolerance: `EXACT STRUCTURE`
 Lifecycle: HybridPlan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение HybridPlan историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
-Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT ENUM MATCH` и explicit provenance.
-Запрещённые подмены: HybridPlan нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
-Связанные сущности: HybridPlan, тип STATE, class POLICY.
+Допустимые операции: schema validation, fingerprint comparison и immutable freeze в ApprovedPlan; state-transition операции неприменимы.
+Запрещённые подмены: HybridPlan нельзя подменять Preview, runtime State, ExecutionRequest либо actual ExecutionResult.
+Связанные сущности: Candidate, ApprovedPlan, PlanFingerprint; тип PLAN_OBJECT, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
@@ -1279,9 +1279,9 @@ Tolerance: `EXACT STRUCTURE`
 Lifecycle: HybridPreview создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение HybridPreview историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
-Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT ENUM MATCH` и explicit provenance.
-Запрещённые подмены: HybridPreview нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
-Связанные сущности: HybridPreview, тип STATE, class POLICY.
+Допустимые операции: read-only inspection, schema validation и сравнение snapshot fingerprint; исполнение и state transition запрещены.
+Запрещённые подмены: HybridPreview нельзя подменять ApprovedPlan, ExecutionRequest, broker result или current State.
+Связанные сущности: Preview, Candidate, BaseSnapshot; тип PREVIEW_OBJECT, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
@@ -1322,12 +1322,12 @@ Projected/Actual class: `REQUESTED/EXECUTED`
 Normalization: NO_ADDITIONAL_ROUNDING
 Rounding: NO_ADDITIONAL_ROUNDING
 Tolerance: `EXACT STRUCTURE`
-Lifecycle: HybridExecution создаётся соответствующим transition, gate или observation event. Изменяется только явно разрешённым событием своего класса. Новая state revision делает прежнее current значение HybridExecution историческим. последнее confirmed state/event значение того же класса. Terminal outcome завершает current lifecycle, сохраняя audit. Этот lifecycle относится именно к объекту «Гибридный исполнение» и его собственному type/source contract.
-Условия stale: Новая state revision делает прежнее current значение HybridExecution историческим.
-Authoritative replacement: последнее confirmed state/event значение того же класса.
-Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT ENUM MATCH` и explicit provenance.
-Запрещённые подмены: HybridExecution нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
-Связанные сущности: HybridExecution, тип STATE, class POLICY.
+Lifecycle: HybridExecution создаётся из ApprovedPlan и ExecutionRequest; broker results и deal events дополняют execution aggregate, после reconciliation он заменяется ReconciledResult и сохраняется как audit evidence. Этот lifecycle относится именно к объекту «Гибридный исполнение» и его собственному type/source contract.
+Условия stale: новый broker result, partial fill, deal-history revision или reconciliation revision делает прежний execution aggregate stale.
+Authoritative replacement: ReconciledResult, построенный из broker result, confirmed deals и current position snapshot.
+Допустимые операции: агрегирование broker outcomes, привязка OrderTicket/DealTicket, reconciliation и формирование ExecutionResult.
+Запрещённые подмены: HybridExecution нельзя подменять ApprovedPlan, request acceptance, отдельный DealTicket либо диагностический State.
+Связанные сущности: ApprovedPlan, ExecutionRequest, ExecutionResult, ReconciledResult; тип EXECUTION_OBJECT, class REQUESTED/EXECUTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND
@@ -1337,15 +1337,15 @@ Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
 Semantic category: STRUCTURED_OBJECT
 Lifecycle class: OBJECT
-Creation event: HybridExecution создаётся соответствующим transition, gate или observation event.
+Creation event: HybridExecution создаётся при отправке ExecutionRequest из ApprovedPlan.
 Validation event: HybridExecution проверяется точным enum/schema сравнением.
 Freeze/confirmation event: HybridExecution фиксируется вместе с CycleID и EventID.
-Mutation events: Изменяется только явно разрешённым событием своего класса.
-Stale triggers: Новая state revision делает прежнее current значение HybridExecution историческим.
-Replacement source: последнее confirmed state/event значение того же класса.
-Terminal condition: Terminal outcome завершает current lifecycle, сохраняя audit.
-Persistence behavior: Persisted с event identity, если требуется recovery.
-Restart behavior: После restart восстанавливается replay/reconciliation, не diagnostic text.
+Mutation events: broker response, partial fills и confirmed deal aggregation создают новые execution revisions.
+Stale triggers: broker/deal/position revision после зафиксированного execution snapshot.
+Replacement source: ReconciledResult из broker result, deal history и current position snapshot.
+Terminal condition: full reconciliation подтверждает complete/partial/rejected outcome.
+Persistence behavior: request, broker result и deal identities сохраняются как audit evidence; projected plan не записывается как actual ledger.
+Restart behavior: после restart execution восстанавливается по order/deal history и current position reconciliation.
 Отличие от: HybridExecution отличается от sibling-терминов источником `explicit mode discriminator + plan role`, классом `POLICY` и стадией lifecycle `STATE`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `OBJECT`; запись `HybridExecution` различается canonical source, type/class и полем «Отличие от».
@@ -1559,9 +1559,9 @@ Authoritative replacement: reconciled ledger, построенный из persis
 Запрещённые подмены: InitialIgnoredProfit нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
 Связанные сущности: InitialIgnoredProfit, тип MONEY_REALIZED, class ACTUAL CONFIRMED.
 Legacy aliases: —
-MQL5 mapping: NONE_FOUND
+MQL5 mapping: Include/Types.mqh::RecoveryContext.initialIgnoredProfit
 Python mapping: Tests/real_recovery_examples_check.py::initial_ignored_profit
-Mapping status: MQL5=`MISSING`; Python=`PARTIAL_MATCH`
+Mapping status: MQL5=`PARTIAL_MATCH`; Python=`PARTIAL_MATCH`
 Conflict: `NOT_APPLICABLE`
 Resolution stage: `NOT_APPLICABLE`
 Статус определения: `APPROVED_TERM`
@@ -1579,7 +1579,7 @@ Restart behavior: После restart выполняется ledger/deal reconcil
 Отличие от: InitialIgnoredProfit отличается от sibling-терминов источником `confirmed closing deal aggregation of InitialProfitLeg filtered by Symbol+Magic+CycleID+position identity`, классом `ACTUAL CONFIRMED` и стадией lifecycle `LEDGER`.
 Semantic exception: NOT_APPLICABLE
 Similarity exception reason: Общие обязательные clauses допустимы только внутри lifecycle class `LEDGER`; запись `InitialIgnoredProfit` различается canonical source, type/class и полем «Отличие от».
-Evidence: candidate audit record `InitialIgnoredProfit`; MQL5 found=8, accepted=0; Python found=8, accepted=1.
+Evidence: candidate audit record `InitialIgnoredProfit`; MQL5 found=8, accepted=1, rejected=7; Python found=8, accepted=1, rejected=7.
 
 ### OldFar
 CanonicalName: `OldFar`
@@ -10985,9 +10985,9 @@ Tolerance: `EXACT STRUCTURE`
 Lifecycle: Plan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение Plan историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
-Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT STRUCTURE` и explicit provenance.
-Запрещённые подмены: Plan нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
-Связанные сущности: Plan, тип STATE, class PROJECTED.
+Допустимые операции: schema validation, fingerprint comparison и immutable derivation в ApprovedPlan.
+Запрещённые подмены: Plan нельзя подменять Preview, runtime State, ExecutionRequest или broker result.
+Связанные сущности: Candidate, PlanFingerprint и ApprovedPlan; тип PLAN_OBJECT, class PROJECTED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: Tests/adaptive_geometry_docs_check.py::plan
@@ -11031,9 +11031,9 @@ Tolerance: `EXACT STRUCTURE`
 Lifecycle: ApprovedPlan создаётся из immutable snapshot; stale при input revision; заменяется пересчётом и никогда не становится actual присваиванием.
 Условия stale: Новая state revision делает прежнее current значение ApprovedPlan историческим.
 Authoritative replacement: последнее confirmed state/event значение того же класса.
-Допустимые операции: сравнение и преобразование только по `STATE` с `EXACT STRUCTURE` и explicit provenance.
-Запрещённые подмены: ApprovedPlan нельзя подменять sibling lifecycle stage, другим architecture role, stale cache или одноимённым diagnostic text.
-Связанные сущности: ApprovedPlan, тип STATE, class PROJECTED APPROVED.
+Допустимые операции: exact fingerprint verification, immutable request derivation и audit comparison.
+Запрещённые подмены: ApprovedPlan нельзя подменять mutable Candidate, runtime State, request acceptance или ExecutionResult.
+Связанные сущности: Plan, PlanFingerprint и ExecutionRequest; тип PLAN_OBJECT, class PROJECTED APPROVED.
 Legacy aliases: —
 MQL5 mapping: NONE_FOUND
 Python mapping: NONE_FOUND

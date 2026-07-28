@@ -6351,8 +6351,18 @@
             "declared_type": "double",
             "declaration_context": "struct RecoveryContext",
             "declaration_evidence": "double initialIgnoredProfit;",
-            "read_sites": [],
-            "write_sites": [],
+            "read_sites": [
+              "Include/StateMachine.mqh:2775",
+              "Include/StateMachine.mqh:2783",
+              "Include/StateMachine.mqh:2842",
+              "Include/StateMachine.mqh:4177",
+              "Include/StateMachine.mqh:4241"
+            ],
+            "write_sites": [
+              "Include/StateMachine.mqh:2546",
+              "Include/StateMachine.mqh:3240",
+              "Include/StateMachine.mqh:3271"
+            ],
             "score": 98
           },
           {
@@ -6470,14 +6480,16 @@
             "score": 46
           }
         ],
-        "accepted_candidates": [],
-        "rejected_candidates": [
+        "accepted_candidates": [
           {
             "identifier": "initialIgnoredProfit",
             "file": "Include/Types.mqh",
             "score": 98,
-            "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
-          },
+            "status": "PARTIAL_MATCH",
+            "reason": "declared RecoveryContext money cache with confirmed StateMachine write/read sites; partial because confirmed deal history is authoritative"
+          }
+        ],
+        "rejected_candidates": [
           {
             "identifier": "initialProfitIgnored",
             "file": "Include/Types.mqh",
@@ -6521,9 +6533,9 @@
             "reason": "score below acceptance threshold, no parsed use, or stronger candidate already accepted; semantic/lifecycle equivalence not established"
           }
         ],
-        "final_status": "MISSING",
-        "final_reason": "all discovered candidates rejected after declaration/use and semantic score review",
-        "missing_reason": "no candidate met declaration, use and score threshold"
+        "final_status": "PARTIAL_MATCH",
+        "final_reason": "proven declaration and runtime use; conservatively partial because field is a reconciled cycle cache",
+        "missing_reason": null
       },
       "python": {
         "candidate_search_performed": true,
