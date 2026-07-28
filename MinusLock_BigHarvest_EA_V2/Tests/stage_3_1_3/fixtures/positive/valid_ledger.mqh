@@ -1,0 +1,1 @@
+struct CommittedLedgerEvent { double dealProfit; };

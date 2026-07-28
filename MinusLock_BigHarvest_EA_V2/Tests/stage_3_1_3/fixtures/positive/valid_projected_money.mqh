@@ -1,0 +1,1 @@
+double projectedProfit = OrderCalcProfit();

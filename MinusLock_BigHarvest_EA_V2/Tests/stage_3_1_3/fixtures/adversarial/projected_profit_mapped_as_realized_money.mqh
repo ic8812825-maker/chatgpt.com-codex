@@ -1,0 +1,1 @@
+double realizedProfit = OrderCalcProfit();

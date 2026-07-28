@@ -1,0 +1,62 @@
+{
+  "MONEY_VARIABLE_MAPPED_TO_LOT_TERM": {
+    "file": "adversarial/money_variable_mapped_to_lot_term.mqh"
+  },
+  "LOT_VARIABLE_MAPPED_TO_PRICE_TERM": {
+    "file": "adversarial/lot_variable_mapped_to_price_term.mqh"
+  },
+  "RATIO_VARIABLE_MAPPED_TO_MONEY_TERM": {
+    "file": "adversarial/ratio_variable_mapped_to_money_term.mqh"
+  },
+  "CACHE_MAPPED_AS_AUTHORITATIVE_ACTUAL": {
+    "file": "adversarial/cache_mapped_as_authoritative_actual.mqh"
+  },
+  "TEST_VARIABLE_MAPPED_AS_RUNTIME_EXACT": {
+    "file": "adversarial/test_variable_mapped_as_runtime_exact.mqh"
+  },
+  "OFFLINE_VARIABLE_MAPPED_AS_RUNTIME_EXACT": {
+    "file": "adversarial/offline_variable_mapped_as_runtime_exact.mqh"
+  },
+  "REQUESTED_VOLUME_MAPPED_AS_FILLED_LOT": {
+    "file": "adversarial/requested_volume_mapped_as_filled_lot.mqh"
+  },
+  "PROJECTED_PROFIT_MAPPED_AS_REALIZED_MONEY": {
+    "file": "adversarial/projected_profit_mapped_as_realized_money.mqh"
+  },
+  "POSITION_CACHE_MAPPED_AS_TERMINAL_SOURCE": {
+    "file": "adversarial/position_cache_mapped_as_terminal_source.mqh"
+  },
+  "PER_CYCLE_MAPPED_AS_PER_POSITION_EXACT": {
+    "file": "adversarial/per_cycle_mapped_as_per_position_exact.mqh"
+  },
+  "PER_POSITION_MAPPED_AS_PER_DEAL": {
+    "file": "adversarial/per_position_mapped_as_per_deal.mqh"
+  },
+  "SYMBOL_ONLY_MAPPED_AS_SYMBOL_MAGIC": {
+    "file": "adversarial/symbol_only_mapped_as_symbol_magic.mqh"
+  },
+  "MAGIC_ONLY_MAPPED_AS_SYMBOL_MAGIC": {
+    "file": "adversarial/magic_only_mapped_as_symbol_magic.mqh"
+  },
+  "SECOND_EQUAL_CANDIDATE_HIDDEN": {
+    "file": "adversarial/second_equal_candidate_hidden.mqh"
+  },
+  "USE_SITE_WITH_CONTRADICTORY_ROLE_OMITTED": {
+    "file": "adversarial/use_site_with_contradictory_role_omitted.mqh"
+  },
+  "PARTIAL_USE_GRAPH_CLAIMED_COMPLETE": {
+    "file": "adversarial/partial_use_graph_claimed_complete.mqh"
+  },
+  "WRONG_UNIQUE_WINNER": {
+    "file": "adversarial/wrong_unique_winner.mqh"
+  },
+  "EXACT_WITH_COMPETING_CANDIDATE": {
+    "file": "adversarial/exact_with_competing_candidate.mqh"
+  },
+  "SEMANTIC_MATCH_WITH_TEST_SCOPE": {
+    "file": "adversarial/semantic_match_with_test_scope.mqh"
+  },
+  "EXACT_WITH_CACHE_LINEAGE": {
+    "file": "adversarial/exact_with_cache_lineage.mqh"
+  }
+}
