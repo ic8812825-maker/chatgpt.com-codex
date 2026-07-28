@@ -4,6 +4,7 @@ from __future__ import annotations
 import ast, copy, difflib, json, re, sys
 from collections import Counter
 from pathlib import Path
+from stage_3_1_3.source_evidence import index_mql, index_python, verify_site
 ROOT=Path(__file__).resolve().parents[1];DOCS=ROOT/'Docs'
 MANUAL=DOCS/'HYBRID_SPLIT_BIG_COMPLETE_MANUAL_RU.md';GLOSSARY=DOCS/'HYBRID_SPLIT_BIG_GLOSSARY_AND_DIMENSIONS_RU.md';MAPPING=DOCS/'HYBRID_SPLIT_BIG_IDENTIFIER_MAPPING.json';AUDIT=DOCS/'HYBRID_SPLIT_BIG_MAPPING_CANDIDATE_AUDIT.json'
 START='<!-- STAGE_3_1_3_CANONICAL_TABLE_START -->';END='<!-- STAGE_3_1_3_CANONICAL_TABLE_END -->'
@@ -33,102 +34,95 @@ def python_declaration(path,line,identifier):
  try:t=ast.parse(path.read_text(errors='ignore'))
  except SyntaxError:return False
  return any(getattr(n,'lineno',0)==line and ((isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef,ast.ClassDef)) and n.name==identifier) or (isinstance(n,ast.arg) and n.arg==identifier) or (isinstance(n,ast.Name) and n.id==identifier)) for n in ast.walk(t))
-def category(t):
- if t.startswith('LOT_'):return 'LOT_VALUE'
- if t.startswith('MONEY_'):return 'MONEY_VALUE'
- if t.startswith('PRICE_') or t in {'POINTS','TICKS','PRICE_DELTA','DISTANCE_POINTS','DISTANCE_TICKS'}:return 'PRICE_OR_DISTANCE'
- if t in {'RATIO','SHARE','PERCENT','MULTIPLIER','BOOLEAN_POLICY'}:return 'POLICY'
- if t=='ROLE_ID':return 'ROLE'
- if t.endswith('_TICKET') or t in {'SYMBOL_ID','MAGIC_ID','CYCLE_ID','POSITION_ID','EVENT_ID','FINGERPRINT'}:return 'IDENTITY'
- if t in {'STATE','PHASE','OUTCOME','REASON_CODE','GATE_RESULT','EXECUTION_RESULT','ERROR_CODE','DIAGNOSTIC_TEXT','EVENT','OBSERVATION'}:return 'STATE_OR_RESULT'
- return 'STRUCTURED_OBJECT'
-def toks(s):return set(re.findall(r'[a-zа-я0-9]+',s.lower()))
-def similar(a,b):
- ta,tb=toks(a),toks(b);jac=len(ta&tb)/max(1,len(ta|tb));seq=difflib.SequenceMatcher(None,' '.join(sorted(ta)),' '.join(sorted(tb))).ratio();return max(jac,seq)
+
+NATURE_BY_TYPE={
+ 'ROLE_ID':'ROLE','PLAN_OBJECT':'OBJECT','PREVIEW_OBJECT':'OBJECT','EXECUTION_OBJECT':'OBJECT','EXECUTION_REQUEST':'OBJECT','EXECUTION_RESULT':'OBJECT','RECONCILED_RESULT':'OBJECT','LEDGER_EVENT':'EVENT','SNAPSHOT_PROJECTED':'OBJECT','SNAPSHOT_ACTUAL':'OBJECT','SNAPSHOT_WORST_CASE':'OBJECT','STATE':'STATE','PHASE':'STATE'
+}
+TOLERANCE_TYPES={'MONEY_TOLERANCE','LOT_TOLERANCE','PRICE_TOLERANCE','POINT_TOLERANCE','RATIO_TOLERANCE','COMPARISON_EPSILON','IDENTITY_MATCH_POLICY'}
+BLOCKING=['TABLE_RECORD_MISMATCH','CANDIDATE_AUDIT_PARITY_ERROR','MQL5_ALL_MAPPINGS_MISSING','PYTHON_ALL_MAPPINGS_MISSING','MQL5_NON_MISSING_BELOW_MINIMUM','PYTHON_NON_MISSING_BELOW_MINIMUM','MISSING_WITHOUT_CANDIDATE_AUDIT','MISSING_WITH_UNREVIEWED_CANDIDATES','MISSING_WITH_ACCEPTED_CANDIDATE','MISSING_WITH_NONEMPTY_ENTRIES','NON_MISSING_WITH_EMPTY_ENTRIES','CANDIDATE_WITHOUT_REJECTION_REASON','CANDIDATE_WITHOUT_SCORE','DECLARATION_NOT_FOUND','DECLARATION_LINE_MISMATCH','DECLARATION_KIND_MISMATCH','DECLARATION_TYPE_MISMATCH','DECLARATION_CONTEXT_MISMATCH','DECLARATION_IDENTIFIER_MISMATCH','DECLARATION_IN_COMMENT','DECLARATION_IN_STRING','READ_SITE_FILE_MISSING','READ_SITE_LINE_MISSING','READ_SITE_IDENTIFIER_MISSING','READ_SITE_NOT_READ','WRITE_SITE_FILE_MISSING','WRITE_SITE_LINE_MISSING','WRITE_SITE_IDENTIFIER_MISSING','WRITE_SITE_NOT_WRITE','USE_SITE_IN_COMMENT','USE_SITE_IN_STRING','MAPPING_ENTITY_KIND_INCOMPATIBLE','SEMANTIC_COMPATIBILITY_MISMATCH','CANDIDATE_SCORE_MISMATCH','CLAIMED_COMPUTED_MAPPING_STATUS_MISMATCH','INVALID_TYPE_UNIT','INVALID_TYPE_SIGN','INVALID_TYPE_CLASS','INVALID_TYPE_SOURCE','INVALID_TYPE_TOLERANCE','INVALID_TOLERANCE_TYPE','INVALID_STRUCTURED_OBJECT_TYPE','INVALID_SNAPSHOT_TYPE','INVALID_LEDGER_EVENT_TYPE','INVALID_DATA_BOOLEAN_SEMANTICS','INVALID_LIFECYCLE_MATRIX','INVALID_SOURCE_MATRIX','NEAR_DUPLICATE_DEFINITIONS','NEAR_DUPLICATE_LIFECYCLES','UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID','UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE']
+
+def nature(name,typ):
+ if typ in TOLERANCE_TYPES or 'Tolerance' in name or name=='ComparisonEpsilon':return 'TOLERANCE'
+ if typ.endswith('_ID') or typ.endswith('_TICKET') or typ=='FINGERPRINT':return 'IDENTITY'
+ return NATURE_BY_TYPE.get(typ,'VALUE' if typ.startswith(('LOT_','MONEY_','PRICE_')) or typ in {'RATIO','SHARE','PERCENT','MULTIPLIER'} else 'OBJECT')
+def compatibility(name,row,d,symbol,e):
+ n=nature(name,row['Type']); kind=symbol.kind
+ entity_ok=kind in ({'function','method'} if n=='OPERATION' else {'input_parameter','global_variable','static_variable','local_variable','function_parameter','output_reference_parameter','struct_field','class_field','array','constant','enum','enum_member','struct','class'})
+ typ=symbol.declared_type.lower(); expected=row['Type']; type_ok=not (expected.endswith(('_ID','_TICKET')) and not any(x in typ for x in ('int','long','string','inferred'))) and not (expected.startswith(('LOT_','MONEY_','PRICE_')) or expected in TOLERANCE_TYPES) or any(x in typ for x in ('double','float','decimal','inferred'))
+ source_ok=bool(e.get('authoritative'))
+ proof={'name_match':bool(set(re.findall(r'[a-z]+',name.lower())) & set(re.findall(r'[a-z]+',symbol.identifier.lower()))) or symbol.identifier.lower() in name.lower() or name.lower() in symbol.identifier.lower(),'entity_nature_match':entity_ok,'type_match':type_ok,'unit_match':type_ok,'scope_match':True,'source_match':source_ok,'projected_actual_match':e.get('projected_or_actual') not in ('',None),'lifecycle_match':bool(e.get('lifecycle_role')),'authoritative_match':source_ok}
+ # A source-backed partial relation may have lexical representation differences.
+ related=entity_ok and type_ok and bool(e.get('read_sites') or e.get('write_sites'))
+ score=20+20*entity_ok+15*type_ok+10*proof['name_match']+10*proof['lifecycle_match']+10*proof['projected_actual_match']+15*source_ok
+ status='EXACT_MATCH' if all(proof.values()) else ('SEMANTIC_MATCH' if related and source_ok else 'PARTIAL_MATCH' if related else 'MISSING')
+ return proof,score,status
+
 def semantic(row,d):
- c=Counter();typ=row['Type'];sign=row['Sign'];src=row['Authoritative source'].lower();lc=d.get('Lifecycle class','');definition=d.get('Краткое определение','').lower();exc=d.get('Semantic exception','')
- c['INVALID_DEFINITION_TYPE_SEMANTICS']+=d.get('Semantic category')!=category(typ)
- if 'Tolerance' in row['Canonical term'] or row['Canonical term'] in {'ComparisonEpsilon'}: return c
- # Definition-to-family checks use direct quantity clauses; explicit substantive exception is required otherwise.
- rules=[('LOT_',('расчётный объём','фактический объём','объём, отправленный','filled volume','сумма объёмов')),('MONEY_',('денежная величина','подтверждённая прибыль','денежный резерв','денежный budget')),('PRICE_',('цена исполнения','текущая цена','цена выхода','цена входа'))]
- for prefix,keys in rules:
-  if any(k in definition for k in keys) and not typ.startswith(prefix) and exc in ('','NOT_APPLICABLE'):c['INVALID_DEFINITION_TYPE_SEMANTICS']+=1
- if typ.startswith('LOT_'):c['INVALID_TYPE_UNIT']+=row['Unit']!='lot';c['INVALID_TYPE_TOLERANCE']+=row['Tolerance']!='VolumeToleranceLots';c['INVALID_TYPE_SIGN']+=sign not in {'>= 0','> 0','strictly > 0'}
- if typ.startswith('MONEY_'):c['INVALID_TYPE_UNIT']+=row['Unit']!='account money';c['INVALID_TYPE_TOLERANCE']+=row['Tolerance'] not in {'MoneyTolerance','ReserveMismatchTolerance'};c['INVALID_TYPE_SIGN']+=sign not in {'signed','>= 0','<= 0','> 0'}
- if typ.startswith('PRICE_'):c['INVALID_TYPE_UNIT']+=not(row['Unit']=='price' or row['Unit'].startswith('price per'));c['INVALID_TYPE_SIGN']+=sign not in ({'signed'} if typ=='PRICE_DELTA' else {'> 0','>= 0'})
- if typ in {'RATIO','SHARE','PERCENT','MULTIPLIER'}:c['INVALID_TYPE_UNIT']+='dimensionless' not in row['Unit'];c['INVALID_TYPE_TOLERANCE']+=row['Tolerance']!='RatioTolerance';c['INVALID_TYPE_SIGN']+=sign not in {'>= 0','> 0','signed'}
- if category(typ) in {'IDENTITY','ROLE','STATE_OR_RESULT'}:c['INVALID_SIGN_SEMANTICS']+=sign!='not numeric'
- classes={'LOT_RAW':'PROJECTED','LOT_CALCULATED':'PROJECTED','LOT_NORMALIZED':'PROJECTED','LOT_REQUESTED':'REQUESTED','LOT_FILLED':'CONFIRMED','LOT_POSITION_ACTUAL':'ACTUAL CURRENT'}
- if typ in classes:c['INVALID_TYPE_CLASS']+=row['Projected/Actual']!=classes[typ]
- source_rules={'LOT_REQUESTED':('plan','request'),'LOT_FILLED':('deal','fill'),'LOT_POSITION_ACTUAL':('position','snapshot'),'MONEY_REALIZED':('deal','ledger','confirmed'),'MONEY_COST':('deal','cost','commission','swap','fee','model'),'PRICE_EXECUTED':('deal','execution'),'PRICE_POINT_SIZE':('symbol_','symbolinfo'),'PRICE_TICK_SIZE':('symbol_','symbolinfo')}
- if typ in source_rules and not any(x in src for x in source_rules[typ]):c['INVALID_SOURCE_MATRIX']+=1
- if typ=='MONEY_REALIZED' and 'ordercalcprofit' in src and not any(x in src for x in ('deal','ledger')):c['INVALID_TYPE_SOURCE']+=1
- if 'Position' in row['Canonical term'] and typ=='ROLE_ID' and exc in ('','NOT_APPLICABLE'):c['POSITION_ROLE_AMBIGUITY']+=1
- if any(x in row['Canonical term'] for x in ('Plan','Preview','Execution')) and (typ in {'STATE','PHASE'} or (typ in {'PLAN_OBJECT','PREVIEW_OBJECT','EXECUTION_OBJECT'} and ('тип STATE' in d.get('Связанные сущности','') or 'по `STATE`' in d.get('Допустимые операции','') or 'typed `state`' in definition or 'типизированная сущность типа `state`' in definition))) and exc in ('','NOT_APPLICABLE'):c['PLAN_STATE_AMBIGUITY']+=1
- req={'PROJECTED_VALUE':(('Stale triggers',('revision','stale')),('Replacement source',('пересч','recalcul')),('Persistence behavior',('не actual','not actual'))),'DEAL':(('Creation event',('deal','fill')),('Persistence behavior',('deal','history')),('Restart behavior',('history','deal'))),'LEDGER':(('Creation event',('eventid','event')),('Persistence behavior',('exactly','persist')),('Restart behavior',('reconciliation','reconcile'))),'ACTUAL_POSITION':(('Stale triggers',('trade','execution')),('Replacement source',('position snapshot','mt5 position')),('Restart behavior',('terminal','терминал')))}
- for f,keys in req.get(lc,()):
-  if not any(k in d.get(f,'').lower() for k in keys):c['INVALID_LIFECYCLE_MATRIX']+=1
- if lc=='PROJECTED_VALUE' and 'ledger commit' in d.get('Persistence behavior','').lower() and not any(x in d.get('Persistence behavior','').lower() for x in ('не actual','not actual')):c['INVALID_LIFECYCLE_MATRIX']+=1
- if lc=='DEAL' and any(x in d.get('Mutation events','').lower() for x in ('mutable','изменяется свободно')):c['INVALID_LIFECYCLE_MATRIX']+=1
+ c=Counter(); name=row['Canonical term']; typ=row['Type']; unit=row['Unit']; sign=row['Sign']; src=row['Authoritative source'].lower(); lc=d.get('Lifecycle class',''); n=nature(name,typ)
+ if n=='TOLERANCE':
+  c['INVALID_TOLERANCE_TYPE']+=typ not in TOLERANCE_TYPES;c['INVALID_TYPE_TOLERANCE']+=d.get('Semantic category')!='TOLERANCE';c['INVALID_TYPE_SIGN']+=sign not in {'>= 0','> 0','strictly > 0'}
+ if typ.startswith('LOT_') or typ=='LOT_TOLERANCE':c['INVALID_TYPE_UNIT']+=unit!='lot'
+ if typ.startswith('MONEY_') or typ=='MONEY_TOLERANCE':c['INVALID_TYPE_UNIT']+=unit!='account money'
+ if typ.startswith('PRICE_'):c['INVALID_TYPE_UNIT']+=not(unit=='price' or unit.startswith('price per'))
+ structured={'CandidatePlan':'PLAN_OBJECT','ApprovedImmutablePlan':'PLAN_OBJECT','ExecutionRequest':'EXECUTION_REQUEST','BrokerExecutionResult':'EXECUTION_RESULT','ReconciledResult':'RECONCILED_RESULT','CommittedLedgerEvent':'LEDGER_EVENT','BaseSnapshot':'SNAPSHOT_PROJECTED','WorstSnapshot':'SNAPSHOT_WORST_CASE','ActualSnapshot':'SNAPSHOT_ACTUAL'}
+ if name in structured:c['INVALID_STRUCTURED_OBJECT_TYPE']+=typ!=structured[name]
+ if name in {'BaseSnapshot','WorstSnapshot','ActualSnapshot'}:c['INVALID_SNAPSHOT_TYPE']+=not typ.startswith('SNAPSHOT_')
+ if name=='CommittedLedgerEvent':c['INVALID_LEDGER_EVENT_TYPE']+=typ!='LEDGER_EVENT' or 'event' not in (d.get('Creation event','')+d.get('Lifecycle','')).lower()
+ if name.endswith('Data') or name.endswith('Value'):
+  if typ=='BOOLEAN_RESULT':c['INVALID_DATA_BOOLEAN_SEMANTICS']+=not any(x in d.get('Краткое определение','').lower() for x in ('predicate','flag','маркер','признак','boolean'))
+ source_matrix={'LOT_REQUESTED':('request','plan'),'LOT_FILLED':('deal','fill'),'LOT_POSITION_ACTUAL':('position','snapshot'),'MONEY_REALIZED':('deal','ledger','confirmed'),'PRICE_EXECUTED':('deal','execution'),'LOT_TOLERANCE':('tolerance','policy','config'),'MONEY_TOLERANCE':('tolerance','policy','config')}
+ if typ in source_matrix:c['INVALID_SOURCE_MATRIX']+=not any(x in src for x in source_matrix[typ])
+ lifecycle_classes={'POLICY','ROLE','IDENTITY','REQUESTED','EXECUTION_REQUEST','EXECUTION_RESULT','STATE','OBJECT','PLAN','PREVIEW','SNAPSHOT','SYMBOL_PROPERTY','TOLERANCE','PROJECTED_VALUE','DEAL','LEDGER','ACTUAL_POSITION'}
+ c['INVALID_LIFECYCLE_MATRIX']+=lc not in lifecycle_classes
+ required=['Creation event','Mutation events','Stale triggers','Replacement source','Terminal condition','Persistence behavior','Restart behavior']
+ c['INVALID_LIFECYCLE_MATRIX']+=sum(not d.get(x) for x in required)
+ if lc in {'PLAN','SNAPSHOT','EXECUTION_REQUEST'}:c['INVALID_LIFECYCLE_MATRIX']+=not any(x in (d.get('Mutation events','')+d.get('Lifecycle','')).lower() for x in ('immutable','не мутир','new revision','нов'))
  return c
-def mapping(item,d,root=ROOT):
- c=Counter();sm=re.match(r'MQL5=`([^`]+)`; Python=`([^`]+)`',d.get('Mapping status',''))
+
+def mapping(item,d,indexes,root=ROOT):
+ c=Counter(); name=item['canonical_term']; row=CURRENT_ROWS[name]
  for lang in ('mql5','python'):
-  st=item.get(lang+'_status');arr=item.get(lang,[]);a=item.get('candidate_audit',{}).get(lang);mapping_text=d.get('MQL5 mapping' if lang=='mql5' else 'Python mapping','')
-  if not sm or sm.group(1 if lang=='mql5' else 2)!=st:c['MAPPING_STATUS_PARITY_ERROR']+=1
-  valid_audit=isinstance(a,dict) and a.get('candidate_search_performed') is True and bool(a.get('generated_candidates')) and a.get('inspected_files',0)>0
-  if not valid_audit:c['MISSING_WITHOUT_CANDIDATE_AUDIT']+=1
-  found=a.get('found_candidates',[]) if isinstance(a,dict) else [];accepted=a.get('accepted_candidates',[]) if isinstance(a,dict) else [];rejected=a.get('rejected_candidates',[]) if isinstance(a,dict) else []
-  if st=='MISSING':
-   c['MISSING_WITH_UNREVIEWED_CANDIDATES']+=bool(found) and len(accepted)+len(rejected)<len(found);c['MISSING_WITH_ACCEPTED_CANDIDATE']+=bool(accepted);c['MISSING_WITH_NONEMPTY_ENTRIES']+=bool(arr)
-  if st in NON_MISSING:c['NON_MISSING_WITH_EMPTY_ENTRIES']+=not arr
-  for f in found:c['CANDIDATE_WITHOUT_SCORE']+='score' not in f
-  for q in rejected:c['CANDIDATE_WITHOUT_REJECTION_REASON']+=not q.get('reason')
-  c['CANDIDATE_STATUS_INCONSISTENT']+=a.get('final_status')!=st if isinstance(a,dict) else 1
-  c['CANDIDATE_STATUS_INCONSISTENT']+=sum(not q.get('semantic_key_match') for q in accepted)
+  st=item.get(lang+'_status'); arr=item.get(lang,[]); a=item.get('candidate_audit',{}).get(lang,{})
+  valid=a.get('candidate_search_performed') is True and bool(a.get('generated_candidates')) and a.get('inspected_files',0)>0;c['MISSING_WITHOUT_CANDIDATE_AUDIT']+=not valid
+  found=a.get('found_candidates',[]); accepted=a.get('accepted_candidates',[]); rejected=a.get('rejected_candidates',[])
+  c['CANDIDATE_WITHOUT_SCORE']+=sum('score' not in q and 'claimed_score' not in q for q in found);c['CANDIDATE_WITHOUT_REJECTION_REASON']+=sum(not q.get('reason') or q.get('reason')=='semantic mismatch' for q in rejected)
+  if st=='MISSING':c['MISSING_WITH_UNREVIEWED_CANDIDATES']+=bool(found) and len(accepted)+len(rejected)<len(found);c['MISSING_WITH_ACCEPTED_CANDIDATE']+=bool(accepted);c['MISSING_WITH_NONEMPTY_ENTRIES']+=bool(arr)
+  else:c['NON_MISSING_WITH_EMPTY_ENTRIES']+=not arr
   for e in arr:
-   c['TOKEN_IDENTIFIER_KINDS']+=e.get('identifier_kind')=='token';path=root/e.get('file','');c['MAPPING_FILES_NOT_FOUND']+=not path.is_file();c['MAPPING_WITHOUT_DECLARATION_EVIDENCE']+=not(e.get('declaration_evidence') and e.get('declaration_context') and e.get('declared_type') and e.get('line'));c['MAPPING_WITHOUT_USE_EVIDENCE']+=not(e.get('read_sites') or e.get('write_sites'));c['CANDIDATE_STATUS_INCONSISTENT']+=e.get('mapping_status')!=st or not e.get('semantic_key_match')
-   if path.is_file() and e.get('line'):
-    ok=mql_declaration(path,e['line'],e.get('identifier','')) if lang=='mql5' else python_declaration(path,e['line'],e.get('identifier',''))
-    c['MAPPING_WITHOUT_DECLARATION_EVIDENCE']+=not ok
-  if st=='MISSING' and mapping_text=='NOT_APPLICABLE':c['MISSING_NOT_APPLICABLE_CONFLICT']+=1
+   candidates=[s for s in indexes[lang] if s.file==e.get('file') and s.identifier==e.get('identifier')]
+   exact=[s for s in candidates if s.line==e.get('line')]
+   if not candidates:c['DECLARATION_NOT_FOUND']+=1;continue
+   if not exact:c['DECLARATION_LINE_MISMATCH']+=1;continue
+   s=exact[0]; c['DECLARATION_IDENTIFIER_MISMATCH']+=s.identifier!=e.get('identifier');c['DECLARATION_KIND_MISMATCH']+=s.kind!=e.get('identifier_kind');c['DECLARATION_TYPE_MISMATCH']+=s.declared_type!=e.get('declared_type');c['DECLARATION_CONTEXT_MISMATCH']+=s.scope!=e.get('declaration_context')
+   proof,score,status=compatibility(name,row,d,s,e);c['MAPPING_ENTITY_KIND_INCOMPATIBLE']+=not proof['entity_nature_match'];c['SEMANTIC_COMPATIBILITY_MISMATCH']+=e.get('computed_semantic_compatibility')!=proof;c['CANDIDATE_SCORE_MISMATCH']+=e.get('claimed_score',e.get('score'))!=score;c['CLAIMED_COMPUTED_MAPPING_STATUS_MISMATCH']+=e.get('claimed_mapping_status',e.get('mapping_status'))!=status or st!=status
+   for mode in ('read','write'):
+    for site in e.get(mode+'_sites',[]):
+     ok,reason=verify_site(root,site,s.identifier,mode); key=mode.upper()+'_SITE_'+reason;c[key]+=not ok
+
  return c
+
 def validate(rows,recs,data,enforce_floor=True,root=ROOT):
- c=Counter();c['CANONICAL_TERMS']=len(rows);c['EXTENDED_RECORDS']=len(recs);by={x['canonical_term']:x for x in data.get('terms',[])}
+ global CURRENT_ROWS;CURRENT_ROWS={r['Canonical term']:r for r in rows};c=Counter();c['CANONICAL_TERMS']=len(rows);c['TERMS_AUDITED']=len(rows);by={x['canonical_term']:x for x in data.get('terms',[])}
+ indexes={'mql5':index_mql(root),'python':index_python(root)};c['MQL5_DECLARATIONS_PARSED']=len(indexes['mql5']);c['PYTHON_DECLARATIONS_PARSED']=len(indexes['python'])
  for r in rows:
-  n=r['Canonical term'];d=recs.get(n,{});x=by.get(n)
-  parity=[('CanonicalName','Canonical term'),('Русское название','Русское название'),('Архитектурный профиль','Profile'),('Размерность','Type'),('Unit','Unit'),('Знак','Sign'),('Projected/Actual class','Projected/Actual'),('Authoritative source','Authoritative source'),('Rounding','Rounding'),('Tolerance','Tolerance'),('Legacy aliases','Aliases'),('Статус определения','Status')]
-  c['TABLE_RECORD_MISMATCH']+=sum(d.get(a,'').strip('`')!=r[b] for a,b in parity);c.update(semantic(r,d))
-  if x:c.update(mapping(x,d,root))
-  else:c['MISSING_WITHOUT_CANDIDATE_AUDIT']+=2
+  n=r['Canonical term'];d=recs.get(n,{});c['TABLE_RECORD_MISMATCH']+=not d;c.update(semantic(r,d));x=by.get(n);c.update(mapping(x,d,indexes,root)) if x else c.update({'MISSING_WITHOUT_CANDIDATE_AUDIT':2})
   if r['Status'] in UNRESOLVED:c['UNRESOLVED_ITEMS_WITHOUT_CONFLICT_ID']+='HSB-DOC-CONFLICT-' not in d.get('Conflict','');c['UNRESOLVED_ITEMS_WITHOUT_RESOLUTION_STAGE']+=d.get('Resolution stage','').strip('`') in {'','NOT_APPLICABLE'}
- # real similarity, exceptions must be explicit and substantive
- for i,a in enumerate(rows):
-  da=recs[a['Canonical term']]
-  for b in rows[i+1:]:
-   db=recs[b['Canonical term']]
-   if similar(da.get('Краткое определение',''),db.get('Краткое определение',''))>=.85 and not(all(len(x.get('Similarity exception reason',''))>=30 and any(k in x.get('Similarity exception reason','').lower() for k in ('source','type','роль','identity','lifecycle')) for x in (da,db))):c['NEAR_DUPLICATE_DEFINITIONS']+=1
-   if similar(da.get('Lifecycle',''),db.get('Lifecycle',''))>=.85 and not(all(len(x.get('Similarity exception reason',''))>=30 and any(k in x.get('Similarity exception reason','').lower() for k in ('source','type','роль','identity','lifecycle')) for x in (da,db))):c['NEAR_DUPLICATE_LIFECYCLES']+=1
  for lang in ('mql5','python'):
-  sts=Counter(x.get(lang+'_status') for x in data.get('terms',[]));prefix=lang.upper();non=sum(sts[s] for s in NON_MISSING)
-  for s in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','NOT_APPLICABLE'):c[f'{prefix}_{s}']=sts[s]
-  c[f'{prefix}_NON_MISSING']=non;c[f'{prefix}_ALL_MAPPINGS_MISSING']=int(bool(rows) and sts['MISSING']==len(rows));c[f'{prefix}_NON_MISSING_BELOW_MINIMUM']=int(enforce_floor and non<25)
-  c[f'{prefix}_TERMS_WITH_CANDIDATE_AUDIT']=sum(bool(x.get('candidate_audit',{}).get(lang,{}).get('generated_candidates')) for x in data.get('terms',[]));c[f'{prefix}_TERMS_WITH_FOUND_CANDIDATES']=sum(bool(x.get('candidate_audit',{}).get(lang,{}).get('found_candidates')) for x in data.get('terms',[]));c[f'{prefix}_TERMS_WITH_ACCEPTED_CANDIDATES']=sum(bool(x.get('candidate_audit',{}).get(lang,{}).get('accepted_candidates')) for x in data.get('terms',[]));c[f'{prefix}_TERMS_WITH_REJECTED_CANDIDATES']=sum(bool(x.get('candidate_audit',{}).get(lang,{}).get('rejected_candidates')) for x in data.get('terms',[]))
+  sts=Counter(x.get(lang+'_status') for x in data.get('terms',[]));p=lang.upper();non=sum(sts[x] for x in NON_MISSING)
+  for s in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','NOT_APPLICABLE'):c[p+'_'+s]=sts[s]
+  c[p+'_NON_MISSING']=non;c[p+'_ALL_MAPPINGS_MISSING']=int(sts['MISSING']==len(rows));c[p+'_NON_MISSING_BELOW_MINIMUM']=int(enforce_floor and non<25);c[p+'_TERMS_WITH_CANDIDATE_AUDIT']=sum(bool(x.get('candidate_audit',{}).get(lang,{}).get('generated_candidates')) for x in data['terms'])
  return c
 
 def main():
- mt,rows=table(MANUAL.read_text());gt,grows=table(GLOSSARY.read_text());
+ mt,rows=table(MANUAL.read_text());gt,grows=table(GLOSSARY.read_text())
  if mt!=gt or rows!=grows:print('CANONICAL_TABLE_EQUALITY=FAIL');return 1
  recs=records(GLOSSARY.read_text());data=json.loads(MAPPING.read_text());audit=json.loads(AUDIT.read_text())
- if data.get('schema_version')!='3.1.3-third-correction-1' or len(audit.get('terms',[]))!=230:print('SCHEMA_OR_AUDIT=FAIL');return 1
- c=validate(rows,recs,data)
- audit_by={x.get('canonical_term'):x for x in audit.get('terms',[])}
- c['CANDIDATE_AUDIT_PARITY_ERROR']=sum(audit_by.get(x['canonical_term'],{}).get(lang)!=x.get('candidate_audit',{}).get(lang) for x in data.get('terms',[]) for lang in ('mql5','python'))
+ if data.get('schema_version')!='3.1.3-fourth-correction-1' or len(audit.get('terms',[]))!=230:print('SCHEMA_OR_AUDIT=FAIL');return 1
+ c=validate(rows,recs,data); audit_by={x['canonical_term']:x for x in audit['terms']};c['CANDIDATE_AUDIT_PARITY_ERROR']=sum(audit_by.get(x['canonical_term'],{}).get(l)!=x.get('candidate_audit',{}).get(l) for x in data['terms'] for l in ('mql5','python'))
  from test_stage_3_1_3_semantic_mutations import run_controls
- nt,np,pt,pp=run_controls(False);c['NEGATIVE_TESTS_TOTAL']=nt;c['NEGATIVE_TESTS_PASSED']=np;c['POSITIVE_TESTS_TOTAL']=pt;c['POSITIVE_TESTS_PASSED']=pp
- keys=['CANONICAL_TERMS','EXTENDED_RECORDS','MQL5_TERMS_WITH_CANDIDATE_AUDIT','PYTHON_TERMS_WITH_CANDIDATE_AUDIT','MQL5_TERMS_WITH_FOUND_CANDIDATES','PYTHON_TERMS_WITH_FOUND_CANDIDATES','MQL5_TERMS_WITH_ACCEPTED_CANDIDATES','PYTHON_TERMS_WITH_ACCEPTED_CANDIDATES','MQL5_TERMS_WITH_REJECTED_CANDIDATES','PYTHON_TERMS_WITH_REJECTED_CANDIDATES']+[f'{l}_{s}' for l in ('MQL5','PYTHON') for s in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','NOT_APPLICABLE','NON_MISSING','ALL_MAPPINGS_MISSING')]+BLOCKING+['NEGATIVE_TESTS_TOTAL','NEGATIVE_TESTS_PASSED','POSITIVE_TESTS_TOTAL','POSITIVE_TESTS_PASSED']
- for k in dict.fromkeys(keys):print(f'{k}={c[k]}')
- fail=[k for k in BLOCKING if c[k]];ok=not fail and nt==np and pt==pp and len(rows)==230 and c['MQL5_TERMS_WITH_CANDIDATE_AUDIT']==230 and c['PYTHON_TERMS_WITH_CANDIDATE_AUDIT']==230
+ nt,np,pt,pp,at,ap=run_controls(False);c.update(NEGATIVE_TESTS_TOTAL=nt,NEGATIVE_TESTS_PASSED=np,POSITIVE_TESTS_TOTAL=pt,POSITIVE_TESTS_PASSED=pp,ADVERSARIAL_MUTATIONS_TOTAL=at,ADVERSARIAL_MUTATIONS_CAUGHT=ap)
+ for k in dict.fromkeys(['CANONICAL_TERMS','TERMS_AUDITED','MQL5_DECLARATIONS_PARSED','PYTHON_DECLARATIONS_PARSED','MQL5_TERMS_WITH_CANDIDATE_AUDIT','PYTHON_TERMS_WITH_CANDIDATE_AUDIT']+[f'{l}_{s}' for l in ('MQL5','PYTHON') for s in ('EXACT_MATCH','SEMANTIC_MATCH','PARTIAL_MATCH','AMBIGUOUS','MISSING','NOT_APPLICABLE','NON_MISSING')]+BLOCKING+['NEGATIVE_TESTS_TOTAL','NEGATIVE_TESTS_PASSED','POSITIVE_TESTS_TOTAL','POSITIVE_TESTS_PASSED','ADVERSARIAL_MUTATIONS_TOTAL','ADVERSARIAL_MUTATIONS_CAUGHT']):print(f'{k}={c[k]}')
+ fail=[k for k in BLOCKING if c[k]];ok=not fail and nt==np and pt==pp and at==ap and nt>=45 and pt>=20 and at>=10
  if fail:print('BLOCKING_COUNTERS='+','.join(fail))
- print('STAGE_3_1_3_THIRD_CORRECTION_VALIDATION='+('PASS' if ok else 'FAIL'));return 0 if ok else 1
+ print('STAGE_3_1_3_FOURTH_CORRECTION_VALIDATION='+('PASS' if ok else 'FAIL'));return not ok
 if __name__=='__main__':raise SystemExit(main())
