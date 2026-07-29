@@ -5,7 +5,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from stage_3_1_3.discovery import discover
+from stage_3_1_3.semantic_engine import evaluate_canonical_mapping
 from stage_3_1_3.source_evidence import index_mql
 
 HERE=Path(__file__).parent/"fixtures"
@@ -16,7 +16,7 @@ def _run_one(relative: str, expected: dict) -> dict:
     with tempfile.TemporaryDirectory() as directory:
         root=Path(directory);shutil.copy2(source,root/source.name)
         contract={"canonical":expected.get("identifier","targetLot"),"aliases":[],"unit":expected.get("unit","LOT"),"scope":expected.get("scope","GLOBAL_RUNTIME"),"lineages":{expected.get("lineage","TERMINAL_POSITION")},"authoritative":expected.get("lineage") in {"TERMINAL_POSITION","DEAL_HISTORY","CONFIG_INPUT"},"temporal":expected.get("temporal","ACTUAL_CURRENT"),"lifecycle":expected.get("lifecycle","ACTUAL_POSITION")}
-        return discover(root,contract,"mql5",index_mql(root))
+        return evaluate_canonical_mapping(root,contract,"mql5",index_mql(root))
 
 
 def run_fixture_controls(verbose=False):

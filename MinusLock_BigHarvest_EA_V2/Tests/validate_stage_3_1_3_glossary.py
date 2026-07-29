@@ -6,7 +6,7 @@ from collections import Counter
 from pathlib import Path
 from stage_3_1_3.source_evidence import index_mql, index_python, verify_site
 from stage_3_1_3.semantic_inference import infer_semantics, expected_unit
-from stage_3_1_3.discovery import discover
+from stage_3_1_3.semantic_engine import evaluate_canonical_mapping
 from stage_3_1_3.fixture_controls import run_fixture_controls
 from stage_3_1_3.seventh_engine import compute_scope_proof
 from stage_3_1_3.counter_audit import audit_blocking_counters
@@ -197,7 +197,7 @@ def validate_validator_owned_discovery(rows,recs,data,root=ROOT):
   aliases=[x.strip(' `') for x in re.split(r'[,;/]',d.get('Legacy aliases','')) if x.strip(' `—')]
   expected={'canonical':name,'aliases':aliases,'unit':expected_unit(row['Type'],row['Unit']),'scope':expected_scope(row,d),'lineages':lineages,'authoritative':source in {'POLICY','LEDGER','TERMINAL_SNAPSHOT'},'temporal':expected_temporal(row,d),'lifecycle':d['Lifecycle class']}
   for lang in ('mql5','python'):
-   result=discover(root,expected,lang,indexes[lang]);claim=item.get('validator_discovery',{}).get(lang,{})
+   result=evaluate_canonical_mapping(root,expected,lang,indexes[lang]);claim=item.get('validator_discovery',{}).get(lang,{})
    # Compact claim files do not duplicate the reproducible full discovery/use
    # graph.  Set complete_snapshot only when a human intentionally claims all.
    complete=claim.get('complete_snapshot') is True
