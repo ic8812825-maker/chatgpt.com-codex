@@ -208,14 +208,14 @@ def entity_nature(symbol: Symbol, unit: str = "UNKNOWN") -> str:
     if kind in {"function", "method"}: return "FUNCTION"
     if kind == "enum": return "STATE" if "state" in name or "phase" in name else "ENUM"
     if kind == "enum_member": return "STATE" if "state" in symbol.declared_type.lower() else "ENUM"
-    if kind in {"struct", "class"}: return "PLAN" if "plan" in name else "STRUCT"
-    if "ticket" in name: return "TICKET"
-    if name.endswith("id") or "identifier" in name: return "IDENTITY"
-    if kind == "input_parameter": return "POLICY"
     if "snapshot" in name: return "SNAPSHOT"
     if "request" in name: return "REQUEST"
     if "result" in name: return "RESULT"
     if "event" in name: return "LEDGER_EVENT"
+    if kind in {"struct", "class"}: return "PLAN" if "plan" in name else "STRUCT"
+    if "ticket" in name: return "TICKET"
+    if name.endswith("id") or "identifier" in name: return "IDENTITY"
+    if kind == "input_parameter": return "POLICY"
     if unit in {"LOT", "MONEY", "PRICE", "RATIO"}: return f"{unit}_VALUE"
     if kind in {"struct_field", "class_field", "global_variable", "static_variable"}: return "CACHE"
     return "VALUE"
@@ -230,7 +230,15 @@ def entity_nature_relation(expected: str, actual: str) -> str:
 
 def declaration_identities(root: Path, language: str) -> tuple[list[Symbol], list[DeclarationIdentity]]:
     symbols = index_mql(root) if language == "mql5" else index_python(root)
-    identities = [DeclarationIdentity.from_symbol(language, symbol) for symbol in symbols]
+    scopes_by_file = {}
+    if language == "mql5":
+        for path in [*root.rglob("*.mq5"), *root.rglob("*.mqh")]:
+            scopes_by_file[str(path.relative_to(root))] = _scope_lines(sanitise(path.read_text(errors="ignore"))[0])
+    identities = [DeclarationIdentity(
+        language, symbol.file,
+        scopes_by_file.get(symbol.file, {}).get(symbol.line, symbol.scope) if symbol.kind in {"local_variable","function_parameter","output_reference_parameter"} else symbol.scope,
+        symbol.line, symbol.column, symbol.identifier, symbol.parent_symbol, symbol.kind,
+    ) for symbol in symbols]
     if len(identities) != len(set(identities)):
         raise ValueError("duplicate declaration identity")
     return symbols, identities
@@ -249,10 +257,13 @@ def _scope_lines(clean: str) -> dict[int, str]:
             name = match.group(1) or match.group(2)
             kind = "struct" if match.group(1) else "function"
             pending = f"{kind} {name}"
-        result[number] = stack[-1][0] if stack else "module"
+        result[number] = "/".join(x[0] for x in stack) if stack else "module"
         opens, closes = line.count("{"), line.count("}")
         if pending and opens:
-            stack.append((pending, depth + opens)); result[number] = pending; pending = ""
+            stack.append((pending, depth + 1)); result[number] = "/".join(x[0] for x in stack); pending = ""
+            opens -= 1
+        for index in range(opens):
+            block=f"block@{number}:{index+1}";stack.append((block,depth+index+1))
         depth += opens - closes
         while stack and depth < stack[-1][1]: stack.pop()
     return result
@@ -272,8 +283,12 @@ def build_scoped_mql_use_graphs(root: Path) -> dict[DeclarationIdentity, ScopedU
                 options = by_file_name.get((rel, name), [])
                 if not options: continue
                 scope = scopes[number]
-                visible = [pair for pair in options if pair[0].scope == scope]
-                if not visible: visible = [pair for pair in options if pair[0].scope == "module"]
+                visible = [pair for pair in options if pair[1].scope_id == scope and pair[0].line <= number]
+                if not visible:
+                    parents=["/".join(scope.split("/")[:i]) for i in range(len(scope.split("/"))-1,0,-1)]+["module"]
+                    for parent in parents:
+                        visible=[pair for pair in options if pair[1].scope_id==parent and pair[0].line<=number]
+                        if visible:break
                 if not visible: continue
                 symbol, identity = max(visible, key=lambda pair: pair[0].line)
                 if number == symbol.line and line.count(name) == 1 and "=" not in line: continue
@@ -301,7 +316,7 @@ def build_resolved_mql_dataflow(root: Path) -> ResolvedDataflowGraph:
             assignment = re.search(r"\b(\w+)\s*=\s*(.+?);", line)
             if not assignment: continue
             sink_name, expression = assignment.groups(); scope = scopes[number]
-            candidates = [(s, i) for s, i in pairs if s.file == rel and s.identifier == sink_name and s.scope in {scope, "module"} and s.line <= number]
+            candidates = [(s, i) for s, i in pairs if s.file == rel and s.identifier == sink_name and i.scope_id in {scope, "module"} and s.line <= number]
             if not candidates: graph.unresolved_sinks.append(f"{rel}:{number}:{sink_name}"); continue
             _, sink_id = max(candidates, key=lambda pair: (pair[0].scope == scope, pair[0].line))
             sink = graph.nodes[str(sink_id)]; site = f"{rel}:{number}"
@@ -312,7 +327,7 @@ def build_resolved_mql_dataflow(root: Path) -> ResolvedDataflowGraph:
             names = re.findall(r"\b[A-Za-z_]\w*\b", expression)
             resolved = False
             for name in names:
-                sources = [(s, i) for s, i in pairs if s.file == rel and s.identifier == name and s.scope in {scope, "module"} and s.line <= number]
+                sources = [(s, i) for s, i in pairs if s.file == rel and s.identifier == name and i.scope_id in {scope, "module"} and s.line <= number]
                 if not sources: continue
                 _, source_id = max(sources, key=lambda pair: (pair[0].scope == scope, pair[0].line))
                 operation = "ARITHMETIC" if re.search(r"[+*/-]", expression) else "COPY"

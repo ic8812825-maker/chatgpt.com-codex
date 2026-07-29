@@ -12,6 +12,9 @@ from pathlib import Path
 
 from stage_3_1_3.semantic_inference import UNIT_ANCHORS, UNIT_WORDS
 from stage_3_1_3.source_evidence import Symbol, index_mql, index_python, sanitise
+from stage_3_1_3.seventh_engine import (
+    DeclarationIdentity, build_scoped_mql_use_graphs, entity_nature,
+)
 
 VIABLE = {"EXACT_MATCH", "SEMANTIC_MATCH", "PARTIAL_MATCH"}
 SCOPE_RELATIONS = {"EXACT", "BROADER", "NARROWER", "TEST_ANALOGUE", "OFFLINE_ANALOGUE", "INCOMPATIBLE"}
@@ -263,9 +266,11 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str, use_grap
     unit,contradiction=_unit(symbol,graph,root);lineage=_lineage(symbol,graph);scope=_scope(symbol,graph,root);relation=scope_relation(expected["scope"],scope)
     temporal,lifecycle=_temporal_lifecycle(lineage,symbol); authoritative=lineage[-1] not in {"CACHE","DERIVED","TEST_ORACLE","OFFLINE_MODEL"}
     lexical=len(_words(expected["canonical"]+" "+" ".join(expected.get("aliases",[])))&_words(symbol.identifier))*8
-    proof={"entity_nature_match":True,"unit_match":unit==expected["unit"],"scope_relation":relation,"source_lineage_match":lineage[0] in expected["lineages"],"authority_match":authoritative==expected["authoritative"],"temporal_match":temporal==expected["temporal"],"lifecycle_match":lifecycle==expected["lifecycle"],"complete_use_graph":True,"no_contradictory_use":not contradiction}
+    expected_nature=expected.get("entity_nature","VALUE");actual_nature=entity_nature(symbol,unit)
+    nature_ok=actual_nature==expected_nature or expected_nature=="VALUE" and actual_nature not in {"FUNCTION","STATE","ENUM","STRUCT","PLAN"}
+    proof={"entity_nature_match":nature_ok,"unit_match":unit==expected["unit"],"scope_relation":relation,"source_lineage_match":lineage[0] in expected["lineages"],"authority_match":authoritative==expected["authoritative"],"temporal_match":temporal==expected["temporal"],"lifecycle_match":lifecycle==expected["lifecycle"],"complete_use_graph":True,"no_contradictory_use":not contradiction}
     score=min(100,lexical+15*proof["unit_match"]+10*(relation=="EXACT")+10*proof["source_lineage_match"]+10*proof["authority_match"]+10*proof["temporal_match"]+10*proof["lifecycle_match"]+5*proof["no_contradictory_use"])
-    essential=proof["unit_match"] and relation!="INCOMPATIBLE"
+    essential=proof["entity_nature_match"] and proof["unit_match"] and relation!="INCOMPATIBLE"
     strict=all(v is True or k=="scope_relation" for k,v in proof.items()) and relation=="EXACT"
     if strict:status="EXACT_MATCH" if lexical else "SEMANTIC_MATCH"
     elif essential:status="PARTIAL_MATCH" if relation in {"BROADER","NARROWER","TEST_ANALOGUE","OFFLINE_ANALOGUE"} or "CACHE" in lineage else "SEMANTIC_MATCH"
@@ -276,7 +281,7 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str, use_grap
     return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),[asdict(e) for e in edges],proof)
 
 
-def discover(root: Path, expected: dict, language: str, symbols: list[Symbol] | None=None) -> dict:
+def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbols: list[Symbol] | None=None) -> dict:
     symbols=symbols if symbols is not None else (index_mql(root) if language=="mql5" else index_python(root))
     expected_words=_words(expected["canonical"]+" "+" ".join(expected.get("aliases",[])))
     # Semantic/API candidates are retained even without a lexical match.

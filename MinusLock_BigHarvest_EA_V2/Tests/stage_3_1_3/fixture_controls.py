@@ -15,7 +15,9 @@ def _run_one(relative: str, expected: dict) -> dict:
     source=HERE/relative
     with tempfile.TemporaryDirectory() as directory:
         root=Path(directory);shutil.copy2(source,root/source.name)
-        contract={"canonical":expected.get("identifier","targetLot"),"aliases":[],"unit":expected.get("unit","LOT"),"scope":expected.get("scope","GLOBAL_RUNTIME"),"lineages":{expected.get("lineage","TERMINAL_POSITION")},"authoritative":expected.get("lineage") in {"TERMINAL_POSITION","DEAL_HISTORY","CONFIG_INPUT"},"temporal":expected.get("temporal","ACTUAL_CURRENT"),"lifecycle":expected.get("lifecycle","ACTUAL_POSITION")}
+        canonical=expected.get("identifier","targetLot");low=canonical.lower()
+        nature=("TICKET" if "ticket" in low else "IDENTITY" if "identifier" in low else "PLAN" if "plan" in low else "REQUEST" if "request" in low else "LEDGER_EVENT" if "ledger" in low or "event" in low else "SNAPSHOT" if "snapshot" in low else "POLICY" if expected.get("lineage")=="CONFIG_INPUT" else "VALUE")
+        contract={"canonical":canonical,"aliases":[],"unit":expected.get("unit","LOT"),"scope":expected.get("scope","GLOBAL_RUNTIME"),"lineages":{expected.get("lineage","TERMINAL_POSITION")},"authoritative":expected.get("lineage") in {"TERMINAL_POSITION","DEAL_HISTORY","CONFIG_INPUT"},"temporal":expected.get("temporal","ACTUAL_CURRENT"),"lifecycle":expected.get("lifecycle","ACTUAL_POSITION"),"entity_nature":nature}
         return evaluate_canonical_mapping(root,contract,"mql5",index_mql(root))
 
 
