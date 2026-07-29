@@ -52,6 +52,7 @@ class Candidate:
     kind: str
     score: int
     status: str
+    entity_nature: str
     unit: str
     scope: str
     scope_relation: str
@@ -283,7 +284,7 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str, use_grap
     edges=[]
     for item in graph.assignment_sources:
         site,rhs=item.split(":",2)[0:2],item.rsplit(":",1)[-1];edges.append(DataflowEdge(rhs,symbol.identifier,"assignment",":".join(site)))
-    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),[asdict(e) for e in edges],proof)
+    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),[asdict(e) for e in edges],proof)
 
 
 def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbols: list[Symbol] | None=None) -> dict:
