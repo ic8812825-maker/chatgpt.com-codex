@@ -2,7 +2,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_resolved_python_dataflow, build_scoped_mql_use_graphs, build_scoped_python_use_graphs, compute_scope_proof, entity_nature, entity_nature_relation, propagate_units, strict_scope_relation
+from stage_3_1_3.seventh_engine import DeclarationIdentity, build_resolved_mql_dataflow, build_resolved_python_dataflow, build_scoped_mql_use_graphs, build_scoped_python_use_graphs, compute_candidate_scope_proof, compute_scope_proof, declaration_identities, entity_nature, entity_nature_relation, propagate_units, strict_scope_relation
 from stage_3_1_3.source_evidence import Symbol
 from stage_3_1_3.counter_audit import audit_blocking_counters
 
@@ -126,6 +126,18 @@ def B(value):
         flow=build_resolved_python_dataflow(root);assert flow.nodes
 
 
+def per_candidate_scope_control() -> None:
+    source="""double targetLot;
+bool UsesTarget(){ return targetLot>0; }
+bool SymbolOnly(){ return PositionGetString(POSITION_SYMBOL)==_Symbol; }
+bool MagicOnly(){ return PositionGetInteger(POSITION_MAGIC)==7; }
+"""
+    with TemporaryDirectory() as directory:
+        root=Path(directory);(root/"scope.mqh").write_text(source)
+        _,ids=declaration_identities(root,"mql5");target=next(i for i in ids if i.identifier=="targetLot")
+        assert compute_candidate_scope_proof(root,target).scope=="GLOBAL_RUNTIME"
+
+
 if __name__ == "__main__":
     shadowing_control()
     entity_nature_control()
@@ -134,6 +146,7 @@ if __name__ == "__main__":
     declaration_resolved_arithmetic_control()
     scope_control()
     python_shadowing_control()
+    per_candidate_scope_control()
     audit = audit_blocking_counters()
     assert audit["VACUOUS_BLOCKING_COUNTERS"] == 0, audit
     print("SHADOWING_TESTS=PASS")

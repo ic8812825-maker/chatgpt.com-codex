@@ -168,7 +168,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_CYCLE",
+    "expected_scope": "PER_SYMBOL_MAGIC",
     "expected_source_lineage": [
       "TERMINAL_POSITION",
       "CACHE"

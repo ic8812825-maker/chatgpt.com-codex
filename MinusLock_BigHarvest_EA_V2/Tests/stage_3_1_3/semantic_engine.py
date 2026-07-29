@@ -13,7 +13,8 @@ from pathlib import Path
 from stage_3_1_3.semantic_inference import UNIT_ANCHORS, UNIT_WORDS
 from stage_3_1_3.source_evidence import Symbol, index_mql, index_python, sanitise
 from stage_3_1_3.seventh_engine import (
-    DeclarationIdentity, build_scoped_mql_use_graphs, entity_nature,
+    DeclarationIdentity, build_scoped_mql_use_graphs, compute_candidate_scope_proof,
+    entity_nature,
 )
 
 VIABLE = {"EXACT_MATCH", "SEMANTIC_MATCH", "PARTIAL_MATCH"}
@@ -263,7 +264,11 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str, use_grap
     if graph is None:
         graph=discover_mql_use(root,symbol) if language=="mql5" else discover_python_use(root,symbol)
         _USE_CACHE[cache_key]=graph
-    unit,contradiction=_unit(symbol,graph,root);lineage=_lineage(symbol,graph);scope=_scope(symbol,graph,root);relation=scope_relation(expected["scope"],scope)
+    unit,contradiction=_unit(symbol,graph,root);lineage=_lineage(symbol,graph)
+    if language=="mql5" and expected["scope"] in {"PER_SYMBOL_MAGIC","PER_SYMBOL_MAGIC_CYCLE"}:
+        identity=DeclarationIdentity.from_symbol(language,symbol);scope=compute_candidate_scope_proof(root,identity).scope
+    else:scope=_scope(symbol,graph,root)
+    relation=scope_relation(expected["scope"],scope)
     temporal,lifecycle=_temporal_lifecycle(lineage,symbol); authoritative=lineage[-1] not in {"CACHE","DERIVED","TEST_ORACLE","OFFLINE_MODEL"}
     lexical=len(_words(expected["canonical"]+" "+" ".join(expected.get("aliases",[])))&_words(symbol.identifier))*8
     expected_nature=expected.get("entity_nature","VALUE");actual_nature=entity_nature(symbol,unit)

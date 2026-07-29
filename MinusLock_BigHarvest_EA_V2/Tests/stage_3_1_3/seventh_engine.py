@@ -154,6 +154,36 @@ def compute_scope_proof(root: Path) -> ScopeProof:
     return ScopeProof(scope, tuple(sorted(set(symbol))), tuple(sorted(set(magic))), tuple(sorted(set(cycle))))
 
 
+def compute_candidate_scope_proof(root: Path, declaration: DeclarationIdentity) -> ScopeProof:
+    """Compute scope only along paths that use the candidate declaration."""
+    evidence: dict[str,set[str]]={};calls:dict[str,set[str]]={};starts=set()
+    symbol_sites=[];magic_sites=[];cycle_sites=[]
+    for path in sorted([*root.rglob("*.mq5"),*root.rglob("*.mqh")]):
+        rel=str(path.relative_to(root));clean=sanitise(path.read_text(errors="ignore"))[0];scopes=_scope_lines(clean)
+        for number,line in enumerate(clean.splitlines(),1):
+            scope=scopes[number];bucket=evidence.setdefault(scope,set());site=f"{rel}:{number}"
+            if rel==declaration.file and re.search(rf"\b{re.escape(declaration.identifier)}\b",line):starts.add(scope)
+            if re.search(r"(?:POSITION|DEAL|ORDER)_SYMBOL|\b_symbol\b",line,re.I):bucket.add("symbol");symbol_sites.append(site)
+            if re.search(r"(?:POSITION|DEAL|ORDER)_MAGIC|\bmagic(?:number)?\b",line,re.I):bucket.add("magic");magic_sites.append(site)
+            if re.search(r"\bcycle(?:id)?\b",line,re.I):bucket.add("cycle");cycle_sites.append(site)
+            calls.setdefault(scope,set()).update(f"function {name}" for name in re.findall(r"\b([A-Za-z_]\w*)\s*\(",line) if name not in {"if","for","while","switch"})
+    reachable=set(starts);front=list(starts)
+    while front:
+        current=front.pop()
+        for callee in calls.get(current,set()):
+            matches=[scope for scope in evidence if scope.startswith(callee)]
+            for match in matches:
+                if match not in reachable:reachable.add(match);front.append(match)
+    combined=set().union(*(evidence.get(scope,set()) for scope in reachable)) if reachable else set()
+    if {"symbol","magic","cycle"}<=combined:scope="PER_SYMBOL_MAGIC_CYCLE"
+    elif {"symbol","magic"}<=combined:scope="PER_SYMBOL_MAGIC"
+    elif "symbol" in combined:scope="PER_SYMBOL"
+    elif "magic" in combined:scope="PER_MAGIC"
+    elif "cycle" in combined:scope="PER_CYCLE"
+    else:scope="GLOBAL_RUNTIME"
+    return ScopeProof(scope,tuple(symbol_sites if "symbol" in combined else ()),tuple(magic_sites if "magic" in combined else ()),tuple(cycle_sites if "cycle" in combined else ()))
+
+
 SCOPE_SETS = {
     "GLOBAL_RUNTIME": frozenset(), "PER_SYMBOL": frozenset({"symbol"}),
     "PER_MAGIC": frozenset({"magic"}), "PER_SYMBOL_MAGIC": frozenset({"symbol", "magic"}),
