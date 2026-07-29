@@ -3,11 +3,13 @@
 from __future__ import annotations
 import copy,functools,json
 import validate_stage_3_1_3_glossary as v
+LAST_COUNTER_RESULTS={}
 
 def loaded():
  _,rows=v.table(v.MANUAL.read_text());return rows,v.records(v.GLOSSARY.read_text()),json.loads(v.MAPPING.read_text())
 
 def run_controls(verbose=True):
+ global LAST_COUNTER_RESULTS
  rows,recs,data=loaded();mql=v.index_mql(v.ROOT);py=v.index_python(v.ROOT)
  v.index_mql=lambda root:mql;v.index_python=lambda root:py;v.verify_site=functools.lru_cache(maxsize=None)(v.verify_site);v.infer_semantics=functools.lru_cache(maxsize=None)(v.infer_semantics)
  first=next((t,l,e) for t in data['terms'] for l in ('mql5','python') for e in t[l])
@@ -109,6 +111,7 @@ def run_controls(verbose=True):
   print(f'NEGATIVE_TESTS_TOTAL={len(negatives)}\nNEGATIVE_TESTS_PASSED={sum(x[2] for x in negatives)}\nUNIQUE_NEGATIVE_RULES={len(set(x[0] for x in negatives))}')
   print(f'POSITIVE_TESTS_TOTAL={len(positives)}\nPOSITIVE_TESTS_PASSED={sum(x[2] for x in positives)}\nUNIQUE_POSITIVE_RULES={len(set(x[0] for x in positives))}')
   print(f'ADVERSARIAL_TESTS_TOTAL={len(adversarial)}\nADVERSARIAL_TESTS_CAUGHT={sum(x[2] for x in adversarial)}\nUNIQUE_ADVERSARIAL_RULES={len(set(x[0] for x in adversarial))}')
+ LAST_COUNTER_RESULTS={counter:max([ok for _,target,ok in negatives+adversarial if target==counter] or [False]) for counter in v.BLOCKING}
  return len(negatives),sum(x[2] for x in negatives),len(set(x[0] for x in negatives)),len(positives),sum(x[2] for x in positives),len(set(x[0] for x in positives)),len(adversarial),sum(x[2] for x in adversarial),len(set(x[0] for x in adversarial))
 if __name__=='__main__':
  from stage_3_1_3.fixture_controls import run_fixture_controls
