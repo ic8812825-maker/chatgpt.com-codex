@@ -573,3 +573,30 @@ Validator самостоятельно обнаруживает candidates и п
 ### Remaining risks
 
 MQL5 parsing остаётся консервативным static analysis, а не компиляторным AST. Неразрешённые constructs блокируют строгий status вместо оптимистического повышения mapping. Полный graph вычисляется validator при каждом запуске и не хранится повторно в документации.
+
+## STAGE_3_1_3_EIGHTH_CORRECTION
+
+### Baseline и pre-fix reproduction
+
+- Последний независимо проверенный commit: `a761f135ae7810f192269802a8b64f9b290e8c07`.
+- Фактический baseline после безопасного объединения опубликованной и локальной расходящихся историй: `750ca04c127c48b03f20a24b20422b21d73ca8cf`; reset, rebase, amend и force-push не применялись.
+- `PRE_FIX_DEFECT_REPRODUCTION=PASS`: подтверждены прямые production/fixture-вызовы legacy discovery, искусственный fallback и константный positive control counter audit, неполное покрытие BLOCKING, name-based arithmetic resolution, future-declaration binding, неполные lexical blocks, отсутствие Python scoped graph и global-union Symbol/Magic proof.
+
+### Единая production-архитектура
+
+- `semantic_engine.evaluate_canonical_mapping` является единственной реализацией discovery, evidence, ranking, ambiguity и final status. `discovery.py` сохранён только как compatibility shim без самостоятельной semantic logic.
+- Production validator, fixture controls и пересчёт 230 терминов вызывают тот же API; source guard блокирует прямое использование legacy authority.
+- MQL5 resolver учитывает lexical block identity, declaration-before-use, shadowing и member owner; Python resolver строит declaration-scoped identities/use/dataflow из `ast`.
+- Arithmetic operands связаны с `DeclarationIdentity`, unit fixed point не ищет глобальный identifier по написанию. Symbol/Magic scope вычисляется по конкретному candidate/caller path.
+
+### Counter audit, fixtures и mapping
+
+- Реестр строится программно из полного production `BLOCKING`: 105/105 rules зарегистрированы; missing, ineffective, non-clean и vacuous meta-counters равны нулю.
+- Positive fixtures: 25/25; adversarial fixtures: 25/25; mutation controls: 48/48 negative, 20/20 positive, 15/15 adversarial.
+- `CANONICAL_TERMS=230`, `TERMS_AUDITED=230`; schema `3.1.3-eighth-correction-1` содержит обязательные compact claims для каждого non-MISSING winner, без fallback обязательных claims к computed values.
+- Полные generated candidate/use/dataflow graphs удалены из mapping JSON: они воспроизводятся engine во время проверки, а документ хранит только winner/runner-up/status и core semantic claims.
+
+### Scope control и remaining risks
+
+- Runtime `*.mq5`/`*.mqh`, trading logic, defaults, policy и parameter profiles не изменялись. Stage 3.1.4 не начинался.
+- MQL5 frontend остаётся консервативным static parser, а не compiler AST; неизвестное evidence не повышается оптимистически и должно приводить к более слабому status либо blocking counter.
