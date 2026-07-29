@@ -53,6 +53,8 @@ class ResolvedDataflowEdge:
     operation: str
     site: str
     expression: str = ""
+    operator: str = ""
+    operand_nodes: tuple[str, ...] = ()
 
 
 @dataclass
@@ -102,12 +104,8 @@ def propagate_units(graph: ResolvedDataflowGraph, seeds: dict[str, str] | None =
                 if sink_unit and sink_unit != source_unit: conflicts.append(edge.site)
                 elif not sink_unit: units[edge.sink.key] = source_unit; rules[edge.site] = "COPY"; changed = True
             elif edge.operation == "ARITHMETIC":
-                operator = next((op for op in ("+", "-", "*", "/") if op in edge.expression), "")
-                operands = re.findall(r"\b[A-Za-z_]\w*\b", edge.expression)
-                operand_units = []
-                for name in operands:
-                    matches = [key for key, node in graph.nodes.items() if node.declaration and node.declaration.identifier == name]
-                    if matches and units.get(matches[-1]): operand_units.append(units[matches[-1]])
+                operator = edge.operator
+                operand_units = [units[key] for key in edge.operand_nodes if key in units]
                 if len(operand_units) >= 2:
                     rule = UNIT_RULES.get((operand_units[0], operator, operand_units[1]))
                     if not rule: illegal.append(edge.site)
@@ -389,13 +387,15 @@ def build_resolved_mql_dataflow(root: Path) -> ResolvedDataflowGraph:
             if api:
                 key = f"API:{api.group(1)}"; source = graph.nodes.setdefault(key, DataflowNode(key, "API_RESULT"))
                 graph.edges.append(ResolvedDataflowEdge(source, sink, "ASSIGN", site, expression)); continue
-            names = re.findall(r"\b[A-Za-z_]\w*\b", expression)
-            resolved = False
+            names = re.findall(r"\b[A-Za-z_]\w*\b", expression);resolved_nodes=[]
             for name in names:
                 sources = [(s, i) for s, i in pairs if s.file == rel and s.identifier == name and i.scope_id in {scope, "module"} and s.line <= number]
                 if not sources: continue
                 _, source_id = max(sources, key=lambda pair: (pair[0].scope == scope, pair[0].line))
-                operation = "ARITHMETIC" if re.search(r"[+*/-]", expression) else "COPY"
-                graph.edges.append(ResolvedDataflowEdge(graph.nodes[str(source_id)], sink, operation, site, expression)); resolved = True
-            if not resolved and not re.fullmatch(r"[\d.\s+-]+", expression): graph.unresolved_sources.append(f"{site}:{expression}")
+                resolved_nodes.append(str(source_id))
+            operation = "ARITHMETIC" if re.search(r"[+*/-]", expression) else "COPY"
+            operator=next((op for op in ("+","-","*","/") if op in expression),"")
+            if resolved_nodes:
+                graph.edges.append(ResolvedDataflowEdge(graph.nodes[resolved_nodes[0]],sink,operation,site,expression,operator,tuple(resolved_nodes)))
+            elif not re.fullmatch(r"[\d.\s+-]+", expression): graph.unresolved_sources.append(f"{site}:{expression}")
     return graph

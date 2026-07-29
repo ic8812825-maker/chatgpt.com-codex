@@ -74,6 +74,25 @@ void A(){
         assert result.illegal_operations
 
 
+def declaration_resolved_arithmetic_control() -> None:
+    source="""input double ratio;
+void A(){
+ double value=PositionGetDouble(POSITION_VOLUME);
+ double scaled=value*ratio;
+}
+void B(){
+ double value=HistoryDealGetDouble(DEAL_PROFIT);
+}
+"""
+    with TemporaryDirectory() as directory:
+        root=Path(directory);(root/"resolved.mqh").write_text(source)
+        graph=build_resolved_mql_dataflow(root)
+        ratio=next(k for k,n in graph.nodes.items() if n.declaration and n.declaration.identifier=="ratio")
+        result=propagate_units(graph,{ratio:"RATIO"})
+        scaled=next(k for k,n in graph.nodes.items() if n.declaration and n.declaration.identifier=="scaled")
+        assert result.units[scaled]=="LOT" and not result.conflicts
+
+
 def scope_control() -> None:
     symbol_only = "bool A(){ return PositionGetString(POSITION_SYMBOL)==_Symbol; }"
     helper = """bool Managed(string symbol,long magic){
@@ -112,6 +131,7 @@ if __name__ == "__main__":
     entity_nature_control()
     dataflow_control()
     unit_control()
+    declaration_resolved_arithmetic_control()
     scope_control()
     python_shadowing_control()
     audit = audit_blocking_counters()
