@@ -2,7 +2,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_scoped_mql_use_graphs, compute_scope_proof, entity_nature, entity_nature_relation, propagate_units, strict_scope_relation
+from stage_3_1_3.seventh_engine import build_resolved_mql_dataflow, build_resolved_python_dataflow, build_scoped_mql_use_graphs, build_scoped_python_use_graphs, compute_scope_proof, entity_nature, entity_nature_relation, propagate_units, strict_scope_relation
 from stage_3_1_3.source_evidence import Symbol
 from stage_3_1_3.counter_audit import audit_blocking_counters
 
@@ -91,12 +91,29 @@ bool Caller(){ return Managed(_Symbol,123); }
         assert proof.scope == "PER_SYMBOL_MAGIC" and proof.symbol_evidence and proof.magic_evidence
 
 
+def python_shadowing_control() -> None:
+    source="""value=1
+def A():
+    value=2
+    return value
+def B(value):
+    return value
+"""
+    with TemporaryDirectory() as directory:
+        root=Path(directory);(root/"shadow.py").write_text(source)
+        graphs=build_scoped_python_use_graphs(root)
+        values=[g for i,g in graphs.items() if i.identifier=="value"]
+        assert len(values)==3 and len({g.declaration for g in values})==3
+        flow=build_resolved_python_dataflow(root);assert flow.nodes
+
+
 if __name__ == "__main__":
     shadowing_control()
     entity_nature_control()
     dataflow_control()
     unit_control()
     scope_control()
+    python_shadowing_control()
     audit = audit_blocking_counters()
     assert audit["VACUOUS_BLOCKING_COUNTERS"] == 0, audit
     print("SHADOWING_TESTS=PASS")

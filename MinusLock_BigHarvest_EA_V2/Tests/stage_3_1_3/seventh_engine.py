@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
+import ast
 import re
 
 from stage_3_1_3.source_evidence import Symbol, index_mql, index_python, sanitise
@@ -300,6 +301,70 @@ def build_scoped_mql_use_graphs(root: Path) -> dict[DeclarationIdentity, ScopedU
     for graph in graphs.values():
         graph.reads = sorted(set(graph.reads)); graph.writes = sorted(set(graph.writes))
     return graphs
+
+
+class _PythonScopedUses(ast.NodeVisitor):
+    def __init__(self, rel, pairs, graphs):
+        self.rel, self.pairs, self.graphs = rel, pairs, graphs
+        self.scopes = ["module"]
+    @property
+    def scope(self): return "/".join(self.scopes)
+    def _enter(self, kind, name, node):
+        self.scopes.append(f"{kind} {name}@{node.lineno}"); self.generic_visit(node); self.scopes.pop()
+    def visit_FunctionDef(self,node): self._enter("function",node.name,node)
+    visit_AsyncFunctionDef=visit_FunctionDef
+    def visit_ClassDef(self,node): self._enter("class",node.name,node)
+    def _record(self,node,name,ctx):
+        candidates=[(s,i) for s,i in self.pairs if s.file==self.rel and s.identifier==name and s.line<=node.lineno]
+        if not candidates:return
+        def rank(pair):
+            declared=pair[1].scope_id; current=self.scope
+            return (current.startswith(declared),declared.count("/"),pair[0].line)
+        _,identity=max(candidates,key=rank);site=f"{self.rel}:{node.lineno}"
+        target=self.graphs[identity]
+        (target.reads if isinstance(ctx,ast.Load) else target.writes).append(site)
+    def visit_Name(self,node): self._record(node,node.id,node.ctx)
+    def visit_Attribute(self,node):
+        self._record(node,node.attr,node.ctx);self.generic_visit(node.value)
+
+
+def build_scoped_python_use_graphs(root: Path) -> dict[DeclarationIdentity, ScopedUseGraph]:
+    symbols, identities=declaration_identities(root,"python");pairs=list(zip(symbols,identities))
+    graphs={identity:ScopedUseGraph(identity) for identity in identities}
+    for path in sorted(root.rglob("*.py")):
+        try:tree=ast.parse(path.read_text(errors="ignore"))
+        except SyntaxError:continue
+        _PythonScopedUses(str(path.relative_to(root)),pairs,graphs).visit(tree)
+    for graph in graphs.values():graph.reads=sorted(set(graph.reads));graph.writes=sorted(set(graph.writes))
+    return graphs
+
+
+def build_resolved_python_dataflow(root: Path) -> ResolvedDataflowGraph:
+    symbols,identities=declaration_identities(root,"python");pairs=list(zip(symbols,identities));graph=ResolvedDataflowGraph()
+    for _,identity in pairs:graph.nodes[str(identity)]=DataflowNode(str(identity),"DECLARATION",identity)
+    for path in sorted(root.rglob("*.py")):
+        try:tree=ast.parse(path.read_text(errors="ignore"))
+        except SyntaxError:continue
+        rel=str(path.relative_to(root))
+        for node in ast.walk(tree):
+            if not isinstance(node,(ast.Assign,ast.AnnAssign,ast.AugAssign,ast.NamedExpr)):continue
+            targets=node.targets if isinstance(node,ast.Assign) else [node.target]
+            value=node.value
+            for target in targets:
+                if not isinstance(target,(ast.Name,ast.Attribute)):continue
+                name=target.id if isinstance(target,ast.Name) else target.attr
+                sinks=[(s,i) for s,i in pairs if s.file==rel and s.identifier==name and s.line<=node.lineno]
+                if not sinks:graph.unresolved_sinks.append(f"{rel}:{node.lineno}:{name}");continue
+                _,sink_id=max(sinks,key=lambda pair:pair[0].line);sink=graph.nodes[str(sink_id)]
+                sources=[n for n in ast.walk(value) if isinstance(n,(ast.Name,ast.Attribute))]
+                for source_ast in sources:
+                    source_name=source_ast.id if isinstance(source_ast,ast.Name) else source_ast.attr
+                    found=[(s,i) for s,i in pairs if s.file==rel and s.identifier==source_name and s.line<=node.lineno]
+                    if found:
+                        _,source_id=max(found,key=lambda pair:pair[0].line)
+                        operation="ARITHMETIC" if isinstance(value,ast.BinOp) else "COPY"
+                        graph.edges.append(ResolvedDataflowEdge(graph.nodes[str(source_id)],sink,operation,f"{rel}:{node.lineno}",ast.unparse(value)))
+    return graph
 
 
 def build_resolved_mql_dataflow(root: Path) -> ResolvedDataflowGraph:
