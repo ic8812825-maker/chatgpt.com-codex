@@ -48,7 +48,7 @@ def run_fixture_controls(verbose=False):
         if rule=="UNIT_MISMATCH": caught=any(x["unit"]!="LOT" for x in evaluated)
         elif rule=="SYMBOL_MAGIC_SCOPE_MISSING": caught=any(x["scope_relation"]!="EXACT" for x in evaluated)
         elif rule=="AMBIGUOUS": caught=result["computed_status"]=="AMBIGUOUS"
-        elif rule=="INCOMPLETE_USE_SITE_COVERAGE": caught=any(not x["proof"]["no_contradictory_use"] or len(x["use_graph"]["call_sites"])>1 for x in evaluated)
+        elif rule=="INCOMPLETE_USE_SITE_COVERAGE": caught=any(not x["proof"]["no_contradictory_use"] or x["reads"]>=2 for x in evaluated)
         elif rule=="CACHE_LINEAGE_MARKED_AUTHORITATIVE": caught=any("CACHE" in x["source_lineage"] and not x["authoritative"] for x in evaluated)
         else: caught=result["computed_status"] in {"MISSING","PARTIAL_MATCH","AMBIGUOUS"}
         aresults.append((name,caught))

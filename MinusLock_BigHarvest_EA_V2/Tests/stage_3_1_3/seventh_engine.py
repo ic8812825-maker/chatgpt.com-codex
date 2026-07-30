@@ -13,6 +13,7 @@ import re
 from stage_3_1_3.source_evidence import Symbol, index_mql, index_python, sanitise
 
 ENTITY_RELATIONS = {"EXACT", "COMPATIBLE", "PARTIAL", "INCOMPATIBLE"}
+_CANDIDATE_SCOPE_INDEX = {}
 
 
 @dataclass(frozen=True, order=True)
@@ -158,21 +159,21 @@ def compute_scope_proof(root: Path) -> ScopeProof:
 def compute_candidate_scope_proof(root: Path, declaration: DeclarationIdentity,
                                   resolved_use_sites: set[str] | None = None) -> ScopeProof:
     """Compute scope only along paths that use the candidate declaration."""
-    evidence: dict[str,set[str]]={};calls:dict[str,set[str]]={};starts=set()
-    symbol_sites=[];magic_sites=[];cycle_sites=[]
-    for path in sorted([*root.rglob("*.mq5"),*root.rglob("*.mqh")]):
-        rel=str(path.relative_to(root));clean=sanitise(path.read_text(errors="ignore"))[0];scopes=_scope_lines(clean)
-        for number,line in enumerate(clean.splitlines(),1):
-            scope=scopes[number];bucket=evidence.setdefault(scope,set());site=f"{rel}:{number}"
-            candidate_site=f"{rel}:{number}"
-            if ((resolved_use_sites is not None and candidate_site in resolved_use_sites) or
-                (resolved_use_sites is None and rel==declaration.file and
-                 re.search(rf"\b{re.escape(declaration.identifier)}\b",line))):
-                starts.add(scope)
-            if re.search(r"(?:POSITION|DEAL|ORDER)_SYMBOL|\b_symbol\b",line,re.I):bucket.add("symbol");symbol_sites.append(site)
-            if re.search(r"(?:POSITION|DEAL|ORDER)_MAGIC|\bmagic(?:number)?\b",line,re.I):bucket.add("magic");magic_sites.append(site)
-            if re.search(r"\bcycle(?:id)?\b",line,re.I):bucket.add("cycle");cycle_sites.append(site)
-            calls.setdefault(scope,set()).update(f"function {name}" for name in re.findall(r"\b([A-Za-z_]\w*)\s*\(",line) if name not in {"if","for","while","switch"})
+    cache_key=str(root.resolve())
+    if cache_key not in _CANDIDATE_SCOPE_INDEX:
+        evidence={};calls={};site_scopes={};symbol_sites=[];magic_sites=[];cycle_sites=[]
+        for path in sorted([*root.rglob("*.mq5"),*root.rglob("*.mqh")]):
+            rel=str(path.relative_to(root));clean=sanitise(path.read_text(errors="ignore"))[0];scopes=_scope_lines(clean)
+            for number,line in enumerate(clean.splitlines(),1):
+                scope=scopes[number];bucket=evidence.setdefault(scope,set());site=f"{rel}:{number}";site_scopes[site]=scope
+                if re.search(r"(?:POSITION|DEAL|ORDER)_SYMBOL|\b_symbol\b",line,re.I):bucket.add("symbol");symbol_sites.append(site)
+                if re.search(r"(?:POSITION|DEAL|ORDER)_MAGIC|\bmagic(?:number)?\b",line,re.I):bucket.add("magic");magic_sites.append(site)
+                if re.search(r"\bcycle(?:id)?\b",line,re.I):bucket.add("cycle");cycle_sites.append(site)
+                calls.setdefault(scope,set()).update(f"function {name}" for name in re.findall(r"\b([A-Za-z_]\w*)\s*\(",line) if name not in {"if","for","while","switch"})
+        _CANDIDATE_SCOPE_INDEX[cache_key]=(evidence,calls,site_scopes,symbol_sites,magic_sites,cycle_sites)
+    evidence,calls,site_scopes,symbol_sites,magic_sites,cycle_sites=_CANDIDATE_SCOPE_INDEX[cache_key]
+    starts={site_scopes[site] for site in (resolved_use_sites or ()) if site in site_scopes}
+    if not starts: starts={declaration.scope_id}
     reachable=set(starts);front=list(starts)
     while front:
         current=front.pop()
@@ -274,9 +275,12 @@ def declaration_identities(root: Path, language: str) -> tuple[list[Symbol], lis
         scopes_by_file.get(symbol.file, {}).get(symbol.line, symbol.scope) if symbol.kind in {"local_variable","function_parameter","output_reference_parameter"} else symbol.scope,
         symbol.line, symbol.column, symbol.identifier, symbol.parent_symbol, symbol.kind,
     ) for symbol in symbols]
-    if len(identities) != len(set(identities)):
-        raise ValueError("duplicate declaration identity")
-    return symbols, identities
+    # Parser overlap can report the same physical declaration twice (for
+    # example a qualified field matched by two declaration patterns).  It is
+    # one declaration identity, not two candidates.
+    unique={}
+    for symbol,identity in zip(symbols,identities): unique.setdefault(identity,symbol)
+    return list(unique.values()),list(unique)
 
 
 def _scope_lines(clean: str) -> dict[int, str]:
@@ -384,6 +388,7 @@ def build_resolved_python_dataflow(root: Path) -> ResolvedDataflowGraph:
             if not isinstance(node,(ast.Assign,ast.AnnAssign,ast.AugAssign,ast.NamedExpr)):continue
             targets=node.targets if isinstance(node,ast.Assign) else [node.target]
             value=node.value
+            if value is None: continue
             for target in targets:
                 if not isinstance(target,(ast.Name,ast.Attribute)):continue
                 name=target.id if isinstance(target,ast.Name) else target.attr

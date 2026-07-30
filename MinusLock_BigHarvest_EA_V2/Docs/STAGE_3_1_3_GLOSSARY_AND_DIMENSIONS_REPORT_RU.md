@@ -600,3 +600,8 @@ MQL5 parsing остаётся консервативным static analysis, а �
 
 - Runtime `*.mq5`/`*.mqh`, trading logic, defaults, policy и parameter profiles не изменялись. Stage 3.1.4 не начинался.
 - MQL5 frontend остаётся консервативным static parser, а не compiler AST; неизвестное evidence не повышается оптимистически и должно приводить к более слабому status либо blocking counter.
+
+
+## Девятая коррекция: production-интеграция
+
+Production mapping использует DeclarationIdentity, declaration-scoped use graph, resolved dataflow, fixed-point unit propagation, dataflow lineage и per-candidate scope. Blocking registry ограничен 33 правилами с executable causal controls. Schema mapping: `3.1.3-ninth-correction-1`.

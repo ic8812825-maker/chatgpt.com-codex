@@ -1,9 +1,10 @@
 """Execute causal before/after checks for every production blocking counter."""
 from __future__ import annotations
+import ast
 from dataclasses import dataclass
+from pathlib import Path
 
-import test_stage_3_1_3_semantic_mutations as mutations
-import validate_stage_3_1_3_glossary as production
+VALIDATOR=Path(__file__).resolve().parents[1]/"validate_stage_3_1_3_glossary.py"
 
 
 @dataclass(frozen=True)
@@ -16,16 +17,27 @@ class CounterRule:
 
 
 def registry() -> dict[str, CounterRule]:
+    blocking=production_blocking()
     return {name: CounterRule(name, "published_mapping", name, "published_mapping")
-            for name in production.BLOCKING}
+            for name in blocking}
+
+
+def production_blocking() -> list[str]:
+    tree=ast.parse(VALIDATOR.read_text()); assignments=[]
+    for node in tree.body:
+        if (isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id=="BLOCKING" for t in node.targets)
+                and isinstance(node.value,ast.List)):
+            assignments=[x.value for x in node.value.elts if isinstance(x,ast.Constant)]
+    return assignments
 
 
 def audit_blocking_counters() -> dict[str, int]:
     # run_controls calls production.validate for every independently copied
     # negative and positive fixture and publishes observed target outcomes.
+    import test_stage_3_1_3_semantic_mutations as mutations
     mutations.run_controls(verbose=False)
     observed = mutations.LAST_COUNTER_RESULTS
-    blocking = list(dict.fromkeys(production.BLOCKING)); rules = registry()
+    blocking = production_blocking(); rules = registry()
     missing = set(blocking)-set(rules)
     ineffective={name for name in blocking if not observed.get(name,False)}
     # Each positive control invokes production.validate and requires all

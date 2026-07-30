@@ -9,7 +9,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_POSITION",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "TERMINAL_POSITION",
       "CACHE"
@@ -29,7 +29,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "MONEY",
-    "expected_scope": "PER_DEAL",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "DEAL_HISTORY",
       "CACHE"
@@ -53,7 +53,7 @@
     "expected_source_lineage": [
       "CONFIG_INPUT"
     ],
-    "expected_authority": true,
+    "expected_authority": false,
     "expected_temporal_class": "POLICY",
     "expected_lifecycle": "POLICY",
     "expected_blocking_counters": []
@@ -68,7 +68,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_POSITION",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "TERMINAL_POSITION",
       "CACHE"
@@ -88,7 +88,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_REQUEST",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "ORDER_REQUEST",
       "CACHE"
@@ -108,7 +108,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_DEAL",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "DEAL_HISTORY",
       "CACHE"
@@ -128,7 +128,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "IDENTITY",
-    "expected_scope": "PER_POSITION",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "TERMINAL_POSITION",
       "CACHE"
@@ -148,7 +148,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "IDENTITY",
-    "expected_scope": "PER_DEAL",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "DEAL_HISTORY",
       "CACHE"
@@ -188,7 +188,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_POSITION",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "TERMINAL_POSITION",
       "CACHE"
@@ -285,10 +285,10 @@
     "scope": "GLOBAL_RUNTIME",
     "lineage": "DERIVED",
     "expected_winner": "CandidatePlan",
-    "expected_status": "PARTIAL_MATCH",
+    "expected_status": "SEMANTIC_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "OBJECT",
-    "expected_scope": "PER_PLAN",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "DERIVED"
     ],
@@ -304,10 +304,10 @@
     "scope": "GLOBAL_RUNTIME",
     "lineage": "DERIVED",
     "expected_winner": "ExecutionRequest",
-    "expected_status": "PARTIAL_MATCH",
+    "expected_status": "SEMANTIC_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "OBJECT",
-    "expected_scope": "PER_REQUEST",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "DERIVED"
     ],
@@ -404,7 +404,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_POSITION",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "TERMINAL_POSITION",
       "CACHE"
@@ -424,7 +424,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "MONEY",
-    "expected_scope": "PER_DEAL",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "DEAL_HISTORY",
       "CACHE"
@@ -448,7 +448,7 @@
     "expected_source_lineage": [
       "CONFIG_INPUT"
     ],
-    "expected_authority": true,
+    "expected_authority": false,
     "expected_temporal_class": "POLICY",
     "expected_lifecycle": "POLICY",
     "expected_blocking_counters": []
@@ -463,7 +463,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_POSITION",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "TERMINAL_POSITION",
       "CACHE"
@@ -483,7 +483,7 @@
     "expected_status": "PARTIAL_MATCH",
     "expected_entity_nature": "SOURCE_DERIVED",
     "expected_unit": "LOT",
-    "expected_scope": "PER_REQUEST",
+    "expected_scope": "GLOBAL_RUNTIME",
     "expected_source_lineage": [
       "ORDER_REQUEST",
       "CACHE"

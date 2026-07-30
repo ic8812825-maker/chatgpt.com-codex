@@ -23,6 +23,11 @@ VIABLE = {"EXACT_MATCH", "SEMANTIC_MATCH", "PARTIAL_MATCH"}
 SCOPE_RELATIONS = {"EXACT", "BROADER", "NARROWER", "TEST_ANALOGUE", "OFFLINE_ANALOGUE", "INCOMPATIBLE"}
 _USE_CACHE: dict[tuple[str, str, str, int, str], UseGraph] = {}
 _ALL_USE_CACHE: dict[tuple[str,str],dict[str,UseGraph]] = {}
+_SCOPED_CACHE: dict[tuple[str,str],dict] = {}
+_DATAFLOW_CACHE: dict[tuple[str,str],object] = {}
+_SCOPE_CACHE: dict[tuple[str,DeclarationIdentity],str] = {}
+_LINEAGE_CACHE: dict[tuple[int,DeclarationIdentity],tuple[list[str],str,str]] = {}
+_EDGE_CACHE: dict[tuple[int,DeclarationIdentity],list[dict]] = {}
 
 
 @dataclass
@@ -313,10 +318,19 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
         graph=discover_mql_use(root,symbol) if language=="mql5" else discover_python_use(root,symbol)
         _USE_CACHE[cache_key]=graph
     unit,contradiction,unit_confidence=_unit(symbol,graph,root,propagated_units,str(identity))
-    lineage,storage_role,authority_class=_resolved_lineage(symbol,identity,resolved_dataflow)
+    if propagated_units and resolved_dataflow:
+        contradiction |= any(edge.sink.key==str(identity) and edge.site in propagated_units.conflicts
+                             for edge in resolved_dataflow.edges)
+    lineage_key=(id(resolved_dataflow),identity)
+    if lineage_key not in _LINEAGE_CACHE:
+        _LINEAGE_CACHE[lineage_key]=_resolved_lineage(symbol,identity,resolved_dataflow)
+    lineage,storage_role,authority_class=_LINEAGE_CACHE[lineage_key]
     if language=="mql5" and not symbol.file.replace("\\","/").startswith(("Tests/","Tools/")):
         sites=set(graph.all_read_sites+graph.all_write_sites)
-        scope=compute_candidate_scope_proof(root,identity,sites).scope
+        scope_key=(str(root.resolve()),identity)
+        if scope_key not in _SCOPE_CACHE:
+            _SCOPE_CACHE[scope_key]=compute_candidate_scope_proof(root,identity,sites).scope
+        scope=_SCOPE_CACHE[scope_key]
     else:scope=_scope(symbol,graph,root)
     relation=scope_relation(expected["scope"],scope)
     temporal,lifecycle=_temporal_lifecycle(lineage,symbol); authoritative=authority_class.startswith("AUTHORITATIVE_")
@@ -331,8 +345,10 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
     elif unit_confidence in {"UNKNOWN","CONTRADICTORY"}:status="MISSING"
     elif essential:status="PARTIAL_MATCH" if relation in {"BROADER","NARROWER","TEST_ANALOGUE","OFFLINE_ANALOGUE"} or "CACHE" in lineage else "SEMANTIC_MATCH"
     else:status="MISSING"
-    edges=[]
-    if resolved_dataflow is not None:
+    edges_key=(id(resolved_dataflow),identity)
+    if edges_key not in _EDGE_CACHE:
+      edges=[]
+      if resolved_dataflow is not None:
         declaration_key=str(identity)
         for edge in resolved_dataflow.edges:
             if edge.source.key == declaration_key or edge.sink.key == declaration_key:
@@ -341,6 +357,8 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
                               "evidence_text":edge.expression,
                               "operator":edge.operator,
                               "operand_nodes":list(edge.operand_nodes)})
+      _EDGE_CACHE[edges_key]=edges
+    edges=_EDGE_CACHE[edges_key]
     return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),edges,proof,str(identity),unit_confidence,storage_role,authority_class)
 
 
@@ -356,10 +374,14 @@ def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbol
         if lexical or semantic:pool.append(symbol)
     # The production path is keyed by the full declaration identity.  The
     # name-keyed builder remains only for compatibility with historical audits.
-    use_graphs=(build_scoped_mql_use_graphs(root) if language=="mql5"
-                else build_scoped_python_use_graphs(root))
-    resolved_dataflow=(build_resolved_mql_dataflow(root) if language=="mql5"
-                       else build_resolved_python_dataflow(root))
+    cache_key=(str(root.resolve()),language)
+    if cache_key not in _SCOPED_CACHE:
+        _SCOPED_CACHE[cache_key]=(build_scoped_mql_use_graphs(root) if language=="mql5"
+                                  else build_scoped_python_use_graphs(root))
+        _DATAFLOW_CACHE[cache_key]=(build_resolved_mql_dataflow(root) if language=="mql5"
+                                    else build_resolved_python_dataflow(root))
+    use_graphs=_SCOPED_CACHE[cache_key]
+    resolved_dataflow=_DATAFLOW_CACHE[cache_key]
     seeds={str(identity):"RATIO" for identity in use_graphs
            if identity.identifier in {"BigRatio","SmallRatio","ReserveShare","CloseFarShare"}}
     propagated=propagate_units(resolved_dataflow,seeds)
