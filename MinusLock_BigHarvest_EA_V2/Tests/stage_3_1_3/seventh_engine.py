@@ -407,7 +407,6 @@ def build_resolved_mql_dataflow(root: Path) -> ResolvedDataflowGraph:
     pairs = list(zip(symbols, identities))
     for _, identity in pairs:
         graph.nodes[str(identity)] = DataflowNode(str(identity), "DECLARATION", identity)
-    api_pattern = re.compile(r"(?:PositionGet\w+|HistoryDealGet\w+|SymbolInfo\w+)\s*\(\s*(\w+)")
     for path in sorted([*root.rglob("*.mq5"), *root.rglob("*.mqh")]):
         rel = str(path.relative_to(root)); clean = sanitise(path.read_text(errors="ignore"))[0]
         scopes = _scope_lines(clean)
@@ -419,9 +418,9 @@ def build_resolved_mql_dataflow(root: Path) -> ResolvedDataflowGraph:
             if not candidates: graph.unresolved_sinks.append(f"{rel}:{number}:{sink_name}"); continue
             _, sink_id = max(candidates, key=lambda pair: (pair[0].scope == scope, pair[0].line))
             sink = graph.nodes[str(sink_id)]; site = f"{rel}:{number}"
-            api = api_pattern.search(expression)
+            api = next((anchor for anchor in UNIT_API if re.search(rf"\b{anchor}\b", expression)), None)
             if api:
-                key = f"API:{api.group(1)}"; source = graph.nodes.setdefault(key, DataflowNode(key, "API_RESULT"))
+                key = f"API:{api}"; source = graph.nodes.setdefault(key, DataflowNode(key, "API_RESULT"))
                 graph.edges.append(ResolvedDataflowEdge(source, sink, "ASSIGN", site, expression)); continue
             names = re.findall(r"\b[A-Za-z_]\w*\b", expression);resolved_nodes=[]
             for name in names:
