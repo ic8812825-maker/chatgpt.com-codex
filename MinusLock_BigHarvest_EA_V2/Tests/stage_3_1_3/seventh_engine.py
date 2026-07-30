@@ -155,7 +155,8 @@ def compute_scope_proof(root: Path) -> ScopeProof:
     return ScopeProof(scope, tuple(sorted(set(symbol))), tuple(sorted(set(magic))), tuple(sorted(set(cycle))))
 
 
-def compute_candidate_scope_proof(root: Path, declaration: DeclarationIdentity) -> ScopeProof:
+def compute_candidate_scope_proof(root: Path, declaration: DeclarationIdentity,
+                                  resolved_use_sites: set[str] | None = None) -> ScopeProof:
     """Compute scope only along paths that use the candidate declaration."""
     evidence: dict[str,set[str]]={};calls:dict[str,set[str]]={};starts=set()
     symbol_sites=[];magic_sites=[];cycle_sites=[]
@@ -163,7 +164,11 @@ def compute_candidate_scope_proof(root: Path, declaration: DeclarationIdentity) 
         rel=str(path.relative_to(root));clean=sanitise(path.read_text(errors="ignore"))[0];scopes=_scope_lines(clean)
         for number,line in enumerate(clean.splitlines(),1):
             scope=scopes[number];bucket=evidence.setdefault(scope,set());site=f"{rel}:{number}"
-            if rel==declaration.file and re.search(rf"\b{re.escape(declaration.identifier)}\b",line):starts.add(scope)
+            candidate_site=f"{rel}:{number}"
+            if ((resolved_use_sites is not None and candidate_site in resolved_use_sites) or
+                (resolved_use_sites is None and rel==declaration.file and
+                 re.search(rf"\b{re.escape(declaration.identifier)}\b",line))):
+                starts.add(scope)
             if re.search(r"(?:POSITION|DEAL|ORDER)_SYMBOL|\b_symbol\b",line,re.I):bucket.add("symbol");symbol_sites.append(site)
             if re.search(r"(?:POSITION|DEAL|ORDER)_MAGIC|\bmagic(?:number)?\b",line,re.I):bucket.add("magic");magic_sites.append(site)
             if re.search(r"\bcycle(?:id)?\b",line,re.I):bucket.add("cycle");cycle_sites.append(site)

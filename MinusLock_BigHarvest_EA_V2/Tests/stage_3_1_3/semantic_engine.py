@@ -314,8 +314,9 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
         _USE_CACHE[cache_key]=graph
     unit,contradiction,unit_confidence=_unit(symbol,graph,root,propagated_units,str(identity))
     lineage,storage_role,authority_class=_resolved_lineage(symbol,identity,resolved_dataflow)
-    if language=="mql5" and expected["scope"] in {"PER_SYMBOL_MAGIC","PER_SYMBOL_MAGIC_CYCLE"}:
-        identity=DeclarationIdentity.from_symbol(language,symbol);scope=compute_candidate_scope_proof(root,identity).scope
+    if language=="mql5" and not symbol.file.replace("\\","/").startswith(("Tests/","Tools/")):
+        sites=set(graph.all_read_sites+graph.all_write_sites)
+        scope=compute_candidate_scope_proof(root,identity,sites).scope
     else:scope=_scope(symbol,graph,root)
     relation=scope_relation(expected["scope"],scope)
     temporal,lifecycle=_temporal_lifecycle(lineage,symbol); authoritative=authority_class.startswith("AUTHORITATIVE_")
