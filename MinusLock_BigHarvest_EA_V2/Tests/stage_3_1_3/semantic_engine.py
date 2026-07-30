@@ -15,7 +15,7 @@ from stage_3_1_3.source_evidence import Symbol, index_mql, index_python, sanitis
 from stage_3_1_3.seventh_engine import (
     DeclarationIdentity, build_scoped_mql_use_graphs, build_scoped_python_use_graphs,
     build_resolved_mql_dataflow, build_resolved_python_dataflow,
-    compute_candidate_scope_proof,
+    compute_candidate_scope_proof, propagate_units,
     entity_nature,
 )
 
@@ -68,6 +68,7 @@ class Candidate:
     dataflow_edges: list[dict]
     proof: dict
     declaration_key: str = ""
+    unit_confidence: str = "UNKNOWN"
 
     @property
     def key(self) -> str:
@@ -197,15 +198,21 @@ def build_all_use_graphs(root: Path, symbols: list[Symbol], language: str) -> di
     _ALL_USE_CACHE[cache_key]=graphs;return graphs
 
 
-def _unit(symbol: Symbol, graph: UseGraph, root: Path) -> tuple[str, bool]:
-    if symbol.kind in {"struct","class"}: return "OBJECT", False
+def _unit(symbol: Symbol, graph: UseGraph, root: Path, propagated=None,
+          declaration_key: str = "") -> tuple[str, bool, str]:
+    if symbol.kind in {"struct","class"}: return "OBJECT", False, "POLICY_ANCHORED"
+    if propagated and declaration_key in propagated.units:
+        confidence = "API_ANCHORED" if propagated.rules.get(declaration_key)=="API_ANCHORED" else "PROPAGATED"
+        return propagated.units[declaration_key], declaration_key in propagated.conflicts, confidence
     source=symbol.declaration_text+"\n"+"\n".join(graph.assignment_sources)
     anchored={unit for anchor,unit in UNIT_ANCHORS.items() if anchor in source.upper()}
     name=symbol.identifier.lower().replace("_",""); named={unit for unit,words in UNIT_WORDS.items() if any(w.replace("_","") in name for w in words)}
     if symbol.kind=="input_parameter" and any(x in name for x in ("ratio","share","percent","factor")):
-        return "RATIO", False
+        return "RATIO", False, "POLICY_ANCHORED"
     units=anchored or named
-    return (next(iter(units)) if len(units)==1 else "UNKNOWN" if not units else "CONTRADICTORY", len(units)>1 or bool(graph.contradictory_sites))
+    unit=next(iter(units)) if len(units)==1 else "UNKNOWN" if not units else "CONTRADICTORY"
+    confidence="NAME_FALLBACK" if len(units)==1 else unit
+    return unit, len(units)>1 or bool(graph.contradictory_sites), confidence
 
 
 def _lineage(symbol: Symbol, graph: UseGraph) -> list[str]:
@@ -271,14 +278,14 @@ def _scoped_graph(identity: DeclarationIdentity, scoped) -> UseGraph:
 
 def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
              use_graphs: dict[DeclarationIdentity, object] | None=None,
-             resolved_dataflow=None) -> Candidate:
+             resolved_dataflow=None, propagated_units=None) -> Candidate:
     cache_key=(str(root.resolve()),language,symbol.file,symbol.line,symbol.identifier)
     identity = DeclarationIdentity.from_symbol(language, symbol)
     graph=_scoped_graph(identity, use_graphs) if use_graphs is not None else _USE_CACHE.get(cache_key)
     if graph is None:
         graph=discover_mql_use(root,symbol) if language=="mql5" else discover_python_use(root,symbol)
         _USE_CACHE[cache_key]=graph
-    unit,contradiction=_unit(symbol,graph,root);lineage=_lineage(symbol,graph)
+    unit,contradiction,unit_confidence=_unit(symbol,graph,root,propagated_units,str(identity));lineage=_lineage(symbol,graph)
     if language=="mql5" and expected["scope"] in {"PER_SYMBOL_MAGIC","PER_SYMBOL_MAGIC_CYCLE"}:
         identity=DeclarationIdentity.from_symbol(language,symbol);scope=compute_candidate_scope_proof(root,identity).scope
     else:scope=_scope(symbol,graph,root)
@@ -291,7 +298,8 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
     score=min(100,lexical+15*proof["unit_match"]+10*(relation=="EXACT")+10*proof["source_lineage_match"]+10*proof["authority_match"]+10*proof["temporal_match"]+10*proof["lifecycle_match"]+5*proof["no_contradictory_use"])
     essential=proof["entity_nature_match"] and proof["unit_match"] and relation!="INCOMPATIBLE"
     strict=all(v is True or k=="scope_relation" for k,v in proof.items()) and relation=="EXACT"
-    if strict:status="EXACT_MATCH" if lexical else "SEMANTIC_MATCH"
+    if strict and unit_confidence not in {"NAME_FALLBACK","UNKNOWN","CONTRADICTORY"}:status="EXACT_MATCH" if lexical else "SEMANTIC_MATCH"
+    elif unit_confidence in {"UNKNOWN","CONTRADICTORY"}:status="MISSING"
     elif essential:status="PARTIAL_MATCH" if relation in {"BROADER","NARROWER","TEST_ANALOGUE","OFFLINE_ANALOGUE"} or "CACHE" in lineage else "SEMANTIC_MATCH"
     else:status="MISSING"
     edges=[]
@@ -304,7 +312,7 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
                               "evidence_text":edge.expression,
                               "operator":edge.operator,
                               "operand_nodes":list(edge.operand_nodes)})
-    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),edges,proof,str(identity))
+    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),edges,proof,str(identity),unit_confidence)
 
 
 def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbols: list[Symbol] | None=None) -> dict:
@@ -323,7 +331,10 @@ def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbol
                 else build_scoped_python_use_graphs(root))
     resolved_dataflow=(build_resolved_mql_dataflow(root) if language=="mql5"
                        else build_resolved_python_dataflow(root))
-    evaluated=[evaluate(root,s,expected,language,use_graphs,resolved_dataflow) for s in pool]
+    seeds={str(identity):"RATIO" for identity in use_graphs
+           if identity.identifier in {"BigRatio","SmallRatio","ReserveShare","CloseFarShare"}}
+    propagated=propagate_units(resolved_dataflow,seeds)
+    evaluated=[evaluate(root,s,expected,language,use_graphs,resolved_dataflow,propagated) for s in pool]
     evaluated.sort(key=lambda c:(c.score,c.status!="MISSING",-c.line,c.file,c.identifier),reverse=True)
     viable=[c for c in evaluated if c.status in VIABLE]
     winner=viable[0] if viable else None;runner=viable[1] if len(viable)>1 else None
