@@ -13,7 +13,8 @@ from pathlib import Path
 from stage_3_1_3.semantic_inference import UNIT_ANCHORS, UNIT_WORDS
 from stage_3_1_3.source_evidence import Symbol, index_mql, index_python, sanitise
 from stage_3_1_3.seventh_engine import (
-    DeclarationIdentity, build_scoped_mql_use_graphs, compute_candidate_scope_proof,
+    DeclarationIdentity, build_scoped_mql_use_graphs, build_scoped_python_use_graphs,
+    compute_candidate_scope_proof,
     entity_nature,
 )
 
@@ -65,6 +66,7 @@ class Candidate:
     use_graph: dict
     dataflow_edges: list[dict]
     proof: dict
+    declaration_key: str = ""
 
     @property
     def key(self) -> str:
@@ -259,9 +261,18 @@ def _temporal_lifecycle(lineage: list[str], symbol: Symbol) -> tuple[str,str]:
     return "PROJECTED","PROJECTED_VALUE"
 
 
-def evaluate(root: Path, symbol: Symbol, expected: dict, language: str, use_graphs: dict[str,UseGraph] | None=None) -> Candidate:
+def _scoped_graph(identity: DeclarationIdentity, scoped) -> UseGraph:
+    graph = scoped.get(identity)
+    return UseGraph(identity.identifier,
+                    all_read_sites=list(graph.reads) if graph else [],
+                    all_write_sites=list(graph.writes) if graph else [])
+
+
+def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
+             use_graphs: dict[DeclarationIdentity, object] | None=None) -> Candidate:
     cache_key=(str(root.resolve()),language,symbol.file,symbol.line,symbol.identifier)
-    graph=use_graphs.get(symbol.identifier) if use_graphs else _USE_CACHE.get(cache_key)
+    identity = DeclarationIdentity.from_symbol(language, symbol)
+    graph=_scoped_graph(identity, use_graphs) if use_graphs is not None else _USE_CACHE.get(cache_key)
     if graph is None:
         graph=discover_mql_use(root,symbol) if language=="mql5" else discover_python_use(root,symbol)
         _USE_CACHE[cache_key]=graph
@@ -284,7 +295,7 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str, use_grap
     edges=[]
     for item in graph.assignment_sources:
         site,rhs=item.split(":",2)[0:2],item.rsplit(":",1)[-1];edges.append(DataflowEdge(rhs,symbol.identifier,"assignment",":".join(site)))
-    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),[asdict(e) for e in edges],proof)
+    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),[asdict(e) for e in edges],proof,str(identity))
 
 
 def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbols: list[Symbol] | None=None) -> dict:
@@ -297,7 +308,10 @@ def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbol
         declaration=symbol.declaration_text.upper()
         semantic=any(UNIT_ANCHORS.get(anchor)==expected["unit"] and anchor in declaration for anchor in UNIT_ANCHORS)
         if lexical or semantic:pool.append(symbol)
-    use_graphs=build_all_use_graphs(root,symbols,language)
+    # The production path is keyed by the full declaration identity.  The
+    # name-keyed builder remains only for compatibility with historical audits.
+    use_graphs=(build_scoped_mql_use_graphs(root) if language=="mql5"
+                else build_scoped_python_use_graphs(root))
     evaluated=[evaluate(root,s,expected,language,use_graphs) for s in pool]
     evaluated.sort(key=lambda c:(c.score,c.status!="MISSING",-c.line,c.file,c.identifier),reverse=True)
     viable=[c for c in evaluated if c.status in VIABLE]
