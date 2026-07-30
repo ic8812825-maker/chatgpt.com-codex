@@ -14,6 +14,7 @@ from stage_3_1_3.semantic_inference import UNIT_ANCHORS, UNIT_WORDS
 from stage_3_1_3.source_evidence import Symbol, index_mql, index_python, sanitise
 from stage_3_1_3.seventh_engine import (
     DeclarationIdentity, build_scoped_mql_use_graphs, build_scoped_python_use_graphs,
+    build_resolved_mql_dataflow, build_resolved_python_dataflow,
     compute_candidate_scope_proof,
     entity_nature,
 )
@@ -269,7 +270,8 @@ def _scoped_graph(identity: DeclarationIdentity, scoped) -> UseGraph:
 
 
 def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
-             use_graphs: dict[DeclarationIdentity, object] | None=None) -> Candidate:
+             use_graphs: dict[DeclarationIdentity, object] | None=None,
+             resolved_dataflow=None) -> Candidate:
     cache_key=(str(root.resolve()),language,symbol.file,symbol.line,symbol.identifier)
     identity = DeclarationIdentity.from_symbol(language, symbol)
     graph=_scoped_graph(identity, use_graphs) if use_graphs is not None else _USE_CACHE.get(cache_key)
@@ -293,9 +295,16 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
     elif essential:status="PARTIAL_MATCH" if relation in {"BROADER","NARROWER","TEST_ANALOGUE","OFFLINE_ANALOGUE"} or "CACHE" in lineage else "SEMANTIC_MATCH"
     else:status="MISSING"
     edges=[]
-    for item in graph.assignment_sources:
-        site,rhs=item.split(":",2)[0:2],item.rsplit(":",1)[-1];edges.append(DataflowEdge(rhs,symbol.identifier,"assignment",":".join(site)))
-    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),[asdict(e) for e in edges],proof,str(identity))
+    if resolved_dataflow is not None:
+        declaration_key=str(identity)
+        for edge in resolved_dataflow.edges:
+            if edge.source.key == declaration_key or edge.sink.key == declaration_key:
+                edges.append({"source":edge.source.key,"sink":edge.sink.key,
+                              "operation":edge.operation,"site":edge.site,
+                              "evidence_text":edge.expression,
+                              "operator":edge.operator,
+                              "operand_nodes":list(edge.operand_nodes)})
+    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),edges,proof,str(identity))
 
 
 def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbols: list[Symbol] | None=None) -> dict:
@@ -312,7 +321,9 @@ def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbol
     # name-keyed builder remains only for compatibility with historical audits.
     use_graphs=(build_scoped_mql_use_graphs(root) if language=="mql5"
                 else build_scoped_python_use_graphs(root))
-    evaluated=[evaluate(root,s,expected,language,use_graphs) for s in pool]
+    resolved_dataflow=(build_resolved_mql_dataflow(root) if language=="mql5"
+                       else build_resolved_python_dataflow(root))
+    evaluated=[evaluate(root,s,expected,language,use_graphs,resolved_dataflow) for s in pool]
     evaluated.sort(key=lambda c:(c.score,c.status!="MISSING",-c.line,c.file,c.identifier),reverse=True)
     viable=[c for c in evaluated if c.status in VIABLE]
     winner=viable[0] if viable else None;runner=viable[1] if len(viable)>1 else None
