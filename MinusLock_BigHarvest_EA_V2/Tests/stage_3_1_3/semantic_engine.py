@@ -69,6 +69,8 @@ class Candidate:
     proof: dict
     declaration_key: str = ""
     unit_confidence: str = "UNKNOWN"
+    storage_role: str = "DERIVED"
+    authority_class: str = "NON_AUTHORITATIVE_DERIVED"
 
     @property
     def key(self) -> str:
@@ -229,6 +231,31 @@ def _lineage(symbol: Symbol, graph: UseGraph) -> list[str]:
     return [origin,"CACHE"] if stored and origin not in {"CONFIG_INPUT","TEST_ORACLE","OFFLINE_MODEL"} else [origin]
 
 
+def _resolved_lineage(symbol: Symbol, identity: DeclarationIdentity, dataflow) -> tuple[list[str], str, str]:
+    origins=set(); pending=[str(identity)]; seen=set()
+    while pending:
+        key=pending.pop()
+        if key in seen: continue
+        seen.add(key)
+        for edge in dataflow.edges if dataflow else ():
+            if edge.sink.key != key: continue
+            if edge.source.kind=="API_RESULT":
+                api=edge.source.key.removeprefix("API:")
+                if api.startswith("POSITION_"): origins.add("TERMINAL_POSITION")
+                elif api.startswith("DEAL_"): origins.add("DEAL_HISTORY")
+                elif api.startswith("SYMBOL_"): origins.add("SYMBOL_PROPERTY")
+                else: origins.add("API_RESULT")
+            else: pending.append(edge.source.key)
+    if not origins: origins.add(_lineage(symbol,UseGraph(symbol.identifier))[0])
+    stored=symbol.kind in {"struct_field","class_field","global_variable","static_variable"}
+    role="CACHE" if stored else "LEDGER" if "DEAL_HISTORY" in origins else "DERIVED"
+    if role=="CACHE": authority="NON_AUTHORITATIVE_MIRROR"
+    elif role=="LEDGER": authority="AUTHORITATIVE_HISTORICAL"
+    elif origins & {"TERMINAL_POSITION","SYMBOL_PROPERTY"}: authority="AUTHORITATIVE_TERMINAL"
+    else: authority="NON_AUTHORITATIVE_DERIVED"
+    return sorted(origins)+([role] if role=="CACHE" else []),role,authority
+
+
 def _scope(symbol: Symbol, graph: UseGraph, root: Path) -> str:
     path=symbol.file.replace("\\","/")
     if path.startswith("Tests/"):return "TEST_ONLY"
@@ -285,12 +312,13 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
     if graph is None:
         graph=discover_mql_use(root,symbol) if language=="mql5" else discover_python_use(root,symbol)
         _USE_CACHE[cache_key]=graph
-    unit,contradiction,unit_confidence=_unit(symbol,graph,root,propagated_units,str(identity));lineage=_lineage(symbol,graph)
+    unit,contradiction,unit_confidence=_unit(symbol,graph,root,propagated_units,str(identity))
+    lineage,storage_role,authority_class=_resolved_lineage(symbol,identity,resolved_dataflow)
     if language=="mql5" and expected["scope"] in {"PER_SYMBOL_MAGIC","PER_SYMBOL_MAGIC_CYCLE"}:
         identity=DeclarationIdentity.from_symbol(language,symbol);scope=compute_candidate_scope_proof(root,identity).scope
     else:scope=_scope(symbol,graph,root)
     relation=scope_relation(expected["scope"],scope)
-    temporal,lifecycle=_temporal_lifecycle(lineage,symbol); authoritative=lineage[-1] not in {"CACHE","DERIVED","TEST_ORACLE","OFFLINE_MODEL"}
+    temporal,lifecycle=_temporal_lifecycle(lineage,symbol); authoritative=authority_class.startswith("AUTHORITATIVE_")
     lexical=len(_words(expected["canonical"]+" "+" ".join(expected.get("aliases",[])))&_words(symbol.identifier))*8
     expected_nature=expected.get("entity_nature","VALUE");actual_nature=entity_nature(symbol,unit)
     nature_ok=actual_nature==expected_nature or expected_nature=="VALUE" and actual_nature not in {"FUNCTION","STATE","ENUM","STRUCT","PLAN"}
@@ -312,7 +340,7 @@ def evaluate(root: Path, symbol: Symbol, expected: dict, language: str,
                               "evidence_text":edge.expression,
                               "operator":edge.operator,
                               "operand_nodes":list(edge.operand_nodes)})
-    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),edges,proof,str(identity),unit_confidence)
+    return Candidate(symbol.identifier,symbol.file,symbol.line,symbol.kind,score,status,actual_nature,unit,scope,relation,lineage,authoritative,temporal,lifecycle,len(graph.all_read_sites),len(graph.all_write_sites),asdict(graph),edges,proof,str(identity),unit_confidence,storage_role,authority_class)
 
 
 def evaluate_canonical_mapping(root: Path, expected: dict, language: str, symbols: list[Symbol] | None=None) -> dict:
