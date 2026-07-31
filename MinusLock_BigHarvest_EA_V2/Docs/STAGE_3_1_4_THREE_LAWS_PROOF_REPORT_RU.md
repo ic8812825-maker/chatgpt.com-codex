@@ -232,3 +232,11 @@ money, costs, strict pointwise monotonicity, event jump, NewFar/NextBig/Gross,
 q и finite bound. Invalid off-grid distances и non-positive broker properties
 отклоняются. Spread представлен Bid/Ask-derived initial intercept и не считается
 повторно как cost.
+
+## 21. Automated boundary matrix
+
+Matrix использует lots 0.01…5.00, LotStep 0.01/0.1/coarse 0.25, distances
+1/10/50/100/200/300/550 points, UP/DOWN, explicit five-part costs, strict PASS,
+equality и strict FAIL. Off-grid/min-lot combinations отбрасываются как invalid,
+а не пропускаются как PASS. Фактическое число вычисленных valid combinations
+публикует test runner.
