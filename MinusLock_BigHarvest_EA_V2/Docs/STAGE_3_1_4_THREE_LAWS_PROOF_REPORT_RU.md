@@ -434,3 +434,21 @@ Executable suite измеряет transitions, cap используется то
 
 `level-by-level`, `Bid/Ask`, `Risk PASS` и `worst-case q` далее означают только
 эти executable capabilities. Static oracle не доказывает actual MT5 fills.
+
+## Correction read-only MQL5 mapping
+
+| Усиленная capability | MQL5 evidence | Mapping |
+|---|---|---|
+| True Bid/Ask projected money | `HybridCatchUpClosePrice`, `CalcProjectedPositionNetMoney`, execution profiles | LAW_IMPLEMENTED |
+| Spread/slippage separation | `BrokerMoneyResult` fields and catch-up trace expose both | LAW_IMPLEMENTED |
+| Reserve level path | `EvaluateHybridCatchUpLevel`, recursive state and coverage deficit | LAW_IMPLEMENTED |
+| Pointwise Recovery | `ValidateHybridRecoveryMonotonicity` | LAW_IMPLEMENTED |
+| Universal event Recovery snapshot gate | route/reconciliation checks distributed; no single all-event gate | LAW_PARTIAL |
+| Account-money RiskOld/RiskNext | broker risk/margin/worst-case components exist, orchestration is route-dependent | LAW_PARTIAL |
+| Observed q across transitions | actual compression ratio stored, universal domain aggregation absent | LAW_PARTIAL |
+| Exact finite rank | MinLot/next-state checks exist; explicit integer rank certificate absent | LAW_PARTIAL |
+| Gross lifecycle | fields/checks exist across plan/StateMachine, universal reconciled comparator absent | LAW_PARTIAL |
+
+Это read-only mapping. Ни один `.mq5`/runtime `.mqh`, StateMachine, execution
+sequence или profile не изменён. PARTIAL gaps переходят в будущие implementation/
+runtime evidence stages и не маскируются static oracle.
