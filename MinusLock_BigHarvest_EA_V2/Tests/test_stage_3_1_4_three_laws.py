@@ -121,6 +121,26 @@ def q_matrix():
  mutation=q_domain([(D('1'),D('.4'),b)],D('.35'));assert not mutation['pass']
  result.update(theorem);return result
 
+def compression_matrix():
+ total=passed=0;qs=[]
+ for step in map(D,['.01','.1','.25']):
+  b=broker(str(step));control=D('1.09000')
+  for far in map(D,['.01','.02','.05','.1','.5','1','2','5']):
+   old=b.normalize(far)
+   if old<=0:continue
+   for cap in map(D,['.20','.30','.35']):
+    new=b.normalize(old*cap);core=b.normalize(old*D('.1'));trend=b.normalize(old*D('.05'));small=b.normalize(old*D('.05'),'ceiling')
+    if core+trend>=old:continue
+    comp=compression(old,new,core,trend,small,b,old*D('5'))
+    old_basket=(BasketPosition(Side.BUY,old*D('2'),D('1.10000')),)
+    next_basket=(BasketPosition(Side.BUY,max(new,b.min_lot),D('1.09500')),)
+    risk_pass=risk_money(next_basket,control,b)<risk_money(old_basket,control,b)
+    rank_pass=new==0 or int(new/b.lot_step)<int(old/b.lot_step)
+    ok=all((comp['new_far_pass'],comp['next_big_pass'],comp['gross_pass'],risk_pass,comp['q']<=cap,rank_pass))
+    total+=1;passed+=ok;qs.append(comp['q'])
+ assert total==passed and total>=20
+ return {'total':total,'passed':passed,'observed_q_max':max(qs)}
+
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')
 
@@ -164,3 +184,4 @@ if __name__=='__main__':
  total,passed=event_matrix();print(f'EVENT_SCENARIOS_TOTAL={total}');print(f'EVENT_SCENARIOS_PASSED={passed}')
  total,passed=risk_matrix();print(f'RISK_SCENARIOS_TOTAL={total}');print(f'RISK_SCENARIOS_PASSED={passed}')
  q=q_matrix();print(f'Q_TRANSITIONS={q["transitions"]}');print(f'OBSERVED_Q_MAX={q["observed_q_max"]}');print(f'POLICY_Q_CAP={q["policy_q_cap"]}')
+ c=compression_matrix();print(f'COMPRESSION_MATRIX_CASES={c["total"]}');print(f'COMPRESSION_MATRIX_PASSED={c["passed"]}')
