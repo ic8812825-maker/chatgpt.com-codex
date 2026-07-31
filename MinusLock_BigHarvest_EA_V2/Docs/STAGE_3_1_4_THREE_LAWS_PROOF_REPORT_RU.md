@@ -414,3 +414,23 @@ final-only coverage, textual Risk/q claims и не моделировал реа
 grid и `q<=max(cap)=0.35<1`. `CONDITIONAL_Q_THEOREM=PASS` для каждого profile и
 `SYSTEM_Q_THEOREM=PASS` для их полного union; ceiling/nearest не допускаются.
 Executable suite измеряет transitions, cap используется только как upper bound.
+
+## Correction executable claim reconciliation
+
+Предыдущий verdict до заголовка Correction считается superseded. Усиленные claims:
+
+| Claim | Executable owner/evidence |
+|---|---|
+| Real Bid/Ask and spread | `Broker.bid0/ask0/spread_price`, `projected_profit`, side/spread counterexamples |
+| Level-by-level catch-up | `trajectory` + `coverage_path`; 5 deficit cases and full matrix |
+| Cost adjusted | 7 independent categories / 14 directional cases |
+| Pointwise UP/DOWN | 210 law cases + 12 asymmetric broker cases |
+| Event RecoveryPL | `EventSnapshot`, `recovery_pl`, 11 economic events |
+| Account-money Risk | `BasketPosition`, `risk_money`, Risk/compression matrices |
+| Observed q | 24 normalized transitions compared with policy upper bound |
+| Exact finite proof | integer broker ranks; no float/log critical gate |
+| Gross domain | 30 below/equal/above boundary cases |
+| Blocker causality | 18 production blocker names with clean positive and targeted mutation |
+
+`level-by-level`, `Bid/Ask`, `Risk PASS` и `worst-case q` далее означают только
+эти executable capabilities. Static oracle не доказывает actual MT5 fills.
