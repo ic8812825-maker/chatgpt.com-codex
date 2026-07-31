@@ -59,8 +59,11 @@ def counterexamples():
  up=evaluate(p,direction_asym,D('30'),'UP');down=evaluate(p,direction_asym,D('30'),'DOWN')
  caught['UPPass_DOWNFail']=up['pointwise'] and not down['pointwise']
  no_cost=Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),D('0'))
- real_cost=Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),D('0'),costs=Costs(slippage=D('100')))
- caught['SpreadZeroPass_RealSpreadFail']=evaluate(no_cost,b,D('100'),'UP')['money_catch_up'] and not evaluate(real_cost,b,D('100'),'UP')['money_catch_up']
+ spread_zero=broker(spread='0');spread_high=broker(spread='0.00100')
+ caught['SpreadZeroPass_RealSpreadFail']=evaluate(no_cost,spread_zero,D('100'),'UP')['money_catch_up'] and not evaluate(no_cost,spread_high,D('100'),'UP')['money_catch_up']
+ slip_cost=Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),D('0'),costs=Costs(slippage=D('100')))
+ caught['SlippageZeroPass_RealSlippageFail']=evaluate(no_cost,b,D('100'),'UP')['money_catch_up'] and not evaluate(slip_cost,b,D('100'),'UP')['money_catch_up']
+ assert not hasattr(Costs(),'spread'), 'spread would be counted twice'
  caught['MarginIgnoredPass_MarginFail']=evaluate(no_cost,b,D('100'),'UP')['pointwise'] and not (D('500')>=D('1000'))
  assert all(caught.values()),caught
  return caught

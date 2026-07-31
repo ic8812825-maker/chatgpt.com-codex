@@ -15,7 +15,7 @@ class Broker:
         if min(self.point,self.tick_size,self.tick_value_profit,self.tick_value_loss,self.lot_step,self.min_lot)<=0: raise ValueError('positive broker quantities required')
         if self.tick_value_profit_down is not None and self.tick_value_profit_down<=0:raise ValueError('down profit tick value')
         if self.tick_value_loss_down is not None and self.tick_value_loss_down<=0:raise ValueError('down loss tick value')
-        if self.bid0<=0 or self.ask0<=self.bid0:raise ValueError('Ask must exceed Bid')
+        if self.bid0<=0 or self.ask0<self.bid0:raise ValueError('Ask must not be below Bid')
         if (self.ask0-self.bid0)/self.tick_size != ((self.ask0-self.bid0)/self.tick_size).to_integral_value():raise ValueError('spread must use tick grid')
     @property
     def spread_price(self)->D:return self.ask0-self.bid0
