@@ -141,6 +141,21 @@ def compression_matrix():
  assert total==passed and total>=20
  return {'total':total,'passed':passed,'observed_q_max':max(qs)}
 
+def gross_domain_matrix():
+ total=passed=0
+ for step in map(D,['.01','.1']):
+  b=broker(str(step))
+  for far in map(D,['.1','.5','1','2','5']):
+   if far<step:continue
+   old=far*D('3');new=far*D('.2');core=far;trend=far*D('.5')
+   for delta,expected in [(-step,True),(D(0),False),(step,False)]:
+    small=old+delta-b.normalize(new)-b.normalize(core)-b.normalize(trend)
+    if small<0:continue
+    result=compression(far,new,core,trend,small,b,old)
+    total+=1;passed+=result['gross_pass'] is expected
+ assert total==passed and total>=20
+ return total,passed
+
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')
 
@@ -185,3 +200,4 @@ if __name__=='__main__':
  total,passed=risk_matrix();print(f'RISK_SCENARIOS_TOTAL={total}');print(f'RISK_SCENARIOS_PASSED={passed}')
  q=q_matrix();print(f'Q_TRANSITIONS={q["transitions"]}');print(f'OBSERVED_Q_MAX={q["observed_q_max"]}');print(f'POLICY_Q_CAP={q["policy_q_cap"]}')
  c=compression_matrix();print(f'COMPRESSION_MATRIX_CASES={c["total"]}');print(f'COMPRESSION_MATRIX_PASSED={c["passed"]}')
+ total,passed=gross_domain_matrix();print(f'GROSS_DOMAIN_CASES={total}');print(f'GROSS_DOMAIN_PASSED={passed}')
