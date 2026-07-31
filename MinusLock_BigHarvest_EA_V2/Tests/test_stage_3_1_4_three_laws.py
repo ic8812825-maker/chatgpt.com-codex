@@ -51,6 +51,21 @@ def deficit_matrix():
   out[name]=result
  return out
 
+def cost_matrix():
+ categories={
+  'NO_COSTS':(Costs(),True),'COMMISSION_ONLY':(Costs(commission_open=D('1'),commission_close=D('1')),True),
+  'SWAP_ONLY':(Costs(swap=D('2')),True),'FEE_ONLY':(Costs(fee=D('2')),True),
+  'SLIPPAGE_ONLY':(Costs(slippage=D('2')),True),
+  'COMBINED_NORMAL':(Costs(D('1'),D('1'),D('1'),D('1'),D('1')),True),
+  'COMBINED_HIGH':(Costs(D('30'),D('30'),D('30'),D('30'),D('30')),False)}
+ total=passed=0;b=broker()
+ for costs,expected in categories.values():
+  for direction in ('UP','DOWN'):
+   result=evaluate(Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),D('10'),costs=costs),b,D('100'),direction)
+   total+=1;passed+=result['money_catch_up'] is expected
+ assert total==passed
+ return total,passed
+
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')
 
@@ -86,3 +101,4 @@ if __name__=='__main__':
  result=counterexamples()
  for name in result:print(f'COUNTEREXAMPLE_{name}=CAUGHT')
  print(f'COUNTEREXAMPLES_CAUGHT={len(result)}')
+ total,passed=cost_matrix();print(f'COST_SCENARIOS_TOTAL={total}');print(f'COST_SCENARIOS_PASSED={passed}')
