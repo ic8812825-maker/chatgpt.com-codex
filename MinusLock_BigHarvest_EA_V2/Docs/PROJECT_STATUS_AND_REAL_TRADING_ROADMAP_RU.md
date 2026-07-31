@@ -177,11 +177,41 @@
 
 Результат: нормативный раздел в главном мануале.
 
+Подтверждённый управляющий статус после remote publication recovery:
+
+```text
+STAGE_3_1_3_STATUS=CLOSED
+FINAL_PUBLISHED_COMMIT=018d25e3722d7830dd85d1e04e19583660e55f28
+REMOTE_BRANCH=work
+REMOTE_PUBLICATION_VERIFIED=YES
+NEXT_ALLOWED_STAGE=3.1.4
+STAGE_3_1_4_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+```
+
+Указанный commit — опубликованный и независимо scope-проверенный recovery HEAD
+перед этой document-only записью статуса. Доказательства находятся в
+`STAGE_3_1_3_11_GITHUB_PUBLICATION_RECOVERY_REPORT_RU.md`. Этап 3.1.4 этим
+статусом не начинается.
+
 Коммит:
 
 `Этап 3.1.3: унифицированы термины, размерности и денежные знаки Hybrid Split Big`.
 
 ### 3.1.4. Полная проверка трёх законов
+
+Подтверждённый статус Этапа 3.1.4:
+
+```text
+STAGE_3_1_4_STATUS=CLOSED
+VALIDATED_EVIDENCE_COMMIT=ac2a43e294464498ed27acc3aadc14471b4ba927
+NEXT_ALLOWED_STAGE=3.1.5
+STAGE_3_1_5_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+```
+
+Три закона прошли symbolic, broker-normalized, money, pointwise, event, rounding
+и finite checks. Это не изменяет production logic и не начинает Этап 3.1.5.
 
 Должны быть повторно доказаны:
 

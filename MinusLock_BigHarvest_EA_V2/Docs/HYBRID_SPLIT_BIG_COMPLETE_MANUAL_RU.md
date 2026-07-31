@@ -689,3 +689,102 @@ Mapping обязан проходить цепочку `canonical term → gener
 | `IDENTITY` / `STATE` | not numeric | owner/state-machine evidence | exact identity/event transition |
 | `PROJECTED_VALUE` | family-specific | immutable input snapshot | stale on revision; never assignment-to-actual |
 | `LEDGER` | money-specific | EventID + confirmed evidence | exactly-once persistence and restart reconciliation |
+
+# Три главных закона Hybrid Split Big — canonical law contract Этапа 3.1.4
+
+## Law 1 — Reserve Catch-Up
+
+### Name
+Reserve Catch-Up.
+### Purpose
+Доказать конечное net-money покрытие Far deficit.
+### Variables
+`F,C,T,S,B=C+T,α,R,P_k` из единой модели 3.1.4.
+### Units
+Lots для geometry, dimensionless α, account money для coverage.
+### Preconditions
+Frozen symbol/profile/snapshot; normalized lots; `0<α<=1`; broker money model.
+### Analytic necessary condition
+`α(C+T-S)>F`; equality не является catch-up.
+### Broker-normalized condition
+Строгое условие повторяется после normalization.
+### Money condition
+На каждом обязательном level используются Bid/Ask и OrderCalcProfit semantics;
+net reserve вычитает commission/swap/fee/slippage без double-count spread.
+### Event-boundary condition
+Coverage сравнивается только между reconciled snapshots.
+### Margin/worst-case separation
+Law PASS не отменяет margin/worst-case reject.
+### PASS
+Analytic + normalized + level money + net costs PASS.
+### FAIL
+Любой layer FAIL или отсутствует evidence.
+### Terminal condition
+Far закрыт либо net coverage достигнуто по canonical terminal rule.
+### Test evidence
+`Tests/test_stage_3_1_4_three_laws.py` и final validator.
+
+## Law 2 — RecoveryPL Monotonicity
+
+### Name
+Directional broker-grid RecoveryPL monotonicity.
+### Purpose
+Гарантировать улучшение projected net P/L при каждом tick к Big.
+### Variables
+`x,P_k,C,T,S,F,RecoveryPL(P_k)`.
+### Units
+Directional distance, lots, account money.
+### Preconditions
+Frozen spread/cost convention между events; valid Bid/Ask grid.
+### Analytic necessary condition
+`C+T-S-F>0` при positive direction-aware broker value.
+### Broker-normalized condition
+Slope и trajectory используют normalized lots/prices.
+### Money condition
+`RecoveryPL(P_{k+1})>RecoveryPL(P_k)` по broker money на всём интервале.
+### Event-boundary condition
+Каждый cost/partial-close jump проверяется separately; derivative недостаточна.
+### Margin/worst-case separation
+Monotonicity не является trade permission.
+### PASS
+UP и DOWN analytic, pointwise и event checks PASS.
+### FAIL
+Plateau при strict contract, отрицательный tick или event jump.
+### Terminal condition
+Big level достигнут либо plan отклонён.
+### Test evidence
+Exhaustive grid matrix и named counterexamples.
+
+## Law 3 — Compression and finite reversal
+
+### Name
+Broker-rounded cycle compression.
+### Purpose
+Исключить stagnation/expansion и доказать finite transitions.
+### Variables
+`OldFar,NewFar,NormalizedNextBigGross,GrossOld,GrossNext,RiskOld,RiskNext,q`.
+### Units
+Lots, account-money risk, dimensionless q.
+### Preconditions
+Comparable reconciled snapshots, same scope/control-price convention.
+### Analytic necessary condition
+`0<NewFar<OldFar` для non-terminal; `NewFar=0` terminal.
+### Broker-normalized condition
+`NextBigGross<OldFar`, `GrossNext<GrossOld`, strict normalized decrease.
+### Money condition
+Когда risk controls frozen: `RiskNext<RiskOld`; иначе reject/deferred dependency.
+### Event-boundary condition
+Old/Next сравниваются после fill reconciliation.
+### Margin/worst-case separation
+Compression PASS не отменяет independent gates.
+### PASS
+Strict broker grid decrease и proven `q_n<=q_max<1`; integer grid rank decreases.
+### FAIL
+Normalized equality/expansion, unproven q/risk or mixed lifecycle snapshots.
+### Terminal condition
+NormalizedFar=0/ниже MinLot либо canonical terminal rule.
+### Test evidence
+Compression, rounding, q/finite and counterexample suites.
+
+Necessary, sufficient mathematical evidence и production trade permission — три
+разных уровня; ни один necessary inequality не публикуется как достаточный gate.
