@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'Tools'))
-from three_laws_oracle import Broker,Costs,EventSnapshot,Plan,compression,evaluate,event_monotone,finite_bound
+from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,evaluate,event_monotone,finite_bound,risk_money
 
 def broker(step='0.01',point='0.00001',tick='0.00001',profit='1',loss='1',down_profit=None,down_loss=None,bid='1.10000',spread='0.00010'):
  return Broker(D(point),D(tick),D(profit),D(loss),D(step),D(step),D(down_profit) if down_profit else None,D(down_loss) if down_loss else None,D(bid),D(bid)+D(spread))
@@ -98,6 +98,20 @@ def event_matrix():
  assert passed==len(cases)
  return len(cases),passed
 
+def risk_matrix():
+ b=broker();control=D('1.09000')
+ same_gross_near=(BasketPosition(Side.BUY,D('1'),D('1.09100')),)
+ same_gross_far=(BasketPosition(Side.BUY,D('1'),D('1.11000')),)
+ assert sum(p.lot for p in same_gross_near)==sum(p.lot for p in same_gross_far)
+ assert risk_money(same_gross_near,control,b)!=risk_money(same_gross_far,control,b)
+ old=(BasketPosition(Side.BUY,D('2'),D('1.09500')),)
+ next_safe=(BasketPosition(Side.BUY,D('1'),D('1.09500')),)
+ next_danger=(BasketPosition(Side.BUY,D('1'),D('1.12000')),)
+ cases=[risk_money(next_safe,control,b)<risk_money(old,control,b),
+        sum(p.lot for p in next_danger)<sum(p.lot for p in old) and risk_money(next_danger,control,b)>risk_money(old,control,b)]
+ assert all(cases)
+ return 4,4
+
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')
 
@@ -136,3 +150,4 @@ if __name__=='__main__':
  total,passed=cost_matrix();print(f'COST_SCENARIOS_TOTAL={total}');print(f'COST_SCENARIOS_PASSED={passed}')
  total,passed=broker_matrix();print(f'BROKER_SCENARIOS_TOTAL={total}');print(f'BROKER_SCENARIOS_PASSED={passed}')
  total,passed=event_matrix();print(f'EVENT_SCENARIOS_TOTAL={total}');print(f'EVENT_SCENARIOS_PASSED={passed}')
+ total,passed=risk_matrix();print(f'RISK_SCENARIOS_TOTAL={total}');print(f'RISK_SCENARIOS_PASSED={passed}')

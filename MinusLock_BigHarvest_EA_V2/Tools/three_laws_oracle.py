@@ -96,6 +96,16 @@ def event_monotone(before:EventSnapshot,after:EventSnapshot,strict=False)->bool:
     delta=recovery_pl(after)-recovery_pl(before)
     return delta>0 if strict else delta>=0
 
+@dataclass(frozen=True)
+class BasketPosition:
+    side:Side;lot:D;open_price:D
+
+def risk_money(positions:tuple[BasketPosition,...],control_bid:D,broker:Broker,costs:Costs=Costs())->D:
+    control_ask=control_bid+broker.spread_price
+    money=sum((projected_profit(p.side,p.lot,p.open_price,control_bid,control_ask,
+          broker.tick_size,broker.tick_value_profit,broker.tick_value_loss) for p in positions),D(0))
+    return max(D(0),-money+costs.total)
+
 def coverage_path(rows):
     values=[r['coverage'] for r in rows]
     start=next((i for i,row in enumerate(rows) if row['gross_reserve']>0),0)
