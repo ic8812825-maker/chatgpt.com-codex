@@ -272,3 +272,11 @@ sufficient evidence и trade permission разделены явно.
 
 Production sources прочитаны без изменений. Gaps относятся к future implementation/
 policy stages; этот этап не меняет MQL5, order sequence, gates или profiles.
+
+## 25. Fail-closed validator contract
+
+`Tests/validate_stage_3_1_4_three_laws.py` исполняет oracle matrix и девять
+counterexamples, считает 14 named blockers и возвращает non-zero при любом.
+Risk и q проверяются по наличию утверждённых canonical domain contracts, а не по
+удобному test profile. Поэтому отсутствие `RISK_CONTROL_POLICY_APPROVED` или
+`Q_MAX_APPROVED` честно блокирует закрытие, не ослабляя остальные proofs.
