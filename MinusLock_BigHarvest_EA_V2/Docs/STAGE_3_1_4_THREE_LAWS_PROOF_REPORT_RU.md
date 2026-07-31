@@ -50,3 +50,22 @@ PRODUCTION_TRADING_LOGIC_CHANGED=NO
 PARAMETER_PROFILE_CHANGED=NO
 STAGE_3_1_5_STARTED=NO
 ```
+
+## 3. Единая symbolic/sign model
+
+Вводится directional coordinate `x>=0`: пройденное broker-valid расстояние к
+Big. `dP/dx=+1` для UP и `dP/dx=-1` для DOWN. Тогда объёмы всегда неотрицательны,
+а знак leg задаёт направление позиции, не знак lot.
+
+| Position | UP move to Big | DOWN move to Big |
+|---|---:|---:|
+| Far | `-F` | `-F` |
+| BigCore | `+C` | `+C` |
+| BigTrend | `+T` | `+T` |
+| SmallBase | `-S` | `-S` |
+
+UP: Big legs BUY (закрытие Bid), Far/Small SELL (закрытие Ask). DOWN: Big legs
+SELL (Ask), Far/Small BUY (Bid). После transform к `x` обе directional slopes
+равны `C+T-S-F`; spread меняет intercept и event costs, но при frozen spread не
++меняет slope. Все четыре lots имеют unit LOT; slope умножается на direction-aware
+broker money/tick/lot, поэтому результат MONEY/price-distance.
