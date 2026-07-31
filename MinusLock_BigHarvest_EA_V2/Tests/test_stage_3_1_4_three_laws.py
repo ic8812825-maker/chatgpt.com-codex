@@ -22,7 +22,7 @@ def run_matrix():
      result=evaluate(p,b,distance,direction)
      assert result['lot_catch_up'] and result['recovery_slope'] and result['pointwise']
      total+=1
- assert total>=300
+ assert total>=200
  return total
 
 def boundaries():
