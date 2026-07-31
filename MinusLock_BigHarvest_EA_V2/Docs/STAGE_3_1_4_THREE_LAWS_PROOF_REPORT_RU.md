@@ -131,3 +131,12 @@ realized/unrealized transfer вычисляются два reconciled snapshots 
 conservative; новые costs являются отрицательным jump. Допустимый action обязан
 сохранить требуемый contract, иначе `EVENT_MONOTONICITY=FAIL` и plan reject.
 Derivative не используется как доказательство jump.
+
+## 10. Law 3 — NewFar
+
+`OldFar` — reconciled role до transition; `NewFar` создаётся только из явно
+разрешённого residual/promoted role после reconciliation. Cache, request и Big
+role не являются NewFar. Non-terminal compression требует
+`0<NewFarActualLot<OldFarActualLot`; `NewFar=0` — terminal full close,
+`NewFar=OldFar` — stagnation, `NewFar>OldFar` — expansion. Этап не выбирает
+policy источника NewFar, а классифицирует результат.
