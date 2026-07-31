@@ -197,3 +197,11 @@ plateau невозможен в admitted sequence.
 Small ceiling; mixed floor/ceiling destruction; residual dust; coarse LotStep.
 Каждый публикует `RAW_LAW_STATUS`, `NORMALIZED_LAW_STATUS`, `FINAL_STATUS`.
 Единое правило: normalized FAIL ⇒ `FINAL_STATUS=REJECT`, даже при raw PASS.
+
+## 17. Margin и worst-case separation
+
+Law satisfaction — только один input Decision Engine. Cases
+`LOT_LAWS=PASS,MONEY_LAWS=PASS,MARGIN_GATE=FAIL` и аналогичный
+`WORST_CASE_GATE=FAIL` обязаны дать `PLAN=REJECT`. Ни oracle, ни manual не
+объявляют trade permitted по трём laws без margin, worst-case, freshness,
+execution и reconciliation gates.
