@@ -452,3 +452,131 @@ Executable suite измеряет transitions, cap используется то
 Это read-only mapping. Ни один `.mq5`/runtime `.mqh`, StateMachine, execution
 sequence или profile не изменён. PARTIAL gaps переходят в будущие implementation/
 runtime evidence stages и не маскируются static oracle.
+
+# Correction 3.1.4.26 Final Acceptance
+
+## Publication
+
+```text
+CORRECTION_BASELINE=d10ebe3fad63edc5325933a5daf0bb21db18c28f
+FINAL_EVIDENCE_HEAD=b5cc68175fb46203be9eaea41163e6292ef9e35a
+FINAL_COMMIT=SELF (Этап 3.1.4.26.23)
+REMOTE_BRANCH=work
+LOCAL_REMOTE_PARITY=PASS_AFTER_PUSH_REQUIRED
+```
+
+## Commits
+
+- `a8645ed4e4e52a7d4ad63c7368d1941e54e8b1c4` — `Этап 3.1.4.26.1: Этап 3.1.4 повторно открыт для доказательной коррекции`
+- `8e7dd3d90f17a49d815528f78dd005f594b68016` — `Этап 3.1.4.26.2: oracle переведён на явную Bid Ask и spread broker model`
+- `d3bb6cc991124b5d7ca7af1569156f5f02e6ca6b` — `Этап 3.1.4.26.3: broker money переведён с favorable flag на side-aware price calculation`
+- `8af80e5d2f0a985e156a4ca40c6a5f0f2988c335` — `Этап 3.1.4.26.4: разделены spread и slippage proofs и исправлен ложный counterexample`
+- `a7e9a2156e694076427bc36cace0a5347a98d04b` — `Этап 3.1.4.26.5: Reserve Catch-Up переведён на полный level-by-level money proof`
+- `eb86d0abd905a2dd078dda0cc2335f79b64d9fd4` — `Этап 3.1.4.26.6: matrix дополнена реальными начальными денежными дефицитами Far`
+- `596bcd0e4b8791546081f482d1a1204a57b6f095` — `Этап 3.1.4.26.7: automated matrix расширена полноценной money-проверкой Reserve Catch-Up`
+- `d7f92e498552356c548089f7ab7aa0d50f2e166a` — `Этап 3.1.4.26.8: создана независимая матрица commission swap fee slippage costs`
+- `6817d83bbbcd16545cf28d17f7a82d42ea769c69` — `Этап 3.1.4.26.9: UP DOWN laws проверены на множестве asymmetric broker profiles`
+- `73e865fb219aca7ea4533d4ee1900b7bfd7abe03` — `Этап 3.1.4.26.10: event monotonicity переведена на reconciled RecoveryPL snapshots`
+- `920e8cba39895732587475f93b9eafb917f8904b` — `Этап 3.1.4.26.11: реализован независимый account-money Risk compression proof`
+- `ea4e40f5c0fb7a3b457dec39d7d68426e762346e` — `Этап 3.1.4.26.12: Risk counterexample переведён на реальные basket money calculations`
+- `47efda749fcfad840a51eb5c6ae9fc512fdd70ad` — `Этап 3.1.4.26.13: q_max переведён с текстового profile cap на вычисляемый transition bound`
+- `28fb3c323f107a0536d573368a37b4f43894e0c1` — `Этап 3.1.4.26.14: q proof ограничен фактически определённым admissible transition domain`
+- `be4d73ab3d9b880e23813657c614f5ca2b221ec6` — `Этап 3.1.4.26.15: finite termination переведена на exact broker-grid rank proof`
+- `b88324aa42627e2e5eced4ea34853e08fb0463ee` — `Этап 3.1.4.26.16: automated matrix расширена всеми compression и finite invariants`
+- `786f3e216af43c0dfc1ac8f9fc7a45a3be571e08` — `Этап 3.1.4.26.17: GrossNext GrossOld проверены на полном boundary domain`
+- `55bd8d032e2eebb9a187b0cbd1201b3a154888f9` — `Этап 3.1.4.26.18: final validator переведён с одного good plan на агрегированные proof suites`
+- `bade1ce545e777ab9ba2c787e566652286bddf8e` — `Этап 3.1.4.26.19: доказана причинная работоспособность blockers Этапа 3.1.4`
+- `1ac2343d8ead08ad846dea25aae1eff34642683d` — `Этап 3.1.4.26.20: counterexample suite расширен против ложных PASS трёх законов`
+- `682e25b88fa894be2eef15a4bd4974998e64f42f` — `Этап 3.1.4.26.21: proof report синхронизирован с фактическими executable доказательствами`
+- `b5cc68175fb46203be9eaea41163e6292ef9e35a` — `Этап 3.1.4.26.22: MQL5 mapping повторно проверен против усиленного proof contract`
+
+## Changed files
+
+Только `Docs/STAGE_3_1_4_THREE_LAWS_PROOF_REPORT_RU.md`, управляющий roadmap,
+`Tools/three_laws_oracle.py`, два Stage 3.1.4 test/validator entry points, causal
+audit и четыре evidence logs. Production `.mq5`/runtime `.mqh`, StateMachine,
+profiles и соседние проекты не изменены.
+
+## Executable domains
+
+```text
+BROKER_PROFILES=6
+BROKER_DIRECTIONAL_SCENARIOS=12
+LAW_MATRIX_CASES=210
+REAL_FAR_DEFICIT_CASES=5
+COST_SCENARIOS_TOTAL=14
+LEVEL_PATH_SCENARIOS=5+210
+EVENT_SCENARIOS_TOTAL=11
+RISK_SCENARIOS_TOTAL=4
+COMPRESSION_SCENARIOS_TOTAL=51
+GROSS_BOUNDARY_SCENARIOS_TOTAL=30
+Q_TRANSITIONS=24
+OBSERVED_Q_MAX=0.35
+POLICY_Q_CAP=0.35
+FINITE_GRID_RANK=PASS
+COUNTEREXAMPLES_TOTAL=14
+COUNTEREXAMPLES_CAUGHT=14
+BLOCKERS_TOTAL=18
+MISSING_CAUSAL_RULES=0
+INEFFECTIVE_CAUSAL_RULES=0
+BLOCKING_COUNTERS=NONE
+```
+
+## Critical acceptance
+
+```text
+LOT_CATCH_UP=PASS
+BROKER_BID_ASK_MONEY_CATCH_UP=PASS
+LEVEL_BY_LEVEL_CATCH_UP=PASS
+COST_ADJUSTED_CATCH_UP=PASS
+REAL_INITIAL_FAR_DEFICIT_TESTED=YES
+ANALYTIC_SLOPE=PASS
+POINTWISE_BROKER_GRID=PASS
+UP_TRACK=PASS
+DOWN_TRACK=PASS
+EVENT_BOUNDARY=PASS
+COST_EVENTS=PASS
+NEW_FAR_COMPRESSION=PASS
+NEXT_BIG_GROSS_COMPRESSION=PASS
+GROSS_COMPRESSION_DOMAIN=PASS
+RISK_COMPRESSION_DOMAIN=PASS
+OBSERVED_Q_BOUND=PASS
+BROKER_GRID_FINITE_TERMINATION=PASS
+BLOCKER_CAUSAL_AUDIT=PASS
+STATIC_BROKER_MODEL=PASS
+EXACT_MT5_RUNTIME_EXECUTION=NOT_PROVEN_BY_STAGE_3_1_4
+REPOSITORY_SCOPE_VIOLATION=NO
+PRODUCTION_TRADING_LOGIC_CHANGED=NO
+PARAMETER_PROFILE_CHANGED=NO
+STAGE_3_1_5_STARTED=NO
+```
+
+## MQL5 gaps and limitations
+
+MQL5 mapping остаётся `LAW_PARTIAL` для universal event Recovery gate, единого
+RiskOld/RiskNext orchestration, observed-q aggregation, explicit integer-rank
+certificate и gross lifecycle comparator. Static model не доказывает dynamic
+spread, fills, requotes, real slippage, swap timing или deal reconciliation.
+Эти gaps не превращаются в runtime PASS и требуют следующих implementation/
+runtime evidence stages.
+
+FINAL_VERDICT
+
+STAGE_3_1_4_VALIDATION=PASS
+
+LAW_1_RESERVE_CATCHUP=PASS
+LAW_2_RECOVERY_MONOTONICITY=PASS
+LAW_3_COMPRESSION=PASS
+
+BID_ASK_MODEL=PASS
+SPREAD_MODEL=PASS
+RISK_COMPRESSION=PASS
+Q_WORST_CASE_BOUND=PASS
+DISCRETE_FINITE_TERMINATION=PASS
+
+BLOCKING_COUNTERS=NONE
+
+STAGE_3_1_4_STATUS=CLOSED
+NEXT_ALLOWED_STAGE=3.1.5
+STAGE_3_1_5_STARTED=NO
+AWAITING_USER_APPROVAL=YES
