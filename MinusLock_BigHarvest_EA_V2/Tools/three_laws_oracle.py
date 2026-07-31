@@ -130,6 +130,12 @@ def q_domain(transitions,policy_q_cap:D):
     return {'transitions':len(observed),'observed_q_max':maximum,
             'policy_q_cap':policy_q_cap,'pass':bool(observed) and maximum<=policy_q_cap<D(1)}
 
+def system_q_theorem(policy_caps:tuple[D,...],rounding_mode:str='floor'):
+    defined=bool(policy_caps) and rounding_mode=='floor' and all(D(0)<cap<D(1) for cap in policy_caps)
+    return {'conditional_q_theorem':'PASS' if defined else 'FAIL',
+            'system_q_theorem':'PASS' if defined else 'UNPROVEN_POLICY_DEPENDENCY',
+            'policy_q_cap':max(policy_caps) if defined else None}
+
 def finite_bound(initial_far:D,q_max:D,broker:Broker)->int:
     if not D(0)<q_max<D(1) or initial_far<=0:raise ValueError('F>0 and 0<q<1 required')
     geometric=max(0,ceil(log(float(broker.min_lot/initial_far))/log(float(q_max))))

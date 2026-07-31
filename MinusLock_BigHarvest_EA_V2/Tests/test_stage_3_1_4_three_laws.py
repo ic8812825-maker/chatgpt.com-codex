@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'Tools'))
-from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,evaluate,event_monotone,finite_bound,q_domain,risk_money
+from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,evaluate,event_monotone,finite_bound,q_domain,risk_money,system_q_theorem
 
 def broker(step='0.01',point='0.00001',tick='0.00001',profit='1',loss='1',down_profit=None,down_loss=None,bid='1.10000',spread='0.00010'):
  return Broker(D(point),D(tick),D(profit),D(loss),D(step),D(step),D(down_profit) if down_profit else None,D(down_loss) if down_loss else None,D(bid),D(bid)+D(spread))
@@ -113,10 +113,11 @@ def risk_matrix():
  return 4,4
 
 def q_matrix():
- b=broker();transitions=[(D('1'),D('.1'),b),(D('1'),D('.2'),b),(D('1'),D('.3'),b)]
- result=q_domain(transitions,D('.35'));assert result['pass'] and result['observed_q_max']==D('.3')
+ b=broker();caps=(D('.35'),D('.30'),D('.20'));theorem=system_q_theorem(caps);assert theorem['system_q_theorem']=='PASS'
+ transitions=[(far,far*cap,b) for far in map(D,['.01','.02','.05','.1','.5','1','2','5']) for cap in caps]
+ result=q_domain(transitions,theorem['policy_q_cap']);assert result['pass'] and result['observed_q_max']<=D('.35')
  mutation=q_domain([(D('1'),D('.4'),b)],D('.35'));assert not mutation['pass']
- return result
+ result.update(theorem);return result
 
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')

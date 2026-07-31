@@ -405,3 +405,12 @@ PARAMETER_PROFILE_CHANGED=NO
 final-only coverage, textual Risk/q claims и не моделировал реальные Bid/Ask.
 До устранения всех причин прежний PASS отозван; сильные claims ниже будут
 перепроверены только executable suites.
+
+## Correction q admissible domain
+
+Существующая canonical policy определяет domain: approved profile caps
+`0.35/0.30/0.20`, solver выбирает broker-rounded NewFar не выше target, а volume
+округляется floor. Поэтому `floor_step(cap*F)<=cap*F` для любого positive Far на
+grid и `q<=max(cap)=0.35<1`. `CONDITIONAL_Q_THEOREM=PASS` для каждого profile и
+`SYSTEM_Q_THEOREM=PASS` для их полного union; ceiling/nearest не допускаются.
+Executable suite измеряет transitions, cap используется только как upper bound.
