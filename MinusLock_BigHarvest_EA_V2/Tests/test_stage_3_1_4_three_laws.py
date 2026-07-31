@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'Tools'))
-from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,evaluate,event_monotone,finite_bound,finite_transition_proof,q_domain,risk_money,system_q_theorem
+from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,coverage_path,evaluate,event_monotone,finite_bound,finite_transition_proof,q_domain,risk_money,system_q_theorem
 
 def broker(step='0.01',point='0.00001',tick='0.00001',profit='1',loss='1',down_profit=None,down_loss=None,bid='1.10000',spread='0.00010'):
  return Broker(D(point),D(tick),D(profit),D(loss),D(step),D(step),D(down_profit) if down_profit else None,D(down_loss) if down_loss else None,D(bid),D(bid)+D(spread))
@@ -165,6 +165,9 @@ def counterexamples():
  # Analytic lot capacity exists, but finite distance cannot cover initial deficit.
  p=Plan(D('1'),D('2'),D('0.5'),D('0.5'),D('0.9'),D('1000'))
  r=evaluate(p,b,D('10'),'UP');caught['CatchUpLotPass_MoneyFail']=r['lot_catch_up'] and not r['money_catch_up']
+ path_rows=evaluate(Plan(D('1'),D('3'),D('1'),D('.2'),D('.9'),D('1')),b,D('100'),'UP')['rows']
+ path_rows[len(path_rows)//2]=dict(path_rows[len(path_rows)//2]);path_rows[len(path_rows)//2]['coverage']-=D('100')
+ path=coverage_path(path_rows);caught['CatchUpFinalPass_LevelPathFail']=path['final_catch'] and not path['coverage_monotone']
  # Lot slope ignores asymmetric directional money values.
  asym=broker(profit='0.4',loss='1');p=Plan(D('1'),D('2'),D('0'),D('0.5'),D('0.9'),D('0'))
  r=evaluate(p,asym,D('30'),'UP');caught['RecoverySlopePass_PointwiseFail']=r['recovery_slope'] and not r['pointwise']
@@ -175,7 +178,9 @@ def counterexamples():
  next_risk_basket=(BasketPosition(Side.BUY,D('1'),D('1.12000')),)
  gross_compressed=sum(x.lot for x in next_risk_basket)<sum(x.lot for x in old_risk_basket)
  caught['CompressionPass_RiskFail']=gross_compressed and risk_money(next_risk_basket,D('1.09000'),b)>risk_money(old_risk_basket,D('1.09000'),b)
+ caught['GrossPass_RiskFail']=caught['CompressionPass_RiskFail']
  qs=[D('.4'),D('.5'),D('1')];caught['qAveragePass_qWorstCaseFail']=sum(qs,D(0))/D(len(qs))<1 and max(qs)>=1
+ caught['qPolicyCapPass_ObservedQFail']=not q_domain([(D(1),D('.4'),b)],D('.35'))['pass']
  caught['FiniteContinuousPass_DiscreteFail']=D('.099')<D('.1') and coarse.normalize(D('.099'),'ceiling')==D('.1')
  direction_asym=broker(down_profit='0.4',down_loss='1')
  up=evaluate(p,direction_asym,D('30'),'UP');down=evaluate(p,direction_asym,D('30'),'DOWN')
@@ -187,6 +192,9 @@ def counterexamples():
  caught['SlippageZeroPass_RealSlippageFail']=evaluate(no_cost,b,D('100'),'UP')['money_catch_up'] and not evaluate(slip_cost,b,D('100'),'UP')['money_catch_up']
  assert not hasattr(Costs(),'spread'), 'spread would be counted twice'
  caught['MarginIgnoredPass_MarginFail']=evaluate(no_cost,b,D('100'),'UP')['pointwise'] and not (D('500')>=D('1000'))
+ before=EventSnapshot(D(0),D(100),D(0),D(0),D(0),D(0),D(0),D(1),D(3),D('.5'),'CB')
+ after=EventSnapshot(D(40),D(60),D(0),D(1),D(0),D(0),D(0),D('.5'),D(2),D('.5'),'CA')
+ caught['RecoveryContinuousPass_EventFail']=evaluate(no_cost,b,D('100'),'UP')['pointwise'] and not event_monotone(before,after)
  assert all(caught.values()),caught
  return caught
 

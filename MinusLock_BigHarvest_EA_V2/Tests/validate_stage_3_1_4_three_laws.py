@@ -25,7 +25,7 @@ def aggregate():
  c['DISCRETE_FINITE_TERMINATION_FAIL']=int(comp['total']!=comp['passed'])
  c['ROUNDING_PATHOLOGY_UNHANDLED']=int(not all(caught.get(x) for x in ('CompressionRawPass_NormalizedFail','FiniteContinuousPass_DiscreteFail')))
  c['UP_DOWN_PARITY_FAIL']=int(broker_total!=broker_pass or broker_total<12)
- c['COUNTEREXAMPLE_SUITE_FAIL']=int(len(caught)<10 or not all(caught.values()))
+ c['COUNTEREXAMPLE_SUITE_FAIL']=int(len(caught)<14 or not all(caught.values()))
  return c,{'AUTOMATED_MATRIX_CASES':matrix,'COST_SCENARIOS_TOTAL':cost_total,'BROKER_SCENARIOS_TOTAL':broker_total,'EVENT_SCENARIOS_TOTAL':event_total,'RISK_SCENARIOS_TOTAL':risk_total,'COMPRESSION_MATRIX_CASES':comp['total'],'GROSS_DOMAIN_CASES':gross_total,'Q_TRANSITIONS':q['transitions'],'OBSERVED_Q_MAX':q['observed_q_max'],'POLICY_Q_CAP':q['policy_q_cap'],'COUNTEREXAMPLES_TOTAL':len(caught),'COUNTEREXAMPLES_CAUGHT':sum(caught.values())}
 
 def main():

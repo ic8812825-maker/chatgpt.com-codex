@@ -19,7 +19,7 @@ def controls():
  mutations={
  'RESERVE_CATCHUP_ANALYTIC_FAIL':bad_plan.reserve_slope_lots<=0,
  'RESERVE_CATCHUP_MONEY_FAIL':bad_eval['lot_catch_up'] is False or not bad_eval['money_catch_up'],
- 'RESERVE_CATCHUP_LEVEL_PATH_FAIL':not caught.get('CatchUpFinalPass_LevelPathFail',False) if 'CatchUpFinalPass_LevelPathFail' in caught else True,
+ 'RESERVE_CATCHUP_LEVEL_PATH_FAIL':caught['CatchUpFinalPass_LevelPathFail'],
  'RECOVERY_SLOPE_FAIL':bad_plan.recovery_slope_lots<=0,
  'RECOVERY_POINTWISE_MONOTONICITY_FAIL':caught['RecoverySlopePass_PointwiseFail'],
  'RECOVERY_EVENT_MONOTONICITY_FAIL':not event_monotone(before,after),
