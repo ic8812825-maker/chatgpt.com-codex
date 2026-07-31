@@ -40,6 +40,16 @@ def boundaries():
  assert 0<catch['coverage_path']['levels_checked']<=101
  assert catch['coverage_path']['coverage_monotone'] and catch['coverage_path']['first_catch_level'] is not None
 
+def deficit_matrix():
+ b=broker();out={}
+ for name,loss,expected in [('SMALL',D('1'),True),('MEDIUM',D('10'),True),
+                            ('LARGE_CATCHABLE',D('30'),True),('NEAR_LIMIT',D('42'),True),
+                            ('IMPOSSIBLE',D('50'),False)]:
+  result=evaluate(Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),loss),b,D('100'),'UP')
+  assert result['lot_catch_up'] and result['money_catch_up'] is expected
+  out[name]=result
+ return out
+
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')
 
