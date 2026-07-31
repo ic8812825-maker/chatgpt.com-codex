@@ -81,7 +81,20 @@ def trajectory(plan:Plan,broker:Broker,points:D,direction:str):
     return rows
 
 def strictly_increasing(values):return bool(values) and all(b>a for a,b in zip(values,values[1:]))
-def event_monotone(before:D,realized_transfer:D,floating_after:D,new_costs:D)->bool:return realized_transfer+floating_after-new_costs>=before
+@dataclass(frozen=True)
+class EventSnapshot:
+    realized_pl:D;floating_pl:D;reserve_ledger:D;commission:D;swap:D;fee:D;slippage:D
+    far_actual_lot:D;big_actual_lot:D;small_actual_lot:D;event_id:str
+
+def recovery_pl(snapshot:EventSnapshot)->D:
+    # Reserve is a separate ledger bucket and must not be counted twice in RecoveryPL.
+    return snapshot.realized_pl+snapshot.floating_pl-sum(
+        (snapshot.commission,snapshot.swap,snapshot.fee,snapshot.slippage),D(0))
+
+def event_monotone(before:EventSnapshot,after:EventSnapshot,strict=False)->bool:
+    if not before.event_id or not after.event_id or before.event_id==after.event_id:raise ValueError('distinct EventID required')
+    delta=recovery_pl(after)-recovery_pl(before)
+    return delta>0 if strict else delta>=0
 
 def coverage_path(rows):
     values=[r['coverage'] for r in rows]

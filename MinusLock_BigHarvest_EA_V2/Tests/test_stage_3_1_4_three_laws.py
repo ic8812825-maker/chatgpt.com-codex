@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'Tools'))
-from three_laws_oracle import Broker,Costs,Plan,compression,evaluate,event_monotone,finite_bound
+from three_laws_oracle import Broker,Costs,EventSnapshot,Plan,compression,evaluate,event_monotone,finite_bound
 
 def broker(step='0.01',point='0.00001',tick='0.00001',profit='1',loss='1',down_profit=None,down_loss=None,bid='1.10000',spread='0.00010'):
  return Broker(D(point),D(tick),D(profit),D(loss),D(step),D(step),D(down_profit) if down_profit else None,D(down_loss) if down_loss else None,D(bid),D(bid)+D(spread))
@@ -32,8 +32,6 @@ def boundaries():
  fail=Plan(D('1'),D('1'),D('0'),D('0.5'),D('1'),D('0'))
  assert equality.reserve_slope_lots==0 and not evaluate(equality,b,D('10'),'UP')['lot_catch_up']
  assert fail.recovery_slope_lots<0 and not evaluate(fail,b,D('10'),'DOWN')['pointwise']
- assert event_monotone(D('5'),D('3'),D('2'),D('0'))
- assert not event_monotone(D('5'),D('3'),D('2'),D('0.01'))
  c=compression(D('1'),D('0.5'),D('0.2'),D('0.1'),D('0.1'),b,D('2'))
  assert c['new_far_pass'] and c['next_big_pass'] and c['gross_pass'] and c['q']==D('0.5')
  assert finite_bound(D('1'),D('0.5'),b)>0
@@ -82,6 +80,24 @@ def broker_matrix():
  assert total==passed
  return total,passed
 
+def event_matrix():
+ def snap(event,realized='0',floating='100',reserve='0',commission='0',swap='0',fee='0',slippage='0',far='1',big='3',small='.5'):
+  return EventSnapshot(*map(D,(realized,floating,reserve,commission,swap,fee,slippage,far,big,small)),event)
+ before=snap('BEFORE');cases=[
+  ('PURE_TRANSFER',snap('TRANSFER','40','60'),True),
+  ('CLOSE_COMMISSION',snap('COMMISSION','40','60',commission='1'),False),
+  ('SWAP_ACCRUAL',snap('SWAP',swap='1'),False),('FEE',snap('FEE',fee='1'),False),
+  ('SLIPPAGE',snap('SLIPPAGE',slippage='1'),False),
+  ('PARTIAL_FAR_CLOSE',snap('PARTIAL_FAR','30','71',far='.5'),True),
+  ('BIG_CLOSE',snap('BIG_CLOSE','70','31',big='1'),True),
+  ('SMALL_CLOSE',snap('SMALL_CLOSE','10','91',small='0'),True),
+  ('RESERVE_CREDIT',snap('RESERVE',reserve='20'),True),
+  ('PARTIAL_EXECUTION',snap('PARTIAL_EXEC','20','79',far='.8',big='2.5'),False),
+  ('RECONCILIATION',snap('RECONCILE','50','50',far='.7',big='2'),True)]
+ passed=sum(event_monotone(before,after) is expected for _,after,expected in cases)
+ assert passed==len(cases)
+ return len(cases),passed
+
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')
 
@@ -119,3 +135,4 @@ if __name__=='__main__':
  print(f'COUNTEREXAMPLES_CAUGHT={len(result)}')
  total,passed=cost_matrix();print(f'COST_SCENARIOS_TOTAL={total}');print(f'COST_SCENARIOS_PASSED={passed}')
  total,passed=broker_matrix();print(f'BROKER_SCENARIOS_TOTAL={total}');print(f'BROKER_SCENARIOS_PASSED={passed}')
+ total,passed=event_matrix();print(f'EVENT_SCENARIOS_TOTAL={total}');print(f'EVENT_SCENARIOS_PASSED={passed}')
