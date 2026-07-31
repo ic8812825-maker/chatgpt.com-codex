@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'Tools'))
-from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,evaluate,event_monotone,finite_bound,risk_money
+from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,evaluate,event_monotone,finite_bound,q_domain,risk_money
 
 def broker(step='0.01',point='0.00001',tick='0.00001',profit='1',loss='1',down_profit=None,down_loss=None,bid='1.10000',spread='0.00010'):
  return Broker(D(point),D(tick),D(profit),D(loss),D(step),D(step),D(down_profit) if down_profit else None,D(down_loss) if down_loss else None,D(bid),D(bid)+D(spread))
@@ -112,6 +112,12 @@ def risk_matrix():
  assert all(cases)
  return 4,4
 
+def q_matrix():
+ b=broker();transitions=[(D('1'),D('.1'),b),(D('1'),D('.2'),b),(D('1'),D('.3'),b)]
+ result=q_domain(transitions,D('.35'));assert result['pass'] and result['observed_q_max']==D('.3')
+ mutation=q_domain([(D('1'),D('.4'),b)],D('.35'));assert not mutation['pass']
+ return result
+
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')
 
@@ -154,3 +160,4 @@ if __name__=='__main__':
  total,passed=broker_matrix();print(f'BROKER_SCENARIOS_TOTAL={total}');print(f'BROKER_SCENARIOS_PASSED={passed}')
  total,passed=event_matrix();print(f'EVENT_SCENARIOS_TOTAL={total}');print(f'EVENT_SCENARIOS_PASSED={passed}')
  total,passed=risk_matrix();print(f'RISK_SCENARIOS_TOTAL={total}');print(f'RISK_SCENARIOS_PASSED={passed}')
+ q=q_matrix();print(f'Q_TRANSITIONS={q["transitions"]}');print(f'OBSERVED_Q_MAX={q["observed_q_max"]}');print(f'POLICY_Q_CAP={q["policy_q_cap"]}')

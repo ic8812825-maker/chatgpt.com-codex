@@ -120,6 +120,16 @@ def compression(old_far:D,new_far_raw:D,next_core_raw:D,next_trend_raw:D,small_n
     next_big=core+trend;gross_next=new_far+next_big+small;q=new_far/old_far if old_far>0 else D('Infinity')
     return {'new_far':new_far,'next_big':next_big,'gross_next':gross_next,'q':q,'new_far_pass':new_far==0 or D(0)<new_far<old_far,'next_big_pass':next_big<old_far,'gross_pass':gross_next<gross_old}
 
+def q_domain(transitions,policy_q_cap:D):
+    observed=[]
+    for old_far,new_far,broker in transitions:
+        old=broker.normalize(old_far);new=broker.normalize(new_far)
+        if old<=0:raise ValueError('old Far outside grid')
+        observed.append(new/old)
+    maximum=max(observed,default=D(0))
+    return {'transitions':len(observed),'observed_q_max':maximum,
+            'policy_q_cap':policy_q_cap,'pass':bool(observed) and maximum<=policy_q_cap<D(1)}
+
 def finite_bound(initial_far:D,q_max:D,broker:Broker)->int:
     if not D(0)<q_max<D(1) or initial_far<=0:raise ValueError('F>0 and 0<q<1 required')
     geometric=max(0,ceil(log(float(broker.min_lot/initial_far))/log(float(q_max))))
