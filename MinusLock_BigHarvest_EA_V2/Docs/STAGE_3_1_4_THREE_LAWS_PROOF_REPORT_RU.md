@@ -157,3 +157,14 @@ NormalizedNextBigTrend`; strict gate сравнивает его с actual OldFa
 фиксируется до transition, `GrossNext` — после partial Far, NewFar creation,
 next Big и Small reconciliation. Gate `GrossNext<GrossOld` запрещает сравнивать
 preview одного цикла с actual другого или пропускать SmallBase.
+
+## 13. Law 3 — risk
+
+Canonical Risk — broker money loss managed basket до явной control price:
+`Risk(snapshot,control)=max(0,-ΣOrderCalcProfitLike(leg,control)-ExitCosts)`.
+Это не gross lots. При одинаковом symbol specification, scope, control-price
+policy и cost convention проверяется `RiskNext<RiskOld`. Численные control-price
+profiles остаются unresolved policy dependency; поэтому общий результат:
+`RISK_COMPRESSION=DEFERRED_WITH_PROOF`, а любой конкретный plan без frozen
+comparable controls отклоняется. Это не блокирует отдельные доказательства lot,
+money slope и conditional compression contract, но блокирует trade permission.
