@@ -168,3 +168,14 @@ profiles остаются unresolved policy dependency; поэтому общи�
 `RISK_COMPRESSION=DEFERRED_WITH_PROOF`, а любой конкретный plan без frozen
 comparable controls отклоняется. Это не блокирует отдельные доказательства lot,
 money slope и conditional compression contract, но блокирует trade permission.
+
+## 14. Worst-case q
+
+Для каждого admissible non-terminal transition определяется
+`q_n=NormalizedNewFar_{n+1}/ActualOldFar_n`. Contract требует proof по всему
+admissible domain: `q_n<=q_max<1`, не average. Если policy задаёт continuous
+`r_max<1`, conservative ceiling normalization даёт
+`NewFar<=ceil_step(r_max*F)`; strict post-normalization check необходим, поскольку
+при малом F ratio может стать 1. Без frozen bounds ratios/close share и rounding
+нет универсального numeric q: validator требует либо explicit `q_max`, либо
+terminal/reject для такого candidate.
