@@ -214,3 +214,12 @@ ledger events; RecoveryPL — before/after reconciled money; OldFar/NewFar и
 GrossOld/GrossNext сравниваются только после confirmed fills. Непарные snapshots
 дают `BOUNDARY_EVIDENCE_MISSING`, не PASS. Partial execution сохраняет старый
 cycle active либо отклоняет promotion.
+
+## 19. Independent UP/DOWN tracks
+
+UP track использует BUY Big close на Bid и SELL Far/Small close на Ask; DOWN —
+SELL Big на Ask и BUY Far/Small на Bid. Для каждого независимо строятся price
+grid, money trajectory, costs, event jumps и compression snapshots. Transform
+`x=direction*(P-P0)` унифицирует slope только после отдельного Bid/Ask расчёта.
+Общий PASS требует `UP_THREE_LAWS=PASS` и `DOWN_THREE_LAWS=PASS`; один track не
+может маскировать другой.
