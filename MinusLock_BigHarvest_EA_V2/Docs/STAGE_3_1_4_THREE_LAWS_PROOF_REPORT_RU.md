@@ -388,3 +388,20 @@ AWAITING_USER_APPROVAL=YES
 повторно прошёл validator и law tests: независимый `UPPass_DOWNFail` caught,
 остальные восемь counterexamples caught, 14 blockers нулевые. Итоговый status
 не основан на тождественных UP/DOWN вычислениях.
+
+# Correction 3.1.4.26 baseline
+
+```text
+CORRECTION_STAGE=3.1.4.26
+BASE_COMMIT=d10ebe3fad63edc5325933a5daf0bb21db18c28f
+PREVIOUS_STAGE_3_1_4_STATUS=CLOSED
+INDEPENDENT_REVIEW_STATUS=REOPENED_FOR_CORRECTION
+STAGE_3_1_5_STARTED=NO
+PRODUCTION_TRADING_LOGIC_CHANGED=NO
+PARAMETER_PROFILE_CHANGED=NO
+```
+
+Независимое review выявило, что прежний validator опирался на один good plan,
+final-only coverage, textual Risk/q claims и не моделировал реальные Bid/Ask.
+До устранения всех причин прежний PASS отозван; сильные claims ниже будут
+перепроверены только executable suites.
