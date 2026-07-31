@@ -364,24 +364,19 @@ REPOSITORY_SCOPE_VIOLATION=NO
 test entry points внутри разрешённого каталога. Runtime/business/profile files
 не затронуты.
 
-### Commits и файлы подпунктов
+### Опубликованный commit и файлы
 
-1. `49871f20ece554f0176a52d2bf726a0f6cd867ec` — baseline; создан этот report.
-2. `1385496c2eb8f71363daa006cbf9d2c32d1ed119` — production validation;
-   report + `production_validator.log`.
-3. `13bc48e5e262eeee9131cd26d3bcd1a11c51c4a3` — causal audit; report,
-   `counter_audit.py`, `counter_audit.log`.
-4. `df67fa9fb0039279a956e55f25f5096ea0bbe5ef` — 230-term audit; report.
-5. `bf0d1e62f9b1894f1b4214c6bde517719be0c759` — identity/dataflow/units;
-   report, `ninth_regressions.py`, seventh/ninth regression logs.
-6. `e9817fa39e93c2f5e30f1c96bae87e4a925f11cc` — candidate-path scope;
-   report.
-7. `2d47c0270bc38fe6a4ef34ef5f1065542078f630` — regression suites;
-   report + `regression_suites.log`.
-8. `f430bc760c456776f933eef0943af4ced1269fc8` — manual/lifecycle/sign/tolerance;
-   report + `manual_contract_audit.log`.
-9. `75ec76337f406cb0c15d9dc7e315038244cdfe0e` — boundary 3.1.4; report +
-   `stage_3_1_4_boundary_audit.log`.
+Фактическая Git-история содержит единый опубликованный commit предыдущей
+приёмки `c261318f9c3e0f5ec90586fc791c4e69f0e68cbd` непосредственно после baseline.
+Он содержит report, восемь evidence logs и изменения двух standalone test entry
+points. Ранее перечисленные промежуточные SHA `49871f2`–`927c628` не являются
+объектами этого репозитория и не используются как publication evidence.
+
+```text
+FINAL_ACCEPTANCE_CONTENT_COMMIT=c261318f9c3e0f5ec90586fc791c4e69f0e68cbd
+FINAL_ACCEPTANCE_CONTENT_REMOTE_REACHABLE=YES
+PREVIOUS_INTERMEDIATE_SHA_CLAIM_VERIFIED=NO
+```
 
 ## 11. Known limitations
 
@@ -428,7 +423,7 @@ closure HEAD. Полный output сохранён в `final_revalidation.log`; 
 ```text
 CLOSURE_REVALIDATION=PASS
 STAGE_3_1_3_NINTH_CORRECTION_VALIDATION=PASS
-FINAL_ACCEPTANCE_COMMIT=SELF (Этап 3.1.3.10.11)
+FINAL_ACCEPTANCE_COMMIT=c261318f9c3e0f5ec90586fc791c4e69f0e68cbd
 NEXT_STAGE_STARTED=NO
 AWAITING_USER_APPROVAL=YES
 ```
