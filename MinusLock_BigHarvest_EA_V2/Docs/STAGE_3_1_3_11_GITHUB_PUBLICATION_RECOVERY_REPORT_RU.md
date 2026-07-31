@@ -207,3 +207,19 @@ PREVIOUS_PR_CLAIM_VERIFIED=NO
 PREVIOUS_PR_NUMBER=NONE
 PREVIOUS_PR_STATE=NOT_FOUND
 ```
+
+## 6. Независимый remote scope audit
+
+После публикации диапазон `10a7042..origin/work` проверен заново. Полный список
+изменённых paths сохранён в `remote_scope_audit.log`: это только два test entry
+points, отчёты и evidence внутри разрешённого проекта. Production MQL5,
+`Include/`, `Sets/`, configuration/profile sources и соседние проекты не
+изменены.
+
+```text
+REMOTE_SCOPE_AUDIT=PASS
+REPOSITORY_SCOPE_VIOLATION=NO
+PRODUCTION_RUNTIME_OR_PROFILE_FILES_CHANGED=0
+TRADING_POLICY_CHANGED_BY_STAGE_3_1_3=NO
+STAGE_3_1_4_STARTED=NO
+```
