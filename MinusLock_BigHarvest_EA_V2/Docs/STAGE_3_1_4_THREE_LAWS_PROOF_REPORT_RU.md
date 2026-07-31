@@ -279,3 +279,101 @@ counterexamples, считает 14 named blockers и возвращает non-ze
 Risk проверяется по canonical money-risk entities и strict Next<Old gate. q
 вычисляется как worst-case maximum Target cap всех трёх normative profiles
 (`q_max=0.35<1`), а не по удобному test profile или average.
+
+## 26. Final revalidation, commits, limitations и verdict
+
+### Commits
+
+- `b663114f5604dfc2b5693d8f016a471e8f832e81` — `Этап 3.1.4.1: зафиксирован математический baseline трёх законов Hybrid Split Big`
+- `4a309351dff3f0b3731d7b51b8f4b0c07c19bad4` — `Этап 3.1.4.2: построена единая знаковая и размерностная модель трёх законов`
+- `83ee791b9cf01bc0e507e3907bb1be06124c902a` — `Этап 3.1.4.3: заново выведено необходимое лотовое условие Reserve Catch-Up`
+- `44b8fb31aa98881c4f8b4051154ab690bd5f2add` — `Этап 3.1.4.4: доказан level-by-level broker-money Reserve Catch-Up gate`
+- `0924b0dbba0cd3def491254707b495b6dca6a311` — `Этап 3.1.4.5: Reserve Catch-Up переведён на net-money proof с учётом торговых издержек`
+- `c17cc182fe100993c717fed12a6c975404b0d13d` — `Этап 3.1.4.6: заново выведен аналитический slope RecoveryPL для UP и DOWN сценариев`
+- `11ebbb45a2717e1c8e81356ffd4c7c1ba9cb498b` — `Этап 3.1.4.7: доказана broker-grid point-by-point монотонность RecoveryPL`
+- `0572879790a4cb19c81bd7a5c2d7f12142354a31` — `Этап 3.1.4.8: проверена монотонность RecoveryPL на торговых event boundaries`
+- `1b5fc762a281c2927b54994e2cdf7683e076e649` — `Этап 3.1.4.9: формализовано строгое условие уменьшения NewFar относительно OldFar`
+- `176de2b91eb4f988a6b0e3f1faa9a0045a139d36` — `Этап 3.1.4.10: доказано broker-normalized сжатие NextBigGross`
+- `fdabe6b2deefa22d2d4d2afdd06acf934abe4ff2` — `Этап 3.1.4.11: доказано строгое уменьшение gross exposure между циклами`
+- `8b4f6e8e4725b69981cc28cefefd70d3cf1b9acd` — `Этап 3.1.4.12: перепроверено условие строгого уменьшения риска между циклами`
+- `64e08f84685d9bddeef1d1d5d491c51e212dd365` — `Этап 3.1.4.13: выведен строгий worst-case коэффициент сжатия q`
+- `98b95123eb9b7f9d8f8f9fe667bde86cd296b9d7` — `Этап 3.1.4.14: доказана broker-rounded конечность числа разворотов Hybrid Split Big`
+- `f410240af857a74615f7b437c6972bb4738b108f` — `Этап 3.1.4.15: проверены rounding pathologies трёх законов Hybrid Split Big`
+- `dd02dd1c04998e39844a05180da58e97f250b62f` — `Этап 3.1.4.16: отделены математические законы от margin и worst-case разрешения плана`
+- `14c4bb18de895fafe0c883a8a7fd9f737b66a1ea` — `Этап 3.1.4.17: доказана сохранность трёх законов при переходе Big в Small`
+- `183adfb63ec746be8796efb47a71ab844843fb70` — `Этап 3.1.4.18: отдельно доказаны три закона для UP и DOWN сценариев`
+- `3908fc1f7daaf07e4f9836e40806b63ede9338c2` — `Этап 3.1.4.19: создан независимый Python oracle трёх законов Hybrid Split Big`
+- `77b4824f326202be099ae5c87bb9598ffbccefa0` — `Этап 3.1.4.20: создана автоматическая boundary и adversarial test matrix трёх законов`
+- `03f239d0bb7ce8d41ab03674069c3e73bd22b1fe` — `Этап 3.1.4.20.1: исправлен проверенный минимум фактической матрицы из 210 сценариев`
+- `b89c8e0c071c31eb7ce4fb961ac88b6d9e091dd8` — `Этап 3.1.4.21: добавлены контрпримеры против ложного доказательства трёх законов`
+- `733a3a5918e465216efe6dabffba679c443dd96f` — `Этап 3.1.4.22: добавлен канонический нормативный контракт трёх законов Hybrid Split Big`
+- `fbb631fb6c8724bfb2a274eca6edf8a29db8347c` — `Этап 3.1.4.23: выполнен read-only mapping трёх законов на текущую MQL5 реализацию`
+- `a941902c8eaca368b2d6d667b392575565be4360` — `Этап 3.1.4.24: создан финальный validator математических законов Hybrid Split Big`
+- `ac2a43e294464498ed27acc3aadc14471b4ba927` — `Этап 3.1.4.24.1: validator вычисляет worst-case q и risk contract из нормативного manual`
+
+### Фактические результаты
+
+```text
+FINAL_EVIDENCE_HEAD=ac2a43e294464498ed27acc3aadc14471b4ba927
+LAW_1_RESERVE_CATCHUP=PASS
+LAW_1_ANALYTIC=PASS
+LAW_1_BROKER_MONEY=PASS
+LAW_1_COST_ADJUSTED=PASS
+LAW_2_RECOVERY_MONOTONICITY=PASS
+LAW_2_ANALYTIC_SLOPE=PASS
+LAW_2_POINTWISE_MONOTONICITY=PASS
+LAW_2_EVENT_BOUNDARY=PASS
+LAW_3_COMPRESSION=PASS
+LAW_3_NEW_FAR_COMPRESSION=PASS
+LAW_3_NEXT_BIG_GROSS_COMPRESSION=PASS
+LAW_3_GROSS_COMPRESSION=PASS
+RISK_COMPRESSION=PASS
+Q_WORST_CASE_BOUND=PASS
+Q_MAX_WORST_CASE=0.35
+DISCRETE_FINITE_TERMINATION=PASS
+BROKER_ROUNDING_SAFETY=PASS
+UP_SCENARIO=PASS
+DOWN_SCENARIO=PASS
+MONEY_MODEL=PASS
+EVENT_BOUNDARIES=PASS
+COUNTEREXAMPLE_SUITE=PASS
+AUTOMATED_MATRIX_CASES=210
+COUNTEREXAMPLES_CAUGHT=9
+REPOSITORY_SCOPE_VIOLATION=NO
+PRODUCTION_TRADING_LOGIC_CHANGED=NO
+PARAMETER_PROFILE_CHANGED=NO
+STAGE_3_1_5_STARTED=NO
+STAGE_3_1_4_VALIDATION=PASS
+```
+
+### Unresolved dependencies и known limitations
+
+Доказан математический admissibility contract, а не фактическое исполнение MT5.
+`OrderCalcProfit` oracle представлен direction-aware tick-value semantics; exact
+broker result, dynamic spread/swap и fills требуют runtime evidence. MQL5 mapping
+имеет PARTIAL gaps для universal event/gross/risk orchestration, поэтому law PASS
+не означает trade permission. Profile values не менялись: q_max=0.35 вычислен как
+worst-case утверждённых SAFE/BALANCED/STRONG_COMPRESSION caps. Margin, worst-case,
+freshness, execution и reconciliation остаются independent mandatory gates.
+
+FINAL_VERDICT
+
+STAGE_3_1_4_VALIDATION=PASS
+LAW_1_RESERVE_CATCHUP=PASS
+LAW_2_RECOVERY_MONOTONICITY=PASS
+LAW_3_COMPRESSION=PASS
+
+Q_WORST_CASE_BOUND=PASS
+DISCRETE_FINITE_TERMINATION=PASS
+
+UP_SCENARIO=PASS
+DOWN_SCENARIO=PASS
+
+REPOSITORY_SCOPE_VIOLATION=NO
+PRODUCTION_TRADING_LOGIC_CHANGED=NO
+PARAMETER_PROFILE_CHANGED=NO
+
+STAGE_3_1_4_STATUS=CLOSED
+NEXT_ALLOWED_STAGE=3.1.5
+STAGE_3_1_5_STARTED=NO
+AWAITING_USER_APPROVAL=YES

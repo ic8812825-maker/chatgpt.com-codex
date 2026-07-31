@@ -200,6 +200,19 @@ AWAITING_USER_APPROVAL=YES
 
 ### 3.1.4. Полная проверка трёх законов
 
+Подтверждённый статус Этапа 3.1.4:
+
+```text
+STAGE_3_1_4_STATUS=CLOSED
+VALIDATED_EVIDENCE_COMMIT=ac2a43e294464498ed27acc3aadc14471b4ba927
+NEXT_ALLOWED_STAGE=3.1.5
+STAGE_3_1_5_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+```
+
+Три закона прошли symbolic, broker-normalized, money, pointwise, event, rounding
+и finite checks. Это не изменяет production logic и не начинает Этап 3.1.5.
+
 Должны быть повторно доказаны:
 
 1. Reserve Catch-Up:
