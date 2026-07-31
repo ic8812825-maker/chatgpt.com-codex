@@ -140,3 +140,12 @@ role не являются NewFar. Non-terminal compression требует
 `0<NewFarActualLot<OldFarActualLot`; `NewFar=0` — terminal full close,
 `NewFar=OldFar` — stagnation, `NewFar>OldFar` — expansion. Этап не выбирает
 policy источника NewFar, а классифицирует результат.
+
+## 11. Law 3 — NextBigGross
+
+Pipeline различает Raw→Calculated→Normalized→Requested→Filled→Actual.
+Для следующего plan `NormalizedNextBigGross=NormalizedNextBigCore+
+NormalizedNextBigTrend`; strict gate сравнивает его с actual OldFar:
+`NormalizedNextBigGross<OldFarActualLot`. Raw PASS при normalized `>=` является
+`BROKER_ROUNDING_FAILURE`; requested/fill не подменяют proof и после execution
+нужна reconciliation actual lots.
