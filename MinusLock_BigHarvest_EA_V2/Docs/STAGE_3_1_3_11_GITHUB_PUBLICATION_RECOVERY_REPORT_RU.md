@@ -174,3 +174,36 @@ PYTHON_AMBIGUOUS=0
 PYTHON_MISSING=191
 PYTHON_NOT_APPLICABLE=0
 ```
+
+## 5. Reachability commits и remote history
+
+Таблица построена командами `git show`, `git diff-tree` и
+`git merge-base --is-ancestor <commit> origin/work` после fetch.
+
+| Commit | Message | Local | origin/work reachable | Files | Status |
+|---|---|---:|---:|---:|---|
+| `c261318f9c3e0f5ec90586fc791c4e69f0e68cbd` | Этап 3.1.3.10: финальная доказательная приёмка semantic mapping | YES | YES | 11 | PASS |
+| `16a851884156399a7b4d782ee0e9d8f0c565a55e` | Этап 3.1.3.11.1: проведена диагностика локальной и удалённой истории финальной приёмки | YES | YES | 1 | PASS |
+| `cc8090f8c95adb7455b73846dc883aeeb4805ae0` | Этап 3.1.3.11.4: синхронизирован финальный acceptance report с опубликованной историей GitHub | YES | YES | 1 | PASS |
+| `5e1f9c68f5d36fd0d2d71ce9a56f3107c88392ce` | Этап 3.1.3.11.5: повторно подтверждена production validation опубликованного HEAD | YES | YES | 6 | PASS |
+
+Фактический верх remote history на момент аудита:
+
+```text
+5e1f9c6 Этап 3.1.3.11.5: повторно подтверждена production validation опубликованного HEAD
+cc8090f Этап 3.1.3.11.4: синхронизирован финальный acceptance report с опубликованной историей GitHub
+16a8518 Этап 3.1.3.11.1: проведена диагностика локальной и удалённой истории финальной приёмки
+c261318 Этап 3.1.3.10: финальная доказательная приёмка semantic mapping
+10a7042 Этап 3.1.3.9.8: 230 терминов пересчитаны production declaration-scoped semantic engine
+```
+
+Повторный GitHub REST API query не нашёл PR с ранее заявленным заголовком.
+Реально существуют только не относящиеся к этой приёмке открытые PR #1–#3.
+Поскольку commits безопасно опубликованы непосредственно в требуемой ветке
+`work`, фиктивный PR не создавался.
+
+```text
+PREVIOUS_PR_CLAIM_VERIFIED=NO
+PREVIOUS_PR_NUMBER=NONE
+PREVIOUS_PR_STATE=NOT_FOUND
+```
