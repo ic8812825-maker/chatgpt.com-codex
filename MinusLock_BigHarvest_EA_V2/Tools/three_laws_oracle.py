@@ -4,7 +4,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 from decimal import Decimal as D, ROUND_CEILING, ROUND_FLOOR
-from math import ceil, log
 
 @dataclass(frozen=True)
 class Broker:
@@ -138,9 +137,21 @@ def system_q_theorem(policy_caps:tuple[D,...],rounding_mode:str='floor'):
 
 def finite_bound(initial_far:D,q_max:D,broker:Broker)->int:
     if not D(0)<q_max<D(1) or initial_far<=0:raise ValueError('F>0 and 0<q<1 required')
-    geometric=max(0,ceil(log(float(broker.min_lot/initial_far))/log(float(q_max))))
-    grid=int((initial_far/broker.lot_step).to_integral_value(rounding=ROUND_CEILING))
-    return min(grid,geometric+1)
+    current=broker.normalize(initial_far);steps=0
+    while current>=broker.min_lot and current>0:
+        nxt=broker.normalize(current*q_max)
+        old_rank=int(current/broker.lot_step);new_rank=int(nxt/broker.lot_step)
+        if nxt>0 and new_rank>=old_rank:raise ValueError('non-decreasing broker rank')
+        current=nxt;steps+=1
+    return steps
+
+def finite_transition_proof(transitions,broker:Broker):
+    checked=0
+    for old,new in transitions:
+        old_n=broker.normalize(old);new_n=broker.normalize(new)
+        if new_n>0 and int(new_n/broker.lot_step)>=int(old_n/broker.lot_step):return {'pass':False,'checked':checked}
+        checked+=1
+    return {'pass':bool(checked),'checked':checked}
 
 def evaluate(plan:Plan,broker:Broker,points:D,direction:str):
     rows=trajectory(plan,broker,points,direction)

@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'Tools'))
-from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,evaluate,event_monotone,finite_bound,q_domain,risk_money,system_q_theorem
+from three_laws_oracle import BasketPosition,Broker,Costs,EventSnapshot,Plan,Side,compression,evaluate,event_monotone,finite_bound,finite_transition_proof,q_domain,risk_money,system_q_theorem
 
 def broker(step='0.01',point='0.00001',tick='0.00001',profit='1',loss='1',down_profit=None,down_loss=None,bid='1.10000',spread='0.00010'):
  return Broker(D(point),D(tick),D(profit),D(loss),D(step),D(step),D(down_profit) if down_profit else None,D(down_loss) if down_loss else None,D(bid),D(bid)+D(spread))
@@ -35,6 +35,8 @@ def boundaries():
  c=compression(D('1'),D('0.5'),D('0.2'),D('0.1'),D('0.1'),b,D('2'))
  assert c['new_far_pass'] and c['next_big_pass'] and c['gross_pass'] and c['q']==D('0.5')
  assert finite_bound(D('1'),D('0.5'),b)>0
+ assert finite_transition_proof([(D('1'),D('.5')),(D('.5'),D('.2')),(D('.2'),D('0'))],b)['pass']
+ assert not finite_transition_proof([(D('1'),D('1'))],b)['pass']
  catch=evaluate(Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),D('10')),b,D('100'),'UP')
  assert 0<catch['coverage_path']['levels_checked']<=101
  assert catch['coverage_path']['coverage_monotone'] and catch['coverage_path']['first_catch_level'] is not None
