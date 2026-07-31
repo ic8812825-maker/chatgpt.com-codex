@@ -95,3 +95,12 @@ slope, но broker-money coverage на каждом обязательном lev
 являются inputs. Поэтому EURUSD-like, JPY-like и asymmetric tick-value tracks
 вычисляются независимо. `LOT_CATCH_UP=PASS, MONEY_CATCH_UP=FAIL` всегда даёт
 `FINAL_PLAN=REJECT`.
+
+## 6. Law 1 — costs
+
+`GrossReservePotential=α*max(0,BigCoreGross+BigTrendGross-SmallGross)`.
+`Costs=commission_open+commission_close+swap+fee+slippage_allowance`; spread уже
+включён использованием Bid/Ask и второй раз в Costs не добавляется.
+`NetReservePotential=GrossReservePotential-Costs`. Final coverage использует
+только Net. Adversarial contract требует обнаружить случай Lot PASS + Gross PASS
++ Net FAIL и отклонить plan.
