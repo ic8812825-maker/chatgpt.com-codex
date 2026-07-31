@@ -149,3 +149,11 @@ NormalizedNextBigTrend`; strict gate сравнивает его с actual OldFa
 `NormalizedNextBigGross<OldFarActualLot`. Raw PASS при normalized `>=` является
 `BROKER_ROUNDING_FAILURE`; requested/fill не подменяют proof и после execution
 нужна reconciliation actual lots.
+
+## 12. Law 3 — gross exposure
+
+На двух одинаково scoped reconciled lifecycle snapshots
+`Gross=Σ abs(ActualManagedPositionLot)` по Symbol+Magic+Cycle. `GrossOld`
+фиксируется до transition, `GrossNext` — после partial Far, NewFar creation,
+next Big и Small reconciliation. Gate `GrossNext<GrossOld` запрещает сравнивать
+preview одного цикла с actual другого или пропускать SmallBase.
