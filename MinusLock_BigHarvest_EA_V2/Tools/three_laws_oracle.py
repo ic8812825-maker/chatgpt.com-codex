@@ -8,8 +8,11 @@ from math import ceil, log
 @dataclass(frozen=True)
 class Broker:
     point:D; tick_size:D; tick_value_profit:D; tick_value_loss:D; lot_step:D; min_lot:D
+    tick_value_profit_down:D|None=None; tick_value_loss_down:D|None=None
     def __post_init__(self):
         if min(self.point,self.tick_size,self.tick_value_profit,self.tick_value_loss,self.lot_step,self.min_lot)<=0: raise ValueError('positive broker quantities required')
+        if self.tick_value_profit_down is not None and self.tick_value_profit_down<=0:raise ValueError('down profit tick value')
+        if self.tick_value_loss_down is not None and self.tick_value_loss_down<=0:raise ValueError('down loss tick value')
     def ticks_for_points(self,points:D)->int:
         ticks=points*self.point/self.tick_size
         if ticks!=ticks.to_integral_value(): raise ValueError('off tick grid')
@@ -45,11 +48,13 @@ def leg(lot:D,ticks:int,tick_value:D,favorable:bool)->D:
 
 def trajectory(plan:Plan,broker:Broker,points:D,direction:str):
     if direction not in {'UP','DOWN'}:raise ValueError('direction')
+    profit_value=broker.tick_value_profit if direction=='UP' or broker.tick_value_profit_down is None else broker.tick_value_profit_down
+    loss_value=broker.tick_value_loss if direction=='UP' or broker.tick_value_loss_down is None else broker.tick_value_loss_down
     rows=[]
     for k in range(broker.ticks_for_points(points)+1):
-        core=leg(plan.core,k,broker.tick_value_profit,True);trend=leg(plan.trend,k,broker.tick_value_profit,True)
-        small=leg(plan.small,k,broker.tick_value_loss,False)
-        far=-plan.initial_far_loss+leg(plan.far,k,broker.tick_value_loss,False)
+        core=leg(plan.core,k,profit_value,True);trend=leg(plan.trend,k,profit_value,True)
+        small=leg(plan.small,k,loss_value,False)
+        far=-plan.initial_far_loss+leg(plan.far,k,loss_value,False)
         gross=plan.reserve_share*max(D(0),core+trend+small);net=gross-plan.costs.total
         recovery=core+trend+small+far-plan.costs.total
         rows.append({'core':core,'trend':trend,'small':small,'far':far,'gross_reserve':gross,'net_reserve':net,'recovery':recovery,'coverage':plan.reserve_initial+net+far})

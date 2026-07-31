@@ -232,6 +232,10 @@ q и finite bound. Invalid off-grid distances и non-positive broker properties
 отклоняются. Spread представлен Bid/Ask-derived initial intercept и не считается
 повторно как cost.
 
+UP и DOWN используют раздельные direction-specific profit/loss TickValue inputs;
+counterexample `UPPass_DOWNFail` действительно оставляет UP track исправным и
+ломает только DOWN track, а не меняет общий итог после вычисления.
+
 ## 21. Automated boundary matrix
 
 Matrix использует lots 0.01…5.00, LotStep 0.01/0.1/coarse 0.25, distances
