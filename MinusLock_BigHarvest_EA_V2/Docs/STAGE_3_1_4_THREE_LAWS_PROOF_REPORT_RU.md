@@ -121,3 +121,13 @@ Price grid строится целыми ticks: `P_k=P_0+direction*k*TickSize`; 
 `RecoveryPL(P_{k+1})>RecoveryPL(P_k)` без epsilon, скрывающего plateau. Проверки
 включают 1,2,10,50,100,200,300 и 500+ points и non-integer Point/TickSize через
 целое число ticks. Analytic slope PASS без exhaustive interval PASS недостаточен.
+
+## 9. Law 2 — event boundaries
+
+Continuous monotonicity действует только между events. Для open/close
+commission, swap accrual, fee, slippage, spread revision, partial close и
+realized/unrealized transfer вычисляются два reconciled snapshots одного EventID:
+`RecoveryPL_after-RecoveryPL_before`. Transfer realized↔floating сам по себе
+conservative; новые costs являются отрицательным jump. Допустимый action обязан
+сохранить требуемый contract, иначе `EVENT_MONOTONICITY=FAIL` и plan reject.
+Derivative не используется как доказательство jump.
