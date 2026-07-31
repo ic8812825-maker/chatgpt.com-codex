@@ -67,7 +67,7 @@ Big. `dP/dx=+1` для UP и `dP/dx=-1` для DOWN. Тогда объёмы в�
 UP: Big legs BUY (закрытие Bid), Far/Small SELL (закрытие Ask). DOWN: Big legs
 SELL (Ask), Far/Small BUY (Bid). После transform к `x` обе directional slopes
 равны `C+T-S-F`; spread меняет intercept и event costs, но при frozen spread не
-+меняет slope. Все четыре lots имеют unit LOT; slope умножается на direction-aware
+меняет slope. Все четыре lots имеют unit LOT; slope умножается на direction-aware
 broker money/tick/lot, поэтому результат MONEY/price-distance.
 
 ## 4. Law 1 — аналитическая lot-база
@@ -103,7 +103,7 @@ slope, но broker-money coverage на каждом обязательном lev
 включён использованием Bid/Ask и второй раз в Costs не добавляется.
 `NetReservePotential=GrossReservePotential-Costs`. Final coverage использует
 только Net. Adversarial contract требует обнаружить случай Lot PASS + Gross PASS
-+ Net FAIL и отклонить plan.
+Net FAIL и отклонить plan.
 
 ## 7. Law 2 — analytic directional slope
 
@@ -223,3 +223,12 @@ grid, money trajectory, costs, event jumps и compression snapshots. Transform
 `x=direction*(P-P0)` унифицирует slope только после отдельного Bid/Ask расчёта.
 Общий PASS требует `UP_THREE_LAWS=PASS` и `DOWN_THREE_LAWS=PASS`; один track не
 может маскировать другой.
+
+## 20. Независимый Python oracle
+
+`Tools/three_laws_oracle.py` использует `Decimal` и вычисляет contract, не читая
+PASS из документации: normalized lots, каждый broker tick, direction-aware
+money, costs, strict pointwise monotonicity, event jump, NewFar/NextBig/Gross,
+q и finite bound. Invalid off-grid distances и non-positive broker properties
+отклоняются. Spread представлен Bid/Ask-derived initial intercept и не считается
+повторно как cost.
