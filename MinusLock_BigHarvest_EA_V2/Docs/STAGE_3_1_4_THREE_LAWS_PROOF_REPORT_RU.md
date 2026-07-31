@@ -179,3 +179,13 @@ admissible domain: `q_n<=q_max<1`, не average. Если policy задаёт co
 при малом F ratio может стать 1. Без frozen bounds ratios/close share и rounding
 нет универсального numeric q: validator требует либо explicit `q_max`, либо
 terminal/reject для такого candidate.
+
+## 15. Discrete finite termination
+
+При proven `0<q_max<1`, `F_n<=q_max^n F_0`. Первый continuous bound:
+`N_cont=ceil(log(MinLot/F_0)/log(q_max))`. Broker proof сильнее: каждый accepted
+non-terminal transition обязан уменьшить integer grid index
+`m_n=round(F_n/LotStep)` минимум на 1. Поэтому независимо от floating limit
+`N_max<=m_0` и точнее минимум geometric bound с последующей grid verification.
+Если normalized next lot равен current, transition reject/terminal; бесконечный
+plateau невозможен в admitted sequence.
