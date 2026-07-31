@@ -48,7 +48,7 @@ def counterexamples():
  r=evaluate(p,b,D('10'),'UP');caught['CatchUpLotPass_MoneyFail']=r['lot_catch_up'] and not r['money_catch_up']
  # Lot slope ignores asymmetric directional money values.
  asym=broker(profit='0.4',loss='1');p=Plan(D('1'),D('2'),D('0'),D('0.5'),D('0.9'),D('0'))
- r=evaluate(p,asym,D('10'),'UP');caught['RecoverySlopePass_PointwiseFail']=r['recovery_slope'] and not r['pointwise']
+ r=evaluate(p,asym,D('30'),'UP');caught['RecoverySlopePass_PointwiseFail']=r['recovery_slope'] and not r['pointwise']
  # A policy using ceiling can erase raw strict compression.
  coarse=broker('0.1');raw=D('0.099');norm=coarse.normalize(raw,'ceiling')
  caught['CompressionRawPass_NormalizedFail']=raw<D('0.1') and norm>=D('0.1')
@@ -56,12 +56,12 @@ def counterexamples():
  qs=[D('.4'),D('.5'),D('1')];caught['qAveragePass_qWorstCaseFail']=sum(qs,D(0))/D(len(qs))<1 and max(qs)>=1
  caught['FiniteContinuousPass_DiscreteFail']=D('.099')<D('.1') and coarse.normalize(D('.099'),'ceiling')==D('.1')
  direction_asym=broker(down_profit='0.4',down_loss='1')
- up=evaluate(p,direction_asym,D('10'),'UP');down=evaluate(p,direction_asym,D('10'),'DOWN')
+ up=evaluate(p,direction_asym,D('30'),'UP');down=evaluate(p,direction_asym,D('30'),'DOWN')
  caught['UPPass_DOWNFail']=up['pointwise'] and not down['pointwise']
  no_cost=Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),D('0'))
  real_cost=Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),D('0'),costs=Costs(slippage=D('100')))
- caught['SpreadZeroPass_RealSpreadFail']=evaluate(no_cost,b,D('10'),'UP')['money_catch_up'] and not evaluate(real_cost,b,D('10'),'UP')['money_catch_up']
- caught['MarginIgnoredPass_MarginFail']=evaluate(no_cost,b,D('10'),'UP')['pointwise'] and not (D('500')>=D('1000'))
+ caught['SpreadZeroPass_RealSpreadFail']=evaluate(no_cost,b,D('100'),'UP')['money_catch_up'] and not evaluate(real_cost,b,D('100'),'UP')['money_catch_up']
+ caught['MarginIgnoredPass_MarginFail']=evaluate(no_cost,b,D('100'),'UP')['pointwise'] and not (D('500')>=D('1000'))
  assert all(caught.values()),caught
  return caught
 

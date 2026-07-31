@@ -2,6 +2,7 @@
 """Independent Decimal oracle for the Hybrid Split Big three-law contract."""
 from __future__ import annotations
 from dataclasses import dataclass
+from enum import Enum
 from decimal import Decimal as D, ROUND_CEILING, ROUND_FLOOR
 from math import ceil, log
 
@@ -48,21 +49,35 @@ class Plan:
     @property
     def reserve_slope_lots(self):return self.reserve_share*(self.big-self.small)-self.far
 
-def leg(lot:D,ticks:int,tick_value:D,favorable:bool)->D:
-    return lot*D(ticks)*tick_value*(D(1) if favorable else D(-1))
+class Side(str,Enum): BUY='BUY';SELL='SELL'
+
+def projected_profit(side:Side,lot:D,open_price:D,close_bid:D,close_ask:D,
+                     tick_size:D,tick_value_profit:D,tick_value_loss:D)->D:
+    close=close_bid if side is Side.BUY else close_ask
+    price_delta=(close-open_price) if side is Side.BUY else (open_price-close)
+    ticks=price_delta/tick_size
+    if ticks!=ticks.to_integral_value():raise ValueError('profit prices off tick grid')
+    value=tick_value_profit if ticks>=0 else tick_value_loss
+    return lot*ticks*value
 
 def trajectory(plan:Plan,broker:Broker,points:D,direction:str):
     if direction not in {'UP','DOWN'}:raise ValueError('direction')
     profit_value=broker.tick_value_profit if direction=='UP' or broker.tick_value_profit_down is None else broker.tick_value_profit_down
     loss_value=broker.tick_value_loss if direction=='UP' or broker.tick_value_loss_down is None else broker.tick_value_loss_down
+    big_side=Side.BUY if direction=='UP' else Side.SELL;hedge_side=Side.SELL if direction=='UP' else Side.BUY
+    big_open=broker.ask0 if big_side is Side.BUY else broker.bid0
+    hedge_open=broker.bid0 if hedge_side is Side.SELL else broker.ask0
     rows=[]
     for k in range(broker.ticks_for_points(points)+1):
-        core=leg(plan.core,k,profit_value,True);trend=leg(plan.trend,k,profit_value,True)
-        small=leg(plan.small,k,loss_value,False)
-        far=-plan.initial_far_loss+leg(plan.far,k,loss_value,False)
+        move=D(k)*broker.tick_size*(D(1) if direction=='UP' else D(-1))
+        bid=broker.bid0+move;ask=broker.ask0+move
+        core=projected_profit(big_side,plan.core,big_open,bid,ask,broker.tick_size,profit_value,loss_value)
+        trend=projected_profit(big_side,plan.trend,big_open,bid,ask,broker.tick_size,profit_value,loss_value)
+        small=projected_profit(hedge_side,plan.small,hedge_open,bid,ask,broker.tick_size,profit_value,loss_value)
+        far=-plan.initial_far_loss+projected_profit(hedge_side,plan.far,hedge_open,bid,ask,broker.tick_size,profit_value,loss_value)
         gross=plan.reserve_share*max(D(0),core+trend+small);net=gross-plan.costs.total
         recovery=core+trend+small+far-plan.costs.total
-        rows.append({'core':core,'trend':trend,'small':small,'far':far,'gross_reserve':gross,'net_reserve':net,'recovery':recovery,'coverage':plan.reserve_initial+net+far})
+        rows.append({'bid':bid,'ask':ask,'core':core,'trend':trend,'small':small,'far':far,'gross_reserve':gross,'net_reserve':net,'recovery':recovery,'coverage':plan.reserve_initial+net+far})
     return rows
 
 def strictly_increasing(values):return bool(values) and all(b>a for a,b in zip(values,values[1:]))
