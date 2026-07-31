@@ -257,3 +257,18 @@ PASS, и каждый проходит фактический computation path.
 variables/units/preconditions, analytic necessary, broker-normalized, money,
 event, margin/worst-case, PASS/FAIL, terminal и executable evidence. Necessary,
 sufficient evidence и trade permission разделены явно.
+
+## 24. Read-only MQL5 mapping
+
+| DOCUMENTED_LAW | EXISTING_MQL5_IMPLEMENTATION | STATUS |
+|---|---|---|
+| Reserve Catch-Up analytic/net money/levels | `HybridDecisionEngine.mqh` Law1 gate; `HybridGeometrySolver.mqh`; `HybridCatchUpModel.mqh::EvaluateHybridCatchUpLevel`; `BrokerMoneyModel.mqh` | IMPLEMENTED |
+| Recovery analytic + broker-grid | `HybridDecisionEngine.mqh` Law2; `ValidateHybridRecoveryMonotonicity`; catch-up row RecoveryPL | IMPLEMENTED |
+| Recovery event-boundary universal contract | route/reconciliation checks exist, but not every allowed commission/swap/partial event is exposed as one universal monotonic gate | PARTIAL |
+| NewFar/NextBig normalized compression | StateMachine target checks, `HybridCatchUpModel` next geometry, RecoveryMath legacy compression | IMPLEMENTED |
+| Gross compression same lifecycle snapshots | fields/checks distributed across plan and StateMachine | PARTIAL |
+| Money risk compression to common control price | margin/worst-case gates exist; one universally frozen RiskOld/RiskNext policy is not canonical for every route | PARTIAL |
+| Worst-case q + discrete finite bound | finite catch-up engine exists, but universal policy-domain `q_max` is not frozen | PARTIAL |
+
+Production sources прочитаны без изменений. Gaps относятся к future implementation/
+policy stages; этот этап не меняет MQL5, order sequence, gates или profiles.
