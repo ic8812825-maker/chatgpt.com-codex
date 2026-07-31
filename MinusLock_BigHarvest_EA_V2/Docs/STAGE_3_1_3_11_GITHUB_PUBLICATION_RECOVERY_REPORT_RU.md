@@ -114,3 +114,63 @@ STAGE_3_1_4_STARTED=NO
 
 Дальнейшие разделы будут дополнены только результатами, прочитанными из
 опубликованного `origin/work` после обычного fast-forward push.
+
+## 4. Публикация и revalidation опубликованного HEAD
+
+Первый recovery commit был отправлен обычным `git push origin work:work`; после
+`git fetch origin work` local и remote указывали на
+`16a851884156399a7b4d782ee0e9d8f0c565a55e`. После коррекции acceptance report
+commit `cc8090f` также опубликован обычным fast-forward push. Перед запуском
+tests checkout и `origin/work` оба указывали на
+`cc8090f8c95adb7455b73846dc883aeeb4805ae0`.
+
+Production validator и suites заново запущены после публикации, не из старых
+logs. Полные outputs находятся в
+`Docs/Evidence/stage_3_1_3_11_publication/`.
+
+```text
+PUBLISHED_HEAD_REVALIDATED=cc8090f8c95adb7455b73846dc883aeeb4805ae0
+CANONICAL_TERMS=230
+TERMS_AUDITED=230
+BLOCKING_RULES_TOTAL=33
+BLOCKING_RULES_ZERO=33
+BLOCKING_RULES_NONZERO=0
+STAGE_3_1_3_NINTH_CORRECTION_VALIDATION=PASS
+
+COUNTER_AUDIT=PASS
+BLOCKING_COUNTERS_REGISTERED=33
+COUNTER_REGISTRY_MISSING_RULE=0
+COUNTER_NEGATIVE_NOT_EFFECTIVE=0
+COUNTER_POSITIVE_NOT_CLEAN=0
+VACUOUS_BLOCKING_COUNTERS=0
+
+SHADOWING_TESTS=PASS
+NINTH_REGRESSION_INVARIANTS=PASS
+NEGATIVE_TESTS_TOTAL=48
+NEGATIVE_TESTS_PASSED=48
+POSITIVE_TESTS_TOTAL=20
+POSITIVE_TESTS_PASSED=20
+ADVERSARIAL_TESTS_TOTAL=15
+ADVERSARIAL_TESTS_CAUGHT=15
+POSITIVE_FIXTURES_TOTAL=25
+POSITIVE_FIXTURES_PASSED=25
+ADVERSARIAL_FIXTURES_TOTAL=25
+ADVERSARIAL_FIXTURES_CAUGHT=25
+```
+
+Mapping статистика опубликованного HEAD:
+
+```text
+MQL5_EXACT_MATCH=4
+MQL5_SEMANTIC_MATCH=0
+MQL5_PARTIAL_MATCH=44
+MQL5_AMBIGUOUS=0
+MQL5_MISSING=182
+MQL5_NOT_APPLICABLE=0
+PYTHON_EXACT_MATCH=0
+PYTHON_SEMANTIC_MATCH=0
+PYTHON_PARTIAL_MATCH=39
+PYTHON_AMBIGUOUS=0
+PYTHON_MISSING=191
+PYTHON_NOT_APPLICABLE=0
+```
