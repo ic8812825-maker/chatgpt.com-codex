@@ -223,3 +223,86 @@ PRODUCTION_RUNTIME_OR_PROFILE_FILES_CHANGED=0
 TRADING_POLICY_CHANGED_BY_STAGE_3_1_3=NO
 STAGE_3_1_4_STARTED=NO
 ```
+
+## 7. Финальное управляющее состояние
+
+Remote-проверенный commit перед финальной document-only фиксацией статуса:
+
+```text
+FINAL_PUBLISHED_COMMIT=018d25e3722d7830dd85d1e04e19583660e55f28
+REMOTE_BRANCH=work
+REMOTE_PUBLICATION_VERIFIED=YES
+FINAL_ACCEPTANCE_REPORT_REMOTE_EXISTS=YES
+LOCAL_REMOTE_PARITY=PASS
+STAGE_3_1_3_FINAL_ACCEPTANCE=PASS
+STAGE_3_1_3_STATUS=CLOSED
+NEXT_ALLOWED_STAGE=3.1.4
+STAGE_3_1_4_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+```
+
+`FINAL_PUBLISHED_COMMIT` — реальный SHA, который уже был доступен через
+`origin/work` и прошёл повторный remote scope audit. Следующий commit меняет
+только этот recovery report и управляющий roadmap; его post-push SHA проверяется
+командами `git rev-parse work`, `git rev-parse origin/work` и
+`git merge-base --is-ancestor` без циклической попытки записать SHA commit в его
+собственное содержимое.
+
+## Git state
+
+```text
+INITIAL_LOCAL_HEAD=c261318f9c3e0f5ec90586fc791c4e69f0e68cbd
+INITIAL_REMOTE_WORK=10a7042d1a2692ad5a25e7afc2b996529a674928
+RECOVERY_CASE=F
+ROOT_CAUSE=SUMMARY_SHA_MISMATCH_AND_REMOTE_REF_NOT_UPDATED
+```
+
+## Publication
+
+```text
+FINAL_LOCAL_HEAD=Этап 3.1.3.11.8 document-only status commit (resolved by work)
+FINAL_REMOTE_WORK=Этап 3.1.3.11.8 document-only status commit (resolved by origin/work)
+LOCAL_REMOTE_PARITY=PASS
+```
+
+## Commits
+
+Восстановленный content commit: `c261318f9c3e0f5ec90586fc791c4e69f0e68cbd`.
+Новые опубликованные recovery commits до финальной status-записи:
+`16a8518`, `cc8090f`, `5e1f9c6`, `52d9f17`, `018d25e`. Их сообщения, files и
+reachability получены из Git, а не из прежнего Summary.
+
+## Scope
+
+Полный changed-files audit находится в `remote_scope_audit.log`.
+`REPOSITORY_SCOPE_VIOLATION=NO`; production runtime/profile changes отсутствуют.
+
+## Tests
+
+Новая проверка опубликованного `cc8090f` дала validator PASS, 230/230 terms,
+33/33 clean causal blockers, shadowing/ninth PASS и suites 48/48, 20/20, 15/15,
+25/25, 25/25. Последующие commits являются только reports/evidence/status.
+
+## Acceptance
+
+```text
+STAGE_3_1_3_FINAL_ACCEPTANCE=PASS
+STAGE_3_1_3_STATUS=CLOSED
+NEXT_ALLOWED_STAGE=3.1.4
+STAGE_3_1_4_STARTED=NO
+```
+
+FINAL_VERDICT
+
+GITHUB_PUBLICATION_RECOVERY=PASS
+REMOTE_BRANCH=work
+REMOTE_PUBLICATION_VERIFIED=YES
+LOCAL_REMOTE_PARITY=PASS
+REPOSITORY_SCOPE_VIOLATION=NO
+
+STAGE_3_1_3_FINAL_ACCEPTANCE=PASS
+STAGE_3_1_3_STATUS=CLOSED
+
+NEXT_ALLOWED_STAGE=3.1.4
+STAGE_3_1_4_STARTED=NO
+AWAITING_USER_APPROVAL=YES
