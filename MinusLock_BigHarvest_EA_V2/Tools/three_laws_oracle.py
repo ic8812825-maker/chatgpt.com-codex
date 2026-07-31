@@ -9,10 +9,15 @@ from math import ceil, log
 class Broker:
     point:D; tick_size:D; tick_value_profit:D; tick_value_loss:D; lot_step:D; min_lot:D
     tick_value_profit_down:D|None=None; tick_value_loss_down:D|None=None
+    bid0:D=D('1.10000'); ask0:D=D('1.10010')
     def __post_init__(self):
         if min(self.point,self.tick_size,self.tick_value_profit,self.tick_value_loss,self.lot_step,self.min_lot)<=0: raise ValueError('positive broker quantities required')
         if self.tick_value_profit_down is not None and self.tick_value_profit_down<=0:raise ValueError('down profit tick value')
         if self.tick_value_loss_down is not None and self.tick_value_loss_down<=0:raise ValueError('down loss tick value')
+        if self.bid0<=0 or self.ask0<=self.bid0:raise ValueError('Ask must exceed Bid')
+        if (self.ask0-self.bid0)/self.tick_size != ((self.ask0-self.bid0)/self.tick_size).to_integral_value():raise ValueError('spread must use tick grid')
+    @property
+    def spread_price(self)->D:return self.ask0-self.bid0
     def ticks_for_points(self,points:D)->int:
         ticks=points*self.point/self.tick_size
         if ticks!=ticks.to_integral_value(): raise ValueError('off tick grid')
