@@ -189,3 +189,11 @@ non-terminal transition обязан уменьшить integer grid index
 `N_max<=m_0` и точнее минимум geometric bound с последующей grid verification.
 Если normalized next lot равен current, transition reject/terminal; бесконечный
 plateau невозможен в admitted sequence.
+
+## 16. Rounding pathologies
+
+Обязательные adversarial cases: raw compression/normalized fail; raw NewFar,
+округлённый к тому же lot; `q_raw<1,q_normalized=1`; CloseLot<MinLot; Core floor;
+Small ceiling; mixed floor/ceiling destruction; residual dust; coarse LotStep.
+Каждый публикует `RAW_LAW_STATUS`, `NORMALIZED_LAW_STATUS`, `FINAL_STATUS`.
+Единое правило: normalized FAIL ⇒ `FINAL_STATUS=REJECT`, даже при raw PASS.
