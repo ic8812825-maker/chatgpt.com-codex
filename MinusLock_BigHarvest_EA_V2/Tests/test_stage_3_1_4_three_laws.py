@@ -14,13 +14,14 @@ def run_matrix():
  for far in map(D,['0.01','0.02','0.05','0.10','0.50','1.00','2.00','5.00']):
   for step in map(D,['0.01','0.1','0.25']):
    if far<step:continue
-   b=broker(str(step));f=b.normalize(far);c=b.normalize(f*D('2.0'));t=b.normalize(f*D('0.5'));s=b.normalize(f*D('0.5'))
+   b=broker(str(step),spread='0');f=b.normalize(far);c=b.normalize(f*D('2.0'));t=b.normalize(f*D('0.5'));s=b.normalize(f*D('0.5'))
    if min(c,t,s)==0:continue
    for distance in map(D,['1','10','50','100','200','300','550']):
     for direction in ('UP','DOWN'):
-     p=Plan(f,c,t,s,D('0.9'),D('0'),costs=Costs(commission_open=D('0.01'),commission_close=D('0.01'),swap=D('0.01'),fee=D('0.01'),slippage=D('0.01')))
+     p=Plan(f,c,t,s,D('0.9'),f*D('.01'))
      result=evaluate(p,b,distance,direction)
      assert result['lot_catch_up'] and result['recovery_slope'] and result['pointwise']
+     assert result['money_catch_up'] and result['coverage_path']['coverage_monotone']
      total+=1
  assert total>=200
  return total
