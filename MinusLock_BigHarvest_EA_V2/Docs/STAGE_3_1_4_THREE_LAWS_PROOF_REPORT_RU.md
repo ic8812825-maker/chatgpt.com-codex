@@ -69,3 +69,17 @@ SELL (Ask), Far/Small BUY (Bid). После transform к `x` обе directional 
 равны `C+T-S-F`; spread меняет intercept и event costs, но при frozen spread не
 +меняет slope. Все четыре lots имеют unit LOT; slope умножается на direction-aware
 broker money/tick/lot, поэтому результат MONEY/price-distance.
+
+## 4. Law 1 — аналитическая lot-база
+
+На малом движении `dx` Big gross создаёт favorable capacity `B=C+T`; Small
+движется с Far и потребляет `S`, поэтому доступная база `B-S`. Только доля `α`
+назначается FinalReserve: reserve slope `α(B-S)`. Far deficit растёт со slope
+`F`. Разность coverage имеет slope `α(B-S)-F`, откуда необходимое строгое
+условие `α(C+T-S)>F`.
+
+Equality даёт нулевой slope и никогда не закрывает положительный initial deficit;
+`<` увеличивает deficit; только `>` допускает catch-up за конечную дистанцию.
+`α<=0`, `B<=S` и non-terminal `F=0` invalid; `α>1` вне share contract. Малый F
+и normalized lots проходят то же строгое сравнение после broker normalization.
+Это necessary analytic layer, не production permission.
