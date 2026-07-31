@@ -240,3 +240,13 @@ Matrix использует lots 0.01…5.00, LotStep 0.01/0.1/coarse 0.25, dist
 equality и strict FAIL. Off-grid/min-lot combinations отбрасываются как invalid,
 а не пропускаются как PASS. Фактическое число вычисленных valid combinations
 публикует test runner.
+
+## 22. Critical counterexamples
+
+Oracle tests обязаны поймать девять именованных ложных proofs:
+`CatchUpLotPass_MoneyFail`, `RecoverySlopePass_PointwiseFail`,
+`CompressionRawPass_NormalizedFail`, `CompressionPass_RiskFail`,
+`qAveragePass_qWorstCaseFail`, `FiniteContinuousPass_DiscreteFail`,
+`UPPass_DOWNFail`, `SpreadZeroPass_RealSpreadFail`,
+`MarginIgnoredPass_MarginFail`. Они мутируют inputs/assumptions, а не итоговый
+PASS, и каждый проходит фактический computation path.
