@@ -250,3 +250,10 @@ Oracle tests обязаны поймать девять именованных �
 `UPPass_DOWNFail`, `SpreadZeroPass_RealSpreadFail`,
 `MarginIgnoredPass_MarginFail`. Они мутируют inputs/assumptions, а не итоговый
 PASS, и каждый проходит фактический computation path.
+
+## 23. Canonical law contract
+
+Главный manual дополнен одинаково структурированными контрактами трёх laws:
+variables/units/preconditions, analytic necessary, broker-normalized, money,
+event, margin/worst-case, PASS/FAIL, terminal и executable evidence. Necessary,
+sufficient evidence и trade permission разделены явно.
