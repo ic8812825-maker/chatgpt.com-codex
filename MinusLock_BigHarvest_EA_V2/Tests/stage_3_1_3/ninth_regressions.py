@@ -1,6 +1,11 @@
 """Concrete production-pipeline invariants for the ninth correction."""
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
+
+TESTS_ROOT=Path(__file__).resolve().parents[1]
+if str(TESTS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TESTS_ROOT))
 
 from stage_3_1_3.seventh_engine import (
     build_resolved_mql_dataflow, build_scoped_mql_use_graphs,

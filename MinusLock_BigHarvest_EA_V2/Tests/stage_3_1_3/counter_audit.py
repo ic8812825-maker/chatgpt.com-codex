@@ -1,10 +1,14 @@
 """Execute causal before/after checks for every production blocking counter."""
 from __future__ import annotations
 import ast
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
 VALIDATOR=Path(__file__).resolve().parents[1]/"validate_stage_3_1_3_glossary.py"
+TESTS_ROOT=Path(__file__).resolve().parents[1]
+if str(TESTS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TESTS_ROOT))
 
 
 @dataclass(frozen=True)
