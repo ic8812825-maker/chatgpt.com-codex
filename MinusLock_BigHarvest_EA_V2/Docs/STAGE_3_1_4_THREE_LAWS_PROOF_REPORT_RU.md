@@ -381,3 +381,10 @@ STAGE_3_1_4_STATUS=CLOSED
 NEXT_ALLOWED_STAGE=3.1.5
 STAGE_3_1_5_STARTED=NO
 AWAITING_USER_APPROVAL=YES
+
+### Post-review UP/DOWN revalidation
+
+После разделения direction-specific broker values опубликованный `c5174c1`
+повторно прошёл validator и law tests: независимый `UPPass_DOWNFail` caught,
+остальные восемь counterexamples caught, 14 blockers нулевые. Итоговый status
+не основан на тождественных UP/DOWN вычислениях.
