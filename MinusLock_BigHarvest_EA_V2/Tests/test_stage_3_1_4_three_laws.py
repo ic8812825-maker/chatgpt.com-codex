@@ -127,7 +127,10 @@ def counterexamples():
  # A policy using ceiling can erase raw strict compression.
  coarse=broker('0.1');raw=D('0.099');norm=coarse.normalize(raw,'ceiling')
  caught['CompressionRawPass_NormalizedFail']=raw<D('0.1') and norm>=D('0.1')
- caught['CompressionPass_RiskFail']=compression(D('1'),D('.5'),D('.2'),D('.1'),D('.1'),b,D('2'))['gross_pass'] and not (D('101')<D('100'))
+ old_risk_basket=(BasketPosition(Side.BUY,D('2'),D('1.09500')),)
+ next_risk_basket=(BasketPosition(Side.BUY,D('1'),D('1.12000')),)
+ gross_compressed=sum(x.lot for x in next_risk_basket)<sum(x.lot for x in old_risk_basket)
+ caught['CompressionPass_RiskFail']=gross_compressed and risk_money(next_risk_basket,D('1.09000'),b)>risk_money(old_risk_basket,D('1.09000'),b)
  qs=[D('.4'),D('.5'),D('1')];caught['qAveragePass_qWorstCaseFail']=sum(qs,D(0))/D(len(qs))<1 and max(qs)>=1
  caught['FiniteContinuousPass_DiscreteFail']=D('.099')<D('.1') and coarse.normalize(D('.099'),'ceiling')==D('.1')
  direction_asym=broker(down_profit='0.4',down_loss='1')
