@@ -205,3 +205,12 @@ Law satisfaction — только один input Decision Engine. Cases
 `WORST_CASE_GATE=FAIL` обязаны дать `PLAN=REJECT`. Ни oracle, ни manual не
 объявляют trade permitted по трём laws без margin, worst-case, freshness,
 execution и reconciliation gates.
+
+## 18. Big→Small boundary
+
+Последний Big snapshot, Small transition snapshot, NewFar creation и first next
+cycle snapshot имеют разные immutable fingerprints. Reserve transfer сверяется
+ledger events; RecoveryPL — before/after reconciled money; OldFar/NewFar и
+GrossOld/GrossNext сравниваются только после confirmed fills. Непарные snapshots
+дают `BOUNDARY_EVIDENCE_MISSING`, не PASS. Partial execution сохраняет старый
+cycle active либо отклоняет promotion.
