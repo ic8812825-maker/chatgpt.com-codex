@@ -36,6 +36,9 @@ def boundaries():
  c=compression(D('1'),D('0.5'),D('0.2'),D('0.1'),D('0.1'),b,D('2'))
  assert c['new_far_pass'] and c['next_big_pass'] and c['gross_pass'] and c['q']==D('0.5')
  assert finite_bound(D('1'),D('0.5'),b)>0
+ catch=evaluate(Plan(D('1'),D('2'),D('.5'),D('.5'),D('.9'),D('10')),b,D('100'),'UP')
+ assert 0<catch['coverage_path']['levels_checked']<=101
+ assert catch['coverage_path']['coverage_monotone'] and catch['coverage_path']['first_catch_level'] is not None
 
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')

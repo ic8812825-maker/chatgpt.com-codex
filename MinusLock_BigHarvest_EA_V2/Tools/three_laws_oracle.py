@@ -83,6 +83,15 @@ def trajectory(plan:Plan,broker:Broker,points:D,direction:str):
 def strictly_increasing(values):return bool(values) and all(b>a for a,b in zip(values,values[1:]))
 def event_monotone(before:D,realized_transfer:D,floating_after:D,new_costs:D)->bool:return realized_transfer+floating_after-new_costs>=before
 
+def coverage_path(rows):
+    values=[r['coverage'] for r in rows]
+    start=next((i for i,row in enumerate(rows) if row['gross_reserve']>0),0)
+    first=next((i for i,value in enumerate(values) if value>=0),None)
+    required=values[start:]
+    return {'levels_checked':len(required),'first_required_level':start,'first_catch_level':first,
+            'coverage_monotone':all(b>=a for a,b in zip(required,required[1:])),
+            'final_coverage':values[-1],'final_catch':values[-1]>=0}
+
 def compression(old_far:D,new_far_raw:D,next_core_raw:D,next_trend_raw:D,small_next_raw:D,broker:Broker,gross_old:D):
     new_far=broker.normalize(new_far_raw);core=broker.normalize(next_core_raw);trend=broker.normalize(next_trend_raw);small=broker.normalize(small_next_raw,'ceiling')
     next_big=core+trend;gross_next=new_far+next_big+small;q=new_far/old_far if old_far>0 else D('Infinity')
@@ -96,4 +105,8 @@ def finite_bound(initial_far:D,q_max:D,broker:Broker)->int:
 
 def evaluate(plan:Plan,broker:Broker,points:D,direction:str):
     rows=trajectory(plan,broker,points,direction)
-    return {'lot_catch_up':plan.reserve_slope_lots>0,'recovery_slope':plan.recovery_slope_lots>0,'pointwise':strictly_increasing([r['recovery'] for r in rows]),'money_catch_up':rows[-1]['coverage']>=0,'rows':rows}
+    path=coverage_path(rows)
+    return {'lot_catch_up':plan.reserve_slope_lots>0,'recovery_slope':plan.recovery_slope_lots>0,
+            'pointwise':strictly_increasing([r['recovery'] for r in rows]),
+            'money_catch_up':path['final_catch'] and path['first_catch_level'] is not None and path['first_catch_level']<len(rows),
+            'coverage_path':path,'rows':rows}
