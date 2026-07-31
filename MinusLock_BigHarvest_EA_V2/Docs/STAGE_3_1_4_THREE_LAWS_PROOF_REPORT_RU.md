@@ -83,3 +83,15 @@ Equality даёт нулевой slope и никогда не закрывает
 `α<=0`, `B<=S` и non-terminal `F=0` invalid; `α>1` вне share contract. Малый F
 и normalized lots проходят то же строгое сравнение после broker normalization.
 Это necessary analytic layer, не production permission.
+
+## 5. Law 1 — level-by-level broker money
+
+Для каждого `P_k` leg money вычисляется как direction-aware close result на Bid
+или Ask по семантике `OrderCalcProfit`, а не `lots*points*10`:
+`ReserveAdd_k=α*max(0,BC_k+BT_k-SB_k)`; `ReserveTotal_k=R0+ReserveAdd_k`;
+`Coverage_k=ReserveTotal_k+FarMoney_k`. Gate требует не только положительный lot
+slope, но broker-money coverage на каждом обязательном level и финальный
+`Coverage_k>=0`. TickSize/Point/digits и разные positive/negative TickValue
+являются inputs. Поэтому EURUSD-like, JPY-like и asymmetric tick-value tracks
+вычисляются независимо. `LOT_CATCH_UP=PASS, MONEY_CATCH_UP=FAIL` всегда даёт
+`FINAL_PLAN=REJECT`.
