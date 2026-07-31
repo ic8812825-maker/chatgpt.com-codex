@@ -113,3 +113,11 @@ slope, но broker-money coverage на каждом обязательном lev
 chain rule снова `+C,+T,-S,-F`. Следовательно
 `dRecoveryPL/dx=PV_dir*(C+T-S-F)`. При `PV_dir>0` strict improvement требует
 `C+T-S-F>0`. Bid/Ask symmetry доказана transform, а не фразой «аналогично».
+
+## 8. Law 2 — broker-grid monotonicity
+
+Price grid строится целыми ticks: `P_k=P_0+direction*k*TickSize`; Bid/Ask
+нормализуются отдельно. Для всех `k` до Big oracle требует
+`RecoveryPL(P_{k+1})>RecoveryPL(P_k)` без epsilon, скрывающего plateau. Проверки
+включают 1,2,10,50,100,200,300 и 500+ points и non-integer Point/TickSize через
+целое число ticks. Analytic slope PASS без exhaustive interval PASS недостаточен.
