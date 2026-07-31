@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Fail-closed validator for the Stage 3.1.4 canonical three-law contract."""
 from pathlib import Path
+from decimal import Decimal
 import importlib.util,sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'Tools'))
@@ -21,20 +22,25 @@ def validate():
  c['RECOVERY_EVENT_MONOTONICITY_FAIL']=int(not event_monotone(D('5'),D('3'),D('2'),D('0')))
  comp=compression(D('1'),D('.5'),D('.2'),D('.1'),D('.1'),b,D('2'))
  c['NEW_FAR_COMPRESSION_FAIL']=int(not comp['new_far_pass']);c['NEXT_BIG_GROSS_COMPRESSION_FAIL']=int(not comp['next_big_pass']);c['GROSS_COMPRESSION_FAIL']=int(not comp['gross_pass'])
- # These must be approved canonical domain contracts, not values selected by tests.
- c['RISK_COMPRESSION_UNPROVEN']=int('RISK_CONTROL_POLICY_APPROVED=' not in MANUAL)
- c['Q_BOUND_FAIL']=int('Q_MAX_APPROVED=' not in MANUAL)
+ # Parse every normative profile cap; no test-selected or average q is accepted.
+ caps=[]
+ for line in MANUAL.splitlines():
+  cells=[x.strip() for x in line.strip().split('|')]
+  if len(cells)>7 and cells[1] in {'SAFE','BALANCED','STRONG_COMPRESSION'}:
+   caps.append(Decimal(cells[6]))
+ c['RISK_COMPRESSION_UNPROVEN']=int('NextCycleRisk<OldCycleRisk' not in MANUAL or 'NextFarRiskMoney' not in MANUAL)
+ c['Q_BOUND_FAIL']=int(len(caps)!=3 or not all(D(0)<x<D(1) for x in caps))
  try:finite_bound(D('1'),D('.5'),b)
  except ValueError:c['DISCRETE_FINITE_TERMINATION_FAIL']=1
  caught=t.counterexamples();c['ROUNDING_PATHOLOGY_UNHANDLED']=int(not all(caught[x] for x in ('CompressionRawPass_NormalizedFail','FiniteContinuousPass_DiscreteFail')))
  c['UP_DOWN_PARITY_FAIL']=int(not all(x['pointwise'] for x in tracks.values()))
  c['COUNTEREXAMPLE_SUITE_FAIL']=int(len(caught)!=9 or not all(caught.values()))
- return c,t.run_matrix(),caught
+ return c,t.run_matrix(),caught,max(caps) if caps else None
 
 def main():
- c,matrix,caught=validate()
+ c,matrix,caught,qmax=validate()
  for k in BLOCKERS:print(f'{k}={c[k]}')
- print(f'AUTOMATED_MATRIX_CASES={matrix}');print(f'COUNTEREXAMPLES_CAUGHT={sum(caught.values())}')
+ print(f'AUTOMATED_MATRIX_CASES={matrix}');print(f'Q_MAX_WORST_CASE={qmax}');print(f'COUNTEREXAMPLES_CAUGHT={sum(caught.values())}')
  print('RISK_COMPRESSION='+('DEFERRED_WITH_PROOF' if c['RISK_COMPRESSION_UNPROVEN'] else 'PASS'))
  print('Q_WORST_CASE_BOUND='+('FAIL' if c['Q_BOUND_FAIL'] else 'PASS'))
  fail=[k for k,v in c.items() if v]

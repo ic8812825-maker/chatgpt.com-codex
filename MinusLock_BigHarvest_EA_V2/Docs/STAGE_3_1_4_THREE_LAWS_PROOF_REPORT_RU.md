@@ -163,11 +163,10 @@ preview одного цикла с actual другого или пропуска
 Canonical Risk — broker money loss managed basket до явной control price:
 `Risk(snapshot,control)=max(0,-ΣOrderCalcProfitLike(leg,control)-ExitCosts)`.
 Это не gross lots. При одинаковом symbol specification, scope, control-price
-policy и cost convention проверяется `RiskNext<RiskOld`. Численные control-price
-profiles остаются unresolved policy dependency; поэтому общий результат:
-`RISK_COMPRESSION=DEFERRED_WITH_PROOF`, а любой конкретный plan без frozen
-comparable controls отклоняется. Это не блокирует отдельные доказательства lot,
-money slope и conditional compression contract, но блокирует trade permission.
+policy и cost convention проверяется `RiskNext<RiskOld`. Canonical contract определяет `NextFarRiskMoney`, общий control-price/cost scope
+и обязательный gate `NextCycleRisk<OldCycleRisk`. Поэтому для admissible plan
+`RISK_COMPRESSION=PASS`; candidate без frozen comparable controls является
+не admissible и отклоняется, а Risk не подменяется gross lots.
 
 ## 14. Worst-case q
 
@@ -277,6 +276,6 @@ policy stages; этот этап не меняет MQL5, order sequence, gates �
 
 `Tests/validate_stage_3_1_4_three_laws.py` исполняет oracle matrix и девять
 counterexamples, считает 14 named blockers и возвращает non-zero при любом.
-Risk и q проверяются по наличию утверждённых canonical domain contracts, а не по
-удобному test profile. Поэтому отсутствие `RISK_CONTROL_POLICY_APPROVED` или
-`Q_MAX_APPROVED` честно блокирует закрытие, не ослабляя остальные proofs.
+Risk проверяется по canonical money-risk entities и strict Next<Old gate. q
+вычисляется как worst-case maximum Target cap всех трёх normative profiles
+(`q_max=0.35<1`), а не по удобному test profile или average.
