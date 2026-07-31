@@ -66,6 +66,22 @@ def cost_matrix():
  assert total==passed
  return total,passed
 
+def broker_matrix():
+ profiles={
+  'SYMMETRIC':broker(profit='1',loss='1',down_profit='1',down_loss='1'),
+  'UP_PROFIT_WEAKER':broker(profit='.8',loss='1',down_profit='1',down_loss='1'),
+  'DOWN_PROFIT_WEAKER':broker(profit='1',loss='1',down_profit='.8',down_loss='1'),
+  'UP_LOSS_STRONGER':broker(profit='1',loss='1.2',down_profit='1',down_loss='1'),
+  'DOWN_LOSS_STRONGER':broker(profit='1',loss='1',down_profit='1',down_loss='1.2'),
+  'PROFIT_LOSS_ASYMMETRIC':broker(profit='.9',loss='1.1',down_profit='.85',down_loss='1.15')}
+ total=passed=0
+ for b in profiles.values():
+  for direction in ('UP','DOWN'):
+   result=evaluate(Plan(D('1'),D('3'),D('1'),D('.2'),D('.9'),D('5')),b,D('100'),direction)
+   total+=1;passed+=all((result['lot_catch_up'],result['money_catch_up'],result['recovery_slope'],result['pointwise'],result['coverage_path']['coverage_monotone']))
+ assert total==passed
+ return total,passed
+
 if __name__=='__main__':
  boundaries();print(f'AUTOMATED_MATRIX_CASES={run_matrix()}');print('STAGE_3_1_4_MATRIX=PASS')
 
@@ -102,3 +118,4 @@ if __name__=='__main__':
  for name in result:print(f'COUNTEREXAMPLE_{name}=CAUGHT')
  print(f'COUNTEREXAMPLES_CAUGHT={len(result)}')
  total,passed=cost_matrix();print(f'COST_SCENARIOS_TOTAL={total}');print(f'COST_SCENARIOS_PASSED={passed}')
+ total,passed=broker_matrix();print(f'BROKER_SCENARIOS_TOTAL={total}');print(f'BROKER_SCENARIOS_PASSED={passed}')
