@@ -104,3 +104,12 @@ slope, но broker-money coverage на каждом обязательном lev
 `NetReservePotential=GrossReservePotential-Costs`. Final coverage использует
 только Net. Adversarial contract требует обнаружить случай Lot PASS + Gross PASS
 + Net FAIL и отклонить plan.
+
+## 7. Law 2 — analytic directional slope
+
+`RecoveryPL(x)=RealizedCyclePL+Σ LegMoney_i(x)-ExpectedExitCosts(x)`.
+Между events при frozen costs: UP derivatives равны `+C,+T,-S,-F`; DOWN имеет
+противоположные derivatives по absolute price, но `dP/dx=-1`, поэтому после
+chain rule снова `+C,+T,-S,-F`. Следовательно
+`dRecoveryPL/dx=PV_dir*(C+T-S-F)`. При `PV_dir>0` strict improvement требует
+`C+T-S-F>0`. Bid/Ask symmetry доказана transform, а не фразой «аналогично».
