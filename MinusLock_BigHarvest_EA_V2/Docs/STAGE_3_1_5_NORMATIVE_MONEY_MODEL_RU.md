@@ -48,3 +48,10 @@ Production semantic source — `OrderCalcProfit`. BUY закрывается п�
 IN, OUT, INOUT и OUT_BY сохраняются как entry type; каждый фактический DealTicket применяется
 ровно один раз. Несколько fills агрегируются по actual volume/price/cost, а requested volume не
 подменяет actual. Preview никогда не кредитует realized ledger и не завершает действие.
+
+## Costs без двойного учёта
+
+Spread учитывается только Bid/Ask. Projected slippage включается только в control price; actual
+slippage — диагностическая разница, поскольку actual deal profit уже использует deal price.
+Projected commission/fee являются estimate и заменяются actual после reconciliation. Commission,
+swap и fee суммируются с их broker sign; знак по имени поля не инвертируется.
