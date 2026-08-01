@@ -85,3 +85,11 @@ FinalReserve, Carry, TransitionBudget, Residual. Перемещение/расх
 только для final Far; PartialFar использует только PartialFarBudget. Projected/negative harvest не
 кредитует бюджеты. Final Close требует reconciled managed state, актуальные prices/costs, отсутствие
 pending/unknown fills, покрытие deficit Reserve, threshold RecoveryPLCloseNow и отдельные risk/margin gates.
+
+## Exactly-once и restart reconciliation
+
+Event key: AccountLogin, Symbol, Magic, CycleID, EventType, Level, Phase, PositionIdentifier,
+DealTicket, AllocationType. Состояния: DISCOVERED, PENDING_RECONCILIATION, RECONCILED,
+ALLOCATION_PENDING, APPLIED, PERSISTED. Повторный DealTicket/EventID — no-op. После restart ledger
+и applied keys восстанавливаются до history replay; завершается только незавершённый transition,
+credits/residual не повторяются. Следующее FSM-действие запрещено до reconciliation.
