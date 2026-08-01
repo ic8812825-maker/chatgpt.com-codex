@@ -34,3 +34,10 @@ Manual trade, другой советник/символ/цикл, deposit, with
 `AccountBalanceNow-CycleStartBalance` запрещён как источник cycle P/L. При Initial Lock прибыль
 закрытой плюсовой стартовой ноги помечается `INITIAL_IGNORED` до старта recovery cycle и не может
 попасть в realized, Reserve, PartialFarBudget, Carry либо final-close gate.
+
+## Projected broker money
+
+Production semantic source — `OrderCalcProfit`. BUY закрывается по Bid, SELL — по Ask;
+`SpreadPrice=Ask-Bid`, обе цены лежат на TickSize grid. Worst-case slippage сначала неблагоприятно
+смещает control price и только затем вызывается расчёт. Oracle воспроизводит эту side-aware
+семантику через Decimal и раздельные TickValueProfit/TickValueLoss; он не заменяет MT5.
