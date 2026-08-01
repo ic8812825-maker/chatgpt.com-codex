@@ -62,3 +62,11 @@ swap и fee суммируются с их broker sign; знак по имени
 Распределение ведётся Decimal; последняя закрывающая часть получает весь rounding residual.
 Частичный fill оставляет остаток volume и unallocated cost открытой позиции. Полное закрытие требует
 нулевого остатка обоих полей после reconciliation.
+
+## RecoveryPLCloseNow и EventSnapshot
+
+`FloatingLegCloseNow=ProjectedProfit(actual lot, actual open, adverse control Bid/Ask)+CurrentSwap+ProjectedExitCommission+ProjectedExitFee`.
+`RecoveryPLCloseNow=RealizedCycleNet+sum(FloatingLegCloseNow)`. Reserve, Carry, PartialFarBudget,
+TransitionBudget и account balance delta не прибавляются. Before/after используют одну функцию.
+Snapshot содержит identity, EventID, level/scenario/phase, Bid/Ask/spread, managed positions и actual
+lots, economic totals, все allocation ledgers, costs/slippage diagnostic и reconciliation status.
