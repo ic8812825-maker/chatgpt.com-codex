@@ -16,3 +16,13 @@ PRODUCTION_TRADING_LOGIC_CHANGED=NO
 Начальная ветка `work` синхронизирована с `origin/work`. Полный `pytest` до изменений остановлен
 на collection: отсутствуют внешние `pandas` и `openpyxl`; это ограничение окружения и соседних
 repository suites, а не результат Этапа 3.1.5.
+
+## Термины, размерности и идентичность
+
+Допустимые размерности: `LOT`, `PRICE`, `POINT`, `TICK`, `ACCOUNT_MONEY`, `RATIO`,
+`INTEGER_RANK`, `BOOLEAN`, `EVENT_ID`, `DEAL_TICKET`, `POSITION_IDENTIFIER`.
+`ProjectedMoney` — оценка; `DealNet` — подтверждённый экономический результат;
+`RealizedCycleNet` — сумма уникальных managed deals; `FloatingLegCloseNow` — прогноз закрытия
+actual volume; `RecoveryPLCloseNow` — realized плюс floating. Денежная идентичность задаётся
+`AccountLogin + Symbol + Magic + CycleID`; позиция дополнительно имеет `PositionIdentifier/LegID`.
+Сравнение lot с money, requested с actual и points с price без явного преобразования запрещено.
