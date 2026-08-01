@@ -2065,3 +2065,8 @@ STAGE_3_1_3_STARTED=NO
 Код, параметры, другие Docs, MQL5, Python, Tests, Tools, Sets, workflows и runtime не менялись.
 
 Ожидается повторная проверка пользователя. Этап 3.1.3 не выполнялся.
+# Денежная нормативная граница Этапа 3.1.5
+
+Денежные определения `STAGE_3_1_5_NORMATIVE_MONEY_MODEL_RU.md` имеют приоритет только для
+projected/actual money, RecoveryPLCloseNow, allocation и exactly-once. Геометрические ratios,
+NewFar и profiles не разрешены этим этапом: `STATUS=BLOCKED_BY_USER_DECISION`.
