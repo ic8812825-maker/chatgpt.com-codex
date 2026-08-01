@@ -41,3 +41,10 @@ Production semantic source — `OrderCalcProfit`. BUY закрывается п�
 `SpreadPrice=Ask-Bid`, обе цены лежат на TickSize grid. Worst-case slippage сначала неблагоприятно
 смещает control price и только затем вызывается расчёт. Oracle воспроизводит эту side-aware
 семантику через Decimal и раздельные TickValueProfit/TickValueLoss; он не заменяет MT5.
+
+## Actual deals и realized money
+
+`DealNet=DEAL_PROFIT+DEAL_SWAP+DEAL_COMMISSION+DEAL_FEE` с фактическими знаками MT5.
+IN, OUT, INOUT и OUT_BY сохраняются как entry type; каждый фактический DealTicket применяется
+ровно один раз. Несколько fills агрегируются по actual volume/price/cost, а requested volume не
+подменяет actual. Preview никогда не кредитует realized ledger и не завершает действие.
