@@ -700,3 +700,21 @@ Gates определяют допустимый код.
 Тесты подтверждаются runtime evidence.
 
 Реальная торговля допускается только после прохождения всей цепочки и отдельного подтверждения пользователя.
+
+---
+
+# Статус после Этапа 3.1.5
+
+```text
+STAGE_3_1_4_STATUS=CLOSED
+STAGE_3_1_5_STATUS=CLOSED
+STATIC_NORMATIVE_MONEY_MODEL=PASS
+PRODUCTION_MQL5_MAPPING=PARTIAL
+EXACT_MT5_RUNTIME_EXECUTION=NOT_PROVEN_BY_STAGE_3_1_5
+REAL_TRADING_ALLOWED=NO
+NEXT_ALLOWED_STAGE=3.1.6
+STAGE_3_1_6_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+```
+
+Этап 3.1.6 не начат; требуется отдельное разрешение пользователя.
