@@ -70,3 +70,10 @@ swap и fee суммируются с их broker sign; знак по имени
 TransitionBudget и account balance delta не прибавляются. Before/after используют одну функцию.
 Snapshot содержит identity, EventID, level/scenario/phase, Bid/Ask/spread, managed positions и actual
 lots, economic totals, все allocation ledgers, costs/slippage diagnostic и reconciliation status.
+
+## Два независимых ledger
+
+Economic P/L Ledger хранит unique actual deals и floating close-now и единственный формирует
+RecoveryPL. Allocation Ledger хранит tagged распределение уже realized positive harvest: PartialFar,
+FinalReserve, Carry, TransitionBudget, Residual. Перемещение/расход allocation не создаёт P/L;
+экономическая потеря закрытия Far появляется только в actual deal.
