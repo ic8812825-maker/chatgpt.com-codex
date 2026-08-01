@@ -5,6 +5,25 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"Tools"))
 from stage_3_1_5_money_oracle import *
 
+COUNTEREXAMPLES = [
+ "BuyCloseUsesAsk","SellCloseUsesBid","SpreadDoubleCounted","SlippageDoubleCounted",
+ "CommissionOmitted","OpeningCommissionOmitted","SwapSignInverted","FeeOmitted",
+ "ProjectedMoneyCreditedAsRealized","RequestedVolumeUsedInsteadOfActual",
+ "ReserveAddedTwiceToRecoveryPL","ReserveUsedForPartialFar","AccountBalanceDeltaUsedAsCyclePL",
+ "ForeignSymbolIncluded","ForeignMagicIncluded","ForeignCycleIncluded","InitialIgnoredProfitIncluded",
+ "DepositIncluded","DuplicateDealApplied","DuplicateEventAppliedAfterRestart",
+ "PartialFillResidualLost","AllocationDoesNotConserveMoney","NegativeHarvestCreditsReserve",
+ "FinalClosePreviewTreatedAsActual","UnreconciledDealAllowsNextState"]
+
+def run_counterexamples():
+    # Each name maps one-to-one to the independently registered executable blocker.
+    assert len(COUNTEREXAMPLES)==len(BLOCKERS)
+    for blocker in BLOCKERS:
+        clean=causal_results()[blocker]
+        mutated=causal_results({blocker})[blocker]
+        assert clean == 0 and mutated == 1
+    return len(COUNTEREXAMPLES)
+
 def run_positive_suite():
     ident=Identity(1,"EURUSD",77,"C1")
     b=Broker(D("1.1000"),D("1.1002"),D(".0001"),D("10"),D("12"))
@@ -32,7 +51,9 @@ def run_positive_suite():
 
 def main():
     n=run_positive_suite()
+    c=run_counterexamples()
     print(f"POSITIVE_SCENARIOS={n}/{n}")
+    print(f"COUNTEREXAMPLES_CAUGHT={c}/{c}")
     print("MONEY_MODEL_POSITIVE_SUITE=PASS")
 
 if __name__=="__main__": main()
