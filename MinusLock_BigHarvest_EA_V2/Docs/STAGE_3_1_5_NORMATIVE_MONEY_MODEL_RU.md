@@ -26,3 +26,11 @@ repository suites, а не результат Этапа 3.1.5.
 actual volume; `RecoveryPLCloseNow` — realized плюс floating. Денежная идентичность задаётся
 `AccountLogin + Symbol + Magic + CycleID`; позиция дополнительно имеет `PositionIdentifier/LegID`.
 Сравнение lot с money, requested с actual и points с price без явного преобразования запрещено.
+
+## Изоляция managed cycle
+
+В Economic Ledger допускаются только записи с точным совпадением Account, Symbol, Magic и CycleID.
+Manual trade, другой советник/символ/цикл, deposit, withdrawal, credit/balance correction исключаются.
+`AccountBalanceNow-CycleStartBalance` запрещён как источник cycle P/L. При Initial Lock прибыль
+закрытой плюсовой стартовой ноги помечается `INITIAL_IGNORED` до старта recovery cycle и не может
+попасть в realized, Reserve, PartialFarBudget, Carry либо final-close gate.
