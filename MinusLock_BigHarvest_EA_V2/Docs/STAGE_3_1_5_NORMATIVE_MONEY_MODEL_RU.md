@@ -77,3 +77,11 @@ Economic P/L Ledger хранит unique actual deals и floating close-now и е
 RecoveryPL. Allocation Ledger хранит tagged распределение уже realized positive harvest: PartialFar,
 FinalReserve, Carry, TransitionBudget, Residual. Перемещение/расход allocation не создаёт P/L;
 экономическая потеря закрытия Far появляется только в actual deal.
+
+## Budgets и conservation
+
+`AllocatableHarvestNet=PartialFarBudgetAdd+FinalReserveCredit+CarryAdd+TransitionBudgetAdd+Residual`.
+Кредит разрешён только для positive, actual и reconciled harvest. FinalReserve — tagged subset,
+только для final Far; PartialFar использует только PartialFarBudget. Projected/negative harvest не
+кредитует бюджеты. Final Close требует reconciled managed state, актуальные prices/costs, отсутствие
+pending/unknown fills, покрытие deficit Reserve, threshold RecoveryPLCloseNow и отдельные risk/margin gates.
