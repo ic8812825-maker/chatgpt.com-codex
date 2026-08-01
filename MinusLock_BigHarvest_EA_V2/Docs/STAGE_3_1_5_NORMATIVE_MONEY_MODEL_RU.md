@@ -55,3 +55,10 @@ Spread учитывается только Bid/Ask. Projected slippage вклю�
 slippage — диагностическая разница, поскольку actual deal profit уже использует deal price.
 Projected commission/fee являются estimate и заменяются actual после reconciliation. Commission,
 swap и fee суммируются с их broker sign; знак по имени поля не инвертируется.
+
+## Opening costs, partial fills и residual
+
+`AllocatedEntryCost=UnallocatedEntryCost*ActualClosedVolume/PositionVolumeBefore`.
+Распределение ведётся Decimal; последняя закрывающая часть получает весь rounding residual.
+Частичный fill оставляет остаток volume и unallocated cost открытой позиции. Полное закрытие требует
+нулевого остатка обоих полей после reconciliation.
