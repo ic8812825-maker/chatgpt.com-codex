@@ -4,7 +4,7 @@ from decimal import Decimal as D
 import pytest
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'Tools'),str(ROOT/'Tests'/'stage_3_1_5')]
 from stage_3_1_5_money_oracle import *
-from scenario_catalog import run_positive_scenarios
+from scenario_catalog import run_positive_scenarios,missing_scenario_categories
 from restart_fixtures import all_restart_probes
 SCENARIOS=run_positive_scenarios()
 def K(i=1,kind=AllocationType.RESIDUAL,account=1,symbol='X',magic=2,cycle='C',state='POST'):return EventKey(account,symbol,magic,cycle,'HARVEST',1,state,'P',i,kind)
@@ -163,3 +163,7 @@ def test_final_close_after_restart_uses_restored_positions_and_reserve():
  store,ek=_persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize());assert restored.managed_positions and restored.allocation.available(AllocationType.FINAL_RESERVE)==D('4')
 def test_final_close_after_restart_blocks_missing_source_pool():
  store,ek=_persisted_gate_store();store.allocation.source_pools.clear();snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'));assert 'SOURCE_POOL_MISSING' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1)).reasons
+
+def test_required_scenario_categories_complete():assert not missing_scenario_categories(SCENARIOS)
+def test_loss_money_scenarios_present():assert sum(r.category in {'BUY_LOSS','SELL_LOSS'} and r.actual['money']<0 for r in SCENARIOS)>=2
+def test_scenario_total_at_least_120():assert len(SCENARIOS)>=120

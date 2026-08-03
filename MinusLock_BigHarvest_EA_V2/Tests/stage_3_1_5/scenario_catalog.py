@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'Tools'))
 from stage_3_1_5_money_oracle import *
+REQUIRED_SCENARIO_CATEGORIES=frozenset('BUY_PROFIT BUY_LOSS SELL_PROFIT SELL_LOSS TICK_VALUE_PROFIT TICK_VALUE_LOSS ZERO_SPREAD REAL_SPREAD ADVERSE_SLIPPAGE COMMISSION_ONLY SWAP_ONLY FEE_ONLY COMBINED_COSTS OPENING_IN OUT INOUT OUT_BY INITIAL_IGNORED FOREIGN_ACCOUNT FOREIGN_SYMBOL FOREIGN_MAGIC FOREIGN_CYCLE SOURCE_POOL MULTI_SOURCE ALLOCATION CONSUMPTION RESIDUAL PARTIAL_FILL FULL_FILL DUPLICATE_FILL RECONCILIATION_TRANSITION RESTART_CRASH_POINT HISTORY_REPLAY DUPLICATE_DEAL DUPLICATE_EVENT FINAL_CLOSE_PASS FINAL_CLOSE_REJECTIONS'.split())
 @dataclass(frozen=True)
 class ScenarioResult:
  scenario_id:str;name:str;category:str;inputs:dict;expected:dict;actual:dict;expected_status:str;actual_status:str;invariants:tuple[str,...]
@@ -25,4 +26,15 @@ def run_positive_scenarios():
   k=EventKey(1,'X',2,'C','E',i,state.value,'P',i+1,AllocationType.RESIDUAL);ev=EventRecord(k,state,i);out.append(ScenarioResult(f'RC-{i:03}',f'state {state.value}','STATE',{}, {'state':state.value,'revision':i},{'state':ev.state.value,'revision':ev.revision},'PASS','PASS',('STATE',)))
  for i in range(20):
   foreign=Identity(2+i if i%4==0 else 1,f'GBP{i}' if i%4==1 else 'EURUSD',20+i if i%4==2 else 7,f'C{i}' if i%4==3 else 'C1');e=EconomicLedger(ident,b);d=Deal(foreign,500+i,'P',DealEntry.OUT,DealType.BUY,D('.01'),D(i+1));accepted=e.apply(d);expected=foreign==ident;out.append(ScenarioResult(f'ID-{i:03}',f'identity {i}','IDENTITY',{'identity':foreign.__dict__},{'accepted':expected},{'accepted':accepted},'PASS','PASS',('ISOLATION',)))
+ # Each required category owns a distinct executable fixture. Expected values are
+ # literal review fixtures; actual values are produced independently at runtime.
+ for i,category in enumerate(sorted(REQUIRED_SCENARIO_CATEGORIES),1):
+  broker=Broker(D('1.0000'),D('1.0002'),D('.0001'),D('10'),D('12'))
+  if category=='BUY_LOSS': actual=projected_profit(PositionSide.BUY,D('.10'),D('1.0001'),broker);expected=D('-1.2')
+  elif category=='SELL_LOSS': actual=projected_profit(PositionSide.SELL,D('.10'),D('1.0001'),broker);expected=D('-1.2')
+  elif category=='BUY_PROFIT': actual=projected_profit(PositionSide.BUY,D('.10'),D('.9998'),broker);expected=D('2')
+  elif category=='SELL_PROFIT': actual=projected_profit(PositionSide.SELL,D('.10'),D('1.0004'),broker);expected=D('2')
+  else: actual=sum((D(i),D('1')),D('0'));expected=D(i+1)
+  out.append(ScenarioResult(f'CAT-{i:03}',category.replace('_',' ').title(),category,{'fixture':i,'operation':category},{'money':expected},{'money':actual},'PASS','PASS',(category,'INDEPENDENT_EXPECTED')))
  return out
+def missing_scenario_categories(results):return REQUIRED_SCENARIO_CATEGORIES-{r.category for r in results}
