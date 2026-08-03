@@ -13,6 +13,14 @@ class DealType(str,Enum):
 class ReconciliationState(str,Enum):
  DISCOVERED="DISCOVERED"; PENDING_RECONCILIATION="PENDING_RECONCILIATION"; RECONCILED="RECONCILED"; ALLOCATION_PENDING="ALLOCATION_PENDING"; APPLIED="APPLIED"; PERSISTED="PERSISTED"; CONFLICT="CONFLICT"; REJECTED="REJECTED"
 class AllocationType(str,Enum): PARTIAL_FAR="PARTIAL_FAR"; FINAL_RESERVE="FINAL_RESERVE"; CARRY="CARRY"; TRANSITION="TRANSITION"; RESIDUAL="RESIDUAL"
+@dataclass(frozen=True,order=True)
+class EventKey:
+ account_login:int; symbol:str; magic:int; cycle_id:str; event_type:str; level:int; phase:str; position_identifier:str; deal_ticket:int; allocation_type:AllocationType
+ def __post_init__(self):
+  if not self.symbol or not self.cycle_id or not self.event_type or not self.phase or not self.position_identifier or self.deal_ticket<=0:raise ValueError('incomplete EventKey')
+ def to_dict(self):return {**asdict(self),'allocation_type':self.allocation_type.value}
+ @classmethod
+ def from_dict(cls,x):return cls(**{**x,'allocation_type':AllocationType(x['allocation_type'])})
 def grid(value:D,step:D)->bool: return step>0 and value%step==0
 @dataclass(frozen=True)
 class Identity: account:int; symbol:str; magic:int; cycle:str
@@ -62,7 +70,9 @@ class EventSnapshot:
 def floating_total(identity:Identity,positions:Iterable[Position],broker:Broker,slippage:D=D('0'))->D:
  return sum((projected_profit(p.side,p.volume,p.open_price,broker,slippage)+p.swap+p.exit_commission+p.exit_fee for p in positions if p.identity==identity),D('0'))
 def make_snapshot(identity:Identity,event_key:EventKey,event_type:str,level:int,scenario:str,phase:str,broker:Broker,positions:Iterable[Position],realized:D,state:ReconciliationState,revision:int,**kw)->EventSnapshot:
- ps=tuple(p for p in positions if p.identity==identity); floating=floating_total(identity,ps,broker,kw.get('slippage_diagnostic',D('0')))
+ ps=tuple(positions)
+ if any(p.identity!=identity for p in ps):raise ValueError('foreign position')
+ floating=floating_total(identity,ps,broker,kw.get('slippage_diagnostic',D('0')))
  return EventSnapshot(identity,event_key,event_type,level,scenario,phase,broker,ps,tuple(p.volume for p in ps),tuple(p.open_price for p in ps),kw.get('final_reserve_available',D('0')),kw.get('partial_far_budget_available',D('0')),kw.get('carry_available',D('0')),kw.get('transition_budget_available',D('0')),kw.get('residual',D('0')),kw.get('commission',D('0')),kw.get('swap',D('0')),kw.get('fee',D('0')),kw.get('slippage_diagnostic',D('0')),state,frozenset(kw.get('applied_deal_tickets',())),frozenset(kw.get('pending_deal_tickets',())),revision,kw.get('ledger_revision',revision),realized,floating,realized+floating)
 ALLOWED_TRANSITIONS={
  ReconciliationState.DISCOVERED:frozenset((ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.CONFLICT,ReconciliationState.REJECTED)),

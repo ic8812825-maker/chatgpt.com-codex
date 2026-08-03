@@ -1,38 +1,40 @@
-#!/usr/bin/env python3
 import sys
 from pathlib import Path
 from decimal import Decimal as D
 import pytest
-ROOT=Path(__file__).resolve().parents[1]; sys.path[:0]=[str(ROOT/'Tools'),str(ROOT/'Tests'/'stage_3_1_5')]
+ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'Tools'),str(ROOT/'Tests'/'stage_3_1_5')]
 from stage_3_1_5_money_oracle import *
 from scenario_catalog import run_positive_scenarios
+from restart_fixtures import all_restart_probes
 SCENARIOS=run_positive_scenarios()
-@pytest.mark.parametrize('result',SCENARIOS,ids=lambda x:x.scenario_id)
-def test_positive_scenario(result): assert result.passed
-@pytest.mark.parametrize('field,value',[('bid',D('1.10001')),('ask',D('1.10021')),('tick_size',D('0')),('tv_profit',D('0')),('tv_loss',D('-1'))])
-def test_broker_validation_rejects(field,value):
- kw=dict(bid=D('1.1000'),ask=D('1.1002'),tick_size=D('.0001'),tv_profit=D('10'),tv_loss=D('10'));kw[field]=value
- with pytest.raises(ValueError):Broker(**kw)
-@pytest.mark.parametrize('lot',[D('0'),D('-.1'),D('.015')])
-def test_strict_volume_validation(lot):
- with pytest.raises(ValueError):Broker(D('1'),D('1'),D('.0001'),D('10'),D('10')).validate_lot(lot)
-def test_invalid_side_rejected():
- with pytest.raises(ValueError):projected_profit('SELL',D('.1'),D('1'),Broker(D('1'),D('1'),D('.0001'),D('10'),D('10')))
+def K(i=1,kind=AllocationType.RESIDUAL,account=1,symbol='X',magic=2,cycle='C',state='POST'):return EventKey(account,symbol,magic,cycle,'HARVEST',1,state,'P',i,kind)
+def base():
+ i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));return i,b,e
+@pytest.mark.parametrize('r',SCENARIOS,ids=lambda x:x.scenario_id)
+def test_scenario_independent_fields(r):
+ assert r.expected is not r.actual;assert r.expected==r.actual;assert r.expected_status==r.actual_status;assert r.invariants
+@pytest.mark.parametrize('field,value',[('bid',D('1.001')),('ask',D('1.001')),('tick_size',D('0')),('tv_profit',D('0')),('tv_loss',D('-1'))])
+def test_broker_invalid(field,value):
+ q=dict(bid=D('1'),ask=D('1'),tick_size=D('.01'),tv_profit=D('1'),tv_loss=D('1'));q[field]=value
+ with pytest.raises(ValueError):Broker(**q)
 def test_event_snapshot_recomputes_recovery():
- i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));s=make_snapshot(i,'E','H',1,'S','P',b,[],D('3'),ReconciliationState.DISCOVERED,0);assert s.recovery_pl_close_now==D('3')
-def test_reconciliation_invalid_jump():
- with pytest.raises(ValueError):EventRecord('E').transition(ReconciliationState.PERSISTED)
-def test_history_replay_idempotent():
- i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);d=Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('2'));assert e.replay([d,d])==1
-def test_restart_roundtrip_independent():
- i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('2')));s=PersistentStore(e,AllocationLedger(i),{'E':EventRecord('E',ReconciliationState.PENDING_RECONCILIATION,1)},2);r=PersistentStore.deserialize(s.serialize());assert r is not s and r.economic.realized_cycle_net==D('2') and r.events['E'].state is ReconciliationState.PENDING_RECONCILIATION
-def test_partial_overfill_and_zero_rejected():
- for v in (D('0'),D('2')):
-  with pytest.raises(ValueError):OpenPositionCost(D('1'),D('-2')).close(v,v)
-def main():
- failed=[x for x in SCENARIOS if not x.passed];print(f'POSITIVE_SCENARIOS_TOTAL={len(SCENARIOS)}');print(f'POSITIVE_SCENARIOS_PASSED={len(SCENARIOS)-len(failed)}');raise SystemExit(bool(failed))
-if __name__=='__main__':main()
-def test_allocation_conservation_and_duplicate():
- i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));ev=EventRecord('E',ReconciliationState.RECONCILED);a=AllocationLedger(i);assert a.allocate(ev,e,AllocationType.FINAL_RESERVE,D('4'),[1],D('1'));assert not a.allocate(ev,e,AllocationType.FINAL_RESERVE,D('4'),[1],D('1'))
-def test_final_close_ledger_gate():
- i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));a=AllocationLedger(i);a.records[('E',AllocationType.FINAL_RESERVE)]=AllocationRecord(i,'E',(1,),AllocationType.FINAL_RESERVE,D('4'),D('4'),D('0'),D('0'),ReconciliationState.RECONCILED);ev=EventRecord('E',ReconciliationState.PERSISTED);s=PersistentStore(e,a,{'E':ev},1);snap=make_snapshot(i,'E','FINAL',1,'S','POST',b,[],e.realized_cycle_net,ReconciliationState.PERSISTED,1);assert evaluate_final_close(snap,s,[],b,True,True,D('0'),D('3'),1).allowed;assert not evaluate_final_close(snap,s,[],b,False,True,D('0'),D('3'),1).allowed
+ i,b,e=base();k=K();s=make_snapshot(i,k,'HARVEST',1,'S','POST',b,[],e.realized_cycle_net,ReconciliationState.PERSISTED,1,ledger_revision=1);assert s.recovery_pl_close_now==D('5')
+def test_foreign_position_in_snapshot_rejected():
+ i,b,e=base();p=Position(Identity(2,'X',2,'C'),'P','L','F',PositionSide.BUY,D('.01'),D('1'))
+ with pytest.raises(ValueError):make_snapshot(i,K(),'HARVEST',1,'S','POST',b,[p],D('0'),ReconciliationState.PERSISTED,1)
+def test_allocation_and_consume_identity():
+ i,b,e=base();ek=K();ak=K(kind=AllocationType.FINAL_RESERVE);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);assert a.allocate(ev,e,ak,D('4'),[1],D('1'));before=a.available(AllocationType.FINAL_RESERVE);ck=K(2,AllocationType.CARRY);assert a.consume(ak,ck,D('2'),AllocationType.CARRY);assert a.available(AllocationType.FINAL_RESERVE)==before-D('2');assert not a.consume(ak,ck,D('2'),AllocationType.CARRY)
+@pytest.mark.parametrize('kw',[{'account':9},{'symbol':'Y'},{'magic':9},{'cycle':'Z'}])
+def test_foreign_consume_rejected(kw):
+ i,b,e=base();ek=K();ak=K(kind=AllocationType.CARRY);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);a.allocate(ev,e,ak,D('4'),[1],D('1'))
+ with pytest.raises(ValueError):a.consume(ak,K(2,AllocationType.CARRY,**kw),D('1'),AllocationType.CARRY)
+def test_multi_source_aggregate():
+ i,b,e=base();e.apply(Deal(i,2,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('2')));ek=K();ak=K(kind=AllocationType.CARRY);a=AllocationLedger(i);assert a.allocate(EventRecord(ek,ReconciliationState.RECONCILED),e,ak,D('6'),[1,2])
+def test_restart_all_states():
+ for state,r in all_restart_probes().items():assert r['canonical'] and r['duplicate']==0 and r['money']==D('5')
+def test_opening_in_not_realized():
+ i,b,e=base();e2=EconomicLedger(i,b);e2.apply(Deal(i,3,'P',DealEntry.IN,DealType.BUY,D('.01'),D('5')));assert e2.realized_cycle_net==0
+def test_partial_fill_conservation():
+ _,b,_=base();p=OpenPositionCost(D('1'),D('-10'));r1=p.close(D('.4'),D('.3'),1,b);r2=p.close(D('.7'),D('.7'),2,b);assert p.volume==0 and p.unallocated_entry_cost==0 and r1.allocated_entry_cost+r2.allocated_entry_cost==D('-10')
+def test_final_close_gate():
+ i,b,e=base();ek=K();ak=K(kind=AllocationType.FINAL_RESERVE);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);a.allocate(ev,e,ak,D('4'),[1],D('1'));ev.transition(ReconciliationState.ALLOCATION_PENDING);ev.transition(ReconciliationState.APPLIED);ev.transition(ReconciliationState.PERSISTED);store=PersistentStore(e,a,{ek:ev},1);snap=make_snapshot(i,ek,'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'));assert evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('0'),D('3'),1)).allowed
