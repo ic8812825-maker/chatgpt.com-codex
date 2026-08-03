@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
 import sys
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[2]/"Tools"))
-from stage_3_1_5_money_oracle import BLOCKERS, causal_results
-
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'Tools'))
+from stage_3_1_5_mutation_oracle import *
+def audit():
+ results=counterexamples(); counts={'MISSING_CAUSAL_RULES':len(set(TARGETS)-set(MUTATIONS)),'INEFFECTIVE_CAUSAL_RULES':sum(not r.target_caught for r in results),'VACUOUS_CAUSAL_RULES':sum(bool(r.clean_blockers) for r in results),'SELF_REFERENTIAL_RULES':0,'NO_OBSERVABLE_CHANGE':sum(not r.changed_fields for r in results),'WRONG_TARGET_RULES':sum(r.expected_target_blocker not in r.mutated_blockers for r in results)}
+ try:run_mutation('__UNKNOWN__');counts['SELF_REFERENTIAL_RULES']+=1
+ except KeyError:pass
+ if evaluate_invariants(execute_scenario(Policy())):counts['VACUOUS_CAUSAL_RULES']+=1
+ return results,counts
 def main():
-    missing=ineffective=vacuous=0
-    clean=causal_results()
-    for rule in BLOCKERS:
-        if rule not in clean: missing += 1; continue
-        if clean[rule] != 0: vacuous += 1
-        if causal_results({rule})[rule] != 1: ineffective += 1
-    print(f"REGISTERED_CAUSAL_RULES={len(BLOCKERS)}")
-    print(f"MISSING_CAUSAL_RULES={missing}")
-    print(f"INEFFECTIVE_CAUSAL_RULES={ineffective}")
-    print(f"VACUOUS_CAUSAL_RULES={vacuous}")
-    ok=missing==ineffective==vacuous==0
-    print("BLOCKER_CAUSAL_AUDIT="+("PASS" if ok else "FAIL"))
-    raise SystemExit(0 if ok else 1)
-if __name__=="__main__": main()
+ results,counts=audit();print(f'COUNTEREXAMPLES_TOTAL={len(results)}');print(f'COUNTEREXAMPLES_CAUGHT={sum(r.target_caught for r in results)}')
+ for k,v in counts.items():print(f'{k}={v}')
+ ok=all(v==0 for v in counts.values());print('BLOCKER_CAUSAL_AUDIT='+('PASS' if ok else 'FAIL'));raise SystemExit(not ok)
+if __name__=='__main__':main()
