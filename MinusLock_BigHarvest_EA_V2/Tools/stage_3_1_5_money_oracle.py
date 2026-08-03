@@ -228,8 +228,8 @@ class PersistentStore:
  @property
  def money_state_version(self):
   digest=lambda x:hashlib.sha256(json.dumps(x,sort_keys=True,default=str,separators=(',',':')).encode()).hexdigest()
-  events=digest([(k.to_dict(),v.state.value,v.revision) for k,v in sorted(self.events.items())]);pools=digest([(k,p.deal_nets,p.already_allocated,p.residual,p.revision) for k,p in sorted(self.allocation.source_pools.items())]);cons=digest([(k.to_dict(),v.amount,v.revision) for k,v in sorted(self.allocation.consumptions.items())]);costs=digest([(k,v.volume,v.unallocated_entry_cost,sorted(v.applied_fill_tickets),v.allocated_entry_cost) for k,v in sorted(self.opening_costs.items())])
-  return MoneyStateVersion(self.economic.identity.cycle,self.economic.revision,self.allocation.revision,events,self.positions_revision,self.revision,costs,pools,cons)
+  events=digest([(k.to_dict(),v.state.value,v.revision) for k,v in sorted(self.events.items())]);pools=digest([(k,p.deal_nets,p.deal_fingerprints,p.already_allocated,p.residual,p.revision) for k,p in sorted(self.allocation.source_pools.items())]);cons=digest([(k.to_dict(),v.allocation_key.to_dict(),v.amount,v.purpose.value,v.revision) for k,v in sorted(self.allocation.consumptions.items())]);costs=digest([(k,v.volume,v.unallocated_entry_cost,sorted(v.applied_fill_tickets),v.allocated_entry_cost) for k,v in sorted(self.opening_costs.items())]);allocations=digest([(k.to_dict(),r.source_deal_tickets,r.amount,r.consumed,r.available,r.residual,r.reconciliation_state.value,r.revision) for k,r in sorted(self.allocation.records.items())]);deals=digest([deal_fingerprint(d) for _,d in sorted(self.economic.deals.items())]);positions=digest([asdict(p) for p in self.managed_positions]);broker=digest(asdict(self.economic.broker));metadata=digest({'identity':asdict(self.economic.identity),'revision':self.revision,'positions_revision':self.positions_revision,'economic_revision':self.economic.revision,'allocation_revision':self.allocation.revision})
+  i=self.economic.identity;return MoneyStateVersion(i.account,i.symbol,i.magic,i.cycle,broker,deals,allocations,pools,cons,events,positions,costs,metadata)
  def validate_integrity(self)->None:
   identity=self.economic.identity
   for key,r in self.allocation.records.items():
@@ -289,7 +289,7 @@ class PersistentStore:
   store=cls(econ,allocation,events,x['revision'],costs,tuple(positions),x.get('positions_revision',0));store.validate_integrity();return store
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
 @dataclass(frozen=True)
-class MoneyStateVersion: cycle_id:str; economic_ledger_revision:int; allocation_ledger_revision:int; event_store_digest:str; managed_positions_revision:int; persistent_store_revision:int; opening_cost_digest:str; source_pool_digest:str; consumption_digest:str
+class MoneyStateVersion: account:int; symbol:str; magic:int; cycle_id:str; broker_digest:str; economic_ledger_digest:str; allocation_ledger_digest:str; source_pool_digest:str; consumption_digest:str; event_store_digest:str; managed_positions_digest:str; opening_cost_digest:str; persistent_metadata_digest:str
 @dataclass(frozen=True)
 class FinalClosePolicy: threshold:D; required_deficit:D; current_revision:int; preview:bool=False
 @dataclass(frozen=True)

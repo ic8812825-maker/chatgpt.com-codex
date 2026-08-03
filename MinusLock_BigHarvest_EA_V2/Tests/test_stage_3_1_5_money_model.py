@@ -271,3 +271,15 @@ def test_duplicate_transaction_conflict_exact_code():
  import json;doc=json.loads(_consumed_store().serialize());other=json.loads(json.dumps(doc['consumptions'][0]));other['key']['transaction_id']=doc['consumptions'][0]['key']['transaction_id'];other['key']['level']=9;doc['consumptions'].append(other)
  with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
  assert exc.value.code is IntegrityCode.CONSUMPTION_TRANSACTION_CONFLICT
+
+@pytest.mark.parametrize('field,value',[('reconciliation_state',ReconciliationState.DISCOVERED),('amount',D('3')),('consumed',D('1')),('residual',D('0'))])
+def test_allocation_record_content_changes_money_version_without_revision(field,value):
+ store,_=_persisted_gate_store();before=store.money_state_version;r=next(iter(store.allocation.records.values()));setattr(r,field,value);assert store.money_state_version!=before
+def test_allocation_identity_changes_money_version_without_revision():
+ store,_=_persisted_gate_store();before=store.money_state_version;k=next(iter(store.allocation.records));r=store.allocation.records.pop(k);foreign=replace(k,account_login=9);r.key=foreign;store.allocation.records[foreign]=r;assert store.money_state_version!=before
+def test_deal_composition_changes_money_version_without_revision():
+ store,_=_persisted_gate_store();before=store.money_state_version;d=store.economic.deals[1];store.economic.deals[1]=replace(d,profit=d.profit+D('1'),commission=d.commission-D('1'));assert store.money_state_version!=before
+def test_source_fingerprint_changes_money_version_without_revision():
+ store,_=_persisted_gate_store();before=store.money_state_version;p=next(iter(store.allocation.source_pools.values()));p.deal_fingerprints[1]['entry']='IN';assert store.money_state_version!=before
+def test_position_money_changes_money_version_without_revision():
+ store,_=_persisted_gate_store();before=store.money_state_version;store.managed_positions=(replace(store.managed_positions[0],swap=D('-9')),);assert store.money_state_version!=before
