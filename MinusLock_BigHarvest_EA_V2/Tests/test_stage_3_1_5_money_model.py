@@ -331,3 +331,10 @@ def test_all_mutations_have_fault_operation_trace_and_computed_blocker():
  from stage_3_1_5_mutation_oracle import MUTATIONS,run_mutation
  for name in MUTATIONS:
   clean,mutated,clean_blockers,mutated_blockers=run_mutation(name);assert not clean_blockers;assert any(x.startswith('FAULT_') for x in mutated.operation_trace);assert mutated_blockers
+
+def test_restart_money_version_and_final_close_parity():
+ states=(ReconciliationState.DISCOVERED,ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING,ReconciliationState.APPLIED,ReconciliationState.PERSISTED);results=[all_restart_probes()[s] for s in states];assert len({r['money_version'] for r in results})==1;assert all(r['final_close_allowed'] for r in results)
+def test_event_replay_identical_noop_conflict_exact_code():
+ store,ek=_persisted_gate_store();existing=store.events[ek];assert not store.apply_event(EventRecord(ek,existing.state,existing.revision))
+ with pytest.raises(OracleIntegrityError) as exc:store.apply_event(EventRecord(ek,ReconciliationState.DISCOVERED,0))
+ assert exc.value.code is IntegrityCode.DUPLICATE_EVENT_KEY
