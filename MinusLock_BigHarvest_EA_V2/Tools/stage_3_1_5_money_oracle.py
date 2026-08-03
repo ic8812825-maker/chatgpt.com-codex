@@ -70,3 +70,24 @@ class EventRecord:
   self.state=target; self.revision+=1; return True
  @property
  def irreversible_action_allowed(self): return self.state is ReconciliationState.PERSISTED
+@dataclass(frozen=True)
+class Deal:
+ identity:Identity; ticket:int; position_id:str; entry:DealEntry; deal_type:DealType; actual_volume:D
+ profit:D; swap:D=D('0'); commission:D=D('0'); fee:D=D('0'); initial_ignored:bool=False
+ def validate(self,broker:Broker):
+  if not self.position_id or self.ticket<=0 or not isinstance(self.entry,DealEntry) or not isinstance(self.deal_type,DealType): raise ValueError('invalid deal')
+  broker.validate_lot(self.actual_volume)
+ @property
+ def net(self): return self.profit+self.swap+self.commission+self.fee
+MANAGED_DEAL_TYPES={DealType.BUY,DealType.SELL,DealType.COMMISSION}
+@dataclass
+class EconomicLedger:
+ identity:Identity; broker:Broker; deals:dict[int,Deal]=field(default_factory=dict)
+ def apply(self,deal:Deal)->bool:
+  deal.validate(self.broker)
+  if deal.identity!=self.identity or deal.deal_type not in MANAGED_DEAL_TYPES or deal.initial_ignored:return False
+  if deal.ticket in self.deals:return False
+  self.deals[deal.ticket]=deal; return True
+ def replay(self,history:Iterable[Deal])->int:return sum(self.apply(x) for x in history)
+ @property
+ def realized_cycle_net(self):return sum((x.net for x in self.deals.values()),D('0'))
