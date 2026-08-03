@@ -165,17 +165,20 @@ class PersistentStore:
 @dataclass(frozen=True)
 class GateResult: allowed:bool; recovery:D; reserve:D; deficit:D; reasons:tuple[str,...]
 def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,positions:Iterable[Position],broker:Broker,risk_ok:bool,margin_ok:bool,threshold:D,required_deficit:D,current_revision:int,preview:bool=False)->GateResult:
+ reasons=[]
+ if snapshot.identity!=store.economic.identity:reasons.append('FOREIGN_IDENTITY')
+ if snapshot.broker!=broker:reasons.append('BROKER_MISMATCH')
  recovery=store.economic.realized_cycle_net+floating_total(store.economic.identity,positions,broker,snapshot.slippage_diagnostic)
- reserve=store.allocation.available(AllocationType.FINAL_RESERVE); reasons=[]
+ reserve=store.allocation.available(AllocationType.FINAL_RESERVE)
  event=store.events.get(snapshot.event_key)
  if not event or event.state is not ReconciliationState.PERSISTED:reasons.append('UNRECONCILED')
  if snapshot.pending_deal_tickets:reasons.append('PENDING_DEALS')
- if any(e.state in (ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING,ReconciliationState.APPLIED) for e in store.events.values()):reasons.append('PENDING_ALLOCATION')
+ if any(e.state is not ReconciliationState.PERSISTED for e in store.events.values()):reasons.append('PENDING_ALLOCATION')
  if recovery<=threshold:reasons.append('RECOVERY')
  if reserve<required_deficit:reasons.append('RESERVE')
  if not risk_ok:reasons.append('RISK')
  if not margin_ok:reasons.append('MARGIN')
- if snapshot.state_revision!=current_revision:reasons.append('STALE')
+ if snapshot.state_revision!=current_revision or snapshot.ledger_revision!=store.revision:reasons.append('STALE')
  if preview:reasons.append('PREVIEW_NOT_ACTUAL')
  return GateResult(not reasons,recovery,reserve,required_deficit,tuple(reasons))
 @dataclass(frozen=True,order=True)
