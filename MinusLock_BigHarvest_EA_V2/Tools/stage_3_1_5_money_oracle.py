@@ -90,7 +90,8 @@ class EconomicLedger:
   self.deals[deal.ticket]=deal; return True
  def replay(self,history:Iterable[Deal])->int:return sum(self.apply(x) for x in history)
  @property
- def realized_cycle_net(self):return sum((x.net for x in self.deals.values()),D('0'))
+ def realized_cycle_net(self):return sum((x.net for x in self.deals.values() if x.entry in (DealEntry.OUT,DealEntry.INOUT,DealEntry.OUT_BY) or x.deal_type is DealType.COMMISSION),D('0'))
+ def closing_deals(self):return tuple(x for x in self.deals.values() if x.entry in (DealEntry.OUT,DealEntry.INOUT,DealEntry.OUT_BY))
 @dataclass(frozen=True)
 class AllocationRecord:
  identity:Identity; event_id:str; source_deal_tickets:tuple[int,...]; allocation_type:AllocationType

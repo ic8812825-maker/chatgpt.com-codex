@@ -99,3 +99,10 @@ credits/residual не повторяются. Следующее FSM-дейст�
 Normative proof теперь требует enum validation, broker grids, actual DealEntry semantics, immutable
 EventSnapshot, полный reconciliation path, tagged allocation sources, serialized restart/replay и
 ledger-derived Final Close. Имя mutation не является экономическим входом invariant evaluator.
+
+## DealEntry semantics correction
+
+IN открывает/увеличивает exposure и его price profit не является closing realized harvest. OUT и
+OUT_BY закрывают, INOUT одновременно закрывает старую и открывает новую сторону; realized component
+берётся из actual deal. BALANCE/CREDIT/CHARGE/CORRECTION исключены; standalone COMMISSION хранит
+actual signed cost. Initial ignored и foreign identity исключаются до aggregation.
