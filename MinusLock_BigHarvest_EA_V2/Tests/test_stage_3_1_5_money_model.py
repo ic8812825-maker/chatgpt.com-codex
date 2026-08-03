@@ -104,3 +104,23 @@ def test_source_pool_duplicate_ticket_rejected():
 def test_source_pool_overlap_after_restart_rejected():
  store,_=_persisted_gate_store(); import json; x=json.loads(store.serialize()); x['source_pools'].append(dict(x['source_pools'][0]));x['source_pools'][1]['key']['deal_ticket']=2
  with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(x))
+
+@pytest.mark.parametrize('dtype',[DealType.BALANCE,DealType.CREDIT,DealType.CHARGE,DealType.CORRECTION])
+def test_non_trade_deal_cannot_fund_allocation(dtype):
+ i,b,_=base();e=EconomicLedger(i,b);e.apply(Deal(i,9,'P',DealEntry.IN, dtype,D('.01'),D('5')));k=K(9,AllocationType.CARRY);a=AllocationLedger(i)
+ with pytest.raises(ValueError):a.allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('1'),[9])
+def test_opening_in_cannot_fund_allocation():
+ i,b,_=base();e=EconomicLedger(i,b);e.apply(Deal(i,9,'P',DealEntry.IN,DealType.BUY,D('.01'),D('5')));k=K(9,AllocationType.CARRY);a=AllocationLedger(i)
+ with pytest.raises(ValueError):a.allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('1'),[9])
+def test_initial_ignored_profit_cannot_fund_allocation():
+ i,b,_=base();e=EconomicLedger(i,b);assert not e.apply(Deal(i,9,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5'),initial_ignored=True))
+def test_foreign_deal_cannot_fund_allocation():
+ i,b,e=base();assert not e.apply(Deal(Identity(9,'X',2,'C'),9,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')))
+def test_closing_profit_minus_costs_funds_only_net():
+ i,b,_=base();e=EconomicLedger(i,b);e.apply(Deal(i,9,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5'),commission=D('-2')));k=K(9,AllocationType.CARRY);a=AllocationLedger(i);a.allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('3'),[9]);assert a.available(AllocationType.CARRY)==3
+def test_negative_closing_event_cannot_credit_budget():
+ i,b,_=base();e=EconomicLedger(i,b);e.apply(Deal(i,9,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('-1')));k=K(9,AllocationType.CARRY)
+ with pytest.raises(ValueError):AllocationLedger(i).allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('0'),[9])
+def test_commission_only_event_cannot_create_positive_harvest():
+ i,b,_=base();e=EconomicLedger(i,b);e.apply(Deal(i,9,'P',DealEntry.IN,DealType.COMMISSION,D('.01'),D('2')));k=K(9,AllocationType.CARRY)
+ with pytest.raises(ValueError):AllocationLedger(i).allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('1'),[9])
