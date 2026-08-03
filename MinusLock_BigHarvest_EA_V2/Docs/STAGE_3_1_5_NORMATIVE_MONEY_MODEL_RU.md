@@ -112,3 +112,20 @@ actual signed cost. Initial ignored и foreign identity исключаются �
 CONFLICT означает подтверждённое несовпадение identity/deals и является fail-closed terminal;
 REJECTED означает нормативное отклонение события до allocation и также terminal. Оба запрещают
 APPLIED и irreversible action. Повтор текущего состояния — idempotent no-op; PERSISTED terminal.
+
+### Статус после третьей корректирующей приёмки (3.1.5.72)
+
+```text
+STAGE_3_1_5_VALIDATION=PASS
+STAGE_3_1_5_STATUS=CLOSED
+FRESH_CLONE_VERIFICATION=PASS
+BLOCKING_COUNTERS=NONE
+NEXT_ALLOWED_STAGE=3.1.6
+STAGE_3_1_6_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+REAL_TRADING_ALLOWED=NO
+PRODUCTION_MQL5_IMPLEMENTATION=NOT_CHANGED
+PRODUCTION_MQL5_MAPPING=PARTIAL
+METAEDITOR_COMPILE=NOT_RUN
+MT5_STRATEGY_TESTER=NOT_RUN
+```

@@ -32,3 +32,20 @@ serialized phase replay и ledger-derived Final Close остаются `MISSING/
 
 Python normative proof is PASS; production MQL5 mapping remains PARTIAL and was not changed.
 MetaEditor/Strategy Tester were not run; exact MT5 runtime execution remains unproven.
+
+### Статус после третьей корректирующей приёмки (3.1.5.72)
+
+```text
+STAGE_3_1_5_VALIDATION=PASS
+STAGE_3_1_5_STATUS=CLOSED
+FRESH_CLONE_VERIFICATION=PASS
+BLOCKING_COUNTERS=NONE
+NEXT_ALLOWED_STAGE=3.1.6
+STAGE_3_1_6_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+REAL_TRADING_ALLOWED=NO
+PRODUCTION_MQL5_IMPLEMENTATION=NOT_CHANGED
+PRODUCTION_MQL5_MAPPING=PARTIAL
+METAEDITOR_COMPILE=NOT_RUN
+MT5_STRATEGY_TESTER=NOT_RUN
+```

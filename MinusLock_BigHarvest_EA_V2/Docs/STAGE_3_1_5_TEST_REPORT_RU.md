@@ -33,3 +33,20 @@ REAL_TRADING_ALLOWED=NO
 Stage pytest: 130/130; project pytest: 521/521; scenarios: 108 unique fingerprints;
 counterexamples: 38; standalone: 171/181 with the same 10 classified pre-existing failures.
 Fresh-clone pre-close verification passed.
+
+### Статус после третьей корректирующей приёмки (3.1.5.72)
+
+```text
+STAGE_3_1_5_VALIDATION=PASS
+STAGE_3_1_5_STATUS=CLOSED
+FRESH_CLONE_VERIFICATION=PASS
+BLOCKING_COUNTERS=NONE
+NEXT_ALLOWED_STAGE=3.1.6
+STAGE_3_1_6_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+REAL_TRADING_ALLOWED=NO
+PRODUCTION_MQL5_IMPLEMENTATION=NOT_CHANGED
+PRODUCTION_MQL5_MAPPING=PARTIAL
+METAEDITOR_COMPILE=NOT_RUN
+MT5_STRATEGY_TESTER=NOT_RUN
+```
