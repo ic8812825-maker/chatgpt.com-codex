@@ -122,3 +122,16 @@ class OpenPositionCost:
   allocated=cost if actual==before else cost*actual/before
   self.volume-=actual; self.unallocated_entry_cost-=allocated
   return PartialFillResult(before,requested,actual,self.volume,cost,allocated,self.unallocated_entry_cost)
+@dataclass
+class PersistentStore:
+ economic:EconomicLedger; allocation:AllocationLedger; events:dict[str,EventRecord]=field(default_factory=dict); revision:int=0
+ def serialize(self)->str:
+  data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':[{'identity':asdict(x.identity),'ticket':x.ticket,'position_id':x.position_id,'entry':x.entry.value,'deal_type':x.deal_type.value,'actual_volume':str(x.actual_volume),'profit':str(x.profit),'swap':str(x.swap),'commission':str(x.commission),'fee':str(x.fee),'initial_ignored':x.initial_ignored} for x in self.economic.deals.values()],'events':{k:{'state':v.state.value,'revision':v.revision} for k,v in self.events.items()},'revision':self.revision}
+  return json.dumps(data,sort_keys=True)
+ @classmethod
+ def deserialize(cls,payload:str)->'PersistentStore':
+  x=json.loads(payload); ident=Identity(**x['identity']); broker=Broker(**{k:D(v) for k,v in x['broker'].items()}); econ=EconomicLedger(ident,broker)
+  for q in x['deals']: econ.apply(Deal(ident,q['ticket'],q['position_id'],DealEntry(q['entry']),DealType(q['deal_type']),D(q['actual_volume']),D(q['profit']),D(q['swap']),D(q['commission']),D(q['fee']),q['initial_ignored']))
+  events={k:EventRecord(k,ReconciliationState(v['state']),v['revision']) for k,v in x['events'].items()}
+  return cls(econ,AllocationLedger(ident),events,x['revision'])
+ def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
