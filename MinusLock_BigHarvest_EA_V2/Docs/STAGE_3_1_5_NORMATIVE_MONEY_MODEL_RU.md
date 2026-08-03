@@ -93,3 +93,9 @@ DealTicket, AllocationType. Состояния: DISCOVERED, PENDING_RECONCILIATI
 ALLOCATION_PENDING, APPLIED, PERSISTED. Повторный DealTicket/EventID — no-op. После restart ledger
 и applied keys восстанавливаются до history replay; завершается только незавершённый transition,
 credits/residual не повторяются. Следующее FSM-действие запрещено до reconciliation.
+
+## Исполняемая коррекция 3.1.5.20–38
+
+Normative proof теперь требует enum validation, broker grids, actual DealEntry semantics, immutable
+EventSnapshot, полный reconciliation path, tagged allocation sources, serialized restart/replay и
+ledger-derived Final Close. Имя mutation не является экономическим входом invariant evaluator.

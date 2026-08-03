@@ -1,0 +1,2 @@
+from stage_3_1_5_money_oracle import ReconciliationState
+CRASH_POINTS=(ReconciliationState.DISCOVERED,ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING,ReconciliationState.APPLIED,ReconciliationState.PERSISTED)

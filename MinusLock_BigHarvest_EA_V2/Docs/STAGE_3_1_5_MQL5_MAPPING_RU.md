@@ -21,3 +21,9 @@ Production `.mq5/.mqh` не изменялись. Статусы описыва�
 `PRODUCTION_MQL5_MAPPING=PARTIAL`; runtime fills, dynamic spread, swap timing и deal replay данным
 static audit не доказаны. Все MISSING/PARTIAL — требования будущей implementation/trace работы;
 автоматическое исправление production на Этапе 3.1.5 запрещено.
+
+## Correction mapping
+
+Oracle capabilities не повышают MQL5 status: composite EventKey, unified allocation ledger,
+serialized phase replay и ledger-derived Final Close остаются `MISSING/PARTIAL` и
+`NOT_RUNTIME_PROVEN`; production implementation не менялась.
