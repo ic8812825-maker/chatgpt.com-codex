@@ -242,7 +242,8 @@ class PersistentStore:
    require_integrity((key.account_login,key.symbol,key.magic,key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_CONSUMPTION_IDENTITY)
    require_integrity(c.allocation_key in self.allocation.records and key.parent_allocation_key==c.allocation_key,IntegrityCode.CONSUMPTION_ROUTE_MISMATCH)
    route=(key.level,key.phase,key.position_identifier)==(c.allocation_key.level,c.allocation_key.phase,c.allocation_key.position_identifier)
-   require_integrity(route,IntegrityCode.CONSUMPTION_ROUTE_MISMATCH)
+   routes={AllocationType.FINAL_RESERVE:(ConsumptionPurpose.FINAL_FAR_CLOSE,'FINAL_FAR_CLOSE'),AllocationType.PARTIAL_FAR:(ConsumptionPurpose.PARTIAL_FAR,'PARTIAL_FAR'),AllocationType.CARRY:(ConsumptionPurpose.CARRY,'CARRY'),AllocationType.TRANSITION:(ConsumptionPurpose.TRANSITION,'TRANSITION')};allocation=self.allocation.records[c.allocation_key];expected=routes.get(allocation.key.allocation_type)
+   require_integrity(route and expected==(key.purpose,key.consumption_event_type) and c.purpose is key.purpose and c.amount>0,IntegrityCode.CONSUMPTION_ROUTE_MISMATCH)
    prior=transactions.get(key.transaction_id);require_integrity(prior is None or prior==c,IntegrityCode.CONSUMPTION_TRANSACTION_CONFLICT);transactions[key.transaction_id]=c
   self.allocation.validate_source_pools(self.economic)
  def serialize(self)->str:

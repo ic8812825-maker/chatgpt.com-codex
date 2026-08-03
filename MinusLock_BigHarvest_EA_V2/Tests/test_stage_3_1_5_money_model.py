@@ -244,3 +244,16 @@ def test_restored_allocation_state_exact_code(state):
  store,_=_persisted_gate_store();import json;doc=json.loads(store.serialize());doc['allocations'][0]['state']=state
  with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
  assert exc.value.code is IntegrityCode.ALLOCATION_STATE_INVALID
+
+def _consumed_store():
+ store,_=_persisted_gate_store();ak=next(iter(store.allocation.records));store.allocation.consume(ak,CK(ak),D('1'));return store
+@pytest.mark.parametrize('field,value',[('account_login',9),('symbol','Y'),('magic',9),('cycle_id','Z')])
+def test_restored_foreign_consumption_exact_code(field,value):
+ import json;doc=json.loads(_consumed_store().serialize());doc['consumptions'][0]['key'][field]=value
+ with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
+ assert exc.value.code is IntegrityCode.FOREIGN_CONSUMPTION_IDENTITY
+@pytest.mark.parametrize('field,value',[('consumption_event_type','OTHER'),('level',9),('phase','OTHER'),('position_identifier','OTHER'),('purpose','PARTIAL_FAR')])
+def test_restored_consumption_route_exact_code(field,value):
+ import json;doc=json.loads(_consumed_store().serialize());doc['consumptions'][0]['key'][field]=value
+ with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
+ assert exc.value.code is IntegrityCode.CONSUMPTION_ROUTE_MISMATCH
