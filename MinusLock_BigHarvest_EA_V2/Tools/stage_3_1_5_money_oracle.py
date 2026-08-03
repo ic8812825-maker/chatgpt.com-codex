@@ -40,21 +40,24 @@ def projected_profit(side:PositionSide,lot:D,open_price:D,broker:Broker,slippage
  return ticks*(broker.tv_profit if ticks>=0 else broker.tv_loss)*lot
 @dataclass(frozen=True)
 class EventSnapshot:
- identity:Identity; event_id:str; event_type:str; level:int; scenario:str; phase:str; broker:Broker
+ identity:Identity; event_key:EventKey; event_type:str; level:int; scenario:str; phase:str; broker:Broker
  managed_positions:tuple[Position,...]; actual_lots:tuple[D,...]; actual_open_prices:tuple[D,...]
  final_reserve_available:D; partial_far_budget_available:D; carry_available:D; transition_budget_available:D
  residual:D; commission:D; swap:D; fee:D; slippage_diagnostic:D; reconciliation_state:ReconciliationState
- applied_deal_tickets:frozenset[int]; pending_deal_tickets:frozenset[int]; state_revision:int
+ applied_deal_tickets:frozenset[int]; pending_deal_tickets:frozenset[int]; state_revision:int; ledger_revision:int
  realized_cycle_net:D; floating_close_now:D; recovery_pl_close_now:D
  def __post_init__(self):
+  if (self.event_key.account_login,self.event_key.symbol,self.event_key.magic,self.event_key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('snapshot identity mismatch')
+  if len({p.identifier for p in self.managed_positions})!=len(self.managed_positions):raise ValueError('duplicate position')
+  for p in self.managed_positions:self.broker.validate_lot(p.volume);self.broker.validate_price(p.open_price)
   if self.actual_lots!=tuple(p.volume for p in self.managed_positions): raise ValueError('actual lot mismatch')
   if self.actual_open_prices!=tuple(p.open_price for p in self.managed_positions): raise ValueError('open price mismatch')
   if self.recovery_pl_close_now!=self.realized_cycle_net+self.floating_close_now: raise ValueError('recovery mismatch')
 def floating_total(identity:Identity,positions:Iterable[Position],broker:Broker,slippage:D=D('0'))->D:
  return sum((projected_profit(p.side,p.volume,p.open_price,broker,slippage)+p.swap+p.exit_commission+p.exit_fee for p in positions if p.identity==identity),D('0'))
-def make_snapshot(identity:Identity,event_id:str,event_type:str,level:int,scenario:str,phase:str,broker:Broker,positions:Iterable[Position],realized:D,state:ReconciliationState,revision:int,**kw)->EventSnapshot:
+def make_snapshot(identity:Identity,event_key:EventKey,event_type:str,level:int,scenario:str,phase:str,broker:Broker,positions:Iterable[Position],realized:D,state:ReconciliationState,revision:int,**kw)->EventSnapshot:
  ps=tuple(p for p in positions if p.identity==identity); floating=floating_total(identity,ps,broker,kw.get('slippage_diagnostic',D('0')))
- return EventSnapshot(identity,event_id,event_type,level,scenario,phase,broker,ps,tuple(p.volume for p in ps),tuple(p.open_price for p in ps),kw.get('final_reserve_available',D('0')),kw.get('partial_far_budget_available',D('0')),kw.get('carry_available',D('0')),kw.get('transition_budget_available',D('0')),kw.get('residual',D('0')),kw.get('commission',D('0')),kw.get('swap',D('0')),kw.get('fee',D('0')),kw.get('slippage_diagnostic',D('0')),state,frozenset(kw.get('applied_deal_tickets',())),frozenset(kw.get('pending_deal_tickets',())),revision,realized,floating,realized+floating)
+ return EventSnapshot(identity,event_key,event_type,level,scenario,phase,broker,ps,tuple(p.volume for p in ps),tuple(p.open_price for p in ps),kw.get('final_reserve_available',D('0')),kw.get('partial_far_budget_available',D('0')),kw.get('carry_available',D('0')),kw.get('transition_budget_available',D('0')),kw.get('residual',D('0')),kw.get('commission',D('0')),kw.get('swap',D('0')),kw.get('fee',D('0')),kw.get('slippage_diagnostic',D('0')),state,frozenset(kw.get('applied_deal_tickets',())),frozenset(kw.get('pending_deal_tickets',())),revision,kw.get('ledger_revision',revision),realized,floating,realized+floating)
 ALLOWED_TRANSITIONS={
  ReconciliationState.DISCOVERED:ReconciliationState.PENDING_RECONCILIATION,
  ReconciliationState.PENDING_RECONCILIATION:ReconciliationState.RECONCILED,
@@ -141,7 +144,7 @@ class GateResult: allowed:bool; recovery:D; reserve:D; deficit:D; reasons:tuple[
 def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,positions:Iterable[Position],broker:Broker,risk_ok:bool,margin_ok:bool,threshold:D,required_deficit:D,current_revision:int,preview:bool=False)->GateResult:
  recovery=store.economic.realized_cycle_net+floating_total(store.economic.identity,positions,broker,snapshot.slippage_diagnostic)
  reserve=store.allocation.available(AllocationType.FINAL_RESERVE); reasons=[]
- event=store.events.get(snapshot.event_id)
+ event=store.events.get(snapshot.event_key)
  if not event or event.state is not ReconciliationState.PERSISTED:reasons.append('UNRECONCILED')
  if snapshot.pending_deal_tickets:reasons.append('PENDING_DEALS')
  if any(e.state in (ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING,ReconciliationState.APPLIED) for e in store.events.values()):reasons.append('PENDING_ALLOCATION')
