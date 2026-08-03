@@ -118,6 +118,13 @@ class AllocationLedger:
    if net<=0 or self.allocated_from_source(t)+amount+residual>net:raise ValueError('global conservation')
   self.revision+=1;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
  def available(self,kind:AllocationType)->D:return sum((r.available for r in self.records.values() if r.key.allocation_type is kind),D('0'))
+ def consume(self,allocation_key:EventKey,consume_key:EventKey,amount:D,purpose:AllocationType)->bool:
+  if amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
+  if consume_key in self.consumptions:return False
+  r=self.records[allocation_key]
+  if r.key.allocation_type is AllocationType.FINAL_RESERVE and purpose is AllocationType.PARTIAL_FAR:raise ValueError('reserve forbidden')
+  if amount>r.available:raise ValueError('over-consume')
+  self.revision+=1;r.consumed+=amount;r.revision=self.revision;self.consumptions[consume_key]=ConsumptionRecord(consume_key,allocation_key,amount,purpose,self.revision);return True
 @dataclass(frozen=True)
 class PartialFillResult:
  volume_before:D; requested_volume:D; actual_closed_volume:D; volume_after:D
