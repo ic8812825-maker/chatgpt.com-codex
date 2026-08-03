@@ -175,6 +175,13 @@ class AllocationLedger:
    if not any(economic.deals[t].entry in (DealEntry.OUT,DealEntry.INOUT,DealEntry.OUT_BY) and economic.deals[t].deal_type in (DealType.BUY,DealType.SELL) for t in tickets):raise ValueError('source pool closing harvest missing')
    records=[r for r in self.records.values() if tuple(sorted(r.source_deal_tickets))==tickets]
    if pool.already_allocated!=sum((r.amount for r in records),D('0')) or pool.residual!=sum((r.residual for r in records),D('0')):raise ValueError('source pool allocation mismatch')
+  for key,record in self.records.items():
+   if tuple(sorted(record.source_deal_tickets)) not in self.source_pools:raise ValueError('allocation source pool missing')
+   consumed=sum((c.amount for c in self.consumptions.values() if c.allocation_key==key),D('0'))
+   if consumed!=record.consumed or record.amount!=record.consumed+record.available or record.available<0:raise ValueError('allocation consumption mismatch')
+  if any(c.allocation_key not in self.records or c.key.parent_allocation_key!=c.allocation_key for c in self.consumptions.values()):raise ValueError('orphan consumption')
+  revisions=[r.revision for r in self.records.values()]+[p.revision for p in self.source_pools.values()]+[c.revision for c in self.consumptions.values()]
+  if revisions and self.revision!=max(revisions):raise ValueError('allocation revision mismatch')
  def consume(self,allocation_key:EventKey,consume_key:ConsumptionKey,amount:D)->bool:
   if not isinstance(consume_key,ConsumptionKey) or amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
   if (consume_key.account_login,consume_key.symbol,consume_key.magic,consume_key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('foreign consume')
@@ -237,7 +244,6 @@ class PersistentStore:
    fingerprints={int(t):v for t,v in q['deal_fingerprints'].items()};pool=ReconciledSourcePool(k,tickets,nets,fingerprints,D(q['allocated']),D(q['residual']),q['revision'])
    if pool.available!=D(q['available']):raise ValueError('corrupted source pool balance')
    allocation.source_pools[tickets]=pool
-  allocation.validate_source_pools(econ)
   events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated'])) for k,v in x['opening_costs'].items()}
   positions=[]
   for q in x.get('managed_positions',[]):
@@ -245,6 +251,7 @@ class PersistentStore:
    if pi!=ident or not p.identifier or not p.leg_id or not p.role:raise ValueError('corrupted managed position')
    broker.validate_lot(p.volume);broker.validate_price(p.open_price);positions.append(p)
   if len({p.identifier for p in positions})!=len(positions) or len({p.leg_id for p in positions})!=len(positions):raise ValueError('duplicate managed position')
+  allocation.validate_source_pools(econ)
   return cls(econ,allocation,events,x['revision'],costs,tuple(positions),x.get('positions_revision',0))
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
 @dataclass(frozen=True)

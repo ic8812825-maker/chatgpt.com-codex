@@ -181,3 +181,11 @@ def test_consumption_route_metadata_rejected(field,value):
 def test_same_transaction_different_data_conflicts():
  i,b,e=base();ak=K(kind=AllocationType.FINAL_RESERVE);a=AllocationLedger(i);a.allocate(EventRecord(ak,ReconciliationState.RECONCILED),e,ak,D('2'),[1]);a.consume(ak,CK(ak),D('1'));data=CK(ak).__dict__.copy();data['level']=2
  with pytest.raises(ValueError):a.consume(ak,ConsumptionKey(**data),D('1'))
+
+@pytest.mark.parametrize('target,field,value',[('allocations','consumed','1'),('allocations','revision',99),('source_pools','revision',99),('source_pools','residual','2')])
+def test_persistence_conservation_tamper_rejected(target,field,value):
+ store,_=_persisted_gate_store();import json;doc=json.loads(store.serialize());doc[target][0][field]=value
+ with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(doc))
+def test_orphan_consumption_rejected():
+ store,_=_persisted_gate_store();ak=next(iter(store.allocation.records));store.allocation.consume(ak,CK(ak),D('1'));import json;doc=json.loads(store.serialize());doc['consumptions'][0]['allocation_key']['deal_ticket']=999
+ with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(doc))
