@@ -7,6 +7,7 @@ ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'Tools'),str(ROO
 from stage_3_1_5_money_oracle import *
 import scenario_catalog as catalog
 from scenario_catalog import run_positive_scenarios,missing_scenario_categories,REQUIRED_SCENARIO_CATEGORIES
+from stage_3_1_5_mutation_oracle import EconomicScenarioInput,execute_scenario,evaluate_invariants
 from restart_fixtures import all_restart_probes
 SCENARIOS=run_positive_scenarios()
 def K(i=1,kind=AllocationType.RESIDUAL,account=1,symbol='X',magic=2,cycle='C',state='POST'):return EventKey(account,symbol,magic,cycle,'HARVEST',1,state,'P',i,kind)
@@ -320,3 +321,8 @@ def test_full_fill_calls_close_with_full_volume(monkeypatch):
  original=OpenPositionCost.close;seen=[]
  def spy(self,requested,actual,*a,**k):seen.append((self.volume,requested,actual));return original(self,requested,actual,*a,**k)
  monkeypatch.setattr(OpenPositionCost,'close',spy);result=catalog._partial(full=True);assert seen==[(D('1'),D('1'),D('1'))] and result['volume']==0
+
+@pytest.mark.parametrize('case',[EconomicScenarioInput(commission=D('-1'),intended_commission=D('-1')),EconomicScenarioInput(swap=D('-1'),intended_swap=D('-1')),EconomicScenarioInput(volume=D('.2'),intended_volume=D('.2')),EconomicScenarioInput(side=PositionSide.SELL,close_price=D('1.0980'),intended_close_price=D('1.0980')),EconomicScenarioInput(close_price=D('1.0980'),intended_close_price=D('1.0980'),allocation_amount=D('0'),intended_allocation=D('0'))])
+def test_universal_invariants_accept_valid_variants(case):assert not evaluate_invariants(execute_scenario(case))
+def test_invariant_evaluator_has_no_fixed_clean_vector():
+ import inspect;source=inspect.getsource(evaluate_invariants);assert "==D('10')" not in source and "==D('14')" not in source and 'facts' in source

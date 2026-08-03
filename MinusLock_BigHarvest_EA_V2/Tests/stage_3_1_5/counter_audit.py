@@ -4,8 +4,8 @@ from dataclasses import replace
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'Tools'))
 from stage_3_1_5_mutation_oracle import *
-EXPECTED_TARGETS={name:'REALIZED_MONEY' for name in MUTATIONS}
-EXPECTED_TARGETS.update({'ReserveAddedTwiceToRecoveryPL':'ALLOCATION_LEDGER','ReserveUsedForPartialFar':'FINAL_CLOSE','ForeignSymbolIncluded':'REALIZED_MONEY','ForeignMagicIncluded':'REALIZED_MONEY','ForeignCycleIncluded':'REALIZED_MONEY','InitialIgnoredProfitIncluded':'FINAL_CLOSE','DepositIncluded':'FINAL_CLOSE','DuplicateDealApplied':'REALIZED_MONEY','DuplicateEventAppliedAfterRestart':'EVENT_STATE','PartialFillResidualLost':'ALLOCATION_LEDGER','AllocationDoesNotConserveMoney':'ALLOCATION_LEDGER','NegativeHarvestCreditsReserve':'REALIZED_MONEY','FinalClosePreviewTreatedAsActual':'FINAL_CLOSE','UnreconciledDealAllowsNextState':'EVENT_STATE'})
+EXPECTED_TARGETS={name:'REALIZED_MONEY_FROM_ELIGIBLE_DEALS' for name in MUTATIONS}
+EXPECTED_TARGETS.update({'ReserveAddedTwiceToRecoveryPL':'ALLOCATION_CONSERVATION','ReserveUsedForPartialFar':'FINAL_CLOSE_GATE_INTEGRITY','ForeignSymbolIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','ForeignMagicIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','ForeignCycleIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','InitialIgnoredProfitIncluded':'FINAL_CLOSE_GATE_INTEGRITY','DepositIncluded':'FINAL_CLOSE_GATE_INTEGRITY','DuplicateDealApplied':'DEAL_EXACTLY_ONCE','DuplicateEventAppliedAfterRestart':'EVENT_TRANSITION_VALIDITY','PartialFillResidualLost':'ALLOCATION_CONSERVATION','AllocationDoesNotConserveMoney':'ALLOCATION_CONSERVATION','NegativeHarvestCreditsReserve':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','FinalClosePreviewTreatedAsActual':'FINAL_CLOSE_GATE_INTEGRITY','UnreconciledDealAllowsNextState':'EVENT_TRANSITION_VALIDITY'})
 def audit():
  results=counterexamples(EXPECTED_TARGETS);unknown=False
  try:run_mutation('__UNKNOWN__');unknown=True
@@ -14,10 +14,10 @@ def audit():
  rename_changed=a!=b or a.digest!=b.digest
  def domain_changed(r):
   target=EXPECTED_TARGETS[r.name]
-  if target in ('REALIZED_MONEY','RECOVERY_MONEY','SOURCE_POOL'):return r.clean_observables.realized_cycle_net!=r.mutated_observables.realized_cycle_net or r.clean_observables.source_pool_net!=r.mutated_observables.source_pool_net
-  if target=='ALLOCATION_LEDGER':return r.clean_observables.digest.allocation!=r.mutated_observables.digest.allocation or r.clean_observables.allocations!=r.mutated_observables.allocations or r.clean_observables.residual!=r.mutated_observables.residual
-  if target=='EVENT_STATE':return r.clean_observables.digest.event!=r.mutated_observables.digest.event
-  if target=='FINAL_CLOSE':return (r.clean_observables.final_close_allowed,r.clean_observables.reason_codes)!=(r.mutated_observables.final_close_allowed,r.mutated_observables.reason_codes)
+  if target in ('REALIZED_MONEY_FROM_ELIGIBLE_DEALS','PROJECTED_MONEY_FORMULA','SOURCE_POOL_CONSERVATION'):return r.clean_observables.realized_cycle_net!=r.mutated_observables.realized_cycle_net or r.clean_observables.source_pool_net!=r.mutated_observables.source_pool_net
+  if target=='ALLOCATION_CONSERVATION':return r.clean_observables.digest.allocation!=r.mutated_observables.digest.allocation or r.clean_observables.allocations!=r.mutated_observables.allocations or r.clean_observables.residual!=r.mutated_observables.residual
+  if target=='EVENT_TRANSITION_VALIDITY':return r.clean_observables.digest.event!=r.mutated_observables.digest.event
+  if target=='FINAL_CLOSE_GATE_INTEGRITY':return (r.clean_observables.final_close_allowed,r.clean_observables.reason_codes)!=(r.mutated_observables.final_close_allowed,r.mutated_observables.reason_codes)
   return bool(r.changed_fields)
  material_domain_failures=sum(not domain_changed(r) for r in results)
  extended_source=inspect.getsource(extended_counterexample_probes);tree=ast.parse(extended_source);hardcoded=sum(isinstance(v,ast.Constant) and v.value is True for n in ast.walk(tree) if isinstance(n,ast.Dict) for v in n.values)
