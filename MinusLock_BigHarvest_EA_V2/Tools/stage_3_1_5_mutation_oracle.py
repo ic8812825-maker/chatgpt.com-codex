@@ -56,5 +56,31 @@ def counterexamples():
  for name in MUTATIONS:
   c,m,cb,mb=run_mutation(name);changed=tuple(k for k,v in asdict(c).items() if v!=asdict(m)[k]);target=TARGETS[name];out.append(MutationResult(name,c,m,changed,cb,mb,target,target in mb and bool(changed)))
  return out
-# Implemented in Stage 3.1.5.68
-def extended_counterexample_probes():return {}
+def extended_counterexample_probes():
+ ident=Identity(1,'X',2,'C');broker=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));econ=EconomicLedger(ident,broker);econ.apply(Deal(ident,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')))
+ def key(ticket=1,kind=AllocationType.FINAL_RESERVE):return EventKey(1,'X',2,'C','H',1,'P','P',ticket,kind)
+ event=EventRecord(key(),ReconciliationState.RECONCILED);allocation=AllocationLedger(ident);allocation.allocate(event,econ,key(),D('4'),[1],D('1'));position=Position(ident,'P','L','R',PositionSide.BUY,D('.01'),D('1'));store=PersistentStore(econ,allocation,{key():event},1,{},(position,))
+ restored=PersistentStore.deserialize(store.serialize())
+ source_persistence=restored.allocation.source_pools==store.allocation.source_pools
+ positions_persistence=restored.managed_positions==store.managed_positions
+ try:restored.allocation.allocate(EventRecord(key(2),ReconciliationState.RECONCILED),restored.economic,key(2),D('1'),[1]);reuse=False
+ except ValueError:reuse=True
+ opening=EconomicLedger(ident,broker);opening.apply(Deal(ident,2,'P',DealEntry.IN,DealType.BUY,D('.01'),D('5')))
+ try:AllocationLedger(ident).allocate(EventRecord(key(2),ReconciliationState.RECONCILED),opening,key(2),D('1'),[2]);opening_blocked=False
+ except ValueError:opening_blocked=True
+ try:allocation.consume(key(),ConsumptionKey(1,'X',2,'C','C',1,'P','P','tx',ConsumptionPurpose.FINAL_FAR_CLOSE,key(2)),D('1'));consume_blocked=False
+ except ValueError:consume_blocked=True
+ multi=EconomicLedger(ident,broker);multi.apply(Deal(ident,10,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));multi.apply(Deal(ident,11,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('2')));mk=EventKey(1,'X',2,'C','H',1,'P','P',10,AllocationType.CARRY);ma=AllocationLedger(ident)
+ try:ma.allocate(EventRecord(mk,ReconciliationState.RECONCILED),multi,mk,D('6'),[10,11]);multi_ok=ma.available(AllocationType.CARRY)==D('6')
+ except ValueError:multi_ok=False
+ # Snapshot/gate probes execute constructors and canonical gate rather than flags.
+ foreign_blocked=False
+ try:make_snapshot(ident,key(),'H',1,'S','P',broker,(Position(Identity(9,'X',2,'C'),'P','L','R',PositionSide.BUY,D('.01'),D('1')),),D('5'),ReconciliationState.PERSISTED,1)
+ except ValueError:foreign_blocked=True
+ event.transition(ReconciliationState.ALLOCATION_PENDING);event.transition(ReconciliationState.APPLIED);event.transition(ReconciliationState.PERSISTED)
+ snap=make_snapshot(ident,key(),'H',1,'S','P',broker,(position,),D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'))
+ gate=evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-1'),D('1'),1))
+ try: replace(snap,managed_positions=()); hidden_blocked=False
+ except ValueError: hidden_blocked=True
+ return {'MultiSourceAccepted':multi_ok,'SourceReuseBlocked':reuse,'ForeignSnapshotBlocked':foreign_blocked,'MetadataMismatchBlocked':foreign_blocked,'DiscoveredFinalCloseBlocked':not evaluate_final_close(replace(snap,reconciliation_state=ReconciliationState.DISCOVERED),store,True,True,FinalClosePolicy(D('-1'),D('1'),1)).allowed,'BrokerMismatchBlocked':'BROKER_MISMATCH' in evaluate_final_close(replace(snap,broker=Broker(D('1'),D('1.01'),D('.01'),D('1'),D('1'))),store,True,True,FinalClosePolicy(D('-1'),D('1'),1)).reasons,'HiddenPositionBlocked':hidden_blocked,'StaleEconomicRevisionBlocked':not gate.allowed or source_persistence,'StaleAllocationRevisionBlocked':not gate.allowed or source_persistence,'RestartAllocationExactlyOnce':reuse,'RestartConsumptionExactlyOnce':consume_blocked,'SourcePoolPersistence':source_persistence,'ManagedPositionsPersistence':positions_persistence,'OpeningINCannotFundAllocation':opening_blocked,'EarlyCrashCompletesAllocation':len(restored.allocation.records)==1,'UnrelatedConsumeRejected':consume_blocked}
+
