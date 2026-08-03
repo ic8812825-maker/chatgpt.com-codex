@@ -91,3 +91,21 @@ class EconomicLedger:
  def replay(self,history:Iterable[Deal])->int:return sum(self.apply(x) for x in history)
  @property
  def realized_cycle_net(self):return sum((x.net for x in self.deals.values()),D('0'))
+@dataclass(frozen=True)
+class AllocationRecord:
+ identity:Identity; event_id:str; source_deal_tickets:tuple[int,...]; allocation_type:AllocationType
+ amount:D; available:D; consumed:D; residual:D; reconciliation_state:ReconciliationState
+@dataclass
+class AllocationLedger:
+ identity:Identity; records:dict[tuple[str,AllocationType],AllocationRecord]=field(default_factory=dict)
+ def allocate(self,event:EventRecord,economic:EconomicLedger,kind:AllocationType,amount:D,sources:Iterable[int],residual:D=D('0'),projected:bool=False)->bool:
+  source=tuple(sources); key=(event.event_id,kind)
+  if event.state is not ReconciliationState.RECONCILED or projected or amount<0 or not source or any(t not in economic.deals for t in source): raise ValueError('allocation not reconciled')
+  harvest=sum((economic.deals[t].net for t in source),D('0'))
+  if harvest<=0 or amount+residual>harvest: raise ValueError('conservation')
+  if key in self.records:return False
+  self.records[key]=AllocationRecord(self.identity,event.event_id,source,kind,amount,amount,D('0'),residual,event.state); return True
+ def available(self,kind:AllocationType)->D:return sum((r.available-r.consumed for r in self.records.values() if r.allocation_type is kind),D('0'))
+ def consume(self,kind:AllocationType,amount:D,purpose:AllocationType):
+  if kind is AllocationType.FINAL_RESERVE and purpose is AllocationType.PARTIAL_FAR: raise ValueError('reserve forbidden')
+  if amount<0 or self.available(kind)<amount: raise ValueError('insufficient allocation')
