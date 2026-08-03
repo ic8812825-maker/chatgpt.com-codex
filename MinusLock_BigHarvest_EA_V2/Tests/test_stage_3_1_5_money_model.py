@@ -139,3 +139,10 @@ def test_consume_duplicate_noop():
  i,b,e=base();ak=K(kind=AllocationType.FINAL_RESERVE);a=AllocationLedger(i);a.allocate(EventRecord(ak,ReconciliationState.RECONCILED),e,ak,D('2'),[1]);ck=CK(ak);assert a.consume(ak,ck,D('1')) and not a.consume(ak,ck,D('1'))
 def test_consume_key_cannot_be_reused_for_other_allocation():test_unrelated_same_cycle_consume_rejected()
 def test_final_reserve_only_final_far_close():test_consume_wrong_purpose_rejected()
+
+def test_early_crash_completes_allocation_once():
+ for state in (ReconciliationState.DISCOVERED,ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING):
+  result=all_restart_probes()[state];assert result['terminal'] is ReconciliationState.PERSISTED and result['reserve']==D('4') and result['side_effects']==1
+def test_terminal_restart_never_allocates():
+ for state in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED):
+  result=all_restart_probes()[state];assert result['terminal_safe'] and result['side_effects']==0 and not result['irreversible']
