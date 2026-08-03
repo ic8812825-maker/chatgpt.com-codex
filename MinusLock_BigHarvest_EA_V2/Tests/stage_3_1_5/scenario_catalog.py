@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import json
 from decimal import Decimal as D
 import sys
 from pathlib import Path
@@ -9,6 +10,8 @@ class ScenarioResult:
  scenario_id:str;name:str;category:str;inputs:dict;expected:dict;actual:dict;expected_status:str;actual_status:str;invariants:tuple[str,...]
  @property
  def passed(self):return self.expected==self.actual and self.expected_status==self.actual_status
+ @property
+ def fingerprint(self):return json.dumps([self.category,self.inputs,self.expected,self.invariants],sort_keys=True,default=str)
 def run_positive_scenarios():
  out=[];ident=Identity(1,'EURUSD',7,'C1')
  for i in range(50):
@@ -20,4 +23,6 @@ def run_positive_scenarios():
   cost=OpenPositionCost(D('1'),D('-10'));v=D(i+1)/D('20');r=cost.close(v,v,1000+i);expected=D('-10')*v;out.append(ScenarioResult(f'PF-{i:03}',f'partial {v}','PARTIAL',{'actual':v},{'allocated':expected,'remaining':D('1')-v},{'allocated':r.allocated_entry_cost,'remaining':r.volume_after},'PASS','PASS',('ACTUAL_FILL','COST')))
  for i,state in enumerate(ReconciliationState):
   k=EventKey(1,'X',2,'C','E',i,state.value,'P',i+1,AllocationType.RESIDUAL);ev=EventRecord(k,state,i);out.append(ScenarioResult(f'RC-{i:03}',f'state {state.value}','STATE',{}, {'state':state.value,'revision':i},{'state':ev.state.value,'revision':ev.revision},'PASS','PASS',('STATE',)))
+ for i in range(20):
+  foreign=Identity(1+(i%4==0),'EURUSD' if i%4!=1 else 'GBPUSD',7+(i%4==2),'C1' if i%4!=3 else 'C2');e=EconomicLedger(ident,b);d=Deal(foreign,500+i,'P',DealEntry.OUT,DealType.BUY,D('.01'),D(i+1));accepted=e.apply(d);expected=foreign==ident;out.append(ScenarioResult(f'ID-{i:03}',f'identity {i}','IDENTITY',{'identity':foreign.__dict__},{'accepted':expected},{'accepted':accepted},'PASS','PASS',('ISOLATION',)))
  return out
