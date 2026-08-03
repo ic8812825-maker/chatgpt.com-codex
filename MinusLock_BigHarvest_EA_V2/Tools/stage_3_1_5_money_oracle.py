@@ -58,6 +58,10 @@ class ConsumptionKey:
  @classmethod
  def from_dict(cls,x):return cls(**{**x,'purpose':ConsumptionPurpose(x['purpose']),'parent_allocation_key':EventKey.from_dict(x['parent_allocation_key'])})
 @dataclass(frozen=True)
+class ConsumptionRoute:
+ allocation_type:AllocationType; purpose:ConsumptionPurpose; event_type:str
+ def matches(self,key:ConsumptionKey)->bool:return key.purpose is self.purpose and key.consumption_event_type==self.event_type
+@dataclass(frozen=True)
 class EventSnapshot:
  identity:Identity; event_key:EventKey; event_type:str; level:int; scenario:str; phase:str; broker:Broker
  managed_positions:tuple[Position,...]; actual_lots:tuple[D,...]; actual_open_prices:tuple[D,...]
@@ -175,10 +179,15 @@ class AllocationLedger:
   if not isinstance(consume_key,ConsumptionKey) or amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
   if (consume_key.account_login,consume_key.symbol,consume_key.magic,consume_key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('foreign consume')
   if consume_key.parent_allocation_key!=allocation_key:raise ValueError('parent allocation mismatch')
+  if (consume_key.level,consume_key.phase,consume_key.position_identifier)!=(allocation_key.level,allocation_key.phase,allocation_key.position_identifier):raise ValueError('consumption event route mismatch')
+  for existing in self.consumptions:
+   if existing.transaction_id==consume_key.transaction_id:
+    if existing==consume_key:return False
+    raise ValueError('consumption transaction conflict')
   if consume_key in self.consumptions:return False
   r=self.records[allocation_key]
-  allowed={AllocationType.FINAL_RESERVE:ConsumptionPurpose.FINAL_FAR_CLOSE,AllocationType.PARTIAL_FAR:ConsumptionPurpose.PARTIAL_FAR,AllocationType.CARRY:ConsumptionPurpose.CARRY,AllocationType.TRANSITION:ConsumptionPurpose.TRANSITION}
-  if allowed.get(r.key.allocation_type)!=consume_key.purpose:raise ValueError('purpose forbidden')
+  routes={AllocationType.FINAL_RESERVE:ConsumptionRoute(AllocationType.FINAL_RESERVE,ConsumptionPurpose.FINAL_FAR_CLOSE,'FINAL_FAR_CLOSE'),AllocationType.PARTIAL_FAR:ConsumptionRoute(AllocationType.PARTIAL_FAR,ConsumptionPurpose.PARTIAL_FAR,'PARTIAL_FAR'),AllocationType.CARRY:ConsumptionRoute(AllocationType.CARRY,ConsumptionPurpose.CARRY,'CARRY'),AllocationType.TRANSITION:ConsumptionRoute(AllocationType.TRANSITION,ConsumptionPurpose.TRANSITION,'TRANSITION')}
+  if r.reconciliation_state is not ReconciliationState.RECONCILED or not routes.get(r.key.allocation_type) or not routes[r.key.allocation_type].matches(consume_key):raise ValueError('purpose/event route forbidden')
   if amount>r.available:raise ValueError('over-consume')
   self.revision+=1;r.consumed+=amount;r.revision=self.revision;self.consumptions[consume_key]=ConsumptionRecord(consume_key,allocation_key,amount,consume_key.purpose,self.revision);return True
 @dataclass(frozen=True)

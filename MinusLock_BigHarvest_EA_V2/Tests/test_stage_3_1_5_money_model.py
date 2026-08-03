@@ -8,7 +8,7 @@ from scenario_catalog import run_positive_scenarios,missing_scenario_categories
 from restart_fixtures import all_restart_probes
 SCENARIOS=run_positive_scenarios()
 def K(i=1,kind=AllocationType.RESIDUAL,account=1,symbol='X',magic=2,cycle='C',state='POST'):return EventKey(account,symbol,magic,cycle,'HARVEST',1,state,'P',i,kind)
-def CK(parent,tx='C1',purpose=ConsumptionPurpose.FINAL_FAR_CLOSE,account=1,symbol='X',magic=2,cycle='C'):return ConsumptionKey(account,symbol,magic,cycle,'CONSUME',1,'POST','P',tx,purpose,parent)
+def CK(parent,tx='C1',purpose=ConsumptionPurpose.FINAL_FAR_CLOSE,account=1,symbol='X',magic=2,cycle='C'):return ConsumptionKey(account,symbol,magic,cycle,purpose.value,1,'POST','P',tx,purpose,parent)
 def base():
  i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));return i,b,e
 @pytest.mark.parametrize('r',SCENARIOS,ids=lambda x:x.scenario_id)
@@ -173,3 +173,11 @@ def test_persisted_source_deal_tamper_rejected(field,value):
  store,_=_persisted_gate_store();import json;doc=json.loads(store.serialize());doc['deals'][0][field]=value
  with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(doc))
 def test_out_to_in_persistence_tamper_blocked():test_persisted_source_deal_tamper_rejected('entry','IN')
+
+@pytest.mark.parametrize('field,value',[('consumption_event_type','OTHER'),('level',2),('phase','OTHER'),('position_identifier','OTHER')])
+def test_consumption_route_metadata_rejected(field,value):
+ i,b,e=base();ak=K(kind=AllocationType.FINAL_RESERVE);a=AllocationLedger(i);a.allocate(EventRecord(ak,ReconciliationState.RECONCILED),e,ak,D('2'),[1]);data=CK(ak).__dict__.copy();data[field]=value
+ with pytest.raises(ValueError):a.consume(ak,ConsumptionKey(**data),D('1'))
+def test_same_transaction_different_data_conflicts():
+ i,b,e=base();ak=K(kind=AllocationType.FINAL_RESERVE);a=AllocationLedger(i);a.allocate(EventRecord(ak,ReconciliationState.RECONCILED),e,ak,D('2'),[1]);a.consume(ak,CK(ak),D('1'));data=CK(ak).__dict__.copy();data['level']=2
+ with pytest.raises(ValueError):a.consume(ak,ConsumptionKey(**data),D('1'))

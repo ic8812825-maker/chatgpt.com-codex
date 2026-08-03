@@ -68,7 +68,7 @@ def extended_counterexample_probes():
  opening=EconomicLedger(ident,broker);opening.apply(Deal(ident,2,'P',DealEntry.IN,DealType.BUY,D('.01'),D('5')))
  try:AllocationLedger(ident).allocate(EventRecord(key(2),ReconciliationState.RECONCILED),opening,key(2),D('1'),[2]);opening_blocked=False
  except ValueError:opening_blocked=True
- try:allocation.consume(key(),ConsumptionKey(1,'X',2,'C','C',1,'P','P','tx',ConsumptionPurpose.FINAL_FAR_CLOSE,key(2)),D('1'));consume_blocked=False
+ try:allocation.consume(key(),ConsumptionKey(1,'X',2,'C','FINAL_FAR_CLOSE',1,'P','P','tx',ConsumptionPurpose.FINAL_FAR_CLOSE,key(2)),D('1'));consume_blocked=False
  except ValueError:consume_blocked=True
  multi=EconomicLedger(ident,broker);multi.apply(Deal(ident,10,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));multi.apply(Deal(ident,11,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('2')));mk=EventKey(1,'X',2,'C','H',1,'P','P',10,AllocationType.CARRY);ma=AllocationLedger(ident)
  try:ma.allocate(EventRecord(mk,ReconciliationState.RECONCILED),multi,mk,D('6'),[10,11]);multi_ok=ma.available(AllocationType.CARRY)==D('6')
