@@ -207,7 +207,7 @@ def test_required_category_executes_owned_operation(category):
 @pytest.mark.parametrize('category',['SOURCE_POOL','MULTI_SOURCE','ALLOCATION','CONSUMPTION','RESIDUAL'])
 def test_ledger_category_has_economic_after_state(category):
  actual=REQUIRED_CASES[category].actual;assert any(k in actual for k in ('available','available_after','residual','sources'))
-@pytest.mark.parametrize('category',['RECONCILIATION_TRANSITION','RESTART_CRASH_POINT','DUPLICATE_EVENT'])
+@pytest.mark.parametrize('category',['RECONCILIATION_TRANSITION'])
 def test_state_category_has_revision_and_state(category):
  actual=REQUIRED_CASES[category].actual;assert actual['revision']>0 and actual['state']!='DISCOVERED'
 def test_required_categories_do_not_use_catch_all_owner():
@@ -291,3 +291,10 @@ def test_final_close_foreign_allocation_integrity_blocked():
  store,ek=_persisted_gate_store();snap=_gate_for_store(store,ek);k=next(iter(store.allocation.records));r=store.allocation.records.pop(k);foreign=replace(k,account_login=9);r.key=foreign;store.allocation.records[foreign]=r;g=evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1));assert not g.allowed and 'INTEGRITY_FOREIGN_ALLOCATION_IDENTITY' in g.reasons
 def test_final_close_valid_restored_integrity_passes():
  store,ek=_persisted_gate_store();restored=PersistentStore.deserialize(store.serialize());snap=_gate_for_store(restored,ek);assert evaluate_final_close(snap,restored,True,True,FinalClosePolicy(D('-9'),D('1'),1)).allowed
+
+def test_real_owner_results():
+ assert REQUIRED_CASES['FULL_FILL'].actual['volume']==0
+ assert REQUIRED_CASES['RESTART_CRASH_POINT'].actual['second_roundtrip']
+ assert REQUIRED_CASES['DUPLICATE_EVENT'].actual['conflict_blocked']
+ assert REQUIRED_CASES['FINAL_CLOSE_PASS'].actual['allowed']
+ assert 'RECOVERY' in REQUIRED_CASES['FINAL_CLOSE_REJECTIONS'].actual['reasons']
