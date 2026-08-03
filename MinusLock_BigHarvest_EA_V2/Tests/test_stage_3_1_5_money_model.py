@@ -91,7 +91,7 @@ def test_same_source_cannot_allocate_again_after_restart():
  store,ek=_persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize()); other=K(9,AllocationType.CARRY); ev=EventRecord(other,ReconciliationState.RECONCILED)
  with pytest.raises(ValueError): restored.allocation.allocate(ev,restored.economic,other,D('1'),[1])
 def test_partial_source_remaining_survives_restart():
- i,b,e=base(); k=K(kind=AllocationType.CARRY); a=AllocationLedger(i); a.allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('2'),[1]); s=PersistentStore(e,a).serialize(); assert next(iter(PersistentStore.deserialize(s).allocation.source_pools.values())).available==D('3')
+ i,b,e=base(); k=K(kind=AllocationType.CARRY); a=AllocationLedger(i); a.allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('2'),[1]); s=PersistentStore(e,a,{k:EventRecord(k,ReconciliationState.RECONCILED)}).serialize(); assert next(iter(PersistentStore.deserialize(s).allocation.source_pools.values())).available==D('3')
 def test_source_pool_rebuilt_from_history_matches_persisted():
  store,_=_persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize()); restored.allocation.validate_source_pools(restored.economic)
 def test_source_pool_allocation_records_mismatch_rejected():
@@ -228,3 +228,19 @@ def test_integrity_error_has_typed_code():
  store,_=_persisted_gate_store();key=next(iter(store.allocation.records));foreign=replace(key,account_login=9);store.allocation.records[foreign]=store.allocation.records.pop(key);store.allocation.records[foreign].key=foreign
  with pytest.raises(OracleIntegrityError) as exc:store.validate_integrity()
  assert exc.value.code is IntegrityCode.FOREIGN_ALLOCATION_IDENTITY
+
+@pytest.mark.parametrize('field,value',[('account_login',9),('symbol','Y'),('magic',9),('cycle_id','Z')])
+def test_restored_foreign_allocation_exact_code(field,value):
+ store,_=_persisted_gate_store();import json;doc=json.loads(store.serialize());doc['allocations'][0]['key'][field]=value
+ with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
+ assert exc.value.code is IntegrityCode.FOREIGN_ALLOCATION_IDENTITY
+@pytest.mark.parametrize('field,value',[('event_type','OTHER'),('level',9),('phase','OTHER'),('position_identifier','OTHER')])
+def test_restored_allocation_event_mismatch_exact_code(field,value):
+ store,_=_persisted_gate_store();import json;doc=json.loads(store.serialize());doc['allocations'][0]['key'][field]=value
+ with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
+ assert exc.value.code is IntegrityCode.ALLOCATION_EVENT_MISMATCH
+@pytest.mark.parametrize('state',['DISCOVERED','PENDING_RECONCILIATION','CONFLICT','REJECTED'])
+def test_restored_allocation_state_exact_code(state):
+ store,_=_persisted_gate_store();import json;doc=json.loads(store.serialize());doc['allocations'][0]['state']=state
+ with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
+ assert exc.value.code is IntegrityCode.ALLOCATION_STATE_INVALID

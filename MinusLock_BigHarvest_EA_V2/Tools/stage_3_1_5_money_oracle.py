@@ -278,8 +278,7 @@ class PersistentStore:
    if pi!=ident or not p.identifier or not p.leg_id or not p.role:raise ValueError('corrupted managed position')
    broker.validate_lot(p.volume);broker.validate_price(p.open_price);positions.append(p)
   if len({p.identifier for p in positions})!=len(positions) or len({p.leg_id for p in positions})!=len(positions):raise ValueError('duplicate managed position')
-  allocation.validate_source_pools(econ)
-  return cls(econ,allocation,events,x['revision'],costs,tuple(positions),x.get('positions_revision',0))
+  store=cls(econ,allocation,events,x['revision'],costs,tuple(positions),x.get('positions_revision',0));store.validate_integrity();return store
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
 @dataclass(frozen=True)
 class MoneyStateVersion: cycle_id:str; economic_ledger_revision:int; allocation_ledger_revision:int; event_store_digest:str; managed_positions_revision:int; persistent_store_revision:int; opening_cost_digest:str; source_pool_digest:str; consumption_digest:str
