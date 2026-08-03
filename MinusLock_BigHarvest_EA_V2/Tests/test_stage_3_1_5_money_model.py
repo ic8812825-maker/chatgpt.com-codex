@@ -38,3 +38,10 @@ def test_partial_fill_conservation():
  _,b,_=base();p=OpenPositionCost(D('1'),D('-10'));r1=p.close(D('.4'),D('.3'),1,b);r2=p.close(D('.7'),D('.7'),2,b);assert p.volume==0 and p.unallocated_entry_cost==0 and r1.allocated_entry_cost+r2.allocated_entry_cost==D('-10')
 def test_final_close_gate():
  i,b,e=base();ek=K();ak=K(kind=AllocationType.FINAL_RESERVE);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);a.allocate(ev,e,ak,D('4'),[1],D('1'));ev.transition(ReconciliationState.ALLOCATION_PENDING);ev.transition(ReconciliationState.APPLIED);ev.transition(ReconciliationState.PERSISTED);store=PersistentStore(e,a,{ek:ev},1);snap=make_snapshot(i,ek,'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'));assert evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('0'),D('3'),1)).allowed
+def test_scenario_fingerprints_unique():assert len({r.fingerprint for r in SCENARIOS})==len(SCENARIOS)
+@pytest.mark.parametrize('field,value',[('event_type','OTHER'),('level',2),('phase','OTHER')])
+def test_snapshot_metadata_mismatch(field,value):
+ i,b,e=base();kw=dict(event_type='HARVEST',level=1,phase='POST');kw[field]=value
+ with pytest.raises(ValueError):make_snapshot(i,K(),kw['event_type'],kw['level'],'S',kw['phase'],b,[],D('5'),ReconciliationState.PERSISTED,1)
+def test_snapshot_actual_ledger_revision_and_reserve():
+ i,b,e=base();k=K();s=make_snapshot(i,k,'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,7,ledger_revision=9,final_reserve_available=D('2'));assert s.state_revision==7 and s.ledger_revision==9 and s.final_reserve_available==D('2')
