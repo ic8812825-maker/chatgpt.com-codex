@@ -1,0 +1,11 @@
+CheckName|ExitCode|PreExisting|Stage315Relevant|Classification|ProductionChangeRequired|ActionTaken|FinalStatus
+adaptive_geometry_set_files_check.py|1|YES|NO|PRE_EXISTING_UNRELATED|YES(.set)|DOCUMENTED_ONLY|FAIL
+big_monetary_recovery_model_check.py|1|YES|YES|BLOCKED_BY_PRODUCTION_SCOPE|YES(.mqh)|MAPPED_REQUIREMENT|FAIL
+big_scenario_parameter_search_check.py|1|YES|NO|FUTURE_STAGE|YES(.set)|DOCUMENTED_ONLY|FAIL
+clean_start_split_context_check.py|1|YES|YES|BLOCKED_BY_PRODUCTION_SCOPE|YES(.mqh)|MAPPED_REQUIREMENT|FAIL
+frozen_geometry_persistence_check.py|1|YES|NO|STALE_TEXT_CHECK|POSSIBLE|DOCUMENTED_ONLY|FAIL
+full_parameter_optimization_study_check.py|1|YES|NO|FUTURE_STAGE|YES(profile)|DOCUMENTED_ONLY|FAIL
+initial_lock_save_restore_check.py|1|YES|YES|BLOCKED_BY_PRODUCTION_SCOPE|YES(.mqh)|MAPPED_REQUIREMENT|FAIL
+partial_close_no_theoretical_lot_subtraction_check.py|1|YES|YES|BLOCKED_BY_PRODUCTION_SCOPE|YES(.mqh)|MAPPED_REQUIREMENT|FAIL
+phase_state_matrix_check.py|1|YES|NO|FUTURE_STAGE|YES(FSM)|DOCUMENTED_ONLY|FAIL
+state_requires_resolved_position_check.py|1|YES|YES|BLOCKED_BY_PRODUCTION_SCOPE|YES(.mqh)|MAPPED_REQUIREMENT|FAIL
