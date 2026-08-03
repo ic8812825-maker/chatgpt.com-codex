@@ -109,3 +109,16 @@ class AllocationLedger:
  def consume(self,kind:AllocationType,amount:D,purpose:AllocationType):
   if kind is AllocationType.FINAL_RESERVE and purpose is AllocationType.PARTIAL_FAR: raise ValueError('reserve forbidden')
   if amount<0 or self.available(kind)<amount: raise ValueError('insufficient allocation')
+@dataclass(frozen=True)
+class PartialFillResult:
+ volume_before:D; requested_volume:D; actual_closed_volume:D; volume_after:D
+ entry_cost_before:D; allocated_entry_cost:D; entry_cost_after:D
+@dataclass
+class OpenPositionCost:
+ volume:D; unallocated_entry_cost:D
+ def close(self,requested:D,actual:D)->PartialFillResult:
+  before=self.volume; cost=self.unallocated_entry_cost
+  if actual<=0 or actual>before:raise ValueError('zero/overfill')
+  allocated=cost if actual==before else cost*actual/before
+  self.volume-=actual; self.unallocated_entry_cost-=allocated
+  return PartialFillResult(before,requested,actual,self.volume,cost,allocated,self.unallocated_entry_cost)
