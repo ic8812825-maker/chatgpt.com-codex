@@ -4,15 +4,17 @@ from dataclasses import replace
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'Tools'))
 from stage_3_1_5_mutation_oracle import *
+EXPECTED_TARGETS={name:'REALIZED_MONEY' for name in MUTATIONS}
+EXPECTED_TARGETS.update({'ReserveAddedTwiceToRecoveryPL':'ALLOCATION_LEDGER','ReserveUsedForPartialFar':'ALLOCATION_LEDGER','ForeignSymbolIncluded':'REALIZED_MONEY','ForeignMagicIncluded':'REALIZED_MONEY','ForeignCycleIncluded':'REALIZED_MONEY','InitialIgnoredProfitIncluded':'REALIZED_MONEY','DepositIncluded':'REALIZED_MONEY','DuplicateDealApplied':'REALIZED_MONEY','DuplicateEventAppliedAfterRestart':'EVENT_STATE','PartialFillResidualLost':'ALLOCATION_LEDGER','AllocationDoesNotConserveMoney':'ALLOCATION_LEDGER','NegativeHarvestCreditsReserve':'REALIZED_MONEY','FinalClosePreviewTreatedAsActual':'FINAL_CLOSE','UnreconciledDealAllowsNextState':'EVENT_STATE'})
 def audit():
- results=counterexamples();unknown=False
+ results=counterexamples(EXPECTED_TARGETS);unknown=False
  try:run_mutation('__UNKNOWN__');unknown=True
  except KeyError:pass
  clean=execute_scenario(); first=next(iter(MUTATIONS.values())); renamed=replace(first,display_name='Независимое имя'); a=execute_scenario(first.callable(EconomicScenarioInput()));b=execute_scenario(renamed.callable(EconomicScenarioInput()))
  rename_changed=a!=b or a.digest!=b.digest
  extended_source=inspect.getsource(extended_counterexample_probes);tree=ast.parse(extended_source);hardcoded=sum(isinstance(v,ast.Constant) and v.value is True for n in ast.walk(tree) if isinstance(n,ast.Dict) for v in n.values)
  counters={
- 'MISSING_MUTATIONS':len(set(TARGETS)-set(MUTATIONS)),
+ 'MISSING_MUTATIONS':len(set(EXPECTED_TARGETS)-set(MUTATIONS)),
  'INEFFECTIVE_MUTATIONS':sum(not r.changed_fields for r in results),
  'VACUOUS_MUTATIONS':sum(bool(r.clean_blockers) for r in results),
  'SELF_REFERENTIAL_MUTATIONS':sum(x in inspect.signature(execute_scenario).parameters for x in ('name','mutation','blocker')),

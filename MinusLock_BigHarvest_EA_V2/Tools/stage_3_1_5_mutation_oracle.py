@@ -33,16 +33,19 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  digest=EconomicStateDigest(_digest([(t,d.net) for t,d in ledger.deals.items()]),_digest([(k,r.amount,r.residual,r.consumed) for k,r in allocation.records.items()]),_digest((event.state,event.revision)),_digest(persisted))
  return EconomicExecutionResult(projected,realized,realized,pool_net,allocation.available(AllocationType.FINAL_RESERVE),sum((r.amount for r in allocation.consumptions.values()),D('0')),x.residual,digest,not reasons,tuple(reasons),applied,event.state.value)
 @dataclass(frozen=True)
-class Mutation: stable_id:str;display_name:str;target:str;callable:object
+class Mutation: stable_id:str;display_name:str;callable:object
 
-def _m(identifier,target,**changes):return Mutation(identifier,identifier,target,lambda x:replace(x,**changes))
+def _m(identifier,target,**changes):return Mutation(identifier,identifier,lambda x:replace(x,**changes))
 MUTATION_OBJECTS=(
  _m('BuyCloseUsesAsk','realized_cycle_net',close_price=D('1.1002')),_m('SellCloseUsesBid','realized_cycle_net',side=PositionSide.SELL,close_price=D('1.1000')),_m('SpreadDoubleCounted','realized_cycle_net',spread_extra=D('2')),_m('SlippageDoubleCounted','realized_cycle_net',slippage_extra=D('2')),_m('CommissionOmitted','realized_cycle_net',commission=D('0')),_m('OpeningCommissionOmitted','realized_cycle_net',commission=D('-1')),_m('SwapSignInverted','realized_cycle_net',swap=D('3')),_m('FeeOmitted','realized_cycle_net',fee=D('0')),_m('ProjectedMoneyCreditedAsRealized','realized_cycle_net',projected_as_realized=True),_m('RequestedVolumeUsedInsteadOfActual','realized_cycle_net',volume=D('.20')),_m('ReserveAddedTwiceToRecoveryPL','recovery_pl_close_now',allocation_amount=D('5')),_m('ReserveUsedForPartialFar','allocations',allocation_amount=D('3')),_m('AccountBalanceDeltaUsedAsCyclePL','realized_cycle_net',close_price=D('1.1020')),_m('ForeignSymbolIncluded','deal_applications',identity=Identity(1,'GBPUSD',7,'C')),_m('ForeignMagicIncluded','deal_applications',identity=Identity(1,'EURUSD',8,'C')),_m('ForeignCycleIncluded','deal_applications',identity=Identity(1,'EURUSD',7,'OTHER')),_m('InitialIgnoredProfitIncluded','event_state',entry=DealEntry.IN),_m('DepositIncluded','event_state',entry=DealEntry.IN),_m('DuplicateDealApplied','deal_applications',duplicate_deal=True),_m('DuplicateEventAppliedAfterRestart','event_state',reconciled=False),_m('PartialFillResidualLost','residual',residual=D('1')),_m('AllocationDoesNotConserveMoney','allocations',allocation_amount=D('99')),_m('NegativeHarvestCreditsReserve','source_pool_net',close_price=D('1.0000')),_m('FinalClosePreviewTreatedAsActual','final_close_allowed',preview=True),_m('UnreconciledDealAllowsNextState','event_state',reconciled=False))
-MUTATIONS={m.stable_id:m for m in MUTATION_OBJECTS};TARGETS={m.stable_id:m.target for m in MUTATION_OBJECTS}
-def evaluate_invariants(result):return frozenset()
+MUTATIONS={m.stable_id:m for m in MUTATION_OBJECTS}
+def evaluate_invariants(result):
+ blockers=set()
+ checks=(('PROJECTED_MONEY',result.projected_money==D('10')),('REALIZED_MONEY',result.realized_cycle_net==D('14')),('RECOVERY_MONEY',result.recovery_pl_close_now==D('14')),('SOURCE_POOL',result.source_pool_net==D('14')),('ALLOCATION_LEDGER',result.allocations==D('4') and result.residual==0),('DEAL_EXACTLY_ONCE',result.deal_applications==1),('EVENT_STATE',result.event_state==ReconciliationState.RECONCILED.value),('FINAL_CLOSE',result.final_close_allowed and not result.reason_codes))
+ return frozenset(name for name,ok in checks if not ok)
 def run_mutation(name):
  if name not in MUTATIONS:raise KeyError(name)
- clean=execute_scenario();mutated=execute_scenario(MUTATIONS[name].callable(EconomicScenarioInput()));return clean,mutated,frozenset(),frozenset({TARGETS[name]}) if clean!=mutated else frozenset()
+ clean=execute_scenario();mutated=execute_scenario(MUTATIONS[name].callable(EconomicScenarioInput()));return clean,mutated,evaluate_invariants(clean),evaluate_invariants(mutated)
 @dataclass(frozen=True)
 class MutationResult:
  name:str;clean_observables:EconomicExecutionResult;mutated_observables:EconomicExecutionResult;changed_fields:tuple[str,...];clean_blockers:frozenset[str];mutated_blockers:frozenset[str];expected_target_blocker:str;target_caught:bool
@@ -51,10 +54,10 @@ class MutationResult:
  @property
  def state_changed(self):return self.clean_observables.digest.event!=self.mutated_observables.digest.event or self.clean_observables.digest.persistence!=self.mutated_observables.digest.persistence
 
-def counterexamples():
+def counterexamples(expected_targets):
  out=[]
  for name in MUTATIONS:
-  c,m,cb,mb=run_mutation(name);changed=tuple(k for k,v in asdict(c).items() if v!=asdict(m)[k]);target=TARGETS[name];out.append(MutationResult(name,c,m,changed,cb,mb,target,target in mb and bool(changed)))
+  c,m,cb,mb=run_mutation(name);changed=tuple(k for k,v in asdict(c).items() if v!=asdict(m)[k]);target=expected_targets[name];out.append(MutationResult(name,c,m,changed,cb,mb,target,target in mb and bool(changed)))
  return out
 def extended_counterexample_probes():
  ident=Identity(1,'X',2,'C');broker=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));econ=EconomicLedger(ident,broker);econ.apply(Deal(ident,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')))
