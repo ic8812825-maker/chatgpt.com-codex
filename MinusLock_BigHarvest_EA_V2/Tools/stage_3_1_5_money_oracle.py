@@ -150,15 +150,15 @@ class PartialFillResult:
  entry_cost_before:D; allocated_entry_cost:D; entry_cost_after:D
 @dataclass
 class OpenPositionCost:
- volume:D; unallocated_entry_cost:D; applied_fill_tickets:set[int]=field(default_factory=set)
+ volume:D; unallocated_entry_cost:D; applied_fill_tickets:set[int]=field(default_factory=set); allocated_entry_cost:D=D('0')
  def close(self,requested:D,actual:D,ticket:int=1,broker:Broker|None=None)->PartialFillResult:
   before=self.volume; cost=self.unallocated_entry_cost
   if ticket in self.applied_fill_tickets:raise ValueError('duplicate fill')
-  if requested<=0 or actual<=0 or actual>requested or actual>before:raise ValueError('zero/overfill/request mismatch')
-  if broker:broker.validate_lot(actual)
+  if requested<=0 or requested>before or actual<=0 or actual>requested or actual>before:raise ValueError('zero/overfill/request mismatch')
+  if broker:broker.validate_lot(requested);broker.validate_lot(actual)
   self.applied_fill_tickets.add(ticket)
   allocated=cost if actual==before else cost*actual/before
-  self.volume-=actual; self.unallocated_entry_cost-=allocated
+  self.volume-=actual; self.unallocated_entry_cost-=allocated;self.allocated_entry_cost+=allocated
   return PartialFillResult(before,requested,actual,self.volume,cost,allocated,self.unallocated_entry_cost)
 @dataclass
 class PersistentStore:
@@ -167,7 +167,7 @@ class PersistentStore:
   deals=[{'ticket':x.ticket,'position_id':x.position_id,'entry':x.entry.value,'deal_type':x.deal_type.value,'actual_volume':str(x.actual_volume),'profit':str(x.profit),'swap':str(x.swap),'commission':str(x.commission),'fee':str(x.fee),'initial_ignored':x.initial_ignored} for x in self.economic.deals.values()]
   allocations=[{'key':r.key.to_dict(),'sources':r.source_deal_tickets,'amount':str(r.amount),'consumed':str(r.consumed),'residual':str(r.residual),'state':r.reconciliation_state.value,'revision':r.revision} for r in self.allocation.records.values()]
   consumptions=[{'key':r.key.to_dict(),'allocation_key':r.allocation_key.to_dict(),'amount':str(r.amount),'purpose':r.purpose.value,'revision':r.revision} for r in self.allocation.consumptions.values()]
-  data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets)} for k,v in self.opening_costs.items()},'revision':self.revision}
+  data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost)} for k,v in self.opening_costs.items()},'revision':self.revision}
   return json.dumps(data,sort_keys=True,separators=(',',':'))
  @classmethod
  def deserialize(cls,payload:str)->'PersistentStore':
@@ -178,7 +178,7 @@ class PersistentStore:
    k=EventKey.from_dict(q['key']);allocation.records[k]=AllocationRecord(k,tuple(q['sources']),D(q['amount']),D(q['consumed']),D(q['residual']),ReconciliationState(q['state']),q['revision'])
   for q in x['consumptions']:
    k=EventKey.from_dict(q['key']);allocation.consumptions[k]=ConsumptionRecord(k,EventKey.from_dict(q['allocation_key']),D(q['amount']),AllocationType(q['purpose']),q['revision'])
-  events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets'])) for k,v in x['opening_costs'].items()}
+  events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated'])) for k,v in x['opening_costs'].items()}
   return cls(econ,allocation,events,x['revision'],costs)
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
 @dataclass(frozen=True)
