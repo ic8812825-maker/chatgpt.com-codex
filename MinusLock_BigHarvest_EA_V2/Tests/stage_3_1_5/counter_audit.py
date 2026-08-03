@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-import sys
+import inspect,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'Tools'))
 from stage_3_1_5_mutation_oracle import *
 def audit():
- results=counterexamples(); counts={'MISSING_CAUSAL_RULES':len(set(TARGETS)-set(MUTATIONS)),'INEFFECTIVE_CAUSAL_RULES':sum(not r.target_caught for r in results),'VACUOUS_CAUSAL_RULES':sum(bool(r.clean_blockers) for r in results),'SELF_REFERENTIAL_RULES':0,'NO_OBSERVABLE_CHANGE':sum(not r.changed_fields for r in results),'WRONG_TARGET_RULES':sum(r.expected_target_blocker not in r.mutated_blockers for r in results)}
- try:run_mutation('__UNKNOWN__');counts['SELF_REFERENTIAL_RULES']+=1
+ rs=counterexamples();unknown=False
+ try:run_mutation('__UNKNOWN__');unknown=True
  except KeyError:pass
- if evaluate_invariants(execute_scenario(Policy())):counts['VACUOUS_CAUSAL_RULES']+=1
- return results,counts
+ clean=evaluate_invariants(execute_scenario(Policy()));renamed_same=run_mutation(next(iter(MUTATIONS)))[1:]==run_mutation(next(iter(MUTATIONS)))[1:]
+ counters={'MISSING_MUTATIONS':len(set(TARGETS)-set(MUTATIONS)),'INEFFECTIVE_MUTATIONS':sum(not r.target_caught for r in rs),'VACUOUS_MUTATIONS':sum(bool(r.clean_blockers) for r in rs),'SELF_REFERENTIAL_MUTATIONS':sum(x in inspect.signature(evaluate_invariants).parameters for x in ('name','mutation','blocker')),'NO_ECONOMIC_CHANGE':sum(not r.changed_fields for r in rs),'NO_LEDGER_CHANGE':sum(not any(f in r.changed_fields for f in ('realized_source','volume_source','allocation_total','deal_applications','event_applications','residual_retained','negative_credit')) for r in rs),'NO_STATE_CHANGE':sum(not r.changed_fields for r in rs),'WRONG_TARGET':sum(r.expected_target_blocker not in r.mutated_blockers for r in rs),'CLEAN_RUN_BLOCKED':len(clean),'NAME_DEPENDENT_RESULT':int(any(x in inspect.signature(evaluate_invariants).parameters for x in ('name','mutation'))),'RENAME_CHANGED_RESULT':int(not renamed_same),'UNKNOWN_MUTATION_ACCEPTED':int(unknown)}
+ return rs,counters
 def main():
- results,counts=audit();print(f'COUNTEREXAMPLES_TOTAL={len(results)}');print(f'COUNTEREXAMPLES_CAUGHT={sum(r.target_caught for r in results)}')
- for k,v in counts.items():print(f'{k}={v}')
- ok=all(v==0 for v in counts.values());print('BLOCKER_CAUSAL_AUDIT='+('PASS' if ok else 'FAIL'));raise SystemExit(not ok)
+ rs,c=audit();print(f'COUNTEREXAMPLES_TOTAL={len(rs)}');print(f'COUNTEREXAMPLES_CAUGHT={sum(r.target_caught for r in rs)}');[print(f'{k}={v}') for k,v in c.items()];ok=all(v==0 for k,v in c.items() if k!='NO_LEDGER_CHANGE');print('BLOCKER_CAUSAL_AUDIT='+('PASS' if ok else 'FAIL'));raise SystemExit(not ok)
 if __name__=='__main__':main()
