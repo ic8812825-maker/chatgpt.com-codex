@@ -283,3 +283,11 @@ def test_source_fingerprint_changes_money_version_without_revision():
  store,_=_persisted_gate_store();before=store.money_state_version;p=next(iter(store.allocation.source_pools.values()));p.deal_fingerprints[1]['entry']='IN';assert store.money_state_version!=before
 def test_position_money_changes_money_version_without_revision():
  store,_=_persisted_gate_store();before=store.money_state_version;store.managed_positions=(replace(store.managed_positions[0],swap=D('-9')),);assert store.money_state_version!=before
+
+def _gate_for_store(store,ek,version=None):return make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,store.economic.realized_cycle_net,ReconciliationState.PERSISTED,1,ledger_revision=store.revision,final_reserve_available=store.allocation.available(AllocationType.FINAL_RESERVE),money_state_version=version or store.money_state_version)
+def test_final_close_discovered_allocation_integrity_blocked():
+ store,ek=_persisted_gate_store();snap=_gate_for_store(store,ek);next(iter(store.allocation.records.values())).reconciliation_state=ReconciliationState.DISCOVERED;g=evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1));assert not g.allowed and g.reasons[0]=='LEDGER_INTEGRITY_FAILURE' and 'INTEGRITY_ALLOCATION_STATE_INVALID' in g.reasons
+def test_final_close_foreign_allocation_integrity_blocked():
+ store,ek=_persisted_gate_store();snap=_gate_for_store(store,ek);k=next(iter(store.allocation.records));r=store.allocation.records.pop(k);foreign=replace(k,account_login=9);r.key=foreign;store.allocation.records[foreign]=r;g=evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1));assert not g.allowed and 'INTEGRITY_FOREIGN_ALLOCATION_IDENTITY' in g.reasons
+def test_final_close_valid_restored_integrity_passes():
+ store,ek=_persisted_gate_store();restored=PersistentStore.deserialize(store.serialize());snap=_gate_for_store(restored,ek);assert evaluate_final_close(snap,restored,True,True,FinalClosePolicy(D('-9'),D('1'),1)).allowed

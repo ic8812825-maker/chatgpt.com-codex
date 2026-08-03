@@ -296,6 +296,9 @@ class FinalClosePolicy: threshold:D; required_deficit:D; current_revision:int; p
 class GateResult: allowed:bool; recovery:D; reserve:D; deficit:D; reasons:tuple[str,...]
 def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,risk_ok:bool,margin_ok:bool,policy:FinalClosePolicy)->GateResult:
  reasons=[];identity=store.economic.identity
+ try:store.validate_integrity()
+ except (OracleIntegrityError,ValueError) as exc:
+  reasons.append('LEDGER_INTEGRITY_FAILURE');reasons.append('INTEGRITY_'+(exc.code.value if isinstance(exc,OracleIntegrityError) else type(exc).__name__))
  if snapshot.identity!=identity:reasons.append('FOREIGN_IDENTITY')
  if snapshot.broker!=store.economic.broker:reasons.append('BROKER_MISMATCH')
  if snapshot.managed_positions!=store.managed_positions:reasons.append('POSITIONS_MISMATCH')
