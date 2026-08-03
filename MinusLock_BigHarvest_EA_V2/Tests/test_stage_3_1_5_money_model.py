@@ -1,3 +1,4 @@
+from dataclasses import replace
 import sys
 from pathlib import Path
 from decimal import Decimal as D
@@ -19,10 +20,10 @@ def test_broker_invalid(field,value):
  q=dict(bid=D('1'),ask=D('1'),tick_size=D('.01'),tv_profit=D('1'),tv_loss=D('1'));q[field]=value
  with pytest.raises(ValueError):Broker(**q)
 def test_event_snapshot_recomputes_recovery():
- i,b,e=base();k=K();s=make_snapshot(i,k,'HARVEST',1,'S','POST',b,[],e.realized_cycle_net,ReconciliationState.PERSISTED,1,ledger_revision=1);assert s.recovery_pl_close_now==D('5')
+ i,b,e=base();k=K();s=make_snapshot(i,k,'HARVEST',1,'S','POST',b,[],e.realized_cycle_net,ReconciliationState.PERSISTED,1,ledger_revision=1,money_state_version=PersistentStore(e,AllocationLedger(i)).money_state_version);assert s.recovery_pl_close_now==D('5')
 def test_foreign_position_in_snapshot_rejected():
  i,b,e=base();p=Position(Identity(2,'X',2,'C'),'P','L','F',PositionSide.BUY,D('.01'),D('1'))
- with pytest.raises(ValueError):make_snapshot(i,K(),'HARVEST',1,'S','POST',b,[p],D('0'),ReconciliationState.PERSISTED,1)
+ with pytest.raises(ValueError):make_snapshot(i,K(),'HARVEST',1,'S','POST',b,[p],D('0'),ReconciliationState.PERSISTED,1,money_state_version=PersistentStore(e,AllocationLedger(i)).money_state_version)
 def test_allocation_and_consume_identity():
  i,b,e=base();ek=K();ak=K(kind=AllocationType.FINAL_RESERVE);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);assert a.allocate(ev,e,ak,D('4'),[1],D('1'));before=a.available(AllocationType.FINAL_RESERVE);ck=CK(ak);assert a.consume(ak,ck,D('2'));assert a.available(AllocationType.FINAL_RESERVE)==before-D('2');assert not a.consume(ak,ck,D('2'))
 @pytest.mark.parametrize('kw',[{'account':9},{'symbol':'Y'},{'magic':9},{'cycle':'Z'}])
@@ -38,14 +39,14 @@ def test_opening_in_not_realized():
 def test_partial_fill_conservation():
  _,b,_=base();p=OpenPositionCost(D('1'),D('-10'));r1=p.close(D('.4'),D('.3'),1,b);r2=p.close(D('.7'),D('.7'),2,b);assert p.volume==0 and p.unallocated_entry_cost==0 and r1.allocated_entry_cost+r2.allocated_entry_cost==D('-10')
 def test_final_close_gate():
- i,b,e=base();ek=K();ak=K(kind=AllocationType.FINAL_RESERVE);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);a.allocate(ev,e,ak,D('4'),[1],D('1'));ev.transition(ReconciliationState.ALLOCATION_PENDING);ev.transition(ReconciliationState.APPLIED);ev.transition(ReconciliationState.PERSISTED);store=PersistentStore(e,a,{ek:ev},1);snap=make_snapshot(i,ek,'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'));assert evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('0'),D('3'),1)).allowed
+ i,b,e=base();ek=K();ak=K(kind=AllocationType.FINAL_RESERVE);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);a.allocate(ev,e,ak,D('4'),[1],D('1'));ev.transition(ReconciliationState.ALLOCATION_PENDING);ev.transition(ReconciliationState.APPLIED);ev.transition(ReconciliationState.PERSISTED);store=PersistentStore(e,a,{ek:ev},1);snap=make_snapshot(i,ek,'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'),money_state_version=store.money_state_version);assert evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('0'),D('3'),1)).allowed
 def test_scenario_fingerprints_unique():assert len({r.fingerprint for r in SCENARIOS})==len(SCENARIOS)
 @pytest.mark.parametrize('field,value',[('event_type','OTHER'),('level',2),('phase','OTHER')])
 def test_snapshot_metadata_mismatch(field,value):
  i,b,e=base();kw=dict(event_type='HARVEST',level=1,phase='POST');kw[field]=value
- with pytest.raises(ValueError):make_snapshot(i,K(),kw['event_type'],kw['level'],'S',kw['phase'],b,[],D('5'),ReconciliationState.PERSISTED,1)
+ with pytest.raises(ValueError):make_snapshot(i,K(),kw['event_type'],kw['level'],'S',kw['phase'],b,[],D('5'),ReconciliationState.PERSISTED,1,money_state_version=PersistentStore(e,AllocationLedger(i)).money_state_version)
 def test_snapshot_actual_ledger_revision_and_reserve():
- i,b,e=base();k=K();s=make_snapshot(i,k,'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,7,ledger_revision=9,final_reserve_available=D('2'));assert s.state_revision==7 and s.ledger_revision==9 and s.final_reserve_available==D('2')
+ i,b,e=base();k=K();s=make_snapshot(i,k,'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,7,ledger_revision=9,final_reserve_available=D('2'),money_state_version=PersistentStore(e,AllocationLedger(i)).money_state_version);assert s.state_revision==7 and s.ledger_revision==9 and s.final_reserve_available==D('2')
 
 # Third-correction persistence regressions
 def _persisted_gate_store():
@@ -157,12 +158,12 @@ def test_each_money_revision_change_blocks_stale_snapshot(component):
  elif component=='event':store.events[ek].revision+=1
  elif component=='positions':store.positions_revision+=1
  else:store.revision+=1
- snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,store.economic.realized_cycle_net,ReconciliationState.PERSISTED,1,ledger_revision=store.revision,final_reserve_available=store.allocation.available(AllocationType.FINAL_RESERVE))
- assert 'MONEY_STATE_STALE' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1,expected_version=expected)).reasons
+ snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,store.economic.realized_cycle_net,ReconciliationState.PERSISTED,1,ledger_revision=store.revision,final_reserve_available=store.allocation.available(AllocationType.FINAL_RESERVE),money_state_version=expected)
+ assert 'MONEY_STATE_STALE' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1)).reasons
 def test_final_close_after_restart_uses_restored_positions_and_reserve():
  store,ek=_persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize());assert restored.managed_positions and restored.allocation.available(AllocationType.FINAL_RESERVE)==D('4')
 def test_final_close_after_restart_blocks_missing_source_pool():
- store,ek=_persisted_gate_store();store.allocation.source_pools.clear();snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'));assert 'SOURCE_POOL_MISSING' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1)).reasons
+ store,ek=_persisted_gate_store();store.allocation.source_pools.clear();snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'),money_state_version=store.money_state_version);assert 'SOURCE_POOL_MISSING' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1)).reasons
 
 def test_required_scenario_categories_complete():assert not missing_scenario_categories(SCENARIOS)
 def test_loss_money_scenarios_present():assert sum(r.category in {'BUY_LOSS','SELL_LOSS'} and r.actual['money']<0 for r in SCENARIOS)>=2
@@ -189,3 +190,11 @@ def test_persistence_conservation_tamper_rejected(target,field,value):
 def test_orphan_consumption_rejected():
  store,_=_persisted_gate_store();ak=next(iter(store.allocation.records));store.allocation.consume(ak,CK(ak),D('1'));import json;doc=json.loads(store.serialize());doc['consumptions'][0]['allocation_key']['deal_ticket']=999
  with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(doc))
+
+def test_missing_money_state_version_blocked():
+ i,b,e=base()
+ with pytest.raises(ValueError):make_snapshot(i,K(),'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,1)
+def test_event_version_collision_safe():
+ store,ek=_persisted_gate_store();v1=store.money_state_version;other=K(9);store.events[other]=EventRecord(other,ReconciliationState.DISCOVERED,3);store.events[ek].revision=1;v2=store.money_state_version;store.events[ek].revision=2;store.events[other].revision=2;v3=store.money_state_version;assert v2.event_store_digest!=v3.event_store_digest and v1!=v2
+def test_money_version_other_cycle_rejected():
+ store,ek=_persisted_gate_store();v=replace(store.money_state_version,cycle_id='OTHER');snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'),money_state_version=v);assert 'MONEY_STATE_STALE' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1)).reasons

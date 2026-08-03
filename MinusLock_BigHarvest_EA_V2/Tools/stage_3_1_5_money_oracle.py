@@ -4,6 +4,7 @@ from dataclasses import dataclass, field, asdict
 from decimal import Decimal
 from enum import Enum
 import json
+import hashlib
 from typing import Iterable
 D=Decimal
 class PositionSide(str,Enum): BUY="BUY"; SELL="SELL"
@@ -68,7 +69,7 @@ class EventSnapshot:
  final_reserve_available:D; partial_far_budget_available:D; carry_available:D; transition_budget_available:D
  residual:D; commission:D; swap:D; fee:D; slippage_diagnostic:D; reconciliation_state:ReconciliationState
  applied_deal_tickets:frozenset[int]; pending_deal_tickets:frozenset[int]; state_revision:int; ledger_revision:int
- realized_cycle_net:D; floating_close_now:D; recovery_pl_close_now:D
+ realized_cycle_net:D; floating_close_now:D; recovery_pl_close_now:D; money_state_version:'MoneyStateVersion'
  def __post_init__(self):
   if (self.event_key.account_login,self.event_key.symbol,self.event_key.magic,self.event_key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('snapshot identity mismatch')
   if (self.event_type,self.level,self.phase)!=(self.event_key.event_type,self.event_key.level,self.event_key.phase):raise ValueError('snapshot metadata mismatch')
@@ -87,7 +88,9 @@ def make_snapshot(identity:Identity,event_key:EventKey,event_type:str,level:int,
  ps=tuple(positions)
  if any(p.identity!=identity for p in ps):raise ValueError('foreign position')
  floating=floating_total(identity,ps,broker,kw.get('slippage_diagnostic',D('0')))
- return EventSnapshot(identity,event_key,event_type,level,scenario,phase,broker,ps,tuple(p.volume for p in ps),tuple(p.open_price for p in ps),kw.get('final_reserve_available',D('0')),kw.get('partial_far_budget_available',D('0')),kw.get('carry_available',D('0')),kw.get('transition_budget_available',D('0')),kw.get('residual',D('0')),kw.get('commission',D('0')),kw.get('swap',D('0')),kw.get('fee',D('0')),kw.get('slippage_diagnostic',D('0')),state,frozenset(kw.get('applied_deal_tickets',())),frozenset(kw.get('pending_deal_tickets',())),revision,kw.get('ledger_revision',revision),realized,floating,realized+floating)
+ version=kw.get('money_state_version')
+ if not isinstance(version,MoneyStateVersion):raise ValueError('MoneyStateVersion required')
+ return EventSnapshot(identity,event_key,event_type,level,scenario,phase,broker,ps,tuple(p.volume for p in ps),tuple(p.open_price for p in ps),kw.get('final_reserve_available',D('0')),kw.get('partial_far_budget_available',D('0')),kw.get('carry_available',D('0')),kw.get('transition_budget_available',D('0')),kw.get('residual',D('0')),kw.get('commission',D('0')),kw.get('swap',D('0')),kw.get('fee',D('0')),kw.get('slippage_diagnostic',D('0')),state,frozenset(kw.get('applied_deal_tickets',())),frozenset(kw.get('pending_deal_tickets',())),revision,kw.get('ledger_revision',revision),realized,floating,realized+floating,version)
 ALLOWED_TRANSITIONS={
  ReconciliationState.DISCOVERED:frozenset((ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.CONFLICT,ReconciliationState.REJECTED)),
  ReconciliationState.PENDING_RECONCILIATION:frozenset((ReconciliationState.RECONCILED,ReconciliationState.CONFLICT,ReconciliationState.REJECTED)),
@@ -217,7 +220,10 @@ class OpenPositionCost:
 class PersistentStore:
  economic:EconomicLedger; allocation:AllocationLedger; events:dict[EventKey,EventRecord]=field(default_factory=dict); revision:int=0; opening_costs:dict[str,OpenPositionCost]=field(default_factory=dict); managed_positions:tuple[Position,...]=(); positions_revision:int=0
  @property
- def money_state_version(self):return MoneyStateVersion(self.economic.revision,self.allocation.revision,sum(e.revision for e in self.events.values()),self.positions_revision,self.revision)
+ def money_state_version(self):
+  digest=lambda x:hashlib.sha256(json.dumps(x,sort_keys=True,default=str,separators=(',',':')).encode()).hexdigest()
+  events=digest([(k.to_dict(),v.state.value,v.revision) for k,v in sorted(self.events.items())]);pools=digest([(k,p.deal_nets,p.already_allocated,p.residual,p.revision) for k,p in sorted(self.allocation.source_pools.items())]);cons=digest([(k.to_dict(),v.amount,v.revision) for k,v in sorted(self.allocation.consumptions.items())]);costs=digest([(k,v.volume,v.unallocated_entry_cost,sorted(v.applied_fill_tickets),v.allocated_entry_cost) for k,v in sorted(self.opening_costs.items())])
+  return MoneyStateVersion(self.economic.identity.cycle,self.economic.revision,self.allocation.revision,events,self.positions_revision,self.revision,costs,pools,cons)
  def serialize(self)->str:
   deals=[{'ticket':x.ticket,'position_id':x.position_id,'entry':x.entry.value,'deal_type':x.deal_type.value,'actual_volume':str(x.actual_volume),'profit':str(x.profit),'swap':str(x.swap),'commission':str(x.commission),'fee':str(x.fee),'initial_ignored':x.initial_ignored} for x in self.economic.deals.values()]
   allocations=[{'key':r.key.to_dict(),'sources':r.source_deal_tickets,'amount':str(r.amount),'consumed':str(r.consumed),'residual':str(r.residual),'state':r.reconciliation_state.value,'revision':r.revision} for r in self.allocation.records.values()]
@@ -255,9 +261,9 @@ class PersistentStore:
   return cls(econ,allocation,events,x['revision'],costs,tuple(positions),x.get('positions_revision',0))
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
 @dataclass(frozen=True)
-class MoneyStateVersion: economic_ledger_revision:int; allocation_ledger_revision:int; event_store_revision:int; managed_positions_revision:int; persistent_store_revision:int
+class MoneyStateVersion: cycle_id:str; economic_ledger_revision:int; allocation_ledger_revision:int; event_store_digest:str; managed_positions_revision:int; persistent_store_revision:int; opening_cost_digest:str; source_pool_digest:str; consumption_digest:str
 @dataclass(frozen=True)
-class FinalClosePolicy: threshold:D; required_deficit:D; current_revision:int; preview:bool=False; expected_version:MoneyStateVersion|None=None
+class FinalClosePolicy: threshold:D; required_deficit:D; current_revision:int; preview:bool=False
 @dataclass(frozen=True)
 class GateResult: allowed:bool; recovery:D; reserve:D; deficit:D; reasons:tuple[str,...]
 def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,risk_ok:bool,margin_ok:bool,policy:FinalClosePolicy)->GateResult:
@@ -274,7 +280,7 @@ def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,risk_ok:bo
  reserve=store.allocation.available(AllocationType.FINAL_RESERVE)
  if snapshot.final_reserve_available!=reserve:reasons.append('RESERVE_MISMATCH')
  if snapshot.state_revision!=policy.current_revision or snapshot.ledger_revision!=store.revision:reasons.append('STALE')
- if policy.expected_version is not None and policy.expected_version!=store.money_state_version:reasons.append('MONEY_STATE_STALE')
+ if snapshot.money_state_version!=store.money_state_version:reasons.append('MONEY_STATE_STALE')
  if store.allocation.records and not store.allocation.source_pools:reasons.append('SOURCE_POOL_MISSING')
  recovery=store.economic.realized_cycle_net+floating_total(identity,store.managed_positions,store.economic.broker,snapshot.slippage_diagnostic)
  if recovery<=policy.threshold:reasons.append('RECOVERY')

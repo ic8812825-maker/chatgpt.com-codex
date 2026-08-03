@@ -75,10 +75,10 @@ def extended_counterexample_probes():
  except ValueError:multi_ok=False
  # Snapshot/gate probes execute constructors and canonical gate rather than flags.
  foreign_blocked=False
- try:make_snapshot(ident,key(),'H',1,'S','P',broker,(Position(Identity(9,'X',2,'C'),'P','L','R',PositionSide.BUY,D('.01'),D('1')),),D('5'),ReconciliationState.PERSISTED,1)
+ try:make_snapshot(ident,key(),'H',1,'S','P',broker,(Position(Identity(9,'X',2,'C'),'P','L','R',PositionSide.BUY,D('.01'),D('1')),),D('5'),ReconciliationState.PERSISTED,1,money_state_version=store.money_state_version)
  except ValueError:foreign_blocked=True
  event.transition(ReconciliationState.ALLOCATION_PENDING);event.transition(ReconciliationState.APPLIED);event.transition(ReconciliationState.PERSISTED)
- snap=make_snapshot(ident,key(),'H',1,'S','P',broker,(position,),D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'))
+ snap=make_snapshot(ident,key(),'H',1,'S','P',broker,(position,),D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'),money_state_version=store.money_state_version)
  gate=evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-1'),D('1'),1))
  try: replace(snap,managed_positions=()); hidden_blocked=False
  except ValueError: hidden_blocked=True
