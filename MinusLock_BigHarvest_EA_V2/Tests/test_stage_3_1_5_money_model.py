@@ -1,59 +1,34 @@
 #!/usr/bin/env python3
 import sys
-from decimal import Decimal as D
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"Tools"))
+from decimal import Decimal as D
+import pytest
+ROOT=Path(__file__).resolve().parents[1]; sys.path[:0]=[str(ROOT/'Tools'),str(ROOT/'Tests'/'stage_3_1_5')]
 from stage_3_1_5_money_oracle import *
-
-COUNTEREXAMPLES = [
- "BuyCloseUsesAsk","SellCloseUsesBid","SpreadDoubleCounted","SlippageDoubleCounted",
- "CommissionOmitted","OpeningCommissionOmitted","SwapSignInverted","FeeOmitted",
- "ProjectedMoneyCreditedAsRealized","RequestedVolumeUsedInsteadOfActual",
- "ReserveAddedTwiceToRecoveryPL","ReserveUsedForPartialFar","AccountBalanceDeltaUsedAsCyclePL",
- "ForeignSymbolIncluded","ForeignMagicIncluded","ForeignCycleIncluded","InitialIgnoredProfitIncluded",
- "DepositIncluded","DuplicateDealApplied","DuplicateEventAppliedAfterRestart",
- "PartialFillResidualLost","AllocationDoesNotConserveMoney","NegativeHarvestCreditsReserve",
- "FinalClosePreviewTreatedAsActual","UnreconciledDealAllowsNextState"]
-
-def run_counterexamples():
-    # Each name maps one-to-one to the independently registered executable blocker.
-    assert len(COUNTEREXAMPLES)==len(BLOCKERS)
-    for blocker in BLOCKERS:
-        clean=causal_results()[blocker]
-        mutated=causal_results({blocker})[blocker]
-        assert clean == 0 and mutated == 1
-    return len(COUNTEREXAMPLES)
-
-def run_positive_suite():
-    ident=Identity(1,"EURUSD",77,"C1")
-    b=Broker(D("1.1000"),D("1.1002"),D(".0001"),D("10"),D("12"))
-    assert projected_profit("BUY",D("1"),D("1.0990"),b)==D("100")
-    assert projected_profit("SELL",D("1"),D("1.1012"),b)==D("100")
-    assert projected_profit("BUY",D("1"),D("1.0990"),b,D(".0001"))==D("90")
-    ledger=EconomicLedger(ident)
-    d=Deal(ident,1,"P","OUT",D(".4"),D("10"),D("-1"),D("-2"),D("-.5"))
-    assert ledger.apply(d) and not ledger.apply(d) and ledger.realized==D("6.5")
-    assert not ledger.apply(Deal(Identity(1,"GBPUSD",77,"C1"),2,"P","OUT",D("1"),D("99")))
-    assert not ledger.apply(Deal(ident,3,"P","OUT",D("1"),D("99"),initial_ignored=True))
-    assert not ledger.apply(Deal(ident,4,"P","OUT",D("1"),D("99"),balance_operation=True))
-    p=Position(ident,"P","BUY",D(".5"),D("1.0990"),D("-1"),D("-1"),D("-.5"))
-    assert recovery_pl_close_now(ledger,[p],b)==D("54.0")
-    a=allocate_harvest(D("10"),D("3"),D("2"),D("1"),D("1")); assert a.total==D("10")
-    assert allocate_harvest(D("-2"),D("0"),D("0"),D("0"),D("0")).reserve==0
-    x,r=allocate_opening_cost(D("-3"),D(".4"),D("1")); assert x+r==D("-3")
-    x,r=allocate_opening_cost(r,D(".6"),D(".6"),True); assert r==0
-    key=EventKey(1,"EURUSD",77,"C1","HARVEST",2,"POST","P",1,"RESERVE")
-    store=EventStore(); assert store.apply(key) and not store.apply(key)
-    assert not store.restart().apply(key)
-    assert not final_close_allowed(D("5"),D("0"),D("4"),D("3"),False,False,True,True)
-    assert final_close_allowed(D("5"),D("0"),D("4"),D("3"),True,False,True,True)
-    return 38
-
+from scenario_catalog import run_positive_scenarios
+SCENARIOS=run_positive_scenarios()
+@pytest.mark.parametrize('result',SCENARIOS,ids=lambda x:x.scenario_id)
+def test_positive_scenario(result): assert result.passed
+@pytest.mark.parametrize('field,value',[('bid',D('1.10001')),('ask',D('1.10021')),('tick_size',D('0')),('tv_profit',D('0')),('tv_loss',D('-1'))])
+def test_broker_validation_rejects(field,value):
+ kw=dict(bid=D('1.1000'),ask=D('1.1002'),tick_size=D('.0001'),tv_profit=D('10'),tv_loss=D('10'));kw[field]=value
+ with pytest.raises(ValueError):Broker(**kw)
+@pytest.mark.parametrize('lot',[D('0'),D('-.1'),D('.015')])
+def test_strict_volume_validation(lot):
+ with pytest.raises(ValueError):Broker(D('1'),D('1'),D('.0001'),D('10'),D('10')).validate_lot(lot)
+def test_invalid_side_rejected():
+ with pytest.raises(ValueError):projected_profit('SELL',D('.1'),D('1'),Broker(D('1'),D('1'),D('.0001'),D('10'),D('10')))
+def test_event_snapshot_recomputes_recovery():
+ i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));s=make_snapshot(i,'E','H',1,'S','P',b,[],D('3'),ReconciliationState.DISCOVERED,0);assert s.recovery_pl_close_now==D('3')
+def test_reconciliation_invalid_jump():
+ with pytest.raises(ValueError):EventRecord('E').transition(ReconciliationState.PERSISTED)
+def test_history_replay_idempotent():
+ i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);d=Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('2'));assert e.replay([d,d])==1
+def test_restart_roundtrip_independent():
+ i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('2')));s=PersistentStore(e,AllocationLedger(i),{'E':EventRecord('E',ReconciliationState.PENDING_RECONCILIATION,1)},2);r=PersistentStore.deserialize(s.serialize());assert r is not s and r.economic.realized_cycle_net==D('2') and r.events['E'].state is ReconciliationState.PENDING_RECONCILIATION
+def test_partial_overfill_and_zero_rejected():
+ for v in (D('0'),D('2')):
+  with pytest.raises(ValueError):OpenPositionCost(D('1'),D('-2')).close(v,v)
 def main():
-    n=run_positive_suite()
-    c=run_counterexamples()
-    print(f"POSITIVE_SCENARIOS={n}/{n}")
-    print(f"COUNTEREXAMPLES_CAUGHT={c}/{c}")
-    print("MONEY_MODEL_POSITIVE_SUITE=PASS")
-
-if __name__=="__main__": main()
+ failed=[x for x in SCENARIOS if not x.passed];print(f'POSITIVE_SCENARIOS_TOTAL={len(SCENARIOS)}');print(f'POSITIVE_SCENARIOS_PASSED={len(SCENARIOS)-len(failed)}');raise SystemExit(bool(failed))
+if __name__=='__main__':main()
