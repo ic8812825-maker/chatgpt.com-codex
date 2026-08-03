@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'Tools'))
 from stage_3_1_5_mutation_oracle import *
 EXPECTED_TARGETS={name:'REALIZED_MONEY' for name in MUTATIONS}
-EXPECTED_TARGETS.update({'ReserveAddedTwiceToRecoveryPL':'ALLOCATION_LEDGER','ReserveUsedForPartialFar':'ALLOCATION_LEDGER','ForeignSymbolIncluded':'REALIZED_MONEY','ForeignMagicIncluded':'REALIZED_MONEY','ForeignCycleIncluded':'REALIZED_MONEY','InitialIgnoredProfitIncluded':'REALIZED_MONEY','DepositIncluded':'REALIZED_MONEY','DuplicateDealApplied':'REALIZED_MONEY','DuplicateEventAppliedAfterRestart':'EVENT_STATE','PartialFillResidualLost':'ALLOCATION_LEDGER','AllocationDoesNotConserveMoney':'ALLOCATION_LEDGER','NegativeHarvestCreditsReserve':'REALIZED_MONEY','FinalClosePreviewTreatedAsActual':'FINAL_CLOSE','UnreconciledDealAllowsNextState':'EVENT_STATE'})
+EXPECTED_TARGETS.update({'ReserveAddedTwiceToRecoveryPL':'ALLOCATION_LEDGER','ReserveUsedForPartialFar':'FINAL_CLOSE','ForeignSymbolIncluded':'REALIZED_MONEY','ForeignMagicIncluded':'REALIZED_MONEY','ForeignCycleIncluded':'REALIZED_MONEY','InitialIgnoredProfitIncluded':'FINAL_CLOSE','DepositIncluded':'FINAL_CLOSE','DuplicateDealApplied':'REALIZED_MONEY','DuplicateEventAppliedAfterRestart':'EVENT_STATE','PartialFillResidualLost':'ALLOCATION_LEDGER','AllocationDoesNotConserveMoney':'ALLOCATION_LEDGER','NegativeHarvestCreditsReserve':'REALIZED_MONEY','FinalClosePreviewTreatedAsActual':'FINAL_CLOSE','UnreconciledDealAllowsNextState':'EVENT_STATE'})
 def audit():
  results=counterexamples(EXPECTED_TARGETS);unknown=False
  try:run_mutation('__UNKNOWN__');unknown=True
