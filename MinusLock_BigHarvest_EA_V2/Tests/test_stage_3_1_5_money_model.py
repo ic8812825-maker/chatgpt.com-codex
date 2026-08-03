@@ -32,3 +32,7 @@ def test_partial_overfill_and_zero_rejected():
 def main():
  failed=[x for x in SCENARIOS if not x.passed];print(f'POSITIVE_SCENARIOS_TOTAL={len(SCENARIOS)}');print(f'POSITIVE_SCENARIOS_PASSED={len(SCENARIOS)-len(failed)}');raise SystemExit(bool(failed))
 if __name__=='__main__':main()
+def test_allocation_conservation_and_duplicate():
+ i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));ev=EventRecord('E',ReconciliationState.RECONCILED);a=AllocationLedger(i);assert a.allocate(ev,e,AllocationType.FINAL_RESERVE,D('4'),[1],D('1'));assert not a.allocate(ev,e,AllocationType.FINAL_RESERVE,D('4'),[1],D('1'))
+def test_final_close_ledger_gate():
+ i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));a=AllocationLedger(i);a.records[('E',AllocationType.FINAL_RESERVE)]=AllocationRecord(i,'E',(1,),AllocationType.FINAL_RESERVE,D('4'),D('4'),D('0'),D('0'),ReconciliationState.RECONCILED);ev=EventRecord('E',ReconciliationState.PERSISTED);s=PersistentStore(e,a,{'E':ev},1);snap=make_snapshot(i,'E','FINAL',1,'S','POST',b,[],e.realized_cycle_net,ReconciliationState.PERSISTED,1);assert evaluate_final_close(snap,s,[],b,True,True,D('0'),D('3'),1).allowed;assert not evaluate_final_close(snap,s,[],b,False,True,D('0'),D('3'),1).allowed
