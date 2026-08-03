@@ -326,3 +326,8 @@ def test_full_fill_calls_close_with_full_volume(monkeypatch):
 def test_universal_invariants_accept_valid_variants(case):assert not evaluate_invariants(execute_scenario(case))
 def test_invariant_evaluator_has_no_fixed_clean_vector():
  import inspect;source=inspect.getsource(evaluate_invariants);assert "==D('10')" not in source and "==D('14')" not in source and 'facts' in source
+
+def test_all_mutations_have_fault_operation_trace_and_computed_blocker():
+ from stage_3_1_5_mutation_oracle import MUTATIONS,run_mutation
+ for name in MUTATIONS:
+  clean,mutated,clean_blockers,mutated_blockers=run_mutation(name);assert not clean_blockers;assert any(x.startswith('FAULT_') for x in mutated.operation_trace);assert mutated_blockers
