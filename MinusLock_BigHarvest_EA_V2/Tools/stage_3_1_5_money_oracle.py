@@ -146,6 +146,14 @@ class AllocationLedger:
   if pool.aggregate_actual_source_net<=0 or amount+residual>pool.available:raise ValueError('aggregate conservation')
   self.revision+=1;pool.already_allocated+=amount;pool.residual+=residual;pool.revision=self.revision;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
  def available(self,kind:AllocationType)->D:return sum((r.available for r in self.records.values() if r.key.allocation_type is kind),D('0'))
+ def validate_source_pools(self,economic:EconomicLedger)->None:
+  seen=set()
+  for tickets,pool in self.source_pools.items():
+   if seen.intersection(tickets):raise ValueError('overlapping source pools')
+   seen.update(tickets)
+   if any(t not in economic.deals or economic.deals[t].net!=pool.deal_nets.get(t) for t in tickets):raise ValueError('source pool history mismatch')
+   records=[r for r in self.records.values() if tuple(sorted(r.source_deal_tickets))==tickets]
+   if pool.already_allocated!=sum((r.amount for r in records),D('0')) or pool.residual!=sum((r.residual for r in records),D('0')):raise ValueError('source pool allocation mismatch')
  def consume(self,allocation_key:EventKey,consume_key:EventKey,amount:D,purpose:AllocationType)->bool:
   if not isinstance(consume_key,EventKey) or amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
   if (consume_key.account_login,consume_key.symbol,consume_key.magic,consume_key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('foreign consume')
@@ -192,10 +200,12 @@ class PersistentStore:
    k=EventKey.from_dict(q['key']);allocation.consumptions[k]=ConsumptionRecord(k,EventKey.from_dict(q['allocation_key']),D(q['amount']),AllocationType(q['purpose']),q['revision'])
   for q in x.get('source_pools',[]):
    k=EventKey.from_dict(q['key']); tickets=tuple(q['sources']); nets={int(t):D(v) for t,v in q['deal_nets'].items()}
+   if tickets in allocation.source_pools:raise ValueError('duplicate source pool')
    if tuple(sorted(tickets))!=tickets or set(tickets)!=set(nets) or any(t not in econ.deals or econ.deals[t].net!=nets[t] for t in tickets):raise ValueError('corrupted source pool')
    pool=ReconciledSourcePool(k,tickets,nets,D(q['allocated']),D(q['residual']),q['revision'])
    if pool.available!=D(q['available']):raise ValueError('corrupted source pool balance')
    allocation.source_pools[tickets]=pool
+  allocation.validate_source_pools(econ)
   events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated'])) for k,v in x['opening_costs'].items()}
   positions=[]
   for q in x.get('managed_positions',[]):

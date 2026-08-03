@@ -84,3 +84,23 @@ def test_corrupted_managed_position_rejected():
     doc=json.loads(store.serialize()); doc['managed_positions'][0]['symbol']='FOREIGN' if 'symbol' in doc['managed_positions'][0] else None
     doc['managed_positions'][0]['identity']['symbol']='FOREIGN'
     with pytest.raises(ValueError): PersistentStore.deserialize(json.dumps(doc))
+
+def test_same_source_cannot_allocate_again_after_restart():
+ store,ek=_persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize()); other=K(9,AllocationType.CARRY); ev=EventRecord(other,ReconciliationState.RECONCILED)
+ with pytest.raises(ValueError): restored.allocation.allocate(ev,restored.economic,other,D('1'),[1])
+def test_partial_source_remaining_survives_restart():
+ i,b,e=base(); k=K(kind=AllocationType.CARRY); a=AllocationLedger(i); a.allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('2'),[1]); s=PersistentStore(e,a).serialize(); assert next(iter(PersistentStore.deserialize(s).allocation.source_pools.values())).available==D('3')
+def test_source_pool_rebuilt_from_history_matches_persisted():
+ store,_=_persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize()); restored.allocation.validate_source_pools(restored.economic)
+def test_source_pool_allocation_records_mismatch_rejected():
+ store,_=_persisted_gate_store(); import json; x=json.loads(store.serialize()); x['source_pools'][0]['allocated']='3'
+ with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(x))
+def test_source_pool_unknown_ticket_rejected():
+ store,_=_persisted_gate_store(); import json; x=json.loads(store.serialize()); x['source_pools'][0]['sources']=[999];x['source_pools'][0]['deal_nets']={'999':'5'}
+ with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(x))
+def test_source_pool_duplicate_ticket_rejected():
+ store,_=_persisted_gate_store(); import json; x=json.loads(store.serialize()); x['source_pools'][0]['sources']=[1,1]
+ with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(x))
+def test_source_pool_overlap_after_restart_rejected():
+ store,_=_persisted_gate_store(); import json; x=json.loads(store.serialize()); x['source_pools'].append(dict(x['source_pools'][0]));x['source_pools'][1]['key']['deal_ticket']=2
+ with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(x))
