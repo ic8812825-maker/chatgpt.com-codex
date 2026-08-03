@@ -143,7 +143,7 @@ def test_final_reserve_only_final_far_close():test_consume_wrong_purpose_rejecte
 
 def test_early_crash_completes_allocation_once():
  for state in (ReconciliationState.DISCOVERED,ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING):
-  result=all_restart_probes()[state];assert result['terminal'] is ReconciliationState.PERSISTED and result['reserve']==D('4') and result['side_effects']==1
+  result=all_restart_probes()[state];assert result['terminal'] is ReconciliationState.PERSISTED and result['reserve']==D('3') and result['consumed']==D('1') and not result['duplicate_consume'] and result['side_effects']==1
 def test_terminal_restart_never_allocates():
  for state in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED):
   result=all_restart_probes()[state];assert result['terminal_safe'] and result['side_effects']==0 and not result['irreversible']
@@ -212,3 +212,12 @@ def test_state_category_has_revision_and_state(category):
  actual=REQUIRED_CASES[category].actual;assert actual['revision']>0 and actual['state']!='DISCOVERED'
 def test_required_categories_do_not_use_catch_all_owner():
  owners={r.inputs['owner'] for r in REQUIRED_CASES.values()};assert len(owners)>=12
+
+@pytest.mark.parametrize('state',[ReconciliationState.DISCOVERED,ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING,ReconciliationState.APPLIED,ReconciliationState.PERSISTED])
+def test_full_restart_history_replay_exactly_once(state):
+ r=all_restart_probes()[state];assert r['terminal'] is ReconciliationState.PERSISTED;assert r['duplicate']==0;assert r['side_effects']==1;assert r['consumed']==D('1');assert not r['duplicate_consume'];assert r['second_roundtrip']
+def test_restart_final_state_parity_all_crash_points():
+ results=[all_restart_probes()[s] for s in (ReconciliationState.DISCOVERED,ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING,ReconciliationState.APPLIED,ReconciliationState.PERSISTED)];digests={(r['money'],r['reserve'],r['consumed'],r['allocation_revision'],r['event_revision']) for r in results};assert len(digests)==1
+def test_restart_terminal_states_have_no_irreversible_side_effects():
+ for s in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED):
+  r=all_restart_probes()[s];assert r['terminal_safe'] and r['side_effects']==0 and r['consumed']==0 and not r['irreversible']
