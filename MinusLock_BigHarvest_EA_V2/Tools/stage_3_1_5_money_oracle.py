@@ -92,12 +92,12 @@ class Deal:
 MANAGED_DEAL_TYPES={DealType.BUY,DealType.SELL,DealType.COMMISSION}
 @dataclass
 class EconomicLedger:
- identity:Identity; broker:Broker; deals:dict[int,Deal]=field(default_factory=dict)
+ identity:Identity; broker:Broker; deals:dict[int,Deal]=field(default_factory=dict); revision:int=0
  def apply(self,deal:Deal)->bool:
   deal.validate(self.broker)
   if deal.identity!=self.identity or deal.deal_type not in MANAGED_DEAL_TYPES or deal.initial_ignored:return False
   if deal.ticket in self.deals:return False
-  self.deals[deal.ticket]=deal; return True
+  self.deals[deal.ticket]=deal;self.revision+=1;return True
  def replay(self,history:Iterable[Deal])->int:return sum(self.apply(x) for x in history)
  @property
  def realized_cycle_net(self):return sum((x.net for x in self.deals.values() if x.entry in (DealEntry.OUT,DealEntry.INOUT,DealEntry.OUT_BY) or x.deal_type is DealType.COMMISSION),D('0'))
@@ -162,7 +162,7 @@ class OpenPositionCost:
   return PartialFillResult(before,requested,actual,self.volume,cost,allocated,self.unallocated_entry_cost)
 @dataclass
 class PersistentStore:
- economic:EconomicLedger; allocation:AllocationLedger; events:dict[EventKey,EventRecord]=field(default_factory=dict); revision:int=0; opening_costs:dict[str,OpenPositionCost]=field(default_factory=dict)
+ economic:EconomicLedger; allocation:AllocationLedger; events:dict[EventKey,EventRecord]=field(default_factory=dict); revision:int=0; opening_costs:dict[str,OpenPositionCost]=field(default_factory=dict); managed_positions:tuple[Position,...]=()
  def serialize(self)->str:
   deals=[{'ticket':x.ticket,'position_id':x.position_id,'entry':x.entry.value,'deal_type':x.deal_type.value,'actual_volume':str(x.actual_volume),'profit':str(x.profit),'swap':str(x.swap),'commission':str(x.commission),'fee':str(x.fee),'initial_ignored':x.initial_ignored} for x in self.economic.deals.values()]
   allocations=[{'key':r.key.to_dict(),'sources':r.source_deal_tickets,'amount':str(r.amount),'consumed':str(r.consumed),'residual':str(r.residual),'state':r.reconciliation_state.value,'revision':r.revision} for r in self.allocation.records.values()]
@@ -182,30 +182,27 @@ class PersistentStore:
   return cls(econ,allocation,events,x['revision'],costs)
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
 @dataclass(frozen=True)
+class FinalClosePolicy: threshold:D; required_deficit:D; current_revision:int; preview:bool=False
+@dataclass(frozen=True)
 class GateResult: allowed:bool; recovery:D; reserve:D; deficit:D; reasons:tuple[str,...]
-def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,positions:Iterable[Position],broker:Broker,risk_ok:bool,margin_ok:bool,threshold:D,required_deficit:D,current_revision:int,preview:bool=False)->GateResult:
- reasons=[]
- if snapshot.identity!=store.economic.identity:reasons.append('FOREIGN_IDENTITY')
- if snapshot.broker!=broker:reasons.append('BROKER_MISMATCH')
- recovery=store.economic.realized_cycle_net+floating_total(store.economic.identity,positions,broker,snapshot.slippage_diagnostic)
- reserve=store.allocation.available(AllocationType.FINAL_RESERVE)
+def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,risk_ok:bool,margin_ok:bool,policy:FinalClosePolicy)->GateResult:
+ reasons=[];identity=store.economic.identity
+ if snapshot.identity!=identity:reasons.append('FOREIGN_IDENTITY')
+ if snapshot.broker!=store.economic.broker:reasons.append('BROKER_MISMATCH')
+ if snapshot.managed_positions!=store.managed_positions:reasons.append('POSITIONS_MISMATCH')
+ if snapshot.reconciliation_state is not ReconciliationState.PERSISTED:reasons.append('SNAPSHOT_NOT_PERSISTED')
  event=store.events.get(snapshot.event_key)
  if not event or event.state is not ReconciliationState.PERSISTED:reasons.append('UNRECONCILED')
+ if any(e.state is not ReconciliationState.PERSISTED for e in store.events.values()):reasons.append('PENDING_EVENT')
  if snapshot.pending_deal_tickets:reasons.append('PENDING_DEALS')
- if any(e.state is not ReconciliationState.PERSISTED for e in store.events.values()):reasons.append('PENDING_ALLOCATION')
- if recovery<=threshold:reasons.append('RECOVERY')
- if reserve<required_deficit:reasons.append('RESERVE')
+ if snapshot.realized_cycle_net!=store.economic.realized_cycle_net:reasons.append('REALIZED_MISMATCH')
+ reserve=store.allocation.available(AllocationType.FINAL_RESERVE)
+ if snapshot.final_reserve_available!=reserve:reasons.append('RESERVE_MISMATCH')
+ if snapshot.state_revision!=policy.current_revision or snapshot.ledger_revision!=store.revision:reasons.append('STALE')
+ recovery=store.economic.realized_cycle_net+floating_total(identity,store.managed_positions,store.economic.broker,snapshot.slippage_diagnostic)
+ if recovery<=policy.threshold:reasons.append('RECOVERY')
+ if reserve<policy.required_deficit:reasons.append('RESERVE')
  if not risk_ok:reasons.append('RISK')
  if not margin_ok:reasons.append('MARGIN')
- if snapshot.state_revision!=current_revision or snapshot.ledger_revision!=store.revision:reasons.append('STALE')
- if preview:reasons.append('PREVIEW_NOT_ACTUAL')
- return GateResult(not reasons,recovery,reserve,required_deficit,tuple(reasons))
-@dataclass(frozen=True,order=True)
-class EventKey:
- account_login:int; symbol:str; magic:int; cycle_id:str; event_type:str; level:int; phase:str
- position_identifier:str; deal_ticket:int; allocation_type:AllocationType
- def __post_init__(self):
-  if not self.symbol or not self.cycle_id or not self.event_type or not self.phase or not self.position_identifier or self.deal_ticket<=0:raise ValueError('incomplete EventKey')
- def to_dict(self):return {**asdict(self),'allocation_type':self.allocation_type.value}
- @classmethod
- def from_dict(cls,x):return cls(**{**x,'allocation_type':AllocationType(x['allocation_type'])})
+ if policy.preview:reasons.append('PREVIEW_NOT_ACTUAL')
+ return GateResult(not reasons,recovery,reserve,policy.required_deficit,tuple(dict.fromkeys(reasons)))
