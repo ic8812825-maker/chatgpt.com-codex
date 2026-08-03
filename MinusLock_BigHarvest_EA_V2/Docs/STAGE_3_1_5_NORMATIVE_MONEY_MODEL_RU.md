@@ -106,3 +106,9 @@ IN открывает/увеличивает exposure и его price profit н�
 OUT_BY закрывают, INOUT одновременно закрывает старую и открывает новую сторону; realized component
 берётся из actual deal. BALANCE/CREDIT/CHARGE/CORRECTION исключены; standalone COMMISSION хранит
 actual signed cost. Initial ignored и foreign identity исключаются до aggregation.
+
+## Reconciliation terminal semantics
+
+CONFLICT означает подтверждённое несовпадение identity/deals и является fail-closed terminal;
+REJECTED означает нормативное отклонение события до allocation и также terminal. Оба запрещают
+APPLIED и irreversible action. Повтор текущего состояния — idempotent no-op; PERSISTED terminal.

@@ -59,17 +59,18 @@ def make_snapshot(identity:Identity,event_key:EventKey,event_type:str,level:int,
  ps=tuple(p for p in positions if p.identity==identity); floating=floating_total(identity,ps,broker,kw.get('slippage_diagnostic',D('0')))
  return EventSnapshot(identity,event_key,event_type,level,scenario,phase,broker,ps,tuple(p.volume for p in ps),tuple(p.open_price for p in ps),kw.get('final_reserve_available',D('0')),kw.get('partial_far_budget_available',D('0')),kw.get('carry_available',D('0')),kw.get('transition_budget_available',D('0')),kw.get('residual',D('0')),kw.get('commission',D('0')),kw.get('swap',D('0')),kw.get('fee',D('0')),kw.get('slippage_diagnostic',D('0')),state,frozenset(kw.get('applied_deal_tickets',())),frozenset(kw.get('pending_deal_tickets',())),revision,kw.get('ledger_revision',revision),realized,floating,realized+floating)
 ALLOWED_TRANSITIONS={
- ReconciliationState.DISCOVERED:ReconciliationState.PENDING_RECONCILIATION,
- ReconciliationState.PENDING_RECONCILIATION:ReconciliationState.RECONCILED,
- ReconciliationState.RECONCILED:ReconciliationState.ALLOCATION_PENDING,
- ReconciliationState.ALLOCATION_PENDING:ReconciliationState.APPLIED,
- ReconciliationState.APPLIED:ReconciliationState.PERSISTED}
+ ReconciliationState.DISCOVERED:frozenset((ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.CONFLICT,ReconciliationState.REJECTED)),
+ ReconciliationState.PENDING_RECONCILIATION:frozenset((ReconciliationState.RECONCILED,ReconciliationState.CONFLICT,ReconciliationState.REJECTED)),
+ ReconciliationState.RECONCILED:frozenset((ReconciliationState.ALLOCATION_PENDING,ReconciliationState.CONFLICT,ReconciliationState.REJECTED)),
+ ReconciliationState.ALLOCATION_PENDING:frozenset((ReconciliationState.APPLIED,ReconciliationState.CONFLICT,ReconciliationState.REJECTED)),
+ ReconciliationState.APPLIED:frozenset((ReconciliationState.PERSISTED,ReconciliationState.CONFLICT)),
+ ReconciliationState.PERSISTED:frozenset(),ReconciliationState.CONFLICT:frozenset(),ReconciliationState.REJECTED:frozenset()}
 @dataclass
 class EventRecord:
  event_id:str; state:ReconciliationState=ReconciliationState.DISCOVERED; revision:int=0
  def transition(self,target:ReconciliationState)->bool:
   if target==self.state:return False
-  if self.state in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED,ReconciliationState.PERSISTED) or ALLOWED_TRANSITIONS.get(self.state)!=target: raise ValueError('invalid reconciliation transition')
+  if self.state in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED,ReconciliationState.PERSISTED) or target not in ALLOWED_TRANSITIONS[self.state]: raise ValueError('invalid reconciliation transition')
   self.state=target; self.revision+=1; return True
  @property
  def irreversible_action_allowed(self): return self.state is ReconciliationState.PERSISTED
