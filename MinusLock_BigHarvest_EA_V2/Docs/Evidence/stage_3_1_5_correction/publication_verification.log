@@ -1,0 +1,17 @@
+a02ea8b3a5eafe2a80958035dda9d94fdf3083fa Этап 3.1.5.20: этап повторно открыт после независимой проверки executable evidence
+a3dd81c7fac8e9ae7e9860abba21c011a0230040 Этап 3.1.5.21: добавлена строгая валидация broker grid side volume и deal types
+e4ae60c0b9fcb5538568a2e224525827a0720297 Этап 3.1.5.22: реализован канонический EventSnapshot денежного события
+16a6c9e5c62bfe9c088f893d007e796e7d71e2aa Этап 3.1.5.23: реализована проверяемая машина состояний reconciliation
+c02cd479b812b75a3c4d977863847010ab2056ff Этап 3.1.5.24: усилен Economic Ledger фактическими deals и identity isolation
+31230f94864c65e3bd7fa867ea3a3918bec59fbf Этап 3.1.5.25: реализован tagged Allocation Ledger с законом сохранения
+4a8c9615ac4ee805de77c6c7aea8dccca56c9ca2 Этап 3.1.5.26: реализовано распределение opening costs по фактическим partial fills
+21f8fb84333df4d9af89ca5582f4ba3669c3baec Этап 3.1.5.27: реализованы persistent restart и идемпотентный history replay
+b71b78c7e78a51628cdbf8cc11e42ac6e17a4956 Этап 3.1.5.28: Final Close gate связан с ledger snapshot и reconciliation
+35d4f70aa347b39dc5920319ebbbe06a3de393fa Этап 3.1.5.29: создана вычисляемая матрица именованных positive scenarios
+0391ebe3ec097add91cb818b836a06c7a6700d05 Этап 3.1.5.30: денежные сценарии подключены к настоящей pytest коллекции
+22e20a684a128a8448b7ea7998d23f7cfc90d852 Этап 3.1.5.31: создана архитектура реальных экономических mutations
+0f4c03e23559d1512a9be6ba2ed05511d2eadd39 Этап 3.1.5.32: реализованы вычисляемые counterexamples денежной модели
+93db0f4dd2fbd57b4610e2f40077695cd01fe253 Этап 3.1.5.33: causal audit переведён на независимые экономические observables
+935a4f97125bd68cf754c0d4febaa55e01b0a09c Этап 3.1.5.34: final validator переведён на вычисляемые acceptance statuses
+35cca6a1747d0358f73ae02fee0a554c594f2856 Этап 3.1.5.35: воспроизведены и классифицированы standalone проверки проекта
+b78d01dd4e9514ad79d4b9a7b1641db4d19eda1d Этап 3.1.5.36: нормативный контракт и MQL5 mapping синхронизированы с коррекцией
