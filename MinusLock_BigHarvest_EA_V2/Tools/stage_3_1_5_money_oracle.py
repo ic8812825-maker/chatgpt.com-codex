@@ -109,6 +109,8 @@ class Deal:
   broker.validate_lot(self.actual_volume)
  @property
  def net(self): return self.profit+self.swap+self.commission+self.fee
+def deal_fingerprint(d:Deal)->dict:
+ return {'identity':asdict(d.identity),'ticket':d.ticket,'position_id':d.position_id,'entry':d.entry.value,'deal_type':d.deal_type.value,'actual_volume':str(d.actual_volume),'profit':str(d.profit),'swap':str(d.swap),'commission':str(d.commission),'fee':str(d.fee),'initial_ignored':d.initial_ignored}
 MANAGED_DEAL_TYPES={DealType.BUY,DealType.SELL,DealType.COMMISSION}
 @dataclass
 class EconomicLedger:
@@ -132,7 +134,7 @@ class ConsumptionRecord:
  key:ConsumptionKey; allocation_key:EventKey; amount:D; purpose:ConsumptionPurpose; revision:int
 @dataclass
 class ReconciledSourcePool:
- key:EventKey; source_deal_tickets:tuple[int,...]; deal_nets:dict[int,D]; already_allocated:D=D('0'); residual:D=D('0'); revision:int=0
+ key:EventKey; source_deal_tickets:tuple[int,...]; deal_nets:dict[int,D]; deal_fingerprints:dict[int,dict]=field(default_factory=dict); already_allocated:D=D('0'); residual:D=D('0'); revision:int=0
  @property
  def aggregate_actual_source_net(self):return sum(self.deal_nets.values(),D('0'))
  @property
@@ -156,7 +158,7 @@ class AllocationLedger:
   if any(set(pool_key)&set(existing) and existing!=pool_key for existing in self.source_pools):raise ValueError('ticket reused by another pool')
   pool=self.source_pools.get(pool_key)
   if pool is None:
-   pool=ReconciledSourcePool(event.event_id,pool_key,{t:economic.deals[t].net for t in pool_key});self.source_pools[pool_key]=pool
+   pool=ReconciledSourcePool(event.event_id,pool_key,{t:economic.deals[t].net for t in pool_key},{t:deal_fingerprint(economic.deals[t]) for t in pool_key});self.source_pools[pool_key]=pool
   if pool.aggregate_actual_source_net<=0 or amount+residual>pool.available:raise ValueError('aggregate conservation')
   self.revision+=1;pool.already_allocated+=amount;pool.residual+=residual;pool.revision=self.revision;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
  def available(self,kind:AllocationType)->D:return sum((r.available for r in self.records.values() if r.key.allocation_type is kind),D('0'))
@@ -165,7 +167,8 @@ class AllocationLedger:
   for tickets,pool in self.source_pools.items():
    if seen.intersection(tickets):raise ValueError('overlapping source pools')
    seen.update(tickets)
-   if any(t not in economic.deals or economic.deals[t].net!=pool.deal_nets.get(t) for t in tickets):raise ValueError('source pool history mismatch')
+   if any(t not in economic.deals or economic.deals[t].net!=pool.deal_nets.get(t) or deal_fingerprint(economic.deals[t])!=pool.deal_fingerprints.get(t) for t in tickets):raise ValueError('source pool history mismatch')
+   if not any(economic.deals[t].entry in (DealEntry.OUT,DealEntry.INOUT,DealEntry.OUT_BY) and economic.deals[t].deal_type in (DealType.BUY,DealType.SELL) for t in tickets):raise ValueError('source pool closing harvest missing')
    records=[r for r in self.records.values() if tuple(sorted(r.source_deal_tickets))==tickets]
    if pool.already_allocated!=sum((r.amount for r in records),D('0')) or pool.residual!=sum((r.residual for r in records),D('0')):raise ValueError('source pool allocation mismatch')
  def consume(self,allocation_key:EventKey,consume_key:ConsumptionKey,amount:D)->bool:
@@ -203,14 +206,16 @@ class PersistentStore:
   deals=[{'ticket':x.ticket,'position_id':x.position_id,'entry':x.entry.value,'deal_type':x.deal_type.value,'actual_volume':str(x.actual_volume),'profit':str(x.profit),'swap':str(x.swap),'commission':str(x.commission),'fee':str(x.fee),'initial_ignored':x.initial_ignored} for x in self.economic.deals.values()]
   allocations=[{'key':r.key.to_dict(),'sources':r.source_deal_tickets,'amount':str(r.amount),'consumed':str(r.consumed),'residual':str(r.residual),'state':r.reconciliation_state.value,'revision':r.revision} for r in self.allocation.records.values()]
   consumptions=[{'key':r.key.to_dict(),'allocation_key':r.allocation_key.to_dict(),'amount':str(r.amount),'purpose':r.purpose.value,'revision':r.revision} for r in self.allocation.consumptions.values()]
-  pools=[{'key':p.key.to_dict(),'sources':p.source_deal_tickets,'deal_nets':{str(k):str(v) for k,v in p.deal_nets.items()},'allocated':str(p.already_allocated),'residual':str(p.residual),'available':str(p.available),'revision':p.revision} for p in self.allocation.source_pools.values()]
+  pools=[{'key':p.key.to_dict(),'sources':p.source_deal_tickets,'deal_nets':{str(k):str(v) for k,v in p.deal_nets.items()},'deal_fingerprints':{str(k):v for k,v in p.deal_fingerprints.items()},'allocated':str(p.already_allocated),'residual':str(p.residual),'available':str(p.available),'revision':p.revision} for p in self.allocation.source_pools.values()]
   positions=[{'identity':asdict(p.identity),'identifier':p.identifier,'leg_id':p.leg_id,'role':p.role,'side':p.side.value,'volume':str(p.volume),'open_price':str(p.open_price),'swap':str(p.swap),'exit_commission':str(p.exit_commission),'exit_fee':str(p.exit_fee)} for p in self.managed_positions]
   data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost)} for k,v in self.opening_costs.items()},'revision':self.revision}
   return json.dumps(data,sort_keys=True,separators=(',',':'))
  @classmethod
  def deserialize(cls,payload:str)->'PersistentStore':
   x=json.loads(payload);ident=Identity(**x['identity']);broker=Broker(**{k:D(v) for k,v in x['broker'].items()});econ=EconomicLedger(ident,broker)
-  for q in x['deals']:econ.apply(Deal(ident,q['ticket'],q['position_id'],DealEntry(q['entry']),DealType(q['deal_type']),D(q['actual_volume']),D(q['profit']),D(q['swap']),D(q['commission']),D(q['fee']),q['initial_ignored']))
+  for q in x['deals']:
+   deal=Deal(ident,q['ticket'],q['position_id'],DealEntry(q['entry']),DealType(q['deal_type']),D(q['actual_volume']),D(q['profit']),D(q['swap']),D(q['commission']),D(q['fee']),q['initial_ignored'])
+   if not econ.apply(deal):raise ValueError('persisted deal rejected')
   allocation=AllocationLedger(ident,revision=x['allocation_revision'])
   for q in x['allocations']:
    k=EventKey.from_dict(q['key']);allocation.records[k]=AllocationRecord(k,tuple(q['sources']),D(q['amount']),D(q['consumed']),D(q['residual']),ReconciliationState(q['state']),q['revision'])
@@ -220,7 +225,7 @@ class PersistentStore:
    k=EventKey.from_dict(q['key']); tickets=tuple(q['sources']); nets={int(t):D(v) for t,v in q['deal_nets'].items()}
    if tickets in allocation.source_pools:raise ValueError('duplicate source pool')
    if tuple(sorted(tickets))!=tickets or set(tickets)!=set(nets) or any(t not in econ.deals or econ.deals[t].net!=nets[t] for t in tickets):raise ValueError('corrupted source pool')
-   pool=ReconciledSourcePool(k,tickets,nets,D(q['allocated']),D(q['residual']),q['revision'])
+   fingerprints={int(t):v for t,v in q['deal_fingerprints'].items()};pool=ReconciledSourcePool(k,tickets,nets,fingerprints,D(q['allocated']),D(q['residual']),q['revision'])
    if pool.available!=D(q['available']):raise ValueError('corrupted source pool balance')
    allocation.source_pools[tickets]=pool
   allocation.validate_source_pools(econ)

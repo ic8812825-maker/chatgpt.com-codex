@@ -167,3 +167,9 @@ def test_final_close_after_restart_blocks_missing_source_pool():
 def test_required_scenario_categories_complete():assert not missing_scenario_categories(SCENARIOS)
 def test_loss_money_scenarios_present():assert sum(r.category in {'BUY_LOSS','SELL_LOSS'} and r.actual['money']<0 for r in SCENARIOS)>=2
 def test_scenario_total_at_least_120():assert len(SCENARIOS)>=120
+
+@pytest.mark.parametrize('field,value',[('entry','IN'),('deal_type','BALANCE'),('initial_ignored',True),('position_id','FOREIGN'),('actual_volume','.02'),('profit','6'),('swap','1'),('commission','-1'),('fee','-1')])
+def test_persisted_source_deal_tamper_rejected(field,value):
+ store,_=_persisted_gate_store();import json;doc=json.loads(store.serialize());doc['deals'][0][field]=value
+ with pytest.raises(ValueError):PersistentStore.deserialize(json.dumps(doc))
+def test_out_to_in_persistence_tamper_blocked():test_persisted_source_deal_tamper_rejected('entry','IN')
