@@ -12,6 +12,14 @@ def audit():
  except KeyError:pass
  clean=execute_scenario(); first=next(iter(MUTATIONS.values())); renamed=replace(first,display_name='Независимое имя'); a=execute_scenario(first.callable(EconomicScenarioInput()));b=execute_scenario(renamed.callable(EconomicScenarioInput()))
  rename_changed=a!=b or a.digest!=b.digest
+ def domain_changed(r):
+  target=EXPECTED_TARGETS[r.name]
+  if target in ('REALIZED_MONEY','RECOVERY_MONEY','SOURCE_POOL'):return r.clean_observables.realized_cycle_net!=r.mutated_observables.realized_cycle_net or r.clean_observables.source_pool_net!=r.mutated_observables.source_pool_net
+  if target=='ALLOCATION_LEDGER':return r.clean_observables.digest.allocation!=r.mutated_observables.digest.allocation or r.clean_observables.allocations!=r.mutated_observables.allocations or r.clean_observables.residual!=r.mutated_observables.residual
+  if target=='EVENT_STATE':return r.clean_observables.digest.event!=r.mutated_observables.digest.event
+  if target=='FINAL_CLOSE':return (r.clean_observables.final_close_allowed,r.clean_observables.reason_codes)!=(r.mutated_observables.final_close_allowed,r.mutated_observables.reason_codes)
+  return bool(r.changed_fields)
+ material_domain_failures=sum(not domain_changed(r) for r in results)
  extended_source=inspect.getsource(extended_counterexample_probes);tree=ast.parse(extended_source);hardcoded=sum(isinstance(v,ast.Constant) and v.value is True for n in ast.walk(tree) if isinstance(n,ast.Dict) for v in n.values)
  counters={
  'MISSING_MUTATIONS':len(set(EXPECTED_TARGETS)-set(MUTATIONS)),
@@ -23,7 +31,7 @@ def audit():
  'NAME_DEPENDENT_RESULT':int(any(x in inspect.signature(execute_scenario).parameters for x in ('name','mutation'))),
  'RENAME_CHANGED_RESULT':int(rename_changed),
  'UNKNOWN_MUTATION_ACCEPTED':int(unknown),
- 'HARDCODED_COUNTEREXAMPLE_RESULT':hardcoded}
+ 'HARDCODED_COUNTEREXAMPLE_RESULT':hardcoded,'MATERIAL_DOMAIN_FAILURES':material_domain_failures}
  material={
  'NO_PROJECTED_MONEY_CHANGE':sum(r.clean_observables.projected_money==r.mutated_observables.projected_money for r in results),
  'NO_REALIZED_MONEY_CHANGE':sum(r.clean_observables.realized_cycle_net==r.mutated_observables.realized_cycle_net for r in results),
