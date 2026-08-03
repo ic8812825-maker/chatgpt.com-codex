@@ -38,6 +38,7 @@ def projected_profit(side:PositionSide,lot:D,open_price:D,broker:Broker,slippage
  broker.validate_price(close); movement=close-open_price if side is PositionSide.BUY else open_price-close
  ticks=movement/broker.tick_size
  return ticks*(broker.tv_profit if ticks>=0 else broker.tv_loss)*lot
+def event_identity_projection(k:EventKey):return (k.account_login,k.symbol,k.magic,k.cycle_id,k.event_type,k.level,k.phase,k.position_identifier,k.deal_ticket)
 @dataclass(frozen=True)
 class EventSnapshot:
  identity:Identity; event_key:EventKey; event_type:str; level:int; scenario:str; phase:str; broker:Broker
@@ -110,7 +111,9 @@ class AllocationLedger:
  def allocated_from_source(self,ticket:int)->D:return sum((r.amount+r.residual for r in self.records.values() if ticket in r.source_deal_tickets),D('0'))
  def allocate(self,event:EventRecord,economic:EconomicLedger,key:EventKey,amount:D,sources:Iterable[int],residual:D=D('0'),projected:bool=False)->bool:
   source=tuple(sources)
+  if not isinstance(event.event_id,EventKey) or not isinstance(key,EventKey):raise ValueError('typed key required')
   if event.state is not ReconciliationState.RECONCILED or projected or amount<0 or not source or key in self.records:raise ValueError('allocation not reconciled/duplicate')
+  if event_identity_projection(event.event_id)!=event_identity_projection(key):raise ValueError('event/allocation key mismatch')
   if (key.account_login,key.symbol,key.magic,key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('foreign allocation')
   if any(t not in economic.deals for t in source):raise ValueError('unknown source')
   for t in source:
@@ -119,7 +122,8 @@ class AllocationLedger:
   self.revision+=1;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
  def available(self,kind:AllocationType)->D:return sum((r.available for r in self.records.values() if r.key.allocation_type is kind),D('0'))
  def consume(self,allocation_key:EventKey,consume_key:EventKey,amount:D,purpose:AllocationType)->bool:
-  if amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
+  if not isinstance(consume_key,EventKey) or amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
+  if (consume_key.account_login,consume_key.symbol,consume_key.magic,consume_key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('foreign consume')
   if consume_key in self.consumptions:return False
   r=self.records[allocation_key]
   if r.key.allocation_type is AllocationType.FINAL_RESERVE and purpose is AllocationType.PARTIAL_FAR:raise ValueError('reserve forbidden')
