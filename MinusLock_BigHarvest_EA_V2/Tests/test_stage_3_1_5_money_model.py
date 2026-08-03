@@ -5,6 +5,7 @@ from decimal import Decimal as D
 import pytest
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'Tools'),str(ROOT/'Tests'/'stage_3_1_5')]
 from stage_3_1_5_money_oracle import *
+import scenario_catalog as catalog
 from scenario_catalog import run_positive_scenarios,missing_scenario_categories,REQUIRED_SCENARIO_CATEGORIES
 from restart_fixtures import all_restart_probes
 SCENARIOS=run_positive_scenarios()
@@ -298,3 +299,24 @@ def test_real_owner_results():
  assert REQUIRED_CASES['DUPLICATE_EVENT'].actual['conflict_blocked']
  assert REQUIRED_CASES['FINAL_CLOSE_PASS'].actual['allowed']
  assert 'RECOVERY' in REQUIRED_CASES['FINAL_CLOSE_REJECTIONS'].actual['reasons']
+
+class OwnerCalled(RuntimeError):pass
+def test_consumption_owner_runtime_spy(monkeypatch):
+ monkeypatch.setattr(AllocationLedger,'consume',lambda *a,**k:(_ for _ in ()).throw(OwnerCalled()))
+ with pytest.raises(OwnerCalled):catalog._consume()
+def test_history_replay_owner_runtime_spy(monkeypatch):
+ monkeypatch.setattr(PersistentStore,'replay_history',lambda *a,**k:(_ for _ in ()).throw(OwnerCalled()))
+ with pytest.raises(OwnerCalled):catalog._history_replay()
+def test_restart_serialize_owner_runtime_spy(monkeypatch):
+ monkeypatch.setattr(PersistentStore,'serialize',lambda *a,**k:(_ for _ in ()).throw(OwnerCalled()))
+ with pytest.raises(OwnerCalled):catalog._restart_owner()
+def test_final_close_pass_owner_runtime_spy(monkeypatch):
+ monkeypatch.setattr(catalog,'evaluate_final_close',lambda *a,**k:(_ for _ in ()).throw(OwnerCalled()))
+ with pytest.raises(OwnerCalled):catalog._final_close(False)
+def test_final_close_rejection_owner_runtime_spy(monkeypatch):
+ monkeypatch.setattr(catalog,'evaluate_final_close',lambda *a,**k:(_ for _ in ()).throw(OwnerCalled()))
+ with pytest.raises(OwnerCalled):catalog._final_close(True)
+def test_full_fill_calls_close_with_full_volume(monkeypatch):
+ original=OpenPositionCost.close;seen=[]
+ def spy(self,requested,actual,*a,**k):seen.append((self.volume,requested,actual));return original(self,requested,actual,*a,**k)
+ monkeypatch.setattr(OpenPositionCost,'close',spy);result=catalog._partial(full=True);assert seen==[(D('1'),D('1'),D('1'))] and result['volume']==0
