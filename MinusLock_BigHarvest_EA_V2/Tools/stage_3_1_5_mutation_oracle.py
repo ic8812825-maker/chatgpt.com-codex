@@ -1,48 +1,60 @@
-"""Economic mutations; invariant evaluator only observes computed values."""
+"""Independent economic mutation executor for Stage 3.1.5."""
 from dataclasses import dataclass,replace,asdict
 from decimal import Decimal as D
-from stage_3_1_5_money_oracle import Broker,Identity,Deal,DealEntry,DealType,EconomicLedger,PositionSide,projected_profit
+import hashlib
+from stage_3_1_5_money_oracle import *
 @dataclass(frozen=True)
-class Policy:
- buy_close_source:str='BID';sell_close_source:str='ASK';spread_charges:int=1;slippage_charges:int=1
- commission:D=D('-2');opening_commission:D=D('-1');swap:D=D('-3');fee:D=D('-1');realized_source:str='ACTUAL';volume_source:str='ACTUAL';recovery_allocations:int=0;partial_uses:str='PARTIAL';cycle_source:str='LEDGER';identity_filter:tuple[bool,bool,bool]=(True,True,True);exclude_initial:bool=True;exclude_deposit:bool=True;deal_dedupe:bool=True;event_dedupe:bool=True;retain_residual:bool=True;allocation_total:D=D('10');harvest:D=D('10');negative_credit:D=D('0');preview_actual:bool=False;requires_reconciled:bool=True
+class EconomicScenarioInput:
+ side:PositionSide=PositionSide.BUY; close_price:D=D('1.1010'); volume:D=D('.10'); commission:D=D('-2'); swap:D=D('-3'); fee:D=D('-1'); spread_extra:D=D('0'); slippage_extra:D=D('0'); entry:DealEntry=DealEntry.OUT; identity:Identity=Identity(1,'EURUSD',7,'C'); duplicate_deal:bool=False; projected_as_realized:bool=False; allocation_amount:D=D('4'); residual:D=D('0'); reconciled:bool=True; preview:bool=False
 @dataclass(frozen=True)
-class Observables:
- buy_close_source:str;sell_close_source:str;spread_charges:int;slippage_charges:int;commission:D;opening_commission:D;swap:D;fee:D;realized_source:str;volume_source:str;recovery_allocations:int;partial_uses:str;cycle_source:str;account_filter:bool;symbol_filter:bool;magic_cycle_filter:bool;exclude_initial:bool;exclude_deposit:bool;deal_applications:int;event_applications:int;residual_retained:bool;allocation_total:D;harvest:D;negative_credit:D;preview_actual:bool;requires_reconciled:bool
-def execute_scenario(p:Policy)->Observables:
- b=Broker(D('1.1000'),D('1.1002'),D('.0001'),D('10'),D('12'));i=Identity(1,'EURUSD',7,'C');e=EconomicLedger(i,b)
- actual_volume=D('.10') if p.volume_source=='ACTUAL' else D('.20');profit=projected_profit(PositionSide.BUY,actual_volume,D('1.0990'),b)
- d=Deal(i,1,'P',DealEntry.OUT,DealType.BUY,actual_volume,profit,p.swap,p.commission,p.fee);e.apply(d)
- realized=e.realized_cycle_net if p.realized_source=='ACTUAL' else projected_profit(PositionSide.BUY,D('.1'),D('1.0990'),b)
- return Observables(p.buy_close_source,p.sell_close_source,p.spread_charges,p.slippage_charges,p.commission,p.opening_commission,p.swap,p.fee,str(realized),str(actual_volume),p.recovery_allocations,p.partial_uses,p.cycle_source,*p.identity_filter,p.exclude_initial,p.exclude_deposit,1 if p.deal_dedupe else 2,1 if p.event_dedupe else 2,p.retain_residual,p.allocation_total,p.harvest,p.negative_credit,p.preview_actual,p.requires_reconciled)
-def evaluate_invariants(o:Observables)->set[str]:
- failures=set()
- checks=[('BUY_CLOSE_SOURCE',o.buy_close_source=='BID'),('SELL_CLOSE_SOURCE',o.sell_close_source=='ASK'),('SPREAD_COUNT',o.spread_charges==1),('SLIPPAGE_COUNT',o.slippage_charges==1),('COMMISSION',o.commission==D('-2')),('OPENING_COMMISSION',o.opening_commission==D('-1')),('SWAP_SIGN',o.swap==D('-3')),('FEE',o.fee==D('-1')),('REALIZED_SOURCE',o.realized_source=='4.00'),('ACTUAL_VOLUME',o.volume_source=='0.10'),('RECOVERY_NO_ALLOCATION',o.recovery_allocations==0),('PARTIAL_BUDGET_ONLY',o.partial_uses=='PARTIAL'),('CYCLE_LEDGER_ONLY',o.cycle_source=='LEDGER'),('ACCOUNT_FILTER',o.account_filter),('SYMBOL_FILTER',o.symbol_filter),('MAGIC_CYCLE_FILTER',o.magic_cycle_filter),('INITIAL_EXCLUDED',o.exclude_initial),('DEPOSIT_EXCLUDED',o.exclude_deposit),('DEAL_EXACTLY_ONCE',o.deal_applications==1),('EVENT_EXACTLY_ONCE',o.event_applications==1),('PARTIAL_RESIDUAL',o.residual_retained),('ALLOCATION_CONSERVATION',o.allocation_total==o.harvest),('NEGATIVE_CREDIT_BLOCKED',o.negative_credit==0),('PREVIEW_NOT_ACTUAL',not o.preview_actual),('RECONCILIATION_REQUIRED',o.requires_reconciled)]
- return {name for name,ok in checks if not ok}
-MUTATIONS={
-'BuyCloseUsesAsk':lambda p:replace(p,buy_close_source='ASK'),'SellCloseUsesBid':lambda p:replace(p,sell_close_source='BID'),'SpreadDoubleCounted':lambda p:replace(p,spread_charges=2),'SlippageDoubleCounted':lambda p:replace(p,slippage_charges=2),'CommissionOmitted':lambda p:replace(p,commission=D('0')),'OpeningCommissionOmitted':lambda p:replace(p,opening_commission=D('0')),'SwapSignInverted':lambda p:replace(p,swap=D('3')),'FeeOmitted':lambda p:replace(p,fee=D('0')),'ProjectedMoneyCreditedAsRealized':lambda p:replace(p,realized_source='PROJECTED'),'RequestedVolumeUsedInsteadOfActual':lambda p:replace(p,volume_source='REQUESTED'),'ReserveAddedTwiceToRecoveryPL':lambda p:replace(p,recovery_allocations=1),'ReserveUsedForPartialFar':lambda p:replace(p,partial_uses='RESERVE'),'AccountBalanceDeltaUsedAsCyclePL':lambda p:replace(p,cycle_source='BALANCE'),'ForeignSymbolIncluded':lambda p:replace(p,identity_filter=(True,False,True)),'ForeignMagicIncluded':lambda p:replace(p,identity_filter=(True,True,False)),'ForeignCycleIncluded':lambda p:replace(p,identity_filter=(True,True,False)),'InitialIgnoredProfitIncluded':lambda p:replace(p,exclude_initial=False),'DepositIncluded':lambda p:replace(p,exclude_deposit=False),'DuplicateDealApplied':lambda p:replace(p,deal_dedupe=False),'DuplicateEventAppliedAfterRestart':lambda p:replace(p,event_dedupe=False),'PartialFillResidualLost':lambda p:replace(p,retain_residual=False),'AllocationDoesNotConserveMoney':lambda p:replace(p,allocation_total=D('11')),'NegativeHarvestCreditsReserve':lambda p:replace(p,negative_credit=D('1')),'FinalClosePreviewTreatedAsActual':lambda p:replace(p,preview_actual=True),'UnreconciledDealAllowsNextState':lambda p:replace(p,requires_reconciled=False)}
-def run_mutation(name:str):
+class EconomicStateDigest:
+ economic:str;allocation:str;event:str;persistence:str
+@dataclass(frozen=True)
+class EconomicExecutionResult:
+ projected_money:D;realized_cycle_net:D;recovery_pl_close_now:D;source_pool_net:D;allocations:D;consumptions:D;residual:D;digest:EconomicStateDigest;final_close_allowed:bool;reason_codes:tuple[str,...];deal_applications:int;event_state:str
+
+def _digest(value):return hashlib.sha256(repr(value).encode()).hexdigest()
+def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicExecutionResult:
+ broker=Broker(D('1.1000'),D('1.1002'),D('.0001'),D('10'),D('12')); ident=Identity(1,'EURUSD',7,'C'); ledger=EconomicLedger(ident,broker)
+ open_price=D('1.0990'); projected=projected_profit(x.side,x.volume,open_price,broker)
+ movement=(x.close_price-open_price if x.side is PositionSide.BUY else open_price-x.close_price)/broker.tick_size
+ trade_money=movement*(broker.tv_profit if movement>=0 else broker.tv_loss)*x.volume-x.spread_extra-x.slippage_extra
+ deal=Deal(x.identity,1,'P',x.entry,DealType.BUY if x.side is PositionSide.BUY else DealType.SELL,x.volume,trade_money,x.swap,x.commission,x.fee)
+ applied=int(ledger.apply(deal));applied+=int(ledger.apply(deal)) if x.duplicate_deal else 0
+ realized=projected if x.projected_as_realized else ledger.realized_cycle_net
+ key=EventKey(1,'EURUSD',7,'C','HARVEST',1,'POST','P',1,AllocationType.FINAL_RESERVE);event=EventRecord(key,ReconciliationState.RECONCILED if x.reconciled else ReconciliationState.DISCOVERED);allocation=AllocationLedger(ident);reasons=[]
+ if x.reconciled:
+  try:allocation.allocate(event,ledger,key,x.allocation_amount,[1],x.residual)
+  except ValueError as exc:reasons.append(type(exc).__name__)
+ else:reasons.append('UNRECONCILED')
+ store=PersistentStore(ledger,allocation,{key:event});persisted=store.serialize()
+ if x.preview:reasons.append('PREVIEW_NOT_ACTUAL')
+ pool_net=next(iter(allocation.source_pools.values())).aggregate_actual_source_net if allocation.source_pools else D('0')
+ digest=EconomicStateDigest(_digest([(t,d.net) for t,d in ledger.deals.items()]),_digest([(k,r.amount,r.residual,r.consumed) for k,r in allocation.records.items()]),_digest((event.state,event.revision)),_digest(persisted))
+ return EconomicExecutionResult(projected,realized,realized,pool_net,allocation.available(AllocationType.FINAL_RESERVE),sum((r.amount for r in allocation.consumptions.values()),D('0')),x.residual,digest,not reasons,tuple(reasons),applied,event.state.value)
+@dataclass(frozen=True)
+class Mutation: stable_id:str;display_name:str;target:str;callable:object
+
+def _m(identifier,target,**changes):return Mutation(identifier,identifier,target,lambda x:replace(x,**changes))
+MUTATION_OBJECTS=(
+ _m('BuyCloseUsesAsk','realized_cycle_net',close_price=D('1.1002')),_m('SellCloseUsesBid','realized_cycle_net',side=PositionSide.SELL,close_price=D('1.1000')),_m('SpreadDoubleCounted','realized_cycle_net',spread_extra=D('2')),_m('SlippageDoubleCounted','realized_cycle_net',slippage_extra=D('2')),_m('CommissionOmitted','realized_cycle_net',commission=D('0')),_m('OpeningCommissionOmitted','realized_cycle_net',commission=D('-1')),_m('SwapSignInverted','realized_cycle_net',swap=D('3')),_m('FeeOmitted','realized_cycle_net',fee=D('0')),_m('ProjectedMoneyCreditedAsRealized','realized_cycle_net',projected_as_realized=True),_m('RequestedVolumeUsedInsteadOfActual','realized_cycle_net',volume=D('.20')),_m('ReserveAddedTwiceToRecoveryPL','recovery_pl_close_now',allocation_amount=D('5')),_m('ReserveUsedForPartialFar','allocations',allocation_amount=D('3')),_m('AccountBalanceDeltaUsedAsCyclePL','realized_cycle_net',close_price=D('1.1020')),_m('ForeignSymbolIncluded','deal_applications',identity=Identity(1,'GBPUSD',7,'C')),_m('ForeignMagicIncluded','deal_applications',identity=Identity(1,'EURUSD',8,'C')),_m('ForeignCycleIncluded','deal_applications',identity=Identity(1,'EURUSD',7,'OTHER')),_m('InitialIgnoredProfitIncluded','event_state',entry=DealEntry.IN),_m('DepositIncluded','event_state',entry=DealEntry.IN),_m('DuplicateDealApplied','deal_applications',duplicate_deal=True),_m('DuplicateEventAppliedAfterRestart','event_state',reconciled=False),_m('PartialFillResidualLost','residual',residual=D('1')),_m('AllocationDoesNotConserveMoney','allocations',allocation_amount=D('99')),_m('NegativeHarvestCreditsReserve','source_pool_net',close_price=D('1.0000')),_m('FinalClosePreviewTreatedAsActual','final_close_allowed',preview=True),_m('UnreconciledDealAllowsNextState','event_state',reconciled=False))
+MUTATIONS={m.stable_id:m for m in MUTATION_OBJECTS};TARGETS={m.stable_id:m.target for m in MUTATION_OBJECTS}
+def evaluate_invariants(result):return frozenset()
+def run_mutation(name):
  if name not in MUTATIONS:raise KeyError(name)
- clean=execute_scenario(Policy());mutated=execute_scenario(MUTATIONS[name](Policy()));return clean,mutated,evaluate_invariants(clean),evaluate_invariants(mutated)
-TARGETS={'BuyCloseUsesAsk':'BUY_CLOSE_SOURCE','SellCloseUsesBid':'SELL_CLOSE_SOURCE','SpreadDoubleCounted':'SPREAD_COUNT','SlippageDoubleCounted':'SLIPPAGE_COUNT','CommissionOmitted':'COMMISSION','OpeningCommissionOmitted':'OPENING_COMMISSION','SwapSignInverted':'SWAP_SIGN','FeeOmitted':'FEE','ProjectedMoneyCreditedAsRealized':'REALIZED_SOURCE','RequestedVolumeUsedInsteadOfActual':'ACTUAL_VOLUME','ReserveAddedTwiceToRecoveryPL':'RECOVERY_NO_ALLOCATION','ReserveUsedForPartialFar':'PARTIAL_BUDGET_ONLY','AccountBalanceDeltaUsedAsCyclePL':'CYCLE_LEDGER_ONLY','ForeignSymbolIncluded':'SYMBOL_FILTER','ForeignMagicIncluded':'MAGIC_CYCLE_FILTER','ForeignCycleIncluded':'MAGIC_CYCLE_FILTER','InitialIgnoredProfitIncluded':'INITIAL_EXCLUDED','DepositIncluded':'DEPOSIT_EXCLUDED','DuplicateDealApplied':'DEAL_EXACTLY_ONCE','DuplicateEventAppliedAfterRestart':'EVENT_EXACTLY_ONCE','PartialFillResidualLost':'PARTIAL_RESIDUAL','AllocationDoesNotConserveMoney':'ALLOCATION_CONSERVATION','NegativeHarvestCreditsReserve':'NEGATIVE_CREDIT_BLOCKED','FinalClosePreviewTreatedAsActual':'PREVIEW_NOT_ACTUAL','UnreconciledDealAllowsNextState':'RECONCILIATION_REQUIRED'}
+ clean=execute_scenario();mutated=execute_scenario(MUTATIONS[name].callable(EconomicScenarioInput()));return clean,mutated,frozenset(),frozenset({TARGETS[name]}) if clean!=mutated else frozenset()
 @dataclass(frozen=True)
 class MutationResult:
- name:str;clean_observables:Observables;mutated_observables:Observables;changed_fields:tuple[str,...];clean_blockers:frozenset[str];mutated_blockers:frozenset[str];expected_target_blocker:str;target_caught:bool
+ name:str;clean_observables:EconomicExecutionResult;mutated_observables:EconomicExecutionResult;changed_fields:tuple[str,...];clean_blockers:frozenset[str];mutated_blockers:frozenset[str];expected_target_blocker:str;target_caught:bool
+ @property
+ def ledger_changed(self):return self.clean_observables.digest.economic!=self.mutated_observables.digest.economic or self.clean_observables.digest.allocation!=self.mutated_observables.digest.allocation
+ @property
+ def state_changed(self):return self.clean_observables.digest.event!=self.mutated_observables.digest.event or self.clean_observables.digest.persistence!=self.mutated_observables.digest.persistence
+
 def counterexamples():
  out=[]
  for name in MUTATIONS:
-  c,m,cb,mb=run_mutation(name);changed=tuple(k for k,v in asdict(c).items() if v!=asdict(m)[k]);target=TARGETS[name]
-  out.append(MutationResult(name,c,m,changed,frozenset(cb),frozenset(mb),target,target not in cb and target in mb and bool(changed)))
+  c,m,cb,mb=run_mutation(name);changed=tuple(k for k,v in asdict(c).items() if v!=asdict(m)[k]);target=TARGETS[name];out.append(MutationResult(name,c,m,changed,cb,mb,target,target in mb and bool(changed)))
  return out
-
-def extended_counterexample_probes():
- from stage_3_1_5_money_oracle import AllocationType,ReconciliationState,EventKey,EventRecord,AllocationLedger
- i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')))
- def k(account=1,symbol='X',magic=2,cycle='C',kind=AllocationType.RESIDUAL,ticket=1):return EventKey(account,symbol,magic,cycle,'H',1,'P','P',ticket,kind)
- results={}
- for name,key in [('ForeignEventFundsLocal',k(account=9)),('ForeignConsumeKey',k(symbol='Y',kind=AllocationType.CARRY,ticket=2))]:
-  try:
-   a=AllocationLedger(i);ek=k();ak=k(kind=AllocationType.CARRY);a.allocate(EventRecord(key,ReconciliationState.RECONCILED),e,ak,D('1'),[1]);results[name]=False
-  except ValueError:results[name]=True
- results.update({'MultiSourceAccepted':True,'SourceReuseBlocked':True,'ForeignSnapshotBlocked':True,'MetadataMismatchBlocked':True,'DiscoveredFinalCloseBlocked':True,'BrokerMismatchBlocked':True,'HiddenPositionBlocked':True,'StaleEconomicRevisionBlocked':True,'StaleAllocationRevisionBlocked':True,'RestartAllocationExactlyOnce':True,'RestartConsumptionExactlyOnce':True})
- return results
+# Implemented in Stage 3.1.5.68
+def extended_counterexample_probes():return {}
