@@ -67,7 +67,7 @@ ALLOWED_TRANSITIONS={
  ReconciliationState.PERSISTED:frozenset(),ReconciliationState.CONFLICT:frozenset(),ReconciliationState.REJECTED:frozenset()}
 @dataclass
 class EventRecord:
- event_id:str; state:ReconciliationState=ReconciliationState.DISCOVERED; revision:int=0
+ event_id:EventKey; state:ReconciliationState=ReconciliationState.DISCOVERED; revision:int=0
  def transition(self,target:ReconciliationState)->bool:
   if target==self.state:return False
   if self.state in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED,ReconciliationState.PERSISTED) or target not in ALLOWED_TRANSITIONS[self.state]: raise ValueError('invalid reconciliation transition')
@@ -96,24 +96,28 @@ class EconomicLedger:
  @property
  def realized_cycle_net(self):return sum((x.net for x in self.deals.values() if x.entry in (DealEntry.OUT,DealEntry.INOUT,DealEntry.OUT_BY) or x.deal_type is DealType.COMMISSION),D('0'))
  def closing_deals(self):return tuple(x for x in self.deals.values() if x.entry in (DealEntry.OUT,DealEntry.INOUT,DealEntry.OUT_BY))
-@dataclass(frozen=True)
+@dataclass
 class AllocationRecord:
- identity:Identity; event_id:str; source_deal_tickets:tuple[int,...]; allocation_type:AllocationType
- amount:D; available:D; consumed:D; residual:D; reconciliation_state:ReconciliationState
+ key:EventKey; source_deal_tickets:tuple[int,...]; amount:D; consumed:D; residual:D; reconciliation_state:ReconciliationState; revision:int=0
+ @property
+ def available(self):return self.amount-self.consumed
+@dataclass(frozen=True)
+class ConsumptionRecord:
+ key:EventKey; allocation_key:EventKey; amount:D; purpose:AllocationType; revision:int
 @dataclass
 class AllocationLedger:
- identity:Identity; records:dict[tuple[str,AllocationType],AllocationRecord]=field(default_factory=dict)
- def allocate(self,event:EventRecord,economic:EconomicLedger,kind:AllocationType,amount:D,sources:Iterable[int],residual:D=D('0'),projected:bool=False)->bool:
-  source=tuple(sources); key=(event.event_id,kind)
-  if event.state is not ReconciliationState.RECONCILED or projected or amount<0 or not source or any(t not in economic.deals for t in source): raise ValueError('allocation not reconciled')
-  harvest=sum((economic.deals[t].net for t in source),D('0'))
-  if harvest<=0 or amount+residual>harvest: raise ValueError('conservation')
-  if key in self.records:return False
-  self.records[key]=AllocationRecord(self.identity,event.event_id,source,kind,amount,amount,D('0'),residual,event.state); return True
- def available(self,kind:AllocationType)->D:return sum((r.available-r.consumed for r in self.records.values() if r.allocation_type is kind),D('0'))
- def consume(self,kind:AllocationType,amount:D,purpose:AllocationType):
-  if kind is AllocationType.FINAL_RESERVE and purpose is AllocationType.PARTIAL_FAR: raise ValueError('reserve forbidden')
-  if amount<0 or self.available(kind)<amount: raise ValueError('insufficient allocation')
+ identity:Identity; records:dict[EventKey,AllocationRecord]=field(default_factory=dict); consumptions:dict[EventKey,ConsumptionRecord]=field(default_factory=dict); revision:int=0
+ def allocated_from_source(self,ticket:int)->D:return sum((r.amount+r.residual for r in self.records.values() if ticket in r.source_deal_tickets),D('0'))
+ def allocate(self,event:EventRecord,economic:EconomicLedger,key:EventKey,amount:D,sources:Iterable[int],residual:D=D('0'),projected:bool=False)->bool:
+  source=tuple(sources)
+  if event.state is not ReconciliationState.RECONCILED or projected or amount<0 or not source or key in self.records:raise ValueError('allocation not reconciled/duplicate')
+  if (key.account_login,key.symbol,key.magic,key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('foreign allocation')
+  if any(t not in economic.deals for t in source):raise ValueError('unknown source')
+  for t in source:
+   net=economic.deals[t].net
+   if net<=0 or self.allocated_from_source(t)+amount+residual>net:raise ValueError('global conservation')
+  self.revision+=1;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
+ def available(self,kind:AllocationType)->D:return sum((r.available for r in self.records.values() if r.key.allocation_type is kind),D('0'))
 @dataclass(frozen=True)
 class PartialFillResult:
  volume_before:D; requested_volume:D; actual_closed_volume:D; volume_after:D
