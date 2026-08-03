@@ -24,5 +24,5 @@ def run_positive_scenarios():
  for i,state in enumerate(ReconciliationState):
   k=EventKey(1,'X',2,'C','E',i,state.value,'P',i+1,AllocationType.RESIDUAL);ev=EventRecord(k,state,i);out.append(ScenarioResult(f'RC-{i:03}',f'state {state.value}','STATE',{}, {'state':state.value,'revision':i},{'state':ev.state.value,'revision':ev.revision},'PASS','PASS',('STATE',)))
  for i in range(20):
-  foreign=Identity(1+(i%4==0),'EURUSD' if i%4!=1 else 'GBPUSD',7+(i%4==2),'C1' if i%4!=3 else 'C2');e=EconomicLedger(ident,b);d=Deal(foreign,500+i,'P',DealEntry.OUT,DealType.BUY,D('.01'),D(i+1));accepted=e.apply(d);expected=foreign==ident;out.append(ScenarioResult(f'ID-{i:03}',f'identity {i}','IDENTITY',{'identity':foreign.__dict__},{'accepted':expected},{'accepted':accepted},'PASS','PASS',('ISOLATION',)))
+  foreign=Identity(2+i if i%4==0 else 1,f'GBP{i}' if i%4==1 else 'EURUSD',20+i if i%4==2 else 7,f'C{i}' if i%4==3 else 'C1');e=EconomicLedger(ident,b);d=Deal(foreign,500+i,'P',DealEntry.OUT,DealType.BUY,D('.01'),D(i+1));accepted=e.apply(d);expected=foreign==ident;out.append(ScenarioResult(f'ID-{i:03}',f'identity {i}','IDENTITY',{'identity':foreign.__dict__},{'accepted':expected},{'accepted':accepted},'PASS','PASS',('ISOLATION',)))
  return out
