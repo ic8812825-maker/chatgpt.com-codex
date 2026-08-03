@@ -5,7 +5,7 @@ from decimal import Decimal as D
 import pytest
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'Tools'),str(ROOT/'Tests'/'stage_3_1_5')]
 from stage_3_1_5_money_oracle import *
-from scenario_catalog import run_positive_scenarios,missing_scenario_categories
+from scenario_catalog import run_positive_scenarios,missing_scenario_categories,REQUIRED_SCENARIO_CATEGORIES
 from restart_fixtures import all_restart_probes
 SCENARIOS=run_positive_scenarios()
 def K(i=1,kind=AllocationType.RESIDUAL,account=1,symbol='X',magic=2,cycle='C',state='POST'):return EventKey(account,symbol,magic,cycle,'HARVEST',1,state,'P',i,kind)
@@ -198,3 +198,17 @@ def test_event_version_collision_safe():
  store,ek=_persisted_gate_store();v1=store.money_state_version;other=K(9);store.events[other]=EventRecord(other,ReconciliationState.DISCOVERED,3);store.events[ek].revision=1;v2=store.money_state_version;store.events[ek].revision=2;store.events[other].revision=2;v3=store.money_state_version;assert v2.event_store_digest!=v3.event_store_digest and v1!=v2
 def test_money_version_other_cycle_rejected():
  store,ek=_persisted_gate_store();v=replace(store.money_state_version,cycle_id='OTHER');snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'),money_state_version=v);assert 'MONEY_STATE_STALE' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1)).reasons
+
+REQUIRED_CASES={r.category:r for r in SCENARIOS if r.category in REQUIRED_SCENARIO_CATEGORIES}
+@pytest.mark.parametrize('category',sorted(REQUIRED_SCENARIO_CATEGORIES))
+def test_required_category_executes_owned_operation(category):
+ r=REQUIRED_CASES[category];assert r.inputs['owner'] in r.invariants and r.inputs['operation']==r.inputs['owner'];assert r.expected is not r.actual;assert r.actual==r.expected
+ assert r.fingerprint
+@pytest.mark.parametrize('category',['SOURCE_POOL','MULTI_SOURCE','ALLOCATION','CONSUMPTION','RESIDUAL'])
+def test_ledger_category_has_economic_after_state(category):
+ actual=REQUIRED_CASES[category].actual;assert any(k in actual for k in ('available','available_after','residual','sources'))
+@pytest.mark.parametrize('category',['RECONCILIATION_TRANSITION','RESTART_CRASH_POINT','DUPLICATE_EVENT'])
+def test_state_category_has_revision_and_state(category):
+ actual=REQUIRED_CASES[category].actual;assert actual['revision']>0 and actual['state']!='DISCOVERED'
+def test_required_categories_do_not_use_catch_all_owner():
+ owners={r.inputs['owner'] for r in REQUIRED_CASES.values()};assert len(owners)>=12
