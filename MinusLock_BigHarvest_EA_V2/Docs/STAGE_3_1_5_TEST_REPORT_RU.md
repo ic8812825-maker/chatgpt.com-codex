@@ -27,3 +27,9 @@ REAL_TRADING_ALLOWED=NO
 Фактически выполнены все 181 `Tests/*_check.py`: `PASSED=171`, `FAILED=10`. Имена и stderr
 сохранены в `Evidence/stage_3_1_5_correction/standalone_checks.log`; все десять классифицированы
 в `standalone_classification.log`. Production, `.set`, FSM и profiles не изменялись.
+
+## Second correction final tests
+
+Stage pytest: 130/130; project pytest: 521/521; scenarios: 108 unique fingerprints;
+counterexamples: 38; standalone: 171/181 with the same 10 classified pre-existing failures.
+Fresh-clone pre-close verification passed.

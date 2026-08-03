@@ -27,3 +27,8 @@ static audit не доказаны. Все MISSING/PARTIAL — требован�
 Oracle capabilities не повышают MQL5 status: composite EventKey, unified allocation ledger,
 serialized phase replay и ledger-derived Final Close остаются `MISSING/PARTIAL` и
 `NOT_RUNTIME_PROVEN`; production implementation не менялась.
+
+## Status after 3.1.5.58
+
+Python normative proof is PASS; production MQL5 mapping remains PARTIAL and was not changed.
+MetaEditor/Strategy Tester were not run; exact MT5 runtime execution remains unproven.

@@ -97,3 +97,9 @@ REAL_TRADING_ALLOWED=NO
 Прежние evidence сохранены как исторические, но их ложноположительный executable verdict отменён:
 счётчик scenarios был константой, blockers формировались из имён, pytest collection отсутствовала,
 а reconciliation/restart/final-close не были связаны с экономическими ledger.
+
+## Superseding verdict 3.1.5.58
+
+Вторая executable correction supersedes все предыдущие Stage 3.1.5 PASS markers. Итоговый источник
+статуса — `STAGE_3_1_5_SECOND_CORRECTION_RU.md` и evidence `stage_3_1_5_second_correction`.
+`STAGE_3_1_5_STATUS=CLOSED`; `NEXT_ALLOWED_STAGE=3.1.6`; `REAL_TRADING_ALLOWED=NO`.
