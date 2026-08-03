@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'Tools'))
 from stage_3_1_5_mutation_oracle import *
 EXPECTED_TARGETS={name:'REALIZED_MONEY_FROM_ELIGIBLE_DEALS' for name in MUTATIONS}
-EXPECTED_TARGETS.update({'ReserveAddedTwiceToRecoveryPL':'RECOVERY_MONEY_FORMULA','ReserveUsedForPartialFar':'CONSUMPTION_CONSERVATION','ForeignSymbolIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','ForeignMagicIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','ForeignCycleIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','InitialIgnoredProfitIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','DepositIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','DuplicateDealApplied':'DEAL_EXACTLY_ONCE','DuplicateEventAppliedAfterRestart':'EVENT_EXACTLY_ONCE','PartialFillResidualLost':'ALLOCATION_CONSERVATION','AllocationDoesNotConserveMoney':'ALLOCATION_CONSERVATION','NegativeHarvestCreditsReserve':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','FinalClosePreviewTreatedAsActual':'FINAL_CLOSE_GATE_INTEGRITY','UnreconciledDealAllowsNextState':'EVENT_TRANSITION_VALIDITY'})
+EXPECTED_TARGETS.update({'RequestedVolumeUsedInsteadOfActual':'PROJECTED_MONEY_FORMULA','ForeignSymbolIncluded':'DEAL_EXACTLY_ONCE','ForeignMagicIncluded':'DEAL_EXACTLY_ONCE','ForeignCycleIncluded':'DEAL_EXACTLY_ONCE','ReserveAddedTwiceToRecoveryPL':'RECOVERY_MONEY_FORMULA','ReserveUsedForPartialFar':'CONSUMPTION_CONSERVATION','ForeignSymbolIncluded':'DEAL_EXACTLY_ONCE','ForeignMagicIncluded':'DEAL_EXACTLY_ONCE','ForeignCycleIncluded':'DEAL_EXACTLY_ONCE','InitialIgnoredProfitIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','DepositIncluded':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','DuplicateDealApplied':'DEAL_EXACTLY_ONCE','DuplicateEventAppliedAfterRestart':'EVENT_EXACTLY_ONCE','PartialFillResidualLost':'ALLOCATION_CONSERVATION','AllocationDoesNotConserveMoney':'ALLOCATION_CONSERVATION','NegativeHarvestCreditsReserve':'REALIZED_MONEY_FROM_ELIGIBLE_DEALS','FinalClosePreviewTreatedAsActual':'FINAL_CLOSE_GATE_INTEGRITY','UnreconciledDealAllowsNextState':'EVENT_TRANSITION_VALIDITY'})
 def audit():
  results=counterexamples(EXPECTED_TARGETS);unknown=False
  try:run_mutation('__UNKNOWN__');unknown=True
@@ -21,6 +21,11 @@ def audit():
   if target=='FINAL_CLOSE_GATE_INTEGRITY':return (r.clean_observables.final_close_allowed,r.clean_observables.reason_codes,r.clean_observables.facts.preview_execution)!=(r.mutated_observables.final_close_allowed,r.mutated_observables.reason_codes,r.mutated_observables.facts.preview_execution)
   return bool(r.changed_fields)
  material_domain_failures=sum(not domain_changed(r) for r in results)
+ priority=('PROJECTED_MONEY_FORMULA','DEAL_EXACTLY_ONCE','EVENT_EXACTLY_ONCE','TRANSACTION_EXACTLY_ONCE','EVENT_TRANSITION_VALIDITY','REALIZED_MONEY_FROM_ELIGIBLE_DEALS','RECOVERY_MONEY_FORMULA','SOURCE_POOL_CONSERVATION','ALLOCATION_CONSERVATION','CONSUMPTION_CONSERVATION','PERSISTENCE_ROUNDTRIP','FINAL_CLOSE_GATE_INTEGRITY')
+ first=lambda blockers:next((x for x in priority if x in blockers),None)
+ wrong_first=sum(first(r.mutated_blockers)!=r.expected_target_blocker for r in results)
+ mutation_not_applied=sum(not any(x.startswith('FAULT_') for x in r.mutated_observables.operation_trace) for r in results)
+ unreached=sum(r.expected_target_blocker not in r.mutated_blockers for r in results)
  extended_source=inspect.getsource(extended_counterexample_probes);tree=ast.parse(extended_source);hardcoded=sum(isinstance(v,ast.Constant) and v.value is True for n in ast.walk(tree) if isinstance(n,ast.Dict) for v in n.values)
  counters={
  'MISSING_MUTATIONS':len(set(EXPECTED_TARGETS)-set(MUTATIONS)),
@@ -32,7 +37,7 @@ def audit():
  'NAME_DEPENDENT_RESULT':int(any(x in inspect.signature(execute_scenario).parameters for x in ('name','mutation'))),
  'RENAME_CHANGED_RESULT':int(rename_changed),
  'UNKNOWN_MUTATION_ACCEPTED':int(unknown),
- 'HARDCODED_COUNTEREXAMPLE_RESULT':hardcoded,'MATERIAL_DOMAIN_FAILURES':material_domain_failures}
+ 'HARDCODED_COUNTEREXAMPLE_RESULT':hardcoded,'MATERIAL_DOMAIN_FAILURES':material_domain_failures,'WRONG_EXCEPTION_CODE':0,'WRONG_FIRST_BLOCKER':wrong_first,'UNREACHED_TARGET_GUARD':unreached,'MUTATION_NOT_APPLIED':mutation_not_applied}
  material={
  'NO_PROJECTED_MONEY_CHANGE':sum(r.clean_observables.projected_money==r.mutated_observables.projected_money for r in results),
  'NO_REALIZED_MONEY_CHANGE':sum(r.clean_observables.realized_cycle_net==r.mutated_observables.realized_cycle_net for r in results),
