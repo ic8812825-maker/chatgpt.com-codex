@@ -49,11 +49,16 @@ class EventSnapshot:
  realized_cycle_net:D; floating_close_now:D; recovery_pl_close_now:D
  def __post_init__(self):
   if (self.event_key.account_login,self.event_key.symbol,self.event_key.magic,self.event_key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('snapshot identity mismatch')
+  if (self.event_type,self.level,self.phase)!=(self.event_key.event_type,self.event_key.level,self.event_key.phase):raise ValueError('snapshot metadata mismatch')
+  if any(p.identity!=self.identity or not p.identifier or not p.leg_id or not p.role or not isinstance(p.side,PositionSide) for p in self.managed_positions):raise ValueError('foreign/invalid position')
+  if len({p.leg_id for p in self.managed_positions})!=len(self.managed_positions):raise ValueError('duplicate leg')
   if len({p.identifier for p in self.managed_positions})!=len(self.managed_positions):raise ValueError('duplicate position')
   for p in self.managed_positions:self.broker.validate_lot(p.volume);self.broker.validate_price(p.open_price)
   if self.actual_lots!=tuple(p.volume for p in self.managed_positions): raise ValueError('actual lot mismatch')
   if self.actual_open_prices!=tuple(p.open_price for p in self.managed_positions): raise ValueError('open price mismatch')
-  if self.recovery_pl_close_now!=self.realized_cycle_net+self.floating_close_now: raise ValueError('recovery mismatch')
+  recalculated=floating_total(self.identity,self.managed_positions,self.broker,self.slippage_diagnostic)
+  if self.floating_close_now!=recalculated:raise ValueError('floating mismatch')
+  if self.recovery_pl_close_now!=self.realized_cycle_net+recalculated: raise ValueError('recovery mismatch')
 def floating_total(identity:Identity,positions:Iterable[Position],broker:Broker,slippage:D=D('0'))->D:
  return sum((projected_profit(p.side,p.volume,p.open_price,broker,slippage)+p.swap+p.exit_commission+p.exit_fee for p in positions if p.identity==identity),D('0'))
 def make_snapshot(identity:Identity,event_key:EventKey,event_type:str,level:int,scenario:str,phase:str,broker:Broker,positions:Iterable[Position],realized:D,state:ReconciliationState,revision:int,**kw)->EventSnapshot:
