@@ -256,7 +256,14 @@ class PersistentStore:
   return json.dumps(data,sort_keys=True,separators=(',',':'))
  @classmethod
  def deserialize(cls,payload:str)->'PersistentStore':
-  x=json.loads(payload);ident=Identity(**x['identity']);broker=Broker(**{k:D(v) for k,v in x['broker'].items()});econ=EconomicLedger(ident,broker)
+  x=json.loads(payload)
+  def unique(rows,key,code):
+   seen=set()
+   for row in rows:
+    value=key(row);require_integrity(value not in seen,code);seen.add(value)
+  canonical=lambda value:json.dumps(value,sort_keys=True,separators=(',',':'))
+  unique(x['deals'],lambda q:q['ticket'],IntegrityCode.DUPLICATE_DEAL_TICKET);unique(x['events'],lambda q:canonical(q['key']),IntegrityCode.DUPLICATE_EVENT_KEY);unique(x['allocations'],lambda q:canonical(q['key']),IntegrityCode.DUPLICATE_ALLOCATION_KEY);unique(x['consumptions'],lambda q:canonical(q['key']),IntegrityCode.DUPLICATE_CONSUMPTION_KEY);unique(x['consumptions'],lambda q:q['key']['transaction_id'],IntegrityCode.CONSUMPTION_TRANSACTION_CONFLICT);unique(x.get('source_pools',[]),lambda q:tuple(q['sources']),IntegrityCode.DUPLICATE_SOURCE_POOL);unique(x.get('managed_positions',[]),lambda q:q['identifier'],IntegrityCode.DUPLICATE_POSITION);unique(x.get('managed_positions',[]),lambda q:q['leg_id'],IntegrityCode.DUPLICATE_POSITION)
+  ident=Identity(**x['identity']);broker=Broker(**{k:D(v) for k,v in x['broker'].items()});econ=EconomicLedger(ident,broker)
   for q in x['deals']:
    deal=Deal(ident,q['ticket'],q['position_id'],DealEntry(q['entry']),DealType(q['deal_type']),D(q['actual_volume']),D(q['profit']),D(q['swap']),D(q['commission']),D(q['fee']),q['initial_ignored'])
    if not econ.apply(deal):raise ValueError('persisted deal rejected')

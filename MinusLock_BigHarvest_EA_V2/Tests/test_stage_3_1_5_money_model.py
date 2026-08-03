@@ -257,3 +257,17 @@ def test_restored_consumption_route_exact_code(field,value):
  import json;doc=json.loads(_consumed_store().serialize());doc['consumptions'][0]['key'][field]=value
  with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
  assert exc.value.code is IntegrityCode.CONSUMPTION_ROUTE_MISMATCH
+
+@pytest.mark.parametrize('section,code',[('events',IntegrityCode.DUPLICATE_EVENT_KEY),('allocations',IntegrityCode.DUPLICATE_ALLOCATION_KEY),('source_pools',IntegrityCode.DUPLICATE_SOURCE_POOL),('deals',IntegrityCode.DUPLICATE_DEAL_TICKET)])
+def test_duplicate_persisted_key_exact_code(section,code):
+ import json;doc=json.loads(_persisted_gate_store()[0].serialize());doc[section].append(dict(doc[section][0]))
+ with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
+ assert exc.value.code is code
+def test_duplicate_consumption_key_exact_code():
+ import json;doc=json.loads(_consumed_store().serialize());doc['consumptions'].append(dict(doc['consumptions'][0]))
+ with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
+ assert exc.value.code is IntegrityCode.DUPLICATE_CONSUMPTION_KEY
+def test_duplicate_transaction_conflict_exact_code():
+ import json;doc=json.loads(_consumed_store().serialize());other=json.loads(json.dumps(doc['consumptions'][0]));other['key']['transaction_id']=doc['consumptions'][0]['key']['transaction_id'];other['key']['level']=9;doc['consumptions'].append(other)
+ with pytest.raises(OracleIntegrityError) as exc:PersistentStore.deserialize(json.dumps(doc))
+ assert exc.value.code is IntegrityCode.CONSUMPTION_TRANSACTION_CONFLICT
