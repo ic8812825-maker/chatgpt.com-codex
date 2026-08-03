@@ -81,3 +81,19 @@ NEXT_ALLOWED_STAGE=3.1.6
 STAGE_3_1_6_STARTED=NO
 AWAITING_USER_APPROVAL=YES
 ```
+
+# Correction 3.1.5.20
+
+```text
+PREVIOUS_STAGE_3_1_5_PASS=SUPERSEDED
+INDEPENDENT_REVIEW_STATUS=FAIL
+STAGE_3_1_5_STATUS=REOPENED_FOR_CORRECTION
+CORRECTION_BASELINE=66ace3317df41157b4077848ab30e7f94f0ea3e7
+NEXT_ALLOWED_STAGE=NONE
+STAGE_3_1_6_STARTED=NO
+REAL_TRADING_ALLOWED=NO
+```
+
+Прежние evidence сохранены как исторические, но их ложноположительный executable verdict отменён:
+счётчик scenarios был константой, blockers формировались из имён, pytest collection отсутствовала,
+а reconciliation/restart/final-close не были связаны с экономическими ledger.
