@@ -47,6 +47,8 @@ def stale_economic():return _stale('economic')
 def stale_allocation():return _stale('allocation')
 def stale_event():return _stale('event')
 def stale_positions():return _stale('positions')
+def event_version_collision():
+ s,_=_store();k=next(iter(s.events));other=replace(k,deal_ticket=2);s.events[other]=EventRecord(other,ReconciliationState.DISCOVERED,3);s.events[k].revision=1;a=s.money_state_version.event_store_digest;s.events[k].revision=2;s.events[other].revision=2;b=s.money_state_version.event_store_digest;return ProbeResult((1,3),'change revisions with same sum',(2,2),'collision safe',a!=b)
 def missing_version():
  i,b,e,k,_,_=_base()
  try:make_snapshot(i,k,'H',1,'S','P',b,(),D('5'),ReconciliationState.PERSISTED,1);ok=False;reason='accepted'
@@ -73,5 +75,5 @@ def partial_fill_restart():
  s,_=_store();s.opening_costs['P']=OpenPositionCost(D('1'),D('-10'));s.opening_costs['P'].close(D('.5'),D('.4'),1);r=PersistentStore.deserialize(s.serialize());c=r.opening_costs['P'];return ProbeResult(D('-10'),'partial fill and restart',c.unallocated_entry_cost,'residual',c.unallocated_entry_cost==D('-6'))
 def final_close_restart():
  s,snap=_store();r=PersistentStore.deserialize(s.serialize());snap=replace(snap,money_state_version=r.money_state_version);g=evaluate_final_close(snap,r,True,True,FinalClosePolicy(D('-1'),D('1'),1));return ProbeResult(False,'full restart Final Close',g.allowed,','.join(g.reasons),g.allowed)
-PROBES=(metadata_mismatch,foreign_snapshot,source_reuse_after_restart,opening_in_allocation,unrelated_consumption,stale_economic,stale_allocation,stale_event,stale_positions,missing_version,early_crash,crash_during_allocation,crash_after_allocation,restart_allocation_once,restart_consumption_once,duplicate_event_replay,multi_source,out_to_in_tamper,partial_fill_restart,final_close_restart)
+PROBES=(metadata_mismatch,foreign_snapshot,source_reuse_after_restart,opening_in_allocation,unrelated_consumption,stale_economic,stale_allocation,stale_event,stale_positions,event_version_collision,missing_version,early_crash,crash_during_allocation,crash_after_allocation,restart_allocation_once,restart_consumption_once,duplicate_event_replay,multi_source,out_to_in_tamper,partial_fill_restart,final_close_restart)
 def run_extended_probes():return {fn.__name__:fn() for fn in PROBES}
