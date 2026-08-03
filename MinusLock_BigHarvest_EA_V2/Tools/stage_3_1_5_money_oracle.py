@@ -106,8 +106,15 @@ class AllocationRecord:
 class ConsumptionRecord:
  key:EventKey; allocation_key:EventKey; amount:D; purpose:AllocationType; revision:int
 @dataclass
+class ReconciledSourcePool:
+ key:EventKey; source_deal_tickets:tuple[int,...]; deal_nets:dict[int,D]; already_allocated:D=D('0'); residual:D=D('0'); revision:int=0
+ @property
+ def aggregate_actual_source_net(self):return sum(self.deal_nets.values(),D('0'))
+ @property
+ def available(self):return max(D('0'),self.aggregate_actual_source_net-self.already_allocated-self.residual)
+@dataclass
 class AllocationLedger:
- identity:Identity; records:dict[EventKey,AllocationRecord]=field(default_factory=dict); consumptions:dict[EventKey,ConsumptionRecord]=field(default_factory=dict); revision:int=0
+ identity:Identity; records:dict[EventKey,AllocationRecord]=field(default_factory=dict); consumptions:dict[EventKey,ConsumptionRecord]=field(default_factory=dict); revision:int=0; source_pools:dict[tuple[int,...],ReconciledSourcePool]=field(default_factory=dict)
  def allocated_from_source(self,ticket:int)->D:return sum((r.amount+r.residual for r in self.records.values() if ticket in r.source_deal_tickets),D('0'))
  def allocate(self,event:EventRecord,economic:EconomicLedger,key:EventKey,amount:D,sources:Iterable[int],residual:D=D('0'),projected:bool=False)->bool:
   source=tuple(sources)
@@ -116,10 +123,13 @@ class AllocationLedger:
   if event_identity_projection(event.event_id)!=event_identity_projection(key):raise ValueError('event/allocation key mismatch')
   if (key.account_login,key.symbol,key.magic,key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('foreign allocation')
   if any(t not in economic.deals for t in source):raise ValueError('unknown source')
-  for t in source:
-   net=economic.deals[t].net
-   if net<=0 or self.allocated_from_source(t)+amount+residual>net:raise ValueError('global conservation')
-  self.revision+=1;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
+  pool_key=tuple(sorted(source))
+  if any(set(pool_key)&set(existing) and existing!=pool_key for existing in self.source_pools):raise ValueError('ticket reused by another pool')
+  pool=self.source_pools.get(pool_key)
+  if pool is None:
+   pool=ReconciledSourcePool(event.event_id,pool_key,{t:economic.deals[t].net for t in pool_key});self.source_pools[pool_key]=pool
+  if pool.aggregate_actual_source_net<=0 or amount+residual>pool.available:raise ValueError('aggregate conservation')
+  self.revision+=1;pool.already_allocated+=amount;pool.residual+=residual;pool.revision=self.revision;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
  def available(self,kind:AllocationType)->D:return sum((r.available for r in self.records.values() if r.key.allocation_type is kind),D('0'))
  def consume(self,allocation_key:EventKey,consume_key:EventKey,amount:D,purpose:AllocationType)->bool:
   if not isinstance(consume_key,EventKey) or amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
