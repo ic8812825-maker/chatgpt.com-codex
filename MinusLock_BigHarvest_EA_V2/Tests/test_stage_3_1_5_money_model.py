@@ -45,3 +45,42 @@ def test_snapshot_metadata_mismatch(field,value):
  with pytest.raises(ValueError):make_snapshot(i,K(),kw['event_type'],kw['level'],'S',kw['phase'],b,[],D('5'),ReconciliationState.PERSISTED,1)
 def test_snapshot_actual_ledger_revision_and_reserve():
  i,b,e=base();k=K();s=make_snapshot(i,k,'HARVEST',1,'S','POST',b,[],D('5'),ReconciliationState.PERSISTED,7,ledger_revision=9,final_reserve_available=D('2'));assert s.state_revision==7 and s.ledger_revision==9 and s.final_reserve_available==D('2')
+
+# Third-correction persistence regressions
+def _persisted_gate_store():
+ i,b,e=base(); ek=K(); ak=K(kind=AllocationType.FINAL_RESERVE); ev=EventRecord(ek,ReconciliationState.RECONCILED); a=AllocationLedger(i); a.allocate(ev,e,ak,D("4"),[1],D("1")); ev.transition(ReconciliationState.ALLOCATION_PENDING); ev.transition(ReconciliationState.APPLIED); ev.transition(ReconciliationState.PERSISTED); p=Position(i,"P","L","F",PositionSide.BUY,D(".01"),D("1"),D("-.1"),D("-.2"),D("-.3")); return PersistentStore(e,a,{ek:ev},1,{},(p,)),ek
+def test_source_pool_survives_restart():
+    store, key = _persisted_gate_store()
+    restored = PersistentStore.deserialize(store.serialize())
+    assert restored.allocation.source_pools == store.allocation.source_pools
+
+def test_source_pool_available_survives_restart():
+    store, _ = _persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize())
+    assert [p.available for p in restored.allocation.source_pools.values()] == [p.available for p in store.allocation.source_pools.values()]
+
+def test_source_pool_revision_survives_restart():
+    store, _ = _persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize())
+    assert [p.revision for p in restored.allocation.source_pools.values()] == [p.revision for p in store.allocation.source_pools.values()]
+
+def test_managed_positions_survive_restart():
+    store, _ = _persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize())
+    assert restored.managed_positions == store.managed_positions
+
+def test_position_identity_survives_restart():
+    store, _ = _persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize())
+    assert all(p.identity == store.economic.identity for p in restored.managed_positions)
+
+def test_position_money_fields_survive_restart():
+    store, _ = _persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize())
+    assert [(p.swap,p.exit_commission,p.exit_fee) for p in restored.managed_positions] == [(p.swap,p.exit_commission,p.exit_fee) for p in store.managed_positions]
+
+def test_corrupted_source_pool_rejected():
+    store, _ = _persisted_gate_store(); import json
+    doc=json.loads(store.serialize()); doc['source_pools'][0]['available']='999'
+    with pytest.raises(ValueError): PersistentStore.deserialize(json.dumps(doc))
+
+def test_corrupted_managed_position_rejected():
+    store, _ = _persisted_gate_store(); import json
+    doc=json.loads(store.serialize()); doc['managed_positions'][0]['symbol']='FOREIGN' if 'symbol' in doc['managed_positions'][0] else None
+    doc['managed_positions'][0]['identity']['symbol']='FOREIGN'
+    with pytest.raises(ValueError): PersistentStore.deserialize(json.dumps(doc))

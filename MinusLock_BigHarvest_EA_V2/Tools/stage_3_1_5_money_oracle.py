@@ -177,7 +177,9 @@ class PersistentStore:
   deals=[{'ticket':x.ticket,'position_id':x.position_id,'entry':x.entry.value,'deal_type':x.deal_type.value,'actual_volume':str(x.actual_volume),'profit':str(x.profit),'swap':str(x.swap),'commission':str(x.commission),'fee':str(x.fee),'initial_ignored':x.initial_ignored} for x in self.economic.deals.values()]
   allocations=[{'key':r.key.to_dict(),'sources':r.source_deal_tickets,'amount':str(r.amount),'consumed':str(r.consumed),'residual':str(r.residual),'state':r.reconciliation_state.value,'revision':r.revision} for r in self.allocation.records.values()]
   consumptions=[{'key':r.key.to_dict(),'allocation_key':r.allocation_key.to_dict(),'amount':str(r.amount),'purpose':r.purpose.value,'revision':r.revision} for r in self.allocation.consumptions.values()]
-  data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost)} for k,v in self.opening_costs.items()},'revision':self.revision}
+  pools=[{'key':p.key.to_dict(),'sources':p.source_deal_tickets,'deal_nets':{str(k):str(v) for k,v in p.deal_nets.items()},'allocated':str(p.already_allocated),'residual':str(p.residual),'available':str(p.available),'revision':p.revision} for p in self.allocation.source_pools.values()]
+  positions=[{'identity':asdict(p.identity),'identifier':p.identifier,'leg_id':p.leg_id,'role':p.role,'side':p.side.value,'volume':str(p.volume),'open_price':str(p.open_price),'swap':str(p.swap),'exit_commission':str(p.exit_commission),'exit_fee':str(p.exit_fee)} for p in self.managed_positions]
+  data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost)} for k,v in self.opening_costs.items()},'revision':self.revision}
   return json.dumps(data,sort_keys=True,separators=(',',':'))
  @classmethod
  def deserialize(cls,payload:str)->'PersistentStore':
@@ -188,8 +190,20 @@ class PersistentStore:
    k=EventKey.from_dict(q['key']);allocation.records[k]=AllocationRecord(k,tuple(q['sources']),D(q['amount']),D(q['consumed']),D(q['residual']),ReconciliationState(q['state']),q['revision'])
   for q in x['consumptions']:
    k=EventKey.from_dict(q['key']);allocation.consumptions[k]=ConsumptionRecord(k,EventKey.from_dict(q['allocation_key']),D(q['amount']),AllocationType(q['purpose']),q['revision'])
+  for q in x.get('source_pools',[]):
+   k=EventKey.from_dict(q['key']); tickets=tuple(q['sources']); nets={int(t):D(v) for t,v in q['deal_nets'].items()}
+   if tuple(sorted(tickets))!=tickets or set(tickets)!=set(nets) or any(t not in econ.deals or econ.deals[t].net!=nets[t] for t in tickets):raise ValueError('corrupted source pool')
+   pool=ReconciledSourcePool(k,tickets,nets,D(q['allocated']),D(q['residual']),q['revision'])
+   if pool.available!=D(q['available']):raise ValueError('corrupted source pool balance')
+   allocation.source_pools[tickets]=pool
   events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated'])) for k,v in x['opening_costs'].items()}
-  return cls(econ,allocation,events,x['revision'],costs)
+  positions=[]
+  for q in x.get('managed_positions',[]):
+   pi=Identity(**q['identity']); p=Position(pi,q['identifier'],q['leg_id'],q['role'],PositionSide(q['side']),D(q['volume']),D(q['open_price']),D(q['swap']),D(q['exit_commission']),D(q['exit_fee']))
+   if pi!=ident or not p.identifier or not p.leg_id or not p.role:raise ValueError('corrupted managed position')
+   broker.validate_lot(p.volume);broker.validate_price(p.open_price);positions.append(p)
+  if len({p.identifier for p in positions})!=len(positions) or len({p.leg_id for p in positions})!=len(positions):raise ValueError('duplicate managed position')
+  return cls(econ,allocation,events,x['revision'],costs,tuple(positions))
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
 @dataclass(frozen=True)
 class FinalClosePolicy: threshold:D; required_deficit:D; current_revision:int; preview:bool=False
