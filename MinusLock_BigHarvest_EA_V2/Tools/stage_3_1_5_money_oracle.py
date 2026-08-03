@@ -151,3 +151,12 @@ def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,positions:
  if snapshot.state_revision!=current_revision:reasons.append('STALE')
  if preview:reasons.append('PREVIEW_NOT_ACTUAL')
  return GateResult(not reasons,recovery,reserve,required_deficit,tuple(reasons))
+@dataclass(frozen=True,order=True)
+class EventKey:
+ account_login:int; symbol:str; magic:int; cycle_id:str; event_type:str; level:int; phase:str
+ position_identifier:str; deal_ticket:int; allocation_type:AllocationType
+ def __post_init__(self):
+  if not self.symbol or not self.cycle_id or not self.event_type or not self.phase or not self.position_identifier or self.deal_ticket<=0:raise ValueError('incomplete EventKey')
+ def to_dict(self):return {**asdict(self),'allocation_type':self.allocation_type.value}
+ @classmethod
+ def from_dict(cls,x):return cls(**{**x,'allocation_type':AllocationType(x['allocation_type'])})
