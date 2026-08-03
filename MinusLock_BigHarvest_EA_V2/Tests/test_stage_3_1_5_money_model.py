@@ -146,3 +146,20 @@ def test_early_crash_completes_allocation_once():
 def test_terminal_restart_never_allocates():
  for state in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED):
   result=all_restart_probes()[state];assert result['terminal_safe'] and result['side_effects']==0 and not result['irreversible']
+
+def test_money_state_version_roundtrip():
+ store,_=_persisted_gate_store();store.positions_revision=3;assert PersistentStore.deserialize(store.serialize()).money_state_version==store.money_state_version
+@pytest.mark.parametrize('component',['economic','allocation','event','positions','store'])
+def test_each_money_revision_change_blocks_stale_snapshot(component):
+ store,ek=_persisted_gate_store(); expected=store.money_state_version
+ if component=='economic':store.economic.revision+=1
+ elif component=='allocation':store.allocation.revision+=1
+ elif component=='event':store.events[ek].revision+=1
+ elif component=='positions':store.positions_revision+=1
+ else:store.revision+=1
+ snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,store.economic.realized_cycle_net,ReconciliationState.PERSISTED,1,ledger_revision=store.revision,final_reserve_available=store.allocation.available(AllocationType.FINAL_RESERVE))
+ assert 'MONEY_STATE_STALE' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1,expected_version=expected)).reasons
+def test_final_close_after_restart_uses_restored_positions_and_reserve():
+ store,ek=_persisted_gate_store(); restored=PersistentStore.deserialize(store.serialize());assert restored.managed_positions and restored.allocation.available(AllocationType.FINAL_RESERVE)==D('4')
+def test_final_close_after_restart_blocks_missing_source_pool():
+ store,ek=_persisted_gate_store();store.allocation.source_pools.clear();snap=make_snapshot(store.economic.identity,ek,'HARVEST',1,'S','POST',store.economic.broker,store.managed_positions,D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'));assert 'SOURCE_POOL_MISSING' in evaluate_final_close(snap,store,True,True,FinalClosePolicy(D('-9'),D('1'),1)).reasons
