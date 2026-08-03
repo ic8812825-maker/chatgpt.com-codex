@@ -172,6 +172,7 @@ class AllocationLedger:
   pool=self.source_pools.get(pool_key)
   if pool is None:
    pool=ReconciledSourcePool(event.event_id,pool_key,{t:economic.deals[t].net for t in pool_key},{t:deal_fingerprint(economic.deals[t]) for t in pool_key});self.source_pools[pool_key]=pool
+  elif pool.available<=0:raise OracleIntegrityError(IntegrityCode.SOURCE_TICKET_REUSED)
   if pool.aggregate_actual_source_net<=0 or amount+residual>pool.available:raise ValueError('aggregate conservation')
   self.revision+=1;pool.already_allocated+=amount;pool.residual+=residual;pool.revision=self.revision;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
  def available(self,kind:AllocationType)->D:return sum((r.available for r in self.records.values() if r.key.allocation_type is kind),D('0'))
