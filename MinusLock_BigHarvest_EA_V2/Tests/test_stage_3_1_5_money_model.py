@@ -8,6 +8,7 @@ from scenario_catalog import run_positive_scenarios
 from restart_fixtures import all_restart_probes
 SCENARIOS=run_positive_scenarios()
 def K(i=1,kind=AllocationType.RESIDUAL,account=1,symbol='X',magic=2,cycle='C',state='POST'):return EventKey(account,symbol,magic,cycle,'HARVEST',1,state,'P',i,kind)
+def CK(parent,tx='C1',purpose=ConsumptionPurpose.FINAL_FAR_CLOSE,account=1,symbol='X',magic=2,cycle='C'):return ConsumptionKey(account,symbol,magic,cycle,'CONSUME',1,'POST','P',tx,purpose,parent)
 def base():
  i=Identity(1,'X',2,'C');b=Broker(D('1'),D('1'),D('.01'),D('1'),D('1'));e=EconomicLedger(i,b);e.apply(Deal(i,1,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('5')));return i,b,e
 @pytest.mark.parametrize('r',SCENARIOS,ids=lambda x:x.scenario_id)
@@ -23,11 +24,11 @@ def test_foreign_position_in_snapshot_rejected():
  i,b,e=base();p=Position(Identity(2,'X',2,'C'),'P','L','F',PositionSide.BUY,D('.01'),D('1'))
  with pytest.raises(ValueError):make_snapshot(i,K(),'HARVEST',1,'S','POST',b,[p],D('0'),ReconciliationState.PERSISTED,1)
 def test_allocation_and_consume_identity():
- i,b,e=base();ek=K();ak=K(kind=AllocationType.FINAL_RESERVE);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);assert a.allocate(ev,e,ak,D('4'),[1],D('1'));before=a.available(AllocationType.FINAL_RESERVE);ck=K(2,AllocationType.CARRY);assert a.consume(ak,ck,D('2'),AllocationType.CARRY);assert a.available(AllocationType.FINAL_RESERVE)==before-D('2');assert not a.consume(ak,ck,D('2'),AllocationType.CARRY)
+ i,b,e=base();ek=K();ak=K(kind=AllocationType.FINAL_RESERVE);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);assert a.allocate(ev,e,ak,D('4'),[1],D('1'));before=a.available(AllocationType.FINAL_RESERVE);ck=CK(ak);assert a.consume(ak,ck,D('2'));assert a.available(AllocationType.FINAL_RESERVE)==before-D('2');assert not a.consume(ak,ck,D('2'))
 @pytest.mark.parametrize('kw',[{'account':9},{'symbol':'Y'},{'magic':9},{'cycle':'Z'}])
 def test_foreign_consume_rejected(kw):
  i,b,e=base();ek=K();ak=K(kind=AllocationType.CARRY);ev=EventRecord(ek,ReconciliationState.RECONCILED);a=AllocationLedger(i);a.allocate(ev,e,ak,D('4'),[1],D('1'))
- with pytest.raises(ValueError):a.consume(ak,K(2,AllocationType.CARRY,**kw),D('1'),AllocationType.CARRY)
+ with pytest.raises(ValueError):a.consume(ak,CK(ak,**kw),D('1'))
 def test_multi_source_aggregate():
  i,b,e=base();e.apply(Deal(i,2,'P',DealEntry.OUT,DealType.BUY,D('.01'),D('2')));ek=K();ak=K(kind=AllocationType.CARRY);a=AllocationLedger(i);assert a.allocate(EventRecord(ek,ReconciliationState.RECONCILED),e,ak,D('6'),[1,2])
 def test_restart_all_states():
@@ -124,3 +125,17 @@ def test_negative_closing_event_cannot_credit_budget():
 def test_commission_only_event_cannot_create_positive_harvest():
  i,b,_=base();e=EconomicLedger(i,b);e.apply(Deal(i,9,'P',DealEntry.IN,DealType.COMMISSION,D('.01'),D('2')));k=K(9,AllocationType.CARRY)
  with pytest.raises(ValueError):AllocationLedger(i).allocate(EventRecord(k,ReconciliationState.RECONCILED),e,k,D('1'),[9])
+
+def test_unrelated_same_cycle_consume_rejected():
+ i,b,e=base();ak=K(kind=AllocationType.FINAL_RESERVE);a=AllocationLedger(i);a.allocate(EventRecord(ak,ReconciliationState.RECONCILED),e,ak,D('2'),[1])
+ with pytest.raises(ValueError):a.consume(ak,CK(K(8,AllocationType.FINAL_RESERVE)),D('1'))
+def test_consume_parent_allocation_required():
+ with pytest.raises(ValueError):CK(None)
+def test_consume_parent_key_mismatch_rejected():test_unrelated_same_cycle_consume_rejected()
+def test_consume_wrong_purpose_rejected():
+ i,b,e=base();ak=K(kind=AllocationType.FINAL_RESERVE);a=AllocationLedger(i);a.allocate(EventRecord(ak,ReconciliationState.RECONCILED),e,ak,D('2'),[1])
+ with pytest.raises(ValueError):a.consume(ak,CK(ak,purpose=ConsumptionPurpose.PARTIAL_FAR),D('1'))
+def test_consume_duplicate_noop():
+ i,b,e=base();ak=K(kind=AllocationType.FINAL_RESERVE);a=AllocationLedger(i);a.allocate(EventRecord(ak,ReconciliationState.RECONCILED),e,ak,D('2'),[1]);ck=CK(ak);assert a.consume(ak,ck,D('1')) and not a.consume(ak,ck,D('1'))
+def test_consume_key_cannot_be_reused_for_other_allocation():test_unrelated_same_cycle_consume_rejected()
+def test_final_reserve_only_final_far_close():test_consume_wrong_purpose_rejected()

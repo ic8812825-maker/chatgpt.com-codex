@@ -13,6 +13,7 @@ class DealType(str,Enum):
 class ReconciliationState(str,Enum):
  DISCOVERED="DISCOVERED"; PENDING_RECONCILIATION="PENDING_RECONCILIATION"; RECONCILED="RECONCILED"; ALLOCATION_PENDING="ALLOCATION_PENDING"; APPLIED="APPLIED"; PERSISTED="PERSISTED"; CONFLICT="CONFLICT"; REJECTED="REJECTED"
 class AllocationType(str,Enum): PARTIAL_FAR="PARTIAL_FAR"; FINAL_RESERVE="FINAL_RESERVE"; CARRY="CARRY"; TRANSITION="TRANSITION"; RESIDUAL="RESIDUAL"
+class ConsumptionPurpose(str,Enum): FINAL_FAR_CLOSE="FINAL_FAR_CLOSE"; PARTIAL_FAR="PARTIAL_FAR"; CARRY="CARRY"; TRANSITION="TRANSITION"
 @dataclass(frozen=True,order=True)
 class EventKey:
  account_login:int; symbol:str; magic:int; cycle_id:str; event_type:str; level:int; phase:str; position_identifier:str; deal_ticket:int; allocation_type:AllocationType
@@ -47,6 +48,15 @@ def projected_profit(side:PositionSide,lot:D,open_price:D,broker:Broker,slippage
  ticks=movement/broker.tick_size
  return ticks*(broker.tv_profit if ticks>=0 else broker.tv_loss)*lot
 def event_identity_projection(k:EventKey):return (k.account_login,k.symbol,k.magic,k.cycle_id,k.event_type,k.level,k.phase,k.position_identifier,k.deal_ticket)
+@dataclass(frozen=True,order=True)
+class ConsumptionKey:
+ account_login:int; symbol:str; magic:int; cycle_id:str; consumption_event_type:str; level:int; phase:str; position_identifier:str; transaction_id:str; purpose:ConsumptionPurpose; parent_allocation_key:EventKey
+ def __post_init__(self):
+  if not self.symbol or not self.cycle_id or not self.consumption_event_type or not self.phase or not self.position_identifier or not self.transaction_id or not isinstance(self.parent_allocation_key,EventKey):raise ValueError('incomplete ConsumptionKey')
+ def to_dict(self):
+  d=asdict(self);d['purpose']=self.purpose.value;d['parent_allocation_key']=self.parent_allocation_key.to_dict();return d
+ @classmethod
+ def from_dict(cls,x):return cls(**{**x,'purpose':ConsumptionPurpose(x['purpose']),'parent_allocation_key':EventKey.from_dict(x['parent_allocation_key'])})
 @dataclass(frozen=True)
 class EventSnapshot:
  identity:Identity; event_key:EventKey; event_type:str; level:int; scenario:str; phase:str; broker:Broker
@@ -119,7 +129,7 @@ class AllocationRecord:
  def available(self):return self.amount-self.consumed
 @dataclass(frozen=True)
 class ConsumptionRecord:
- key:EventKey; allocation_key:EventKey; amount:D; purpose:AllocationType; revision:int
+ key:ConsumptionKey; allocation_key:EventKey; amount:D; purpose:ConsumptionPurpose; revision:int
 @dataclass
 class ReconciledSourcePool:
  key:EventKey; source_deal_tickets:tuple[int,...]; deal_nets:dict[int,D]; already_allocated:D=D('0'); residual:D=D('0'); revision:int=0
@@ -129,7 +139,7 @@ class ReconciledSourcePool:
  def available(self):return max(D('0'),self.aggregate_actual_source_net-self.already_allocated-self.residual)
 @dataclass
 class AllocationLedger:
- identity:Identity; records:dict[EventKey,AllocationRecord]=field(default_factory=dict); consumptions:dict[EventKey,ConsumptionRecord]=field(default_factory=dict); revision:int=0; source_pools:dict[tuple[int,...],ReconciledSourcePool]=field(default_factory=dict)
+ identity:Identity; records:dict[EventKey,AllocationRecord]=field(default_factory=dict); consumptions:dict[ConsumptionKey,ConsumptionRecord]=field(default_factory=dict); revision:int=0; source_pools:dict[tuple[int,...],ReconciledSourcePool]=field(default_factory=dict)
  def allocated_from_source(self,ticket:int)->D:return sum((r.amount+r.residual for r in self.records.values() if ticket in r.source_deal_tickets),D('0'))
  def allocate(self,event:EventRecord,economic:EconomicLedger,key:EventKey,amount:D,sources:Iterable[int],residual:D=D('0'),projected:bool=False)->bool:
   source=tuple(sources)
@@ -158,14 +168,16 @@ class AllocationLedger:
    if any(t not in economic.deals or economic.deals[t].net!=pool.deal_nets.get(t) for t in tickets):raise ValueError('source pool history mismatch')
    records=[r for r in self.records.values() if tuple(sorted(r.source_deal_tickets))==tickets]
    if pool.already_allocated!=sum((r.amount for r in records),D('0')) or pool.residual!=sum((r.residual for r in records),D('0')):raise ValueError('source pool allocation mismatch')
- def consume(self,allocation_key:EventKey,consume_key:EventKey,amount:D,purpose:AllocationType)->bool:
-  if not isinstance(consume_key,EventKey) or amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
+ def consume(self,allocation_key:EventKey,consume_key:ConsumptionKey,amount:D)->bool:
+  if not isinstance(consume_key,ConsumptionKey) or amount<=0 or allocation_key not in self.records:raise ValueError('invalid consume')
   if (consume_key.account_login,consume_key.symbol,consume_key.magic,consume_key.cycle_id)!=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle):raise ValueError('foreign consume')
+  if consume_key.parent_allocation_key!=allocation_key:raise ValueError('parent allocation mismatch')
   if consume_key in self.consumptions:return False
   r=self.records[allocation_key]
-  if r.key.allocation_type is AllocationType.FINAL_RESERVE and purpose is AllocationType.PARTIAL_FAR:raise ValueError('reserve forbidden')
+  allowed={AllocationType.FINAL_RESERVE:ConsumptionPurpose.FINAL_FAR_CLOSE,AllocationType.PARTIAL_FAR:ConsumptionPurpose.PARTIAL_FAR,AllocationType.CARRY:ConsumptionPurpose.CARRY,AllocationType.TRANSITION:ConsumptionPurpose.TRANSITION}
+  if allowed.get(r.key.allocation_type)!=consume_key.purpose:raise ValueError('purpose forbidden')
   if amount>r.available:raise ValueError('over-consume')
-  self.revision+=1;r.consumed+=amount;r.revision=self.revision;self.consumptions[consume_key]=ConsumptionRecord(consume_key,allocation_key,amount,purpose,self.revision);return True
+  self.revision+=1;r.consumed+=amount;r.revision=self.revision;self.consumptions[consume_key]=ConsumptionRecord(consume_key,allocation_key,amount,consume_key.purpose,self.revision);return True
 @dataclass(frozen=True)
 class PartialFillResult:
  volume_before:D; requested_volume:D; actual_closed_volume:D; volume_after:D
@@ -201,7 +213,7 @@ class PersistentStore:
   for q in x['allocations']:
    k=EventKey.from_dict(q['key']);allocation.records[k]=AllocationRecord(k,tuple(q['sources']),D(q['amount']),D(q['consumed']),D(q['residual']),ReconciliationState(q['state']),q['revision'])
   for q in x['consumptions']:
-   k=EventKey.from_dict(q['key']);allocation.consumptions[k]=ConsumptionRecord(k,EventKey.from_dict(q['allocation_key']),D(q['amount']),AllocationType(q['purpose']),q['revision'])
+   k=ConsumptionKey.from_dict(q['key']);allocation.consumptions[k]=ConsumptionRecord(k,EventKey.from_dict(q['allocation_key']),D(q['amount']),ConsumptionPurpose(q['purpose']),q['revision'])
   for q in x.get('source_pools',[]):
    k=EventKey.from_dict(q['key']); tickets=tuple(q['sources']); nets={int(t):D(v) for t,v in q['deal_nets'].items()}
    if tickets in allocation.source_pools:raise ValueError('duplicate source pool')
