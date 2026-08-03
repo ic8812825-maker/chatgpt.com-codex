@@ -19,3 +19,13 @@ MUTATIONS={
 def run_mutation(name:str):
  if name not in MUTATIONS:raise KeyError(name)
  clean=execute_scenario(Policy());mutated=execute_scenario(MUTATIONS[name](Policy()));return clean,mutated,evaluate_invariants(clean),evaluate_invariants(mutated)
+TARGETS={'BuyCloseUsesAsk':'BUY_CLOSE_SOURCE','SellCloseUsesBid':'SELL_CLOSE_SOURCE','SpreadDoubleCounted':'SPREAD_COUNT','SlippageDoubleCounted':'SLIPPAGE_COUNT','CommissionOmitted':'COMMISSION','OpeningCommissionOmitted':'OPENING_COMMISSION','SwapSignInverted':'SWAP_SIGN','FeeOmitted':'FEE','ProjectedMoneyCreditedAsRealized':'REALIZED_SOURCE','RequestedVolumeUsedInsteadOfActual':'ACTUAL_VOLUME','ReserveAddedTwiceToRecoveryPL':'RECOVERY_NO_ALLOCATION','ReserveUsedForPartialFar':'PARTIAL_BUDGET_ONLY','AccountBalanceDeltaUsedAsCyclePL':'CYCLE_LEDGER_ONLY','ForeignSymbolIncluded':'SYMBOL_FILTER','ForeignMagicIncluded':'MAGIC_CYCLE_FILTER','ForeignCycleIncluded':'MAGIC_CYCLE_FILTER','InitialIgnoredProfitIncluded':'INITIAL_EXCLUDED','DepositIncluded':'DEPOSIT_EXCLUDED','DuplicateDealApplied':'DEAL_EXACTLY_ONCE','DuplicateEventAppliedAfterRestart':'EVENT_EXACTLY_ONCE','PartialFillResidualLost':'PARTIAL_RESIDUAL','AllocationDoesNotConserveMoney':'ALLOCATION_CONSERVATION','NegativeHarvestCreditsReserve':'NEGATIVE_CREDIT_BLOCKED','FinalClosePreviewTreatedAsActual':'PREVIEW_NOT_ACTUAL','UnreconciledDealAllowsNextState':'RECONCILIATION_REQUIRED'}
+@dataclass(frozen=True)
+class MutationResult:
+ name:str;clean_observables:Observables;mutated_observables:Observables;changed_fields:tuple[str,...];clean_blockers:frozenset[str];mutated_blockers:frozenset[str];expected_target_blocker:str;target_caught:bool
+def counterexamples():
+ out=[]
+ for name in MUTATIONS:
+  c,m,cb,mb=run_mutation(name);changed=tuple(k for k,v in asdict(c).items() if v!=asdict(m)[k]);target=TARGETS[name]
+  out.append(MutationResult(name,c,m,changed,frozenset(cb),frozenset(mb),target,target not in cb and target in mb and bool(changed)))
+ return out
