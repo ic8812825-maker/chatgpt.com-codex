@@ -221,3 +221,10 @@ def test_restart_final_state_parity_all_crash_points():
 def test_restart_terminal_states_have_no_irreversible_side_effects():
  for s in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED):
   r=all_restart_probes()[s];assert r['terminal_safe'] and r['side_effects']==0 and r['consumed']==0 and not r['irreversible']
+
+def test_integrity_contract_valid_store():
+ store,_=_persisted_gate_store();store.validate_integrity()
+def test_integrity_error_has_typed_code():
+ store,_=_persisted_gate_store();key=next(iter(store.allocation.records));foreign=replace(key,account_login=9);store.allocation.records[foreign]=store.allocation.records.pop(key);store.allocation.records[foreign].key=foreign
+ with pytest.raises(OracleIntegrityError) as exc:store.validate_integrity()
+ assert exc.value.code is IntegrityCode.FOREIGN_ALLOCATION_IDENTITY

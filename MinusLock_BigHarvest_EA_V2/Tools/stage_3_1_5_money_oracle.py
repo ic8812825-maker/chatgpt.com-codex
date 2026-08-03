@@ -14,6 +14,12 @@ class DealType(str,Enum):
 class ReconciliationState(str,Enum):
  DISCOVERED="DISCOVERED"; PENDING_RECONCILIATION="PENDING_RECONCILIATION"; RECONCILED="RECONCILED"; ALLOCATION_PENDING="ALLOCATION_PENDING"; APPLIED="APPLIED"; PERSISTED="PERSISTED"; CONFLICT="CONFLICT"; REJECTED="REJECTED"
 class AllocationType(str,Enum): PARTIAL_FAR="PARTIAL_FAR"; FINAL_RESERVE="FINAL_RESERVE"; CARRY="CARRY"; TRANSITION="TRANSITION"; RESIDUAL="RESIDUAL"
+class IntegrityCode(str,Enum):
+ FOREIGN_ALLOCATION_IDENTITY="FOREIGN_ALLOCATION_IDENTITY"; ALLOCATION_EVENT_MISMATCH="ALLOCATION_EVENT_MISMATCH"; ALLOCATION_STATE_INVALID="ALLOCATION_STATE_INVALID"; ALLOCATION_SOURCE_POOL_MISSING="ALLOCATION_SOURCE_POOL_MISSING"; FOREIGN_CONSUMPTION_IDENTITY="FOREIGN_CONSUMPTION_IDENTITY"; CONSUMPTION_ROUTE_MISMATCH="CONSUMPTION_ROUTE_MISMATCH"; CONSUMPTION_TRANSACTION_CONFLICT="CONSUMPTION_TRANSACTION_CONFLICT"; DUPLICATE_EVENT_KEY="DUPLICATE_EVENT_KEY"; DUPLICATE_ALLOCATION_KEY="DUPLICATE_ALLOCATION_KEY"; DUPLICATE_CONSUMPTION_KEY="DUPLICATE_CONSUMPTION_KEY"; DUPLICATE_DEAL_TICKET="DUPLICATE_DEAL_TICKET"; DUPLICATE_SOURCE_POOL="DUPLICATE_SOURCE_POOL"; DUPLICATE_POSITION="DUPLICATE_POSITION"; SOURCE_TICKET_REUSED="SOURCE_TICKET_REUSED"; SOURCE_POOL_HISTORY_MISMATCH="SOURCE_POOL_HISTORY_MISMATCH"; MONEY_STATE_STALE="MONEY_STATE_STALE"; LEDGER_INTEGRITY_FAILURE="LEDGER_INTEGRITY_FAILURE"
+class OracleIntegrityError(ValueError):
+ def __init__(self,code:IntegrityCode,detail:str=''):self.code=code;super().__init__(f'{code.value}:{detail}')
+def require_integrity(ok:bool,code:IntegrityCode,detail:str=''):
+ if not ok:raise OracleIntegrityError(code,detail)
 class ConsumptionPurpose(str,Enum): FINAL_FAR_CLOSE="FINAL_FAR_CLOSE"; PARTIAL_FAR="PARTIAL_FAR"; CARRY="CARRY"; TRANSITION="TRANSITION"
 @dataclass(frozen=True,order=True)
 class EventKey:
@@ -224,6 +230,21 @@ class PersistentStore:
   digest=lambda x:hashlib.sha256(json.dumps(x,sort_keys=True,default=str,separators=(',',':')).encode()).hexdigest()
   events=digest([(k.to_dict(),v.state.value,v.revision) for k,v in sorted(self.events.items())]);pools=digest([(k,p.deal_nets,p.already_allocated,p.residual,p.revision) for k,p in sorted(self.allocation.source_pools.items())]);cons=digest([(k.to_dict(),v.amount,v.revision) for k,v in sorted(self.allocation.consumptions.items())]);costs=digest([(k,v.volume,v.unallocated_entry_cost,sorted(v.applied_fill_tickets),v.allocated_entry_cost) for k,v in sorted(self.opening_costs.items())])
   return MoneyStateVersion(self.economic.identity.cycle,self.economic.revision,self.allocation.revision,events,self.positions_revision,self.revision,costs,pools,cons)
+ def validate_integrity(self)->None:
+  identity=self.economic.identity
+  for key,r in self.allocation.records.items():
+   require_integrity((key.account_login,key.symbol,key.magic,key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_ALLOCATION_IDENTITY)
+   event=next((e for ek,e in self.events.items() if event_identity_projection(ek)==event_identity_projection(key)),None);require_integrity(event is not None,IntegrityCode.ALLOCATION_EVENT_MISMATCH)
+   require_integrity(r.reconciliation_state is ReconciliationState.RECONCILED and r.amount>=0 and r.consumed>=0 and r.consumed<=r.amount and r.residual>=0,IntegrityCode.ALLOCATION_STATE_INVALID)
+   require_integrity(tuple(sorted(r.source_deal_tickets)) in self.allocation.source_pools,IntegrityCode.ALLOCATION_SOURCE_POOL_MISSING)
+  transactions={}
+  for key,c in self.allocation.consumptions.items():
+   require_integrity((key.account_login,key.symbol,key.magic,key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_CONSUMPTION_IDENTITY)
+   require_integrity(c.allocation_key in self.allocation.records and key.parent_allocation_key==c.allocation_key,IntegrityCode.CONSUMPTION_ROUTE_MISMATCH)
+   route=(key.level,key.phase,key.position_identifier)==(c.allocation_key.level,c.allocation_key.phase,c.allocation_key.position_identifier)
+   require_integrity(route,IntegrityCode.CONSUMPTION_ROUTE_MISMATCH)
+   prior=transactions.get(key.transaction_id);require_integrity(prior is None or prior==c,IntegrityCode.CONSUMPTION_TRANSACTION_CONFLICT);transactions[key.transaction_id]=c
+  self.allocation.validate_source_pools(self.economic)
  def serialize(self)->str:
   deals=[{'ticket':x.ticket,'position_id':x.position_id,'entry':x.entry.value,'deal_type':x.deal_type.value,'actual_volume':str(x.actual_volume),'profit':str(x.profit),'swap':str(x.swap),'commission':str(x.commission),'fee':str(x.fee),'initial_ignored':x.initial_ignored} for x in self.economic.deals.values()]
   allocations=[{'key':r.key.to_dict(),'sources':r.source_deal_tickets,'amount':str(r.amount),'consumed':str(r.consumed),'residual':str(r.residual),'state':r.reconciliation_state.value,'revision':r.revision} for r in self.allocation.records.values()]
