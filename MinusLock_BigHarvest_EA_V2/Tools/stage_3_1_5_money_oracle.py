@@ -395,10 +395,11 @@ class PersistentStore:
   store=cls(econ,allocation,events,x['revision'],costs,tuple(positions),x.get('positions_revision',0));store.validate_integrity();return store
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
  def apply_event(self,record:EventRecord)->bool:
+  record.validate_history()
   existing=self.events.get(record.event_id)
   if existing:
-   if (existing.state,existing.revision)==(record.state,record.revision):return False
-   raise OracleIntegrityError(IntegrityCode.DUPLICATE_EVENT_KEY,'conflicting replay')
+   if existing==record:return False
+   raise OracleIntegrityError(IntegrityCode.EVENT_REPLAY_CONFLICT,'conflicting replay')
   self.events[record.event_id]=record;self.revision+=1;return True
 @dataclass(frozen=True)
 class MoneyStateVersion: account:int; symbol:str; magic:int; cycle_id:str; broker_digest:str; economic_ledger_digest:str; allocation_ledger_digest:str; source_pool_digest:str; consumption_digest:str; event_store_digest:str; managed_positions_digest:str; opening_cost_digest:str; persistent_metadata_digest:str

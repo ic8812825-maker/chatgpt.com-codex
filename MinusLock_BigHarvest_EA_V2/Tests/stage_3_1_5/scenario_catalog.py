@@ -34,7 +34,7 @@ def _restart_owner():
 def _duplicate_event_owner():
  store,k,_=_owner_store();same=store.apply_event(EventRecord(k,ReconciliationState.RECONCILED));
  try:store.apply_event(EventRecord(k,ReconciliationState.DISCOVERED));conflict=False
- except OracleIntegrityError as exc:conflict=exc.code is IntegrityCode.DUPLICATE_EVENT_KEY
+ except OracleIntegrityError as exc:conflict=exc.code is IntegrityCode.EVENT_REPLAY_CONFLICT
  return {'identical_noop':not same,'conflict_blocked':conflict,'records':len(store.events)}
 def _final_close(reject=False):
  store,k,_=_owner_store();ev=store.events[k];ev.transition(ReconciliationState.ALLOCATION_PENDING);ev.transition(ReconciliationState.APPLIED);ev.transition(ReconciliationState.PERSISTED);store.revision=1;snap=make_snapshot(store.economic.identity,k,'H',1,'S','P',store.economic.broker,(),D('5'),ReconciliationState.PERSISTED,1,ledger_revision=1,final_reserve_available=D('4'),money_state_version=store.money_state_version);policy=FinalClosePolicy(D('9') if reject else D('-1'),D('1'),1);g=evaluate_final_close(snap,store,True,True,policy);return {'allowed':g.allowed,'reasons':g.reasons}

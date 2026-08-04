@@ -337,7 +337,7 @@ def test_restart_money_version_and_final_close_parity():
 def test_event_replay_identical_noop_conflict_exact_code():
  store,ek=_persisted_gate_store();existing=store.events[ek];assert not store.apply_event(EventRecord(ek,existing.state,existing.revision))
  with pytest.raises(OracleIntegrityError) as exc:store.apply_event(EventRecord(ek,ReconciliationState.DISCOVERED,0))
- assert exc.value.code is IntegrityCode.DUPLICATE_EVENT_KEY
+ assert exc.value.code is IntegrityCode.EVENT_REPLAY_CONFLICT
 
 
 def test_sixth_correction_exploit_regressions():
@@ -390,3 +390,9 @@ def test_altered_deal_replay_conflicts_without_ledger_change(field,value):
  i,b,e=base();original=e.deals[1];revision=e.revision;money=e.realized_cycle_net
  with pytest.raises(OracleIntegrityError) as exc:e.apply(replace(original,**{field:value}))
  assert exc.value.code is IntegrityCode.DEAL_REPLAY_CONFLICT;assert e.revision==revision;assert e.realized_cycle_net==money;assert e.deals[1]==original
+
+
+def test_same_event_state_revision_different_history_conflicts():
+ store,key=_persisted_gate_store();existing=store.events[key];tampered=replace(existing,history=(replace(existing.history[0],terminal_reason='forged'),*existing.history[1:]))
+ with pytest.raises(OracleIntegrityError) as exc:store.apply_event(tampered)
+ assert exc.value.code is IntegrityCode.EVENT_REPLAY_CONFLICT
