@@ -267,6 +267,9 @@ class PersistentStore:
   i=self.economic.identity;return MoneyStateVersion(i.account,i.symbol,i.magic,i.cycle,broker,deals,allocations,pools,cons,events,positions,costs,metadata)
  def validate_integrity(self)->None:
   identity=self.economic.identity
+  money_values=[]
+  for deal in self.economic.deals.values():money_values.extend((deal.actual_volume,deal.profit,deal.swap,deal.commission,deal.fee))
+  require_integrity(all(isinstance(value,D) and value.is_finite() for value in money_values),IntegrityCode.NON_FINITE_MONEY_VALUE)
   for dictionary_key,event in self.events.items():
    require_integrity(dictionary_key==event.event_id,IntegrityCode.EVENT_RECORD_KEY_MISMATCH)
    require_integrity((dictionary_key.account_login,dictionary_key.symbol,dictionary_key.magic,dictionary_key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_EVENT_IDENTITY)
@@ -353,8 +356,10 @@ class GateResult: allowed:bool; recovery:D; reserve:D; deficit:D; reasons:tuple[
 def evaluate_final_close(snapshot:EventSnapshot,store:PersistentStore,risk_ok:bool,margin_ok:bool,policy:FinalClosePolicy)->GateResult:
  reasons=[];identity=store.economic.identity
  try:store.validate_integrity()
- except (OracleIntegrityError,ValueError) as exc:
-  reasons.append('LEDGER_INTEGRITY_FAILURE');reasons.append('INTEGRITY_'+(exc.code.value if isinstance(exc,OracleIntegrityError) else type(exc).__name__))
+ except OracleIntegrityError as exc:
+  reasons.extend(('LEDGER_INTEGRITY_FAILURE','INTEGRITY_'+exc.code.value))
+ except (ValueError,KeyError,TypeError):
+  reasons.extend(('LEDGER_INTEGRITY_FAILURE','INTEGRITY_'+IntegrityCode.PERSISTENCE_SCHEMA_INVALID.value))
  if snapshot.identity!=identity:reasons.append('FOREIGN_IDENTITY')
  if snapshot.broker!=store.economic.broker:reasons.append('BROKER_MISMATCH')
  if snapshot.managed_positions!=store.managed_positions:reasons.append('POSITIONS_MISMATCH')
