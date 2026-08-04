@@ -250,9 +250,14 @@ class PersistentStore:
   i=self.economic.identity;return MoneyStateVersion(i.account,i.symbol,i.magic,i.cycle,broker,deals,allocations,pools,cons,events,positions,costs,metadata)
  def validate_integrity(self)->None:
   identity=self.economic.identity
+  for dictionary_key,event in self.events.items():
+   require_integrity(dictionary_key==event.event_id,IntegrityCode.EVENT_RECORD_KEY_MISMATCH)
+   require_integrity((dictionary_key.account_login,dictionary_key.symbol,dictionary_key.magic,dictionary_key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_EVENT_IDENTITY)
+   require_integrity(event.revision>=0 and not (event.state is ReconciliationState.PERSISTED and event.revision<1),IntegrityCode.EVENT_STATE_REVISION_INVALID)
   for key,r in self.allocation.records.items():
    require_integrity((key.account_login,key.symbol,key.magic,key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_ALLOCATION_IDENTITY)
-   event=next((e for ek,e in self.events.items() if event_identity_projection(ek)==event_identity_projection(key)),None);require_integrity(event is not None,IntegrityCode.ALLOCATION_EVENT_MISMATCH)
+   event=next((e for ek,e in self.events.items() if EventIdentity.from_key(ek)==EventIdentity.from_key(key)),None);require_integrity(event is not None,IntegrityCode.ALLOCATION_EVENT_MISMATCH)
+   require_integrity(event.event_id.allocation_type is key.allocation_type,IntegrityCode.ALLOCATION_EVENT_ROUTE_MISMATCH)
    require_integrity(r.reconciliation_state is ReconciliationState.RECONCILED and r.amount>=0 and r.consumed>=0 and r.consumed<=r.amount and r.residual>=0,IntegrityCode.ALLOCATION_STATE_INVALID)
    require_integrity(tuple(sorted(r.source_deal_tickets)) in self.allocation.source_pools,IntegrityCode.ALLOCATION_SOURCE_POOL_MISSING)
   transactions={}
