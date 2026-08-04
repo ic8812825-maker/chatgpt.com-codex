@@ -281,10 +281,16 @@ class OpenPositionCost:
 @dataclass
 class PersistentStore:
  economic:EconomicLedger; allocation:AllocationLedger; events:dict[EventKey,EventRecord]=field(default_factory=dict); revision:int=0; opening_costs:dict[str,OpenPositionCost]=field(default_factory=dict); managed_positions:tuple[Position,...]=(); positions_revision:int=0
+ def canonical_money_state(self):
+  return {
+   'events':[(k.to_dict(),v.state.value,v.revision,v.terminal_reason,[(h.event_id.to_dict(),h.source.value,h.target.value,h.revision,h.terminal_reason) for h in v.history]) for k,v in sorted(self.events.items())],
+   'pools':[(k,p.key.to_dict(),p.source_deal_tickets,p.deal_nets,p.deal_fingerprints,p.already_allocated,p.residual,p.revision) for k,p in sorted(self.allocation.source_pools.items())],
+   'opening_costs':[(k,v.initial_volume,v.volume,v.initial_opening_cost,v.allocated_entry_cost,v.unallocated_entry_cost,sorted(v.applied_fill_tickets),[(f.ticket,f.requested_volume,f.actual_volume,f.volume_before,f.volume_after,f.allocated_cost) for f in v.fills],v.revision) for k,v in sorted(self.opening_costs.items())],
+  }
  @property
  def money_state_version(self):
   digest=lambda x:hashlib.sha256(json.dumps(x,sort_keys=True,default=str,separators=(',',':')).encode()).hexdigest()
-  events=digest([(k.to_dict(),v.state.value,v.revision) for k,v in sorted(self.events.items())]);pools=digest([(k,p.deal_nets,p.deal_fingerprints,p.already_allocated,p.residual,p.revision) for k,p in sorted(self.allocation.source_pools.items())]);cons=digest([(k.to_dict(),v.allocation_key.to_dict(),v.amount,v.purpose.value,v.revision) for k,v in sorted(self.allocation.consumptions.items())]);costs=digest([(k,v.volume,v.unallocated_entry_cost,sorted(v.applied_fill_tickets),v.allocated_entry_cost) for k,v in sorted(self.opening_costs.items())]);allocations=digest([(k.to_dict(),r.source_deal_tickets,r.amount,r.consumed,r.available,r.residual,r.reconciliation_state.value,r.revision) for k,r in sorted(self.allocation.records.items())]);deals=digest([deal_fingerprint(d) for _,d in sorted(self.economic.deals.items())]);positions=digest([asdict(p) for p in self.managed_positions]);broker=digest(asdict(self.economic.broker));metadata=digest({'identity':asdict(self.economic.identity),'revision':self.revision,'positions_revision':self.positions_revision,'economic_revision':self.economic.revision,'allocation_revision':self.allocation.revision})
+  canonical=self.canonical_money_state();events=digest(canonical['events']);pools=digest(canonical['pools']);cons=digest([(k.to_dict(),v.allocation_key.to_dict(),v.amount,v.purpose.value,v.revision) for k,v in sorted(self.allocation.consumptions.items())]);costs=digest(canonical['opening_costs']);allocations=digest([(k.to_dict(),r.source_deal_tickets,r.amount,r.consumed,r.available,r.residual,r.reconciliation_state.value,r.revision) for k,r in sorted(self.allocation.records.items())]);deals=digest([deal_fingerprint(d) for _,d in sorted(self.economic.deals.items())]);positions=digest([asdict(p) for p in self.managed_positions]);broker=digest(asdict(self.economic.broker));metadata=digest({'identity':asdict(self.economic.identity),'revision':self.revision,'positions_revision':self.positions_revision,'economic_revision':self.economic.revision,'allocation_revision':self.allocation.revision})
   i=self.economic.identity;return MoneyStateVersion(i.account,i.symbol,i.magic,i.cycle,broker,deals,allocations,pools,cons,events,positions,costs,metadata)
  def validate_integrity(self)->None:
   identity=self.economic.identity

@@ -362,3 +362,15 @@ def test_required_owner_wrong_economic_result_cannot_pass():
  for category,owner,expected in catalog.REQUIRED_EXECUTABLE_FIXTURES:
   actual=dict(owner()); key=next(iter(actual)); wrong=dict(actual);wrong[key]=object()
   assert wrong!=expected, category
+
+
+def test_money_state_version_covers_full_fill_history_and_pool_key():
+ i,b,e=base();store=PersistentStore(e,AllocationLedger(i),opening_costs={'P':OpenPositionCost(D('1'),D('-10'))})
+ store.opening_costs['P'].close(D('.5'),D('.5'),1);before=store.money_state_version
+ store.opening_costs['P'].fills[0]=replace(store.opening_costs['P'].fills[0],requested_volume=D('.75'))
+ assert store.money_state_version!=before
+
+def test_money_state_version_covers_event_transition_history():
+ i,b,e=base();key=K();event=EventRecord(key);event.transition(ReconciliationState.PENDING_RECONCILIATION);store=PersistentStore(e,AllocationLedger(i),{key:event});before=store.money_state_version
+ event.history=(replace(event.history[0],terminal_reason='tamper'),)
+ assert store.money_state_version!=before
