@@ -421,3 +421,11 @@ def test_opening_cost_not_double_counted_in_recovery_pl():
  store,snapshot=__import__('stage_3_1_5.corrupted_store_final_close',fromlist=['gate_fixture']).gate_fixture();baseline=evaluate_final_close(snapshot,store,True,True,FinalClosePolicy(D('-1'),D('1'),1)).recovery
  store.opening_costs['P']=OpenPositionCost(D('1'),D('-10'));snapshot=replace(snapshot,money_state_version=store.money_state_version)
  assert evaluate_final_close(snapshot,store,True,True,FinalClosePolicy(D('-1'),D('1'),1)).recovery==baseline
+
+
+def test_fault_adapter_wrapper_derives_evidence_at_callable_boundary():
+ from stage_3_1_5_mutation_oracle import FaultAdapter,FaultReturn,invoke_fault_adapter
+ state={'money':D('1')}
+ def defect(s):before=s['money'];s['money']+=D('2');return FaultReturn(True,before,s['money'])
+ evidence=invoke_fault_adapter(FaultAdapter('A','ledger',defect),state,lambda:dict(state))
+ assert evidence.called and evidence.operation_attempted and evidence.operation_accepted and evidence.persistence_effect and evidence.economic_effect==D('2') and evidence.before_digest!=evidence.after_digest

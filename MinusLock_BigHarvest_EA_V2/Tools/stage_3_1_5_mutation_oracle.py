@@ -14,6 +14,20 @@ class EconomicStateDigest:
 class FaultEvidence:
  adapter_id:str; subsystem:str; called:bool; operation_attempted:bool; operation_accepted:bool; exception:str|None; before_digest:str; after_digest:str; economic_effect:D; persistence_effect:bool
 @dataclass(frozen=True)
+class FaultAdapter:
+ stable_id:str; subsystem:str; implementation:object
+@dataclass(frozen=True)
+class FaultReturn:
+ operation_attempted:bool; economic_before:D; economic_after:D
+def invoke_fault_adapter(adapter:FaultAdapter,input_state,observe):
+ before=_digest(observe());called=False;attempted=False;exception=None;economic_before=D('0');economic_after=D('0')
+ try:
+  called=True;returned=adapter.implementation(input_state);attempted=returned.operation_attempted;economic_before=returned.economic_before;economic_after=returned.economic_after
+ except Exception as exc:
+  exception=f'{type(exc).__name__}:{exc}'
+ after=_digest(observe());effect=economic_after-economic_before;accepted=called and attempted and exception is None and (before!=after or effect!=0)
+ return FaultEvidence(adapter.stable_id,adapter.subsystem,called,attempted,accepted,exception,before,after,effect,before!=after)
+@dataclass(frozen=True)
 class EconomicExecutionResult:
  projected_money:D;realized_cycle_net:D;recovery_pl_close_now:D;source_pool_net:D;allocations:D;consumptions:D;residual:D;digest:EconomicStateDigest;final_close_allowed:bool;reason_codes:tuple[str,...];deal_applications:int;event_applications:int;event_state:str;operation_trace:tuple[str,...];facts:'EconomicFacts';fault_evidence:FaultEvidence|None=None
 @dataclass(frozen=True)
