@@ -396,3 +396,12 @@ def test_same_event_state_revision_different_history_conflicts():
  store,key=_persisted_gate_store();existing=store.events[key];tampered=replace(existing,history=(replace(existing.history[0],terminal_reason='forged'),*existing.history[1:]))
  with pytest.raises(OracleIntegrityError) as exc:store.apply_event(tampered)
  assert exc.value.code is IntegrityCode.EVENT_REPLAY_CONFLICT
+
+@pytest.mark.parametrize('initial_cost', [D('-10'),D('0'),D('10')])
+def test_opening_cost_proportional_formula_and_final_residual(initial_cost):
+ cost=OpenPositionCost(D('1'),initial_cost);cost.close(D('.5'),D('.5'),1);cost.close(D('.5'),D('.5'),2);cost.validate_integrity();assert cost.volume==0 and cost.unallocated_entry_cost==0 and cost.allocated_entry_cost==initial_cost
+
+def test_opening_cost_locally_conserved_but_wrong_distribution_rejected():
+ cost=OpenPositionCost(D('.5'),D('-1'),{1},D('-9'),D('1'),D('-10'),[FillRecord(1,D('.5'),D('.5'),D('1'),D('.5'),D('-9'))],1)
+ with pytest.raises(OracleIntegrityError) as exc:cost.validate_integrity()
+ assert exc.value.code is IntegrityCode.OPENING_COST_ALLOCATION_MISMATCH

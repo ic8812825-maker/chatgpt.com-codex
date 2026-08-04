@@ -267,11 +267,13 @@ class OpenPositionCost:
   require_integrity(self.applied_fill_tickets==set(fill_tickets),IntegrityCode.DUPLICATE_FILL_TICKET)
   require_integrity(self.revision==len(self.fills),IntegrityCode.OPENING_COST_CONSERVATION_FAILURE)
   cursor=self.initial_volume
-  allocated=D('0')
+  allocated=D('0');cost_cursor=self.initial_opening_cost
   for fill in self.fills:
    require_integrity(fill.requested_volume>D('0') and D('0')<fill.actual_volume<=fill.requested_volume and fill.volume_before==cursor and fill.volume_after==cursor-fill.actual_volume,IntegrityCode.OPENING_COST_STATE_INVALID)
-   cursor=fill.volume_after;allocated+=fill.allocated_cost
-  require_integrity(cursor==self.volume and allocated==self.allocated_entry_cost,IntegrityCode.OPENING_COST_CONSERVATION_FAILURE)
+   expected_cost=cost_cursor if fill.actual_volume==fill.volume_before else cost_cursor*fill.actual_volume/fill.volume_before
+   require_integrity(fill.allocated_cost==expected_cost,IntegrityCode.OPENING_COST_ALLOCATION_MISMATCH)
+   cursor=fill.volume_after;allocated+=fill.allocated_cost;cost_cursor-=expected_cost
+  require_integrity(cursor==self.volume and allocated==self.allocated_entry_cost and cost_cursor==self.unallocated_entry_cost,IntegrityCode.OPENING_COST_CONSERVATION_FAILURE)
  def close(self,requested:D,actual:D,ticket:int=1,broker:Broker|None=None)->PartialFillResult:
   before=self.volume; cost=self.unallocated_entry_cost
   if ticket in self.applied_fill_tickets:raise ValueError('duplicate fill')
