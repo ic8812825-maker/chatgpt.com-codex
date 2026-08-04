@@ -20,10 +20,18 @@ class EconomicFacts:
  projected_reference:D;realized_reference:D;eligible_deal_nets:tuple[D,...];source_deal_nets:tuple[D,...];allocation_amounts:tuple[D,...];allocation_residuals:tuple[D,...];allocation_consumed:tuple[D,...];planned_allocation:D;planned_residual:D;event_state_allowed:bool;reconciliation_input:bool;preview_execution:bool;identity_isolated:bool;deal_tickets_unique:bool;transaction_ids_unique:bool;persistence_roundtrip:bool
 
 def _digest(value):return hashlib.sha256(repr(value).encode()).hexdigest()
-def _fault_gate_accept(_reasons):return []
-def _fault_duplicate_event_count(store,event):
- # Test-only faulty adapter records a second application of the same EventKey.
- return 1+int(event.event_id in store.events)
+def _fault_apply_duplicate_event(store,event):
+ log=[event.event_id]
+ try:
+  canonical_applied=store.apply_event(EventRecord(event.event_id,event.state,event.revision,event.history,event.terminal_reason))
+  if not canonical_applied:log.append(event.event_id);store.revision+=1
+ except OracleIntegrityError:
+  # Defective adapter intentionally accepts the operation rejected by canonical storage.
+  log.append(event.event_id);store.revision+=1
+ return tuple(log)
+def _fault_preview_gate(reasons,recovery,reserve):
+ # Same gate decision algorithm, intentionally configured without the preview rule.
+ calculated=tuple(reasons);return GateResult(not calculated,recovery,reserve,D('0'),calculated)
 def _roundtrip_ok(payload):
  try:return payload==PersistentStore.deserialize(payload).serialize()
  except (OracleIntegrityError,ValueError):return False
@@ -56,7 +64,7 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  if x.defect_operation=='RESERVE_FOR_PARTIAL':
   next(iter(allocation.records.values())).consumed+=D('1')
  elif x.defect_operation=='DUPLICATE_EVENT_RESTART':
-  restored=PersistentStore.deserialize(persisted);event_applications=_fault_duplicate_event_count(restored,event)
+  restored=PersistentStore.deserialize(persisted);event_log=_fault_apply_duplicate_event(restored,event);event_applications=len(event_log);store=restored
  elif x.defect_operation=='PARTIAL_FILL_RESIDUAL':
   cost=OpenPositionCost(D('1'),D('-10'));cost.close(D('.5'),D('.4'),1);cost.unallocated_entry_cost=D('0');reported_residual=D('0')
  elif x.defect_operation=='DEPOSIT':realized+=D('100')
@@ -65,8 +73,9 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  elif x.defect_operation=='RESERVE_TWICE':recovery=realized+allocation.available(AllocationType.FINAL_RESERVE)
  elif x.defect_operation=='NEGATIVE_CREDIT':
   reported_residual=D('0')
- elif x.defect_operation=='PREVIEW_BYPASS':reasons=_fault_gate_accept(reasons)
- elif x.defect_operation=='UNRECONCILED_BYPASS':event.state=ReconciliationState.RECONCILED;reasons=_fault_gate_accept(reasons)
+ elif x.defect_operation=='PREVIEW_BYPASS':
+  defective_gate=_fault_preview_gate(reasons,recovery,allocation.available(AllocationType.FINAL_RESERVE));reasons=list(defective_gate.reasons)
+ elif x.defect_operation=='UNRECONCILED_BYPASS':event.state=ReconciliationState.RECONCILED;reasons=[]
  fault_after=_digest((realized,allocation.records,event.state,event_applications,reported_residual,reasons))
  evidence=None
  if x.defect_operation!='NONE':
@@ -74,7 +83,7 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
   trace.append('FAULT_ADAPTER_'+evidence.adapter_id)
  if x.preview and x.defect_operation!='PREVIEW_BYPASS':reasons.append('PREVIEW_NOT_ACTUAL')
  pool_net=next(iter(allocation.source_pools.values())).aggregate_actual_source_net if allocation.source_pools else D('0')
- digest=EconomicStateDigest(_digest([(t,d.net) for t,d in ledger.deals.items()]),_digest([(k,r.amount,r.residual,r.consumed) for k,r in allocation.records.items()]),_digest((event.state,event.revision)),_digest(persisted))
+ persisted=store.serialize();digest=EconomicStateDigest(_digest([(t,d.net) for t,d in ledger.deals.items()]),_digest([(k,r.amount,r.residual,r.consumed) for k,r in allocation.records.items()]),_digest((event.state,event.revision,event_applications,store.revision)),_digest(persisted))
  reference=x if x.defect_operation=='NONE' else EconomicScenarioInput()
  reference_move=((reference.close_price-open_price) if reference.side is PositionSide.BUY else (open_price-reference.close_price))/broker.tick_size;reference_realized=reference_move*(broker.tv_profit if reference_move>=0 else broker.tv_loss)*reference.volume+reference.swap+reference.commission+reference.fee
  projection_volume=reference.volume if x.defect_operation=='FIELD_REQUESTEDVOLUMEUSEDINSTEADOFACTUAL' else x.volume
