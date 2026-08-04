@@ -180,3 +180,7 @@ Verdict 3.1.5.106 был superseded; новый executable oracle блокиру
 ## Седьмая корректирующая приёмка
 
 Verdict 3.1.5.124 superseded. Закрытая schema 7, transition history certificate, полный fill/event/source digest, реальные corrupted-store Final Close probes и семантический FaultEvidence audit прошли независимый fresh clone. Production MQL5 не изменялся; Python proof не разрешает реальную торговлю.
+
+## Восьмая корректирующая приёмка
+
+Deal/Event replay теперь различает идемпотентность и exact conflict; opening-cost ledger проверяет пропорциональную Decimal-формулу и broker grid; reference вычисления отделены от actual oracle; final validator исполняет специализированные owners. Production MQL5 не изменялся.

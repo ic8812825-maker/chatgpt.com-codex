@@ -13,3 +13,15 @@ REAL_TRADING_ALLOWED=NO
 ## Проверка 3.1.5.155
 
 До финального clone статус остаётся `REOPENED_FOR_CORRECTION`. Рабочий clone подтвердил 372 stage pytest, 763 project pytest, replay/opening attacks, causal evidence, source guards, final validator и точный standalone manifest 171/10 без новых failures.
+
+## Условное закрытие 3.1.5.156
+
+Все blocking owners рабочего clone завершились PASS; standalone failure manifest не изменился. Финальный статус подлежит подтверждению отдельным clone уже опубликованного SHA 3.1.5.156.
+
+```text
+STAGE_3_1_5_STATUS=CLOSED
+NEXT_ALLOWED_STAGE=3.1.6
+STAGE_3_1_6_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+REAL_TRADING_ALLOWED=NO
+```
