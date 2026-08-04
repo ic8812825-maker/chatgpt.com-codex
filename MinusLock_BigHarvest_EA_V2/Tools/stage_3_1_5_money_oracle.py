@@ -113,12 +113,30 @@ ALLOWED_TRANSITIONS={
  ReconciliationState.APPLIED:frozenset((ReconciliationState.PERSISTED,ReconciliationState.CONFLICT)),
  ReconciliationState.PERSISTED:frozenset(),ReconciliationState.CONFLICT:frozenset(),ReconciliationState.REJECTED:frozenset()}
 @dataclass
+class TransitionRecord:
+ event_id:EventKey; source:ReconciliationState; target:ReconciliationState; revision:int; terminal_reason:str=''
+@dataclass
 class EventRecord:
- event_id:EventKey; state:ReconciliationState=ReconciliationState.DISCOVERED; revision:int=0
+ event_id:EventKey; state:ReconciliationState=ReconciliationState.DISCOVERED; revision:int=0; history:tuple[TransitionRecord,...]=(); terminal_reason:str=''
+ def __post_init__(self):
+  happy=(ReconciliationState.DISCOVERED,ReconciliationState.PENDING_RECONCILIATION,ReconciliationState.RECONCILED,ReconciliationState.ALLOCATION_PENDING,ReconciliationState.APPLIED,ReconciliationState.PERSISTED)
+  if not self.history and self.state in happy and self.state is not ReconciliationState.DISCOVERED:
+   expected=happy.index(self.state)
+   if self.revision==0:self.revision=expected
+   self.history=tuple(TransitionRecord(self.event_id,happy[i-1],happy[i],i) for i in range(1,expected+1))
  def transition(self,target:ReconciliationState)->bool:
   if target==self.state:return False
   if self.state in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED,ReconciliationState.PERSISTED) or target not in ALLOWED_TRANSITIONS[self.state]: raise ValueError('invalid reconciliation transition')
-  self.state=target; self.revision+=1; return True
+  source=self.state;self.state=target; self.revision+=1
+  reason=target.value if target in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED) else ''
+  self.terminal_reason=reason;self.history=(*self.history,TransitionRecord(self.event_id,source,target,self.revision,reason));return True
+ def validate_history(self):
+  require_integrity(self.revision==len(self.history),IntegrityCode.EVENT_STATE_REVISION_INVALID)
+  previous=ReconciliationState.DISCOVERED
+  for index,item in enumerate(self.history,1):
+   require_integrity(item.event_id==self.event_id and item.source is previous and item.target in ALLOWED_TRANSITIONS[previous] and item.revision==index,IntegrityCode.EVENT_STATE_REVISION_INVALID)
+   previous=item.target
+  require_integrity(previous is self.state and ((self.state in (ReconciliationState.CONFLICT,ReconciliationState.REJECTED))==(bool(self.terminal_reason))),IntegrityCode.EVENT_STATE_REVISION_INVALID)
  @property
  def irreversible_action_allowed(self): return self.state is ReconciliationState.PERSISTED
 @dataclass(frozen=True)
@@ -273,7 +291,7 @@ class PersistentStore:
   for dictionary_key,event in self.events.items():
    require_integrity(dictionary_key==event.event_id,IntegrityCode.EVENT_RECORD_KEY_MISMATCH)
    require_integrity((dictionary_key.account_login,dictionary_key.symbol,dictionary_key.magic,dictionary_key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_EVENT_IDENTITY)
-   require_integrity(event.revision>=0 and not (event.state is ReconciliationState.PERSISTED and event.revision<1),IntegrityCode.EVENT_STATE_REVISION_INVALID)
+   event.validate_history()
   for cost in self.opening_costs.values():cost.validate_integrity()
   for key,r in self.allocation.records.items():
    require_integrity((key.account_login,key.symbol,key.magic,key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_ALLOCATION_IDENTITY)
@@ -296,7 +314,7 @@ class PersistentStore:
   consumptions=[{'key':r.key.to_dict(),'allocation_key':r.allocation_key.to_dict(),'amount':str(r.amount),'purpose':r.purpose.value,'revision':r.revision} for r in self.allocation.consumptions.values()]
   pools=[{'key':p.key.to_dict(),'sources':p.source_deal_tickets,'deal_nets':{str(k):str(v) for k,v in p.deal_nets.items()},'deal_fingerprints':{str(k):v for k,v in p.deal_fingerprints.items()},'allocated':str(p.already_allocated),'residual':str(p.residual),'available':str(p.available),'revision':p.revision} for p in self.allocation.source_pools.values()]
   positions=[{'identity':asdict(p.identity),'identifier':p.identifier,'leg_id':p.leg_id,'role':p.role,'side':p.side.value,'volume':str(p.volume),'open_price':str(p.open_price),'swap':str(p.swap),'exit_commission':str(p.exit_commission),'exit_fee':str(p.exit_fee)} for p in self.managed_positions]
-  data={'schema_version':6,'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost),'initial_volume':str(v.initial_volume),'initial_cost':str(v.initial_opening_cost),'revision':v.revision,'fills':[{'ticket':f.ticket,'requested':str(f.requested_volume),'actual':str(f.actual_volume),'before':str(f.volume_before),'after':str(f.volume_after),'cost':str(f.allocated_cost)} for f in v.fills]} for k,v in self.opening_costs.items()},'revision':self.revision}
+  data={'schema_version':6,'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision,'terminal_reason':v.terminal_reason,'history':[{'event_id':h.event_id.to_dict(),'source':h.source.value,'target':h.target.value,'revision':h.revision,'terminal_reason':h.terminal_reason} for h in v.history]} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost),'initial_volume':str(v.initial_volume),'initial_cost':str(v.initial_opening_cost),'revision':v.revision,'fills':[{'ticket':f.ticket,'requested':str(f.requested_volume),'actual':str(f.actual_volume),'before':str(f.volume_before),'after':str(f.volume_after),'cost':str(f.allocated_cost)} for f in v.fills]} for k,v in self.opening_costs.items()},'revision':self.revision}
   return json.dumps(data,sort_keys=True,separators=(',',':'))
  @classmethod
  def deserialize(cls,payload:str)->'PersistentStore':
@@ -333,7 +351,7 @@ class PersistentStore:
    fingerprints={int(t):v for t,v in q['deal_fingerprints'].items()};pool=ReconciledSourcePool(k,tickets,nets,fingerprints,D(q['allocated']),D(q['residual']),q['revision'])
    if pool.available!=D(q['available']):raise ValueError('corrupted source pool balance')
    allocation.source_pools[tickets]=pool
-  events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated']),D(v.get('initial_volume',v['volume'])),D(v.get('initial_cost',v['cost'])),[FillRecord(f['ticket'],D(f['requested']),D(f['actual']),D(f['before']),D(f['after']),D(f['cost'])) for f in v.get('fills',[])],v.get('revision',0)) for k,v in x['opening_costs'].items()}
+  events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision'],tuple(TransitionRecord(EventKey.from_dict(h['event_id']),ReconciliationState(h['source']),ReconciliationState(h['target']),h['revision'],h['terminal_reason']) for h in q['history']),q['terminal_reason']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated']),D(v.get('initial_volume',v['volume'])),D(v.get('initial_cost',v['cost'])),[FillRecord(f['ticket'],D(f['requested']),D(f['actual']),D(f['before']),D(f['after']),D(f['cost'])) for f in v.get('fills',[])],v.get('revision',0)) for k,v in x['opening_costs'].items()}
   positions=[]
   for q in x.get('managed_positions',[]):
    pi=Identity(**q['identity']); p=Position(pi,q['identifier'],q['leg_id'],q['role'],PositionSide(q['side']),D(q['volume']),D(q['open_price']),D(q['swap']),D(q['exit_commission']),D(q['exit_fee']))
