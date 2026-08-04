@@ -81,7 +81,7 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  evidence=None
  if x.defect_operation!='NONE':
   evidence=FaultEvidence(x.defect_operation,x.defect_operation.split('_')[0],True,True,not fault_exception,fault_exception,fault_before,fault_after,realized-ledger.realized_cycle_net,fault_before!=fault_after)
-  trace.append('FAULT_ADAPTER_'+evidence.adapter_id)
+  if evidence.called:trace.append('FAULT_ADAPTER_'+evidence.adapter_id)
  if x.preview and x.defect_operation!='PREVIEW_BYPASS':reasons.append('PREVIEW_NOT_ACTUAL')
  pool_net=next(iter(allocation.source_pools.values())).aggregate_actual_source_net if allocation.source_pools else D('0')
  persisted=store.serialize();digest=EconomicStateDigest(_digest([(t,d.net) for t,d in ledger.deals.items()]),_digest([(k,r.amount,r.residual,r.consumed) for k,r in allocation.records.items()]),_digest((event.state,event.revision,event_applications,store.revision)),_digest(persisted))
