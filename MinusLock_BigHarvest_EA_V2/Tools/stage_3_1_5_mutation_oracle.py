@@ -17,6 +17,10 @@ class EconomicFacts:
  projected_reference:D;realized_reference:D;eligible_deal_nets:tuple[D,...];source_deal_nets:tuple[D,...];allocation_amounts:tuple[D,...];allocation_residuals:tuple[D,...];allocation_consumed:tuple[D,...];planned_allocation:D;planned_residual:D;event_state_allowed:bool;reconciliation_input:bool;preview_execution:bool;deal_tickets_unique:bool;transaction_ids_unique:bool;persistence_roundtrip:bool
 
 def _digest(value):return hashlib.sha256(repr(value).encode()).hexdigest()
+def _fault_gate_accept(_reasons):return []
+def _fault_duplicate_event_count(store,event):
+ # Test-only faulty adapter records a second application of the same EventKey.
+ return 1+int(event.event_id in store.events)
 def _roundtrip_ok(payload):
  try:return payload==PersistentStore.deserialize(payload).serialize()
  except (OracleIntegrityError,ValueError):return False
@@ -43,7 +47,7 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  if x.defect_operation=='RESERVE_FOR_PARTIAL':
   next(iter(allocation.records.values())).consumed+=D('1')
  elif x.defect_operation=='DUPLICATE_EVENT_RESTART':
-  PersistentStore.deserialize(persisted);event_applications=2
+  restored=PersistentStore.deserialize(persisted);event_applications=_fault_duplicate_event_count(restored,event)
  elif x.defect_operation=='PARTIAL_FILL_RESIDUAL':
   cost=OpenPositionCost(D('1'),D('-10'));cost.close(D('.5'),D('.4'),1);cost.unallocated_entry_cost=D('0');reported_residual=D('0')
  elif x.defect_operation=='DEPOSIT':realized+=D('100')
@@ -52,15 +56,15 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  elif x.defect_operation=='RESERVE_TWICE':recovery=realized+allocation.available(AllocationType.FINAL_RESERVE)
  elif x.defect_operation=='NEGATIVE_CREDIT':
   reported_residual=D('0')
- elif x.defect_operation=='PREVIEW_BYPASS':reasons.clear()
- elif x.defect_operation=='UNRECONCILED_BYPASS':event.state=ReconciliationState.RECONCILED;reasons.clear()
+ elif x.defect_operation=='PREVIEW_BYPASS':reasons=_fault_gate_accept(reasons)
+ elif x.defect_operation=='UNRECONCILED_BYPASS':event.state=ReconciliationState.RECONCILED;reasons=_fault_gate_accept(reasons)
  if x.preview and x.defect_operation!='PREVIEW_BYPASS':reasons.append('PREVIEW_NOT_ACTUAL')
  pool_net=next(iter(allocation.source_pools.values())).aggregate_actual_source_net if allocation.source_pools else D('0')
  digest=EconomicStateDigest(_digest([(t,d.net) for t,d in ledger.deals.items()]),_digest([(k,r.amount,r.residual,r.consumed) for k,r in allocation.records.items()]),_digest((event.state,event.revision)),_digest(persisted))
  reference=x if x.defect_operation=='NONE' else EconomicScenarioInput()
- intended_move=((reference.close_price-open_price) if reference.side is PositionSide.BUY else (open_price-reference.close_price))/broker.tick_size;intended_realized=intended_move*(broker.tv_profit if intended_move>=0 else broker.tv_loss)*reference.volume+reference.swap+reference.commission+reference.fee
+ reference_move=((reference.close_price-open_price) if reference.side is PositionSide.BUY else (open_price-reference.close_price))/broker.tick_size;reference_realized=reference_move*(broker.tv_profit if reference_move>=0 else broker.tv_loss)*reference.volume+reference.swap+reference.commission+reference.fee
  projection_volume=reference.volume if x.defect_operation=='FIELD_REQUESTEDVOLUMEUSEDINSTEADOFACTUAL' else x.volume
- facts=EconomicFacts(projected_profit(x.side,projection_volume,open_price,broker),intended_realized,tuple(d.net for d in ledger.closing_deals()),tuple(p.aggregate_actual_source_net for p in allocation.source_pools.values()),tuple(r.amount for r in allocation.records.values()),tuple(r.residual for r in allocation.records.values()),tuple(r.consumed for r in allocation.records.values()),reference.allocation_amount,reference.residual,event.state is ReconciliationState.RECONCILED,x.reconciled,x.preview,len(ledger.deals)==len(set(ledger.deals)),len({k.transaction_id for k in allocation.consumptions})==len(allocation.consumptions),_roundtrip_ok(persisted))
+ facts=EconomicFacts(projected_profit(x.side,projection_volume,open_price,broker),reference_realized,tuple(d.net for d in ledger.closing_deals()),tuple(p.aggregate_actual_source_net for p in allocation.source_pools.values()),tuple(r.amount for r in allocation.records.values()),tuple(r.residual for r in allocation.records.values()),tuple(r.consumed for r in allocation.records.values()),reference.allocation_amount,reference.residual,event.state is ReconciliationState.RECONCILED,x.reconciled,x.preview,len(ledger.deals)==len(set(ledger.deals)),len({k.transaction_id for k in allocation.consumptions})==len(allocation.consumptions),_roundtrip_ok(persisted))
  return EconomicExecutionResult(projected,realized,recovery,pool_net,allocation.available(AllocationType.FINAL_RESERVE),sum((r.amount for r in allocation.consumptions.values()),D('0')),reported_residual,digest,not reasons,tuple(reasons),applied,event_applications,event.state.value,tuple(trace),facts)
 @dataclass(frozen=True)
 class Mutation: stable_id:str;display_name:str;callable:object

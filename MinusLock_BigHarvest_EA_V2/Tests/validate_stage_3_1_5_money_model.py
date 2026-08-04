@@ -7,6 +7,8 @@ from counter_audit import audit
 from source_guard import guards
 from restart_fixtures import all_restart_probes
 from extended_probes import run_extended_probes,run_restored_state_probes
+from exploit_regressions import run as run_exploit_regressions
+from correlated_attacks import run as run_correlated_attacks
 from stage_3_1_5_mutation_oracle import execute_scenario,evaluate_invariants,run_mutation,MUTATIONS
 
 def validate():
