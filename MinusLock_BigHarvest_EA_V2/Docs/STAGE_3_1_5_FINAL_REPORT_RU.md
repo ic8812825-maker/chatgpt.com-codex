@@ -176,3 +176,7 @@ REAL_TRADING_ALLOWED=NO
 ## Шестая корректирующая приёмка
 
 Verdict 3.1.5.106 был superseded; новый executable oracle блокирует over-allocation, foreign source pools/events, невозможные event revisions, повреждённые opening costs и correlated persistence attacks точными `IntegrityCode`. Независимый fresh clone подтвердил 347 stage и 738 project pytest, causal/source/final owners и неизменный standalone manifest. Production MQL5 не изменялся; реальная торговля запрещена.
+
+## Седьмая корректирующая приёмка
+
+Verdict 3.1.5.124 superseded. Закрытая schema 7, transition history certificate, полный fill/event/source digest, реальные corrupted-store Final Close probes и семантический FaultEvidence audit прошли независимый fresh clone. Production MQL5 не изменялся; Python proof не разрешает реальную торговлю.
