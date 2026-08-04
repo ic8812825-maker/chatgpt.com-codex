@@ -10,6 +10,7 @@ from extended_probes import run_extended_probes,run_restored_state_probes
 from exploit_regressions import run as run_exploit_regressions
 from correlated_attacks import run as run_correlated_attacks
 from corrupted_store_final_close import run as run_corrupted_store_final_close
+from replay_opening_attacks import run as run_replay_opening_attacks
 from causal_negative_controls import run as run_causal_negative_controls
 from stage_3_1_5_mutation_oracle import execute_scenario,evaluate_invariants,run_mutation,MUTATIONS
 
@@ -20,7 +21,7 @@ def validate():
  owners={
  'EVENT_HISTORY_REACHABILITY':lambda:all(r['passed'] for r in exploits if r['name'].startswith('PERSISTED_REVISION_') or r['name'].startswith('RECONCILIATION_HISTORY_')),
  'FILL_TICKET_RECORD_BINDING':lambda:all(r['passed'] for r in exploits if r['name'] in ('FILL_TICKET_SET_MISMATCH','RAW_DUPLICATE_FILL_TICKET','FILL_REVISION_MISMATCH')),
- 'COMPLETE_MONEY_STATE_VERSION':lambda:'canonical_money_state' in inspect.getsource(type(restart[next(iter(restart))]['money_version'])) if False else all(r['passed'] for r in corrupted_gates),
+ 'COMPLETE_MONEY_STATE_VERSION':lambda:all(r['passed'] for r in corrupted_gates),
  'STRICT_PERSISTENCE_SCHEMA':lambda:all(r['passed'] for r in exploits if r['name'] in ('UNKNOWN_TOP_LEVEL_FIELD','UNKNOWN_NESTED_FIELD','DUPLICATE_JSON_OBJECT_KEY')),
  'FINAL_CLOSE_CORRUPTED_STORE_REJECTION':lambda:len(corrupted_gates)>=4 and all(r['passed'] for r in corrupted_gates),
  'REAL_FAULT_ADAPTER_EXECUTION':lambda:all(r.mutated_observables.fault_evidence and r.mutated_observables.fault_evidence.called and r.mutated_observables.fault_evidence.operation_accepted for r in mutations),

@@ -84,7 +84,7 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
   # Test-only faulty allocation adapter persists the rejected over-allocation.
   pool=ReconciledSourcePool(key,(1,),{1:deal.net},{1:deal_fingerprint(deal)},allocation_request,x.residual,1);allocation.source_pools[(1,)]=pool;allocation.records[key]=AllocationRecord(key,(1,),allocation_request,D('0'),x.residual,ReconciliationState.RECONCILED,1);allocation.revision=1;reasons=[]
  store=PersistentStore(ledger,allocation,{key:event});persisted=store.serialize()
- event_applications=1;reported_residual=x.residual;recovery=realized;fault_before=fault_origin;fault_exception=None
+ event_applications=1;reported_residual=x.residual;recovery=realized;fault_before=fault_origin
  if x.defect_operation=='ReserveUsedForPartialFar':
   next(iter(allocation.records.values())).consumed+=D('1')
  elif x.defect_operation=='DuplicateEventAppliedAfterRestart':
