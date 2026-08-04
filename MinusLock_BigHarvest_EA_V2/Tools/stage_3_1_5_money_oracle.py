@@ -323,13 +323,18 @@ class PersistentStore:
   consumptions=[{'key':r.key.to_dict(),'allocation_key':r.allocation_key.to_dict(),'amount':str(r.amount),'purpose':r.purpose.value,'revision':r.revision} for r in self.allocation.consumptions.values()]
   pools=[{'key':p.key.to_dict(),'sources':p.source_deal_tickets,'deal_nets':{str(k):str(v) for k,v in p.deal_nets.items()},'deal_fingerprints':{str(k):v for k,v in p.deal_fingerprints.items()},'allocated':str(p.already_allocated),'residual':str(p.residual),'available':str(p.available),'revision':p.revision} for p in self.allocation.source_pools.values()]
   positions=[{'identity':asdict(p.identity),'identifier':p.identifier,'leg_id':p.leg_id,'role':p.role,'side':p.side.value,'volume':str(p.volume),'open_price':str(p.open_price),'swap':str(p.swap),'exit_commission':str(p.exit_commission),'exit_fee':str(p.exit_fee)} for p in self.managed_positions]
-  data={'schema_version':6,'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision,'terminal_reason':v.terminal_reason,'history':[{'event_id':h.event_id.to_dict(),'source':h.source.value,'target':h.target.value,'revision':h.revision,'terminal_reason':h.terminal_reason} for h in v.history]} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost),'initial_volume':str(v.initial_volume),'initial_cost':str(v.initial_opening_cost),'revision':v.revision,'fills':[{'ticket':f.ticket,'requested':str(f.requested_volume),'actual':str(f.actual_volume),'before':str(f.volume_before),'after':str(f.volume_after),'cost':str(f.allocated_cost)} for f in v.fills]} for k,v in self.opening_costs.items()},'revision':self.revision}
+  data={'schema_version':7,'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision,'terminal_reason':v.terminal_reason,'history':[{'event_id':h.event_id.to_dict(),'source':h.source.value,'target':h.target.value,'revision':h.revision,'terminal_reason':h.terminal_reason} for h in v.history]} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost),'initial_volume':str(v.initial_volume),'initial_cost':str(v.initial_opening_cost),'revision':v.revision,'fills':[{'ticket':f.ticket,'requested':str(f.requested_volume),'actual':str(f.actual_volume),'before':str(f.volume_before),'after':str(f.volume_after),'cost':str(f.allocated_cost)} for f in v.fills]} for k,v in self.opening_costs.items()},'revision':self.revision}
   return json.dumps(data,sort_keys=True,separators=(',',':'))
  @classmethod
  def deserialize(cls,payload:str)->'PersistentStore':
-  x=json.loads(payload)
+  def no_duplicate_object(pairs):
+   out={}
+   for key,value in pairs:
+    require_integrity(key not in out,IntegrityCode.PERSISTENCE_SCHEMA_INVALID,'duplicate JSON key');out[key]=value
+   return out
+  x=json.loads(payload,object_pairs_hook=no_duplicate_object)
   required={'schema_version','identity','broker','deals','allocations','consumptions','source_pools','managed_positions','positions_revision','allocation_revision','events','opening_costs','revision'}
-  require_integrity(isinstance(x,dict) and required<=set(x) and x['schema_version']==6,IntegrityCode.PERSISTENCE_SCHEMA_INVALID)
+  require_integrity(isinstance(x,dict) and required==set(x) and x['schema_version']==7,IntegrityCode.PERSISTENCE_SCHEMA_INVALID)
   def reject_non_finite(value):
    if isinstance(value,dict):
     for nested in value.values():reject_non_finite(nested)
@@ -337,6 +342,20 @@ class PersistentStore:
     for nested in value:reject_non_finite(nested)
    elif isinstance(value,str) and value.lower() in {'nan','infinity','-infinity','inf','-inf'}:raise OracleIntegrityError(IntegrityCode.NON_FINITE_MONEY_VALUE,value)
   reject_non_finite(x)
+  def exact(row,fields):require_integrity(isinstance(row,dict) and set(row)==set(fields),IntegrityCode.PERSISTENCE_SCHEMA_INVALID)
+  event_key_fields=('account_login','symbol','magic','cycle_id','event_type','level','phase','position_identifier','deal_ticket','allocation_type')
+  exact(x['identity'],('account','symbol','magic','cycle'));exact(x['broker'],('bid','ask','tick_size','tv_profit','tv_loss','lot_step','min_lot'))
+  for row in x['deals']:exact(row,('ticket','position_id','entry','deal_type','actual_volume','profit','swap','commission','fee','initial_ignored'))
+  for row in x['allocations']:exact(row,('key','sources','amount','consumed','residual','state','revision'));exact(row['key'],event_key_fields)
+  for row in x['consumptions']:exact(row,('key','allocation_key','amount','purpose','revision'));exact(row['allocation_key'],event_key_fields)
+  for row in x['source_pools']:exact(row,('key','sources','deal_nets','deal_fingerprints','allocated','residual','available','revision'));exact(row['key'],event_key_fields)
+  for row in x['events']:
+   exact(row,('key','state','revision','terminal_reason','history'));exact(row['key'],event_key_fields)
+   for transition in row['history']:exact(transition,('event_id','source','target','revision','terminal_reason'));exact(transition['event_id'],event_key_fields)
+  for row in x['managed_positions']:exact(row,('identity','identifier','leg_id','role','side','volume','open_price','swap','exit_commission','exit_fee'));exact(row['identity'],('account','symbol','magic','cycle'))
+  for value in x['opening_costs'].values():
+   exact(value,('volume','cost','tickets','allocated','initial_volume','initial_cost','revision','fills'))
+   for fill in value['fills']:exact(fill,('ticket','requested','actual','before','after','cost'))
   def unique(rows,key,code):
    seen=set()
    for row in rows:
