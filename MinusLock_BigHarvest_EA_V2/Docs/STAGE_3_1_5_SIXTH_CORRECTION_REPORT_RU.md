@@ -27,3 +27,18 @@ REAL_TRADING_ALLOWED=NO
 Исполняемые проверки подтвердили глобальное сохранение source money, полную identity source pools, Event Store, opening-cost history, fail-closed Final Close, 20 exploit regressions и пять correlated attacks. Собрано и пройдено 347 stage-тестов; проектная коллекция: 738 PASS. Standalone manifest совпал точно: 181 всего, 171 PASS и прежние 10 известных failures, новых failures нет.
 
 До независимого fresh clone статус остаётся `REOPENED_FOR_CORRECTION`.
+
+## Независимая приёмка 3.1.5.124
+
+Второй fresh clone создан непосредственно из GitHub на опубликованном SHA 3.1.5.123. В нём повторены stage/project pytest, exploit и correlated suites, causal audit, source guards, final validator, 181 standalone checks, scope/production audit и `git diff --check`.
+
+```text
+FRESH_CLONE_VERIFICATION=PASS
+STAGE_3_1_5_VALIDATION=PASS
+STAGE_3_1_5_STATUS=CLOSED
+NEXT_ALLOWED_STAGE=3.1.6
+STAGE_3_1_6_STARTED=NO
+AWAITING_USER_APPROVAL=YES
+REAL_TRADING_ALLOWED=NO
+PRODUCTION_MQL5_IMPLEMENTATION=NOT_CHANGED
+```
