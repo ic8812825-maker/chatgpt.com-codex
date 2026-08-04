@@ -293,11 +293,20 @@ class PersistentStore:
   consumptions=[{'key':r.key.to_dict(),'allocation_key':r.allocation_key.to_dict(),'amount':str(r.amount),'purpose':r.purpose.value,'revision':r.revision} for r in self.allocation.consumptions.values()]
   pools=[{'key':p.key.to_dict(),'sources':p.source_deal_tickets,'deal_nets':{str(k):str(v) for k,v in p.deal_nets.items()},'deal_fingerprints':{str(k):v for k,v in p.deal_fingerprints.items()},'allocated':str(p.already_allocated),'residual':str(p.residual),'available':str(p.available),'revision':p.revision} for p in self.allocation.source_pools.values()]
   positions=[{'identity':asdict(p.identity),'identifier':p.identifier,'leg_id':p.leg_id,'role':p.role,'side':p.side.value,'volume':str(p.volume),'open_price':str(p.open_price),'swap':str(p.swap),'exit_commission':str(p.exit_commission),'exit_fee':str(p.exit_fee)} for p in self.managed_positions]
-  data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost),'initial_volume':str(v.initial_volume),'initial_cost':str(v.initial_opening_cost),'revision':v.revision,'fills':[{'ticket':f.ticket,'requested':str(f.requested_volume),'actual':str(f.actual_volume),'before':str(f.volume_before),'after':str(f.volume_after),'cost':str(f.allocated_cost)} for f in v.fills]} for k,v in self.opening_costs.items()},'revision':self.revision}
+  data={'schema_version':6,'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost),'initial_volume':str(v.initial_volume),'initial_cost':str(v.initial_opening_cost),'revision':v.revision,'fills':[{'ticket':f.ticket,'requested':str(f.requested_volume),'actual':str(f.actual_volume),'before':str(f.volume_before),'after':str(f.volume_after),'cost':str(f.allocated_cost)} for f in v.fills]} for k,v in self.opening_costs.items()},'revision':self.revision}
   return json.dumps(data,sort_keys=True,separators=(',',':'))
  @classmethod
  def deserialize(cls,payload:str)->'PersistentStore':
   x=json.loads(payload)
+  required={'schema_version','identity','broker','deals','allocations','consumptions','source_pools','managed_positions','positions_revision','allocation_revision','events','opening_costs','revision'}
+  require_integrity(isinstance(x,dict) and required<=set(x) and x['schema_version']==6,IntegrityCode.PERSISTENCE_SCHEMA_INVALID)
+  def reject_non_finite(value):
+   if isinstance(value,dict):
+    for nested in value.values():reject_non_finite(nested)
+   elif isinstance(value,list):
+    for nested in value:reject_non_finite(nested)
+   elif isinstance(value,str) and value.lower() in {'nan','infinity','-infinity','inf','-inf'}:raise OracleIntegrityError(IntegrityCode.NON_FINITE_MONEY_VALUE,value)
+  reject_non_finite(x)
   def unique(rows,key,code):
    seen=set()
    for row in rows:
