@@ -3,6 +3,7 @@ from dataclasses import dataclass,replace,asdict
 from decimal import Decimal as D
 import hashlib
 from stage_3_1_5_money_oracle import *
+from stage_3_1_5_reference_oracle import ReferenceScenario,REFERENCE_SCENARIO,calculate_reference
 @dataclass(frozen=True)
 class EconomicScenarioInput:
  side:PositionSide=PositionSide.BUY; close_price:D=D('1.1010'); volume:D=D('.10'); commission:D=D('-2'); swap:D=D('-3'); fee:D=D('-1'); spread_extra:D=D('0'); slippage_extra:D=D('0'); entry:DealEntry=DealEntry.OUT; identity:Identity=Identity(1,'EURUSD',7,'C'); duplicate_deal:bool=False; projected_as_realized:bool=False; allocation_amount:D=D('4'); residual:D=D('0'); reconciled:bool=True; preview:bool=False; defect_operation:str='NONE'
@@ -84,10 +85,10 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  if x.preview and x.defect_operation!='PREVIEW_BYPASS':reasons.append('PREVIEW_NOT_ACTUAL')
  pool_net=next(iter(allocation.source_pools.values())).aggregate_actual_source_net if allocation.source_pools else D('0')
  persisted=store.serialize();digest=EconomicStateDigest(_digest([(t,d.net) for t,d in ledger.deals.items()]),_digest([(k,r.amount,r.residual,r.consumed) for k,r in allocation.records.items()]),_digest((event.state,event.revision,event_applications,store.revision)),_digest(persisted))
- reference=x if x.defect_operation=='NONE' else EconomicScenarioInput()
- reference_move=((reference.close_price-open_price) if reference.side is PositionSide.BUY else (open_price-reference.close_price))/broker.tick_size;reference_realized=reference_move*(broker.tv_profit if reference_move>=0 else broker.tv_loss)*reference.volume+reference.swap+reference.commission+reference.fee
- projection_volume=reference.volume if x.defect_operation=='FIELD_REQUESTEDVOLUMEUSEDINSTEADOFACTUAL' else x.volume
- facts=EconomicFacts(projected_profit(x.side,projection_volume,open_price,broker),reference_realized,tuple(d.net for d in ledger.closing_deals()),tuple(p.aggregate_actual_source_net for p in allocation.source_pools.values()),tuple(r.amount for r in allocation.records.values()),tuple(r.residual for r in allocation.records.values()),tuple(r.consumed for r in allocation.records.values()),reference.allocation_amount,reference.residual,event.state is ReconciliationState.RECONCILED,x.reconciled,x.preview,all(d.identity==ident for d in ledger.deals.values()),len(ledger.deals)==len(set(ledger.deals)),len({k.transaction_id for k in allocation.consumptions})==len(allocation.consumptions),_roundtrip_ok(persisted))
+ reference=ReferenceScenario(x.side,x.close_price,x.volume,x.commission,x.swap,x.fee,x.allocation_amount,x.residual,x.reconciled,x.preview) if x.defect_operation=='NONE' else REFERENCE_SCENARIO
+ expected=calculate_reference(reference,broker,open_price)
+ projected_reference=expected['projected'] if x.defect_operation=='FIELD_REQUESTEDVOLUMEUSEDINSTEADOFACTUAL' else projected_profit(x.side,x.volume,open_price,broker)
+ facts=EconomicFacts(projected_reference,expected['realized'],tuple(d.net for d in ledger.closing_deals()),tuple(p.aggregate_actual_source_net for p in allocation.source_pools.values()),tuple(r.amount for r in allocation.records.values()),tuple(r.residual for r in allocation.records.values()),tuple(r.consumed for r in allocation.records.values()),expected['allocation'],expected['residual'],event.state is ReconciliationState.RECONCILED,x.reconciled,x.preview,all(d.identity==ident for d in ledger.deals.values()),len(ledger.deals)==len(set(ledger.deals)),len({k.transaction_id for k in allocation.consumptions})==len(allocation.consumptions),_roundtrip_ok(persisted))
  return EconomicExecutionResult(projected,realized,recovery,pool_net,allocation.available(AllocationType.FINAL_RESERVE),sum((r.amount for r in allocation.consumptions.values()),D('0')),reported_residual,digest,not reasons,tuple(reasons),applied,event_applications,event.state.value,tuple(trace),facts,evidence)
 @dataclass(frozen=True)
 class Mutation: stable_id:str;display_name:str;callable:object
