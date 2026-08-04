@@ -338,3 +338,10 @@ def test_event_replay_identical_noop_conflict_exact_code():
  store,ek=_persisted_gate_store();existing=store.events[ek];assert not store.apply_event(EventRecord(ek,existing.state,existing.revision))
  with pytest.raises(OracleIntegrityError) as exc:store.apply_event(EventRecord(ek,ReconciliationState.DISCOVERED,0))
  assert exc.value.code is IntegrityCode.DUPLICATE_EVENT_KEY
+
+
+def test_sixth_correction_exploit_regressions():
+ from stage_3_1_5.exploit_regressions import run
+ results=run()
+ assert len(results)>=20
+ assert all(item['passed'] and item['target_guard_reached'] and item['expected']==item['actual'] for item in results)
