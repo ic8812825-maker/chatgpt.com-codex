@@ -58,6 +58,11 @@ def projected_profit(side:PositionSide,lot:D,open_price:D,broker:Broker,slippage
  ticks=movement/broker.tick_size
  return ticks*(broker.tv_profit if ticks>=0 else broker.tv_loss)*lot
 def event_identity_projection(k:EventKey):return (k.account_login,k.symbol,k.magic,k.cycle_id,k.event_type,k.level,k.phase,k.position_identifier,k.deal_ticket)
+@dataclass(frozen=True)
+class EventIdentity:
+ account_login:int; symbol:str; magic:int; cycle_id:str; event_type:str; level:int; phase:str; position_identifier:str; deal_ticket:int
+ @classmethod
+ def from_key(cls,key:EventKey):return cls(*event_identity_projection(key))
 @dataclass(frozen=True,order=True)
 class ConsumptionKey:
  account_login:int; symbol:str; magic:int; cycle_id:str; consumption_event_type:str; level:int; phase:str; position_identifier:str; transaction_id:str; purpose:ConsumptionPurpose; parent_allocation_key:EventKey
@@ -181,10 +186,16 @@ class AllocationLedger:
   if pool.aggregate_actual_source_net<=0 or amount+residual>pool.available:raise ValueError('aggregate conservation')
   self.revision+=1;pool.already_allocated+=amount;pool.residual+=residual;pool.revision=self.revision;self.records[key]=AllocationRecord(key,source,amount,D('0'),residual,event.state,self.revision);return True
  def available(self,kind:AllocationType)->D:return sum((r.available for r in self.records.values() if r.key.allocation_type is kind),D('0'))
- def validate_source_pools(self,economic:EconomicLedger)->None:
+ def validate_source_pools(self,economic:EconomicLedger,events:dict[EventKey,EventRecord]|None=None)->None:
   seen=set()
   for tickets,pool in self.source_pools.items():
    pool.validate_conservation()
+   identity=(self.identity.account,self.identity.symbol,self.identity.magic,self.identity.cycle)
+   require_integrity((pool.key.account_login,pool.key.symbol,pool.key.magic,pool.key.cycle_id)==identity,IntegrityCode.SOURCE_POOL_FOREIGN_IDENTITY)
+   require_integrity(tuple(sorted(pool.source_deal_tickets))==tickets and set(tickets)==set(pool.deal_nets)==set(pool.deal_fingerprints),IntegrityCode.SOURCE_POOL_KEY_MISMATCH)
+   if events is not None:
+    parent=events.get(pool.key)
+    require_integrity(parent is not None and parent.event_id==pool.key,IntegrityCode.SOURCE_POOL_EVENT_MISMATCH)
    if seen.intersection(tickets):raise ValueError('overlapping source pools')
    seen.update(tickets)
    if any(t not in economic.deals or economic.deals[t].net!=pool.deal_nets.get(t) or deal_fingerprint(economic.deals[t])!=pool.deal_fingerprints.get(t) for t in tickets):raise ValueError('source pool history mismatch')
@@ -252,7 +263,7 @@ class PersistentStore:
    routes={AllocationType.FINAL_RESERVE:(ConsumptionPurpose.FINAL_FAR_CLOSE,'FINAL_FAR_CLOSE'),AllocationType.PARTIAL_FAR:(ConsumptionPurpose.PARTIAL_FAR,'PARTIAL_FAR'),AllocationType.CARRY:(ConsumptionPurpose.CARRY,'CARRY'),AllocationType.TRANSITION:(ConsumptionPurpose.TRANSITION,'TRANSITION')};allocation=self.allocation.records[c.allocation_key];expected=routes.get(allocation.key.allocation_type)
    require_integrity(route and expected==(key.purpose,key.consumption_event_type) and c.purpose is key.purpose and c.amount>0,IntegrityCode.CONSUMPTION_ROUTE_MISMATCH)
    prior=transactions.get(key.transaction_id);require_integrity(prior is None or prior==c,IntegrityCode.CONSUMPTION_TRANSACTION_CONFLICT);transactions[key.transaction_id]=c
-  self.allocation.validate_source_pools(self.economic)
+  self.allocation.validate_source_pools(self.economic,self.events)
  def serialize(self)->str:
   deals=[{'ticket':x.ticket,'position_id':x.position_id,'entry':x.entry.value,'deal_type':x.deal_type.value,'actual_volume':str(x.actual_volume),'profit':str(x.profit),'swap':str(x.swap),'commission':str(x.commission),'fee':str(x.fee),'initial_ignored':x.initial_ignored} for x in self.economic.deals.values()]
   allocations=[{'key':r.key.to_dict(),'sources':r.source_deal_tickets,'amount':str(r.amount),'consumed':str(r.consumed),'residual':str(r.residual),'state':r.reconciliation_state.value,'revision':r.revision} for r in self.allocation.records.values()]
