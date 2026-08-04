@@ -322,7 +322,7 @@ def test_full_fill_calls_close_with_full_volume(monkeypatch):
  def spy(self,requested,actual,*a,**k):seen.append((self.volume,requested,actual));return original(self,requested,actual,*a,**k)
  monkeypatch.setattr(OpenPositionCost,'close',spy);result=catalog._partial(full=True);assert seen==[(D('1'),D('1'),D('1'))] and result['volume']==0
 
-@pytest.mark.parametrize('case',[EconomicScenarioInput(commission=D('-1'),intended_commission=D('-1')),EconomicScenarioInput(swap=D('-1'),intended_swap=D('-1')),EconomicScenarioInput(volume=D('.2'),intended_volume=D('.2')),EconomicScenarioInput(side=PositionSide.SELL,close_price=D('1.0980'),intended_close_price=D('1.0980')),EconomicScenarioInput(close_price=D('1.0980'),intended_close_price=D('1.0980'),allocation_amount=D('0'),intended_allocation=D('0'))])
+@pytest.mark.parametrize('case',[EconomicScenarioInput(commission=D('-1')),EconomicScenarioInput(swap=D('-1')),EconomicScenarioInput(volume=D('.2')),EconomicScenarioInput(side=PositionSide.SELL,close_price=D('1.0980')),EconomicScenarioInput(close_price=D('1.0980'),allocation_amount=D('0'))])
 def test_universal_invariants_accept_valid_variants(case):assert not evaluate_invariants(execute_scenario(case))
 def test_invariant_evaluator_has_no_fixed_clean_vector():
  import inspect;source=inspect.getsource(evaluate_invariants);assert "==D('10')" not in source and "==D('14')" not in source and 'facts' in source
