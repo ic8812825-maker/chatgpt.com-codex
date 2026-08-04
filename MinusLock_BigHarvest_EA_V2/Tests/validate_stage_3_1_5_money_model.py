@@ -12,10 +12,17 @@ from correlated_attacks import run as run_correlated_attacks
 from stage_3_1_5_mutation_oracle import execute_scenario,evaluate_invariants,run_mutation,MUTATIONS
 
 def validate():
- scenarios=run_positive_scenarios();mutations,causal,material=audit();extended=run_extended_probes();restored_probes=run_restored_state_probes();restart=all_restart_probes();pytest_run=subprocess.run([sys.executable,'-m','pytest','-q',str(ROOT/'Tests'/'test_stage_3_1_5_money_model.py')],capture_output=True,text=True);required={r.category:r for r in scenarios if r.category in REQUIRED_SCENARIO_CATEGORIES}
+ scenarios=run_positive_scenarios();mutations,causal,material=audit();extended=run_extended_probes();restored_probes=run_restored_state_probes();restart=all_restart_probes();exploits=run_exploit_regressions();correlated=run_correlated_attacks();pytest_run=subprocess.run([sys.executable,'-m','pytest','-q',str(ROOT/'Tests'/'test_stage_3_1_5_money_model.py')],capture_output=True,text=True);required={r.category:r for r in scenarios if r.category in REQUIRED_SCENARIO_CATEGORIES}
  clean=execute_scenario();mutation_computed=all(not cb and mb==evaluate_invariants(m) for name in MUTATIONS for c,m,cb,mb in (run_mutation(name),))
  nonterminal=[r for s,r in restart.items() if not r['terminal_safe']]
  owners={
+ 'EXPLOIT_REGRESSION_SUITE':lambda:len(exploits)>=20 and all(r['passed'] and r['target_guard_reached'] and r['actual']==r['expected'] for r in exploits),
+ 'CORRELATED_PERSISTENCE_ATTACKS':lambda:len(correlated)>=5 and all(correlated),
+ 'GLOBAL_MONEY_CONSERVATION':lambda:all(r['passed'] for r in exploits if r['name'] in ('OVER_ALLOCATION','CORRELATED_OVER_ALLOCATION')),
+ 'SOURCE_POOL_IDENTITY_ISOLATION':lambda:all(r['passed'] for r in exploits if r['name'].startswith('POOL_')),
+ 'EVENT_STORE_INTEGRITY':lambda:all(r['passed'] for r in exploits if r['name'] in ('FOREIGN_EVENT','IMPOSSIBLE_EVENT')),
+ 'OPENING_COST_PERSISTENCE_INTEGRITY':lambda:all(r['passed'] for r in exploits if r['name'] in ('NEGATIVE_OPENING_VOLUME','DUPLICATE_FILL','ALLOCATED_WITHOUT_FILL')),
+ 'FINAL_CLOSE_FAIL_CLOSED':lambda:all(r['passed'] for r in exploits),
  'SOURCE_POOL_RESTORE_ELIGIBILITY':lambda:extended['out_to_in_tamper'].passed and extended['opening_in_allocation'].passed,
  'PERSISTENCE_REFERENTIAL_INTEGRITY':lambda:extended['source_reuse_after_restart'].passed and extended['partial_fill_restart'].passed,
  'CONSUMPTION_FULL_EVENT_OWNERSHIP':lambda:extended['unrelated_consumption'].passed,
@@ -37,7 +44,7 @@ def validate():
  'HISTORY_REPLAY_IDEMPOTENCY':lambda:all(r['duplicate']==0 and not r['duplicate_consume'] for r in nonterminal),
  'SOURCE_GUARDS':lambda:not any(guards().values()),
  'PYTEST_INTEGRATION':lambda:pytest_run.returncode==0}
- results={name:owner() for name,owner in owners.items()};blockers=sorted(k for k,v in results.items() if not v);return scenarios,mutations,causal,material,guards(),restart,{**extended,**restored_probes},pytest_run,results,blockers
+ results={name:bool(owner()) for name,owner in owners.items()};blockers=sorted(k for k,v in results.items() if not v);return scenarios,mutations,causal,material,guards(),restart,{**extended,**restored_probes},pytest_run,results,blockers
 
 def main():
  s,m,c,material,g,r,e,p,status,b=validate();print(f'PYTEST_EXECUTED={p.returncode==0}');print(f'POSITIVE_SCENARIOS_TOTAL={len(s)}');print(f'UNIQUE_FINGERPRINTS={len({x.fingerprint for x in s})}');print(f'MISSING_SCENARIO_CATEGORIES={len(missing_scenario_categories(s))}');print(f'MUTATIONS_TOTAL={len(m)}');print(f'EXTENDED_COUNTEREXAMPLES={len(e)}');[print(f'{k}={"PASS" if v else "FAIL"}') for k,v in status.items()];print('BLOCKING_COUNTERS='+('NONE' if not b else ','.join(b)));print('STAGE_3_1_5_VALIDATION='+('PASS' if not b else 'FAIL'));raise SystemExit(bool(b))
