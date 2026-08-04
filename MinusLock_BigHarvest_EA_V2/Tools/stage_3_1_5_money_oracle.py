@@ -19,6 +19,7 @@ class IntegrityCode(str,Enum):
  SOURCE_POOL_FOREIGN_IDENTITY="SOURCE_POOL_FOREIGN_IDENTITY"; SOURCE_POOL_EVENT_MISMATCH="SOURCE_POOL_EVENT_MISMATCH"; SOURCE_POOL_CONSERVATION_FAILURE="SOURCE_POOL_CONSERVATION_FAILURE"; SOURCE_POOL_KEY_MISMATCH="SOURCE_POOL_KEY_MISMATCH"
  FOREIGN_EVENT_IDENTITY="FOREIGN_EVENT_IDENTITY"; EVENT_RECORD_KEY_MISMATCH="EVENT_RECORD_KEY_MISMATCH"; EVENT_STATE_REVISION_INVALID="EVENT_STATE_REVISION_INVALID"; ALLOCATION_EVENT_ROUTE_MISMATCH="ALLOCATION_EVENT_ROUTE_MISMATCH"
  OPENING_COST_STATE_INVALID="OPENING_COST_STATE_INVALID"; OPENING_COST_CONSERVATION_FAILURE="OPENING_COST_CONSERVATION_FAILURE"; DUPLICATE_FILL_TICKET="DUPLICATE_FILL_TICKET"; NON_FINITE_MONEY_VALUE="NON_FINITE_MONEY_VALUE"; PERSISTENCE_SCHEMA_INVALID="PERSISTENCE_SCHEMA_INVALID"
+ DEAL_REPLAY_CONFLICT="DEAL_REPLAY_CONFLICT"; EVENT_REPLAY_CONFLICT="EVENT_REPLAY_CONFLICT"; OPENING_COST_ALLOCATION_MISMATCH="OPENING_COST_ALLOCATION_MISMATCH"; FILL_GRID_INVALID="FILL_GRID_INVALID"; FILL_TYPE_INVALID="FILL_TYPE_INVALID"
 class OracleIntegrityError(ValueError):
  def __init__(self,code:IntegrityCode,detail:str=''):self.code=code;super().__init__(f'{code.value}:{detail}')
 def require_integrity(ok:bool,code:IntegrityCode,detail:str=''):
@@ -156,8 +157,11 @@ class EconomicLedger:
  identity:Identity; broker:Broker; deals:dict[int,Deal]=field(default_factory=dict); revision:int=0
  def apply(self,deal:Deal)->bool:
   deal.validate(self.broker)
+  existing=self.deals.get(deal.ticket)
+  if existing is not None:
+   if deal_fingerprint(existing)==deal_fingerprint(deal):return False
+   raise OracleIntegrityError(IntegrityCode.DEAL_REPLAY_CONFLICT,str(deal.ticket))
   if deal.identity!=self.identity or deal.deal_type not in MANAGED_DEAL_TYPES or deal.initial_ignored:return False
-  if deal.ticket in self.deals:return False
   self.deals[deal.ticket]=deal;self.revision+=1;return True
  def replay(self,history:Iterable[Deal])->int:return sum(self.apply(x) for x in history)
  @property

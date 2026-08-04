@@ -384,3 +384,9 @@ def test_final_close_rejects_in_memory_corruption_with_fresh_version():
 def test_targeted_negative_causal_controls_are_effective_and_non_vacuous():
  from stage_3_1_5.causal_negative_controls import run
  result=run();assert result['MISSING_CAUSAL_RULES']==result['INEFFECTIVE_CAUSAL_RULES']==result['VACUOUS_CAUSAL_RULES']==0
+
+@pytest.mark.parametrize('field,value',[('profit',D('6')),('swap',D('1')),('commission',D('-1')),('fee',D('-1')),('actual_volume',D('.02')),('entry',DealEntry.INOUT),('deal_type',DealType.SELL),('position_id','Q'),('identity',Identity(9,'X',2,'C')),('identity',Identity(1,'Y',2,'C')),('identity',Identity(1,'X',9,'C')),('identity',Identity(1,'X',2,'Z'))])
+def test_altered_deal_replay_conflicts_without_ledger_change(field,value):
+ i,b,e=base();original=e.deals[1];revision=e.revision;money=e.realized_cycle_net
+ with pytest.raises(OracleIntegrityError) as exc:e.apply(replace(original,**{field:value}))
+ assert exc.value.code is IntegrityCode.DEAL_REPLAY_CONFLICT;assert e.revision==revision;assert e.realized_cycle_net==money;assert e.deals[1]==original
