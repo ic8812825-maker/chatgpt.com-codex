@@ -415,3 +415,9 @@ def test_fill_history_broker_grid_and_types():
  cost=OpenPositionCost(D('1'),D('-10'),revision=True)
  with pytest.raises(OracleIntegrityError) as exc:cost.validate_integrity(b)
  assert exc.value.code is IntegrityCode.FILL_TYPE_INVALID
+
+
+def test_opening_cost_not_double_counted_in_recovery_pl():
+ store,snapshot=__import__('stage_3_1_5.corrupted_store_final_close',fromlist=['gate_fixture']).gate_fixture();baseline=evaluate_final_close(snapshot,store,True,True,FinalClosePolicy(D('-1'),D('1'),1)).recovery
+ store.opening_costs['P']=OpenPositionCost(D('1'),D('-10'));snapshot=replace(snapshot,money_state_version=store.money_state_version)
+ assert evaluate_final_close(snapshot,store,True,True,FinalClosePolicy(D('-1'),D('1'),1)).recovery==baseline

@@ -22,6 +22,8 @@ def run():
  check('IMPOSSIBLE_EVENT_HISTORY',lambda s:setattr(next(iter(s.events.values())),'history',next(iter(s.events.values())).history[:-1]),IntegrityCode.EVENT_STATE_REVISION_INVALID)
  def fill_mismatch(s):s.opening_costs['P']=OpenPositionCost(D('.5'),D('-5'),{999},D('-5'),D('1'),D('-10'),[FillRecord(1,D('.5'),D('.5'),D('1'),D('.5'),D('-5'))],1)
  check('FILL_TICKET_RECORD_MISMATCH',fill_mismatch,IntegrityCode.DUPLICATE_FILL_TICKET)
+ def distorted_cost(s):s.opening_costs['P']=OpenPositionCost(D('.5'),D('-1'),{1},D('-9'),D('1'),D('-10'),[FillRecord(1,D('.5'),D('.5'),D('1'),D('.5'),D('-9'))],1)
+ check('OPENING_COST_PROPORTIONAL_DISTORTION',distorted_cost,IntegrityCode.OPENING_COST_ALLOCATION_MISMATCH)
  def pool_over(s):p=next(iter(s.allocation.source_pools.values()));p.already_allocated=D('10')
  check('CORRELATED_SOURCE_OVERALLOCATION',pool_over,IntegrityCode.SOURCE_POOL_CONSERVATION_FAILURE)
  def foreign_pool(s):p=next(iter(s.allocation.source_pools.values()));p.key=replace(p.key,symbol='GBPUSD')
