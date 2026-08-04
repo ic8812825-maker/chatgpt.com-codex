@@ -374,3 +374,8 @@ def test_money_state_version_covers_event_transition_history():
  i,b,e=base();key=K();event=EventRecord(key);event.transition(ReconciliationState.PENDING_RECONCILIATION);store=PersistentStore(e,AllocationLedger(i),{key:event});before=store.money_state_version
  event.history=(replace(event.history[0],terminal_reason='tamper'),)
  assert store.money_state_version!=before
+
+
+def test_final_close_rejects_in_memory_corruption_with_fresh_version():
+ from stage_3_1_5.corrupted_store_final_close import run
+ assert all(probe['passed'] for probe in run())
