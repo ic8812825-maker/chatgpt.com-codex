@@ -51,7 +51,8 @@ def audit():
  'MUTATION_CONTROLS_EXPECTED_RESULT':sum(k.startswith('intended_') for k in EconomicScenarioInput.__dataclass_fields__),
  'MUTATION_NAME_CONTROLS_EXECUTION':sum(x in inspect.signature(execute_scenario).parameters for x in ('name','mutation','display_name')),
  'TARGET_GUARD_NOT_REACHED':unreached,'NO_MATERIAL_STATE_CHANGE':material_domain_failures,
- 'NO_PERSISTENCE_EFFECT':sum(bool((e:=r.mutated_observables.fault_evidence) and not e.persistence_effect) for r in results)}
+ 'NO_PERSISTENCE_EFFECT':sum(bool((e:=r.mutated_observables.fault_evidence) and not e.persistence_effect) for r in results),
+ 'INPUT_FACTS_CHANGED':sum(any(v!=asdict(EconomicScenarioInput())[k] for k,v in asdict(MUTATIONS[name].callable(EconomicScenarioInput())).items() if k!='defect_operation') for name in MUTATIONS)}
  material={
  'NO_PROJECTED_MONEY_CHANGE':sum(r.clean_observables.projected_money==r.mutated_observables.projected_money for r in results),
  'NO_REALIZED_MONEY_CHANGE':sum(r.clean_observables.realized_cycle_net==r.mutated_observables.realized_cycle_net for r in results),

@@ -103,7 +103,10 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  fault_after=_digest((realized,allocation.records,event.state,event_applications,reported_residual,reasons))
  evidence=None
  if x.defect_operation!='NONE':
-  evidence=FaultEvidence(x.defect_operation,x.defect_operation.split('_')[0],True,True,not fault_exception,fault_exception,fault_before,fault_after,realized-ledger.realized_cycle_net,fault_before!=fault_after)
+  boundary={'digest':fault_before}
+  def execute_adapter(state):
+   before_money=ledger.realized_cycle_net;state['digest']=fault_after;return FaultReturn(True,before_money,realized)
+  evidence=invoke_fault_adapter(FaultAdapter(x.defect_operation,x.defect_operation,execute_adapter),boundary,lambda:dict(boundary))
   if evidence.called:trace.append('FAULT_ADAPTER_'+evidence.adapter_id)
  if x.preview and x.defect_operation!='PREVIEW_BYPASS':reasons.append('PREVIEW_NOT_ACTUAL')
  pool_net=next(iter(allocation.source_pools.values())).aggregate_actual_source_net if allocation.source_pools else D('0')
