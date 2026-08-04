@@ -258,7 +258,10 @@ class OpenPositionCost:
  def validate_integrity(self):
   require_integrity(self.initial_volume is not None and self.initial_volume>D('0') and D('0')<=self.volume<=self.initial_volume,IntegrityCode.OPENING_COST_STATE_INVALID)
   require_integrity(self.initial_opening_cost==self.allocated_entry_cost+self.unallocated_entry_cost,IntegrityCode.OPENING_COST_CONSERVATION_FAILURE)
-  require_integrity(len(self.applied_fill_tickets)==len(self.fills)==len({f.ticket for f in self.fills}),IntegrityCode.DUPLICATE_FILL_TICKET)
+  fill_tickets=[f.ticket for f in self.fills]
+  require_integrity(len(fill_tickets)==len(set(fill_tickets)),IntegrityCode.DUPLICATE_FILL_TICKET)
+  require_integrity(self.applied_fill_tickets==set(fill_tickets),IntegrityCode.DUPLICATE_FILL_TICKET)
+  require_integrity(self.revision==len(self.fills),IntegrityCode.OPENING_COST_CONSERVATION_FAILURE)
   cursor=self.initial_volume
   allocated=D('0')
   for fill in self.fills:
@@ -351,6 +354,8 @@ class PersistentStore:
    fingerprints={int(t):v for t,v in q['deal_fingerprints'].items()};pool=ReconciledSourcePool(k,tickets,nets,fingerprints,D(q['allocated']),D(q['residual']),q['revision'])
    if pool.available!=D(q['available']):raise ValueError('corrupted source pool balance')
    allocation.source_pools[tickets]=pool
+  for value in x['opening_costs'].values():
+   require_integrity(len(value['tickets'])==len(set(value['tickets'])),IntegrityCode.DUPLICATE_FILL_TICKET)
   events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision'],tuple(TransitionRecord(EventKey.from_dict(h['event_id']),ReconciliationState(h['source']),ReconciliationState(h['target']),h['revision'],h['terminal_reason']) for h in q['history']),q['terminal_reason']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated']),D(v.get('initial_volume',v['volume'])),D(v.get('initial_cost',v['cost'])),[FillRecord(f['ticket'],D(f['requested']),D(f['actual']),D(f['before']),D(f['after']),D(f['cost'])) for f in v.get('fills',[])],v.get('revision',0)) for k,v in x['opening_costs'].items()}
   positions=[]
   for q in x.get('managed_positions',[]):
