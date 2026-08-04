@@ -59,38 +59,47 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  trade_money=movement*(broker.tv_profit if movement>=0 else broker.tv_loss)*x.volume-x.spread_extra-x.slippage_extra
  deal=Deal(x.identity,1,'P',x.entry,DealType.BUY if x.side is PositionSide.BUY else DealType.SELL,x.volume,trade_money,x.swap,x.commission,x.fee)
  applied=int(ledger.apply(deal))
- if not applied and x.defect_operation in {'FIELD_FOREIGNSYMBOLINCLUDED','FIELD_FOREIGNMAGICINCLUDED','FIELD_FOREIGNCYCLEINCLUDED'}:
-  # Test-only faulty identity adapter intentionally accepts the foreign deal.
-  ledger.deals[deal.ticket]=deal;ledger.revision+=1;applied=1
- realized=projected if x.projected_as_realized else ledger.realized_cycle_net
- if x.duplicate_deal:
+ if x.defect_operation in {'ForeignSymbolIncluded','ForeignMagicIncluded','ForeignCycleIncluded'}:
+  foreign_identity={'ForeignSymbolIncluded':Identity(1,'GBPUSD',7,'C'),'ForeignMagicIncluded':Identity(1,'EURUSD',8,'C'),'ForeignCycleIncluded':Identity(1,'EURUSD',7,'OTHER')}[x.defect_operation]
+  foreign=replace(deal,identity=foreign_identity,ticket=2);ledger.deals[foreign.ticket]=foreign;ledger.revision+=1;applied+=1
+ realized=ledger.realized_cycle_net
+ if x.defect_operation in {'BuyCloseUsesAsk','SellCloseUsesBid'}:realized-=D('8')
+ elif x.defect_operation in {'SpreadDoubleCounted','SlippageDoubleCounted'}:realized-=D('2')
+ elif x.defect_operation=='CommissionOmitted':realized-=deal.commission
+ elif x.defect_operation=='OpeningCommissionOmitted':realized+=D('1')
+ elif x.defect_operation=='SwapSignInverted':realized-=D('2')*deal.swap
+ elif x.defect_operation=='FeeOmitted':realized-=deal.fee
+ elif x.defect_operation=='ProjectedMoneyCreditedAsRealized':realized=projected
+ elif x.defect_operation=='RequestedVolumeUsedInsteadOfActual':realized*=D('2')
+ if x.defect_operation=='DuplicateDealApplied':
   # Fault adapter intentionally bypasses exactly-once storage and executes the same ticket again.
   applied+=int(deal.ticket in ledger.deals);realized+=deal.net
- key=EventKey(1,'EURUSD',7,'C','HARVEST',1,'POST','P',1,AllocationType.FINAL_RESERVE);event=EventRecord(key,ReconciliationState.RECONCILED if x.reconciled else ReconciliationState.DISCOVERED);allocation=AllocationLedger(ident);reasons=[]
- if x.reconciled and (x.allocation_amount or x.residual):
-  try:allocation.allocate(event,ledger,key,x.allocation_amount,[1],x.residual)
+ key=EventKey(1,'EURUSD',7,'C','HARVEST',1,'POST','P',1,AllocationType.FINAL_RESERVE);scenario_reconciled=x.defect_operation!='UnreconciledDealAllowsNextState';event=EventRecord(key,ReconciliationState.RECONCILED if scenario_reconciled else ReconciliationState.DISCOVERED);allocation=AllocationLedger(ident);reasons=[]
+ if scenario_reconciled and (x.allocation_amount or x.residual):
+  allocation_request=D('99') if x.defect_operation=='AllocationDoesNotConserveMoney' else x.allocation_amount
+  try:allocation.allocate(event,ledger,key,allocation_request,[1],x.residual)
   except ValueError as exc:reasons.append(type(exc).__name__)
  else:reasons.append('UNRECONCILED')
- if x.defect_operation=='FIELD_ALLOCATIONDOESNOTCONSERVEMONEY' and key not in allocation.records:
+ if x.defect_operation=='AllocationDoesNotConserveMoney' and key not in allocation.records:
   # Test-only faulty allocation adapter persists the rejected over-allocation.
-  pool=ReconciledSourcePool(key,(1,),{1:deal.net},{1:deal_fingerprint(deal)},x.allocation_amount,x.residual,1);allocation.source_pools[(1,)]=pool;allocation.records[key]=AllocationRecord(key,(1,),x.allocation_amount,D('0'),x.residual,ReconciliationState.RECONCILED,1);allocation.revision=1;reasons=[]
+  pool=ReconciledSourcePool(key,(1,),{1:deal.net},{1:deal_fingerprint(deal)},allocation_request,x.residual,1);allocation.source_pools[(1,)]=pool;allocation.records[key]=AllocationRecord(key,(1,),allocation_request,D('0'),x.residual,ReconciliationState.RECONCILED,1);allocation.revision=1;reasons=[]
  store=PersistentStore(ledger,allocation,{key:event});persisted=store.serialize()
  event_applications=1;reported_residual=x.residual;recovery=realized;fault_before=fault_origin;fault_exception=None
- if x.defect_operation=='RESERVE_FOR_PARTIAL':
+ if x.defect_operation=='ReserveUsedForPartialFar':
   next(iter(allocation.records.values())).consumed+=D('1')
- elif x.defect_operation=='DUPLICATE_EVENT_RESTART':
+ elif x.defect_operation=='DuplicateEventAppliedAfterRestart':
   restored=PersistentStore.deserialize(persisted);event_log=_fault_apply_duplicate_event(restored,event);event_applications=len(event_log);store=restored
- elif x.defect_operation=='PARTIAL_FILL_RESIDUAL':
-  cost=OpenPositionCost(D('1'),D('-10'));cost.close(D('.5'),D('.4'),1);cost.unallocated_entry_cost=D('0');reported_residual=D('0')
- elif x.defect_operation=='DEPOSIT':realized+=D('100')
- elif x.defect_operation=='INITIAL_IGNORED':realized+=D('100')
- elif x.defect_operation=='ACCOUNT_BALANCE':realized+=D('50')
- elif x.defect_operation=='RESERVE_TWICE':recovery=realized+allocation.available(AllocationType.FINAL_RESERVE)
- elif x.defect_operation=='NEGATIVE_CREDIT':
-  reported_residual=D('0')
- elif x.defect_operation=='PREVIEW_BYPASS':
+ elif x.defect_operation=='PartialFillResidualLost':
+  cost=OpenPositionCost(D('1'),D('-10'));cost.close(D('.5'),D('.4'),1);cost.unallocated_entry_cost=D('0');reported_residual=D('1')
+ elif x.defect_operation=='DepositIncluded':realized+=D('100')
+ elif x.defect_operation=='InitialIgnoredProfitIncluded':realized+=D('100')
+ elif x.defect_operation=='AccountBalanceDeltaUsedAsCyclePL':realized+=D('50')
+ elif x.defect_operation=='ReserveAddedTwiceToRecoveryPL':recovery=realized+allocation.available(AllocationType.FINAL_RESERVE)
+ elif x.defect_operation=='NegativeHarvestCreditsReserve':
+  realized=D('-1');reported_residual=D('0')
+ elif x.defect_operation=='FinalClosePreviewTreatedAsActual':
   defective_gate=_fault_preview_gate(reasons,recovery,allocation.available(AllocationType.FINAL_RESERVE));reasons=list(defective_gate.reasons)
- elif x.defect_operation=='UNRECONCILED_BYPASS':event.state=ReconciliationState.RECONCILED;reasons=[]
+ elif x.defect_operation=='UnreconciledDealAllowsNextState':event.state=ReconciliationState.RECONCILED;reasons=[]
  fault_after=_digest((realized,allocation.records,event.state,event_applications,reported_residual,reasons))
  evidence=None
  if x.defect_operation!='NONE':
@@ -102,14 +111,13 @@ def execute_scenario(x:EconomicScenarioInput=EconomicScenarioInput())->EconomicE
  reference=ReferenceScenario(x.side.value,x.close_price,x.volume,x.commission,x.swap,x.fee,x.allocation_amount,x.residual,x.reconciled,x.preview) if x.defect_operation=='NONE' else REFERENCE_SCENARIO
  expected=calculate_reference(reference,ReferenceBroker(broker.bid,broker.ask,broker.tick_size,broker.tv_profit,broker.tv_loss),open_price)
  projected_reference=expected['projected']
- facts=EconomicFacts(projected_reference,expected['realized'],tuple(d.net for d in ledger.closing_deals()),tuple(p.aggregate_actual_source_net for p in allocation.source_pools.values()),tuple(r.amount for r in allocation.records.values()),tuple(r.residual for r in allocation.records.values()),tuple(r.consumed for r in allocation.records.values()),expected['allocation'],expected['residual'],event.state is ReconciliationState.RECONCILED,x.reconciled,x.preview,all(d.identity==ident for d in ledger.deals.values()),len(ledger.deals)==len(set(ledger.deals)),len({k.transaction_id for k in allocation.consumptions})==len(allocation.consumptions),_roundtrip_ok(persisted))
+ facts=EconomicFacts(projected_reference,expected['realized'],tuple(d.net for d in ledger.closing_deals()),tuple(p.aggregate_actual_source_net for p in allocation.source_pools.values()),tuple(r.amount for r in allocation.records.values()),tuple(r.residual for r in allocation.records.values()),tuple(r.consumed for r in allocation.records.values()),expected['allocation'],expected['residual'],event.state is ReconciliationState.RECONCILED,scenario_reconciled,(x.preview or x.defect_operation=='FinalClosePreviewTreatedAsActual'),all(d.identity==ident for d in ledger.deals.values()),len(ledger.deals)==len(set(ledger.deals)),len({k.transaction_id for k in allocation.consumptions})==len(allocation.consumptions),_roundtrip_ok(persisted))
  return EconomicExecutionResult(projected,realized,recovery,pool_net,allocation.available(AllocationType.FINAL_RESERVE),sum((r.amount for r in allocation.consumptions.values()),D('0')),reported_residual,digest,not reasons,tuple(reasons),applied,event_applications,event.state.value,tuple(trace),facts,evidence)
 @dataclass(frozen=True)
 class Mutation: stable_id:str;display_name:str;callable:object
 
 def _m(identifier,target,**changes):
- changes.setdefault('defect_operation','FIELD_'+identifier.upper())
- return Mutation(identifier,identifier,lambda x:replace(x,**changes))
+ return Mutation(identifier,identifier,lambda x:replace(x,defect_operation=identifier))
 MUTATION_OBJECTS=(
  _m('BuyCloseUsesAsk','realized_cycle_net',close_price=D('1.1002')),_m('SellCloseUsesBid','realized_cycle_net',side=PositionSide.SELL,close_price=D('1.1000')),_m('SpreadDoubleCounted','realized_cycle_net',spread_extra=D('2')),_m('SlippageDoubleCounted','realized_cycle_net',slippage_extra=D('2')),_m('CommissionOmitted','realized_cycle_net',commission=D('0')),_m('OpeningCommissionOmitted','realized_cycle_net',commission=D('-1')),_m('SwapSignInverted','realized_cycle_net',swap=D('3')),_m('FeeOmitted','realized_cycle_net',fee=D('0')),_m('ProjectedMoneyCreditedAsRealized','realized_cycle_net',projected_as_realized=True),_m('RequestedVolumeUsedInsteadOfActual','realized_cycle_net',volume=D('.20')),_m('ReserveAddedTwiceToRecoveryPL','recovery_pl_close_now',defect_operation='RESERVE_TWICE'),_m('ReserveUsedForPartialFar','allocations',defect_operation='RESERVE_FOR_PARTIAL'),_m('AccountBalanceDeltaUsedAsCyclePL','realized_cycle_net',defect_operation='ACCOUNT_BALANCE'),_m('ForeignSymbolIncluded','deal_applications',identity=Identity(1,'GBPUSD',7,'C')),_m('ForeignMagicIncluded','deal_applications',identity=Identity(1,'EURUSD',8,'C')),_m('ForeignCycleIncluded','deal_applications',identity=Identity(1,'EURUSD',7,'OTHER')),_m('InitialIgnoredProfitIncluded','event_state',defect_operation='INITIAL_IGNORED'),_m('DepositIncluded','event_state',defect_operation='DEPOSIT'),_m('DuplicateDealApplied','deal_applications',duplicate_deal=True),_m('DuplicateEventAppliedAfterRestart','event_state',defect_operation='DUPLICATE_EVENT_RESTART'),_m('PartialFillResidualLost','residual',residual=D('1'),defect_operation='PARTIAL_FILL_RESIDUAL'),_m('AllocationDoesNotConserveMoney','allocations',allocation_amount=D('99')),_m('NegativeHarvestCreditsReserve','source_pool_net',close_price=D('1.0000'),allocation_amount=D('0'),defect_operation='NEGATIVE_CREDIT'),_m('FinalClosePreviewTreatedAsActual','final_close_allowed',preview=True,defect_operation='PREVIEW_BYPASS'),_m('UnreconciledDealAllowsNextState','event_state',reconciled=False,defect_operation='UNRECONCILED_BYPASS'))
 MUTATIONS={m.stable_id:m for m in MUTATION_OBJECTS}
