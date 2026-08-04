@@ -16,7 +16,7 @@ from acceptance_owners import run as run_acceptance_owners
 from stage_3_1_5_mutation_oracle import execute_scenario,evaluate_invariants,run_mutation,MUTATIONS
 
 def validate():
- acceptance,acceptance_stage,acceptance_project=run_acceptance_owners(ROOT,with_project=True,with_standalone=False)
+ acceptance,acceptance_stage,acceptance_project=run_acceptance_owners(ROOT,with_project=True,with_standalone=True)
  scenarios=run_positive_scenarios();mutations,causal,material=audit();extended=run_extended_probes();restored_probes=run_restored_state_probes();restart=all_restart_probes();exploits=run_exploit_regressions();correlated=run_correlated_attacks();corrupted_gates=run_corrupted_store_final_close();negative_causal=run_causal_negative_controls();pytest_run=subprocess.run([sys.executable,'-m','pytest','-q',str(ROOT/'Tests'/'test_stage_3_1_5_money_model.py')],capture_output=True,text=True);required={r.category:r for r in scenarios if r.category in REQUIRED_SCENARIO_CATEGORIES}
  clean=execute_scenario();mutation_computed=all(not cb and mb==evaluate_invariants(m) for name in MUTATIONS for c,m,cb,mb in (run_mutation(name),))
  nonterminal=[r for s,r in restart.items() if not r['terminal_safe']]
