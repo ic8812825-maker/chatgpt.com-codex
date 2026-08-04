@@ -429,3 +429,8 @@ def test_fault_adapter_wrapper_derives_evidence_at_callable_boundary():
  def defect(s):before=s['money'];s['money']+=D('2');return FaultReturn(True,before,s['money'])
  evidence=invoke_fault_adapter(FaultAdapter('A','ledger',defect),state,lambda:dict(state))
  assert evidence.called and evidence.operation_attempted and evidence.operation_accepted and evidence.persistence_effect and evidence.economic_effect==D('2') and evidence.before_digest!=evidence.after_digest
+
+
+def test_eighth_replay_and_opening_cost_attack_matrix():
+ from stage_3_1_5.replay_opening_attacks import run
+ results=run();assert len(results)==18 and all(results.values())

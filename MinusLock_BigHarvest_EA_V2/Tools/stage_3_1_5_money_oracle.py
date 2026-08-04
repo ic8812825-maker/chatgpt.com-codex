@@ -401,8 +401,11 @@ class PersistentStore:
   store=cls(econ,allocation,events,x['revision'],costs,tuple(positions),x.get('positions_revision',0));store.validate_integrity();return store
  def replay_history(self,history:Iterable[Deal])->int:return self.economic.replay(history)
  def apply_event(self,record:EventRecord)->bool:
-  record.validate_history()
   existing=self.events.get(record.event_id)
+  try:record.validate_history()
+  except OracleIntegrityError:
+   if existing is not None:raise OracleIntegrityError(IntegrityCode.EVENT_REPLAY_CONFLICT,'invalid conflicting replay')
+   raise
   if existing:
    if existing==record:return False
    raise OracleIntegrityError(IntegrityCode.EVENT_REPLAY_CONFLICT,'conflicting replay')
