@@ -228,9 +228,25 @@ class AllocationLedger:
 class PartialFillResult:
  volume_before:D; requested_volume:D; actual_closed_volume:D; volume_after:D
  entry_cost_before:D; allocated_entry_cost:D; entry_cost_after:D
+@dataclass(frozen=True)
+class FillRecord:
+ ticket:int; requested_volume:D; actual_volume:D; volume_before:D; volume_after:D; allocated_cost:D
 @dataclass
 class OpenPositionCost:
- volume:D; unallocated_entry_cost:D; applied_fill_tickets:set[int]=field(default_factory=set); allocated_entry_cost:D=D('0')
+ volume:D; unallocated_entry_cost:D; applied_fill_tickets:set[int]=field(default_factory=set); allocated_entry_cost:D=D('0'); initial_volume:D|None=None; initial_opening_cost:D|None=None; fills:list[FillRecord]=field(default_factory=list); revision:int=0
+ def __post_init__(self):
+  if self.initial_volume is None:self.initial_volume=self.volume+sum((f.actual_volume for f in self.fills),D('0'))
+  if self.initial_opening_cost is None:self.initial_opening_cost=self.unallocated_entry_cost+self.allocated_entry_cost
+ def validate_integrity(self):
+  require_integrity(self.initial_volume is not None and self.initial_volume>D('0') and D('0')<=self.volume<=self.initial_volume,IntegrityCode.OPENING_COST_STATE_INVALID)
+  require_integrity(self.initial_opening_cost==self.allocated_entry_cost+self.unallocated_entry_cost,IntegrityCode.OPENING_COST_CONSERVATION_FAILURE)
+  require_integrity(len(self.applied_fill_tickets)==len(self.fills)==len({f.ticket for f in self.fills}),IntegrityCode.DUPLICATE_FILL_TICKET)
+  cursor=self.initial_volume
+  allocated=D('0')
+  for fill in self.fills:
+   require_integrity(fill.requested_volume>D('0') and D('0')<fill.actual_volume<=fill.requested_volume and fill.volume_before==cursor and fill.volume_after==cursor-fill.actual_volume,IntegrityCode.OPENING_COST_STATE_INVALID)
+   cursor=fill.volume_after;allocated+=fill.allocated_cost
+  require_integrity(cursor==self.volume and allocated==self.allocated_entry_cost,IntegrityCode.OPENING_COST_CONSERVATION_FAILURE)
  def close(self,requested:D,actual:D,ticket:int=1,broker:Broker|None=None)->PartialFillResult:
   before=self.volume; cost=self.unallocated_entry_cost
   if ticket in self.applied_fill_tickets:raise ValueError('duplicate fill')
@@ -239,6 +255,7 @@ class OpenPositionCost:
   self.applied_fill_tickets.add(ticket)
   allocated=cost if actual==before else cost*actual/before
   self.volume-=actual; self.unallocated_entry_cost-=allocated;self.allocated_entry_cost+=allocated
+  self.revision+=1;self.fills.append(FillRecord(ticket,requested,actual,before,self.volume,allocated))
   return PartialFillResult(before,requested,actual,self.volume,cost,allocated,self.unallocated_entry_cost)
 @dataclass
 class PersistentStore:
@@ -254,6 +271,7 @@ class PersistentStore:
    require_integrity(dictionary_key==event.event_id,IntegrityCode.EVENT_RECORD_KEY_MISMATCH)
    require_integrity((dictionary_key.account_login,dictionary_key.symbol,dictionary_key.magic,dictionary_key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_EVENT_IDENTITY)
    require_integrity(event.revision>=0 and not (event.state is ReconciliationState.PERSISTED and event.revision<1),IntegrityCode.EVENT_STATE_REVISION_INVALID)
+  for cost in self.opening_costs.values():cost.validate_integrity()
   for key,r in self.allocation.records.items():
    require_integrity((key.account_login,key.symbol,key.magic,key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_ALLOCATION_IDENTITY)
    event=next((e for ek,e in self.events.items() if EventIdentity.from_key(ek)==EventIdentity.from_key(key)),None);require_integrity(event is not None,IntegrityCode.ALLOCATION_EVENT_MISMATCH)
@@ -275,7 +293,7 @@ class PersistentStore:
   consumptions=[{'key':r.key.to_dict(),'allocation_key':r.allocation_key.to_dict(),'amount':str(r.amount),'purpose':r.purpose.value,'revision':r.revision} for r in self.allocation.consumptions.values()]
   pools=[{'key':p.key.to_dict(),'sources':p.source_deal_tickets,'deal_nets':{str(k):str(v) for k,v in p.deal_nets.items()},'deal_fingerprints':{str(k):v for k,v in p.deal_fingerprints.items()},'allocated':str(p.already_allocated),'residual':str(p.residual),'available':str(p.available),'revision':p.revision} for p in self.allocation.source_pools.values()]
   positions=[{'identity':asdict(p.identity),'identifier':p.identifier,'leg_id':p.leg_id,'role':p.role,'side':p.side.value,'volume':str(p.volume),'open_price':str(p.open_price),'swap':str(p.swap),'exit_commission':str(p.exit_commission),'exit_fee':str(p.exit_fee)} for p in self.managed_positions]
-  data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost)} for k,v in self.opening_costs.items()},'revision':self.revision}
+  data={'identity':asdict(self.economic.identity),'broker':{k:str(v) for k,v in asdict(self.economic.broker).items()},'deals':deals,'allocations':allocations,'consumptions':consumptions,'source_pools':pools,'managed_positions':positions,'positions_revision':self.positions_revision,'allocation_revision':self.allocation.revision,'events':[{'key':k.to_dict(),'state':v.state.value,'revision':v.revision} for k,v in self.events.items()],'opening_costs':{k:{'volume':str(v.volume),'cost':str(v.unallocated_entry_cost),'tickets':sorted(v.applied_fill_tickets),'allocated':str(v.allocated_entry_cost),'initial_volume':str(v.initial_volume),'initial_cost':str(v.initial_opening_cost),'revision':v.revision,'fills':[{'ticket':f.ticket,'requested':str(f.requested_volume),'actual':str(f.actual_volume),'before':str(f.volume_before),'after':str(f.volume_after),'cost':str(f.allocated_cost)} for f in v.fills]} for k,v in self.opening_costs.items()},'revision':self.revision}
   return json.dumps(data,sort_keys=True,separators=(',',':'))
  @classmethod
  def deserialize(cls,payload:str)->'PersistentStore':
@@ -302,7 +320,7 @@ class PersistentStore:
    fingerprints={int(t):v for t,v in q['deal_fingerprints'].items()};pool=ReconciledSourcePool(k,tickets,nets,fingerprints,D(q['allocated']),D(q['residual']),q['revision'])
    if pool.available!=D(q['available']):raise ValueError('corrupted source pool balance')
    allocation.source_pools[tickets]=pool
-  events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated'])) for k,v in x['opening_costs'].items()}
+  events={EventKey.from_dict(q['key']):EventRecord(EventKey.from_dict(q['key']),ReconciliationState(q['state']),q['revision']) for q in x['events']};costs={k:OpenPositionCost(D(v['volume']),D(v['cost']),set(v['tickets']),D(v['allocated']),D(v.get('initial_volume',v['volume'])),D(v.get('initial_cost',v['cost'])),[FillRecord(f['ticket'],D(f['requested']),D(f['actual']),D(f['before']),D(f['after']),D(f['cost'])) for f in v.get('fills',[])],v.get('revision',0)) for k,v in x['opening_costs'].items()}
   positions=[]
   for q in x.get('managed_positions',[]):
    pi=Identity(**q['identity']); p=Position(pi,q['identifier'],q['leg_id'],q['role'],PositionSide(q['side']),D(q['volume']),D(q['open_price']),D(q['swap']),D(q['exit_commission']),D(q['exit_fee']))
