@@ -379,3 +379,8 @@ def test_money_state_version_covers_event_transition_history():
 def test_final_close_rejects_in_memory_corruption_with_fresh_version():
  from stage_3_1_5.corrupted_store_final_close import run
  assert all(probe['passed'] for probe in run())
+
+
+def test_targeted_negative_causal_controls_are_effective_and_non_vacuous():
+ from stage_3_1_5.causal_negative_controls import run
+ result=run();assert result['MISSING_CAUSAL_RULES']==result['INEFFECTIVE_CAUSAL_RULES']==result['VACUOUS_CAUSAL_RULES']==0
