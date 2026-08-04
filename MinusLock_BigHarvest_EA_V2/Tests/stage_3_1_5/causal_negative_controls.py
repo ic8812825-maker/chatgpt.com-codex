@@ -28,8 +28,19 @@ def run():
   'name_controls':(good,True,(),False,True,True),
   'target_unreached':(good,True,(),False,False,False),
   'no_material_change':(good,False,(),False,False,True),
-  'no_persistence':(replace(good,persistence_effect=False),True,(),False,False,True)}
+  'no_persistence':(replace(good,persistence_effect=False),True,(),False,False,True),
+  'called_without_callable':(replace(good,called=False),True,(),False,False,True),
+  'target_operation_not_reached':(replace(good,operation_attempted=False),False,(),False,False,False),
+  'before_digest_from_clean_setup':(replace(good,before_digest='b',after_digest='b',persistence_effect=False),True,(),False,False,True),
+  'after_digest_after_unrelated_work':(replace(good,economic_effect=D('0'),persistence_effect=False),True,(),False,False,True),
+  'economic_effect_manually_assigned':(replace(good,called=False,economic_effect=D('9')),True,(),False,False,True),
+  'reference_uses_actual':(good,True,(),True,False,True),
+  'legitimate_input_change':(good,False,(),True,False,True),
+  'target_from_registry':(good,True,(),False,True,False),
+  'canonical_rejection_as_kill':(replace(good,operation_accepted=False),True,(),False,False,True),
+  'clean_execution_as_persistence_effect':(replace(good,called=False,persistence_effect=True),True,(),False,False,True),
+  'declared_exception_not_raised':(replace(good,exception='declared',operation_accepted=False),True,(),False,False,True)}
  results={name:any(violations(*args).values()) for name,args in cases.items()}
- return {'results':results,'MISSING_CAUSAL_RULES':0 if len(cases)==10 else 1,'INEFFECTIVE_CAUSAL_RULES':sum(not x for x in results.values()),'VACUOUS_CAUSAL_RULES':int(any(violations(good).values()))}
+ return {'results':results,'MISSING_CAUSAL_RULES':0 if len(cases)==21 else 1,'INEFFECTIVE_CAUSAL_RULES':sum(not x for x in results.values()),'VACUOUS_CAUSAL_RULES':int(any(violations(good).values()))}
 if __name__=='__main__':
  r=run();print(f"MISSING_CAUSAL_RULES={r['MISSING_CAUSAL_RULES']}");print(f"INEFFECTIVE_CAUSAL_RULES={r['INEFFECTIVE_CAUSAL_RULES']}");print(f"VACUOUS_CAUSAL_RULES={r['VACUOUS_CAUSAL_RULES']}");ok=not any(r[k] for k in ('MISSING_CAUSAL_RULES','INEFFECTIVE_CAUSAL_RULES','VACUOUS_CAUSAL_RULES'));print('NEGATIVE_CAUSAL_CONTROLS='+('PASS' if ok else 'FAIL'));raise SystemExit(not ok)
