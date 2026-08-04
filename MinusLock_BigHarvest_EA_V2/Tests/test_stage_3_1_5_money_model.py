@@ -345,3 +345,8 @@ def test_sixth_correction_exploit_regressions():
  results=run()
  assert len(results)>=20
  assert all(item['passed'] and item['target_guard_reached'] and item['expected']==item['actual'] for item in results)
+
+
+def test_correlated_persistence_attacks_obey_global_law():
+ from stage_3_1_5.correlated_attacks import run
+ assert all(run())

@@ -328,7 +328,8 @@ class PersistentStore:
   for q in x.get('source_pools',[]):
    k=EventKey.from_dict(q['key']); tickets=tuple(q['sources']); nets={int(t):D(v) for t,v in q['deal_nets'].items()}
    if tickets in allocation.source_pools:raise ValueError('duplicate source pool')
-   if tuple(sorted(tickets))!=tickets or set(tickets)!=set(nets) or any(t not in econ.deals or econ.deals[t].net!=nets[t] for t in tickets):raise ValueError('corrupted source pool')
+   require_integrity(tuple(sorted(tickets))==tickets and set(tickets)==set(nets)==set(int(t) for t in q['deal_fingerprints']),IntegrityCode.SOURCE_POOL_KEY_MISMATCH)
+   require_integrity(all(t in econ.deals and econ.deals[t].net==nets[t] for t in tickets),IntegrityCode.SOURCE_POOL_HISTORY_MISMATCH)
    fingerprints={int(t):v for t,v in q['deal_fingerprints'].items()};pool=ReconciledSourcePool(k,tickets,nets,fingerprints,D(q['allocated']),D(q['residual']),q['revision'])
    if pool.available!=D(q['available']):raise ValueError('corrupted source pool balance')
    allocation.source_pools[tickets]=pool
