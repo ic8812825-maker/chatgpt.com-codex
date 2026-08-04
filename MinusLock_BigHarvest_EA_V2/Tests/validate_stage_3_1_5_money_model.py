@@ -12,9 +12,11 @@ from correlated_attacks import run as run_correlated_attacks
 from corrupted_store_final_close import run as run_corrupted_store_final_close
 from replay_opening_attacks import run as run_replay_opening_attacks
 from causal_negative_controls import run as run_causal_negative_controls
+from acceptance_owners import run as run_acceptance_owners
 from stage_3_1_5_mutation_oracle import execute_scenario,evaluate_invariants,run_mutation,MUTATIONS
 
 def validate():
+ acceptance,acceptance_stage,acceptance_project=run_acceptance_owners(ROOT,with_project=True,with_standalone=False)
  scenarios=run_positive_scenarios();mutations,causal,material=audit();extended=run_extended_probes();restored_probes=run_restored_state_probes();restart=all_restart_probes();exploits=run_exploit_regressions();correlated=run_correlated_attacks();corrupted_gates=run_corrupted_store_final_close();negative_causal=run_causal_negative_controls();pytest_run=subprocess.run([sys.executable,'-m','pytest','-q',str(ROOT/'Tests'/'test_stage_3_1_5_money_model.py')],capture_output=True,text=True);required={r.category:r for r in scenarios if r.category in REQUIRED_SCENARIO_CATEGORIES}
  clean=execute_scenario();mutation_computed=all(not cb and mb==evaluate_invariants(m) for name in MUTATIONS for c,m,cb,mb in (run_mutation(name),))
  nonterminal=[r for s,r in restart.items() if not r['terminal_safe']]
@@ -55,7 +57,7 @@ def validate():
  'HISTORY_REPLAY_IDEMPOTENCY':lambda:all(r['duplicate']==0 and not r['duplicate_consume'] for r in nonterminal),
  'SOURCE_GUARDS':lambda:not any(guards().values()),
  'PYTEST_INTEGRATION':lambda:pytest_run.returncode==0}
- results={name:bool(owner()) for name,owner in owners.items()};blockers=sorted(k for k,v in results.items() if not v);return scenarios,mutations,causal,material,guards(),restart,{**extended,**restored_probes},pytest_run,results,blockers
+ results={**acceptance,**{name:bool(owner()) for name,owner in owners.items()}};blockers=sorted(k for k,v in results.items() if not v);return scenarios,mutations,causal,material,guards(),restart,{**extended,**restored_probes},pytest_run,results,blockers
 
 def main():
  s,m,c,material,g,r,e,p,status,b=validate();print(f'PYTEST_EXECUTED={p.returncode==0}');print(f'POSITIVE_SCENARIOS_TOTAL={len(s)}');print(f'UNIQUE_FINGERPRINTS={len({x.fingerprint for x in s})}');print(f'MISSING_SCENARIO_CATEGORIES={len(missing_scenario_categories(s))}');print(f'MUTATIONS_TOTAL={len(m)}');print(f'EXTENDED_COUNTEREXAMPLES={len(e)}');[print(f'{k}={"PASS" if v else "FAIL"}') for k,v in status.items()];print('BLOCKING_COUNTERS='+('NONE' if not b else ','.join(b)));print('STAGE_3_1_5_VALIDATION='+('PASS' if not b else 'FAIL'));raise SystemExit(bool(b))
