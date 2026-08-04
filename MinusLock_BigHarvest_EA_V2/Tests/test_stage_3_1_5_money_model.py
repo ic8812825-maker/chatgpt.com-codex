@@ -405,3 +405,13 @@ def test_opening_cost_locally_conserved_but_wrong_distribution_rejected():
  cost=OpenPositionCost(D('.5'),D('-1'),{1},D('-9'),D('1'),D('-10'),[FillRecord(1,D('.5'),D('.5'),D('1'),D('.5'),D('-9'))],1)
  with pytest.raises(OracleIntegrityError) as exc:cost.validate_integrity()
  assert exc.value.code is IntegrityCode.OPENING_COST_ALLOCATION_MISMATCH
+
+
+def test_fill_history_broker_grid_and_types():
+ i,b,e=base();cost=OpenPositionCost(D('1'),D('-10'));cost.close(D('.5'),D('.5'),1)
+ cost.fills[0]=replace(cost.fills[0],actual_volume=D('.505'))
+ with pytest.raises(OracleIntegrityError) as exc:cost.validate_integrity(b)
+ assert exc.value.code is IntegrityCode.FILL_GRID_INVALID
+ cost=OpenPositionCost(D('1'),D('-10'),revision=True)
+ with pytest.raises(OracleIntegrityError) as exc:cost.validate_integrity(b)
+ assert exc.value.code is IntegrityCode.FILL_TYPE_INVALID

@@ -259,7 +259,8 @@ class OpenPositionCost:
  def __post_init__(self):
   if self.initial_volume is None:self.initial_volume=self.volume+sum((f.actual_volume for f in self.fills),D('0'))
   if self.initial_opening_cost is None:self.initial_opening_cost=self.unallocated_entry_cost+self.allocated_entry_cost
- def validate_integrity(self):
+ def validate_integrity(self,broker:Broker|None=None):
+  require_integrity(type(self.revision) is int and self.revision>=0,IntegrityCode.FILL_TYPE_INVALID)
   require_integrity(self.initial_volume is not None and self.initial_volume>D('0') and D('0')<=self.volume<=self.initial_volume,IntegrityCode.OPENING_COST_STATE_INVALID)
   require_integrity(self.initial_opening_cost==self.allocated_entry_cost+self.unallocated_entry_cost,IntegrityCode.OPENING_COST_CONSERVATION_FAILURE)
   fill_tickets=[f.ticket for f in self.fills]
@@ -269,6 +270,9 @@ class OpenPositionCost:
   cursor=self.initial_volume
   allocated=D('0');cost_cursor=self.initial_opening_cost
   for fill in self.fills:
+   require_integrity(type(fill.ticket) is int and fill.ticket>0 and all(isinstance(v,D) and v.is_finite() for v in (fill.requested_volume,fill.actual_volume,fill.volume_before,fill.volume_after,fill.allocated_cost)),IntegrityCode.FILL_TYPE_INVALID)
+   if broker:
+    require_integrity(all(grid(v,broker.lot_step) for v in (fill.requested_volume,fill.actual_volume,fill.volume_before,fill.volume_after)) and fill.requested_volume>=broker.min_lot and fill.actual_volume>=broker.min_lot,IntegrityCode.FILL_GRID_INVALID)
    require_integrity(fill.requested_volume>D('0') and D('0')<fill.actual_volume<=fill.requested_volume and fill.volume_before==cursor and fill.volume_after==cursor-fill.actual_volume,IntegrityCode.OPENING_COST_STATE_INVALID)
    expected_cost=cost_cursor if fill.actual_volume==fill.volume_before else cost_cursor*fill.actual_volume/fill.volume_before
    require_integrity(fill.allocated_cost==expected_cost,IntegrityCode.OPENING_COST_ALLOCATION_MISMATCH)
@@ -307,7 +311,7 @@ class PersistentStore:
    require_integrity(dictionary_key==event.event_id,IntegrityCode.EVENT_RECORD_KEY_MISMATCH)
    require_integrity((dictionary_key.account_login,dictionary_key.symbol,dictionary_key.magic,dictionary_key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_EVENT_IDENTITY)
    event.validate_history()
-  for cost in self.opening_costs.values():cost.validate_integrity()
+  for cost in self.opening_costs.values():cost.validate_integrity(self.economic.broker)
   for key,r in self.allocation.records.items():
    require_integrity((key.account_login,key.symbol,key.magic,key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_ALLOCATION_IDENTITY)
    event=next((e for ek,e in self.events.items() if EventIdentity.from_key(ek)==EventIdentity.from_key(key)),None);require_integrity(event is not None,IntegrityCode.ALLOCATION_EVENT_MISMATCH)
