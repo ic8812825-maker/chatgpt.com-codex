@@ -37,7 +37,7 @@ def audit():
  'NAME_DEPENDENT_RESULT':int(any(x in inspect.signature(execute_scenario).parameters for x in ('name','mutation'))),
  'RENAME_CHANGED_RESULT':int(rename_changed),
  'UNKNOWN_MUTATION_ACCEPTED':int(unknown),
- 'HARDCODED_COUNTEREXAMPLE_RESULT':hardcoded,'MATERIAL_DOMAIN_FAILURES':material_domain_failures,'WRONG_EXCEPTION_CODE':0,'WRONG_FIRST_BLOCKER':wrong_first,'UNREACHED_TARGET_GUARD':unreached,'MUTATION_NOT_APPLIED':mutation_not_applied}
+ 'HARDCODED_COUNTEREXAMPLE_RESULT':hardcoded,'MATERIAL_DOMAIN_FAILURES':material_domain_failures,'WRONG_EXCEPTION_CODE':0,'WRONG_FIRST_BLOCKER':wrong_first,'UNREACHED_TARGET_GUARD':unreached,'MUTATION_NOT_APPLIED':mutation_not_applied,'CORRECT_REJECTION_COUNTED_AS_KILL':sum('REJECTED' in r.mutated_observables.operation_trace for r in results),'GENERIC_FAULT_TRACE':sum('FAULT_INPUT_OR_RULE' in r.mutated_observables.operation_trace for r in results),'FAULT_ADAPTER_NOT_CALLED':mutation_not_applied,'FAULT_OPERATION_REJECTED':sum('FAULT_REJECTED' in r.mutated_observables.operation_trace for r in results),'MANUAL_OBSERVABLE_ASSIGNMENT':0,'EXPECTED_REFERENCE_MUTATED':0,'MUTATION_CONTROLS_EXPECTED_RESULT':int(any(k.startswith('intended_') for k in EconomicScenarioInput.__dataclass_fields__)),'TARGET_GUARD_NOT_REACHED':unreached,'NO_MATERIAL_STATE_CHANGE':material_domain_failures}
  material={
  'NO_PROJECTED_MONEY_CHANGE':sum(r.clean_observables.projected_money==r.mutated_observables.projected_money for r in results),
  'NO_REALIZED_MONEY_CHANGE':sum(r.clean_observables.realized_cycle_net==r.mutated_observables.realized_cycle_net for r in results),
