@@ -154,7 +154,9 @@ class ReconciledSourcePool:
  @property
  def aggregate_actual_source_net(self):return sum(self.deal_nets.values(),D('0'))
  @property
- def available(self):return max(D('0'),self.aggregate_actual_source_net-self.already_allocated-self.residual)
+ def available(self):return self.aggregate_actual_source_net-self.already_allocated-self.residual
+ def validate_conservation(self):
+  require_integrity(self.aggregate_actual_source_net>D('0') and self.already_allocated>=D('0') and self.residual>=D('0') and self.already_allocated+self.residual<=self.aggregate_actual_source_net,IntegrityCode.SOURCE_POOL_CONSERVATION_FAILURE)
 @dataclass
 class AllocationLedger:
  identity:Identity; records:dict[EventKey,AllocationRecord]=field(default_factory=dict); consumptions:dict[ConsumptionKey,ConsumptionRecord]=field(default_factory=dict); revision:int=0; source_pools:dict[tuple[int,...],ReconciledSourcePool]=field(default_factory=dict)
@@ -182,12 +184,13 @@ class AllocationLedger:
  def validate_source_pools(self,economic:EconomicLedger)->None:
   seen=set()
   for tickets,pool in self.source_pools.items():
+   pool.validate_conservation()
    if seen.intersection(tickets):raise ValueError('overlapping source pools')
    seen.update(tickets)
    if any(t not in economic.deals or economic.deals[t].net!=pool.deal_nets.get(t) or deal_fingerprint(economic.deals[t])!=pool.deal_fingerprints.get(t) for t in tickets):raise ValueError('source pool history mismatch')
    if not any(economic.deals[t].entry in (DealEntry.OUT,DealEntry.INOUT,DealEntry.OUT_BY) and economic.deals[t].deal_type in (DealType.BUY,DealType.SELL) for t in tickets):raise ValueError('source pool closing harvest missing')
    records=[r for r in self.records.values() if tuple(sorted(r.source_deal_tickets))==tickets]
-   if pool.already_allocated!=sum((r.amount for r in records),D('0')) or pool.residual!=sum((r.residual for r in records),D('0')):raise ValueError('source pool allocation mismatch')
+   require_integrity(pool.already_allocated==sum((r.amount for r in records),D('0')) and pool.residual==sum((r.residual for r in records),D('0')),IntegrityCode.SOURCE_POOL_CONSERVATION_FAILURE)
   for key,record in self.records.items():
    if tuple(sorted(record.source_deal_tickets)) not in self.source_pools:raise ValueError('allocation source pool missing')
    consumed=sum((c.amount for c in self.consumptions.values() if c.allocation_key==key),D('0'))
