@@ -21,3 +21,9 @@ REAL_TRADING_ALLOWED=NO
 - final validator не исполняет все перечисленные exploit probes.
 
 Это исходное failure evidence, а не PASS. Производственный MQL5 не изменяется.
+
+## Рабочая проверка 3.1.5.123
+
+Исполняемые проверки подтвердили глобальное сохранение source money, полную identity source pools, Event Store, opening-cost history, fail-closed Final Close, 20 exploit regressions и пять correlated attacks. Собрано и пройдено 347 stage-тестов; проектная коллекция: 738 PASS. Standalone manifest совпал точно: 181 всего, 171 PASS и прежние 10 известных failures, новых failures нет.
+
+До независимого fresh clone статус остаётся `REOPENED_FOR_CORRECTION`.

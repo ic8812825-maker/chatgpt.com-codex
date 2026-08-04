@@ -101,3 +101,20 @@ STAGE_3_1_6_STARTED=NO
 AWAITING_USER_APPROVAL=YES
 REAL_TRADING_ALLOWED=NO
 ```
+
+## Read-only mapping шестой коррекции
+
+| Нормативный закон | Production MQL5 |
+|---|---|
+| source-pool persistence | LAW_MISSING |
+| EventID/CycleID persistence | LAW_PARTIAL |
+| allocation/event binding | LAW_PARTIAL |
+| consumption ownership | LAW_PARTIAL |
+| opening-cost persistence | LAW_PARTIAL |
+| partial-fill reconciliation | LAW_PARTIAL |
+| full MoneyStateVersion | LAW_MISSING |
+| Final Close fail-closed validation | LAW_MISSING |
+| restart reconciliation | LAW_PARTIAL |
+| history replay exactly-once | LAW_PARTIAL |
+
+Python oracle не доказывает реализацию этих законов в production MQL5. `PRODUCTION_MQL5_IMPLEMENTATION=NOT_CHANGED`.
