@@ -350,3 +350,15 @@ def test_sixth_correction_exploit_regressions():
 def test_correlated_persistence_attacks_obey_global_law():
  from stage_3_1_5.correlated_attacks import run
  assert all(run())
+
+
+def test_required_owners_actual_results_are_not_labels_or_expected_aliases():
+ for category,owner,expected in catalog.REQUIRED_EXECUTABLE_FIXTURES:
+  actual=owner()
+  assert callable(owner) and actual is not expected
+  assert actual==expected
+
+def test_required_owner_wrong_economic_result_cannot_pass():
+ for category,owner,expected in catalog.REQUIRED_EXECUTABLE_FIXTURES:
+  actual=dict(owner()); key=next(iter(actual)); wrong=dict(actual);wrong[key]=object()
+  assert wrong!=expected, category

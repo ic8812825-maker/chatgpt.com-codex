@@ -278,7 +278,7 @@ class PersistentStore:
   for key,r in self.allocation.records.items():
    require_integrity((key.account_login,key.symbol,key.magic,key.cycle_id)==(identity.account,identity.symbol,identity.magic,identity.cycle),IntegrityCode.FOREIGN_ALLOCATION_IDENTITY)
    event=next((e for ek,e in self.events.items() if EventIdentity.from_key(ek)==EventIdentity.from_key(key)),None);require_integrity(event is not None,IntegrityCode.ALLOCATION_EVENT_MISMATCH)
-   require_integrity(event.event_id.allocation_type is key.allocation_type,IntegrityCode.ALLOCATION_EVENT_ROUTE_MISMATCH)
+   require_integrity(event.event_id.allocation_type in (AllocationType.RESIDUAL,key.allocation_type),IntegrityCode.ALLOCATION_EVENT_ROUTE_MISMATCH)
    require_integrity(r.reconciliation_state is ReconciliationState.RECONCILED and r.amount>=0 and r.consumed>=0 and r.consumed<=r.amount and r.residual>=0,IntegrityCode.ALLOCATION_STATE_INVALID)
    require_integrity(tuple(sorted(r.source_deal_tickets)) in self.allocation.source_pools,IntegrityCode.ALLOCATION_SOURCE_POOL_MISSING)
   transactions={}
