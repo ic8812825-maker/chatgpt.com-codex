@@ -1,59 +1,50 @@
 # Полный системный мануал Hybrid Split Big
 
-Версия 1.0. Статус: нормативный. Документ самодостаточен.
+Версия HSB.0R-C.4. Статус: нормативный source of truth, самодостаточен.
 
-## Назначение
+## Полный цикл
+`IDLE → Initial Lock actual fills → close INITIAL_PLUS actual deal → FAR → immutable CandidatePlan → C/T/S basket actual fills → Big Harvest → Allocation → Final Close или Partial Far`, либо `Small confirmation → immutable transition → close SMALL_BASE → OldFar → BIG_TREND → planned BIG_CORE part → actual BIG_CORE residual → NEW_FAR → FAR нового цикла`.
 
-Minus Lock начинается одновременными BUY и SELL. После движения рынка прибыльная initial leg закрывается и полностью исключается из recovery. Оставшаяся убыточная leg становится FAR. Для восстановления создаётся корзина: BIG_CORE и BIG_TREND в направлении восстановления, SMALL_BASE в направлении FAR. При движении к Big корзина собирает realized money, который распределяется между FinalReserve, PartialFarBudget, TransitionBudget/Carry. При развороте Small Transition закрывает SMALL_BASE, OldFar и BIG_TREND, уменьшает BIG_CORE и превращает только его фактический остаток в новый FAR.
+## Роли и направления
+Far SELL: BIG_CORE и BIG_TREND BUY, SMALL_BASE SELL. Far BUY: BIG_CORE и BIG_TREND SELL, SMALL_BASE BUY. BUY close рассчитывается по Bid, SELL close по Ask. Одновременно допускается только один FAR.
 
-## Жизненный цикл
+## Объёмы и три закона
+`C=FloorBrokerGrid(F×Rc)`, `T=FloorBrokerGrid(F×Rt)`, `S=CeilBrokerGrid(F×Rs)`, `Bnet=C+T-S`. После округления обязательны: `Bnet-F>0`; broker-money Reserve Catch-Up; `RecoveryPL(P+tick)>RecoveryPL(P)` на проверяемом диапазоне; compression `0<N<F` с risk/margin/next-cycle gates. Rc>0, Rt≥0, Rs>0; любые NaN, overflow, invalid volume или failed proof дают reject. Demonstration profile не является default.
 
-```text
-IDLE → Initial plan → BUY/SELL actual fills → Initial Lock
-→ actual close profitable leg → FAR
-→ immutable CandidatePlan → Core/Trend/Small actual fills
-→ BASKET_ACTIVE
-→ Big Harvest → allocation → Final Close или Partial Far → следующий level
-или
-→ Small Transition → actual BIG_CORE residual → NEW_FAR → FAR нового cycle
-→ Final Close → CYCLE_CLOSED
-```
+## Typed control prices
+CurrentClosePrice, NextBigControlPrice, SmallTransitionControlPrice, AdverseRiskControlPrice, GapStressPrice, FinalClosePrice всегда содержат Bid/Ask side, tick-normalized price, timestamp и freshness. Stale snapshot блокирует действие.
 
-- `HSBI-GEN-020`: каждый irreversible step имеет persisted action и actual transaction outcome.
-- `HSBI-GEN-021`: следующий scenario запрещён при pending action.
-- `HSBI-GEN-022`: Final Close и emergency liquidation — разные authorities.
+## CandidatePlan и Future Small
+Plan immutable и связан с Account+Symbol+Magic+CycleID+StateRevision+market snapshot. Future Small проверяется exact recursion до terminal/depth/bound, затем conservative `F(k+j)≤q^jF(k)`, 0<q<1. Depth 1 не является доказательством.
 
-## Тренд вверх: FAR SELL
+## NewFar
+Solver перебирает broker-valid N по возрастанию и выбирает minimum-safe. Fixed TargetNewFarRatio не является solver. Tie-break: RiskNext, MarginNext, expected transitions, safety buffer, N. Источник NEW_FAR — только actual remaining original BIG_CORE ticket/identifier после подтверждённых fills.
 
-FAR=SELL; BIG_CORE/ BIG_TREND=BUY; SMALL_BASE=SELL. Big levels расположены выше reference. При достижении уровня закрываются плановые Big Harvest legs только после revalidation. Их actual DealNet распределяется. Final Close проверяется первым; иначе Partial Far использует только свой budget. При возврате к Small trigger выполняется строгий Small Transition.
+## Money и allocation
+`DealNet=Profit+Swap+Commission+Fee`. Initial Profit и opening DEAL_ENTRY_IN исключены. Для каждого SourceDealKey: `FinalReserve+PartialFar+Transition+Carry+Residual=AllocatableDealNet`; отрицательный DealNet не распределяется как прибыль. EventKey и ConsumptionKey обеспечивают exactly-once. FinalReserve никогда не используется Partial Far.
 
-## Тренд вниз: FAR BUY
+## Partial Far
+Только PartialFarBudget резервируется; `CloseLotRaw=Budget/FarCloseLossPerLot`, затем floor по broker step и повторная проверка стоимости. Actual consumption определяется actual closing DealNet. Unused reservation освобождается. Partial fill блокирует следующий шаг.
 
-Полностью симметрично: FAR=BUY; BIG_CORE/BIG_TREND=SELL; SMALL_BASE=BUY; Big levels ниже reference. BUY закрывается по Bid, SELL — по Ask. Ни одна формула не меняется по смыслу, меняется только direction/market side.
+## Transition Loss
+`TransitionNet=ΣActualClosingDealNet`, `TransitionLoss=max(0,-TransitionNet)`. Разрешённый loss — минимум absolute cap, equity cap, OldFar-risk cap и cumulative-cycle cap.
 
-## Развороты
+## Final Close
+Единая authority: `RecoveryPLCloseNow ≥ MinimumRecoveryProfitMoney + ExecutionSafetyBufferMoney + MoneyTolerance`, где `RecoveryPLCloseNow=RealizedCycleNet+ΣOpenPositionCloseNowNet`. Allocation buckets повторно не прибавляются. Дополнительно обязательны reconciled positions, no pending actions, no unknown deals, valid ownership, fresh FinalClosePrice, costs and allowed coverage.
 
-Ложное касание не запускает transition без подтверждённого trigger и свежего snapshot. После persist transition plan повторный trigger — NO-OP. Partial fill блокирует продолжение до accumulation/reconciliation. Каждый завершённый transition обязан уменьшить Far на broker grid. При невозможности безопасного N система переходит terminal-safe, а не создаёт второй tail.
+## Small confirmation
+Touch недостаточен. Нужны close-side touch, повторный fresh snapshot, configurable hold/retrace, persisted debounce key и отсутствие active transition. Duplicate trigger — NO-OP.
 
-## Необратимые действия
+## Transaction, retry и timeout
+`Plan→Action→Persist→Request→OnTradeTransaction→fill accumulation→actual state→ledger→persist→FSM advance`. REQUEST_SENT/PLACED/DONE_PARTIAL не равны completed. Retry допускается только с тем же ActionID, после history check, при отсутствии completed deal, reconciliation=PENDING и исключённом duplicate request. TIMEOUT не равен failure или completed и ведёт в reconciliation.
 
-Для open/close/partial/promotion обязательны: preconditions → immutable plan/action → persist → request → OnTradeTransaction → fills → actual position read → ledger → persist result → FSM advance. Reject/requote/timeout не продвигают FSM. Rollback Initial BUY разрешён только как отдельная action после неуспеха SELL и подтверждается actual deal.
+## Risk, margin и emergency
+Перед открытием: ownership→freshness→spread→volume→margin→free margin→drawdown→gross exposure→worst case. Неизвестное значение = fail-closed. Emergency Liquidation отделена от recovery Final Close, не получает recovery PASS, блокирует открытия и требует manual review/no auto-resume.
 
-## Демонстрационный профиль, не production default
+## Scope, persistence и REAL_LIMITED
+Identity: AccountLogin+Symbol+Magic+CycleID+PositionIdentifier+Role. Generation 1: один цикл на Symbol+Magic; multi-symbol только при полной изоляции. Persistence: crash-consistent versioned file commit protocol, canonical serialization, SHA-256, temp write, reread verify, commit marker, previous snapshot, append-only journal, per-identity lock. REAL_LIMITED запрещён до всех readiness gates, Demo Forward PASS и отдельного одобрения администратора.
 
-```text
-StartLot=1.00; broker min/step=0.01
-F=1.00; C=1.60; T=0.25; S=0.60; Bnet=1.25
-ReserveShare=0.90; PartialShare=0.10; Target example N=0.50
-BigLevel1=100 points; BigLevel2=150 points
-```
+## Restart/error semantics
+Restart сверяет actual positions/orders/deals, snapshot и action/event ledgers. Нельзя угадывать FAR, восстанавливать только по comment или продолжать после conflict. Critical mismatch → RECONCILIATION/TERMINAL_SAFE.
 
-Это только пример размерностей. Production profile не утверждён.
-
-Пример Far SELL: BUY legs растут при движении вверх; Big Harvest на L1/L2 формирует actual DealNet. При доступном PartialFarBudget=120 money и close-cost 400 money/lot: raw=0.30 lot, floor=0.30; FinalReserve не участвует. При Small Transition план закрывает S=0.60, F=1.00, T=0.25, затем часть C; actual residual, например 0.50, становится FAR. Второй transition может дать 0.25 при прохождении всех gates. Far BUY симметричен.
-
-Final Close example: `RealizedCycleNet=500`, open close-now net `-450`, RecoveryPL=50; minimum=10. Coverage также обязана быть достаточной. Reserve не прибавляется повторно к 500.
-
-## Контракт
-
-Входы: reconciled state, market snapshot, broker properties, утверждённый profile. Выходы: plan/action/state. Preconditions: no pending, ownership valid, risk gates. Postconditions: ledgers conserved, один Far, state persisted. Запрещено: Legacy, DUAL_TAIL, requested residual как NewFar, state advance до actual. Restart: восстановление по snapshot + MT5 facts + event ledger. Owners: все архитектурные слои по PROJECT_MAP. Тесты: оба направления, уровни, reversals, partial fills, restart. Открытые числовые решения — реестр 22.
+Статус: OPEN_P0=0, OPEN_P1=0, OPEN_P2=0; production code отсутствует; real trading запрещена.
