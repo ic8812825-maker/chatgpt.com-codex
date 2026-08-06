@@ -1,0 +1,13 @@
+# Этап HSB.1 — отчёт неторгующего MQL5-каркаса
+
+Исходный SHA: 4614c70fcdff34962d6f2875aa8bc48a34cd8b5c
+
+HSB_STAGE_1_STATUS=IN_PROGRESS
+HSB_STAGE_1_SCOPE=NON_TRADING_MQL5_SKELETON
+TRADING_IMPLEMENTED=NO
+TRADE_REQUESTS_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+METAEDITOR_COMPILE=NOT_PROVEN
+MT5_STRATEGY_TESTER=NOT_APPLICABLE
+
+Разрешён только независимый неторгующий каркас. Старый советник и старые include не используются.

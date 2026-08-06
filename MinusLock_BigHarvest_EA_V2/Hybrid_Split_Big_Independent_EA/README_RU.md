@@ -1,23 +1,7 @@
 # Hybrid Split Big Independent EA
 
-HSB_STAGE_0_STRUCTURE=PASS
-HSB_STAGE_0_DOCUMENT_SET=PASS
-HSB_STAGE_0R_DECISIONS=PASS
-HSB_STAGE_0R_CORRECTION=PASS
-HSB_STAGE_0_DOCUMENTATION=PASS
-CORE_DOCUMENT_SYNC=PASS
-DECISION_REGISTRY=PASS
-STATUS_CONSISTENCY=PASS
-SOURCE_OF_TRUTH=PASS
-DOCUMENTARY_ALGEBRAIC_CONSISTENCY=PASS
-BROKER_MONEY_RUNTIME_PROOF=NOT_PROVEN
-OPEN_P0=0
-OPEN_P1=0
-OPEN_P2=0
-PRODUCTION_CODE_STARTED=NO
-NEXT_ALLOWED_STAGE=HSB.1
-HSB_STAGE_1_STARTED=NO
-AWAITING_USER_APPROVAL=YES
-REAL_TRADING_ALLOWED=NO
+Независимый проект Hybrid Split Big. Текущий этап: HSB.1, создание неторгующего MQL5-каркаса.
 
-Нормативный source of truth: Docs/03–18. Реестр решений: Docs/23. Следующий этап допустим только после отдельного прямого решения администратора; самостоятельно HSB.1 не начат.
+Торговые заявки, demo и real запрещены. Каркас не подключает старые include, Legacy, Split или DUAL_TAIL. Нормативная база: Docs/03–19 и Docs/23.
+
+Статус: HSB_STAGE_1_STATUS=IN_PROGRESS; TRADING_IMPLEMENTED=NO; REAL_TRADING_ALLOWED=NO.
