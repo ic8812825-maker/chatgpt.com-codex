@@ -1,27 +1,24 @@
-# Transaction Execution Contract
+# 07. Event-driven transaction execution contract
 
-Версия 1.0. Статус: нормативный.
+Версия HSB.0R-C.8. Статус: нормативный source of truth.
 
 ## Цепочка
+Plan→Action→Persist Action→OwnershipGuard→Send Request→OnTradeTransaction→FillAccumulator→CompletionDecision→Read actual positions/orders/deals→Apply Economic/Allocation Ledger→Persist result→Advance FSM.
 
-`Plan → Action → Persist Action → Send Request → OnTradeTransaction → Accumulate fills → Confirm completion → Read actual position → Apply ledgers → Persist result → Advance FSM`.
+## Идентификаторы
+CycleID, PlanID, ActionID, ParentActionID, EventID, PositionIdentifier, OrderTicket, DealTicket, StateRevision. EventKey и SourceDealKey обеспечивают idempotency.
 
-## IDs и ownership
+## OwnershipGuard
+Перед action: AccountLogin, Symbol, Magic, CycleID, Ticket, PositionIdentifier, Role, Direction, ExpectedVolume, ActualVolume, StateRevision, PlanID, ActionID. Mismatch→ACTION_BLOCKED→RECONCILIATION.
 
-CycleID, PlanID, ActionID, EventID, ParentActionID, PositionIdentifier, OrderTicket, DealTicket обязательны. Перед action OwnershipGuard проверяет Symbol, Magic, CycleID, ticket, identifier, role, direction, expected/actual volume, StateRevision, PlanID и ActionID.
+## Outcomes
+ACCEPTED/PLACED означают pending; DONE_PARTIAL означает incomplete; DONE только кандидат на completion и требует deals+actual state. Reject, requote, no money, invalid volume, market closed, price changed, connection failure типизированы и не продвигают FSM.
 
-- `HSBI-TX-001`: `PLACED` не completed.
-- `HSBI-TX-002`: `DONE_PARTIAL` не completed; fills накапливаются до target либо terminal outcome.
-- `HSBI-TX-003`: один ActionID имеет один commit outcome.
-- `HSBI-TX-004`: duplicate identical event → NO-OP; conflicting same key → CONFLICT.
-- `HSBI-TX-005`: opening `DEAL_ENTRY_IN` не является harvest source.
-- `HSBI-TX-006`: state advance до actual deal запрещён.
-- `HSBI-TX-007`: reject, requote, timeout, no money, invalid volume, market closed, price changed и connection failure имеют typed reason codes.
+## Retry
+Только тот же ActionID; completed deal отсутствует; history перечитана; reconciliation=PENDING; state допускает retry; duplicate request исключён; ownership и snapshot повторно валидны. Новая попытка записывается как child attempt с ParentActionID, но экономическое действие остаётся тем же.
 
-## Partial fills и restart
+## Timeout/delayed events
+TIMEOUT не равен failure/completed. Timeout ставит reconciliation barrier. Delayed transaction обрабатывается по EventKey; identical duplicate=NO-OP; конфликт того же key→CONFLICT→TERMINAL_SAFE. FillAccumulator суммирует volume и DealNet до exact completion criterion.
 
-FillAccumulator хранит requested, cumulative filled, VWAP, deals и fees. После restart pending Action восстанавливается из snapshot и history; повторная отправка запрещена до reconciliation. Unknown deal блокирует новые actions.
-
-## Контракт
-
-Вход: immutable Action и fresh execution snapshot. Выход: typed PENDING/COMPLETED/REJECTED/CONFLICT outcome. Preconditions: ownership PASS, no other pending, persisted StateRevision. Postconditions: actual position and ledgers согласованы. Error route: RECONCILING/TERMINAL_SAFE. Owner: Execution/TransactionEngine, ActionRegistry, FillAccumulator, OwnershipGuard. Тесты: all retcodes, delayed/duplicate/out-of-order events, partial fills, restart. Открытые вопросы: retry policy и broker-specific OUT_BY.
+## Restart
+PendingAction и attempts восстанавливаются до любых новых request; сначала history/positions/orders reconciliation. Owner Execution/TransactionEngine, ActionRegistry, FillAccumulator, OwnershipGuard. Tests: partial, duplicate, delayed, timeout, retry, crash between every phase.
