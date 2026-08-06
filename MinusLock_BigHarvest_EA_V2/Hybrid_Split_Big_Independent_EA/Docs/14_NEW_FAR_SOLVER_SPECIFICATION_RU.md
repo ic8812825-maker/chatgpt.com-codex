@@ -1,27 +1,27 @@
-# Broker-valid minimum-safe NewFar Solver
+# 14. Broker-valid deterministic minimum-safe NewFar Solver
 
-Версия 1.0. Статус: нормативный.
+Версия HSB.0R-C.15. Статус: нормативный source of truth.
 
-## Кандидаты
+## Входы
+Actual OldFar F, actual remaining original BIG_CORE, broker Vmin/Vmax/Vstep, immutable market/control-price snapshot, risk/margin inputs, allocation state, Future Small policy, compression limits.
 
-Solver строит дискретный набор `N={VolumeMin, VolumeMin+Step,...,<F}` и оценивает только broker-valid lots. Простая формула `F×TargetRatio` может задавать ориентир, но не решение.
+## Алгоритм
+1. Построить ascending broker-valid grid `N∈{Vmin,Vmin+Vstep,...,<F}`.
+2. Проверить `0<N<F`.
+3. Проверить `F-N≥MinimumFarCompressionLots`.
+4. Проверить `(F-N)/F≥MinimumFarCompressionRatio`.
+5. Проверить `N≤MaximumNewFarRatio×F`.
+6. Построить следующий C/T/S basket после broker rounding и проверить next-cycle feasibility.
+7. Проверить RecoveryPL monotonicity point-by-point broker money.
+8. Проверить Reserve Catch-Up money proof.
+9. Проверить `RiskNext<RiskOld-RiskTolerance`.
+10. Проверить MarginNext/free margin/drawdown/gross exposure.
+11. Выполнить recursive Future Small exact preview и conservative bound.
+12. Доказать finite catch-up после broker rounding.
+13. Проверить operational terminal lot semantics.
+14. Выбрать первый minimum-safe N.
+15. При равных допустимых результатах tie-break: меньший RiskNext, меньший MarginNext, меньше transitions, больший safety buffer, меньший N.
 
-Для каждого N обязательны: compression, maximum ratio, minimum lot/step, NextBig, RecoveryPL monotonicity, Reserve Catch-Up money proof, margin, RiskNext, Future Small, finite catch-up и terminal-lot semantics.
+Fixed TargetNewFarRatio запрещён как единственный solver и может быть только research hint. Все gates пересчитываются после rounding. Planned N никогда автоматически не становится FAR: после actual fills читается фактический BIG_CORE residual и повторно проходит validation.
 
-- `HSBI-NF-010`: unsafe candidate никогда не выбирается.
-- `HSBI-NF-011`: после rounding все gates пересчитываются.
-- `HSBI-NF-012`: solver детерминирован на одном snapshot/profile.
-- `HSBI-NF-013`: до утверждения objective policy автоматический production choice запрещён.
-- `HSBI-NF-014`: chosen planned N не становится Far; Far создаётся только из actual residual и повторной validation.
-
-## Selection
-
-Предпочтительная политика-кандидат: минимальный безопасный N, уменьшающий tail максимально, но только если transition close lot и все future gates допустимы. Альтернативная Score-функция (`w1 Risk+w2 Margin+w3 reversals-w4 recovery`) остаётся OPEN DECISION.
-
-## Граничные случаи
-
-Нет кандидатов → terminal-safe. N=F или N=0 запрещены. Residual ниже min lot запрещён. Coarse step может сделать аналитический q недостижимым. Actual residual после fill проверяется заново и может быть rejected.
-
-## Контракт
-
-Вход: F, actual Core, broker grid, immutable snapshot, policy. Выход: ordered candidate proofs/chosen candidate/reason. Preconditions: transition plan not executing. Postconditions: deterministic fingerprint. Restart: plan/candidate set digest persisted. Owner: Planning/NewFarSolver. Тесты: min/step, both directions, no candidate, objective ties, coarse grid, actual deviation. Открытый вопрос: objective function и Future Small depth.
+Нет safe candidate, plateau на grid, stale snapshot, invalid money, failed recursion или actual residual mismatch→reject/TERMINAL_SAFE. Candidate proof и digest сохраняются. Owner Planning/NewFarSolver. Tests: 0.01/coarse step, min lot, both directions, tie, no candidate, two transitions, actual deviation.
