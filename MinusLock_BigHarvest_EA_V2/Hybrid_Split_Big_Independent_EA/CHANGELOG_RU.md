@@ -1,9 +1,12 @@
-# CHANGELOG — Hybrid Split Big Independent EA
+# Статус нормативной базы HSB.0R-C
 
-## HSB.0
+Версия HSB.0R-C.23.
 
-- Создан независимый корень и обязательная структура каталогов.
-- Созданы карта проекта и 23 автономных нормативных документа.
-- Зафиксированы Hybrid-only, единственный Far, event-driven execution, Economic/Allocation Ledgers, atomic persistence и reconciliation.
-- Исполняемый MQL5-код не создавался.
-- Итог HSB.0: `BLOCKED_BY_OPEN_P1_DECISIONS`; HSB.1 не разрешён до решений Администратора.
+HSB_STAGE_0R_CORRECTION=READY_FOR_ACCEPTANCE
+HSB_STAGE_0_DOCUMENTATION=AWAITING_FINAL_ACCEPTANCE
+NEXT_ALLOWED_STAGE=NONE
+HSB_STAGE_1_START_ALLOWED=NO
+PRODUCTION_CODE_STARTED=NO
+REAL_TRADING_ALLOWED=NO
+
+Все решения HSBI-DEC-001…014 имеют owner-документы 03–18, test routes и fail-closed contract. Реестр решений CLOSED_FOR_HSB1_ARCHITECTURE. Sync reports: HISTORICAL_CORRECTION_REPORT / NOT_NORMATIVE_SOURCE. Финальный PASS ещё не установлен до HSB.0R-C.26.

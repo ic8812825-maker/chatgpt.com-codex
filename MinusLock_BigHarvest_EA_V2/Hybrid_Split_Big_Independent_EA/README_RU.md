@@ -1,18 +1,5 @@
-# Hybrid Split Big — независимый проект
+# Hybrid Split Big Independent EA
 
-Статус: `HSB.0 — нормативная документация`.
+Статус после HSB.0R-C.23: HSB_STAGE_0R_CORRECTION=READY_FOR_ACCEPTANCE; HSB_STAGE_0_DOCUMENTATION=AWAITING_FINAL_ACCEPTANCE; NEXT_ALLOWED_STAGE=NONE; HSB_STAGE_1_START_ALLOWED=NO; PRODUCTION_CODE_STARTED=NO; REAL_TRADING_ALLOWED=NO.
 
-Проект создаётся с нуля как единственная система `HYBRID_SPLIT_BIG_ONLY`. Legacy Big/Small, отдельный Split Big, DUAL_TAIL, второй Far и старые execution-модули запрещены.
-
-Главный мануал: `Docs/03_FULL_SYSTEM_MANUAL_RU.md`.
-Карта проекта: `PROJECT_MAP_RU.md`.
-
-```text
-PRODUCTION_CODE_STARTED=NO
-REAL_TRADING_ALLOWED=NO
-METAEDITOR_COMPILE=NOT_APPLICABLE
-MT5_STRATEGY_TESTER=NOT_APPLICABLE
-NEXT_ALLOWED_STAGE=NONE
-```
-
-Порядок работы: сначала завершить и принять HSB.0, затем только по отдельному разрешению Администратора начинать HSB.1. Любая будущая MQL5-функция обязана ссылаться на стабильный Requirement ID `HSBI-*`.
+Нормативный source of truth: Docs/03–18. Решения HSBI-DEC-001…014 встроены в owner-документы. Sync reports являются историческими и ненормативными. HSB.1 до финальной приёмки и отдельного решения администратора запрещён.
