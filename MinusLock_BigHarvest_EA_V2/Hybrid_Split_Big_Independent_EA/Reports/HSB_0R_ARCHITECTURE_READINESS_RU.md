@@ -1,18 +1,24 @@
-# Документальная готовность архитектуры к HSB.1
+# Архитектурная готовность к HSB.1
 
-Статус: READY_FOR_ACCEPTANCE, не разрешение на начало HSB.1.
+Версия HSB.0R-C.25
+ARCHITECTURE_READY_FOR_NON_TRADING_MQL5_SKELETON=PASS
 
-Без изменения нормативных интерфейсов могут быть созданы: enums RuntimeMode/Role/State/ActionStatus/ReconciliationOutcome/ReasonCode; types IdentityKey, CycleContext, MarketSnapshot, CandidatePlan, TransitionPlan, PendingAction, FillRecord, EconomicLedgerRecord, AllocationRecord, VersionedSnapshot.
+Проверены и полностью определены без создания кода:
+- enums: RuntimeMode, Role, State, ActionStatus, ReconciliationOutcome, ReasonCode;
+- role types и единственный FAR;
+- IdentityKey=AccountLogin+Symbol+Magic+CycleID+PositionIdentifier+Role;
+- CycleContext и StateRevision;
+- runtime modes HYBRID_ONLY/RESEARCH/DEMO/REAL_LIMITED gate;
+- FSM states и actual-deal barrier;
+- immutable CandidatePlan/TransitionPlan/FinalClosePlan;
+- typed control prices и freshness;
+- Action/Event/Fill types, retry/timeout semantics;
+- Economic/Allocation ledger records и exactly-once keys;
+- versioned snapshot schema, SHA-256, journal, lock и crash-consistent commit;
+- risk/margin inputs и typed outcomes;
+- NewFar/FutureSmall solver inputs/outputs;
+- reason codes и module dependency rules.
 
-Определены обязательные interfaces:
-- Core: immutable identity, context revision, FSM event application;
-- Planning: geometry/catch-up/FutureSmall/NewFar solver inputs and typed result;
-- Money: broker calculator, ledgers, allocation conservation, FinalClose result;
-- Execution: ownership guard, action registry, request sender, OnTradeTransaction fill accumulator;
-- Persistence: snapshot/journal/lock/recovery;
-- Risk: ordered fail-closed gates and emergency decision;
-- Diagnostics: read-only trace/evidence.
+Каждое решение HSBI-DEC-001…014 имеет owner и interface; configuration values не требуют изменения основных DTO. Запрещённые зависимости зафиксированы. Нет Legacy/Split/DUAL_TAIL, второго Far или старых include.
 
-Основные contracts не зависят от будущих оптимизируемых ratios/shares/limits: они передаются как validated configuration. `DEFERRED_WITH_SAFE_CONTRACT` не требует изменения основных типов.
-
-Не создавались `.mq5/.mqh`, OnTick, OnTradeTransaction implementation или торговые функции. Следующий этап может быть разрешён только итоговой HSB.0R acceptance и отдельным решением пользователя.
+Эта готовность относится только к будущему неторгующему каркасу. `.mq5/.mqh`, OnTick, OnTradeTransaction implementation, TradeEngine и execution logic не создавались. HSB.1 не начат и требует финального acceptance плюс отдельное одобрение администратора.
