@@ -1,28 +1,29 @@
-# Реестр открытых нормативных решений
+# Реестр нормативных решений после HSB.0R
 
-Версия 1.0. Статус: OPEN. Решения нельзя выдумывать молча.
+Версия 2.0. Статус: CLOSED_FOR_HSB1_ARCHITECTURE.
 
-| ID | Тема | Варианты | Влияние/риск | Рекомендация | Пользователь | Статус |
-|---|---|---|---|---|---|---|
-| HSBI-DEC-001 | Production ratios C/T/S | fixed, solver range, profile set | catch-up/slope/margin; P1 | утвердить после money search | YES | OPEN P1 |
-| HSBI-DEC-002 | Allocation shares | reserve/partial/transition/carry | Final/Partial capability; P1 | conservation + scenario study | YES | OPEN P1 |
-| HSBI-DEC-003 | Control price/range | level, Far distance, stress range | proof validity; P1 | broker-valid bounded grid | YES | OPEN P1 |
-| HSBI-DEC-004 | Future Small depth | 1, bounded N, finite proof | hidden dead-end; P1 | bounded multi-step proof | YES | OPEN P1 |
-| HSBI-DEC-005 | NewFar objective | minimum-safe, weighted score, lexicographic | compression/risk; P1 | lexicographic safety then min N | YES | OPEN P1 |
-| HSBI-DEC-006 | Emergency policy | freeze, protective close, account stop | loss/control; P1 | separate authority, no recovery PASS | YES | OPEN P1 |
-| HSBI-DEC-007 | Maximum transition loss | zero or money limit | reversal feasibility; P1 | money cap + budget source | YES | OPEN P1 |
-| HSBI-DEC-008 | Minimum Final profit | fixed/dynamic | close timing; P1 | money threshold incl costs | YES | OPEN P1 |
-| HSBI-DEC-009 | Margin/drawdown limits | broker/account policy | survival; P1 | conservative demo limits | YES | OPEN P1 |
-| HSBI-DEC-010 | Symbols/cycles | whitelist, one/multi-cycle | isolation/margin; P1 | one cycle per Symbol+Magic initially | YES | OPEN P1 |
-| HSBI-DEC-011 | Persistence backend | files/common files/append log | atomicity/recovery; P1 | versioned temp+promote files | YES | OPEN P1 |
-| HSBI-DEC-012 | Real limitations | deposit/leverage/lot/duration | capital risk; P1 | decide only after demo | YES | DEFERRED |
-| HSBI-DEC-013 | Small confirmation | touch, retrace, time confirmation | false reversal | typed configurable rule | YES | OPEN P2 |
-| HSBI-DEC-014 | Retry/timeouts | bounded retries/manual | duplicates/stuck action | no resend before reconciliation | YES | OPEN P2 |
+| ID | Принятое решение | Статус |
+|---|---|---|
+| HSBI-DEC-001 | Формулы и broker-normalized диапазоны фиксированы; research ratios не являются production default | DEFERRED_WITH_SAFE_CONTRACT |
+| HSBI-DEC-002 | Allocation profile конфигурируемый; conservation/source ownership/bucket isolation обязательны | DEFERRED_WITH_SAFE_CONTRACT |
+| HSBI-DEC-003 | Typed fresh control prices, Bid/Ask и broker tick proof range | RESOLVED |
+| HSBI-DEC-004 | Exact recursive Future Small до terminal/depth/bound; depth 1 недостаточен | RESOLVED |
+| HSBI-DEC-005 | Minimum broker-valid safe residual с deterministic tie-break | RESOLVED |
+| HSBI-DEC-006 | Emergency Liquidation отделена от Recovery Final Close | RESOLVED |
+| HSBI-DEC-007 | Minimum из absolute/equity/OldFarRisk/cumulative caps; значения конфигурационные | DEFERRED_WITH_SAFE_CONTRACT |
+| HSBI-DEC-008 | Money threshold + execution buffer + tolerance; значение конфигурационное | DEFERRED_WITH_SAFE_CONTRACT |
+| HSBI-DEC-009 | Обязательные fail-closed gates; research limits не real defaults | DEFERRED_WITH_SAFE_CONTRACT |
+| HSBI-DEC-010 | Identity включает Account+Symbol+Magic+CycleID+identifier+role; one cycle/symbol | RESOLVED |
+| HSBI-DEC-011 | Versioned file snapshot + SHA-256 + append-only journal; GV markers only | RESOLVED |
+| HSBI-DEC-012 | REAL_LIMITED contract с explicit approval; торговля сейчас запрещена | RESOLVED |
+| HSBI-DEC-013 | Confirmed Small touch, fresh repeated snapshots, debounce key | RESOLVED |
+| HSBI-DEC-014 | Same ActionID retry only after reconciliation; timeout→RECONCILING | RESOLVED |
 
-## Requirements
+`DEFERRED_WITH_SAFE_CONTRACT` не требует изменения основных типов HSB.1: интерфейсы, диапазоны, validation, owners и тесты определены; меняются только validated configuration values после MQL5/MT5 evidence.
 
-- `HSBI-GEN-050`: OPEN P1 запрещает начать production implementation, зависящую от решения.
-- `HSBI-GEN-051`: решение фиксируется новой revision с rationale, formulas, tests и affected IDs.
-- `HSBI-GEN-052`: default не создаётся без пользовательского решения.
-
-Контракт: вход — unresolved policy points; выход — explicit decision queue. Preconditions: no silent assumptions. Postconditions: каждое решение имеет owner/risk. Restart не применим. Owner: Administrator + architecture. Тест: все config constants ссылаются на APPROVED decision. Открытые вопросы перечислены таблицей.
+```text
+OPEN_P0=0
+OPEN_P1=0
+OPEN_P2=0
+REAL_TRADING_ALLOWED=NO
+```
