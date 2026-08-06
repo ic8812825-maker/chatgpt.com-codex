@@ -1,23 +1,28 @@
-# Hybrid Split Big Independent EA
+# Карта проекта Hybrid Split Big Independent EA
 
-HSB_STAGE_0_STRUCTURE=PASS
-HSB_STAGE_0_DOCUMENT_SET=PASS
-HSB_STAGE_0R_DECISIONS=PASS
-HSB_STAGE_0R_CORRECTION=PASS
-HSB_STAGE_0_DOCUMENTATION=PASS
-CORE_DOCUMENT_SYNC=PASS
-DECISION_REGISTRY=PASS
-STATUS_CONSISTENCY=PASS
-SOURCE_OF_TRUTH=PASS
-DOCUMENTARY_ALGEBRAIC_CONSISTENCY=PASS
-BROKER_MONEY_RUNTIME_PROOF=NOT_PROVEN
-OPEN_P0=0
-OPEN_P1=0
-OPEN_P2=0
-PRODUCTION_CODE_STARTED=NO
-NEXT_ALLOWED_STAGE=HSB.1
-HSB_STAGE_1_STARTED=NO
-AWAITING_USER_APPROVAL=YES
+## Фактический HSB.1
+
+Созданы независимые слои Core, Planning, Money, Execution, Scenarios, Persistence, Risk, Diagnostics и MQL5 test harness. Production broker execution отсутствует.
+
+```text
+EA shell
+→ Core
+→ Execution/NoTrade stub
+→ Diagnostics
+Planning → Core
+Money → Core types
+Execution → Core
+Scenarios → contracts only
+Persistence → DTO/schema only
+Risk → pure validation
+Diagnostics → read-only
+```
+
+Реализованы: versions/enums/types/reasons, identity/roles/context, pure FSM/invariants, market/control DTO, CandidatePlan/NewFar candidate, money/ledger DTO, action/event/outcome, ownership guard, scenario DTO, snapshot/journal/reconciliation, risk gates, logger/diagnostics, 26-test harness.
+
+Не реализованы: broker execution, production OnTradeTransaction lifecycle, scenario execution, broker-money calculations, NewFar full solver, production storage, MetaEditor/MT5 evidence.
+
+HSB_STAGE_1_STATUS=READY_FOR_ACCEPTANCE
+NEXT_ALLOWED_STAGE=NONE
+AWAITING_FINAL_ACCEPTANCE=YES
 REAL_TRADING_ALLOWED=NO
-
-Нормативный source of truth: Docs/03–18. Реестр решений: Docs/23. Следующий этап допустим только после отдельного прямого решения администратора; самостоятельно HSB.1 не начат.
