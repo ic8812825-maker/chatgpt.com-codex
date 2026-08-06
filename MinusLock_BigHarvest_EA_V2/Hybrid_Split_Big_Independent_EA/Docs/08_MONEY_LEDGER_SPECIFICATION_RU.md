@@ -1,35 +1,24 @@
-# Economic Ledger и Allocation Ledger
+# 08. Economic Ledger и Allocation Ledger
 
-Версия 1.0. Статус: нормативный.
+Версия HSB.0R-C.9. Статус: нормативный source of truth.
 
 ## DealNet
-
-`DealNet=DEAL_PROFIT+DEAL_SWAP+DEAL_COMMISSION+DEAL_FEE`. Поля сохраняются с фактическим знаком MT5. Источник — confirmed deal, не projection.
+`DealNet=DEAL_PROFIT+DEAL_SWAP+DEAL_COMMISSION+DEAL_FEE`. Поля сохраняются отдельно со знаком MT5. Source truth — actual closing deals.
 
 ## Economic Ledger
-
-Поля: DealTicket, OrderTicket, PositionIdentifier, Symbol, Magic, CycleID, ActionID, EventID, Role, EntryType, Volume, Price, Profit, Swap, Commission, Fee, DealNet, Timestamp, SourceDealKey.
+Поля: DealTicket, OrderTicket, PositionIdentifier, AccountLogin, Symbol, Magic, CycleID, PlanID, ActionID, EventID, Role, EntryType, Volume, Price, Profit, Swap, Commission, Fee, DealNet, Timestamp, SourceDealKey. Opening DEAL_ENTRY_IN и Initial Profit не создают harvest allocation.
 
 ## Allocation Ledger
+Buckets: FinalReserve, PartialFarBudget, TransitionBudget, Carry, Residual. Shares configuration в [0,1]; после округления money per-source: `Reserve+Partial+Transition+Carry+Residual=AllocatableDealNet`. `AllocatedTotal≤RealizedSourceTotal`. Negative DealNet учитывается Economic Ledger, но allocatable amount=0, если отдельно не утверждён loss-consumption contract.
 
-Buckets: FinalReserve, PartialFarBudget, TransitionBudget, Carry, Residual. Для каждого source deal:
+## Keys/exactly-once
+SourceDealKey связывает source; EventKey идентифицирует transaction event; ConsumptionKey связывает consumption с bucket/source/action. Identical replay=NO-OP. Same key different payload=CONFLICT→RECONCILIATION. Foreign cycle/source consumption запрещено.
 
-`ReserveAllocated+PartialAllocated+TransitionAllocated+CarryAllocated+Residual=DealNetAvailableForAllocation`.
+## Isolation
+FinalReserve никогда не потребляется Partial Far. PartialFarBudget не используется Final Close, если не перечислен как explicitly allowed final source. TransitionBudget только для Transition Loss. Carry сохраняет источник. Residual остаётся нераспределённым.
 
-`AllocatedTotal<=RealizedSourceTotal`.
+## Transition и Final Close
+`TransitionLoss=max(0,-ΣActualClosingDealNet)` и ограничивается четырьмя caps. Final Close использует `RecoveryPLCloseNow` без повторного добавления buckets; threshold включает minimum+buffer+tolerance. Emergency accounting имеет отдельный reason и не маркируется recovery profit.
 
-- `HSBI-MONEY-010`: opening DEAL_ENTRY_IN не финансирует allocation.
-- `HSBI-MONEY-011`: Initial Profit не входит в recovery Economic Ledger.
-- `HSBI-MONEY-012`: FinalReserve не финансирует Partial Far.
-- `HSBI-MONEY-013`: bucket не прибавляется повторно к RealizedCycleNet.
-- `HSBI-MONEY-014`: EventKey, SourceDealKey и ConsumptionKey обеспечивают exactly-once.
-- `HSBI-MONEY-015`: identical replay → NO-OP; conflicting replay → reconciliation.
-- `HSBI-MONEY-016`: allocation и consumption атомарны относительно persisted revision.
-
-## Restart и ошибки
-
-Ledgers append-only; snapshot хранит digests и last committed event. Altered history, negative unexplained residual, over-allocation или reused source → CONFLICT. Никакие суммы не восстанавливаются из comments.
-
-## Контракт
-
-Вход: actual deals и approved allocation policy. Выход: immutable economic entries и balanced allocations. Preconditions: identity valid, event complete. Postconditions: conservation. Owner: Money/EconomicLedger, AllocationLedger. Тесты: signs, IN/OUT/INOUT/OUT_BY, duplicate, multi-source, restart, fee/swap. Открытые вопросы: production allocation shares и treatment positive PartialFar deal.
+## Reservation/restart
+Allocation и consumption проходят reserve→persist→actual event→consume/release→persist. Crash восстанавливается по ledgers, journal и actual history. Owner Money/EconomicLedger/AllocationLedger. Tests: per-source positive/negative/residual, duplicates, conflicts, restart, FinalReserve isolation.
