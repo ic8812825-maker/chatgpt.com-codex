@@ -1,28 +1,28 @@
-# Initial Lock и создание исходного Far
+# 09. Initial Lock и создание исходного Far
 
-Версия 1.0. Статус: нормативный.
+Версия HSB.0R-C.10. Статус: нормативный source of truth.
+
+## Identity и scope
+Каждая leg связана с AccountLogin+Symbol+Magic+CycleID+PositionIdentifier+Role. Generation 1 допускает один активный cycle на Symbol+Magic. Comment не является source of truth.
 
 ## Последовательность
+1. Clean-start reconciliation подтверждает отсутствие managed positions/orders/pending actions.
+2. Создать immutable InitialPlan и persist BUY Action.
+3. Отправить BUY, дождаться OnTradeTransaction и actual fill; partial fill остаётся pending.
+4. Persist SELL Action, отправить SELL, дождаться actual fill.
+5. Если SELL не завершён, выполнить отдельный rollback BUY action; до actual rollback deal цикл не считается чистым.
+6. После trigger определить прибыльную leg broker-money моделью.
+7. Persist close INITIAL_PLUS; FSM не продвигается на request/PLACED/DONE_PARTIAL.
+8. Только после completed close deal пометить Initial Profit excluded.
+9. Actual remaining position с неизменным identifier назначается FAR и snapshot commit.
 
-1. Создать immutable InitialPlan.
-2. Persist BUY Action; отправить BUY; дождаться actual fill.
-3. Persist SELL Action; отправить SELL; дождаться actual fill.
-4. При невозможности SELL создать отдельный rollback BUY action и подтвердить close deal.
-5. В `INITIAL_LOCK_ACTIVE` отслеживать trigger broker-money моделью.
-6. При trigger определить прибыльную leg, persist close action, подтвердить actual close.
-7. Mark closed leg INITIAL_PLUS и исключить её DealNet из recovery.
-8. Оставшуюся actual position назначить FAR и commit cycle snapshot.
+## Exclusion
+Initial Profit не входит в RealizedCycleNet, FinalReserve, PartialFarBudget, TransitionBudget или Carry. Opening DEAL_ENTRY_IN не является harvest source.
 
-- `HSBI-INIT-001`: FAR не создаётся до actual close INITIAL_PLUS.
-- `HSBI-INIT-002`: Initial Profit не попадает в RealizedCycleNet, FinalReserve или PartialFarBudget.
-- `HSBI-INIT-003`: rollback подтверждается transaction outcome.
-- `HSBI-INIT-004`: обе initial legs имеют один CycleID, разные identifiers/tickets и строгие roles.
-- `HSBI-INIT-005`: clean start доказан только при отсутствии managed positions, pending actions и persisted active cycle.
+## Retry/timeout
+Retry использует тот же ActionID только после history recheck, reconciliation=PENDING и отсутствия completed deal. Timeout ведёт в reconciliation; delayed event обрабатывается idempotently.
 
-## BUY/SELL и ошибки
+## Restart/error
+Restart восстанавливает Plan, PendingAction, fills и actual positions. Два Far, missing leg, foreign identity или восстановление только по comment запрещены и ведут terminal-safe/manual review.
 
-BUY fill использует Ask, SELL fill Bid; close BUY Bid, close SELL Ask. Partial fill каждой opening action остаётся pending. Foreign/duplicate legs → reconciliation. Restart допустим после любого шага и восстанавливает InitialPlan/Action/fills.
-
-## Контракт
-
-Вход: StartLot broker-valid, fresh market, risk PASS. Выход: ровно один FAR. Preconditions: IDLE, clean start. Postconditions: initial plus excluded, ledgers empty для recovery, Far identity persisted. Запрещено: эвристически выбирать Far, продолжать после failed rollback, создавать basket до commit Far. Owner: Scenarios/InitialLock + Execution. Тесты: BUY/SELL failure, partial fill, restart each phase, same Magic foreign position. Открытые вопросы: trigger и timeout policy.
+Preconditions: fresh market, valid lot, risk PASS, IDLE. Postconditions: ровно один FAR, initial plus excluded, no pending. Owner: Scenarios/InitialLock+Execution. Tests: обе стороны, rollback, partial/delayed fill, retry, timeout, restart на каждом шаге.
