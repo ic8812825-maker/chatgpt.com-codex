@@ -1,0 +1,5 @@
+#ifndef HSBI_SMALL_TRANSITION_TYPES_MQH
+#define HSBI_SMALL_TRANSITION_TYPES_MQH
+#include "HSBI_ScenarioTypes.mqh"
+struct HSBI_SmallTransitionContract{HSBI_ScenarioContract base;ulong smallCloseActionId;ulong oldFarCloseActionId;ulong trendCloseActionId;ulong coreReduceActionId;ulong originalBigCoreIdentifier;double actualBigCoreResidual;bool smallConfirmed;};
+#endif
