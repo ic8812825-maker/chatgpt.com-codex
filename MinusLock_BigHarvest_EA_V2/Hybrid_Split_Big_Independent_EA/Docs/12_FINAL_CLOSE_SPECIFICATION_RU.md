@@ -1,33 +1,17 @@
-# Единый нормативный Final Close
+# 12. Единый нормативный Final Close
 
-Версия 1.0. Статус: нормативный.
+Версия HSB.0R-C.13. Статус: нормативный source of truth.
 
-## Единственная authority
+Единственная authority: Scenarios/FinalClose через Money/FinalCloseCalculator. Другие сценарии могут только запросить preview.
 
-Final Close разрешён только Scenarios/FinalClose через FinalCloseCalculator. Другие сценарии могут лишь запросить preview.
+Главный gate: `RecoveryPLCloseNow ≥ MinimumRecoveryProfitMoney + ExecutionSafetyBufferMoney + MoneyTolerance`, где `RecoveryPLCloseNow=RealizedCycleNet+ΣOpenPositionCloseNowNet`. Allocation buckets, включая FinalReserve, повторно не прибавляются.
 
-Обязательные условия:
+Coverage gate: FinalReserveAvailable+OtherExplicitlyAllowedFinalSources≥RequiredFinalCloseCoverage. Allowed sources перечисляются типизированно; PartialFar reservation и foreign source запрещены.
 
-`RecoveryPLCloseNow > MinimumRecoveryProfitMoney` и
-`FinalReserveAvailable + OtherExplicitlyAllowedFinalSources >= RequiredFinalCloseCoverage`.
+Обязательны: PositionsReconciled, NoPendingActions, NoUnknownDeals, OwnershipValid, StateRevisionValid, fresh FinalClosePrice, spread allowed, costs/commission/swap/slippage included, market snapshot fingerprint unchanged.
 
-Дополнительно: NoPendingTransactions, PositionsReconciled, NoUnknownDeals, OwnershipValid, StateRevisionValid, fresh market snapshot, spread policy PASS, execution costs included.
+Theoretical Far loss не заменяет broker money. MaxLevel не является основанием. Negative/insufficient RecoveryPL = reject. Emergency Liquidation — отдельная authority и не маркируется successful recovery.
 
-- `HSBI-FC-001`: RecoveryPL=`RealizedCycleNet+ΣOpenCloseNowNet`, без повторного Reserve.
-- `HSBI-FC-002`: theoretical Far loss не заменяет `OrderCalcProfit`/broker money.
-- `HSBI-FC-003`: MaxLevel не является прибыльным close gate.
-- `HSBI-FC-004`: отрицательный/недостаточный RecoveryPL запрещает Final Close.
-- `HSBI-FC-005`: Final Close action завершается только actual deals и zero managed positions.
-- `HSBI-FC-006`: emergency liquidation отделена и не маркируется успешным recovery.
+Lifecycle: immutable FinalClosePlan→persist→sequential/parallel actions по плану→OnTradeTransaction→fills→actual zero managed positions→ledger consumption exactly once→persist CYCLE_CLOSED. Partial fill остаётся executing; retry same ActionID только после reconciliation. Restart восстанавливает plan/actions/consumption.
 
-## Пример
-
-ДЕМОНСТРАЦИОННЫЙ ПРОФИЛЬ: RealizedCycleNet=500, open close-now=-450, RecoveryPL=50; minimum=10. При coverage requirement 430 и allowed sources 440 gate PASS. Reserve уже входит в allocation realized 500 и не делает RecoveryPL=490.
-
-## Restart/errors
-
-Persisted FinalClosePlan содержит snapshot/fingerprint, expected roles/actions и coverage. Partial fill удерживает executing state. Unknown deal/price stale/ownership mismatch → reconciliation; повторный send запрещён.
-
-## Контракт
-
-Вход: reconciled basket, ledgers, fresh prices. Выход: CYCLE_CLOSED либо typed reject/pending/conflict. Preconditions: all gates. Postconditions: positions closed, ledger consumed exactly once, final P/L reported. Owner: Money/FinalCloseCalculator + Scenarios/FinalClose. Тесты: negative PL, double counting, gaps, partial fills, restart, foreign position. Открытые вопросы: allowed final sources, safety buffer и minimum profit.
+PASS vector: Realized=500, open close-now=-450 => 50; minimum=10, buffer=5, tolerance=1 => threshold16, gate PASS при coverage. Reject vector: Realized=480, open=-470=>10<threshold16. Owner Money/FinalCloseCalculator+Scenarios/FinalClose. Tests: accept/reject, double count, stale/gap, partial/delayed, restart, unknown/foreign.
