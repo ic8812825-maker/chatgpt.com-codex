@@ -1,19 +1,25 @@
-# Reconciliation и terminal-safe
+# 17. Reconciliation и terminal-safe recovery routes
 
-Версия 1.0. Статус: нормативный.
+Версия HSB.0R-C.18. Статус: нормативный source of truth.
 
-Источники истины по приоритету: actual MT5 positions, orders, deals; committed snapshot; event/action ledgers. Comments — только диагностика.
+Источники истины: actual MT5 positions, orders, deals; committed versioned snapshot; append-only action/event/economic/allocation ledgers. Comment — только диагностика.
 
-Outcomes: `RECONCILED, PENDING, CONFLICT, REJECTED, TERMINAL_SAFE, CLEAN_START`.
+Outcomes: RECONCILED, PENDING, CONFLICT, REJECTED, TERMINAL_SAFE, CLEAN_START.
 
-- `HSBI-RECON-001`: reconciliation не создаёт новую корзину.
-- `HSBI-RECON-002`: Far не угадывается и один из двух Far не выбирается автоматически.
-- `HSBI-RECON-003`: missing deal не считается completed.
-- `HSBI-RECON-004`: duplicate money event не начисляется повторно.
-- `HSBI-RECON-005`: altered history/source ownership → CONFLICT.
-- `HSBI-RECON-006`: до RECONCILED/CLEAN_START новые opens запрещены.
-- `HSBI-RECON-007`: TERMINAL_SAFE запрещает promotion/allocation/opens; разрешённые protective closes определяются отдельной emergency policy.
+Проверяются AccountLogin, Symbol, Magic, CycleID, role, ticket, identifier, direction, actual volume, StateRevision, PlanID, PendingAction/ActionID, expected/actual fills, SourceDeal/Event/Consumption keys, ledgers/digests и control snapshot.
 
-Проверяются Symbol, Magic, CycleID, role, ticket, identifier, direction, volume, StateRevision, pending ActionID, fill totals, ledgers и digests. Orphan/missing/duplicate Far, unknown deal, conflicting snapshot и manual intervention регистрируются явно.
+## Обязательные routes
+- pending timeout: history recheck→PENDING/CONFLICT, не failure/completed;
+- delayed transaction: применить idempotently к тому же ActionID;
+- duplicate event: identical NO-OP, different payload CONFLICT;
+- partial fill: action остаётся pending, следующий FSM step запрещён;
+- retry: same ActionID после reconciliation=PENDING;
+- altered history/source: CONFLICT;
+- corrupted snapshot: previous valid candidate либо TERMINAL_SAFE;
+- two-Far: не выбирать автоматически, TERMINAL_SAFE/manual review;
+- missing/unknown position/deal: REJECTED/CONFLICT;
+- manual intervention: explicit diff/reason, no silent adoption.
 
-Контракт: вход — snapshot и actual facts; выход — typed outcome + diff + reason codes. Preconditions: history range доступен. Postconditions: reconciled state точно соответствует MT5. Restart: reconciliation обязательна. Owner: Persistence/Reconciliation. Тесты: every mismatch class, manual close, delayed deal, duplicate Far, foreign positions. Открытые вопросы: retry/timeouts и allowed protective actions.
+Reconciliation не создаёт корзину, не назначает NewFar, не распределяет деньги повторно и не считает missing deal выполненным. До RECONCILED/CLEAN_START opens запрещены. После critical error автоматический resume запрещён; только explicit administrator decision после нового reconciliation.
+
+Owner Persistence/Reconciliation+Execution metadata. Tests: все mismatch classes, delayed/duplicate/partial/retry/timeout, manual close, altered history, corruption, two Far, unknown foreign position.
