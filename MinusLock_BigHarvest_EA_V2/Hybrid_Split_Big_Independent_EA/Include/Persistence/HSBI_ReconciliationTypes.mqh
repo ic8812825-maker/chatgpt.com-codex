@@ -1,0 +1,8 @@
+#ifndef HSBI_RECONCILIATION_TYPES_MQH
+#define HSBI_RECONCILIATION_TYPES_MQH
+#include "HSBI_SnapshotTypes.mqh"
+enum HSBI_ReconciliationOutcome{HSBI_RECON_RECONCILED,HSBI_RECON_PENDING,HSBI_RECON_CONFLICT,HSBI_RECON_REJECTED,HSBI_RECON_TERMINAL_SAFE,HSBI_RECON_CLEAN_START};
+struct HSBI_ReconciliationInput{string persistedSnapshotDigest;string observedPositionsDigest;string observedEventsDigest;string economicLedgerDigest;string allocationLedgerDigest;HSBI_Identity identityScope;};
+struct HSBI_ReconciliationResult{HSBI_ReconciliationOutcome outcome;ulong mismatchMask;string requiredAction;bool newTradingAllowed;bool manualInterventionRequired;HSBI_ReasonCode reason;};
+HSBI_ReconciliationResult HSBI_CompareReconciliation(const HSBI_ReconciliationInput &x){HSBI_ReconciliationResult r;r.mismatchMask=0;r.newTradingAllowed=false;r.manualInterventionRequired=false;r.reason=HSBI_REASON_OK;if(x.persistedSnapshotDigest==""&&x.observedPositionsDigest==""&&x.observedEventsDigest==""){r.outcome=HSBI_RECON_CLEAN_START;r.requiredAction="NONE";return r;}if(!HSBI_IsValidIdentity(x.identityScope)){r.outcome=HSBI_RECON_REJECTED;r.reason=HSBI_REASON_INVALID_IDENTITY;r.requiredAction="MANUAL_REVIEW";r.manualInterventionRequired=true;return r;}if(x.economicLedgerDigest!=x.allocationLedgerDigest){r.outcome=HSBI_RECON_CONFLICT;r.mismatchMask=1;r.reason=HSBI_REASON_RECONCILIATION_REQUIRED;r.requiredAction="TERMINAL_SAFE";r.manualInterventionRequired=true;return r;}r.outcome=HSBI_RECON_PENDING;r.reason=HSBI_REASON_RECONCILIATION_REQUIRED;r.requiredAction="OBSERVE";return r;}
+#endif
