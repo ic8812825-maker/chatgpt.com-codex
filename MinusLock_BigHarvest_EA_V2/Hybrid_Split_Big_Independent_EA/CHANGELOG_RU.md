@@ -2,8 +2,6 @@
 
 ## HSB.1
 
-Создан независимый неторгующий MQL5-каркас: main EA shell, Core/Planning/Money/Execution/Scenarios/Persistence/Risk/Diagnostics interfaces, no-trade guard и MQL5 unit-test harness.
+Создан и статически принят независимый неторгующий MQL5-каркас. Trade API, старые include, Legacy, Split и DUAL_TAIL отсутствуют. Созданы 26 MQL5 unit tests, static no-trade audit, include graph и traceability mapping.
 
-Static no-trade audit и include dependency audit: PASS. MetaEditor и MT5 недоступны, поэтому compile/tests честно отмечены NOT_RUN_ENVIRONMENT_UNAVAILABLE. Торговые сценарии и broker execution не реализованы.
-
-HSB_STAGE_1_STATUS=READY_FOR_ACCEPTANCE; NEXT_ALLOWED_STAGE=NONE; REAL_TRADING_ALLOWED=NO.
+MetaEditor и MT5 недоступны: compile и tests не запускались. Статус `PARTIAL_ENVIRONMENT_BLOCKED`; HSB.2 не разрешён; реальная торговля запрещена.
