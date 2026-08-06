@@ -1,0 +1,6 @@
+#ifndef HSBI_TRANSACTION_TYPES_MQH
+#define HSBI_TRANSACTION_TYPES_MQH
+enum HSBI_TransactionOutcome{HSBI_TX_PLACED,HSBI_TX_PARTIAL,HSBI_TX_COMPLETED,HSBI_TX_REJECTED,HSBI_TX_TIMEOUT,HSBI_TX_CONFLICT,HSBI_TX_UNKNOWN};
+struct HSBI_TransactionMetadata{ulong actionId;ulong eventId;HSBI_TransactionOutcome outcome;double accumulatedVolume;double expectedVolume;bool actualPositionRead;bool ledgerApplied;};
+bool HSBI_IsCompletedOutcome(const HSBI_TransactionOutcome o){return o==HSBI_TX_COMPLETED;}
+#endif
