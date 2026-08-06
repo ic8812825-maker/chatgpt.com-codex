@@ -1,16 +1,23 @@
-# Risk и Margin contract
+# 15. Risk, Margin, Drawdown и Emergency contract
 
-Версия 1.0. Статус: нормативный.
+Версия HSB.0R-C.16. Статус: нормативный source of truth.
 
-До каждого open/promotion проверяются ProjectedMarginAfter, MarginLevelAfter, FreeMarginAfter, WorstCaseLossMoney, GapLoss, spread/slippage/commission/swap, gross/net exposure и drawdown.
+## Configurable limits
+MaxProjectedMarginPercent (0..100), MinimumProjectedMarginLevel (>0), MinimumFreeMarginMoney (≥0), MaximumCycleDrawdownPercent (0..100), MaximumAccountDrawdownPercent (0..100), MaximumGrossExposure (>0), MaximumManagedPositions (integer>0), RiskToleranceMoney (≥0). Research-only values не являются production defaults. Invalid/missing/out-of-range input = fail-closed.
 
-`RiskOld=LossMoney(CurrentBasket→ControlPrice)`; `RiskNext=LossMoney(ProjectedNextBasket→ControlPrice)`. Требование: `RiskNext<RiskOld-RiskTolerance`, если пользователь не утвердил иной безопасный contract.
+## Gate order
+Ownership→snapshot freshness→spread→broker volume→ProjectedMarginAfter/OrderCalcMargin→FreeMarginAfter→cycle/account drawdown→gross/net exposure→WorstCase/GapStress→Transition caps→decision. Gate не меняет state/roles и не отправляет request.
 
-- `HSBI-RISK-001`: risk рассчитывается в money через broker model, не только ratio.
-- `HSBI-RISK-002`: `OrderCalcMargin` и executable market side обязательны.
-- `HSBI-RISK-003`: Worst Case PASS обязателен вместе с Base PASS.
-- `HSBI-RISK-004`: risk gate не изменяет roles и не отправляет сделки.
-- `HSBI-RISK-005`: emergency policy отделена от profitable Final Close.
-- `HSBI-RISK-006`: stale prices, invalid margin mode или non-finite result блокируют action.
+## Risk money
+`RiskOld=LossMoney(CurrentBasket→AdverseRiskControlPrice)`; `RiskNext=LossMoney(ProjectedNextBasket→same control basis)`. Обязательно `RiskNext<RiskOld-RiskToleranceMoney`, если не применяется более строгий terminal contract. BUY/SELL используют executable side и asymmetric tick values, commissions, swap, spread/slippage.
 
-Контракт: вход — reconciled/current/projected baskets, control snapshots и account state; выход — typed PASS/REJECT/ERROR с provenance. Preconditions: fresh symbol properties. Postconditions: accepted plan содержит immutable risk proof. Restart: proof fingerprint сверяется заново перед execution. Owner: Risk/* и Money/BrokerMoneyModel. Тесты: low margin, gap, spread, asymmetric ticks, commissions, swaps, drawdown. Открытые решения: limits, control price и emergency actions.
+## Transition caps
+AllowedTransitionLoss=min(absolute money cap,equity percent cap,OldFar risk percent cap,cumulative cycle cap). Failed cap запрещает Small Transition.
+
+## Emergency
+Triggers: margin emergency, drawdown emergency, identity conflict, persistence corruption, unknown position, duplicate Far, repeated broker failure, manual kill. Emergency отделена от Final Close, может фиксировать loss, не получает recovery PASS, блокирует новые actions и переводит terminal-safe/manual review. Auto-resume запрещён.
+
+## REAL_LIMITED
+Даже валидные limits не разрешают real trading. REAL_LIMITED требует whitelist, one cycle per Symbol+Magic, all readiness gates, Demo Forward PASS, daily/cycle/account loss caps, kill switch, evidence и explicit administrator approval.
+
+Owner Risk/*+Money/BrokerMoneyModel. Tests: low margin, spread/gap, asymmetric ticks, drawdown thresholds, transition caps, emergency/no auto-resume, REAL_LIMITED refusal.
