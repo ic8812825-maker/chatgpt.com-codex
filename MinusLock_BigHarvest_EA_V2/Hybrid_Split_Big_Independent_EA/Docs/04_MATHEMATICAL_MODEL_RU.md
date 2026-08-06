@@ -1,59 +1,42 @@
-# Математическая модель Hybrid Split Big
+# 04. Полная математическая модель Hybrid Split Big
 
-Версия 1.0. Статус: нормативный.
+Версия HSB.0R-C.5. Статус: нормативный source of truth.
 
-## Обозначения и направления
+## Размерности
+F,C,T,S,N — lot; цены — account symbol price; money — валюта счёта; ratios безразмерны; tick/point различаются.
 
-`F,C,T,S,N` — lots OldFar, BigCore, BigTrend, SmallBase, NewFar. `Bnet=C+T-S`. Для FAR SELL Big legs BUY, Small SELL; для FAR BUY — зеркально.
+## Объёмы
+`C=FloorBrokerGrid(F×Rc)`, `T=FloorBrokerGrid(F×Rt)`, `S=CeilBrokerGrid(F×Rs)`, `Bnet=C+T-S`. Rc>0, Rt≥0, Rs>0. После rounding каждый lot должен быть в [Vmin,Vmax] и кратен Vstep.
 
-- `HSBI-MATH-010`: `F>0,C>0,T>0,S>0` на active basket.
-- `HSBI-MATH-011`: `Bnet>0`.
-- `HSBI-MATH-012`: аналитический slope `C+T-S-F>0` является необходимым, но не достаточным production-gate.
+## Recovery slope
+`RecoverySlopeLots=C+T-S-F`. Необходимое условие после rounding: `RecoverySlopeLots>0`. Для Far SELL рост цены улучшает BUY-side basket; для Far BUY падение цены улучшает SELL-side basket. Это только аналитический фильтр.
 
-## Закон 1 — Reserve Catch-Up
+## Reserve Catch-Up
+Необходимая lot-оценка: `ReserveShare×Bnet>F`. Production gate: `ReserveGainMoney(Pcontrol)>FarLossIncreaseMoney(Pcontrol)+ExecutionSafetyBufferMoney`, рассчитано broker money model, BUY/Bid, SELL/Ask, commission, swap, slippage, asymmetric tick value. Неизвестный расчёт отклоняется.
 
-Лотовое необходимое условие: `ReserveShare×(C+T-S)>F`. Production-gate:
+## RecoveryPL
+`RecoveryPLCloseNow=RealizedCycleNet+ΣOpenPositionCloseNowNet`; `OpenPositionCloseNowNet=OrderCalcProfit-at-close commission-execution buffer`. FinalReserve, PartialFarBudget, TransitionBudget, Carry и Residual не прибавляются повторно, поскольку являются allocation subsets.
 
-`ReserveGainMoney(Pcontrol) > FarLossIncreaseMoney(Pcontrol)+ExecutionSafetyBufferMoney`.
+## Compression
+`0<N<F`; `N≤MaximumNewFarRatio×F`; `F-N≥MinimumFarCompressionLots`; `(F-N)/F≥MinimumFarCompressionRatio`; одновременно `NextBigGross<OldBigGross`, `NextGrossExposure<OldGrossExposure`, `RiskNext<RiskOld-RiskTolerance`, `MarginNext≤AllowedMargin`.
 
-Все величины — account money, рассчитанные через broker side, `OrderCalcProfit`, commission, swap, slippage и asymmetric tick values. FAR SELL: adverse loss растёт при росте Ask; BUY recovery закрывается по Bid. FAR BUY симметричен.
+## Transition Loss
+`TransitionNet=ΣActualClosingDealNet`; `TransitionLossMoney=max(0,-TransitionNet)`. AllowedTransitionLoss=min(AbsoluteCap,EquityCap,OldFarRiskCap,CumulativeCycleCap).
 
-- `HSBI-MATH-013`: control price нормализуется по tick size.
-- `HSBI-MATH-014`: лотовое inequality не заменяет money proof.
+## Final Close
+`RecoveryPLCloseNow≥MinimumRecoveryProfitMoney+ExecutionSafetyBufferMoney+MoneyTolerance`. Все члены money; отрицательный или недостаточный результат — reject.
 
-## Закон 2 — RecoveryPL
+## Allocation conservation
+Для каждого SourceDealKey: `Rsv+PF+Tr+Carry+Residual=AllocatableDealNet`, все allocations≥0 и сумма не превышает положительный available amount. Negative DealNet уменьшает economic result, но не создаёт allocatable profit. Duplicate identical event=NO-OP; conflict=RECONCILIATION.
 
-`RecoveryPLCloseNow=RealizedCycleNet+ΣOpenPositionCloseNowNet`.
-`OpenPositionCloseNowNet=ProjectedCloseProfit-ExpectedCloseCommission-ExecutionBuffer`, с включением swap/fees согласно broker model.
+## Future Small
+Exact recursion строит следующий cycle до terminal lot, configured depth или доказанного bound. Затем допустим conservative bound `F(k+j)≤q^jF(k)`, 0<q<1, только если rounding, costs, risk, margin и transition loss включены.
 
-Point-by-point gate: для каждого broker-valid price step в Big-направлении `RecoveryPL(Pnext)>RecoveryPL(P)+Tolerance`, кроме ухудшений с явно доказанной market/cost provenance.
+## Дискретная конечность
+Пусть после rounding `F(k+1)≤qF(k)`, q<1. Теоретическая граница `K≥ceil(ln(Vmin/F0)/ln(q))`. На broker grid дополнительно требуется строгое уменьшение минимум на Vstep либо переход к operational terminal close; plateau candidate отклоняется.
 
-- `HSBI-MATH-015`: FinalReserve, PartialFarBudget, TransitionBudget и Carry не прибавляются повторно.
-- `HSBI-MATH-016`: BUY/SELL sequence проверяется симметрично.
+## Направления
+Far SELL: F SELL, C/T BUY, S SELL; close BUY=Bid, close SELL=Ask. Far BUY зеркален. Формулы сохраняют знак через broker profit function.
 
-## Закон 3 — компрессия и конечность
-
-`0<N<F`; `N<=MaximumNewFarRatio×F`; `F-N>=MinimumFarCompressionLots`; `(F-N)/F>=MinimumFarCompressionRatio`.
-Дополнительно: `NextBigGross<OldBigGross`, `NextGross<OldGross`, `RiskNext<RiskOld-RiskTolerance`, margin gate PASS.
-
-Если после rounding для каждого transition `F(k+1)<=qF(k)`, `0<q<1`, то верхняя оценка числа переходов:
-
-`K=ceil(ln(MinTerminalLot/F0)/ln(q))`, при `ln(q)<0`.
-
-На дискретной сетке solver обязан доказать, что sequence строго убывает минимум на один volume step либо корректно достигает terminal lot; иначе terminal-safe.
-
-## Broker money и примеры
-
-ДЕМОНСТРАЦИОННЫЙ ПРОФИЛЬ, НЕ PRODUCTION DEFAULT: `F=1.00,C=1.60,T=0.25,S=0.60`; `Bnet=1.25`, slope=0.25 lot. При ReserveShare=0.90 лотовая база catch-up=1.125>1.00, но money proof всё равно обязателен.
-
-При q=0.50, F0=1.00 и terminal=0.01: `K=ceil(ln(0.01)/ln(0.5))=7`. На step 0.01 sequence 1.00→0.50→0.25→0.12→0.06→0.03→0.01; каждый rounded transition повторно проходит gates.
-
-Partial example: budget 120 money, cost 400 money/lot → raw 0.30 lot → floor step 0.01 =0.30. При SELL Far broker close side Ask; при BUY Far — Bid.
-
-## Границы и отказ
-
-NaN, invalid tick grid, zero point value, insufficient range, non-monotonic money proof, no safe N или dimension mismatch → candidate reject, без trade action.
-
-## Контракт
-
-Входы: broker snapshot, profile, current state. Выходы: typed proofs и reason codes. Preconditions: fresh/reconciled snapshot. Postconditions: все gates доказаны на округлённых значениях. Restart: proofs сохраняются в immutable plan fingerprint. Owner: Planning/CatchUp, Money/BrokerMoneyModel, Risk. Тесты: BUY/SELL, asymmetric tick values, gaps, costs, coarse lot step. Открытые вопросы: control ranges, q-policy, tolerances и production ratios.
+## Fail-closed
+Reject при invalid dimensions, stale price, rounding-law failure, nonfinite money, no safe N, failed recursion или insufficient margin. Documentary algebraic consistency не является broker runtime proof.
