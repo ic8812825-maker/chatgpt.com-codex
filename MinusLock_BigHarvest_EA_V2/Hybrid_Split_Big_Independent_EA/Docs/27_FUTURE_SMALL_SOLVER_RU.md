@@ -29,3 +29,13 @@ BROKER_MONEY_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
 TRADING_IMPLEMENTED=NO
 REAL_TRADING_ALLOWED=NO
 ```
+
+## Коррекция HSB.2B-R2
+
+Каждый exact level обязан иметь собственные `HSBI_FutureSmallLevelMarketSnapshot`, `HSBI_FutureSmallLevelCostSnapshot`, runtime-confirmed risk proof и `HSBI_FutureFarProjection`. Общий market/cost snapshot не применяется молча. Отсутствие, stale state, неверные Symbol/side/tickSize или cost identity дают `UNPROVEN` и fail-closed rejection.
+
+`SmallBase` является геометрической leg и не становится следующим Far. `FarAfter` поступает только из явного projection contract; actual NewFar по-прежнему возможен исключительно из подтверждённого residual original BigCore.
+
+Risk proxy `transitionLoss + totalMargin + grossExposure` имеет только test-only смысл. Exact proof требует `HSBI_RISK_SOURCE_RUNTIME` и `runtimeConfirmed=true`.
+
+Proof digest строится цепочкой всех level digests и включает geometry, money, margin, risk, transition loss, market и cost snapshot IDs, terminal/bound outcome.

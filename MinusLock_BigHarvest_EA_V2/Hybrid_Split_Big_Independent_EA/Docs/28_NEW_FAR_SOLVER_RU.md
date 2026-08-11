@@ -29,3 +29,11 @@ BROKER_MONEY_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
 TRADING_IMPLEMENTED=NO
 REAL_TRADING_ALLOWED=NO
 ```
+
+## Коррекция HSB.2B-R2
+
+`reserveShare` поступает из immutable `HSBI_AllocationPolicySnapshot`; solver не содержит числового default. Candidate-specific Catch-Up использует отдельный eligible Reserve source proof и отдельный Far-loss proof. Общие `RecoveryMoney`, `basketNetMoney` и gross basket profit не подменяют Reserve source.
+
+Каждый кандидат имеет собственные Future Small, money, margin, runtime-risk, Catch-Up, allocation, market, cost и full-digest доказательства. Неполный, test-only, proxy или unavailable proof исключает кандидата до tie-break.
+
+Projected Far не преобразуется в actual. Actual source требует подтверждённых fill/event identifiers, matching original BigCore identifier/ticket и broker-grid residual.

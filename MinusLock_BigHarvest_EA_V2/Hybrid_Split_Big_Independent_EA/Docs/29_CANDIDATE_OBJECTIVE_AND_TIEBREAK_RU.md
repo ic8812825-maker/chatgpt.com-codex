@@ -29,3 +29,9 @@ BROKER_MONEY_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
 TRADING_IMPLEMENTED=NO
 REAL_TRADING_ALLOWED=NO
 ```
+
+## Коррекция HSB.2B-R2
+
+До objective проверяется `HSBI_IsCompleteCandidateProof`: обязательны полные digests Future Small, money, margin, runtime risk, Catch-Up, allocation policy, control snapshots и cost snapshots. Candidate digest включает actual residual, old Far, compression/geometry и все перечисленные proof digests. Изменение любого level, policy share, market/cost/risk snapshot или Catch-Up result меняет plan/candidate digest.
+
+Tie-break не рассматривает кандидатов с proxy/test-only risk, отсутствующим Reserve source или неполным digest.

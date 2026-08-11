@@ -31,3 +31,24 @@ BROKER_MONEY_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
 TRADING_IMPLEMENTED=NO
 REAL_TRADING_ALLOWED=NO
 ```
+
+## Коррекция HSB.2B-R2
+
+- allocation policy заменяет hardcoded ReserveShare;
+- Reserve Catch-Up использует отдельные eligible-source и Far-loss proofs;
+- каждый Future Small level имеет market/cost/projection/runtime-risk snapshots;
+- full Future Small digest включает все доказанные уровни;
+- candidate proof включает Future Small, money, margin, risk, Catch-Up, policy, control и cost digests;
+- SmallBase не является автоматическим источником NewFar;
+- risk proxy является только test-only и не допускает VALID/SELECTED.
+
+```text
+HSB.2B_R2=STATIC_CORRECTED_IMPLEMENTATION
+HSB.2C=NOT_STARTED
+METAEDITOR_COMPILE=USER_VERIFICATION_REQUIRED
+MQL5_RUNTIME_TESTS=USER_VERIFICATION_REQUIRED
+BROKER_MONEY_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
+RISK_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
+TRADING_IMPLEMENTED=NO
+REAL_TRADING_ALLOWED=NO
+```
