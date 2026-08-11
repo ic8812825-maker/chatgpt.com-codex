@@ -80,3 +80,20 @@ NEXT_ALLOWED_STAGE=HSB.1V
 ```
 
 `NEXT_ALLOWED_STAGE=HSB.1V` означает только продолжение доказательной проверки HSB.1V. HSB.2 не разрешён.
+
+## HSB.2A — расчётные модули
+
+| Requirement ID | Owner | MQL5 file | Type/function | Unit tests | Static evidence | Compile | Runtime | State |
+|---|---|---|---|---|---|---|---|---|
+| HSBI-MONEY-021 | Docs/24 | Money/HSBI_BrokerMoneyTypes.mqh; BrokerMoneyModel.mqh | HSBI_BrokerProperties; HSBI_CalculateProjectedProfit | T27-T33,T56-T60 | source/no-trade audit | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | MAPPED_STATIC |
+| HSBI-MONEY-022 | Docs/27 | Planning/HSBI_ControlPrices.mqh; Money/HSBI_CostModel.mqh | HSBI_ControlPrice; HSBI_CostSnapshot | T51-T58 | source/no-trade audit | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | MAPPED_STATIC |
+| HSBI-MARGIN-001 | Docs/24 | Money/HSBI_BrokerMarginModel.mqh | HSBI_CalculateProjectedMargin | T61-T63 | source/no-trade audit | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | IMPLEMENTED_UNVERIFIED |
+| HSBI-GRID-001 | Docs/25 | Planning/HSBI_BrokerGrid.mqh | price-grid functions | T34-T40 | pure-function review | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | MAPPED_STATIC |
+| HSBI-GRID-002 | Docs/25 | Planning/HSBI_BrokerGrid.mqh | volume-grid functions | T30,T41-T50 | pure-function review | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | MAPPED_STATIC |
+| HSBI-GEO-001 | Docs/26 | Planning/HSBI_GeometrySolver.mqh | HSBI_SolveBigGeometry | T64,T68 | pure-function review | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | IMPLEMENTED_UNVERIFIED |
+| HSBI-GEO-002 | Docs/26 | Planning/HSBI_GeometrySolver.mqh | HSBI_ValidateRecoverySlope | T65-T67 | pure-function review | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | MAPPED_STATIC |
+| HSBI-GEO-003 | Docs/26 | Planning/HSBI_GeometryTypes.mqh; GeometrySolver.mqh | HSBI_RecoveryDirectionResult | T68 | pure-contract review | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | MAPPED_STATIC |
+| HSBI-CATCHUP-001 | Docs/24/26 | Money/HSBI_CatchUpTypes.mqh; CatchUpModel.mqh | HSBI_EvaluateCatchUp | T69-T70 | pure-contract review | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | IMPLEMENTED_UNVERIFIED |
+| HSBI-FAILCLOSED-001 | Docs/24-27 | Risk/HSBI_CalculationGateTypes.mqh | HSBI_FailClosed; result flags | T32,T57,T70 | fail-closed review | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | MAPPED_STATIC |
+
+Ни один статус HSB.2A не означает production readiness. MetaEditor compile, MT5 runtime и broker-money runtime proof требуют проверки администратора.
