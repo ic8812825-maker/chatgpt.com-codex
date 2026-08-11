@@ -31,7 +31,7 @@
 MetaEditor/Wine искались в PATH и доступных `/opt`, `/usr`, `/workspace`, но не найдены. Сторонний parser и Python-oracle не использовались.
 
 ```text
-METAEDITOR_COMPILE=NOT_VERIFIED
+METAEDITOR_COMPILE=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 COMPILE_RESULT=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 ```
 
@@ -40,7 +40,7 @@ COMPILE_RESULT=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 Test script содержит ровно 26 именованных MQL5 checks с Requirement ID, expected/actual, status и reason code. MT5/MetaTester отсутствуют, поэтому Experts/Journal evidence не создано.
 
 ```text
-MQL5_UNIT_TESTS=NOT_VERIFIED
+MQL5_UNIT_TESTS=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 MQL5_UNIT_TESTS_RUN=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 ```
 
