@@ -1,6 +1,17 @@
 #ifndef HSBI_FUTURE_SMALL_SOLVER_MQH
 #define HSBI_FUTURE_SMALL_SOLVER_MQH
 #include "HSBI_FutureSmallTypes.mqh"
+bool HSBI_CalculateFutureSmallDepth(const double initialFar,const double volumeMin,const double q,const double volumeStep,int &depth)
+{
+   depth=0;if(!HSBI_IsFiniteNumber(initialFar)||!HSBI_IsFiniteNumber(volumeMin)||!HSBI_IsFiniteNumber(q)||!HSBI_IsFiniteNumber(volumeStep)||initialFar<=0.0||volumeMin<=0.0||volumeMin>initialFar||q<=0.0||q>=1.0||volumeStep<=0.0)return false;
+   double value=MathLog(volumeMin/initialFar)/MathLog(q);if(!HSBI_IsFiniteNumber(value)||value<0.0||value>2147483647.0)return false;depth=(int)MathCeil(value);return true;
+}
+bool HSBI_ValidateConservativeBound(const double initialFar,const double observedFar,const double q,const int exactDepth,const bool roundingIncluded,const bool costsIncluded,const bool marginIncluded,const bool riskIncluded,const bool transitionLossIncluded)
+{
+   if(exactDepth<2||q<=0.0||q>=1.0||!roundingIncluded||!costsIncluded||!marginIncluded||!riskIncluded||!transitionLossIncluded)return false;
+   if(!HSBI_IsFiniteNumber(initialFar)||!HSBI_IsFiniteNumber(observedFar)||initialFar<=0.0||observedFar<=0.0)return false;
+   return observedFar<=initialFar*MathPow(q,exactDepth)+1.0e-10;
+}
 bool HSBI_ValidateFutureSmallInput(const HSBI_FutureSmallInput &x)
 {
    if(!x.brokerPropertiesValid||!x.snapshotsFresh||!x.roundingIncluded||!x.costsIncluded)return false;
@@ -15,7 +26,7 @@ HSBI_FutureSmallResult HSBI_SolveFutureSmall(const HSBI_FutureSmallInput &x)
 {
    HSBI_FutureSmallResult r;ZeroMemory(r);r.status=HSBI_FS_REJECTED;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.planId=x.planId;r.stateRevision=x.stateRevision;r.details="INVALID_INPUT";
    if(!HSBI_ValidateFutureSmallInput(x))return r;
-   double logDepth=MathLog(x.volumeMin/x.currentFar)/MathLog(x.conservativeQ);if(!HSBI_IsFiniteNumber(logDepth)||logDepth<0.0){r.details="NONFINITE_DEPTH";return r;}r.theoreticalDepth=(int)MathCeil(logDepth);
+   if(!HSBI_CalculateFutureSmallDepth(x.currentFar,x.volumeMin,x.conservativeQ,x.volumeStep,r.theoreticalDepth)){r.details="NONFINITE_DEPTH";return r;}
    HSBI_BrokerProperties p;ZeroMemory(p);p.symbol=x.controlPrice.symbol;p.point=x.tickSize;p.tickSize=x.tickSize;p.digits=8;p.volumeMin=x.volumeMin;p.volumeMax=x.volumeMax;p.volumeStep=x.volumeStep;p.tickValueProfit=0.0;p.tickValueLoss=0.0;p.valid=true;p.fresh=true;p.snapshotId=x.controlPrice.snapshotId;p.timestamp=TimeCurrent();
    ArrayResize(r.levels,x.maximumDepth);double far=x.currentFar;
    for(int k=0;k<x.maximumDepth;k++)
@@ -29,6 +40,6 @@ HSBI_FutureSmallResult HSBI_SolveFutureSmall(const HSBI_FutureSmallInput &x)
       double nextExposure=x.currentGrossExposure*MathPow(x.conservativeQ,k+1);if(level.projectedRecoveryMoney<=x.moneyState.recoveryMoney||level.projectedMargin>x.marginState.allowedMargin||level.projectedRisk>=x.riskState.currentRisk-x.riskState.riskTolerance||nextExposure>=x.currentGrossExposure||nextExposure>x.riskState.nextGrossExposureLimit||level.transitionLoss>x.transitionLossCap){r.details="MONEY_RISK_MARGIN_OR_LOSS_FAILED";return r;}
       level.proofStatus=HSBI_FS_EXACT_PROOF;level.reason=HSBI_REASON_OK;r.levels[k]=level;r.provenDepth=k+1;far=nextFar;
    }
-   r.terminalFar=far;r.finiteSequence=(far<=x.volumeMin||x.terminalRouteAllowed);r.valid=r.provenDepth==x.maximumDepth;r.status=(r.finiteSequence?HSBI_FS_EXACT_PROOF:HSBI_FS_CONSERVATIVE_BOUND);r.reason=r.valid?HSBI_REASON_OK:HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details=r.valid?(r.finiteSequence?"EXACT_PROOF":"CONSERVATIVE_BOUND"):"UNPROVEN";r.proofDigest=HSBI_UlongToString(x.planId)+"|"+DoubleToString(r.terminalFar,8)+"|"+IntegerToString(r.provenDepth);return r;
+   r.terminalFar=far;r.finiteSequence=(far<=x.volumeMin||x.terminalRouteAllowed);bool bound=HSBI_ValidateConservativeBound(x.currentFar,far,x.conservativeQ,r.provenDepth,x.roundingIncluded,x.costsIncluded,true,true,true);r.valid=r.provenDepth==x.maximumDepth&&(r.finiteSequence||bound);r.status=(r.finiteSequence?HSBI_FS_EXACT_PROOF:(bound?HSBI_FS_CONSERVATIVE_BOUND:HSBI_FS_UNPROVEN));r.reason=r.valid?HSBI_REASON_OK:HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details=r.valid?(r.finiteSequence?"EXACT_PROOF":"CONSERVATIVE_BOUND"):"UNPROVEN";r.proofDigest=HSBI_UlongToString(x.planId)+"|"+DoubleToString(r.terminalFar,8)+"|"+IntegerToString(r.provenDepth);return r;
 }
 #endif
