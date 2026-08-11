@@ -103,7 +103,7 @@ void OnStart()
    cp=Control(HSBI_DIRECTION_BUY);cp.side=HSBI_PRICE_SIDE_ASK;Check("T53","HSBI-MONEY-022",false,HSBI_ValidateTypedControlPrice(cp,"TEST"),"WRONG_CLOSE_SIDE");
    cp=Control(HSBI_DIRECTION_BUY);cp.ask=cp.bid-0.00001;Check("T54","HSBI-MONEY-022",false,HSBI_ValidateTypedControlPrice(cp,"TEST"),"INVALID_SPREAD");
    cp=Control(HSBI_DIRECTION_BUY);cp.fresh=false;Check("T55","HSBI-MONEY-022",false,HSBI_ValidateTypedControlPrice(cp,"TEST"),"STALE_CONTROL_PRICE");
-   HSBI_CostSnapshot costs=ProjectedCosts();Check("T56","HSBI-MONEY-021",true,HSBI_ValidateCostSnapshot(costs,false)&&HSBI_ProjectedNetMoney(20.0,costs,1.0)<20.0,"PROJECTED_COSTS_REDUCE_MONEY");
+   HSBI_CostSnapshot costs=ProjectedCosts();double projectedNet=0.0;Check("T56","HSBI-MONEY-021",true,HSBI_ValidateCostSnapshot(costs,false)&&HSBI_TryProjectedNetMoney(20.0,costs,1.0,projectedNet)&&projectedNet<20.0,"PROJECTED_COSTS_REDUCE_MONEY");
    Check("T57","HSBI-FAILCLOSED-001",false,HSBI_CalculationResultFlagsValid(true,true,true,HSBI_CALC_PASS),"PROJECTED_ACTUAL_CONFLICT");
    costs=ProjectedCosts();costs.actual=true;Check("T58","HSBI-MONEY-021",false,HSBI_ValidateCostSnapshot(costs,false),"ACTUAL_PROJECTED_COST_SEPARATION");
    HSBI_MoneyCalculationResult mr=HSBI_CalculateProjectedProfit(Broker(),HSBI_DIRECTION_BUY,0.1,1.10000,1.09999,1.09999,1.10001,ProjectedCosts(),1.0);Check("T59","HSBI-MONEY-021",true,mr.projected&&!mr.actual&&(mr.status==HSBI_CALC_UNAVAILABLE||mr.status==HSBI_CALC_PASS),"PROJECTED_BUY_WRAPPER");

@@ -15,8 +15,8 @@ HSBI_MoneyCalculationResult HSBI_CalculateProjectedProfit(const HSBI_BrokerPrope
    double gross=0.0;ENUM_ORDER_TYPE orderType=(direction==HSBI_DIRECTION_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL);
    if(!OrderCalcProfit(orderType,p.symbol,volume,openPrice,closePrice,gross)){r.status=HSBI_CALC_UNAVAILABLE;r.reason=HSBI_REASON_NOT_INITIALIZED;r.details="BROKER_MONEY_UNAVAILABLE";return r;}
    if(!HSBI_IsFiniteNumber(gross)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_MONEY";return r;}
-   r.grossProfit=gross;r.commission=cost.commission;r.swap=cost.swap;r.fee=cost.fee;r.spreadCost=cost.spreadCost;r.slippageBuffer=cost.slippageBuffer;r.netMoney=HSBI_ProjectedNetMoney(gross,cost,executionSafetyBuffer);
-   if(!HSBI_IsFiniteNumber(r.netMoney)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_MONEY";return r;}
+   r.grossProfit=gross;r.commission=cost.commission;r.swap=cost.swap;r.fee=cost.fee;r.spreadCost=cost.spreadCost;r.slippageBuffer=cost.slippageBuffer;
+   if(!HSBI_TryProjectedNetMoney(gross,cost,executionSafetyBuffer,r.netMoney)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_MONEY";return r;}
    r.status=HSBI_CALC_PASS;r.valid=true;r.actual=false;r.reason=HSBI_REASON_OK;r.details="PASS";return r;
 }
 #endif
