@@ -37,7 +37,7 @@ REAL_TRADING_ALLOWED=NO
 METAEDITOR_COMPILE=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 MQL5_UNIT_TESTS=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 HSB_STAGE_1_STATUS=PARTIAL_ENVIRONMENT_BLOCKED
-NEXT_ALLOWED_STAGE=NONE
+NEXT_ALLOWED_STAGE=HSB.1V
 ```
 
 MetaEditor и MT5 недоступны. Ложный PASS не объявляется. Для полного HSB.1 PASS необходимо получить 0 errors / 0 warnings для EA и тестового скрипта, затем выполнить 26 MQL5 tests с сохранением Experts/Journal evidence.
@@ -57,3 +57,21 @@ P2_002=MQL5_UNIT_TESTS_NOT_RUN
 ```
 
 Вердикт: структура HSB.1 принята, но переход к HSB.2 невозможен до снятия двух environment blockers.
+## Нормативный статус HSB.1V (2026-08-10)
+
+```text
+HSB_STAGE_0_DOCUMENTATION=PASS
+HSB_STAGE_1_STRUCTURE=PASS
+HSB_STAGE_1_NO_TRADE_GUARD=PASS
+HSB_STAGE_1_DEPENDENCY_AUDIT=PASS
+HSB_STAGE_1_COMPILE=NOT_VERIFIED
+HSB_STAGE_1_MQL5_TESTS=NOT_VERIFIED
+HSB_STAGE_1_STATUS=ENVIRONMENT_VERIFICATION_REQUIRED
+HSB_STAGE_2_STARTED=NO
+TRADING_IMPLEMENTED=NO
+TRADE_REQUESTS_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+NEXT_ALLOWED_STAGE=HSB.1V
+```
+
+HSB.2 не разрешён. Этот блок заменяет прежние текущие статусные декларации; исторические результаты в тексте сохраняют только доказательное значение на дату их создания.

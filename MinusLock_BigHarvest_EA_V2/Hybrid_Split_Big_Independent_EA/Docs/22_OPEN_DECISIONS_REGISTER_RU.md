@@ -15,9 +15,29 @@ OPEN_P0=0
 OPEN_P1=0
 OPEN_P2=0
 PRODUCTION_CODE_STARTED=NO
-NEXT_ALLOWED_STAGE=HSB.1
+NEXT_ALLOWED_STAGE=HSB.1V
 HSB_STAGE_1_STARTED=NO
 AWAITING_USER_APPROVAL=YES
 REAL_TRADING_ALLOWED=NO
 
 Нормативный source of truth: Docs/03–18. Реестр решений: Docs/23. Следующий этап допустим только после отдельного прямого решения администратора; самостоятельно HSB.1 не начат.
+## Нормативный статус HSB.1V (2026-08-10)
+
+```text
+HSB_STAGE_0_DOCUMENTATION=PASS
+HSB_STAGE_1_STRUCTURE=PASS
+HSB_STAGE_1_NO_TRADE_GUARD=PASS
+HSB_STAGE_1_DEPENDENCY_AUDIT=PASS
+HSB_STAGE_1_COMPILE=NOT_VERIFIED
+HSB_STAGE_1_MQL5_TESTS=NOT_VERIFIED
+HSB_STAGE_1_STATUS=ENVIRONMENT_VERIFICATION_REQUIRED
+HSB_STAGE_2_STARTED=NO
+TRADING_IMPLEMENTED=NO
+TRADE_REQUESTS_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+NEXT_ALLOWED_STAGE=HSB.1V
+```
+
+HSB.2 не разрешён. Этот блок заменяет прежние текущие статусные декларации; исторические результаты в тексте сохраняют только доказательное значение на дату их создания.
+
+> **Граница реализации HSB.1V (2026-08-10).** Описанный production lifecycle остаётся нормативной спецификацией, а не реализованным сценарием. В каркасе нет production execution, broker-money runtime и production persistence. Действуют: ровно один Far; promotion только из actual BigCore residual; FinalReserve запрещён для Partial Far; allocations не прибавляются к actual money повторно; Final Close определяется только actual money; только COMPLETED_FILL снимает transaction barrier; retry сохраняет ActionID; conflict ведёт в RECONCILING; unresolved critical error — в TERMINAL_SAFE; no auto-resume; REAL_LIMITED и HSB.2 запрещены.
