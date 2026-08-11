@@ -1,6 +1,7 @@
 #ifndef HSBI_ALLOCATION_POLICY_TYPES_MQH
 #define HSBI_ALLOCATION_POLICY_TYPES_MQH
 #include "HSBI_BrokerMoneyTypes.mqh"
+#include "../Core/HSBI_Identifiers.mqh"
 struct HSBI_AllocationPolicySnapshot
 {
    double reserveShare;
