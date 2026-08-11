@@ -3,14 +3,77 @@
 #include "HSBI_GeometrySolver.mqh"
 #include "../Money/HSBI_BasketMoneyEvaluator.mqh"
 #include "../Money/HSBI_AllocationPolicyTypes.mqh"
-enum HSBI_FutureSmallProofStatus{HSBI_FS_EXACT_PROOF,HSBI_FS_CONSERVATIVE_BOUND,HSBI_FS_UNPROVEN,HSBI_FS_REJECTED};
-struct HSBI_MoneyStateSnapshot{double recoveryMoney;double reserve;bool available;bool fresh;ulong snapshotId;};
-struct HSBI_RiskSnapshot{double currentRisk;double riskTolerance;double currentGrossExposure;double nextGrossExposureLimit;bool available;bool fresh;ulong snapshotId;};
-struct HSBI_MarginSnapshot{double currentMargin;double allowedMargin;bool available;bool fresh;ulong snapshotId;};
-struct HSBI_ControlPriceSnapshot{string symbol;double selectedPrice;double tickSize;bool valid;bool fresh;ulong snapshotId;};
-struct HSBI_FutureSmallInput{HSBI_AllocationPolicySnapshot allocationPolicy;double currentFar;double coreRatio;double trendRatio;double smallRatio;double maxNewFarRatio;double minimumCompressionLots;double minimumCompressionRatio;int maximumDepth;double conservativeQ;double volumeMin;double volumeMax;double volumeStep;double tickSize;HSBI_Direction farDirection;HSBI_MoneyStateSnapshot moneyState;HSBI_RiskSnapshot riskState;HSBI_MarginSnapshot marginState;HSBI_ControlPriceSnapshot controlPrice;HSBI_ControlPrice typedControlPrice;HSBI_BrokerProperties broker;HSBI_CostSnapshot farCosts;HSBI_CostSnapshot coreCosts;HSBI_CostSnapshot trendCosts;HSBI_CostSnapshot smallCosts;double farOpenPrice;double coreOpenPrice;double trendOpenPrice;double smallOpenPrice;double transitionLossCap;double executionSafetyBuffer;double expectedReserve;double currentBigGross;double currentGrossExposure;ulong cycleId;ulong stateRevision;ulong planId;bool snapshotsFresh;bool brokerPropertiesValid;bool costsIncluded;bool roundingIncluded;bool terminalRouteAllowed;bool useInjectedBrokerProofs;bool testOnlyApproximation;HSBI_BasketMoneyResult injectedBrokerProofs[128];};
-struct HSBI_FutureSmallLevelProof{int levelIndex;double farBefore;double coreVolume;double trendVolume;double smallVolume;double netBigVolume;double farAfter;double compressionLots;double compressionRatio;double recoverySlopeLots;double projectedRecoveryMoney;double projectedReserve;double projectedMargin;double projectedRisk;double transitionLoss;double grossExposure;bool moneyIncluded;bool marginIncluded;bool riskIncluded;bool transitionLossIncluded;HSBI_FutureSmallProofStatus proofStatus;HSBI_ReasonCode reason;};
-struct HSBI_FutureSmallResult{bool valid;HSBI_FutureSmallProofStatus status;int provenDepth;int theoreticalDepth;double terminalFar;bool finiteSequence;bool plateauDetected;ulong planId;ulong stateRevision;string proofDigest;HSBI_ReasonCode reason;string details;HSBI_FutureSmallLevelProof levels[128];};
-struct HSBI_FutureSmallLevelInput{int levelIndex;double farBefore;double coreRatio;double trendRatio;double smallRatio;HSBI_BrokerProperties broker;HSBI_ControlPrice controlPrice;HSBI_CostSnapshot farCosts;HSBI_CostSnapshot coreCosts;HSBI_CostSnapshot trendCosts;HSBI_CostSnapshot smallCosts;double farOpenPrice;double coreOpenPrice;double trendOpenPrice;double smallOpenPrice;HSBI_MoneyStateSnapshot moneyState;HSBI_RiskSnapshot riskState;HSBI_MarginSnapshot marginState;double minimumCompressionLots;double minimumCompressionRatio;double maxNewFarRatio;double transitionLossCap;double executionSafetyBuffer;double priorBigGross;double priorGrossExposure;ulong planId;ulong stateRevision;bool useInjectedBrokerProof;bool testOnlyApproximation;HSBI_BasketMoneyResult injectedBrokerProof;};
-struct HSBI_FutureSmallLevelResult{bool valid;int levelIndex;double farBefore;double farAfter;double coreVolume;double trendVolume;double smallVolume;double netBigVolume;double recoverySlopeLots;double recoveryMoney;double totalMargin;double grossExposure;double transitionLoss;double compressionLots;double compressionRatio;double riskValue;bool moneyIncluded;bool marginIncluded;bool riskIncluded;bool transitionLossIncluded;HSBI_FutureSmallProofStatus status;HSBI_ReasonCode reason;string details;HSBI_BasketMoneyResult basketProof;};
+enum HSBI_FutureSmallProofStatus { HSBI_FS_EXACT_PROOF, HSBI_FS_CONSERVATIVE_BOUND, HSBI_FS_UNPROVEN, HSBI_FS_REJECTED };
+enum HSBI_FutureFarProjectionSource { HSBI_FAR_PROJECTION_BIGCORE_RESIDUAL, HSBI_FAR_PROJECTION_EXPLICIT_MODEL, HSBI_FAR_PROJECTION_UNAVAILABLE };
+struct HSBI_MoneyStateSnapshot { double recoveryMoney; double reserve; bool available; bool fresh; ulong snapshotId; };
+struct HSBI_RiskSnapshot { double currentRisk; double riskTolerance; double currentGrossExposure; double nextGrossExposureLimit; bool available; bool fresh; ulong snapshotId; };
+struct HSBI_MarginSnapshot { double currentMargin; double allowedMargin; bool available; bool fresh; ulong snapshotId; };
+struct HSBI_ControlPriceSnapshot { string symbol; double selectedPrice; double tickSize; bool valid; bool fresh; ulong snapshotId; };
+struct HSBI_FutureSmallLevelMarketSnapshot
+{
+   int levelIndex; string symbol; double bid; double ask; double selectedPrice; double tickSize;
+   HSBI_PriceSide side; datetime timestamp; ulong snapshotId; bool fresh; bool normalized; bool valid;
+};
+struct HSBI_FutureSmallLevelCostSnapshot
+{
+   int levelIndex; HSBI_CostSnapshot farCosts; HSBI_CostSnapshot coreCosts;
+   HSBI_CostSnapshot trendCosts; HSBI_CostSnapshot smallCosts;
+   ulong snapshotId; bool fresh; bool valid; bool sharedCostSnapshot;
+};
+struct HSBI_FutureFarProjection
+{
+   double projectedFar; HSBI_FutureFarProjectionSource source; ulong sourceIdentifier; ulong sourceDealId;
+   bool projected; bool actual; bool confirmed; bool valid; HSBI_ReasonCode reason;
+};
+struct HSBI_FutureSmallInput
+{
+   HSBI_AllocationPolicySnapshot allocationPolicy;
+   double currentFar,coreRatio,trendRatio,smallRatio,maxNewFarRatio,minimumCompressionLots,minimumCompressionRatio;
+   int maximumDepth; double conservativeQ,volumeMin,volumeMax,volumeStep,tickSize; HSBI_Direction farDirection;
+   HSBI_MoneyStateSnapshot moneyState; HSBI_RiskSnapshot riskState; HSBI_MarginSnapshot marginState;
+   HSBI_ControlPriceSnapshot controlPrice; HSBI_ControlPrice typedControlPrice; HSBI_BrokerProperties broker;
+   double farOpenPrice,coreOpenPrice,trendOpenPrice,smallOpenPrice,transitionLossCap,executionSafetyBuffer;
+   double expectedReserve,currentBigGross,currentGrossExposure; ulong cycleId,stateRevision,planId;
+   bool snapshotsFresh,brokerPropertiesValid,costsIncluded,roundingIncluded,terminalRouteAllowed;
+   bool useInjectedBrokerProofs,testOnlyApproximation;
+   int levelMarketSnapshotCount,levelCostSnapshotCount,farProjectionCount;
+   HSBI_FutureSmallLevelMarketSnapshot levelMarketSnapshots[128];
+   HSBI_FutureSmallLevelCostSnapshot levelCostSnapshots[128];
+   HSBI_FutureFarProjection farProjections[128];
+   HSBI_BasketMoneyResult injectedBrokerProofs[128];
+};
+struct HSBI_FutureSmallLevelProof
+{
+   int levelIndex; double farBefore,coreVolume,trendVolume,smallVolume,netBigVolume,farAfter;
+   double compressionLots,compressionRatio,recoverySlopeLots,projectedRecoveryMoney,projectedReserve;
+   double projectedMargin,projectedRisk,transitionLoss,grossExposure,controlPrice,bid,ask,tickSize;
+   ulong controlSnapshotId,farCostSnapshotId,coreCostSnapshotId,trendCostSnapshotId,smallCostSnapshotId;
+   bool moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded;
+   HSBI_CalculationStatus moneyProofStatus,marginProofStatus,riskProofStatus,transitionLossProofStatus;
+   HSBI_FutureSmallProofStatus proofStatus; HSBI_ReasonCode reason; string levelDigest;
+};
+struct HSBI_FutureSmallResult
+{
+   bool valid; HSBI_FutureSmallProofStatus status; int provenDepth,theoreticalDepth; double terminalFar;
+   bool finiteSequence,plateauDetected; ulong planId,stateRevision; string proofDigest;
+   HSBI_ReasonCode reason; string details; HSBI_FutureSmallLevelProof levels[128];
+};
+struct HSBI_FutureSmallLevelInput
+{
+   int levelIndex; double farBefore,coreRatio,trendRatio,smallRatio; HSBI_BrokerProperties broker;
+   HSBI_FutureSmallLevelMarketSnapshot market; HSBI_FutureSmallLevelCostSnapshot costs;
+   HSBI_FutureFarProjection farProjection; double farOpenPrice,coreOpenPrice,trendOpenPrice,smallOpenPrice;
+   HSBI_MoneyStateSnapshot moneyState; HSBI_RiskSnapshot riskState; HSBI_MarginSnapshot marginState;
+   double minimumCompressionLots,minimumCompressionRatio,maxNewFarRatio,transitionLossCap,executionSafetyBuffer;
+   double priorBigGross,priorGrossExposure; ulong planId,stateRevision;
+   bool useInjectedBrokerProof,testOnlyApproximation; HSBI_BasketMoneyResult injectedBrokerProof;
+};
+struct HSBI_FutureSmallLevelResult
+{
+   bool valid; int levelIndex; double farBefore,farAfter,coreVolume,trendVolume,smallVolume,netBigVolume;
+   double recoverySlopeLots,recoveryMoney,totalMargin,grossExposure,transitionLoss,compressionLots,compressionRatio,riskValue;
+   bool moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded;
+   HSBI_FutureSmallProofStatus status; HSBI_ReasonCode reason; string details;
+   HSBI_BasketMoneyResult basketProof;
+};
 #endif
