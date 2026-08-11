@@ -18,4 +18,21 @@ double HSBI_NormalizePriceToTick(const double price,const double tickSize,const 
 }
 bool HSBI_ValidatePriceGrid(const double price,const HSBI_BrokerProperties &p){return HSBI_ValidateBrokerProperties(p)==HSBI_BROKER_PROPERTIES_VALID&&HSBI_IsPriceOnTickGrid(price,p.tickSize);}
 double HSBI_PriceDistanceInTicks(const double first,const double second,const double tickSize){if(!HSBI_IsFiniteNumber(first)||!HSBI_IsFiniteNumber(second)||tickSize<=0.0)return 0.0;return MathAbs(second-first)/tickSize;}
+bool HSBI_IsVolumeOnGrid(const double volume,const double step)
+{
+   if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return false;
+   double units=volume/step;return MathAbs(units-MathRound(units))<=HSBI_GridTolerance(step)/step;
+}
+double HSBI_FloorVolumeToStep(const double volume,const double step){if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return 0.0;return MathFloor(volume/step+1.0e-12)*step;}
+double HSBI_CeilVolumeToStep(const double volume,const double step){if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return 0.0;return MathCeil(volume/step-1.0e-12)*step;}
+double HSBI_NormalizeVolume(const double volume,const double step,const HSBI_VolumePurpose purpose)
+{
+   if(purpose==HSBI_VOLUME_SMALL_BASE)return HSBI_CeilVolumeToStep(volume,step);
+   return HSBI_FloorVolumeToStep(volume,step);
+}
+bool HSBI_ValidateVolume(const double volume,const HSBI_BrokerProperties &p)
+{
+   if(HSBI_ValidateBrokerProperties(p)!=HSBI_BROKER_PROPERTIES_VALID||!HSBI_IsFiniteNumber(volume))return false;
+   return volume>=p.volumeMin-HSBI_GridTolerance(p.volumeStep)&&volume<=p.volumeMax+HSBI_GridTolerance(p.volumeStep)&&HSBI_IsVolumeOnGrid(volume,p.volumeStep);
+}
 #endif
