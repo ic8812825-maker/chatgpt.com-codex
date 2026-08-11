@@ -28,11 +28,11 @@ HSBI_FutureSmallResult HSBI_SolveFutureSmall(const HSBI_FutureSmallInput &x)
    if(!HSBI_ValidateFutureSmallInput(x))return r;
    if(!HSBI_CalculateFutureSmallDepth(x.currentFar,x.volumeMin,x.conservativeQ,x.volumeStep,r.theoreticalDepth)){r.details="NONFINITE_DEPTH";return r;}
    HSBI_BrokerProperties p;ZeroMemory(p);p.symbol=x.controlPrice.symbol;p.point=x.tickSize;p.tickSize=x.tickSize;p.digits=8;p.volumeMin=x.volumeMin;p.volumeMax=x.volumeMax;p.volumeStep=x.volumeStep;p.tickValueProfit=0.0;p.tickValueLoss=0.0;p.valid=true;p.fresh=true;p.snapshotId=x.controlPrice.snapshotId;p.timestamp=TimeCurrent();
-   ArrayResize(r.levels,x.maximumDepth);double far=x.currentFar;
+   double far=x.currentFar;
    for(int k=0;k<x.maximumDepth;k++)
    {
       HSBI_FutureSmallLevelProof level;ZeroMemory(level);level.levelIndex=k+1;level.farBefore=far;double nextFar=HSBI_FloorVolumeToStep(far*x.conservativeQ,x.volumeStep);level.farAfter=nextFar;level.compressionLots=far-nextFar;level.compressionRatio=level.compressionLots/far;
-      if(nextFar<=0.0){if(x.terminalRouteAllowed){ArrayResize(r.levels,k);r.valid=true;r.status=HSBI_FS_EXACT_PROOF;r.finiteSequence=true;r.terminalFar=0.0;r.provenDepth=k;r.reason=HSBI_REASON_OK;r.details="TERMINAL_ROUTE";return r;}r.details="NO_TERMINAL_ROUTE";return r;}
+      if(nextFar<=0.0){if(x.terminalRouteAllowed){r.valid=true;r.status=HSBI_FS_EXACT_PROOF;r.finiteSequence=true;r.terminalFar=0.0;r.provenDepth=k;r.reason=HSBI_REASON_OK;r.details="TERMINAL_ROUTE";return r;}r.details="NO_TERMINAL_ROUTE";return r;}
       if(nextFar>=far||level.compressionLots+HSBI_GridTolerance(x.volumeStep)<x.volumeStep){r.plateauDetected=true;r.details="BROKER_GRID_PLATEAU";return r;}
       if(nextFar>x.maxNewFarRatio*far+HSBI_GridTolerance(x.volumeStep)||level.compressionLots<x.minimumCompressionLots-HSBI_GridTolerance(x.volumeStep)||level.compressionRatio<x.minimumCompressionRatio-1.0e-10){r.details="COMPRESSION_FAILED";return r;}
       HSBI_GeometryResult g=HSBI_SolveBigGeometry(far,x.coreRatio,x.trendRatio,x.smallRatio,p,true,true);if(!g.valid){r.details="GEOMETRY_OR_SLOPE_FAILED";return r;}

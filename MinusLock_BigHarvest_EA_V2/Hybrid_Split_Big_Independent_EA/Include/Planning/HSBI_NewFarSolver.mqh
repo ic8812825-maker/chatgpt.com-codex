@@ -14,11 +14,11 @@ string HSBI_NewFarInputDigest(const HSBI_NewFarSolverInput &x){return LongToStri
 bool HSBI_ValidateNewFarSource(const HSBI_NewFarSolverInput &x)
 {
    if(!x.actualClosingDeals.actual||!x.actualClosingDeals.fillsConfirmed||x.actualClosingDeals.sourceDealId==0)return false;
-   if(x.originalBigCoreDescriptor.role!=HSBI_ROLE_BIG_CORE||x.actualBigCoreResidual.role!=HSBI_ROLE_BIG_CORE)return false;
+   if(x.oldFarDescriptor.role!=HSBI_ROLE_FAR||x.originalBigCoreDescriptor.role!=HSBI_ROLE_BIG_CORE||x.actualBigCoreResidual.role!=HSBI_ROLE_BIG_CORE)return false;
    if(!HSBI_SamePositionOwner(x.originalBigCoreDescriptor.identity,x.actualBigCoreResidual.identity))return false;
    if(x.originalBigCoreDescriptor.identity.accountLogin!=x.oldFarDescriptor.identity.accountLogin||x.originalBigCoreDescriptor.identity.symbol!=x.oldFarDescriptor.identity.symbol||x.originalBigCoreDescriptor.identity.magic!=x.oldFarDescriptor.identity.magic||x.originalBigCoreDescriptor.identity.cycleId!=x.cycleId)return false;
    if(x.originalBigCoreDescriptor.identifier==0||x.originalBigCoreDescriptor.identifier!=x.actualBigCoreResidual.identifier||x.originalBigCoreDescriptor.ticket==0||x.originalBigCoreDescriptor.ticket!=x.actualBigCoreResidual.ticket)return false;
-   if(x.actualBigCoreResidual.direction==HSBI_DIRECTION_NONE||x.actualBigCoreResidual.actualVolume<=0.0||x.actualBigCoreResidual.actualVolume>=x.oldFarDescriptor.actualVolume)return false;
+   if(x.oldFarDescriptor.direction==HSBI_DIRECTION_NONE||x.actualBigCoreResidual.direction==HSBI_DIRECTION_NONE||x.oldFarDescriptor.direction==x.actualBigCoreResidual.direction||x.actualBigCoreResidual.actualVolume<=0.0||x.actualBigCoreResidual.actualVolume>=x.oldFarDescriptor.actualVolume)return false;
    return HSBI_IsActualBigCoreResidual(x.actualBigCoreResidual,x.originalBigCoreDescriptor.identifier)&&HSBI_ValidateVolume(x.actualBigCoreResidual.actualVolume,x.brokerProperties);
 }
 double HSBI_AllowedTransitionLoss(const HSBI_NewFarSolverInput &x){return MathMin(MathMin(x.absoluteLossCap,x.equityPercentCap),MathMin(x.oldFarRiskCap,x.cumulativeCycleLossCap));}
