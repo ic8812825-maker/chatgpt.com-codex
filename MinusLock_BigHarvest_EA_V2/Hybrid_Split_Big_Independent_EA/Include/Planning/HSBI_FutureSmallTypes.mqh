@@ -63,7 +63,7 @@ struct HSBI_FutureSmallResult
 };
 struct HSBI_FutureSmallLevelInput
 {
-   int levelIndex; double farBefore,coreRatio,trendRatio,smallRatio; HSBI_BrokerProperties broker;
+   int levelIndex; double farBefore,coreRatio,trendRatio,smallRatio; HSBI_Direction farDirection; HSBI_BrokerProperties broker;
    HSBI_FutureSmallLevelMarketSnapshot market; HSBI_FutureSmallLevelCostSnapshot costs;
    HSBI_FutureFarProjection farProjection; double farOpenPrice,coreOpenPrice,trendOpenPrice,smallOpenPrice;
    HSBI_MoneyStateSnapshot moneyState; HSBI_RiskSnapshot riskState; HSBI_MarginSnapshot marginState;

@@ -57,7 +57,7 @@ HSBI_FutureSmallLevelResult HSBI_EvaluateFutureSmallLevel(const HSBI_FutureSmall
 {
    HSBI_FutureSmallLevelResult r; ZeroMemory(r);r.levelIndex=x.levelIndex;r.farBefore=x.farBefore;
    r.status=HSBI_FS_UNPROVEN;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="LEVEL_UNPROVEN";
-   if(x.testOnlyApproximation||!HSBI_ValidateLevelMarket(x.market,x.levelIndex,x.broker,x.farProjection.source==HSBI_FAR_PROJECTION_UNAVAILABLE?HSBI_DIRECTION_NONE:x.market.side==HSBI_PRICE_SIDE_BID?HSBI_DIRECTION_BUY:HSBI_DIRECTION_SELL)||
+   if(x.testOnlyApproximation||!HSBI_ValidateLevelMarket(x.market,x.levelIndex,x.broker,x.farDirection)||
       !HSBI_ValidateLevelCosts(x.costs,x.levelIndex)||!HSBI_ValidateFarProjection(x.farProjection,x.broker,x.farBefore)) return r;
    HSBI_GeometryResult g=HSBI_SolveBigGeometry(x.farBefore,x.coreRatio,x.trendRatio,x.smallRatio,x.broker,true,true);
    if(!g.valid){r.details="GEOMETRY_FAILED";return r;}
@@ -72,7 +72,7 @@ HSBI_FutureSmallLevelResult HSBI_EvaluateFutureSmallLevel(const HSBI_FutureSmall
    if(x.useInjectedBrokerProof){basket=x.injectedBrokerProof;if(!basket.valid||!basket.brokerRuntimeConfirmed){r.details="INJECTED_PROOF_UNCONFIRMED";return r;}}
    else {
       HSBI_BasketMoneyInput bi;ZeroMemory(bi);bi.farVolume=x.farBefore;bi.coreVolume=g.coreVolume;bi.trendVolume=g.trendVolume;bi.smallVolume=g.smallVolume;
-      bi.farDirection=(x.market.side==HSBI_PRICE_SIDE_BID?HSBI_DIRECTION_BUY:HSBI_DIRECTION_SELL);bi.symbol=x.broker.symbol;bi.broker=x.broker;
+      bi.farDirection=x.farDirection;bi.symbol=x.broker.symbol;bi.broker=x.broker;
       bi.controlPrice=HSBI_LevelControlPrice(x.market,x.broker,bi.farDirection);bi.farOpenPrice=x.farOpenPrice;bi.coreOpenPrice=x.coreOpenPrice;
       bi.trendOpenPrice=x.trendOpenPrice;bi.smallOpenPrice=x.smallOpenPrice;bi.farCosts=x.costs.farCosts;bi.coreCosts=x.costs.coreCosts;
       bi.trendCosts=x.costs.trendCosts;bi.smallCosts=x.costs.smallCosts;bi.executionSafetyBuffer=x.executionSafetyBuffer;bi.snapshotId=x.market.snapshotId;
@@ -118,7 +118,7 @@ HSBI_FutureSmallResult HSBI_SolveFutureSmall(const HSBI_FutureSmallInput &x)
    HSBI_RiskSnapshot risk=x.riskState;HSBI_MarginSnapshot margin=x.marginState;bool terminal=false,boundConditions=true;
    for(int k=0;k<x.maximumDepth;k++) {
       HSBI_FutureSmallLevelInput li;ZeroMemory(li);li.levelIndex=k+1;li.farBefore=far;li.coreRatio=x.coreRatio;li.trendRatio=x.trendRatio;
-      li.smallRatio=x.smallRatio;li.broker=x.broker;li.market=x.levelMarketSnapshots[k];li.costs=x.levelCostSnapshots[k];li.farProjection=x.farProjections[k];
+      li.smallRatio=x.smallRatio;li.farDirection=x.farDirection;li.broker=x.broker;li.market=x.levelMarketSnapshots[k];li.costs=x.levelCostSnapshots[k];li.farProjection=x.farProjections[k];
       li.farOpenPrice=x.farOpenPrice;li.coreOpenPrice=x.coreOpenPrice;li.trendOpenPrice=x.trendOpenPrice;li.smallOpenPrice=x.smallOpenPrice;
       li.moneyState=money;li.riskState=risk;li.marginState=margin;li.minimumCompressionLots=x.minimumCompressionLots;
       li.minimumCompressionRatio=x.minimumCompressionRatio;li.maxNewFarRatio=x.maxNewFarRatio;li.transitionLossCap=x.transitionLossCap;
