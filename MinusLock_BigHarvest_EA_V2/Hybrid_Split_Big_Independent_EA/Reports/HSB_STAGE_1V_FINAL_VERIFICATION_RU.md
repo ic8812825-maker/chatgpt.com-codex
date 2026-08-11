@@ -1,50 +1,86 @@
-# HSB.1V — финальная инженерная верификация
+# HSB.1V — финальная доказательная приёмка
 
-Дата: 2026-08-10 UTC.
+Дата формирования: 2026-08-11 UTC.
 
-## 1. Исходный baseline
-
-- Branch: `work`.
-- Исходный SHA: `82664748abff0dec450edc68fb9ceb9c640f98b1`.
-- SHA проверенного набора перед добавлением настоящего отчёта: `46c7920c3a178003633d1e18e6b834c5fa2f7043`.
-- `git status` перед отчётом: чисто (`## work`).
-
-Коммиты этапа: `3a292c6`, `22d834a`, `1d6e99d`, `89cc25b`, `d35641b`, `ddc6161`, `c9b80f6`, `9fe37dc`, `47f36ed`, `46c7920`. Каждый пункт отделён самостоятельным коммитом; этот отчёт фиксируется отдельным финальным коммитом.
-
-## 2. Статическая проверка
-
-- Структура: EA, 46 MQL5 include units и test script находятся только в независимом каталоге; исходный каталог вне него не изменён.
-- Include graph: 84 директивы, запрещённых внешних/Legacy dependencies не найдено.
-- No-trade guard: production trade calls и trade-action constants — 0; торговый include отсутствует.
-- Legacy guard: Legacy Big/Small, Split, ReverseSmall, DUAL_TAIL, старые TradeEngine/StateMachine не подключены.
-- Dependency guard: include остаются локальными; собственный `HSBI_StateMachine` — pure contract.
-- Identity guard: полный tuple сравнивается без comment/ticket как source of truth; foreign identity, changed role/volume и duplicate Far отклоняются.
-
-## 3. Проверка кода
-
-Исправлены lossless decimal serialization `ulong`, narrowing в fingerprints/digests/panel/ledger keys, бессмысленная unsigned-проверка context, runtime/state/schema/identity/revision/reconciliation/Far/pending-action validators. Добавлены pure transaction barriers для PLACED/PARTIAL/TIMEOUT, fresh/duplicate events, same ActionID retry и маршруты RECONCILING/EMERGENCY/TERMINAL_SAFE. Ledger не изменяется этими функциями.
-
-Потенциальное ограничение: фактическая MQL5 type/enum/struct/include compatibility не может считаться подтверждённой без MetaEditor. Production scenarios, broker integration, persistence storage и transaction lifecycle отсутствуют. Торговых вызовов нет.
-
-## 4. Компиляция
-
-MetaEditor/Wine искались в PATH и доступных `/opt`, `/usr`, `/workspace`, но не найдены. Сторонний parser и Python-oracle не использовались.
+## Baseline
 
 ```text
+BASELINE_SHA=82664748abff0dec450edc68fb9ceb9c640f98b1
+BASELINE_LOCAL_SHA=9928793a19216e5a51c0699afc74ccdff4bbd300
+FINAL_LOCAL_SHA=b4ea255688026a2d87cfa2176f42186f72aaa07a
+FINAL_REMOTE_SHA=82664748abff0dec450edc68fb9ceb9c640f98b1
+BRANCH=work
+WORKTREE_STATUS=clean_before_final_report
+```
+
+`FINAL_LOCAL_SHA` — SHA полностью проверенного набора перед коммитом настоящего отчёта. `FINAL_REMOTE_SHA` выше фиксирует фактическое состояние remote до публикации; результат обычного push и post-push SHA должен быть добавлен отдельной публикационной записью, без переписывания данного commit.
+
+## Git history
+
+Между baseline и проверенным набором создано 12 коммитов:
+
+```text
+9928793 HSB.1V: усиление валидаций, lossless-ulong сериализация, тестовый harness и отчёты
+85f2aa7 HSB.1V: зафиксирован baseline для публикации этапа
+744b37d HSB.1V: исправлена lossless-сериализация ulong идентификаторов
+cf69448 HSB.1V: усилена валидация полного RecoveryContext
+4e6f17c HSB.1V: реализованы чистые transaction barriers и retry invariants
+1a63588 HSB.1V: усилены identity и ownership invariants
+dbae2ba HSB.1V: проверены и дополнены 26 MQL5 unit-тестов
+7964d31 HSB.1V: подтверждён запрет торгового исполнения
+09a95d2 HSB.1V: синхронизированы статусы и нормативная документация
+9dc7761 HSB.1V: зафиксирован фактический результат MetaEditor compile
+f481717 HSB.1V: зафиксирован фактический результат MQL5 unit-тестов
+b4ea255 HSB.1V: подтверждена область изменений независимого проекта
+```
+
+```text
+HSB_1V_COMMITS_BEFORE_FINAL_REPORT=12
+RESET_USED=NO
+FORCE_PUSH_USED=NO
+COMMITS_DELETED=NO
+HISTORY_REWRITTEN=NO
+```
+
+## Code verification
+
+```text
+ULONG_SERIALIZATION=PASS_STATIC
+CONTEXT_VALIDATION=PASS_STATIC
+TRANSACTION_BARRIERS=PASS_STATIC
+IDENTITY_OWNERSHIP=PASS_STATIC
+FSM_BARRIERS=PASS_STATIC
+NO_TRADE_GUARD=PASS
+```
+
+Все сериализуемые CycleID, PositionIdentifier, Ticket, PlanID, ActionID, EventID, StateRevision, snapshot-related ID и JournalRevision проходят через lossless decimal `ulong` conversion. Context проверяет runtime/FSM/schema/MoneyStateVersion/identity/revision/reconciliation/roles/volumes/Far/pending action/policy. Transaction transition требует completed outcome, совпадающий ActionID, fresh EventID, actual position/deal, полный volume, ownership, StateRevision и отсутствие reconciliation conflict. Retry с новым ActionID или после completed запрещён.
+
+Ownership использует tuple `AccountLogin + Symbol + Magic + CycleID + PositionIdentifier + Role`; ticket дополнительно обязан совпадать с ожидаемым observation, но не заменяет PositionIdentifier. Comment не является входом guard. Foreign identity, stale/reused ticket, changed volume/direction, второй Far и произвольная promotion отклоняются.
+
+## Test verification
+
+```text
+DECLARED_TEST_IDS=26
+UNIQUE_TEST_IDS=26
+T01_TO_T26_COMPLETE=YES
+TEST_ID_DUPLICATES=0
+TEST_ID_GAPS=0
 METAEDITOR_COMPILE=NOT_RUN_ENVIRONMENT_UNAVAILABLE
-COMPILE_RESULT=NOT_RUN_ENVIRONMENT_UNAVAILABLE
+MQL5_UNIT_TESTS=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 ```
 
-## 5. Unit-тесты
+MetaEditor, Wine, MT5 Terminal и MetaTester фактически искались через `command -v` и `find /opt /usr /workspace -maxdepth 5`; исполняемые файлы отсутствуют. Поэтому compile/test PASS не заявляются, Python и сторонние заменители не применялись.
 
-Test script содержит ровно 26 именованных MQL5 checks с Requirement ID, expected/actual, status и reason code. MT5/MetaTester отсутствуют, поэтому Experts/Journal evidence не создано.
+## Область изменений
 
 ```text
-MQL5_UNIT_TESTS=NOT_RUN_ENVIRONMENT_UNAVAILABLE
-MQL5_UNIT_TESTS_RUN=NOT_RUN_ENVIRONMENT_UNAVAILABLE
+CHANGE_SCOPE=MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/
+CHANGED_FILES_OUTSIDE_SCOPE=0
+OLD_PRODUCTION_EA_CHANGED=NO
+SCOPE_AUDIT=PASS
 ```
 
-## 6. Реализованность
+## Реализованность
 
 ```text
 INITIAL_LOCK=NOT_IMPLEMENTED
@@ -56,19 +92,23 @@ NEW_FAR_SOLVER=NOT_IMPLEMENTED
 BROKER_MONEY_RUNTIME=NOT_IMPLEMENTED
 PRODUCTION_PERSISTENCE=NOT_IMPLEMENTED
 PRODUCTION_TRANSACTION_ENGINE=NOT_IMPLEMENTED
+TRADING_SCENARIOS_IMPLEMENTED=0
 TRADING_IMPLEMENTED=NO
 REAL_TRADING_ALLOWED=NO
+HSB.2_STARTED=NO
 ```
 
-## 7. Финальный verdict
-
-Статические guards и синхронизация документации подтверждены, однако обязательные environment evidence `0 errors / 0 warnings` и `26/26 PASS` получить невозможно в текущем контейнере. Поэтому PASS не объявляется.
+## Verdict до публикации
 
 ```text
 HSB.1V=PARTIAL_ENVIRONMENT_BLOCKED
-HSB.2_STARTED=NO
+HSB.1V_PUBLISHED=PENDING_PUSH_VERIFICATION
+METAEDITOR_COMPILE=NOT_RUN_ENVIRONMENT_UNAVAILABLE
+MQL5_UNIT_TESTS=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 TRADING_IMPLEMENTED=NO
-TRADE_REQUESTS_ALLOWED=NO
 REAL_TRADING_ALLOWED=NO
+HSB.2_STARTED=NO
 NEXT_ALLOWED_STAGE=HSB.1V
 ```
+
+Публикация может быть объявлена PASS только после обычного `git push origin work`, повторного fetch, равенства `HEAD == origin/work` и проверки SHA через GitHub.
