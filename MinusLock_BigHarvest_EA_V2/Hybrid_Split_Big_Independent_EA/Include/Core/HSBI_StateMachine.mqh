@@ -7,4 +7,5 @@ HSBI_StateTransitionResult HSBI_ProposeStateTransition(const HSBI_RecoveryContex
 bool HSBI_ApplyPureStateTransition(HSBI_RecoveryContext &c,const HSBI_State to){HSBI_StateTransitionResult r=HSBI_ProposeStateTransition(c,to);if(!r.allowed)return false;c.previousState=c.currentState;c.currentState=to;c.stateRevision=r.proposedRevision;return true;}
 HSBI_State HSBI_ConflictTargetState(){return HSBI_STATE_RECONCILING;}
 HSBI_State HSBI_CriticalErrorTargetState(const bool unresolved){return unresolved?HSBI_STATE_TERMINAL_SAFE:HSBI_STATE_EMERGENCY;}
+HSBI_State HSBI_TransactionConflictTargetState(){return HSBI_STATE_TERMINAL_SAFE;}
 #endif
