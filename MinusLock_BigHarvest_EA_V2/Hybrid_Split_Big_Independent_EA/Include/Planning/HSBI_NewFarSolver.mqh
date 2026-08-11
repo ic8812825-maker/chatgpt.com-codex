@@ -12,7 +12,13 @@ struct HSBI_NewFarSolverResult{bool valid;HSBI_SolverStatus status;double select
 string HSBI_NewFarInputDigest(const HSBI_NewFarSolverInput &x){return LongToString(x.oldFarDescriptor.identity.accountLogin)+"|"+x.oldFarDescriptor.identity.symbol+"|"+LongToString(x.oldFarDescriptor.identity.magic)+"|"+HSBI_UlongToString(x.cycleId)+"|"+HSBI_UlongToString(x.stateRevision)+"|"+HSBI_UlongToString(x.planId)+"|"+DoubleToString(x.oldFarDescriptor.actualVolume,8)+"|"+HSBI_UlongToString(x.originalBigCoreDescriptor.identifier)+"|"+DoubleToString(x.actualBigCoreResidual.actualVolume,8)+"|"+DoubleToString(x.brokerProperties.volumeStep,8)+"|"+DoubleToString(x.controlPrice.selectedPrice,8)+"|"+x.futureSmallProof.proofDigest+"|"+HSBI_UlongToString(x.riskState.snapshotId)+"|"+HSBI_UlongToString(x.marginState.snapshotId);}
 bool HSBI_ValidateNewFarSource(const HSBI_NewFarSolverInput &x)
 {
-   return x.actualClosingDeals.actual&&x.actualClosingDeals.fillsConfirmed&&HSBI_IsActualBigCoreResidual(x.actualBigCoreResidual,x.originalBigCoreDescriptor.identifier)&&HSBI_ValidateVolume(x.actualBigCoreResidual.actualVolume,x.brokerProperties);
+   if(!x.actualClosingDeals.actual||!x.actualClosingDeals.fillsConfirmed||x.actualClosingDeals.sourceDealId==0)return false;
+   if(x.originalBigCoreDescriptor.role!=HSBI_ROLE_BIG_CORE||x.actualBigCoreResidual.role!=HSBI_ROLE_BIG_CORE)return false;
+   if(!HSBI_SamePositionOwner(x.originalBigCoreDescriptor.identity,x.actualBigCoreResidual.identity))return false;
+   if(x.originalBigCoreDescriptor.identity.accountLogin!=x.oldFarDescriptor.identity.accountLogin||x.originalBigCoreDescriptor.identity.symbol!=x.oldFarDescriptor.identity.symbol||x.originalBigCoreDescriptor.identity.magic!=x.oldFarDescriptor.identity.magic||x.originalBigCoreDescriptor.identity.cycleId!=x.cycleId)return false;
+   if(x.originalBigCoreDescriptor.identifier==0||x.originalBigCoreDescriptor.identifier!=x.actualBigCoreResidual.identifier||x.originalBigCoreDescriptor.ticket==0||x.originalBigCoreDescriptor.ticket!=x.actualBigCoreResidual.ticket)return false;
+   if(x.actualBigCoreResidual.direction==HSBI_DIRECTION_NONE||x.actualBigCoreResidual.actualVolume<=0.0||x.actualBigCoreResidual.actualVolume>=x.oldFarDescriptor.actualVolume)return false;
+   return HSBI_IsActualBigCoreResidual(x.actualBigCoreResidual,x.originalBigCoreDescriptor.identifier)&&HSBI_ValidateVolume(x.actualBigCoreResidual.actualVolume,x.brokerProperties);
 }
 double HSBI_AllowedTransitionLoss(const HSBI_NewFarSolverInput &x){return MathMin(MathMin(x.absoluteLossCap,x.equityPercentCap),MathMin(x.oldFarRiskCap,x.cumulativeCycleLossCap));}
 HSBI_NewFarSolverResult HSBI_SolveNewFar(const HSBI_NewFarSolverInput &x)
