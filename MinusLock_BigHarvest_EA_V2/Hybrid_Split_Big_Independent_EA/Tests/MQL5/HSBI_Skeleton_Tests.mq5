@@ -133,7 +133,7 @@ void OnStart()
    fs=FutureSmall();fs.currentFar=0.11;fs.volumeStep=0.1;fs.volumeMin=0.1;fs.conservativeQ=0.99;Check("T79","HSBI-FS-003",true,HSBI_SolveFutureSmall(fs).plateauDetected,"GRID_PLATEAU");
    fs=FutureSmall();fs.conservativeQ=1.01;Check("T80","HSBI-FS-003",false,HSBI_ValidateFutureSmallInput(fs),"FAR_INCREASE_REJECT");
    fs=FutureSmall();HSBI_FutureSmallResult fsr=HSBI_SolveFutureSmall(fs);Check("T81","HSBI-FS-001",true,fsr.levels[0].farAfter<fsr.levels[0].farBefore,"FAR_DECREASES");
-   fs=FutureSmall();fs.maximumDepth=1;fs.minimumCompressionLots=0.5;Check("T82","HSBI-FS-001",true,HSBI_SolveFutureSmall(fs).valid,"MINIMUM_COMPRESSION");
+   fs=FutureSmall();fs.maximumDepth=1;fs.minimumCompressionLots=0.5;Check("T82","HSBI-FS-001",true,HSBI_SolveFutureSmall(fs).provenDepth==1,"MINIMUM_COMPRESSION");
    fs=FutureSmall();fs.maximumDepth=1;fs.minimumCompressionLots=0.6;Check("T83","HSBI-FS-001",false,HSBI_SolveFutureSmall(fs).valid,"INSUFFICIENT_COMPRESSION");
    fs=FutureSmall();fs.currentFar=0.01;Check("T84","HSBI-FS-003",true,HSBI_SolveFutureSmall(fs).finiteSequence,"FINITE_TERMINAL_ROUTE");
    fs=FutureSmall();fs.currentFar=0.01;fs.terminalRouteAllowed=false;Check("T85","HSBI-FS-003",false,HSBI_SolveFutureSmall(fs).valid,"NO_TERMINAL_ROUTE");
