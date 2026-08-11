@@ -40,3 +40,4 @@ Far SELL: F SELL, C/T BUY, S SELL; close BUY=Bid, close SELL=Ask. Far BUY зер
 
 ## Fail-closed
 Reject при invalid dimensions, stale price, rounding-law failure, nonfinite money, no safe N, failed recursion или insufficient margin. Documentary algebraic consistency не является broker runtime proof.
+> **Граница реализации HSB.1V (2026-08-10).** Описанный production lifecycle остаётся нормативной спецификацией, а не реализованным сценарием. В каркасе нет production execution, broker-money runtime и production persistence. Действуют: ровно один Far; promotion только из actual BigCore residual; FinalReserve запрещён для Partial Far; allocations не прибавляются к actual money повторно; Final Close определяется только actual money; только COMPLETED_FILL снимает transaction barrier; retry сохраняет ActionID; conflict ведёт в RECONCILING; unresolved critical error — в TERMINAL_SAFE; no auto-resume; REAL_LIMITED и HSB.2 запрещены.
