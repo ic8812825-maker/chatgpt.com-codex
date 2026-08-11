@@ -139,7 +139,7 @@ void OnStart()
    fs=FutureSmall();fs.currentFar=0.01;fs.terminalRouteAllowed=false;Check("T85","HSBI-FS-003",false,HSBI_SolveFutureSmall(fs).valid,"NO_TERMINAL_ROUTE");
    Check("T86","HSBI-FS-002",true,HSBI_ValidateConservativeBound(1.0,0.25,0.5,2,true,true,true,true,true),"CONSERVATIVE_BOUND");
    Check("T87","HSBI-FS-002",false,HSBI_ValidateConservativeBound(1.0,0.5,0.5,1,true,true,true,true,true),"UNPROVEN_DEPTH_ONE");
-   fs=FutureSmall();fs.currentFar=0.257;fs.volumeStep=0.01;fs.minimumCompressionLots=0.1;fsr=HSBI_SolveFutureSmall(fs);Check("T88","HSBI-FS-001",true,MathAbs(fsr.levels[0].farAfter-0.12)<1.0e-9,"ROUNDING_INCLUDED");
+   fs=FutureSmall();fs.currentFar=0.26;fs.conservativeQ=0.53;fs.volumeStep=0.01;fs.minimumCompressionLots=0.1;fs.currentBigGross=1.0;fsr=HSBI_SolveFutureSmall(fs);Check("T88","HSBI-FS-001",true,MathAbs(fsr.levels[0].farAfter-0.13)<1.0e-9,"ROUNDING_INCLUDED");
    fs=FutureSmall();fs.riskDecreasePerLevel=-1.0;Check("T89","HSBI-FS-004",false,HSBI_SolveFutureSmall(fs).valid,"RISK_INCREASES");
    fs=FutureSmall();fs.marginState.allowedMargin=1.0;Check("T90","HSBI-FS-004",false,HSBI_SolveFutureSmall(fs).valid,"MARGIN_EXCEEDS");
    fs=FutureSmall();fs.transitionLossCap=0.5;Check("T91","HSBI-FS-004",false,HSBI_SolveFutureSmall(fs).valid,"TRANSITION_LOSS_EXCEEDS");
