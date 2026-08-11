@@ -7,5 +7,18 @@ bool HSBI_IsValidIdentity(const HSBI_Identity &x){return x.accountLogin>0 && x.s
 bool HSBI_SameCycle(const HSBI_Identity &a,const HSBI_Identity &b){return a.accountLogin==b.accountLogin && a.symbol==b.symbol && a.magic==b.magic && a.cycleId==b.cycleId;}
 bool HSBI_SamePositionOwner(const HSBI_Identity &a,const HSBI_Identity &b){return HSBI_SameCycle(a,b)&&a.positionIdentifier==b.positionIdentifier&&a.role==b.role;}
 bool HSBI_SameSymbolScope(const HSBI_Identity &a,const HSBI_Identity &b){return a.accountLogin==b.accountLogin&&a.symbol==b.symbol&&a.magic==b.magic;}
-string HSBI_SerializeIdentity(const HSBI_Identity &x){return LongToString(x.accountLogin)+"|"+x.symbol+"|"+LongToString(x.magic)+"|"+IntegerToString((int)x.cycleId)+"|"+IntegerToString((int)x.positionIdentifier)+"|"+IntegerToString((int)x.role);}
+string HSBI_UlongToString(const ulong value)
+{
+   if(value==0)return "0";
+   ulong remaining=value;
+   string result="";
+   while(remaining>0)
+   {
+      const int digit=(int)(remaining%10);
+      result=StringSubstr("0123456789",digit,1)+result;
+      remaining/=10;
+   }
+   return result;
+}
+string HSBI_SerializeIdentity(const HSBI_Identity &x){return LongToString(x.accountLogin)+"|"+x.symbol+"|"+LongToString(x.magic)+"|"+HSBI_UlongToString(x.cycleId)+"|"+HSBI_UlongToString(x.positionIdentifier)+"|"+IntegerToString((int)x.role);}
 #endif
