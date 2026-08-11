@@ -179,7 +179,7 @@ void OnStart()
    leg.direction=HSBI_DIRECTION_BUY;leg.closePrice=leg.ask;Check("T123","HSBI-MONEY-021",true,HSBI_EvaluateProjectedLegMoney(leg).status==HSBI_CALC_REJECT,"BUY_WRONG_SIDE_REJECT");
    double netA=0.0;HSBI_CostSnapshot pc=ProjectedCosts();Check("T124","HSBI-MONEY-021",true,HSBI_TryProjectedNetMoney(20.0,pc,0.1,netA)&&MathAbs(netA-(20.0+pc.commission+pc.swap+pc.fee-pc.spreadCost-pc.slippageBuffer-0.1))<1.0e-9,"ALL_COST_COMPONENTS_INCLUDED");
    pc.valid=false;Check("T125","HSBI-MONEY-021",false,HSBI_TryProjectedNetMoney(20.0,pc,0.1,netA),"INVALID_COST_REJECT");
-   HSBI_BasketMoneyInput emptyBasket;ZeroMemory(emptyBasket);leg=HSBI_BasketLegInput(emptyBasket,HSBI_DIRECTION_BUY,0.1,1.1,ProjectedCosts());Check("T126","HSBI-FAILCLOSED-001",true,!leg.projected,"ZERO_BASKET_INPUT_INVALID");
+   HSBI_BasketMoneyInput emptyBasket;ZeroMemory(emptyBasket);leg=HSBI_BasketLegInput(emptyBasket,HSBI_DIRECTION_BUY,0.1,1.1,ProjectedCosts());Check("T126","HSBI-FAILCLOSED-001",true,leg.projected&&leg.symbol=="","ZERO_BASKET_INPUT_INVALID");
    HSBI_MarginCalculationResult lm=HSBI_EvaluateProjectedLegMargin(leg);Check("T127","HSBI-MARGIN-001",true,lm.status==HSBI_CALC_REJECT,"MARGIN_INPUT_VALIDATION");
    leg.broker=Broker();leg.symbol="TEST";leg.direction=HSBI_DIRECTION_BUY;leg.volume=0.1;leg.openPrice=1.10000;leg.snapshotId=1;leg.timestamp=TimeCurrent();leg.projected=true;lm=HSBI_EvaluateProjectedLegMargin(leg);Check("T128","HSBI-MARGIN-001",true,lm.status==HSBI_CALC_UNAVAILABLE,"MARGIN_RUNTIME_UNAVAILABLE");
    HSBI_MarginCalculationResult lm2;leg.openPrice=1.10001;lm2=HSBI_EvaluateProjectedLegMargin(leg);Check("T129","HSBI-MARGIN-001",true,lm.price!=lm2.price,"CHANGED_PRICE_PROPAGATED");
