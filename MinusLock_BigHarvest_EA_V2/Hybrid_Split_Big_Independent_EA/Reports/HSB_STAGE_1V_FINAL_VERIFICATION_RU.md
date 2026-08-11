@@ -8,7 +8,7 @@
 BASELINE_SHA=82664748abff0dec450edc68fb9ceb9c640f98b1
 BASELINE_LOCAL_SHA=9928793a19216e5a51c0699afc74ccdff4bbd300
 FINAL_LOCAL_SHA=b4ea255688026a2d87cfa2176f42186f72aaa07a
-FINAL_REMOTE_SHA=82664748abff0dec450edc68fb9ceb9c640f98b1
+FINAL_REMOTE_SHA=5782d4f66d9b582e84153c1133e824fd7f4b10d9
 BRANCH=work
 WORKTREE_STATUS=clean_before_final_report
 ```
@@ -102,7 +102,7 @@ HSB.2_STARTED=NO
 
 ```text
 HSB.1V=PARTIAL_ENVIRONMENT_BLOCKED
-HSB.1V_PUBLISHED=PENDING_PUSH_VERIFICATION
+HSB.1V_PUBLISHED=PASS
 METAEDITOR_COMPILE=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 MQL5_UNIT_TESTS=NOT_RUN_ENVIRONMENT_UNAVAILABLE
 TRADING_IMPLEMENTED=NO
@@ -112,3 +112,20 @@ NEXT_ALLOWED_STAGE=HSB.1V
 ```
 
 Публикация может быть объявлена PASS только после обычного `git push origin work`, повторного fetch, равенства `HEAD == origin/work` и проверки SHA через GitHub.
+
+## Публикационная проверка
+
+Обычный `git push origin work` выполнен успешно без force 2026-08-11. Затем `git fetch origin work` подтвердил:
+
+```text
+PUSH_MODE=NORMAL_NO_FORCE
+PUBLISHED_VERIFIED_SHA=5782d4f66d9b582e84153c1133e824fd7f4b10d9
+HEAD=5782d4f66d9b582e84153c1133e824fd7f4b10d9
+ORIGIN_WORK=5782d4f66d9b582e84153c1133e824fd7f4b10d9
+HEAD_EQUALS_ORIGIN_WORK=YES
+GITHUB_API_SHA=5782d4f66d9b582e84153c1133e824fd7f4b10d9
+GITHUB_SHA_EXISTS=YES
+HSB.1V_PUBLISHED=PASS
+```
+
+GitHub API endpoint `/repos/ic8812825-maker/chatgpt.com-codex/commits/work` вернул тот же SHA. Настоящая публикационная запись создаётся следующим обычным commit и также подлежит обычному push; её окончательный SHA проверяется post-push и сообщается как transport evidence без попытки самоссылки SHA внутри собственного содержимого.
