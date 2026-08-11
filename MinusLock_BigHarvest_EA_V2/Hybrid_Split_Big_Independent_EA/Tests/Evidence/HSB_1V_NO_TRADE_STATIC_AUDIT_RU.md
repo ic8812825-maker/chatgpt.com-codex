@@ -1,30 +1,27 @@
-# HSB.1V — статический аудит запрета торговли
+# HSB.1V — статический аудит запрета торгового исполнения
 
-Дата: 2026-08-10 UTC. Область: все `*.mq5` и `*.mqh` независимого каталога.
+Дата повторной проверки: 2026-08-11 UTC. Область: все `*.mq5` и `*.mqh` независимого каталога.
 
-## Команды
+## Выполненные команды
 
 ```bash
-rg -n -i 'OrderSendAsync|OrderSend|CTrade|PositionOpen|PositionClosePartial|PositionClose|TRADE_ACTION_DEAL|TRADE_ACTION_PENDING|trade[ _-]?request' . --glob '*.{mq5,mqh}'
-rg -n -i 'Trade/Trade\.mqh|Legacy|ReverseSmall|DUAL_TAIL|\.\./\.\./.*MinusLock|TradeEngine' . --glob '*.{mq5,mqh}'
-rg -n '\b(Buy|Sell)\s*\(' . --glob '*.{mq5,mqh}'
-rg -n '^#include' . --glob '*.{mq5,mqh}'
+rg -n 'OrderSend(Async)?\s*\(|\bCTrade\b|Position(Open|Close|ClosePartial)\s*\(|\b(Buy|Sell)\s*\(|TRADE_ACTION_(DEAL|PENDING)' MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA --glob '*.{mq5,mqh}'
+rg -n 'Trade/Trade\.mqh|Legacy|ReverseSmall|TradeEngine|DUAL_TAIL|#include.*MinusLock_BigHarvest_EA_V2' MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA --glob '*.{mq5,mqh}'
+rg -n 'REAL_TRADING_ALLOWED|realAccountAllowed|brokerRequestsAllowed' MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Include --glob '*.mqh'
 ```
 
-## Результат
-
-- Production trade calls: `0`.
-- Торговые request/action constants: `0`.
-- Вызовы `Buy(...)` / `Sell(...)`: `0`. Имена `HSBI_DIRECTION_BUY/SELL` и документальные state/role identifiers не являются вызовами.
-- `Trade/Trade.mqh`, внешние/старые include, Legacy, ReverseSmall, старый TradeEngine и DUAL_TAIL: `0`.
-- Include directives проверено: `84`; они остаются внутри независимого проекта или стандартного MQL5 compile context.
-- Старый StateMachine не подключён; `HSBI_StateMachine.mqh` является собственным чистым контрактом текущего проекта.
-- Второй Far отклоняется validator-ом; policy всегда запрещает broker requests и real account.
+Первые две команды не нашли совпадений. Третья подтвердила compile-time `HSBI_REAL_TRADING_ALLOWED=false`, fail-closed runtime policy и проверки context. Собственный `HSBI_StateMachine.mqh` не является старым production StateMachine и содержит только pure transitions. Структура допускает хранение ровно одного Far; попытка наблюдать второй Far отклоняется context/invariant validators как conflict.
 
 ```text
-HSB_STAGE_1_NO_TRADE_GUARD=PASS
 PRODUCTION_TRADE_CALLS=0
+TRADE_ACTION_CONSTANTS=0
+FORBIDDEN_TRADE_INCLUDE=0
+LEGACY_DEPENDENCIES=0
+OLD_STATE_MACHINE_DEPENDENCIES=0
+OLD_TRADE_ENGINE_DEPENDENCIES=0
+DUAL_TAIL=0
+SECOND_FAR_ALLOWED=NO
 TRADING_IMPLEMENTED=NO
-TRADE_REQUESTS_ALLOWED=NO
 REAL_TRADING_ALLOWED=NO
+NO_TRADE_GUARD=PASS
 ```
