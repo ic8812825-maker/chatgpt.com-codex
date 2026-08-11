@@ -41,6 +41,8 @@ struct HSBI_FutureSmallInput
    HSBI_FutureSmallLevelMarketSnapshot levelMarketSnapshots[128];
    HSBI_FutureSmallLevelCostSnapshot levelCostSnapshots[128];
    HSBI_FutureFarProjection farProjections[128];
+   double evaluatedRisks[128]; HSBI_RiskProofSource riskProofSources[128];
+   bool riskRuntimeConfirmed[128]; bool riskTestOnly[128]; ulong riskProofSnapshotIds[128];
    HSBI_BasketMoneyResult injectedBrokerProofs[128];
 };
 struct HSBI_FutureSmallLevelProof
