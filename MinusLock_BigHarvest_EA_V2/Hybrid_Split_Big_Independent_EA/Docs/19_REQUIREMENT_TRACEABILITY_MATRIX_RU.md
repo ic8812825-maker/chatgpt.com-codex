@@ -135,3 +135,17 @@ NEXT_ALLOWED_STAGE=HSB.1V
 | HSBI-FAILCLOSED-001-R | linear shortcut guards | T132,T150,T160 | MAPPED_STATIC | USER_VERIFICATION_REQUIRED |
 
 Runtime/compile/broker proof PASS не заявляется без MetaEditor/MT5. Evidence: `Reports/HSB_STAGE_2B_R_FINAL_ACCEPTANCE_RU.md`, `Tests/Evidence/HSB_2B_R_NO_TRADE_STATIC_AUDIT_RU.md`.
+
+## HSB.2B-R2 — allocation, level snapshots и proof isolation
+
+| Requirement | Files/functions | Tests | Static | Compile/runtime |
+|---|---|---|---|---|
+| HSBI-CATCHUP-002 | AllocationPolicyTypes; ReserveCatchUpEvaluator | T161-T171 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-FS-005 | FutureSmallLevelDigest; FutureSmallProofDigest | T172-T180 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-FS-006 | FutureSmallLevelMarketSnapshot; level market validator | T181-T185 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-FS-007 | FutureSmallLevelCostSnapshot; level cost validator | T186 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-FS-008 | FutureFarProjection; explicit projection source | T187-T191 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-RISK-002 | FutureSmallRiskEvaluator; runtime/proxy separation | T192-T195 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-NF-011 | complete candidate proof/digest isolation | T196-T200 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+
+Все R2-строки имеют только статический статус. MetaEditor compile, MQL5 runtime, broker-money runtime и risk runtime proof требуют evidence администратора.
