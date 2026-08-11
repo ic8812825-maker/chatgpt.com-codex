@@ -118,3 +118,20 @@ NEXT_ALLOWED_STAGE=HSB.1V
 | HSBI-NF-010 | Docs/29 | deterministic comparator/digest | T108,T120 | IMPLEMENTED_UNVERIFIED | RUNTIME_UNAVAILABLE | USER_VERIFICATION_REQUIRED | HSB_STAGE_2B_IMPLEMENTATION_RU |
 
 `IMPLEMENTED_UNVERIFIED` означает статическую реализацию без MetaEditor/MT5 evidence; runtime/compile PASS и production readiness не заявляются.
+
+## HSB.2B-R — корректировка broker-money proof
+
+| Requirement | Files/functions | Tests | Static | Compile/runtime |
+|---|---|---|---|---|
+| HSBI-MONEY-021-R | LevelMoneyEvaluator; HSBI_EvaluateProjectedLegMoney | T121-T125 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-MARGIN-001-R | LevelMarginEvaluator; HSBI_EvaluateProjectedLegMargin | T127-T129 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-MONEY-022-R | BasketMoneyEvaluator; four independent legs | T126,T130-T131 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-FS-001-R | HSBI_EvaluateFutureSmallLevel | T130-T143 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-FS-002-R | two-level bound with proof flags | T133-T147 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-FS-004-R | typed basket-derived risk/margin/loss | T138-T141 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-NF-004-R | candidate-specific Future Small/money | T148-T150 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-NF-006-R | expanded input/candidate-list plan digest | T152-T157 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-NF-010-R | complete-proof objective isolation | T158-T159 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-FAILCLOSED-001-R | linear shortcut guards | T132,T150,T160 | MAPPED_STATIC | USER_VERIFICATION_REQUIRED |
+
+Runtime/compile/broker proof PASS не заявляется без MetaEditor/MT5. Evidence: `Reports/HSB_STAGE_2B_R_FINAL_ACCEPTANCE_RU.md`, `Tests/Evidence/HSB_2B_R_NO_TRADE_STATIC_AUDIT_RU.md`.
