@@ -6,7 +6,7 @@
 BASELINE_SHA=976aa9b089b610ef738cc89c411febbd8322fdd6
 ACTUAL_APPEND_ONLY_BASELINE=cc80ab6967ac0a387487ce51a03ae29f5a5d2cdd
 FINAL_LOCAL_SHA=fdfbc94971c9751c2d40f4e438529df0719ca67c
-FINAL_REMOTE_SHA=5a650d30c65aeda18b33ead07e501a501636b603
+FINAL_REMOTE_SHA=28ab6cd94d7d5b8fd4a2edb0132ae0c9e11619ba
 BRANCH=work
 WORKTREE_STATUS=clean_before_final_report
 HEAD_EQUALS_ORIGIN_WORK=YES_AT_VERIFIED_PUBLICATION
@@ -95,13 +95,18 @@ HSB.2C=NOT_STARTED
 ```text
 PUSH_MODE=NORMAL
 FORCE_PUSH=NO
-PUBLISHED_VERIFIED_SHA=5a650d30c65aeda18b33ead07e501a501636b603
-HEAD=5a650d30c65aeda18b33ead07e501a501636b603
-ORIGIN_WORK=5a650d30c65aeda18b33ead07e501a501636b603
-GITHUB_API_SHA=5a650d30c65aeda18b33ead07e501a501636b603
+PUBLISHED_VERIFIED_SHA=28ab6cd94d7d5b8fd4a2edb0132ae0c9e11619ba
+HEAD=28ab6cd94d7d5b8fd4a2edb0132ae0c9e11619ba
+ORIGIN_WORK=28ab6cd94d7d5b8fd4a2edb0132ae0c9e11619ba
+GITHUB_API_SHA=28ab6cd94d7d5b8fd4a2edb0132ae0c9e11619ba
 HEAD_EQUALS_ORIGIN_WORK=YES
 WORKTREE_CLEAN=YES
 HSB.2B_R_PUBLISHED=PASS
 ```
 
 Содержательный commit опубликован обычным push и подтверждён fetch/API. Настоящая append-only запись публикуется следующим обычным commit; transport SHA проверяется post-push без самоссылки.
+
+
+## Последующая корректировка HSB.2B-R2
+
+Исторический опубликованный SHA HSB.2B-R исправлен на фактический tip этапа `28ab6cd94d7d5b8fd4a2edb0132ae0c9e11619ba`. R2 не изменяет исторический verdict compile/runtime: пользовательская проверка по-прежнему обязательна.
