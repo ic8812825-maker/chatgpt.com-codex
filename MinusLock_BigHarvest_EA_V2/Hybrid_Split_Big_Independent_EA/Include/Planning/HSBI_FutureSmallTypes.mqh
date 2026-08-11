@@ -53,7 +53,7 @@ struct HSBI_FutureSmallLevelProof
    ulong controlSnapshotId,farCostSnapshotId,coreCostSnapshotId,trendCostSnapshotId,smallCostSnapshotId;
    bool moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded;
    HSBI_CalculationStatus moneyProofStatus,marginProofStatus,riskProofStatus,transitionLossProofStatus;
-   HSBI_FutureSmallProofStatus proofStatus; HSBI_ReasonCode reason; string levelDigest;
+   HSBI_FutureSmallProofStatus proofStatus; HSBI_ReasonCode reason; string levelDigest; HSBI_BrokerMoneyEvaluationResult reserveSourceProof; HSBI_BrokerMoneyEvaluationResult farLossProof;
 };
 struct HSBI_FutureSmallResult
 {

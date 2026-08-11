@@ -136,7 +136,7 @@ HSBI_FutureSmallResult HSBI_SolveFutureSmall(const HSBI_FutureSmallInput &x)
       p.coreCostSnapshotId=li.costs.coreCosts.snapshotId;p.trendCostSnapshotId=li.costs.trendCosts.snapshotId;p.smallCostSnapshotId=li.costs.smallCosts.snapshotId;
       p.moneyIncluded=level.moneyIncluded;p.marginIncluded=level.marginIncluded;p.riskIncluded=level.riskIncluded;p.transitionLossIncluded=level.transitionLossIncluded;
       p.moneyProofStatus=level.basketProof.status;p.marginProofStatus=level.basketProof.status;p.riskProofStatus=HSBI_CALC_PASS;
-      p.transitionLossProofStatus=level.basketProof.status;p.proofStatus=HSBI_FS_EXACT_PROOF;p.reason=HSBI_REASON_OK;p.levelDigest=HSBI_FutureSmallLevelDigest(p);
+      p.transitionLossProofStatus=level.basketProof.status;p.reserveSourceProof=level.basketProof.core;p.farLossProof=level.basketProof.far;p.proofStatus=HSBI_FS_EXACT_PROOF;p.reason=HSBI_REASON_OK;p.levelDigest=HSBI_FutureSmallLevelDigest(p);
       r.levels[k]=p;r.provenDepth=k+1;
       if(level.farAfter>x.conservativeQ*level.farBefore+HSBI_GridTolerance(x.volumeStep))boundConditions=false;
       far=level.farAfter;priorBig=level.netBigVolume;priorExposure=level.grossExposure;money.recoveryMoney=level.recoveryMoney;
