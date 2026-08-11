@@ -9,6 +9,15 @@ bool HSBI_ValidateRecoverySlope(const double coreVolume,const double trendVolume
    if(coreVolume<0.0||trendVolume<0.0||smallVolume<=0.0||farVolume<=0.0)return false;
    slope=coreVolume+trendVolume-smallVolume-farVolume;return HSBI_IsFiniteNumber(slope)&&slope>0.0;
 }
+HSBI_RecoveryDirectionResult HSBI_EvaluateRecoveryMoneyDirection(const HSBI_Direction farDirection,const double baseMoney,const double nextTickMoney,const bool moneyAvailable,const bool priceFresh)
+{
+   HSBI_RecoveryDirectionResult r;ZeroMemory(r);r.baseMoney=baseMoney;r.nextTickMoney=nextTickMoney;r.moneyAvailable=moneyAvailable;r.priceFresh=priceFresh;r.status=HSBI_CALC_REJECT;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;
+   if(!priceFresh){r.reason=HSBI_REASON_STALE_SNAPSHOT;return r;}
+   if(!moneyAvailable){r.status=HSBI_CALC_UNAVAILABLE;r.reason=HSBI_REASON_NOT_INITIALIZED;return r;}
+   if(!HSBI_IsFiniteNumber(baseMoney)||!HSBI_IsFiniteNumber(nextTickMoney)){r.status=HSBI_CALC_ERROR;return r;}
+   if(farDirection!=HSBI_DIRECTION_BUY&&farDirection!=HSBI_DIRECTION_SELL)return r;
+   r.deltaMoney=nextTickMoney-baseMoney;r.directionCorrect=r.deltaMoney>0.0;r.status=r.directionCorrect?HSBI_CALC_PASS:HSBI_CALC_REJECT;r.reason=r.directionCorrect?HSBI_REASON_OK:HSBI_REASON_INTERNAL_INVARIANT_FAILED;return r;
+}
 HSBI_GeometryResult HSBI_SolveBigGeometry(const double farVolume,const double coreRatio,const double trendRatio,const double smallRatio,const HSBI_BrokerProperties &p,const bool moneyPrerequisite,const bool riskPrerequisite)
 {
    HSBI_GeometryResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.reason=HSBI_REASON_INVALID_VOLUME;r.details="INVALID_GEOMETRY";r.farVolume=farVolume;r.snapshotId=p.snapshotId;
