@@ -3,6 +3,7 @@
 #include "HSBI_GeometrySolver.mqh"
 #include "../Money/HSBI_BasketMoneyEvaluator.mqh"
 #include "../Money/HSBI_AllocationPolicyTypes.mqh"
+#include "../Risk/HSBI_FutureSmallRiskEvaluator.mqh"
 enum HSBI_FutureSmallProofStatus { HSBI_FS_EXACT_PROOF, HSBI_FS_CONSERVATIVE_BOUND, HSBI_FS_UNPROVEN, HSBI_FS_REJECTED };
 enum HSBI_FutureFarProjectionSource { HSBI_FAR_PROJECTION_BIGCORE_RESIDUAL, HSBI_FAR_PROJECTION_EXPLICIT_MODEL, HSBI_FAR_PROJECTION_UNAVAILABLE };
 struct HSBI_MoneyStateSnapshot { double recoveryMoney; double reserve; bool available; bool fresh; ulong snapshotId; };
@@ -65,7 +66,7 @@ struct HSBI_FutureSmallLevelInput
    HSBI_FutureFarProjection farProjection; double farOpenPrice,coreOpenPrice,trendOpenPrice,smallOpenPrice;
    HSBI_MoneyStateSnapshot moneyState; HSBI_RiskSnapshot riskState; HSBI_MarginSnapshot marginState;
    double minimumCompressionLots,minimumCompressionRatio,maxNewFarRatio,transitionLossCap,executionSafetyBuffer;
-   double priorBigGross,priorGrossExposure; ulong planId,stateRevision;
+   double priorBigGross,priorGrossExposure; double evaluatedRisk; HSBI_RiskProofSource riskProofSource; bool riskRuntimeConfirmed,riskTestOnly; ulong riskProofSnapshotId; ulong planId,stateRevision;
    bool useInjectedBrokerProof,testOnlyApproximation; HSBI_BasketMoneyResult injectedBrokerProof;
 };
 struct HSBI_FutureSmallLevelResult
