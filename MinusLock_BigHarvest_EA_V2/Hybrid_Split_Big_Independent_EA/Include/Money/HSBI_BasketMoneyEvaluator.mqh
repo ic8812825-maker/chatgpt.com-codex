@@ -17,4 +17,13 @@ HSBI_BasketMoneyResult HSBI_EvaluateBasketMoney(const HSBI_BasketMoneyInput &x)
    r.basketNetMoney=r.far.netMoney+r.core.netMoney+r.trend.netMoney+r.small.netMoney;r.recoveryMoney=r.basketNetMoney;r.totalMargin=fm.margin+cm.margin+tm.margin+sm.margin;r.grossExposure=x.farVolume+x.coreVolume+x.trendVolume+x.smallVolume;r.reserveGainMoney=MathMax(0.0,r.core.netMoney+r.trend.netMoney+r.small.netMoney);r.farLossIncreaseMoney=MathMax(0.0,-r.far.netMoney);r.transitionLoss=MathMax(0.0,-r.basketNetMoney);r.safetyBuffer=x.executionSafetyBuffer*4.0;
    if(!HSBI_IsFiniteNumber(r.basketNetMoney)||!HSBI_IsFiniteNumber(r.totalMargin)||!HSBI_IsFiniteNumber(r.grossExposure)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_BASKET";return r;}r.status=HSBI_CALC_PASS;r.valid=true;r.brokerRuntimeConfirmed=true;r.reason=HSBI_REASON_OK;r.details="PASS";return r;
 }
+string HSBI_BasketMoneyProofDigest(const HSBI_BasketMoneyResult &r)
+{
+   return IntegerToString((int)r.status)+"|"+IntegerToString((int)r.valid)+"|"+
+      DoubleToString(r.far.netMoney,8)+"|"+DoubleToString(r.core.netMoney,8)+"|"+
+      DoubleToString(r.trend.netMoney,8)+"|"+DoubleToString(r.small.netMoney,8)+"|"+
+      DoubleToString(r.basketNetMoney,8)+"|"+DoubleToString(r.recoveryMoney,8)+"|"+
+      DoubleToString(r.totalMargin,8)+"|"+DoubleToString(r.grossExposure,8)+"|"+
+      DoubleToString(r.transitionLoss,8)+"|"+IntegerToString((int)r.reason);
+}
 #endif
