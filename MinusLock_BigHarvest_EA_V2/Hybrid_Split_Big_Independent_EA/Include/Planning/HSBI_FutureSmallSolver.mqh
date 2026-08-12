@@ -84,7 +84,7 @@ HSBI_FutureSmallLevelResult HSBI_EvaluateFutureSmallLevel(const HSBI_FutureSmall
    ri.fresh=x.riskState.fresh;ri.snapshotId=x.riskProofSnapshotId;
    HSBI_FutureSmallRiskResult risk=HSBI_EvaluateFutureSmallRisk(ri);if(!risk.valid){r.details="RISK_RUNTIME_PROOF_UNAVAILABLE_OR_FAILED";return r;}
    r.recoveryMoney=basket.recoveryMoney;r.totalMargin=basket.totalMargin;r.grossExposure=basket.grossExposure;r.transitionLoss=basket.transitionLoss;
-   r.riskValue=risk.riskValue;r.moneyIncluded=true;r.marginIncluded=true;r.riskIncluded=true;r.transitionLossIncluded=true;
+   r.riskValue=risk.riskValue;r.moneyIncluded=true;r.marginIncluded=true;r.riskIncluded=true;r.transitionLossIncluded=true;r.controlSnapshotValid=true;r.costSnapshotValid=true;r.farProjectionValid=true;r.runtimeConfirmed=basket.brokerRuntimeConfirmed&&risk.runtimeConfirmed;
    if(r.recoveryMoney<=x.moneyState.recoveryMoney||r.totalMargin>x.marginState.allowedMargin||r.grossExposure>=x.priorGrossExposure||
       r.netBigVolume>=x.priorBigGross||r.transitionLoss>x.transitionLossCap){r.details="LEVEL_GATES_FAILED";return r;}
    r.valid=true;r.status=HSBI_FS_EXACT_PROOF;r.reason=HSBI_REASON_OK;r.details="EXACT_LEVEL";return r;
@@ -134,7 +134,7 @@ HSBI_FutureSmallResult HSBI_SolveFutureSmall(const HSBI_FutureSmallInput &x)
       p.transitionLoss=level.transitionLoss;p.grossExposure=level.grossExposure;p.controlPrice=li.market.selectedPrice;p.bid=li.market.bid;p.ask=li.market.ask;
       p.tickSize=li.market.tickSize;p.controlSnapshotId=li.market.snapshotId;p.farCostSnapshotId=li.costs.farCosts.snapshotId;
       p.coreCostSnapshotId=li.costs.coreCosts.snapshotId;p.trendCostSnapshotId=li.costs.trendCosts.snapshotId;p.smallCostSnapshotId=li.costs.smallCosts.snapshotId;
-      p.moneyIncluded=level.moneyIncluded;p.marginIncluded=level.marginIncluded;p.riskIncluded=level.riskIncluded;p.transitionLossIncluded=level.transitionLossIncluded;
+      p.valid=level.valid;p.moneyIncluded=level.moneyIncluded;p.marginIncluded=level.marginIncluded;p.riskIncluded=level.riskIncluded;p.transitionLossIncluded=level.transitionLossIncluded;p.controlSnapshotValid=level.controlSnapshotValid;p.costSnapshotValid=level.costSnapshotValid;p.farProjectionValid=level.farProjectionValid;p.runtimeConfirmed=level.runtimeConfirmed;
       p.moneyProofStatus=level.basketProof.status;p.marginProofStatus=level.basketProof.status;p.riskProofStatus=HSBI_CALC_PASS;
       p.transitionLossProofStatus=level.basketProof.status;p.reserveSourceProof=level.basketProof.core;p.farLossProof=level.basketProof.far;p.proofStatus=HSBI_FS_EXACT_PROOF;p.reason=HSBI_REASON_OK;p.levelDigest=HSBI_FutureSmallLevelDigest(p);
       r.levels[k]=p;r.provenDepth=k+1;

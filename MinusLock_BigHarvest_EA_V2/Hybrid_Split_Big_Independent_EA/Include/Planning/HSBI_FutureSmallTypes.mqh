@@ -51,7 +51,7 @@ struct HSBI_FutureSmallLevelProof
    double compressionLots,compressionRatio,recoverySlopeLots,projectedRecoveryMoney,projectedReserve;
    double projectedMargin,projectedRisk,transitionLoss,grossExposure,controlPrice,bid,ask,tickSize;
    ulong controlSnapshotId,farCostSnapshotId,coreCostSnapshotId,trendCostSnapshotId,smallCostSnapshotId;
-   bool moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded;
+   bool valid,moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded,controlSnapshotValid,costSnapshotValid,farProjectionValid,runtimeConfirmed;
    HSBI_CalculationStatus moneyProofStatus,marginProofStatus,riskProofStatus,transitionLossProofStatus;
    HSBI_FutureSmallProofStatus proofStatus; HSBI_ReasonCode reason; string levelDigest; HSBI_BrokerMoneyEvaluationResult reserveSourceProof; HSBI_BrokerMoneyEvaluationResult farLossProof;
 };
@@ -75,7 +75,7 @@ struct HSBI_FutureSmallLevelResult
 {
    bool valid; int levelIndex; double farBefore,farAfter,coreVolume,trendVolume,smallVolume,netBigVolume;
    double recoverySlopeLots,recoveryMoney,totalMargin,grossExposure,transitionLoss,compressionLots,compressionRatio,riskValue;
-   bool moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded;
+   bool valid,moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded,controlSnapshotValid,costSnapshotValid,farProjectionValid,runtimeConfirmed;
    HSBI_FutureSmallProofStatus status; HSBI_ReasonCode reason; string details;
    HSBI_BasketMoneyResult basketProof;
 };
