@@ -162,3 +162,7 @@ Runtime/compile/broker proof PASS не заявляется без MetaEditor/MT
 | HSBI-CATCHUP-003 | independent source proofs and double-count guard | T237-T245,T258-T260 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
 
 Runtime-confirmed flags are mandatory in the static contract, but actual broker/risk runtime evidence remains `USER_VERIFICATION_REQUIRED`.
+
+## HSB.2C — static orchestration
+
+Сводная traceability HSB.2C находится в `Docs/HSB.2C_Traceability.md`. Требования HSBI-INTENT-001, PREFLIGHT-001, LIFECYCLE-001, JOURNAL-001, IDEMP-001, PERSIST-002 и RECON-002 покрыты T266–T340. Compile/runtime evidence: `USER_VERIFICATION_REQUIRED`; production trading: `NOT_IMPLEMENTED`.
