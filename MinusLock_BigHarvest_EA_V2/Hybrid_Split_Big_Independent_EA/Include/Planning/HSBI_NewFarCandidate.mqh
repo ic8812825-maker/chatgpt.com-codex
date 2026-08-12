@@ -7,6 +7,8 @@ struct HSBI_NewFarCandidate
    double candidateVolume,normalizedVolume,oldFarVolume,compressionLots,compressionRatio,riskNext,marginNext;
    HSBI_Status futureSmallStatus,finiteCatchUpStatus; bool nextCycleFeasible,moneyProofValid,marginProofValid,riskProofValid;
    bool futureSmallProofValid,catchUpProofValid,allocationPolicyValid,controlSnapshotsValid,costSnapshotsValid,fullDigestValid;
+   bool aggregateProofValid,aggregateRuntimeConfirmed; double aggregateMinimumRecoveryMoney,aggregateWorstMargin,aggregateWorstRisk,aggregateWorstGrossExposure,aggregateWorstTransitionLoss;
+   int aggregateWorstMarginLevel,aggregateWorstRiskLevel,aggregateWorstExposureLevel,aggregateWorstTransitionLossLevel; string aggregateProofDigest;
    ulong sourceBigCoreIdentifier,sourceBigCoreTicket; HSBI_Status validationStatus; HSBI_ReasonCode reason;
    int futureTransitionCount; double safetyBuffer,reserveShare,reserveEligibleMoney,reserveGainMoney,farLossIncreaseMoney;
    string moneyProofDigest,marginProofDigest,riskProofDigest,futureSmallProofDigest,catchUpProofDigest;
@@ -24,7 +26,7 @@ bool HSBI_IsCandidateSourceValid(const HSBI_NewFarCandidate &c,const ulong id,co
 bool HSBI_IsCompleteCandidateProof(const HSBI_NewFarCandidate &c)
 {
    return c.validationStatus==HSBI_STATUS_VALID&&c.nextCycleFeasible&&c.moneyProofValid&&c.marginProofValid&&c.riskProofValid&&
-      c.futureSmallProofValid&&c.catchUpProofValid&&c.allocationPolicyValid&&c.controlSnapshotsValid&&c.costSnapshotsValid&&
+      c.futureSmallProofValid&&c.catchUpProofValid&&c.aggregateProofValid&&c.aggregateRuntimeConfirmed&&c.aggregateProofDigest!=""&&c.allocationPolicyValid&&c.controlSnapshotsValid&&c.costSnapshotsValid&&
       c.fullDigestValid&&c.moneyProofDigest!=""&&c.marginProofDigest!=""&&c.riskProofDigest!=""&&c.futureSmallProofDigest!=""&&
       c.catchUpProofDigest!=""&&c.allocationPolicyDigest!=""&&c.controlPriceDigest!=""&&c.costSnapshotDigest!=""&&c.candidateDigest!="";
 }

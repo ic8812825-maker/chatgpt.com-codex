@@ -1,7 +1,7 @@
 #ifndef HSBI_NEW_FAR_SOLVER_MQH
 #define HSBI_NEW_FAR_SOLVER_MQH
 #include "HSBI_NewFarCandidate.mqh"
-#include "HSBI_FutureSmallSolver.mqh"
+#include "HSBI_FutureSmallProofAggregator.mqh"
 #include "../Execution/HSBI_OwnershipGuardTypes.mqh"
 #include "../Risk/HSBI_NewFarGateTypes.mqh"
 #include "../Money/HSBI_CandidateMoneyEvaluator.mqh"
@@ -20,6 +20,9 @@ struct HSBI_NewFarSolverInput
    HSBI_MarginSnapshot marginState; HSBI_ControlPriceSnapshot controlPrice; HSBI_BrokerProperties brokerProperties;
    HSBI_FutureSmallInput futureSmallTemplate; ulong cycleId,planId,stateRevision; double projectedVolume,maximumNewFarRatio;
    double minimumCompressionLots,minimumCompressionRatio,absoluteLossCap,equityPercentCap,oldFarRiskCap,cumulativeCycleLossCap;
+   HSBI_ProofSelectionPolicy proofSelectionPolicy; int explicitCatchUpControlLevel;
+   HSBI_ReserveAllocationSource reserveAllocationSource; HSBI_ReserveConsumptionKey consumptionKey,priorConsumptionKey; bool hasPriorConsumption;
+   ulong reserveSourceDealId,reserveSourceEventId,farLossSourceDealId,farLossSourceEventId;
    bool brokerMoneyAvailable,secondFarPresent,testOnlyApproximation; string moneyProofDigest,marginProofDigest,riskProofDigest,expectedPlanDigest;
 };
 struct HSBI_NewFarSolverResult
@@ -51,7 +54,7 @@ string HSBI_NewFarInputDigest(const HSBI_NewFarSolverInput &x)
       DoubleToString(x.brokerProperties.volumeStep,8)+"|"+DoubleToString(x.brokerProperties.tickSize,8)+"|"+
       DoubleToString(x.controlPrice.selectedPrice,8)+"|"+HSBI_UlongToString(x.controlPrice.snapshotId)+"|"+
       HSBI_AllocationPolicyDigest(x.allocationPolicy)+"|"+HSBI_FutureSmallTemplateDigest(x.futureSmallTemplate)+"|"+
-      x.moneyProofDigest+"|"+x.marginProofDigest+"|"+x.riskProofDigest+"|"+HSBI_UlongToString(x.riskState.snapshotId)+"|"+HSBI_UlongToString(x.marginState.snapshotId);
+      IntegerToString((int)x.proofSelectionPolicy)+"|"+IntegerToString(x.explicitCatchUpControlLevel)+"|"+HSBI_ReserveAllocationSourceDigest(x.reserveAllocationSource)+"|"+HSBI_ReserveConsumptionKeyDigest(x.consumptionKey)+"|"+x.moneyProofDigest+"|"+x.marginProofDigest+"|"+x.riskProofDigest+"|"+HSBI_UlongToString(x.riskState.snapshotId)+"|"+HSBI_UlongToString(x.marginState.snapshotId);
 }
 string HSBI_FinalizeNewFarPlanDigest(const HSBI_NewFarSolverInput &x,const string list){return HSBI_NewFarInputDigest(x)+"|CANDIDATES|"+list;}
 bool HSBI_ValidateNewFarSource(const HSBI_NewFarSolverInput &x)
@@ -74,11 +77,18 @@ HSBI_FutureSmallInput HSBI_BuildCandidateFutureSmallInput(const HSBI_NewFarSolve
    HSBI_FutureSmallInput fs=x.futureSmallTemplate;fs.currentFar=candidate;fs.planId=x.planId;fs.stateRevision=x.stateRevision;
    fs.allocationPolicy=x.allocationPolicy;fs.useInjectedBrokerProofs=false;fs.testOnlyApproximation=false;return fs;
 }
+HSBI_MoneyProofIdentity HSBI_NewFarProofIdentity(const HSBI_NewFarSolverInput &x,const HSBI_PositionDescriptor &position,const HSBI_Role role,const HSBI_Direction direction,const ulong dealId,const ulong eventId,const ulong snapshotId)
+{
+   HSBI_MoneyProofIdentity i;ZeroMemory(i);i.accountLogin=position.identity.accountLogin;i.symbol=position.identity.symbol;i.magic=position.identity.magic;i.cycleId=x.cycleId;i.positionIdentifier=position.identifier;i.role=role;i.direction=direction;i.sourceDealId=dealId;i.sourceEventId=eventId;i.snapshotId=snapshotId;i.planId=x.planId;i.stateRevision=x.stateRevision;return i;
+}
 string HSBI_CandidateProofDigest(const HSBI_NewFarCandidate &c,const HSBI_NewFarSolverInput &x)
 {
-   return DoubleToString(c.normalizedVolume,8)+"|"+DoubleToString(x.actualBigCoreResidual.actualVolume,8)+"|"+
-      DoubleToString(x.oldFarDescriptor.actualVolume,8)+"|"+DoubleToString(c.compressionLots,8)+"|"+DoubleToString(c.compressionRatio,12)+"|"+
-      c.futureSmallProofDigest+"|"+c.moneyProofDigest+"|"+c.marginProofDigest+"|"+c.riskProofDigest+"|"+
+   return DoubleToString(c.normalizedVolume,8)+"|"+DoubleToString(x.actualBigCoreResidual.actualVolume,8)+"|"+DoubleToString(x.oldFarDescriptor.actualVolume,8)+"|"+
+      DoubleToString(c.compressionLots,8)+"|"+DoubleToString(c.compressionRatio,12)+"|"+DoubleToString(c.aggregateMinimumRecoveryMoney,8)+"|"+
+      DoubleToString(c.aggregateWorstMargin,8)+"|"+DoubleToString(c.aggregateWorstRisk,8)+"|"+DoubleToString(c.aggregateWorstGrossExposure,8)+"|"+
+      DoubleToString(c.aggregateWorstTransitionLoss,8)+"|"+IntegerToString(c.aggregateWorstMarginLevel)+"|"+IntegerToString(c.aggregateWorstRiskLevel)+"|"+
+      IntegerToString(c.aggregateWorstExposureLevel)+"|"+IntegerToString(c.aggregateWorstTransitionLossLevel)+"|"+IntegerToString((int)x.proofSelectionPolicy)+"|"+
+      c.aggregateProofDigest+"|"+c.futureSmallProofDigest+"|"+c.moneyProofDigest+"|"+c.marginProofDigest+"|"+c.riskProofDigest+"|"+
       c.catchUpProofDigest+"|"+c.allocationPolicyDigest+"|"+c.controlPriceDigest+"|"+c.costSnapshotDigest;
 }
 HSBI_NewFarSolverResult HSBI_SolveNewFar(const HSBI_NewFarSolverInput &x)
@@ -102,23 +112,30 @@ HSBI_NewFarSolverResult HSBI_SolveNewFar(const HSBI_NewFarSolverInput &x)
       if(!HSBI_ValidateVolume(candidate,x.brokerProperties)||candidate<=0.0||candidate>=x.oldFarDescriptor.actualVolume||candidate>x.maximumNewFarRatio*x.oldFarDescriptor.actualVolume||
          compression<x.minimumCompressionLots||ratio<x.minimumCompressionRatio){r.rejectedCandidateCount++;continue;}
       HSBI_FutureSmallInput fs=HSBI_BuildCandidateFutureSmallInput(x,candidate);HSBI_CandidateMoneyEvaluationResult cp=HSBI_EvaluateCandidateMoney(fs);
-      if(!cp.valid){r.rejectedCandidateCount++;continue;}HSBI_FutureSmallResult proof=cp.futureSmallProof;HSBI_FutureSmallLevelProof first=proof.levels[0];
-      HSBI_ReserveCatchUpInput ci;ZeroMemory(ci);ci.allocationPolicy=x.allocationPolicy;ci.reserveEligibleMoney=MathMax(0.0,first.reserveSourceProof.netMoney);
-      ci.reserveEligibleMoneyAlreadyAllocated=false;ci.farLossIncreaseMoney=MathMax(0.0,-first.farLossProof.netMoney);ci.executionSafetyBuffer=fs.executionSafetyBuffer;
-      ci.netBigVolume=first.netBigVolume;ci.farVolume=candidate;ci.farDirection=x.oldFarDescriptor.direction;ci.reserveSourceProof=first.reserveSourceProof;
-      ci.farLossProof=first.farLossProof;ci.sourceDealId=x.actualClosingDeals.sourceDealId;ci.sourceEventId=x.actualClosingDeals.sourceEventId;
-      ci.planId=x.planId;ci.stateRevision=x.stateRevision;ci.snapshotId=first.controlSnapshotId;ci.projected=true;ci.moneyAvailable=first.moneyIncluded;ci.fresh=fs.snapshotsFresh;
-      HSBI_ReserveCatchUpResult catchResult=HSBI_EvaluateReserveCatchUp(ci);if(!catchResult.valid){r.rejectedCandidateCount++;continue;}
-      HSBI_NewFarGateInput gate;ZeroMemory(gate);gate.marginNext=first.projectedMargin;gate.allowedMargin=x.marginState.allowedMargin;gate.riskNext=first.projectedRisk;
-      gate.riskOld=x.riskState.currentRisk;gate.riskTolerance=x.riskState.riskTolerance;gate.grossExposureNext=first.grossExposure;
-      gate.grossExposureOld=x.riskState.currentGrossExposure;gate.transitionLoss=first.transitionLoss;gate.absoluteLossCap=x.absoluteLossCap;
+      if(!cp.valid){r.rejectedCandidateCount++;continue;}HSBI_FutureSmallResult proof=cp.futureSmallProof;
+      HSBI_FutureSmallAggregateProof aggregate=HSBI_AggregateFutureSmallProof(proof,x.proofSelectionPolicy,x.explicitCatchUpControlLevel);
+      if(!aggregate.valid||!aggregate.runtimeConfirmed||!aggregate.allMoneyProofsValid||!aggregate.allMarginProofsValid||!aggregate.allRiskProofsValid||!aggregate.allTransitionLossProofsValid){r.rejectedCandidateCount++;continue;}
+      int controlIndex=aggregate.catchUpControlLevel-1;HSBI_FutureSmallLevelProof control=proof.levels[controlIndex];
+      control.reserveSourceProof.identity=HSBI_NewFarProofIdentity(x,x.originalBigCoreDescriptor,HSBI_ROLE_BIG_CORE,x.originalBigCoreDescriptor.direction,x.reserveSourceDealId,x.reserveSourceEventId,control.controlSnapshotId);
+      control.farLossProof.identity=HSBI_NewFarProofIdentity(x,x.oldFarDescriptor,HSBI_ROLE_FAR,x.oldFarDescriptor.direction,x.farLossSourceDealId,x.farLossSourceEventId,control.controlSnapshotId);
+      HSBI_ReserveCatchUpInput ci;ZeroMemory(ci);ci.allocationPolicy=x.allocationPolicy;ci.reserveEligibleMoney=MathMax(0.0,control.reserveSourceProof.netMoney);
+      ci.reserveEligibleMoneyAlreadyAllocated=x.reserveAllocationSource.reserveAllocated>0.0;ci.farLossIncreaseMoney=MathMax(0.0,-control.farLossProof.netMoney);ci.executionSafetyBuffer=fs.executionSafetyBuffer;
+      ci.netBigVolume=control.netBigVolume;ci.farVolume=candidate;ci.farDirection=x.oldFarDescriptor.direction;ci.reserveSourceProof=control.reserveSourceProof;ci.farLossProof=control.farLossProof;
+      ci.expectedReserveIdentity=control.reserveSourceProof.identity;ci.expectedFarIdentity=control.farLossProof.identity;ci.reserveAllocationSource=x.reserveAllocationSource;
+      ci.consumptionKey=x.consumptionKey;ci.priorConsumptionKey=x.priorConsumptionKey;ci.hasPriorConsumption=x.hasPriorConsumption;
+      ci.sourceDealId=x.reserveSourceDealId;ci.sourceEventId=x.reserveSourceEventId;ci.planId=x.planId;ci.stateRevision=x.stateRevision;ci.snapshotId=control.controlSnapshotId;
+      ci.projected=true;ci.moneyAvailable=control.moneyIncluded;ci.fresh=fs.snapshotsFresh;HSBI_ReserveCatchUpResult catchResult=HSBI_EvaluateReserveCatchUp(ci);
+      if(!catchResult.valid){r.rejectedCandidateCount++;continue;}
+      HSBI_NewFarGateInput gate;ZeroMemory(gate);gate.marginNext=aggregate.maximumMargin;gate.allowedMargin=x.marginState.allowedMargin;gate.riskNext=aggregate.maximumRisk;
+      gate.riskOld=x.riskState.currentRisk;gate.riskTolerance=x.riskState.riskTolerance;gate.grossExposureNext=aggregate.maximumGrossExposure;
+      gate.grossExposureOld=x.riskState.currentGrossExposure;gate.transitionLoss=aggregate.maximumTransitionLoss;gate.absoluteLossCap=x.absoluteLossCap;
       gate.equityPercentCap=x.equityPercentCap;gate.oldFarRiskCap=x.oldFarRiskCap;gate.cumulativeCycleLossCap=x.cumulativeCycleLossCap;
-      gate.marginAvailable=first.marginIncluded;gate.riskAvailable=first.riskIncluded;gate.transitionCapAvailable=first.transitionLossIncluded;
-      gate.moneyAvailable=first.moneyIncluded;gate.snapshotFresh=fs.snapshotsFresh;if(!HSBI_EvaluateNewFarGates(gate).passed){r.rejectedCandidateCount++;continue;}
+      gate.marginAvailable=aggregate.allMarginProofsValid;gate.riskAvailable=aggregate.allRiskProofsValid;gate.transitionCapAvailable=aggregate.allTransitionLossProofsValid;
+      gate.moneyAvailable=aggregate.allMoneyProofsValid;gate.snapshotFresh=fs.snapshotsFresh;if(!HSBI_EvaluateNewFarGates(gate).passed){r.rejectedCandidateCount++;continue;}
       HSBI_NewFarCandidate c;ZeroMemory(c);c.candidateVolume=n;c.normalizedVolume=candidate;c.oldFarVolume=x.oldFarDescriptor.actualVolume;
-      c.compressionLots=compression;c.compressionRatio=ratio;c.riskNext=first.projectedRisk;c.marginNext=first.projectedMargin;c.futureSmallStatus=HSBI_STATUS_VALID;
-      c.finiteCatchUpStatus=HSBI_STATUS_VALID;c.nextCycleFeasible=true;c.moneyProofValid=true;c.marginProofValid=true;c.riskProofValid=true;
-      c.futureSmallProofValid=proof.valid;c.catchUpProofValid=catchResult.valid;c.allocationPolicyValid=true;c.controlSnapshotsValid=true;c.costSnapshotsValid=true;
+      c.compressionLots=compression;c.compressionRatio=ratio;c.riskNext=aggregate.maximumRisk;c.marginNext=aggregate.maximumMargin;c.futureSmallStatus=HSBI_STATUS_VALID;
+      c.finiteCatchUpStatus=HSBI_STATUS_VALID;c.nextCycleFeasible=true;c.moneyProofValid=true;c.marginProofValid=true;c.riskProofValid=aggregate.allRiskProofsValid;
+      c.futureSmallProofValid=proof.valid;c.aggregateProofValid=aggregate.valid;c.aggregateRuntimeConfirmed=aggregate.runtimeConfirmed;c.aggregateMinimumRecoveryMoney=aggregate.minimumRecoveryMoney;c.aggregateWorstMargin=aggregate.maximumMargin;c.aggregateWorstRisk=aggregate.maximumRisk;c.aggregateWorstGrossExposure=aggregate.maximumGrossExposure;c.aggregateWorstTransitionLoss=aggregate.maximumTransitionLoss;c.aggregateWorstMarginLevel=aggregate.worstMarginLevel;c.aggregateWorstRiskLevel=aggregate.worstRiskLevel;c.aggregateWorstExposureLevel=aggregate.worstExposureLevel;c.aggregateWorstTransitionLossLevel=aggregate.worstTransitionLossLevel;c.aggregateProofDigest=aggregate.aggregateDigest;c.catchUpProofValid=catchResult.valid;c.allocationPolicyValid=true;c.controlSnapshotsValid=true;c.costSnapshotsValid=true;
       c.sourceBigCoreIdentifier=x.originalBigCoreDescriptor.identifier;c.sourceBigCoreTicket=x.originalBigCoreDescriptor.ticket;c.validationStatus=HSBI_STATUS_VALID;
       c.reason=HSBI_REASON_OK;c.futureTransitionCount=proof.theoreticalDepth;c.safetyBuffer=catchResult.catchUpMargin;c.reserveShare=catchResult.reserveShare;
       c.reserveEligibleMoney=catchResult.reserveEligibleMoney;c.reserveGainMoney=catchResult.reserveGainMoney;c.farLossIncreaseMoney=catchResult.farLossIncreaseMoney;
