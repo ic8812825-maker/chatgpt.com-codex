@@ -52,3 +52,16 @@ RISK_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
 TRADING_IMPLEMENTED=NO
 REAL_TRADING_ALLOWED=NO
 ```
+
+## Коррекция HSB.2B-R3
+
+NewFar final gates переведены с первого level на multi-level aggregate: worst margin/risk/exposure/loss, minimum recovery/compression и final Far. Reserve/Far proofs имеют полную identity. Allocation source проверяет conservation, а consumption key блокирует повторное использование. Duplicate identical consumption — NO-OP, изменённый payload — CONFLICT.
+
+```text
+HSB.2B_R3=STATIC_CORRECTED_IMPLEMENTATION
+HSB.2C=NOT_STARTED
+BROKER_MONEY_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
+RISK_RUNTIME_PROOF=USER_VERIFICATION_REQUIRED
+TRADING_IMPLEMENTED=NO
+REAL_TRADING_ALLOWED=NO
+```
