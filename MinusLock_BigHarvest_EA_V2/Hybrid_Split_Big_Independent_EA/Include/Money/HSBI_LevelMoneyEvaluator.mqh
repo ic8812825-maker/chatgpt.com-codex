@@ -9,7 +9,7 @@ HSBI_BrokerMoneyEvaluationResult HSBI_EvaluateProjectedLegMoney(const HSBI_Broke
    HSBI_BrokerMoneyEvaluationResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.projected=x.projected;r.actual=false;r.symbol=x.symbol;r.direction=x.direction;r.volume=x.volume;r.openPrice=x.openPrice;r.closePrice=x.closePrice;r.snapshotId=x.snapshotId;r.executionSafetyBuffer=x.executionSafetyBuffer;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="INVALID_INPUT";
    if(!x.projected||x.timestamp<=0||x.snapshotId==0||x.snapshotId!=x.broker.snapshotId||x.symbol==""||x.symbol!=x.broker.symbol)return r;
    HSBI_MoneyCalculationResult source=HSBI_CalculateProjectedProfit(x.broker,x.direction,x.volume,x.openPrice,x.closePrice,x.bid,x.ask,x.costs,x.executionSafetyBuffer);
-   r.status=source.status;r.valid=source.valid;r.projected=source.projected;r.actual=source.actual;r.grossProfit=source.grossProfit;r.commission=source.commission;r.swap=source.swap;r.fee=source.fee;r.spreadCost=source.spreadCost;r.slippageBuffer=source.slippageBuffer;r.netMoney=source.netMoney;r.reason=source.reason;r.details=source.details;
+   r.status=source.status;r.valid=source.valid;r.runtimeConfirmed=source.valid&&source.status==HSBI_CALC_PASS;r.projected=source.projected;r.actual=source.actual;r.grossProfit=source.grossProfit;r.commission=source.commission;r.swap=source.swap;r.fee=source.fee;r.spreadCost=source.spreadCost;r.slippageBuffer=source.slippageBuffer;r.netMoney=source.netMoney;r.reason=source.reason;r.details=source.details;
    if(r.valid&&(!HSBI_IsFiniteNumber(r.netMoney)||r.actual||!r.projected)){r.valid=false;r.status=HSBI_CALC_ERROR;r.details="INVALID_RESULT_FLAGS_OR_MONEY";}
    return r;
 }
