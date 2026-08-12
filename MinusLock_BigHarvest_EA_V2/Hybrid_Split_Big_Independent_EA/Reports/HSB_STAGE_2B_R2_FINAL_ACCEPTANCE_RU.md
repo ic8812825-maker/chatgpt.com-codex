@@ -5,8 +5,8 @@
 ```text
 BASELINE_SHA=28ab6cd94d7d5b8fd4a2edb0132ae0c9e11619ba
 FINAL_CONTENT_SHA=5b030298b6d9dba7b34cff5f3c468a8609e10943
-FINAL_LOCAL_SHA=4623102dc4e4a17beab5c23762413b1307aba762
-FINAL_REMOTE_SHA=4623102dc4e4a17beab5c23762413b1307aba762
+FINAL_LOCAL_SHA=0475e11088d4e01b57669eb3dac7ef1cab7ca5d7
+FINAL_REMOTE_SHA=0475e11088d4e01b57669eb3dac7ef1cab7ca5d7
 BRANCH=work
 WORKTREE_STATUS=CLEAN_BEFORE_REPORT_COMMIT
 HEAD_EQUALS_ORIGIN_WORK=YES_AT_VERIFIED_PUBLICATION
@@ -101,13 +101,18 @@ HSB.2C=NOT_STARTED
 ## Post-push verification
 
 ```text
-PUBLISHED_VERIFIED_SHA=4623102dc4e4a17beab5c23762413b1307aba762
-HEAD=4623102dc4e4a17beab5c23762413b1307aba762
-ORIGIN_WORK=4623102dc4e4a17beab5c23762413b1307aba762
+PUBLISHED_VERIFIED_SHA=0475e11088d4e01b57669eb3dac7ef1cab7ca5d7
+HEAD=0475e11088d4e01b57669eb3dac7ef1cab7ca5d7
+ORIGIN_WORK=0475e11088d4e01b57669eb3dac7ef1cab7ca5d7
 HEAD_EQUALS_ORIGIN_WORK=YES
 WORKTREE_CLEAN=YES
 PUSH_MODE=NORMAL
 FORCE_PUSH=NO
 ```
 
-Это SHA опубликованного content/report state до отдельного append-only коммита записи публикации; итоговый transport tip проверяется после этого коммита и сообщается в итоговом ответе.
+Итоговый transport tip HSB.2B-R2 подтверждён post-push fetch и GitHub API.
+
+
+## Статус после начала HSB.2B-R3
+
+Исторический R2 SHA сохранён как `0475e11088d4e01b57669eb3dac7ef1cab7ca5d7`; текущий R3 SHA фиксируется только после отдельной post-push проверки.
