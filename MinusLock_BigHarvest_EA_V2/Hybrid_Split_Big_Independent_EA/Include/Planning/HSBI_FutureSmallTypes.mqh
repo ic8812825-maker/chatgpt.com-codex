@@ -75,7 +75,7 @@ struct HSBI_FutureSmallLevelResult
 {
    bool valid; int levelIndex; double farBefore,farAfter,coreVolume,trendVolume,smallVolume,netBigVolume;
    double recoverySlopeLots,recoveryMoney,totalMargin,grossExposure,transitionLoss,compressionLots,compressionRatio,riskValue;
-   bool valid,moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded,controlSnapshotValid,costSnapshotValid,farProjectionValid,runtimeConfirmed;
+   bool moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded,controlSnapshotValid,costSnapshotValid,farProjectionValid,runtimeConfirmed;
    HSBI_FutureSmallProofStatus status; HSBI_ReasonCode reason; string details;
    HSBI_BasketMoneyResult basketProof;
 };
