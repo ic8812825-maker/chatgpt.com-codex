@@ -1,8 +1,9 @@
 #ifndef HSBI_LEVEL_MONEY_EVALUATOR_MQH
 #define HSBI_LEVEL_MONEY_EVALUATOR_MQH
 #include "HSBI_BrokerMoneyModel.mqh"
+#include "HSBI_MoneyProofIdentity.mqh"
 struct HSBI_BrokerMoneyEvaluationInput{HSBI_BrokerProperties broker;string symbol;HSBI_Direction direction;double volume;double openPrice;double closePrice;double bid;double ask;HSBI_CostSnapshot costs;double executionSafetyBuffer;ulong snapshotId;datetime timestamp;bool projected;};
-struct HSBI_BrokerMoneyEvaluationResult{HSBI_CalculationStatus status;bool valid;bool projected;bool actual;double grossProfit;double commission;double swap;double fee;double spreadCost;double slippageBuffer;double executionSafetyBuffer;double netMoney;string symbol;HSBI_Direction direction;double volume;double openPrice;double closePrice;ulong snapshotId;HSBI_ReasonCode reason;string details;};
+struct HSBI_BrokerMoneyEvaluationResult{HSBI_MoneyProofIdentity identity;bool runtimeConfirmed;HSBI_CalculationStatus status;bool valid;bool projected;bool actual;double grossProfit;double commission;double swap;double fee;double spreadCost;double slippageBuffer;double executionSafetyBuffer;double netMoney;string symbol;HSBI_Direction direction;double volume;double openPrice;double closePrice;ulong snapshotId;HSBI_ReasonCode reason;string details;};
 HSBI_BrokerMoneyEvaluationResult HSBI_EvaluateProjectedLegMoney(const HSBI_BrokerMoneyEvaluationInput &x)
 {
    HSBI_BrokerMoneyEvaluationResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.projected=x.projected;r.actual=false;r.symbol=x.symbol;r.direction=x.direction;r.volume=x.volume;r.openPrice=x.openPrice;r.closePrice=x.closePrice;r.snapshotId=x.snapshotId;r.executionSafetyBuffer=x.executionSafetyBuffer;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="INVALID_INPUT";
