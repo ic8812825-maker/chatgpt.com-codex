@@ -149,3 +149,16 @@ Runtime/compile/broker proof PASS не заявляется без MetaEditor/MT
 | HSBI-NF-011 | complete candidate proof/digest isolation | T196-T200 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
 
 Все R2-строки имеют только статический статус. MetaEditor compile, MQL5 runtime, broker-money runtime и risk runtime proof требуют evidence администратора.
+
+## HSB.2B-R3 — multi-level aggregation и allocation consumption
+
+| Requirement | Files/functions | Tests | Static | Compile/runtime |
+|---|---|---|---|---|
+| HSBI-FS-009 | FutureSmallProofAggregator; HSBI_AggregateFutureSmallProof | T201-T220,T246-T252,T261 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-NF-012 | aggregate NewFar gates; complete candidate proof | T204,T213-T218,T262-T263 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-MONEY-023 | MoneyProofIdentity; Reserve/Far proof validators | T221-T234,T253,T259-T260 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-ALLOC-002 | ReserveAllocationSource conservation | T235-T239,T254,T258 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-ALLOC-003 | ReserveConsumptionKey duplicate/conflict guards | T240-T245,T255-T257 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+| HSBI-CATCHUP-003 | independent source proofs and double-count guard | T237-T245,T258-T260 | IMPLEMENTED_UNVERIFIED | USER_VERIFICATION_REQUIRED |
+
+Runtime-confirmed flags are mandatory in the static contract, but actual broker/risk runtime evidence remains `USER_VERIFICATION_REQUIRED`.
