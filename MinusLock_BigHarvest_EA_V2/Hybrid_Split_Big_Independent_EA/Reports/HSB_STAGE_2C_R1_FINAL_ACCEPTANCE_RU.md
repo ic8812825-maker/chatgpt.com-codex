@@ -17,7 +17,7 @@ PUSH_MODE=NORMAL
 FORCE_PUSH=NO
 ```
 
- — содержательный commit до acceptance/publication record и не объявляется текущим HEAD.
+`FINAL_CONTENT_SHA` — содержательный commit до acceptance/publication record и не объявляется текущим HEAD.
 
 ## Исправлено
 
