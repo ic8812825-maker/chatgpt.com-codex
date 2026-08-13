@@ -3,7 +3,7 @@
 Эта запись не переписывает исторический acceptance report и подтверждает опубликованный tip, непосредственно предшествующий самой записи.
 
 ```text
-FINAL_CONTENT_SHA=2bba76b87b14a6eabf19325d7b059d8f569609ce
+FINAL_CONTENT_SHA=2bba76b410573ae943e1e5d2b74c4252ba76cee5
 ACCEPTANCE_REPORT_SHA=c9a1fdd8589335f4684bb4c247fa2097ad5cc025
 VERIFIED_PRE_RECORD_TRANSPORT_SHA=c9a1fdd8589335f4684bb4c247fa2097ad5cc025
 VERIFIED_PRE_RECORD_GITHUB_API_SHA=c9a1fdd8589335f4684bb4c247fa2097ad5cc025
@@ -37,3 +37,7 @@ TRADE_REQUESTS_ALLOWED=NO
 REAL_TRADING_ALLOWED=NO
 HSB.2D=NOT_STARTED
 ```
+
+## Post-record correction
+
+Полный `FINAL_CONTENT_SHA` исправлен append-only уточнением (короткий SHA был верен); ранее опубликованный record commit `447f82710e97e548dabe13985bdcc31d77d765da` подтверждён как `HEAD`, `origin/work` и GitHub API перед этим уточнением.
