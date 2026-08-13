@@ -24,13 +24,20 @@ string HSBI_ExecutionIntentDigest(const HSBI_ExecutionIntent &x)
       LongToString((long)x.creationTimestamp)+"|"+LongToString((long)x.expiryTimestamp)+"|"+IntegerToString((int)x.status);
 }
 bool HSBI_ValidateExecutionIntentDigest(const HSBI_ExecutionIntent &x){return x.digest!=""&&x.digest==HSBI_ExecutionIntentDigest(x);}
+bool HSBI_IsValidIntentStatus(const HSBI_IntentStatus s){return (int)s>=(int)HSBI_INTENT_CREATED&&(int)s<=(int)HSBI_INTENT_SUPERSEDED;}
 bool HSBI_ValidateExecutionIntentStructure(const HSBI_ExecutionIntent &x)
 {
-   return x.intentId>0&&x.planId>0&&x.cycleId>0&&x.stateRevision>0&&x.expectedActionId>0&&x.accountLogin>0&&x.symbol!=""&&x.magic!=0&&
-      x.direction!=HSBI_DIRECTION_NONE&&x.role!=HSBI_ROLE_NONE&&x.requestedVolume>0.0&&x.normalizedVolume>0.0&&x.controlPrice>0.0&&
-      x.marketSnapshotId>0&&x.costSnapshotId>0&&x.riskSnapshotId>0&&x.marginSnapshotId>0&&x.sourcePositionIdentifier>0&&x.sourceTicket>0&&
-      x.sourceDealId>0&&x.sourceEventId>0&&x.creationTimestamp>0&&x.expiryTimestamp>x.creationTimestamp&&x.planDigest!=""&&x.candidateDigest!=""&&
-      x.aggregateProofDigest!=""&&HSBI_ValidateExecutionIntentDigest(x);
+   if(x.intentId==0||x.planId==0||x.cycleId==0||x.stateRevision==0||x.expectedActionId==0)return false;
+   if(x.accountLogin<=0||x.symbol==""||x.magic==0||x.direction==HSBI_DIRECTION_NONE||x.role==HSBI_ROLE_NONE)return false;
+   if(!HSBI_IsFiniteNumber(x.requestedVolume)||!HSBI_IsFiniteNumber(x.normalizedVolume)||!HSBI_IsFiniteNumber(x.controlPrice)||
+      x.requestedVolume<=0.0||x.normalizedVolume<=0.0||x.controlPrice<=0.0)return false;
+   if(x.controlPriceSide!=HSBI_PRICE_SIDE_BID&&x.controlPriceSide!=HSBI_PRICE_SIDE_ASK)return false;
+   if((x.direction==HSBI_DIRECTION_BUY&&x.controlPriceSide!=HSBI_PRICE_SIDE_BID)||(x.direction==HSBI_DIRECTION_SELL&&x.controlPriceSide!=HSBI_PRICE_SIDE_ASK))return false;
+   if(x.marketSnapshotId==0||x.costSnapshotId==0||x.riskSnapshotId==0||x.marginSnapshotId==0)return false;
+   if(x.sourcePositionIdentifier==0||x.sourceTicket==0||x.sourceDealId==0||x.sourceEventId==0)return false;
+   if(x.planDigest==""||x.candidateDigest==""||x.aggregateProofDigest==""||x.expectedTransition=="")return false;
+   if(x.creationTimestamp<=0||x.expiryTimestamp<=x.creationTimestamp||!HSBI_IsValidIntentStatus(x.status))return false;
+   return HSBI_ValidateExecutionIntentDigest(x);
 }
 string HSBI_IntentIdempotencyKey(const HSBI_ExecutionIntent &x){return HSBI_UlongToString(x.intentId)+"|"+HSBI_UlongToString(x.expectedActionId)+"|"+x.planDigest+"|"+HSBI_UlongToString(x.stateRevision);}
 bool HSBI_IsSameIntentRetry(const HSBI_ExecutionIntent &a,const HSBI_ExecutionIntent &b){return HSBI_IntentIdempotencyKey(a)==HSBI_IntentIdempotencyKey(b)&&a.digest==b.digest;}
