@@ -26,6 +26,20 @@ HSBI_JournalAppendStatus HSBI_ClassifyJournalAppend(const HSBI_ExecutionJournalE
 {
    if(HSBI_IsDuplicateJournalEntry(candidate,last))return HSBI_JOURNAL_NO_OP;
    if(HSBI_IsJournalEntryConflict(candidate,last))return HSBI_JOURNAL_CONFLICT;
-   return HSBI_ValidateJournalEntry(candidate,expectedPrevious,cycleId,planId,revision)&&candidate.journalEntryId>last.journalEntryId?HSBI_JOURNAL_APPENDED:HSBI_JOURNAL_REJECTED;
+   return HSBI_ValidateJournalEntry(candidate,expectedPrevious,cycleId,planId,revision)&&candidate.journalEntryId==last.journalEntryId+1&&candidate.eventId>last.eventId?HSBI_JOURNAL_APPENDED:HSBI_JOURNAL_REJECTED;
+}
+bool HSBI_ValidateJournalChain(const HSBI_ExecutionJournalEntry &entries[],const int count,const ulong cycleId,const ulong planId,const ulong revision)
+{
+   if(count<=0)return false;string previous="";bool reconciliationPassed=false,completed=false;
+   for(int i=0;i<count;i++){
+      HSBI_ExecutionJournalEntry e=entries[i];
+      if(!HSBI_ValidateJournalEntry(e,previous,cycleId,planId,revision))return false;
+      if(i>0&&(e.journalEntryId!=entries[i-1].journalEntryId+1||e.eventId<=entries[i-1].eventId))return false;
+      if(e.entryType==HSBI_JE_RECONCILIATION_PASSED){if(completed)return false;reconciliationPassed=true;}
+      if(e.entryType==HSBI_JE_INTENT_COMPLETED){if(!reconciliationPassed||completed)return false;completed=true;}
+      if(completed&&(e.entryType==HSBI_JE_INTENT_CREATED||e.entryType==HSBI_JE_PREFLIGHT_RESULT||e.entryType==HSBI_JE_INTENT_PERSISTED||e.entryType==HSBI_JE_EXTERNAL_OUTCOME_RECEIVED))return false;
+      previous=e.currentEntryDigest;
+   }
+   return true;
 }
 #endif
