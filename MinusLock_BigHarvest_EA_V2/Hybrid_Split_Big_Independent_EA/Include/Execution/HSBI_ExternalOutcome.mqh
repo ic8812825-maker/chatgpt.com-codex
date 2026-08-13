@@ -22,8 +22,8 @@ struct HSBI_ExecutionReconciliationResult{bool valid,completionAllowed,noMutatio
 HSBI_ExecutionReconciliationResult HSBI_ReconcileExecutionOutcome(const HSBI_ExecutionReconciliationInput &x)
 {
    HSBI_ExecutionReconciliationResult r;ZeroMemory(r);r.targetStatus=HSBI_INTENT_RECONCILING;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="RECONCILIATION_REJECTED";r.noMutationBeforeCommit=true;
-   if((x.runtimeMode!=HSBI_RUNTIME_PRODUCTION&&x.runtimeMode!=HSBI_RUNTIME_ADMIN_VERIFICATION)||!HSBI_ValidateExecutionIntentDigest(x.intent)||x.outcome.digest!=HSBI_ExternalOutcomeDigest(x.outcome)||x.reconciliationConflict||!x.snapshotFresh||!x.ownershipPassed)return r;
-   if(x.outcome.status!=HSBI_EXTERNAL_COMPLETED||x.outcome.source!=HSBI_OUTCOME_RUNTIME_TERMINAL||!x.outcome.runtimeConfirmed||!x.outcome.positionActuallyRead||!x.outcome.dealActuallyRead)return r;
+   if(!HSBI_IsCompletionSourceAllowed(x.runtimeMode,(int)x.outcome.source)||!HSBI_ValidateExecutionIntentDigest(x.intent)||x.outcome.digest!=HSBI_ExternalOutcomeDigest(x.outcome)||x.reconciliationConflict||!x.snapshotFresh||!x.ownershipPassed)return r;
+   if(x.outcome.status!=HSBI_EXTERNAL_COMPLETED||!x.outcome.runtimeConfirmed||!x.outcome.positionActuallyRead||!x.outcome.dealActuallyRead)return r;
    if(x.outcome.actionId!=x.intent.expectedActionId||x.outcome.eventId<=x.lastAppliedEventId||x.outcome.dealId==0||x.outcome.positionIdentifier!=x.intent.sourcePositionIdentifier||
       x.outcome.ticket!=x.intent.sourceTicket||x.outcome.accountLogin!=x.intent.accountLogin||x.outcome.symbol!=x.intent.symbol||x.outcome.magic!=x.intent.magic||
       x.outcome.direction!=x.intent.direction||x.outcome.role!=x.intent.role||x.outcome.stateRevision!=x.intent.stateRevision||x.outcome.cycleId!=x.intent.cycleId||

@@ -1,6 +1,7 @@
 #ifndef HSBI_FUTURE_SMALL_SOLVER_MQH
 #define HSBI_FUTURE_SMALL_SOLVER_MQH
 #include "HSBI_FutureSmallTypes.mqh"
+#include "../Core/HSBI_RuntimePolicy.mqh"
 bool HSBI_CalculateFutureSmallDepth(const double f,const double vmin,const double q,const double step,int &depth)
 {
    depth=0; if(!HSBI_IsFiniteNumber(f)||!HSBI_IsFiniteNumber(vmin)||!HSBI_IsFiniteNumber(q)||
@@ -43,7 +44,7 @@ HSBI_ControlPrice HSBI_LevelControlPrice(const HSBI_FutureSmallLevelMarketSnapsh
 }
 bool HSBI_ValidateFutureSmallInput(const HSBI_FutureSmallInput &x)
 {
-   if(x.runtimeMode==HSBI_RUNTIME_UNSPECIFIED||x.testOnlyApproximation||(x.useInjectedBrokerProofs&&x.runtimeMode!=HSBI_RUNTIME_UNIT_TEST)||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!x.brokerPropertiesValid||!x.snapshotsFresh||
+   if(!HSBI_IsStaticCalculationAllowed(x.runtimeMode)||x.testOnlyApproximation||(x.useInjectedBrokerProofs&&!HSBI_IsInjectedProofAllowed(x.runtimeMode))||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!x.brokerPropertiesValid||!x.snapshotsFresh||
       !x.roundingIncluded||!x.costsIncluded||!x.moneyState.available||!x.moneyState.fresh||!x.riskState.available||
       !x.riskState.fresh||!x.marginState.available||!x.marginState.fresh) return false;
    if(HSBI_ValidateBrokerProperties(x.broker)!=HSBI_BROKER_PROPERTIES_VALID||x.cycleId==0||x.stateRevision==0||x.planId==0||
@@ -57,7 +58,7 @@ HSBI_FutureSmallLevelResult HSBI_EvaluateFutureSmallLevel(const HSBI_FutureSmall
 {
    HSBI_FutureSmallLevelResult r; ZeroMemory(r);r.levelIndex=x.levelIndex;r.farBefore=x.farBefore;
    r.status=HSBI_FS_UNPROVEN;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="LEVEL_UNPROVEN";
-   if(x.runtimeMode==HSBI_RUNTIME_UNSPECIFIED||x.testOnlyApproximation||(x.useInjectedBrokerProof&&x.runtimeMode!=HSBI_RUNTIME_UNIT_TEST)||!HSBI_ValidateLevelMarket(x.market,x.levelIndex,x.broker,x.farDirection)||
+   if(!HSBI_IsStaticCalculationAllowed(x.runtimeMode)||x.testOnlyApproximation||(x.useInjectedBrokerProof&&!HSBI_IsInjectedProofAllowed(x.runtimeMode))||!HSBI_ValidateLevelMarket(x.market,x.levelIndex,x.broker,x.farDirection)||
       !HSBI_ValidateLevelCosts(x.costs,x.levelIndex)||!HSBI_ValidateFarProjection(x.farProjection,x.broker,x.farBefore)) return r;
    HSBI_GeometryResult g=HSBI_SolveBigGeometry(x.farBefore,x.coreRatio,x.trendRatio,x.smallRatio,x.broker,true,true);
    if(!g.valid){r.details="GEOMETRY_FAILED";return r;}

@@ -96,7 +96,7 @@ HSBI_NewFarSolverResult HSBI_SolveNewFar(const HSBI_NewFarSolverInput &x)
    HSBI_NewFarSolverResult r;ZeroMemory(r);r.status=HSBI_SOLVER_NO_SAFE_CANDIDATE;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;
    r.oldFarVolume=x.oldFarDescriptor.actualVolume;r.actualResidualVolume=x.actualBigCoreResidual.actualVolume;r.projectedVolume=x.projectedVolume;
    r.planId=x.planId;r.stateRevision=x.stateRevision;r.sourceIdentifier=x.originalBigCoreDescriptor.identifier;r.sourceDealId=x.actualClosingDeals.sourceDealId;r.details="NO_SAFE_CANDIDATE";
-   if(x.futureSmallTemplate.runtimeMode==HSBI_RUNTIME_UNSPECIFIED||x.futureSmallTemplate.runtimeMode==HSBI_RUNTIME_UNIT_TEST||x.testOnlyApproximation||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)){r.status=HSBI_SOLVER_PROOF_FAILED;r.details="ALLOCATION_OR_APPROXIMATION_INVALID";return r;}
+   if(!HSBI_IsStaticCalculationAllowed(x.futureSmallTemplate.runtimeMode)||x.futureSmallTemplate.runtimeMode==HSBI_RUNTIME_UNIT_TEST||x.testOnlyApproximation||x.futureSmallTemplate.useInjectedBrokerProofs||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)){r.status=HSBI_SOLVER_PROOF_FAILED;r.details="ALLOCATION_OR_APPROXIMATION_INVALID";return r;}
    if(!x.controlPrice.fresh||!x.riskState.fresh||!x.marginState.fresh||!x.moneyState.fresh||!x.allocationState.fresh){r.status=HSBI_SOLVER_STALE_SNAPSHOT;r.details="STALE_SNAPSHOT";return r;}
    if(x.secondFarPresent){r.status=HSBI_SOLVER_RECONCILIATION_REQUIRED;r.details="SECOND_FAR";return r;}
    if(!HSBI_ValidateNewFarSource(x)){r.status=HSBI_SOLVER_SOURCE_MISMATCH;r.reason=HSBI_REASON_INVALID_IDENTITY;r.details="NEW_FAR_SOURCE_MISMATCH";return r;}
