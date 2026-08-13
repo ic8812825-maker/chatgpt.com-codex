@@ -17,12 +17,12 @@ string HSBI_ExternalOutcomeDigest(const HSBI_ExternalTransactionOutcome &x)
    DoubleToString(x.price,12)+"|"+HSBI_UlongToString(x.stateRevision)+"|"+HSBI_UlongToString(x.cycleId)+"|"+HSBI_UlongToString(x.planId)+"|"+
    IntegerToString((int)x.source)+"|"+IntegerToString((int)x.runtimeConfirmed)+"|"+IntegerToString((int)x.positionActuallyRead)+"|"+
    IntegerToString((int)x.dealActuallyRead)+"|"+LongToString((long)x.readTimestamp)+"|"+IntegerToString((int)x.status);}
-struct HSBI_ExecutionReconciliationInput{HSBI_ExecutionIntent intent;HSBI_ExternalTransactionOutcome outcome;ulong lastAppliedEventId;bool reconciliationConflict,snapshotFresh,ownershipPassed;double volumeTolerance,priceTolerance;};
+struct HSBI_ExecutionReconciliationInput{HSBI_RuntimeMode runtimeMode;HSBI_ExecutionIntent intent;HSBI_ExternalTransactionOutcome outcome;ulong lastAppliedEventId;bool reconciliationConflict,snapshotFresh,ownershipPassed;double volumeTolerance,priceTolerance;};
 struct HSBI_ExecutionReconciliationResult{bool valid,completionAllowed,noMutationBeforeCommit;HSBI_IntentStatus targetStatus;HSBI_ReasonCode reason;string details;string digest;};
 HSBI_ExecutionReconciliationResult HSBI_ReconcileExecutionOutcome(const HSBI_ExecutionReconciliationInput &x)
 {
    HSBI_ExecutionReconciliationResult r;ZeroMemory(r);r.targetStatus=HSBI_INTENT_RECONCILING;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="RECONCILIATION_REJECTED";r.noMutationBeforeCommit=true;
-   if(!HSBI_ValidateExecutionIntentDigest(x.intent)||x.outcome.digest!=HSBI_ExternalOutcomeDigest(x.outcome)||x.reconciliationConflict||!x.snapshotFresh||!x.ownershipPassed)return r;
+   if((x.runtimeMode!=HSBI_RUNTIME_PRODUCTION&&x.runtimeMode!=HSBI_RUNTIME_ADMIN_VERIFICATION)||!HSBI_ValidateExecutionIntentDigest(x.intent)||x.outcome.digest!=HSBI_ExternalOutcomeDigest(x.outcome)||x.reconciliationConflict||!x.snapshotFresh||!x.ownershipPassed)return r;
    if(x.outcome.status!=HSBI_EXTERNAL_COMPLETED||x.outcome.source!=HSBI_OUTCOME_RUNTIME_TERMINAL||!x.outcome.runtimeConfirmed||!x.outcome.positionActuallyRead||!x.outcome.dealActuallyRead)return r;
    if(x.outcome.actionId!=x.intent.expectedActionId||x.outcome.eventId<=x.lastAppliedEventId||x.outcome.dealId==0||x.outcome.positionIdentifier!=x.intent.sourcePositionIdentifier||
       x.outcome.ticket!=x.intent.sourceTicket||x.outcome.accountLogin!=x.intent.accountLogin||x.outcome.symbol!=x.intent.symbol||x.outcome.magic!=x.intent.magic||

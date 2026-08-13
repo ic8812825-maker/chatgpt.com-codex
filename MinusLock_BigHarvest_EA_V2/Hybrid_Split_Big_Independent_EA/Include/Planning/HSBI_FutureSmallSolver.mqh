@@ -43,7 +43,7 @@ HSBI_ControlPrice HSBI_LevelControlPrice(const HSBI_FutureSmallLevelMarketSnapsh
 }
 bool HSBI_ValidateFutureSmallInput(const HSBI_FutureSmallInput &x)
 {
-   if(x.testOnlyApproximation||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!x.brokerPropertiesValid||!x.snapshotsFresh||
+   if(x.runtimeMode==HSBI_RUNTIME_UNSPECIFIED||x.testOnlyApproximation||(x.useInjectedBrokerProofs&&x.runtimeMode!=HSBI_RUNTIME_UNIT_TEST)||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!x.brokerPropertiesValid||!x.snapshotsFresh||
       !x.roundingIncluded||!x.costsIncluded||!x.moneyState.available||!x.moneyState.fresh||!x.riskState.available||
       !x.riskState.fresh||!x.marginState.available||!x.marginState.fresh) return false;
    if(HSBI_ValidateBrokerProperties(x.broker)!=HSBI_BROKER_PROPERTIES_VALID||x.cycleId==0||x.stateRevision==0||x.planId==0||
@@ -57,7 +57,7 @@ HSBI_FutureSmallLevelResult HSBI_EvaluateFutureSmallLevel(const HSBI_FutureSmall
 {
    HSBI_FutureSmallLevelResult r; ZeroMemory(r);r.levelIndex=x.levelIndex;r.farBefore=x.farBefore;
    r.status=HSBI_FS_UNPROVEN;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="LEVEL_UNPROVEN";
-   if(x.testOnlyApproximation||!HSBI_ValidateLevelMarket(x.market,x.levelIndex,x.broker,x.farDirection)||
+   if(x.runtimeMode==HSBI_RUNTIME_UNSPECIFIED||x.testOnlyApproximation||(x.useInjectedBrokerProof&&x.runtimeMode!=HSBI_RUNTIME_UNIT_TEST)||!HSBI_ValidateLevelMarket(x.market,x.levelIndex,x.broker,x.farDirection)||
       !HSBI_ValidateLevelCosts(x.costs,x.levelIndex)||!HSBI_ValidateFarProjection(x.farProjection,x.broker,x.farBefore)) return r;
    HSBI_GeometryResult g=HSBI_SolveBigGeometry(x.farBefore,x.coreRatio,x.trendRatio,x.smallRatio,x.broker,true,true);
    if(!g.valid){r.details="GEOMETRY_FAILED";return r;}
@@ -117,7 +117,7 @@ HSBI_FutureSmallResult HSBI_SolveFutureSmall(const HSBI_FutureSmallInput &x)
    double far=x.currentFar,priorBig=x.currentBigGross,priorExposure=x.currentGrossExposure;HSBI_MoneyStateSnapshot money=x.moneyState;
    HSBI_RiskSnapshot risk=x.riskState;HSBI_MarginSnapshot margin=x.marginState;bool terminal=false,boundConditions=true;
    for(int k=0;k<x.maximumDepth;k++) {
-      HSBI_FutureSmallLevelInput li;ZeroMemory(li);li.levelIndex=k+1;li.farBefore=far;li.coreRatio=x.coreRatio;li.trendRatio=x.trendRatio;
+      HSBI_FutureSmallLevelInput li;ZeroMemory(li);li.runtimeMode=x.runtimeMode;li.levelIndex=k+1;li.farBefore=far;li.coreRatio=x.coreRatio;li.trendRatio=x.trendRatio;
       li.smallRatio=x.smallRatio;li.farDirection=x.farDirection;li.broker=x.broker;li.market=x.levelMarketSnapshots[k];li.costs=x.levelCostSnapshots[k];li.farProjection=x.farProjections[k];
       li.farOpenPrice=x.farOpenPrice;li.coreOpenPrice=x.coreOpenPrice;li.trendOpenPrice=x.trendOpenPrice;li.smallOpenPrice=x.smallOpenPrice;
       li.moneyState=money;li.riskState=risk;li.marginState=margin;li.minimumCompressionLots=x.minimumCompressionLots;

@@ -28,7 +28,7 @@ struct HSBI_FutureFarProjection
 };
 struct HSBI_FutureSmallInput
 {
-   HSBI_AllocationPolicySnapshot allocationPolicy;
+   HSBI_RuntimeMode runtimeMode;HSBI_AllocationPolicySnapshot allocationPolicy;
    double currentFar,coreRatio,trendRatio,smallRatio,maxNewFarRatio,minimumCompressionLots,minimumCompressionRatio;
    int maximumDepth; double conservativeQ,volumeMin,volumeMax,volumeStep,tickSize; HSBI_Direction farDirection;
    HSBI_MoneyStateSnapshot moneyState; HSBI_RiskSnapshot riskState; HSBI_MarginSnapshot marginState;
@@ -63,7 +63,7 @@ struct HSBI_FutureSmallResult
 };
 struct HSBI_FutureSmallLevelInput
 {
-   int levelIndex; double farBefore,coreRatio,trendRatio,smallRatio; HSBI_Direction farDirection; HSBI_BrokerProperties broker;
+   HSBI_RuntimeMode runtimeMode;int levelIndex; double farBefore,coreRatio,trendRatio,smallRatio; HSBI_Direction farDirection; HSBI_BrokerProperties broker;
    HSBI_FutureSmallLevelMarketSnapshot market; HSBI_FutureSmallLevelCostSnapshot costs;
    HSBI_FutureFarProjection farProjection; double farOpenPrice,coreOpenPrice,trendOpenPrice,smallOpenPrice;
    HSBI_MoneyStateSnapshot moneyState; HSBI_RiskSnapshot riskState; HSBI_MarginSnapshot marginState;

@@ -6,7 +6,7 @@
 enum HSBI_PreflightStatus{HSBI_PREFLIGHT_PASS,HSBI_PREFLIGHT_REJECT,HSBI_PREFLIGHT_ERROR,HSBI_PREFLIGHT_UNAVAILABLE,HSBI_PREFLIGHT_STALE,HSBI_PREFLIGHT_CONFLICT,HSBI_PREFLIGHT_DIGEST_MISMATCH};
 struct HSBI_ExecutionPreflightInput
 {
-   HSBI_ExecutionIntent intent;HSBI_FutureSmallAggregateProof aggregate;HSBI_ReserveCatchUpResult catchUp;
+   HSBI_RuntimeMode runtimeMode;HSBI_ExecutionIntent intent;HSBI_FutureSmallAggregateProof aggregate;HSBI_ReserveCatchUpResult catchUp;
    HSBI_BrokerProperties broker;HSBI_ControlPrice controlPrice;long currentAccount;string currentSymbol;long currentMagic;
    ulong currentCycleId,currentStateRevision;datetime now;bool planningFullyProven,worstCasePresent,farLossProofPresent;
    bool proxyOrTestOnly,reconciliationConflict,activeIntentPresent,marketFresh,allocationConflict;
@@ -16,7 +16,7 @@ struct HSBI_ExecutionPreflightResult{HSBI_PreflightStatus status;bool valid;HSBI
 HSBI_ExecutionPreflightResult HSBI_ValidateExecutionPreflight(const HSBI_ExecutionPreflightInput &x)
 {
    HSBI_ExecutionPreflightResult r;ZeroMemory(r);r.status=HSBI_PREFLIGHT_REJECT;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="REJECT";
-   if(!HSBI_ValidateExecutionIntentStructure(x.intent)){r.reason=HSBI_REASON_INVALID_INTENT_STRUCTURE;r.details="INVALID_INTENT_STRUCTURE";return r;}
+   if(x.runtimeMode==HSBI_RUNTIME_UNSPECIFIED||x.runtimeMode==HSBI_RUNTIME_UNIT_TEST||!HSBI_ValidateExecutionIntentStructure(x.intent)){r.reason=HSBI_REASON_INVALID_INTENT_STRUCTURE;r.details="INVALID_INTENT_STRUCTURE";return r;}
    if(!HSBI_ValidateExecutionIntentDigest(x.intent)){r.status=HSBI_PREFLIGHT_DIGEST_MISMATCH;r.details="INTENT_DIGEST_MISMATCH";return r;}
    if(x.intent.planDigest==""||x.intent.candidateDigest==""||x.intent.aggregateProofDigest!=x.aggregate.aggregateDigest){r.status=HSBI_PREFLIGHT_DIGEST_MISMATCH;r.details="PLAN_CANDIDATE_AGGREGATE_DIGEST_MISMATCH";return r;}
    if(!x.marketFresh||x.now>x.intent.expiryTimestamp||!x.controlPrice.fresh){r.status=HSBI_PREFLIGHT_STALE;r.details="STALE_OR_EXPIRED";return r;}
