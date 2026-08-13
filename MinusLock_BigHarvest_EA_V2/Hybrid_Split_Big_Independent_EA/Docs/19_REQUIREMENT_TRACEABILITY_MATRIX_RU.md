@@ -166,3 +166,7 @@ Runtime-confirmed flags are mandatory in the static contract, but actual broker/
 ## HSB.2C — static orchestration
 
 Сводная traceability HSB.2C находится в `Docs/HSB.2C_Traceability.md`. Требования HSBI-INTENT-001, PREFLIGHT-001, LIFECYCLE-001, JOURNAL-001, IDEMP-001, PERSIST-002 и RECON-002 покрыты T266–T340. Compile/runtime evidence: `USER_VERIFICATION_REQUIRED`; production trading: `NOT_IMPLEMENTED`.
+
+## HSB.2C-R1
+
+Подробная mapping-таблица находится в `Docs/HSB.2C_R1_Traceability_RU.md`. Intent/snapshot/journal/runtime guards покрыты T341–T380; runtime evidence остаётся `USER_VERIFICATION_REQUIRED`.
