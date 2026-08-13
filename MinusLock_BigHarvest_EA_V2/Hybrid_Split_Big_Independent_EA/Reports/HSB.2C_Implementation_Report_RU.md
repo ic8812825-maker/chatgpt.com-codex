@@ -1,0 +1,19 @@
+# HSB.2C — отчёт реализации
+
+Baseline: `fdaae7ba99321a5ce489fd15dca2e52efac2c31f`.
+
+Реализованы immutable intent, preflight, lifecycle, append-only journal, snapshot/restart safety, idempotency/retry и external-outcome reconciliation. Transaction dispatch отсутствует. Объявлены T01–T340; MetaEditor/MT5 не запускались.
+
+```text
+HSB.2C=STATIC_IMPLEMENTED
+EXECUTION_INTENT=STATIC_IMPLEMENTED
+PERSISTENCE=STATIC_IMPLEMENTED
+RECONCILIATION=STATIC_IMPLEMENTED
+TRADING_IMPLEMENTED=NO
+REAL_TRADING_ALLOWED=NO
+BROKER_TRANSACTION_ENGINE=NOT_IMPLEMENTED
+METAEDITOR_COMPILE=USER_VERIFICATION_REQUIRED
+MQL5_RUNTIME_TESTS=USER_VERIFICATION_REQUIRED
+HSB.2D=NOT_STARTED
+FINAL_TRANSPORT_SHA=POST_PUSH_RECORD_REQUIRED
+```

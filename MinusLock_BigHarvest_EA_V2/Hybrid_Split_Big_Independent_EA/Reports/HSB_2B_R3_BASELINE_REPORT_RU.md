@@ -1,0 +1,15 @@
+# Baseline HSB.2B-R3
+
+```text
+BRANCH=work
+REQUESTED_BASELINE_SHA=0475e11088d4e01b57669eb3dac7ef1cab7ca5d7
+BASELINE_SHA=034a1192f6778984005f1b565396651414195ef9
+ORIGIN_WORK_SHA=034a1192f6778984005f1b565396651414195ef9
+WORKTREE_STATUS=CLEAN
+HSB_2B_R3_SCOPE=CONFIRMED
+HSB_2C_STARTED=NO
+TRADING_IMPLEMENTED=NO
+REAL_TRADING_ALLOWED=NO
+```
+
+Запрошенный baseline сохранён в истории. Локальная squash-история объединена с опубликованным baseline без reset и переписывания истории.
