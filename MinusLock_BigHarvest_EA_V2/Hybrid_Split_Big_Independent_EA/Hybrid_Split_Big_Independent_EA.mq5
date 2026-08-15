@@ -18,7 +18,9 @@ HSBI_RecoveryContext g_hsbi_context;
 
 int OnInit()
 {
-   HSBI_InitializeContext(g_hsbi_context,HSBI_RUNTIME_DISABLED);
+   HSBI_RuntimePolicy policy=HSBI_BuildRuntimePolicy(HSBI_RUNTIME_DISABLED);
+   if(!policy.valid||HSBI_IsBrokerDispatchAllowed(policy.mode))return(INIT_FAILED);
+   HSBI_InitializeContext(g_hsbi_context,policy.mode);
    HSBI_Log("HSBI-GEN-033",HSBI_REASON_OK,"NON_TRADING_SKELETON initialized");
    EventSetTimer(1);
    return(INIT_SUCCEEDED);

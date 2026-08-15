@@ -2,8 +2,10 @@
 #define HSBI_RESERVE_CATCH_UP_EVALUATOR_MQH
 #include "HSBI_ReserveAllocationTypes.mqh"
 #include "HSBI_LevelMoneyEvaluator.mqh"
+#include "../Core/HSBI_RuntimePolicy.mqh"
 struct HSBI_ReserveCatchUpInput
 {
+   HSBI_RuntimeMode runtimeMode; bool testOnlySource;
    HSBI_AllocationPolicySnapshot allocationPolicy; double reserveEligibleMoney; bool reserveEligibleMoneyAlreadyAllocated;
    double farLossIncreaseMoney,executionSafetyBuffer,netBigVolume,farVolume; HSBI_Direction farDirection;
    HSBI_BrokerMoneyEvaluationResult reserveSourceProof,farLossProof;
@@ -50,7 +52,7 @@ HSBI_ReserveCatchUpResult HSBI_EvaluateReserveCatchUp(const HSBI_ReserveCatchUpI
    r.farLossSourceDigest=HSBI_MoneyProofIdentityDigest(x.farLossProof.identity);
    r.allocationSourceDigest=HSBI_ReserveAllocationSourceDigest(x.reserveAllocationSource);
    r.consumptionKeyDigest=HSBI_ReserveConsumptionKeyDigest(x.consumptionKey);
-   if(!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!x.moneyAvailable||!x.fresh||x.snapshotId==0||x.planId==0||x.stateRevision==0)return r;
+   if(!HSBI_IsStaticCalculationAllowed(x.runtimeMode)||x.testOnlySource||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!x.moneyAvailable||!x.fresh||x.snapshotId==0||x.planId==0||x.stateRevision==0)return r;
    if(duplicate){r.status=HSBI_CALC_REJECT;r.details="DUPLICATE_CONSUMPTION_NOOP";return r;}
    if(conflict){r.status=HSBI_CALC_REJECT;r.details="CONSUMPTION_CONFLICT";return r;}
    if(!r.reserveSourceIdentityValid){r.status=HSBI_CALC_REJECT;r.details="RESERVE_SOURCE_IDENTITY_MISMATCH";return r;}

@@ -118,7 +118,7 @@ HSBI_NewFarSolverResult HSBI_SolveNewFar(const HSBI_NewFarSolverInput &x)
       int controlIndex=aggregate.catchUpControlLevel-1;HSBI_FutureSmallLevelProof control=proof.levels[controlIndex];
       control.reserveSourceProof.identity=HSBI_NewFarProofIdentity(x,x.originalBigCoreDescriptor,HSBI_ROLE_BIG_CORE,x.originalBigCoreDescriptor.direction,x.reserveSourceDealId,x.reserveSourceEventId,control.controlSnapshotId);
       control.farLossProof.identity=HSBI_NewFarProofIdentity(x,x.oldFarDescriptor,HSBI_ROLE_FAR,x.oldFarDescriptor.direction,x.farLossSourceDealId,x.farLossSourceEventId,control.controlSnapshotId);
-      HSBI_ReserveCatchUpInput ci;ZeroMemory(ci);ci.allocationPolicy=x.allocationPolicy;ci.reserveEligibleMoney=MathMax(0.0,control.reserveSourceProof.netMoney);
+      HSBI_ReserveCatchUpInput ci;ZeroMemory(ci);ci.runtimeMode=fs.runtimeMode;ci.testOnlySource=false;ci.allocationPolicy=x.allocationPolicy;ci.reserveEligibleMoney=MathMax(0.0,control.reserveSourceProof.netMoney);
       ci.reserveEligibleMoneyAlreadyAllocated=x.reserveAllocationSource.reserveAllocated>0.0;ci.farLossIncreaseMoney=MathMax(0.0,-control.farLossProof.netMoney);ci.executionSafetyBuffer=fs.executionSafetyBuffer;
       ci.netBigVolume=control.netBigVolume;ci.farVolume=candidate;ci.farDirection=x.oldFarDescriptor.direction;ci.reserveSourceProof=control.reserveSourceProof;ci.farLossProof=control.farLossProof;
       ci.expectedReserveIdentity=control.reserveSourceProof.identity;ci.expectedFarIdentity=control.farLossProof.identity;ci.reserveAllocationSource=x.reserveAllocationSource;
