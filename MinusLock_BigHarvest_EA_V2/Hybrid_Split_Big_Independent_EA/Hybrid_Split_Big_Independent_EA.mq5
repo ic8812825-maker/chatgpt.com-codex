@@ -6,6 +6,7 @@
 #include "Include/Core/HSBI_Enums.mqh"
 #include "Include/Core/HSBI_Types.mqh"
 #include "Include/Core/HSBI_ReasonCodes.mqh"
+#include "Include/Core/HSBI_RuntimePolicy.mqh"
 #include "Include/Core/HSBI_RuntimeMode.mqh"
 #include "Include/Core/HSBI_Context.mqh"
 #include "Include/Core/HSBI_Invariants.mqh"

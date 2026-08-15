@@ -53,7 +53,7 @@ bool HSBI_ValidateContext(const HSBI_RecoveryContext &c)
    if(farCount>1)return false;
    if(c.currentState==HSBI_STATE_CYCLE_CLOSED&&c.pendingActionId!=0)return false;
    HSBI_RuntimePolicy policy=HSBI_BuildRuntimePolicy(c.runtimeMode);
-   if(policy.tradeIntentsAllowed||policy.brokerRequestsAllowed||policy.realAccountAllowed)return false;
+   if(policy.brokerDispatchAllowed)return false;
    if(HSBI_TRADING_IMPLEMENTED||HSBI_REAL_TRADING_ALLOWED)return false;
    return true;
 }
