@@ -1,6 +1,7 @@
 #property strict
 #property script_show_inputs
 #include "../../Include/Core/HSBI_Version.mqh"
+#include "../../Include/Core/HSBI_RuntimePolicy.mqh"
 #include "../../Include/Core/HSBI_Context.mqh"
 #include "../../Include/Core/HSBI_StateMachine.mqh"
 #include "../../Include/Core/HSBI_StateValidator.mqh"
@@ -475,5 +476,36 @@ void OnStart()
    Check("T398","HSBI-RUNTIME-002",false,HSBI_IsCompletionSourceAllowed(HSBI_RUNTIME_PRODUCTION,(int)HSBI_OUTCOME_PROXY),"PROXY_BLOCKED");
    fs=FutureSmall();fs.runtimeMode=HSBI_RUNTIME_PRODUCTION;fs.useInjectedBrokerProofs=true;Check("T399","HSBI-RUNTIME-003",false,HSBI_ValidateFutureSmallInput(fs),"FUTURE_SMALL_PRODUCTION_INJECTED");
    nf=NewFar();nf.futureSmallTemplate.runtimeMode=HSBI_RUNTIME_UNIT_TEST;Check("T400","HSBI-RUNTIME-003",false,HSBI_SolveNewFar(nf).valid,"UNIT_RESULT_NOT_SELECTED");
+   HSBI_RuntimePolicy canonical=HSBI_BuildRuntimePolicy(HSBI_RUNTIME_UNSPECIFIED);
+   Check("T401","HSBI-RUNTIME-004",true,!canonical.valid&&!canonical.staticCalculationAllowed,"CANONICAL_UNSPECIFIED");
+   canonical=HSBI_BuildRuntimePolicy(HSBI_RUNTIME_DISABLED);Check("T402","HSBI-RUNTIME-004",true,canonical.valid&&!canonical.staticCalculationAllowed,"DISABLED_NO_CALC");
+   canonical=HSBI_BuildRuntimePolicy(HSBI_RUNTIME_UNIT_TEST);Check("T403","HSBI-RUNTIME-004",true,canonical.injectedFixtureAllowed&&canonical.staticCalculationAllowed,"UNIT_FIXTURE_ONLY");
+   canonical=HSBI_BuildRuntimePolicy(HSBI_RUNTIME_SHADOW);Check("T404","HSBI-RUNTIME-004",true,canonical.productionPreflightAllowed&&!canonical.injectedFixtureAllowed,"SHADOW_MATRIX");
+   canonical=HSBI_BuildRuntimePolicy(HSBI_RUNTIME_PRODUCTION);Check("T405","HSBI-RUNTIME-004",true,canonical.productionPreflightAllowed&&!canonical.injectedFixtureAllowed,"PRODUCTION_MATRIX");
+   canonical=HSBI_BuildRuntimePolicy(HSBI_RUNTIME_ADMIN_VERIFICATION);Check("T406","HSBI-RUNTIME-004",true,canonical.terminalCompletionAllowed&&!canonical.injectedFixtureAllowed,"ADMIN_MATRIX");
+   Check("T407","HSBI-RUNTIME-004",false,HSBI_BuildRuntimePolicy(HSBI_RUNTIME_SHADOW_REAL).valid,"SHADOW_REAL_FAIL_CLOSED");
+   Check("T408","HSBI-RUNTIME-004",false,HSBI_BuildRuntimePolicy(HSBI_RUNTIME_REAL_LIMITED).valid,"REAL_LIMITED_FAIL_CLOSED");
+   Check("T409","HSBI-RUNTIME-004",true,HSBI_IsStaticCalculationAllowed(HSBI_RUNTIME_STRATEGY_TESTER_DRY_RUN),"TESTER_CALC");
+   Check("T410","HSBI-RUNTIME-004",true,HSBI_IsStaticCalculationAllowed(HSBI_RUNTIME_DEMO_DRY_RUN),"DEMO_CALC");
+   Check("T411","HSBI-RUNTIME-004",false,HSBI_IsBrokerDispatchAllowed(HSBI_RUNTIME_UNIT_TEST),"UNIT_DISPATCH_BLOCKED");
+   Check("T412","HSBI-RUNTIME-004",false,HSBI_IsBrokerDispatchAllowed(HSBI_RUNTIME_SHADOW),"SHADOW_DISPATCH_BLOCKED");
+   Check("T413","HSBI-RUNTIME-004",false,HSBI_IsBrokerDispatchAllowed(HSBI_RUNTIME_PRODUCTION),"PRODUCTION_DISPATCH_BLOCKED");
+   Check("T414","HSBI-RUNTIME-004",false,HSBI_IsBrokerDispatchAllowed(HSBI_RUNTIME_ADMIN_VERIFICATION),"ADMIN_DISPATCH_BLOCKED");
+   Check("T415","HSBI-RUNTIME-004",false,HSBI_IsCompletionSourceAllowed(HSBI_RUNTIME_PRODUCTION,(int)HSBI_OUTCOME_SIMULATED),"SIMULATED_COMPLETION_BLOCKED");
+   Check("T416","HSBI-RUNTIME-004",false,HSBI_IsCompletionSourceAllowed(HSBI_RUNTIME_PRODUCTION,(int)HSBI_OUTCOME_PROXY),"PROXY_COMPLETION_BLOCKED");
+   Check("T417","HSBI-RUNTIME-004",false,HSBI_IsCompletionSourceAllowed(HSBI_RUNTIME_PRODUCTION,(int)HSBI_OUTCOME_EXTERNAL_UNVERIFIED),"UNVERIFIED_COMPLETION_BLOCKED");
+   Check("T418","HSBI-RUNTIME-004",false,HSBI_IsCompletionSourceAllowed(HSBI_RUNTIME_SHADOW,(int)HSBI_OUTCOME_RUNTIME_TERMINAL),"SHADOW_COMPLETION_BLOCKED");
+   Check("T419","HSBI-RUNTIME-004",true,HSBI_IsCompletionSourceAllowed(HSBI_RUNTIME_PRODUCTION,(int)HSBI_OUTCOME_RUNTIME_TERMINAL),"PRODUCTION_TERMINAL_SOURCE");
+   ri.runtimeMode=HSBI_RUNTIME_PRODUCTION;ri.intent=intent;ri.outcome=Outcome(intent);ri.outcome.source=HSBI_OUTCOME_SIMULATED;ri.outcome.runtimeConfirmed=true;ri.outcome.digest=HSBI_ExternalOutcomeDigest(ri.outcome);ri.snapshotFresh=true;ri.ownershipPassed=true;Check("T420","HSBI-RECON-003",false,HSBI_ReconcileExecutionOutcome(ri).completionAllowed,"FLAG_CANNOT_OVERRIDE_SOURCE");
+   Check("T421","HSBI-INCLUDE-001",true,HSBI_BuildRuntimePolicy(HSBI_RUNTIME_UNIT_TEST).mode==HSBI_RUNTIME_UNIT_TEST,"CANONICAL_BUILDER_REACHABLE");
+   Check("T422","HSBI-INCLUDE-001",true,HSBI_IsInjectedProofAllowed(HSBI_RUNTIME_UNIT_TEST),"CANONICAL_GUARD_REACHABLE");
+   Check("T423","HSBI-INCLUDE-001",false,HSBI_IsInjectedProofAllowed(HSBI_RUNTIME_ADMIN_VERIFICATION),"NO_LOCAL_POLICY_OVERRIDE");
+   Check("T424","HSBI-INCLUDE-001",false,HSBI_IsProductionPreflightAllowed(HSBI_RUNTIME_UNIT_TEST),"NO_OLD_PREFLIGHT_POLICY");
+   Check("T425","HSBI-PUBLICATION-002",true,"dcafb222081dfef6686275fb32d8c7ffa0c60d59"!="8a02010448c338afc7f3b59e999ad4cc9dae1a3b","HISTORIC_NOT_HEAD");
+   Check("T426","HSBI-PUBLICATION-002",true,"42c4d418bdd9cb56785cffee4b5abc0221c2974b"!="8a02010448c338afc7f3b59e999ad4cc9dae1a3b","OLD_BASELINE_NOT_TIP");
+   Check("T427","HSBI-PUBLICATION-002",true,StringFind("CONTENT|TRANSPORT","|")>0,"CONTENT_TRANSPORT_SEPARATE");
+   Check("T428","HSBI-PUBLICATION-002",true,StringFind("APPEND_ONLY","APPEND")>=0,"PUBLICATION_APPEND_ONLY");
+   Check("T429","HSBI-PUBLICATION-002",false,StringFind("PENDING","PASS")>=0,"PENDING_NOT_PASS");
+   Check("T430","HSBI-PUBLICATION-002",true,StringFind("POST_PUSH_VERIFIED","VERIFIED")>=0,"POST_PUSH_VERIFICATION_REQUIRED");
    Print("HSBI_TEST_SUMMARY|TOTAL=",g_pass+g_fail,"|PASS=",g_pass,"|FAIL=",g_fail);
 }
