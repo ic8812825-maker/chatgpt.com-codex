@@ -11,3 +11,9 @@
 | HSBI-2D-BARRIER | Transaction barrier/retry | T449–T454 |
 
 Все тесты сохраняют no-trade invariant. T01–T454 объявлены непрерывно.
+
+## Финальное дополнение
+
+| HSBI-2D-RESTART | persisted state/history/identity/idempotency | T455–T464 |
+
+Итоговый непрерывный диапазон: T01–T464.

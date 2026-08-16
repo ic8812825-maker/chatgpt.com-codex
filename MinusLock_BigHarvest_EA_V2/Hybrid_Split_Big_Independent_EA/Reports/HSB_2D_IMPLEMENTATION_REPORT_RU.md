@@ -21,3 +21,7 @@ METAEDITOR_COMPILE=USER_VERIFICATION_REQUIRED
 MQL5_RUNTIME_TESTS=USER_VERIFICATION_REQUIRED
 HSB.2E=NOT_STARTED
 ```
+
+## Финальное дополнение restart coverage
+
+После первичной публикации статического содержимого добавлены недекоративные T455–T464 для `HSBI_ValidateRestartedRuntimeState`. Итоговый диапазон — T01–T464; предыдущая декларация T01–T454 исторически описывает промежуточный content tip.
