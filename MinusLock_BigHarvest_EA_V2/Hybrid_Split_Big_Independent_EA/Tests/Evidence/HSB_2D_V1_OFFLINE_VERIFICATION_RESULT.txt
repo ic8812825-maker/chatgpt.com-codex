@@ -1,0 +1,63 @@
+S001|PASS|/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA
+S002|PASS|external symlinks=0
+S003|PASS|main exists
+S004|PASS|harness exists
+S005|PASS|missing=0
+S006|PASS|external=0
+S007|PASS|cycles=0
+S008|PASS|missing=0
+S009|PASS|guards=73
+S010|PASS|runtime files
+S011|PASS|declared unique IDs
+S012|PASS|duplicates=[]
+S013|PASS|missing=[]
+S014|PASS|summary fields
+S015|PASS|failure accounting
+S016|PASS|disabled stub
+S017|PASS|hits=0
+S018|PASS|no Trade.mqh
+S019|PASS|no request
+S020|PASS|no trade action
+S021|PASS|no WebRequest
+S022|PASS|no DLL import
+S023|PASS|decision fail-closed
+S024|PASS|restart fail-closed
+S025|PASS|barrier fail-closed
+S026|PASS|full identity
+S027|PASS|position identity
+S028|PASS|revision
+S029|PASS|event
+S030|PASS|action
+S031|PASS|schema
+S032|PASS|money version
+S033|PASS|freshness
+S034|PASS|reconciliation
+S035|PASS|actual residual
+S036|PASS|allocation conservation
+S037|PASS|duplicate semantics
+S038|PASS|persistence
+S039|PASS|digest
+S040|PASS|no false runtime PASS
+S041|PASS|2E not started
+S042|PASS|trading no
+S043|PASS|real trading no
+S044|PASS|canonical status
+S045|PASS|all listed hashes match
+S046|PASS|caught=15/15: missing_test_id,duplicate_test_id,OrderSend,CTrade,external_include,missing_include,include_cycle,duplicate_guard,state_revision_removed,ownership_removed,persistence_removed,false_metaeditor,false_runtime,real_trading_yes,outside_scope
+S047|PASS|production hashes unchanged
+S048|PASS|violations=[]
+HSB_2D_V1_STATIC_SUMMARY
+TOTAL_CHECKS=48
+PASS=48
+FAIL=0
+FORBIDDEN_TRADE_CALLS=0
+MISSING_TEST_IDS=0
+DUPLICATE_TEST_IDS=0
+INCLUDE_ERRORS=0
+SCOPE_VIOLATIONS=0
+DOCUMENT_STATUS_CONFLICTS=0
+NEGATIVE_FIXTURES_TOTAL=15
+NEGATIVE_FIXTURES_CAUGHT=15
+METAEDITOR_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE
+MQL5_RUNTIME_TESTS=NOT_EXECUTED_MT5_UNAVAILABLE
+RESULT=PASS
