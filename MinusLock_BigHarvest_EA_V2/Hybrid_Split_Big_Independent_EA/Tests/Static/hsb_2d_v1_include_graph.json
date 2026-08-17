@@ -1,0 +1,1104 @@
+{
+  "schema": "HSB.2D-V1/include-graph/1",
+  "roots": [
+    "Hybrid_Split_Big_Independent_EA.mq5",
+    "Tests/MQL5/HSBI_Skeleton_Tests.mq5"
+  ],
+  "nodes": [
+    "Hybrid_Split_Big_Independent_EA.mq5",
+    "Include/Core/HSBI_Context.mqh",
+    "Include/Core/HSBI_Enums.mqh",
+    "Include/Core/HSBI_Identifiers.mqh",
+    "Include/Core/HSBI_Invariants.mqh",
+    "Include/Core/HSBI_ReasonCodes.mqh",
+    "Include/Core/HSBI_Roles.mqh",
+    "Include/Core/HSBI_RuntimeMode.mqh",
+    "Include/Core/HSBI_RuntimePolicy.mqh",
+    "Include/Core/HSBI_StateMachine.mqh",
+    "Include/Core/HSBI_StateValidator.mqh",
+    "Include/Core/HSBI_Types.mqh",
+    "Include/Core/HSBI_Version.mqh",
+    "Include/Diagnostics/HSBI_Diagnostics.mqh",
+    "Include/Diagnostics/HSBI_Logger.mqh",
+    "Include/Diagnostics/HSBI_PanelModel.mqh",
+    "Include/Execution/HSBI_ActionTypes.mqh",
+    "Include/Execution/HSBI_EventTypes.mqh",
+    "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "Include/Execution/HSBI_ExecutionPreflight.mqh",
+    "Include/Execution/HSBI_ExternalOutcome.mqh",
+    "Include/Execution/HSBI_NoTradeExecution.mqh",
+    "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+    "Include/Execution/HSBI_TransactionTypes.mqh",
+    "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+    "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+    "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+    "Include/Money/HSBI_BrokerMarginModel.mqh",
+    "Include/Money/HSBI_BrokerMoneyModel.mqh",
+    "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+    "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+    "Include/Money/HSBI_CatchUpModel.mqh",
+    "Include/Money/HSBI_CatchUpTypes.mqh",
+    "Include/Money/HSBI_CostModel.mqh",
+    "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+    "Include/Money/HSBI_LevelMarginEvaluator.mqh",
+    "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+    "Include/Money/HSBI_MoneyProofIdentity.mqh",
+    "Include/Money/HSBI_MoneyState.mqh",
+    "Include/Money/HSBI_MoneyTypes.mqh",
+    "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+    "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+    "Include/Persistence/HSBI_ExecutionJournal.mqh",
+    "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+    "Include/Persistence/HSBI_JournalTypes.mqh",
+    "Include/Persistence/HSBI_PersistenceInterface.mqh",
+    "Include/Persistence/HSBI_ReconciliationTypes.mqh",
+    "Include/Persistence/HSBI_SnapshotTypes.mqh",
+    "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Include/Planning/HSBI_CandidatePlan.mqh",
+    "Include/Planning/HSBI_ControlPrices.mqh",
+    "Include/Planning/HSBI_DecisionResult.mqh",
+    "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+    "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Include/Planning/HSBI_FutureSmallTypes.mqh",
+    "Include/Planning/HSBI_GeometrySolver.mqh",
+    "Include/Planning/HSBI_GeometryTypes.mqh",
+    "Include/Planning/HSBI_NewFarCandidate.mqh",
+    "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Include/Risk/HSBI_CalculationGateTypes.mqh",
+    "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh",
+    "Include/Risk/HSBI_NewFarGateTypes.mqh",
+    "Include/Risk/HSBI_RiskGateResult.mqh",
+    "Include/Risk/HSBI_RiskTypes.mqh",
+    "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+    "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "Include/Scenarios/HSBI_BigHarvestTypes.mqh",
+    "Include/Scenarios/HSBI_FinalCloseTypes.mqh",
+    "Include/Scenarios/HSBI_InitialLockTypes.mqh",
+    "Include/Scenarios/HSBI_PartialFarTypes.mqh",
+    "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+    "Include/Scenarios/HSBI_SmallTransitionTypes.mqh",
+    "Tests/MQL5/HSBI_Skeleton_Tests.mq5"
+  ],
+  "edges": [
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Core/HSBI_Version.mqh",
+      "to": "Include/Core/HSBI_Version.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Core/HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Core/HSBI_Types.mqh",
+      "to": "Include/Core/HSBI_Types.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "to": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Core/HSBI_RuntimeMode.mqh",
+      "to": "Include/Core/HSBI_RuntimeMode.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Core/HSBI_Context.mqh",
+      "to": "Include/Core/HSBI_Context.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Core/HSBI_Invariants.mqh",
+      "to": "Include/Core/HSBI_Invariants.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Execution/HSBI_NoTradeExecution.mqh",
+      "to": "Include/Execution/HSBI_NoTradeExecution.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Diagnostics/HSBI_Logger.mqh",
+      "to": "Include/Diagnostics/HSBI_Logger.mqh",
+      "exists": true
+    },
+    {
+      "from": "Hybrid_Split_Big_Independent_EA.mq5",
+      "include": "Include/Diagnostics/HSBI_Diagnostics.mqh",
+      "to": "Include/Diagnostics/HSBI_Diagnostics.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Context.mqh",
+      "include": "HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Context.mqh",
+      "include": "HSBI_Roles.mqh",
+      "to": "Include/Core/HSBI_Roles.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Context.mqh",
+      "include": "HSBI_RuntimeMode.mqh",
+      "to": "Include/Core/HSBI_RuntimeMode.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Context.mqh",
+      "include": "HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Identifiers.mqh",
+      "include": "HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Identifiers.mqh",
+      "include": "HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Invariants.mqh",
+      "include": "HSBI_Context.mqh",
+      "to": "Include/Core/HSBI_Context.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Invariants.mqh",
+      "include": "HSBI_StateValidator.mqh",
+      "to": "Include/Core/HSBI_StateValidator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Roles.mqh",
+      "include": "HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Roles.mqh",
+      "include": "HSBI_Types.mqh",
+      "to": "Include/Core/HSBI_Types.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_RuntimeMode.mqh",
+      "include": "HSBI_RuntimePolicy.mqh",
+      "to": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "include": "HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_StateMachine.mqh",
+      "include": "HSBI_Context.mqh",
+      "to": "Include/Core/HSBI_Context.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_StateValidator.mqh",
+      "include": "HSBI_StateMachine.mqh",
+      "to": "Include/Core/HSBI_StateMachine.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Core/HSBI_Types.mqh",
+      "include": "HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Diagnostics/HSBI_Diagnostics.mqh",
+      "include": "../Core/HSBI_Context.mqh",
+      "to": "Include/Core/HSBI_Context.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Diagnostics/HSBI_Logger.mqh",
+      "include": "../Core/HSBI_Context.mqh",
+      "to": "Include/Core/HSBI_Context.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Diagnostics/HSBI_PanelModel.mqh",
+      "include": "HSBI_Diagnostics.mqh",
+      "to": "Include/Diagnostics/HSBI_Diagnostics.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ActionTypes.mqh",
+      "include": "../Core/HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ActionTypes.mqh",
+      "include": "../Core/HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_EventTypes.mqh",
+      "include": "../Core/HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_EventTypes.mqh",
+      "include": "../Core/HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "include": "../Planning/HSBI_ControlPrices.mqh",
+      "to": "Include/Planning/HSBI_ControlPrices.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "include": "../Core/HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+      "include": "HSBI_ExecutionIntent.mqh",
+      "to": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+      "include": "../Core/HSBI_RuntimePolicy.mqh",
+      "to": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+      "include": "../Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "to": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+      "include": "../Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "to": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_ExternalOutcome.mqh",
+      "include": "HSBI_ExecutionPreflight.mqh",
+      "to": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_NoTradeExecution.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+      "include": "../Core/HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+      "include": "../Core/HSBI_Roles.mqh",
+      "to": "Include/Core/HSBI_Roles.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "include": "../Core/HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "include": "HSBI_BrokerMoneyTypes.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "include": "../Core/HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "include": "HSBI_LevelMarginEvaluator.mqh",
+      "to": "Include/Money/HSBI_LevelMarginEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "include": "../Planning/HSBI_ControlPrices.mqh",
+      "to": "Include/Planning/HSBI_ControlPrices.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_BrokerMarginModel.mqh",
+      "include": "HSBI_BrokerMoneyTypes.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_BrokerMarginModel.mqh",
+      "include": "../Planning/HSBI_BrokerGrid.mqh",
+      "to": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+      "include": "HSBI_CostModel.mqh",
+      "to": "Include/Money/HSBI_CostModel.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+      "include": "../Planning/HSBI_BrokerGrid.mqh",
+      "to": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "include": "../Core/HSBI_Types.mqh",
+      "to": "Include/Core/HSBI_Types.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+      "include": "../Planning/HSBI_FutureSmallSolver.mqh",
+      "to": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_CatchUpModel.mqh",
+      "include": "HSBI_CatchUpTypes.mqh",
+      "to": "Include/Money/HSBI_CatchUpTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_CatchUpTypes.mqh",
+      "include": "HSBI_BrokerMoneyTypes.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_CostModel.mqh",
+      "include": "HSBI_BrokerMoneyTypes.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "include": "../Core/HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "include": "../Core/HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_LevelMarginEvaluator.mqh",
+      "include": "HSBI_LevelMoneyEvaluator.mqh",
+      "to": "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_LevelMarginEvaluator.mqh",
+      "include": "HSBI_BrokerMarginModel.mqh",
+      "to": "Include/Money/HSBI_BrokerMarginModel.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+      "include": "HSBI_BrokerMoneyModel.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+      "include": "HSBI_MoneyProofIdentity.mqh",
+      "to": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+      "include": "../Core/HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_MoneyState.mqh",
+      "include": "HSBI_MoneyTypes.mqh",
+      "to": "Include/Money/HSBI_MoneyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "include": "HSBI_AllocationPolicyTypes.mqh",
+      "to": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "include": "HSBI_ReserveAllocationTypes.mqh",
+      "to": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "include": "HSBI_LevelMoneyEvaluator.mqh",
+      "to": "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "include": "../Core/HSBI_RuntimePolicy.mqh",
+      "to": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "include": "../Execution/HSBI_ExecutionIntent.mqh",
+      "to": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+      "include": "HSBI_ExecutionJournal.mqh",
+      "to": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_JournalTypes.mqh",
+      "include": "../Execution/HSBI_ActionTypes.mqh",
+      "to": "Include/Execution/HSBI_ActionTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_JournalTypes.mqh",
+      "include": "../Execution/HSBI_EventTypes.mqh",
+      "to": "Include/Execution/HSBI_EventTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_PersistenceInterface.mqh",
+      "include": "HSBI_SnapshotTypes.mqh",
+      "to": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_PersistenceInterface.mqh",
+      "include": "HSBI_JournalTypes.mqh",
+      "to": "Include/Persistence/HSBI_JournalTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_ReconciliationTypes.mqh",
+      "include": "HSBI_SnapshotTypes.mqh",
+      "to": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "include": "../Core/HSBI_Context.mqh",
+      "to": "Include/Core/HSBI_Context.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "include": "../Planning/HSBI_CandidatePlan.mqh",
+      "to": "Include/Planning/HSBI_CandidatePlan.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "include": "../Execution/HSBI_ActionTypes.mqh",
+      "to": "Include/Execution/HSBI_ActionTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "include": "../Money/HSBI_MoneyState.mqh",
+      "to": "Include/Money/HSBI_MoneyState.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "include": "../Money/HSBI_BrokerMoneyTypes.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_CandidatePlan.mqh",
+      "include": "HSBI_GeometryTypes.mqh",
+      "to": "Include/Planning/HSBI_GeometryTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_CandidatePlan.mqh",
+      "include": "../Core/HSBI_Identifiers.mqh",
+      "to": "Include/Core/HSBI_Identifiers.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_ControlPrices.mqh",
+      "include": "../Core/HSBI_Types.mqh",
+      "to": "Include/Core/HSBI_Types.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_ControlPrices.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_ControlPrices.mqh",
+      "include": "HSBI_BrokerGrid.mqh",
+      "to": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_DecisionResult.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "include": "HSBI_FutureSmallSolver.mqh",
+      "to": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "include": "HSBI_FutureSmallTypes.mqh",
+      "to": "Include/Planning/HSBI_FutureSmallTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "include": "../Core/HSBI_RuntimePolicy.mqh",
+      "to": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_FutureSmallTypes.mqh",
+      "include": "HSBI_GeometrySolver.mqh",
+      "to": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_FutureSmallTypes.mqh",
+      "include": "../Money/HSBI_BasketMoneyEvaluator.mqh",
+      "to": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_FutureSmallTypes.mqh",
+      "include": "../Money/HSBI_AllocationPolicyTypes.mqh",
+      "to": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_FutureSmallTypes.mqh",
+      "include": "../Risk/HSBI_FutureSmallRiskEvaluator.mqh",
+      "to": "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "include": "HSBI_GeometryTypes.mqh",
+      "to": "Include/Planning/HSBI_GeometryTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "include": "HSBI_BrokerGrid.mqh",
+      "to": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_GeometryTypes.mqh",
+      "include": "HSBI_ControlPrices.mqh",
+      "to": "Include/Planning/HSBI_ControlPrices.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_NewFarCandidate.mqh",
+      "include": "../Core/HSBI_Types.mqh",
+      "to": "Include/Core/HSBI_Types.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_NewFarCandidate.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "include": "HSBI_NewFarCandidate.mqh",
+      "to": "Include/Planning/HSBI_NewFarCandidate.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "include": "HSBI_FutureSmallProofAggregator.mqh",
+      "to": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "include": "../Execution/HSBI_OwnershipGuardTypes.mqh",
+      "to": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "include": "../Risk/HSBI_NewFarGateTypes.mqh",
+      "to": "Include/Risk/HSBI_NewFarGateTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "include": "../Money/HSBI_CandidateMoneyEvaluator.mqh",
+      "to": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "include": "../Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "to": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Risk/HSBI_CalculationGateTypes.mqh",
+      "include": "../Money/HSBI_BrokerMoneyTypes.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh",
+      "include": "../Money/HSBI_BasketMoneyEvaluator.mqh",
+      "to": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Risk/HSBI_NewFarGateTypes.mqh",
+      "include": "HSBI_CalculationGateTypes.mqh",
+      "to": "Include/Risk/HSBI_CalculationGateTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Risk/HSBI_RiskGateResult.mqh",
+      "include": "HSBI_RiskTypes.mqh",
+      "to": "Include/Risk/HSBI_RiskTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Risk/HSBI_RiskGateResult.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "include": "../Core/HSBI_Context.mqh",
+      "to": "Include/Core/HSBI_Context.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "include": "../Core/HSBI_RuntimePolicy.mqh",
+      "to": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "include": "../Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "to": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "include": "../Planning/HSBI_NewFarCandidate.mqh",
+      "to": "Include/Planning/HSBI_NewFarCandidate.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "include": "../Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "to": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "include": "../Persistence/HSBI_ExecutionStateSnapshot.mqh",
+      "to": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+      "include": "HSBI_RuntimeDecisionTypes.mqh",
+      "to": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+      "include": "HSBI_RuntimeDecisionValidator.mqh",
+      "to": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+      "include": "HSBI_RuntimeRestartValidator.mqh",
+      "to": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Scenarios/HSBI_BigHarvestTypes.mqh",
+      "include": "HSBI_ScenarioTypes.mqh",
+      "to": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Scenarios/HSBI_FinalCloseTypes.mqh",
+      "include": "HSBI_ScenarioTypes.mqh",
+      "to": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Scenarios/HSBI_InitialLockTypes.mqh",
+      "include": "HSBI_ScenarioTypes.mqh",
+      "to": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Scenarios/HSBI_PartialFarTypes.mqh",
+      "include": "HSBI_ScenarioTypes.mqh",
+      "to": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+      "include": "../Core/HSBI_Enums.mqh",
+      "to": "Include/Core/HSBI_Enums.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+      "include": "../Core/HSBI_ReasonCodes.mqh",
+      "to": "Include/Core/HSBI_ReasonCodes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Include/Scenarios/HSBI_SmallTransitionTypes.mqh",
+      "include": "HSBI_ScenarioTypes.mqh",
+      "to": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Core/HSBI_Version.mqh",
+      "to": "Include/Core/HSBI_Version.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Core/HSBI_RuntimePolicy.mqh",
+      "to": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Core/HSBI_Context.mqh",
+      "to": "Include/Core/HSBI_Context.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Core/HSBI_StateMachine.mqh",
+      "to": "Include/Core/HSBI_StateMachine.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Core/HSBI_StateValidator.mqh",
+      "to": "Include/Core/HSBI_StateValidator.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Core/HSBI_Invariants.mqh",
+      "to": "Include/Core/HSBI_Invariants.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Planning/HSBI_CandidatePlan.mqh",
+      "to": "Include/Planning/HSBI_CandidatePlan.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Execution/HSBI_ActionTypes.mqh",
+      "to": "Include/Execution/HSBI_ActionTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Execution/HSBI_EventTypes.mqh",
+      "to": "Include/Execution/HSBI_EventTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Execution/HSBI_TransactionTypes.mqh",
+      "to": "Include/Execution/HSBI_TransactionTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Execution/HSBI_NoTradeExecution.mqh",
+      "to": "Include/Execution/HSBI_NoTradeExecution.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+      "to": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "to": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Persistence/HSBI_JournalTypes.mqh",
+      "to": "Include/Persistence/HSBI_JournalTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Money/HSBI_BrokerMoneyModel.mqh",
+      "to": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Money/HSBI_BrokerMarginModel.mqh",
+      "to": "Include/Money/HSBI_BrokerMarginModel.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Money/HSBI_CostModel.mqh",
+      "to": "Include/Money/HSBI_CostModel.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Money/HSBI_CatchUpModel.mqh",
+      "to": "Include/Money/HSBI_CatchUpModel.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Planning/HSBI_BrokerGrid.mqh",
+      "to": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Planning/HSBI_GeometrySolver.mqh",
+      "to": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Risk/HSBI_CalculationGateTypes.mqh",
+      "to": "Include/Risk/HSBI_CalculationGateTypes.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "to": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Planning/HSBI_NewFarSolver.mqh",
+      "to": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Execution/HSBI_ExternalOutcome.mqh",
+      "to": "Include/Execution/HSBI_ExternalOutcome.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+      "to": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+      "exists": true
+    },
+    {
+      "from": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+      "include": "../../Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+      "to": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+      "exists": true
+    }
+  ],
+  "guards": {
+    "Include/Core/HSBI_Context.mqh": "HSBI_CONTEXT_MQH",
+    "Include/Core/HSBI_Enums.mqh": "HSBI_ENUMS_MQH",
+    "Include/Core/HSBI_Identifiers.mqh": "HSBI_IDENTIFIERS_MQH",
+    "Include/Core/HSBI_Invariants.mqh": "HSBI_INVARIANTS_MQH",
+    "Include/Core/HSBI_ReasonCodes.mqh": "HSBI_REASON_CODES_MQH",
+    "Include/Core/HSBI_Roles.mqh": "HSBI_ROLES_MQH",
+    "Include/Core/HSBI_RuntimeMode.mqh": "HSBI_RUNTIME_MODE_MQH",
+    "Include/Core/HSBI_RuntimePolicy.mqh": "HSBI_RUNTIME_POLICY_MQH",
+    "Include/Core/HSBI_StateMachine.mqh": "HSBI_STATE_MACHINE_MQH",
+    "Include/Core/HSBI_StateValidator.mqh": "HSBI_STATE_VALIDATOR_MQH",
+    "Include/Core/HSBI_Types.mqh": "HSBI_TYPES_MQH",
+    "Include/Core/HSBI_Version.mqh": "HSBI_VERSION_MQH",
+    "Include/Diagnostics/HSBI_Diagnostics.mqh": "HSBI_DIAGNOSTICS_MQH",
+    "Include/Diagnostics/HSBI_Logger.mqh": "HSBI_LOGGER_MQH",
+    "Include/Diagnostics/HSBI_PanelModel.mqh": "HSBI_PANEL_MODEL_MQH",
+    "Include/Execution/HSBI_ActionTypes.mqh": "HSBI_ACTION_TYPES_MQH",
+    "Include/Execution/HSBI_EventTypes.mqh": "HSBI_EVENT_TYPES_MQH",
+    "Include/Execution/HSBI_ExecutionIntent.mqh": "HSBI_EXECUTION_INTENT_MQH",
+    "Include/Execution/HSBI_ExecutionPreflight.mqh": "HSBI_EXECUTION_PREFLIGHT_MQH",
+    "Include/Execution/HSBI_ExternalOutcome.mqh": "HSBI_EXTERNAL_OUTCOME_MQH",
+    "Include/Execution/HSBI_NoTradeExecution.mqh": "HSBI_NO_TRADE_EXECUTION_MQH",
+    "Include/Execution/HSBI_OwnershipGuardTypes.mqh": "HSBI_OWNERSHIP_GUARD_TYPES_MQH",
+    "Include/Execution/HSBI_TransactionTypes.mqh": "HSBI_TRANSACTION_TYPES_MQH",
+    "Include/Money/HSBI_AllocationLedgerTypes.mqh": "HSBI_ALLOCATION_LEDGER_TYPES_MQH",
+    "Include/Money/HSBI_AllocationPolicyTypes.mqh": "HSBI_ALLOCATION_POLICY_TYPES_MQH",
+    "Include/Money/HSBI_BasketMoneyEvaluator.mqh": "HSBI_BASKET_MONEY_EVALUATOR_MQH",
+    "Include/Money/HSBI_BrokerMarginModel.mqh": "HSBI_BROKER_MARGIN_MODEL_MQH",
+    "Include/Money/HSBI_BrokerMoneyModel.mqh": "HSBI_BROKER_MONEY_MODEL_MQH",
+    "Include/Money/HSBI_BrokerMoneyTypes.mqh": "HSBI_BROKER_MONEY_TYPES_MQH",
+    "Include/Money/HSBI_CandidateMoneyEvaluator.mqh": "HSBI_CANDIDATE_MONEY_EVALUATOR_MQH",
+    "Include/Money/HSBI_CatchUpModel.mqh": "HSBI_CATCH_UP_MODEL_MQH",
+    "Include/Money/HSBI_CatchUpTypes.mqh": "HSBI_CATCH_UP_TYPES_MQH",
+    "Include/Money/HSBI_CostModel.mqh": "HSBI_COST_MODEL_MQH",
+    "Include/Money/HSBI_EconomicLedgerTypes.mqh": "HSBI_ECONOMIC_LEDGER_TYPES_MQH",
+    "Include/Money/HSBI_LevelMarginEvaluator.mqh": "HSBI_LEVEL_MARGIN_EVALUATOR_MQH",
+    "Include/Money/HSBI_LevelMoneyEvaluator.mqh": "HSBI_LEVEL_MONEY_EVALUATOR_MQH",
+    "Include/Money/HSBI_MoneyProofIdentity.mqh": "HSBI_MONEY_PROOF_IDENTITY_MQH",
+    "Include/Money/HSBI_MoneyState.mqh": "HSBI_MONEY_STATE_MQH",
+    "Include/Money/HSBI_MoneyTypes.mqh": "HSBI_MONEY_TYPES_MQH",
+    "Include/Money/HSBI_ReserveAllocationTypes.mqh": "HSBI_RESERVE_ALLOCATION_TYPES_MQH",
+    "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh": "HSBI_RESERVE_CATCH_UP_EVALUATOR_MQH",
+    "Include/Persistence/HSBI_ExecutionJournal.mqh": "HSBI_EXECUTION_JOURNAL_MQH",
+    "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh": "HSBI_EXECUTION_STATE_SNAPSHOT_MQH",
+    "Include/Persistence/HSBI_JournalTypes.mqh": "HSBI_JOURNAL_TYPES_MQH",
+    "Include/Persistence/HSBI_PersistenceInterface.mqh": "HSBI_PERSISTENCE_INTERFACE_MQH",
+    "Include/Persistence/HSBI_ReconciliationTypes.mqh": "HSBI_RECONCILIATION_TYPES_MQH",
+    "Include/Persistence/HSBI_SnapshotTypes.mqh": "HSBI_SNAPSHOT_TYPES_MQH",
+    "Include/Planning/HSBI_BrokerGrid.mqh": "HSBI_BROKER_GRID_MQH",
+    "Include/Planning/HSBI_CandidatePlan.mqh": "HSBI_CANDIDATE_PLAN_MQH",
+    "Include/Planning/HSBI_ControlPrices.mqh": "HSBI_CONTROL_PRICES_MQH",
+    "Include/Planning/HSBI_DecisionResult.mqh": "HSBI_DECISION_RESULT_MQH",
+    "Include/Planning/HSBI_FutureSmallProofAggregator.mqh": "HSBI_FUTURE_SMALL_PROOF_AGGREGATOR_MQH",
+    "Include/Planning/HSBI_FutureSmallSolver.mqh": "HSBI_FUTURE_SMALL_SOLVER_MQH",
+    "Include/Planning/HSBI_FutureSmallTypes.mqh": "HSBI_FUTURE_SMALL_TYPES_MQH",
+    "Include/Planning/HSBI_GeometrySolver.mqh": "HSBI_GEOMETRY_SOLVER_MQH",
+    "Include/Planning/HSBI_GeometryTypes.mqh": "HSBI_GEOMETRY_TYPES_MQH",
+    "Include/Planning/HSBI_NewFarCandidate.mqh": "HSBI_NEW_FAR_CANDIDATE_MQH",
+    "Include/Planning/HSBI_NewFarSolver.mqh": "HSBI_NEW_FAR_SOLVER_MQH",
+    "Include/Risk/HSBI_CalculationGateTypes.mqh": "HSBI_CALCULATION_GATE_TYPES_MQH",
+    "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh": "HSBI_FUTURE_SMALL_RISK_EVALUATOR_MQH",
+    "Include/Risk/HSBI_NewFarGateTypes.mqh": "HSBI_NEW_FAR_GATE_TYPES_MQH",
+    "Include/Risk/HSBI_RiskGateResult.mqh": "HSBI_RISK_GATE_RESULT_MQH",
+    "Include/Risk/HSBI_RiskTypes.mqh": "HSBI_RISK_TYPES_MQH",
+    "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh": "HSBI_RUNTIME_DECISION_TYPES_MQH",
+    "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh": "HSBI_RUNTIME_DECISION_VALIDATOR_MQH",
+    "Include/Runtime/HSBI_RuntimeRestartValidator.mqh": "HSBI_RUNTIME_RESTART_VALIDATOR_MQH",
+    "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh": "HSBI_RUNTIME_TRANSACTION_BARRIER_MQH",
+    "Include/Scenarios/HSBI_BigHarvestTypes.mqh": "HSBI_BIG_HARVEST_TYPES_MQH",
+    "Include/Scenarios/HSBI_FinalCloseTypes.mqh": "HSBI_FINAL_CLOSE_TYPES_MQH",
+    "Include/Scenarios/HSBI_InitialLockTypes.mqh": "HSBI_INITIAL_LOCK_TYPES_MQH",
+    "Include/Scenarios/HSBI_PartialFarTypes.mqh": "HSBI_PARTIAL_FAR_TYPES_MQH",
+    "Include/Scenarios/HSBI_ScenarioTypes.mqh": "HSBI_SCENARIO_TYPES_MQH",
+    "Include/Scenarios/HSBI_SmallTransitionTypes.mqh": "HSBI_SMALL_TRANSITION_TYPES_MQH"
+  },
+  "errors": []
+}
