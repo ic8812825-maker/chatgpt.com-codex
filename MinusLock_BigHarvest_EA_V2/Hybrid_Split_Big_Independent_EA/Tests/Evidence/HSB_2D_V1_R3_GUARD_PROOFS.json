@@ -1,0 +1,510 @@
+{
+  "checks": [
+    {
+      "detail": "explicit project root",
+      "id": "S001",
+      "status": "PASS"
+    },
+    {
+      "detail": "external_symlinks=[]",
+      "id": "S002",
+      "status": "PASS"
+    },
+    {
+      "detail": "main",
+      "id": "S003",
+      "status": "PASS"
+    },
+    {
+      "detail": "harness",
+      "id": "S004",
+      "status": "PASS"
+    },
+    {
+      "detail": "missing=[]",
+      "id": "S005",
+      "status": "PASS"
+    },
+    {
+      "detail": "external=[]",
+      "id": "S006",
+      "status": "PASS"
+    },
+    {
+      "detail": "cycles=0",
+      "id": "S007",
+      "status": "PASS"
+    },
+    {
+      "detail": "missing_guards=[]",
+      "id": "S008",
+      "status": "PASS"
+    },
+    {
+      "detail": "guards=73 unique=73",
+      "id": "S009",
+      "status": "PASS"
+    },
+    {
+      "detail": "runtime files",
+      "id": "S010",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=464",
+      "id": "S011",
+      "status": "PASS"
+    },
+    {
+      "detail": "duplicates=[]",
+      "id": "S012",
+      "status": "PASS"
+    },
+    {
+      "detail": "missing=[]",
+      "id": "S013",
+      "status": "PASS"
+    },
+    {
+      "detail": "summary",
+      "id": "S014",
+      "status": "PASS"
+    },
+    {
+      "detail": "accounting",
+      "id": "S015",
+      "status": "PASS"
+    },
+    {
+      "detail": "disabled stub",
+      "id": "S016",
+      "status": "PASS"
+    },
+    {
+      "detail": "forbidden=[]",
+      "id": "S017",
+      "status": "PASS"
+    },
+    {
+      "detail": "Trade.mqh",
+      "id": "S018",
+      "status": "PASS"
+    },
+    {
+      "detail": "request",
+      "id": "S019",
+      "status": "PASS"
+    },
+    {
+      "detail": "action",
+      "id": "S020",
+      "status": "PASS"
+    },
+    {
+      "detail": "web",
+      "id": "S021",
+      "status": "PASS"
+    },
+    {
+      "detail": "dll",
+      "id": "S022",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S023\", \"CONDITION\": \"!x.immutable||!HSBI_IsProductionPreflightAllowed(x.runtimeMode)\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_CONTEXT_INVALID\", \"REJECT_STATUS\": \"HSBI_DECISION_REJECTED\", \"RESULT\": \"PASS\"}",
+      "id": "S023",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S026\", \"CONDITION\": \"x.accountLogin!=account||x.symbol!=symbol||x.magic!=magic||x.cycleId!=cycle||x.planId!=plan\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_IDENTITY_MISMATCH\", \"REJECT_STATUS\": \"HSBI_DECISION_REJECTED\", \"RESULT\": \"PASS\"}",
+      "id": "S026",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S027\", \"CONDITION\": \"!x.positionActuallyRead||!x.ownershipConfirmed\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_POSITION_NOT_CONFIRMED\", \"REJECT_STATUS\": \"HSBI_DECISION_REJECTED\", \"RESULT\": \"PASS\"}",
+      "id": "S027",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S028\", \"CONDITION\": \"x.stateRevision!=revision\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_STATE_REVISION_MISMATCH\", \"REJECT_STATUS\": \"HSBI_DECISION_CONFLICT\", \"RESULT\": \"PASS\"}",
+      "id": "S028",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S029\", \"CONDITION\": \"x.eventId==0||x.actionId==0\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"x.eventId==0?HSBI_RD_EVENT_NOT_FRESH:HSBI_RD_ACTION_ID_MISMATCH\", \"REJECT_STATUS\": \"HSBI_DECISION_REJECTED\", \"RESULT\": \"PASS\"}",
+      "id": "S029",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S031\", \"CONDITION\": \"x.schemaVersion!=HSBI_SCHEMA_VERSION\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_SCHEMA_VERSION_MISMATCH\", \"REJECT_STATUS\": \"HSBI_DECISION_REJECTED\", \"RESULT\": \"PASS\"}",
+      "id": "S031",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S032\", \"CONDITION\": \"x.moneyStateVersion!=HSBI_MONEY_STATE_VERSION\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_MONEY_STATE_VERSION_MISMATCH\", \"REJECT_STATUS\": \"HSBI_DECISION_REJECTED\", \"RESULT\": \"PASS\"}",
+      "id": "S032",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S033\", \"CONDITION\": \"!x.marketFresh||!x.costFresh||!x.allocationPolicy.fresh\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_STALE_SNAPSHOT\", \"REJECT_STATUS\": \"HSBI_DECISION_STALE\", \"RESULT\": \"PASS\"}",
+      "id": "S033",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S034\", \"CONDITION\": \"x.reconciliationConflict\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_RECONCILIATION_CONFLICT\", \"REJECT_STATUS\": \"HSBI_DECISION_CONFLICT\", \"RESULT\": \"PASS\"}",
+      "id": "S034",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S035\", \"CONDITION\": \"!x.residualActual||!HSBI_RuntimePositionMatches(x.actualResidual,x,HSBI_ROLE_BIG_CORE)\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_ACTUAL_RESIDUAL_REQUIRED\", \"REJECT_STATUS\": \"HSBI_DECISION_REJECTED\", \"RESULT\": \"PASS\"}",
+      "id": "S035",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S036\", \"CONDITION\": \"!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!HSBI_ValidateReserveAllocationSource(x.allocationSource)\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_ALLOCATION_CONFLICT\", \"REJECT_STATUS\": \"HSBI_DECISION_CONFLICT\", \"RESULT\": \"PASS\"}",
+      "id": "S036",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S038\", \"CONDITION\": \"!x.persistencePrepared\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_PERSISTENCE_REQUIRED\", \"REJECT_STATUS\": \"HSBI_DECISION_PERSISTENCE_REQUIRED\", \"RESULT\": \"PASS\"}",
+      "id": "S038",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S039D\", \"CONDITION\": \"x.inputDigest==||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x)\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRuntimeDecisionContext\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_DIGEST_MISMATCH\", \"REJECT_STATUS\": \"HSBI_DECISION_CONFLICT\", \"RESULT\": \"PASS\"}",
+      "id": "S039D",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S024\", \"CONDITION\": \"!s.historyUnchanged||s.sourceReused||s.payloadConflict\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRestartedRuntimeState\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_DOUBLE_COUNT_BLOCKED\", \"REJECT_STATUS\": \"HSBI_DECISION_CONFLICT\", \"RESULT\": \"PASS\"}",
+      "id": "S024",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S037\", \"CONDITION\": \"s.duplicateConsumption\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRestartedRuntimeState\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_OK\", \"REJECT_STATUS\": \"HSBI_DECISION_NO_OP\", \"RESULT\": \"PASS\"}",
+      "id": "S037",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S038R\", \"CONDITION\": \"!s.snapshotPresent||s.persistedDigest==\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_ValidateRestartedRuntimeState\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_PERSISTENCE_REQUIRED\", \"REJECT_STATUS\": \"HSBI_DECISION_PERSISTENCE_REQUIRED\", \"RESULT\": \"PASS\"}",
+      "id": "S038R",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S025\", \"CONDITION\": \"b.context.eventId<=b.expectedEventId\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_CanAdvanceRuntimeDecision\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_EVENT_NOT_FRESH\", \"REJECT_STATUS\": \"HSBI_DECISION_REJECTED\", \"RESULT\": \"PASS\"}",
+      "id": "S025",
+      "status": "PASS"
+    },
+    {
+      "detail": "{\"BEFORE_SUCCESS\": true, \"CHECK_ID\": \"S030\", \"CONDITION\": \"b.context.actionId!=b.expectedActionId\", \"DOMINATES_SUCCESS\": true, \"FUNCTION\": \"HSBI_CanAdvanceRuntimeDecision\", \"REACHABLE\": true, \"REASON_CODE\": \"HSBI_RD_ACTION_ID_MISMATCH\", \"REJECT_STATUS\": \"HSBI_DECISION_CONFLICT\", \"RESULT\": \"PASS\"}",
+      "id": "S030",
+      "status": "PASS"
+    },
+    {
+      "detail": "active digest identity binding",
+      "id": "S039",
+      "status": "PASS"
+    },
+    {
+      "detail": "position matcher identifier/ticket",
+      "id": "S027",
+      "status": "PASS"
+    },
+    {
+      "detail": "unresolved pending proof",
+      "id": "S038R",
+      "status": "PASS"
+    },
+    {
+      "detail": "barrier payload/money/ownership/persistence",
+      "id": "S025",
+      "status": "PASS"
+    },
+    {
+      "detail": "barrier action compatibility",
+      "id": "S025",
+      "status": "PASS"
+    },
+    {
+      "detail": "restart residual identity",
+      "id": "S024",
+      "status": "PASS"
+    },
+    {
+      "detail": "documents=README_RU.md,BUILD_INFO.md,PROJECT_MAP_RU.md,CHANGELOG_RU.md,Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md,Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md,Docs/22_OPEN_DECISIONS_REGISTER_RU.md forbidden=[]",
+      "id": "S040A",
+      "status": "PASS"
+    },
+    {
+      "detail": "missing={}",
+      "id": "S040B",
+      "status": "PASS"
+    },
+    {
+      "detail": "wrong={}",
+      "id": "S040C",
+      "status": "PASS"
+    },
+    {
+      "detail": "markers={'README_RU.md': (1, 1), 'BUILD_INFO.md': (1, 1), 'PROJECT_MAP_RU.md': (1, 1), 'CHANGELOG_RU.md': (1, 1), 'Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md': (1, 1), 'Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md': (1, 1), 'Docs/22_OPEN_DECISIONS_REGISTER_RU.md': (1, 1)}",
+      "id": "S044A",
+      "status": "PASS"
+    },
+    {
+      "detail": "parseable",
+      "id": "S044B",
+      "status": "PASS"
+    },
+    {
+      "detail": "duplicates=[]",
+      "id": "S044C",
+      "status": "PASS"
+    },
+    {
+      "detail": "maps equal",
+      "id": "S044D",
+      "status": "PASS"
+    },
+    {
+      "detail": "documents=README_RU.md,BUILD_INFO.md,PROJECT_MAP_RU.md,CHANGELOG_RU.md,Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md,Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md,Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+      "id": "S044E",
+      "status": "PASS"
+    },
+    {
+      "detail": "missing=[] extra=[] duplicate=[] external=[] bad=[]",
+      "id": "S045",
+      "status": "PASS"
+    },
+    {
+      "detail": "evidence seal verified",
+      "id": "S046E",
+      "status": "PASS"
+    },
+    {
+      "detail": "passed=24/24",
+      "id": "SLEX24",
+      "status": "PASS"
+    },
+    {
+      "detail": "scope=[]",
+      "id": "S048",
+      "status": "PASS"
+    }
+  ],
+  "guard_proofs": [
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S023",
+      "CONDITION": "!x.immutable||!HSBI_IsProductionPreflightAllowed(x.runtimeMode)",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_CONTEXT_INVALID",
+      "REJECT_STATUS": "HSBI_DECISION_REJECTED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S026",
+      "CONDITION": "x.accountLogin!=account||x.symbol!=symbol||x.magic!=magic||x.cycleId!=cycle||x.planId!=plan",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_IDENTITY_MISMATCH",
+      "REJECT_STATUS": "HSBI_DECISION_REJECTED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S027",
+      "CONDITION": "!x.positionActuallyRead||!x.ownershipConfirmed",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_POSITION_NOT_CONFIRMED",
+      "REJECT_STATUS": "HSBI_DECISION_REJECTED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S028",
+      "CONDITION": "x.stateRevision!=revision",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_STATE_REVISION_MISMATCH",
+      "REJECT_STATUS": "HSBI_DECISION_CONFLICT",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S029",
+      "CONDITION": "x.eventId==0||x.actionId==0",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "x.eventId==0?HSBI_RD_EVENT_NOT_FRESH:HSBI_RD_ACTION_ID_MISMATCH",
+      "REJECT_STATUS": "HSBI_DECISION_REJECTED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S031",
+      "CONDITION": "x.schemaVersion!=HSBI_SCHEMA_VERSION",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_SCHEMA_VERSION_MISMATCH",
+      "REJECT_STATUS": "HSBI_DECISION_REJECTED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S032",
+      "CONDITION": "x.moneyStateVersion!=HSBI_MONEY_STATE_VERSION",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_MONEY_STATE_VERSION_MISMATCH",
+      "REJECT_STATUS": "HSBI_DECISION_REJECTED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S033",
+      "CONDITION": "!x.marketFresh||!x.costFresh||!x.allocationPolicy.fresh",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_STALE_SNAPSHOT",
+      "REJECT_STATUS": "HSBI_DECISION_STALE",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S034",
+      "CONDITION": "x.reconciliationConflict",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "REJECT_STATUS": "HSBI_DECISION_CONFLICT",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S035",
+      "CONDITION": "!x.residualActual||!HSBI_RuntimePositionMatches(x.actualResidual,x,HSBI_ROLE_BIG_CORE)",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_ACTUAL_RESIDUAL_REQUIRED",
+      "REJECT_STATUS": "HSBI_DECISION_REJECTED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S036",
+      "CONDITION": "!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!HSBI_ValidateReserveAllocationSource(x.allocationSource)",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_ALLOCATION_CONFLICT",
+      "REJECT_STATUS": "HSBI_DECISION_CONFLICT",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S038",
+      "CONDITION": "!x.persistencePrepared",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_PERSISTENCE_REQUIRED",
+      "REJECT_STATUS": "HSBI_DECISION_PERSISTENCE_REQUIRED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S039D",
+      "CONDITION": "x.inputDigest==||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x)",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRuntimeDecisionContext",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_DIGEST_MISMATCH",
+      "REJECT_STATUS": "HSBI_DECISION_CONFLICT",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S024",
+      "CONDITION": "!s.historyUnchanged||s.sourceReused||s.payloadConflict",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRestartedRuntimeState",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_DOUBLE_COUNT_BLOCKED",
+      "REJECT_STATUS": "HSBI_DECISION_CONFLICT",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S037",
+      "CONDITION": "s.duplicateConsumption",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRestartedRuntimeState",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_OK",
+      "REJECT_STATUS": "HSBI_DECISION_NO_OP",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S038R",
+      "CONDITION": "!s.snapshotPresent||s.persistedDigest==",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_ValidateRestartedRuntimeState",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_PERSISTENCE_REQUIRED",
+      "REJECT_STATUS": "HSBI_DECISION_PERSISTENCE_REQUIRED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S025",
+      "CONDITION": "b.context.eventId<=b.expectedEventId",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_CanAdvanceRuntimeDecision",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_EVENT_NOT_FRESH",
+      "REJECT_STATUS": "HSBI_DECISION_REJECTED",
+      "RESULT": "PASS"
+    },
+    {
+      "BEFORE_SUCCESS": true,
+      "CHECK_ID": "S030",
+      "CONDITION": "b.context.actionId!=b.expectedActionId",
+      "DOMINATES_SUCCESS": true,
+      "FUNCTION": "HSBI_CanAdvanceRuntimeDecision",
+      "REACHABLE": true,
+      "REASON_CODE": "HSBI_RD_ACTION_ID_MISMATCH",
+      "REJECT_STATUS": "HSBI_DECISION_CONFLICT",
+      "RESULT": "PASS"
+    }
+  ],
+  "metrics": {
+    "DUPLICATES": 0,
+    "EXTERNAL_PATHS": 0,
+    "EXTRA": 0,
+    "HASH_MISMATCHES": 0,
+    "LEXER_SELF_TESTS_FAILED": 0,
+    "LEXER_SELF_TESTS_REQUIRED": 24,
+    "MISSING": 0,
+    "SEAL_DUPLICATES": 0,
+    "SEAL_EXTRA": 0,
+    "SEAL_HASH_MISMATCHES": 0,
+    "SEAL_MISSING": 0,
+    "STATUS_DOCUMENTS_VERIFIED": 7,
+    "STATUS_DOCUMENT_MISMATCHES": 0
+  },
+  "result": "PASS"
+}
