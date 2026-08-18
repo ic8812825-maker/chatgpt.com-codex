@@ -33,11 +33,31 @@ def parse(stdout):
   parts=line.split('|',2)
   if len(parts)>=2 and parts[0].startswith('S'):statuses[parts[0]]=parts[1];failed += [parts[0]] if parts[1]=='FAIL' else []
  return failed,statuses
+def classify(applied,unexpected,crashed,returncode,failed,expected,mutation_type,manifest_status):
+ if not applied:return "MUTATION_NOT_APPLIED"
+ if unexpected:return "UNEXPECTED_FILES_CHANGED"
+ if crashed:return "INFRASTRUCTURE_FAILURE"
+ if returncode==0:return "SURVIVED"
+ if failed==["S045"] and "S045" not in expected:return "INVALID_MANIFEST_ONLY_DETECTION"
+ if not all(x in failed for x in expected):return "WRONG_FAILURE"
+ if mutation_type=="semantic" and manifest_status!="PASS":return "INVALID_MANIFEST_FAILURE"
+ return "CAUGHT"
 def selftests(catalog):
- ids=[m['id'] for m in catalog];cases={
- 'MR001':not Path('/definitely/not/found').exists(),'MR002':'x'.count('y')==0,'MR003':set(['a','b'])-set(['a'])=={'b'},
- 'MR004':True,'MR005':0==0,'MR006':parse('S045|FAIL|x')[0]==['S045'],'MR007':'S028' not in parse('S045|FAIL|x')[0],
- 'MR008':True,'MR009':len(ids)==len(set(ids)),'MR010':set(f'M{i:03}' for i in range(1,56))<=set(ids)}
+ ids=[m['id'] for m in catalog];cases={}
+ with tempfile.TemporaryDirectory(prefix='hsbi-mr-') as td:
+  r=Path(td);missing={'target':'absent','mutation_type':'semantic'}
+  try:apply(missing,r);cases['MR001']=False
+  except FileNotFoundError:cases['MR001']=True
+  (r/'x').write_text('a',encoding='utf-8');bad={'target':'x','mutation_type':'semantic','old':'z','new':'q'}
+  try:apply(bad,r);cases['MR002']=False
+  except RuntimeError:cases['MR002']=True
+  cases['MR003']=classify(True,['extra'],False,1,['S028'],['S028'],'semantic','PASS')=='UNEXPECTED_FILES_CHANGED'
+  cp=subprocess.run([sys.executable,'-c','import sys;sys.exit(3)']);cases['MR004']=classify(True,[],cp.returncode not in (0,1),cp.returncode,[],['S028'],'semantic','PASS')=='INFRASTRUCTURE_FAILURE'
+  cases['MR005']=classify(True,[],False,0,[],['S028'],'semantic','PASS')=='SURVIVED'
+  cases['MR006']=classify(True,[],False,1,['S045'],['S028'],'semantic','FAIL')=='INVALID_MANIFEST_ONLY_DETECTION'
+  cases['MR007']=classify(True,[],False,1,['S040'],['S028'],'semantic','PASS')=='WRONG_FAILURE'
+ with tempfile.TemporaryDirectory(prefix='hsbi-mr-clean-') as td2:q=Path(td2)
+ cases['MR008']=not q.exists();cases['MR009']=len(ids)==len(set(ids));cases['MR010']=set(f'M{i:03}' for i in range(1,56))<=set(ids)
  return [{'id':k,'status':'PASS' if v else 'FAIL'} for k,v in cases.items()]
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--root',required=True);ap.add_argument('--catalog',default='Tests/Static/hsb_2d_v1_r1_mutations.json');ap.add_argument('--output-json');ap.add_argument('--output-text');a=ap.parse_args();root=Path(a.root).resolve();catalog=json.loads((root/a.catalog).read_text(encoding='utf-8'))
@@ -58,14 +78,7 @@ def main():
     if m['mutation_type']=='semantic':allowed.add('Reports/HSB_2D_V1_R1_FILE_MANIFEST_SHA256.txt')
     rec['changed_files']=changed;rec['unexpected_changed_files']=sorted(set(changed)-allowed);rec['applied']=m['target'] in changed
     cp=subprocess.run([sys.executable,str(copy/'Tests/Static/verify_hsb_2d_v1_r1.py'),'--root',str(copy),'--fixture-mode'],text=True,capture_output=True);rec['verifier_started']=True;rec['verifier_exit_code']=cp.returncode;rec['verifier_crashed']=cp.returncode not in (0,1);failed,status=parse(cp.stdout);rec['actual_failed_checks']=failed;rec['manifest_check_status']=status.get('S045','MISSING');rec['stdout_sha256']=hashlib.sha256(cp.stdout.encode()).hexdigest();rec['stderr_sha256']=hashlib.sha256(cp.stderr.encode()).hexdigest();expected=all(x in failed for x in m['expected_check_ids']);manifest_only=failed==['S045'] and 'S045' not in m['expected_check_ids'];rec['primary_failure_check']=failed[0] if failed else '';rec['secondary_failure_checks']=failed[1:];rec['manifest_only_failure']=manifest_only
-    if not rec['applied']:result='MUTATION_NOT_APPLIED'
-    elif rec['unexpected_changed_files']:result='UNEXPECTED_FILES_CHANGED'
-    elif rec['verifier_crashed']:result='INFRASTRUCTURE_FAILURE'
-    elif cp.returncode==0:result='SURVIVED'
-    elif manifest_only:result='INVALID_MANIFEST_ONLY_DETECTION'
-    elif not expected:result='WRONG_FAILURE'
-    elif m['mutation_type']=='semantic' and rec['manifest_check_status']!='PASS':result='INVALID_MANIFEST_FAILURE'
-    else:result='CAUGHT'
+    result=classify(rec['applied'],rec['unexpected_changed_files'],rec['verifier_crashed'],cp.returncode,failed,m['expected_check_ids'],m['mutation_type'],rec['manifest_check_status'])
     rec['result']=result;rec['stdout']=cp.stdout;rec['stderr']=cp.stderr
   except Exception as e:rec.update(result='INFRASTRUCTURE_FAILURE',error=f'{type(e).__name__}:{e}',verifier_exit_code=None,actual_failed_checks=[])
   finally:rec['temporary_copy_removed']=temp_path is None or not temp_path.exists()
