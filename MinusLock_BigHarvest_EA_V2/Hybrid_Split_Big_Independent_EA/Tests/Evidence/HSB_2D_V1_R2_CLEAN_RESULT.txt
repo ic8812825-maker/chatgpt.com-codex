@@ -1,0 +1,77 @@
+S001|PASS|explicit project root
+S002|PASS|external_symlinks=[]
+S003|PASS|main
+S004|PASS|harness
+S005|PASS|missing=[]
+S006|PASS|external=[]
+S007|PASS|cycles=0
+S008|PASS|missing_guards=[]
+S009|PASS|guards=73 unique=73
+S010|PASS|runtime files
+S011|PASS|unique=464
+S012|PASS|duplicates=[]
+S013|PASS|missing=[]
+S014|PASS|summary
+S015|PASS|accounting
+S016|PASS|disabled stub
+S017|PASS|forbidden=[]
+S018|PASS|Trade.mqh
+S019|PASS|request
+S020|PASS|action
+S021|PASS|web
+S022|PASS|dll
+S023|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S026|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S027|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S028|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S029|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S030|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh token-proof
+S031|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S032|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S033|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S034|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S035|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S036|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S037|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeRestartValidator.mqh token-proof
+S038|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S038R|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeRestartValidator.mqh token-proof
+S039|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionTypes.mqh token-proof
+S039D|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeDecisionValidator.mqh token-proof
+S025|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh token-proof
+S024|PASS|ACTIVE_CODE Include/Runtime/HSBI_RuntimeRestartValidator.mqh token-proof
+S028|PASS|revision bypass proof
+S027|PASS|position/ownership composite
+S038|PASS|persistence before success
+S038R|PASS|restart pending persistence
+S039|PASS|digest binding composite
+S025|PASS|barrier composite
+S024|PASS|restart composite
+S040A|PASS|documents=README_RU.md,BUILD_INFO.md,PROJECT_MAP_RU.md,CHANGELOG_RU.md,Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md,Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md,Docs/22_OPEN_DECISIONS_REGISTER_RU.md forbidden=[]
+S040B|PASS|documents=README_RU.md,BUILD_INFO.md,PROJECT_MAP_RU.md,CHANGELOG_RU.md,Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md,Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md,Docs/22_OPEN_DECISIONS_REGISTER_RU.md missing={}
+S040C|PASS|wrong={}
+S044A|PASS|markers={'README_RU.md': (1, 1, True), 'BUILD_INFO.md': (1, 1, True), 'PROJECT_MAP_RU.md': (1, 1, True), 'CHANGELOG_RU.md': (1, 1, True), 'Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md': (1, 1, True), 'Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md': (1, 1, True), 'Docs/22_OPEN_DECISIONS_REGISTER_RU.md': (1, 1, True)}
+S044B|PASS|parseable=True
+S044C|PASS|duplicates=[]
+S044D|PASS|maps=7 equal
+S044E|PASS|documents=README_RU.md,BUILD_INFO.md,PROJECT_MAP_RU.md,CHANGELOG_RU.md,Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md,Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md,Docs/22_OPEN_DECISIONS_REGISTER_RU.md
+S040|PASS|R1 compatibility status aggregate
+S045|PASS|missing=[] extra=[] duplicates=[] external=[] bad=[]
+S046E|PASS|evidence seal verified
+SLEX10|PASS|LEXER_SELF_TESTS=10/10
+S048|PASS|scope=[]
+HSB_2D_V1_R2_STATIC_SUMMARY
+CLEAN_STATIC_CHECKS=61
+CLEAN_PASS=61
+CLEAN_FAIL=0
+DUPLICATES=0
+EVIDENCE_FILES_SEALED=7
+EXPECTED_FILES=100
+EXTRA=0
+HASH_MISMATCHES=0
+LEXER_SELF_TESTS=10
+MANIFEST_FILES=100
+MISSING=0
+STATUS_DOCUMENTS_REQUIRED=7
+STATUS_DOCUMENTS_VERIFIED=7
+STATUS_DOCUMENT_MISMATCHES=0
+RESULT=PASS
