@@ -33,3 +33,16 @@ REAL_TRADING_ALLOWED=NO
 ```
 
 Собственный commit SHA не встраивается во избежание ложной self-reference. Запись фиксирует опубликованный content SHA и не изменяет manifest expected set.
+
+## Append-only уточнение self-tests
+
+После первой publication record mutation-runner self-tests MR001–MR010 были усилены реальными failure-path вызовами; история не переписывалась.
+
+```text
+CORRECTED_FINAL_CONTENT_SHA=d7143bf31ea1f2051647a9f5387b44fa32140a14
+RUNNER_SELF_TESTS=10/10
+END_TO_END_MUTATION_SUITE=PASS
+MUTATIONS_CAUGHT=55
+MUTATIONS_SURVIVED=0
+FINAL_PUBLICATION_RECORD_SHA=SELF_REFERENCE_NOT_EMBEDDED
+```
