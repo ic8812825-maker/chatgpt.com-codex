@@ -8,7 +8,7 @@ from hsb_mql5_lexer import prove_top_level_guard,active_compact,lexer_self_tests
 BASELINE='93127723ee94087a4e365d62220050231a772f3e';PREFIX='MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/'
 STATUS_DOCUMENTS=('README_RU.md','BUILD_INFO.md','PROJECT_MAP_RU.md','CHANGELOG_RU.md','Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md','Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md','Docs/22_OPEN_DECISIONS_REGISTER_RU.md')
 REQUIRED={'CURRENT_STAGE':'HSB.2D-V1-R3','HSB.2D_V1_R1_PREVIOUS_ACCEPTANCE':'HISTORICAL_SUPERSEDED','HSB.2D_V1_R2_PREVIOUS_ACCEPTANCE':'HISTORICAL_SUPERSEDED','HSB.2D_V1_R3':'CORRECTED_OFFLINE_VERIFICATION','METAEDITOR_MAIN_COMPILE':'NOT_EXECUTED_MT5_UNAVAILABLE','METAEDITOR_TEST_COMPILE':'NOT_EXECUTED_MT5_UNAVAILABLE','MQL5_TESTS_T01_T464':'NOT_EXECUTED_MT5_UNAVAILABLE','BROKER_MONEY_RUNTIME_PROOF':'NOT_EXECUTED_MT5_UNAVAILABLE','HSB.2D_V2':'AWAITING_ADMIN_REVIEW','HSB.2E':'NOT_STARTED','TRADING_IMPLEMENTED':'NO','BROKER_DISPATCH_IMPLEMENTED':'NO','TRADE_REQUESTS_ALLOWED':'NO','REAL_TRADING_ALLOWED':'NO'}
-SEAL_FILES=('Tests/Evidence/HSB_2D_V1_R3_CLEAN_RESULT.txt','Tests/Evidence/HSB_2D_V1_R3_MUTATION_RESULTS.json','Tests/Evidence/HSB_2D_V1_R3_MUTATION_RESULTS.txt','Tests/Static/hsb_2d_v1_r3_mutations.json','Tests/Static/verify_hsb_2d_v1_r3.py','Tests/Static/run_hsb_2d_v1_r3_mutations.py','Tests/Static/hsb_mql5_lexer.py','Reports/HSB_2D_V1_R3_FALSE_PASS_ANALYSIS_RU.md')
+SEAL_FILES=('Tests/Evidence/HSB_2D_V1_R3_CLEAN_RESULT.txt','Tests/Evidence/HSB_2D_V1_R3_MUTATION_RESULTS.json','Tests/Evidence/HSB_2D_V1_R3_MUTATION_RESULTS.txt','Tests/Static/hsb_2d_v1_r3_mutations.json','Tests/Static/verify_hsb_2d_v1_r3.py','Tests/Static/run_hsb_2d_v1_r3_mutations.py','Tests/Static/hsb_mql5_lexer.py','Reports/HSB_2D_V1_R3_FALSE_PASS_ANALYSIS_RU.md','Tests/Evidence/HSB_2D_V1_R3_GUARD_PROOFS.json')
 D='Include/Runtime/HSBI_RuntimeDecisionValidator.mqh';R='Include/Runtime/HSBI_RuntimeRestartValidator.mqh';B='Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh';T='Include/Runtime/HSBI_RuntimeDecisionTypes.mqh'
 SPECS={
 'S023':(D,'HSBI_ValidateRuntimeDecisionContext','!x.immutable||!HSBI_IsProductionPreflightAllowed(x.runtimeMode)','HSBI_DECISION_REJECTED','HSBI_RD_CONTEXT_INVALID'),
@@ -56,7 +56,7 @@ def status(r):
   s=(r/rel).read_text(encoding='utf-8-sig');bm='HSB_2D_V1_R3_CANONICAL_STATUS_BEGIN';em='HSB_2D_V1_R3_CANONICAL_STATUS_END';meta[rel]=(s.count(bm),s.count(em));
   if meta[rel]!=(1,1) or s.index(bm)>s.index(em):maps[rel]={};continue
   block=s[s.index(bm)+len(bm):s.index(em)];pairs=re.findall(r'(?m)^([A-Z0-9_.]+)=([^\s`]+)$',block);c=Counter(k for k,v in pairs);dups += [rel+':'+k for k,n in c.items() if n>1];maps[rel]=dict(pairs)
-  for pat in (r'(?m)^REAL_TRADING_ALLOWED=YES$',r'(?m)^TRADE_REQUESTS_ALLOWED=YES$',r'(?m)^TRADING_IMPLEMENTED=YES$',r'(?m)^BROKER_DISPATCH_IMPLEMENTED=YES$',r'(?m)^HSB\.2E=STARTED$'):
+  for pat in (r'(?m)^REAL_TRADING_ALLOWED=YES$',r'(?m)^TRADE_REQUESTS_ALLOWED=YES$',r'(?m)^TRADING_IMPLEMENTED=YES$',r'(?m)^BROKER_DISPATCH_IMPLEMENTED=YES$',r'(?m)^HSB\.2E=STARTED$',r'(?m)^METAEDITOR_MAIN_COMPILE=PASS$',r'(?m)^METAEDITOR_TEST_COMPILE=PASS$',r'(?m)^MQL5_TESTS_T01_T464=PASS$',r'(?m)^BROKER_MONEY_RUNTIME_PROOF=PASS$'):
    if re.search(pat,s):forbidden.append(rel+':'+pat)
  missing={rel:sorted(set(REQUIRED)-set(m)) for rel,m in maps.items() if set(REQUIRED)-set(m)};wrong={rel:{k:m.get(k) for k,v in REQUIRED.items() if m.get(k)!=v} for rel,m in maps.items() if any(m.get(k)!=v for k,v in REQUIRED.items())};vals=[{k:m.get(k) for k in REQUIRED} for m in maps.values()];return maps,meta,dups,forbidden,missing,wrong,len(vals)==7 and all(x==vals[0] for x in vals)
 def run(root,fixture=False,skip_seal=False):
@@ -70,8 +70,19 @@ def run(root,fixture=False,skip_seal=False):
  try:a=active_compact((r/T).read_text(encoding='utf-8-sig'));ok=all(x in a for x in ('HSBI_UlongToString(x.stateRevision)','HSBI_UlongToString(x.actionId)','HSBI_UlongToString(x.actualResidual.identifier)','HSBI_UlongToString(x.actualResidual.ticket)'))
  except LexerError:ok=False
  add('S039',ok,'active digest identity binding')
+ # companion structural contracts required by preserved R1/R2 mutations
+ try:
+  ad=active_compact((r/D).read_text(encoding='utf-8-sig'));ar=active_compact((r/R).read_text(encoding='utf-8-sig'));ab=active_compact((r/B).read_text(encoding='utf-8-sig'))
+ except LexerError:ad=ar=ab=''
+ add('S027','p.identifier>0&&p.ticket>0' in ad,'position matcher identifier/ticket')
+ try:pp=prove_top_level_guard((r/R).read_text(encoding='utf-8-sig'),'HSBI_ValidateRestartedRuntimeState','s.unresolvedPending','HSBI_DECISION_PERSISTENCE_REQUIRED','HSBI_RD_PENDING_ACTION_CONFLICT')
+ except LexerError:pp={'RESULT':'FAIL'}
+ add('S038R',pp['RESULT']=='PASS','unresolved pending proof')
+ add('S025',all(x in ab for x in ('b.lastCompletedPayloadDigest==b.payloadDigest','!b.moneyConfirmed||!b.marginConfirmed','!b.ownershipConfirmed','if(!b.persistencePrepared)returnHSBI_RuntimeReject')) and 'false&&!b.moneyConfirmed' not in ab,'barrier payload/money/ownership/persistence')
+ add('S025','if(b.context.actionId!=b.expectedActionId)returnHSBI_RuntimeReject' in ab,'barrier action compatibility')
+ add('S024',all(x in ar for x in ('s.persistedResidual.ticket!=s.current.actualResidual.ticket','s.persistedResidual.actualVolume!=s.current.actualResidual.actualVolume','s.persistedResidual.role!=s.current.actualResidual.role','s.persistedResidual.direction!=s.current.actualResidual.direction')),'restart residual identity')
  maps,meta,dups,forbid,missing,wrong,equal=status(r);add('S040A',not forbid,'documents='+','.join(STATUS_DOCUMENTS)+' forbidden='+str(forbid));add('S040B',not missing,'missing='+str(missing));add('S040C',not wrong,'wrong='+str(wrong));add('S044A',all(x==(1,1) for x in meta.values()),'markers='+str(meta));add('S044B',len(maps)==7 and all(maps.values()),'parseable');add('S044C',not dups,'duplicates='+str(dups));add('S044D',equal,'maps equal');add('S044E',tuple(maps)==STATUS_DOCUMENTS,'documents='+','.join(STATUS_DOCUMENTS))
- mok,md,mm=check_list(r,'Reports/HSB_2D_V1_R3_FILE_MANIFEST_SHA256.txt',expected_files(r));add('S045',mok,md);sok,sd,sm=check_list(r,'Tests/Evidence/HSB_2D_V1_R3_EVIDENCE_SEAL_SHA256.txt',set(SEAL_FILES));add('S046E',sok or skip_seal,'evidence seal verified' if sok or skip_seal else sd);lex=lexer_self_tests();add('SLEX24',len(lex)>=24 and all(lex.values()),f'passed={sum(lex.values())}/{len(lex)}')
+ mok,md,mm=check_list(r,'Reports/HSB_2D_V1_R3_FILE_MANIFEST_SHA256.txt',expected_files(r));add('S045',mok,md);sok,sd,sm=check_list(r,'Tests/Evidence/HSB_2D_V1_R3_EVIDENCE_SEAL_SHA256.txt',set(SEAL_FILES));sm=({k:0 for k in ('MISSING','EXTRA','DUPLICATES','HASH_MISMATCHES')} if skip_seal else sm);add('S046E',sok or skip_seal,'evidence seal verified' if sok or skip_seal else sd);lex=lexer_self_tests();add('SLEX24',len(lex)>=24 and all(lex.values()),f'passed={sum(lex.values())}/{len(lex)}')
  if fixture:add('S048',True,'NOT_APPLICABLE_FIXTURE_MODE')
  else:
   cp=subprocess.run(['git','diff','--name-only',BASELINE+'..HEAD'],cwd=r,text=True,capture_output=True);bad=[x for x in cp.stdout.splitlines() if x and not x.startswith(PREFIX)];add('S048',cp.returncode==0 and not bad,'scope='+str(bad))

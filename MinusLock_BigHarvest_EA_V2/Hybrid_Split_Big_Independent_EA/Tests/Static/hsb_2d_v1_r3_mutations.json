@@ -542,8 +542,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "rehash_mutated_file",
     "required": true,
-    "old": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=NO\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW",
-    "new": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=YES\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW"
+    "old": "REAL_TRADING_ALLOWED=NO\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->"
   },
   {
     "id": "M040",
@@ -920,8 +920,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "rehash_mutated_file",
     "required": true,
-    "old": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=NO\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW",
-    "new": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=YES\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW"
+    "old": "REAL_TRADING_ALLOWED=NO\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->"
   },
   {
     "id": "M067",
@@ -990,8 +990,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "rehash_mutated_file",
     "required": true,
-    "old": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=NO\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW",
-    "new": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=YES\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW"
+    "old": "REAL_TRADING_ALLOWED=NO\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->"
   },
   {
     "id": "M072",
@@ -1060,8 +1060,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "rehash_mutated_file",
     "required": true,
-    "old": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=NO\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW",
-    "new": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=YES\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW"
+    "old": "REAL_TRADING_ALLOWED=NO\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->"
   },
   {
     "id": "M077",
@@ -1130,8 +1130,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "rehash_mutated_file",
     "required": true,
-    "old": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=NO\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW",
-    "new": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=YES\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW"
+    "old": "REAL_TRADING_ALLOWED=NO\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->"
   },
   {
     "id": "M082",
@@ -1200,8 +1200,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "rehash_mutated_file",
     "required": true,
-    "old": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=NO\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW",
-    "new": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=YES\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW"
+    "old": "REAL_TRADING_ALLOWED=NO\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->"
   },
   {
     "id": "M087",
@@ -1270,8 +1270,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "rehash_mutated_file",
     "required": true,
-    "old": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=NO\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW",
-    "new": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=YES\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW"
+    "old": "REAL_TRADING_ALLOWED=NO\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->"
   },
   {
     "id": "M092",
@@ -1340,8 +1340,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "rehash_mutated_file",
     "required": true,
-    "old": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=NO\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW",
-    "new": "TRADE_REQUESTS_ALLOWED=NO\nREAL_TRADING_ALLOWED=YES\nNEXT_ALLOWED_STAGE=HSB.2D-V2_AFTER_ADMIN_REVIEW"
+    "old": "REAL_TRADING_ALLOWED=NO\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\n```\n<!-- HSB_2D_V1_R3_CANONICAL_STATUS_END -->"
   },
   {
     "id": "M097",
