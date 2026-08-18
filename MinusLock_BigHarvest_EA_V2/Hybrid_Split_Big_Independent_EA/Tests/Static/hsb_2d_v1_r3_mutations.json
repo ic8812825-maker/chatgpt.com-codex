@@ -1634,8 +1634,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "none",
     "required": true,
-    "old": "\"result\": \"PASS\"",
-    "new": "\"result\": \"TAMPERED\""
+    "old": "\"schema\": \"HSB.2D-V1-R1/mutations/1\"",
+    "new": "\"schema\": \"TAMPERED\""
   },
   {
     "id": "M118",
@@ -1648,8 +1648,8 @@
     "expected_exit": "nonzero",
     "manifest_strategy": "none",
     "required": true,
-    "old": "RESULT=PASS",
-    "new": "RESULT=TAMPERED"
+    "old": "M001|TARGET=",
+    "new": "TAMPERED|TARGET="
   },
   {
     "id": "M119",

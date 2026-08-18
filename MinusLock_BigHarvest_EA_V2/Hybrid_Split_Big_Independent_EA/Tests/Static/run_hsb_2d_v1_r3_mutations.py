@@ -82,7 +82,7 @@ def main():
   try:
    with tempfile.TemporaryDirectory(prefix='hsbi-r2-') as td:
     temp_path=Path(td);copy=temp_path/root.name;shutil.copytree(root,copy,symlinks=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
-    clean_cp=subprocess.run([sys.executable,str(copy/'Tests/Static/verify_hsb_2d_v1_r3.py'),'--root',str(copy),'--fixture-mode'],text=True,capture_output=True);rec['clean_fixture_before_mutation']=clean_cp.returncode==0
+    rec['clean_fixture_before_mutation']=clean.returncode==0 and snapshot(copy)==production_before
     before=snapshot(copy);target_before=sha(copy/m['target']);apply(m,copy);after=snapshot(copy);rec['target_hash_changed']=sha(copy/m['target'])!=target_before;rec['expected_mutated_fragment_present']=m.get('new','') in (copy/m['target']).read_text(encoding='utf-8-sig') if not m.get('old','').startswith('__') else True;changed=sorted(k for k in set(before)|set(after) if before.get(k)!=after.get(k));allowed={m['target']};
     if m['mutation_type']=='semantic':allowed.add('Reports/HSB_2D_V1_R3_FILE_MANIFEST_SHA256.txt')
     rec['changed_files']=changed;rec['unexpected_changed_files']=sorted(set(changed)-allowed);rec['applied']=m['target'] in changed

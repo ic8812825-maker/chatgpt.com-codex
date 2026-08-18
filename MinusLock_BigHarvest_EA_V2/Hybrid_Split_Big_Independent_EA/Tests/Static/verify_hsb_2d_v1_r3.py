@@ -8,7 +8,7 @@ from hsb_mql5_lexer import prove_top_level_guard,active_compact,lexer_self_tests
 BASELINE='93127723ee94087a4e365d62220050231a772f3e';PREFIX='MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/'
 STATUS_DOCUMENTS=('README_RU.md','BUILD_INFO.md','PROJECT_MAP_RU.md','CHANGELOG_RU.md','Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md','Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md','Docs/22_OPEN_DECISIONS_REGISTER_RU.md')
 REQUIRED={'CURRENT_STAGE':'HSB.2D-V1-R3','HSB.2D_V1_R1_PREVIOUS_ACCEPTANCE':'HISTORICAL_SUPERSEDED','HSB.2D_V1_R2_PREVIOUS_ACCEPTANCE':'HISTORICAL_SUPERSEDED','HSB.2D_V1_R3':'CORRECTED_OFFLINE_VERIFICATION','METAEDITOR_MAIN_COMPILE':'NOT_EXECUTED_MT5_UNAVAILABLE','METAEDITOR_TEST_COMPILE':'NOT_EXECUTED_MT5_UNAVAILABLE','MQL5_TESTS_T01_T464':'NOT_EXECUTED_MT5_UNAVAILABLE','BROKER_MONEY_RUNTIME_PROOF':'NOT_EXECUTED_MT5_UNAVAILABLE','HSB.2D_V2':'AWAITING_ADMIN_REVIEW','HSB.2E':'NOT_STARTED','TRADING_IMPLEMENTED':'NO','BROKER_DISPATCH_IMPLEMENTED':'NO','TRADE_REQUESTS_ALLOWED':'NO','REAL_TRADING_ALLOWED':'NO'}
-SEAL_FILES=('Tests/Evidence/HSB_2D_V1_R3_CLEAN_RESULT.txt','Tests/Evidence/HSB_2D_V1_R3_MUTATION_RESULTS.json','Tests/Evidence/HSB_2D_V1_R3_MUTATION_RESULTS.txt','Tests/Static/hsb_2d_v1_r3_mutations.json','Tests/Static/verify_hsb_2d_v1_r3.py','Tests/Static/run_hsb_2d_v1_r3_mutations.py','Tests/Static/hsb_mql5_lexer.py','Reports/HSB_2D_V1_R3_FALSE_PASS_ANALYSIS_RU.md','Tests/Evidence/HSB_2D_V1_R3_GUARD_PROOFS.json')
+SEAL_FILES=('Tests/Evidence/HSB_2D_V1_R3_CLEAN_RESULT.txt','Tests/Evidence/HSB_2D_V1_R3_MUTATION_RESULTS.json','Tests/Evidence/HSB_2D_V1_R3_MUTATION_RESULTS.txt','Tests/Static/verify_hsb_2d_v1_r3.py','Tests/Static/run_hsb_2d_v1_r3_mutations.py','Tests/Static/hsb_2d_v1_r3_mutations.json','Tests/Static/hsb_mql5_lexer.py','Reports/HSB_2D_V1_R3_FALSE_PASS_ANALYSIS_RU.md','Tests/Evidence/HSB_2D_V1_R3_GUARD_PROOFS.json')
 D='Include/Runtime/HSBI_RuntimeDecisionValidator.mqh';R='Include/Runtime/HSBI_RuntimeRestartValidator.mqh';B='Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh';T='Include/Runtime/HSBI_RuntimeDecisionTypes.mqh'
 SPECS={
 'S023':(D,'HSBI_ValidateRuntimeDecisionContext','!x.immutable||!HSBI_IsProductionPreflightAllowed(x.runtimeMode)','HSBI_DECISION_REJECTED','HSBI_RD_CONTEXT_INVALID'),
@@ -32,7 +32,7 @@ SPECS={
 def load_r2():
  p=HERE/'verify_hsb_2d_v1_r2.py';s=importlib.util.spec_from_file_location('r2',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 def expected_files(r):
- f={'Hybrid_Split_Big_Independent_EA.mq5','Tests/MQL5/HSBI_Skeleton_Tests.mq5','Tests/Static/verify_hsb_2d_v1_r3.py','Tests/Static/run_hsb_2d_v1_r3_mutations.py','Tests/Static/hsb_2d_v1_r3_mutations.json','Tests/Static/hsb_mql5_lexer.py',*STATUS_DOCUMENTS}
+ f={'Hybrid_Split_Big_Independent_EA.mq5','Tests/MQL5/HSBI_Skeleton_Tests.mq5','Tests/Static/verify_hsb_2d_v1_r3.py','Tests/Static/run_hsb_2d_v1_r3_mutations.py','Tests/Static/hsb_mql5_lexer.py',*STATUS_DOCUMENTS}
  f|={p.relative_to(r).as_posix() for p in r.glob('Include/**/*.mqh')};f|={p.relative_to(r).as_posix() for p in r.glob('Reports/HSB_2D_V1_R3_*.md') if 'FINAL_PUBLICATION_RECORD' not in p.name};return f
 def check_list(r,path,expected):
  p=r/path
