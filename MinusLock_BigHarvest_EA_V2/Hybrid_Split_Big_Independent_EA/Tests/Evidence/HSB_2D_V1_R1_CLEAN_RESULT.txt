@@ -1,0 +1,59 @@
+S001|PASS|explicit project root
+S002|PASS|external_symlinks=[]
+S003|PASS|main
+S004|PASS|harness
+S005|PASS|missing=[]
+S006|PASS|external=[]
+S007|PASS|cycles=0
+S008|PASS|missing_guards=[]
+S009|PASS|guards=73 unique=73
+S010|PASS|runtime files
+S011|PASS|unique=464
+S012|PASS|duplicates=[]
+S013|PASS|missing=[]
+S014|PASS|summary
+S015|PASS|accounting
+S016|PASS|disabled stub
+S017|PASS|forbidden=[]
+S018|PASS|Trade.mqh
+S019|PASS|request
+S020|PASS|action
+S021|PASS|web
+S022|PASS|dll
+S023|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S026|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S027|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S028|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S029|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S030|PASS|Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh: structural alternatives=proved
+S031|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S032|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S033|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S034|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S035|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S036|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S037|PASS|Include/Runtime/HSBI_RuntimeRestartValidator.mqh: structural alternatives=proved
+S038|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S038R|PASS|Include/Runtime/HSBI_RuntimeRestartValidator.mqh: structural alternatives=proved
+S039|PASS|Include/Runtime/HSBI_RuntimeDecisionTypes.mqh: structural alternatives=proved
+S039D|PASS|Include/Runtime/HSBI_RuntimeDecisionValidator.mqh: structural alternatives=proved
+S025|PASS|Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh: structural alternatives=proved
+S024|PASS|Include/Runtime/HSBI_RuntimeRestartValidator.mqh: structural alternatives=proved
+S040|PASS|no false status
+S041|PASS|2E
+S042|PASS|trading
+S043|PASS|real
+S044|PASS|canonical marker in every status document
+S045|PASS|expected=96 manifest=96 missing=[] extra=[] duplicates=[] external=[] errors=[]
+S048|PASS|scope=[]
+HSB_2D_V1_R1_STATIC_SUMMARY
+CLEAN_STATIC_CHECKS=48
+CLEAN_PASS=48
+CLEAN_FAIL=0
+DUPLICATES=0
+EXPECTED_FILES=96
+EXTRA=0
+HASH_MISMATCHES=0
+MANIFEST_FILES=96
+MISSING=0
+RESULT=PASS
