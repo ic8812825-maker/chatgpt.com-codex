@@ -82,11 +82,13 @@ def main():
   try:
    with tempfile.TemporaryDirectory(prefix='hsbi-r2-') as td:
     temp_path=Path(td);copy=temp_path/root.name;shutil.copytree(root,copy,symlinks=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
-    before=snapshot(copy);apply(m,copy);after=snapshot(copy);changed=sorted(k for k in set(before)|set(after) if before.get(k)!=after.get(k));allowed={m['target']};
+    clean_cp=subprocess.run([sys.executable,str(copy/'Tests/Static/verify_hsb_2d_v1_r3.py'),'--root',str(copy),'--fixture-mode'],text=True,capture_output=True);rec['clean_fixture_before_mutation']=clean_cp.returncode==0
+    before=snapshot(copy);target_before=sha(copy/m['target']);apply(m,copy);after=snapshot(copy);rec['target_hash_changed']=sha(copy/m['target'])!=target_before;rec['expected_mutated_fragment_present']=m.get('new','') in (copy/m['target']).read_text(encoding='utf-8-sig') if not m.get('old','').startswith('__') else True;changed=sorted(k for k in set(before)|set(after) if before.get(k)!=after.get(k));allowed={m['target']};
     if m['mutation_type']=='semantic':allowed.add('Reports/HSB_2D_V1_R3_FILE_MANIFEST_SHA256.txt')
     rec['changed_files']=changed;rec['unexpected_changed_files']=sorted(set(changed)-allowed);rec['applied']=m['target'] in changed
     cp=subprocess.run([sys.executable,str(copy/'Tests/Static/verify_hsb_2d_v1_r3.py'),'--root',str(copy),'--fixture-mode'],text=True,capture_output=True);rec['verifier_started']=True;rec['verifier_exit_code']=cp.returncode;rec['verifier_crashed']=cp.returncode not in (0,1);failed,status=parse(cp.stdout);rec['actual_failed_checks']=failed;rec['manifest_check_status']=status.get('S045','MISSING');rec['stdout_sha256']=hashlib.sha256(cp.stdout.encode()).hexdigest();rec['stderr_sha256']=hashlib.sha256(cp.stderr.encode()).hexdigest();expected=all(x in failed for x in m['expected_check_ids']);manifest_only=failed==['S045'] and 'S045' not in m['expected_check_ids'];rec['primary_failure_check']=failed[0] if failed else '';rec['secondary_failure_checks']=failed[1:];rec['manifest_only_failure']=manifest_only
     result=classify(rec['applied'],rec['unexpected_changed_files'],rec['verifier_crashed'],cp.returncode,failed,m['expected_check_ids'],m['mutation_type'],rec['manifest_check_status'])
+    if not rec.get('clean_fixture_before_mutation') or not rec.get('target_hash_changed') or not rec.get('expected_mutated_fragment_present'):result='INFRASTRUCTURE_FAILURE'
     rec['result']=result;rec['stdout']=cp.stdout;rec['stderr']=cp.stderr
   except Exception as e:rec.update(result='INFRASTRUCTURE_FAILURE',error=f'{type(e).__name__}:{e}',verifier_exit_code=None,actual_failed_checks=[])
   finally:rec['temporary_copy_removed']=temp_path is None or not temp_path.exists()

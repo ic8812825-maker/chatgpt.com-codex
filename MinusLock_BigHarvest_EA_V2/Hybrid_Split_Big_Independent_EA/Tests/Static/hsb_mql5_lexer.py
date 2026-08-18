@@ -119,7 +119,7 @@ def tokenize_mql5(src):
 def strip_non_active_tokens(src):return ''.join(t.value if t.active and t.kind not in ('STRING_LITERAL','CHAR_LITERAL') else ' '*(t.end-t.start) for t in tokenize_mql5(src))
 def active_compact(src):return re.sub(r'\s+','',strip_non_active_tokens(src))
 def extract_function(src,name):
- a=active_compact(src);m=re.search(r'\b'+re.escape(name)+r'\([^;]*?\)\{',a)
+ a=active_compact(src);m=re.search(re.escape(name)+r'\([^;]*?\)\{',a)
  if not m:raise LexerError('function not found')
  start=a.find('{',m.start());depth=0
  for i in range(start,len(a)):
@@ -154,8 +154,9 @@ def prove_top_level_guard(src,function,condition,status,reason):
    cond,j=_balanced(body,i+2);k=j
    if body.startswith('returnHSBI_RuntimeReject(',k):
     call,e=_balanced(body,k+len('returnHSBI_RuntimeReject'));args=_args(call)
-    candidates.append((cond,args,not prior_return,i))
-   i=j;continue
+    candidates.append((cond,args,not prior_return,i));semi=body.find(';',e);i=(semi+1 if semi>=0 else e);continue
+   if k<len(body) and body[k]!='{':
+    semi=body.find(';',k);i=(semi+1 if semi>=0 else j);continue
   i+=1
  exact=[x for x in candidates if x[0]==condition and len(x[1])>=3 and x[1][1]==status and x[1][2]==reason and x[2]]
  return {'FUNCTION':function,'CONDITION':condition,'REJECT_STATUS':status,'REASON_CODE':reason,'REACHABLE':bool(exact),'BEFORE_SUCCESS':bool(exact),'DOMINATES_SUCCESS':bool(exact),'RESULT':'PASS' if exact else 'FAIL'}
