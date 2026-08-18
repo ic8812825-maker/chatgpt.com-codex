@@ -23,12 +23,12 @@ def apply(m,root):
  p=root/m['target'];
  if not p.is_file():raise FileNotFoundError(m['target'])
  if m['mutation_type']=='manifest':mutate_manifest(m,p);return
- if m['id']=='M103':
+ if m.get('id')=='M103':
   lines=p.read_text(encoding='utf-8').splitlines();idx=next(i for i,x in enumerate(lines) if x.strip());lines.pop(idx);p.write_text('\n'.join(lines)+'\n',encoding='utf-8');return
  s=p.read_text(encoding='utf-8-sig');n=s.count(m['old'])
  if n!=1:raise RuntimeError(f'replacement_count={n}')
  p.write_text(s.replace(m['old'],m['new'],1),encoding='utf-8')
- rehash(root/'Reports/HSB_2D_V1_R2_FILE_MANIFEST_SHA256.txt',m['target'],root)
+ if m['mutation_type']=='semantic':rehash(root/'Reports/HSB_2D_V1_R2_FILE_MANIFEST_SHA256.txt',m['target'],root)
 def parse(stdout):
  failed=[];statuses={}
  for line in stdout.splitlines():

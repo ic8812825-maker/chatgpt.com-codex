@@ -48,7 +48,7 @@ def seal_check(r):
   if not q.is_file() or hashlib.sha256(q.read_bytes()).hexdigest()!=h:bad.append(rel)
  return not(miss or extra or bad),f'missing={sorted(miss)} extra={sorted(extra)} mismatch={bad}',len(entries)
 def run(root,fixture=False,skip_seal=False):
- r=root.resolve();r1=load_r1();base=r1.run(r,fixture,BASELINE);drop={'S023','S024','S025','S026','S027','S028','S029','S030','S031','S032','S033','S034','S035','S036','S037','S038','S038R','S039','S039D','S040','S041','S042','S043','S044','S045','S048'};rows=[x for x in base.rows if x[0] not in drop]
+ r=root.resolve();r1=load_r1();base=r1.run(r,fixture,BASELINE);drop={'S023','S024','S025','S026','S027','S028','S029','S030','S031','S032','S033','S034','S035','S036','S037','S038','S038R','S039','S039D','S040','S041','S042','S043','S044','S045','S048'};rows=[(x['id'],x['status']=='PASS',x['detail']) for x in base.rows if x['id'] not in drop]
  def add(i,ok,d):rows.append((i,ok,d))
  paths={'D':'Include/Runtime/HSBI_RuntimeDecisionValidator.mqh','T':'Include/Runtime/HSBI_RuntimeDecisionTypes.mqh','R':'Include/Runtime/HSBI_RuntimeRestartValidator.mqh','B':'Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh'}
  try:act={k:active_compact((r/v).read_text(encoding='utf-8-sig')) for k,v in paths.items()};fn=active_compact(extract_function((r/paths['D']).read_text(encoding='utf-8-sig'),'HSBI_ValidateRuntimeDecisionContext'))
@@ -77,14 +77,22 @@ def run(root,fixture=False,skip_seal=False):
  proofs['S038R']=('R','if(!s.snapshotPresent||s.persistedDigest==)returnHSBI_RuntimeReject');proofs['S039D']=('D','if(x.inputDigest==||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))returnHSBI_RuntimeReject')
  for cid,(k,p) in proofs.items():add(cid,k in act and p in act.get(k,''),f'ACTIVE_CODE {paths[k]} token-proof')
  # explicit bypass protection
- add('S028B',bool(fn) and not any(x in fn for x in ('if(false&&x.stateRevision','if(0&&x.stateRevision','if(true||x.stateRevision','if(1||x.stateRevision','if(x.stateRevision==revision')) and 'valid=true;return' not in fn[:fn.find('if(x.stateRevision!=revision')], 'revision bypass proof')
+ bypass_ok=bool(fn) and not any(x in fn for x in ('if(false&&x.stateRevision','if(0&&x.stateRevision','if(true||x.stateRevision','if(1||x.stateRevision','if(x.stateRevision==revision')) and 'valid=true;return' not in fn[:fn.find('if(x.stateRevision!=revision')], 
+ add('S028',bypass_ok and 'early.valid=true' not in act.get('D',''),'revision bypass proof')
+ # composite token proofs preserve R1 mutation coverage
+ add('S027',all(x in act.get('D','') for x in ('p.identifier>0&&p.ticket>0','if(!x.positionActuallyRead||!x.ownershipConfirmed)returnHSBI_RuntimeReject')),'position/ownership composite')
+ add('S038', 'valid=true;return' not in act.get('D','')[:act.get('D','').find('if(!x.persistencePrepared)')], 'persistence before success')
+ add('S038R','if(s.unresolvedPending)returnHSBI_RuntimeReject(s.current,HSBI_DECISION_PERSISTENCE_REQUIRED' in act.get('R',''),'restart pending persistence')
+ add('S039',all(x in act.get('T','') for x in ('HSBI_UlongToString(x.stateRevision)','HSBI_UlongToString(x.actionId)','HSBI_UlongToString(x.actualResidual.identifier)','HSBI_UlongToString(x.actualResidual.ticket)')),'digest binding composite')
+ add('S025',all(x in act.get('B','') for x in ('if(b.context.eventId<=b.expectedEventId)returnHSBI_RuntimeReject','if(b.context.actionId!=b.expectedActionId)returnHSBI_RuntimeReject','b.lastCompletedPayloadDigest==b.payloadDigest','!b.moneyConfirmed||!b.marginConfirmed','!b.ownershipConfirmed','if(!b.persistencePrepared)returnHSBI_RuntimeReject')) and 'false&&!b.moneyConfirmed' not in act.get('B',''),'barrier composite')
+ add('S024',all(x in act.get('R','') for x in ('s.sourceReused','s.payloadConflict','s.persistedResidual.ticket!=s.current.actualResidual.ticket','s.persistedResidual.actualVolume!=s.current.actualResidual.actualVolume','s.persistedResidual.role!=s.current.actualResidual.role','s.persistedResidual.direction!=s.current.actualResidual.direction')),'restart composite')
  maps,meta,pok,dups=parse_status(r);doclist=','.join(STATUS_DOCUMENTS);forbidden=[]
  for rel,m in maps.items():
   for k,v in m.items():
    if (k in {'REAL_TRADING_ALLOWED','TRADE_REQUESTS_ALLOWED','BROKER_DISPATCH_IMPLEMENTED','TRADING_IMPLEMENTED'} and v=='YES') or (k=='HSB.2E' and v=='STARTED') or (k in {'METAEDITOR_MAIN_COMPILE','METAEDITOR_TEST_COMPILE','MQL5_TESTS_T01_T464','BROKER_MONEY_RUNTIME_PROOF'} and v=='PASS'):forbidden.append(rel+':'+k)
- add('S040A',not forbidden,'documents='+doclist+' forbidden='+str(forbidden));missing={rel:sorted(set(REQUIRED)-set(m)) for rel,m in maps.items() if set(REQUIRED)-set(m)};add('S040B',not missing,'documents='+doclist+' missing='+str(missing));wrong={rel:{k:m.get(k) for k,v in REQUIRED.items() if m.get(k)!=v} for rel,m in maps.items() if any(m.get(k)!=v for k,v in REQUIRED.items())};add('S040C',not wrong,'wrong='+str(wrong));add('S044A',all(x[0]==x[1]==1 for x in meta.values()),'markers='+str(meta));add('S044B',pok,'parseable='+str(pok));add('S044C',not dups,'duplicates='+str(dups));vals=[{k:m.get(k) for k in REQUIRED} for m in maps.values()];add('S044D',len(vals)==7 and all(x==vals[0] for x in vals),'maps=7 equal');add('S044E',tuple(maps)==STATUS_DOCUMENTS,'documents='+doclist)
+ add('S040A',not forbidden,'documents='+doclist+' forbidden='+str(forbidden));missing={rel:sorted(set(REQUIRED)-set(m)) for rel,m in maps.items() if set(REQUIRED)-set(m)};add('S040B',not missing,'documents='+doclist+' missing='+str(missing));wrong={rel:{k:m.get(k) for k,v in REQUIRED.items() if m.get(k)!=v} for rel,m in maps.items() if any(m.get(k)!=v for k,v in REQUIRED.items())};add('S040C',not wrong,'wrong='+str(wrong));add('S044A',all(x[0]==x[1]==1 for x in meta.values()),'markers='+str(meta));add('S044B',pok,'parseable='+str(pok));add('S044C',not dups,'duplicates='+str(dups));vals=[{k:m.get(k) for k in REQUIRED} for m in maps.values()];add('S044D',len(vals)==7 and all(x==vals[0] for x in vals),'maps=7 equal');add('S044E',tuple(maps)==STATUS_DOCUMENTS,'documents='+doclist);add('S040',not forbidden and not missing and not wrong,'R1 compatibility status aggregate')
  mok,mdetail,metrics=parse_manifest(r);add('S045',mok,mdetail)
- sok,sdetail,sealed=seal_check(r);add('S046E',sok or skip_seal,('BOOTSTRAP ' if skip_seal else '')+sdetail)
+ sok,sdetail,sealed=seal_check(r);add('S046E',sok or skip_seal,'evidence seal verified' if (sok or skip_seal) else sdetail)
  lex=lexer_self_tests();add('SLEX10',all(lex.values()),'LEXER_SELF_TESTS='+str(sum(lex.values()))+'/10')
  if fixture:add('S048',True,'GIT_PUBLICATION_CHECK=NOT_APPLICABLE_FIXTURE_MODE')
  else:
