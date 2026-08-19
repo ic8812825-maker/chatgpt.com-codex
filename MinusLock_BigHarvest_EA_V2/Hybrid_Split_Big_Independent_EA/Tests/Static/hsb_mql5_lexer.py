@@ -165,6 +165,7 @@ def prove_top_level_guard(src,function,condition,status,reason):
  # unknown or successful semantics and therefore provides a bypass path.
  safe_reject=r'returnHSBI_RuntimeReject\([^;]*?\);'
  unsafe_prefix=re.sub(safe_reject,'',prefix)
+ unsafe_prefix=unsafe_prefix.replace('if(!admission.valid)returnadmission;','')
  early_success=bool(re.search(r'\.valid=true|\.status=HSBI_DECISION_VALID|HSBI_RuntimeReject\([^;]*?HSBI_DECISION_VALID',prefix))
  unknown_returns=unsafe_prefix.count('return')
  present=bool(matching);unique=len(matching)==1;reachable=len(exact)==1
@@ -190,7 +191,7 @@ def prove_reject_constructor(src):
 def prove_unique_final_success(src,function,required_conditions):
  fn=extract_function(src,function);body=fn[fn.find('{')+1:-1]
  positions=[body.find('if('+c+')') for c in required_conditions]
- final=body.find('HSBI_RuntimeDecisionResult r=HSBI_RuntimeReject(')
+ final=body.find('HSBI_RuntimeDecisionResultr=HSBI_RuntimeReject(')
  valid_call=final>=0 and 'HSBI_DECISION_VALID' in body[final:body.find(';',final)]
  valid_flag=body.count('r.valid=true;')==1;unique=body.count('HSBI_DECISION_VALID')==1
  after=final>max(positions) if positions and min(positions)>=0 else False
