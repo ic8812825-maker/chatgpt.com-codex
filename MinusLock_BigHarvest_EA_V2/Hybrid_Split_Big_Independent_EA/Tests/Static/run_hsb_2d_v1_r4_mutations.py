@@ -78,7 +78,7 @@ def main():
  if set(ids)!=set(f'M{i:03}' for i in range(1,len(ids)+1)):infra.append('catalog_id_gap')
  if len(required_mutations)!=len(catalog):infra.append('optional_mutation')
  for m in required_mutations:
-  rec={'id':m['id'],'name':m['name'],'target':m['target'],'expected_failed_checks':m['expected_check_ids'],'applied':False,'changed_files':[],'unexpected_changed_files':[],'manifest_rehashed':m['manifest_strategy']=='rehash_mutated_file','verifier_started':False,'verifier_crashed':False}
+  rec={'id':m['id'],'name':m['name'],'target':m['target'],'target_found':(root/m['target']).is_file(),'expected_failed_checks':m['expected_check_ids'],'applied':False,'changed_files':[],'unexpected_changed_files':[],'manifest_rehashed':m['manifest_strategy']=='rehash_mutated_file','verifier_started':False,'verifier_crashed':False}
   temp_path=None
   try:
    with tempfile.TemporaryDirectory(prefix='hsbi-r2-') as td:
@@ -94,14 +94,16 @@ def main():
   except Exception as e:rec.update(result='INFRASTRUCTURE_FAILURE',error=f'{type(e).__name__}:{e}',verifier_exit_code=None,actual_failed_checks=[])
   finally:rec['temporary_copy_removed']=temp_path is None or not temp_path.exists()
   results.append(rec)
- post_unchanged=snapshot(root)==production_before;selfcheck=selftests(catalog);counts=Counter(x['result'] for x in results)
+ post_unchanged=snapshot(root)==production_before
+ for rec in results:rec['production_worktree_unchanged']=post_unchanged
+ selfcheck=selftests(catalog);counts=Counter(x['result'] for x in results)
  executed={x['id'] for x in results};caught={x['id'] for x in results if x['result']=='CAUGHT'}
  summary={'CATALOG_ENTRIES':len(catalog),'REQUIRED_ENTRIES':len(required_mutations),'EXECUTED_ENTRIES':len(executed),'CAUGHT_ENTRIES':len(caught),'CATALOG_MISSING_IDS':0 if set(ids)==set(f'M{i:03}' for i in range(1,len(ids)+1)) else 1,'CATALOG_DUPLICATE_IDS':len(ids)-len(set(ids)),'OPTIONAL_MUTATIONS':len(catalog)-len(required_mutations),'MUTATIONS_REQUIRED':len(required_mutations),'MUTATIONS_EXECUTED':len(results),'MUTATIONS_CAUGHT':counts['CAUGHT'],'MUTATIONS_SURVIVED':counts['SURVIVED'],'MUTATIONS_INVALID':sum(v for k,v in counts.items() if k.startswith('INVALID')),'MUTATIONS_NOT_APPLIED':counts['MUTATION_NOT_APPLIED'],'WRONG_FAILURES':counts['WRONG_FAILURE'],'INFRASTRUCTURE_FAILURES':counts['INFRASTRUCTURE_FAILURE'],'PRODUCTION_FILES_CHANGED_BY_MUTATIONS':0 if post_unchanged else 1,'REQUIRED_ID_SET':','.join(sorted(required)),'EXECUTED_ID_SET':','.join(sorted(executed)),'CAUGHT_ID_SET':','.join(sorted(caught)),'IF_FALSE_GUARD_COUNTEREXAMPLE':'CAUGHT' if next(x for x in results if x['id']=='M104')['result']=='CAUGHT' else 'FAIL','BLOCK_COMMENT_PREPROCESSOR_COUNTEREXAMPLE':'CAUGHT' if next(x for x in results if x['id']=='M110')['result']=='CAUGHT' else 'FAIL','CONDITIONAL_EARLY_SUCCESS_COUNTEREXAMPLE':'CAUGHT' if next(x for x in results if x['id']=='M124')['result']=='CAUGHT' else 'FAIL'}
  ok=not infra and all(x['status']=='PASS' for x in selfcheck) and executed==required and caught==required and post_unchanged
  payload={'schema':'HSB.2D-V1-R4/mutations/1','catalog_sha256':sha(root/a.catalog),'results':results,'runner_self_tests':selfcheck,'summary':summary,'result':'PASS' if ok else 'FAIL'};
  if outj:outj.parent.mkdir(parents=True,exist_ok=True);outj.write_text(json.dumps(payload,ensure_ascii=False,indent=2,sort_keys=True)+'\n',encoding='utf-8')
  lines=[]
- for x in results:lines.append(f"{x['id']}|TARGET={x['target']}|EXPECTED={','.join(x['expected_failed_checks'])}|ACTUAL={','.join(x.get('actual_failed_checks',[]))}|EXIT={x.get('verifier_exit_code')}|MANIFEST={x.get('manifest_check_status')}|RESULT={x['result']}")
+ for x in results:lines.append(f"{x['id']}|TARGET={x['target']}|TARGET_FOUND={'YES' if x.get('target_found') else 'NO'}|MUTATION_APPLIED={'YES' if x.get('applied') else 'NO'}|TARGET_HASH_CHANGED={'YES' if x.get('target_hash_changed') else 'NO'}|EXPECTED={','.join(x['expected_failed_checks'])}|ACTUAL={','.join(x.get('actual_failed_checks',[]))}|EXIT={x.get('verifier_exit_code')}|MANIFEST={x.get('manifest_check_status')}|VERIFIER_CRASHED={'YES' if x.get('verifier_crashed') else 'NO'}|RESULT={x['result']}")
  lines+=['HSB_2D_V1_R4_MUTATION_SUMMARY']+[f'{k}={v}' for k,v in summary.items()]+[f'RUNNER_SELF_TESTS={sum(x["status"]=="PASS" for x in selfcheck)}/10',f"RESULT={'PASS' if ok else 'FAIL'}"]
  text='\n'.join(lines)+'\n';
  if outt:outt.write_text(text,encoding='utf-8')
