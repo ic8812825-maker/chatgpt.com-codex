@@ -66,7 +66,7 @@ def run(root,fixture=False,skip_seal=False):
  for cid,(path,fn,cond,st,reason) in SPECS.items():
   try:p=prove_top_level_guard((r/path).read_text(encoding='utf-8-sig'),fn,cond,st,reason)
   except LexerError as e:p={'FUNCTION':fn,'CONDITION':cond,'REJECT_STATUS':st,'REASON_CODE':reason,'REACHABLE':False,'BEFORE_SUCCESS':False,'DOMINATES_SUCCESS':False,'RESULT':'FAIL','ERROR':str(e)}
- p['CHECK_ID']=cid;guard.append(p);add(cid,p['RESULT']=='PASS',json.dumps(p,sort_keys=True))
+  p['CHECK_ID']=cid;guard.append(p);add(cid,p['RESULT']=='PASS',json.dumps(p,sort_keys=True))
  dsrc=(r/D).read_text(encoding='utf-8-sig')
  reject=prove_reject_constructor(dsrc);add('SREJECT',reject['REJECT_CONSTRUCTOR_PROOF']=='PASS',json.dumps(reject,sort_keys=True))
  conditions=[v[2] for v in SPECS.values() if v[0]==D]
