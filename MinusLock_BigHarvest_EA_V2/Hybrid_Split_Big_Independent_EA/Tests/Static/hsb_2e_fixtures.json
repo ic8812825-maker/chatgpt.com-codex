@@ -1,0 +1,2991 @@
+{
+  "fixtures": [
+    {
+      "FIXTURE_ID": "FX_BUY_FAR",
+      "CLASS": "BUY_FAR",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9001,
+      "STATE_REVISION": 11,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 101,
+          "ticket": 201,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 101,
+        "ticket": 201,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 301,
+        "ticket": 401,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 501,
+        "ticket": 601,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_SELL_FAR",
+      "CLASS": "SELL_FAR",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9002,
+      "STATE_REVISION": 12,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 102,
+          "ticket": 202,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 102,
+        "ticket": 202,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 302,
+        "ticket": 402,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 502,
+        "ticket": 602,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_TREND_UP",
+      "CLASS": "TREND_UP",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9003,
+      "STATE_REVISION": 13,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 103,
+          "ticket": 203,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 103,
+        "ticket": 203,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 303,
+        "ticket": 403,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 503,
+        "ticket": 603,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_TREND_DOWN",
+      "CLASS": "TREND_DOWN",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9004,
+      "STATE_REVISION": 14,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 104,
+          "ticket": 204,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 104,
+        "ticket": 204,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 304,
+        "ticket": 404,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 504,
+        "ticket": 604,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_BIG_NO_PULLBACK",
+      "CLASS": "BIG_NO_PULLBACK",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9005,
+      "STATE_REVISION": 15,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 105,
+          "ticket": 205,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 105,
+        "ticket": 205,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 305,
+        "ticket": 405,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 505,
+        "ticket": 605,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_SMALL_REVERSAL",
+      "CLASS": "SMALL_REVERSAL",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9006,
+      "STATE_REVISION": 16,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 106,
+          "ticket": 206,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 106,
+        "ticket": 206,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 306,
+        "ticket": 406,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 506,
+        "ticket": 606,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_REPEATED_SMALL_SAW",
+      "CLASS": "REPEATED_SMALL_SAW",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9007,
+      "STATE_REVISION": 17,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 107,
+          "ticket": 207,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 107,
+        "ticket": 207,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 307,
+        "ticket": 407,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 507,
+        "ticket": 607,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_PARTIAL_FILL",
+      "CLASS": "PARTIAL_FILL",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9008,
+      "STATE_REVISION": 18,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 108,
+          "ticket": 208,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 108,
+        "ticket": 208,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 308,
+        "ticket": 408,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 508,
+        "ticket": 608,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_MULTIPLE_PARTIAL_FILLS",
+      "CLASS": "MULTIPLE_PARTIAL_FILLS",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9009,
+      "STATE_REVISION": 19,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 109,
+          "ticket": 209,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 109,
+        "ticket": 209,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 309,
+        "ticket": 409,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 509,
+        "ticket": 609,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_DUPLICATE_DEAL",
+      "CLASS": "DUPLICATE_DEAL",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9010,
+      "STATE_REVISION": 20,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 110,
+          "ticket": 210,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 110,
+        "ticket": 210,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 310,
+        "ticket": 410,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 510,
+        "ticket": 610,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_FOREIGN_SYMBOL",
+      "CLASS": "FOREIGN_SYMBOL",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9011,
+      "STATE_REVISION": 21,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 111,
+          "ticket": 211,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 111,
+        "ticket": 211,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 311,
+        "ticket": 411,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 511,
+        "ticket": 611,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_FOREIGN_MAGIC",
+      "CLASS": "FOREIGN_MAGIC",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9012,
+      "STATE_REVISION": 22,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 112,
+          "ticket": 212,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 112,
+        "ticket": 212,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 312,
+        "ticket": 412,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 512,
+        "ticket": 612,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_FOREIGN_CYCLE",
+      "CLASS": "FOREIGN_CYCLE",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9013,
+      "STATE_REVISION": 23,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 113,
+          "ticket": 213,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 113,
+        "ticket": 213,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 313,
+        "ticket": 413,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 513,
+        "ticket": 613,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_WRONG_IDENTIFIER",
+      "CLASS": "WRONG_IDENTIFIER",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9014,
+      "STATE_REVISION": 24,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 114,
+          "ticket": 214,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 114,
+        "ticket": 214,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 314,
+        "ticket": 414,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 514,
+        "ticket": 614,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_STALE_SNAPSHOT",
+      "CLASS": "STALE_SNAPSHOT",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9015,
+      "STATE_REVISION": 25,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 115,
+          "ticket": 215,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": false
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 115,
+        "ticket": 215,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 315,
+        "ticket": 415,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 515,
+        "ticket": 615,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_INVALID_TICK_GRID",
+      "CLASS": "INVALID_TICK_GRID",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9016,
+      "STATE_REVISION": 26,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 116,
+          "ticket": 216,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 116,
+        "ticket": 216,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 316,
+        "ticket": 416,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 516,
+        "ticket": 616,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_INVALID_VOLUME_GRID",
+      "CLASS": "INVALID_VOLUME_GRID",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9017,
+      "STATE_REVISION": 27,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 117,
+          "ticket": 217,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 117,
+        "ticket": 217,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 317,
+        "ticket": 417,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 517,
+        "ticket": 617,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_INSUFFICIENT_MARGIN",
+      "CLASS": "INSUFFICIENT_MARGIN",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9018,
+      "STATE_REVISION": 28,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 118,
+          "ticket": 218,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 118,
+        "ticket": 218,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 318,
+        "ticket": 418,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 518,
+        "ticket": 618,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_SPREAD_BLOCKED",
+      "CLASS": "SPREAD_BLOCKED",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9019,
+      "STATE_REVISION": 29,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 119,
+          "ticket": 219,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 119,
+        "ticket": 219,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 319,
+        "ticket": 419,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 519,
+        "ticket": 619,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_RESTART_BEFORE_DISPATCH",
+      "CLASS": "RESTART_BEFORE_DISPATCH",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9020,
+      "STATE_REVISION": 30,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 120,
+          "ticket": 220,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 120,
+        "ticket": 220,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 320,
+        "ticket": 420,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 520,
+        "ticket": 620,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_RESTART_AFTER_DISPATCH",
+      "CLASS": "RESTART_AFTER_DISPATCH",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9021,
+      "STATE_REVISION": 31,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 121,
+          "ticket": 221,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 121,
+        "ticket": 221,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 321,
+        "ticket": 421,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 521,
+        "ticket": 621,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_RESTART_AFTER_FILL",
+      "CLASS": "RESTART_AFTER_FILL",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9022,
+      "STATE_REVISION": 32,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 122,
+          "ticket": 222,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 122,
+        "ticket": 222,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 322,
+        "ticket": 422,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 522,
+        "ticket": 622,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_CORRUPTED_SNAPSHOT",
+      "CLASS": "CORRUPTED_SNAPSHOT",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9023,
+      "STATE_REVISION": 33,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 123,
+          "ticket": 223,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 123,
+        "ticket": 223,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 323,
+        "ticket": 423,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 523,
+        "ticket": 623,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_MISSING_JOURNAL_RECORD",
+      "CLASS": "MISSING_JOURNAL_RECORD",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9024,
+      "STATE_REVISION": 34,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 124,
+          "ticket": 224,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 124,
+        "ticket": 224,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 324,
+        "ticket": 424,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 524,
+        "ticket": 624,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_DOUBLE_ALLOCATION",
+      "CLASS": "DOUBLE_ALLOCATION",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9025,
+      "STATE_REVISION": 35,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 125,
+          "ticket": 225,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 125,
+        "ticket": 225,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 325,
+        "ticket": 425,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 525,
+        "ticket": 625,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_RESERVE_MISUSE",
+      "CLASS": "RESERVE_MISUSE",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9026,
+      "STATE_REVISION": 36,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 126,
+          "ticket": 226,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 126,
+        "ticket": 226,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 326,
+        "ticket": 426,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 526,
+        "ticket": 626,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_FINAL_CLOSE_INSUFFICIENT_MONEY",
+      "CLASS": "FINAL_CLOSE_INSUFFICIENT_MONEY",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9027,
+      "STATE_REVISION": 37,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 127,
+          "ticket": 227,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 127,
+        "ticket": 227,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 327,
+        "ticket": 427,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 527,
+        "ticket": 627,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_FINAL_CLOSE_VALID",
+      "CLASS": "FINAL_CLOSE_VALID",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9028,
+      "STATE_REVISION": 38,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 128,
+          "ticket": 228,
+          "role": "BIG_CORE",
+          "direction": "SELL",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 128,
+        "ticket": 228,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 328,
+        "ticket": 428,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 528,
+        "ticket": 628,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    },
+    {
+      "FIXTURE_ID": "FX_TERMINAL_SAFE",
+      "CLASS": "TERMINAL_SAFE",
+      "ACCOUNT": 1000001,
+      "SYMBOL": "EURUSD",
+      "MAGIC": 8812825,
+      "CYCLE_ID": 9029,
+      "STATE_REVISION": 39,
+      "MONEY_STATE_VERSION": 1,
+      "POSITIONS": [
+        {
+          "identifier": 129,
+          "ticket": 229,
+          "role": "BIG_CORE",
+          "direction": "BUY",
+          "volume": 1.0
+        }
+      ],
+      "DEALS": [],
+      "PENDING_ACTIONS": [],
+      "BROKER_PROPERTIES": {
+        "digits": 5,
+        "point": 1e-05,
+        "tickSize": 1e-05,
+        "volumeMin": 0.01,
+        "volumeMax": 100.0,
+        "volumeStep": 0.01,
+        "tickValueProfit": 1.0,
+        "tickValueLoss": 1.0
+      },
+      "MARKET_SNAPSHOT": {
+        "bid": 1.1,
+        "ask": 1.1002,
+        "fresh": true
+      },
+      "COST_SNAPSHOT": {
+        "spread": 0.0002,
+        "commissionPerLot": 7.0,
+        "swap": -0.5,
+        "fee": 0.0
+      },
+      "MARGIN_SNAPSHOT": {
+        "freeMargin": 10000.0,
+        "requiredMargin": 1000.0
+      },
+      "RISK_SNAPSHOT": {
+        "maxLoss": 500.0,
+        "confirmed": true
+      },
+      "ECONOMIC_LEDGER": {
+        "realizedNet": 0.0,
+        "allocated": 0.0
+      },
+      "ALLOCATION_LEDGER": {
+        "reserveShare": 0.5,
+        "closeFarShare": 0.5
+      },
+      "RESERVE": 100.0,
+      "FAR": {
+        "identifier": 129,
+        "ticket": 229,
+        "loss": -200.0
+      },
+      "BIG": {
+        "identifier": 329,
+        "ticket": 429,
+        "volume": 1.0
+      },
+      "SMALL": {
+        "identifier": 529,
+        "ticket": 629,
+        "volume": 0.5
+      },
+      "PERSISTENCE_RECORDS": [
+        "CYCLE_CREATED"
+      ],
+      "EXPECTED_INVARIANTS": [
+        "INITIAL_POSITIVE_PROFIT_IGNORED=YES",
+        "REMAINING_NEGATIVE_START_BECOMES_FAR=YES",
+        "BIG_LEVEL_CLOSES_BIG=100_PERCENT",
+        "BIG_LEVEL_CLOSES_SMALL=100_PERCENT",
+        "REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES",
+        "COMMISSION_INCLUDED=YES",
+        "SWAP_INCLUDED=YES",
+        "FEE_INCLUDED=YES",
+        "SPREAD_INCLUDED=YES",
+        "SLIPPAGE_INCLUDED=YES",
+        "PARTIAL_FAR_USES_ONLY_CLOSE_FAR_BUDGET=YES",
+        "PARTIAL_FAR_USES_RESERVE=NO",
+        "RESERVE_USED_ONLY_FOR_FINAL_FAR_CLOSE=YES",
+        "RESERVE_SHARE_PLUS_CLOSE_FAR_SHARE=1",
+        "FINAL_CLOSE_REQUIRES_RECOVERY_PL_POSITIVE=YES",
+        "FINAL_CLOSE_REQUIRES_ACTUAL_MONEY=YES",
+        "PROJECTED_MONEY_CANNOT_AUTHORIZE_FINAL_CLOSE=YES",
+        "NEW_FAR_IDENTIFIER_FROM_ACTUAL_BIG_RESIDUAL=YES",
+        "NEW_FAR_LESS_THAN_OLD_FAR=YES",
+        "DUAL_TAIL_ALLOWED=NO",
+        "NEXT_LEVEL_BEFORE_TRANSITION_COMPLETE=NO",
+        "FILTER_BY_ACCOUNT_SYMBOL_MAGIC_CYCLE=YES",
+        "FAR_OPERATIONS_BY_IDENTIFIER_AND_TICKET=YES",
+        "MULTI_CURRENCY_PRESERVED=YES"
+      ]
+    }
+  ]
+}
