@@ -1,0 +1,27 @@
+# HSB.2E INITIAL_LOCK implementation contract
+
+- **INPUT DTO:** `HSBI_InitialLockRequest` with account, symbol, magic, cycleId, stateRevision, actionId and immutable snapshots.
+- **OUTPUT DECISION DTO:** `HSBI_InitialLockDecision` with status, reason, intents, requiredNextState and digest.
+- **REQUIRED SNAPSHOTS:** market, cost, margin, risk, positions, deals, economic ledger, allocation ledger.
+- **IDENTITY REQUIREMENTS:** account+symbol+magic+cycle and identifier+ticket for Far operations.
+- **PRECONDITIONS:** both start positions identity-confirmed.
+- **FORMULAS:** close positive 100%; negative becomes Far; money includes commission, swap, fee, spread and slippage.
+- **ROUNDING RULES:** price to tick grid; volume downward to volume step; reject below minimum.
+- **BROKER-MONEY CALLS:** read-only profit, margin and conversion using immutable broker snapshot.
+- **RISK GATES:** max loss, identity freshness and terminal-safe gate.
+- **MARGIN GATES:** confirmed free margin >= conservative required margin.
+- **STATE READS:** state, stateRevision, pending action and scenario context.
+- **STATE WRITES:** decision DTO only; FSM commit occurs after reconciliation.
+- **POSITIONS TO OPEN:** explicit simulated intents from output DTO.
+- **POSITIONS TO CLOSE:** explicit identifier+ticket+volume intents from output DTO.
+- **PARTIAL CLOSE RULE:** volume normalized downward; completed fill required.
+- **LEDGER ALLOCATION:** only confirmed real-deal net; profit of positive start excluded.
+- **RESERVE EFFECT:** mutation only through allocation journal; Partial Far reads no Reserve budget.
+- **FAR EFFECT:** Far identity and loss originate from confirmed position/deal outcome.
+- **PERSISTENCE ORDER:** INTENT_PREPARED → DISPATCH_REQUESTED → OUTCOME/FILL → RECONCILIATION_CONFIRMED → FSM_COMMIT.
+- **TRANSACTION ORDER:** prepare, persist, simulated dispatch, observe, persist, reconcile, commit.
+- **SUCCESS POSTCONDITION:** unique reconciled state with no unresolved pending action.
+- **FAIL-CLOSED RESULTS:** stale/conflict/unavailable/persistence-required enter blocked or terminal-safe state.
+- **REASON CODES:** HSBI_RD_OK, HSBI_RD_STALE_SNAPSHOT, HSBI_RD_IDENTITY_MISMATCH, HSBI_RD_RECONCILIATION_CONFLICT, HSBI_RD_PERSISTENCE_REQUIRED.
+- **RESTART BEHAVIOR:** replay ordered journal, read broker truth, reconcile, preserve ActionId.
+- **TEST CASES:** assigned contiguous range in `hsb_2e_test_plan.json` with concrete fixtures.
