@@ -1,0 +1,3877 @@
+{
+  "schema": "HSB.2E-PREP-R2/api/1",
+  "components": [
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_IBrokerAdapter.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_IBrokerAdapterInput",
+        "HSBI_IBrokerAdapterOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_IBrokerAdapter_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "broker_identity",
+          "type": "ulong",
+          "source": "Include/Broker/HSBI_IBrokerAdapter.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "broker_identity",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T465",
+        "T497"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_BrokerSnapshot.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_BrokerSnapshotInput",
+        "HSBI_BrokerSnapshotOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_BrokerSnapshot_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "snapshot_time",
+          "type": "ulong",
+          "source": "Include/Broker/HSBI_BrokerSnapshot.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "snapshot_time",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T466",
+        "T498"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_TradeRequestBuilder.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_TradeRequestBuilderInput",
+        "HSBI_TradeRequestBuilderOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TradeRequestBuilder_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "request_volume",
+          "type": "double",
+          "source": "Include/Broker/HSBI_TradeRequestBuilder.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "request_volume",
+          "type": "double"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T467",
+        "T499"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_TradeRetcodeClassifier.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_TradeRetcodeClassifierInput",
+        "HSBI_TradeRetcodeClassifierOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TradeRetcodeClassifier_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "retcode",
+          "type": "ulong",
+          "source": "Include/Broker/HSBI_TradeRetcodeClassifier.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "retcode",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T468",
+        "T500"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_DealHistoryReader.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_DealHistoryReaderInput",
+        "HSBI_DealHistoryReaderOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_DealHistoryReader_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "deal_ticket",
+          "type": "ulong",
+          "source": "Include/Broker/HSBI_DealHistoryReader.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "deal_ticket",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T469",
+        "T501"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Persistence/HSBI_AtomicFileStore.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_AtomicFileStoreInput",
+        "HSBI_AtomicFileStoreOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_AtomicFileStore_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "atomic_digest",
+          "type": "ulong",
+          "source": "Include/Persistence/HSBI_AtomicFileStore.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "atomic_digest",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "append intent only"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T470",
+        "T502"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Persistence/HSBI_ProductionJournal.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionJournalInput",
+        "HSBI_ProductionJournalOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionJournal_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "journal_sequence",
+          "type": "ulong",
+          "source": "Include/Persistence/HSBI_ProductionJournal.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "journal_sequence",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "append intent only"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T471",
+        "T503"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Persistence/HSBI_ProductionSnapshotStore.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionSnapshotStoreInput",
+        "HSBI_ProductionSnapshotStoreOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionSnapshotStore_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "snapshot_version",
+          "type": "ulong",
+          "source": "Include/Persistence/HSBI_ProductionSnapshotStore.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "snapshot_version",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "append intent only"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T472",
+        "T504"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Persistence/HSBI_SnapshotMigration.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_SnapshotMigrationInput",
+        "HSBI_SnapshotMigrationOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_SnapshotMigration_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "migration_version",
+          "type": "ulong",
+          "source": "Include/Persistence/HSBI_SnapshotMigration.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "migration_version",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "append intent only"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T473",
+        "T505"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Reconciliation/HSBI_ReconciliationEngine.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_ReconciliationEngineInput",
+        "HSBI_ReconciliationEngineOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ReconciliationEngine_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "reconciliation_digest",
+          "type": "ulong",
+          "source": "Include/Reconciliation/HSBI_ReconciliationEngine.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "reconciliation_digest",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T474",
+        "T506"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Reconciliation/HSBI_PositionReconciler.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_PositionReconcilerInput",
+        "HSBI_PositionReconcilerOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_PositionReconciler_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "position_ticket",
+          "type": "ulong",
+          "source": "Include/Reconciliation/HSBI_PositionReconciler.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "position_ticket",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T475",
+        "T507"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Reconciliation/HSBI_DealReconciler.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_DealReconcilerInput",
+        "HSBI_DealReconcilerOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_DealReconciler_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "deal_id",
+          "type": "ulong",
+          "source": "Include/Reconciliation/HSBI_DealReconciler.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "deal_id",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T476",
+        "T508"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Reconciliation/HSBI_PendingActionReconciler.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_PendingActionReconcilerInput",
+        "HSBI_PendingActionReconcilerOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_PendingActionReconciler_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "pending_action_id",
+          "type": "ulong",
+          "source": "Include/Reconciliation/HSBI_PendingActionReconciler.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "pending_action_id",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T477",
+        "T509"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_PositionDiscovery.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_PositionDiscoveryInput",
+        "HSBI_PositionDiscoveryOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_PositionDiscovery_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "ownership_filter",
+          "type": "ulong",
+          "source": "Include/Execution/HSBI_PositionDiscovery.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "ownership_filter",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T478",
+        "T510"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_TransactionEngine.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_TransactionEngineInput",
+        "HSBI_TransactionEngineOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TransactionEngine_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "transaction_state",
+          "type": "string",
+          "source": "Include/Execution/HSBI_TransactionEngine.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "transaction_state",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T479",
+        "T511"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_TradeTransactionRouter.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_TradeTransactionRouterInput",
+        "HSBI_TradeTransactionRouterOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TradeTransactionRouter_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "event_id",
+          "type": "string",
+          "source": "Include/Execution/HSBI_TradeTransactionRouter.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "event_id",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T480",
+        "T512"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_ExecutionCoordinatorInput",
+        "HSBI_ExecutionCoordinatorOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ExecutionCoordinator_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "barrier_state",
+          "type": "string",
+          "source": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "barrier_state",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T481",
+        "T513"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_SimulatedBrokerAdapter.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_SimulatedBrokerAdapterInput",
+        "HSBI_SimulatedBrokerAdapterOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_SimulatedBrokerAdapter_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "dispatch_mode",
+          "type": "string",
+          "source": "Include/Execution/HSBI_SimulatedBrokerAdapter.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "dispatch_mode",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T482",
+        "T514"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_DemoBrokerAdapter.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_DemoBrokerAdapterInput",
+        "HSBI_DemoBrokerAdapterOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_DemoBrokerAdapter_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "account_currency",
+          "type": "string",
+          "source": "Include/Execution/HSBI_DemoBrokerAdapter.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "account_currency",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T483",
+        "T515"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionEconomicLedgerInput",
+        "HSBI_ProductionEconomicLedgerOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionEconomicLedger_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "allocation_id",
+          "type": "ulong",
+          "source": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "allocation_id",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T484",
+        "T516"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Money/HSBI_ProductionAllocationLedger.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionAllocationLedgerInput",
+        "HSBI_ProductionAllocationLedgerOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionAllocationLedger_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "realized_pnl",
+          "type": "double",
+          "source": "Include/Money/HSBI_ProductionAllocationLedger.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "realized_pnl",
+          "type": "double"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T485",
+        "T517"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Money/HSBI_RealizedDealMoney.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_RealizedDealMoneyInput",
+        "HSBI_RealizedDealMoneyOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_RealizedDealMoney_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "fsm_state",
+          "type": "string",
+          "source": "Include/Money/HSBI_RealizedDealMoney.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "fsm_state",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T486",
+        "T518"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Runtime/HSBI_CycleOrchestrator.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_CycleOrchestratorInput",
+        "HSBI_CycleOrchestratorOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_CycleOrchestrator_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "state_revision",
+          "type": "string",
+          "source": "Include/Runtime/HSBI_CycleOrchestrator.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "state_revision",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Hybrid_Split_Big_Independent_EA.mq5"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T487",
+        "T519"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Runtime/HSBI_FsmCommitCoordinator.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_FsmCommitCoordinatorInput",
+        "HSBI_FsmCommitCoordinatorOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_FsmCommitCoordinator_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "terminal_safe_reason",
+          "type": "string",
+          "source": "Include/Runtime/HSBI_FsmCommitCoordinator.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "terminal_safe_reason",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T488",
+        "T520"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Runtime/HSBI_TerminalSafeController.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_TerminalSafeControllerInput",
+        "HSBI_TerminalSafeControllerOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TerminalSafeController_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "initial_pair",
+          "type": "ulong",
+          "source": "Include/Runtime/HSBI_TerminalSafeController.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "initial_pair",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T489",
+        "T521"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_InitialLockEngine.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_InitialLockEngineInput",
+        "HSBI_InitialLockEngineOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_InitialLockEngine_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "big_level",
+          "type": "ulong",
+          "source": "Include/Scenarios/HSBI_InitialLockEngine.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "big_level",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T490",
+        "T522"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_BigHarvestEngine.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_BigHarvestEngineInput",
+        "HSBI_BigHarvestEngineOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_BigHarvestEngine_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "close_far_budget",
+          "type": "ulong",
+          "source": "Include/Scenarios/HSBI_BigHarvestEngine.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "close_far_budget",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T491",
+        "T523"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_PartialFarReserveEngine.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_PartialFarReserveEngineInput",
+        "HSBI_PartialFarReserveEngineOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_PartialFarReserveEngine_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "recovery_pl",
+          "type": "ulong",
+          "source": "Include/Scenarios/HSBI_PartialFarReserveEngine.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "recovery_pl",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T492",
+        "T524"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_FinalCloseEngine.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_FinalCloseEngineInput",
+        "HSBI_FinalCloseEngineOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_FinalCloseEngine_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "reversal_count",
+          "type": "ulong",
+          "source": "Include/Scenarios/HSBI_FinalCloseEngine.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "reversal_count",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T493",
+        "T525"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_SmallTransitionEngine.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_SmallTransitionEngineInput",
+        "HSBI_SmallTransitionEngineOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_SmallTransitionEngine_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "new_far_ticket",
+          "type": "ulong",
+          "source": "Include/Scenarios/HSBI_SmallTransitionEngine.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "new_far_ticket",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T494",
+        "T526"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_NewFarCatchUpEngine.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_NewFarCatchUpEngineInput",
+        "HSBI_NewFarCatchUpEngineOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_NewFarCatchUpEngine_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "log_event",
+          "type": "string",
+          "source": "Include/Scenarios/HSBI_NewFarCatchUpEngine.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "log_event",
+          "type": "string"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T495",
+        "T527"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    },
+    {
+      "OWNER_FILE": "Include/Diagnostics/HSBI_ProductionDiagnostics.mqh",
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionDiagnosticsInput",
+        "HSBI_ProductionDiagnosticsOutput"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionDiagnostics_Evaluate"
+      ],
+      "INPUT_FIELDS": [
+        {
+          "name": "accountLogin",
+          "type": "long",
+          "source": "AccountInfoInteger",
+          "validation": "positive"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "source": "_Symbol",
+          "validation": "nonempty"
+        },
+        {
+          "name": "magic",
+          "type": "long",
+          "source": "configuration",
+          "validation": "positive"
+        },
+        {
+          "name": "cycleId",
+          "type": "ulong",
+          "source": "persisted cycle",
+          "validation": "nonzero"
+        },
+        {
+          "name": "actionId",
+          "type": "ulong",
+          "source": "transaction coordinator",
+          "validation": "nonzero"
+        },
+        {
+          "name": "diagnostic_severity",
+          "type": "ulong",
+          "source": "Include/Diagnostics/HSBI_ProductionDiagnostics.mqh",
+          "validation": "exact component contract"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "name": "status",
+          "type": "HSBI_RuntimeDecisionStatus"
+        },
+        {
+          "name": "reason",
+          "type": "HSBI_RuntimeDecisionReason"
+        },
+        {
+          "name": "outputDigest",
+          "type": "string"
+        },
+        {
+          "name": "diagnostic_severity",
+          "type": "ulong"
+        }
+      ],
+      "STATUS_ENUM": [
+        "HSBI_DECISION_VALID",
+        "HSBI_DECISION_REJECTED",
+        "HSBI_DECISION_UNAVAILABLE",
+        "HSBI_DECISION_CONFLICT"
+      ],
+      "REASON_ENUM": [
+        "HSBI_RD_OK",
+        "HSBI_RD_IDENTITY_MISMATCH",
+        "HSBI_RD_RECONCILIATION_CONFLICT"
+      ],
+      "PRECONDITIONS": [
+        "identity exact",
+        "stateRevision current",
+        "inputDigest verified"
+      ],
+      "POSTCONDITIONS": [
+        "output immutable",
+        "status and reason assigned"
+      ],
+      "INVARIANTS": [
+        "no state mutation before reconciliation"
+      ],
+      "SIDE_EFFECTS": [
+        "none"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "direct FSM mutation",
+        "direct live trade"
+      ],
+      "DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "CALLERS": [
+        "Include/Runtime/HSBI_CycleOrchestrator.mqh"
+      ],
+      "CALLEES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "INTENT_PREPARED"
+      ],
+      "FSM_TRANSITIONS": [
+        "INTENT_PREPARED"
+      ],
+      "TRANSACTION_CASES": [
+        "PREPARE"
+      ],
+      "TEST_IDS": [
+        "T496",
+        "T528"
+      ],
+      "ALIAS_CONTRACT": "NONE"
+    }
+  ]
+}

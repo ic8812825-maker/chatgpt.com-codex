@@ -1,0 +1,821 @@
+{
+  "schema": "HSB.2E-PREP-R2/scenarios/1",
+  "scenarios": [
+    {
+      "SCENARIO_ID": "SC01",
+      "NAME": "Initial Lock",
+      "INITIAL_STATE": "HSBI_STATE_READY",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "InitialLockSelection"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_VALID",
+      "EXPECTED_REASON": "HSBI_RD_OK",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_INTENT_PREPARED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T465",
+        "T600"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC02",
+      "NAME": "Big level",
+      "INITIAL_STATE": "HSBI_STATE_READY",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "PositiveStartProfitIgnored"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_VALID",
+      "EXPECTED_REASON": "HSBI_RD_OK",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_INTENT_PREPARED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T466",
+        "T601"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC03",
+      "NAME": "Small reversal",
+      "INITIAL_STATE": "HSBI_STATE_READY",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "RemainingNegativeBecomesFar"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_VALID",
+      "EXPECTED_REASON": "HSBI_RD_OK",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_INTENT_PREPARED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T467",
+        "T602"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC04",
+      "NAME": "partial Far",
+      "INITIAL_STATE": "HSBI_STATE_READY",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "Big"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_VALID",
+      "EXPECTED_REASON": "HSBI_RD_OK",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_INTENT_PREPARED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T468",
+        "T603"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC05",
+      "NAME": "final Far close",
+      "INITIAL_STATE": "HSBI_STATE_READY",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "Small"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_VALID",
+      "EXPECTED_REASON": "HSBI_RD_OK",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_INTENT_PREPARED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T469",
+        "T604"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC06",
+      "NAME": "restart/reconciliation",
+      "INITIAL_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "BigCore"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_RECONCILIATION_REQUIRED",
+      "EXPECTED_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T470",
+        "T605"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC07",
+      "NAME": "transaction retry",
+      "INITIAL_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "BigTrend"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_RECONCILIATION_REQUIRED",
+      "EXPECTED_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T471",
+        "T606"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC08",
+      "NAME": "invalid geometry",
+      "INITIAL_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "CloseBigOnSmall"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_RECONCILIATION_REQUIRED",
+      "EXPECTED_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T472",
+        "T607"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC09",
+      "NAME": "maximum levels",
+      "INITIAL_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "RemainBigOnSmall"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_RECONCILIATION_REQUIRED",
+      "EXPECTED_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T473",
+        "T608"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC10",
+      "NAME": "risk gate",
+      "INITIAL_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "CloseFarShare"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_RECONCILIATION_REQUIRED",
+      "EXPECTED_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T474",
+        "T609"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC11",
+      "NAME": "stale snapshot",
+      "INITIAL_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "ReserveShare"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_RECONCILIATION_REQUIRED",
+      "EXPECTED_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T475",
+        "T610"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    },
+    {
+      "SCENARIO_ID": "SC12",
+      "NAME": "broker rejection/partial fill",
+      "INITIAL_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "INPUT_SNAPSHOT": "FX_BASE_BUY",
+      "POSITION_SET": [
+        "Far#7001",
+        "Big#7002",
+        "Small#7003"
+      ],
+      "PRECONDITIONS": [
+        "Symbol=EURUSD",
+        "Magic=8812825",
+        "cycleId=42",
+        "stateRevision=7"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "validate snapshot",
+        "prepare immutable intent",
+        "persist intent",
+        "simulate outcome",
+        "reconcile",
+        "commit FSM"
+      ],
+      "FORMULAS": [
+        "SmallReserveShare"
+      ],
+      "ROUNDING": "tickSize=0.00001; volumeStep=0.01; floor close volume",
+      "EXPECTED_ACTIONS": [
+        "SIMULATED_ONLY"
+      ],
+      "FORBIDDEN_ACTIONS": [
+        "OrderSend",
+        "OrderSendAsync",
+        "CTrade",
+        "direct FSM write"
+      ],
+      "EXPECTED_STATUS": "HSBI_DECISION_RECONCILIATION_REQUIRED",
+      "EXPECTED_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "EXPECTED_NEXT_STATE": "HSBI_STATE_RECONCILIATION_REQUIRED",
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINT": "replay journal before dispatch decision",
+      "RETRY_BEHAVIOR": "reuse actionId; new eventId only",
+      "ROLLBACK_BEHAVIOR": "no economic rollback; reconcile external outcome",
+      "BROKER_CALL_COUNT": 0,
+      "LINKED_TEST_IDS": [
+        "T476",
+        "T611"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "all guards pass",
+          "status": "HSBI_DECISION_VALID"
+        },
+        {
+          "condition": "identity mismatch",
+          "status": "HSBI_DECISION_REJECTED"
+        },
+        {
+          "condition": "unknown outcome",
+          "status": "HSBI_DECISION_RECONCILIATION_REQUIRED"
+        }
+      ],
+      "NEGATIVE_PATH": "identity mismatch fails before intent"
+    }
+  ]
+}

@@ -1,0 +1,1071 @@
+{
+  "schema": "HSB.2E-PREP-R2/formulas/1",
+  "formulas": [
+    {
+      "FORMULA_ID": "F001",
+      "NAME": "InitialLockSelection",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F002",
+      "NAME": "PositiveStartProfitIgnored",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "INITIAL_POSITIVE_PROFIT_IGNORED"
+    },
+    {
+      "FORMULA_ID": "F003",
+      "NAME": "RemainingNegativeBecomesFar",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F004",
+      "NAME": "Big",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F005",
+      "NAME": "Small",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F006",
+      "NAME": "BigCore",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F007",
+      "NAME": "BigTrend",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F008",
+      "NAME": "CloseBigOnSmall",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F009",
+      "NAME": "RemainBigOnSmall",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F010",
+      "NAME": "CloseFarShare",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F011",
+      "NAME": "ReserveShare",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F012",
+      "NAME": "SmallReserveShare",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F013",
+      "NAME": "RecoveryPL",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F014",
+      "NAME": "ReserveCoverage",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F015",
+      "NAME": "PartialFar",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "PARTIAL_FAR_USES_RESERVE=NO"
+    },
+    {
+      "FORMULA_ID": "F016",
+      "NAME": "FinalFarClose",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F017",
+      "NAME": "BigScenario",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F018",
+      "NAME": "SmallScenario",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F019",
+      "NAME": "Reverse",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F020",
+      "NAME": "NewFar",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F021",
+      "NAME": "FutureSmall",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F022",
+      "NAME": "ReserveCatchUp",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F023",
+      "NAME": "MaximumReversals",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F024",
+      "NAME": "RecoveryPLMonotonic",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F025",
+      "NAME": "FarReduction",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F026",
+      "NAME": "ReserveAccumulation",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F027",
+      "NAME": "BigToSmall",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    },
+    {
+      "FORMULA_ID": "F028",
+      "NAME": "SymbolMagicTicketOwnership",
+      "VARIABLES": [
+        "actualDealMoney",
+        "farVolume",
+        "reserveMoney",
+        "tickSize",
+        "volumeStep"
+      ],
+      "UNITS": "account currency and lots",
+      "BROKER_PRICE_SIDE": "Bid closes BUY; Ask closes SELL",
+      "SIGN_CONVENTION": "profit positive; loss negative",
+      "ROUNDING_RULE": "money to currency digits only after deal aggregation",
+      "VOLUME_GRID_RULE": "floor close volume to volumeStep without exceeding position volume",
+      "PRICE_GRID_RULE": "normalize outward to tickSize",
+      "COMMISSION_POLICY": "include actual deal commission",
+      "SWAP_POLICY": "include actual deal swap",
+      "REALIZED_PNL_SOURCE": "confirmed deal history",
+      "UNREALIZED_PNL_SOURCE": "broker snapshot Bid/Ask",
+      "FAIL_CLOSED_CONDITION": "nonfinite input, stale identity, invalid grid, or missing ticket",
+      "NUMERIC_EXAMPLE": {
+        "farVolume": 1.0,
+        "budget": 25.0,
+        "result": 0.2
+      },
+      "BOUNDARY_EXAMPLE": {
+        "farVolume": 0.01,
+        "volumeStep": 0.01,
+        "result": 0.01
+      },
+      "NEGATIVE_EXAMPLE": {
+        "input": "NaN",
+        "status": "HSBI_DECISION_REJECTED",
+        "reason": "HSBI_RD_CONTEXT_INVALID"
+      },
+      "NORMATIVE_RULE": "EXISTING_ARCHITECTURE_PRESERVED"
+    }
+  ],
+  "OPEN_DECISION_REQUIRED": "NO",
+  "IMPLEMENTATION_BLOCKED": "NO"
+}
