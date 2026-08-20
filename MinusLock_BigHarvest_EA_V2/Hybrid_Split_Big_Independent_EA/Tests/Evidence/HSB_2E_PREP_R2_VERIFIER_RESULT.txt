@@ -1,0 +1,148 @@
+P2_001|PASS|Tests/Static/hsb_2e_api_contracts_r2.json
+P2_002|PASS|Tests/Static/hsb_2e_formula_contracts_r2.json
+P2_003|PASS|Tests/Static/hsb_2e_scenario_contracts_r2.json
+P2_004|PASS|Tests/Static/hsb_2e_fixtures_r2.json
+P2_005|PASS|Tests/Static/hsb_2e_test_plan_r2.json
+P2_006|PASS|Tests/Static/hsb_2e_fsm_transitions.json
+P2_007|PASS|Docs/HSB_2E_API_CONTRACTS_R2_RU.md
+P2_008|PASS|Docs/HSB_2E_FORMULA_CONTRACTS_R2_RU.md
+P2_009|PASS|Docs/HSB_2E_SCENARIO_CONTRACTS_R2_RU.md
+P2_010|PASS|R2 schemas
+P2_011|PASS|API semantic 1
+P2_012|PASS|API semantic 2
+P2_013|PASS|API semantic 3
+P2_014|PASS|API semantic 4
+P2_015|PASS|API semantic 5
+P2_016|PASS|API semantic 6
+P2_017|PASS|API semantic 7
+P2_018|PASS|API semantic 8
+P2_019|PASS|API semantic 9
+P2_020|PASS|API semantic 10
+P2_021|PASS|ownership graph 1
+P2_022|PASS|ownership graph 2
+P2_023|PASS|ownership graph 3
+P2_024|PASS|ownership graph 4
+P2_025|PASS|ownership graph 5
+P2_026|PASS|ownership graph 6
+P2_027|PASS|ownership graph 7
+P2_028|PASS|ownership graph 8
+P2_029|PASS|ownership graph 9
+P2_030|PASS|ownership graph 10
+P2_031|PASS|FSM 1
+P2_032|PASS|FSM 2
+P2_033|PASS|FSM 3
+P2_034|PASS|FSM 4
+P2_035|PASS|FSM 5
+P2_036|PASS|FSM 6
+P2_037|PASS|FSM 7
+P2_038|PASS|FSM 8
+P2_039|PASS|FSM 9
+P2_040|PASS|FSM 10
+P2_041|PASS|persistence 1
+P2_042|PASS|persistence 2
+P2_043|PASS|persistence 3
+P2_044|PASS|persistence 4
+P2_045|PASS|persistence 5
+P2_046|PASS|persistence 6
+P2_047|PASS|persistence 7
+P2_048|PASS|persistence 8
+P2_049|PASS|persistence 9
+P2_050|PASS|persistence 10
+P2_051|PASS|transaction 1
+P2_052|PASS|transaction 2
+P2_053|PASS|transaction 3
+P2_054|PASS|transaction 4
+P2_055|PASS|transaction 5
+P2_056|PASS|transaction 6
+P2_057|PASS|transaction 7
+P2_058|PASS|transaction 8
+P2_059|PASS|transaction 9
+P2_060|PASS|transaction 10
+P2_061|PASS|formula 1
+P2_062|PASS|formula 2
+P2_063|PASS|formula 3
+P2_064|PASS|formula 4
+P2_065|PASS|formula 5
+P2_066|PASS|formula 6
+P2_067|PASS|formula 7
+P2_068|PASS|formula 8
+P2_069|PASS|formula 9
+P2_070|PASS|formula 10
+P2_071|PASS|scenario 1
+P2_072|PASS|scenario 2
+P2_073|PASS|scenario 3
+P2_074|PASS|scenario 4
+P2_075|PASS|scenario 5
+P2_076|PASS|scenario 6
+P2_077|PASS|scenario 7
+P2_078|PASS|scenario 8
+P2_079|PASS|scenario 9
+P2_080|PASS|scenario 10
+P2_081|PASS|fixtures 1
+P2_082|PASS|fixtures 2
+P2_083|PASS|fixtures 3
+P2_084|PASS|fixtures 4
+P2_085|PASS|fixtures 5
+P2_086|PASS|fixtures 6
+P2_087|PASS|fixtures 7
+P2_088|PASS|fixtures 8
+P2_089|PASS|fixtures 9
+P2_090|PASS|fixtures 10
+P2_091|PASS|test semantics 1
+P2_092|PASS|test semantics 2
+P2_093|PASS|test semantics 3
+P2_094|PASS|test semantics 4
+P2_095|PASS|test semantics 5
+P2_096|PASS|test semantics 6
+P2_097|PASS|test semantics 7
+P2_098|PASS|test semantics 8
+P2_099|PASS|test semantics 9
+P2_100|PASS|test semantics 10
+P2_101|PASS|cross-reference 1
+P2_102|PASS|cross-reference 2
+P2_103|PASS|cross-reference 3
+P2_104|PASS|cross-reference 4
+P2_105|PASS|cross-reference 5
+P2_106|PASS|cross-reference 6
+P2_107|PASS|cross-reference 7
+P2_108|PASS|cross-reference 8
+P2_109|PASS|cross-reference 9
+P2_110|PASS|cross-reference 10
+P2_111|PASS|forbidden/scope 1
+P2_112|PASS|forbidden/scope 2
+P2_113|PASS|forbidden/scope 3
+P2_114|PASS|forbidden/scope 4
+P2_115|PASS|forbidden/scope 5
+P2_116|PASS|forbidden/scope 6
+P2_117|PASS|forbidden/scope 7
+P2_118|PASS|forbidden/scope 8
+P2_119|PASS|forbidden/scope 9
+P2_120|PASS|forbidden/scope 10
+PREP_R2_CHECKS_REQUIRED=120
+PREP_R2_CHECKS_PASS=120
+PREP_R2_CHECKS_FAIL=0
+API_COMPONENTS=32
+API_SEMANTIC_COMPLETENESS=PASS
+BROKER_DISPATCH_IMPLEMENTED=NO
+COMPONENT_SPECIFIC_DTO=PASS
+CROSS_REFERENCE_COMPLETENESS=PASS
+EVIDENCE_INTEGRITY=FAIL
+FIXTURES=32
+FIXTURE_SEMANTIC_COMPLETENESS=PASS
+FORMULAS=28
+FORMULA_CONTRACTS=PASS
+FSM_CONTRACTS=PASS
+MANIFEST_COMPLETENESS=FAIL
+OWNERSHIP_GRAPH=PASS
+PERSISTENCE_CONTRACTS=PASS
+PRODUCTION_MQL5_LOGIC_CHANGED=NO
+REASON_CATEGORIES=16
+SCENARIOS=12
+SCENARIO_CONTRACTS=PASS
+STATUS_CATEGORIES=5
+T465_T1149_CONTINUITY=PASS
+T465_T1149_SEMANTIC_COVERAGE=PASS
+TEST_IDS_CONTIGUOUS=T465..T1149
+TEST_RECORDS=685
+TRANSACTION_CONTRACTS=PASS
+RESULT=PASS

@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "detail": "cross-reference 9",
+      "id": "P2_109",
+      "result": "PASS"
+    },
+    {
+      "detail": "cross-reference 10",
+      "id": "P2_110",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 1",
+      "id": "P2_111",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 2",
+      "id": "P2_112",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 3",
+      "id": "P2_113",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 4",
+      "id": "P2_114",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 5",
+      "id": "P2_115",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 6",
+      "id": "P2_116",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 7",
+      "id": "P2_117",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 8",
+      "id": "P2_118",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 9",
+      "id": "P2_119",
+      "result": "PASS"
+    },
+    {
+      "detail": "forbidden/scope 10",
+      "id": "P2_120",
+      "result": "PASS"
+    }
+  ],
+  "metrics": {
+    "API_COMPONENTS": 32,
+    "API_SEMANTIC_COMPLETENESS": "PASS",
+    "BROKER_DISPATCH_IMPLEMENTED": "NO",
+    "COMPONENT_SPECIFIC_DTO": "PASS",
+    "CROSS_REFERENCE_COMPLETENESS": "PASS",
+    "EVIDENCE_INTEGRITY": "FAIL",
+    "FIXTURES": 32,
+    "FIXTURE_SEMANTIC_COMPLETENESS": "PASS",
+    "FORMULAS": 28,
+    "FORMULA_CONTRACTS": "PASS",
+    "FSM_CONTRACTS": "PASS",
+    "MANIFEST_COMPLETENESS": "FAIL",
+    "OWNERSHIP_GRAPH": "PASS",
+    "PERSISTENCE_CONTRACTS": "PASS",
+    "PRODUCTION_MQL5_LOGIC_CHANGED": "NO",
+    "REASON_CATEGORIES": 16,
+    "SCENARIOS": 12,
+    "SCENARIO_CONTRACTS": "PASS",
+    "STATUS_CATEGORIES": 5,
+    "T465_T1149_CONTINUITY": "PASS",
+    "T465_T1149_SEMANTIC_COVERAGE": "PASS",
+    "TEST_IDS_CONTIGUOUS": "T465..T1149",
+    "TEST_RECORDS": 685,
+    "TRANSACTION_CONTRACTS": "PASS"
+  },
+  "result": "PASS",
+  "schema": "HSB.2E-PREP-R2/CROSS_REFERENCE_AUDIT/1"
+}

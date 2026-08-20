@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "detail": "Tests/Static/hsb_2e_api_contracts_r2.json",
+      "id": "P2_001",
+      "result": "PASS"
+    },
+    {
+      "detail": "Tests/Static/hsb_2e_formula_contracts_r2.json",
+      "id": "P2_002",
+      "result": "PASS"
+    },
+    {
+      "detail": "Tests/Static/hsb_2e_scenario_contracts_r2.json",
+      "id": "P2_003",
+      "result": "PASS"
+    },
+    {
+      "detail": "Tests/Static/hsb_2e_fixtures_r2.json",
+      "id": "P2_004",
+      "result": "PASS"
+    },
+    {
+      "detail": "Tests/Static/hsb_2e_test_plan_r2.json",
+      "id": "P2_005",
+      "result": "PASS"
+    },
+    {
+      "detail": "Tests/Static/hsb_2e_fsm_transitions.json",
+      "id": "P2_006",
+      "result": "PASS"
+    },
+    {
+      "detail": "Docs/HSB_2E_API_CONTRACTS_R2_RU.md",
+      "id": "P2_007",
+      "result": "PASS"
+    },
+    {
+      "detail": "Docs/HSB_2E_FORMULA_CONTRACTS_R2_RU.md",
+      "id": "P2_008",
+      "result": "PASS"
+    },
+    {
+      "detail": "Docs/HSB_2E_SCENARIO_CONTRACTS_R2_RU.md",
+      "id": "P2_009",
+      "result": "PASS"
+    },
+    {
+      "detail": "R2 schemas",
+      "id": "P2_010",
+      "result": "PASS"
+    },
+    {
+      "detail": "API semantic 1",
+      "id": "P2_011",
+      "result": "PASS"
+    },
+    {
+      "detail": "API semantic 2",
+      "id": "P2_012",
+      "result": "PASS"
+    }
+  ],
+  "metrics": {
+    "API_COMPONENTS": 32,
+    "API_SEMANTIC_COMPLETENESS": "PASS",
+    "BROKER_DISPATCH_IMPLEMENTED": "NO",
+    "COMPONENT_SPECIFIC_DTO": "PASS",
+    "CROSS_REFERENCE_COMPLETENESS": "PASS",
+    "EVIDENCE_INTEGRITY": "FAIL",
+    "FIXTURES": 32,
+    "FIXTURE_SEMANTIC_COMPLETENESS": "PASS",
+    "FORMULAS": 28,
+    "FORMULA_CONTRACTS": "PASS",
+    "FSM_CONTRACTS": "PASS",
+    "MANIFEST_COMPLETENESS": "FAIL",
+    "OWNERSHIP_GRAPH": "PASS",
+    "PERSISTENCE_CONTRACTS": "PASS",
+    "PRODUCTION_MQL5_LOGIC_CHANGED": "NO",
+    "REASON_CATEGORIES": 16,
+    "SCENARIOS": 12,
+    "SCENARIO_CONTRACTS": "PASS",
+    "STATUS_CATEGORIES": 5,
+    "T465_T1149_CONTINUITY": "PASS",
+    "T465_T1149_SEMANTIC_COVERAGE": "PASS",
+    "TEST_IDS_CONTIGUOUS": "T465..T1149",
+    "TEST_RECORDS": 685,
+    "TRANSACTION_CONTRACTS": "PASS"
+  },
+  "result": "PASS",
+  "schema": "HSB.2E-PREP-R2/API_SEMANTIC_AUDIT/1"
+}

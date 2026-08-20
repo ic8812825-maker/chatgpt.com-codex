@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "detail": "persistence 9",
+      "id": "P2_049",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 10",
+      "id": "P2_050",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 1",
+      "id": "P2_051",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 2",
+      "id": "P2_052",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 3",
+      "id": "P2_053",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 4",
+      "id": "P2_054",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 5",
+      "id": "P2_055",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 6",
+      "id": "P2_056",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 7",
+      "id": "P2_057",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 8",
+      "id": "P2_058",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 9",
+      "id": "P2_059",
+      "result": "PASS"
+    },
+    {
+      "detail": "transaction 10",
+      "id": "P2_060",
+      "result": "PASS"
+    }
+  ],
+  "metrics": {
+    "API_COMPONENTS": 32,
+    "API_SEMANTIC_COMPLETENESS": "PASS",
+    "BROKER_DISPATCH_IMPLEMENTED": "NO",
+    "COMPONENT_SPECIFIC_DTO": "PASS",
+    "CROSS_REFERENCE_COMPLETENESS": "PASS",
+    "EVIDENCE_INTEGRITY": "FAIL",
+    "FIXTURES": 32,
+    "FIXTURE_SEMANTIC_COMPLETENESS": "PASS",
+    "FORMULAS": 28,
+    "FORMULA_CONTRACTS": "PASS",
+    "FSM_CONTRACTS": "PASS",
+    "MANIFEST_COMPLETENESS": "FAIL",
+    "OWNERSHIP_GRAPH": "PASS",
+    "PERSISTENCE_CONTRACTS": "PASS",
+    "PRODUCTION_MQL5_LOGIC_CHANGED": "NO",
+    "REASON_CATEGORIES": 16,
+    "SCENARIOS": 12,
+    "SCENARIO_CONTRACTS": "PASS",
+    "STATUS_CATEGORIES": 5,
+    "T465_T1149_CONTINUITY": "PASS",
+    "T465_T1149_SEMANTIC_COVERAGE": "PASS",
+    "TEST_IDS_CONTIGUOUS": "T465..T1149",
+    "TEST_RECORDS": 685,
+    "TRANSACTION_CONTRACTS": "PASS"
+  },
+  "result": "PASS",
+  "schema": "HSB.2E-PREP-R2/TRANSACTION_AUDIT/1"
+}

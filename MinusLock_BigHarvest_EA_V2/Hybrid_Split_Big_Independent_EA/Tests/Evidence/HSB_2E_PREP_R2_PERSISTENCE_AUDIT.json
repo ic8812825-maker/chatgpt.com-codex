@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "detail": "FSM 7",
+      "id": "P2_037",
+      "result": "PASS"
+    },
+    {
+      "detail": "FSM 8",
+      "id": "P2_038",
+      "result": "PASS"
+    },
+    {
+      "detail": "FSM 9",
+      "id": "P2_039",
+      "result": "PASS"
+    },
+    {
+      "detail": "FSM 10",
+      "id": "P2_040",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 1",
+      "id": "P2_041",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 2",
+      "id": "P2_042",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 3",
+      "id": "P2_043",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 4",
+      "id": "P2_044",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 5",
+      "id": "P2_045",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 6",
+      "id": "P2_046",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 7",
+      "id": "P2_047",
+      "result": "PASS"
+    },
+    {
+      "detail": "persistence 8",
+      "id": "P2_048",
+      "result": "PASS"
+    }
+  ],
+  "metrics": {
+    "API_COMPONENTS": 32,
+    "API_SEMANTIC_COMPLETENESS": "PASS",
+    "BROKER_DISPATCH_IMPLEMENTED": "NO",
+    "COMPONENT_SPECIFIC_DTO": "PASS",
+    "CROSS_REFERENCE_COMPLETENESS": "PASS",
+    "EVIDENCE_INTEGRITY": "FAIL",
+    "FIXTURES": 32,
+    "FIXTURE_SEMANTIC_COMPLETENESS": "PASS",
+    "FORMULAS": 28,
+    "FORMULA_CONTRACTS": "PASS",
+    "FSM_CONTRACTS": "PASS",
+    "MANIFEST_COMPLETENESS": "FAIL",
+    "OWNERSHIP_GRAPH": "PASS",
+    "PERSISTENCE_CONTRACTS": "PASS",
+    "PRODUCTION_MQL5_LOGIC_CHANGED": "NO",
+    "REASON_CATEGORIES": 16,
+    "SCENARIOS": 12,
+    "SCENARIO_CONTRACTS": "PASS",
+    "STATUS_CATEGORIES": 5,
+    "T465_T1149_CONTINUITY": "PASS",
+    "T465_T1149_SEMANTIC_COVERAGE": "PASS",
+    "TEST_IDS_CONTIGUOUS": "T465..T1149",
+    "TEST_RECORDS": 685,
+    "TRANSACTION_CONTRACTS": "PASS"
+  },
+  "result": "PASS",
+  "schema": "HSB.2E-PREP-R2/PERSISTENCE_AUDIT/1"
+}

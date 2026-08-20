@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "detail": "fixtures 5",
+      "id": "P2_085",
+      "result": "PASS"
+    },
+    {
+      "detail": "fixtures 6",
+      "id": "P2_086",
+      "result": "PASS"
+    },
+    {
+      "detail": "fixtures 7",
+      "id": "P2_087",
+      "result": "PASS"
+    },
+    {
+      "detail": "fixtures 8",
+      "id": "P2_088",
+      "result": "PASS"
+    },
+    {
+      "detail": "fixtures 9",
+      "id": "P2_089",
+      "result": "PASS"
+    },
+    {
+      "detail": "fixtures 10",
+      "id": "P2_090",
+      "result": "PASS"
+    },
+    {
+      "detail": "test semantics 1",
+      "id": "P2_091",
+      "result": "PASS"
+    },
+    {
+      "detail": "test semantics 2",
+      "id": "P2_092",
+      "result": "PASS"
+    },
+    {
+      "detail": "test semantics 3",
+      "id": "P2_093",
+      "result": "PASS"
+    },
+    {
+      "detail": "test semantics 4",
+      "id": "P2_094",
+      "result": "PASS"
+    },
+    {
+      "detail": "test semantics 5",
+      "id": "P2_095",
+      "result": "PASS"
+    },
+    {
+      "detail": "test semantics 6",
+      "id": "P2_096",
+      "result": "PASS"
+    }
+  ],
+  "metrics": {
+    "API_COMPONENTS": 32,
+    "API_SEMANTIC_COMPLETENESS": "PASS",
+    "BROKER_DISPATCH_IMPLEMENTED": "NO",
+    "COMPONENT_SPECIFIC_DTO": "PASS",
+    "CROSS_REFERENCE_COMPLETENESS": "PASS",
+    "EVIDENCE_INTEGRITY": "FAIL",
+    "FIXTURES": 32,
+    "FIXTURE_SEMANTIC_COMPLETENESS": "PASS",
+    "FORMULAS": 28,
+    "FORMULA_CONTRACTS": "PASS",
+    "FSM_CONTRACTS": "PASS",
+    "MANIFEST_COMPLETENESS": "FAIL",
+    "OWNERSHIP_GRAPH": "PASS",
+    "PERSISTENCE_CONTRACTS": "PASS",
+    "PRODUCTION_MQL5_LOGIC_CHANGED": "NO",
+    "REASON_CATEGORIES": 16,
+    "SCENARIOS": 12,
+    "SCENARIO_CONTRACTS": "PASS",
+    "STATUS_CATEGORIES": 5,
+    "T465_T1149_CONTINUITY": "PASS",
+    "T465_T1149_SEMANTIC_COVERAGE": "PASS",
+    "TEST_IDS_CONTIGUOUS": "T465..T1149",
+    "TEST_RECORDS": 685,
+    "TRANSACTION_CONTRACTS": "PASS"
+  },
+  "result": "PASS",
+  "schema": "HSB.2E-PREP-R2/FIXTURE_AUDIT/1"
+}
