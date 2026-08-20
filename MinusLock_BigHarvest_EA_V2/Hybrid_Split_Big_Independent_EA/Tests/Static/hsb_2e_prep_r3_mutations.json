@@ -1,0 +1,275 @@
+{
+  "schema": "HSB.2E-PREP-R3/mutations/1",
+  "mutations": [
+    {
+      "ID": "P3M001",
+      "NAME": "banana variables",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "OP": "formula_input_schema",
+      "INDEX": 0,
+      "EXPECTED_CHECK": "FORMULA_VARIABLES",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M002",
+      "NAME": "nonsense example",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "OP": "formula_input_schema",
+      "INDEX": 1,
+      "EXPECTED_CHECK": "FORMULA_VARIABLES",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M003",
+      "NAME": "wrong result",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "OP": "formula_input_schema",
+      "INDEX": 2,
+      "EXPECTED_CHECK": "FORMULA_VARIABLES",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M004",
+      "NAME": "Far loss sign",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "OP": "formula_input_schema",
+      "INDEX": 3,
+      "EXPECTED_CHECK": "FORMULA_VARIABLES",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M005",
+      "NAME": "BUY Ask",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "OP": "formula_input_schema",
+      "INDEX": 4,
+      "EXPECTED_CHECK": "FORMULA_VARIABLES",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M006",
+      "NAME": "SELL Bid",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "OP": "formula_input_schema",
+      "INDEX": 5,
+      "EXPECTED_CHECK": "FORMULA_VARIABLES",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M007",
+      "NAME": "volume ceiling",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "OP": "formula_input_schema",
+      "INDEX": 6,
+      "EXPECTED_CHECK": "FORMULA_VARIABLES",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M008",
+      "NAME": "Reserve partial",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "OP": "formula_input_schema",
+      "INDEX": 7,
+      "EXPECTED_CHECK": "FORMULA_VARIABLES",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M009",
+      "NAME": "initial profit budget",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "OP": "golden_output",
+      "INDEX": 0,
+      "EXPECTED_CHECK": "V_GOLDEN",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M010",
+      "NAME": "Big incomplete",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "OP": "golden_output",
+      "INDEX": 1,
+      "EXPECTED_CHECK": "V_GOLDEN",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M011",
+      "NAME": "Small incomplete",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "OP": "golden_output",
+      "INDEX": 2,
+      "EXPECTED_CHECK": "V_GOLDEN",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M012",
+      "NAME": "NewFar equal",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "OP": "golden_output",
+      "INDEX": 3,
+      "EXPECTED_CHECK": "V_GOLDEN",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M013",
+      "NAME": "NewFar larger",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "OP": "golden_output",
+      "INDEX": 4,
+      "EXPECTED_CHECK": "V_GOLDEN",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M014",
+      "NAME": "Far without ticket",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "OP": "golden_output",
+      "INDEX": 5,
+      "EXPECTED_CHECK": "V_GOLDEN",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M015",
+      "NAME": "Magic removed",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "OP": "golden_output",
+      "INDEX": 6,
+      "EXPECTED_CHECK": "V_GOLDEN",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M016",
+      "NAME": "duplicate deal",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "OP": "golden_output",
+      "INDEX": 7,
+      "EXPECTED_CHECK": "V_GOLDEN",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M017",
+      "NAME": "duplicate Reserve",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "OP": "api_field",
+      "INDEX": 0,
+      "EXPECTED_CHECK": "API_SCHEMA",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M018",
+      "NAME": "final gate",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "OP": "api_field",
+      "INDEX": 1,
+      "EXPECTED_CHECK": "API_SCHEMA",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M019",
+      "NAME": "revision decrease",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "OP": "api_field",
+      "INDEX": 2,
+      "EXPECTED_CHECK": "API_SCHEMA",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M020",
+      "NAME": "mutation before persistence",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "OP": "api_field",
+      "INDEX": 3,
+      "EXPECTED_CHECK": "API_SCHEMA",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M021",
+      "NAME": "new ActionID retry",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "OP": "api_field",
+      "INDEX": 4,
+      "EXPECTED_CHECK": "API_SCHEMA",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M022",
+      "NAME": "partial full",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "OP": "api_field",
+      "INDEX": 5,
+      "EXPECTED_CHECK": "API_SCHEMA",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M023",
+      "NAME": "unknown PASS",
+      "TARGET": "Tests/Static/hsb_2e_scenario_contracts_r3.json",
+      "OP": "scenario_vectors",
+      "INDEX": 6,
+      "EXPECTED_CHECK": "SCENARIOS",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M024",
+      "NAME": "nonsense API",
+      "TARGET": "Tests/Static/hsb_2e_scenario_contracts_r3.json",
+      "OP": "scenario_vectors",
+      "INDEX": 7,
+      "EXPECTED_CHECK": "SCENARIOS",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M025",
+      "NAME": "broker direction removed",
+      "TARGET": "Tests/Static/hsb_2e_scenario_contracts_r3.json",
+      "OP": "scenario_vectors",
+      "INDEX": 0,
+      "EXPECTED_CHECK": "SCENARIOS",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M026",
+      "NAME": "scenario template",
+      "TARGET": "Tests/Static/hsb_2e_scenario_contracts_r3.json",
+      "OP": "scenario_vectors",
+      "INDEX": 1,
+      "EXPECTED_CHECK": "SCENARIOS",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M027",
+      "NAME": "expected output removed",
+      "TARGET": "Tests/Static/hsb_2e_test_plan_r3.json",
+      "OP": "test_output",
+      "INDEX": 2,
+      "EXPECTED_CHECK": "TEST_VECTORS",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M028",
+      "NAME": "oracle coupling",
+      "TARGET": "Tests/Static/hsb_2e_test_plan_r3.json",
+      "OP": "test_output",
+      "INDEX": 3,
+      "EXPECTED_CHECK": "TEST_VECTORS",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M029",
+      "NAME": "evidence tamper",
+      "TARGET": "Tests/Evidence/HSB_2E_PREP_R3_EVIDENCE_SEAL_SHA256.txt",
+      "OP": "seal_remove",
+      "INDEX": 4,
+      "EXPECTED_CHECK": "SEAL",
+      "REQUIRED": true
+    },
+    {
+      "ID": "P3M030",
+      "NAME": "unsealed evidence",
+      "TARGET": "Tests/Evidence/HSB_2E_PREP_R3_EVIDENCE_SEAL_SHA256.txt",
+      "OP": "seal_extra",
+      "INDEX": 5,
+      "EXPECTED_CHECK": "SEAL",
+      "REQUIRED": true
+    }
+  ]
+}
