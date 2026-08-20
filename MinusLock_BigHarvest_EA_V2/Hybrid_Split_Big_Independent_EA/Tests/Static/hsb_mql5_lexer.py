@@ -144,6 +144,50 @@ def _args(s):
   elif ch in ')]}':d-=1
   elif ch==',' and d==0:out.append(s[start:i]);start=i+1
  out.append(s[start:]);return out
+SAFE_REJECT_STATUSES={'HSBI_DECISION_REJECTED','HSBI_DECISION_UNAVAILABLE','HSBI_DECISION_STALE','HSBI_DECISION_CONFLICT','HSBI_DECISION_RECONCILIATION_REQUIRED','HSBI_DECISION_PERSISTENCE_REQUIRED'}
+def normalize_condition(s):
+ s=s.strip();
+ while s.startswith('(') and s.endswith(')'):
+  try:x,e=_balanced(s,0)
+  except LexerError:break
+  if e!=len(s):break
+  s=x
+ for op in ('||','&&'):
+  parts=[];start=0;d=0
+  for i,ch in enumerate(s):
+   d+=ch=='(';d-=ch==')'
+   if d==0 and s.startswith(op,i):parts.append(normalize_condition(s[start:i]));start=i+len(op)
+  if parts:parts.append(normalize_condition(s[start:]));return op.join(sorted(parts))
+ for op in ('!=','=='):
+  d=0
+  for i,ch in enumerate(s):
+   d+=ch=='(';d-=ch==')'
+   if d==0 and s.startswith(op,i):return op.join(sorted((normalize_condition(s[:i]),normalize_condition(s[i+2:]))))
+ return s
+def conditions_equivalent(a,b):return normalize_condition(a)==normalize_condition(b)
+def _return_expression(body,pos):
+ i=pos+6;d=0
+ while i<len(body):
+  c=body[i];d+=c in '([';d-=c in ')]'
+  if c==';' and d==0:return body[pos+6:i],i+1
+  i+=1
+ raise LexerError('unterminated return')
+def analyze_return_paths(src,function):
+ fn=extract_function(src,function);body=fn[fn.find('{')+1:-1];out=[];i=0;depth=0
+ while i<len(body):
+  if body[i]=='{':depth+=1;i+=1;continue
+  if body[i]=='}':depth-=1;i+=1;continue
+  if body.startswith('return',i):
+   expr,e=_return_expression(body,i);kind='UNKNOWN_FAIL_CLOSED';status=reason=''
+   if expr.startswith('HSBI_RuntimeReject('):
+    call,_=_balanced(expr,len('HSBI_RuntimeReject'));args=_args(call);status=args[1] if len(args)>1 else '';reason=args[2] if len(args)>2 else ''
+    if re.fullmatch(r'[A-Za-z_]\w*',status) and status in SAFE_REJECT_STATUSES:kind='PROVEN_REJECT'
+    elif status=='HSBI_DECISION_NO_OP' and reason=='HSBI_RD_OK':kind='PROVEN_NO_OP'
+    elif status=='HSBI_DECISION_VALID':kind='PROVEN_SUCCESS'
+   elif expr=='admission' and body[max(0,i-40):i].endswith('if(!admission.valid)'):kind='PROVEN_REJECT'
+   out.append({'FUNCTION':function,'RETURN_INDEX':len(out)+1,'SOURCE_POSITION':i,'ENCLOSING_DEPTH':depth,'RETURN_EXPRESSION':expr,'RETURN_EXPRESSION_KIND':'CALL' if '(' in expr else 'OBJECT','CALLEE':expr.split('(',1)[0] if '(' in expr else '','STATUS_EXPRESSION':status,'REASON_EXPRESSION':reason,'CLASSIFICATION':kind,'SAFE':kind in ('PROVEN_REJECT','PROVEN_NO_OP')});i=e;continue
+  i+=1
+ return out
 def prove_top_level_guard(src,function,condition,status,reason):
  fn=extract_function(src,function);body=fn[fn.find('{')+1:-1];i=0;depth=0;prior_return=False;candidates=[]
  while i<len(body):
@@ -158,35 +202,36 @@ def prove_top_level_guard(src,function,condition,status,reason):
    if k<len(body) and body[k]!='{':
     semi=body.find(';',k);i=(semi+1 if semi>=0 else j);continue
   i+=1
- matching=[x for x in candidates if x[0]==condition]
+ matching=[x for x in candidates if conditions_equivalent(x[0],condition)]
  exact=[x for x in matching if len(x[1])>=3 and x[1][1]==status and x[1][2]==reason and x[2]]
  pos=exact[0][3] if len(exact)==1 else -1;prefix=body[:pos] if pos>=0 else body
- # Earlier canonical rejects are safe. Every other return before this guard has
- # unknown or successful semantics and therefore provides a bypass path.
- safe_reject=r'returnHSBI_RuntimeReject\([^;]*?\);'
- unsafe_prefix=re.sub(safe_reject,'',prefix)
- unsafe_prefix=unsafe_prefix.replace('if(!admission.valid)returnadmission;','')
- early_success=bool(re.search(r'\.valid=true|\.status=HSBI_DECISION_VALID|HSBI_RuntimeReject\([^;]*?HSBI_DECISION_VALID',prefix))
- unknown_returns=unsafe_prefix.count('return')
+ paths=[p for p in analyze_return_paths(src,function) if p['SOURCE_POSITION']<pos] if pos>=0 else analyze_return_paths(src,function)
+ early_success=sum(p['CLASSIFICATION']=='PROVEN_SUCCESS' for p in paths)
+ unknown_returns=sum(p['CLASSIFICATION']=='UNKNOWN_FAIL_CLOSED' for p in paths)
  present=bool(matching);unique=len(matching)==1;reachable=len(exact)==1
  dominates=reachable and unique and not early_success and unknown_returns==0
  return {'FUNCTION':function,'CONDITION':condition,'GUARD_PRESENT':present,'GUARD_UNIQUE':unique,
-  'GUARD_CONDITION_EXACT':present,'REJECT_STATUS':status,'REASON_CODE':reason,
+  'GUARD_CONDITION_EXACT':any(x[0]==condition for x in matching),'GUARD_CONDITION_EXACT_OR_SUPPORTED_EQUIVALENT':present,'REJECT_STATUS':status,'REASON_CODE':reason,
   'REJECT_CALL_EXACT':len(exact)==1,'REJECT_STATUS_EXACT':len(exact)==1,
   'REJECT_REASON_EXACT':len(exact)==1,'REACHABLE':reachable,'BEFORE_SUCCESS':dominates,
-  'SUCCESS_RETURNS_FOUND':int(early_success),'EARLY_SUCCESS_RETURNS':int(early_success),
+  'SUCCESS_RETURNS_FOUND':early_success,'EARLY_SUCCESS_RETURNS':early_success,
   'UNKNOWN_RETURNS':unknown_returns,'GUARD_ON_ALL_SUCCESS_PATHS':dominates,
   'DOMINATES_SUCCESS':dominates,'RESULT':'PASS' if dominates else 'FAIL'}
 
 def prove_reject_constructor(src):
- fn=extract_function(src,'HSBI_RuntimeReject');ok=all(x in fn for x in
-  ('r.status=status;','r.reason=reason;','returnr;'))
- unsafe=('.valid=true' in fn or 'r.status=HSBI_DECISION_VALID' in fn or
-  len(re.findall(r'\breturn',fn))!=1)
- return {'RETURNS_PASSED_STATUS':'r.status=status;' in fn,
-  'RETURNS_PASSED_REASON':'r.reason=reason;' in fn,'VALID_TRUE_PATH':'.valid=true' in fn,
-  'STATUS_SUBSTITUTION':'r.status=HSBI_DECISION_VALID' in fn,
-  'REJECT_CONSTRUCTOR_PROOF':'PASS' if ok and not unsafe else 'FAIL'}
+ fn=extract_function(src,'HSBI_RuntimeReject');sw=re.findall(r'r\.status=([^;]+);',fn);rw=re.findall(r'r\.reason=([^;]+);',fn);vw=re.findall(r'r\.valid=([^;]+);',fn);returns=re.findall(r'return([^;]+);',fn)
+ controls=sum(fn.count(x) for x in ('if(','while(','for(','switch('));ok=('ZeroMemory(r);' in fn and sw==['status'] and rw==['reason'] and not vw and controls==0 and returns==['r'])
+ return {'ZERO_MEMORY_CALLED':'ZeroMemory(r);' in fn,'STATUS_ASSIGNED_EXACTLY_ONCE':len(sw)==1,'STATUS_SOURCE':sw[0] if len(sw)==1 else 'UNPROVEN','REASON_ASSIGNED_EXACTLY_ONCE':len(rw)==1,'REASON_SOURCE':rw[0] if len(rw)==1 else 'UNPROVEN','VALID_WRITES':len(vw),'STATUS_SECONDARY_WRITES':max(0,len(sw)-1),'REASON_SECONDARY_WRITES':max(0,len(rw)-1),'CONDITIONAL_BLOCKS':controls,'RETURN_COUNT':len(returns),'RETURNED_OBJECT':returns[0] if len(returns)==1 else 'UNPROVEN','REJECT_CONSTRUCTOR_PROOF':'PASS' if ok else 'FAIL'}
+def parse_enum_map(src,name):
+ a=active_compact(src);m=re.search(r'enum'+re.escape(name)+r'\{([^}]*)\}',a)
+ if not m:raise LexerError('enum not found')
+ value=-1;out={}
+ for item in _args(m.group(1)):
+  if not item:continue
+  if '=' in item:k,v=item.split('=',1);value=int(v,0)
+  else:k=item;value+=1
+  out[k]=value
+ return out
 
 def prove_unique_final_success(src,function,required_conditions):
  fn=extract_function(src,function);body=fn[fn.find('{')+1:-1]
@@ -230,4 +275,16 @@ def lexer_self_tests():
  t['L034']=gp(canonical)['RESULT']=='PASS'
  t['L035']=gp(canonical.replace('if(x!=y)','R q;q.valid=true;return q;if(x!=y)',1))['DOMINATES_SUCCESS'] is False
  t['L036']=prove_unique_final_success(canonical,'F',['x!=y'])['RESULT']=='PASS'
+ def unsafe(st):return analyze_return_paths('R F(){return HSBI_RuntimeReject(x,'+st+',WHY,"x");}','F')[0]['CLASSIFICATION']=='UNKNOWN_FAIL_CLOSED'
+ t['L037']=unsafe('0');t['L038']=unsafe('(S)0');t['L039']=unsafe('alias');t['L040']=unsafe('c?BAD:HSBI_DECISION_VALID');t['L041']=unsafe('GetStatus()')
+ t['L042']=conditions_equivalent('a!=b','b!=a');t['L043']=conditions_equivalent('a==b','b==a')
+ base='R HSBI_RuntimeReject(A x,S status,Q reason,string z){R r;ZeroMemory(r);r.status=status;r.reason=reason;return r;}'
+ t['L044']=prove_reject_constructor(base.replace('r.status=status;','r.valid=1;r.status=status;'))['REJECT_CONSTRUCTOR_PROOF']=='FAIL'
+ t['L045']=prove_reject_constructor(base.replace('r.status=status;','r.valid=(bool)1;r.status=status;'))['REJECT_CONSTRUCTOR_PROOF']=='FAIL'
+ t['L046']=prove_reject_constructor(base.replace('r.status=status;','r.valid=(status==HSBI_DECISION_VALID);r.status=status;'))['REJECT_CONSTRUCTOR_PROOF']=='FAIL'
+ t['L047']=prove_reject_constructor(base.replace('r.status=status;','r.status=status;r.status=BAD;'))['REJECT_CONSTRUCTOR_PROOF']=='FAIL'
+ t['L048']=prove_reject_constructor(base.replace('r.reason=reason;','r.reason=reason;r.reason=OK;'))['REJECT_CONSTRUCTOR_PROOF']=='FAIL'
+ t['L049']=prove_reject_constructor(base)['REJECT_CONSTRUCTOR_PROOF']=='PASS'
+ bypass=canonical.replace('if(x!=y)','if(y!=x)return HSBI_RuntimeReject(x,(S)0,OK,"b");if(x!=y)',1)
+ t['L050']=gp(bypass)['RESULT']=='FAIL' and prove_reject_constructor(base.replace('r.status=status;','r.valid=(status==(S)0);r.status=status;'))['REJECT_CONSTRUCTOR_PROOF']=='FAIL'
  return t
