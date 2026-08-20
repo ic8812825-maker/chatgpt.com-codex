@@ -1,0 +1,6 @@
+{
+  "boolean_comparisons": "normalized",
+  "double_negation": "identity",
+  "negated_equality": "inequality",
+  "negated_inequality": "equality"
+}

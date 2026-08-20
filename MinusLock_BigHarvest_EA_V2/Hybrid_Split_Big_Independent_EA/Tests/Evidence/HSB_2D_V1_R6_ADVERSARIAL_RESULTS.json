@@ -1,0 +1,98 @@
+[
+  {
+    "caught": true,
+    "dimension": "STATUS_FORM",
+    "id": "A001",
+    "input": "0"
+  },
+  {
+    "caught": true,
+    "dimension": "STATUS_FORM",
+    "id": "A002",
+    "input": "(HSBI_RuntimeDecisionStatus)0"
+  },
+  {
+    "caught": true,
+    "dimension": "STATUS_FORM",
+    "id": "A003",
+    "input": "alias"
+  },
+  {
+    "caught": true,
+    "dimension": "STATUS_FORM",
+    "id": "A004",
+    "input": "c?HSBI_DECISION_REJECTED:HSBI_DECISION_VALID"
+  },
+  {
+    "caught": true,
+    "dimension": "STATUS_FORM",
+    "id": "A005",
+    "input": "GetStatus()"
+  },
+  {
+    "caught": true,
+    "dimension": "STATUS_FORM",
+    "id": "A006",
+    "input": "HSBI_DECISION_VALID"
+  },
+  {
+    "caught": true,
+    "dimension": "STATUS_FORM",
+    "id": "A007",
+    "input": "HSBI_DECISION_NO_OP"
+  },
+  {
+    "caught": true,
+    "dimension": "VALID_FORM",
+    "id": "A007",
+    "input": "1"
+  },
+  {
+    "caught": true,
+    "dimension": "VALID_FORM",
+    "id": "A008",
+    "input": "(bool)1"
+  },
+  {
+    "caught": true,
+    "dimension": "VALID_FORM",
+    "id": "A009",
+    "input": "!false"
+  },
+  {
+    "caught": true,
+    "dimension": "VALID_FORM",
+    "id": "A010",
+    "input": "(status==HSBI_DECISION_VALID)"
+  },
+  {
+    "caught": true,
+    "dimension": "CONDITION_FORM",
+    "id": "A011",
+    "input": "a!=b~b!=a"
+  },
+  {
+    "caught": true,
+    "dimension": "CONDITION_FORM",
+    "id": "A012",
+    "input": "a==b~b==a"
+  },
+  {
+    "caught": true,
+    "dimension": "CONDITION_FORM",
+    "id": "A013",
+    "input": "a||b~b||a"
+  },
+  {
+    "caught": true,
+    "dimension": "CONDITION_FORM",
+    "id": "A014",
+    "input": "a&&b~b&&a"
+  },
+  {
+    "caught": true,
+    "dimension": "AUTHORIZED_NO_OP",
+    "id": "A015",
+    "input": "S037"
+  }
+]
