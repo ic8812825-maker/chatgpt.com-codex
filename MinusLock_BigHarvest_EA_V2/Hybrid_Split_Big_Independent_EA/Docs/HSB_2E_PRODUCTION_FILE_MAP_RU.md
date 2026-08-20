@@ -1,19 +1,38 @@
-# HSB.2E future production file map
+# HSB.2E production file map
 
-Все записи — проект, не реализация.
+Проектируемые production-файлы отсутствуют до разрешения этапа.
 
-| FILE | OWNER_REQUIREMENTS | PUBLIC_TYPES | PUBLIC_FUNCTIONS | ALLOWED_DEPENDENCIES | FORBIDDEN_DEPENDENCIES | STATE_MUTATION_ALLOWED | BROKER_CALLS_ALLOWED | TEST_RANGE | IMPLEMENTATION_STAGE |
-|---|---|---|---|---|---|---|---|---|---|
-| Include/Persistence/HSBI_ProductionJournal.mqh | exactly-once | JournalRecord | Prepare/Append/Commit | Core | Broker, Scenarios | journal only | NO | T465–T499 | 2E.1 |
-| Include/Broker/HSBI_BrokerSnapshot.mqh | runtime properties | BrokerSnapshot | ReadSnapshot | Core | FSM, Scenarios | NO | read-only | T500–T539 | 2E.2 |
-| Include/Execution/HSBI_PositionDiscovery.mqh | ownership | PositionSet | Discover | Broker/Core | FSM | NO | read-only | T540–T579 | 2E.3 |
-| Include/Reconciliation/HSBI_ReconciliationEngine.mqh | external truth | ReconcileResult | Reconcile | Core/Persistence | direct dispatch | result only | NO | T580–T619 | 2E.4 |
-| Include/Execution/HSBI_TransactionEngine.mqh | lifecycle | Intent/Outcome | Prepare/ApplyOutcome | Persistence/Reconciliation | direct FSM mutation | intent only | simulated until 2E.13 | T620–T669 | 2E.5 |
-| Include/Scenarios/HSBI_InitialLockEngine.mqh | Initial Lock | Decision | Decide | Core/Planning | Broker | NO | NO | T670–T709 | 2E.6 |
-| Include/Scenarios/HSBI_BigHarvestEngine.mqh | Big | Decision | Decide | Planning/Money/Risk | Broker | NO | NO | T710–T759 | 2E.7 |
-| Include/Scenarios/HSBI_PartialFarReserveEngine.mqh | Partial Far/Reserve | AllocationDecision | Decide | Money/Risk | Broker | NO | NO | T760–T809 | 2E.8 |
-| Include/Scenarios/HSBI_FinalCloseEngine.mqh | Final Close | Decision | Decide | Money/Risk | Broker | NO | NO | T810–T849 | 2E.9 |
-| Include/Scenarios/HSBI_SmallTransitionEngine.mqh | Small | Decision | Decide | Planning/Money/Risk | Broker | NO | NO | T850–T909 | 2E.10 |
-| Include/Scenarios/HSBI_NewFarCatchUpEngine.mqh | NewFar/Catch-Up | Decision | Decide | Planning/Money/Risk | Broker | NO | NO | T910–T949 | 2E.11 |
-| Include/Execution/HSBI_SimulatedBrokerAdapter.mqh | simulation | SimOutcome | Dispatch | Execution | FSM | adapter state | simulated only | T1000–T1049 | 2E.5 |
-| Include/Diagnostics/HSBI_ProductionDiagnostics.mqh | audit | LogEvent | Emit | Core | Broker | NO | NO | all | 2E.0 |
+| FILE | PUBLIC FUNCTION | DEPENDENCIES | STATE MUTATION | BROKER CALLS | STAGE |
+|---|---|---|---|---|---|
+| Include/Broker/HSBI_IBrokerAdapter.mqh | HSBI_IBrokerAdapter_Execute | Core + Runtime contracts | NO | NO | HSB.2E.0 |
+| Include/Broker/HSBI_BrokerSnapshot.mqh | HSBI_BrokerSnapshot_Execute | Core + Runtime contracts | NO | NO | HSB.2E.1 |
+| Include/Broker/HSBI_TradeRequestBuilder.mqh | HSBI_TradeRequestBuilder_Execute | Core + Runtime contracts | NO | NO | HSB.2E.2 |
+| Include/Broker/HSBI_TradeRetcodeClassifier.mqh | HSBI_TradeRetcodeClassifier_Execute | Core + Runtime contracts | NO | NO | HSB.2E.3 |
+| Include/Broker/HSBI_DealHistoryReader.mqh | HSBI_DealHistoryReader_Execute | Core + Runtime contracts | NO | NO | HSB.2E.4 |
+| Include/Persistence/HSBI_AtomicFileStore.mqh | HSBI_AtomicFileStore_Execute | Core + Runtime contracts | NO | NO | HSB.2E.5 |
+| Include/Persistence/HSBI_ProductionJournal.mqh | HSBI_ProductionJournal_Execute | Core + Runtime contracts | NO | NO | HSB.2E.6 |
+| Include/Persistence/HSBI_ProductionSnapshotStore.mqh | HSBI_ProductionSnapshotStore_Execute | Core + Runtime contracts | NO | NO | HSB.2E.7 |
+| Include/Persistence/HSBI_SnapshotMigration.mqh | HSBI_SnapshotMigration_Execute | Core + Runtime contracts | NO | NO | HSB.2E.8 |
+| Include/Reconciliation/HSBI_ReconciliationEngine.mqh | HSBI_ReconciliationEngine_Execute | Core + Runtime contracts | NO | NO | HSB.2E.9 |
+| Include/Reconciliation/HSBI_PositionReconciler.mqh | HSBI_PositionReconciler_Execute | Core + Runtime contracts | NO | NO | HSB.2E.10 |
+| Include/Reconciliation/HSBI_DealReconciler.mqh | HSBI_DealReconciler_Execute | Core + Runtime contracts | NO | NO | HSB.2E.11 |
+| Include/Reconciliation/HSBI_PendingActionReconciler.mqh | HSBI_PendingActionReconciler_Execute | Core + Runtime contracts | NO | NO | HSB.2E.12 |
+| Include/Execution/HSBI_PositionDiscovery.mqh | HSBI_PositionDiscovery_Execute | Core + Runtime contracts | NO | NO | HSB.2E.13 |
+| Include/Execution/HSBI_TransactionEngine.mqh | HSBI_TransactionEngine_Execute | Core + Runtime contracts | NO | NO | HSB.2E.14 |
+| Include/Execution/HSBI_TradeTransactionRouter.mqh | HSBI_TradeTransactionRouter_Execute | Core + Runtime contracts | NO | NO | HSB.2E.15 |
+| Include/Execution/HSBI_ExecutionCoordinator.mqh | HSBI_ExecutionCoordinator_Execute | Core + Runtime contracts | NO | NO | HSB.2E.16 |
+| Include/Execution/HSBI_SimulatedBrokerAdapter.mqh | HSBI_SimulatedBrokerAdapter_Execute | Core + Runtime contracts | NO | SIMULATED_ONLY | HSB.2E.0 |
+| Include/Execution/HSBI_DemoBrokerAdapter.mqh | HSBI_DemoBrokerAdapter_Execute | Core + Runtime contracts | NO | DEMO_AFTER_2E13 | HSB.2E.1 |
+| Include/Money/HSBI_ProductionEconomicLedger.mqh | HSBI_ProductionEconomicLedger_Execute | Core + Runtime contracts | NO | NO | HSB.2E.2 |
+| Include/Money/HSBI_ProductionAllocationLedger.mqh | HSBI_ProductionAllocationLedger_Execute | Core + Runtime contracts | NO | NO | HSB.2E.3 |
+| Include/Money/HSBI_RealizedDealMoney.mqh | HSBI_RealizedDealMoney_Execute | Core + Runtime contracts | NO | NO | HSB.2E.4 |
+| Include/Runtime/HSBI_CycleOrchestrator.mqh | HSBI_CycleOrchestrator_Execute | Core + Runtime contracts | ONLY_RECONCILED_COMMIT | NO | HSB.2E.5 |
+| Include/Runtime/HSBI_FsmCommitCoordinator.mqh | HSBI_FsmCommitCoordinator_Execute | Core + Runtime contracts | ONLY_RECONCILED_COMMIT | NO | HSB.2E.6 |
+| Include/Runtime/HSBI_TerminalSafeController.mqh | HSBI_TerminalSafeController_Execute | Core + Runtime contracts | ONLY_RECONCILED_COMMIT | NO | HSB.2E.7 |
+| Include/Scenarios/HSBI_InitialLockEngine.mqh | HSBI_InitialLockEngine_Execute | Core + Runtime contracts | NO | NO | HSB.2E.8 |
+| Include/Scenarios/HSBI_BigHarvestEngine.mqh | HSBI_BigHarvestEngine_Execute | Core + Runtime contracts | NO | NO | HSB.2E.9 |
+| Include/Scenarios/HSBI_PartialFarReserveEngine.mqh | HSBI_PartialFarReserveEngine_Execute | Core + Runtime contracts | NO | NO | HSB.2E.10 |
+| Include/Scenarios/HSBI_FinalCloseEngine.mqh | HSBI_FinalCloseEngine_Execute | Core + Runtime contracts | NO | NO | HSB.2E.11 |
+| Include/Scenarios/HSBI_SmallTransitionEngine.mqh | HSBI_SmallTransitionEngine_Execute | Core + Runtime contracts | NO | NO | HSB.2E.12 |
+| Include/Scenarios/HSBI_NewFarCatchUpEngine.mqh | HSBI_NewFarCatchUpEngine_Execute | Core + Runtime contracts | NO | NO | HSB.2E.13 |
+| Include/Diagnostics/HSBI_ProductionDiagnostics.mqh | HSBI_ProductionDiagnostics_Execute | Core + Runtime contracts | NO | NO | HSB.2E.14 |

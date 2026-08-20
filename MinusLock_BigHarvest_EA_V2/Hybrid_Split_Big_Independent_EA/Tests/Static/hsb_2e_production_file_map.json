@@ -1,0 +1,772 @@
+{
+  "files": [
+    {
+      "FILE": "Include/Broker/HSBI_IBrokerAdapter.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_IBROKERADAPTER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_IBrokerAdapterRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_IBrokerAdapter_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.0",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Broker/HSBI_BrokerSnapshot.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_BROKERSNAPSHOT"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_BrokerSnapshotRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_BrokerSnapshot_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.1",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Broker/HSBI_TradeRequestBuilder.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_TRADEREQUESTBUILDER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_TradeRequestBuilderRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TradeRequestBuilder_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.2",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Broker/HSBI_TradeRetcodeClassifier.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_TRADERETCODECLASSIFIER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_TradeRetcodeClassifierRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TradeRetcodeClassifier_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.3",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Broker/HSBI_DealHistoryReader.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_DEALHISTORYREADER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_DealHistoryReaderRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_DealHistoryReader_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.4",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Persistence/HSBI_AtomicFileStore.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_ATOMICFILESTORE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_AtomicFileStoreRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_AtomicFileStore_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.5",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Persistence/HSBI_ProductionJournal.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_PRODUCTIONJOURNAL"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionJournalRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionJournal_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.6",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Persistence/HSBI_ProductionSnapshotStore.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_PRODUCTIONSNAPSHOTSTORE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionSnapshotStoreRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionSnapshotStore_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.7",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Persistence/HSBI_SnapshotMigration.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_SNAPSHOTMIGRATION"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_SnapshotMigrationRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_SnapshotMigration_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.8",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Reconciliation/HSBI_ReconciliationEngine.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_RECONCILIATIONENGINE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_ReconciliationEngineRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ReconciliationEngine_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.9",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Reconciliation/HSBI_PositionReconciler.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_POSITIONRECONCILER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_PositionReconcilerRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_PositionReconciler_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.10",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Reconciliation/HSBI_DealReconciler.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_DEALRECONCILER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_DealReconcilerRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_DealReconciler_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.11",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Reconciliation/HSBI_PendingActionReconciler.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_PENDINGACTIONRECONCILER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_PendingActionReconcilerRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_PendingActionReconciler_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.12",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Execution/HSBI_PositionDiscovery.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_POSITIONDISCOVERY"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_PositionDiscoveryRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_PositionDiscovery_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.13",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Execution/HSBI_TransactionEngine.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_TRANSACTIONENGINE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_TransactionEngineRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TransactionEngine_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.14",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Execution/HSBI_TradeTransactionRouter.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_TRADETRANSACTIONROUTER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_TradeTransactionRouterRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TradeTransactionRouter_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.15",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_EXECUTIONCOORDINATOR"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_ExecutionCoordinatorRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ExecutionCoordinator_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.16",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Execution/HSBI_SimulatedBrokerAdapter.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_SIMULATEDBROKERADAPTER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_SimulatedBrokerAdapterRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_SimulatedBrokerAdapter_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "SIMULATED_ONLY",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.0",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Execution/HSBI_DemoBrokerAdapter.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_DEMOBROKERADAPTER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_DemoBrokerAdapterRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_DemoBrokerAdapter_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "DEMO_AFTER_2E13",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.1",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_PRODUCTIONECONOMICLEDGER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionEconomicLedgerRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionEconomicLedger_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.2",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Money/HSBI_ProductionAllocationLedger.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_PRODUCTIONALLOCATIONLEDGER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionAllocationLedgerRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionAllocationLedger_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.3",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Money/HSBI_RealizedDealMoney.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_REALIZEDDEALMONEY"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_RealizedDealMoneyRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_RealizedDealMoney_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.4",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Runtime/HSBI_CycleOrchestrator.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_CYCLEORCHESTRATOR"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_CycleOrchestratorRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "ONLY_RECONCILED_COMMIT",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.5",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Runtime/HSBI_FsmCommitCoordinator.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_FSMCOMMITCOORDINATOR"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_FsmCommitCoordinatorRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_FsmCommitCoordinator_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "ONLY_RECONCILED_COMMIT",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.6",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Runtime/HSBI_TerminalSafeController.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_TERMINALSAFECONTROLLER"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_TerminalSafeControllerRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_TerminalSafeController_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "ONLY_RECONCILED_COMMIT",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.7",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Scenarios/HSBI_InitialLockEngine.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_INITIALLOCKENGINE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_InitialLockEngineRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_InitialLockEngine_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.8",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Scenarios/HSBI_BigHarvestEngine.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_BIGHARVESTENGINE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_BigHarvestEngineRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_BigHarvestEngine_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.9",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Scenarios/HSBI_PartialFarReserveEngine.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_PARTIALFARRESERVEENGINE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_PartialFarReserveEngineRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_PartialFarReserveEngine_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.10",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Scenarios/HSBI_FinalCloseEngine.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_FINALCLOSEENGINE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_FinalCloseEngineRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_FinalCloseEngine_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.11",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Scenarios/HSBI_SmallTransitionEngine.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_SMALLTRANSITIONENGINE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_SmallTransitionEngineRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_SmallTransitionEngine_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.12",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Scenarios/HSBI_NewFarCatchUpEngine.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_NEWFARCATCHUPENGINE"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_NewFarCatchUpEngineRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_NewFarCatchUpEngine_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.13",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    },
+    {
+      "FILE": "Include/Diagnostics/HSBI_ProductionDiagnostics.mqh",
+      "OWNER_REQUIREMENTS": [
+        "HSBI-2E-HSBI_PRODUCTIONDIAGNOSTICS"
+      ],
+      "PUBLIC_TYPES": [
+        "HSBI_ProductionDiagnosticsRequest"
+      ],
+      "PUBLIC_FUNCTIONS": [
+        "HSBI_ProductionDiagnostics_Execute"
+      ],
+      "ALLOWED_DEPENDENCIES": [
+        "Include/Core",
+        "Include/Runtime contracts"
+      ],
+      "FORBIDDEN_DEPENDENCIES": [
+        "direct scenario-to-broker mutation"
+      ],
+      "STATE_MUTATION_ALLOWED": "NO",
+      "BROKER_CALLS_ALLOWED": "NO",
+      "TEST_RANGE": "T465-T1149",
+      "IMPLEMENTATION_STAGE": "HSB.2E.14",
+      "MUST_REMAIN_ABSENT_IN_PREP": true
+    }
+  ]
+}
