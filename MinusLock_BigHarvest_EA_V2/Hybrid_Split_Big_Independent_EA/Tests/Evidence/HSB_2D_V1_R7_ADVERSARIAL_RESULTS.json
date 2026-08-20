@@ -1,0 +1,198 @@
+{
+  "cases": [
+    {
+      "actual": "FAIL",
+      "category": "EARLY_SUCCESS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A001",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "EARLY_SUCCESS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A002",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "UNAUTHORIZED_NO_OP",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A003",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "UNAUTHORIZED_NO_OP",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A004",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "WRONG_STATUS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A005",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "WRONG_STATUS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A006",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "WRONG_REASON",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A007",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "WRONG_REASON",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A008",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "UNKNOWN_HELPER",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A009",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "UNKNOWN_HELPER",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A010",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "UNKNOWN_CONDITION",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A011",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "UNKNOWN_CONDITION",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A012",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "NESTED_BYPASS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A013",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "NESTED_BYPASS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A014",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "ELSE_BYPASS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A015",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "ELSE_BYPASS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A016",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "TERNARY_BYPASS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A017",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "TERNARY_BYPASS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A018",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "MULTIPLE_TERMINALS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A019",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "MULTIPLE_TERMINALS",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A020",
+      "variant": 2
+    },
+    {
+      "actual": "PASS",
+      "category": "AUTHORIZED_S037",
+      "caught": true,
+      "expected": "PASS",
+      "id": "A021",
+      "variant": 1
+    },
+    {
+      "actual": "PASS",
+      "category": "AUTHORIZED_S037",
+      "caught": true,
+      "expected": "PASS",
+      "id": "A022",
+      "variant": 2
+    },
+    {
+      "actual": "FAIL",
+      "category": "UNAUTHORIZED_S037_CONTEXT",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A023",
+      "variant": 1
+    },
+    {
+      "actual": "FAIL",
+      "category": "UNAUTHORIZED_S037_CONTEXT",
+      "caught": true,
+      "expected": "FAIL",
+      "id": "A024",
+      "variant": 2
+    }
+  ],
+  "result": "PASS",
+  "schema": "HSB.2D-V1-R7/adversarial/1"
+}

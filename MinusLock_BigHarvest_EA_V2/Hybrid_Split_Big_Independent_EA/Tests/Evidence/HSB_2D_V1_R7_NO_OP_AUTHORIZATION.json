@@ -1,0 +1,7 @@
+{
+  "authorized_check": "S037",
+  "authorized_condition": "s.duplicateConsumption",
+  "authorized_function": "HSBI_ValidateRestartedRuntimeState",
+  "reason": "HSBI_RD_OK",
+  "status": "HSBI_DECISION_NO_OP"
+}
