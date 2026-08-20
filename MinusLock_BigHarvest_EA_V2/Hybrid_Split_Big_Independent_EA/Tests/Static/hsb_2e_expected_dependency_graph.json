@@ -1,0 +1,53 @@
+{
+  "schema": "HSB.2E-PREP/dependency-graph/1",
+  "nodes": [
+    "Core",
+    "Planning/Money/Risk",
+    "Scenario decisions",
+    "Execution intent",
+    "Persistence journal",
+    "Simulated transaction adapter",
+    "Reconciliation",
+    "FSM commit"
+  ],
+  "edges": [
+    [
+      "Core",
+      "Planning/Money/Risk"
+    ],
+    [
+      "Planning/Money/Risk",
+      "Scenario decisions"
+    ],
+    [
+      "Scenario decisions",
+      "Execution intent"
+    ],
+    [
+      "Execution intent",
+      "Persistence journal"
+    ],
+    [
+      "Persistence journal",
+      "Simulated transaction adapter"
+    ],
+    [
+      "Simulated transaction adapter",
+      "Reconciliation"
+    ],
+    [
+      "Reconciliation",
+      "FSM commit"
+    ]
+  ],
+  "forbidden_direct_mutations": [
+    "FSM",
+    "Context",
+    "EconomicLedger",
+    "AllocationLedger",
+    "Reserve",
+    "Far",
+    "scenario state"
+  ],
+  "status": "PLANNED_NOT_IMPLEMENTED"
+}
