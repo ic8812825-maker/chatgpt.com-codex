@@ -1,0 +1,1301 @@
+{
+  "scenarios": [
+    {
+      "SCENARIO_ID": "SC01",
+      "NAME": "Initial Lock",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F001"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G001"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N001"
+      ],
+      "TEST_IDS": [
+        "T465"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC02",
+      "NAME": "Big level",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F002"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G002"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N002"
+      ],
+      "TEST_IDS": [
+        "T466"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC03",
+      "NAME": "Small reversal",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F003"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G003"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N003"
+      ],
+      "TEST_IDS": [
+        "T467"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC04",
+      "NAME": "Partial Far",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F004"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G004"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N004"
+      ],
+      "TEST_IDS": [
+        "T468"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC05",
+      "NAME": "Final Far close",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F005"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G005"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N005"
+      ],
+      "TEST_IDS": [
+        "T469"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC06",
+      "NAME": "Restart and replay",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F006"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G006"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N006"
+      ],
+      "TEST_IDS": [
+        "T470"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC07",
+      "NAME": "Transaction retry",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F007"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G007"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N007"
+      ],
+      "TEST_IDS": [
+        "T471"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC08",
+      "NAME": "Invalid geometry",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F008"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G008"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N008"
+      ],
+      "TEST_IDS": [
+        "T472"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC09",
+      "NAME": "Maximum levels",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F009"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G009"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N009"
+      ],
+      "TEST_IDS": [
+        "T473"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC10",
+      "NAME": "Risk gate",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F010"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G010"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N010"
+      ],
+      "TEST_IDS": [
+        "T474"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC11",
+      "NAME": "Stale snapshot",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F011"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G011"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N011"
+      ],
+      "TEST_IDS": [
+        "T475"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC12",
+      "NAME": "Broker rejection",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F012"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G012"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N012"
+      ],
+      "TEST_IDS": [
+        "T476"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC13",
+      "NAME": "Partial fill",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F013"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G013"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N013"
+      ],
+      "TEST_IDS": [
+        "T477"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC14",
+      "NAME": "Reserve Catch-Up",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F014"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G014"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N014"
+      ],
+      "TEST_IDS": [
+        "T478"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC15",
+      "NAME": "Future Small projection",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F015"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G015"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N015"
+      ],
+      "TEST_IDS": [
+        "T479"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    },
+    {
+      "SCENARIO_ID": "SC16",
+      "NAME": "NewFar selection",
+      "INITIAL_STATE": "READY",
+      "POSITION_SET": [
+        "Far#9001",
+        "Big#9002",
+        "Small#9003"
+      ],
+      "INPUT_SNAPSHOT": "immutable-v3",
+      "PRECONDITIONS": [
+        "AccountLogin+Symbol+Magic+CycleID exact",
+        "ticket exact for position actions"
+      ],
+      "ORDERED_DECISIONS": [
+        "validate identity",
+        "execute formula",
+        "persist intent",
+        "reconcile outcome",
+        "commit state"
+      ],
+      "FORMULA_IDS": [
+        "F016"
+      ],
+      "DECISION_TABLE": [
+        {
+          "condition": "valid",
+          "status": "PASS"
+        },
+        {
+          "condition": "invalid",
+          "status": "REJECT"
+        }
+      ],
+      "EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ],
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": [
+        "PREPARE",
+        "PERSIST",
+        "DISPATCH_AFTER_ADMIN_GATE"
+      ],
+      "FORBIDDEN_INTENTS": [
+        "LIVE_DISPATCH",
+        "DUPLICATE_ACTION"
+      ],
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_NEXT_STATE": "INTENT_PREPARED",
+      "LEDGER_WRITES": [
+        "exactly-once after deals"
+      ],
+      "PERSISTENCE_WRITES": [
+        "INTENT_PREPARED"
+      ],
+      "RESTART_POINTS": [
+        "before intent",
+        "after intent",
+        "after outcome"
+      ],
+      "RETRY_POLICY": "reuse ActionID, fresh EventID",
+      "PARTIAL_FILL_POLICY": "reconcile; barrier remains",
+      "ROLLBACK_POLICY": "no economic rollback; reconcile",
+      "MAXIMUM_DISPATCH_COUNT": 1,
+      "EXACTLY_ONCE_KEYS": [
+        "CycleID+ActionID+dealId"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G016"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N016"
+      ],
+      "TEST_IDS": [
+        "T480"
+      ],
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "FUTURE_IMPLEMENTATION_EXPECTED_INTENTS": [
+        "SIMULATED_INTENT"
+      ]
+    }
+  ],
+  "result": "PASS"
+}

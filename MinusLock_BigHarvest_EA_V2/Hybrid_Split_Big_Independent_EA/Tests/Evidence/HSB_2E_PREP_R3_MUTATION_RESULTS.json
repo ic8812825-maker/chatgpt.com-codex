@@ -1,0 +1,329 @@
+{
+  "results": [
+    {
+      "ID": "P3M001",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "EXPECTED": "FORMULA_VARIABLES",
+      "ACTUAL": [
+        "FORMULA_VARIABLES",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M002",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "EXPECTED": "FORMULA_VARIABLES",
+      "ACTUAL": [
+        "FORMULA_VARIABLES",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M003",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "EXPECTED": "FORMULA_VARIABLES",
+      "ACTUAL": [
+        "FORMULA_VARIABLES",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M004",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "EXPECTED": "FORMULA_VARIABLES",
+      "ACTUAL": [
+        "FORMULA_VARIABLES",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M005",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "EXPECTED": "FORMULA_VARIABLES",
+      "ACTUAL": [
+        "FORMULA_VARIABLES",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M006",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "EXPECTED": "FORMULA_VARIABLES",
+      "ACTUAL": [
+        "FORMULA_VARIABLES",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M007",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "EXPECTED": "FORMULA_VARIABLES",
+      "ACTUAL": [
+        "FORMULA_VARIABLES",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M008",
+      "TARGET": "Tests/Static/hsb_2e_formula_contracts_r3.json",
+      "EXPECTED": "FORMULA_VARIABLES",
+      "ACTUAL": [
+        "FORMULA_VARIABLES",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M009",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "EXPECTED": "V_GOLDEN",
+      "ACTUAL": [
+        "V_GOLDEN",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M010",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "EXPECTED": "V_GOLDEN",
+      "ACTUAL": [
+        "V_GOLDEN",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M011",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "EXPECTED": "V_GOLDEN",
+      "ACTUAL": [
+        "V_GOLDEN",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M012",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "EXPECTED": "V_GOLDEN",
+      "ACTUAL": [
+        "V_GOLDEN",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M013",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "EXPECTED": "V_GOLDEN",
+      "ACTUAL": [
+        "V_GOLDEN",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M014",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "EXPECTED": "V_GOLDEN",
+      "ACTUAL": [
+        "V_GOLDEN",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M015",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "EXPECTED": "V_GOLDEN",
+      "ACTUAL": [
+        "V_GOLDEN",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M016",
+      "TARGET": "Tests/Vectors/HSB_2E_R3_GOLDEN_VECTORS.json",
+      "EXPECTED": "V_GOLDEN",
+      "ACTUAL": [
+        "V_GOLDEN",
+        "NO_NONSENSE"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M017",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "EXPECTED": "API_SCHEMA",
+      "ACTUAL": [
+        "API_SCHEMA"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M018",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "EXPECTED": "API_SCHEMA",
+      "ACTUAL": [
+        "API_SCHEMA"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M019",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "EXPECTED": "API_SCHEMA",
+      "ACTUAL": [
+        "API_SCHEMA"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M020",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "EXPECTED": "API_SCHEMA",
+      "ACTUAL": [
+        "API_SCHEMA"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M021",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "EXPECTED": "API_SCHEMA",
+      "ACTUAL": [
+        "API_SCHEMA"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M022",
+      "TARGET": "Tests/Static/hsb_2e_api_contracts_r3.json",
+      "EXPECTED": "API_SCHEMA",
+      "ACTUAL": [
+        "API_SCHEMA"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M023",
+      "TARGET": "Tests/Static/hsb_2e_scenario_contracts_r3.json",
+      "EXPECTED": "SCENARIOS",
+      "ACTUAL": [
+        "SCENARIOS"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M024",
+      "TARGET": "Tests/Static/hsb_2e_scenario_contracts_r3.json",
+      "EXPECTED": "SCENARIOS",
+      "ACTUAL": [
+        "SCENARIOS"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M025",
+      "TARGET": "Tests/Static/hsb_2e_scenario_contracts_r3.json",
+      "EXPECTED": "SCENARIOS",
+      "ACTUAL": [
+        "SCENARIOS"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M026",
+      "TARGET": "Tests/Static/hsb_2e_scenario_contracts_r3.json",
+      "EXPECTED": "SCENARIOS",
+      "ACTUAL": [
+        "SCENARIOS"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M027",
+      "TARGET": "Tests/Static/hsb_2e_test_plan_r3.json",
+      "EXPECTED": "TEST_VECTORS",
+      "ACTUAL": [
+        "TEST_VECTORS"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M028",
+      "TARGET": "Tests/Static/hsb_2e_test_plan_r3.json",
+      "EXPECTED": "TEST_VECTORS",
+      "ACTUAL": [
+        "TEST_VECTORS"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M029",
+      "TARGET": "Tests/Evidence/HSB_2E_PREP_R3_EVIDENCE_SEAL_SHA256.txt",
+      "EXPECTED": "SEAL",
+      "ACTUAL": [
+        "SEAL"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    },
+    {
+      "ID": "P3M030",
+      "TARGET": "Tests/Evidence/HSB_2E_PREP_R3_EVIDENCE_SEAL_SHA256.txt",
+      "EXPECTED": "SEAL",
+      "ACTUAL": [
+        "SEAL"
+      ],
+      "EXIT": 1,
+      "RESULT": "CAUGHT"
+    }
+  ],
+  "summary": {
+    "PREP_R3_MUTATIONS_REQUIRED": 30,
+    "PREP_R3_MUTATIONS_EXECUTED": 30,
+    "PREP_R3_MUTATIONS_CAUGHT": 30,
+    "PREP_R3_MUTATIONS_SURVIVED": 0,
+    "PREP_R3_WRONG_FAILURES": 0,
+    "PREP_R3_INFRASTRUCTURE_FAILURES": 0
+  },
+  "result": "PASS"
+}

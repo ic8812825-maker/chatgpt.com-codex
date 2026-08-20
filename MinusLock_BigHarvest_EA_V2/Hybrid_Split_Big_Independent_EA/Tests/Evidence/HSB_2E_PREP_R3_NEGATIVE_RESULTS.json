@@ -1,0 +1,376 @@
+{
+  "results": [
+    {
+      "VECTOR_ID": "N001",
+      "actual": {
+        "output": {
+          "owned": false
+        },
+        "reason": "IDENTITY",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {
+          "owned": false
+        },
+        "reason": "IDENTITY",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N002",
+      "actual": {
+        "output": {
+          "fresh": false
+        },
+        "reason": "STALE_SNAPSHOT",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {
+          "fresh": false
+        },
+        "reason": "STALE_SNAPSHOT",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N003",
+      "actual": {
+        "output": {},
+        "reason": "INVALID_GEOMETRY",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {},
+        "reason": "INVALID_GEOMETRY",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N004",
+      "actual": {
+        "output": {},
+        "reason": "INVALID_VOLUME",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {},
+        "reason": "INVALID_VOLUME",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N005",
+      "actual": {
+        "output": {
+          "price": "1.1000"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "price": "1.1000"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N006",
+      "actual": {
+        "output": {},
+        "reason": "TRANSACTION_CONFLICT",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {},
+        "reason": "TRANSACTION_CONFLICT",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N007",
+      "actual": {
+        "output": {
+          "farLoss": "50.0000",
+          "unrealized": "-50.0000"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "farLoss": "50.0000",
+          "unrealized": "-50.0000"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N008",
+      "actual": {
+        "output": {
+          "recoveryPL": "5"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "recoveryPL": "5"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N009",
+      "actual": {
+        "output": {
+          "coverage": "3"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "coverage": "3"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N010",
+      "actual": {
+        "output": {
+          "budget": "25"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "budget": "25"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N011",
+      "actual": {
+        "output": {},
+        "reason": "FINAL_CLOSE_BLOCKED",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {},
+        "reason": "FINAL_CLOSE_BLOCKED",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N012",
+      "actual": {
+        "output": {
+          "allocationKey": "A1",
+          "reserve": "13"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "allocationKey": "A1",
+          "reserve": "13"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N013",
+      "actual": {
+        "output": {
+          "closeFar": false
+        },
+        "reason": "FINAL_CLOSE_BLOCKED",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {
+          "closeFar": false
+        },
+        "reason": "FINAL_CLOSE_BLOCKED",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N014",
+      "actual": {
+        "output": {
+          "confirmed": false
+        },
+        "reason": "PARTIAL_FILL",
+        "status": "UNAVAILABLE"
+      },
+      "expected": {
+        "output": {
+          "confirmed": false
+        },
+        "reason": "PARTIAL_FILL",
+        "status": "UNAVAILABLE"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N015",
+      "actual": {
+        "output": {},
+        "reason": "TRANSITION_LOSS",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {},
+        "reason": "TRANSITION_LOSS",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N016",
+      "actual": {
+        "output": {},
+        "reason": "TRANSITION_LOSS",
+        "status": "REJECT"
+      },
+      "expected": {
+        "output": {},
+        "reason": "TRANSITION_LOSS",
+        "status": "REJECT"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N017",
+      "actual": {
+        "output": {
+          "projectedSmall": "15"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "projectedSmall": "15"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N018",
+      "actual": {
+        "output": {
+          "catchUp": "8"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "catchUp": "8"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N019",
+      "actual": {
+        "output": {
+          "allowed": false
+        },
+        "reason": "RISK",
+        "status": "UNAVAILABLE"
+      },
+      "expected": {
+        "output": {
+          "allowed": false
+        },
+        "reason": "RISK",
+        "status": "UNAVAILABLE"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N020",
+      "actual": {
+        "output": {
+          "loss": "15"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "loss": "15"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N021",
+      "actual": {
+        "output": {},
+        "reason": "RECONCILIATION",
+        "status": "ERROR"
+      },
+      "expected": {
+        "output": {},
+        "reason": "RECONCILIATION",
+        "status": "ERROR"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "N022",
+      "actual": {
+        "output": {
+          "allocated": "0"
+        },
+        "reason": "RETRY",
+        "status": "NO_OP"
+      },
+      "expected": {
+        "output": {
+          "allocated": "0"
+        },
+        "reason": "RETRY",
+        "status": "NO_OP"
+      },
+      "result": "PASS"
+    }
+  ]
+}

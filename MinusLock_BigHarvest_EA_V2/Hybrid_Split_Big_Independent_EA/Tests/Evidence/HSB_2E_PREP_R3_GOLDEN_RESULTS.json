@@ -1,0 +1,424 @@
+{
+  "results": [
+    {
+      "VECTOR_ID": "G001",
+      "actual": {
+        "output": {
+          "owned": true
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "owned": true
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G002",
+      "actual": {
+        "output": {
+          "fresh": true
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "fresh": true
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G003",
+      "actual": {
+        "output": {
+          "price": "1.1002"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "price": "1.1002"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G004",
+      "actual": {
+        "output": {
+          "volume": "0.25"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "volume": "0.25"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G005",
+      "actual": {
+        "output": {
+          "price": "1.1000"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "price": "1.1000"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G006",
+      "actual": {
+        "output": {
+          "commission": "-1.5",
+          "fee": "-0.1",
+          "grossLoss": "-3",
+          "grossProfit": "12",
+          "netRealized": "7.2",
+          "swap": "-0.2"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "commission": "-1.5",
+          "fee": "-0.1",
+          "grossLoss": "-3",
+          "grossProfit": "12",
+          "netRealized": "7.2",
+          "swap": "-0.2"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G007",
+      "actual": {
+        "output": {
+          "farLoss": "50.0000",
+          "unrealized": "-50.0000"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "farLoss": "50.0000",
+          "unrealized": "-50.0000"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G008",
+      "actual": {
+        "output": {
+          "recoveryPL": "5"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "recoveryPL": "5"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G009",
+      "actual": {
+        "output": {
+          "coverage": "3"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "coverage": "3"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G010",
+      "actual": {
+        "output": {
+          "budget": "25"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "budget": "25"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G011",
+      "actual": {
+        "output": {
+          "volume": "0.5"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "volume": "0.5"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G012",
+      "actual": {
+        "output": {
+          "allocationKey": "A1",
+          "reserve": "13"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "allocationKey": "A1",
+          "reserve": "13"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G013",
+      "actual": {
+        "output": {
+          "closeFar": true
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "closeFar": true
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G014",
+      "actual": {
+        "output": {
+          "bigClosed": "1",
+          "confirmed": true,
+          "smallClosed": "0.4"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "bigClosed": "1",
+          "confirmed": true,
+          "smallClosed": "0.4"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G015",
+      "actual": {
+        "output": {
+          "closedBig": "0.4",
+          "newFar": "0.6"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "closedBig": "0.4",
+          "newFar": "0.6"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G016",
+      "actual": {
+        "output": {
+          "newFar": "0.6"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "newFar": "0.6"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G017",
+      "actual": {
+        "output": {
+          "projectedSmall": "15"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "projectedSmall": "15"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G018",
+      "actual": {
+        "output": {
+          "catchUp": "8"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "catchUp": "8"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G019",
+      "actual": {
+        "output": {
+          "allowed": true
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "allowed": true
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G020",
+      "actual": {
+        "output": {
+          "loss": "15"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "loss": "15"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G021",
+      "actual": {
+        "output": {
+          "actionId": 10,
+          "stateRevision": 5
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "actionId": 10,
+          "stateRevision": 5
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    },
+    {
+      "VECTOR_ID": "G022",
+      "actual": {
+        "output": {
+          "actionId": 10,
+          "allocated": "7"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "expected": {
+        "output": {
+          "actionId": 10,
+          "allocated": "7"
+        },
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "result": "PASS"
+    }
+  ]
+}

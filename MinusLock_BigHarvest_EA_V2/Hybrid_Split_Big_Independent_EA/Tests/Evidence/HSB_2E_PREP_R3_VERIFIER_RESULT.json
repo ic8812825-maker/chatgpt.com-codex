@@ -1,0 +1,139 @@
+{
+  "checks": [
+    {
+      "detail": "executed=22 failed=0",
+      "id": "V_GOLDEN",
+      "result": "PASS"
+    },
+    {
+      "detail": "executed=22 failed=0",
+      "id": "V_BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "detail": "executed=22 failed=0",
+      "id": "V_NEGATIVE",
+      "result": "PASS"
+    },
+    {
+      "detail": "typed executable contracts",
+      "id": "FORMULA_SCHEMA",
+      "result": "PASS"
+    },
+    {
+      "detail": "reference functions",
+      "id": "FORMULA_REFERENCES",
+      "result": "PASS"
+    },
+    {
+      "detail": "input schema exact",
+      "id": "FORMULA_VARIABLES",
+      "result": "PASS"
+    },
+    {
+      "detail": "all vector classes",
+      "id": "FORMULA_VECTORS",
+      "result": "PASS"
+    },
+    {
+      "detail": "executed=10",
+      "id": "INVARIANTS",
+      "result": "PASS"
+    },
+    {
+      "detail": "open=0",
+      "id": "NORMATIVE_SOURCE_MAP",
+      "result": "PASS"
+    },
+    {
+      "detail": "16 executable scenarios",
+      "id": "SCENARIOS",
+      "result": "PASS"
+    },
+    {
+      "detail": "32 typed owners",
+      "id": "API_SCHEMA",
+      "result": "PASS"
+    },
+    {
+      "detail": "oracles linked",
+      "id": "API_OUTPUT",
+      "result": "PASS"
+    },
+    {
+      "detail": "broker context",
+      "id": "API_BROKER",
+      "result": "PASS"
+    },
+    {
+      "detail": "T465-T1149",
+      "id": "TEST_IDS",
+      "result": "PASS"
+    },
+    {
+      "detail": "executable references",
+      "id": "TEST_VECTORS",
+      "result": "PASS"
+    },
+    {
+      "detail": "every formula G/B/N",
+      "id": "COVERAGE",
+      "result": "PASS"
+    },
+    {
+      "detail": "semantic tamper absent",
+      "id": "NO_NONSENSE",
+      "result": "PASS"
+    },
+    {
+      "detail": "scope",
+      "id": "SCOPE",
+      "result": "PASS"
+    },
+    {
+      "detail": "production=[]",
+      "id": "PRODUCTION",
+      "result": "PASS"
+    },
+    {
+      "detail": "manifest",
+      "id": "MANIFEST",
+      "result": "PASS"
+    },
+    {
+      "detail": "seal",
+      "id": "SEAL",
+      "result": "PASS"
+    }
+  ],
+  "metrics": {
+    "API_COMPONENT_SPECIFICITY": "PASS",
+    "BOUNDARY_VECTORS_FAILED": 0,
+    "BROKER_DISPATCH_IMPLEMENTED": "NO",
+    "EVIDENCE_INTEGRITY": "FAIL",
+    "EXACTLY_ONCE": "PASS",
+    "FINAL_CLOSE_GATES": "PASS",
+    "FORMULA_EXECUTION": "PASS",
+    "FORMULA_SEMANTIC_COMPLETENESS": "PASS",
+    "GOLDEN_VECTORS_FAILED": 0,
+    "INDEPENDENT_INVARIANTS": "PASS",
+    "INITIAL_POSITIVE_PROFIT_IGNORED": "PASS",
+    "MANIFEST_COMPLETENESS": "FAIL",
+    "MONEY_CONSERVATION": "PASS",
+    "NEGATIVE_VECTORS_FAILED": 0,
+    "NEW_FAR_COMPRESSION": "PASS",
+    "NON_EXECUTABLE_FORMULA_ACCEPTANCE_FIXED": "YES",
+    "OPEN_DECISIONS_UNRESOLVED": 0,
+    "PARTIAL_FAR_RESERVE_ISOLATION": "PASS",
+    "PREP_R2_FALSE_PASS_REPRODUCED": "YES",
+    "PRODUCTION_MQL5_LOGIC_CHANGED": "NO",
+    "REFERENCE_MODEL_SELF_TESTS": "PASS",
+    "RESTART_DETERMINISM": "PASS",
+    "SCENARIO_SEMANTIC_COMPLETENESS": "PASS",
+    "SCENARIO_VECTORS_FAILED": 0,
+    "SCOPE_AUDIT": "PASS",
+    "T465_T1149_EXECUTABLE_COVERAGE": "PASS",
+    "VOLUME_CONSERVATION": "PASS"
+  },
+  "result": "PASS"
+}

@@ -1,0 +1,44 @@
+{
+  "results": [
+    {
+      "invariant": "money_conservation",
+      "result": "PASS"
+    },
+    {
+      "invariant": "volume_conservation",
+      "result": "PASS"
+    },
+    {
+      "invariant": "partial_far_reserve_isolation",
+      "result": "PASS"
+    },
+    {
+      "invariant": "initial_profit_ignored",
+      "result": "PASS"
+    },
+    {
+      "invariant": "new_far_compression",
+      "result": "PASS"
+    },
+    {
+      "invariant": "final_close_gates",
+      "result": "PASS"
+    },
+    {
+      "invariant": "unique_keys",
+      "result": "PASS"
+    },
+    {
+      "invariant": "revision_monotonic",
+      "result": "PASS"
+    },
+    {
+      "invariant": "persistence_before_mutation",
+      "result": "PASS"
+    },
+    {
+      "invariant": "no_dual_tail",
+      "result": "PASS"
+    }
+  ]
+}
