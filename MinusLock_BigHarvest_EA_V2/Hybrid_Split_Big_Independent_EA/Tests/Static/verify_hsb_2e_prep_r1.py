@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""Standard-library, fail-closed completeness verifier for HSB.2E-PREP-R1."""
+import argparse,json,re
+from pathlib import Path
+DOCS=('Docs/HSB_2E_API_CONTRACTS_RU.md','Docs/HSB_2E_PRODUCTION_FILE_MAP_RU.md','Docs/HSB_2E_FSM_TRANSITION_TABLE_RU.md','Docs/HSB_2E_PERSISTENCE_SCHEMA_RU.md','Docs/HSB_2E_TRANSACTION_LIFECYCLE_RU.md','Docs/HSB_2E_INITIAL_LOCK_IMPLEMENTATION_CONTRACT_RU.md','Docs/HSB_2E_BIG_HARVEST_IMPLEMENTATION_CONTRACT_RU.md','Docs/HSB_2E_PARTIAL_FAR_RESERVE_IMPLEMENTATION_CONTRACT_RU.md','Docs/HSB_2E_FINAL_CLOSE_IMPLEMENTATION_CONTRACT_RU.md','Docs/HSB_2E_SMALL_TRANSITION_IMPLEMENTATION_CONTRACT_RU.md','Docs/HSB_2E_NEW_FAR_CATCH_UP_IMPLEMENTATION_CONTRACT_RU.md')
+JSONS=('Tests/Static/hsb_2e_api_contracts.json','Tests/Static/hsb_2e_production_file_map.json','Tests/Static/hsb_2e_fsm_transitions.json','Tests/Static/hsb_2e_persistence_schema.json','Tests/Static/hsb_2e_transaction_lifecycle.json','Tests/Static/hsb_2e_global_invariants.json','Tests/Static/hsb_2e_fixtures.json','Tests/Static/hsb_2e_test_plan.json','Tests/Static/hsb_2e_expected_dependency_graph.json')
+BANNED=('stage-specific','contract-specific','when applicable','expected set','defined during implementation','public API declared later','appropriate reason','relevant state','as needed','TODO','TBD','placeholder')
+def load(r,p):return json.loads((r/p).read_text())
+def run(root):
+ r=root.resolve();api=load(r,JSONS[0]);fm=load(r,JSONS[1])['files'];fsm=load(r,JSONS[2])['transitions'];ps=load(r,JSONS[3]);tx=load(r,JSONS[4])['events'];inv=load(r,JSONS[5])['invariants'];fx=load(r,JSONS[6])['fixtures'];plan=load(r,JSONS[7]);graph=load(r,JSONS[8]);tests=plan['tests'];rows=[]
+ def add(i,ok,d):rows.append((i,ok,d))
+ add('P001',all((r/x).is_file() for x in DOCS),'required documents present');add('P002',all((r/x).is_file() for x in JSONS),'required JSON present')
+ text='\n'.join((r/x).read_text(errors='replace') for x in DOCS+JSONS);hits=[x for x in BANNED if re.search(re.escape(x),text,re.I)];add('P003',not hits,'forbidden='+str(hits))
+ type_fields={'TYPE_NAME','OWNER_FILE','fields'};field_fields={'FIELD_NAME','FIELD_TYPE','REQUIRED','IMMUTABLE_AFTER_PREPARE','SERIALIZED','DIGEST_BOUND','VALIDATION_RULE','DEFAULT_ALLOWED'};add('P004',all(type_fields<=set(t) and all(field_fields<=set(f) for f in t['fields']) for t in api['types']),'API types complete')
+ ff={'FUNCTION_NAME','OWNER_FILE','RETURN_TYPE','PARAMETERS','PRECONDITIONS','POSTCONDITIONS','FAILURE_STATUS','FAILURE_REASON','STATE_READS','STATE_WRITES','LEDGER_READS','LEDGER_WRITES','BROKER_READS','BROKER_WRITES','PERSISTENCE_EFFECT','IDEMPOTENCY_KEY','ALLOWED_CALLERS','FORBIDDEN_CALLERS'};add('P005',all(ff<=set(x) and x['PARAMETERS'] and x['RETURN_TYPE'] for x in api['functions']),'API functions complete')
+ owners={x['FILE'] for x in fm};functions={x['FUNCTION_NAME'] for x in api['functions']};add('P006',len(owners)>=32 and all(x['PUBLIC_FUNCTIONS'] for x in fm),'file owners complete')
+ nodes=graph['nodes'];edges=graph['edges'];reach={n:set() for n in nodes}
+ for a,b in edges:reach[a].add(b)
+ for k in nodes:
+  for _ in nodes:
+   reach[k]|=set().union(*(reach.get(x,set()) for x in list(reach[k])))
+ add('P007',all(n not in reach[n] for n in nodes),'dependencies acyclic');add('P008',not any(a=='Scenario decisions' and b not in ('Execution intent',) for a,b in edges),'forbidden edges absent')
+ add('P009',len(fsm)>=16 and all({'FROM_STATE','EVENT','GUARDS','TO_STATE','FAIL_STATE','FAIL_REASON'}<=set(x) for x in fsm),'FSM complete')
+ rec={'CYCLE_CREATED','INTENT_PREPARED','DISPATCH_REQUESTED','OUTCOME_OBSERVED','FILL_OBSERVED','RECONCILIATION_STARTED','RECONCILIATION_CONFIRMED','ALLOCATION_PREPARED','ALLOCATION_APPLIED','FSM_COMMIT','CYCLE_COMPLETED','TERMINAL_SAFE_ENTERED'};add('P010',rec<=set(ps['RECORD_TYPES']),'persistence records complete')
+ add('P011',len(tx)>=18 and all({'CURRENT_TX_STATE','EVENT_TYPE','NEXT_TX_STATE','BARRIER_RELEASED','REASON_CODE'}<=set(x) for x in tx),'transaction matrix complete');add('P012',all((r/x).stat().st_size>500 for x in DOCS[5:]),'scenario contracts complete')
+ required_inv={'PARTIAL_FAR_USES_RESERVE=NO','MULTI_CURRENCY_PRESERVED=YES','REAL_DEALS_REQUIRED_BEFORE_MONEY_ALLOCATION=YES'};add('P013',required_inv<=set(inv),'global invariants complete')
+ ids=[x['TEST_ID'] for x in tests];expected=[f'T{i}' for i in range(465,1150)];add('P014',ids==expected,'T465-T1149 continuous');add('P015',len(ids)==len(set(ids))==685,'test IDs unique')
+ fixtures={x['FIXTURE_ID'] for x in fx};requirements=set(plan['requirements']);add('P016',all(x['FIXTURE_ID'] in fixtures for x in tests),'fixture references valid');add('P017',all(x['REQUIREMENT_ID'] in requirements for x in tests),'requirement references valid');add('P018',all(x['OWNER_FILE'] in owners for x in tests),'owner references valid');add('P019',all(x['FUNCTION_UNDER_TEST'] in functions for x in tests),'function references valid')
+ add('P020',all(x['EXPECTED_RETURN_STATUS'] for x in tests),'statuses present');add('P021',all(x['EXPECTED_REASON_CODE'] for x in tests),'reasons present');add('P022',all(x['EXPECTED_FINAL_STATE'] for x in tests),'state expectations present');add('P023',all(isinstance(x['EXPECTED_BROKER_CALLS'],list) and isinstance(x['FORBIDDEN_BROKER_CALLS'],list) for x in tests),'broker calls explicit');add('P024',all(x['REAL_TRADE_ALLOWED']=='NO' for x in tests),'real trading prohibited');add('P025',all(not (r/x).exists() for x in owners),'planned production files absent')
+ metrics={'PLACEHOLDER_OCCURRENCES':len(hits),'UNRESOLVED_TODO':sum(x.upper()=='TODO' for x in hits),'UNRESOLVED_TBD':sum(x.upper()=='TBD' for x in hits),'TEST_RECORDS':len(tests),'TEST_IDS_UNIQUE':len(set(ids)),'TEST_IDS_CONTIGUOUS':'T465..T1149' if ids==expected else 'FAIL','UNKNOWN_FIXTURE_REFERENCES':sum(x['FIXTURE_ID'] not in fixtures for x in tests),'UNKNOWN_REQUIREMENT_REFERENCES':sum(x['REQUIREMENT_ID'] not in requirements for x in tests),'UNKNOWN_OWNER_FILES':sum(x['OWNER_FILE'] not in owners for x in tests),'UNKNOWN_FUNCTION_REFERENCES':sum(x['FUNCTION_UNDER_TEST'] not in functions for x in tests),'MISSING_EXPECTED_STATUS':sum(not x['EXPECTED_RETURN_STATUS'] for x in tests),'MISSING_EXPECTED_REASON':sum(not x['EXPECTED_REASON_CODE'] for x in tests),'MISSING_STATE_EXPECTATION':sum(not x['EXPECTED_FINAL_STATE'] for x in tests),'FIXTURES':len(fx)}
+ return rows,metrics
+def main():
+ p=argparse.ArgumentParser();p.add_argument('--root',required=True);a=p.parse_args();rows,m=run(Path(a.root));fail=sum(not x[1] for x in rows);print('\n'.join(f'{i}|{"PASS" if ok else "FAIL"}|{d}' for i,ok,d in rows));print(f'PREP_CHECKS_REQUIRED={len(rows)}\nPREP_CHECKS_PASS={len(rows)-fail}\nPREP_CHECKS_FAIL={fail}');print('\n'.join(f'{k}={v}' for k,v in sorted(m.items())));print('RESULT='+('PASS' if not fail else 'FAIL'));return 0 if not fail else 1
+if __name__=='__main__':raise SystemExit(main())
