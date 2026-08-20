@@ -1,0 +1,1949 @@
+{
+  "schema": "HSB.2E-PREP-R3/formulas/1",
+  "formulas": [
+    {
+      "FORMULA_ID": "F001",
+      "NAME": "identity_validation",
+      "REQUIREMENT_IDS": [
+        "R3-001"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "identity_validation",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "positionSpecific",
+          "TYPE": "bool",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:identity_validation",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G001"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B001"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N001"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F002",
+      "NAME": "broker_snapshot_validation",
+      "REQUIREMENT_IDS": [
+        "R3-002"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "broker_snapshot_validation",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "version",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "timestamp",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "minimumTimestamp",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "bid",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "ask",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:broker_snapshot_validation",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G002"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B002"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N002"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F003",
+      "NAME": "price_grid_normalization",
+      "REQUIREMENT_IDS": [
+        "R3-003"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "price_grid_normalization",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "price",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "tickSize",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "round",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:price_grid_normalization",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G003"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B003"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N003"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F004",
+      "NAME": "volume_grid_normalization",
+      "REQUIREMENT_IDS": [
+        "R3-004"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "volume_grid_normalization",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "step",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "minimum",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "maximum",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:volume_grid_normalization",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G004"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B004"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N004"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F005",
+      "NAME": "directional_close_price",
+      "REQUIREMENT_IDS": [
+        "R3-005"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "directional_close_price",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "direction",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "bid",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "ask",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:directional_close_price",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G005"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B005"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N005"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F006",
+      "NAME": "realized_deal_money",
+      "REQUIREMENT_IDS": [
+        "R3-006"
+      ],
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "PUBLIC_FUNCTION": "realized_deal_money",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "deals",
+          "TYPE": "object",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:realized_deal_money",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G006"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B006"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N006"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F007",
+      "NAME": "unrealized_far_loss",
+      "REQUIREMENT_IDS": [
+        "R3-007"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "unrealized_far_loss",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "direction",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "openPrice",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "closePrice",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "moneyPerPriceLot",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:unrealized_far_loss",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G007"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B007"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N007"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F008",
+      "NAME": "recovery_pl",
+      "REQUIREMENT_IDS": [
+        "R3-008"
+      ],
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "PUBLIC_FUNCTION": "recovery_pl",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "actualRealized",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "reserve",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "farLoss",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:recovery_pl",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G008"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B008"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N008"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F009",
+      "NAME": "reserve_coverage",
+      "REQUIREMENT_IDS": [
+        "R3-009"
+      ],
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "PUBLIC_FUNCTION": "reserve_coverage",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "bigNet",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "smallNet",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "reserve",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "farLoss",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:reserve_coverage",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G009"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B009"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N009"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F010",
+      "NAME": "close_far_budget",
+      "REQUIREMENT_IDS": [
+        "R3-010"
+      ],
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "PUBLIC_FUNCTION": "close_far_budget",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "bigNet",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "smallNet",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:close_far_budget",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G010"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B010"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N010"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F011",
+      "NAME": "partial_far_volume",
+      "REQUIREMENT_IDS": [
+        "R3-011"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "partial_far_volume",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "reserveUsed",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "budget",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "lossPerLot",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "farVolume",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "step",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "minimum",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:partial_far_volume",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G011"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B011"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N011"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F012",
+      "NAME": "reserve_addition",
+      "REQUIREMENT_IDS": [
+        "R3-012"
+      ],
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "PUBLIC_FUNCTION": "reserve_addition",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "reserve",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "addition",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "allocationKey",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "consumedKeys",
+          "TYPE": "object",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:reserve_addition",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G012"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B012"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N012"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F013",
+      "NAME": "final_far_close_gate",
+      "REQUIREMENT_IDS": [
+        "R3-013"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "final_far_close_gate",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "farLoss",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "bigNet",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "smallNet",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "reserve",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "recoveryPL",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "actualDeals",
+          "TYPE": "bool",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:final_far_close_gate",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G013"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B013"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N013"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F014",
+      "NAME": "big_level_settlement",
+      "REQUIREMENT_IDS": [
+        "R3-014"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "big_level_settlement",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "bigVolume",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "smallVolume",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "bigConfirmed",
+          "TYPE": "bool",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "smallConfirmed",
+          "TYPE": "bool",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:big_level_settlement",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G014"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B014"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N014"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F015",
+      "NAME": "small_reversal_settlement",
+      "REQUIREMENT_IDS": [
+        "R3-015"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "small_reversal_settlement",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "oldBig",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "closedBig",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "newFar",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "oldFar",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "dualTail",
+          "TYPE": "bool",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "persisted",
+          "TYPE": "bool",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:small_reversal_settlement",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G015"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B015"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N015"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F016",
+      "NAME": "new_far_calculation",
+      "REQUIREMENT_IDS": [
+        "R3-016"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "new_far_calculation",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "bigRemaining",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "oldFar",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:new_far_calculation",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G016"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B016"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N016"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F017",
+      "NAME": "future_small_projection",
+      "REQUIREMENT_IDS": [
+        "R3-017"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "future_small_projection",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "targetRecovery",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "reserve",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "bigProjected",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:future_small_projection",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G017"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B017"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N017"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F018",
+      "NAME": "reserve_catch_up",
+      "REQUIREMENT_IDS": [
+        "R3-018"
+      ],
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "PUBLIC_FUNCTION": "reserve_catch_up",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "target",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "reserve",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:reserve_catch_up",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G018"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B018"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N018"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F019",
+      "NAME": "risk_margin_gate",
+      "REQUIREMENT_IDS": [
+        "R3-019"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "risk_margin_gate",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "marginFree",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "marginRequired",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "risk",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "riskLimit",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:risk_margin_gate",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G019"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B019"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N019"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F020",
+      "NAME": "transition_loss",
+      "REQUIREMENT_IDS": [
+        "R3-020"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "transition_loss",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "oldFarLoss",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "newFarLoss",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:transition_loss",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G020"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B020"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N020"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F021",
+      "NAME": "restart_replay",
+      "REQUIREMENT_IDS": [
+        "R3-021"
+      ],
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "PUBLIC_FUNCTION": "restart_replay",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "outcome",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "committedActions",
+          "TYPE": "object",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:restart_replay",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G021"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B021"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N021"
+      ],
+      "OPEN_DECISION_IDS": []
+    },
+    {
+      "FORMULA_ID": "F022",
+      "NAME": "exactly_once_allocation",
+      "REQUIREMENT_IDS": [
+        "R3-022"
+      ],
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "PUBLIC_FUNCTION": "exactly_once_allocation",
+      "INPUT_SCHEMA": [
+        {
+          "NAME": "actionId",
+          "TYPE": "string",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "consumedActions",
+          "TYPE": "object",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        },
+        {
+          "NAME": "amount",
+          "TYPE": "decimal",
+          "UNIT": "account_currency_or_native",
+          "REQUIRED": true
+        }
+      ],
+      "OUTPUT_SCHEMA": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "output",
+          "TYPE": "object"
+        }
+      ],
+      "UNITS": {
+        "money": "account currency",
+        "volume": "lots",
+        "price": "symbol price"
+      },
+      "PRECONDITIONS": [
+        "finite Decimal inputs",
+        "identity bound when applicable"
+      ],
+      "EXPRESSION": "reference:exactly_once_allocation",
+      "ALGORITHM_STEPS": [
+        "validate typed inputs",
+        "apply documented pure function",
+        "return status/reason/output"
+      ],
+      "SIGN_CONVENTION": "profit positive, loss negative, Far loss nonnegative",
+      "BROKER_PRICE_SIDE": "BUY closes at Bid; SELL closes at Ask",
+      "PRICE_GRID_RULE": "floor DOWN or ceiling UP by tickSize",
+      "VOLUME_GRID_RULE": "floor to volumeStep",
+      "COMMISSION_POLICY": "actual deal commission included",
+      "SWAP_POLICY": "actual deal swap included",
+      "REALIZED_PNL_SOURCE": "confirmed deals only",
+      "UNREALIZED_PNL_SOURCE": "immutable Bid/Ask snapshot",
+      "FAIL_CLOSED_CONDITIONS": [
+        "nonfinite input",
+        "missing required identity",
+        "unproved external outcome"
+      ],
+      "INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G022"
+      ],
+      "BOUNDARY_VECTOR_IDS": [
+        "B022"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N022"
+      ],
+      "OPEN_DECISION_IDS": []
+    }
+  ]
+}

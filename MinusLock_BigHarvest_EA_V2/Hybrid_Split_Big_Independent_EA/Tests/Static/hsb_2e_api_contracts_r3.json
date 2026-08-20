@@ -1,0 +1,5433 @@
+{
+  "schema": "HSB.2E-PREP-R3/api/1",
+  "components": [
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_IBrokerAdapter.mqh",
+      "INPUT_TYPE": "R3Input1",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "direction",
+          "TYPE": "enum",
+          "UNIT": "BUY_OR_SELL",
+          "SOURCE": "intent",
+          "VALIDATION": "BUY|SELL",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_GEOMETRY"
+        },
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "lots",
+          "SOURCE": "intent",
+          "VALIDATION": "volume grid",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_VOLUME"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "identity_validation",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "identity_validation"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F001"
+      ],
+      "SCENARIO_IDS": [
+        "SC01"
+      ],
+      "TEST_IDS": [
+        "T465"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G001"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N001"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_BrokerSnapshot.mqh",
+      "INPUT_TYPE": "R3Input2",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "direction",
+          "TYPE": "enum",
+          "UNIT": "BUY_OR_SELL",
+          "SOURCE": "intent",
+          "VALIDATION": "BUY|SELL",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_GEOMETRY"
+        },
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "lots",
+          "SOURCE": "intent",
+          "VALIDATION": "volume grid",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_VOLUME"
+        },
+        {
+          "NAME": "timestamp",
+          "TYPE": "long",
+          "UNIT": "unix_seconds",
+          "SOURCE": "snapshot",
+          "VALIDATION": "fresh",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        },
+        {
+          "NAME": "version",
+          "TYPE": "uint",
+          "UNIT": "schema_version",
+          "SOURCE": "snapshot",
+          "VALIDATION": "supported",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "broker_snapshot_validation",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "broker_snapshot_validation"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F002"
+      ],
+      "SCENARIO_IDS": [
+        "SC02"
+      ],
+      "TEST_IDS": [
+        "T466"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G002"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N002"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_TradeRequestBuilder.mqh",
+      "INPUT_TYPE": "R3Input3",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "direction",
+          "TYPE": "enum",
+          "UNIT": "BUY_OR_SELL",
+          "SOURCE": "intent",
+          "VALIDATION": "BUY|SELL",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_GEOMETRY"
+        },
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "lots",
+          "SOURCE": "intent",
+          "VALIDATION": "volume grid",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_VOLUME"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "price_grid_normalization",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "price_grid_normalization"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F003"
+      ],
+      "SCENARIO_IDS": [
+        "SC03"
+      ],
+      "TEST_IDS": [
+        "T467"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G003"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N003"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_TradeRetcodeClassifier.mqh",
+      "INPUT_TYPE": "R3Input4",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "direction",
+          "TYPE": "enum",
+          "UNIT": "BUY_OR_SELL",
+          "SOURCE": "intent",
+          "VALIDATION": "BUY|SELL",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_GEOMETRY"
+        },
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "lots",
+          "SOURCE": "intent",
+          "VALIDATION": "volume grid",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_VOLUME"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "volume_grid_normalization",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "volume_grid_normalization"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F004"
+      ],
+      "SCENARIO_IDS": [
+        "SC04"
+      ],
+      "TEST_IDS": [
+        "T468"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G004"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N004"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Broker/HSBI_DealHistoryReader.mqh",
+      "INPUT_TYPE": "R3Input5",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "direction",
+          "TYPE": "enum",
+          "UNIT": "BUY_OR_SELL",
+          "SOURCE": "intent",
+          "VALIDATION": "BUY|SELL",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_GEOMETRY"
+        },
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "lots",
+          "SOURCE": "intent",
+          "VALIDATION": "volume grid",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_VOLUME"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "directional_close_price",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "directional_close_price"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F005"
+      ],
+      "SCENARIO_IDS": [
+        "SC05"
+      ],
+      "TEST_IDS": [
+        "T469"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G005"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N005"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Persistence/HSBI_AtomicFileStore.mqh",
+      "INPUT_TYPE": "R3Input6",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "realized_deal_money",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "realized_deal_money"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F006"
+      ],
+      "SCENARIO_IDS": [
+        "SC06"
+      ],
+      "TEST_IDS": [
+        "T470"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G006"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N006"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Persistence/HSBI_ProductionJournal.mqh",
+      "INPUT_TYPE": "R3Input7",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "unrealized_far_loss",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "unrealized_far_loss"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F007"
+      ],
+      "SCENARIO_IDS": [
+        "SC07"
+      ],
+      "TEST_IDS": [
+        "T471"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G007"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N007"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Persistence/HSBI_ProductionSnapshotStore.mqh",
+      "INPUT_TYPE": "R3Input8",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "timestamp",
+          "TYPE": "long",
+          "UNIT": "unix_seconds",
+          "SOURCE": "snapshot",
+          "VALIDATION": "fresh",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        },
+        {
+          "NAME": "version",
+          "TYPE": "uint",
+          "UNIT": "schema_version",
+          "SOURCE": "snapshot",
+          "VALIDATION": "supported",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "recovery_pl",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "recovery_pl"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F008"
+      ],
+      "SCENARIO_IDS": [
+        "SC08"
+      ],
+      "TEST_IDS": [
+        "T472"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G008"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N008"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Persistence/HSBI_SnapshotMigration.mqh",
+      "INPUT_TYPE": "R3Input9",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "timestamp",
+          "TYPE": "long",
+          "UNIT": "unix_seconds",
+          "SOURCE": "snapshot",
+          "VALIDATION": "fresh",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        },
+        {
+          "NAME": "version",
+          "TYPE": "uint",
+          "UNIT": "schema_version",
+          "SOURCE": "snapshot",
+          "VALIDATION": "supported",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "reserve_coverage",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "reserve_coverage"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F009"
+      ],
+      "SCENARIO_IDS": [
+        "SC09"
+      ],
+      "TEST_IDS": [
+        "T473"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G009"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N009"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Reconciliation/HSBI_ReconciliationEngine.mqh",
+      "INPUT_TYPE": "R3Input10",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "close_far_budget",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "close_far_budget"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F010"
+      ],
+      "SCENARIO_IDS": [
+        "SC10"
+      ],
+      "TEST_IDS": [
+        "T474"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G010"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N010"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Reconciliation/HSBI_PositionReconciler.mqh",
+      "INPUT_TYPE": "R3Input11",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "partial_far_volume",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "partial_far_volume"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F011"
+      ],
+      "SCENARIO_IDS": [
+        "SC11"
+      ],
+      "TEST_IDS": [
+        "T475"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G011"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N011"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Reconciliation/HSBI_DealReconciler.mqh",
+      "INPUT_TYPE": "R3Input12",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "reserve_addition",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "reserve_addition"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F012"
+      ],
+      "SCENARIO_IDS": [
+        "SC12"
+      ],
+      "TEST_IDS": [
+        "T476"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G012"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N012"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Reconciliation/HSBI_PendingActionReconciler.mqh",
+      "INPUT_TYPE": "R3Input13",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "final_far_close_gate",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "final_far_close_gate"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F013"
+      ],
+      "SCENARIO_IDS": [
+        "SC13"
+      ],
+      "TEST_IDS": [
+        "T477"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G013"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N013"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_PositionDiscovery.mqh",
+      "INPUT_TYPE": "R3Input14",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "big_level_settlement",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "big_level_settlement"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F014"
+      ],
+      "SCENARIO_IDS": [
+        "SC14"
+      ],
+      "TEST_IDS": [
+        "T478"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G014"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N014"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_TransactionEngine.mqh",
+      "INPUT_TYPE": "R3Input15",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "small_reversal_settlement",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "small_reversal_settlement"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F015"
+      ],
+      "SCENARIO_IDS": [
+        "SC15"
+      ],
+      "TEST_IDS": [
+        "T479"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G015"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N015"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_TradeTransactionRouter.mqh",
+      "INPUT_TYPE": "R3Input16",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "new_far_calculation",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "new_far_calculation"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F016"
+      ],
+      "SCENARIO_IDS": [
+        "SC16"
+      ],
+      "TEST_IDS": [
+        "T480"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G016"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N016"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "INPUT_TYPE": "R3Input17",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "future_small_projection",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "future_small_projection"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F017"
+      ],
+      "SCENARIO_IDS": [
+        "SC01"
+      ],
+      "TEST_IDS": [
+        "T481"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G017"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N017"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_SimulatedBrokerAdapter.mqh",
+      "INPUT_TYPE": "R3Input18",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "direction",
+          "TYPE": "enum",
+          "UNIT": "BUY_OR_SELL",
+          "SOURCE": "intent",
+          "VALIDATION": "BUY|SELL",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_GEOMETRY"
+        },
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "lots",
+          "SOURCE": "intent",
+          "VALIDATION": "volume grid",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_VOLUME"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "reserve_catch_up",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "reserve_catch_up"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F018"
+      ],
+      "SCENARIO_IDS": [
+        "SC02"
+      ],
+      "TEST_IDS": [
+        "T482"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G018"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N018"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Execution/HSBI_DemoBrokerAdapter.mqh",
+      "INPUT_TYPE": "R3Input19",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "direction",
+          "TYPE": "enum",
+          "UNIT": "BUY_OR_SELL",
+          "SOURCE": "intent",
+          "VALIDATION": "BUY|SELL",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_GEOMETRY"
+        },
+        {
+          "NAME": "volume",
+          "TYPE": "decimal",
+          "UNIT": "lots",
+          "SOURCE": "intent",
+          "VALIDATION": "volume grid",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "INVALID_VOLUME"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "risk_margin_gate",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "risk_margin_gate"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F019"
+      ],
+      "SCENARIO_IDS": [
+        "SC03"
+      ],
+      "TEST_IDS": [
+        "T483"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G019"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N019"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "INPUT_TYPE": "R3Input20",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "currency",
+          "TYPE": "string",
+          "UNIT": "ISO4217",
+          "SOURCE": "broker snapshot",
+          "VALIDATION": "nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "UNAVAILABLE",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "transition_loss",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "transition_loss"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F020"
+      ],
+      "SCENARIO_IDS": [
+        "SC04"
+      ],
+      "TEST_IDS": [
+        "T484"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G020"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N020"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Money/HSBI_ProductionAllocationLedger.mqh",
+      "INPUT_TYPE": "R3Input21",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "currency",
+          "TYPE": "string",
+          "UNIT": "ISO4217",
+          "SOURCE": "broker snapshot",
+          "VALIDATION": "nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "UNAVAILABLE",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "restart_replay",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "restart_replay"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F021"
+      ],
+      "SCENARIO_IDS": [
+        "SC05"
+      ],
+      "TEST_IDS": [
+        "T485"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G021"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N021"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Money/HSBI_RealizedDealMoney.mqh",
+      "INPUT_TYPE": "R3Input22",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "currency",
+          "TYPE": "string",
+          "UNIT": "ISO4217",
+          "SOURCE": "broker snapshot",
+          "VALIDATION": "nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "UNAVAILABLE",
+          "FAILURE_REASON": "STALE_SNAPSHOT"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "exactly_once_allocation",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "exactly_once_allocation"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F022"
+      ],
+      "SCENARIO_IDS": [
+        "SC06"
+      ],
+      "TEST_IDS": [
+        "T486"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G022"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N022"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Runtime/HSBI_CycleOrchestrator.mqh",
+      "INPUT_TYPE": "R3Input23",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "identity_validation",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "identity_validation"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F001"
+      ],
+      "SCENARIO_IDS": [
+        "SC07"
+      ],
+      "TEST_IDS": [
+        "T487"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G001"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N001"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Runtime/HSBI_FsmCommitCoordinator.mqh",
+      "INPUT_TYPE": "R3Input24",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "broker_snapshot_validation",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "broker_snapshot_validation"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F002"
+      ],
+      "SCENARIO_IDS": [
+        "SC08"
+      ],
+      "TEST_IDS": [
+        "T488"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G002"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N002"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Runtime/HSBI_TerminalSafeController.mqh",
+      "INPUT_TYPE": "R3Input25",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "price_grid_normalization",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "price_grid_normalization"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F003"
+      ],
+      "SCENARIO_IDS": [
+        "SC09"
+      ],
+      "TEST_IDS": [
+        "T489"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G003"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N003"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_InitialLockEngine.mqh",
+      "INPUT_TYPE": "R3Input26",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "volume_grid_normalization",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "volume_grid_normalization"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F004"
+      ],
+      "SCENARIO_IDS": [
+        "SC10"
+      ],
+      "TEST_IDS": [
+        "T490"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G004"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N004"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_BigHarvestEngine.mqh",
+      "INPUT_TYPE": "R3Input27",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "directional_close_price",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "directional_close_price"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F005"
+      ],
+      "SCENARIO_IDS": [
+        "SC11"
+      ],
+      "TEST_IDS": [
+        "T491"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G005"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N005"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_PartialFarReserveEngine.mqh",
+      "INPUT_TYPE": "R3Input28",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "realized_deal_money",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "realized_deal_money"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F006"
+      ],
+      "SCENARIO_IDS": [
+        "SC12"
+      ],
+      "TEST_IDS": [
+        "T492"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G006"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N006"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_FinalCloseEngine.mqh",
+      "INPUT_TYPE": "R3Input29",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "unrealized_far_loss",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "unrealized_far_loss"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F007"
+      ],
+      "SCENARIO_IDS": [
+        "SC13"
+      ],
+      "TEST_IDS": [
+        "T493"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G007"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N007"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_SmallTransitionEngine.mqh",
+      "INPUT_TYPE": "R3Input30",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "recovery_pl",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "recovery_pl"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F008"
+      ],
+      "SCENARIO_IDS": [
+        "SC14"
+      ],
+      "TEST_IDS": [
+        "T494"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G008"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N008"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Scenarios/HSBI_NewFarCatchUpEngine.mqh",
+      "INPUT_TYPE": "R3Input31",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "reserve_coverage",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "reserve_coverage"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F009"
+      ],
+      "SCENARIO_IDS": [
+        "SC15"
+      ],
+      "TEST_IDS": [
+        "T495"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G009"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N009"
+      ]
+    },
+    {
+      "OWNER_FILE": "Include/Diagnostics/HSBI_ProductionDiagnostics.mqh",
+      "INPUT_TYPE": "R3Input32",
+      "OUTPUT_TYPE": "R3DecisionResult",
+      "INPUT_FIELDS": [
+        {
+          "NAME": "accountLogin",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "symbol",
+          "TYPE": "string",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "magic",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "cycleId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "actionId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "eventId",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "stateRevision",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        },
+        {
+          "NAME": "ticket",
+          "TYPE": "ulong",
+          "UNIT": "identifier",
+          "SOURCE": "immutable context",
+          "VALIDATION": "nonzero/nonempty",
+          "REQUIRED": true,
+          "IMMUTABLE": true,
+          "DIGEST_INCLUDED": true,
+          "FAILURE_STATUS": "REJECT",
+          "FAILURE_REASON": "IDENTITY"
+        }
+      ],
+      "OUTPUT_FIELDS": [
+        {
+          "NAME": "status",
+          "TYPE": "status"
+        },
+        {
+          "NAME": "reason",
+          "TYPE": "reason"
+        },
+        {
+          "NAME": "digest",
+          "TYPE": "string"
+        }
+      ],
+      "FUNCTION": "close_far_budget",
+      "PRECONDITIONS": [
+        "immutable input"
+      ],
+      "POSTCONDITIONS": [
+        "deterministic output"
+      ],
+      "SIDE_EFFECTS": [
+        "none offline"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "live dispatch"
+      ],
+      "DEPENDENCIES": [],
+      "CALLERS": [
+        "CycleOrchestrator"
+      ],
+      "CALLEES": [
+        "close_far_budget"
+      ],
+      "FSM_TRANSITIONS": [
+        "NONE_OFFLINE"
+      ],
+      "PERSISTENCE_RECORDS": [
+        "NONE_OFFLINE"
+      ],
+      "TRANSACTION_CASES": [
+        "SIMULATION"
+      ],
+      "FORMULA_IDS": [
+        "F010"
+      ],
+      "SCENARIO_IDS": [
+        "SC16"
+      ],
+      "TEST_IDS": [
+        "T496"
+      ],
+      "GOLDEN_VECTOR_IDS": [
+        "G010"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "N010"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,840 @@
+{
+  "schema": "HSB.2E-PREP-R3/golden/1",
+  "vectors": [
+    {
+      "VECTOR_ID": "G001",
+      "REQUIREMENT_IDS": [
+        "R3-001"
+      ],
+      "FORMULA_ID": "F001",
+      "SCENARIO_ID": "SC01",
+      "FUNCTION": "identity_validation",
+      "INPUT": {
+        "accountLogin": 1,
+        "symbol": "EURUSD",
+        "magic": 7,
+        "cycleId": 42,
+        "positionSpecific": true,
+        "ticket": 9001
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "owned": true
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G002",
+      "REQUIREMENT_IDS": [
+        "R3-002"
+      ],
+      "FORMULA_ID": "F002",
+      "SCENARIO_ID": "SC02",
+      "FUNCTION": "broker_snapshot_validation",
+      "INPUT": {
+        "version": 1,
+        "timestamp": 100,
+        "minimumTimestamp": 90,
+        "bid": "1.1000",
+        "ask": "1.1002"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "fresh": true
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G003",
+      "REQUIREMENT_IDS": [
+        "R3-003"
+      ],
+      "FORMULA_ID": "F003",
+      "SCENARIO_ID": "SC03",
+      "FUNCTION": "price_grid_normalization",
+      "INPUT": {
+        "price": "1.10027",
+        "tickSize": "0.0001",
+        "round": "DOWN"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "price": "1.1002"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G004",
+      "REQUIREMENT_IDS": [
+        "R3-004"
+      ],
+      "FORMULA_ID": "F004",
+      "SCENARIO_ID": "SC04",
+      "FUNCTION": "volume_grid_normalization",
+      "INPUT": {
+        "volume": "0.257",
+        "step": "0.01",
+        "minimum": "0.01",
+        "maximum": "10"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "volume": "0.25"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G005",
+      "REQUIREMENT_IDS": [
+        "R3-005"
+      ],
+      "FORMULA_ID": "F005",
+      "SCENARIO_ID": "SC05",
+      "FUNCTION": "directional_close_price",
+      "INPUT": {
+        "direction": "BUY",
+        "bid": "1.1000",
+        "ask": "1.1002"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "price": "1.1000"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G006",
+      "REQUIREMENT_IDS": [
+        "R3-006"
+      ],
+      "FORMULA_ID": "F006",
+      "SCENARIO_ID": "SC06",
+      "FUNCTION": "realized_deal_money",
+      "INPUT": {
+        "deals": [
+          {
+            "id": 1,
+            "profit": "12",
+            "commission": "-1",
+            "swap": "-0.2",
+            "fee": "-0.1"
+          },
+          {
+            "id": 2,
+            "profit": "-3",
+            "commission": "-0.5",
+            "swap": "0",
+            "fee": "0"
+          }
+        ]
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "grossProfit": "12",
+        "grossLoss": "-3",
+        "commission": "-1.5",
+        "swap": "-0.2",
+        "fee": "-0.1",
+        "netRealized": "7.2"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G007",
+      "REQUIREMENT_IDS": [
+        "R3-007"
+      ],
+      "FORMULA_ID": "F007",
+      "SCENARIO_ID": "SC07",
+      "FUNCTION": "unrealized_far_loss",
+      "INPUT": {
+        "direction": "BUY",
+        "openPrice": "1.1050",
+        "closePrice": "1.1000",
+        "volume": "1",
+        "moneyPerPriceLot": "10000"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "unrealized": "-50.0000",
+        "farLoss": "50.0000"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G008",
+      "REQUIREMENT_IDS": [
+        "R3-008"
+      ],
+      "FORMULA_ID": "F008",
+      "SCENARIO_ID": "SC08",
+      "FUNCTION": "recovery_pl",
+      "INPUT": {
+        "actualRealized": "30",
+        "reserve": "10",
+        "farLoss": "35"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "recoveryPL": "5"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G009",
+      "REQUIREMENT_IDS": [
+        "R3-009"
+      ],
+      "FORMULA_ID": "F009",
+      "SCENARIO_ID": "SC09",
+      "FUNCTION": "reserve_coverage",
+      "INPUT": {
+        "bigNet": "20",
+        "smallNet": "5",
+        "reserve": "10",
+        "farLoss": "32"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "coverage": "3"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G010",
+      "REQUIREMENT_IDS": [
+        "R3-010"
+      ],
+      "FORMULA_ID": "F010",
+      "SCENARIO_ID": "SC10",
+      "FUNCTION": "close_far_budget",
+      "INPUT": {
+        "bigNet": "20",
+        "smallNet": "5"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "budget": "25"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G011",
+      "REQUIREMENT_IDS": [
+        "R3-011"
+      ],
+      "FORMULA_ID": "F011",
+      "SCENARIO_ID": "SC11",
+      "FUNCTION": "partial_far_volume",
+      "INPUT": {
+        "reserveUsed": "0",
+        "budget": "25",
+        "lossPerLot": "50",
+        "farVolume": "1",
+        "step": "0.01",
+        "minimum": "0.01"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "volume": "0.5"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G012",
+      "REQUIREMENT_IDS": [
+        "R3-012"
+      ],
+      "FORMULA_ID": "F012",
+      "SCENARIO_ID": "SC12",
+      "FUNCTION": "reserve_addition",
+      "INPUT": {
+        "reserve": "10",
+        "addition": "3",
+        "allocationKey": "A1",
+        "consumedKeys": []
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "reserve": "13",
+        "allocationKey": "A1"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G013",
+      "REQUIREMENT_IDS": [
+        "R3-013"
+      ],
+      "FORMULA_ID": "F013",
+      "SCENARIO_ID": "SC13",
+      "FUNCTION": "final_far_close_gate",
+      "INPUT": {
+        "farLoss": "30",
+        "bigNet": "20",
+        "smallNet": "5",
+        "reserve": "10",
+        "recoveryPL": "5",
+        "actualDeals": true
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "closeFar": true
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G014",
+      "REQUIREMENT_IDS": [
+        "R3-014"
+      ],
+      "FORMULA_ID": "F014",
+      "SCENARIO_ID": "SC14",
+      "FUNCTION": "big_level_settlement",
+      "INPUT": {
+        "bigVolume": "1",
+        "smallVolume": "0.4",
+        "bigConfirmed": true,
+        "smallConfirmed": true
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "bigClosed": "1",
+        "smallClosed": "0.4",
+        "confirmed": true
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G015",
+      "REQUIREMENT_IDS": [
+        "R3-015"
+      ],
+      "FORMULA_ID": "F015",
+      "SCENARIO_ID": "SC15",
+      "FUNCTION": "small_reversal_settlement",
+      "INPUT": {
+        "oldBig": "1",
+        "closedBig": "0.4",
+        "newFar": "0.6",
+        "oldFar": "1",
+        "dualTail": false,
+        "persisted": true
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "newFar": "0.6",
+        "closedBig": "0.4"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G016",
+      "REQUIREMENT_IDS": [
+        "R3-016"
+      ],
+      "FORMULA_ID": "F016",
+      "SCENARIO_ID": "SC16",
+      "FUNCTION": "new_far_calculation",
+      "INPUT": {
+        "bigRemaining": "0.6",
+        "oldFar": "1"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "newFar": "0.6"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G017",
+      "REQUIREMENT_IDS": [
+        "R3-017"
+      ],
+      "FORMULA_ID": "F017",
+      "SCENARIO_ID": "SC01",
+      "FUNCTION": "future_small_projection",
+      "INPUT": {
+        "targetRecovery": "50",
+        "reserve": "10",
+        "bigProjected": "25"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "projectedSmall": "15"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G018",
+      "REQUIREMENT_IDS": [
+        "R3-018"
+      ],
+      "FORMULA_ID": "F018",
+      "SCENARIO_ID": "SC02",
+      "FUNCTION": "reserve_catch_up",
+      "INPUT": {
+        "target": "20",
+        "reserve": "12"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "catchUp": "8"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G019",
+      "REQUIREMENT_IDS": [
+        "R3-019"
+      ],
+      "FORMULA_ID": "F019",
+      "SCENARIO_ID": "SC03",
+      "FUNCTION": "risk_margin_gate",
+      "INPUT": {
+        "marginFree": "1000",
+        "marginRequired": "400",
+        "risk": "1",
+        "riskLimit": "2"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "allowed": true
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G020",
+      "REQUIREMENT_IDS": [
+        "R3-020"
+      ],
+      "FORMULA_ID": "F020",
+      "SCENARIO_ID": "SC04",
+      "FUNCTION": "transition_loss",
+      "INPUT": {
+        "oldFarLoss": "50",
+        "newFarLoss": "35"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "loss": "15"
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G021",
+      "REQUIREMENT_IDS": [
+        "R3-021"
+      ],
+      "FORMULA_ID": "F021",
+      "SCENARIO_ID": "SC05",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "outcome": "CONFIRMED",
+        "actionId": 10,
+        "stateRevision": 5,
+        "committedActions": []
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "actionId": 10,
+        "stateRevision": 5
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    },
+    {
+      "VECTOR_ID": "G022",
+      "REQUIREMENT_IDS": [
+        "R3-022"
+      ],
+      "FORMULA_ID": "F022",
+      "SCENARIO_ID": "SC06",
+      "FUNCTION": "exactly_once_allocation",
+      "INPUT": {
+        "actionId": 10,
+        "consumedActions": [],
+        "amount": "7"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_OUTPUT": {
+        "allocated": "7",
+        "actionId": 10
+      },
+      "EXPECTED_INVARIANTS": [
+        "no_intent_on_failure"
+      ],
+      "EXPECTED_LEDGER_DELTA": {},
+      "EXPECTED_POSITION_DELTA": {},
+      "EXPECTED_RESERVE_DELTA": "0",
+      "EXPECTED_FAR_DELTA": "0",
+      "EXPECTED_STATE": "READY",
+      "EXPECTED_BROKER_INTENTS": [],
+      "FORBIDDEN_BROKER_INTENTS": [
+        "LIVE_DISPATCH"
+      ],
+      "TOLERANCES": {
+        "money": "0.01",
+        "volume": "0.00000001",
+        "price": "0.000000001"
+      }
+    }
+  ]
+}

@@ -1,0 +1,380 @@
+{
+  "schema": "HSB.2E-PREP-R3/sources/1",
+  "requirements": [
+    {
+      "REQUIREMENT_ID": "R3-001",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "identity_validation",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F001"
+      ],
+      "SCENARIO_IDS": [
+        "SC01"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T465"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-002",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "broker_snapshot_validation",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F002"
+      ],
+      "SCENARIO_IDS": [
+        "SC02"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T466"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-003",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "price_grid_normalization",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F003"
+      ],
+      "SCENARIO_IDS": [
+        "SC03"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T467"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-004",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "volume_grid_normalization",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F004"
+      ],
+      "SCENARIO_IDS": [
+        "SC04"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T468"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-005",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "directional_close_price",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F005"
+      ],
+      "SCENARIO_IDS": [
+        "SC05"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T469"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-006",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "realized_deal_money",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F006"
+      ],
+      "SCENARIO_IDS": [
+        "SC06"
+      ],
+      "API_OWNER": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "TEST_IDS": [
+        "T470"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-007",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "unrealized_far_loss",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F007"
+      ],
+      "SCENARIO_IDS": [
+        "SC07"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T471"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-008",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "recovery_pl",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F008"
+      ],
+      "SCENARIO_IDS": [
+        "SC08"
+      ],
+      "API_OWNER": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "TEST_IDS": [
+        "T472"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-009",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "reserve_coverage",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F009"
+      ],
+      "SCENARIO_IDS": [
+        "SC09"
+      ],
+      "API_OWNER": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "TEST_IDS": [
+        "T473"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-010",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "close_far_budget",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F010"
+      ],
+      "SCENARIO_IDS": [
+        "SC10"
+      ],
+      "API_OWNER": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "TEST_IDS": [
+        "T474"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-011",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "partial_far_volume",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F011"
+      ],
+      "SCENARIO_IDS": [
+        "SC11"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T475"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-012",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "reserve_addition",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F012"
+      ],
+      "SCENARIO_IDS": [
+        "SC12"
+      ],
+      "API_OWNER": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "TEST_IDS": [
+        "T476"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-013",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "final_far_close_gate",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F013"
+      ],
+      "SCENARIO_IDS": [
+        "SC13"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T477"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-014",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "big_level_settlement",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F014"
+      ],
+      "SCENARIO_IDS": [
+        "SC14"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T478"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-015",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "small_reversal_settlement",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F015"
+      ],
+      "SCENARIO_IDS": [
+        "SC15"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T479"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-016",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "new_far_calculation",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F016"
+      ],
+      "SCENARIO_IDS": [
+        "SC16"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T480"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-017",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "future_small_projection",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F017"
+      ],
+      "SCENARIO_IDS": [
+        "SC01"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T481"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-018",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "reserve_catch_up",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F018"
+      ],
+      "SCENARIO_IDS": [
+        "SC02"
+      ],
+      "API_OWNER": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "TEST_IDS": [
+        "T482"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-019",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "risk_margin_gate",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F019"
+      ],
+      "SCENARIO_IDS": [
+        "SC03"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T483"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-020",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "transition_loss",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F020"
+      ],
+      "SCENARIO_IDS": [
+        "SC04"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T484"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-021",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "restart_replay",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F021"
+      ],
+      "SCENARIO_IDS": [
+        "SC05"
+      ],
+      "API_OWNER": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "TEST_IDS": [
+        "T485"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    },
+    {
+      "REQUIREMENT_ID": "R3-022",
+      "SOURCE_FILE": "Docs/HSB_2E_FULL_TRADING_LOGIC_IMPLEMENTATION_PLAN_RU.md",
+      "SOURCE_SECTION": "exactly_once_allocation",
+      "NORMATIVE_TEXT_SUMMARY_RU": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u044b\u0439 fail-closed \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0438.",
+      "FORMULA_IDS": [
+        "F022"
+      ],
+      "SCENARIO_IDS": [
+        "SC06"
+      ],
+      "API_OWNER": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "TEST_IDS": [
+        "T486"
+      ],
+      "CONFLICT_STATUS": "NONE"
+    }
+  ],
+  "open_decisions": []
+}
