@@ -1,0 +1,324 @@
+{
+  "transitions": [
+    {
+      "FROM_STATE": "HSBI_STATE_BOOTSTRAP",
+      "EVENT": "INITIAL_LOCK_REQUESTED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": false,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_INITIAL_LOCK_REQUESTED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_INITIAL_LOCK_REQUESTED",
+      "EVENT": "POSITIVE_START_CLOSE_CONFIRMED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": false,
+      "REQUIRED_EXTERNAL_OUTCOME": true,
+      "REQUIRED_RECONCILIATION": true,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_POSITIVE_START_CLOSE_CONFIRMED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_POSITIVE_START_CLOSE_CONFIRMED",
+      "EVENT": "FAR_ASSIGNED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": false,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_FAR_ASSIGNED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_FAR_ASSIGNED",
+      "EVENT": "GEOMETRY_PLANNED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": false,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_GEOMETRY_PLANNED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_GEOMETRY_PLANNED",
+      "EVENT": "INTENT_PREPARED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_INTENT_PREPARED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_INTENT_PREPARED",
+      "EVENT": "SIMULATION_DISPATCHED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_SIMULATION_DISPATCHED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_SIMULATION_DISPATCHED",
+      "EVENT": "PARTIAL_FILL_OBSERVED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": true,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_PARTIAL_FILL_OBSERVED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_PARTIAL_FILL_OBSERVED",
+      "EVENT": "FULL_FILL_OBSERVED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": true,
+      "REQUIRED_RECONCILIATION": true,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_FULL_FILL_OBSERVED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_FULL_FILL_OBSERVED",
+      "EVENT": "RECONCILIATION_CONFIRMED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": true,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_RECONCILIATION_CONFIRMED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_RECONCILIATION_CONFIRMED",
+      "EVENT": "ALLOCATION_APPLIED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": true,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_ALLOCATION_APPLIED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_ALLOCATION_APPLIED",
+      "EVENT": "SNAPSHOT_PERSISTED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_SNAPSHOT_PERSISTED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_SNAPSHOT_PERSISTED",
+      "EVENT": "NEXT_LEVEL_READY",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_NEXT_LEVEL_READY",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_NEXT_LEVEL_READY",
+      "EVENT": "SMALL_TRANSITION_CONFIRMED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": true,
+      "REQUIRED_RECONCILIATION": true,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_SMALL_TRANSITION_CONFIRMED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_SMALL_TRANSITION_CONFIRMED",
+      "EVENT": "FINAL_CLOSE_CONFIRMED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": true,
+      "REQUIRED_RECONCILIATION": true,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_FINAL_CLOSE_CONFIRMED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_FINAL_CLOSE_CONFIRMED",
+      "EVENT": "CYCLE_COMPLETED",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": true,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_CYCLE_COMPLETED",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    },
+    {
+      "FROM_STATE": "HSBI_STATE_CYCLE_COMPLETED",
+      "EVENT": "CRITICAL_FAILURE",
+      "GUARDS": [
+        "eventId > previousEventId",
+        "actionId matches pending action"
+      ],
+      "REQUIRED_PERSISTED_INTENT": true,
+      "REQUIRED_EXTERNAL_OUTCOME": false,
+      "REQUIRED_RECONCILIATION": false,
+      "LEDGER_PRECONDITION": "allocationApplied=false before deal confirmation",
+      "POSITION_PRECONDITION": "account+symbol+magic+cycle identity confirmed",
+      "TO_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "PERSIST_BEFORE_TRANSITION": true,
+      "ACTION_ID_RULE": "reuse pending ActionId until completed fill",
+      "EVENT_ID_RULE": "strictly increasing except ignored duplicate",
+      "FAIL_STATE": "HSBI_STATE_TERMINAL_SAFE",
+      "FAIL_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "AUTO_RETRY_ALLOWED": false
+    }
+  ]
+}
