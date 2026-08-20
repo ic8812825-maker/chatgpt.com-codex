@@ -1,0 +1,2323 @@
+[
+  {
+    "id": "M001",
+    "name": "disable_state_revision_with_false_and",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(false && x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M002",
+    "name": "replace_revision_condition_false",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(false)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M003",
+    "name": "invert_revision_operator",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision==revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M004",
+    "name": "remove_revision_reject",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "/* revision reject removed */"
+  },
+  {
+    "id": "M005",
+    "name": "successful_return_before_revision",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "HSBI_RuntimeDecisionResult early=HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"EARLY\");early.valid=true;return early;if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M006",
+    "name": "disable_ownership_false_and",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S027"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.positionActuallyRead||!x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");",
+    "new": "if(!x.positionActuallyRead||false && !x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");"
+  },
+  {
+    "id": "M007",
+    "name": "invert_ownership",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S027"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.positionActuallyRead||!x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");",
+    "new": "if(!x.positionActuallyRead||x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");"
+  },
+  {
+    "id": "M008",
+    "name": "remove_ownership_operand",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S027"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.positionActuallyRead||!x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");",
+    "new": "if(!x.positionActuallyRead)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");"
+  },
+  {
+    "id": "M009",
+    "name": "allow_foreign_ticket",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S027"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "p.identifier>0&&p.ticket>0",
+    "new": "p.identifier>0&&true"
+  },
+  {
+    "id": "M010",
+    "name": "allow_foreign_identifier",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S027"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "p.identifier>0&&p.ticket>0",
+    "new": "true&&p.ticket>0"
+  },
+  {
+    "id": "M011",
+    "name": "disable_persistence_false_and",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");",
+    "new": "if(false && !x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");"
+  },
+  {
+    "id": "M012",
+    "name": "invert_persistence",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");",
+    "new": "if(x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");"
+  },
+  {
+    "id": "M013",
+    "name": "valid_before_persistence",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");",
+    "new": "HSBI_RuntimeDecisionResult early=HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"EARLY\");early.valid=true;return early;if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");"
+  },
+  {
+    "id": "M014",
+    "name": "disable_snapshot_presence",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038R"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!s.snapshotPresent||s.persistedDigest==\"\")return HSBI_RuntimeReject(s.current,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-RESTART\");",
+    "new": "if(false && !s.snapshotPresent||s.persistedDigest==\"\")return HSBI_RuntimeReject(s.current,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-RESTART\");"
+  },
+  {
+    "id": "M015",
+    "name": "allow_unresolved_pending",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038R"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(s.unresolvedPending)return HSBI_RuntimeReject(s.current,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PENDING_ACTION_CONFLICT,\"HSBI-2D-RESTART-PENDING\");",
+    "new": "if(false && s.unresolvedPending)return HSBI_RuntimeReject(s.current,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PENDING_ACTION_CONFLICT,\"HSBI-2D-RESTART-PENDING\");"
+  },
+  {
+    "id": "M016",
+    "name": "disable_digest_comparison",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S039D"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");",
+    "new": "if(false && x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");"
+  },
+  {
+    "id": "M017",
+    "name": "allow_empty_digest",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S039D"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");",
+    "new": "if(x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");"
+  },
+  {
+    "id": "M018",
+    "name": "remove_revision_from_digest",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S039"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "+\"|\"+HSBI_UlongToString(x.stateRevision)",
+    "new": ""
+  },
+  {
+    "id": "M019",
+    "name": "remove_action_from_digest",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S039"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "+\"|\"+HSBI_UlongToString(x.actionId)",
+    "new": ""
+  },
+  {
+    "id": "M020",
+    "name": "remove_position_identity_from_digest",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S039"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "+\"|\"+HSBI_UlongToString(x.actualResidual.identifier)+\"|\"+HSBI_UlongToString(x.actualResidual.ticket)",
+    "new": ""
+  },
+  {
+    "id": "M021",
+    "name": "allow_stale_event",
+    "target": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S025"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(b.context.eventId<=b.expectedEventId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_REJECTED,HSBI_RD_EVENT_NOT_FRESH,\"HSBI-2D-BARRIER-EVENT\");",
+    "new": "if(false && b.context.eventId<=b.expectedEventId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_REJECTED,HSBI_RD_EVENT_NOT_FRESH,\"HSBI-2D-BARRIER-EVENT\");"
+  },
+  {
+    "id": "M022",
+    "name": "allow_wrong_action",
+    "target": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S025"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(b.context.actionId!=b.expectedActionId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_CONFLICT,HSBI_RD_ACTION_ID_MISMATCH,\"HSBI-2D-BARRIER-ACTION\");",
+    "new": "if(false && b.context.actionId!=b.expectedActionId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_CONFLICT,HSBI_RD_ACTION_ID_MISMATCH,\"HSBI-2D-BARRIER-ACTION\");"
+  },
+  {
+    "id": "M023",
+    "name": "other_payload_noop",
+    "target": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S025"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(b.completedOutcome||b.lastCompletedActionId==b.expectedActionId){if(b.lastCompletedActionId==b.expectedActionId&&b.lastCompletedPayloadDigest==b.payloadDigest)return HSBI_RuntimeReject",
+    "new": "if(b.completedOutcome||b.lastCompletedActionId==b.expectedActionId){if(b.lastCompletedActionId==b.expectedActionId)return HSBI_RuntimeReject"
+  },
+  {
+    "id": "M024",
+    "name": "allow_without_money",
+    "target": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S025"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!b.moneyConfirmed||!b.marginConfirmed)return HSBI_RuntimeReject",
+    "new": "if(false && !b.moneyConfirmed||!b.marginConfirmed)return HSBI_RuntimeReject"
+  },
+  {
+    "id": "M025",
+    "name": "allow_without_ownership",
+    "target": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S025"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!b.positionRead||!b.ticketConfirmed||!b.volumeConfirmed||!b.directionConfirmed||!b.ownershipConfirmed)return HSBI_RuntimeReject",
+    "new": "if(!b.positionRead||!b.ticketConfirmed||!b.volumeConfirmed||!b.directionConfirmed)return HSBI_RuntimeReject"
+  },
+  {
+    "id": "M026",
+    "name": "advance_without_persistence",
+    "target": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S025"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!b.persistencePrepared)return HSBI_RuntimeReject",
+    "new": "if(false && !b.persistencePrepared)return HSBI_RuntimeReject"
+  },
+  {
+    "id": "M027",
+    "name": "allow_source_reuse",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S024"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!s.historyUnchanged||s.sourceReused||s.payloadConflict)return HSBI_RuntimeReject",
+    "new": "if(!s.historyUnchanged||s.payloadConflict)return HSBI_RuntimeReject"
+  },
+  {
+    "id": "M028",
+    "name": "allow_payload_conflict",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S024"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!s.historyUnchanged||s.sourceReused||s.payloadConflict)return HSBI_RuntimeReject",
+    "new": "if(!s.historyUnchanged||s.sourceReused)return HSBI_RuntimeReject"
+  },
+  {
+    "id": "M029",
+    "name": "allow_changed_ticket",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S024"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "s.persistedResidual.identifier!=s.current.actualResidual.identifier||s.persistedResidual.ticket!=s.current.actualResidual.ticket||s.persistedResidual.actualVolume!=s.current.actualResidual.actualVolume||s.persistedResidual.role!=s.current.actualResidual.role||s.persistedResidual.direction!=s.current.actualResidual.direction",
+    "new": "s.persistedResidual.identifier!=s.current.actualResidual.identifier||s.persistedResidual.actualVolume!=s.current.actualResidual.actualVolume||s.persistedResidual.role!=s.current.actualResidual.role||s.persistedResidual.direction!=s.current.actualResidual.direction"
+  },
+  {
+    "id": "M030",
+    "name": "allow_changed_volume",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S024"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "s.persistedResidual.identifier!=s.current.actualResidual.identifier||s.persistedResidual.ticket!=s.current.actualResidual.ticket||s.persistedResidual.actualVolume!=s.current.actualResidual.actualVolume||s.persistedResidual.role!=s.current.actualResidual.role||s.persistedResidual.direction!=s.current.actualResidual.direction",
+    "new": "s.persistedResidual.identifier!=s.current.actualResidual.identifier||s.persistedResidual.ticket!=s.current.actualResidual.ticket||s.persistedResidual.role!=s.current.actualResidual.role||s.persistedResidual.direction!=s.current.actualResidual.direction"
+  },
+  {
+    "id": "M031",
+    "name": "allow_changed_role_direction",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S024"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "s.persistedResidual.identifier!=s.current.actualResidual.identifier||s.persistedResidual.ticket!=s.current.actualResidual.ticket||s.persistedResidual.actualVolume!=s.current.actualResidual.actualVolume||s.persistedResidual.role!=s.current.actualResidual.role||s.persistedResidual.direction!=s.current.actualResidual.direction",
+    "new": "s.persistedResidual.identifier!=s.current.actualResidual.identifier||s.persistedResidual.ticket!=s.current.actualResidual.ticket||s.persistedResidual.actualVolume!=s.current.actualResidual.actualVolume"
+  },
+  {
+    "id": "M032",
+    "name": "unresolved_pending_valid",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038R"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(s.unresolvedPending)return HSBI_RuntimeReject(s.current,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PENDING_ACTION_CONFLICT,\"HSBI-2D-RESTART-PENDING\");",
+    "new": "if(s.unresolvedPending)return HSBI_RuntimeReject(s.current,HSBI_DECISION_VALID,HSBI_RD_PENDING_ACTION_CONFLICT,\"HSBI-2D-RESTART-PENDING\");"
+  },
+  {
+    "id": "M033",
+    "name": "add_ctrade",
+    "target": "Hybrid_Split_Big_Independent_EA.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S017"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "#property strict",
+    "new": "#property strict\nCTrade mutation;"
+  },
+  {
+    "id": "M034",
+    "name": "add_ordersend",
+    "target": "Hybrid_Split_Big_Independent_EA.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S017"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "#property strict",
+    "new": "#property strict\nvoid mutation(){OrderSend();}"
+  },
+  {
+    "id": "M035",
+    "name": "add_trade_request",
+    "target": "Hybrid_Split_Big_Independent_EA.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S017"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "#property strict",
+    "new": "#property strict\nMqlTradeRequest mutation;"
+  },
+  {
+    "id": "M036",
+    "name": "add_trade_action",
+    "target": "Hybrid_Split_Big_Independent_EA.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S017"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "#property strict",
+    "new": "#property strict\nint mutation=TRADE_ACTION_DEAL;"
+  },
+  {
+    "id": "M037",
+    "name": "enable_production_mode",
+    "target": "Hybrid_Split_Big_Independent_EA.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S016"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSBI_RUNTIME_DISABLED",
+    "new": "HSBI_RUNTIME_PRODUCTION"
+  },
+  {
+    "id": "M038",
+    "name": "remove_no_trade_stub",
+    "target": "Hybrid_Split_Big_Independent_EA.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S016"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSBI_SubmitActionStub()",
+    "new": "HSBI_DisabledStubRemoved()"
+  },
+  {
+    "id": "M039",
+    "name": "real_trading_yes",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "REAL_TRADING_ALLOWED=NO\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->"
+  },
+  {
+    "id": "M040",
+    "name": "hsb2e_started",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSB.2E=NOT_STARTED",
+    "new": "HSB.2E=STARTED"
+  },
+  {
+    "id": "M041",
+    "name": "metaeditor_false_pass",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "METAEDITOR_MAIN_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "METAEDITOR_MAIN_COMPILE=PASS"
+  },
+  {
+    "id": "M042",
+    "name": "mql5_false_pass",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "MQL5_TESTS_T01_T464=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "MQL5_TESTS_T01_T464=PASS"
+  },
+  {
+    "id": "M043",
+    "name": "broker_false_pass",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "BROKER_MONEY_RUNTIME_PROOF=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "BROKER_MONEY_RUNTIME_PROOF=PASS"
+  },
+  {
+    "id": "M044",
+    "name": "remove_canonical_marker",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S044A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "<!-- HSB_2D_V1_R6_CANONICAL_STATUS_BEGIN",
+    "new": "<!-- marker removed"
+  },
+  {
+    "id": "M045",
+    "name": "remove_t464",
+    "target": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S013"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "Check(\"T464\"",
+    "new": "Check(\"X464\""
+  },
+  {
+    "id": "M046",
+    "name": "duplicate_t463",
+    "target": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S012"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "Check(\"T464\"",
+    "new": "Check(\"T463\""
+  },
+  {
+    "id": "M047",
+    "name": "external_include",
+    "target": "Hybrid_Split_Big_Independent_EA.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S006"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "#property strict",
+    "new": "#property strict\n#include \"../../outside.mqh\""
+  },
+  {
+    "id": "M048",
+    "name": "missing_include",
+    "target": "Hybrid_Split_Big_Independent_EA.mq5",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S005"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "#property strict",
+    "new": "#property strict\n#include \"missing_r1.mqh\""
+  },
+  {
+    "id": "M049",
+    "name": "include_cycle",
+    "target": "Include/Core/HSBI_Context.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S007"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "#define HSBI_CONTEXT_MQH",
+    "new": "#define HSBI_CONTEXT_MQH\n#include \"HSBI_Context.mqh\""
+  },
+  {
+    "id": "M050",
+    "name": "duplicate_real_guard",
+    "target": "Include/Core/HSBI_Context.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S009"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "#ifndef HSBI_CONTEXT_MQH\n#define HSBI_CONTEXT_MQH",
+    "new": "#ifndef HSBI_ENUMS_MQH\n#define HSBI_ENUMS_MQH"
+  },
+  {
+    "id": "M051",
+    "name": "manifest_remove_required",
+    "target": "Reports/HSB_2D_V1_R6_FILE_MANIFEST_SHA256.txt",
+    "mutation_type": "manifest",
+    "expected_check_ids": [
+      "S045"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__MANIFEST_FIRST__",
+    "new": ""
+  },
+  {
+    "id": "M052",
+    "name": "manifest_add_unknown",
+    "target": "Reports/HSB_2D_V1_R6_FILE_MANIFEST_SHA256.txt",
+    "mutation_type": "manifest",
+    "expected_check_ids": [
+      "S045"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__MANIFEST_APPEND__",
+    "new": "0000000000000000000000000000000000000000000000000000000000000000  unknown.file\n"
+  },
+  {
+    "id": "M053",
+    "name": "manifest_duplicate_path",
+    "target": "Reports/HSB_2D_V1_R6_FILE_MANIFEST_SHA256.txt",
+    "mutation_type": "manifest",
+    "expected_check_ids": [
+      "S045"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__MANIFEST_DUPLICATE__",
+    "new": ""
+  },
+  {
+    "id": "M054",
+    "name": "manifest_change_hash",
+    "target": "Reports/HSB_2D_V1_R6_FILE_MANIFEST_SHA256.txt",
+    "mutation_type": "manifest",
+    "expected_check_ids": [
+      "S045"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__MANIFEST_HASH__",
+    "new": ""
+  },
+  {
+    "id": "M055",
+    "name": "manifest_external_path",
+    "target": "Reports/HSB_2D_V1_R6_FILE_MANIFEST_SHA256.txt",
+    "mutation_type": "manifest",
+    "expected_check_ids": [
+      "S045"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__MANIFEST_APPEND__",
+    "new": "0000000000000000000000000000000000000000000000000000000000000000  ../outside.file\n"
+  },
+  {
+    "id": "M056",
+    "name": "revision_line_comment",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "// if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M057",
+    "name": "revision_block_comment",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "/* if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\"); */"
+  },
+  {
+    "id": "M058",
+    "name": "revision_string_only",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "string mutation=\"if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\\\"HSBI-2D-REV\\\");\";"
+  },
+  {
+    "id": "M059",
+    "name": "revision_if0",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "#if 0\nif(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");\n#endif"
+  },
+  {
+    "id": "M060",
+    "name": "revision_return_commented",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision) // return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M061",
+    "name": "ownership_line_comment",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S027"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.positionActuallyRead||!x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");",
+    "new": "// if(!x.positionActuallyRead||!x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");"
+  },
+  {
+    "id": "M062",
+    "name": "persistence_block_comment",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");",
+    "new": "/* if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\"); */"
+  },
+  {
+    "id": "M063",
+    "name": "digest_string_only",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S039D"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");",
+    "new": "string mutation=\"digest guard removed\";"
+  },
+  {
+    "id": "M064",
+    "name": "barrier_if0",
+    "target": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S025"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(b.context.eventId<=b.expectedEventId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_REJECTED,HSBI_RD_EVENT_NOT_FRESH,\"HSBI-2D-BARRIER-EVENT\");",
+    "new": "#if 0\nif(b.context.eventId<=b.expectedEventId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_REJECTED,HSBI_RD_EVENT_NOT_FRESH,\"HSBI-2D-BARRIER-EVENT\");\n#endif"
+  },
+  {
+    "id": "M065",
+    "name": "restart_history_comment",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S024"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!s.historyUnchanged||s.sourceReused||s.payloadConflict)return HSBI_RuntimeReject(s.current,HSBI_DECISION_CONFLICT,HSBI_RD_DOUBLE_COUNT_BLOCKED,\"HSBI-2D-RESTART-HISTORY\");",
+    "new": "// if(!s.historyUnchanged||s.sourceReused||s.payloadConflict)return HSBI_RuntimeReject(s.current,HSBI_DECISION_CONFLICT,HSBI_RD_DOUBLE_COUNT_BLOCKED,\"HSBI-2D-RESTART-HISTORY\");"
+  },
+  {
+    "id": "M066",
+    "name": "real_yes_README_RU.md",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "REAL_TRADING_ALLOWED=NO\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->"
+  },
+  {
+    "id": "M067",
+    "name": "2e_started_README_RU.md",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSB.2E=NOT_STARTED",
+    "new": "HSB.2E=STARTED"
+  },
+  {
+    "id": "M068",
+    "name": "meta_pass_README_RU.md",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "METAEDITOR_MAIN_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "METAEDITOR_MAIN_COMPILE=PASS"
+  },
+  {
+    "id": "M069",
+    "name": "mql_pass_README_RU.md",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "MQL5_TESTS_T01_T464=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "MQL5_TESTS_T01_T464=PASS"
+  },
+  {
+    "id": "M070",
+    "name": "marker_removed_README_RU.md",
+    "target": "README_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S044A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "<!-- HSB_2D_V1_R6_CANONICAL_STATUS_BEGIN",
+    "new": "<!-- marker removed"
+  },
+  {
+    "id": "M071",
+    "name": "real_yes_BUILD_INFO.md",
+    "target": "BUILD_INFO.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "REAL_TRADING_ALLOWED=NO\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->"
+  },
+  {
+    "id": "M072",
+    "name": "2e_started_BUILD_INFO.md",
+    "target": "BUILD_INFO.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSB.2E=NOT_STARTED",
+    "new": "HSB.2E=STARTED"
+  },
+  {
+    "id": "M073",
+    "name": "meta_pass_BUILD_INFO.md",
+    "target": "BUILD_INFO.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "METAEDITOR_MAIN_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "METAEDITOR_MAIN_COMPILE=PASS"
+  },
+  {
+    "id": "M074",
+    "name": "mql_pass_BUILD_INFO.md",
+    "target": "BUILD_INFO.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "MQL5_TESTS_T01_T464=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "MQL5_TESTS_T01_T464=PASS"
+  },
+  {
+    "id": "M075",
+    "name": "marker_removed_BUILD_INFO.md",
+    "target": "BUILD_INFO.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S044A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "<!-- HSB_2D_V1_R6_CANONICAL_STATUS_BEGIN",
+    "new": "<!-- marker removed"
+  },
+  {
+    "id": "M076",
+    "name": "real_yes_PROJECT_MAP_RU.md",
+    "target": "PROJECT_MAP_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "REAL_TRADING_ALLOWED=NO\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->"
+  },
+  {
+    "id": "M077",
+    "name": "2e_started_PROJECT_MAP_RU.md",
+    "target": "PROJECT_MAP_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSB.2E=NOT_STARTED",
+    "new": "HSB.2E=STARTED"
+  },
+  {
+    "id": "M078",
+    "name": "meta_pass_PROJECT_MAP_RU.md",
+    "target": "PROJECT_MAP_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "METAEDITOR_MAIN_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "METAEDITOR_MAIN_COMPILE=PASS"
+  },
+  {
+    "id": "M079",
+    "name": "mql_pass_PROJECT_MAP_RU.md",
+    "target": "PROJECT_MAP_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "MQL5_TESTS_T01_T464=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "MQL5_TESTS_T01_T464=PASS"
+  },
+  {
+    "id": "M080",
+    "name": "marker_removed_PROJECT_MAP_RU.md",
+    "target": "PROJECT_MAP_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S044A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "<!-- HSB_2D_V1_R6_CANONICAL_STATUS_BEGIN",
+    "new": "<!-- marker removed"
+  },
+  {
+    "id": "M081",
+    "name": "real_yes_CHANGELOG_RU.md",
+    "target": "CHANGELOG_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "REAL_TRADING_ALLOWED=NO\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->"
+  },
+  {
+    "id": "M082",
+    "name": "2e_started_CHANGELOG_RU.md",
+    "target": "CHANGELOG_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSB.2E=NOT_STARTED",
+    "new": "HSB.2E=STARTED"
+  },
+  {
+    "id": "M083",
+    "name": "meta_pass_CHANGELOG_RU.md",
+    "target": "CHANGELOG_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "METAEDITOR_MAIN_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "METAEDITOR_MAIN_COMPILE=PASS"
+  },
+  {
+    "id": "M084",
+    "name": "mql_pass_CHANGELOG_RU.md",
+    "target": "CHANGELOG_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "MQL5_TESTS_T01_T464=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "MQL5_TESTS_T01_T464=PASS"
+  },
+  {
+    "id": "M085",
+    "name": "marker_removed_CHANGELOG_RU.md",
+    "target": "CHANGELOG_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S044A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "<!-- HSB_2D_V1_R6_CANONICAL_STATUS_BEGIN",
+    "new": "<!-- marker removed"
+  },
+  {
+    "id": "M086",
+    "name": "real_yes_Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "target": "Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "REAL_TRADING_ALLOWED=NO\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->"
+  },
+  {
+    "id": "M087",
+    "name": "2e_started_Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "target": "Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSB.2E=NOT_STARTED",
+    "new": "HSB.2E=STARTED"
+  },
+  {
+    "id": "M088",
+    "name": "meta_pass_Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "target": "Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "METAEDITOR_MAIN_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "METAEDITOR_MAIN_COMPILE=PASS"
+  },
+  {
+    "id": "M089",
+    "name": "mql_pass_Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "target": "Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "MQL5_TESTS_T01_T464=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "MQL5_TESTS_T01_T464=PASS"
+  },
+  {
+    "id": "M090",
+    "name": "marker_removed_Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "target": "Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S044A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "<!-- HSB_2D_V1_R6_CANONICAL_STATUS_BEGIN",
+    "new": "<!-- marker removed"
+  },
+  {
+    "id": "M091",
+    "name": "real_yes_Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "target": "Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "REAL_TRADING_ALLOWED=NO\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->"
+  },
+  {
+    "id": "M092",
+    "name": "2e_started_Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "target": "Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSB.2E=NOT_STARTED",
+    "new": "HSB.2E=STARTED"
+  },
+  {
+    "id": "M093",
+    "name": "meta_pass_Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "target": "Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "METAEDITOR_MAIN_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "METAEDITOR_MAIN_COMPILE=PASS"
+  },
+  {
+    "id": "M094",
+    "name": "mql_pass_Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "target": "Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "MQL5_TESTS_T01_T464=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "MQL5_TESTS_T01_T464=PASS"
+  },
+  {
+    "id": "M095",
+    "name": "marker_removed_Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "target": "Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S044A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "<!-- HSB_2D_V1_R6_CANONICAL_STATUS_BEGIN",
+    "new": "<!-- marker removed"
+  },
+  {
+    "id": "M096",
+    "name": "real_yes_Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "target": "Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "REAL_TRADING_ALLOWED=NO\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->",
+    "new": "REAL_TRADING_ALLOWED=YES\nHSB_2D_V1_R6_CANONICAL_STATUS_END -->"
+  },
+  {
+    "id": "M097",
+    "name": "2e_started_Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "target": "Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "HSB.2E=NOT_STARTED",
+    "new": "HSB.2E=STARTED"
+  },
+  {
+    "id": "M098",
+    "name": "meta_pass_Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "target": "Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "METAEDITOR_MAIN_COMPILE=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "METAEDITOR_MAIN_COMPILE=PASS"
+  },
+  {
+    "id": "M099",
+    "name": "mql_pass_Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "target": "Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S040A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "MQL5_TESTS_T01_T464=NOT_EXECUTED_MT5_UNAVAILABLE",
+    "new": "MQL5_TESTS_T01_T464=PASS"
+  },
+  {
+    "id": "M100",
+    "name": "marker_removed_Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "target": "Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S044A"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "<!-- HSB_2D_V1_R6_CANONICAL_STATUS_BEGIN",
+    "new": "<!-- marker removed"
+  },
+  {
+    "id": "M101",
+    "name": "alter_clean_evidence",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_CLEAN_RESULT.txt",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "RESULT=PASS",
+    "new": "RESULT=TAMPERED"
+  },
+  {
+    "id": "M102",
+    "name": "alter_mutation_json",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_MUTATION_RESULTS.json",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "\"result\": \"PASS\"",
+    "new": "\"result\": \"TAMPERED\""
+  },
+  {
+    "id": "M103",
+    "name": "remove_seal_entry",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_EVIDENCE_SEAL_SHA256.txt",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__SEAL_FIRST__",
+    "new": ""
+  },
+  {
+    "id": "M104",
+    "name": "STATE_REVISION_GUARD_INSIDE_IF_FALSE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(false){if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");}"
+  },
+  {
+    "id": "M105",
+    "name": "STATE_REVISION_GUARD_INSIDE_WHILE_FALSE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "while(false){if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");}"
+  },
+  {
+    "id": "M106",
+    "name": "STATE_REVISION_GUARD_INSIDE_FOR_FALSE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "for(;false;){if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");}"
+  },
+  {
+    "id": "M107",
+    "name": "STATE_REVISION_GUARD_AFTER_UNCONDITIONAL_RETURN",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "return HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"EARLY\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M108",
+    "name": "STATE_REVISION_GUARD_ONLY_INSIDE_RUNTIME_CONDITIONAL",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.marketFresh){if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");}"
+  },
+  {
+    "id": "M109",
+    "name": "STATE_REVISION_GUARD_MOVED_TO_UNUSED_HELPER",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "void HSBI_UnusedMutation(){if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");}"
+  },
+  {
+    "id": "M110",
+    "name": "BLOCK_COMMENT_CONTAINS_FAKE_PREPROCESSOR_ELSE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "#if 0\n/*\n#else\n*/\nif(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");\n#endif"
+  },
+  {
+    "id": "M111",
+    "name": "BLOCK_COMMENT_CONTAINS_FAKE_PREPROCESSOR_ELIF",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "#if 0\n/*\n#elif 1\n*/\nif(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");\n#endif"
+  },
+  {
+    "id": "M112",
+    "name": "BLOCK_COMMENT_CONTAINS_FAKE_PREPROCESSOR_ENDIF",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "#if 0\n/*\n#endif\n*/\nif(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");\n#endif"
+  },
+  {
+    "id": "M113",
+    "name": "STRING_CONTAINS_FAKE_PREPROCESSOR_DIRECTIVE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "#if 0\nstring fake=\"#else\";\nif(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");\n#endif"
+  },
+  {
+    "id": "M114",
+    "name": "STATUS_AND_REASON_TOKENS_SPLIT_ACROSS_UNRELATED_REJECTS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_STATE_REVISION_MISMATCH,\"A\");if(x.planId==0)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_CONTEXT_INVALID,\"B\");"
+  },
+  {
+    "id": "M115",
+    "name": "CORRECT_GUARD_WITH_WRONG_REJECT_ARGUMENT_ORDER",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_RD_STATE_REVISION_MISMATCH,HSBI_DECISION_CONFLICT,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M116",
+    "name": "tamper_clean",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_CLEAN_RESULT.txt",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "RESULT=PASS",
+    "new": "RESULT=TAMPERED"
+  },
+  {
+    "id": "M117",
+    "name": "tamper_json",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_MUTATION_RESULTS.json",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "\"schema\": \"HSB.2D-V1-R6/mutations/1\"",
+    "new": "\"schema\": \"TAMPERED\""
+  },
+  {
+    "id": "M118",
+    "name": "tamper_text",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_MUTATION_RESULTS.txt",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "M001|TARGET=",
+    "new": "TAMPERED|TARGET="
+  },
+  {
+    "id": "M119",
+    "name": "tamper_catalog",
+    "target": "Tests/Static/hsb_2d_v1_r6_mutations.json",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "\"name\": \"STATE_REVISION_GUARD_INSIDE_IF_FALSE\"",
+    "new": "\"name\": \"TAMPERED\""
+  },
+  {
+    "id": "M120",
+    "name": "seal_remove",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_EVIDENCE_SEAL_SHA256.txt",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__SEAL_SPECIAL__",
+    "new": "seal_remove"
+  },
+  {
+    "id": "M121",
+    "name": "seal_extra",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_EVIDENCE_SEAL_SHA256.txt",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__SEAL_SPECIAL__",
+    "new": "seal_extra"
+  },
+  {
+    "id": "M122",
+    "name": "seal_duplicate",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_EVIDENCE_SEAL_SHA256.txt",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__SEAL_SPECIAL__",
+    "new": "seal_duplicate"
+  },
+  {
+    "id": "M123",
+    "name": "seal_bad_hash",
+    "target": "Tests/Evidence/HSB_2D_V1_R6_EVIDENCE_SEAL_SHA256.txt",
+    "mutation_type": "evidence",
+    "expected_check_ids": [
+      "S046E"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "none",
+    "required": true,
+    "old": "__SEAL_SPECIAL__",
+    "new": "seal_bad_hash"
+  },
+  {
+    "id": "M124",
+    "name": "CONDITIONAL_EARLY_VALID_RETURN_BEFORE_STATE_REVISION_GUARD",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision){HSBI_RuntimeDecisionResult q=HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"BYPASS\");q.valid=true;return q;}if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M125",
+    "name": "ONE_LINE_UNKNOWN_SUCCESS_BEFORE_REVISION",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision)return HSBI_MakeValidRuntimeDecision(x);if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M126",
+    "name": "SUCCESS_THROUGH_ELSE_BEFORE_REVISION",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision==revision){}else{HSBI_RuntimeDecisionResult result;result.valid=true;return result;}if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M127",
+    "name": "VALID_STATUS_BEFORE_REVISION",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "HSBI_RuntimeDecisionResult result;result.status=HSBI_DECISION_VALID;return result;if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M128",
+    "name": "VALID_FLAG_BEFORE_REVISION",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "HSBI_RuntimeDecisionResult result;result.valid=true;return result;if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M129",
+    "name": "UNKNOWN_HELPER_BEFORE_REVISION",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision)return HSBI_UnknownDecisionHelper(x);if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M130",
+    "name": "SUCCESS_BEFORE_PERSISTENCE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");",
+    "new": "if(!x.persistencePrepared){HSBI_RuntimeDecisionResult q=HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"BYPASS\");q.valid=true;return q;}if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");"
+  },
+  {
+    "id": "M131",
+    "name": "SUCCESS_BEFORE_DIGEST",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S039D"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");",
+    "new": "if(x.inputDigest==\"\"){HSBI_RuntimeDecisionResult q=HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"BYPASS\");q.valid=true;return q;}if(x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");"
+  },
+  {
+    "id": "M132",
+    "name": "REJECT_CONSTRUCTOR_SETS_VALID",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.valid=true;r.status=status;r.reason=reason;"
+  },
+  {
+    "id": "M133",
+    "name": "REJECT_CONSTRUCTOR_SUBSTITUTES_STATUS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.status=HSBI_DECISION_VALID;r.reason=reason;"
+  },
+  {
+    "id": "M134",
+    "name": "MULTIPLE_SUCCESS_PATHS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision){HSBI_RuntimeDecisionResult q=HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"BYPASS\");q.valid=true;return q;}if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M135",
+    "name": "GUARD_AFTER_CONDITIONAL_SUCCESS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision){HSBI_RuntimeDecisionResult q=HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"BYPASS\");q.valid=true;return q;}if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M136",
+    "name": "ENUM_ZERO_COMPUTED_VALID_COMBINED",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028",
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(revision!=x.stateRevision)return HSBI_RuntimeReject(x,(HSBI_RuntimeDecisionStatus)0,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "replacements": [
+      [
+        "ZeroMemory(r);r.status=status;r.reason=reason;",
+        "ZeroMemory(r);r.valid=(status==(HSBI_RuntimeDecisionStatus)0);r.status=status;r.reason=reason;"
+      ],
+      [
+        "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+        "if(revision!=x.stateRevision)return HSBI_RuntimeReject(x,(HSBI_RuntimeDecisionStatus)0,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+      ]
+    ]
+  },
+  {
+    "id": "M137",
+    "name": "NUMERIC_ENUM_STATUS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(revision!=x.stateRevision)return HSBI_RuntimeReject(x,(HSBI_RuntimeDecisionStatus)0,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M138",
+    "name": "STATUS_VARIABLE_ALIAS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "HSBI_RuntimeDecisionStatus statusAlias=(HSBI_RuntimeDecisionStatus)0;if(revision!=x.stateRevision)return HSBI_RuntimeReject(x,statusAlias,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M139",
+    "name": "VALID_BOOL_CAST",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.valid=(bool)1;r.status=status;r.reason=reason;"
+  },
+  {
+    "id": "M140",
+    "name": "VALID_NUMERIC",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.valid=1;r.status=status;r.reason=reason;"
+  },
+  {
+    "id": "M141",
+    "name": "VALID_NOT_FALSE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.valid=!false;r.status=status;r.reason=reason;"
+  },
+  {
+    "id": "M142",
+    "name": "VALID_FROM_STATUS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.valid=(status==HSBI_DECISION_VALID);r.status=status;r.reason=reason;"
+  },
+  {
+    "id": "M143",
+    "name": "NUMERIC_STATUS_OVERWRITE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.status=(HSBI_RuntimeDecisionStatus)0;r.status=status;r.reason=reason;"
+  },
+  {
+    "id": "M144",
+    "name": "REVERSED_REVISION_SUCCESS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(revision!=x.stateRevision)return HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M145",
+    "name": "REVERSED_EQUALITY_BYPASS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(revision==x.stateRevision){}else{return HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"BYPASS\");}if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M146",
+    "name": "LOCAL_CONST_STATUS_ALIAS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "const HSBI_RuntimeDecisionStatus ok=(HSBI_RuntimeDecisionStatus)0;if(revision!=x.stateRevision)return HSBI_RuntimeReject(x,ok,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M147",
+    "name": "TERNARY_STATUS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(revision!=x.stateRevision)return HSBI_RuntimeReject(x,x.immutable?HSBI_DECISION_REJECTED:HSBI_DECISION_VALID,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M148",
+    "name": "SECOND_STATUS_ASSIGNMENT",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.status=status;r.status=HSBI_DECISION_CONFLICT;r.reason=reason;"
+  },
+  {
+    "id": "M149",
+    "name": "SECOND_REASON_ASSIGNMENT",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "SREJECT"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "ZeroMemory(r);r.status=status;r.reason=reason;",
+    "new": "ZeroMemory(r);r.status=status;r.reason=reason;r.reason=HSBI_RD_OK;"
+  },
+  {
+    "id": "M150",
+    "name": "UNKNOWN_HELPER_STATUS",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(revision!=x.stateRevision)return HSBI_RuntimeReject(x,HSBI_GetDecisionStatus(),HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M151",
+    "name": "NO_OP_REVISION_NEGATED",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(!(revision==x.stateRevision))return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M152",
+    "name": "NO_OP_IDENTITY",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S026"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.accountLogin!=account||x.symbol!=symbol||x.magic!=magic||x.cycleId!=cycle||x.planId!=plan)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_IDENTITY_MISMATCH,\"HSBI-2D-ID\");",
+    "new": "if(x.accountLogin!=account||x.symbol!=symbol||x.magic!=magic||x.cycleId!=cycle||x.planId!=plan)return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.accountLogin!=account||x.symbol!=symbol||x.magic!=magic||x.cycleId!=cycle||x.planId!=plan)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_IDENTITY_MISMATCH,\"HSBI-2D-ID\");"
+  },
+  {
+    "id": "M153",
+    "name": "NO_OP_OWNERSHIP",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S027"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.positionActuallyRead||!x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");",
+    "new": "if(!x.positionActuallyRead||!x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(!x.positionActuallyRead||!x.ownershipConfirmed)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_POSITION_NOT_CONFIRMED,\"HSBI-2D-POS\");"
+  },
+  {
+    "id": "M154",
+    "name": "NO_OP_PERSISTENCE",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S038"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");",
+    "new": "if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(!x.persistencePrepared)return HSBI_RuntimeReject(x,HSBI_DECISION_PERSISTENCE_REQUIRED,HSBI_RD_PERSISTENCE_REQUIRED,\"HSBI-2D-PERSIST\");"
+  },
+  {
+    "id": "M155",
+    "name": "NO_OP_DIGEST",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S039D"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");",
+    "new": "if(x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.inputDigest==\"\"||x.inputDigest!=HSBI_RuntimeDecisionContextDigest(x))return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_DIGEST_MISMATCH,\"HSBI-2D-DIGEST\");"
+  },
+  {
+    "id": "M156",
+    "name": "NO_OP_EVENT_ACTION",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S029"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.eventId==0||x.actionId==0)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,x.eventId==0?HSBI_RD_EVENT_NOT_FRESH:HSBI_RD_ACTION_ID_MISMATCH,\"HSBI-2D-EVENT\");",
+    "new": "if(x.eventId==0||x.actionId==0)return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.eventId==0||x.actionId==0)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,x.eventId==0?HSBI_RD_EVENT_NOT_FRESH:HSBI_RD_ACTION_ID_MISMATCH,\"HSBI-2D-EVENT\");"
+  },
+  {
+    "id": "M157",
+    "name": "NO_OP_SCHEMA",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S031"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.schemaVersion!=HSBI_SCHEMA_VERSION)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_SCHEMA_VERSION_MISMATCH,\"HSBI-2D-SCHEMA\");",
+    "new": "if(x.schemaVersion!=HSBI_SCHEMA_VERSION)return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.schemaVersion!=HSBI_SCHEMA_VERSION)return HSBI_RuntimeReject(x,HSBI_DECISION_REJECTED,HSBI_RD_SCHEMA_VERSION_MISMATCH,\"HSBI-2D-SCHEMA\");"
+  },
+  {
+    "id": "M158",
+    "name": "NO_OP_RECONCILIATION",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S034"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.reconciliationConflict)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_RECONCILIATION_CONFLICT,\"HSBI-2D-RECON\");",
+    "new": "if(x.reconciliationConflict)return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.reconciliationConflict)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_RECONCILIATION_CONFLICT,\"HSBI-2D-RECON\");"
+  },
+  {
+    "id": "M159",
+    "name": "NO_OP_TRANSACTION_BARRIER",
+    "target": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S025"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(b.context.eventId<=b.expectedEventId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_REJECTED,HSBI_RD_EVENT_NOT_FRESH,\"HSBI-2D-BARRIER-EVENT\");",
+    "new": "if(b.context.eventId<=b.expectedEventId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(b.context.eventId<=b.expectedEventId)return HSBI_RuntimeReject(b.context,HSBI_DECISION_REJECTED,HSBI_RD_EVENT_NOT_FRESH,\"HSBI-2D-BARRIER-EVENT\");"
+  },
+  {
+    "id": "M160",
+    "name": "S037_CONFLICT_STATUS",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S037"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(s.duplicateConsumption)return HSBI_RuntimeReject(s.current,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"HSBI-2D-RESTART-NOOP\");",
+    "new": "if(s.duplicateConsumption)return HSBI_RuntimeReject(s.current,HSBI_DECISION_CONFLICT,HSBI_RD_OK,\"HSBI-2D-RESTART-NOOP\");"
+  },
+  {
+    "id": "M161",
+    "name": "S037_WRONG_REASON",
+    "target": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S037"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(s.duplicateConsumption)return HSBI_RuntimeReject(s.current,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"HSBI-2D-RESTART-NOOP\");",
+    "new": "if(s.duplicateConsumption)return HSBI_RuntimeReject(s.current,HSBI_DECISION_NO_OP,HSBI_RD_DOUBLE_COUNT_BLOCKED,\"HSBI-2D-RESTART-NOOP\");"
+  },
+  {
+    "id": "M162",
+    "name": "NO_OP_WRONG_FUNCTION",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M163",
+    "name": "DOUBLE_NEGATION_NO_OP",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(!!(revision!=x.stateRevision))return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M164",
+    "name": "BOOLEAN_COMPARISON_NO_OP",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if((revision==x.stateRevision)==false)return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  },
+  {
+    "id": "M165",
+    "name": "UNKNOWN_CONDITION_NO_OP",
+    "target": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "mutation_type": "semantic",
+    "expected_check_ids": [
+      "S028"
+    ],
+    "expected_exit": "nonzero",
+    "manifest_strategy": "rehash_mutated_file",
+    "required": true,
+    "old": "if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");",
+    "new": "if(HSBI_UnknownPredicate(x,revision))return HSBI_RuntimeReject(x,HSBI_DECISION_NO_OP,HSBI_RD_OK,\"BYPASS\");if(x.stateRevision!=revision)return HSBI_RuntimeReject(x,HSBI_DECISION_CONFLICT,HSBI_RD_STATE_REVISION_MISMATCH,\"HSBI-2D-REV\");"
+  }
+]

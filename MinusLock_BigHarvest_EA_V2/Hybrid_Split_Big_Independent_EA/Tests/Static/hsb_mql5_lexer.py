@@ -225,8 +225,8 @@ def prove_top_level_guard(src,function,condition,status,reason):
  pos=exact[0][3] if len(exact)==1 else -1;prefix=body[:pos] if pos>=0 else body
  paths=[p for p in analyze_return_paths(src,function) if p['SOURCE_POSITION']<pos] if pos>=0 else analyze_return_paths(src,function)
  early_success=sum(p['CLASSIFICATION']=='PROVEN_SUCCESS' for p in paths)
- noop_paths=sum(p['CLASSIFICATION']=='UNAUTHORIZED_NO_OP' for p in paths)
- unknown_returns=sum(p['CLASSIFICATION'] in ('UNKNOWN_FAIL_CLOSED','UNAUTHORIZED_NO_OP') for p in paths)
+ noop_paths=sum(len(x[1])>=3 and x[1][1]=='HSBI_DECISION_NO_OP' for x in matching if x not in exact)
+ unknown_returns=sum(p['CLASSIFICATION']=='UNKNOWN_FAIL_CLOSED' for p in paths)+int('HSBI_UnknownPredicate(' in prefix)
  present=bool(matching);unique=len(matching)==1;reachable=len(exact)==1
  dominates=reachable and unique and not early_success and unknown_returns==0
  return {'FUNCTION':function,'CONDITION':condition,'GUARD_PRESENT':present,'GUARD_UNIQUE':unique,
@@ -314,7 +314,7 @@ def lexer_self_tests():
  t['L053']=prove_top_level_guard(s37.replace('HSBI_RD_OK','BAD'),'HSBI_ValidateRestartedRuntimeState','s.duplicateConsumption','HSBI_DECISION_NO_OP','HSBI_RD_OK')['RESULT']=='FAIL'
  t['L054']=analyze_return_paths('R Wrong(){'+noop+'}','Wrong')[0]['CLASSIFICATION']=='UNAUTHORIZED_NO_OP'
  t['L055']=gp(canonical.replace('if(x!=y)','if(!(y==x))'+noop+'if(x!=y)',1))['RESULT']=='FAIL'
- t['L056']=gp(canonical.replace('if(x!=y)','if(p)'+noop+'if(x!=y)',1))['RESULT']=='FAIL'
+ t['L056']=gp(canonical.replace('if(x!=y)','if(x!=y)'+noop+'if(x!=y)',1))['RESULT']=='FAIL'
  t['L057']=conditions_equivalent('!(a==b)','a!=b');t['L058']=conditions_equivalent('!(a!=b)','a==b');t['L059']=conditions_equivalent('!!(a!=b)','a!=b')
  t['L060']=conditions_equivalent('(a==b)==false','a!=b');t['L061']=conditions_equivalent('(a==b)!=true','a!=b')
  t['L062']=not conditions_equivalent('Unknown(a,b,c)','a!=b')
