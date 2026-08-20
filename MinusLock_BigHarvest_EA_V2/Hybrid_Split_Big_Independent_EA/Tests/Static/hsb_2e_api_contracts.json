@@ -1,0 +1,2344 @@
+{
+  "types": [
+    {
+      "TYPE_NAME": "HSBI_IBrokerAdapterRequest",
+      "OWNER_FILE": "Include/Broker/HSBI_IBrokerAdapter.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_BrokerSnapshotRequest",
+      "OWNER_FILE": "Include/Broker/HSBI_BrokerSnapshot.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_TradeRequestBuilderRequest",
+      "OWNER_FILE": "Include/Broker/HSBI_TradeRequestBuilder.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_TradeRetcodeClassifierRequest",
+      "OWNER_FILE": "Include/Broker/HSBI_TradeRetcodeClassifier.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_DealHistoryReaderRequest",
+      "OWNER_FILE": "Include/Broker/HSBI_DealHistoryReader.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_AtomicFileStoreRequest",
+      "OWNER_FILE": "Include/Persistence/HSBI_AtomicFileStore.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_ProductionJournalRequest",
+      "OWNER_FILE": "Include/Persistence/HSBI_ProductionJournal.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_ProductionSnapshotStoreRequest",
+      "OWNER_FILE": "Include/Persistence/HSBI_ProductionSnapshotStore.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_SnapshotMigrationRequest",
+      "OWNER_FILE": "Include/Persistence/HSBI_SnapshotMigration.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_ReconciliationEngineRequest",
+      "OWNER_FILE": "Include/Reconciliation/HSBI_ReconciliationEngine.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_PositionReconcilerRequest",
+      "OWNER_FILE": "Include/Reconciliation/HSBI_PositionReconciler.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_DealReconcilerRequest",
+      "OWNER_FILE": "Include/Reconciliation/HSBI_DealReconciler.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_PendingActionReconcilerRequest",
+      "OWNER_FILE": "Include/Reconciliation/HSBI_PendingActionReconciler.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_PositionDiscoveryRequest",
+      "OWNER_FILE": "Include/Execution/HSBI_PositionDiscovery.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_TransactionEngineRequest",
+      "OWNER_FILE": "Include/Execution/HSBI_TransactionEngine.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_TradeTransactionRouterRequest",
+      "OWNER_FILE": "Include/Execution/HSBI_TradeTransactionRouter.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_ExecutionCoordinatorRequest",
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_SimulatedBrokerAdapterRequest",
+      "OWNER_FILE": "Include/Execution/HSBI_SimulatedBrokerAdapter.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_DemoBrokerAdapterRequest",
+      "OWNER_FILE": "Include/Execution/HSBI_DemoBrokerAdapter.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_ProductionEconomicLedgerRequest",
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_ProductionAllocationLedgerRequest",
+      "OWNER_FILE": "Include/Money/HSBI_ProductionAllocationLedger.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_RealizedDealMoneyRequest",
+      "OWNER_FILE": "Include/Money/HSBI_RealizedDealMoney.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_CycleOrchestratorRequest",
+      "OWNER_FILE": "Include/Runtime/HSBI_CycleOrchestrator.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_FsmCommitCoordinatorRequest",
+      "OWNER_FILE": "Include/Runtime/HSBI_FsmCommitCoordinator.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_TerminalSafeControllerRequest",
+      "OWNER_FILE": "Include/Runtime/HSBI_TerminalSafeController.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_InitialLockEngineRequest",
+      "OWNER_FILE": "Include/Scenarios/HSBI_InitialLockEngine.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_BigHarvestEngineRequest",
+      "OWNER_FILE": "Include/Scenarios/HSBI_BigHarvestEngine.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_PartialFarReserveEngineRequest",
+      "OWNER_FILE": "Include/Scenarios/HSBI_PartialFarReserveEngine.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_FinalCloseEngineRequest",
+      "OWNER_FILE": "Include/Scenarios/HSBI_FinalCloseEngine.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_SmallTransitionEngineRequest",
+      "OWNER_FILE": "Include/Scenarios/HSBI_SmallTransitionEngine.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_NewFarCatchUpEngineRequest",
+      "OWNER_FILE": "Include/Scenarios/HSBI_NewFarCatchUpEngine.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    },
+    {
+      "TYPE_NAME": "HSBI_ProductionDiagnosticsRequest",
+      "OWNER_FILE": "Include/Diagnostics/HSBI_ProductionDiagnostics.mqh",
+      "fields": [
+        {
+          "FIELD_NAME": "cycleId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "cycleId > 0",
+          "DEFAULT_ALLOWED": false
+        },
+        {
+          "FIELD_NAME": "actionId",
+          "FIELD_TYPE": "ulong",
+          "REQUIRED": true,
+          "IMMUTABLE_AFTER_PREPARE": true,
+          "SERIALIZED": true,
+          "DIGEST_BOUND": true,
+          "VALIDATION_RULE": "actionId > 0",
+          "DEFAULT_ALLOWED": false
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "FUNCTION_NAME": "HSBI_IBrokerAdapter_Execute",
+      "OWNER_FILE": "Include/Broker/HSBI_IBrokerAdapter.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_IBrokerAdapterRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_BrokerSnapshot_Execute",
+      "OWNER_FILE": "Include/Broker/HSBI_BrokerSnapshot.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_BrokerSnapshotRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_TradeRequestBuilder_Execute",
+      "OWNER_FILE": "Include/Broker/HSBI_TradeRequestBuilder.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_TradeRequestBuilderRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_TradeRetcodeClassifier_Execute",
+      "OWNER_FILE": "Include/Broker/HSBI_TradeRetcodeClassifier.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_TradeRetcodeClassifierRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_DealHistoryReader_Execute",
+      "OWNER_FILE": "Include/Broker/HSBI_DealHistoryReader.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_DealHistoryReaderRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_AtomicFileStore_Execute",
+      "OWNER_FILE": "Include/Persistence/HSBI_AtomicFileStore.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_AtomicFileStoreRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_ProductionJournal_Execute",
+      "OWNER_FILE": "Include/Persistence/HSBI_ProductionJournal.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_ProductionJournalRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_ProductionSnapshotStore_Execute",
+      "OWNER_FILE": "Include/Persistence/HSBI_ProductionSnapshotStore.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_ProductionSnapshotStoreRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_SnapshotMigration_Execute",
+      "OWNER_FILE": "Include/Persistence/HSBI_SnapshotMigration.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_SnapshotMigrationRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_ReconciliationEngine_Execute",
+      "OWNER_FILE": "Include/Reconciliation/HSBI_ReconciliationEngine.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_ReconciliationEngineRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_PositionReconciler_Execute",
+      "OWNER_FILE": "Include/Reconciliation/HSBI_PositionReconciler.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_PositionReconcilerRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_DealReconciler_Execute",
+      "OWNER_FILE": "Include/Reconciliation/HSBI_DealReconciler.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_DealReconcilerRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_PendingActionReconciler_Execute",
+      "OWNER_FILE": "Include/Reconciliation/HSBI_PendingActionReconciler.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_PendingActionReconcilerRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_PositionDiscovery_Execute",
+      "OWNER_FILE": "Include/Execution/HSBI_PositionDiscovery.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_PositionDiscoveryRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_TransactionEngine_Execute",
+      "OWNER_FILE": "Include/Execution/HSBI_TransactionEngine.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_TransactionEngineRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_TradeTransactionRouter_Execute",
+      "OWNER_FILE": "Include/Execution/HSBI_TradeTransactionRouter.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_TradeTransactionRouterRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_ExecutionCoordinator_Execute",
+      "OWNER_FILE": "Include/Execution/HSBI_ExecutionCoordinator.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_ExecutionCoordinatorRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_SimulatedBrokerAdapter_Execute",
+      "OWNER_FILE": "Include/Execution/HSBI_SimulatedBrokerAdapter.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_SimulatedBrokerAdapterRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_DemoBrokerAdapter_Execute",
+      "OWNER_FILE": "Include/Execution/HSBI_DemoBrokerAdapter.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_DemoBrokerAdapterRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [
+        "demo request after admin gate"
+      ],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_ProductionEconomicLedger_Execute",
+      "OWNER_FILE": "Include/Money/HSBI_ProductionEconomicLedger.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_ProductionEconomicLedgerRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_ProductionAllocationLedger_Execute",
+      "OWNER_FILE": "Include/Money/HSBI_ProductionAllocationLedger.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_ProductionAllocationLedgerRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_RealizedDealMoney_Execute",
+      "OWNER_FILE": "Include/Money/HSBI_RealizedDealMoney.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_RealizedDealMoneyRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_CycleOrchestrator_Execute",
+      "OWNER_FILE": "Include/Runtime/HSBI_CycleOrchestrator.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_CycleOrchestratorRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_FsmCommitCoordinator_Execute",
+      "OWNER_FILE": "Include/Runtime/HSBI_FsmCommitCoordinator.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_FsmCommitCoordinatorRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_TerminalSafeController_Execute",
+      "OWNER_FILE": "Include/Runtime/HSBI_TerminalSafeController.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_TerminalSafeControllerRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_InitialLockEngine_Execute",
+      "OWNER_FILE": "Include/Scenarios/HSBI_InitialLockEngine.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_InitialLockEngineRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_BigHarvestEngine_Execute",
+      "OWNER_FILE": "Include/Scenarios/HSBI_BigHarvestEngine.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_BigHarvestEngineRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_PartialFarReserveEngine_Execute",
+      "OWNER_FILE": "Include/Scenarios/HSBI_PartialFarReserveEngine.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_PartialFarReserveEngineRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_FinalCloseEngine_Execute",
+      "OWNER_FILE": "Include/Scenarios/HSBI_FinalCloseEngine.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_FinalCloseEngineRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_SmallTransitionEngine_Execute",
+      "OWNER_FILE": "Include/Scenarios/HSBI_SmallTransitionEngine.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_SmallTransitionEngineRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_NewFarCatchUpEngine_Execute",
+      "OWNER_FILE": "Include/Scenarios/HSBI_NewFarCatchUpEngine.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_NewFarCatchUpEngineRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    },
+    {
+      "FUNCTION_NAME": "HSBI_ProductionDiagnostics_Execute",
+      "OWNER_FILE": "Include/Diagnostics/HSBI_ProductionDiagnostics.mqh",
+      "RETURN_TYPE": "HSBI_RuntimeDecisionResult",
+      "PARAMETERS": [
+        {
+          "name": "request",
+          "type": "const HSBI_ProductionDiagnosticsRequest &"
+        },
+        {
+          "name": "context",
+          "type": "const HSBI_RuntimeDecisionContext &"
+        }
+      ],
+      "PRECONDITIONS": [
+        "context.immutable=true",
+        "request.cycleId=context.cycleId"
+      ],
+      "POSTCONDITIONS": [
+        "result.valid implies persisted outcome digest"
+      ],
+      "FAILURE_STATUS": "HSBI_DECISION_CONFLICT",
+      "FAILURE_REASON": "HSBI_RD_RECONCILIATION_CONFLICT",
+      "STATE_READS": [
+        "context.state",
+        "context.stateRevision"
+      ],
+      "STATE_WRITES": [
+        "decision.requiredNextState"
+      ],
+      "LEDGER_READS": [
+        "EconomicLedger.realizedNet"
+      ],
+      "LEDGER_WRITES": [],
+      "BROKER_READS": [
+        "immutable snapshot"
+      ],
+      "BROKER_WRITES": [],
+      "PERSISTENCE_EFFECT": "append INTENT_PREPARED before external effect",
+      "IDEMPOTENCY_KEY": "cycleId+actionId+inputDigest",
+      "ALLOWED_CALLERS": [
+        "HSBI_CycleOrchestrator_Execute"
+      ],
+      "FORBIDDEN_CALLERS": [
+        "scenario direct broker path"
+      ]
+    }
+  ]
+}
