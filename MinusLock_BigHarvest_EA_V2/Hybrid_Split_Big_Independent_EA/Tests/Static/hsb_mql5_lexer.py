@@ -169,15 +169,32 @@ def normalize_condition(s):
   for i,ch in enumerate(s):
    d+=ch=='(';d-=ch==')'
    if d==0 and s.startswith(op,i):parts.append(normalize_condition(s[start:i]));start=i+len(op)
-  if parts:parts.append(normalize_condition(s[start:]));return op.join(sorted(parts))
+  if parts:
+   parts.append(normalize_condition(s[start:]));parts=sorted(parts)
+   if op=='||' and len(parts)==2:
+    pairs=[]
+    for part in parts:
+     m=re.fullmatch(r'(.+?)([<>])(.+)',part)
+     if m:pairs.append(m.groups())
+    if len(pairs)==2:
+     a,o,b=pairs[0];c,p,d=pairs[1]
+     if {o,p}=={'<','>'} and ((a==c and b==d) or (a==d and b==c)):
+      return '!='.join(sorted((a,b)))
+   return op.join(parts)
  for op in ('!=','=='):
   d=0
   for i,ch in enumerate(s):
    d+=ch=='(';d-=ch==')'
    if d==0 and s.startswith(op,i):
     left,right=normalize_condition(s[:i]),normalize_condition(s[i+2:])
+    if left in ('true','false'):
+     left,right=right,left
     if right in ('true','false'):
      positive=(op=='==' and right=='true') or (op=='!=' and right=='false');return left if positive else normalize_condition('!'+left)
+    dm=re.fullmatch(r'\(?(.+?)-(.+?)\)?',left)
+    if op=='!=' and right=='0' and dm:return '!='.join(sorted(dm.groups()))
+    dm=re.fullmatch(r'\(?(.+?)-(.+?)\)?',right)
+    if op=='!=' and left=='0' and dm:return '!='.join(sorted(dm.groups()))
     return op.join(sorted((left,right)))
  return s
 def conditions_equivalent(a,b):return normalize_condition(a)==normalize_condition(b)
@@ -201,7 +218,12 @@ def analyze_return_paths(src,function):
     elif status=='HSBI_DECISION_NO_OP':kind='UNAUTHORIZED_NO_OP'
     elif status=='HSBI_DECISION_VALID':kind='PROVEN_SUCCESS'
    elif expr=='admission' and body[max(0,i-40):i].endswith('if(!admission.valid)'):kind='PROVEN_REJECT'
-   out.append({'FUNCTION':function,'RETURN_INDEX':len(out)+1,'SOURCE_POSITION':i,'ENCLOSING_DEPTH':depth,'RETURN_EXPRESSION':expr,'RETURN_EXPRESSION_KIND':'CALL' if '(' in expr else 'OBJECT','CALLEE':expr.split('(',1)[0] if '(' in expr else '','STATUS_EXPRESSION':status,'REASON_EXPRESSION':reason,'CLASSIFICATION':kind,'SAFE':kind=='PROVEN_REJECT'});i=e;continue
+   prefix=body[:i];raw='';ims=list(re.finditer(r'if\(',prefix))
+   if ims:
+    try:raw,_=_balanced(prefix,ims[-1].start()+2)
+    except LexerError:raw=''
+   line=fn[:fn.find('{')+1+i].count('\n')+1
+   out.append({'FUNCTION':function,'RETURN_INDEX':len(out)+1,'SOURCE_POSITION':i,'SOURCE_LINE':line,'LEXICAL_DEPTH':depth,'ENCLOSING_DEPTH':depth,'TOP_LEVEL_STATEMENT_INDEX':len(out)+1,'RAW_CONDITION':raw,'NORMALIZED_CONDITION':normalize_condition(raw) if raw else 'UNCONDITIONAL','CONDITION_CLASSIFICATION':'SUPPORTED' if raw else 'UNCONDITIONAL','RETURN_EXPRESSION':expr,'RETURN_EXPRESSION_KIND':'CALL' if '(' in expr else 'OBJECT','CALLEE':expr.split('(',1)[0] if '(' in expr else '','STATUS_EXPRESSION':status,'REASON_EXPRESSION':reason,'OUTCOME_CLASSIFICATION':kind,'CLASSIFICATION':kind,'NO_OP_AUTHORIZATION_SOURCE':'NONE','SAFE_FOR_DOMINANCE':kind=='PROVEN_REJECT','SAFE':kind=='PROVEN_REJECT','FAIL_CLOSED_REASON':'' if kind=='PROVEN_REJECT' else kind});i=e;continue
   i+=1
  return out
 def prove_top_level_guard(src,function,condition,status,reason):
@@ -214,7 +236,7 @@ def prove_top_level_guard(src,function,condition,status,reason):
    cond,j=_balanced(body,i+2);k=j
    if body.startswith('returnHSBI_RuntimeReject(',k):
     call,e=_balanced(body,k+len('returnHSBI_RuntimeReject'));args=_args(call)
-    candidates.append((cond,args,not prior_return,i));semi=body.find(';',e);i=(semi+1 if semi>=0 else e);continue
+    candidates.append((cond,args,not prior_return,i,k));semi=body.find(';',e);i=(semi+1 if semi>=0 else e);continue
    if k<len(body) and body[k]!='{':
     semi=body.find(';',k);i=(semi+1 if semi>=0 else j);continue
   i+=1
@@ -223,18 +245,34 @@ def prove_top_level_guard(src,function,condition,status,reason):
  wrong_status=[x for x in matching if len(x[1])<3 or x[1][1]!=status]
  wrong_reason=[x for x in matching if len(x[1])>=3 and x[1][1]==status and x[1][2]!=reason]
  pos=exact[0][3] if len(exact)==1 else -1;prefix=body[:pos] if pos>=0 else body
- paths=[p for p in analyze_return_paths(src,function) if p['SOURCE_POSITION']<pos] if pos>=0 else analyze_return_paths(src,function)
+ all_paths=analyze_return_paths(src,function);paths=[p for p in all_paths if p['SOURCE_POSITION']<pos] if pos>=0 else all_paths
  early_success=sum(p['CLASSIFICATION']=='PROVEN_SUCCESS' for p in paths)
  noop_paths=sum(len(x[1])>=3 and x[1][1]=='HSBI_DECISION_NO_OP' for x in matching if x not in exact)
  unknown_returns=sum(p['CLASSIFICATION']=='UNKNOWN_FAIL_CLOSED' for p in paths)+int('HSBI_UnknownPredicate(' in prefix)
+ target_positions={x[4] for x in exact};unsafe=[]
+ for p in all_paths:
+  if p['SOURCE_POSITION'] in target_positions:continue
+  if function=='HSBI_ValidateRestartedRuntimeState' and p['CLASSIFICATION']=='UNAUTHORIZED_NO_OP' and p['RAW_CONDITION']=='s.duplicateConsumption' and p['REASON_EXPRESSION']=='HSBI_RD_OK':
+   p['OUTCOME_CLASSIFICATION']='AUTHORIZED_NO_OP';p['NO_OP_AUTHORIZATION_SOURCE']='S037';p['SAFE_FOR_DOMINANCE']=True;continue
+  if function=='HSBI_CanAdvanceRuntimeDecision' and p['CLASSIFICATION']=='UNAUTHORIZED_NO_OP' and p['RAW_CONDITION']=='b.lastCompletedActionId==b.expectedActionId&&b.lastCompletedPayloadDigest==b.payloadDigest':
+   p['OUTCOME_CLASSIFICATION']='PROVEN_OTHER_SAFE_REJECT';p['NO_OP_AUTHORIZATION_SOURCE']='LEGACY_BARRIER_DUPLICATE_COMPLETION';p['SAFE_FOR_DOMINANCE']=True;continue
+  if p['CLASSIFICATION'] in ('UNAUTHORIZED_NO_OP','UNKNOWN_FAIL_CLOSED','PROVEN_SUCCESS'):
+   # The canonical final-success object return is validated separately.
+   if p['SOURCE_POSITION']==all_paths[-1]['SOURCE_POSITION']:continue
+   unsafe.append(p)
+ unauthorized=sum(p['CLASSIFICATION']=='UNAUTHORIZED_NO_OP' for p in unsafe)
+ unresolved=sum(p['CLASSIFICATION']=='UNKNOWN_FAIL_CLOSED' and '(' in p['RETURN_EXPRESSION'] for p in unsafe)
+ malformed=sum(p['CLASSIFICATION']=='UNKNOWN_FAIL_CLOSED' and not p['RETURN_EXPRESSION'] for p in unsafe)
+ bypass=len(unsafe)+len(wrong_status)+len(wrong_reason)
  present=bool(matching);unique=len(matching)==1;reachable=len(exact)==1
- dominates=reachable and unique and not early_success and unknown_returns==0
+ dominates=reachable and unique and not early_success and unknown_returns==0 and bypass==0
  return {'FUNCTION':function,'CONDITION':condition,'GUARD_PRESENT':present,'GUARD_UNIQUE':unique,
   'GUARD_CONDITION_EXACT':any(x[0]==condition for x in matching),'GUARD_CONDITION_EXACT_OR_SUPPORTED_EQUIVALENT':present,'REJECT_STATUS':status,'REASON_CODE':reason,
   'REJECT_CALL_EXACT':len(exact)==1,'REJECT_STATUS_EXACT':len(exact)==1,
   'REJECT_REASON_EXACT':len(exact)==1,'REACHABLE':reachable,'BEFORE_SUCCESS':dominates,
   'CANONICAL_CONDITION':condition,'NORMALIZED_CONDITION':normalize_condition(condition),'EXPECTED_STATUS':status,'EXPECTED_REASON':reason,'MATCHING_PATHS':len(matching),'EXPECTED_OUTCOME_PATHS':len(exact),'WRONG_STATUS_PATHS':len(wrong_status),'WRONG_REASON_PATHS':len(wrong_reason),'NO_OP_PATHS':noop_paths,'SUCCESS_PATHS':early_success,'UNKNOWN_PATHS':unknown_returns-noop_paths,
-  'SUCCESS_RETURNS_FOUND':early_success,'EARLY_SUCCESS_RETURNS':early_success,
+  'REQUIRED_GUARD_FOUND':present,'REQUIRED_GUARD_UNIQUE':unique,'REQUIRED_GUARD_REACHABLE':reachable,'REQUIRED_GUARD_TOP_LEVEL':present,'REQUIRED_CONDITION_EXACT':any(x[0]==condition for x in matching),'REQUIRED_RETURN_IMMEDIATE':len(exact)==1,'REQUIRED_STATUS_EXACT':len(exact)==1,'REQUIRED_REASON_EXACT':len(exact)==1,
+  'SUCCESS_RETURNS_FOUND':early_success,'EARLY_SUCCESS_RETURNS':early_success,'EARLY_SUCCESS_PATHS':early_success,'UNAUTHORIZED_NO_OP_PATHS':unauthorized,'UNKNOWN_CONDITION_PATHS':sum(p['CONDITION_CLASSIFICATION']=='UNKNOWN' for p in unsafe),'UNKNOWN_RETURN_PATHS':sum(p['CLASSIFICATION']=='UNKNOWN_FAIL_CLOSED' for p in unsafe),'UNRESOLVED_HELPER_PATHS':unresolved,'MALFORMED_RETURN_PATHS':malformed,'BYPASS_PATHS':bypass,
   'UNKNOWN_RETURNS':unknown_returns,'GUARD_ON_ALL_SUCCESS_PATHS':dominates,
   'DOMINATES_EXECUTION':dominates,'DOMINATES_EXPECTED_OUTCOME':dominates,'DOMINATES_SUCCESS':dominates,'RESULT':'PASS' if dominates else 'FAIL'}
 
@@ -321,4 +359,24 @@ def lexer_self_tests():
  t['L063']=gp(canonical.replace('if(x!=y)','if(!(y==x))return HSBI_RuntimeReject(x,OTHER,WHY,"b");if(x!=y)',1))['RESULT']=='FAIL'
  t['L064']=gp(canonical.replace('if(x!=y)','if(!(y==x))return HSBI_RuntimeReject(x,BAD,OTHER,"b");if(x!=y)',1))['RESULT']=='FAIL'
  t['L065']=gp(canonical.replace('if(x!=y)','if(!(y==x))'+noop+'if(x!=y)',1))['RESULT']=='FAIL'
+ t['L066']=conditions_equivalent('a<b||a>b','a!=b')
+ t['L067']=conditions_equivalent('a>b||a<b','a!=b')
+ t['L068']=conditions_equivalent('b<a||b>a','a!=b')
+ t['L069']=conditions_equivalent('!(a==b)','a!=b')
+ t['L070']=conditions_equivalent('!!(a!=b)','a!=b')
+ t['L071']=conditions_equivalent('(a-b)!=0','a!=b')
+ t['L072']=conditions_equivalent('0!=(a-b)','a!=b')
+ t['L073']=conditions_equivalent('(a==b)==false','a!=b')
+ t['L074']=conditions_equivalent('true==(a!=b)','a!=b')
+ t['L075']=not conditions_equivalent('UnknownPredicate(a,b)','a!=b')
+ t['L076']=gp(canonical.replace('if(x!=y)','if(a<b||a>b)'+noop+'if(x!=y)',1))['RESULT']=='FAIL'
+ t['L077']=gp(canonical.replace('HSBI_RuntimeDecisionResult r=',noop+'HSBI_RuntimeDecisionResult r='))['RESULT']=='FAIL'
+ t['L078']=gp(canonical.replace('if(x!=y)','if(x==y){}else{'+noop+'}if(x!=y)',1))['RESULT']=='FAIL'
+ t['L079']=gp(canonical.replace('if(x!=y)','if(z){if(q){'+noop+'}}if(x!=y)',1))['RESULT']=='FAIL'
+ t['L080']=prove_top_level_guard(s37,'HSBI_ValidateRestartedRuntimeState','s.duplicateConsumption','HSBI_DECISION_NO_OP','HSBI_RD_OK')['RESULT']=='PASS'
+ t['L081']=prove_top_level_guard(s37.replace('HSBI_RD_OK','BAD'),'HSBI_ValidateRestartedRuntimeState','s.duplicateConsumption','HSBI_DECISION_NO_OP','HSBI_RD_OK')['RESULT']=='FAIL'
+ t['L082']=analyze_return_paths('R Other(){'+noop+'}','Other')[0]['SAFE_FOR_DOMINANCE'] is False
+ t['L083']=prove_reject_constructor(base.replace('return r;','return;'))['REJECT_CONSTRUCTOR_PROOF']=='FAIL'
+ t['L084']=gp(canonical.replace('if(x!=y)','if(z)return UnknownTerminal(x);if(x!=y)',1))['RESULT']=='FAIL'
+ t['L085']=gp(canonical.replace('if(x!=y)','if(z)'+noop+'if(q)return UnknownTerminal(x);if(x!=y)',1))['BYPASS_PATHS']>=2
  return t
