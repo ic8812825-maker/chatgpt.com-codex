@@ -1,0 +1,63 @@
+{
+  "SCHEMA_VERSION": 1,
+  "MONEY_STATE_VERSION": 1,
+  "RECORD_TYPES": [
+    "CYCLE_CREATED",
+    "INTENT_PREPARED",
+    "DISPATCH_REQUESTED",
+    "OUTCOME_OBSERVED",
+    "FILL_OBSERVED",
+    "RECONCILIATION_STARTED",
+    "RECONCILIATION_CONFIRMED",
+    "ALLOCATION_PREPARED",
+    "ALLOCATION_APPLIED",
+    "FSM_COMMIT",
+    "CYCLE_COMPLETED",
+    "TERMINAL_SAFE_ENTERED"
+  ],
+  "FIELD_TYPES": {
+    "sequence": "ulong",
+    "cycleId": "ulong",
+    "actionId": "ulong",
+    "eventId": "ulong",
+    "payload": "string",
+    "digest": "string",
+    "checksum": "string"
+  },
+  "REQUIRED_FIELDS": [
+    "sequence",
+    "cycleId",
+    "actionId",
+    "eventId",
+    "payload",
+    "digest",
+    "checksum"
+  ],
+  "SERIALIZATION_ORDER": [
+    "sequence",
+    "cycleId",
+    "actionId",
+    "eventId",
+    "payload",
+    "digest",
+    "checksum"
+  ],
+  "DIGEST_INPUT": "schemaVersion|moneyStateVersion|recordType|ordered fields|previousDigest",
+  "CHECKSUM": "SHA-256 lowercase hex",
+  "TEMP_FILE_NAME": "hsbi_snapshot.tmp",
+  "ATOMIC_RENAME_RULE": "write temp then replace hsbi_snapshot.dat after flush",
+  "FSYNC_OR_PLATFORM_EQUIVALENT": "FileFlush before FileMove",
+  "JOURNAL_SEQUENCE": "strict sequence+1",
+  "SNAPSHOT_SEQUENCE": "not greater than last journal sequence",
+  "RETENTION": "last 3 snapshots and full active-cycle journal",
+  "CORRUPTION_POLICY": "enter terminal-safe and preserve corrupt bytes",
+  "MIGRATION_POLICY": "only explicit adjacent-version pure migration",
+  "UNKNOWN_VERSION_POLICY": "reject and enter terminal-safe",
+  "RESTART_REPLAY_ORDER": [
+    "validate checksum",
+    "load snapshot",
+    "replay journal by sequence",
+    "reconcile broker truth",
+    "resume only after admin-safe gate"
+  ]
+}
