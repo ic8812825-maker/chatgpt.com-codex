@@ -81,7 +81,8 @@ def run(root,skip_integrity=False,fixture_mode=False):
   row=checkrow('TEST_'+t['TEST_ID'],outcome is True,actuals.get(t['VECTOR_ID']),v['EXPECTED_RESULT'] if v else None,t['FUNCTION'],t['ASSERTION_ID'],v['EXPECTED_INVARIANTS'] if v else []);test_rows.append(row);checks.append(row)
  # schema/cross-reference checks
  forms=load(r,'Tests/Static/hsb_2e_formula_contracts_r4.json','formulas');api=load(r,'Tests/Static/hsb_2e_api_contracts_r4.json','components');src=load(r,'Tests/Static/hsb_2e_normative_source_map_r4.json');ids=[x['TEST_ID'] for x in tests]
- structural=[('STRUCT_FORMULAS',len(forms)==22 and all(f['PUBLIC_FUNCTION'] in model.FUNCTIONS for f in forms)),('STRUCT_API',len(api)==32 and all(not x['SIDE_EFFECTS'] and 'BROKER_DISPATCH' in x['FORBIDDEN_SIDE_EFFECTS'] for x in api)),('STRUCT_SOURCES',not src['open_decisions']),('STRUCT_TEST_IDS',ids==[f'T{i}' for i in range(465,1150)]),('STRUCT_TEST_PAIRS',len({(x['VECTOR_ID'],x['ASSERTION_ID']) for x in tests})==685),('HARDCODED_VERDICTS',not hardcoded_audit(Path(__file__)))]
+ source=Path(__file__).read_text()
+ structural=[('STRUCT_FORMULAS',len(forms)==22 and all(f['PUBLIC_FUNCTION'] in model.FUNCTIONS for f in forms)),('STRUCT_API',len(api)==32 and all(not x['SIDE_EFFECTS'] and 'BROKER_DISPATCH' in x['FORBIDDEN_SIDE_EFFECTS'] for x in api)),('STRUCT_SOURCES',not src['open_decisions']),('STRUCT_TEST_IDS',ids==[f'T{i}' for i in range(465,1150)]),('STRUCT_TEST_PAIRS',len({(x['VECTOR_ID'],x['ASSERTION_ID']) for x in tests})==685),('HARDCODED_VERDICTS',not hardcoded_audit(Path(__file__))),('ORACLE_INDEPENDENCE',('expected'+'=actual') not in source)]
  for cid,ok in structural:checks.append(checkrow(cid,ok,ok,True,'verifier'))
  # derived metrics: pattern expansion over real check IDs
  registry=load(r,'Tests/Static/hsb_2e_metric_derivations_r4.json','metrics');metric_rows=[];available={x['CHECK_ID']:x['RESULT'] for x in checks}
@@ -93,6 +94,7 @@ def run(root,skip_integrity=False,fixture_mode=False):
   cp=subprocess.run(['git','diff','--name-only',BASELINE+'..HEAD'],cwd=r,text=True,capture_output=True);paths=cp.stdout.splitlines();scope_ok=cp.returncode==0 and all(x.startswith('MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/') for x in paths);prod_ok=not any(x.endswith('.mq5') or '/Include/' in x and x.endswith('.mqh') for x in paths)
  checks.append(checkrow('SCOPE_AUDIT',scope_ok,scope_ok,True,'git'));checks.append(checkrow('PRODUCTION_AUDIT',prod_ok,prod_ok,True,'git'))
  manifest=hashfile(r,'Reports/HSB_2E_PREP_R4_FILE_MANIFEST_SHA256.txt',DATA);seal=hashfile(r,'Tests/Evidence/HSB_2E_PREP_R4_EVIDENCE_SEAL_SHA256.txt',EVIDENCE+DATA)
+ expected_evidence={Path(x).name for x in EVIDENCE}|{'HSB_2E_PREP_R4_EVIDENCE_SEAL_SHA256.txt'};actual_evidence={x.name for x in (r/'Tests/Evidence').glob('HSB_2E_PREP_R4_*')};seal=seal and actual_evidence==expected_evidence
  checks.append(checkrow('MANIFEST',manifest or skip_integrity,manifest,True,'hashfile'));checks.append(checkrow('SEAL',seal or skip_integrity,seal,True,'hashfile'))
  return {'checks':checks,'vectors':vector_rows,'invariants':inv_rows,'scenarios':scenario_rows,'broker':broker_rows,'restart':restart_rows,'tests':test_rows,'metrics':metric_rows,'unknownAssertions':unknown,'result':'PASS' if all(x['RESULT']=='PASS' for x in checks) else 'FAIL'}
 def copy_vector(v):return json.loads(json.dumps(v))

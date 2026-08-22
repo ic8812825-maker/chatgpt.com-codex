@@ -1,0 +1,933 @@
+{
+  "R4_INFRASTRUCTURE_FAILURES": 0,
+  "R4_MUTATIONS_CAUGHT": 50,
+  "R4_MUTATIONS_EXECUTED": 50,
+  "R4_MUTATIONS_INVALID": 0,
+  "R4_MUTATIONS_REQUIRED": 50,
+  "R4_MUTATIONS_SURVIVED": 0,
+  "R4_WRONG_FAILURES": 0,
+  "RESULT": "PASS",
+  "quality": {
+    "CODE_MUTATIONS_EXECUTED": 41,
+    "CODE_MUTATIONS_REQUIRED": 41,
+    "DOCUMENT_ONLY_MUTATIONS": 5,
+    "EVIDENCE_MUTATIONS": 4,
+    "RESULT": "PASS",
+    "TARGET_FUNCTIONS_UNIQUE": 16
+  },
+  "results": [
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_VECTOR_INVARIANTS_EXECUTED",
+        "METRIC_MONEY_CONSERVATION"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "b5c32e5566147f9bff4f172838963224aff64115fb9f79c94eab73c341df27ef",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M001",
+      "ORIGINAL_FRAGMENT_HASH": "4b4b1f4d2024c4849641af618bf4633d4663389e093eaa0f60d7a580893f0bf0",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_invariants_r4.py",
+      "TARGET_FUNCTION": "check",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_VECTOR_INVARIANTS_EXECUTED",
+        "METRIC_MONEY_CONSERVATION"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "298dbfeda4cd8de7ca9f1b16c1c3e12ea4ec922cc7861637dbcceca28ab80ad1",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M002",
+      "ORIGINAL_FRAGMENT_HASH": "4b4b1f4d2024c4849641af618bf4633d4663389e093eaa0f60d7a580893f0bf0",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_invariants_r4.py",
+      "TARGET_FUNCTION": "REGISTRY",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_VECTOR_INVARIANTS_EXECUTED",
+        "METRIC_MONEY_CONSERVATION",
+        "METRIC_VOLUME_CONSERVATION",
+        "METRIC_INITIAL_POSITIVE_PROFIT_IGNORED",
+        "METRIC_NEW_FAR_COMPRESSION",
+        "METRIC_RESTART_DETERMINISM"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "0ec0a3622cf7dc22cef46b94e09156c50c022c9cdbeb74286eac0727828554bb",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M003",
+      "ORIGINAL_FRAGMENT_HASH": "4b4b1f4d2024c4849641af618bf4633d4663389e093eaa0f60d7a580893f0bf0",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_invariants_r4.py",
+      "TARGET_FUNCTION": "check",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_SCENARIO_ENGINE"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "30bb14243bc5a7e09f58eb2e2f2280d5c7de6b40bb70091d38b875d2e7d0855e",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M004",
+      "ORIGINAL_FRAGMENT_HASH": "0ba9b14e1936cd4e124cf7078c76afce66353a4010e3d201b3da5e96dfb3152f",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_scenario_engine_r4.py",
+      "TARGET_FUNCTION": "validate_contract",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_SCENARIO_ENGINE"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "2d150c94e5c4cc349f547ed7b9c945a9829b7452daab1e12da9e8af498c85452",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M005",
+      "ORIGINAL_FRAGMENT_HASH": "941b517327ad70c9f0e3c3f3206802f011441c52b2c0abb1b611794dc8c7d0ca",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_scenario_engine_r4.py",
+      "TARGET_FUNCTION": "validate_contract",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_SCENARIO_ENGINE"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "4671b0fe3cc60e74ccf31b6fb64ebefa4855684fc16b01a46e11b9c74a84bfa9",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M006",
+      "ORIGINAL_FRAGMENT_HASH": "0ba9b14e1936cd4e124cf7078c76afce66353a4010e3d201b3da5e96dfb3152f",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_scenario_engine_r4.py",
+      "TARGET_FUNCTION": "validate_contract",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_BROKER_INTENT_VALIDATION"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "89c9a7a8cb2e6efdb4b466ac4b13e49abd29b15686d667eaacd14a1343f34157",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M007",
+      "ORIGINAL_FRAGMENT_HASH": "d48585dec0cd7649cb3ccaae14ecbaee1b222500099728bb4a56aea47dad5c85",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_broker_intent_validator_r4.py",
+      "TARGET_FUNCTION": "validate",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_BROKER_INTENT_VALIDATION"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "557e3981f1836d766ddedf41ac878689e46f47a9536d1e803c610f1d11de1ab7",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M008",
+      "ORIGINAL_FRAGMENT_HASH": "d48585dec0cd7649cb3ccaae14ecbaee1b222500099728bb4a56aea47dad5c85",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_broker_intent_validator_r4.py",
+      "TARGET_FUNCTION": "validate",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "VERIFIER_NONZERO"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "e9b5211ee85077a58e6207453c1db37cfaa8892785c12225786704d6b70ce540",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M009",
+      "ORIGINAL_FRAGMENT_HASH": "d48585dec0cd7649cb3ccaae14ecbaee1b222500099728bb4a56aea47dad5c85",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_broker_intent_validator_r4.py",
+      "TARGET_FUNCTION": "validate",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "6b8db4e5005f15c4a612cece35edadc6eed2a246bd3e989aac393d70fc9f3e41",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M010",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "6bd74efddaa349c7213c3f454f1109c6a7fe734ac1c6f9d080d69704df93f51f",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M011",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "fa6ad75627e5798f8832aefdfb4388383ebf1626b43aa2ecb6f413efddcde055",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M012",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "1434eabf3fad0a2d769a4b5489450379c82974d8e4f2355de161f8b1c9a095ca",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M013",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "far_loss",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "238c5cd8c066bac58cec8e93838f1417eaca0a6258629535d14d590803b366f0",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M014",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "deal_money",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "180d0685acb8611820db0fc3de3e2e91cbbe3778605045fe59efcb33e3bcb6b3",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M015",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "deal_money",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "c28ccb594e136676313c61045a3491910f168207b1351e2b5edd4d22aa566735",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M016",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "deal_money",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "9782d0d304c1990585a9fddac7430a367c4aa73a66a9d7a775ca232cd624cbcb",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M017",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "initial_lock",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "b81e625de41fdfb53c704c401473779a88410ca89d43cf5a468f49646859f67e",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M018",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "1caaa47d4a7ab6a671172def162ed20ae18abd442e94b1c7be974d3d3c3df65c",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M019",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "a1f4b9438b91a136e2bac026e63f0872c1958e19697809aa14051a3cb58771bc",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M020",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "c0cb7b5be4dccfcb941892128e3acb396ed2cec3a7c7334a7e7cf3bc32ffce8e",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M021",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "d8c10f1de0871f7bfe2f69e29d91e76668d167168ec24889e066eb5e9cc99a51",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M022",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "e4986eef72c76517777116e0f848d24b2c25d0204312d97df16218e9741612b4",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M023",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "eeebc3a6818d4f1701c95e0ba504ecbe522dbfa839996eb9417a22f6dadf6e3b",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M024",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "b3257e2657d493790f1a30f6e05710b0469a59f4ac47449ebbc0f2d39e7a6820",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M025",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "ef17aa5150e49ccd73ffaffe2875e3f9b2a066088c1b51f5bcea647ff1ffe631",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M026",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "2238b1c97a6c1d664871576e8b1917d480b5fd9f217bba9660eb2d9974aaf603",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M027",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "deal_money",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "d20453cab44f0cf23a328ccf026e63023c4c8b9a707a06ea645869149f73ad03",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M028",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "d7b242c483d2d16b6f71a5faaedc1d8a62b310187c3f79460785ca2b4396721b",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M029",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "restart_replay",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "b6cd8df95ed5a82276b70f7c3612f37ca72ba2384a2cc51be6e4aa9eda715874",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M030",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "restart_replay",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "9d43fdd05c2bfb72e9a9c705b2a7745cc038aedf5015b948e813d8130c52fda2",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M031",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "restart_replay",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "8dfba4bfa9607c28da1c01dcef9f5d428a0863061e84e4910c13a0be9b0b548b",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M032",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "a8bfeba8f77a47f4edbdfa0fde20efa79d4e9aa36bcf962a35e8e9341dca8885",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M033",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "8f419ba62b2984020fe88c5697ac7e4a52dc014684de5dac09cc82f642da5e38",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M034",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "0757cb1bc666aea5f478351a088235e1de06ebcdda2845f4f8046eb5d8905dd4",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M035",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "intent",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "76641e99cd13334a4de1d0f0ff9fe1d8fa0a0edf9035804b3726096b4f6f090c",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M036",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "validate_position",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "08f0b131220d1f4d184e2fbb6cdd396cca515d810b68c8336499629bd172e6e0",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M037",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "validate_position",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": true,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "4e3f1c3ce572b76ccdc7650cf0d6afeaaba67a2a603001596cf6174ff3da390a",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M038",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "validate_position",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_T465_T1149"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "0c02f59d0936509eb4dad5926fa4903f678d5cbbd7d6c40820673bbefee89f44",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M039",
+      "ORIGINAL_FRAGMENT_HASH": "e99e7c7afad5634d49156928a449d4d019d5272f6a89d1d9f3fbb420afeac175",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Vectors/HSB_2E_R4_GOLDEN_VECTORS.json",
+      "TARGET_FUNCTION": "vector oracle",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_T465_T1149"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "fd63ede2203d112b47a49a444c09b6726fd0b3af3125b4f77727958717479017",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M040",
+      "ORIGINAL_FRAGMENT_HASH": "e99e7c7afad5634d49156928a449d4d019d5272f6a89d1d9f3fbb420afeac175",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Vectors/HSB_2E_R4_GOLDEN_VECTORS.json",
+      "TARGET_FUNCTION": "vector schema",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_T465_T1149"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "75e7ca83ea433f05cf2d755c81c1b2058009a401a877c98be4237e638295f5b6",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M041",
+      "ORIGINAL_FRAGMENT_HASH": "ac6398539cfe479c01ea8f9b849348f53639fa41fa8d2e63c240fb23a2d149cc",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Static/hsb_2e_test_plan_r4.json",
+      "TARGET_FUNCTION": "assertion registry",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "STRUCT_TEST_IDS",
+        "STRUCT_TEST_PAIRS",
+        "METRIC_T465_T1149"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "9c80e5e2d1b1ae608639e05fe84c595c471d080bc4bcedd9e937d4aa52939ca4",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M042",
+      "ORIGINAL_FRAGMENT_HASH": "ac6398539cfe479c01ea8f9b849348f53639fa41fa8d2e63c240fb23a2d149cc",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Static/hsb_2e_test_plan_r4.json",
+      "TARGET_FUNCTION": "test executor",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "METRIC_VECTOR_INVARIANTS_EXECUTED"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "e6b7b6a01d2262022eed25b230929b6ba4995f6098aba10094860e8ed75877f4",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M043",
+      "ORIGINAL_FRAGMENT_HASH": "710c5af03e9c49c64e90e64bff20cb358afe9b54e596a67b183b365556adc243",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Static/hsb_2e_metric_derivations_r4.json",
+      "TARGET_FUNCTION": "derive_metrics",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "VERIFIER_NONZERO"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "4b887f206cbe751e199c4d15cbde9595768888eeb6051dde8bdab17a64716c18",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M044",
+      "ORIGINAL_FRAGMENT_HASH": "d38ec0f145d1bb0e3e380c18ce659e6617a4b53626d697d010a5df5077ad9c8b",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Static/verify_hsb_2e_prep_r4.py",
+      "TARGET_FUNCTION": "AST audit",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "VERIFIER_NONZERO"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "5119f7caeb412c7eb673dba2a818d3e31b76eeb26699ce11923445f1ac41c2b2",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M045",
+      "ORIGINAL_FRAGMENT_HASH": "d38ec0f145d1bb0e3e380c18ce659e6617a4b53626d697d010a5df5077ad9c8b",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Static/verify_hsb_2e_prep_r4.py",
+      "TARGET_FUNCTION": "summary",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "VERIFIER_NONZERO"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "385a34cd545a28575a47cd4ef584af2c70074f41d7cf9b5ed5dee2fb5be117fa",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M046",
+      "ORIGINAL_FRAGMENT_HASH": "d38ec0f145d1bb0e3e380c18ce659e6617a4b53626d697d010a5df5077ad9c8b",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Static/verify_hsb_2e_prep_r4.py",
+      "TARGET_FUNCTION": "oracle comparison",
+      "VECTOR_EXECUTED": true
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MANIFEST",
+        "SEAL"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M047",
+      "ORIGINAL_FRAGMENT_HASH": "420bfe5026017cc914f0c7904b561a408bc6beec5c14e21881294c6a49b531fa",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_VERIFIER_RESULT.json",
+      "TARGET_FUNCTION": "seal",
+      "VECTOR_EXECUTED": false
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MANIFEST",
+        "SEAL"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": true,
+      "MUTATED_FRAGMENT_HASH": "1e87be70e42698856de93416cd1f5a29be2620f5adbe69369604af78e7bea894",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M048",
+      "ORIGINAL_FRAGMENT_HASH": "a14be0228a51ba5303809d1ae836f77e963388ede2d3a6926d9ae2acba6df8f8",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "seal",
+      "VECTOR_EXECUTED": false
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MANIFEST",
+        "SEAL"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "4fb1eec9d57ea616b13c2e7f29c7f1515a2f43028fe1933db296a0fcdaf948cf",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M049",
+      "ORIGINAL_FRAGMENT_HASH": "b8a12253177e428b84310604d2bf7032ee8e7869c4d92e80b9a63db37b813e92",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_EVIDENCE_SEAL_SHA256.txt",
+      "TARGET_FUNCTION": "seal",
+      "VECTOR_EXECUTED": false
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MANIFEST",
+        "SEAL"
+      ],
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ],
+      "INVARIANT_EXECUTED": false,
+      "MODEL_EXECUTED": false,
+      "MUTATED_FRAGMENT_HASH": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "MUTATION_APPLIED": true,
+      "MUTATION_ID": "R4M050",
+      "ORIGINAL_FRAGMENT_HASH": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "RESULT": "CAUGHT",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_EXTRA.json",
+      "TARGET_FUNCTION": "seal",
+      "VECTOR_EXECUTED": false
+    }
+  ]
+}

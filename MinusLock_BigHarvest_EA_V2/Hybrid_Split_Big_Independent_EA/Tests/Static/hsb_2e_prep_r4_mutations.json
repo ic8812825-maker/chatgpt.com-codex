@@ -1,0 +1,504 @@
+{
+  "mutations": [
+    {
+      "MUTATION_ID": "R4M001",
+      "TITLE": "unknown invariant ID",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_invariants_r4.py",
+      "TARGET_FUNCTION": "check",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M002",
+      "TITLE": "invariant removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_invariants_r4.py",
+      "TARGET_FUNCTION": "REGISTRY",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M003",
+      "TITLE": "invariant actual unavailable",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_invariants_r4.py",
+      "TARGET_FUNCTION": "check",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M004",
+      "TITLE": "unknown scenario operation",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_scenario_engine_r4.py",
+      "TARGET_FUNCTION": "validate_contract",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M005",
+      "TITLE": "scenario step order",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_scenario_engine_r4.py",
+      "TARGET_FUNCTION": "validate_contract",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M006",
+      "TITLE": "FSM commit before persistence",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_scenario_engine_r4.py",
+      "TARGET_FUNCTION": "validate_contract",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M007",
+      "TITLE": "unknown ticket intent",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_broker_intent_validator_r4.py",
+      "TARGET_FUNCTION": "validate",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M008",
+      "TITLE": "duplicate close intent",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_broker_intent_validator_r4.py",
+      "TARGET_FUNCTION": "validate",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M009",
+      "TITLE": "intent exceeds position",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_broker_intent_validator_r4.py",
+      "TARGET_FUNCTION": "validate",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M010",
+      "TITLE": "BUY close uses Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M011",
+      "TITLE": "SELL close uses Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M012",
+      "TITLE": "unknown direction treated SELL",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M013",
+      "TITLE": "Far loss sign inverted",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "far_loss",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M014",
+      "TITLE": "commission excluded",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "deal_money",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M015",
+      "TITLE": "swap excluded",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "deal_money",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M016",
+      "TITLE": "fee excluded",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "deal_money",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M017",
+      "TITLE": "initial profit included",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "initial_lock",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M018",
+      "TITLE": "Reserve in partial Far",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M019",
+      "TITLE": "Big not fully closed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M020",
+      "TITLE": "Small not fully closed on Big",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M021",
+      "TITLE": "old Far not fully closed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M022",
+      "TITLE": "Big volume conservation broken",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M023",
+      "TITLE": "NewFar equals OldFar",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M024",
+      "TITLE": "NewFar exceeds OldFar",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M025",
+      "TITLE": "DUAL_TAIL allowed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M026",
+      "TITLE": "next level before commit",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M027",
+      "TITLE": "duplicate deal consumed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "deal_money",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M028",
+      "TITLE": "duplicate Reserve allocation",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M029",
+      "TITLE": "retry changes ActionID",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "restart_replay",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M030",
+      "TITLE": "stale EventID reused",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "restart_replay",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M031",
+      "TITLE": "unknown outcome success",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "restart_replay",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M032",
+      "TITLE": "partial fill full",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M033",
+      "TITLE": "final close RecoveryPL zero",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M034",
+      "TITLE": "final close negative coverage",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M035",
+      "TITLE": "StateRevision decreases",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "intent",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M036",
+      "TITLE": "wrong ticket accepted",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "validate_position",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M037",
+      "TITLE": "wrong Magic accepted",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "validate_position",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M038",
+      "TITLE": "wrong Symbol accepted",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "validate_position",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M039",
+      "TITLE": "expected output changed",
+      "TARGET_FILE": "Tests/Vectors/HSB_2E_R4_GOLDEN_VECTORS.json",
+      "TARGET_FUNCTION": "vector oracle",
+      "KIND": "VECTOR",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M040",
+      "TITLE": "input schema broken",
+      "TARGET_FILE": "Tests/Vectors/HSB_2E_R4_GOLDEN_VECTORS.json",
+      "TARGET_FUNCTION": "vector schema",
+      "KIND": "VECTOR",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M041",
+      "TITLE": "unknown assertion",
+      "TARGET_FILE": "Tests/Static/hsb_2e_test_plan_r4.json",
+      "TARGET_FUNCTION": "assertion registry",
+      "KIND": "VECTOR",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M042",
+      "TITLE": "T-ID unexecuted",
+      "TARGET_FILE": "Tests/Static/hsb_2e_test_plan_r4.json",
+      "TARGET_FUNCTION": "test executor",
+      "KIND": "VECTOR",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M043",
+      "TITLE": "metric no sources",
+      "TARGET_FILE": "Tests/Static/hsb_2e_metric_derivations_r4.json",
+      "TARGET_FUNCTION": "derive_metrics",
+      "KIND": "VECTOR",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M044",
+      "TITLE": "hardcoded metric PASS",
+      "TARGET_FILE": "Tests/Static/verify_hsb_2e_prep_r4.py",
+      "TARGET_FUNCTION": "AST audit",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M045",
+      "TITLE": "hardcoded scenario fail zero",
+      "TARGET_FILE": "Tests/Static/verify_hsb_2e_prep_r4.py",
+      "TARGET_FUNCTION": "summary",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M046",
+      "TITLE": "self-fulfilling oracle",
+      "TARGET_FILE": "Tests/Static/verify_hsb_2e_prep_r4.py",
+      "TARGET_FUNCTION": "oracle comparison",
+      "KIND": "CODE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M047",
+      "TITLE": "evidence changed",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_VERIFIER_RESULT.json",
+      "TARGET_FUNCTION": "seal",
+      "KIND": "EVIDENCE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M048",
+      "TITLE": "model changed unsealed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4.py",
+      "TARGET_FUNCTION": "seal",
+      "KIND": "EVIDENCE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M049",
+      "TITLE": "seal entry removed",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_EVIDENCE_SEAL_SHA256.txt",
+      "TARGET_FUNCTION": "seal",
+      "KIND": "EVIDENCE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M050",
+      "TITLE": "unsealed evidence",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_EXTRA.json",
+      "TARGET_FUNCTION": "seal",
+      "KIND": "EVIDENCE",
+      "EXPECTED_CHECK_IDS": [
+        "MUTATION_SEMANTIC_DIFF"
+      ]
+    }
+  ]
+}
