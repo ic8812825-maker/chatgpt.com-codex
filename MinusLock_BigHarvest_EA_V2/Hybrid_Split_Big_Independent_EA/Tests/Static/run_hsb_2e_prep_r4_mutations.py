@@ -12,7 +12,7 @@ REPL={
 def sha(b):return hashlib.sha256(b).hexdigest()
 PROBE=r'''import copy,json,sys
 from pathlib import Path
-r=Path(sys.argv[1]);n=int(sys.argv[2]);sys.path.insert(0,str(r/'Tests/Reference'));import hsb_2e_reference_model_r4 as m
+r=Path(sys.argv[1]);n=int(sys.argv[2]);import types;m=types.ModuleType('hsb_2e_reference_model_r4');m.__file__=str(r/'Tests/Reference/hsb_2e_reference_model_r4.py');exec(compile((r/'Tests/Reference/hsb_2e_reference_model_r4.py').read_text(),m.__file__,'exec'),m.__dict__)
 sv=json.loads((r/'Tests/Vectors/HSB_2E_R4_SCENARIO_VECTORS.json').read_text())['vectors'];big=copy.deepcopy(next(x['INPUT'] for x in sv if x['CATEGORY']=='BIG'));small=copy.deepcopy(next(x['INPUT'] for x in sv if x['CATEGORY']=='SMALL'))
 if n==10:o=m.directional_close_price('BUY',big['context'])
 elif n==11:o=m.directional_close_price('SELL',big['context'])
