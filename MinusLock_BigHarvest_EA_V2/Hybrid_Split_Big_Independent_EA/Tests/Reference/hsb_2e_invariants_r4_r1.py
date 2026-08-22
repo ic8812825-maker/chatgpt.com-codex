@@ -28,7 +28,7 @@ def check(name,i,a):
   return None if name not in rules else bool(rules[name]())
  except (KeyError,TypeError,StopIteration):return False
 def self_test():
- c=[check('UNKNOWN',{}, {}) is None,check('RESERVE_ACCUMULATION',{}, {'output':{'reserveAfter':'2','reserveBefore':'1'}}) is True]
+ c=[check('UNKNOWN',{}, {}) is None,check('RESERVE_ACCUMULATION',{}, {'output':{'reserveAfter':'2','reserveBefore':'1','alreadyConsumed':False,'reserveAdd':'1','rawReserveAdd':'1'}}) is True]
  print('\n'.join(f'R4R1_INV_{i}={"PASS" if x else "FAIL"}' for i,x in enumerate(c,1)));print(f'INVARIANTS_R4_R1_SELF_TESTS={sum(c)}/{len(c)}');return all(c)
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--self-test',action='store_true');a=p.parse_args();raise SystemExit(0 if a.self_test and self_test() else 1)
