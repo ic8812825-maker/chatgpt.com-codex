@@ -1,0 +1,249 @@
+{
+  "checks": [
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_BIG_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_BIG_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_BIG_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_BIG_SHARE_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_BIG_SHARE_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_BIG_SHARE_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_BIG_SHARE_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_BIG_SHARE_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_BIG_SHARE_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_BIG_SHARE_3",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_BIG_SHARE_3",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_BIG_SHARE_3",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_BIG_SHARE_4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_BIG_SHARE_4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_BIG_SHARE_4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_LEVEL_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_LEVEL_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_LEVEL_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_LEVEL_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_LEVEL_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_LEVEL_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_LEVEL_3",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_LEVEL_3",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_LEVEL_3",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_LEVEL_4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_LEVEL_4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_LEVEL_4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_LEVEL_5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_LEVEL_5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_LEVEL_5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "RESERVE_ACCUMULATION_RESERVE_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "PARTIAL_FAR_RESERVE_ISOLATION_RESERVE_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_RESERVE_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL__50_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL__50__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL__50__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL__50_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_1_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_1_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_1_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_1_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_2_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_2_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_2_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_2_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_5_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_5_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_5_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_SMALL_5_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    }
+  ]
+}

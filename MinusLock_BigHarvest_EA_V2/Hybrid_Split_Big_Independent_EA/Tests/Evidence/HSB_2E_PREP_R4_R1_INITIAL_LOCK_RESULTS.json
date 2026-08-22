@@ -1,0 +1,64 @@
+{
+  "checks": [
+    {
+      "CHECK_ID": "INITIAL_LOCK_DIRECTIONS_INITIAL_OK_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_CONFIRMATION_INITIAL_OK_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_POSITIVE_PROFIT_IGNORED_INITIAL_OK_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_DIRECTIONS_INITIAL_OK_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_CONFIRMATION_INITIAL_OK_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_POSITIVE_PROFIT_IGNORED_INITIAL_OK_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_DIRECTIONS_INITIAL_TWO_BUY",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_DIRECTIONS_INITIAL_TWO_SELL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_SIGN_INITIAL_TWO_POS",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_SIGN_INITIAL_TWO_NEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_SIGN_INITIAL_EQUAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_CONFIRMATION_INITIAL_NO_DEAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    }
+  ]
+}

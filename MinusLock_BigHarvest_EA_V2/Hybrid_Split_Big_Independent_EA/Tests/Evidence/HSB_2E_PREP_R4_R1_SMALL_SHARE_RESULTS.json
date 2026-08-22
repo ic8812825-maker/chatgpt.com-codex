@@ -1,0 +1,174 @@
+{
+  "checks": [
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL__50_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL__50_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL__50__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL__50__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL__50__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL__50__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL__50_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL__50_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_1_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_1_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_1_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_1_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_1_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_1_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_1_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_1_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_2_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_2_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_2_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_2_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_2_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_2_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_2_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_2_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_5_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_5_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_5_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_5_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_5_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_5_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_SEMANTICS_SMALL_5_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_SMALL_5_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_NEGATIVE_SMALL_POLICY_BAD_72",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SMALL_SHARE_CONSERVATION_NEGATIVE_SMALL_POLICY_BAD_73",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    }
+  ]
+}

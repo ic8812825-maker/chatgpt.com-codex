@@ -1,0 +1,174 @@
+{
+  "checks": [
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_BIG_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_BIG_SHARE_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_BIG_SHARE_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_BIG_SHARE_3",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_BIG_SHARE_4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_LEVEL_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_LEVEL_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_LEVEL_3",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_LEVEL_4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_LEVEL_5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_RESERVE_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL__50_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL__50__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL__50__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL__50_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_1_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_1_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_1_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_1_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_2_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_2_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_2_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_2_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_5_00_0",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_5_00__4",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_5_00__5",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_5_00_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_BIG_PHASE_PRE_CONFIRM",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_PRE_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL_PHASE_PRE_CONFIRM",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_INITIAL_OK_1",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_INITIAL_OK_2",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_BIG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "TRANSACTION_PHASE_ORDER_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    }
+  ]
+}
