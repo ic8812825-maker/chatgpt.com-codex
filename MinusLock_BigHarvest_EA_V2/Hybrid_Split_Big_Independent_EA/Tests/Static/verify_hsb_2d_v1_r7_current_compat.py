@@ -22,9 +22,10 @@ def parse(text):
  return passed,failed,metrics
 def sha(b): return hashlib.sha256(b).hexdigest()
 def protected(root):
+ prefix=subprocess.run(["git","rev-parse","--show-prefix"],cwd=root,capture_output=True,text=True,check=True).stdout.strip()
  rows=[]
  for rel in PROTECTED:
-  old=subprocess.run(["git","show",f"{ACCEPTED}:{rel}"],cwd=root,capture_output=True).stdout
+  old=subprocess.run(["git","show",f"{ACCEPTED}:{prefix}{rel}"],cwd=root,capture_output=True).stdout
   cur=(root/rel).read_bytes() if (root/rel).is_file() else b""
   rows.append((rel,sha(old),sha(cur),bool(old) and old==cur))
  return rows
