@@ -16,7 +16,7 @@ def check(name,i,a):
    'PARTIAL_FAR_RESERVE_ISOLATION':lambda:D(o['reserveUsedForPartialFar'])==0 and D(o['closeFarBudget'])==D(o['rawCloseFarBudget']).quantize(D('0.01')), 
    'FINAL_CLOSE_GATES':lambda:not o['finalFarCloseAllowed'] or D(o['recoveryPL'])>0,
    'SMALL_SHARE_SEMANTICS':lambda:D(o['rawBigCloseVolume'])==D(o['bigVolumeBefore'])*D(o['closeBigOnSmall']),
-   'SMALL_SHARE_CONSERVATION':lambda:D(o['closeBigOnSmall'])+D(o['remainBigOnSmall'])==1 and D(o['bigVolumeBefore'])==D(o['bigClosedVolume'])+D(o['newFarVolume']) and abs(D(o['newFarVolume'])-D(o['expectedRemainVolume']))<=D(i['context']['volumeStep']),
+   'SMALL_SHARE_CONSERVATION':lambda:D(o['closeBigOnSmall'])+D(o['remainBigOnSmall'])==1 and D(o['bigVolumeBefore'])==D(o['bigClosedVolume'])+D(o['newFarVolume']) and D(o['expectedRemainVolume'])==D(o['bigVolumeBefore'])*D(o['remainBigOnSmall']) and abs(D(o['newFarVolume'])-D(o['expectedRemainVolume']))<=D(i['context']['volumeStep']),
    'NEW_FAR_COMPRESSION':lambda:D(o['newFarVolume'])<D(next(p['volume'] for p in i['positions'] if p['role']=='FAR')),
    'SMALL_RESERVE_ALLOCATION':lambda:D(o['roundedSmallReserveAdd'])==D(0) if o['alreadyConsumed'] else D(o['roundedSmallReserveAdd'])>=0,
    'INITIAL_LOCK_DIRECTIONS':lambda:o['buyCount']==1 and o['sellCount']==1,
