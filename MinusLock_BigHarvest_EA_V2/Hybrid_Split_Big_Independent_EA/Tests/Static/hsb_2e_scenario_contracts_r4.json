@@ -1,0 +1,445 @@
+{
+  "scenarios": [
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC01"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "BIG",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_SNAPSHOT",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 2,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_big_level_scenario",
+          "OPERATION_ID": "VALIDATE_STATE",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 3,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_big_level_scenario",
+          "OPERATION_ID": "PREPARE_INTENT",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 4,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_big_level_scenario",
+          "OPERATION_ID": "PERSIST_INTENT",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 5,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_big_level_scenario",
+          "OPERATION_ID": "APPLY_CONFIRMED_DEALS",
+          "PERSISTENCE_REQUIRED_BEFORE": true,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 6,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_big_level_scenario",
+          "OPERATION_ID": "CALCULATE_RECOVERY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 7,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_big_level_scenario",
+          "OPERATION_ID": "CALCULATE_ALLOCATION",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 8,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_big_level_scenario",
+          "OPERATION_ID": "COMMIT_LEDGER",
+          "PERSISTENCE_REQUIRED_BEFORE": true,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 9,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_big_level_scenario",
+          "OPERATION_ID": "COMMIT_FSM",
+          "PERSISTENCE_REQUIRED_BEFORE": true,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 10,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC02"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "SMALL",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_SNAPSHOT",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 2,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_small_reversal_scenario",
+          "OPERATION_ID": "VALIDATE_STATE",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 3,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_small_reversal_scenario",
+          "OPERATION_ID": "PREPARE_INTENT",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 4,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_small_reversal_scenario",
+          "OPERATION_ID": "PERSIST_INTENT",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 5,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_small_reversal_scenario",
+          "OPERATION_ID": "APPLY_CONFIRMED_DEALS",
+          "PERSISTENCE_REQUIRED_BEFORE": true,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 6,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_small_reversal_scenario",
+          "OPERATION_ID": "CALCULATE_ALLOCATION",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 7,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_small_reversal_scenario",
+          "OPERATION_ID": "COMMIT_LEDGER",
+          "PERSISTENCE_REQUIRED_BEFORE": true,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 8,
+          "SUCCESS_STATE": "ANY"
+        },
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "execute_small_reversal_scenario",
+          "OPERATION_ID": "COMMIT_FSM",
+          "PERSISTENCE_REQUIRED_BEFORE": true,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 9,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC03"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC04"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC05"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC06"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC07"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC08"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC09"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC10"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC11"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC12"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC13"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC14"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC15"
+    },
+    {
+      "CURRENT_OFFLINE_BROKER_CALLS": 0,
+      "EXPECTED_FUTURE_BROKER_DISPATCH_PLAN": "VALIDATED_OFFLINE",
+      "EXPECTED_NEXT_STATE": "ANY",
+      "KIND": "OTHER",
+      "ORDERED_OPERATIONS": [
+        {
+          "FAILURE_STATE": "TERMINAL_SAFE",
+          "FUNCTION": "validate_context",
+          "OPERATION_ID": "VALIDATE_IDENTITY",
+          "PERSISTENCE_REQUIRED_BEFORE": false,
+          "REQUIRED_STATE": "ANY",
+          "STEP": 1,
+          "SUCCESS_STATE": "ANY"
+        }
+      ],
+      "SCENARIO_ID": "SC16"
+    }
+  ]
+}

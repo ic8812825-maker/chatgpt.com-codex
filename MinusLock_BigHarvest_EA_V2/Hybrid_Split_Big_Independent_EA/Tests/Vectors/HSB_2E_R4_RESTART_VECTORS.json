@@ -1,0 +1,1732 @@
+{
+  "vectors": [
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0900",
+        "eventId": "E0900",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "136402d23f665336d46a69422bb4681be92ef1e49c7ad69c2be238945641875e",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0900",
+          "eventId": "E0900",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "faf016e6090421d4d66e24f5829e193497c5c796dbf066615bfef263d76b6a80",
+        "persistenceRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0900",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0900",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_INTENT_PERSIST"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST001"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0901",
+        "eventId": "E0901",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "2fde1f7f2fd15ff370e9505f32a944fcf252455edefec16f6b7c81dfb10dae22",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0901",
+          "eventId": "E0901",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "73a646d12fabeae8e93cbb531f92f71b7d824fd5218e416a77746620363c3806",
+        "persistenceRecords": [
+          "AFTER_INTENT_PERSIST"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0901",
+        "committedActions": [],
+        "crashPoint": "AFTER_INTENT_PERSIST",
+        "eventId": "E0901",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_INTENT_PERSIST"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_INTENT_PERSIST"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST002"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0902",
+        "eventId": "E0902",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "a1b16eb50def51a1f4b675a2a7a40e8fcfa7851e9f264b7151dcb3d5352cceb9",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0902",
+          "eventId": "E0902",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "00d1c2c77a0b724135e81e11958d5f5b3160eb7be488e5544e913a8aedaa3d7d",
+        "persistenceRecords": [
+          "BEFORE_DISPATCH"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0902",
+        "committedActions": [],
+        "crashPoint": "BEFORE_DISPATCH",
+        "eventId": "E0902",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_DISPATCH"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_DISPATCH"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST003"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0903",
+        "eventId": "E0903",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "88fe432a4f8a068876fa53b596ba5466dd53876ec8acba2cd27f6cbdd9dc54c8",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0903",
+          "eventId": "E0903",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "dfb57dea68117c70e2856440595584564b5413cc47c78de88e9a40ca4278bbe6",
+        "persistenceRecords": [
+          "AFTER_DISPATCH_UNKNOWN"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0903",
+        "committedActions": [],
+        "crashPoint": "AFTER_DISPATCH_UNKNOWN",
+        "eventId": "E0903",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_DISPATCH_UNKNOWN"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_DISPATCH_UNKNOWN"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST004"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0904",
+        "eventId": "E0904",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "1c21687b4c614784e17eec81027e5a3d203d6153bd0cd2733cbe6f86cc28613c",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0904",
+          "eventId": "E0904",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "1bcd536b79c713fcf6bf13ce069d10f8965162be541b8ed4c863f55c52529d69",
+        "persistenceRecords": [
+          "AFTER_PARTIAL_FILL"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0904",
+        "committedActions": [],
+        "crashPoint": "AFTER_PARTIAL_FILL",
+        "eventId": "E0904",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_PARTIAL_FILL"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_PARTIAL_FILL"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST005"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0905",
+        "eventId": "E0905",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "35b4714e7e021e5e6e35813bb8cf7611e6f1742b54cc52adb2801aa09f551e6e",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0905",
+          "eventId": "E0905",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "3932ae582b518e86a3e845dec5c1b8a1ae7081ed92c4207ff3c85431f492633e",
+        "persistenceRecords": [
+          "AFTER_FULL_FILL"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0905",
+        "committedActions": [],
+        "crashPoint": "AFTER_FULL_FILL",
+        "eventId": "E0905",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_FULL_FILL"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_FULL_FILL"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST006"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0906",
+        "eventId": "E0906",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "bfb25a2b316a7066fad0834f3cf22ff3c86545a12884571ecadb571f2f8293b2",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0906",
+          "eventId": "E0906",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "ea9405055856b5b93bc5e78a94ee5c9c8c9ab68a3d763fbcc4ba6a3749f53d31",
+        "persistenceRecords": [
+          "BEFORE_DEAL_PERSIST"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0906",
+        "committedActions": [],
+        "crashPoint": "BEFORE_DEAL_PERSIST",
+        "eventId": "E0906",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_DEAL_PERSIST"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_DEAL_PERSIST"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST007"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0907",
+        "eventId": "E0907",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "96679c7ac4307e5973e787fffac4add42b1c160c31208a94387e516fc48d384e",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0907",
+          "eventId": "E0907",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "29abc5ef0fcf403db71998d9a0677b8d73905564a8fbb520a2f8ce639b256ade",
+        "persistenceRecords": [
+          "AFTER_DEAL_PERSIST"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0907",
+        "committedActions": [],
+        "crashPoint": "AFTER_DEAL_PERSIST",
+        "eventId": "E0907",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_DEAL_PERSIST"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_DEAL_PERSIST"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST008"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0908",
+        "eventId": "E0908",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "ba6b9aa2cc89e7c64be7805361a8a7dd49ed2af42995aa362e389b53deba4651",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0908",
+          "eventId": "E0908",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "0ba23f09f9c60a1098565db69da107cb41e1f674121c085ae7a2589cb51adcb9",
+        "persistenceRecords": [
+          "BEFORE_ALLOCATION"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0908",
+        "committedActions": [],
+        "crashPoint": "BEFORE_ALLOCATION",
+        "eventId": "E0908",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_ALLOCATION"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_ALLOCATION"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST009"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0909",
+        "eventId": "E0909",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "b68531a160f8c6e578e6588e9b649684b59484d03b7f61e1a8781c4c47e28090",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0909",
+          "eventId": "E0909",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "242d0d8b92582e961361ea5ad45d78c1572bae8aef78641b87824aac1c101366",
+        "persistenceRecords": [
+          "AFTER_ALLOCATION"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0909",
+        "committedActions": [],
+        "crashPoint": "AFTER_ALLOCATION",
+        "eventId": "E0909",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_ALLOCATION"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_ALLOCATION"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST010"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0910",
+        "eventId": "E0910",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "27b536e07532e1d565c82062268b287a8a72fff70151b9948a595ea22555c912",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0910",
+          "eventId": "E0910",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "054972be8923292952a5de1fd390c655775d0a1f1d4fc1c6488e6b935b2befd7",
+        "persistenceRecords": [
+          "BEFORE_FSM_COMMIT"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0910",
+        "committedActions": [],
+        "crashPoint": "BEFORE_FSM_COMMIT",
+        "eventId": "E0910",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_FSM_COMMIT"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_FSM_COMMIT"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST011"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0911",
+        "eventId": "E0911",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "97e25986f621fa37298783714969e590a7235260e11c5e14d7b2c62a1b27a581",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0911",
+          "eventId": "E0911",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "355b9dfdb3fc42706d253afa0d3c170b38f4a1208b526c5abdbe09184db41282",
+        "persistenceRecords": [
+          "AFTER_FSM_COMMIT"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0911",
+        "committedActions": [],
+        "crashPoint": "AFTER_FSM_COMMIT",
+        "eventId": "E0911",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_FSM_COMMIT"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_FSM_COMMIT"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST012"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0912",
+        "eventId": "E0912",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "a7359c81091c8d23657192e71319068175d40ec453e9cb202a8068aea5004c2c",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0912",
+          "eventId": "E0912",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "059710041beae8dfadb50507022088fd3d8573ff5868f14a98c5e5832fe5eada",
+        "persistenceRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0912",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0912",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_INTENT_PERSIST"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST013"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0913",
+        "eventId": "E0913",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "40fe13bc0361ab4a74f91aba3f2b2509362eb575c85344ef504278ef3e25c17e",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0913",
+          "eventId": "E0913",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "05ad27d92cc43bc6ab032ffbf4195fc7f752aa855dc9cc35333a250c5ef656f0",
+        "persistenceRecords": [
+          "AFTER_INTENT_PERSIST"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0913",
+        "committedActions": [],
+        "crashPoint": "AFTER_INTENT_PERSIST",
+        "eventId": "E0913",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_INTENT_PERSIST"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_INTENT_PERSIST"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST014"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0914",
+        "eventId": "E0914",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "dd0a90dfa2f2934feb9df1ac28f83d02aaa69f707ca672d5ec8217873e3e5a49",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0914",
+          "eventId": "E0914",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "e63e7db1bbc4c380cc98f3a36c0b9cd8adb3acc6a76457bdfafda578a6fc420f",
+        "persistenceRecords": [
+          "BEFORE_DISPATCH"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0914",
+        "committedActions": [],
+        "crashPoint": "BEFORE_DISPATCH",
+        "eventId": "E0914",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_DISPATCH"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_DISPATCH"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST015"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0915",
+        "eventId": "E0915",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "c23913c57eb12f4069bc19cec27486497f41730b4a99da73945a426cc9e9c9dd",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0915",
+          "eventId": "E0915",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "30db55fd4572a46d290d764e50b4a58767120fc790c63444534458ae785b85cf",
+        "persistenceRecords": [
+          "AFTER_DISPATCH_UNKNOWN"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0915",
+        "committedActions": [],
+        "crashPoint": "AFTER_DISPATCH_UNKNOWN",
+        "eventId": "E0915",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_DISPATCH_UNKNOWN"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_DISPATCH_UNKNOWN"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST016"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0916",
+        "eventId": "E0916",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "ab6dd0c158084691b92d93c7a06942dec824953ec3bd1a636b2f36c17bcd0c21",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0916",
+          "eventId": "E0916",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "1f6efb395a529f3400735a462bbd087f0f9745006c10787b23f4587ec06a710e",
+        "persistenceRecords": [
+          "AFTER_PARTIAL_FILL"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0916",
+        "committedActions": [],
+        "crashPoint": "AFTER_PARTIAL_FILL",
+        "eventId": "E0916",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_PARTIAL_FILL"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_PARTIAL_FILL"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST017"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0917",
+        "eventId": "E0917",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "3e1c48efd5fcb3ed7c659890457e7e0f12a0b4008a5332e07436c0fe7609c40c",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0917",
+          "eventId": "E0917",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "9d8e84c180c09d24bd3944078ef88d38685181ac569411ce2645f2ab7365e9f6",
+        "persistenceRecords": [
+          "AFTER_FULL_FILL"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0917",
+        "committedActions": [],
+        "crashPoint": "AFTER_FULL_FILL",
+        "eventId": "E0917",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_FULL_FILL"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_FULL_FILL"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST018"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0918",
+        "eventId": "E0918",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "4c405e7e491c591bdb8d4a063e374f9ff80b4ac7adedb32fec451c12357fd7e7",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0918",
+          "eventId": "E0918",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "fe7a04ef220b1140a1770557dd252be5bebbfd3ee8ea0766f789af0b6fa2db58",
+        "persistenceRecords": [
+          "BEFORE_DEAL_PERSIST"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0918",
+        "committedActions": [],
+        "crashPoint": "BEFORE_DEAL_PERSIST",
+        "eventId": "E0918",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_DEAL_PERSIST"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_DEAL_PERSIST"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST019"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0919",
+        "eventId": "E0919",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "4dcf302fee2242ca46430e76222437379d11d3cb94058ed8d41ffcfa9f1901dc",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0919",
+          "eventId": "E0919",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "a4c4364f00c5257e526d1df3a31cbd90ec31c73caa4ca9b1a824c4c7da638d97",
+        "persistenceRecords": [
+          "AFTER_DEAL_PERSIST"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0919",
+        "committedActions": [],
+        "crashPoint": "AFTER_DEAL_PERSIST",
+        "eventId": "E0919",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_DEAL_PERSIST"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_DEAL_PERSIST"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST020"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0920",
+        "eventId": "E0920",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "911a2bae988ba29945a8a3b25a5b7b89a4f3372c797eaff1d6d80173bc6126d0",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0920",
+          "eventId": "E0920",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "80e42b2dc0bd1bca1d23b7db5a99f187ef4393c0778ffe7f669cd7cf0f26ca05",
+        "persistenceRecords": [
+          "BEFORE_ALLOCATION"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0920",
+        "committedActions": [],
+        "crashPoint": "BEFORE_ALLOCATION",
+        "eventId": "E0920",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_ALLOCATION"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_ALLOCATION"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST021"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0921",
+        "eventId": "E0921",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "b5f6f2bbea85263e63f2525734b6f8261d59c4da746e8114bfeba10f4ba825b9",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0921",
+          "eventId": "E0921",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "ef4912dd5dce200fea170f7d40bd03736e6fed6a07b665c2e2fb5be8327a23a4",
+        "persistenceRecords": [
+          "AFTER_ALLOCATION"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0921",
+        "committedActions": [],
+        "crashPoint": "AFTER_ALLOCATION",
+        "eventId": "E0921",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_ALLOCATION"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_ALLOCATION"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST022"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0922",
+        "eventId": "E0922",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "0b6003c6c7e6d9d4d2ed622d9b46591e5daa648798ec6886fe829fa8d710e3f1",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0922",
+          "eventId": "E0922",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "1370e21f78f0e802a5eafdbca6895aa6a0440caaf6406a92025c1c6b803ae8c9",
+        "persistenceRecords": [
+          "BEFORE_FSM_COMMIT"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0922",
+        "committedActions": [],
+        "crashPoint": "BEFORE_FSM_COMMIT",
+        "eventId": "E0922",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "BEFORE_FSM_COMMIT"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "BEFORE_FSM_COMMIT"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST023"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_FSM_STATE": "RECOVERY",
+      "EXPECTED_INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_LEDGER_STATE": "UNCHANGED",
+      "EXPECTED_NEW_INTENTS": [],
+      "EXPECTED_OUTPUT": {
+        "actionId": "A0923",
+        "eventId": "E0923",
+        "replayAction": "RECONCILE"
+      },
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RECONCILIATION": "RECONCILE",
+      "EXPECTED_REPLAY_ACTION": "RECONCILE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "748b64f7b2f45a4b1e4cc22f4218184eb2630c22e47c6ea4c57b4edb9dd7da99",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "actionId": "A0923",
+          "eventId": "E0923",
+          "replayAction": "RECONCILE"
+        },
+        "outputDigest": "09e3896dd6c8108cbdd5016e5b82f36aaebec602bc2efe38af2cbf664b7f1dba",
+        "persistenceRecords": [
+          "AFTER_FSM_COMMIT"
+        ],
+        "positionDelta": [],
+        "reason": "OK",
+        "reserveDelta": "0",
+        "status": "PASS",
+        "valid": true
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "PASS",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORBIDDEN_DUPLICATE_INTENTS": true,
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0923",
+        "committedActions": [],
+        "crashPoint": "AFTER_FSM_COMMIT",
+        "eventId": "E0923",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "KNOWN",
+        "persistedRecords": [
+          "AFTER_FSM_COMMIT"
+        ]
+      },
+      "OBSERVED_DEALS_AFTER_RESTART": [],
+      "OBSERVED_POSITIONS_AFTER_RESTART": [],
+      "PERSISTED_RECORDS_BEFORE_CRASH": [
+        "AFTER_FSM_COMMIT"
+      ],
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC06",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "RST024"
+    }
+  ]
+}

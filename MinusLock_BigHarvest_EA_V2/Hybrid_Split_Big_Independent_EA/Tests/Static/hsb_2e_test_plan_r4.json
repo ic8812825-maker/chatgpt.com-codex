@@ -1,0 +1,5484 @@
+{
+  "tests": [
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T465",
+      "VECTOR_ID": "G001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T466",
+      "VECTOR_ID": "G002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T467",
+      "VECTOR_ID": "G003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T468",
+      "VECTOR_ID": "G004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T469",
+      "VECTOR_ID": "G005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T470",
+      "VECTOR_ID": "G006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T471",
+      "VECTOR_ID": "G007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T472",
+      "VECTOR_ID": "G008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T473",
+      "VECTOR_ID": "G009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T474",
+      "VECTOR_ID": "G010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T475",
+      "VECTOR_ID": "G011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T476",
+      "VECTOR_ID": "G012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T477",
+      "VECTOR_ID": "G013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T478",
+      "VECTOR_ID": "G014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T479",
+      "VECTOR_ID": "G015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T480",
+      "VECTOR_ID": "G016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T481",
+      "VECTOR_ID": "G017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T482",
+      "VECTOR_ID": "G018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T483",
+      "VECTOR_ID": "G019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T484",
+      "VECTOR_ID": "G020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T485",
+      "VECTOR_ID": "G021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T486",
+      "VECTOR_ID": "G022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T487",
+      "VECTOR_ID": "G023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T488",
+      "VECTOR_ID": "G024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T489",
+      "VECTOR_ID": "G025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T490",
+      "VECTOR_ID": "G026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T491",
+      "VECTOR_ID": "G027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T492",
+      "VECTOR_ID": "G028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T493",
+      "VECTOR_ID": "G029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T494",
+      "VECTOR_ID": "G030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T495",
+      "VECTOR_ID": "G031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T496",
+      "VECTOR_ID": "G032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T497",
+      "VECTOR_ID": "G033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T498",
+      "VECTOR_ID": "G034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T499",
+      "VECTOR_ID": "G035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T500",
+      "VECTOR_ID": "G036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T501",
+      "VECTOR_ID": "G037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T502",
+      "VECTOR_ID": "G038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T503",
+      "VECTOR_ID": "G039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T504",
+      "VECTOR_ID": "G040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T505",
+      "VECTOR_ID": "G041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T506",
+      "VECTOR_ID": "G042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T507",
+      "VECTOR_ID": "G043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T508",
+      "VECTOR_ID": "G044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T509",
+      "VECTOR_ID": "B001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T510",
+      "VECTOR_ID": "B002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T511",
+      "VECTOR_ID": "B003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T512",
+      "VECTOR_ID": "B004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T513",
+      "VECTOR_ID": "B005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T514",
+      "VECTOR_ID": "B006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T515",
+      "VECTOR_ID": "B007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T516",
+      "VECTOR_ID": "B008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T517",
+      "VECTOR_ID": "B009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T518",
+      "VECTOR_ID": "B010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T519",
+      "VECTOR_ID": "B011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T520",
+      "VECTOR_ID": "B012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T521",
+      "VECTOR_ID": "B013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T522",
+      "VECTOR_ID": "B014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T523",
+      "VECTOR_ID": "B015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T524",
+      "VECTOR_ID": "B016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T525",
+      "VECTOR_ID": "B017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T526",
+      "VECTOR_ID": "B018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T527",
+      "VECTOR_ID": "B019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T528",
+      "VECTOR_ID": "B020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T529",
+      "VECTOR_ID": "B021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T530",
+      "VECTOR_ID": "B022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T531",
+      "VECTOR_ID": "B023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T532",
+      "VECTOR_ID": "B024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T533",
+      "VECTOR_ID": "B025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T534",
+      "VECTOR_ID": "B026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T535",
+      "VECTOR_ID": "B027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T536",
+      "VECTOR_ID": "B028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T537",
+      "VECTOR_ID": "B029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T538",
+      "VECTOR_ID": "B030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T539",
+      "VECTOR_ID": "B031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T540",
+      "VECTOR_ID": "B032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T541",
+      "VECTOR_ID": "B033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T542",
+      "VECTOR_ID": "B034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T543",
+      "VECTOR_ID": "B035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T544",
+      "VECTOR_ID": "B036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T545",
+      "VECTOR_ID": "B037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T546",
+      "VECTOR_ID": "B038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T547",
+      "VECTOR_ID": "B039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T548",
+      "VECTOR_ID": "B040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T549",
+      "VECTOR_ID": "B041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T550",
+      "VECTOR_ID": "B042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T551",
+      "VECTOR_ID": "B043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T552",
+      "VECTOR_ID": "B044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T553",
+      "VECTOR_ID": "N001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T554",
+      "VECTOR_ID": "N002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T555",
+      "VECTOR_ID": "N003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T556",
+      "VECTOR_ID": "N004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T557",
+      "VECTOR_ID": "N005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T558",
+      "VECTOR_ID": "N006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T559",
+      "VECTOR_ID": "N007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T560",
+      "VECTOR_ID": "N008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T561",
+      "VECTOR_ID": "N009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T562",
+      "VECTOR_ID": "N010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T563",
+      "VECTOR_ID": "N011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T564",
+      "VECTOR_ID": "N012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T565",
+      "VECTOR_ID": "N013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T566",
+      "VECTOR_ID": "N014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T567",
+      "VECTOR_ID": "N015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T568",
+      "VECTOR_ID": "N016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T569",
+      "VECTOR_ID": "N017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T570",
+      "VECTOR_ID": "N018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T571",
+      "VECTOR_ID": "N019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T572",
+      "VECTOR_ID": "N020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T573",
+      "VECTOR_ID": "N021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T574",
+      "VECTOR_ID": "N022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T575",
+      "VECTOR_ID": "N023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T576",
+      "VECTOR_ID": "N024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T577",
+      "VECTOR_ID": "N025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T578",
+      "VECTOR_ID": "N026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T579",
+      "VECTOR_ID": "N027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T580",
+      "VECTOR_ID": "N028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T581",
+      "VECTOR_ID": "N029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T582",
+      "VECTOR_ID": "N030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T583",
+      "VECTOR_ID": "N031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T584",
+      "VECTOR_ID": "N032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T585",
+      "VECTOR_ID": "N033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T586",
+      "VECTOR_ID": "N034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T587",
+      "VECTOR_ID": "N035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T588",
+      "VECTOR_ID": "N036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T589",
+      "VECTOR_ID": "N037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T590",
+      "VECTOR_ID": "N038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T591",
+      "VECTOR_ID": "N039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T592",
+      "VECTOR_ID": "N040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T593",
+      "VECTOR_ID": "N041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T594",
+      "VECTOR_ID": "N042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T595",
+      "VECTOR_ID": "N043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T596",
+      "VECTOR_ID": "N044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T597",
+      "VECTOR_ID": "SBIG001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T598",
+      "VECTOR_ID": "SBIG002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T599",
+      "VECTOR_ID": "SBIG003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T600",
+      "VECTOR_ID": "SBIG004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T601",
+      "VECTOR_ID": "SBIG005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T602",
+      "VECTOR_ID": "SBIG006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T603",
+      "VECTOR_ID": "SBIG007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T604",
+      "VECTOR_ID": "SBIG008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T605",
+      "VECTOR_ID": "SBIG009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T606",
+      "VECTOR_ID": "SBIG010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T607",
+      "VECTOR_ID": "SBIG011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T608",
+      "VECTOR_ID": "SBIG012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T609",
+      "VECTOR_ID": "SBIG013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T610",
+      "VECTOR_ID": "SBIG014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T611",
+      "VECTOR_ID": "SBIG015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T612",
+      "VECTOR_ID": "SBIG016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T613",
+      "VECTOR_ID": "SBIG017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T614",
+      "VECTOR_ID": "SBIG018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T615",
+      "VECTOR_ID": "SBIG019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T616",
+      "VECTOR_ID": "SBIG020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T617",
+      "VECTOR_ID": "SSMALL001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T618",
+      "VECTOR_ID": "SSMALL002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T619",
+      "VECTOR_ID": "SSMALL003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T620",
+      "VECTOR_ID": "SSMALL004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T621",
+      "VECTOR_ID": "SSMALL005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T622",
+      "VECTOR_ID": "SSMALL006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T623",
+      "VECTOR_ID": "SSMALL007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T624",
+      "VECTOR_ID": "SSMALL008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T625",
+      "VECTOR_ID": "SSMALL009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T626",
+      "VECTOR_ID": "SSMALL010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T627",
+      "VECTOR_ID": "SSMALL011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T628",
+      "VECTOR_ID": "SSMALL012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T629",
+      "VECTOR_ID": "SSMALL013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T630",
+      "VECTOR_ID": "SSMALL014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T631",
+      "VECTOR_ID": "SSMALL015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T632",
+      "VECTOR_ID": "SSMALL016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T633",
+      "VECTOR_ID": "SSMALL017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T634",
+      "VECTOR_ID": "SSMALL018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T635",
+      "VECTOR_ID": "SSMALL019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T636",
+      "VECTOR_ID": "SSMALL020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T637",
+      "VECTOR_ID": "SINIT001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T638",
+      "VECTOR_ID": "SINIT002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T639",
+      "VECTOR_ID": "SINIT003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T640",
+      "VECTOR_ID": "SINIT004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T641",
+      "VECTOR_ID": "SINIT005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T642",
+      "VECTOR_ID": "SINIT006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T643",
+      "VECTOR_ID": "SINIT007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T644",
+      "VECTOR_ID": "SINIT008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T645",
+      "VECTOR_ID": "SINIT009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T646",
+      "VECTOR_ID": "SINIT010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T647",
+      "VECTOR_ID": "SBROKER001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T648",
+      "VECTOR_ID": "SBROKER002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T649",
+      "VECTOR_ID": "SBROKER003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T650",
+      "VECTOR_ID": "SBROKER004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T651",
+      "VECTOR_ID": "SBROKER005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T652",
+      "VECTOR_ID": "SBROKER006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T653",
+      "VECTOR_ID": "SBROKER007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T654",
+      "VECTOR_ID": "SBROKER008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T655",
+      "VECTOR_ID": "SBROKER009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T656",
+      "VECTOR_ID": "SBROKER010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T657",
+      "VECTOR_ID": "SBROKER011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T658",
+      "VECTOR_ID": "SBROKER012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T659",
+      "VECTOR_ID": "SBROKER013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T660",
+      "VECTOR_ID": "SBROKER014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T661",
+      "VECTOR_ID": "SBROKER015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T662",
+      "VECTOR_ID": "SBROKER016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T663",
+      "VECTOR_ID": "SBROKER017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T664",
+      "VECTOR_ID": "SBROKER018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T665",
+      "VECTOR_ID": "SBROKER019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T666",
+      "VECTOR_ID": "SBROKER020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T667",
+      "VECTOR_ID": "SOWN001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T668",
+      "VECTOR_ID": "SOWN002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T669",
+      "VECTOR_ID": "SOWN003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T670",
+      "VECTOR_ID": "SOWN004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T671",
+      "VECTOR_ID": "SOWN005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T672",
+      "VECTOR_ID": "SOWN006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T673",
+      "VECTOR_ID": "SOWN007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T674",
+      "VECTOR_ID": "SOWN008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T675",
+      "VECTOR_ID": "SOWN009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T676",
+      "VECTOR_ID": "SOWN010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T677",
+      "VECTOR_ID": "SOWN011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T678",
+      "VECTOR_ID": "SOWN012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T679",
+      "VECTOR_ID": "SOWN013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T680",
+      "VECTOR_ID": "SOWN014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T681",
+      "VECTOR_ID": "SOWN015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T682",
+      "VECTOR_ID": "SOWN016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T683",
+      "VECTOR_ID": "SONCE001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T684",
+      "VECTOR_ID": "SONCE002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T685",
+      "VECTOR_ID": "SONCE003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T686",
+      "VECTOR_ID": "SONCE004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T687",
+      "VECTOR_ID": "SONCE005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T688",
+      "VECTOR_ID": "SONCE006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T689",
+      "VECTOR_ID": "SONCE007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T690",
+      "VECTOR_ID": "SONCE008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T691",
+      "VECTOR_ID": "SONCE009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T692",
+      "VECTOR_ID": "SONCE010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T693",
+      "VECTOR_ID": "SONCE011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T694",
+      "VECTOR_ID": "SONCE012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T695",
+      "VECTOR_ID": "SONCE013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T696",
+      "VECTOR_ID": "SONCE014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T697",
+      "VECTOR_ID": "SONCE015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T698",
+      "VECTOR_ID": "SONCE016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T699",
+      "VECTOR_ID": "RST001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T700",
+      "VECTOR_ID": "RST002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T701",
+      "VECTOR_ID": "RST003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T702",
+      "VECTOR_ID": "RST004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T703",
+      "VECTOR_ID": "RST005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T704",
+      "VECTOR_ID": "RST006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T705",
+      "VECTOR_ID": "RST007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T706",
+      "VECTOR_ID": "RST008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T707",
+      "VECTOR_ID": "RST009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T708",
+      "VECTOR_ID": "RST010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T709",
+      "VECTOR_ID": "RST011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T710",
+      "VECTOR_ID": "RST012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T711",
+      "VECTOR_ID": "RST013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T712",
+      "VECTOR_ID": "RST014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T713",
+      "VECTOR_ID": "RST015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T714",
+      "VECTOR_ID": "RST016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T715",
+      "VECTOR_ID": "RST017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T716",
+      "VECTOR_ID": "RST018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T717",
+      "VECTOR_ID": "RST019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T718",
+      "VECTOR_ID": "RST020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T719",
+      "VECTOR_ID": "RST021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T720",
+      "VECTOR_ID": "RST022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T721",
+      "VECTOR_ID": "RST023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_STATUS",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T722",
+      "VECTOR_ID": "RST024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T723",
+      "VECTOR_ID": "G001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T724",
+      "VECTOR_ID": "G002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T725",
+      "VECTOR_ID": "G003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T726",
+      "VECTOR_ID": "G004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T727",
+      "VECTOR_ID": "G005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T728",
+      "VECTOR_ID": "G006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T729",
+      "VECTOR_ID": "G007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T730",
+      "VECTOR_ID": "G008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T731",
+      "VECTOR_ID": "G009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T732",
+      "VECTOR_ID": "G010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T733",
+      "VECTOR_ID": "G011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T734",
+      "VECTOR_ID": "G012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T735",
+      "VECTOR_ID": "G013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T736",
+      "VECTOR_ID": "G014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T737",
+      "VECTOR_ID": "G015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T738",
+      "VECTOR_ID": "G016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T739",
+      "VECTOR_ID": "G017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T740",
+      "VECTOR_ID": "G018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T741",
+      "VECTOR_ID": "G019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T742",
+      "VECTOR_ID": "G020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T743",
+      "VECTOR_ID": "G021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T744",
+      "VECTOR_ID": "G022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T745",
+      "VECTOR_ID": "G023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T746",
+      "VECTOR_ID": "G024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T747",
+      "VECTOR_ID": "G025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T748",
+      "VECTOR_ID": "G026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T749",
+      "VECTOR_ID": "G027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T750",
+      "VECTOR_ID": "G028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T751",
+      "VECTOR_ID": "G029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T752",
+      "VECTOR_ID": "G030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T753",
+      "VECTOR_ID": "G031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T754",
+      "VECTOR_ID": "G032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T755",
+      "VECTOR_ID": "G033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T756",
+      "VECTOR_ID": "G034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T757",
+      "VECTOR_ID": "G035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T758",
+      "VECTOR_ID": "G036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T759",
+      "VECTOR_ID": "G037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T760",
+      "VECTOR_ID": "G038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T761",
+      "VECTOR_ID": "G039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T762",
+      "VECTOR_ID": "G040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T763",
+      "VECTOR_ID": "G041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T764",
+      "VECTOR_ID": "G042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T765",
+      "VECTOR_ID": "G043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T766",
+      "VECTOR_ID": "G044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T767",
+      "VECTOR_ID": "B001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T768",
+      "VECTOR_ID": "B002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T769",
+      "VECTOR_ID": "B003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T770",
+      "VECTOR_ID": "B004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T771",
+      "VECTOR_ID": "B005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T772",
+      "VECTOR_ID": "B006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T773",
+      "VECTOR_ID": "B007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T774",
+      "VECTOR_ID": "B008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T775",
+      "VECTOR_ID": "B009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T776",
+      "VECTOR_ID": "B010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T777",
+      "VECTOR_ID": "B011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T778",
+      "VECTOR_ID": "B012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T779",
+      "VECTOR_ID": "B013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T780",
+      "VECTOR_ID": "B014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T781",
+      "VECTOR_ID": "B015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T782",
+      "VECTOR_ID": "B016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T783",
+      "VECTOR_ID": "B017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T784",
+      "VECTOR_ID": "B018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T785",
+      "VECTOR_ID": "B019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T786",
+      "VECTOR_ID": "B020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T787",
+      "VECTOR_ID": "B021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T788",
+      "VECTOR_ID": "B022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T789",
+      "VECTOR_ID": "B023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T790",
+      "VECTOR_ID": "B024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T791",
+      "VECTOR_ID": "B025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T792",
+      "VECTOR_ID": "B026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T793",
+      "VECTOR_ID": "B027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T794",
+      "VECTOR_ID": "B028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T795",
+      "VECTOR_ID": "B029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T796",
+      "VECTOR_ID": "B030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T797",
+      "VECTOR_ID": "B031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T798",
+      "VECTOR_ID": "B032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T799",
+      "VECTOR_ID": "B033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T800",
+      "VECTOR_ID": "B034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T801",
+      "VECTOR_ID": "B035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T802",
+      "VECTOR_ID": "B036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T803",
+      "VECTOR_ID": "B037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T804",
+      "VECTOR_ID": "B038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T805",
+      "VECTOR_ID": "B039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T806",
+      "VECTOR_ID": "B040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T807",
+      "VECTOR_ID": "B041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T808",
+      "VECTOR_ID": "B042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T809",
+      "VECTOR_ID": "B043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T810",
+      "VECTOR_ID": "B044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T811",
+      "VECTOR_ID": "N001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T812",
+      "VECTOR_ID": "N002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T813",
+      "VECTOR_ID": "N003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T814",
+      "VECTOR_ID": "N004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T815",
+      "VECTOR_ID": "N005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T816",
+      "VECTOR_ID": "N006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T817",
+      "VECTOR_ID": "N007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T818",
+      "VECTOR_ID": "N008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T819",
+      "VECTOR_ID": "N009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T820",
+      "VECTOR_ID": "N010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T821",
+      "VECTOR_ID": "N011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T822",
+      "VECTOR_ID": "N012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T823",
+      "VECTOR_ID": "N013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T824",
+      "VECTOR_ID": "N014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T825",
+      "VECTOR_ID": "N015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T826",
+      "VECTOR_ID": "N016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T827",
+      "VECTOR_ID": "N017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T828",
+      "VECTOR_ID": "N018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T829",
+      "VECTOR_ID": "N019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T830",
+      "VECTOR_ID": "N020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T831",
+      "VECTOR_ID": "N021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T832",
+      "VECTOR_ID": "N022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T833",
+      "VECTOR_ID": "N023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T834",
+      "VECTOR_ID": "N024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T835",
+      "VECTOR_ID": "N025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T836",
+      "VECTOR_ID": "N026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T837",
+      "VECTOR_ID": "N027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T838",
+      "VECTOR_ID": "N028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T839",
+      "VECTOR_ID": "N029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T840",
+      "VECTOR_ID": "N030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T841",
+      "VECTOR_ID": "N031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T842",
+      "VECTOR_ID": "N032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T843",
+      "VECTOR_ID": "N033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T844",
+      "VECTOR_ID": "N034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T845",
+      "VECTOR_ID": "N035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T846",
+      "VECTOR_ID": "N036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T847",
+      "VECTOR_ID": "N037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T848",
+      "VECTOR_ID": "N038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T849",
+      "VECTOR_ID": "N039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T850",
+      "VECTOR_ID": "N040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T851",
+      "VECTOR_ID": "N041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T852",
+      "VECTOR_ID": "N042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T853",
+      "VECTOR_ID": "N043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T854",
+      "VECTOR_ID": "N044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T855",
+      "VECTOR_ID": "SBIG001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T856",
+      "VECTOR_ID": "SBIG002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T857",
+      "VECTOR_ID": "SBIG003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T858",
+      "VECTOR_ID": "SBIG004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T859",
+      "VECTOR_ID": "SBIG005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T860",
+      "VECTOR_ID": "SBIG006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T861",
+      "VECTOR_ID": "SBIG007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T862",
+      "VECTOR_ID": "SBIG008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T863",
+      "VECTOR_ID": "SBIG009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T864",
+      "VECTOR_ID": "SBIG010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T865",
+      "VECTOR_ID": "SBIG011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T866",
+      "VECTOR_ID": "SBIG012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T867",
+      "VECTOR_ID": "SBIG013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T868",
+      "VECTOR_ID": "SBIG014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T869",
+      "VECTOR_ID": "SBIG015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T870",
+      "VECTOR_ID": "SBIG016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T871",
+      "VECTOR_ID": "SBIG017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T872",
+      "VECTOR_ID": "SBIG018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T873",
+      "VECTOR_ID": "SBIG019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T874",
+      "VECTOR_ID": "SBIG020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T875",
+      "VECTOR_ID": "SSMALL001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T876",
+      "VECTOR_ID": "SSMALL002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T877",
+      "VECTOR_ID": "SSMALL003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T878",
+      "VECTOR_ID": "SSMALL004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T879",
+      "VECTOR_ID": "SSMALL005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T880",
+      "VECTOR_ID": "SSMALL006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T881",
+      "VECTOR_ID": "SSMALL007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T882",
+      "VECTOR_ID": "SSMALL008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T883",
+      "VECTOR_ID": "SSMALL009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T884",
+      "VECTOR_ID": "SSMALL010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T885",
+      "VECTOR_ID": "SSMALL011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T886",
+      "VECTOR_ID": "SSMALL012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T887",
+      "VECTOR_ID": "SSMALL013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T888",
+      "VECTOR_ID": "SSMALL014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T889",
+      "VECTOR_ID": "SSMALL015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T890",
+      "VECTOR_ID": "SSMALL016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T891",
+      "VECTOR_ID": "SSMALL017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T892",
+      "VECTOR_ID": "SSMALL018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T893",
+      "VECTOR_ID": "SSMALL019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T894",
+      "VECTOR_ID": "SSMALL020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T895",
+      "VECTOR_ID": "SINIT001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T896",
+      "VECTOR_ID": "SINIT002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T897",
+      "VECTOR_ID": "SINIT003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T898",
+      "VECTOR_ID": "SINIT004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T899",
+      "VECTOR_ID": "SINIT005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T900",
+      "VECTOR_ID": "SINIT006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T901",
+      "VECTOR_ID": "SINIT007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T902",
+      "VECTOR_ID": "SINIT008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T903",
+      "VECTOR_ID": "SINIT009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T904",
+      "VECTOR_ID": "SINIT010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T905",
+      "VECTOR_ID": "SBROKER001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T906",
+      "VECTOR_ID": "SBROKER002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T907",
+      "VECTOR_ID": "SBROKER003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T908",
+      "VECTOR_ID": "SBROKER004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T909",
+      "VECTOR_ID": "SBROKER005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T910",
+      "VECTOR_ID": "SBROKER006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T911",
+      "VECTOR_ID": "SBROKER007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T912",
+      "VECTOR_ID": "SBROKER008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T913",
+      "VECTOR_ID": "SBROKER009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T914",
+      "VECTOR_ID": "SBROKER010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T915",
+      "VECTOR_ID": "SBROKER011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T916",
+      "VECTOR_ID": "SBROKER012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T917",
+      "VECTOR_ID": "SBROKER013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T918",
+      "VECTOR_ID": "SBROKER014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T919",
+      "VECTOR_ID": "SBROKER015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T920",
+      "VECTOR_ID": "SBROKER016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T921",
+      "VECTOR_ID": "SBROKER017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T922",
+      "VECTOR_ID": "SBROKER018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T923",
+      "VECTOR_ID": "SBROKER019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T924",
+      "VECTOR_ID": "SBROKER020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T925",
+      "VECTOR_ID": "SOWN001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T926",
+      "VECTOR_ID": "SOWN002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T927",
+      "VECTOR_ID": "SOWN003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T928",
+      "VECTOR_ID": "SOWN004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T929",
+      "VECTOR_ID": "SOWN005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T930",
+      "VECTOR_ID": "SOWN006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T931",
+      "VECTOR_ID": "SOWN007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T932",
+      "VECTOR_ID": "SOWN008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T933",
+      "VECTOR_ID": "SOWN009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T934",
+      "VECTOR_ID": "SOWN010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T935",
+      "VECTOR_ID": "SOWN011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T936",
+      "VECTOR_ID": "SOWN012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T937",
+      "VECTOR_ID": "SOWN013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T938",
+      "VECTOR_ID": "SOWN014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T939",
+      "VECTOR_ID": "SOWN015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T940",
+      "VECTOR_ID": "SOWN016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T941",
+      "VECTOR_ID": "SONCE001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T942",
+      "VECTOR_ID": "SONCE002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T943",
+      "VECTOR_ID": "SONCE003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T944",
+      "VECTOR_ID": "SONCE004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T945",
+      "VECTOR_ID": "SONCE005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T946",
+      "VECTOR_ID": "SONCE006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T947",
+      "VECTOR_ID": "SONCE007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T948",
+      "VECTOR_ID": "SONCE008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T949",
+      "VECTOR_ID": "SONCE009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T950",
+      "VECTOR_ID": "SONCE010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T951",
+      "VECTOR_ID": "SONCE011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T952",
+      "VECTOR_ID": "SONCE012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T953",
+      "VECTOR_ID": "SONCE013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T954",
+      "VECTOR_ID": "SONCE014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T955",
+      "VECTOR_ID": "SONCE015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T956",
+      "VECTOR_ID": "SONCE016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T957",
+      "VECTOR_ID": "RST001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T958",
+      "VECTOR_ID": "RST002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T959",
+      "VECTOR_ID": "RST003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T960",
+      "VECTOR_ID": "RST004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T961",
+      "VECTOR_ID": "RST005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T962",
+      "VECTOR_ID": "RST006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T963",
+      "VECTOR_ID": "RST007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T964",
+      "VECTOR_ID": "RST008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T965",
+      "VECTOR_ID": "RST009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T966",
+      "VECTOR_ID": "RST010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T967",
+      "VECTOR_ID": "RST011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T968",
+      "VECTOR_ID": "RST012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T969",
+      "VECTOR_ID": "RST013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T970",
+      "VECTOR_ID": "RST014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T971",
+      "VECTOR_ID": "RST015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T972",
+      "VECTOR_ID": "RST016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T973",
+      "VECTOR_ID": "RST017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T974",
+      "VECTOR_ID": "RST018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T975",
+      "VECTOR_ID": "RST019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T976",
+      "VECTOR_ID": "RST020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T977",
+      "VECTOR_ID": "RST021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T978",
+      "VECTOR_ID": "RST022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T979",
+      "VECTOR_ID": "RST023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_REASON",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T980",
+      "VECTOR_ID": "RST024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T981",
+      "VECTOR_ID": "G001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T982",
+      "VECTOR_ID": "G002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T983",
+      "VECTOR_ID": "G003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T984",
+      "VECTOR_ID": "G004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T985",
+      "VECTOR_ID": "G005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T986",
+      "VECTOR_ID": "G006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T987",
+      "VECTOR_ID": "G007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T988",
+      "VECTOR_ID": "G008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T989",
+      "VECTOR_ID": "G009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T990",
+      "VECTOR_ID": "G010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T991",
+      "VECTOR_ID": "G011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T992",
+      "VECTOR_ID": "G012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T993",
+      "VECTOR_ID": "G013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T994",
+      "VECTOR_ID": "G014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T995",
+      "VECTOR_ID": "G015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T996",
+      "VECTOR_ID": "G016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T997",
+      "VECTOR_ID": "G017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T998",
+      "VECTOR_ID": "G018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T999",
+      "VECTOR_ID": "G019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1000",
+      "VECTOR_ID": "G020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1001",
+      "VECTOR_ID": "G021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1002",
+      "VECTOR_ID": "G022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1003",
+      "VECTOR_ID": "G023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1004",
+      "VECTOR_ID": "G024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1005",
+      "VECTOR_ID": "G025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1006",
+      "VECTOR_ID": "G026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1007",
+      "VECTOR_ID": "G027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1008",
+      "VECTOR_ID": "G028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1009",
+      "VECTOR_ID": "G029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1010",
+      "VECTOR_ID": "G030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1011",
+      "VECTOR_ID": "G031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1012",
+      "VECTOR_ID": "G032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1013",
+      "VECTOR_ID": "G033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1014",
+      "VECTOR_ID": "G034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1015",
+      "VECTOR_ID": "G035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1016",
+      "VECTOR_ID": "G036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1017",
+      "VECTOR_ID": "G037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1018",
+      "VECTOR_ID": "G038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1019",
+      "VECTOR_ID": "G039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1020",
+      "VECTOR_ID": "G040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1021",
+      "VECTOR_ID": "G041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1022",
+      "VECTOR_ID": "G042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1023",
+      "VECTOR_ID": "G043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1024",
+      "VECTOR_ID": "G044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1025",
+      "VECTOR_ID": "B001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1026",
+      "VECTOR_ID": "B002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1027",
+      "VECTOR_ID": "B003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1028",
+      "VECTOR_ID": "B004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1029",
+      "VECTOR_ID": "B005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1030",
+      "VECTOR_ID": "B006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1031",
+      "VECTOR_ID": "B007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1032",
+      "VECTOR_ID": "B008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1033",
+      "VECTOR_ID": "B009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1034",
+      "VECTOR_ID": "B010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1035",
+      "VECTOR_ID": "B011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1036",
+      "VECTOR_ID": "B012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1037",
+      "VECTOR_ID": "B013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1038",
+      "VECTOR_ID": "B014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1039",
+      "VECTOR_ID": "B015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1040",
+      "VECTOR_ID": "B016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1041",
+      "VECTOR_ID": "B017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1042",
+      "VECTOR_ID": "B018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1043",
+      "VECTOR_ID": "B019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1044",
+      "VECTOR_ID": "B020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1045",
+      "VECTOR_ID": "B021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1046",
+      "VECTOR_ID": "B022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1047",
+      "VECTOR_ID": "B023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1048",
+      "VECTOR_ID": "B024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1049",
+      "VECTOR_ID": "B025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1050",
+      "VECTOR_ID": "B026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1051",
+      "VECTOR_ID": "B027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1052",
+      "VECTOR_ID": "B028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1053",
+      "VECTOR_ID": "B029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1054",
+      "VECTOR_ID": "B030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1055",
+      "VECTOR_ID": "B031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1056",
+      "VECTOR_ID": "B032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1057",
+      "VECTOR_ID": "B033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1058",
+      "VECTOR_ID": "B034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1059",
+      "VECTOR_ID": "B035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1060",
+      "VECTOR_ID": "B036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1061",
+      "VECTOR_ID": "B037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1062",
+      "VECTOR_ID": "B038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1063",
+      "VECTOR_ID": "B039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1064",
+      "VECTOR_ID": "B040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1065",
+      "VECTOR_ID": "B041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1066",
+      "VECTOR_ID": "B042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1067",
+      "VECTOR_ID": "B043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1068",
+      "VECTOR_ID": "B044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1069",
+      "VECTOR_ID": "N001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1070",
+      "VECTOR_ID": "N002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1071",
+      "VECTOR_ID": "N003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1072",
+      "VECTOR_ID": "N004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1073",
+      "VECTOR_ID": "N005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1074",
+      "VECTOR_ID": "N006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1075",
+      "VECTOR_ID": "N007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1076",
+      "VECTOR_ID": "N008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1077",
+      "VECTOR_ID": "N009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1078",
+      "VECTOR_ID": "N010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1079",
+      "VECTOR_ID": "N011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1080",
+      "VECTOR_ID": "N012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1081",
+      "VECTOR_ID": "N013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1082",
+      "VECTOR_ID": "N014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1083",
+      "VECTOR_ID": "N015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1084",
+      "VECTOR_ID": "N016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1085",
+      "VECTOR_ID": "N017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1086",
+      "VECTOR_ID": "N018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1087",
+      "VECTOR_ID": "N019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1088",
+      "VECTOR_ID": "N020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1089",
+      "VECTOR_ID": "N021"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1090",
+      "VECTOR_ID": "N022"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1091",
+      "VECTOR_ID": "N023"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1092",
+      "VECTOR_ID": "N024"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1093",
+      "VECTOR_ID": "N025"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1094",
+      "VECTOR_ID": "N026"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1095",
+      "VECTOR_ID": "N027"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1096",
+      "VECTOR_ID": "N028"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1097",
+      "VECTOR_ID": "N029"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1098",
+      "VECTOR_ID": "N030"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1099",
+      "VECTOR_ID": "N031"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1100",
+      "VECTOR_ID": "N032"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1101",
+      "VECTOR_ID": "N033"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1102",
+      "VECTOR_ID": "N034"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1103",
+      "VECTOR_ID": "N035"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1104",
+      "VECTOR_ID": "N036"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1105",
+      "VECTOR_ID": "N037"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1106",
+      "VECTOR_ID": "N038"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1107",
+      "VECTOR_ID": "N039"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "TEST_ID": "T1108",
+      "VECTOR_ID": "N040"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1109",
+      "VECTOR_ID": "N041"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "validate_context",
+      "TEST_ID": "T1110",
+      "VECTOR_ID": "N042"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1111",
+      "VECTOR_ID": "N043"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "TEST_ID": "T1112",
+      "VECTOR_ID": "N044"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1113",
+      "VECTOR_ID": "SBIG001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1114",
+      "VECTOR_ID": "SBIG002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1115",
+      "VECTOR_ID": "SBIG003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1116",
+      "VECTOR_ID": "SBIG004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1117",
+      "VECTOR_ID": "SBIG005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1118",
+      "VECTOR_ID": "SBIG006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1119",
+      "VECTOR_ID": "SBIG007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1120",
+      "VECTOR_ID": "SBIG008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1121",
+      "VECTOR_ID": "SBIG009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1122",
+      "VECTOR_ID": "SBIG010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1123",
+      "VECTOR_ID": "SBIG011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1124",
+      "VECTOR_ID": "SBIG012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1125",
+      "VECTOR_ID": "SBIG013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1126",
+      "VECTOR_ID": "SBIG014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1127",
+      "VECTOR_ID": "SBIG015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1128",
+      "VECTOR_ID": "SBIG016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1129",
+      "VECTOR_ID": "SBIG017"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1130",
+      "VECTOR_ID": "SBIG018"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1131",
+      "VECTOR_ID": "SBIG019"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_big_level_scenario",
+      "TEST_ID": "T1132",
+      "VECTOR_ID": "SBIG020"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1133",
+      "VECTOR_ID": "SSMALL001"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1134",
+      "VECTOR_ID": "SSMALL002"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1135",
+      "VECTOR_ID": "SSMALL003"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1136",
+      "VECTOR_ID": "SSMALL004"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1137",
+      "VECTOR_ID": "SSMALL005"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1138",
+      "VECTOR_ID": "SSMALL006"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1139",
+      "VECTOR_ID": "SSMALL007"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1140",
+      "VECTOR_ID": "SSMALL008"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1141",
+      "VECTOR_ID": "SSMALL009"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1142",
+      "VECTOR_ID": "SSMALL010"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1143",
+      "VECTOR_ID": "SSMALL011"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1144",
+      "VECTOR_ID": "SSMALL012"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1145",
+      "VECTOR_ID": "SSMALL013"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1146",
+      "VECTOR_ID": "SSMALL014"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1147",
+      "VECTOR_ID": "SSMALL015"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1148",
+      "VECTOR_ID": "SSMALL016"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_OUTPUT",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "TEST_ID": "T1149",
+      "VECTOR_ID": "SSMALL017"
+    }
+  ]
+}

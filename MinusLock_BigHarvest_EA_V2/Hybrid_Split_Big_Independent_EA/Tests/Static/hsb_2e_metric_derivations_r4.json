@@ -1,0 +1,100 @@
+{
+  "metrics": [
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "VECTOR_INVARIANTS_EXECUTED",
+      "MINIMUM_SOURCE_CHECKS": 100,
+      "SOURCE_PATTERNS": [
+        "INV_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "MONEY_CONSERVATION",
+      "MINIMUM_SOURCE_CHECKS": 20,
+      "SOURCE_PATTERNS": [
+        "INV_MONEY_CONSERVATION_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "VOLUME_CONSERVATION",
+      "MINIMUM_SOURCE_CHECKS": 20,
+      "SOURCE_PATTERNS": [
+        "INV_VOLUME_CONSERVATION_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "INITIAL_POSITIVE_PROFIT_IGNORED",
+      "MINIMUM_SOURCE_CHECKS": 10,
+      "SOURCE_PATTERNS": [
+        "INV_INITIAL_POSITIVE_PROFIT_IGNORED_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "PARTIAL_FAR_RESERVE_ISOLATION",
+      "MINIMUM_SOURCE_CHECKS": 20,
+      "SOURCE_PATTERNS": [
+        "INV_PARTIAL_FAR_RESERVE_ISOLATION_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "NEW_FAR_COMPRESSION",
+      "MINIMUM_SOURCE_CHECKS": 20,
+      "SOURCE_PATTERNS": [
+        "INV_NEW_FAR_COMPRESSION_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "FINAL_CLOSE_GATES",
+      "MINIMUM_SOURCE_CHECKS": 20,
+      "SOURCE_PATTERNS": [
+        "INV_FINAL_CLOSE_GATES_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "EXACTLY_ONCE",
+      "MINIMUM_SOURCE_CHECKS": 20,
+      "SOURCE_PATTERNS": [
+        "INV_ACTION_EXACTLY_ONCE_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "RESTART_DETERMINISM",
+      "MINIMUM_SOURCE_CHECKS": 24,
+      "SOURCE_PATTERNS": [
+        "RESTART_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "SCENARIO_ENGINE",
+      "MINIMUM_SOURCE_CHECKS": 16,
+      "SOURCE_PATTERNS": [
+        "SCENARIO_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "BROKER_INTENT_VALIDATION",
+      "MINIMUM_SOURCE_CHECKS": 20,
+      "SOURCE_PATTERNS": [
+        "BROKER_*"
+      ]
+    },
+    {
+      "DERIVATION": "ALL",
+      "METRIC_ID": "T465_T1149",
+      "MINIMUM_SOURCE_CHECKS": 685,
+      "SOURCE_PATTERNS": [
+        "TEST_T*"
+      ]
+    }
+  ]
+}

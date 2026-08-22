@@ -1,0 +1,804 @@
+{
+  "components": [
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner1.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "validate_context"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G001",
+        "N001"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner2.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "initial_lock"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G002",
+        "N002"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner3.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_big_level_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G003",
+        "N003"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner4.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_small_reversal_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G004",
+        "N004"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner5.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "restart_replay"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G005",
+        "N005"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner6.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "validate_context"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G006",
+        "N006"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner7.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "initial_lock"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G007",
+        "N007"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner8.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_big_level_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G008",
+        "N008"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner9.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_small_reversal_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G009",
+        "N009"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner10.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "restart_replay"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G010",
+        "N010"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner11.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "validate_context"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G011",
+        "N011"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner12.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "initial_lock"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G012",
+        "N012"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner13.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_big_level_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G013",
+        "N013"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner14.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_small_reversal_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G014",
+        "N014"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner15.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "restart_replay"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G015",
+        "N015"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner16.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "validate_context"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G016",
+        "N016"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner17.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "initial_lock"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G017",
+        "N017"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner18.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_big_level_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G018",
+        "N018"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner19.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_small_reversal_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G019",
+        "N019"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner20.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "restart_replay"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G020",
+        "N020"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner21.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "validate_context"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G021",
+        "N021"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner22.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "initial_lock"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G022",
+        "N022"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner23.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_big_level_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G023",
+        "N023"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner24.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_small_reversal_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G024",
+        "N024"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner25.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "restart_replay"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G025",
+        "N025"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner26.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "validate_context"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G026",
+        "N026"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner27.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "initial_lock"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G027",
+        "N027"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner28.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_big_level_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G028",
+        "N028"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner29.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "execute_small_reversal_scenario"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G029",
+        "N029"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner30.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "restart_replay"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G030",
+        "N030"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner31.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "validate_context"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G031",
+        "N031"
+      ]
+    },
+    {
+      "FIELDS": [
+        "accountLogin",
+        "symbol",
+        "magic",
+        "cycleId",
+        "actionId",
+        "eventId",
+        "stateRevision"
+      ],
+      "FORBIDDEN_SIDE_EFFECTS": [
+        "BROKER_DISPATCH"
+      ],
+      "INPUT_TYPE": "HSBI_R4_Context",
+      "OUTPUT_TYPE": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner32.mqh",
+      "PUBLIC_FUNCTIONS": [
+        "initial_lock"
+      ],
+      "SIDE_EFFECTS": [],
+      "VECTOR_IDS": [
+        "G032",
+        "N032"
+      ]
+    }
+  ]
+}

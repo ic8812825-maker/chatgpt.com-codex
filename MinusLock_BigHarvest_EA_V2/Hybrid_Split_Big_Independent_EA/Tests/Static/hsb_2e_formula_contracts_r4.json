@@ -1,0 +1,598 @@
+{
+  "formulas": [
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B001",
+        "B002"
+      ],
+      "EXPRESSION": "reference:validate_context",
+      "FORMULA_ID": "F001",
+      "GOLDEN_VECTOR_IDS": [
+        "G001",
+        "G002"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F001",
+      "NEGATIVE_VECTOR_IDS": [
+        "N001",
+        "N002"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner1.mqh",
+      "PUBLIC_FUNCTION": "validate_context",
+      "REQUIREMENT_IDS": [
+        "R4-F001"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B003",
+        "B004"
+      ],
+      "EXPRESSION": "reference:initial_lock",
+      "FORMULA_ID": "F002",
+      "GOLDEN_VECTOR_IDS": [
+        "G003",
+        "G004"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F002",
+      "NEGATIVE_VECTOR_IDS": [
+        "N003",
+        "N004"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner2.mqh",
+      "PUBLIC_FUNCTION": "initial_lock",
+      "REQUIREMENT_IDS": [
+        "R4-F002"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B005",
+        "B006"
+      ],
+      "EXPRESSION": "reference:execute_big_level_scenario",
+      "FORMULA_ID": "F003",
+      "GOLDEN_VECTOR_IDS": [
+        "G005",
+        "G006"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F003",
+      "NEGATIVE_VECTOR_IDS": [
+        "N005",
+        "N006"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner3.mqh",
+      "PUBLIC_FUNCTION": "execute_big_level_scenario",
+      "REQUIREMENT_IDS": [
+        "R4-F003"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B007",
+        "B008"
+      ],
+      "EXPRESSION": "reference:execute_small_reversal_scenario",
+      "FORMULA_ID": "F004",
+      "GOLDEN_VECTOR_IDS": [
+        "G007",
+        "G008"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F004",
+      "NEGATIVE_VECTOR_IDS": [
+        "N007",
+        "N008"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner4.mqh",
+      "PUBLIC_FUNCTION": "execute_small_reversal_scenario",
+      "REQUIREMENT_IDS": [
+        "R4-F004"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B009",
+        "B010"
+      ],
+      "EXPRESSION": "reference:restart_replay",
+      "FORMULA_ID": "F005",
+      "GOLDEN_VECTOR_IDS": [
+        "G009",
+        "G010"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F005",
+      "NEGATIVE_VECTOR_IDS": [
+        "N009",
+        "N010"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner5.mqh",
+      "PUBLIC_FUNCTION": "restart_replay",
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B011",
+        "B012"
+      ],
+      "EXPRESSION": "reference:validate_context",
+      "FORMULA_ID": "F006",
+      "GOLDEN_VECTOR_IDS": [
+        "G011",
+        "G012"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F006",
+      "NEGATIVE_VECTOR_IDS": [
+        "N011",
+        "N012"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner6.mqh",
+      "PUBLIC_FUNCTION": "validate_context",
+      "REQUIREMENT_IDS": [
+        "R4-F006"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B013",
+        "B014"
+      ],
+      "EXPRESSION": "reference:initial_lock",
+      "FORMULA_ID": "F007",
+      "GOLDEN_VECTOR_IDS": [
+        "G013",
+        "G014"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F007",
+      "NEGATIVE_VECTOR_IDS": [
+        "N013",
+        "N014"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner7.mqh",
+      "PUBLIC_FUNCTION": "initial_lock",
+      "REQUIREMENT_IDS": [
+        "R4-F007"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B015",
+        "B016"
+      ],
+      "EXPRESSION": "reference:execute_big_level_scenario",
+      "FORMULA_ID": "F008",
+      "GOLDEN_VECTOR_IDS": [
+        "G015",
+        "G016"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F008",
+      "NEGATIVE_VECTOR_IDS": [
+        "N015",
+        "N016"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner8.mqh",
+      "PUBLIC_FUNCTION": "execute_big_level_scenario",
+      "REQUIREMENT_IDS": [
+        "R4-F008"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B017",
+        "B018"
+      ],
+      "EXPRESSION": "reference:execute_small_reversal_scenario",
+      "FORMULA_ID": "F009",
+      "GOLDEN_VECTOR_IDS": [
+        "G017",
+        "G018"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F009",
+      "NEGATIVE_VECTOR_IDS": [
+        "N017",
+        "N018"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner9.mqh",
+      "PUBLIC_FUNCTION": "execute_small_reversal_scenario",
+      "REQUIREMENT_IDS": [
+        "R4-F009"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B019",
+        "B020"
+      ],
+      "EXPRESSION": "reference:restart_replay",
+      "FORMULA_ID": "F010",
+      "GOLDEN_VECTOR_IDS": [
+        "G019",
+        "G020"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F010",
+      "NEGATIVE_VECTOR_IDS": [
+        "N019",
+        "N020"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner10.mqh",
+      "PUBLIC_FUNCTION": "restart_replay",
+      "REQUIREMENT_IDS": [
+        "R4-F010"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B021",
+        "B022"
+      ],
+      "EXPRESSION": "reference:validate_context",
+      "FORMULA_ID": "F011",
+      "GOLDEN_VECTOR_IDS": [
+        "G021",
+        "G022"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F011",
+      "NEGATIVE_VECTOR_IDS": [
+        "N021",
+        "N022"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner11.mqh",
+      "PUBLIC_FUNCTION": "validate_context",
+      "REQUIREMENT_IDS": [
+        "R4-F011"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B023",
+        "B024"
+      ],
+      "EXPRESSION": "reference:initial_lock",
+      "FORMULA_ID": "F012",
+      "GOLDEN_VECTOR_IDS": [
+        "G023",
+        "G024"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F012",
+      "NEGATIVE_VECTOR_IDS": [
+        "N023",
+        "N024"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner12.mqh",
+      "PUBLIC_FUNCTION": "initial_lock",
+      "REQUIREMENT_IDS": [
+        "R4-F012"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B025",
+        "B026"
+      ],
+      "EXPRESSION": "reference:execute_big_level_scenario",
+      "FORMULA_ID": "F013",
+      "GOLDEN_VECTOR_IDS": [
+        "G025",
+        "G026"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F013",
+      "NEGATIVE_VECTOR_IDS": [
+        "N025",
+        "N026"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner13.mqh",
+      "PUBLIC_FUNCTION": "execute_big_level_scenario",
+      "REQUIREMENT_IDS": [
+        "R4-F013"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B027",
+        "B028"
+      ],
+      "EXPRESSION": "reference:execute_small_reversal_scenario",
+      "FORMULA_ID": "F014",
+      "GOLDEN_VECTOR_IDS": [
+        "G027",
+        "G028"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F014",
+      "NEGATIVE_VECTOR_IDS": [
+        "N027",
+        "N028"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner14.mqh",
+      "PUBLIC_FUNCTION": "execute_small_reversal_scenario",
+      "REQUIREMENT_IDS": [
+        "R4-F014"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B029",
+        "B030"
+      ],
+      "EXPRESSION": "reference:restart_replay",
+      "FORMULA_ID": "F015",
+      "GOLDEN_VECTOR_IDS": [
+        "G029",
+        "G030"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F015",
+      "NEGATIVE_VECTOR_IDS": [
+        "N029",
+        "N030"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner15.mqh",
+      "PUBLIC_FUNCTION": "restart_replay",
+      "REQUIREMENT_IDS": [
+        "R4-F015"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B031",
+        "B032"
+      ],
+      "EXPRESSION": "reference:validate_context",
+      "FORMULA_ID": "F016",
+      "GOLDEN_VECTOR_IDS": [
+        "G031",
+        "G032"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F016",
+      "NEGATIVE_VECTOR_IDS": [
+        "N031",
+        "N032"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner16.mqh",
+      "PUBLIC_FUNCTION": "validate_context",
+      "REQUIREMENT_IDS": [
+        "R4-F016"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B033",
+        "B034"
+      ],
+      "EXPRESSION": "reference:initial_lock",
+      "FORMULA_ID": "F017",
+      "GOLDEN_VECTOR_IDS": [
+        "G033",
+        "G034"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F017",
+      "NEGATIVE_VECTOR_IDS": [
+        "N033",
+        "N034"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner17.mqh",
+      "PUBLIC_FUNCTION": "initial_lock",
+      "REQUIREMENT_IDS": [
+        "R4-F017"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B035",
+        "B036"
+      ],
+      "EXPRESSION": "reference:execute_big_level_scenario",
+      "FORMULA_ID": "F018",
+      "GOLDEN_VECTOR_IDS": [
+        "G035",
+        "G036"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F018",
+      "NEGATIVE_VECTOR_IDS": [
+        "N035",
+        "N036"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner18.mqh",
+      "PUBLIC_FUNCTION": "execute_big_level_scenario",
+      "REQUIREMENT_IDS": [
+        "R4-F018"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B037",
+        "B038"
+      ],
+      "EXPRESSION": "reference:execute_small_reversal_scenario",
+      "FORMULA_ID": "F019",
+      "GOLDEN_VECTOR_IDS": [
+        "G037",
+        "G038"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F019",
+      "NEGATIVE_VECTOR_IDS": [
+        "N037",
+        "N038"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner19.mqh",
+      "PUBLIC_FUNCTION": "execute_small_reversal_scenario",
+      "REQUIREMENT_IDS": [
+        "R4-F019"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B039",
+        "B040"
+      ],
+      "EXPRESSION": "reference:restart_replay",
+      "FORMULA_ID": "F020",
+      "GOLDEN_VECTOR_IDS": [
+        "G039",
+        "G040"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F020",
+      "NEGATIVE_VECTOR_IDS": [
+        "N039",
+        "N040"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner20.mqh",
+      "PUBLIC_FUNCTION": "restart_replay",
+      "REQUIREMENT_IDS": [
+        "R4-F020"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B041",
+        "B042"
+      ],
+      "EXPRESSION": "reference:validate_context",
+      "FORMULA_ID": "F021",
+      "GOLDEN_VECTOR_IDS": [
+        "G041",
+        "G042"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F021",
+      "NEGATIVE_VECTOR_IDS": [
+        "N041",
+        "N042"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner21.mqh",
+      "PUBLIC_FUNCTION": "validate_context",
+      "REQUIREMENT_IDS": [
+        "R4-F021"
+      ]
+    },
+    {
+      "BOUNDARY_VECTOR_IDS": [
+        "B043",
+        "B044"
+      ],
+      "EXPRESSION": "reference:initial_lock",
+      "FORMULA_ID": "F022",
+      "GOLDEN_VECTOR_IDS": [
+        "G043",
+        "G044"
+      ],
+      "INPUT_SCHEMA": "typed-r4",
+      "INVARIANTS": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "NAME": "\u0418\u0441\u043f\u043e\u043b\u043d\u0438\u043c\u0430\u044f \u0444\u043e\u0440\u043c\u0443\u043b\u0430 F022",
+      "NEGATIVE_VECTOR_IDS": [
+        "N043",
+        "N044"
+      ],
+      "OUTPUT_SCHEMA": "HSBI_ReferenceResult",
+      "OWNER_FILE": "Include/Planned/Owner22.mqh",
+      "PUBLIC_FUNCTION": "initial_lock",
+      "REQUIREMENT_IDS": [
+        "R4-F022"
+      ]
+    }
+  ]
+}

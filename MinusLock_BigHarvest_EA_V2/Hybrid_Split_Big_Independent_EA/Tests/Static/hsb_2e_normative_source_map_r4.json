@@ -1,0 +1,203 @@
+{
+  "open_decisions": [],
+  "requirements": [
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F001"
+      ],
+      "REQUIREMENT_ID": "R4-F001",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F001"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F002"
+      ],
+      "REQUIREMENT_ID": "R4-F002",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F002"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F003"
+      ],
+      "REQUIREMENT_ID": "R4-F003",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F003"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F004"
+      ],
+      "REQUIREMENT_ID": "R4-F004",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F004"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F005"
+      ],
+      "REQUIREMENT_ID": "R4-F005",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F005"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F006"
+      ],
+      "REQUIREMENT_ID": "R4-F006",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F006"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F007"
+      ],
+      "REQUIREMENT_ID": "R4-F007",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F007"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F008"
+      ],
+      "REQUIREMENT_ID": "R4-F008",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F008"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F009"
+      ],
+      "REQUIREMENT_ID": "R4-F009",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F009"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F010"
+      ],
+      "REQUIREMENT_ID": "R4-F010",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F010"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F011"
+      ],
+      "REQUIREMENT_ID": "R4-F011",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F011"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F012"
+      ],
+      "REQUIREMENT_ID": "R4-F012",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F012"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F013"
+      ],
+      "REQUIREMENT_ID": "R4-F013",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F013"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F014"
+      ],
+      "REQUIREMENT_ID": "R4-F014",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F014"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F015"
+      ],
+      "REQUIREMENT_ID": "R4-F015",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F015"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F016"
+      ],
+      "REQUIREMENT_ID": "R4-F016",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F016"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F017"
+      ],
+      "REQUIREMENT_ID": "R4-F017",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F017"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F018"
+      ],
+      "REQUIREMENT_ID": "R4-F018",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F018"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F019"
+      ],
+      "REQUIREMENT_ID": "R4-F019",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F019"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F020"
+      ],
+      "REQUIREMENT_ID": "R4-F020",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F020"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F021"
+      ],
+      "REQUIREMENT_ID": "R4-F021",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F021"
+    },
+    {
+      "CONFLICT_STATUS": "NONE",
+      "FORMULA_IDS": [
+        "F022"
+      ],
+      "REQUIREMENT_ID": "R4-F022",
+      "SOURCE_FILE": "Docs/HSB_2E_PREP_R3_IMPLEMENTATION_HANDOFF_RU.md",
+      "SOURCE_SECTION": "F022"
+    }
+  ]
+}

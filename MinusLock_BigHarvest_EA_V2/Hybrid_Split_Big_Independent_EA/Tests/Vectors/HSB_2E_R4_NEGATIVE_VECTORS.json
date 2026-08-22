@@ -1,0 +1,4742 @@
+{
+  "vectors": [
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "3b5bfb41529126846988d359fb927a2b703f2ca76ad0569761b26d774bee6cbc",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "866d77f4bc2e5738db6cf710c18f85fcd4f689d68d3dae3bef43cfc250315efa",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F001",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0201",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0201",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S201",
+        "snapshotTimestamp": 2201,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F001"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N001"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "f6e3d1da1c49ba2f7f015c8af79c6857dbe89d84b7c9042384a11ae616aba173",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "a4173da1fb89ab25bcaf078a40ded14d5f4cc3d683b7b83ee2eb32f26a20072c",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F001",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0202",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0202",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S202",
+        "snapshotTimestamp": 2202,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F001"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N002"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "ec4fa4e22962f26b8e8049a4e425ae9480ba91d5e4db9188600f5be60dc5b42a",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "e87233870f7f7036245decd07c8935f99c04d0332a99cc385522f03e4ebf8980",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F002",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0203",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0203",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S203",
+          "snapshotTimestamp": 2203,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F002"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N003"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "0c862c483371b47c9d319d2507df3b26ab98cd0494a73789652cd7048e21c8ab",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "bba7a6fff9f98a1bbb21c627ae29f50afffa952839065cab5460408e08217cbb",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F002",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0204",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0204",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S204",
+          "snapshotTimestamp": 2204,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F002"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N004"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "e75ccef1d5d92591f1570ba7631787316721c5fae6733b10915753ee91cf81a1",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "cc4c408bd7df09ec5f8e00632a8ba62cd723301a202b71b709282eda274b9365",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "FSM_STATE",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F003",
+      "FUNCTION": "execute_big_level_scenario",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0205",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0205",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S205",
+          "snapshotTimestamp": 2205,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "actionId": "A0205",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D205-101",
+            "direction": "SELL",
+            "eventId": "E205-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O205-101",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2305,
+            "volume": "1.00"
+          },
+          {
+            "actionId": "A0205",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D205-102",
+            "direction": "SELL",
+            "eventId": "E205-102",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O205-102",
+            "positionTicket": 102,
+            "price": "1.1",
+            "profit": "40",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2305,
+            "volume": "0.50"
+          }
+        ],
+        "fsmState": "WRONG",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.0",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 101,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 102,
+            "unrealizedPnL": "0",
+            "volume": "0.50"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 103,
+            "unrealizedPnL": "0",
+            "volume": "2.00"
+          }
+        ],
+        "reserve": "20"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F003"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N005"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "982139ddd9d9843a9d8b6fcf81ab104f6c6fd8369c53b82a4586f8cef5e8a995",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "abb52008cee2d2528b53e66358408653a995843c26000ae17fc57c5c55808665",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "FSM_STATE",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F003",
+      "FUNCTION": "execute_big_level_scenario",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0206",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0206",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S206",
+          "snapshotTimestamp": 2206,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "actionId": "A0206",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D206-101",
+            "direction": "SELL",
+            "eventId": "E206-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O206-101",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2306,
+            "volume": "1.00"
+          },
+          {
+            "actionId": "A0206",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D206-102",
+            "direction": "SELL",
+            "eventId": "E206-102",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O206-102",
+            "positionTicket": 102,
+            "price": "1.1",
+            "profit": "40",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2306,
+            "volume": "0.50"
+          }
+        ],
+        "fsmState": "WRONG",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.0",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 101,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 102,
+            "unrealizedPnL": "0",
+            "volume": "0.50"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 103,
+            "unrealizedPnL": "0",
+            "volume": "2.00"
+          }
+        ],
+        "reserve": "20"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F003"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N006"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "aff7ad49355a2bd70c6ce4df8704582c05ee4374f4aa999048b39641a054f81e",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "8c915ca4e8d497a13544de71fe2993db0e9bc8ae113ef4c533168b0dd54a0c2d",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "DUAL_TAIL",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F004",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "INPUT": {
+        "allocationKey": "K207",
+        "closeBigOnSmall": "0.50",
+        "consumedAllocations": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0207",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0207",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S207",
+          "snapshotTimestamp": 2207,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "createNextLevel": false,
+        "deals": [
+          {
+            "actionId": "A0207",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D207-202",
+            "direction": "SELL",
+            "eventId": "E207-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O207-202",
+            "positionTicket": 202,
+            "price": "1.1",
+            "profit": "30",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2307,
+            "volume": "0.40"
+          },
+          {
+            "actionId": "A0207",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D207-203",
+            "direction": "SELL",
+            "eventId": "E207-203",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O207-203",
+            "positionTicket": 203,
+            "price": "1.1",
+            "profit": "-80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2307,
+            "volume": "1.20"
+          },
+          {
+            "actionId": "A0207",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D207-201",
+            "direction": "SELL",
+            "eventId": "E207-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O207-201",
+            "positionTicket": 201,
+            "price": "1.1",
+            "profit": "20",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2307,
+            "volume": "0.50"
+          }
+        ],
+        "dualTail": true,
+        "fsmState": "OLD_FAR_REACHED",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "unrealizedPnL": "0",
+            "volume": "0.40"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 203,
+            "unrealizedPnL": "0",
+            "volume": "1.20"
+          }
+        ],
+        "reserve": "10",
+        "smallReserveShare": "0.25",
+        "transitionCommitted": true
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F004"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N007"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "272291ecb15d811dbe5e9ba273b873214159b0986b039d0608ba10f64f26221c",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "979c75de26b95609435a05e6c067780ac7f8a53c478245ab135180e5e8d89575",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "DUAL_TAIL",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F004",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "INPUT": {
+        "allocationKey": "K208",
+        "closeBigOnSmall": "0.50",
+        "consumedAllocations": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0208",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0208",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S208",
+          "snapshotTimestamp": 2208,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "createNextLevel": false,
+        "deals": [
+          {
+            "actionId": "A0208",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D208-202",
+            "direction": "SELL",
+            "eventId": "E208-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O208-202",
+            "positionTicket": 202,
+            "price": "1.1",
+            "profit": "30",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2308,
+            "volume": "0.40"
+          },
+          {
+            "actionId": "A0208",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D208-203",
+            "direction": "SELL",
+            "eventId": "E208-203",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O208-203",
+            "positionTicket": 203,
+            "price": "1.1",
+            "profit": "-80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2308,
+            "volume": "1.20"
+          },
+          {
+            "actionId": "A0208",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D208-201",
+            "direction": "SELL",
+            "eventId": "E208-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O208-201",
+            "positionTicket": 201,
+            "price": "1.1",
+            "profit": "20",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2308,
+            "volume": "0.50"
+          }
+        ],
+        "dualTail": true,
+        "fsmState": "OLD_FAR_REACHED",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "unrealizedPnL": "0",
+            "volume": "0.40"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 203,
+            "unrealizedPnL": "0",
+            "volume": "1.20"
+          }
+        ],
+        "reserve": "10",
+        "smallReserveShare": "0.25",
+        "transitionCommitted": true
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F004"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N008"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "58623bd56bf7c23609a989d781b35104c107f9d84c4a4dad6a5d718493b05a53",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "3de1baa861a0003677697fb9002fe4ffe10e7326b9cf9bc0c804100616256bd6",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "RECONCILIATION_REQUIRED",
+        "reserveDelta": "0",
+        "status": "UNAVAILABLE",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0209",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0209",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "UNKNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N009"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "5644a31d38a3487d18880f1abd5ed7928735ce853f738d7266b4315d7a852389",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "ecbd3477ba55ca88b18ce0e43d10fd9d518283a739585dd457426e4efe636b87",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "RECONCILIATION_REQUIRED",
+        "reserveDelta": "0",
+        "status": "UNAVAILABLE",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F005",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0210",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0210",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "UNKNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F005"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N010"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "bf13189bde28a7a76d26c0b16b3c7c6d2cefc6c6bbc185096fbb546a187e6dd2",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "5875ed86191932356a7bf42ab2a5df3942d5dfad37e40ab4921cf69b698ad069",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F006",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0211",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0211",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S211",
+        "snapshotTimestamp": 2211,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F006"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N011"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "1a76cafdb26a75aed346b256f1afff8fabf42724074c8abbc781903d998a9193",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "1c2257b7a1466df3bf9613dbebcef8d0502650ff67438fdbc5ecc57d2f59a05e",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F006",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0212",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0212",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S212",
+        "snapshotTimestamp": 2212,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F006"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N012"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "886e4dd07b84f4c91b524a0b409852d8ea2d56c931e49b2842325933c2b93001",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "6fc81e275a2155561499aed12c98ee6c97c7c2bbf21efba0e87db288c8bf9927",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F007",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0213",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0213",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S213",
+          "snapshotTimestamp": 2213,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F007"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N013"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "af3180ae47b4b0bc737f4d31fe55c115b9a919018ca60ddd6a11eab920581c9c",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "8a1dbbfcc3d97695d02bfc10fd201bf17ec7d82e1e5ce401ce5c9b9160063ce8",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F007",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0214",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0214",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S214",
+          "snapshotTimestamp": 2214,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F007"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N014"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "24e216e616037f4ec02335079a61375c65e094a58be51b739f3c53aa57a9914f",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "331c4852112395e5911ec0eee40146113368f7966a3c6203457c6ee9e4766c5e",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "FSM_STATE",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F008",
+      "FUNCTION": "execute_big_level_scenario",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0215",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0215",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S215",
+          "snapshotTimestamp": 2215,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "actionId": "A0215",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D215-101",
+            "direction": "SELL",
+            "eventId": "E215-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O215-101",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2315,
+            "volume": "1.00"
+          },
+          {
+            "actionId": "A0215",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D215-102",
+            "direction": "SELL",
+            "eventId": "E215-102",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O215-102",
+            "positionTicket": 102,
+            "price": "1.1",
+            "profit": "40",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2315,
+            "volume": "0.50"
+          }
+        ],
+        "fsmState": "WRONG",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.0",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 101,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 102,
+            "unrealizedPnL": "0",
+            "volume": "0.50"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 103,
+            "unrealizedPnL": "0",
+            "volume": "2.00"
+          }
+        ],
+        "reserve": "20"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F008"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N015"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "13726b76deeb4a42b9b18b6a002a372543811ba9cc0c597ca85c2056eb75053c",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "af1a4dc8272f881dc4b98784ff94d9516e36547990859aeda24e07361428b608",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "FSM_STATE",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F008",
+      "FUNCTION": "execute_big_level_scenario",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0216",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0216",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S216",
+          "snapshotTimestamp": 2216,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "actionId": "A0216",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D216-101",
+            "direction": "SELL",
+            "eventId": "E216-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O216-101",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2316,
+            "volume": "1.00"
+          },
+          {
+            "actionId": "A0216",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D216-102",
+            "direction": "SELL",
+            "eventId": "E216-102",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O216-102",
+            "positionTicket": 102,
+            "price": "1.1",
+            "profit": "40",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2316,
+            "volume": "0.50"
+          }
+        ],
+        "fsmState": "WRONG",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.0",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 101,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 102,
+            "unrealizedPnL": "0",
+            "volume": "0.50"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 103,
+            "unrealizedPnL": "0",
+            "volume": "2.00"
+          }
+        ],
+        "reserve": "20"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F008"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N016"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "64e20ec47e59dfdb2c6cd188268be6d85847acdc2be720d0be755a949d5fd2ac",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "de299ce095dfc9228f7f696f5fc748895791292406c078ffa68abbb3ed60057b",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "DUAL_TAIL",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F009",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "INPUT": {
+        "allocationKey": "K217",
+        "closeBigOnSmall": "0.50",
+        "consumedAllocations": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0217",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0217",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S217",
+          "snapshotTimestamp": 2217,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "createNextLevel": false,
+        "deals": [
+          {
+            "actionId": "A0217",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D217-202",
+            "direction": "SELL",
+            "eventId": "E217-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O217-202",
+            "positionTicket": 202,
+            "price": "1.1",
+            "profit": "30",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2317,
+            "volume": "0.40"
+          },
+          {
+            "actionId": "A0217",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D217-203",
+            "direction": "SELL",
+            "eventId": "E217-203",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O217-203",
+            "positionTicket": 203,
+            "price": "1.1",
+            "profit": "-80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2317,
+            "volume": "1.20"
+          },
+          {
+            "actionId": "A0217",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D217-201",
+            "direction": "SELL",
+            "eventId": "E217-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O217-201",
+            "positionTicket": 201,
+            "price": "1.1",
+            "profit": "20",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2317,
+            "volume": "0.50"
+          }
+        ],
+        "dualTail": true,
+        "fsmState": "OLD_FAR_REACHED",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "unrealizedPnL": "0",
+            "volume": "0.40"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 203,
+            "unrealizedPnL": "0",
+            "volume": "1.20"
+          }
+        ],
+        "reserve": "10",
+        "smallReserveShare": "0.25",
+        "transitionCommitted": true
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F009"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N017"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "840f689215ba7d490681a208ac0a9ef44c0829eb446a522a08cbaf0bf7b6865e",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "e29a8ba274f02ce820f5a6d0ce32af2206e9a1ac164f65a1ff0d80b6a7c7a6a3",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "DUAL_TAIL",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F009",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "INPUT": {
+        "allocationKey": "K218",
+        "closeBigOnSmall": "0.50",
+        "consumedAllocations": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0218",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0218",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S218",
+          "snapshotTimestamp": 2218,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "createNextLevel": false,
+        "deals": [
+          {
+            "actionId": "A0218",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D218-202",
+            "direction": "SELL",
+            "eventId": "E218-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O218-202",
+            "positionTicket": 202,
+            "price": "1.1",
+            "profit": "30",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2318,
+            "volume": "0.40"
+          },
+          {
+            "actionId": "A0218",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D218-203",
+            "direction": "SELL",
+            "eventId": "E218-203",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O218-203",
+            "positionTicket": 203,
+            "price": "1.1",
+            "profit": "-80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2318,
+            "volume": "1.20"
+          },
+          {
+            "actionId": "A0218",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D218-201",
+            "direction": "SELL",
+            "eventId": "E218-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O218-201",
+            "positionTicket": 201,
+            "price": "1.1",
+            "profit": "20",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2318,
+            "volume": "0.50"
+          }
+        ],
+        "dualTail": true,
+        "fsmState": "OLD_FAR_REACHED",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "unrealizedPnL": "0",
+            "volume": "0.40"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 203,
+            "unrealizedPnL": "0",
+            "volume": "1.20"
+          }
+        ],
+        "reserve": "10",
+        "smallReserveShare": "0.25",
+        "transitionCommitted": true
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F009"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N018"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "1ffaf2b99b0d58fcd073c910c56b778d33736e43e05085be023d62dcbc5529d6",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "222ae8600d62a4c9f3f774c36b2a01b7f8443e44d91d0aee6d0e32fb4e46cd54",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "RECONCILIATION_REQUIRED",
+        "reserveDelta": "0",
+        "status": "UNAVAILABLE",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F010",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0219",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0219",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "UNKNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F010"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N019"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "690e547ea91ca9f5edf7ca2fbbed3a2c1298f663f0849deaa2eeb0db72172591",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "4abc745d37b81f6bc05029ea6092a66f1799a16804a48de72360093612b19bd2",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "RECONCILIATION_REQUIRED",
+        "reserveDelta": "0",
+        "status": "UNAVAILABLE",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F010",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0220",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0220",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "UNKNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F010"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N020"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "28be6348187fa98f6c981a8f83384b82ee2ef09d6134712ad29118ffe4acd368",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "d2dba939d9f11f354f0084ea1fc725b25b53eb53617ee6a60756019c78919240",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F011",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0221",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0221",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S221",
+        "snapshotTimestamp": 2221,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F011"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N021"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "d39a3fc6fc836326f7c542f810e3cbdb7f6e540df4d9802b4e300099ebd23108",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "3c598ec7ee54d80fc217d09409a2e9f37c913f319549f542e2b4e73f308be449",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F011",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0222",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0222",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S222",
+        "snapshotTimestamp": 2222,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F011"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N022"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "e3a69f02d557f28d80ecdc21851e96f42c57664460b2e674980af8259ed285f1",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "764f67a469b2e04d7e338ca974bdc923680787a62fc2f3890418f2450a8d9adb",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F012",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0223",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0223",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S223",
+          "snapshotTimestamp": 2223,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F012"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N023"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "64983375e912675d4b0b91361f3b6f46e53b8c654a1e3482cb787298a9bdbd21",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "2f4ccaf4763d496be3c407315c08474ec233d300cfaca67a29203ecd9422a7ad",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F012",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0224",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0224",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S224",
+          "snapshotTimestamp": 2224,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F012"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N024"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "5369c557faafe6a9e2e47baef0bcdba0f02df937ec50b449f63a1ddd60b90dfb",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "d41ef2e9b6acdca0b0ffa58e54191c0301b0a6363ee6320ec8b8379d1d23be2e",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "FSM_STATE",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F013",
+      "FUNCTION": "execute_big_level_scenario",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0225",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0225",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S225",
+          "snapshotTimestamp": 2225,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "actionId": "A0225",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D225-101",
+            "direction": "SELL",
+            "eventId": "E225-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O225-101",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2325,
+            "volume": "1.00"
+          },
+          {
+            "actionId": "A0225",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D225-102",
+            "direction": "SELL",
+            "eventId": "E225-102",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O225-102",
+            "positionTicket": 102,
+            "price": "1.1",
+            "profit": "40",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2325,
+            "volume": "0.50"
+          }
+        ],
+        "fsmState": "WRONG",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.0",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 101,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 102,
+            "unrealizedPnL": "0",
+            "volume": "0.50"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 103,
+            "unrealizedPnL": "0",
+            "volume": "2.00"
+          }
+        ],
+        "reserve": "20"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F013"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N025"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "5da6e011db7d5e83d4a68dd71a67a0cfc63b7871bf6e66e4a09ab2d26a65cd1b",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "7148b5d3f4a1560ef3e1495af9740ec623fdefb517684f8198dc6da120d0da56",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "FSM_STATE",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F013",
+      "FUNCTION": "execute_big_level_scenario",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0226",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0226",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S226",
+          "snapshotTimestamp": 2226,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "actionId": "A0226",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D226-101",
+            "direction": "SELL",
+            "eventId": "E226-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O226-101",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2326,
+            "volume": "1.00"
+          },
+          {
+            "actionId": "A0226",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D226-102",
+            "direction": "SELL",
+            "eventId": "E226-102",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O226-102",
+            "positionTicket": 102,
+            "price": "1.1",
+            "profit": "40",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2326,
+            "volume": "0.50"
+          }
+        ],
+        "fsmState": "WRONG",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.0",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 101,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 102,
+            "unrealizedPnL": "0",
+            "volume": "0.50"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 103,
+            "unrealizedPnL": "0",
+            "volume": "2.00"
+          }
+        ],
+        "reserve": "20"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F013"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N026"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "1f285f486295a9f4429f35054b6146a56fafc8c8279d1bfd22be55d6fdd992c5",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "beeadd275f0384fc9b9cee4bd89e0f836a2e4ef2ddc40bbe71a53f01bd027f5b",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "DUAL_TAIL",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F014",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "INPUT": {
+        "allocationKey": "K227",
+        "closeBigOnSmall": "0.50",
+        "consumedAllocations": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0227",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0227",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S227",
+          "snapshotTimestamp": 2227,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "createNextLevel": false,
+        "deals": [
+          {
+            "actionId": "A0227",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D227-202",
+            "direction": "SELL",
+            "eventId": "E227-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O227-202",
+            "positionTicket": 202,
+            "price": "1.1",
+            "profit": "30",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2327,
+            "volume": "0.40"
+          },
+          {
+            "actionId": "A0227",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D227-203",
+            "direction": "SELL",
+            "eventId": "E227-203",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O227-203",
+            "positionTicket": 203,
+            "price": "1.1",
+            "profit": "-80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2327,
+            "volume": "1.20"
+          },
+          {
+            "actionId": "A0227",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D227-201",
+            "direction": "SELL",
+            "eventId": "E227-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O227-201",
+            "positionTicket": 201,
+            "price": "1.1",
+            "profit": "20",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2327,
+            "volume": "0.50"
+          }
+        ],
+        "dualTail": true,
+        "fsmState": "OLD_FAR_REACHED",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "unrealizedPnL": "0",
+            "volume": "0.40"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 203,
+            "unrealizedPnL": "0",
+            "volume": "1.20"
+          }
+        ],
+        "reserve": "10",
+        "smallReserveShare": "0.25",
+        "transitionCommitted": true
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F014"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N027"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "29f51c754d033ddb6ce0f282f6202c6582c234537762b4520c7f85bf850a40a0",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "a82f0cacf2027b38e38adf447f17db3728d7ed4c44983ecbe122cc68352b1036",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "DUAL_TAIL",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F014",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "INPUT": {
+        "allocationKey": "K228",
+        "closeBigOnSmall": "0.50",
+        "consumedAllocations": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0228",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0228",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S228",
+          "snapshotTimestamp": 2228,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "createNextLevel": false,
+        "deals": [
+          {
+            "actionId": "A0228",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D228-202",
+            "direction": "SELL",
+            "eventId": "E228-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O228-202",
+            "positionTicket": 202,
+            "price": "1.1",
+            "profit": "30",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2328,
+            "volume": "0.40"
+          },
+          {
+            "actionId": "A0228",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D228-203",
+            "direction": "SELL",
+            "eventId": "E228-203",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O228-203",
+            "positionTicket": 203,
+            "price": "1.1",
+            "profit": "-80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2328,
+            "volume": "1.20"
+          },
+          {
+            "actionId": "A0228",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D228-201",
+            "direction": "SELL",
+            "eventId": "E228-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O228-201",
+            "positionTicket": 201,
+            "price": "1.1",
+            "profit": "20",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2328,
+            "volume": "0.50"
+          }
+        ],
+        "dualTail": true,
+        "fsmState": "OLD_FAR_REACHED",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "unrealizedPnL": "0",
+            "volume": "0.40"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 203,
+            "unrealizedPnL": "0",
+            "volume": "1.20"
+          }
+        ],
+        "reserve": "10",
+        "smallReserveShare": "0.25",
+        "transitionCommitted": true
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F014"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N028"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "58ac4ba6f34a5ec00a0501a0eae9a2f74ee8226465fd5f957c4b2990d9128683",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "c94982c45375d9e11b430fac176ecf44853495715069b2f6d41924f944da5ef7",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "RECONCILIATION_REQUIRED",
+        "reserveDelta": "0",
+        "status": "UNAVAILABLE",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F015",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0229",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0229",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "UNKNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F015"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N029"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "14906533ccc43ea4f0e9e7a0e83562c051159fb2dc7545893c6a17f0ad52b10a",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "37782733d6206d43d12400f37e0b9e2a845004a1d6a0c66e183ae3410577fe34",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "RECONCILIATION_REQUIRED",
+        "reserveDelta": "0",
+        "status": "UNAVAILABLE",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F015",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0230",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0230",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "UNKNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F015"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N030"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "c4b792da5a149725ee866944360bf2baa3330f87afd0753e361ac3989aa6c73b",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "027c9fdb0ef4ad6c83dca912756c5fb8d276837644221496581cb458026b9bf7",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F016",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0231",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0231",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S231",
+        "snapshotTimestamp": 2231,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F016"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N031"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "cf4e1ee3beee4b8823508aa8479d3176b6cc5f379cf80372864f189f1998a9a8",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "6bcb4334da1cc2361a224be2867f5c1f7008e79959be61eb481789f7b883e884",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F016",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0232",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0232",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S232",
+        "snapshotTimestamp": 2232,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F016"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N032"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "859754b5089fd71deb5a06d6d00259d312aaae536ef48522868c27c34d75500c",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "c1553b57c170c4e9bbbc62e70710177c89e5747da177145fdde3e2dc3f2f6392",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F017",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0233",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0233",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S233",
+          "snapshotTimestamp": 2233,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F017"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N033"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "d045918302c22d67444b31b6250cd467ec011cec170e2ba234b2d9f1dda153ca",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "2cd489ed45885cc4d244b1b034ef514098f64fc093a8c0514410b8df7264458b",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F017",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0234",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0234",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S234",
+          "snapshotTimestamp": 2234,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F017"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N034"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "5faf700e43d6e538d93f9dced06ea0139f30461c44c5861654af6c1fc09a2510",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "63a33d6101020623958761956fd1d8643fc9569581c751739c13d9d3d5de7700",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "FSM_STATE",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F018",
+      "FUNCTION": "execute_big_level_scenario",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0235",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0235",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S235",
+          "snapshotTimestamp": 2235,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "actionId": "A0235",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D235-101",
+            "direction": "SELL",
+            "eventId": "E235-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O235-101",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2335,
+            "volume": "1.00"
+          },
+          {
+            "actionId": "A0235",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D235-102",
+            "direction": "SELL",
+            "eventId": "E235-102",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O235-102",
+            "positionTicket": 102,
+            "price": "1.1",
+            "profit": "40",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2335,
+            "volume": "0.50"
+          }
+        ],
+        "fsmState": "WRONG",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.0",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 101,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 102,
+            "unrealizedPnL": "0",
+            "volume": "0.50"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 103,
+            "unrealizedPnL": "0",
+            "volume": "2.00"
+          }
+        ],
+        "reserve": "20"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F018"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N035"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "FSM_STATE",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "a6d72057bcaa4148c1586342148bc7b099a3ee30d79b691b108738033cd55683",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "c442b508e286344186cdd40724e75b59cc00829d7ba91e14e42e6584f1817321",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "FSM_STATE",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F018",
+      "FUNCTION": "execute_big_level_scenario",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0236",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0236",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S236",
+          "snapshotTimestamp": 2236,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "actionId": "A0236",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D236-101",
+            "direction": "SELL",
+            "eventId": "E236-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O236-101",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2336,
+            "volume": "1.00"
+          },
+          {
+            "actionId": "A0236",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D236-102",
+            "direction": "SELL",
+            "eventId": "E236-102",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O236-102",
+            "positionTicket": 102,
+            "price": "1.1",
+            "profit": "40",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2336,
+            "volume": "0.50"
+          }
+        ],
+        "fsmState": "WRONG",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.0",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 101,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 102,
+            "unrealizedPnL": "0",
+            "volume": "0.50"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 103,
+            "unrealizedPnL": "0",
+            "volume": "2.00"
+          }
+        ],
+        "reserve": "20"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F018"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N036"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "45d83fc484561c12a39c55b4dfc352630098a076d6bd85508f5690a8c9476790",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "521a43789be2e241fa67020f8f75b8c5c6aca4533a5fca80c68788150724338f",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "DUAL_TAIL",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F019",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "INPUT": {
+        "allocationKey": "K237",
+        "closeBigOnSmall": "0.50",
+        "consumedAllocations": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0237",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0237",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S237",
+          "snapshotTimestamp": 2237,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "createNextLevel": false,
+        "deals": [
+          {
+            "actionId": "A0237",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D237-202",
+            "direction": "SELL",
+            "eventId": "E237-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O237-202",
+            "positionTicket": 202,
+            "price": "1.1",
+            "profit": "30",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2337,
+            "volume": "0.40"
+          },
+          {
+            "actionId": "A0237",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D237-203",
+            "direction": "SELL",
+            "eventId": "E237-203",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O237-203",
+            "positionTicket": 203,
+            "price": "1.1",
+            "profit": "-80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2337,
+            "volume": "1.20"
+          },
+          {
+            "actionId": "A0237",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D237-201",
+            "direction": "SELL",
+            "eventId": "E237-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O237-201",
+            "positionTicket": 201,
+            "price": "1.1",
+            "profit": "20",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2337,
+            "volume": "0.50"
+          }
+        ],
+        "dualTail": true,
+        "fsmState": "OLD_FAR_REACHED",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "unrealizedPnL": "0",
+            "volume": "0.40"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 203,
+            "unrealizedPnL": "0",
+            "volume": "1.20"
+          }
+        ],
+        "reserve": "10",
+        "smallReserveShare": "0.25",
+        "transitionCommitted": true
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F019"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N037"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "badf15b09b774e947c87c4dcc08cecc2a8ae3d997e6d4238439dc7d6d15d107e",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "453b4330b40dcf6b00e73057e434f605fd30376b7bf0248f8432a183967ae202",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "DUAL_TAIL",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F019",
+      "FUNCTION": "execute_small_reversal_scenario",
+      "INPUT": {
+        "allocationKey": "K238",
+        "closeBigOnSmall": "0.50",
+        "consumedAllocations": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0238",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0238",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S238",
+          "snapshotTimestamp": 2238,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "createNextLevel": false,
+        "deals": [
+          {
+            "actionId": "A0238",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D238-202",
+            "direction": "SELL",
+            "eventId": "E238-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O238-202",
+            "positionTicket": 202,
+            "price": "1.1",
+            "profit": "30",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2338,
+            "volume": "0.40"
+          },
+          {
+            "actionId": "A0238",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D238-203",
+            "direction": "SELL",
+            "eventId": "E238-203",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O238-203",
+            "positionTicket": 203,
+            "price": "1.1",
+            "profit": "-80",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2338,
+            "volume": "1.20"
+          },
+          {
+            "actionId": "A0238",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C-R4",
+            "dealId": "D238-201",
+            "direction": "SELL",
+            "eventId": "E238-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O238-201",
+            "positionTicket": 201,
+            "price": "1.1",
+            "profit": "20",
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2338,
+            "volume": "0.50"
+          }
+        ],
+        "dualTail": true,
+        "fsmState": "OLD_FAR_REACHED",
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "BIG",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "unrealizedPnL": "0",
+            "volume": "1.00"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "SELL",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "SMALL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "unrealizedPnL": "0",
+            "volume": "0.40"
+          },
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1.2",
+            "role": "FAR",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 203,
+            "unrealizedPnL": "0",
+            "volume": "1.20"
+          }
+        ],
+        "reserve": "10",
+        "smallReserveShare": "0.25",
+        "transitionCommitted": true
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F019"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N038"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "7d118d1377900545d9ae349fd73ef9de524b9ae3f341ae832ed3f4c630ce1e7b",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "0f8fe6b0a36f3b277150852f93310f82ac8accb6c88c95d99b7985a90598fbc0",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "RECONCILIATION_REQUIRED",
+        "reserveDelta": "0",
+        "status": "UNAVAILABLE",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F020",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0239",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0239",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "UNKNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F020"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N039"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "RECONCILIATION_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "c369c8dd66da550516041ed77ae190081bb976b51e24545299cc5c9027109b16",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "098c7f9f50cfc0a36647818ce5d5e0e33609d8b956b5aa75b39a5d92cf614c17",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "RECONCILIATION_REQUIRED",
+        "reserveDelta": "0",
+        "status": "UNAVAILABLE",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F020",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "actionId": "A0240",
+        "committedActions": [],
+        "crashPoint": "BEFORE_INTENT_PERSIST",
+        "eventId": "E0240",
+        "expectedReplayAction": "RECONCILE",
+        "outcome": "UNKNOWN",
+        "persistedRecords": [
+          "BEFORE_INTENT_PERSIST"
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F020"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N040"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "c3985ae63f124bf50907b5b4c266c262ba80565d369aaff6f3db6d6b0e9bd44c",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "a1aef73873b7a05c3d805d6860033d371a4a2a803678d7f3b4dd66cb8b330adc",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F021",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0241",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0241",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S241",
+        "snapshotTimestamp": 2241,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F021"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N041"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {
+        "missing": [
+          "symbol"
+        ]
+      },
+      "EXPECTED_REASON": "MISSING_FIELD",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "f73c580baeab9fa20d7f3506f6162404cdf216db713069390e23da289b61419e",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {
+          "missing": [
+            "symbol"
+          ]
+        },
+        "outputDigest": "84749635b7cd65bc87a5ccd1973801284e860fa886aac4c3faff2841ddeded8f",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "MISSING_FIELD",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F021",
+      "FUNCTION": "validate_context",
+      "INPUT": {
+        "accountLogin": 10001,
+        "actionId": "A0242",
+        "ask": "1.10020",
+        "bid": "1.10000",
+        "currency": "USD",
+        "cycleId": "C-R4",
+        "eventId": "E0242",
+        "magic": 8812825,
+        "minimumTimestamp": 1900,
+        "moneyDigits": 2,
+        "planId": "P-R4",
+        "point": "0.00001",
+        "snapshotId": "S242",
+        "snapshotTimestamp": 2242,
+        "snapshotVersion": 1,
+        "spreadPoints": "20",
+        "stateRevision": 7,
+        "tickSize": "0.00001",
+        "volumeMax": "10",
+        "volumeMin": "0.01",
+        "volumeStep": "0.01"
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F021"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N042"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "ddba2a20c0560b269953f2e7a64d15f8f6f80a3d7861213f55e10c39cdfdd560",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "8761dead0e87e148d20e256fe10c69511a3557e7584c8d91137da7011944f592",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F022",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0243",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0243",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S243",
+          "snapshotTimestamp": 2243,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F022"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N043"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_BROKER_INTENTS": [],
+      "EXPECTED_INVARIANTS": [
+        "NO_INTENT_ON_FAILURE",
+        "DETERMINISTIC_DIGEST"
+      ],
+      "EXPECTED_OUTPUT": {},
+      "EXPECTED_REASON": "INITIAL_PAIR_REQUIRED",
+      "EXPECTED_RESULT": {
+        "farDelta": "0",
+        "futureBrokerIntents": [],
+        "inputDigest": "27bb31503a209bd2b250c40ac6be1133e5bdd21f08fbd699b15c30bcff470a95",
+        "ledgerDelta": [],
+        "logEvents": [],
+        "output": {},
+        "outputDigest": "2df3e4e6cc17572f5b6d8e1a01b19a1330044f4f6dc5aa7763c5e4c8acaae994",
+        "persistenceRecords": [],
+        "positionDelta": [],
+        "reason": "INITIAL_PAIR_REQUIRED",
+        "reserveDelta": "0",
+        "status": "REJECT",
+        "valid": false
+      },
+      "EXPECTED_STATE": "ANY",
+      "EXPECTED_STATUS": "REJECT",
+      "FORBIDDEN_BROKER_INTENTS": [
+        "DUPLICATE"
+      ],
+      "FORMULA_ID": "F022",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A0244",
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "currency": "USD",
+          "cycleId": "C-R4",
+          "eventId": "E0244",
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "moneyDigits": 2,
+          "planId": "P-R4",
+          "point": "0.00001",
+          "snapshotId": "S244",
+          "snapshotTimestamp": 2244,
+          "snapshotVersion": 1,
+          "spreadPoints": "20",
+          "stateRevision": 7,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "positions": [
+          {
+            "commission": "0",
+            "currentClosePrice": "1.1",
+            "cycleId": "C-R4",
+            "direction": "BUY",
+            "magic": 8812825,
+            "moneyPerPriceLot": "100",
+            "openPrice": "1",
+            "role": "INITIAL",
+            "stateRevision": 7,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "ticket": 301,
+            "unrealizedPnL": "10",
+            "volume": "1"
+          }
+        ]
+      },
+      "REQUIREMENT_IDS": [
+        "R4-F022"
+      ],
+      "SCENARIO_ID": "SC00",
+      "TOLERANCES": {
+        "money": "0.00000001",
+        "volume": "0.00000001"
+      },
+      "VECTOR_ID": "N044"
+    }
+  ]
+}
