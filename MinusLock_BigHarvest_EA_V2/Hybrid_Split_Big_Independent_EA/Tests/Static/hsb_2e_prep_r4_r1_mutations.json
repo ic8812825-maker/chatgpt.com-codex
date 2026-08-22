@@ -1,0 +1,634 @@
+{
+  "mutations": [
+    {
+      "MUTATION_ID": "R4M001",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M002",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M003",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M004",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M005",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M006",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M007",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M008",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M009",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M010",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M011",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M012",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M013",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M014",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M015",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M016",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M017",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M018",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M019",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M020",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M021",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M022",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M023",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M024",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M025",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M026",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M027",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M028",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M029",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M030",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M031",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M032",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M033",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M034",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M035",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M036",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M037",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M038",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M039",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M040",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M041",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M042",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M043",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M044",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M045",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M046",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M047",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M048",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M049",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M050",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M051",
+      "TITLE": "BUY Bid to Ask",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BUY_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M052",
+      "TITLE": "SELL Ask to Bid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "directional_close_price",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SELL_CLOSE_SIDE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M053",
+      "TITLE": "unproved Far price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "position_pnl",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_FAR_PRICE_SOURCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M054",
+      "TITLE": "CloseFarShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M055",
+      "TITLE": "ReserveShare removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_BIG_PROFIT_SPLIT"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M056",
+      "TITLE": "shares below one",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "policy_error",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_ALLOCATION_CONSERVATION"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M057",
+      "TITLE": "shares above one",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "policy_error",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_ALLOCATION_CONSERVATION"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M058",
+      "TITLE": "Reserve in partial budget",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_PARTIAL_FAR_RESERVE_ISOLATION"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M059",
+      "TITLE": "ReserveAdd zero",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_RESERVE_ACCUMULATION"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M060",
+      "TITLE": "CloseBig absolute lot",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SMALL_SHARE_SEMANTICS"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M061",
+      "TITLE": "RemainBig removed",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SMALL_SHARE_CONSERVATION"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M062",
+      "TITLE": "Small shares invalid sum",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "SMALL_SHARE_CONSERVATION_NEGATIVE_"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M063",
+      "TITLE": "BigVolume not multiplied",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_small_reversal_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_SMALL_SHARE_SEMANTICS"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M064",
+      "TITLE": "two BUY accepted",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "initial_lock",
+      "EXPECTED_CHECK_IDS": [
+        "INITIAL_LOCK_DIRECTIONS_INITIAL_TWO_BUY"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M065",
+      "TITLE": "two SELL accepted",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "initial_lock",
+      "EXPECTED_CHECK_IDS": [
+        "INITIAL_LOCK_DIRECTIONS_INITIAL_TWO_SELL"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M066",
+      "TITLE": "two losses accepted",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "initial_lock",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_INITIAL_LOCK_SIGN"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M067",
+      "TITLE": "Far before confirmation",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "initial_lock",
+      "EXPECTED_CHECK_IDS": [
+        "INITIAL_LOCK_CONFIRMATION_INITIAL_NO_DEAL"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M068",
+      "TITLE": "Far intent before confirmations",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "TRANSACTION_PHASE_ORDER_PRE_FAR"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M069",
+      "TITLE": "duplicate Reserve after restart",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r1.py",
+      "TARGET_FUNCTION": "execute_big_level_scenario",
+      "EXPECTED_CHECK_IDS": [
+        "METRIC_EXACTLY_ONCE"
+      ]
+    },
+    {
+      "MUTATION_ID": "R4M070",
+      "TITLE": "canonical PREP-R3",
+      "TARGET_FILE": "README_RU.md",
+      "TARGET_FUNCTION": "canonical",
+      "EXPECTED_CHECK_IDS": [
+        "CANONICAL_STATUS"
+      ]
+    }
+  ]
+}
