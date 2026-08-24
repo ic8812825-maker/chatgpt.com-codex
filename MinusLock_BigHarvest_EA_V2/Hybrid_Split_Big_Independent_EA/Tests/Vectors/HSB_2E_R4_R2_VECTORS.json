@@ -1,0 +1,3549 @@
+{
+  "vectors": [
+    {
+      "CATEGORY": "GOLDEN",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "2472a73e12b9858b91c5fd79177db026674926e96976aff84440ffcf76c42965",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D1-101"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "a1b690c1b6a6e96fd9fbd62765c504d735641a78966f15573bf10d13e45b170f",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A1",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S1",
+          "snapshotTimestamp": 2001,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX1",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A1",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D1-101",
+            "direction": "BUY",
+            "eventId": "E1-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O1-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2101,
+            "transactionId": "TX1",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A1",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX1"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "CATEGORY": "GOLDEN",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "57b7c8dd661190a84288c256580daf677b23e6696100bb8c413e6a40e30e7b47",
+        "output": {
+          "confirmedVolume": "1.0",
+          "consumedDealIds": [
+            "D2-101a",
+            "D2-101b"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "18",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "79ff39512fc0932c3b4b40b9442692ed6eb514a6fe8eb8078b3005a0d6c9270e",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A2",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S2",
+          "snapshotTimestamp": 2002,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX2",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A2",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D2-101a",
+            "direction": "BUY",
+            "eventId": "E2-101a",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O2-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2102,
+            "transactionId": "TX2",
+            "volume": ".4"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A2",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D2-101b",
+            "direction": "BUY",
+            "eventId": "E2-101b",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O2-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2102,
+            "transactionId": "TX2",
+            "volume": ".6"
+          }
+        ],
+        "intent": {
+          "actionId": "A2",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX2"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "FULL_MULTI"
+    },
+    {
+      "CATEGORY": "BOUNDARY",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "2dd4c87a831989fca4f8596a7fd260541d18ab012065b27f075fed5bed6a38b7",
+        "output": {
+          "confirmedVolume": "0.4",
+          "consumedDealIds": [
+            "D3-101"
+          ],
+          "errors": [],
+          "fillState": "PARTIAL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0.6",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "409042387aba38e5b5c0514c9da244949dfb7e3dfeb2ae7021762611a08a6672",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A3",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S3",
+          "snapshotTimestamp": 2003,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX3",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A3",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D3-101",
+            "direction": "BUY",
+            "eventId": "E3-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O3-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2103,
+            "transactionId": "TX3",
+            "volume": ".4"
+          }
+        ],
+        "intent": {
+          "actionId": "A3",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX3"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "PARTIAL"
+    },
+    {
+      "CATEGORY": "BOUNDARY",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "e49b4b9da3c8014994ed06a2b44d2e20b5735d3fae12af99024ace1134658bcc",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [],
+          "fillState": "NO_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "8a01b8e6085da7127e257d8040f6e7730c3a44251e651ffb4f216f53b7d0e3f3",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A4",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S4",
+          "snapshotTimestamp": 2004,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX4",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [],
+        "intent": {
+          "actionId": "A4",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX4"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "NO_FILL"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "20fe587af76c0aa2aee0acb6e23694993e1fe2a7f3550a946efe545bdc613fcd",
+        "output": {
+          "confirmedVolume": "1.2",
+          "consumedDealIds": [
+            "D5-101a",
+            "D5-101b"
+          ],
+          "errors": [],
+          "fillState": "OVERFILL",
+          "money": "18",
+          "overfillVolume": "0.2",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "7ecc17c77eb51bff365409d3e5f49295d02dc0612690c2f4e7eb1ab6ecffcdd7",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A5",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S5",
+          "snapshotTimestamp": 2005,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX5",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A5",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D5-101a",
+            "direction": "BUY",
+            "eventId": "E5-101a",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O5-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2105,
+            "transactionId": "TX5",
+            "volume": ".6"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A5",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D5-101b",
+            "direction": "BUY",
+            "eventId": "E5-101b",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O5-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2105,
+            "transactionId": "TX5",
+            "volume": ".6"
+          }
+        ],
+        "intent": {
+          "actionId": "A5",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX5"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "OVERFILL"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "256e80213e6892af523ceb56cfe4590dcfb1f69173b835fdae6077dfeae2ef28",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "1db8add7be5c1f4f4d206f71064adc92c61603c4d35ac300461b16ed68ca0ae0",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A15",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S15",
+          "snapshotTimestamp": 2015,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX15",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A15",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D15-101",
+            "direction": "BUY",
+            "eventId": "E15-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O15-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2115,
+            "transactionId": "TX15",
+            "volume": "-1"
+          }
+        ],
+        "intent": {
+          "actionId": "A15",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX15"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "NEGATIVE_VOLUME"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "14dc834a8feed35f140129f56d6b6b11e8486d3dfa921c8519857a930acfd458",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "de017bbf10139bbeb9bc275a6eb7963166fcfc963ee59f792055e23055cdb5b4",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A16",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S16",
+          "snapshotTimestamp": 2016,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX16",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A16",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D16-101",
+            "direction": "BUY",
+            "eventId": "E16-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O16-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2116,
+            "transactionId": "TX16",
+            "volume": "0"
+          }
+        ],
+        "intent": {
+          "actionId": "A16",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX16"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "ZERO_VOLUME"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "5f718971b3c6a6900b37b54d24f7d806e87f4518577ab5e853fd8c6cc9f67249",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_NUMERIC_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "7d9af2c92a3c652c66a62dd89f266b3393c548a17c1b7a291779acf1ff2446a1",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A17",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S17",
+          "snapshotTimestamp": 2017,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX17",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A17",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D17-101",
+            "direction": "BUY",
+            "eventId": "E17-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O17-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2117,
+            "transactionId": "TX17",
+            "volume": "NaN"
+          }
+        ],
+        "intent": {
+          "actionId": "A17",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX17"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "NAN_VOLUME"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "32485d8204ba40e8c6fb4e9bdd725a5239e7fe189a7042dcf1d25638d383c576",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_NUMERIC_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "c28e5287e4f317f3f6d17e80056668e59c6a96cb7950ff28c83ea27b455198c7",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A18",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S18",
+          "snapshotTimestamp": 2018,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX18",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A18",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D18-101",
+            "direction": "BUY",
+            "eventId": "E18-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O18-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2118,
+            "transactionId": "TX18",
+            "volume": "Infinity"
+          }
+        ],
+        "intent": {
+          "actionId": "A18",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX18"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "INF_VOLUME"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "fd027adcd73f576c7b57bebac4fc3deec99d9f3c7dab3bfb1bef6d06cd324d92",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_OFF_GRID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "efa9d879492423380cd51396c72920b6fb82c8514e043b57b2cbb1ad4272982c",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A19",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S19",
+          "snapshotTimestamp": 2019,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX19",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A19",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D19-101",
+            "direction": "BUY",
+            "eventId": "E19-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O19-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2119,
+            "transactionId": "TX19",
+            "volume": ".015"
+          }
+        ],
+        "intent": {
+          "actionId": "A19",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX19"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "OFFGRID_VOLUME"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "8a072f4e1d17c926348954564fb457fa4110f46658ef8fcf2826a33c2484bc17",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_PRICE_OFF_GRID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "2f11e8f835b173cc22376b7be6dec681dda22ba3f6f524d337d65161f08223e3",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A20",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S20",
+          "snapshotTimestamp": 2020,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX20",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A20",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D20-101",
+            "direction": "BUY",
+            "eventId": "E20-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O20-101",
+            "positionTicket": 101,
+            "price": "1.100001",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2120,
+            "transactionId": "TX20",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A20",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX20"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "OFFGRID_PRICE"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "c3ba0be689d75fe1408a81c3f6048f877db1e3a282e20d61cc2901d4f0b709ed",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "f5ed39cfd5b63513155bd2ce32f1f1f953a5b4bda66a8f1ada3db1387aaa2dca",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A21",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S21",
+          "snapshotTimestamp": 2021,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX21",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A21",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D21-101",
+            "direction": "BUY",
+            "eventId": "E21-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O21-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "GBPUSD",
+            "timestamp": 2121,
+            "transactionId": "TX21",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A21",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX21"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "FOREIGN_SYMBOL"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "2cad618a763aa6e80db1bffbcb978ac340dc584abd307c568469eaca01e206f6",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "966a2bc7c16f534e7fc24721ac74984a333e7be477142f417e8516c9b4ad8c99",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A22",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S22",
+          "snapshotTimestamp": 2022,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX22",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A22",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D22-101",
+            "direction": "SELL",
+            "eventId": "E22-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O22-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2122,
+            "transactionId": "TX22",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A22",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX22"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "WRONG_DIRECTION"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "8621edea1a5c7cb14a2754dfb6bac46092aec291cd3bc0b3c7711eccfa6a2682",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "d237b524f0f10543a8ac6996c0d92256a23e4daa9f5122e6c9341562d59ace19",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A23",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S23",
+          "snapshotTimestamp": 2023,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX23",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A23",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D23-101",
+            "direction": "BUY",
+            "eventId": "E23-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O23-101",
+            "positionTicket": 999,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2123,
+            "transactionId": "TX23",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A23",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX23"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "WRONG_TICKET"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "0fb34ff594d875b2dee4702edbbe83fdb4261b817c0498140c1282826707fbe1",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "STALE_FILL"
+          ],
+          "fillState": "STALE_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "0fff133243f19bf816ef7190c28100285cbef0efc72f6ecaa1a84ee4ee32b62c",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A24",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S24",
+          "snapshotTimestamp": 2024,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX24",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A24",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D24-101",
+            "direction": "BUY",
+            "eventId": "E24-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O24-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2124,
+            "transactionId": "OLD",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A24",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX24"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "STALE_TX"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "9cf7b19b9a82f9832d1f7ad3c68e2561f7818539979fee04f0ee88698677a883",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "STALE_FILL"
+          ],
+          "fillState": "STALE_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "9a0c788aa78fc94582d479ae38d71db645b004c01d9d72051273786520c9c3c1",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A25",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S25",
+          "snapshotTimestamp": 2025,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX25",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A25",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D25-101",
+            "direction": "BUY",
+            "eventId": "E25-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O25-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 4,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2125,
+            "transactionId": "TX25",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A25",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX25"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "STALE_REVISION"
+    },
+    {
+      "CATEGORY": "NEGATIVE",
+      "EXPECTED_PHASE": "FILL_CLASSIFIED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "d539a0679180591fe0a892d5a3e4dd2a9b5557432c5b5ee97570337545d10f97",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D30-101"
+          ],
+          "errors": [
+            "DUPLICATE_FILL"
+          ],
+          "fillState": "DUPLICATE_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "2be64331b45976b6333606e3da3f16e9f22796f843576f7197a49cdbfb86aeab",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "classify_fill",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A30",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S30",
+          "snapshotTimestamp": 2030,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX30",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A30",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D30-101",
+            "direction": "BUY",
+            "eventId": "E30-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O30-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2130,
+            "transactionId": "TX30",
+            "volume": "1"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A30",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D30-101",
+            "direction": "BUY",
+            "eventId": "E30-101",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O30-101",
+            "positionTicket": 101,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2130,
+            "transactionId": "TX30",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A30",
+          "intentId": "I101",
+          "positionTicket": 101,
+          "requestedVolume": "1",
+          "transactionId": "TX30"
+        },
+        "position": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "LEG",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "DUPLICATE_DEAL"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "BIG_SETTLED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "77fbd62a12b485b7b1dcf1ac35eab64e88de2611d6fa0a9b15e7e3f4484bbf3f",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D40-201",
+            "D40-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D40-201"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D40-202"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "18"
+        },
+        "outputDigest": "76e10e6fc7808f82828bb4e5638b504ae2bd21a4df0da0d075c46d4aaf9c4e1f",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "BIG_SETTLED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "big_settlement",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A40",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S40",
+          "snapshotTimestamp": 2040,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX40",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A40",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D40-201",
+            "direction": "BUY",
+            "eventId": "E40-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O40-201",
+            "positionTicket": 201,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2140,
+            "transactionId": "TX40",
+            "volume": "1"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A40",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D40-202",
+            "direction": "SELL",
+            "eventId": "E40-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O40-202",
+            "positionTicket": 202,
+            "price": "1.20000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2140,
+            "transactionId": "TX40",
+            "volume": ".5"
+          }
+        ],
+        "intents": [
+          {
+            "actionId": "A40",
+            "intentId": "I201",
+            "positionTicket": 201,
+            "requestedVolume": "1",
+            "transactionId": "TX40"
+          },
+          {
+            "actionId": "A40",
+            "intentId": "I202",
+            "positionTicket": 202,
+            "requestedVolume": ".5",
+            "transactionId": "TX40"
+          }
+        ],
+        "positions": [
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "BIG",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "volume": "1"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "SELL",
+            "magic": 8812825,
+            "role": "SMALL",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "volume": ".5"
+          }
+        ]
+      },
+      "VECTOR_ID": "BIG_FULL"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "WAITING_FOR_FULL_FILL",
+      "EXPECTED_REASON": "PARTIAL_FILL_RECONCILIATION",
+      "EXPECTED_RESULT": {
+        "inputDigest": "6d70f7238043d6cc2d81d3ab97ad3848fc790f372cddca3404bb34c0899d7d76",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D41-201",
+            "D41-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D41-201"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D41-202"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "db3848c5305115cbb742f0e928ae977f6609c48c3a1a51fb48483a3e0deb6f38",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "big_settlement",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A41",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S41",
+          "snapshotTimestamp": 2041,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX41",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A41",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D41-201",
+            "direction": "BUY",
+            "eventId": "E41-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O41-201",
+            "positionTicket": 201,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2141,
+            "transactionId": "TX41",
+            "volume": ".01"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A41",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D41-202",
+            "direction": "SELL",
+            "eventId": "E41-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O41-202",
+            "positionTicket": 202,
+            "price": "1.20000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2141,
+            "transactionId": "TX41",
+            "volume": ".5"
+          }
+        ],
+        "intents": [
+          {
+            "actionId": "A41",
+            "intentId": "I201",
+            "positionTicket": 201,
+            "requestedVolume": "1",
+            "transactionId": "TX41"
+          },
+          {
+            "actionId": "A41",
+            "intentId": "I202",
+            "positionTicket": 202,
+            "requestedVolume": ".5",
+            "transactionId": "TX41"
+          }
+        ],
+        "positions": [
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "BIG",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "volume": "1"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "SELL",
+            "magic": 8812825,
+            "role": "SMALL",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "volume": ".5"
+          }
+        ]
+      },
+      "VECTOR_ID": "BIG_PARTIAL_ONE_LEG"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "WAITING_FOR_FULL_FILL",
+      "EXPECTED_REASON": "PARTIAL_FILL_RECONCILIATION",
+      "EXPECTED_RESULT": {
+        "inputDigest": "b05ad8f0ee32c28ce741fa72adc8d4ca96593a7d86475de4ed26a0e4cd94423a",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D42-201",
+            "D42-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D42-201"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D42-202"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.49",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "55e9e7fb352e2aabce7085914bb9ef9de15b599f6269ed0d8c48dc598c30357f",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "big_settlement",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A42",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S42",
+          "snapshotTimestamp": 2042,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX42",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A42",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D42-201",
+            "direction": "BUY",
+            "eventId": "E42-201",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O42-201",
+            "positionTicket": 201,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2142,
+            "transactionId": "TX42",
+            "volume": ".01"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A42",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D42-202",
+            "direction": "SELL",
+            "eventId": "E42-202",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O42-202",
+            "positionTicket": 202,
+            "price": "1.20000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2142,
+            "transactionId": "TX42",
+            "volume": ".01"
+          }
+        ],
+        "intents": [
+          {
+            "actionId": "A42",
+            "intentId": "I201",
+            "positionTicket": 201,
+            "requestedVolume": "1",
+            "transactionId": "TX42"
+          },
+          {
+            "actionId": "A42",
+            "intentId": "I202",
+            "positionTicket": 202,
+            "requestedVolume": ".5",
+            "transactionId": "TX42"
+          }
+        ],
+        "positions": [
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "BIG",
+            "symbol": "EURUSD",
+            "ticket": 201,
+            "volume": "1"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "SELL",
+            "magic": 8812825,
+            "role": "SMALL",
+            "symbol": "EURUSD",
+            "ticket": 202,
+            "volume": ".5"
+          }
+        ]
+      },
+      "VECTOR_ID": "BIG_MONEY_MATCH_VOLUME_SHORT"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "INITIAL_COMMITTED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "a61d34564e6965c358c89aaa3f6a3d3a18b31af1f8be4cfb4347ff144cde4449",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D43-301"
+          ],
+          "fills": {
+            "301": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D43-301"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "9"
+        },
+        "outputDigest": "188efd75d6aa86e1e58fb45d4644b08859356db642353ef4afaca97a2aab0f9f",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "INITIAL_COMMITTED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A43",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S43",
+          "snapshotTimestamp": 2043,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX43",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A43",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D43-301",
+            "direction": "BUY",
+            "eventId": "E43-301",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O43-301",
+            "positionTicket": 301,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2143,
+            "transactionId": "TX43",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A43",
+          "intentId": "I301",
+          "positionTicket": 301,
+          "requestedVolume": "1",
+          "transactionId": "TX43"
+        },
+        "winner": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "WINNER",
+          "symbol": "EURUSD",
+          "ticket": 301,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "INITIAL_FULL"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "WAITING_FOR_FULL_FILL",
+      "EXPECTED_REASON": "PARTIAL_FILL_RECONCILIATION",
+      "EXPECTED_RESULT": {
+        "inputDigest": "107a408397ade83e72557155ee46016e5195525d7bcbd377e71cd10e56c2f762",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D44-301"
+          ],
+          "fills": {
+            "301": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D44-301"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "3294c661925371360a1e25dce383192eb8e6c10ab79e30e89f6fda718dd052b0",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A44",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S44",
+          "snapshotTimestamp": 2044,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX44",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A44",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D44-301",
+            "direction": "BUY",
+            "eventId": "E44-301",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O44-301",
+            "positionTicket": 301,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2144,
+            "transactionId": "TX44",
+            "volume": ".01"
+          }
+        ],
+        "intent": {
+          "actionId": "A44",
+          "intentId": "I301",
+          "positionTicket": 301,
+          "requestedVolume": "1",
+          "transactionId": "TX44"
+        },
+        "winner": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "WINNER",
+          "symbol": "EURUSD",
+          "ticket": 301,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "INITIAL_PARTIAL"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "INITIAL_REJECTED",
+      "EXPECTED_REASON": "INITIAL_NET_NOT_POSITIVE",
+      "EXPECTED_RESULT": {
+        "inputDigest": "02c2fd819bfda2708c00b84ed469933d081f68a94e70d485c7561d363c34ff46",
+        "output": {
+          "allocationApplied": false,
+          "fills": {
+            "301": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D45-301"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "-1",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false
+        },
+        "outputDigest": "81ece9793a56537e88c6f82170f3ff959bb1a39b77f2646e7e65c2cb860573cd",
+        "persistenceRecords": [
+          "FILL_EVIDENCE_PERSISTED"
+        ],
+        "phase": "INITIAL_REJECTED",
+        "reason": "INITIAL_NET_NOT_POSITIVE",
+        "status": "REJECT"
+      },
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "initial_lock",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A45",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S45",
+          "snapshotTimestamp": 2045,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX45",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A45",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D45-301",
+            "direction": "BUY",
+            "eventId": "E45-301",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O45-301",
+            "positionTicket": 301,
+            "price": "1.10000",
+            "profit": "0",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2145,
+            "transactionId": "TX45",
+            "volume": "1"
+          }
+        ],
+        "intent": {
+          "actionId": "A45",
+          "intentId": "I301",
+          "positionTicket": 301,
+          "requestedVolume": "1",
+          "transactionId": "TX45"
+        },
+        "winner": {
+          "cycleId": "C1",
+          "direction": "BUY",
+          "magic": 8812825,
+          "role": "WINNER",
+          "symbol": "EURUSD",
+          "ticket": 301,
+          "volume": "1"
+        }
+      },
+      "VECTOR_ID": "INITIAL_NET_NEGATIVE"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "SMALL_SETTLED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "211fbf7facc47668d531c969daab8a9329a463322405f6490aaf5913e33cf4dd",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D46-401",
+            "D46-402",
+            "D46-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D46-401"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "1.5",
+              "consumedDealIds": [
+                "D46-402"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D46-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "27"
+        },
+        "outputDigest": "6a1104322a320eb09835a2cce0bb3135520cc8a74d9c954e1704b987653183b5",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "SMALL_SETTLED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "small_settlement",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A46",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S46",
+          "snapshotTimestamp": 2046,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX46",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A46",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D46-401",
+            "direction": "SELL",
+            "eventId": "E46-401",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O46-401",
+            "positionTicket": 401,
+            "price": "1.20000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2146,
+            "transactionId": "TX46",
+            "volume": ".4"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A46",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D46-402",
+            "direction": "BUY",
+            "eventId": "E46-402",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O46-402",
+            "positionTicket": 402,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2146,
+            "transactionId": "TX46",
+            "volume": "1.5"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A46",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D46-403",
+            "direction": "BUY",
+            "eventId": "E46-403",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O46-403",
+            "positionTicket": 403,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2146,
+            "transactionId": "TX46",
+            "volume": ".5"
+          }
+        ],
+        "dualTail": false,
+        "intents": [
+          {
+            "actionId": "A46",
+            "intentId": "I401",
+            "positionTicket": 401,
+            "requestedVolume": ".4",
+            "transactionId": "TX46"
+          },
+          {
+            "actionId": "A46",
+            "intentId": "I402",
+            "positionTicket": 402,
+            "requestedVolume": "1.5",
+            "transactionId": "TX46"
+          },
+          {
+            "actionId": "A46",
+            "intentId": "I403",
+            "positionTicket": 403,
+            "requestedVolume": ".5",
+            "transactionId": "TX46"
+          }
+        ],
+        "positions": [
+          {
+            "cycleId": "C1",
+            "direction": "SELL",
+            "magic": 8812825,
+            "role": "SMALL",
+            "symbol": "EURUSD",
+            "ticket": 401,
+            "volume": ".4"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "OLD_FAR",
+            "symbol": "EURUSD",
+            "ticket": 402,
+            "volume": "1.5"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "BIG",
+            "symbol": "EURUSD",
+            "ticket": 403,
+            "volume": ".5"
+          }
+        ]
+      },
+      "VECTOR_ID": "SMALL_FULL"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "WAITING_FOR_FULL_FILL",
+      "EXPECTED_REASON": "PARTIAL_FILL_RECONCILIATION",
+      "EXPECTED_RESULT": {
+        "inputDigest": "f75f38251f401b911a71738b3173f570caacd984f5aa167f0a1454ef928e205f",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D47-401",
+            "D47-402",
+            "D47-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D47-401"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.39",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "1.5",
+              "consumedDealIds": [
+                "D47-402"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D47-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "c562bbf495f0264f310c5a19c6f1567b0df1afb58e0d245809fbcd57f6b94cfd",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "small_settlement",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A47",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S47",
+          "snapshotTimestamp": 2047,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX47",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A47",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D47-401",
+            "direction": "SELL",
+            "eventId": "E47-401",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O47-401",
+            "positionTicket": 401,
+            "price": "1.20000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2147,
+            "transactionId": "TX47",
+            "volume": ".01"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A47",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D47-402",
+            "direction": "BUY",
+            "eventId": "E47-402",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O47-402",
+            "positionTicket": 402,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2147,
+            "transactionId": "TX47",
+            "volume": "1.5"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A47",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D47-403",
+            "direction": "BUY",
+            "eventId": "E47-403",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O47-403",
+            "positionTicket": 403,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2147,
+            "transactionId": "TX47",
+            "volume": ".5"
+          }
+        ],
+        "dualTail": false,
+        "intents": [
+          {
+            "actionId": "A47",
+            "intentId": "I401",
+            "positionTicket": 401,
+            "requestedVolume": ".4",
+            "transactionId": "TX47"
+          },
+          {
+            "actionId": "A47",
+            "intentId": "I402",
+            "positionTicket": 402,
+            "requestedVolume": "1.5",
+            "transactionId": "TX47"
+          },
+          {
+            "actionId": "A47",
+            "intentId": "I403",
+            "positionTicket": 403,
+            "requestedVolume": ".5",
+            "transactionId": "TX47"
+          }
+        ],
+        "positions": [
+          {
+            "cycleId": "C1",
+            "direction": "SELL",
+            "magic": 8812825,
+            "role": "SMALL",
+            "symbol": "EURUSD",
+            "ticket": 401,
+            "volume": ".4"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "OLD_FAR",
+            "symbol": "EURUSD",
+            "ticket": 402,
+            "volume": "1.5"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "BIG",
+            "symbol": "EURUSD",
+            "ticket": 403,
+            "volume": ".5"
+          }
+        ]
+      },
+      "VECTOR_ID": "SMALL_PARTIAL_SMALL"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "WAITING_FOR_FULL_FILL",
+      "EXPECTED_REASON": "PARTIAL_FILL_RECONCILIATION",
+      "EXPECTED_RESULT": {
+        "inputDigest": "70461238c6350852ad5500f4d4c0a3fdebc91585d0021b4385093b6d88eda6fd",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D48-401",
+            "D48-402",
+            "D48-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D48-401"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D48-402"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "1.49",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D48-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "e8559da7cbea7aabd0390b7f258979e47ec685d7a3fc93dc12148d41100e991b",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "small_settlement",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A48",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S48",
+          "snapshotTimestamp": 2048,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX48",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A48",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D48-401",
+            "direction": "SELL",
+            "eventId": "E48-401",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O48-401",
+            "positionTicket": 401,
+            "price": "1.20000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2148,
+            "transactionId": "TX48",
+            "volume": ".4"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A48",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D48-402",
+            "direction": "BUY",
+            "eventId": "E48-402",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O48-402",
+            "positionTicket": 402,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2148,
+            "transactionId": "TX48",
+            "volume": ".01"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A48",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D48-403",
+            "direction": "BUY",
+            "eventId": "E48-403",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O48-403",
+            "positionTicket": 403,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2148,
+            "transactionId": "TX48",
+            "volume": ".5"
+          }
+        ],
+        "dualTail": false,
+        "intents": [
+          {
+            "actionId": "A48",
+            "intentId": "I401",
+            "positionTicket": 401,
+            "requestedVolume": ".4",
+            "transactionId": "TX48"
+          },
+          {
+            "actionId": "A48",
+            "intentId": "I402",
+            "positionTicket": 402,
+            "requestedVolume": "1.5",
+            "transactionId": "TX48"
+          },
+          {
+            "actionId": "A48",
+            "intentId": "I403",
+            "positionTicket": 403,
+            "requestedVolume": ".5",
+            "transactionId": "TX48"
+          }
+        ],
+        "positions": [
+          {
+            "cycleId": "C1",
+            "direction": "SELL",
+            "magic": 8812825,
+            "role": "SMALL",
+            "symbol": "EURUSD",
+            "ticket": 401,
+            "volume": ".4"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "OLD_FAR",
+            "symbol": "EURUSD",
+            "ticket": 402,
+            "volume": "1.5"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "BIG",
+            "symbol": "EURUSD",
+            "ticket": 403,
+            "volume": ".5"
+          }
+        ]
+      },
+      "VECTOR_ID": "SMALL_PARTIAL_FAR"
+    },
+    {
+      "CATEGORY": "SCENARIO",
+      "EXPECTED_PHASE": "SMALL_BLOCKED",
+      "EXPECTED_REASON": "DUAL_TAIL",
+      "EXPECTED_RESULT": {
+        "inputDigest": "6b8febf4678e865f90c9bcba3654c3dae9251631f5607c878193f91ee6a7b896",
+        "output": {},
+        "outputDigest": "197293d5b1b41e946ac7df24fd8af127b1897e51ab70dc54dae66c8ac50c4fdd",
+        "persistenceRecords": [],
+        "phase": "SMALL_BLOCKED",
+        "reason": "DUAL_TAIL",
+        "status": "REJECT"
+      },
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "small_settlement",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A49",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S49",
+          "snapshotTimestamp": 2049,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX49",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "deals": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A49",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D49-401",
+            "direction": "SELL",
+            "eventId": "E49-401",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O49-401",
+            "positionTicket": 401,
+            "price": "1.20000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2149,
+            "transactionId": "TX49",
+            "volume": ".4"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A49",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D49-402",
+            "direction": "BUY",
+            "eventId": "E49-402",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O49-402",
+            "positionTicket": 402,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2149,
+            "transactionId": "TX49",
+            "volume": "1.5"
+          },
+          {
+            "accountLogin": 10001,
+            "actionId": "A49",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "C1",
+            "dealId": "D49-403",
+            "direction": "BUY",
+            "eventId": "E49-403",
+            "fee": "0",
+            "magic": 8812825,
+            "orderId": "O49-403",
+            "positionTicket": 403,
+            "price": "1.10000",
+            "profit": "10",
+            "stateRevision": 5,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 2149,
+            "transactionId": "TX49",
+            "volume": ".5"
+          }
+        ],
+        "dualTail": true,
+        "intents": [
+          {
+            "actionId": "A49",
+            "intentId": "I401",
+            "positionTicket": 401,
+            "requestedVolume": ".4",
+            "transactionId": "TX49"
+          },
+          {
+            "actionId": "A49",
+            "intentId": "I402",
+            "positionTicket": 402,
+            "requestedVolume": "1.5",
+            "transactionId": "TX49"
+          },
+          {
+            "actionId": "A49",
+            "intentId": "I403",
+            "positionTicket": 403,
+            "requestedVolume": ".5",
+            "transactionId": "TX49"
+          }
+        ],
+        "positions": [
+          {
+            "cycleId": "C1",
+            "direction": "SELL",
+            "magic": 8812825,
+            "role": "SMALL",
+            "symbol": "EURUSD",
+            "ticket": 401,
+            "volume": ".4"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "OLD_FAR",
+            "symbol": "EURUSD",
+            "ticket": 402,
+            "volume": "1.5"
+          },
+          {
+            "cycleId": "C1",
+            "direction": "BUY",
+            "magic": 8812825,
+            "role": "BIG",
+            "symbol": "EURUSD",
+            "ticket": 403,
+            "volume": ".5"
+          }
+        ]
+      },
+      "VECTOR_ID": "DUAL_TAIL"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_PHASE": "WAITING_FOR_FULL_FILL",
+      "EXPECTED_REASON": "PARTIAL_FILL_RECONCILIATION",
+      "EXPECTED_RESULT": {
+        "inputDigest": "188764f23d081f5db591a1ca4981bf2f253ef6ff49fc2149e183db7547e440d6",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D50-101"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D50-101"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.6",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "36adbe4684507c38034d745fe85f8f8fc91645d50ad4a6837f51f613b8b70d89",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED_STATUS": "UNAVAILABLE",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A50",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S50",
+          "snapshotTimestamp": 2050,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX50",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "legs": {
+          "101": {
+            "deals": [
+              {
+                "accountLogin": 10001,
+                "actionId": "A50",
+                "commission": "-1",
+                "confirmed": true,
+                "cycleId": "C1",
+                "dealId": "D50-101",
+                "direction": "BUY",
+                "eventId": "E50-101",
+                "fee": "0",
+                "magic": 8812825,
+                "orderId": "O50-101",
+                "positionTicket": 101,
+                "price": "1.10000",
+                "profit": "10",
+                "stateRevision": 5,
+                "swap": "0",
+                "symbol": "EURUSD",
+                "timestamp": 2150,
+                "transactionId": "TX50",
+                "volume": ".4"
+              }
+            ],
+            "intent": {
+              "actionId": "A50",
+              "intentId": "I101",
+              "positionTicket": 101,
+              "requestedVolume": "1",
+              "transactionId": "TX50"
+            },
+            "position": {
+              "cycleId": "C1",
+              "direction": "BUY",
+              "magic": 8812825,
+              "role": "LEG",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1"
+            }
+          }
+        }
+      },
+      "VECTOR_ID": "RESTART_PARTIAL"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_PHASE": "RESTART_FULL_FILL_RECOVERED",
+      "EXPECTED_REASON": "OK",
+      "EXPECTED_RESULT": {
+        "inputDigest": "dca236f23796780ba67e7b449f79511049282a05dba7c08273e0fd91e487e0d5",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D50-101",
+            "D50-101b"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "1.0",
+              "consumedDealIds": [
+                "D50-101",
+                "D50-101b"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "18",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "18"
+        },
+        "outputDigest": "593ef894e31adf8820dfe3018dfdc494b572a3ae2a839feed35ec496748c795c",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "RESTART_FULL_FILL_RECOVERED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED_STATUS": "PASS",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "consumedDealIds": [],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A50",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S50",
+          "snapshotTimestamp": 2050,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX50",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "legs": {
+          "101": {
+            "deals": [
+              {
+                "accountLogin": 10001,
+                "actionId": "A50",
+                "commission": "-1",
+                "confirmed": true,
+                "cycleId": "C1",
+                "dealId": "D50-101",
+                "direction": "BUY",
+                "eventId": "E50-101",
+                "fee": "0",
+                "magic": 8812825,
+                "orderId": "O50-101",
+                "positionTicket": 101,
+                "price": "1.10000",
+                "profit": "10",
+                "stateRevision": 5,
+                "swap": "0",
+                "symbol": "EURUSD",
+                "timestamp": 2150,
+                "transactionId": "TX50",
+                "volume": ".4"
+              },
+              {
+                "accountLogin": 10001,
+                "actionId": "A50",
+                "commission": "-1",
+                "confirmed": true,
+                "cycleId": "C1",
+                "dealId": "D50-101b",
+                "direction": "BUY",
+                "eventId": "E50-101b",
+                "fee": "0",
+                "magic": 8812825,
+                "orderId": "O50-101",
+                "positionTicket": 101,
+                "price": "1.10000",
+                "profit": "10",
+                "stateRevision": 5,
+                "swap": "0",
+                "symbol": "EURUSD",
+                "timestamp": 2150,
+                "transactionId": "TX50",
+                "volume": ".6"
+              }
+            ],
+            "intent": {
+              "actionId": "A50",
+              "intentId": "I101",
+              "positionTicket": 101,
+              "requestedVolume": "1",
+              "transactionId": "TX50"
+            },
+            "position": {
+              "cycleId": "C1",
+              "direction": "BUY",
+              "magic": 8812825,
+              "role": "LEG",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1"
+            }
+          }
+        }
+      },
+      "VECTOR_ID": "RESTART_CONTINUE_FULL"
+    },
+    {
+      "CATEGORY": "RESTART",
+      "EXPECTED_PHASE": "RECONCILIATION_BLOCKED",
+      "EXPECTED_REASON": "DUPLICATE_FILL",
+      "EXPECTED_RESULT": {
+        "inputDigest": "a8a4796d81c89a3364f178909e33929025c5c80f1052279593559b92568af4fa",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D50-101b"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "0.6",
+              "consumedDealIds": [
+                "D50-101b"
+              ],
+              "errors": [
+                "DUPLICATE_FILL"
+              ],
+              "fillState": "DUPLICATE_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.4",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "ddae517bbf2fce16999f736ed85a6fea1bda09706d824833ae42c2ec510f8ff0",
+        "persistenceRecords": [
+          "FILL_EVIDENCE_PERSISTED"
+        ],
+        "phase": "RECONCILIATION_BLOCKED",
+        "reason": "DUPLICATE_FILL",
+        "status": "REJECT"
+      },
+      "EXPECTED_STATUS": "REJECT",
+      "FUNCTION": "restart_replay",
+      "INPUT": {
+        "consumedDealIds": [
+          "D50-101"
+        ],
+        "context": {
+          "accountLogin": 10001,
+          "actionId": "A50",
+          "ask": "1.20000",
+          "bid": "1.10000",
+          "cycleId": "C1",
+          "digits": 5,
+          "magic": 8812825,
+          "minimumTimestamp": 1900,
+          "snapshotId": "S50",
+          "snapshotTimestamp": 2050,
+          "snapshotVersion": 1,
+          "stateRevision": 5,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "transactionId": "TX50",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "legs": {
+          "101": {
+            "deals": [
+              {
+                "accountLogin": 10001,
+                "actionId": "A50",
+                "commission": "-1",
+                "confirmed": true,
+                "cycleId": "C1",
+                "dealId": "D50-101",
+                "direction": "BUY",
+                "eventId": "E50-101",
+                "fee": "0",
+                "magic": 8812825,
+                "orderId": "O50-101",
+                "positionTicket": 101,
+                "price": "1.10000",
+                "profit": "10",
+                "stateRevision": 5,
+                "swap": "0",
+                "symbol": "EURUSD",
+                "timestamp": 2150,
+                "transactionId": "TX50",
+                "volume": ".4"
+              },
+              {
+                "accountLogin": 10001,
+                "actionId": "A50",
+                "commission": "-1",
+                "confirmed": true,
+                "cycleId": "C1",
+                "dealId": "D50-101b",
+                "direction": "BUY",
+                "eventId": "E50-101b",
+                "fee": "0",
+                "magic": 8812825,
+                "orderId": "O50-101",
+                "positionTicket": 101,
+                "price": "1.10000",
+                "profit": "10",
+                "stateRevision": 5,
+                "swap": "0",
+                "symbol": "EURUSD",
+                "timestamp": 2150,
+                "transactionId": "TX50",
+                "volume": ".6"
+              }
+            ],
+            "intent": {
+              "actionId": "A50",
+              "intentId": "I101",
+              "positionTicket": 101,
+              "requestedVolume": "1",
+              "transactionId": "TX50"
+            },
+            "position": {
+              "cycleId": "C1",
+              "direction": "BUY",
+              "magic": 8812825,
+              "role": "LEG",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1"
+            }
+          }
+        }
+      },
+      "VECTOR_ID": "RESTART_DUPLICATE"
+    }
+  ]
+}

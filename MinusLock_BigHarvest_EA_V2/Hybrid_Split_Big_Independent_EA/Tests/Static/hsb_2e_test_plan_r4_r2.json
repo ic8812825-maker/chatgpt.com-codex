@@ -1,0 +1,154 @@
+{
+  "tests": [
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T001",
+      "VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T002",
+      "VECTOR_ID": "FULL_MULTI"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T003",
+      "VECTOR_ID": "PARTIAL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T004",
+      "VECTOR_ID": "NO_FILL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T005",
+      "VECTOR_ID": "OVERFILL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T006",
+      "VECTOR_ID": "NEGATIVE_VOLUME"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T007",
+      "VECTOR_ID": "ZERO_VOLUME"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T008",
+      "VECTOR_ID": "NAN_VOLUME"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T009",
+      "VECTOR_ID": "INF_VOLUME"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T010",
+      "VECTOR_ID": "OFFGRID_VOLUME"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T011",
+      "VECTOR_ID": "OFFGRID_PRICE"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T012",
+      "VECTOR_ID": "FOREIGN_SYMBOL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T013",
+      "VECTOR_ID": "WRONG_DIRECTION"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T014",
+      "VECTOR_ID": "WRONG_TICKET"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T015",
+      "VECTOR_ID": "STALE_TX"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T016",
+      "VECTOR_ID": "STALE_REVISION"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T017",
+      "VECTOR_ID": "DUPLICATE_DEAL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T018",
+      "VECTOR_ID": "BIG_FULL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T019",
+      "VECTOR_ID": "BIG_PARTIAL_ONE_LEG"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T020",
+      "VECTOR_ID": "BIG_MONEY_MATCH_VOLUME_SHORT"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T021",
+      "VECTOR_ID": "INITIAL_FULL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T022",
+      "VECTOR_ID": "INITIAL_PARTIAL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T023",
+      "VECTOR_ID": "INITIAL_NET_NEGATIVE"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T024",
+      "VECTOR_ID": "SMALL_FULL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T025",
+      "VECTOR_ID": "SMALL_PARTIAL_SMALL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T026",
+      "VECTOR_ID": "SMALL_PARTIAL_FAR"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T027",
+      "VECTOR_ID": "DUAL_TAIL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T028",
+      "VECTOR_ID": "RESTART_PARTIAL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T029",
+      "VECTOR_ID": "RESTART_CONTINUE_FULL"
+    },
+    {
+      "ASSERTION_ID": "ASSERT_FULL_RESULT",
+      "TEST_ID": "R2T030",
+      "VECTOR_ID": "RESTART_DUPLICATE"
+    }
+  ]
+}
