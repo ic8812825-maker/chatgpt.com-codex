@@ -1,0 +1,1474 @@
+{
+  "migrations": [
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "FULL_MULTI"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "PARTIAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "EMPTY_BATCH",
+        "status": "UNAVAILABLE"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "NO_FILL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "OVERFILL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "NEGATIVE_VOLUME"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "ZERO_VOLUME"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "NAN_VOLUME"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "INF_VOLUME"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "OFFGRID_VOLUME"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "OFFGRID_PRICE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "FOREIGN_SYMBOL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "WRONG_DIRECTION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "WRONG_TICKET"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "STALE_TX"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "STALE_REVISION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "DUPLICATE_DEAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "BIG_FULL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PARTIAL_FILL_RECONCILIATION",
+        "oldStatus": "UNAVAILABLE"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "BIG_PARTIAL_ONE_LEG"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PARTIAL_FILL_RECONCILIATION",
+        "oldStatus": "UNAVAILABLE"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "BIG_MONEY_MATCH_VOLUME_SHORT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "INITIAL_FULL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PARTIAL_FILL_RECONCILIATION",
+        "oldStatus": "UNAVAILABLE"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "INITIAL_PARTIAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "INITIAL_NET_NOT_POSITIVE",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "INITIAL_NET_NEGATIVE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "SMALL_FULL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PARTIAL_FILL_RECONCILIATION",
+        "oldStatus": "UNAVAILABLE"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "SMALL_PARTIAL_SMALL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PARTIAL_FILL_RECONCILIATION",
+        "oldStatus": "UNAVAILABLE"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "SMALL_PARTIAL_FAR"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DUAL_TAIL",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "DUAL_TAIL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PARTIAL_FILL_RECONCILIATION",
+        "oldStatus": "UNAVAILABLE"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "RESTART_PARTIAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "RESTART_CONTINUE_FULL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DUPLICATE_FILL",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R2",
+      "VECTOR_ID": "RESTART_DUPLICATE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "VALID_SMALL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "VALID_FINAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEAL_ALREADY_CONSUMED",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_DEAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "EVENT_ALREADY_SEEN",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_EVENT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEAL_ALREADY_CONSUMED",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_PAIR_BATCH"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEAL_ALREADY_CONSUMED",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_BETWEEN_BATCH"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "EVENT_ALREADY_SEEN",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_AFTER_RESTART"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEAL_EVENT_BINDING_CONFLICT",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "BINDING_CONFLICT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "STALE_DEAL",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_TIMESTAMP_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "STALE_DEAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "STALE_DEAL",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "STALE_BEFORE_INTENT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "FUTURE_DEAL",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_TIMESTAMP_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FUTURE_DEAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "CONTEXT_MISSING",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "WINDOW_UNPROVEN"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "INTENT_IDENTITY_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_INTENT_TX"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "INTENT_IDENTITY_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_INTENT_ACTION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "INTENT_IDENTITY_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_INTENT_CYCLE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "INTENT_IDENTITY_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_INTENT_SYMBOL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "INTENT_IDENTITY_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_INTENT_MAGIC"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "INTENT_IDENTITY_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_INTENT_REVISION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_OWNERSHIP_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_POSITION_SYMBOL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_OWNERSHIP_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_POSITION_MAGIC"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_OWNERSHIP_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_POSITION_CYCLE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_OWNERSHIP_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "FOREIGN_POSITION_REVISION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "MANDATORY_LEG_MISSING",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "MANDATORY_LEGS_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "MISSING_BIG"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "MANDATORY_LEG_MISSING",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "MISSING_SMALL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "MANDATORY_LEG_MISSING",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "MANDATORY_LEGS_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "MISSING_OLD_FAR"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "ROLE_MULTIPLICITY_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_BIG"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "ROLE_MULTIPLICITY_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_SMALL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DUPLICATE_TICKET",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_ROLE_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_TICKET"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DUPLICATE_INTENT_ID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_INTENT_BINDING_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "DUP_INTENT_ID"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "ORPHAN_POSITION",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "ORPHAN_POSITION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "MANDATORY_LEG_MISSING",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "ORPHAN_INTENT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "ORPHAN_DEAL",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "ORPHAN_DEAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "MANDATORY_LEG_MISSING",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "MANDATORY_LEGS_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "EXTRA_ROLE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "FULL_CLOSE_VOLUME_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "VOLUME_LOW"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "FULL_CLOSE_VOLUME_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "VOLUME_HIGH"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_OWNERSHIP_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "STALE_POSITION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PARTIAL_CLOSE_NOT_ALLOWED",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "PARTIAL_REQUIRED"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITIONS_SCHEMA_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "MALFORMED_POSITIONS"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "INTENTS_SCHEMA_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "MALFORMED_INTENTS"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEALS_SCHEMA_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "MALFORMED_DEALS"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "MANDATORY_LEG_MISSING",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EMPTY_BATCH",
+        "status": "UNAVAILABLE"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "EMPTY_MANDATORY"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "NULL_OR_MALFORMED_ELEMENT",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "NULL_ELEMENT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "REORDERED_VALID"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "VALID_PARTIAL_FAR"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "VALID_RESTART_CONTINUATION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "OK",
+        "oldStatus": "PASS"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R3",
+      "VECTOR_ID": "VALID_REPLAY_AFTER_COMMIT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_VOLUME_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EMPTY_BATCH",
+        "status": "UNAVAILABLE"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_ZERO_POSITION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_VOLUME_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "VOLUME_GRID_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_OFFGRID_VOLUME"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEAL_PRICE_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "PRICE_GRID_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_NEG_PRICE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEAL_CONFIRMED_TYPE_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_CONFIRMED_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_STRING_BOOL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "MULTIPLE_INTENTS_FOR_POSITION",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_MULTI_INTENT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "STATE_REVISION_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "DEAL_IDENTITY_MISMATCH",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_NEG_REVISION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PERSISTED_BINDING_NOT_BIJECTIVE",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_BAD_BINDING"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PERSISTED_REGISTRY_SCHEMA_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_BAD_REGISTRY_TYPE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "REQUESTED_VOLUME_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "FULL_CLOSE_REQUIRED",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_ZERO_REQUEST"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "SNAPSHOT_VERSION_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_ZERO_SNAPSHOT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_VOLUME_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_BELOW_MIN"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "POSITION_VOLUME_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "FULL_CLOSE_REQUIRED",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_NEG_POSITION"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEAL_PRICE_INVALID",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "PRICE_GRID_INVALID",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_OFFGRID_PRICE"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DEAL_ALREADY_CONSUMED",
+        "oldStatus": "CONFLICT"
+      },
+      "R6_EXPECTED": {
+        "reason": "PARTIAL_FILL",
+        "status": "UNAVAILABLE"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_DUP_DEAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "EVENT_ALREADY_SEEN",
+        "oldStatus": "CONFLICT"
+      },
+      "R6_EXPECTED": {
+        "reason": "PARTIAL_FILL",
+        "status": "UNAVAILABLE"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_DUP_EVENT"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "MANDATORY_LEG_MISSING",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_MISSING_SMALL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "DUAL_TAIL",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_DUAL_TAIL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "EXECUTION_PRICE_WINDOW_UNPROVEN",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_SLIPPAGE_UNPROVEN"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "FULL_CLOSE_VOLUME_MISMATCH",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "FULL_CLOSE_REQUIRED",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_VOLUME_MISMATCH"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "ORPHAN_DEAL",
+        "oldStatus": "REJECT"
+      },
+      "R6_EXPECTED": {
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_ORPHAN_DEAL"
+    },
+    {
+      "ADMIN_CLASSIFICATION": "SECURITY_STRENGTHENING",
+      "NORMATIVE_REASON": "R4-R6 provenance, binding, policy or economic strengthening",
+      "OLD_EXPECTED": {
+        "oldReason": "PARTIAL_FILL",
+        "oldStatus": "UNAVAILABLE"
+      },
+      "R6_EXPECTED": {
+        "reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+        "status": "REJECT"
+      },
+      "SOURCE_REFERENCE": "HSB.2E-PREP-R4-R6",
+      "SOURCE_VERSION": "R4_R4",
+      "VECTOR_ID": "R4_NO_DEAL_ONE_LEG"
+    }
+  ]
+}
