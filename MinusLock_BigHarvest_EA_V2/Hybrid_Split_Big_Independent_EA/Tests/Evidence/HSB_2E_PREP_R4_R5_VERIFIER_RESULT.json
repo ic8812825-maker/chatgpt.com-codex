@@ -1,0 +1,27 @@
+{
+  "CHECKS_EXECUTED": 20,
+  "CHECKS_FAILED": 0,
+  "FAILURE_IDS": [],
+  "INFRASTRUCTURE_FAILURE": 0,
+  "RESULT": "PASS",
+  "checks": {
+    "ANTI_BYPASS": true,
+    "BASELINE": true,
+    "CANONICAL_STATUS_UNIQUENESS": true,
+    "COVERAGE_MATRIX": true,
+    "PRODUCTION_MQL5_LOGIC_CHANGED": true,
+    "SCOPE_AUDIT": true,
+    "hsb_2e_economic_model_r4_r5.py": true,
+    "hsb_2e_identity_model_r4_r5.py": true,
+    "hsb_2e_invariants_r4_r5.py": true,
+    "hsb_2e_primitive_validators_r4_r5.py": true,
+    "hsb_2e_provenance_model_r4_r5.py": true,
+    "hsb_2e_reference_model_r4_r5.py": true,
+    "run_hsb_2e_prep_r4_r5_mutations.py": true,
+    "run_hsb_2e_r4_r5_cross_version.py": true,
+    "run_hsb_2e_r4_r5_false_passes.py": true,
+    "run_hsb_2e_r4_r5_historical_false_passes.py": true,
+    "run_hsb_2e_r4_r5_lifecycle.py": true,
+    "run_hsb_2e_r4_r5_metamorphic.py": true
+  }
+}

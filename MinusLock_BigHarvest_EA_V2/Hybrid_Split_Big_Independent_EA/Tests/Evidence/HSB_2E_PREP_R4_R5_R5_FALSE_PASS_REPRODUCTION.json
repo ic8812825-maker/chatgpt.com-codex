@@ -1,0 +1,128 @@
+{
+  "BASELINE_SHA": "5679b34f66c4f75cc1f6ee9e7882630d1453f9cc",
+  "R5_FALSE_PASS_EXECUTED": 6,
+  "R5_FALSE_PASS_REPRODUCED": 6,
+  "R5_FALSE_PASS_REQUIRED": 6,
+  "RESULT": "PASS",
+  "cases": [
+    {
+      "BASELINE_SHA": "5679b34f66c4f75cc1f6ee9e7882630d1453f9cc",
+      "COUNTEREXAMPLE_ID": "FP-R5-01",
+      "EXIT_CODE": 0,
+      "HISTORICAL_ACTUAL": {
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "e78d1c3f28e7c51a62f98d7b66944bdf6876a25d9659733f8a170cfb0bf2ad64",
+      "MUTATED_FIELDS": "price",
+      "NORMATIVE_EXPECTED": {
+        "reason": "EXECUTION_PRICE_PROOF_INVALID",
+        "status": "NOT_PASS"
+      },
+      "OUTPUT_SHA256": "17f2f71cb2b1f1d188f9ba6fa52f23a964641c0b964405806282147995317294",
+      "REPRODUCED": true,
+      "ROOT_CAUSE": "bare Boolean bypasses price provenance",
+      "SOURCE_VECTOR_ID": "R4_VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "5679b34f66c4f75cc1f6ee9e7882630d1453f9cc",
+      "COUNTEREXAMPLE_ID": "FP-R5-02",
+      "EXIT_CODE": 0,
+      "HISTORICAL_ACTUAL": {
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "4e96c9d9df23039f9ea09ff6785c71a8944fa30df679310de8455628770f4eda",
+      "MUTATED_FIELDS": "cache",
+      "NORMATIVE_EXPECTED": {
+        "reason": "CUMULATIVE_FILL_PROVENANCE_MISSING",
+        "status": "NOT_PASS"
+      },
+      "OUTPUT_SHA256": "18cfa50a11dcfe60948d01c106f4770b720dd9c425214c7de03646170abaa94e",
+      "REPRODUCED": true,
+      "ROOT_CAUSE": "derived fill cache is trusted without source records",
+      "SOURCE_VECTOR_ID": "R4_VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "5679b34f66c4f75cc1f6ee9e7882630d1453f9cc",
+      "COUNTEREXAMPLE_ID": "FP-R5-03",
+      "EXIT_CODE": 0,
+      "HISTORICAL_ACTUAL": {
+        "phase": "IDEMPOTENT_REPLAY",
+        "reason": "ALREADY_COMMITTED",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "d8ed77765752c19bf0984c75ae06bb12f237c6a57d5c5c59f4ea32915dd2e3bf",
+      "MUTATED_FIELDS": "commit",
+      "NORMATIVE_EXPECTED": {
+        "reason": "COMMIT_CERTIFICATE_MISSING",
+        "status": "REJECT"
+      },
+      "OUTPUT_SHA256": "f9dc7fb743f2a5db128af2500955381b45fd7e47cf9fd154ae17cc4a87ac9c79",
+      "REPRODUCED": true,
+      "ROOT_CAUSE": "committed Boolean is trusted without certificate",
+      "SOURCE_VECTOR_ID": "R4_VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "5679b34f66c4f75cc1f6ee9e7882630d1453f9cc",
+      "COUNTEREXAMPLE_ID": "FP-R5-04",
+      "EXIT_CODE": 0,
+      "HISTORICAL_ACTUAL": {
+        "phase": "VALIDATION_BLOCKED",
+        "reason": "ORPHAN_DEAL",
+        "status": "REJECT"
+      },
+      "INPUT_SHA256": "f5b908759142461b64fa71ba16fe33ed3b0430423b2dad81a76fbb19cfc89bc1",
+      "MUTATED_FIELDS": "batch",
+      "NORMATIVE_EXPECTED": {
+        "status": "ATOMIC_REJECT"
+      },
+      "OUTPUT_SHA256": "592f698ffce5256135abe8441775c74c6d445ca98e828cf2d94dbc48b8cc9912",
+      "REPRODUCED": true,
+      "ROOT_CAUSE": "validation and application are interleaved",
+      "SOURCE_VECTOR_ID": "R4_VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "5679b34f66c4f75cc1f6ee9e7882630d1453f9cc",
+      "COUNTEREXAMPLE_ID": "FP-R5-05",
+      "EXIT_CODE": 0,
+      "HISTORICAL_ACTUAL": {
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "392f5321dc15a079b6d752680aa52406c5c07e1cc44ca4ebca3e836d25630f8b",
+      "MUTATED_FIELDS": "initial",
+      "NORMATIVE_EXPECTED": {
+        "reason": "INITIAL_NET_NOT_POSITIVE",
+        "status": "REJECT"
+      },
+      "OUTPUT_SHA256": "c942899242a732d49711023565b24fc9911550e5a70da9b08e3a1f56c93dfe8b",
+      "REPRODUCED": true,
+      "ROOT_CAUSE": "Initial settlement lacks positive actual-net gate",
+      "SOURCE_VECTOR_ID": "R4_VALID_INITIAL"
+    },
+    {
+      "BASELINE_SHA": "5679b34f66c4f75cc1f6ee9e7882630d1453f9cc",
+      "COUNTEREXAMPLE_ID": "FP-R5-06",
+      "EXIT_CODE": 0,
+      "HISTORICAL_ACTUAL": {
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "be7d0a55fec97df0b09c7967695d78d817f1cc0ff3ec11c2d9427b0a8fbe9fec",
+      "MUTATED_FIELDS": "final",
+      "NORMATIVE_EXPECTED": {
+        "reason": "FINAL_REQUIRES_FULL_CLOSE",
+        "status": "REJECT"
+      },
+      "OUTPUT_SHA256": "3b3eabf6f6a381f12c0be78320ce358ab3a04c4042c9e533f683d0ee4d492459",
+      "REPRODUCED": true,
+      "ROOT_CAUSE": "Final incorrectly allows partial Far close",
+      "SOURCE_VECTOR_ID": "R4_VALID_FINAL"
+    }
+  ]
+}

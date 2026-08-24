@@ -1,0 +1,48 @@
+{
+  "LIFECYCLES_EXECUTED": 8,
+  "LIFECYCLES_PASSED": 8,
+  "LIFECYCLES_REQUIRED": 8,
+  "RESULT": "PASS",
+  "rows": [
+    {
+      "detail": "partial/restart/full",
+      "id": "LIFECYCLE-01",
+      "passed": true
+    },
+    {
+      "detail": "duplicate unchanged",
+      "id": "LIFECYCLE-02",
+      "passed": true
+    },
+    {
+      "detail": "committed replay",
+      "id": "LIFECYCLE-03",
+      "passed": true
+    },
+    {
+      "detail": "aggregate cache",
+      "id": "LIFECYCLE-04",
+      "passed": true
+    },
+    {
+      "detail": "record digest",
+      "id": "LIFECYCLE-05",
+      "passed": true
+    },
+    {
+      "detail": "atomic reject",
+      "id": "LIFECYCLE-06",
+      "passed": true
+    },
+    {
+      "detail": "initial negative",
+      "id": "LIFECYCLE-07",
+      "passed": true
+    },
+    {
+      "detail": "final partial",
+      "id": "LIFECYCLE-08",
+      "passed": true
+    }
+  ]
+}

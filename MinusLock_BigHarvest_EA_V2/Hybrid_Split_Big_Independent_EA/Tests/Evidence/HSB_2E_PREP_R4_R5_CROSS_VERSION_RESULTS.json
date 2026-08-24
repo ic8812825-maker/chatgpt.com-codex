@@ -1,0 +1,2112 @@
+{
+  "CROSS_VERSION_REGRESSIONS": 0,
+  "RESULT": "PASS",
+  "rows": [
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FULL_ONE",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FULL_MULTI",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "PARTIAL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "NO_FILL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "OVERFILL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "NEGATIVE_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "ZERO_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "NAN_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "INF_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "OFFGRID_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "OFFGRID_PRICE",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_SYMBOL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "WRONG_DIRECTION",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "WRONG_TICKET",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "STALE_TX",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "STALE_REVISION",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUPLICATE_DEAL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "BIG_FULL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "BIG_PARTIAL_ONE_LEG",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "BIG_MONEY_MATCH_VOLUME_SHORT",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "INITIAL_FULL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "INITIAL_PARTIAL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "INITIAL_NET_NEGATIVE",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "SMALL_FULL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "SMALL_PARTIAL_SMALL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "SMALL_PARTIAL_FAR",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUAL_TAIL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "RESTART_PARTIAL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "RESTART_CONTINUE_FULL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "RESTART_DUPLICATE",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VALID_BIG",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VALID_SMALL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VALID_INITIAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VALID_FINAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_DEAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_EVENT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_PAIR_BATCH",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_BETWEEN_BATCH",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_AFTER_RESTART",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "BINDING_CONFLICT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "STALE_DEAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "STALE_BEFORE_INTENT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FUTURE_DEAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "WINDOW_UNPROVEN",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_INTENT_TX",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_INTENT_ACTION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_INTENT_CYCLE",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_INTENT_SYMBOL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_INTENT_MAGIC",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_INTENT_REVISION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_POSITION_SYMBOL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_POSITION_MAGIC",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_POSITION_CYCLE",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "FOREIGN_POSITION_REVISION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "MISSING_BIG",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "MISSING_SMALL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "MISSING_OLD_FAR",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_BIG",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_SMALL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_TICKET",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "DUP_INTENT_ID",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "ORPHAN_POSITION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "ORPHAN_INTENT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "ORPHAN_DEAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "EXTRA_ROLE",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VOLUME_LOW",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VOLUME_HIGH",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "STALE_POSITION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "PARTIAL_REQUIRED",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "MALFORMED_POSITIONS",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "MALFORMED_INTENTS",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "MALFORMED_DEALS",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "EMPTY_MANDATORY",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "NULL_ELEMENT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "REORDERED_VALID",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VALID_PARTIAL_FAR",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VALID_RESTART_CONTINUATION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "VALID_REPLAY_AFTER_COMMIT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_VALID_BIG",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_VALID_SMALL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_VALID_INITIAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_VALID_FINAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_ZERO_POSITION",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_OFFGRID_VOLUME",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_NEG_PRICE",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_STRING_BOOL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_MULTI_INTENT",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_NEG_REVISION",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_BAD_BINDING",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_BAD_REGISTRY_TYPE",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_ZERO_REQUEST",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_ZERO_SNAPSHOT",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_BELOW_MIN",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_NEG_POSITION",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_OFFGRID_PRICE",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_DUP_DEAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_DUP_EVENT",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_MISSING_SMALL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_DUAL_TAIL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_PARTIAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_SLIPPAGE_UNPROVEN",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_VOLUME_MISMATCH",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_ORPHAN_DEAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "passed": true,
+      "semanticChecks": {
+        "allocation_eligibility": true,
+        "exactly_once": true,
+        "fill_state": true,
+        "fsm_mutation": true,
+        "money_result": true,
+        "persistence": true,
+        "phase": true,
+        "reason": true,
+        "settlement_eligibility": true,
+        "status": true,
+        "volume_result": true
+      },
+      "vectorId": "R4_NO_DEAL_ONE_LEG",
+      "version": "R4_R4"
+    }
+  ],
+  "versions": {
+    "R4_R2": {
+      "ADAPTED": 30,
+      "AMBIGUOUS": 0,
+      "EXECUTED": 30,
+      "FAILED": 0,
+      "REQUIRED": 30,
+      "UNMAPPED": 0
+    },
+    "R4_R3": {
+      "ADAPTED": 48,
+      "AMBIGUOUS": 0,
+      "EXECUTED": 48,
+      "FAILED": 0,
+      "REQUIRED": 48,
+      "UNMAPPED": 0
+    },
+    "R4_R4": {
+      "ADAPTED": 26,
+      "AMBIGUOUS": 0,
+      "EXECUTED": 26,
+      "FAILED": 0,
+      "REQUIRED": 26,
+      "UNMAPPED": 0
+    }
+  }
+}

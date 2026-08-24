@@ -1,0 +1,222 @@
+{
+  "INFRASTRUCTURE_FAILURES": 0,
+  "INVALID": 0,
+  "MUTATIONS_CAUGHT": 26,
+  "MUTATIONS_EXECUTED": 26,
+  "MUTATION_IDS": 26,
+  "NOT_APPLIED": 0,
+  "RESULT": "PASS",
+  "SURVIVED": 0,
+  "UNIQUE_TRANSFORMS": 26,
+  "WRONG_FAILURES": 0,
+  "rows": [
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M001",
+      "property": "EXECUTION_PRICE_PROOF",
+      "reason": "EXECUTION_PRICE_PROOF_INVALID",
+      "transform": "remove_price_proof"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M002",
+      "property": "EXECUTION_PRICE_PROOF",
+      "reason": "EXECUTION_PRICE_PROOF_IDENTITY_MISMATCH",
+      "transform": "foreign_price_identity"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M003",
+      "property": "EXECUTION_PRICE_PROOF",
+      "reason": "EXECUTION_PRICE_PROOF_INVALID",
+      "transform": "price_outside_bounds"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M004",
+      "property": "PERSISTED_VOLUME_PROVENANCE",
+      "reason": "CUMULATIVE_FILL_PROVENANCE_MISSING",
+      "transform": "forged_volume_cache"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M005",
+      "property": "PERSISTED_MONEY_PROVENANCE",
+      "reason": "CUMULATIVE_FILL_PROVENANCE_MISSING",
+      "transform": "forged_money_cache"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M006",
+      "property": "SOURCE_RECORD_DIGEST",
+      "reason": "SOURCE_RECORD_DIGEST_MISMATCH",
+      "transform": "bad_record_digest"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M007",
+      "property": "MONEY_CONSERVATION",
+      "reason": "SOURCE_RECORD_DIGEST_MISMATCH",
+      "transform": "bad_net_money"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M008",
+      "property": "COMMIT_CERTIFICATE",
+      "reason": "COMMIT_CERTIFICATE_MISSING",
+      "transform": "forged_commit_boolean"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M009",
+      "property": "COMMIT_CERTIFICATE",
+      "reason": "COMMIT_CERTIFICATE_DIGEST_INVALID",
+      "transform": "bad_certificate_digest"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M010",
+      "property": "COMMIT_CERTIFICATE",
+      "reason": "COMMIT_CERTIFICATE_IDENTITY_MISMATCH",
+      "transform": "foreign_certificate_identity"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M011",
+      "property": "BATCH_ATOMICITY",
+      "reason": "SOURCE_RECORD_DIGEST_MISMATCH",
+      "transform": "valid_then_invalid"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M012",
+      "property": "BATCH_ATOMICITY",
+      "reason": "SOURCE_RECORD_DIGEST_MISMATCH",
+      "transform": "invalid_then_valid"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M013",
+      "property": "INITIAL_NET_PROFIT",
+      "reason": "INITIAL_NET_NOT_POSITIVE",
+      "transform": "initial_zero"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M014",
+      "property": "INITIAL_NET_PROFIT",
+      "reason": "INITIAL_NET_NOT_POSITIVE",
+      "transform": "initial_negative"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M015",
+      "property": "FINAL_FULL_CLOSE",
+      "reason": "FINAL_REQUIRES_FULL_CLOSE",
+      "transform": "final_partial"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M016",
+      "property": "RECOVERY_PL",
+      "reason": "FINAL_ECONOMIC_GATES_FAILED",
+      "transform": "remove_recovery_gate"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M017",
+      "property": "RESERVE_COVERAGE",
+      "reason": "FINAL_ECONOMIC_GATES_FAILED",
+      "transform": "remove_reserve_gate"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M018",
+      "property": "RESERVE_NOT_USED_FOR_PARTIAL_FAR",
+      "reason": "RESERVE_USED_FOR_PARTIAL_FAR",
+      "transform": "reserve_for_partial"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M019",
+      "property": "RESTART_REPLAY",
+      "reason": "ALREADY_COMMITTED",
+      "transform": "repeat_allocation"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M020",
+      "property": "STATE_REVISION",
+      "reason": "ALREADY_COMMITTED",
+      "transform": "repeat_revision"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M021",
+      "property": "DUAL_TAIL",
+      "reason": "DUAL_TAIL",
+      "transform": "allow_dual_tail"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M022",
+      "property": "ANTI_BYPASS",
+      "reason": "STATIC_AND_EXECUTABLE_ANTI_BYPASS",
+      "transform": "status_only_invariant"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M023",
+      "property": "ANTI_BYPASS",
+      "reason": "STATIC_AND_EXECUTABLE_ANTI_BYPASS",
+      "transform": "declarative_safe_constant"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M024",
+      "property": "CROSS_VERSION",
+      "reason": "STATIC_AND_EXECUTABLE_ANTI_BYPASS",
+      "transform": "skip_historical_execution"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M025",
+      "property": "CROSS_VERSION",
+      "reason": "STATIC_AND_EXECUTABLE_ANTI_BYPASS",
+      "transform": "unmapped_is_safe"
+    },
+    {
+      "applied": true,
+      "caught": true,
+      "id": "R5M026",
+      "property": "COVERAGE",
+      "reason": "STATIC_AND_EXECUTABLE_ANTI_BYPASS",
+      "transform": "wrong_invariant_binding"
+    }
+  ]
+}

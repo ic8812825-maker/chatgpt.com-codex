@@ -1,0 +1,34 @@
+{
+  "checks": {
+    "ANTI_BYPASS": true,
+    "BASELINE": true,
+    "CANONICAL_STATUS_UNIQUENESS": true,
+    "COVERAGE_MATRIX": true,
+    "PRODUCTION_MQL5_LOGIC_CHANGED": true,
+    "SCOPE_AUDIT": true,
+    "hsb_2e_economic_model_r4_r5.py": true,
+    "hsb_2e_identity_model_r4_r5.py": true,
+    "hsb_2e_invariants_r4_r5.py": true,
+    "hsb_2e_primitive_validators_r4_r5.py": true,
+    "hsb_2e_provenance_model_r4_r5.py": true,
+    "hsb_2e_reference_model_r4_r5.py": true,
+    "run_hsb_2e_prep_r4_r5_mutations.py": true,
+    "run_hsb_2e_r4_r5_cross_version.py": true,
+    "run_hsb_2e_r4_r5_false_passes.py": true,
+    "run_hsb_2e_r4_r5_historical_false_passes.py": true,
+    "run_hsb_2e_r4_r5_lifecycle.py": true,
+    "run_hsb_2e_r4_r5_metamorphic.py": true
+  },
+  "facet": "CANONICAL_STATUS_AUDIT",
+  "runnerEvidence": [
+    "BASELINE_GATE",
+    "COVERAGE_RESULTS",
+    "CROSS_VERSION_RESULTS",
+    "HISTORICAL_FALSE_PASS_EXECUTION",
+    "METAMORPHIC_RESULTS",
+    "MUTATION_RESULTS",
+    "R5_FALSE_PASS_REPRODUCTION",
+    "RESTART_LIFECYCLE",
+    "SCOPE_AUDIT"
+  ]
+}

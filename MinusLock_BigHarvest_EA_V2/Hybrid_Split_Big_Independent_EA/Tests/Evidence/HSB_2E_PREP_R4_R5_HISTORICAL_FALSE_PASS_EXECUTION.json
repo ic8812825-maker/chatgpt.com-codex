@@ -1,0 +1,198 @@
+{
+  "HISTORICAL_FALSE_PASSES_BLOCKED": 19,
+  "HISTORICAL_FALSE_PASSES_EXECUTED": 19,
+  "HISTORICAL_FALSE_PASSES_REQUIRED": 19,
+  "RESULT": "PASS",
+  "rows": [
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-01",
+      "executed": true,
+      "historicalVersion": "R2",
+      "r4R5Status": "UNAVAILABLE",
+      "reason": "PARTIAL_FILL",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-02",
+      "executed": true,
+      "historicalVersion": "R2",
+      "r4R5Status": "REJECT",
+      "reason": "INITIAL_NET_NOT_POSITIVE",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-03",
+      "executed": true,
+      "historicalVersion": "R2",
+      "r4R5Status": "UNAVAILABLE",
+      "reason": "PARTIAL_FILL",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-04",
+      "executed": true,
+      "historicalVersion": "R2",
+      "r4R5Status": "UNAVAILABLE",
+      "reason": "PARTIAL_FILL",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R3-01",
+      "executed": true,
+      "historicalVersion": "R3",
+      "r4R5Status": "REJECT",
+      "reason": "DEAL_ALREADY_CONSUMED",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R3-02",
+      "executed": true,
+      "historicalVersion": "R3",
+      "r4R5Status": "REJECT",
+      "reason": "EXECUTION_PRICE_PROOF_STALE",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R3-03",
+      "executed": true,
+      "historicalVersion": "R3",
+      "r4R5Status": "REJECT",
+      "reason": "ONE_POSITION_ONE_INTENT_VIOLATION",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R3-04",
+      "executed": true,
+      "historicalVersion": "R3",
+      "r4R5Status": "REJECT",
+      "reason": "DEAL_IDENTITY_MISMATCH",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R3-05",
+      "executed": true,
+      "historicalVersion": "R3",
+      "r4R5Status": "REJECT",
+      "reason": "MANDATORY_LEGS_INVALID",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R3-06",
+      "executed": true,
+      "historicalVersion": "R3",
+      "r4R5Status": "UNAVAILABLE",
+      "reason": "PARTIAL_FILL",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-01",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "REJECT",
+      "reason": "CUMULATIVE_FILL_PROVENANCE_MISSING",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-02",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "REJECT",
+      "reason": "VOLUME_OFF_GRID",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-03",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "REJECT",
+      "reason": "NUMERIC_DOMAIN_INVALID",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-04",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "REJECT",
+      "reason": "DEAL_NOT_CONFIRMED",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-05",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "REJECT",
+      "reason": "ONE_POSITION_ONE_INTENT_VIOLATION",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-06",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "REJECT",
+      "reason": "DEAL_IDENTITY_MISMATCH",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-07",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "UNAVAILABLE",
+      "reason": "PARTIAL_FILL",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-08",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "REJECT",
+      "reason": "CUMULATIVE_FILL_PROVENANCE_MISSING",
+      "settlementApplied": false
+    },
+    {
+      "allocationApplied": false,
+      "blocked": true,
+      "counterexampleId": "FP-R4-09",
+      "executed": true,
+      "historicalVersion": "R4",
+      "r4R5Status": "REJECT",
+      "reason": "CUMULATIVE_FILL_PROVENANCE_MISSING",
+      "settlementApplied": false
+    }
+  ]
+}

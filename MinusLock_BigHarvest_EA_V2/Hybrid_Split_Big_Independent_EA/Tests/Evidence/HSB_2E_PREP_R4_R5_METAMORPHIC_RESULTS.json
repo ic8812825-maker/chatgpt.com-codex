@@ -1,0 +1,8 @@
+{
+  "RESULT": "PASS",
+  "checks": {
+    "DIGEST_DETERMINISTIC": true,
+    "PERMUTATION_MONEY": true,
+    "PERMUTATION_STATUS": true
+  }
+}
