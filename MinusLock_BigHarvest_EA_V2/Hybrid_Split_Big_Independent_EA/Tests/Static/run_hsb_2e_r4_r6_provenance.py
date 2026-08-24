@@ -2,7 +2,7 @@
 import argparse,copy,json,sys
 from pathlib import Path
 def run(root):
- root=Path(root).resolve();sys.path.insert(0,str(root/'Tests/Reference'));from hsb_2e_test_fixtures_r4_r6 import broker_fixture;from hsb_2e_provenance_model_r4_r6 import *
+ root=Path(root).resolve();sys.path.insert(0,str(root/'Tests/Reference'));from hsb_2e_test_fixtures_r4_r6 import broker_fixture;from hsb_2e_provenance_model_r4_r6 import D,digest,validate_all_then_apply,validate_binding,revalidate_persisted
  checks={};x=broker_fixture();state,e=validate_all_then_apply(x['persistedState'],x['dealRecords'],x['context'],x['positions'],x['intents'],x['snapshot'],x['pricePolicy']);checks['R6_BINDING_POSITIVE']=e is None
  y=broker_fixture();r=y['dealRecords'][0];object.__setattr__(r,'positionTicket',999);object.__setattr__(r,'recordDigest',digest(r.body()));checks['R6_ORPHAN_DEAL_BLOCK']=validate_binding(r,y['context'],y['positions'],y['intents'],y['snapshot'],y['pricePolicy'])=='ORPHAN_DEAL'
  y=broker_fixture();r=y['dealRecords'][0];object.__setattr__(r,'positionRole','FAR');object.__setattr__(r,'recordDigest',digest(r.body()));checks['R6_DEAL_ROLE_BINDING']=validate_binding(r,y['context'],y['positions'],y['intents'],y['snapshot'],y['pricePolicy'])=='DEAL_ROLE_MISMATCH'
