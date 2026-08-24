@@ -3,6 +3,14 @@
 import argparse,hashlib,json,subprocess,sys
 from pathlib import Path
 BASE='6c5093a53a8d1701ebcdfa351de1b7c5d534f52a'
+EVIDENCE=('CLEAN_RESULT','FALSE_PASS_REPRODUCTION','EXACT_HISTORICAL_FIXTURES','ADAPTER_COVERAGE','CROSS_VERSION_RESULTS','INVARIANT_RESULTS','MUTATION_CATALOG','MUTATION_RESULTS','ECONOMIC_CONSERVATION','PERSISTED_PROVENANCE','CERTIFICATE_BINDING')
+STATUS_FILES=('README_RU.md','BUILD_INFO.md','PROJECT_MAP_RU.md','CHANGELOG_RU.md','Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md','Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md','Docs/22_OPEN_DECISIONS_REGISTER_RU.md')
+def file_sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def hash_list(path):
+ rows=[]
+ for line in path.read_text().splitlines():
+  h,rel=line.split('  ',1);rows.append((h,rel))
+ return rows
 def command(args,cwd):return subprocess.run(args,cwd=cwd,capture_output=True,text=True)
 def main(root,mutation_fixture=False):
  root=Path(root).resolve();repo=root.parents[1];sys.path.insert(0,str(root/'Tests/Reference'));checks={}
@@ -18,6 +26,9 @@ def main(root,mutation_fixture=False):
   for runner,check in (('run_hsb_2e_r4_r6_provenance.py','R6_PROVENANCE_RUNNER'),('run_hsb_2e_r4_r6_economic.py','R6_ECONOMIC_RUNNER'),('run_hsb_2e_r4_r6_scenarios.py','R6_SCENARIO_RUNNER')):checks[check]=command([sys.executable,str(root/'Tests/Static'/runner),'--root',str(root)],root).returncode==0
   if not mutation_fixture:
    branch=command(['git','branch','--show-current'],repo);anc=command(['git','merge-base','--is-ancestor',BASE,'HEAD'],repo);changed=command(['git','diff','--name-only',BASE+'..HEAD'],repo).stdout.splitlines();prefix='MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/';checks['R6_BASELINE_ANCESTRY']=branch.stdout.strip()=='work' and anc.returncode==0;checks['R6_SCOPE_AUDIT']=all(p.startswith(prefix) for p in changed);checks['R6_PRODUCTION_DIFF']=not any(p.endswith('.mq5') or p.startswith(prefix+'Include/') and p.endswith('.mqh') for p in changed)
+   checks['R6_CANONICAL_STATUS']=all((root/f).read_text().count('HSB_2E_PREP_R4_R6_CANONICAL_STATUS_BEGIN')==1 and 'TRADING_LOGIC_START_ALLOWED=YES' not in (root/f).read_text() and 'REAL_TRADING_ALLOWED=YES' not in (root/f).read_text() for f in STATUS_FILES)
+   manifest=root/'Reports/HSB_2E_PREP_R4_R6_FILE_MANIFEST_SHA256.txt';seal=root/'Tests/Evidence/HSB_2E_PREP_R4_R6_EVIDENCE_SEAL_SHA256.txt';expected=sorted(str(p.relative_to(root)) for p in root.rglob('*') if p.is_file() and '__pycache__' not in p.parts and ('R4_R6' in p.name or 'r4_r6' in p.name) and 'FILE_MANIFEST' not in p.name and 'EVIDENCE_SEAL' not in p.name);mr=hash_list(manifest) if manifest.exists() else [];checks['R6_MANIFEST_SET']=len(mr)==len(set(r for _,r in mr)) and sorted(r for _,r in mr)==expected;checks['R6_MANIFEST_HASHES']=checks['R6_MANIFEST_SET'] and all((root/r).exists() and file_sha(root/r)==h for h,r in mr)
+   expected_seal=sorted(f'Tests/Evidence/HSB_2E_PREP_R4_R6_{n}.json' for n in EVIDENCE);sr=hash_list(seal) if seal.exists() else [];checks['R6_EVIDENCE_SEAL_SET']=len(sr)==len(set(r for _,r in sr)) and sorted(r for _,r in sr)==expected_seal;checks['R6_EVIDENCE_SEAL_HASHES']=checks['R6_EVIDENCE_SEAL_SET'] and all((root/r).exists() and file_sha(root/r)==h for h,r in sr)
   failed=[k for k,v in checks.items() if not v]
   for k,v in checks.items():print(f'{k}|{"PASS" if v else "FAIL"}')
   print(f'CHECKS_EXECUTED={len(checks)}\nCHECKS_FAILED={len(failed)}\nFAILURE_IDS={",".join(failed)}\nINFRASTRUCTURE_FAILURE=0\nRESULT={"PASS" if not failed else "FAIL"}')
