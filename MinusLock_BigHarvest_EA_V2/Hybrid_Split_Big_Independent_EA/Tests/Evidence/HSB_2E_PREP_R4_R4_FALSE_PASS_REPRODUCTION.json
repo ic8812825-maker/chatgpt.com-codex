@@ -1,0 +1,651 @@
+{
+  "cases": [
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-01",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "6e2ce80e2d43f7f169c35918ac270f41f87388172a816f3b64dd4b0bf5581fa3",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [],
+          "dealEventBindings": {},
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "0",
+              "confirmedVolume": "0",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0"
+            },
+            "102": {
+              "authoritativeVolume": "0",
+              "confirmedVolume": "0",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "0",
+            "102": "0"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [],
+          "settlementApplied": true,
+          "stateRevision": "4"
+        },
+        "outputDigest": "e68785706babab35b4a351c0231a028d0dd65270254de40068bdcc6e67b0d959",
+        "persistenceRecords": [
+          "FILL_EVIDENCE",
+          "DEAL_EVENT_REGISTRY",
+          "SETTLEMENT_DECISION",
+          "STATE_REVISION",
+          "FSM_COMMIT"
+        ],
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "scenario": "BIG",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "e55d9052059db5823befee98ae1194256c5ca2b9af5e9a2e3e3b98e1a465c070",
+      "MUTATED_FIELDS": "zero positions/requests; no deals",
+      "NORMATIVE_EXPECTED": "POSITION_VOLUME_INVALID",
+      "OUTPUT_SHA256": "97ec114bd2605246122b71bc45c6a8669e0c553974e6e523bce51519304af6e7",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-02",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "580b31058b1f64d459b1e30acb0456c1a5902254ed90c3bb5e35bdfd364b48e7",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D101",
+            "D102"
+          ],
+          "dealEventBindings": {
+            "D101": "E101",
+            "D102": "E102"
+          },
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "1.005",
+              "confirmedVolume": "1.005",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "1.005"
+            },
+            "102": {
+              "authoritativeVolume": "0.5",
+              "confirmedVolume": "0.5",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "9",
+            "102": "9"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [
+            "E101",
+            "E102"
+          ],
+          "settlementApplied": true,
+          "stateRevision": "4"
+        },
+        "outputDigest": "418460aa36914af323233d2f0e6a0de3330b8c34f3e98e46466c1580d575e334",
+        "persistenceRecords": [
+          "FILL_EVIDENCE",
+          "DEAL_EVENT_REGISTRY",
+          "SETTLEMENT_DECISION",
+          "STATE_REVISION",
+          "FSM_COMMIT"
+        ],
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "scenario": "BIG",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "8d8cfcd4174446a2f26d4ee8dfc65b0e93f8a7dfa32559a36676071973c66570",
+      "MUTATED_FIELDS": "off-grid 1.005",
+      "NORMATIVE_EXPECTED": "VOLUME_OFF_GRID",
+      "OUTPUT_SHA256": "842a9cbe2f9c46175e6286ee4b1a56616c0d51c8b9474275b613e67658e63c79",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-03",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "af0c79f380b1c9a7a73e354ec767b5e91eea12188cf8fb378e5d81d0aed08071",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D101",
+            "D102"
+          ],
+          "dealEventBindings": {
+            "D101": "E101",
+            "D102": "E102"
+          },
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "1",
+              "confirmedVolume": "1",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "102": {
+              "authoritativeVolume": "0.5",
+              "confirmedVolume": "0.5",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "9",
+            "102": "9"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [
+            "E101",
+            "E102"
+          ],
+          "settlementApplied": true,
+          "stateRevision": "4"
+        },
+        "outputDigest": "4a5da8f1967b2af1e49accd6ae8b9db4d3742fbac7e361542e0cecde1640d9b0",
+        "persistenceRecords": [
+          "FILL_EVIDENCE",
+          "DEAL_EVENT_REGISTRY",
+          "SETTLEMENT_DECISION",
+          "STATE_REVISION",
+          "FSM_COMMIT"
+        ],
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "scenario": "BIG",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "dc23de473c353f435590b23c8a1a864ba24ac67ba61b6d3805161068ee2996bc",
+      "MUTATED_FIELDS": "price=-1",
+      "NORMATIVE_EXPECTED": "DEAL_PRICE_INVALID",
+      "OUTPUT_SHA256": "4f9540d7b0a651ce5f00c5646f2aa055cffff59bcf1ce9ff162f5b4b5434c1be",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-04",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "d8c1d86ff164eaa399976cf754445fdae851f77279b6add7f6c4459c650900cb",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D101",
+            "D102"
+          ],
+          "dealEventBindings": {
+            "D101": "E101",
+            "D102": "E102"
+          },
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "1",
+              "confirmedVolume": "1",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "102": {
+              "authoritativeVolume": "0.5",
+              "confirmedVolume": "0.5",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "9",
+            "102": "9"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [
+            "E101",
+            "E102"
+          ],
+          "settlementApplied": true,
+          "stateRevision": "4"
+        },
+        "outputDigest": "7d4e19eec8359d727a2b7f845533cf7c5039ca9435c19694a3a6af4372b5b5c6",
+        "persistenceRecords": [
+          "FILL_EVIDENCE",
+          "DEAL_EVENT_REGISTRY",
+          "SETTLEMENT_DECISION",
+          "STATE_REVISION",
+          "FSM_COMMIT"
+        ],
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "scenario": "BIG",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "9d7b7d7678bf9d24b6119c98312f016896fa3dab0919743bf87f04f93d6a53e9",
+      "MUTATED_FIELDS": "confirmed=\"false\"",
+      "NORMATIVE_EXPECTED": "DEAL_CONFIRMED_TYPE_INVALID",
+      "OUTPUT_SHA256": "7e3af9161ffe20065f3afb8b0550b28d5202cd77e68b4c373dccdc46e67b6533",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-05",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "98c41d447ab1641a240277821fbc2cae1b8b2e75590fedb5ee5f86f07f1189b1",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D101",
+            "D102"
+          ],
+          "dealEventBindings": {
+            "D101": "E101",
+            "D102": "E102"
+          },
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "1",
+              "confirmedVolume": "1",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "102": {
+              "authoritativeVolume": "0.5",
+              "confirmedVolume": "0.5",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "9",
+            "102": "9"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [
+            "E101",
+            "E102"
+          ],
+          "settlementApplied": true,
+          "stateRevision": "4"
+        },
+        "outputDigest": "7cd450ff54bc5ad18ce936fd573c9a0d7d490509ee269038cd8c6100224eb570",
+        "persistenceRecords": [
+          "FILL_EVIDENCE",
+          "DEAL_EVENT_REGISTRY",
+          "SETTLEMENT_DECISION",
+          "STATE_REVISION",
+          "FSM_COMMIT"
+        ],
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "scenario": "BIG",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "015f0629fd22956c614ca79883dfe41aec6bd7ac2f4c47100069b3390538958f",
+      "MUTATED_FIELDS": "second intent same ticket",
+      "NORMATIVE_EXPECTED": "MULTIPLE_INTENTS_FOR_POSITION",
+      "OUTPUT_SHA256": "b0a465dbc6073bb331b033c374cecf806412c4de5d9a816cb3b590018eb9169f",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-06",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "5ca1537b23f3f046976ac413fc489cb731f52caf889bc687813570822305e988",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D101",
+            "D102"
+          ],
+          "dealEventBindings": {
+            "D101": "E101",
+            "D102": "E102"
+          },
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "1",
+              "confirmedVolume": "1",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "102": {
+              "authoritativeVolume": "0.5",
+              "confirmedVolume": "0.5",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "9",
+            "102": "9"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [
+            "E101",
+            "E102"
+          ],
+          "settlementApplied": true,
+          "stateRevision": "-4"
+        },
+        "outputDigest": "5f35e9fc8f3127c21cf229633a016e0aeb7b49f4d6989251407b0a98b97e3732",
+        "persistenceRecords": [
+          "FILL_EVIDENCE",
+          "DEAL_EVENT_REGISTRY",
+          "SETTLEMENT_DECISION",
+          "STATE_REVISION",
+          "FSM_COMMIT"
+        ],
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "scenario": "BIG",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "0c294b1df936cfea6a2dc63db8485f7db6f3ba1174b8bb770b1ebbc3cd795c7f",
+      "MUTATED_FIELDS": "revision=-5",
+      "NORMATIVE_EXPECTED": "STATE_REVISION_INVALID",
+      "OUTPUT_SHA256": "328e4316cc2e4389abd280761e0609fee13dc55cf8a706971c8a8b5c90ae8f49",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-07",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "1006731686f9743eef1b5e39d013b46cc34c43b4f5dcf1792daffc1cb046f2e9",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [],
+          "dealEventBindings": {},
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "1",
+              "confirmedVolume": "0.4",
+              "fillState": "PARTIAL_FILL",
+              "remainingVolume": "0.6",
+              "requestedVolume": "1"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "9"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [],
+          "settlementApplied": false,
+          "stateRevision": 3
+        },
+        "outputDigest": "1fe65f108e0bcbb9408864a1af850d954754a1130771ed7f3351a75534ea6c3b",
+        "persistenceRecords": [
+          "FILL_EVIDENCE"
+        ],
+        "phase": "RECONCILIATION_BLOCKED",
+        "reason": "PARTIAL_FILL",
+        "scenario": "BIG",
+        "status": "UNAVAILABLE"
+      },
+      "INPUT_SHA256": "d36eb89b395707d210b3c9fe3ada37e9e2993934b063984103e4d657e79b7acb",
+      "MUTATED_FIELDS": "partial first deal",
+      "NORMATIVE_EXPECTED": "PARTIAL_REGISTRY_PERSISTED",
+      "OUTPUT_SHA256": "1a6ca587940359bcabb298c9f22b61dd34dfe56b0c3298a34a6c01a1b9644a55",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-08",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "ab4ec4deb43711acae066fdbfb4afc78c9259e6e9fb1f95adac195abcb5140b0",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D101",
+            "D102",
+            "OLD1",
+            "OLD2"
+          ],
+          "dealEventBindings": {
+            "D101": "E101",
+            "D102": "E102",
+            "OLD1": "SAME",
+            "OLD2": "SAME"
+          },
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "1",
+              "confirmedVolume": "1",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "102": {
+              "authoritativeVolume": "0.5",
+              "confirmedVolume": "0.5",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "9",
+            "102": "9"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [
+            "E101",
+            "E102",
+            "SAME"
+          ],
+          "settlementApplied": true,
+          "stateRevision": "4"
+        },
+        "outputDigest": "93e8e9cdad3a413d210d35c36097a93ad623853b725a2183752e7bdf8f242cc2",
+        "persistenceRecords": [
+          "FILL_EVIDENCE",
+          "DEAL_EVENT_REGISTRY",
+          "SETTLEMENT_DECISION",
+          "STATE_REVISION",
+          "FSM_COMMIT"
+        ],
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "scenario": "BIG",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "ba0a899bfa48ba1c811a6d6548cef81ac3dbce55710e3ea9ea01a1d7092cd7bd",
+      "MUTATED_FIELDS": "non-bijective persisted bindings",
+      "NORMATIVE_EXPECTED": "PERSISTED_BINDING_NOT_BIJECTIVE",
+      "OUTPUT_SHA256": "ca220511fb7274dbf0fb2f508c3e90c5d68bee65af8779d8b10007f33b6bcd4c",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "BASELINE_SHA": "c37cb942283371bbc95483244ff47607707f7a37",
+      "COUNTEREXAMPLE_ID": "FP-R4-09",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "inputDigest": "c064ee023d7d126aef2e64caa6e33b871a78a5a552ccdea431045225650691d2",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "1",
+            "D",
+            "D101",
+            "D102"
+          ],
+          "dealEventBindings": {
+            "D101": "E101",
+            "D102": "E102"
+          },
+          "extraRoles": [],
+          "fills": {
+            "101": {
+              "authoritativeVolume": "1",
+              "confirmedVolume": "1",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "102": {
+              "authoritativeVolume": "0.5",
+              "confirmedVolume": "0.5",
+              "fillState": "FULL_FILL",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "missingRoles": [],
+          "moneyByTicket": {
+            "101": "9",
+            "102": "9"
+          },
+          "observedRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "requiredRoles": [
+            "BIG",
+            "SMALL"
+          ],
+          "seenEventIds": [
+            "E1",
+            "E101",
+            "E102"
+          ],
+          "settlementApplied": true,
+          "stateRevision": "4"
+        },
+        "outputDigest": "8c394483caf18987b85d6af7bb9268376052f5f0b4ab637a742144f550f80d30",
+        "persistenceRecords": [
+          "FILL_EVIDENCE",
+          "DEAL_EVENT_REGISTRY",
+          "SETTLEMENT_DECISION",
+          "STATE_REVISION",
+          "FSM_COMMIT"
+        ],
+        "phase": "FSM_COMMITTED",
+        "reason": "OK",
+        "scenario": "BIG",
+        "status": "PASS"
+      },
+      "INPUT_SHA256": "78a5d9f1dae310a58b623d67d977fca15332f844e6d56c1743739df32101d8bc",
+      "MUTATED_FIELDS": "registry wrong types",
+      "NORMATIVE_EXPECTED": "PERSISTED_REGISTRY_SCHEMA_INVALID",
+      "OUTPUT_SHA256": "a08544936ec9ee6730dd95e2be5a4d53b4b28905fc300098f10c2ae30811e256",
+      "ROOT_CAUSE": "R4-R3 lost primitive/registry/partial-restart validation",
+      "SOURCE_VECTOR_ID": "VALID_BIG"
+    }
+  ],
+  "reproduced": 9,
+  "required": 9,
+  "result": "PASS"
+}
