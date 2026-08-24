@@ -31,6 +31,8 @@ def main(root,write=False):
    for n in facets:(evidence/f"HSB_2E_PREP_R4_R5_{n}.json").write_text(json.dumps({"facet":n,**owner},indent=2,sort_keys=True)+"\n")
   manifest=root/"Reports/HSB_2E_PREP_R4_R5_FILE_MANIFEST_SHA256.txt";seal=evidence/"HSB_2E_PREP_R4_R5_EVIDENCE_SEAL_SHA256.txt"
   if write:
+   prefailed=[k for k,v in checks.items() if not v];preout={"checks":checks,"CHECKS_EXECUTED":len(checks)+2,"CHECKS_FAILED":len(prefailed),"FAILURE_IDS":prefailed,"INFRASTRUCTURE_FAILURE":0,"RESULT":"PASS" if not prefailed else "FAIL"}
+   (evidence/"HSB_2E_PREP_R4_R5_VERIFIER_RESULT.json").write_text(json.dumps(preout,indent=2,sort_keys=True)+"\n")
    files=sorted(p for p in root.rglob("*") if p.is_file() and "__pycache__" not in p.parts and p not in (manifest,seal) and ("R4_R5" in p.name or "r4_r5" in p.name));manifest.write_text("\n".join(f"{sha(p)}  {p.relative_to(root)}" for p in files)+"\n")
    ev=sorted(p for p in evidence.glob("HSB_2E_PREP_R4_R5_*.json"));seal.write_text("\n".join(f"{sha(p)}  {p.relative_to(root)}" for p in ev)+"\n")
   def valid_list(path):
@@ -41,7 +43,6 @@ def main(root,write=False):
    return True
   checks["MANIFEST_COMPLETENESS"]=valid_list(manifest);checks["EVIDENCE_INTEGRITY"]=valid_list(seal)
   failed=[k for k,v in checks.items() if not v];out={"checks":checks,"CHECKS_EXECUTED":len(checks),"CHECKS_FAILED":len(failed),"FAILURE_IDS":failed,"INFRASTRUCTURE_FAILURE":0,"RESULT":"PASS" if not failed else "FAIL"};print("\n".join(f"{k}|{'PASS' if v else 'FAIL'}" for k,v in checks.items()));print(f"CHECKS_EXECUTED={len(checks)}\nCHECKS_FAILED={len(failed)}\nINFRASTRUCTURE_FAILURE=0\nRESULT={out['RESULT']}")
-  if write:(evidence/"HSB_2E_PREP_R4_R5_VERIFIER_RESULT.json").write_text(json.dumps(out,indent=2,sort_keys=True)+"\n")
   return not failed
  except Exception as e:
   print(f"INFRASTRUCTURE_FAILURE=1\nERROR={type(e).__name__}:{e}\nRESULT=FAIL");return False
