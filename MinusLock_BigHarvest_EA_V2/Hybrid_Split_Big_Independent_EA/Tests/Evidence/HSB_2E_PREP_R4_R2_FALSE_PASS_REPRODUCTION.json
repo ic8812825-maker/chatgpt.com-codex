@@ -1,0 +1,305 @@
+{
+  "cases": [
+    {
+      "CASE_ID": "FP-01",
+      "CUMULATIVE_CONFIRMED_VOLUME": [
+        "0.01",
+        "0.01"
+      ],
+      "DEAL_VOLUMES": [
+        "0.01",
+        "0.01"
+      ],
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "futureBrokerIntents": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A15",
+            "actionType": "CLOSE_POSITION_PARTIAL",
+            "cycleId": "C1",
+            "dependency": {
+              "ALLOCATION_DIGEST": "efdf09a074062a5c085d70a33fa3ad518859db3dfe80755a1ebe644f63e5d4dc",
+              "BIG_DEAL_IDS": [
+                "D15-101"
+              ],
+              "PARENT_CONFIRMATION_DIGEST": "a1ed5c446545188b815868e6f694120ad975afc0c9dd8184f1e69edad007b5d1",
+              "SMALL_DEAL_IDS": [
+                "D15-102"
+              ]
+            },
+            "direction": "BUY",
+            "expectedPriceSide": "BID",
+            "inputDigest": "768227e3e0a696969c53c920e4260a99a70ab3af45e498b8e7076fca0c43fc58",
+            "intentId": "fbd843ad50de32ed6141",
+            "magic": 8812825,
+            "normalizedVolume": "0.31",
+            "parentIntentId": "2400e8223bac0eb4970d",
+            "positionRole": "FAR",
+            "positionTicket": 103,
+            "stateRevision": 4,
+            "symbol": "EURUSD"
+          }
+        ],
+        "inputDigest": "08aa42309456e13f2133ab07c4d724cceb2b07c2103133f7c84a91d34781764e",
+        "ledgerDelta": [
+          {
+            "allocationKey": "K15",
+            "alreadyConsumed": false,
+            "reserveAdd": "59.00"
+          }
+        ],
+        "output": {
+          "actualPartialFarConsumption": "58.90",
+          "alreadyConsumed": false,
+          "availableProfit": "118",
+          "bigNet": "79",
+          "buyClosePrice": "1.10000",
+          "closeFarBudget": "59.00",
+          "closeFarShare": ".5",
+          "farLoss": "380.00000",
+          "farPriceSource": "SNAPSHOT_DIRECTIONAL_CLOSE",
+          "finalFarCloseAllowed": false,
+          "partialFarAllowed": true,
+          "partialFarVolume": "0.31",
+          "phase": "BIG_PHASE_7_PREPARE_FAR_INTENT",
+          "rawCloseFarBudget": "59.0",
+          "rawReserveAdd": "59.0",
+          "recoveryPL": "-242.00000",
+          "reserveAdd": "59.00",
+          "reserveAfter": "79.00",
+          "reserveBefore": "20",
+          "reserveShare": ".5",
+          "reserveUsedForPartialFar": "0",
+          "sellClosePrice": "1.20000",
+          "smallNet": "39",
+          "unallocatedRemainder": "0.10"
+        },
+        "outputDigest": "5efa452a6baf5f24a5b62b01578cc3e91149197a0e5c21c7dce9012d3778327f",
+        "persistenceRecords": [
+          "BIG_SMALL_DEALS_CONFIRMED",
+          "ALLOCATION_PREPARED"
+        ],
+        "reason": "OK",
+        "status": "PASS",
+        "transactionPhase": "BIG_PHASE_7_PREPARE_FAR_INTENT",
+        "valid": true
+      },
+      "HISTORICAL_EXIT_CODE": 0,
+      "NORMATIVE_EXPECTED": "UNAVAILABLE/PARTIAL_FILL",
+      "REMAINING_VOLUME": "not computed by historical model",
+      "REQUESTED_VOLUMES": [
+        "1",
+        ".5"
+      ],
+      "ROOT_CAUSE": "no cumulative requested-volume proof and no positive grid-volume validation",
+      "SOURCE_SHA256": "de99b9d052123a9e591b9caef2603f3ad70983028bff9b078eeeb4fd905b2c9f"
+    },
+    {
+      "CASE_ID": "FP-02",
+      "CUMULATIVE_CONFIRMED_VOLUME": [
+        "0.01"
+      ],
+      "DEAL_VOLUMES": [
+        "0.01"
+      ],
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "futureBrokerIntents": [],
+        "inputDigest": "365b6acea9276cbd3d2c4846011dba1a4fa5e661c6706b405278e92a4a01dc76",
+        "ledgerDelta": [
+          {
+            "amount": "9",
+            "consumable": false,
+            "dealIds": [
+              "D81-301"
+            ],
+            "source": "IGNORED_INITIAL_POSITIVE_PROFIT"
+          }
+        ],
+        "output": {
+          "buyCount": 1,
+          "farAssignedAfterConfirmation": true,
+          "farTicket": 302,
+          "ignoredInitialPositiveProfit": "9",
+          "recoveryBudgetWithInitialProfit": "0",
+          "recoveryBudgetWithoutInitialProfit": "0",
+          "sellCount": 1
+        },
+        "outputDigest": "c561c93ce4217ec16f7d684eb4ca2c9280808dd991617f371c9ffc889815a1f6",
+        "persistenceRecords": [
+          "DEAL_CONFIRMED",
+          "FAR_ASSIGNED"
+        ],
+        "reason": "OK",
+        "status": "PASS",
+        "transactionPhase": "INITIAL_COMMITTED",
+        "valid": true
+      },
+      "HISTORICAL_EXIT_CODE": 0,
+      "NORMATIVE_EXPECTED": "UNAVAILABLE/PARTIAL_FILL",
+      "REMAINING_VOLUME": "not computed by historical model",
+      "REQUESTED_VOLUMES": [
+        "1"
+      ],
+      "ROOT_CAUSE": "no cumulative requested-volume proof and no positive grid-volume validation",
+      "SOURCE_SHA256": "de99b9d052123a9e591b9caef2603f3ad70983028bff9b078eeeb4fd905b2c9f"
+    },
+    {
+      "CASE_ID": "FP-03",
+      "CUMULATIVE_CONFIRMED_VOLUME": [
+        "0.01",
+        "0.01"
+      ],
+      "DEAL_VOLUMES": [
+        "0.01",
+        "0.01"
+      ],
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "futureBrokerIntents": [],
+        "inputDigest": "746876204d590b4c81210ea659b67de1247f8a639e8ae761d89e98f6ca4dea26",
+        "ledgerDelta": [
+          {
+            "allocationKey": "SK55",
+            "reserveAdd": "7.25"
+          }
+        ],
+        "output": {
+          "allocationKey": "SK55",
+          "alreadyConsumed": false,
+          "bigClosedVolume": "0",
+          "bigVolumeBefore": ".50",
+          "closeBigOnSmall": "0",
+          "expectedRemainVolume": "0.50",
+          "newFarAssignedAfterBigConfirmation": true,
+          "newFarVolume": "0.50",
+          "oldFarClosedVolume": "6",
+          "phase": "SMALL_PHASE_9_APPLY_RESERVE",
+          "rawBigCloseVolume": "0.00",
+          "rawSmallReserveAdd": "7.25",
+          "remainBigOnSmall": "1",
+          "reserveAfter": "17.25",
+          "reserveBefore": "10",
+          "roundedSmallReserveAdd": "7.25",
+          "smallClosedVolume": ".4",
+          "smallReserveShare": "0.25",
+          "smallReserveSourceMoney": "29"
+        },
+        "outputDigest": "03aa6f69f0db875348728309276a1ba90b5791e5e2ba9f3d3d4c71051e94697d",
+        "persistenceRecords": [
+          "SMALL_FAR_DEALS_CONFIRMED",
+          "BIG_DEAL_CONFIRMED",
+          "NEW_FAR_ASSIGNED",
+          "RESERVE_APPLIED"
+        ],
+        "reason": "OK",
+        "status": "PASS",
+        "transactionPhase": "SMALL_PHASE_9_APPLY_RESERVE",
+        "valid": true
+      },
+      "HISTORICAL_EXIT_CODE": 0,
+      "NORMATIVE_EXPECTED": "UNAVAILABLE/PARTIAL_FILL",
+      "REMAINING_VOLUME": "not computed by historical model",
+      "REQUESTED_VOLUMES": [
+        ".4",
+        "6"
+      ],
+      "ROOT_CAUSE": "no cumulative requested-volume proof and no positive grid-volume validation",
+      "SOURCE_SHA256": "de99b9d052123a9e591b9caef2603f3ad70983028bff9b078eeeb4fd905b2c9f"
+    },
+    {
+      "CASE_ID": "FP-04",
+      "CUMULATIVE_CONFIRMED_VOLUME": [
+        "-1"
+      ],
+      "DEAL_VOLUMES": [
+        "-1"
+      ],
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ACTUAL": {
+        "futureBrokerIntents": [
+          {
+            "accountLogin": 10001,
+            "actionId": "A15",
+            "actionType": "CLOSE_POSITION_PARTIAL",
+            "cycleId": "C1",
+            "dependency": {
+              "ALLOCATION_DIGEST": "efdf09a074062a5c085d70a33fa3ad518859db3dfe80755a1ebe644f63e5d4dc",
+              "BIG_DEAL_IDS": [
+                "D15-101"
+              ],
+              "PARENT_CONFIRMATION_DIGEST": "862bcd3db32b161a134995502036b3949122fdd8e680a6c73f495a147b249e22",
+              "SMALL_DEAL_IDS": [
+                "D15-102"
+              ]
+            },
+            "direction": "BUY",
+            "expectedPriceSide": "BID",
+            "inputDigest": "768227e3e0a696969c53c920e4260a99a70ab3af45e498b8e7076fca0c43fc58",
+            "intentId": "fbd843ad50de32ed6141",
+            "magic": 8812825,
+            "normalizedVolume": "0.31",
+            "parentIntentId": "2400e8223bac0eb4970d",
+            "positionRole": "FAR",
+            "positionTicket": 103,
+            "stateRevision": 4,
+            "symbol": "EURUSD"
+          }
+        ],
+        "inputDigest": "4327e79f8bc0c67fc32a97a2a99386b570f6641dda9493301782306c4609e812",
+        "ledgerDelta": [
+          {
+            "allocationKey": "K15",
+            "alreadyConsumed": false,
+            "reserveAdd": "59.00"
+          }
+        ],
+        "output": {
+          "actualPartialFarConsumption": "58.90",
+          "alreadyConsumed": false,
+          "availableProfit": "118",
+          "bigNet": "79",
+          "buyClosePrice": "1.10000",
+          "closeFarBudget": "59.00",
+          "closeFarShare": ".5",
+          "farLoss": "380.00000",
+          "farPriceSource": "SNAPSHOT_DIRECTIONAL_CLOSE",
+          "finalFarCloseAllowed": false,
+          "partialFarAllowed": true,
+          "partialFarVolume": "0.31",
+          "phase": "BIG_PHASE_7_PREPARE_FAR_INTENT",
+          "rawCloseFarBudget": "59.0",
+          "rawReserveAdd": "59.0",
+          "recoveryPL": "-242.00000",
+          "reserveAdd": "59.00",
+          "reserveAfter": "79.00",
+          "reserveBefore": "20",
+          "reserveShare": ".5",
+          "reserveUsedForPartialFar": "0",
+          "sellClosePrice": "1.20000",
+          "smallNet": "39",
+          "unallocatedRemainder": "0.10"
+        },
+        "outputDigest": "3d3659741cc255b114a99deae42efe5920f38221f0c2f1c2e767209b349700d2",
+        "persistenceRecords": [
+          "BIG_SMALL_DEALS_CONFIRMED",
+          "ALLOCATION_PREPARED"
+        ],
+        "reason": "OK",
+        "status": "PASS",
+        "transactionPhase": "BIG_PHASE_7_PREPARE_FAR_INTENT",
+        "valid": true
+      },
+      "HISTORICAL_EXIT_CODE": 0,
+      "NORMATIVE_EXPECTED": "REJECT/INVALID_FILL",
+      "REMAINING_VOLUME": "not computed by historical model",
+      "REQUESTED_VOLUMES": [
+        "1"
+      ],
+      "ROOT_CAUSE": "no cumulative requested-volume proof and no positive grid-volume validation",
+      "SOURCE_SHA256": "de99b9d052123a9e591b9caef2603f3ad70983028bff9b078eeeb4fd905b2c9f"
+    }
+  ],
+  "reproduced": 4
+}
