@@ -1,0 +1,227 @@
+{
+  "cases": [
+    {
+      "BASELINE_ACTUAL_RESULT": {
+        "inputDigest": "59cd8b87d3e313a1b0106e39bf58f419954699dd8e723587125fb4ddbfa776e5",
+        "output": {
+          "confirmedVolume": "1.0",
+          "consumedDealIds": [
+            "D1-101",
+            "D1-101"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "18",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "7199b7bbb6befb2609f377a6832eb0839286b0b1cfc164508eff77895b109aed",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "CHANGED_FIELDS": "duplicate dealId with different eventId",
+      "COUNTEREXAMPLE_ID": "FP-R3-01",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "INPUT_SHA256": "4ffd2eaad8a7a5438c99c68028e628683073bd8e27e6b4bdfa90337c7db8be53",
+      "NORMATIVE_EXPECTED_RESULT": {
+        "settlementApplied": false,
+        "status": "NOT_PASS"
+      },
+      "RESULT_SHA256": "262c0e019cfed005910bc8838b99c42081dcb042ae8d4b344424650477ef1378",
+      "ROOT_CAUSE": "R4-R2 omitted independent broker-evidence trust-chain validation",
+      "SOURCE_VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "BASELINE_ACTUAL_RESULT": {
+        "inputDigest": "339da8747877de069c6ab6d3451d2ba26b6892d0109dc35c56b539490a34ae13",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D1-101"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "0e4a4bc62939b90addd9720e3ffdbe4c5fbfb33bdfc486855117f00fbf57df0f",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "CHANGED_FIELDS": "deal timestamp below minimum",
+      "COUNTEREXAMPLE_ID": "FP-R3-02",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "INPUT_SHA256": "ba58afda8aedec899d683acbebc830cd93a8f0fe7cf636bb34fbf5ad4d6a82de",
+      "NORMATIVE_EXPECTED_RESULT": {
+        "settlementApplied": false,
+        "status": "NOT_PASS"
+      },
+      "RESULT_SHA256": "8ec7091a041c50797c7a10badc83fe1d4d3fe39f256400e8db0e8f162199ff31",
+      "ROOT_CAUSE": "R4-R2 omitted independent broker-evidence trust-chain validation",
+      "SOURCE_VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "BASELINE_ACTUAL_RESULT": {
+        "inputDigest": "4f556c791d6895a7e52b6e62ff1e1a675f81a7096209ab62010f2fe838b64d51",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D1-101"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "5555985feaf5318311f567ac00915a790c4e5d8b48cb373e877aa580e097aebd",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "CHANGED_FIELDS": "foreign intent identity",
+      "COUNTEREXAMPLE_ID": "FP-R3-03",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "INPUT_SHA256": "77e36ea8dd09b934a04fb41ce75effc4a6fbd4430ba43780257fb3c661d9e7e4",
+      "NORMATIVE_EXPECTED_RESULT": {
+        "settlementApplied": false,
+        "status": "NOT_PASS"
+      },
+      "RESULT_SHA256": "a878538431fa50840e2ca78075cfa717033c600fdfcadfdcff75cc58f3425625",
+      "ROOT_CAUSE": "R4-R2 omitted independent broker-evidence trust-chain validation",
+      "SOURCE_VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "BASELINE_ACTUAL_RESULT": {
+        "inputDigest": "666a24fa80ff9f9adfd6cb4707b5e27e7b266416631e3fbd10be60be46c0968c",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D1-101"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "755eada265bb3c799b4575e9afacd727f79aa7c4fa66dea39648176678f84d64",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "CHANGED_FIELDS": "foreign managed position",
+      "COUNTEREXAMPLE_ID": "FP-R3-04",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "INPUT_SHA256": "dd3c8b28dee9361f645db2a151e10f5c3fa3138a747c6a142505d2abec080aed",
+      "NORMATIVE_EXPECTED_RESULT": {
+        "settlementApplied": false,
+        "status": "NOT_PASS"
+      },
+      "RESULT_SHA256": "788f49cdcb5d16856ff3d592902e573044964d273fddbe63de04b65be59c84a8",
+      "ROOT_CAUSE": "R4-R2 omitted independent broker-evidence trust-chain validation",
+      "SOURCE_VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "BASELINE_ACTUAL_RESULT": {
+        "inputDigest": "43e3ed9e5e6c1db2a2e38a084d54c5cc2e9c52436f8e4d075cfdb9a325f1a130",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D40-201"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D40-201"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "9"
+        },
+        "outputDigest": "bae0814aa05a12f73bf82d1f3f3c0feb486ff44be0e408e1186fc797e91e100c",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "BIG_SETTLED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "CHANGED_FIELDS": "missing mandatory Small leg",
+      "COUNTEREXAMPLE_ID": "FP-R3-05",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "INPUT_SHA256": "1fd2d9e989b586fa2b2494dfe2d4b215f4843f1de38992164dd9f09c9585f939",
+      "NORMATIVE_EXPECTED_RESULT": {
+        "settlementApplied": false,
+        "status": "NOT_PASS"
+      },
+      "RESULT_SHA256": "b5a0f12ee135943e70d438f281fcfcac3f049b78240f0ff84be4c190f159cfe7",
+      "ROOT_CAUSE": "R4-R2 omitted independent broker-evidence trust-chain validation",
+      "SOURCE_VECTOR_ID": "BIG_FULL"
+    },
+    {
+      "BASELINE_ACTUAL_RESULT": {
+        "inputDigest": "852b2375acbdcce6752dde38894c68a51363ec4137dc2bd552eb2cde631f37b5",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D1-101"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "18e584fb9339541063fedc5ba52a5df8fe52c695070a735279bc2320c1b84635",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "CHANGED_FIELDS": "requested volume below position volume",
+      "COUNTEREXAMPLE_ID": "FP-R3-06",
+      "EXIT_CODE": 0,
+      "FALSE_PASS_REPRODUCED": true,
+      "INPUT_SHA256": "df88d784f14b02bd397e75ada84347d2a77139d9ff0c3fbb577ac97c19304664",
+      "NORMATIVE_EXPECTED_RESULT": {
+        "settlementApplied": false,
+        "status": "NOT_PASS"
+      },
+      "RESULT_SHA256": "6de82a84789ea2e413c5ac80ef68350c775c11260c6dc911af5af522326d7135",
+      "ROOT_CAUSE": "R4-R2 omitted independent broker-evidence trust-chain validation",
+      "SOURCE_VECTOR_ID": "FULL_ONE"
+    }
+  ],
+  "reproduced": 6,
+  "required": 6,
+  "result": "PASS"
+}
