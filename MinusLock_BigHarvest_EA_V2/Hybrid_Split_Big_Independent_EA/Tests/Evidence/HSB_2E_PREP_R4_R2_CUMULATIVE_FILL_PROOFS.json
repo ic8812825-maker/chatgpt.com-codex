@@ -1,0 +1,19 @@
+{
+  "checks": [
+    {
+      "CHECK_ID": "FULL_CLOSE_VOLUME_PROOF",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "VOLUME_GRID_VALIDATION",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "CROSS_TICKET_VOLUME_NETTING_BLOCKED",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    }
+  ]
+}

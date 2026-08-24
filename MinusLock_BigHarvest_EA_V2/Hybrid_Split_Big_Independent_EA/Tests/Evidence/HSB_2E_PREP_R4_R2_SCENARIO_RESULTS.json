@@ -1,0 +1,9 @@
+{
+  "scenarios": [
+    "INITIAL",
+    "BIG",
+    "SMALL",
+    "RESTART"
+  ],
+  "result": "PASS"
+}

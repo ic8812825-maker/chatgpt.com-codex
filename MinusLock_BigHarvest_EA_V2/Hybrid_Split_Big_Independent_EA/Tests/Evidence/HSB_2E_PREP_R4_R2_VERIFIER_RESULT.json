@@ -1,0 +1,3595 @@
+{
+  "checks": [
+    {
+      "CHECK_ID": "VECTOR_FULL_ONE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_FULL_MULTI",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_NO_FILL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_OVERFILL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_NEGATIVE_VOLUME",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_ZERO_VOLUME",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_NAN_VOLUME",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_INF_VOLUME",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_OFFGRID_VOLUME",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_OFFGRID_PRICE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_FOREIGN_SYMBOL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_WRONG_DIRECTION",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_WRONG_TICKET",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_STALE_TX",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_STALE_REVISION",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_DUPLICATE_DEAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_DUAL_TAIL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VECTOR_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "FULL_CLOSE_VOLUME_PROOF",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "PARTIAL_FILL_MODEL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "OVERFILL_MODEL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "DEAL_VOLUME_VALIDATION",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "DEAL_NUMERIC_FINITE_VALIDATION",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "VOLUME_GRID_VALIDATION",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "CROSS_TICKET_VOLUME_NETTING_BLOCKED",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "SETTLEMENT_BEFORE_FULL_FILL_BLOCKED",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_PARTIAL_FILL_BLOCKED",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "RESTART_FILL_CONSERVATION",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_DEAL_CONSUMPTION",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "DUAL_TAIL_BLOCK",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "SCENARIO_INITIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "SCENARIO_BIG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "SCENARIO_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "SCENARIO_RESTART",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T001",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T002",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T003",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T004",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T005",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T006",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T007",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T008",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T009",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T010",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T011",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T012",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T013",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T014",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T015",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T016",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T017",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T018",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T019",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T020",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T021",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T022",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T023",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T024",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T025",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T026",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T027",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T028",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T029",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "TEST_R2T030",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "MUTATION_UNIQUENESS",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "CANONICAL_STATUS_UNIQUENESS",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "SCOPE_AUDIT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "PRODUCTION_MQL5_LOGIC_CHANGED",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "MANIFEST_COMPLETENESS",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "EVIDENCE_INTEGRITY",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    }
+  ],
+  "invariants": [
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_PARTIAL_ONE_LEG",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_NET_NEGATIVE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_PARTIAL_SMALL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_PARTIAL_FAR",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_PARTIAL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_CONTINUE_FULL",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_DUPLICATE",
+      "DETAIL": "",
+      "RESULT": "PASS"
+    }
+  ],
+  "mutations": 24,
+  "result": "PASS",
+  "scenarios": [
+    "INITIAL",
+    "BIG",
+    "SMALL",
+    "RESTART"
+  ],
+  "tests": 30,
+  "vectors": [
+    {
+      "ACTUAL": {
+        "inputDigest": "2472a73e12b9858b91c5fd79177db026674926e96976aff84440ffcf76c42965",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D1-101"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "a1b690c1b6a6e96fd9fbd62765c504d735641a78966f15573bf10d13e45b170f",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "2472a73e12b9858b91c5fd79177db026674926e96976aff84440ffcf76c42965",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D1-101"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "a1b690c1b6a6e96fd9fbd62765c504d735641a78966f15573bf10d13e45b170f",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "57b7c8dd661190a84288c256580daf677b23e6696100bb8c413e6a40e30e7b47",
+        "output": {
+          "confirmedVolume": "1.0",
+          "consumedDealIds": [
+            "D2-101a",
+            "D2-101b"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "18",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "79ff39512fc0932c3b4b40b9442692ed6eb514a6fe8eb8078b3005a0d6c9270e",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "57b7c8dd661190a84288c256580daf677b23e6696100bb8c413e6a40e30e7b47",
+        "output": {
+          "confirmedVolume": "1.0",
+          "consumedDealIds": [
+            "D2-101a",
+            "D2-101b"
+          ],
+          "errors": [],
+          "fillState": "FULL_FILL",
+          "money": "18",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "79ff39512fc0932c3b4b40b9442692ed6eb514a6fe8eb8078b3005a0d6c9270e",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "FULL_MULTI"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "2dd4c87a831989fca4f8596a7fd260541d18ab012065b27f075fed5bed6a38b7",
+        "output": {
+          "confirmedVolume": "0.4",
+          "consumedDealIds": [
+            "D3-101"
+          ],
+          "errors": [],
+          "fillState": "PARTIAL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0.6",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "409042387aba38e5b5c0514c9da244949dfb7e3dfeb2ae7021762611a08a6672",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "2dd4c87a831989fca4f8596a7fd260541d18ab012065b27f075fed5bed6a38b7",
+        "output": {
+          "confirmedVolume": "0.4",
+          "consumedDealIds": [
+            "D3-101"
+          ],
+          "errors": [],
+          "fillState": "PARTIAL_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0.6",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "409042387aba38e5b5c0514c9da244949dfb7e3dfeb2ae7021762611a08a6672",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "PARTIAL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "e49b4b9da3c8014994ed06a2b44d2e20b5735d3fae12af99024ace1134658bcc",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [],
+          "fillState": "NO_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "8a01b8e6085da7127e257d8040f6e7730c3a44251e651ffb4f216f53b7d0e3f3",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "e49b4b9da3c8014994ed06a2b44d2e20b5735d3fae12af99024ace1134658bcc",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [],
+          "fillState": "NO_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "8a01b8e6085da7127e257d8040f6e7730c3a44251e651ffb4f216f53b7d0e3f3",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "NO_FILL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "20fe587af76c0aa2aee0acb6e23694993e1fe2a7f3550a946efe545bdc613fcd",
+        "output": {
+          "confirmedVolume": "1.2",
+          "consumedDealIds": [
+            "D5-101a",
+            "D5-101b"
+          ],
+          "errors": [],
+          "fillState": "OVERFILL",
+          "money": "18",
+          "overfillVolume": "0.2",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "7ecc17c77eb51bff365409d3e5f49295d02dc0612690c2f4e7eb1ab6ecffcdd7",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "20fe587af76c0aa2aee0acb6e23694993e1fe2a7f3550a946efe545bdc613fcd",
+        "output": {
+          "confirmedVolume": "1.2",
+          "consumedDealIds": [
+            "D5-101a",
+            "D5-101b"
+          ],
+          "errors": [],
+          "fillState": "OVERFILL",
+          "money": "18",
+          "overfillVolume": "0.2",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "7ecc17c77eb51bff365409d3e5f49295d02dc0612690c2f4e7eb1ab6ecffcdd7",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "OVERFILL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "256e80213e6892af523ceb56cfe4590dcfb1f69173b835fdae6077dfeae2ef28",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "1db8add7be5c1f4f4d206f71064adc92c61603c4d35ac300461b16ed68ca0ae0",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "256e80213e6892af523ceb56cfe4590dcfb1f69173b835fdae6077dfeae2ef28",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "1db8add7be5c1f4f4d206f71064adc92c61603c4d35ac300461b16ed68ca0ae0",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "NEGATIVE_VOLUME"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "14dc834a8feed35f140129f56d6b6b11e8486d3dfa921c8519857a930acfd458",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "de017bbf10139bbeb9bc275a6eb7963166fcfc963ee59f792055e23055cdb5b4",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "14dc834a8feed35f140129f56d6b6b11e8486d3dfa921c8519857a930acfd458",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "de017bbf10139bbeb9bc275a6eb7963166fcfc963ee59f792055e23055cdb5b4",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "ZERO_VOLUME"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "5f718971b3c6a6900b37b54d24f7d806e87f4518577ab5e853fd8c6cc9f67249",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_NUMERIC_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "7d9af2c92a3c652c66a62dd89f266b3393c548a17c1b7a291779acf1ff2446a1",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "5f718971b3c6a6900b37b54d24f7d806e87f4518577ab5e853fd8c6cc9f67249",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_NUMERIC_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "7d9af2c92a3c652c66a62dd89f266b3393c548a17c1b7a291779acf1ff2446a1",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "NAN_VOLUME"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "32485d8204ba40e8c6fb4e9bdd725a5239e7fe189a7042dcf1d25638d383c576",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_NUMERIC_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "c28e5287e4f317f3f6d17e80056668e59c6a96cb7950ff28c83ea27b455198c7",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "32485d8204ba40e8c6fb4e9bdd725a5239e7fe189a7042dcf1d25638d383c576",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_NUMERIC_INVALID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "c28e5287e4f317f3f6d17e80056668e59c6a96cb7950ff28c83ea27b455198c7",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "INF_VOLUME"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "fd027adcd73f576c7b57bebac4fc3deec99d9f3c7dab3bfb1bef6d06cd324d92",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_OFF_GRID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "efa9d879492423380cd51396c72920b6fb82c8514e043b57b2cbb1ad4272982c",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "fd027adcd73f576c7b57bebac4fc3deec99d9f3c7dab3bfb1bef6d06cd324d92",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_VOLUME_OFF_GRID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "efa9d879492423380cd51396c72920b6fb82c8514e043b57b2cbb1ad4272982c",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "OFFGRID_VOLUME"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "8a072f4e1d17c926348954564fb457fa4110f46658ef8fcf2826a33c2484bc17",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_PRICE_OFF_GRID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "2f11e8f835b173cc22376b7be6dec681dda22ba3f6f524d337d65161f08223e3",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "8a072f4e1d17c926348954564fb457fa4110f46658ef8fcf2826a33c2484bc17",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "DEAL_PRICE_OFF_GRID"
+          ],
+          "fillState": "INVALID_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "2f11e8f835b173cc22376b7be6dec681dda22ba3f6f524d337d65161f08223e3",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "OFFGRID_PRICE"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "c3ba0be689d75fe1408a81c3f6048f877db1e3a282e20d61cc2901d4f0b709ed",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "f5ed39cfd5b63513155bd2ce32f1f1f953a5b4bda66a8f1ada3db1387aaa2dca",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "c3ba0be689d75fe1408a81c3f6048f877db1e3a282e20d61cc2901d4f0b709ed",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "f5ed39cfd5b63513155bd2ce32f1f1f953a5b4bda66a8f1ada3db1387aaa2dca",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "FOREIGN_SYMBOL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "2cad618a763aa6e80db1bffbcb978ac340dc584abd307c568469eaca01e206f6",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "966a2bc7c16f534e7fc24721ac74984a333e7be477142f417e8516c9b4ad8c99",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "2cad618a763aa6e80db1bffbcb978ac340dc584abd307c568469eaca01e206f6",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "966a2bc7c16f534e7fc24721ac74984a333e7be477142f417e8516c9b4ad8c99",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "WRONG_DIRECTION"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "8621edea1a5c7cb14a2754dfb6bac46092aec291cd3bc0b3c7711eccfa6a2682",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "d237b524f0f10543a8ac6996c0d92256a23e4daa9f5122e6c9341562d59ace19",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "8621edea1a5c7cb14a2754dfb6bac46092aec291cd3bc0b3c7711eccfa6a2682",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "FOREIGN_FILL"
+          ],
+          "fillState": "FOREIGN_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "d237b524f0f10543a8ac6996c0d92256a23e4daa9f5122e6c9341562d59ace19",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "WRONG_TICKET"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "0fb34ff594d875b2dee4702edbbe83fdb4261b817c0498140c1282826707fbe1",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "STALE_FILL"
+          ],
+          "fillState": "STALE_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "0fff133243f19bf816ef7190c28100285cbef0efc72f6ecaa1a84ee4ee32b62c",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "0fb34ff594d875b2dee4702edbbe83fdb4261b817c0498140c1282826707fbe1",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "STALE_FILL"
+          ],
+          "fillState": "STALE_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "0fff133243f19bf816ef7190c28100285cbef0efc72f6ecaa1a84ee4ee32b62c",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "STALE_TX"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "9cf7b19b9a82f9832d1f7ad3c68e2561f7818539979fee04f0ee88698677a883",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "STALE_FILL"
+          ],
+          "fillState": "STALE_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "9a0c788aa78fc94582d479ae38d71db645b004c01d9d72051273786520c9c3c1",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "9cf7b19b9a82f9832d1f7ad3c68e2561f7818539979fee04f0ee88698677a883",
+        "output": {
+          "confirmedVolume": "0",
+          "consumedDealIds": [],
+          "errors": [
+            "STALE_FILL"
+          ],
+          "fillState": "STALE_FILL",
+          "money": "0",
+          "overfillVolume": "0",
+          "remainingVolume": "1",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "9a0c788aa78fc94582d479ae38d71db645b004c01d9d72051273786520c9c3c1",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "STALE_REVISION"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "d539a0679180591fe0a892d5a3e4dd2a9b5557432c5b5ee97570337545d10f97",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D30-101"
+          ],
+          "errors": [
+            "DUPLICATE_FILL"
+          ],
+          "fillState": "DUPLICATE_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "2be64331b45976b6333606e3da3f16e9f22796f843576f7197a49cdbfb86aeab",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "d539a0679180591fe0a892d5a3e4dd2a9b5557432c5b5ee97570337545d10f97",
+        "output": {
+          "confirmedVolume": "1",
+          "consumedDealIds": [
+            "D30-101"
+          ],
+          "errors": [
+            "DUPLICATE_FILL"
+          ],
+          "fillState": "DUPLICATE_FILL",
+          "money": "9",
+          "overfillVolume": "0",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "outputDigest": "2be64331b45976b6333606e3da3f16e9f22796f843576f7197a49cdbfb86aeab",
+        "persistenceRecords": [],
+        "phase": "FILL_CLASSIFIED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "DUPLICATE_DEAL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "77fbd62a12b485b7b1dcf1ac35eab64e88de2611d6fa0a9b15e7e3f4484bbf3f",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D40-201",
+            "D40-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D40-201"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D40-202"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "18"
+        },
+        "outputDigest": "76e10e6fc7808f82828bb4e5638b504ae2bd21a4df0da0d075c46d4aaf9c4e1f",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "BIG_SETTLED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "77fbd62a12b485b7b1dcf1ac35eab64e88de2611d6fa0a9b15e7e3f4484bbf3f",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D40-201",
+            "D40-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D40-201"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D40-202"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "18"
+        },
+        "outputDigest": "76e10e6fc7808f82828bb4e5638b504ae2bd21a4df0da0d075c46d4aaf9c4e1f",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "BIG_SETTLED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "BIG_FULL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "6d70f7238043d6cc2d81d3ab97ad3848fc790f372cddca3404bb34c0899d7d76",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D41-201",
+            "D41-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D41-201"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D41-202"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "db3848c5305115cbb742f0e928ae977f6609c48c3a1a51fb48483a3e0deb6f38",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED": {
+        "inputDigest": "6d70f7238043d6cc2d81d3ab97ad3848fc790f372cddca3404bb34c0899d7d76",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D41-201",
+            "D41-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D41-201"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D41-202"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "db3848c5305115cbb742f0e928ae977f6609c48c3a1a51fb48483a3e0deb6f38",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "BIG_PARTIAL_ONE_LEG"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "b05ad8f0ee32c28ce741fa72adc8d4ca96593a7d86475de4ed26a0e4cd94423a",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D42-201",
+            "D42-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D42-201"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D42-202"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.49",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "55e9e7fb352e2aabce7085914bb9ef9de15b599f6269ed0d8c48dc598c30357f",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED": {
+        "inputDigest": "b05ad8f0ee32c28ce741fa72adc8d4ca96593a7d86475de4ed26a0e4cd94423a",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D42-201",
+            "D42-202"
+          ],
+          "fills": {
+            "201": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D42-201"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            },
+            "202": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D42-202"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.49",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "55e9e7fb352e2aabce7085914bb9ef9de15b599f6269ed0d8c48dc598c30357f",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "BIG_MONEY_MATCH_VOLUME_SHORT"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "a61d34564e6965c358c89aaa3f6a3d3a18b31af1f8be4cfb4347ff144cde4449",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D43-301"
+          ],
+          "fills": {
+            "301": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D43-301"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "9"
+        },
+        "outputDigest": "188efd75d6aa86e1e58fb45d4644b08859356db642353ef4afaca97a2aab0f9f",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "INITIAL_COMMITTED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "a61d34564e6965c358c89aaa3f6a3d3a18b31af1f8be4cfb4347ff144cde4449",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D43-301"
+          ],
+          "fills": {
+            "301": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D43-301"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "9"
+        },
+        "outputDigest": "188efd75d6aa86e1e58fb45d4644b08859356db642353ef4afaca97a2aab0f9f",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "INITIAL_COMMITTED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "INITIAL_FULL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "107a408397ade83e72557155ee46016e5195525d7bcbd377e71cd10e56c2f762",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D44-301"
+          ],
+          "fills": {
+            "301": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D44-301"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "3294c661925371360a1e25dce383192eb8e6c10ab79e30e89f6fda718dd052b0",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED": {
+        "inputDigest": "107a408397ade83e72557155ee46016e5195525d7bcbd377e71cd10e56c2f762",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D44-301"
+          ],
+          "fills": {
+            "301": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D44-301"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.99",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "3294c661925371360a1e25dce383192eb8e6c10ab79e30e89f6fda718dd052b0",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "INITIAL_PARTIAL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "02c2fd819bfda2708c00b84ed469933d081f68a94e70d485c7561d363c34ff46",
+        "output": {
+          "allocationApplied": false,
+          "fills": {
+            "301": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D45-301"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "-1",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false
+        },
+        "outputDigest": "81ece9793a56537e88c6f82170f3ff959bb1a39b77f2646e7e65c2cb860573cd",
+        "persistenceRecords": [
+          "FILL_EVIDENCE_PERSISTED"
+        ],
+        "phase": "INITIAL_REJECTED",
+        "reason": "INITIAL_NET_NOT_POSITIVE",
+        "status": "REJECT"
+      },
+      "EXPECTED": {
+        "inputDigest": "02c2fd819bfda2708c00b84ed469933d081f68a94e70d485c7561d363c34ff46",
+        "output": {
+          "allocationApplied": false,
+          "fills": {
+            "301": {
+              "confirmedVolume": "1",
+              "consumedDealIds": [
+                "D45-301"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "-1",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false
+        },
+        "outputDigest": "81ece9793a56537e88c6f82170f3ff959bb1a39b77f2646e7e65c2cb860573cd",
+        "persistenceRecords": [
+          "FILL_EVIDENCE_PERSISTED"
+        ],
+        "phase": "INITIAL_REJECTED",
+        "reason": "INITIAL_NET_NOT_POSITIVE",
+        "status": "REJECT"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "INITIAL_NET_NEGATIVE"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "211fbf7facc47668d531c969daab8a9329a463322405f6490aaf5913e33cf4dd",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D46-401",
+            "D46-402",
+            "D46-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D46-401"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "1.5",
+              "consumedDealIds": [
+                "D46-402"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D46-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "27"
+        },
+        "outputDigest": "6a1104322a320eb09835a2cce0bb3135520cc8a74d9c954e1704b987653183b5",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "SMALL_SETTLED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "211fbf7facc47668d531c969daab8a9329a463322405f6490aaf5913e33cf4dd",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D46-401",
+            "D46-402",
+            "D46-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D46-401"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "1.5",
+              "consumedDealIds": [
+                "D46-402"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D46-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "27"
+        },
+        "outputDigest": "6a1104322a320eb09835a2cce0bb3135520cc8a74d9c954e1704b987653183b5",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "SMALL_SETTLED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "SMALL_FULL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "f75f38251f401b911a71738b3173f570caacd984f5aa167f0a1454ef928e205f",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D47-401",
+            "D47-402",
+            "D47-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D47-401"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.39",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "1.5",
+              "consumedDealIds": [
+                "D47-402"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D47-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "c562bbf495f0264f310c5a19c6f1567b0df1afb58e0d245809fbcd57f6b94cfd",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED": {
+        "inputDigest": "f75f38251f401b911a71738b3173f570caacd984f5aa167f0a1454ef928e205f",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D47-401",
+            "D47-402",
+            "D47-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D47-401"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.39",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "1.5",
+              "consumedDealIds": [
+                "D47-402"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D47-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "c562bbf495f0264f310c5a19c6f1567b0df1afb58e0d245809fbcd57f6b94cfd",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "SMALL_PARTIAL_SMALL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "70461238c6350852ad5500f4d4c0a3fdebc91585d0021b4385093b6d88eda6fd",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D48-401",
+            "D48-402",
+            "D48-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D48-401"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D48-402"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "1.49",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D48-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "e8559da7cbea7aabd0390b7f258979e47ec685d7a3fc93dc12148d41100e991b",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED": {
+        "inputDigest": "70461238c6350852ad5500f4d4c0a3fdebc91585d0021b4385093b6d88eda6fd",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D48-401",
+            "D48-402",
+            "D48-403"
+          ],
+          "fills": {
+            "401": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D48-401"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.4"
+            },
+            "402": {
+              "confirmedVolume": "0.01",
+              "consumedDealIds": [
+                "D48-402"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "1.49",
+              "requestedVolume": "1.5"
+            },
+            "403": {
+              "confirmedVolume": "0.5",
+              "consumedDealIds": [
+                "D48-403"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "0.5"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "e8559da7cbea7aabd0390b7f258979e47ec685d7a3fc93dc12148d41100e991b",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "SMALL_PARTIAL_FAR"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "6b8febf4678e865f90c9bcba3654c3dae9251631f5607c878193f91ee6a7b896",
+        "output": {},
+        "outputDigest": "197293d5b1b41e946ac7df24fd8af127b1897e51ab70dc54dae66c8ac50c4fdd",
+        "persistenceRecords": [],
+        "phase": "SMALL_BLOCKED",
+        "reason": "DUAL_TAIL",
+        "status": "REJECT"
+      },
+      "EXPECTED": {
+        "inputDigest": "6b8febf4678e865f90c9bcba3654c3dae9251631f5607c878193f91ee6a7b896",
+        "output": {},
+        "outputDigest": "197293d5b1b41e946ac7df24fd8af127b1897e51ab70dc54dae66c8ac50c4fdd",
+        "persistenceRecords": [],
+        "phase": "SMALL_BLOCKED",
+        "reason": "DUAL_TAIL",
+        "status": "REJECT"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "DUAL_TAIL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "188764f23d081f5db591a1ca4981bf2f253ef6ff49fc2149e183db7547e440d6",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D50-101"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D50-101"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.6",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "36adbe4684507c38034d745fe85f8f8fc91645d50ad4a6837f51f613b8b70d89",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "EXPECTED": {
+        "inputDigest": "188764f23d081f5db591a1ca4981bf2f253ef6ff49fc2149e183db7547e440d6",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D50-101"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "0.4",
+              "consumedDealIds": [
+                "D50-101"
+              ],
+              "errors": [],
+              "fillState": "PARTIAL_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.6",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "36adbe4684507c38034d745fe85f8f8fc91645d50ad4a6837f51f613b8b70d89",
+        "persistenceRecords": [
+          "CUMULATIVE_FILL_PERSISTED"
+        ],
+        "phase": "WAITING_FOR_FULL_FILL",
+        "reason": "PARTIAL_FILL_RECONCILIATION",
+        "status": "UNAVAILABLE"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "RESTART_PARTIAL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "dca236f23796780ba67e7b449f79511049282a05dba7c08273e0fd91e487e0d5",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D50-101",
+            "D50-101b"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "1.0",
+              "consumedDealIds": [
+                "D50-101",
+                "D50-101b"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "18",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "18"
+        },
+        "outputDigest": "593ef894e31adf8820dfe3018dfdc494b572a3ae2a839feed35ec496748c795c",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "RESTART_FULL_FILL_RECOVERED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "EXPECTED": {
+        "inputDigest": "dca236f23796780ba67e7b449f79511049282a05dba7c08273e0fd91e487e0d5",
+        "output": {
+          "allocationApplied": true,
+          "consumedDealIds": [
+            "D50-101",
+            "D50-101b"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "1.0",
+              "consumedDealIds": [
+                "D50-101",
+                "D50-101b"
+              ],
+              "errors": [],
+              "fillState": "FULL_FILL",
+              "money": "18",
+              "overfillVolume": "0",
+              "remainingVolume": "0",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": true,
+          "stateRevision": "6",
+          "totalMoney": "18"
+        },
+        "outputDigest": "593ef894e31adf8820dfe3018dfdc494b572a3ae2a839feed35ec496748c795c",
+        "persistenceRecords": [
+          "FULL_FILL_CONFIRMED",
+          "SETTLEMENT_PERSISTED",
+          "FSM_COMMIT"
+        ],
+        "phase": "RESTART_FULL_FILL_RECOVERED",
+        "reason": "OK",
+        "status": "PASS"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "RESTART_CONTINUE_FULL"
+    },
+    {
+      "ACTUAL": {
+        "inputDigest": "a8a4796d81c89a3364f178909e33929025c5c80f1052279593559b92568af4fa",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D50-101b"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "0.6",
+              "consumedDealIds": [
+                "D50-101b"
+              ],
+              "errors": [
+                "DUPLICATE_FILL"
+              ],
+              "fillState": "DUPLICATE_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.4",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "ddae517bbf2fce16999f736ed85a6fea1bda09706d824833ae42c2ec510f8ff0",
+        "persistenceRecords": [
+          "FILL_EVIDENCE_PERSISTED"
+        ],
+        "phase": "RECONCILIATION_BLOCKED",
+        "reason": "DUPLICATE_FILL",
+        "status": "REJECT"
+      },
+      "EXPECTED": {
+        "inputDigest": "a8a4796d81c89a3364f178909e33929025c5c80f1052279593559b92568af4fa",
+        "output": {
+          "allocationApplied": false,
+          "consumedDealIds": [
+            "D50-101b"
+          ],
+          "fills": {
+            "101": {
+              "confirmedVolume": "0.6",
+              "consumedDealIds": [
+                "D50-101b"
+              ],
+              "errors": [
+                "DUPLICATE_FILL"
+              ],
+              "fillState": "DUPLICATE_FILL",
+              "money": "9",
+              "overfillVolume": "0",
+              "remainingVolume": "0.4",
+              "requestedVolume": "1"
+            }
+          },
+          "settlementApplied": false,
+          "stateRevision": 5
+        },
+        "outputDigest": "ddae517bbf2fce16999f736ed85a6fea1bda09706d824833ae42c2ec510f8ff0",
+        "persistenceRecords": [
+          "FILL_EVIDENCE_PERSISTED"
+        ],
+        "phase": "RECONCILIATION_BLOCKED",
+        "reason": "DUPLICATE_FILL",
+        "status": "REJECT"
+      },
+      "RESULT": "PASS",
+      "VECTOR_ID": "RESTART_DUPLICATE"
+    }
+  ]
+}

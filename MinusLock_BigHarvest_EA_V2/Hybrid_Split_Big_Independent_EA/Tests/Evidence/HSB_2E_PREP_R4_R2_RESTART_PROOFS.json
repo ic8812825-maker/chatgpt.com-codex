@@ -1,0 +1,14 @@
+{
+  "checks": [
+    {
+      "CHECK_ID": "RESTART_FILL_CONSERVATION",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "EXACTLY_ONCE_DEAL_CONSUMPTION",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    }
+  ]
+}

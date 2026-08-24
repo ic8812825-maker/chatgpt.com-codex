@@ -1,0 +1,664 @@
+{
+  "results": [
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_PARTIAL_ONE_LEG",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_BIG_MONEY_MATCH_VOLUME_SHORT",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_INITIAL_NET_NEGATIVE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_PARTIAL_SMALL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_SMALL_PARTIAL_FAR",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_PARTIAL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_CONTINUE_FULL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_FALSE_FULL_CLOSE_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_SETTLEMENT_BEFORE_FULL_FILL_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_ALLOCATION_BEFORE_FULL_FILL_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUPLICATE_DEAL_CONSUMPTION_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_CROSS_TICKET_VOLUME_NETTING_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_NO_DUAL_TAIL_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_MONEY_CONSERVATION_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_VOLUME_CONSERVATION_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_RESTART_FILL_CONSERVATION_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INV_STATE_REVISION_MONOTONIC_RESTART_DUPLICATE",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    }
+  ]
+}

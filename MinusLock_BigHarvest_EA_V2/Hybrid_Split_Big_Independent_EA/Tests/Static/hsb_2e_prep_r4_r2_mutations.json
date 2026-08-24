@@ -1,0 +1,223 @@
+{
+  "mutations": [
+    {
+      "MUTATION_ID": "MR2-001",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "confirmed=sum((D(d['volume']) for d in valid),D(0))",
+      "AFTER": "confirmed=D(valid[-1]['volume']) if valid else D(0)",
+      "SEMANTIC_PURPOSE": "last deal instead cumulative",
+      "EXPECTED_CHECK_ID": "FULL_CLOSE_VOLUME_PROOF"
+    },
+    {
+      "MUTATION_ID": "MR2-002",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "elif abs(confirmed-requested)<=tol:state='FULL_FILL'",
+      "AFTER": "elif confirmed>0:state='FULL_FILL'",
+      "SEMANTIC_PURPOSE": "partial accepted full",
+      "EXPECTED_CHECK_ID": "PARTIAL_FILL_MODEL"
+    },
+    {
+      "MUTATION_ID": "MR2-003",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "if D(d['volume'])<=0 or D(d['volume'])<D(c['volumeMin']):return 'DEAL_VOLUME_INVALID'",
+      "AFTER": "if False:return 'DEAL_VOLUME_INVALID'",
+      "SEMANTIC_PURPOSE": "negative volume not invalid",
+      "EXPECTED_CHECK_ID": "VECTOR_NEGATIVE_VOLUME"
+    },
+    {
+      "MUTATION_ID": "MR2-004",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "D(d['volume'])<=0 or D(d['volume'])<D(c['volumeMin'])",
+      "AFTER": "D(d['volume'])<0",
+      "SEMANTIC_PURPOSE": "zero volume no longer invalid",
+      "EXPECTED_CHECK_ID": "VECTOR_ZERO_VOLUME"
+    },
+    {
+      "MUTATION_ID": "MR2-005",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "elif errors:state='INVALID_FILL'",
+      "AFTER": "elif errors:state='NO_FILL'",
+      "SEMANTIC_PURPOSE": "numeric invalid mapped no fill",
+      "EXPECTED_CHECK_ID": "DEAL_NUMERIC_FINITE_VALIDATION"
+    },
+    {
+      "MUTATION_ID": "MR2-006",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "elif errors:state='INVALID_FILL'",
+      "AFTER": "elif errors:state='PARTIAL_FILL'",
+      "SEMANTIC_PURPOSE": "grid error mapped partial",
+      "EXPECTED_CHECK_ID": "VOLUME_GRID_VALIDATION"
+    },
+    {
+      "MUTATION_ID": "MR2-007",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "elif over>tol:state='OVERFILL'",
+      "AFTER": "elif False:state='OVERFILL'",
+      "SEMANTIC_PURPOSE": "overfill disabled",
+      "EXPECTED_CHECK_ID": "OVERFILL_MODEL"
+    },
+    {
+      "MUTATION_ID": "MR2-008",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "[d for d in inp.get('deals',[]) if d.get('positionTicket')==p['ticket']]",
+      "AFTER": "inp.get('deals',[])",
+      "SEMANTIC_PURPOSE": "cross ticket deals aggregated",
+      "EXPECTED_CHECK_ID": "CROSS_TICKET_VOLUME_NETTING_BLOCKED"
+    },
+    {
+      "MUTATION_ID": "MR2-009",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "if key in seen or d.get('dealId') in consumed:errors.append('DUPLICATE_FILL');continue",
+      "AFTER": "if False:errors.append('DUPLICATE_FILL');continue",
+      "SEMANTIC_PURPOSE": "duplicate keys ignored",
+      "EXPECTED_CHECK_ID": "VECTOR_DUPLICATE_DEAL"
+    },
+    {
+      "MUTATION_ID": "MR2-010",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "or d.get('dealId') in consumed",
+      "AFTER": "or False",
+      "SEMANTIC_PURPOSE": "consumed deal replay allowed",
+      "EXPECTED_CHECK_ID": "VECTOR_RESTART_DUPLICATE"
+    },
+    {
+      "MUTATION_ID": "MR2-011",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "if any(x!='FULL_FILL' for x in states):",
+      "AFTER": "if False:",
+      "SEMANTIC_PURPOSE": "settlement before full fill",
+      "EXPECTED_CHECK_ID": "SETTLEMENT_BEFORE_FULL_FILL_BLOCKED"
+    },
+    {
+      "MUTATION_ID": "MR2-012",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "r=gate(inp,{str(p['ticket']):fill},'INITIAL_COMMITTED')",
+      "AFTER": "r=gate(inp,{str(p['ticket']):{**fill,'fillState':'FULL_FILL'}},'INITIAL_COMMITTED')",
+      "SEMANTIC_PURPOSE": "Initial partial committed",
+      "EXPECTED_CHECK_ID": "INITIAL_LOCK_PARTIAL_FILL_BLOCKED"
+    },
+    {
+      "MUTATION_ID": "MR2-013",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "if inp.get('dualTail'):return result(inp,'REJECT','DUAL_TAIL','SMALL_BLOCKED')",
+      "AFTER": "if False:return result(inp,'REJECT','DUAL_TAIL','SMALL_BLOCKED')",
+      "SEMANTIC_PURPOSE": "DUAL_TAIL allowed",
+      "EXPECTED_CHECK_ID": "DUAL_TAIL_BLOCK"
+    },
+    {
+      "MUTATION_ID": "MR2-014",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "if d['transactionId']!=c['transactionId'] or d['actionId']!=c['actionId'] or D(d['stateRevision'])!=D(c['stateRevision']):return 'STALE_FILL'",
+      "AFTER": "if False:return 'STALE_FILL'",
+      "SEMANTIC_PURPOSE": "transaction identity ignored",
+      "EXPECTED_CHECK_ID": "VECTOR_STALE_TX"
+    },
+    {
+      "MUTATION_ID": "MR2-015",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "or D(d['stateRevision'])!=D(c['stateRevision'])",
+      "AFTER": "or False",
+      "SEMANTIC_PURPOSE": "revision identity ignored",
+      "EXPECTED_CHECK_ID": "VECTOR_STALE_REVISION"
+    },
+    {
+      "MUTATION_ID": "MR2-016",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "elif abs(confirmed-requested)<=tol:state='FULL_FILL'",
+      "AFTER": "elif money if False else confirmed>0:state='FULL_FILL'",
+      "SEMANTIC_PURPOSE": "money used as fill proof",
+      "EXPECTED_CHECK_ID": "PARTIAL_FILL_MODEL"
+    },
+    {
+      "MUTATION_ID": "MR2-017",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "['FULL_FILL_CONFIRMED','SETTLEMENT_PERSISTED','FSM_COMMIT']",
+      "AFTER": "['FULL_FILL_CONFIRMED','FSM_COMMIT']",
+      "SEMANTIC_PURPOSE": "persistence before mutation removed",
+      "EXPECTED_CHECK_ID": "INV_PERSISTENCE_BEFORE_MUTATION"
+    },
+    {
+      "MUTATION_ID": "MR2-018",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "if any(x!='FULL_FILL' for x in states):",
+      "AFTER": "if len(states)<0:",
+      "SEMANTIC_PURPOSE": "full-fill gate deleted",
+      "EXPECTED_CHECK_ID": "INV_NO_FALSE_FULL_CLOSE"
+    },
+    {
+      "MUTATION_ID": "MR2-019",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "v['deals'],inp.get('consumedDealIds',[])",
+      "AFTER": "v['deals'],[]",
+      "SEMANTIC_PURPOSE": "restart loses consumed IDs",
+      "EXPECTED_CHECK_ID": "VECTOR_RESTART_DUPLICATE"
+    },
+    {
+      "MUTATION_ID": "MR2-020",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r2.py",
+      "TARGET_FUNCTION": "reference_model",
+      "BEFORE": "remaining=max(D(0),requested-confirmed)",
+      "AFTER": "remaining=D(0)",
+      "SEMANTIC_PURPOSE": "remaining volume forced zero",
+      "EXPECTED_CHECK_ID": "INV_VOLUME_CONSERVATION"
+    },
+    {
+      "MUTATION_ID": "MR2-021",
+      "TYPE": "EVIDENCE",
+      "OPERATION": "DELETE",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R2_FALSE_PASS_REPRODUCTION.json",
+      "TARGET_FUNCTION": "evidence_set",
+      "SEMANTIC_PURPOSE": "delete critical evidence",
+      "EXPECTED_CHECK_ID": "EVIDENCE_INTEGRITY"
+    },
+    {
+      "MUTATION_ID": "MR2-022",
+      "TYPE": "EVIDENCE",
+      "OPERATION": "ADD",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R2_UNSEALED_EXTRA.json",
+      "TARGET_FUNCTION": "evidence_set",
+      "AFTER": "{}\n",
+      "SEMANTIC_PURPOSE": "add unsealed evidence",
+      "EXPECTED_CHECK_ID": "EVIDENCE_INTEGRITY"
+    },
+    {
+      "MUTATION_ID": "MR2-023",
+      "TYPE": "EVIDENCE",
+      "OPERATION": "DUPLICATE_LINE",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R2_EVIDENCE_SEAL_SHA256.txt",
+      "TARGET_FUNCTION": "evidence_seal",
+      "SEMANTIC_PURPOSE": "duplicate seal entry",
+      "EXPECTED_CHECK_ID": "EVIDENCE_INTEGRITY"
+    },
+    {
+      "MUTATION_ID": "MR2-024",
+      "TYPE": "EVIDENCE",
+      "OPERATION": "REPLACE",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R2_CANONICAL_STATUS_AUDIT.json",
+      "TARGET_FUNCTION": "evidence_payload",
+      "BEFORE": "\"mismatches\": 0",
+      "AFTER": "\"mismatches\": 1",
+      "SEMANTIC_PURPOSE": "change critical evidence",
+      "EXPECTED_CHECK_ID": "EVIDENCE_INTEGRITY"
+    }
+  ]
+}

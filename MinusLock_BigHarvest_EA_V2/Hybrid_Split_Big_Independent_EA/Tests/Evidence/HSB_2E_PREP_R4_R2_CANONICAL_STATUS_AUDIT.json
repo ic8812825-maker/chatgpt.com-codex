@@ -1,0 +1,14 @@
+{
+  "documents": [
+    "README_RU.md",
+    "BUILD_INFO.md",
+    "PROJECT_MAP_RU.md",
+    "CHANGELOG_RU.md",
+    "Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "Docs/22_OPEN_DECISIONS_REGISTER_RU.md"
+  ],
+  "blocks_per_document": 1,
+  "mismatches": 0,
+  "result": "PASS"
+}

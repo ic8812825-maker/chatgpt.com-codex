@@ -1,0 +1,19 @@
+{
+  "checks": [
+    {
+      "CHECK_ID": "PARTIAL_FILL_MODEL",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "SETTLEMENT_BEFORE_FULL_FILL_BLOCKED",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    },
+    {
+      "CHECK_ID": "INITIAL_LOCK_PARTIAL_FILL_BLOCKED",
+      "RESULT": "PASS",
+      "DETAIL": ""
+    }
+  ]
+}

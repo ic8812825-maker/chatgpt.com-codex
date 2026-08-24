@@ -1,0 +1,8 @@
+{
+  "model": 4,
+  "invariants": 3,
+  "scenarios": 5,
+  "executed": 12,
+  "failed": 0,
+  "result": "PASS"
+}
