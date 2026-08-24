@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "BOOLEAN",
+    "IDENTIFIER",
+    "REVISION",
+    "TIMESTAMP"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

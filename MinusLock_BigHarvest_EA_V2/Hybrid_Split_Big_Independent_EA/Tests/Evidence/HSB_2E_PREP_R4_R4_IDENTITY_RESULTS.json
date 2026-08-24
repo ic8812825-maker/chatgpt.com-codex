@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "CONTEXT",
+    "POSITION",
+    "INTENT",
+    "DEAL"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

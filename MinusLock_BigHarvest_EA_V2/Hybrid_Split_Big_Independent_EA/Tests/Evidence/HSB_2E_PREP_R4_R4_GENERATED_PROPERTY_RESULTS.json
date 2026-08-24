@@ -1,0 +1,45 @@
+{
+  "generatedCases": [
+    {
+      "DETAIL": "deal order canonicalized",
+      "PROPERTY_ID": "PERMUTATION",
+      "RESULT": "PASS"
+    },
+    {
+      "DETAIL": "1 == .4+.6",
+      "PROPERTY_ID": "SPLIT_EQUIVALENCE",
+      "RESULT": "PASS"
+    },
+    {
+      "DETAIL": "duplicate blocked",
+      "PROPERTY_ID": "DUPLICATE_NON_EQUIVALENCE",
+      "RESULT": "PASS"
+    },
+    {
+      "DETAIL": "cross-ticket move blocked",
+      "PROPERTY_ID": "TICKET_ISOLATION",
+      "RESULT": "PASS"
+    },
+    {
+      "DETAIL": "grid-preserving scale",
+      "PROPERTY_ID": "SCALE_SANITY",
+      "RESULT": "PASS"
+    },
+    {
+      "DETAIL": "half-step rejected",
+      "PROPERTY_ID": "BOUNDARY_MOVEMENT",
+      "RESULT": "PASS"
+    },
+    {
+      "DETAIL": "partial\u2192duplicate\u2192continuation",
+      "PROPERTY_ID": "RESTART_EQUIVALENCE",
+      "RESULT": "PASS"
+    },
+    {
+      "DETAIL": "no second settlement",
+      "PROPERTY_ID": "IDEMPOTENCE",
+      "RESULT": "PASS"
+    }
+  ],
+  "seed": 8812825
+}

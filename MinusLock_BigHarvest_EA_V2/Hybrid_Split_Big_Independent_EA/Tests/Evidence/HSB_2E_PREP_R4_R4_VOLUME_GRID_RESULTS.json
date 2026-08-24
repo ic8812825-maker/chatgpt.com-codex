@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "POSITIVE",
+    "MIN_MAX",
+    "GRID"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

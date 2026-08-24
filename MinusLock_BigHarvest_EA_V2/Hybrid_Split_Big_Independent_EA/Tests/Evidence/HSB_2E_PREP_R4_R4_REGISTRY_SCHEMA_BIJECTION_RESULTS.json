@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "SCHEMA",
+    "UNIQUE",
+    "BIJECTION"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

@@ -1,0 +1,6 @@
+{
+  "adminReviewRequired": true,
+  "result": "PASS",
+  "status": "MONOTONIC_EXECUTABLE_SPECIFICATION",
+  "tradingAllowed": false
+}

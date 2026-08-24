@@ -1,0 +1,224 @@
+{
+  "continuation": {
+    "inputDigest": "7739c12f94ace123bd5a7eaf45d2cc39402f1f2f8be75448df83c2cb534ac26f",
+    "output": {
+      "acceptedDealIds": [
+        "D-CONT"
+      ],
+      "allocationApplied": true,
+      "confirmedVolumeByTicket": {
+        "101": "1.0",
+        "102": "0.5"
+      },
+      "consumedDealIds": [
+        "D101",
+        "D102",
+        "D-CONT"
+      ],
+      "dealEventBindings": {
+        "D-CONT": "E-CONT",
+        "D101": "E101",
+        "D102": "E102"
+      },
+      "evidenceRevision": 2,
+      "extraRoles": [],
+      "fills": {
+        "101": {
+          "authoritativeVolume": "1",
+          "confirmedVolume": "1.0",
+          "fillState": "FULL_FILL",
+          "remainingVolume": "0",
+          "requestedVolume": "1"
+        },
+        "102": {
+          "authoritativeVolume": "0.5",
+          "confirmedVolume": "0.5",
+          "fillState": "FULL_FILL",
+          "remainingVolume": "0",
+          "requestedVolume": "0.5"
+        }
+      },
+      "missingRoles": [],
+      "moneyByDeal": {
+        "D-CONT": "5.4",
+        "D101": "9",
+        "D102": "9"
+      },
+      "moneyByTicket": {
+        "101": "14.4",
+        "102": "9"
+      },
+      "observedRoles": [
+        "BIG",
+        "SMALL"
+      ],
+      "remainingVolumeByTicket": {
+        "101": "0",
+        "102": "0"
+      },
+      "requiredRoles": [
+        "BIG",
+        "SMALL"
+      ],
+      "seenEventIds": [
+        "E101",
+        "E102",
+        "E-CONT"
+      ],
+      "settlementApplied": true,
+      "settlementCommitted": true,
+      "stateRevision": 4
+    },
+    "outputDigest": "ba8ee273488bdf24d39e236373f4410c3d86ae9087a214d97abc1db3ff0370c4",
+    "persistenceRecords": [
+      "PARTIAL_EVIDENCE",
+      "DEAL_EVENT_REGISTRY",
+      "SETTLEMENT_DECISION",
+      "STATE_REVISION",
+      "FSM_COMMIT"
+    ],
+    "phase": "FSM_COMMITTED",
+    "reason": "OK",
+    "scenario": "BIG",
+    "status": "PASS"
+  },
+  "duplicate": {
+    "inputDigest": "9fb956f9220b1d28d28a706a081c9a3905240f8a7d4be042fa369fd3691bc54b",
+    "output": {
+      "acceptedDealIds": [],
+      "allocationApplied": false,
+      "confirmedVolumeByTicket": {},
+      "consumedDealIds": [],
+      "dealEventBindings": {},
+      "evidenceRevision": 1,
+      "extraRoles": [],
+      "fills": {},
+      "missingRoles": [],
+      "moneyByDeal": {},
+      "moneyByTicket": {},
+      "observedRoles": [],
+      "remainingVolumeByTicket": {},
+      "requiredRoles": [
+        "BIG",
+        "SMALL"
+      ],
+      "seenEventIds": [],
+      "settlementApplied": false,
+      "stateRevision": 3
+    },
+    "outputDigest": "2b4795751e2b1861942ef38be6671f7cb8273fe6544a234dd537666b5726bd8f",
+    "persistenceRecords": [],
+    "phase": "VALIDATION_BLOCKED",
+    "reason": "DEAL_ALREADY_CONSUMED",
+    "scenario": "BIG",
+    "status": "CONFLICT"
+  },
+  "partial": {
+    "inputDigest": "315169f198eb2ac36a34d10c7d30580dd625b8a860c49361106142e15f59b606",
+    "output": {
+      "acceptedDealIds": [
+        "D101",
+        "D102"
+      ],
+      "allocationApplied": false,
+      "confirmedVolumeByTicket": {
+        "101": "0.4",
+        "102": "0.5"
+      },
+      "consumedDealIds": [
+        "D101",
+        "D102"
+      ],
+      "dealEventBindings": {
+        "D101": "E101",
+        "D102": "E102"
+      },
+      "evidenceRevision": 1,
+      "extraRoles": [],
+      "fills": {
+        "101": {
+          "authoritativeVolume": "1",
+          "confirmedVolume": "0.4",
+          "fillState": "PARTIAL_FILL",
+          "remainingVolume": "0.6",
+          "requestedVolume": "1"
+        },
+        "102": {
+          "authoritativeVolume": "0.5",
+          "confirmedVolume": "0.5",
+          "fillState": "FULL_FILL",
+          "remainingVolume": "0",
+          "requestedVolume": "0.5"
+        }
+      },
+      "missingRoles": [],
+      "moneyByDeal": {
+        "D101": "9",
+        "D102": "9"
+      },
+      "moneyByTicket": {
+        "101": "9",
+        "102": "9"
+      },
+      "observedRoles": [
+        "BIG",
+        "SMALL"
+      ],
+      "remainingVolumeByTicket": {
+        "101": "0.6",
+        "102": "0"
+      },
+      "requiredRoles": [
+        "BIG",
+        "SMALL"
+      ],
+      "seenEventIds": [
+        "E101",
+        "E102"
+      ],
+      "settlementApplied": false,
+      "stateRevision": 3
+    },
+    "outputDigest": "83da7a30b4af729349e1b790874904d278c3f589a0f4bd0a31463a9d6ad99504",
+    "persistenceRecords": [
+      "PARTIAL_EVIDENCE",
+      "DEAL_EVENT_REGISTRY"
+    ],
+    "phase": "WAITING_FOR_FULL_FILL",
+    "reason": "PARTIAL_FILL",
+    "scenario": "BIG",
+    "status": "UNAVAILABLE"
+  },
+  "replay": {
+    "inputDigest": "7877a8d9b6cfc4b73d9c7c39274a0968ea625cd59ab4974d3f56fb3235354b45",
+    "output": {
+      "acceptedDealIds": [],
+      "allocationApplied": false,
+      "confirmedVolumeByTicket": {},
+      "consumedDealIds": [],
+      "dealEventBindings": {},
+      "evidenceRevision": 2,
+      "extraRoles": [],
+      "fills": {},
+      "missingRoles": [],
+      "moneyByDeal": {},
+      "moneyByTicket": {},
+      "observedRoles": [],
+      "remainingVolumeByTicket": {},
+      "requiredRoles": [
+        "BIG",
+        "SMALL"
+      ],
+      "seenEventIds": [],
+      "settlementApplied": false,
+      "stateRevision": 3
+    },
+    "outputDigest": "5383088ac9481642efa2373b3e7abfd1234942136182bc00f58affa6bbef8669",
+    "persistenceRecords": [],
+    "phase": "IDEMPOTENT_REPLAY",
+    "reason": "ALREADY_COMMITTED",
+    "scenario": "BIG",
+    "status": "PASS"
+  },
+  "result": "PASS"
+}

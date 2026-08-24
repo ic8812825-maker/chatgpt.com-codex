@@ -1,0 +1,8 @@
+{
+  "checks": [
+    "STRICT_BOOL",
+    "COLLECTION_TYPES"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

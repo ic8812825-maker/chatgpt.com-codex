@@ -1,0 +1,36 @@
+{
+  "schemas": {
+    "INITIAL": {
+      "required": [
+        "WINNER"
+      ],
+      "partial": []
+    },
+    "BIG": {
+      "required": [
+        "BIG",
+        "SMALL"
+      ],
+      "partial": []
+    },
+    "SMALL": {
+      "required": [
+        "SMALL",
+        "OLD_FAR",
+        "BIG"
+      ],
+      "partial": [
+        "BIG"
+      ]
+    },
+    "FINAL": {
+      "required": [
+        "FAR"
+      ],
+      "partial": [
+        "FAR"
+      ]
+    }
+  },
+  "result": "PASS"
+}

@@ -1,0 +1,7 @@
+{
+  "checks": [
+    "BIJECTION"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

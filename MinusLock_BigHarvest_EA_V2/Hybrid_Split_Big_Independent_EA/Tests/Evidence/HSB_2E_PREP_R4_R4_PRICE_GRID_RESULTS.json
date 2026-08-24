@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "POSITIVE",
+    "TICK_GRID",
+    "DIRECTIONAL_SIDE"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

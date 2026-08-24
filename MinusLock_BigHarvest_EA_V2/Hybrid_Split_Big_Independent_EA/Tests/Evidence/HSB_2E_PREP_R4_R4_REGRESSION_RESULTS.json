@@ -1,0 +1,631 @@
+{
+  "historicalFalsePasses": 10,
+  "newFalsePasses": 9,
+  "result": "PASS",
+  "rows": [
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "FULL_ONE"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "FULL_MULTI"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "PARTIAL"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "NO_FILL"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "OVERFILL"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "NEGATIVE_VOLUME"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "ZERO_VOLUME"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "NAN_VOLUME"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "INF_VOLUME"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "OFFGRID_VOLUME"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "OFFGRID_PRICE"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "FOREIGN_SYMBOL"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "WRONG_DIRECTION"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "WRONG_TICKET"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "STALE_TX"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "STALE_REVISION"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "DUPLICATE_DEAL"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "BIG_FULL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "BIG_PARTIAL_ONE_LEG"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "BIG_MONEY_MATCH_VOLUME_SHORT"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "INITIAL_FULL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "INITIAL_PARTIAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "INITIAL_NET_NEGATIVE"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "SMALL_FULL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "SMALL_PARTIAL_SMALL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "SMALL_PARTIAL_FAR"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "DUAL_TAIL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "RESTART_PARTIAL"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "RESTART_CONTINUE_FULL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R2",
+      "VECTOR_ID": "RESTART_DUPLICATE"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VALID_BIG"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VALID_SMALL"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VALID_INITIAL"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VALID_FINAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_DEAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_EVENT"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_PAIR_BATCH"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_BETWEEN_BATCH"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_AFTER_RESTART"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "BINDING_CONFLICT"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "STALE_DEAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "STALE_BEFORE_INTENT"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FUTURE_DEAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "WINDOW_UNPROVEN"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_INTENT_TX"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_INTENT_ACTION"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_INTENT_CYCLE"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_INTENT_SYMBOL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_INTENT_MAGIC"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_INTENT_REVISION"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_POSITION_SYMBOL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_POSITION_MAGIC"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_POSITION_CYCLE"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "FOREIGN_POSITION_REVISION"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "MISSING_BIG"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "MISSING_SMALL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "MISSING_OLD_FAR"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_BIG"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_SMALL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_TICKET"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "DUP_INTENT_ID"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "ORPHAN_POSITION"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "ORPHAN_INTENT"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "ORPHAN_DEAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "EXTRA_ROLE"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VOLUME_LOW"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VOLUME_HIGH"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "STALE_POSITION"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "PARTIAL_REQUIRED"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "MALFORMED_POSITIONS"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "MALFORMED_INTENTS"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "MALFORMED_DEALS"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "EMPTY_MANDATORY"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "NULL_ELEMENT"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "REORDERED_VALID"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VALID_PARTIAL_FAR"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VALID_RESTART_CONTINUATION"
+    },
+    {
+      "CLASSIFICATION": "FORMAT_MIGRATED_EQUIVALENT",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R3",
+      "VECTOR_ID": "VALID_REPLAY_AFTER_COMMIT"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_VALID_BIG"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_VALID_SMALL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_VALID_INITIAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_VALID_FINAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_ZERO_POSITION"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_OFFGRID_VOLUME"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_NEG_PRICE"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_STRING_BOOL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_MULTI_INTENT"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_NEG_REVISION"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_BAD_BINDING"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_BAD_REGISTRY_TYPE"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_ZERO_REQUEST"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_ZERO_SNAPSHOT"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_BELOW_MIN"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_NEG_POSITION"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_OFFGRID_PRICE"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_DUP_DEAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_DUP_EVENT"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_MISSING_SMALL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_DUAL_TAIL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_PARTIAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_SLIPPAGE_UNPROVEN"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_VOLUME_MISMATCH"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_ORPHAN_DEAL"
+    },
+    {
+      "CLASSIFICATION": "STILL_NORMATIVE",
+      "SAFE_RETAINED": true,
+      "STAGE": "R4-R4",
+      "VECTOR_ID": "R4_NO_DEAL_ONE_LEG"
+    }
+  ]
+}

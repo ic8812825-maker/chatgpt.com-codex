@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "DEALS",
+    "EVENTS",
+    "BINDINGS",
+    "VOLUME",
+    "MONEY"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}
