@@ -19,7 +19,7 @@ def main(root):
         value = copy.deepcopy(by_id[source]); mutate(value)
         actual = execute_scenario(copy.deepcopy(value))
         reproduced = (actual["status"] == "PASS" and actual["phase"] in {"FSM_COMMITTED", "IDEMPOTENT_REPLAY"}) or (
-            cid == "FP-R5-04" and actual["status"] != "PASS" and bool(actual.get("output", {}).get("acceptedDealIds")))
+            cid == "FP-R5-04" and actual["status"] != "PASS" and "atomicBatchValidated" not in actual.get("output", {}))
         record = {"COUNTEREXAMPLE_ID":cid,"BASELINE_SHA":BASELINE,"SOURCE_VECTOR_ID":source,
                   "MUTATED_FIELDS":mutate.__name__.removeprefix("m_"),"HISTORICAL_ACTUAL":{"status":actual["status"],"phase":actual["phase"],"reason":actual["reason"]},
                   "NORMATIVE_EXPECTED":expected,"ROOT_CAUSE":root_cause,"INPUT_SHA256":sha(value),"OUTPUT_SHA256":sha(actual),"EXIT_CODE":0,"REPRODUCED":reproduced}
