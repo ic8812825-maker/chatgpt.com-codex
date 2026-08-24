@@ -1,0 +1,7 @@
+{
+  "BUY": "BID",
+  "SELL": "ASK",
+  "checkId": "R7_NORMATIVE_CLOSE_SIDES",
+  "result": "PASS",
+  "reversible": false
+}

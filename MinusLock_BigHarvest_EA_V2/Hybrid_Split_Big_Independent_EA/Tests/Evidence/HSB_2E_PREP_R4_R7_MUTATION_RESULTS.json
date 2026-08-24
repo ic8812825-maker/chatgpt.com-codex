@@ -1,0 +1,9 @@
+{
+  "caught": 35,
+  "executed": 35,
+  "invalid": 0,
+  "notApplied": 0,
+  "required": 35,
+  "result": "PASS",
+  "survived": 0
+}

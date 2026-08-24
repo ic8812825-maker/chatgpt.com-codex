@@ -1,0 +1,6 @@
+{
+  "checkId": "R7_SNAPSHOT_CONTEXT_BINDING",
+  "foreignBlocked": true,
+  "result": "PASS",
+  "snapshotContextFields": 7
+}

@@ -1,0 +1,6 @@
+{
+  "formula": "BigVolumeBefore-BigCloseConfirmed",
+  "inputResidualTrusted": false,
+  "result": "PASS",
+  "source": "acceptedDealRecords"
+}

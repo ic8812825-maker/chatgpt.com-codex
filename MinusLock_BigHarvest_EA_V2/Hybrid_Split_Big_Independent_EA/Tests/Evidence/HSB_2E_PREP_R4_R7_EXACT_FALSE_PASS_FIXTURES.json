@@ -1,0 +1,6 @@
+{
+  "cases": 8,
+  "hashAlgorithm": "SHA-256",
+  "result": "PASS",
+  "source": "Tests/Vectors/HSB_2E_R4_R7_R6_FALSE_PASSES.json"
+}

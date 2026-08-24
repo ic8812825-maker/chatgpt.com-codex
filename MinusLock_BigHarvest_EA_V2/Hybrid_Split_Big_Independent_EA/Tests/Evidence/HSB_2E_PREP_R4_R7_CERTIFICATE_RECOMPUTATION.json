@@ -1,0 +1,11 @@
+{
+  "mutuallyForgedBlocked": true,
+  "objects": [
+    "BrokerProposal",
+    "EconomicProposal",
+    "AllocationResult",
+    "PersistenceRecord",
+    "FSMTransitionRecord"
+  ],
+  "result": "PASS"
+}
