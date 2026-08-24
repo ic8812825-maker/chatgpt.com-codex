@@ -8,6 +8,11 @@ from hsb_2e_test_fixtures_r4_r5 import scenario_input
 
 GROUPS=("NUMERIC_DOMAIN","VOLUME_GRID","PRICE_GRID","EXECUTION_PRICE_PROOF","BOOLEAN_TYPE","IDENTITY_CHAIN","ONE_POSITION_ONE_INTENT","MANDATORY_LEGS","DEAL_EXACTLY_ONCE","EVENT_EXACTLY_ONCE","SOURCE_RECORD_DIGEST","PERSISTED_VOLUME_PROVENANCE","PERSISTED_MONEY_PROVENANCE","BATCH_ATOMICITY","PARTIAL_PERSISTENCE","RESTART_REPLAY","COMMIT_CERTIFICATE","INITIAL_NET_PROFIT","BIG_ALLOCATION","SMALL_ALLOCATION","FINAL_FULL_CLOSE","RECOVERY_PL","RESERVE_COVERAGE","RESERVE_NOT_USED_FOR_PARTIAL_FAR","MONEY_CONSERVATION","VOLUME_CONSERVATION","STATE_REVISION","PERSISTENCE_ORDER","DUAL_TAIL","DETERMINISTIC_DIGEST")
 
+def evaluate_batch_atomicity(x,validator=validate_all_then_apply):
+    state=copy.deepcopy(x["persistedState"]);records=copy.deepcopy(x["dealRecords"]);bad=records[-1];object.__setattr__(bad,"recordDigest","invalid")
+    after,error=validator(state,records,x["priceProofs"],x["context"])
+    return error is not None and digest(after)==digest(state)
+
 def evaluate(name,x):
     if not all(k in x for k in ("scenario","context","positions","intents","dealRecords","persistedState","economicPolicy")):raise ValueError("MALFORMED_INVARIANT_INPUT")
     records=x.get("dealRecords",[]);state=x.get("persistedState",{});ctx=x.get("context",{});ps=x.get("positions",[]);its=x.get("intents",[]);policy=x.get("economicPolicy",{})
@@ -23,7 +28,7 @@ def evaluate(name,x):
     if name=="EVENT_EXACTLY_ONCE":return len({r.eventId for r in records})==len(records) and not ({r.eventId for r in records}&set(state.get("seenEventIds",[])))
     if name=="SOURCE_RECORD_DIGEST":return all(r.recordDigest==digest(r.body()) for r in records)
     if name in ("PERSISTED_VOLUME_PROVENANCE","PERSISTED_MONEY_PROVENANCE"):return validate_persisted(state) is None
-    if name=="BATCH_ATOMICITY":return True # proved by before/after runner, not an outcome alias
+    if name=="BATCH_ATOMICITY":return evaluate_batch_atomicity(x)
     if name=="PARTIAL_PERSISTENCE":return strict_revision(state.get("evidenceRevision",0))
     if name=="RESTART_REPLAY":return validate_persisted(state) is None
     if name=="COMMIT_CERTIFICATE":return not state.get("settlementCommitted") or state.get("commitCertificate") is not None
@@ -75,7 +80,11 @@ def self_test():
         elif name=="SMALL_ALLOCATION":negative["scenario"]="SMALL"
         elif name=="MONEY_CONSERVATION":object.__setattr__(negative["dealRecords"][0],"netMoney",D(999))
         else: negative=None
-        neg=True if negative is None else not evaluate(name,negative)
+        if name=="BATCH_ATOMICITY":
+            def apply_first(state,records,proofs,ctx):
+                out=copy.deepcopy(state);out["evidenceRevision"]=out.get("evidenceRevision",0)+1;return out,"INVALID_SECOND_RECORD"
+            neg=not evaluate_batch_atomicity(positive,apply_first)
+        else:neg=True if negative is None else not evaluate(name,negative)
         checks=(pos,neg,malformed or name in {"BATCH_ATOMICITY","DETERMINISTIC_DIGEST"},boundary);total+=4;passed+=sum(checks)
     unknown=False
     try:evaluate("UNKNOWN",scenario_input("INITIAL"))
