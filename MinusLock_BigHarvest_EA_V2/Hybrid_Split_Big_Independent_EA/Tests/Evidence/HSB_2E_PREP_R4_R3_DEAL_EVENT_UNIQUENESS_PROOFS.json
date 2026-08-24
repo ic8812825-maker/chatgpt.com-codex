@@ -1,0 +1,9 @@
+{
+  "executedVectors": [
+    "DUP_DEAL",
+    "DUP_EVENT",
+    "BINDING_CONFLICT"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

@@ -1,0 +1,8 @@
+{
+  "executedVectors": [
+    "MALFORMED_POSITIONS",
+    "NULL_ELEMENT"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

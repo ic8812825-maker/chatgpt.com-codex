@@ -1,0 +1,8 @@
+{
+  "executedVectors": [
+    "STALE_DEAL",
+    "FUTURE_DEAL"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

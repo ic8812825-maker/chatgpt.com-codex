@@ -1,0 +1,8 @@
+{
+  "executedVectors": [
+    "FOREIGN_INTENT_TX",
+    "FOREIGN_INTENT_ACTION"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

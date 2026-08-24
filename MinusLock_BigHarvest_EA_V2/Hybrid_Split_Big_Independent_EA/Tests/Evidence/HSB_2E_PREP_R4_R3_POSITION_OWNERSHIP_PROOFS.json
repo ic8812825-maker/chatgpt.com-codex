@@ -1,0 +1,8 @@
+{
+  "executedVectors": [
+    "FOREIGN_POSITION_SYMBOL",
+    "FOREIGN_POSITION_REVISION"
+  ],
+  "failed": 0,
+  "result": "PASS"
+}

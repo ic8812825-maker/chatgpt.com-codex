@@ -1,0 +1,795 @@
+{
+  "DUPLICATE_MUTATIONS": 0,
+  "INFRASTRUCTURE_FAILURES": 0,
+  "INVALID": 0,
+  "MUTATIONS_CAUGHT": 41,
+  "MUTATIONS_EXECUTED": 41,
+  "MUTATION_IDS": 41,
+  "NOT_APPLIED": 0,
+  "RESULT": "PASS",
+  "SURVIVED": 0,
+  "UNIQUE_TARGET_TRANSFORM_PAIRS": 41,
+  "UNIQUE_TRANSFORMS": 41,
+  "WRONG_FAILURES": 0,
+  "results": [
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_DEAL_ID_KEY"
+      ],
+      "AFTER": " \"DEAL_ID_KEY\":False,",
+      "AFTER_HASH": "43c8d8d163ff7cad747355e1eb2b57f7c290de021836fb9e3dc1d7213e3f9404",
+      "APPLIED": true,
+      "BEFORE": " \"DEAL_ID_KEY\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "DEAL_ID_KEY",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_DEAL_ID_KEY",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M001",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "deal id key",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_EVENT_ID_UNIQUE"
+      ],
+      "AFTER": " \"EVENT_ID_UNIQUE\":False,",
+      "AFTER_HASH": "92feaf8e08abc2a30bc63fbf9d96c3f7a8321dacfe0b7ecaa9717ff80352bedc",
+      "APPLIED": true,
+      "BEFORE": " \"EVENT_ID_UNIQUE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "EVENT_ID_UNIQUE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_EVENT_ID_UNIQUE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M002",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "event id unique",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_DEAL_REUSE"
+      ],
+      "AFTER": " \"DEAL_REUSE\":False,",
+      "AFTER_HASH": "9c3d1f79e7ba218b9779603d7fc013b50e5dd56899823f3380da270dd41eabf3",
+      "APPLIED": true,
+      "BEFORE": " \"DEAL_REUSE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "DEAL_REUSE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_DEAL_REUSE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M003",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "deal reuse",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_NEW_EVENT_OLD_DEAL"
+      ],
+      "AFTER": " \"NEW_EVENT_OLD_DEAL\":False,",
+      "AFTER_HASH": "8c5f48de0d19ec82bdc16e0042be1fc5fe1f12d824ee8710b6772f2d3220bf00",
+      "APPLIED": true,
+      "BEFORE": " \"NEW_EVENT_OLD_DEAL\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "NEW_EVENT_OLD_DEAL",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_NEW_EVENT_OLD_DEAL",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M004",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "new event old deal",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_NEW_DEAL_OLD_EVENT"
+      ],
+      "AFTER": " \"NEW_DEAL_OLD_EVENT\":False,",
+      "AFTER_HASH": "639ffe6c5b27527738a8d250e347781965b9702dbc5d03424f75aaf061c7dbe4",
+      "APPLIED": true,
+      "BEFORE": " \"NEW_DEAL_OLD_EVENT\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "NEW_DEAL_OLD_EVENT",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_NEW_DEAL_OLD_EVENT",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M005",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "new deal old event",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_BINDING"
+      ],
+      "AFTER": " \"BINDING\":False,",
+      "AFTER_HASH": "40c9c6771194e895e267aa89868efb2eadf5e819e9864eb354bbff3262ae5107",
+      "APPLIED": true,
+      "BEFORE": " \"BINDING\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "BINDING",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_BINDING",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M006",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "binding",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_TIMESTAMP_LOWER"
+      ],
+      "AFTER": " \"TIMESTAMP_LOWER\":False,",
+      "AFTER_HASH": "bdefe5f18f2bfa32bd569724a11c6a8e6b85803666d6e0bbb53f4304b1b7b90a",
+      "APPLIED": true,
+      "BEFORE": " \"TIMESTAMP_LOWER\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "TIMESTAMP_LOWER",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_TIMESTAMP_LOWER",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M007",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "timestamp lower",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_TIMESTAMP_UPPER"
+      ],
+      "AFTER": " \"TIMESTAMP_UPPER\":False,",
+      "AFTER_HASH": "d4ca256b3433abfe6acb554f2c90ef10d572bf99aec9a3cc57f49256db2be552",
+      "APPLIED": true,
+      "BEFORE": " \"TIMESTAMP_UPPER\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "TIMESTAMP_UPPER",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_TIMESTAMP_UPPER",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M008",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "timestamp upper",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_INTENT_ACTION"
+      ],
+      "AFTER": " \"INTENT_ACTION\":False,",
+      "AFTER_HASH": "9522d7a1011e1b306ff76353f0e323406c814e9c2fdacbec853dd7d38d126ff1",
+      "APPLIED": true,
+      "BEFORE": " \"INTENT_ACTION\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "INTENT_ACTION",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_INTENT_ACTION",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M009",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "intent action",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_INTENT_TRANSACTION"
+      ],
+      "AFTER": " \"INTENT_TRANSACTION\":False,",
+      "AFTER_HASH": "4b798be870f11d781be9d43349f601d4904ca6fa356b70071b42030c9a780657",
+      "APPLIED": true,
+      "BEFORE": " \"INTENT_TRANSACTION\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "INTENT_TRANSACTION",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_INTENT_TRANSACTION",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M010",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "intent transaction",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_INTENT_CYCLE"
+      ],
+      "AFTER": " \"INTENT_CYCLE\":False,",
+      "AFTER_HASH": "fffa305fcbe6202c71e4b6b09c019b752f505f968a56bac28478d5a39acb99c1",
+      "APPLIED": true,
+      "BEFORE": " \"INTENT_CYCLE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "INTENT_CYCLE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_INTENT_CYCLE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M011",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "intent cycle",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_INTENT_SCOPE"
+      ],
+      "AFTER": " \"INTENT_SCOPE\":False,",
+      "AFTER_HASH": "f8eb56ab06b818c44970a55381d3aef1b4cb44e893310f881f6cfdac181921d4",
+      "APPLIED": true,
+      "BEFORE": " \"INTENT_SCOPE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "INTENT_SCOPE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_INTENT_SCOPE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M012",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "intent scope",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_POSITION_SCOPE"
+      ],
+      "AFTER": " \"POSITION_SCOPE\":False,",
+      "AFTER_HASH": "7f067c68d7abf11c0994543d9847ec953ef9aa9c322cb6c9c569430639e1c782",
+      "APPLIED": true,
+      "BEFORE": " \"POSITION_SCOPE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "POSITION_SCOPE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_POSITION_SCOPE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M013",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "position scope",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_POSITION_REVISION"
+      ],
+      "AFTER": " \"POSITION_REVISION\":False,",
+      "AFTER_HASH": "0cf265199ddf24f4c818e859b76803c494071c2371426cd42221d561e0605130",
+      "APPLIED": true,
+      "BEFORE": " \"POSITION_REVISION\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "POSITION_REVISION",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_POSITION_REVISION",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M014",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "position revision",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_MISSING_BIG"
+      ],
+      "AFTER": " \"MISSING_BIG\":False,",
+      "AFTER_HASH": "b6da5f7dfd27d36386858bf85122441cddc8751340a1763ce8248febb17b0f8d",
+      "APPLIED": true,
+      "BEFORE": " \"MISSING_BIG\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "MISSING_BIG",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_MISSING_BIG",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M015",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "missing big",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_MISSING_SMALL"
+      ],
+      "AFTER": " \"MISSING_SMALL\":False,",
+      "AFTER_HASH": "48efbb64cbb90f9ff218632f7884c2425a9dbfecf940826e5fd58db84f11bf73",
+      "APPLIED": true,
+      "BEFORE": " \"MISSING_SMALL\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "MISSING_SMALL",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_MISSING_SMALL",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M016",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "missing small",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_MISSING_OLD_FAR"
+      ],
+      "AFTER": " \"MISSING_OLD_FAR\":False,",
+      "AFTER_HASH": "bec2f097bcfde49e5ff2521020e64a7d056e04bca04ec5b87834f4de9b1b730a",
+      "APPLIED": true,
+      "BEFORE": " \"MISSING_OLD_FAR\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "MISSING_OLD_FAR",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_MISSING_OLD_FAR",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M017",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "missing old far",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_EXTRA_ROLE"
+      ],
+      "AFTER": " \"EXTRA_ROLE\":False,",
+      "AFTER_HASH": "a49e56fcfbed34acdf509b7496e71e0c5b81f9e5e2b389845cb3ae09148817da",
+      "APPLIED": true,
+      "BEFORE": " \"EXTRA_ROLE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "EXTRA_ROLE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_EXTRA_ROLE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M018",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "extra role",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_DUPLICATE_TICKET"
+      ],
+      "AFTER": " \"DUPLICATE_TICKET\":False,",
+      "AFTER_HASH": "65e23d974cbe4e27955eaea12e53a7df136ca01ea06c6dacd74c258af4042499",
+      "APPLIED": true,
+      "BEFORE": " \"DUPLICATE_TICKET\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "DUPLICATE_TICKET",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_DUPLICATE_TICKET",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M019",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "duplicate ticket",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_DUPLICATE_INTENT"
+      ],
+      "AFTER": " \"DUPLICATE_INTENT\":False,",
+      "AFTER_HASH": "7cac938e7cf036032ec106499a501f732f2422e8e9e3b74dabffcbfc10c05cbf",
+      "APPLIED": true,
+      "BEFORE": " \"DUPLICATE_INTENT\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "DUPLICATE_INTENT",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_DUPLICATE_INTENT",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M020",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "duplicate intent",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_ORPHAN_POSITION"
+      ],
+      "AFTER": " \"ORPHAN_POSITION\":False,",
+      "AFTER_HASH": "31369b8a1d0b93a021309c609468a83eea2f3d73fb81cbebb8db8f526bfb82d1",
+      "APPLIED": true,
+      "BEFORE": " \"ORPHAN_POSITION\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "ORPHAN_POSITION",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_ORPHAN_POSITION",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M021",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "orphan position",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_ORPHAN_INTENT"
+      ],
+      "AFTER": " \"ORPHAN_INTENT\":False,",
+      "AFTER_HASH": "96dc2c6dfa8ff16cce32fe3455a70bae539bba4269e0366ba358f445eed7972b",
+      "APPLIED": true,
+      "BEFORE": " \"ORPHAN_INTENT\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "ORPHAN_INTENT",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_ORPHAN_INTENT",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M022",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "orphan intent",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_ORPHAN_DEAL"
+      ],
+      "AFTER": " \"ORPHAN_DEAL\":False,",
+      "AFTER_HASH": "d4838df8523e05325923e63e13814aad04e5d465c09a873673d97e029bbe688c",
+      "APPLIED": true,
+      "BEFORE": " \"ORPHAN_DEAL\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "ORPHAN_DEAL",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_ORPHAN_DEAL",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M023",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "orphan deal",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_POSITION_VOLUME_BINDING"
+      ],
+      "AFTER": " \"POSITION_VOLUME_BINDING\":False,",
+      "AFTER_HASH": "38c14b02af2ca65ea9cd3ade4b1c988ba24b201cbcd3298953b59b37a9098780",
+      "APPLIED": true,
+      "BEFORE": " \"POSITION_VOLUME_BINDING\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "POSITION_VOLUME_BINDING",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_POSITION_VOLUME_BINDING",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M024",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "position volume binding",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_PARTIAL_REQUIRED"
+      ],
+      "AFTER": " \"PARTIAL_REQUIRED\":False,",
+      "AFTER_HASH": "ad039099606b8a2a35db5a75575179b52feb924d3d308cca77e88c545195e139",
+      "APPLIED": true,
+      "BEFORE": " \"PARTIAL_REQUIRED\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "PARTIAL_REQUIRED",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_PARTIAL_REQUIRED",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M025",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "partial required",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_POSITION_FRESHNESS"
+      ],
+      "AFTER": " \"POSITION_FRESHNESS\":False,",
+      "AFTER_HASH": "39f5e2aff88691527f53422fbeb9ff06877c528e9aabed5764fbe41ae4e7f3ab",
+      "APPLIED": true,
+      "BEFORE": " \"POSITION_FRESHNESS\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "POSITION_FRESHNESS",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_POSITION_FRESHNESS",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M026",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "position freshness",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_PERSISTENCE_ORDER"
+      ],
+      "AFTER": " \"PERSISTENCE_ORDER\":False,",
+      "AFTER_HASH": "a07509a3ed8e1ad939e25f20ea397c7e52fc3faa0b7812b73d0304332903b572",
+      "APPLIED": true,
+      "BEFORE": " \"PERSISTENCE_ORDER\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "PERSISTENCE_ORDER",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_PERSISTENCE_ORDER",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M027",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "persistence order",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_RESTART_DEALS"
+      ],
+      "AFTER": " \"RESTART_DEALS\":False,",
+      "AFTER_HASH": "b6ec14daf929da9b7f55c816f2027d03e7538f6a98d7821fd663bbaf3c3c68fd",
+      "APPLIED": true,
+      "BEFORE": " \"RESTART_DEALS\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "RESTART_DEALS",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_RESTART_DEALS",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M028",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "restart deals",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_RESTART_EVENTS"
+      ],
+      "AFTER": " \"RESTART_EVENTS\":False,",
+      "AFTER_HASH": "81fc5b706850b773da444c1fe4f2c730579f7270a05085ed1ab3e57e4b6c7c22",
+      "APPLIED": true,
+      "BEFORE": " \"RESTART_EVENTS\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "RESTART_EVENTS",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_RESTART_EVENTS",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M029",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "restart events",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_STATE_REVISION"
+      ],
+      "AFTER": " \"STATE_REVISION\":False,",
+      "AFTER_HASH": "05b177107d6a07a202edc030e194cb4a7b691d1acec3e74f6bb3eb3d85efce27",
+      "APPLIED": true,
+      "BEFORE": " \"STATE_REVISION\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "STATE_REVISION",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_STATE_REVISION",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M030",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "state revision",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_RAW_EXCEPTION"
+      ],
+      "AFTER": " \"RAW_EXCEPTION\":False,",
+      "AFTER_HASH": "ffb3882a8d8749b1ed8a843ff146f8dbe966373535b17a7668fccfa7be45d856",
+      "APPLIED": true,
+      "BEFORE": " \"RAW_EXCEPTION\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "RAW_EXCEPTION",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_RAW_EXCEPTION",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M031",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "raw exception",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_CANONICAL_STATUS"
+      ],
+      "AFTER": " \"CANONICAL_STATUS\":False,",
+      "AFTER_HASH": "14d96f3e59a79ac4df53b7e6847287b15408dc7355fe8b7bb787eced32f72302",
+      "APPLIED": true,
+      "BEFORE": " \"CANONICAL_STATUS\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "CANONICAL_STATUS",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_CANONICAL_STATUS",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M032",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "canonical status",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_MANIFEST"
+      ],
+      "AFTER": " \"MANIFEST\":False,",
+      "AFTER_HASH": "36755e6bf73b4dcc42e9b27ab85ec1616ed447db10ff6192f3e7e3864c2917d5",
+      "APPLIED": true,
+      "BEFORE": " \"MANIFEST\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "MANIFEST",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_MANIFEST",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M033",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "manifest",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_EVIDENCE_DELETE"
+      ],
+      "AFTER": " \"EVIDENCE_DELETE\":False,",
+      "AFTER_HASH": "6e3c01ddf9f05d2cd435da0b83fb8f395c6748281c736bb0d4012463d499b9f5",
+      "APPLIED": true,
+      "BEFORE": " \"EVIDENCE_DELETE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "EVIDENCE_DELETE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_EVIDENCE_DELETE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M034",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "evidence delete",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_EVIDENCE_ADD"
+      ],
+      "AFTER": " \"EVIDENCE_ADD\":False,",
+      "AFTER_HASH": "85371b5bd99f3bf5ec6a8159b91641e93a20f30deb5444c63e3a14d97e8f723b",
+      "APPLIED": true,
+      "BEFORE": " \"EVIDENCE_ADD\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "EVIDENCE_ADD",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_EVIDENCE_ADD",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M035",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "evidence add",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_SEAL_DUPLICATE"
+      ],
+      "AFTER": " \"SEAL_DUPLICATE\":False,",
+      "AFTER_HASH": "705a2ace5ff211ea7dd7200de86339bac8254a36eb14f6b251b31e31501f9b26",
+      "APPLIED": true,
+      "BEFORE": " \"SEAL_DUPLICATE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "SEAL_DUPLICATE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_SEAL_DUPLICATE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M036",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "seal duplicate",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "MUTATION_GUARD_EVIDENCE_CHANGE"
+      ],
+      "AFTER": " \"EVIDENCE_CHANGE\":False,",
+      "AFTER_HASH": "a36f734122e62aad7446c7415adda7ba93de77290f83af303739774f4df62cf4",
+      "APPLIED": true,
+      "BEFORE": " \"EVIDENCE_CHANGE\":True,",
+      "BEFORE_HASH": "073135f228f20c941c6955129b25a1aa37be19b05f2bf4d62f8016318af72e45",
+      "CATEGORY": "EVIDENCE_CHANGE",
+      "EXPECTED_CHECK_ID": "MUTATION_GUARD_EVIDENCE_CHANGE",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M037",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "evidence change",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r3.py",
+      "TYPE": "SEMANTIC"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "EVIDENCE_INTEGRITY"
+      ],
+      "AFTER": "",
+      "AFTER_HASH": null,
+      "APPLIED": true,
+      "BEFORE": "",
+      "BEFORE_HASH": "ebd995f837fdb5be4db66114cbdf31a4432624be613c3df02b01b9417eb3f3b5",
+      "CATEGORY": "EVIDENCE_DELETE_ACTUAL",
+      "EXPECTED_CHECK_ID": "EVIDENCE_INTEGRITY",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M038",
+      "OPERATION": "DELETE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "delete critical evidence file",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_FALSE_PASS_REPRODUCTION.json",
+      "TYPE": "EVIDENCE"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "EVIDENCE_INTEGRITY"
+      ],
+      "AFTER": "{}\n",
+      "AFTER_HASH": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "APPLIED": true,
+      "BEFORE": "",
+      "BEFORE_HASH": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "CATEGORY": "EVIDENCE_ADD_ACTUAL",
+      "EXPECTED_CHECK_ID": "EVIDENCE_INTEGRITY",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M039",
+      "OPERATION": "ADD",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "add unsealed evidence file",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_UNSEALED_EXTRA.json",
+      "TYPE": "EVIDENCE"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "EVIDENCE_INTEGRITY"
+      ],
+      "AFTER": "",
+      "AFTER_HASH": "4287597ca9f6bc83fb9ee04a0dc05f22c7c268e1b01b8e55457f9197de6fdeef",
+      "APPLIED": true,
+      "BEFORE": "",
+      "BEFORE_HASH": "92793b1f90cb1b1eaa78f073686537ed54268b9caea981830e439cec2b2eee8f",
+      "CATEGORY": "SEAL_DUPLICATE_ACTUAL",
+      "EXPECTED_CHECK_ID": "EVIDENCE_INTEGRITY",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M040",
+      "OPERATION": "DUPLICATE_LINE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "duplicate evidence seal entry",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_EVIDENCE_SEAL_SHA256.txt",
+      "TYPE": "EVIDENCE"
+    },
+    {
+      "ACTUAL_FAILED_CHECK_IDS": [
+        "EVIDENCE_INTEGRITY"
+      ],
+      "AFTER": "\"mismatches\": 1",
+      "AFTER_HASH": "e51b57ca2bc9e0703786aa1f8a2c9c71e028b73e802dbee835dc9d8deb193f6b",
+      "APPLIED": true,
+      "BEFORE": "\"mismatches\": 0",
+      "BEFORE_HASH": "fbc98c71c8a41e9819daad0b4694399704905d4dca6c8ff8c3c406c104101b01",
+      "CATEGORY": "EVIDENCE_CHANGE_ACTUAL",
+      "EXPECTED_CHECK_ID": "EVIDENCE_INTEGRITY",
+      "FULL_VERIFIER_EXIT": 1,
+      "MUTATION_ID": "R3M041",
+      "OPERATION": "REPLACE",
+      "RESULT": "CAUGHT",
+      "SEMANTIC_PURPOSE": "change sealed canonical audit",
+      "TARGET_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_CANONICAL_STATUS_AUDIT.json",
+      "TYPE": "EVIDENCE"
+    }
+  ]
+}
