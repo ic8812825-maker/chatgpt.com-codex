@@ -1,0 +1,244 @@
+{
+  "requirements": [
+    {
+      "CHECK_ID": "R6_ORPHAN_DEAL_BLOCK",
+      "futureOwner": "Include/HSB2E/R6_ORPHAN_DEAL_BLOCK.mqh",
+      "mutationId": "R6M001",
+      "negativeVector": "R6_ORPHAN_DEAL_BLOCK_NEG",
+      "positiveVector": "R6_ORPHAN_DEAL_BLOCK_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_DEAL_ROLE_BINDING",
+      "futureOwner": "Include/HSB2E/R6_DEAL_ROLE_BINDING.mqh",
+      "mutationId": "R6M002",
+      "negativeVector": "R6_DEAL_ROLE_BINDING_NEG",
+      "positiveVector": "R6_DEAL_ROLE_BINDING_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_DEAL_DIRECTION_BINDING",
+      "futureOwner": "Include/HSB2E/R6_DEAL_DIRECTION_BINDING.mqh",
+      "mutationId": "R6M003",
+      "negativeVector": "R6_DEAL_DIRECTION_BINDING_NEG",
+      "positiveVector": "R6_DEAL_DIRECTION_BINDING_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_DEAL_INTENT_BINDING",
+      "futureOwner": "Include/HSB2E/R6_DEAL_INTENT_BINDING.mqh",
+      "mutationId": "R6M004",
+      "negativeVector": "R6_DEAL_INTENT_BINDING_NEG",
+      "positiveVector": "R6_DEAL_INTENT_BINDING_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_TRUSTED_PRICE_DERIVATION",
+      "futureOwner": "Include/HSB2E/R6_TRUSTED_PRICE_DERIVATION.mqh",
+      "mutationId": "R6M005",
+      "negativeVector": "R6_TRUSTED_PRICE_DERIVATION_NEG",
+      "positiveVector": "R6_TRUSTED_PRICE_DERIVATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_PERSISTED_RECORD_REVALIDATION",
+      "futureOwner": "Include/HSB2E/R6_PERSISTED_RECORD_REVALIDATION.mqh",
+      "mutationId": "R6M006",
+      "negativeVector": "R6_PERSISTED_RECORD_REVALIDATION_NEG",
+      "positiveVector": "R6_PERSISTED_RECORD_REVALIDATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_DEAL_EVENT_BIJECTION",
+      "futureOwner": "Include/HSB2E/R6_DEAL_EVENT_BIJECTION.mqh",
+      "mutationId": "R6M007",
+      "negativeVector": "R6_DEAL_EVENT_BIJECTION_NEG",
+      "positiveVector": "R6_DEAL_EVENT_BIJECTION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_VOLUME_CONSERVATION",
+      "futureOwner": "Include/HSB2E/R6_VOLUME_CONSERVATION.mqh",
+      "mutationId": "R6M008",
+      "negativeVector": "R6_VOLUME_CONSERVATION_NEG",
+      "positiveVector": "R6_VOLUME_CONSERVATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_MONEY_CONSERVATION",
+      "futureOwner": "Include/HSB2E/R6_MONEY_CONSERVATION.mqh",
+      "mutationId": "R6M009",
+      "negativeVector": "R6_MONEY_CONSERVATION_NEG",
+      "positiveVector": "R6_MONEY_CONSERVATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_DISJOINT_ALLOCATION",
+      "futureOwner": "Include/HSB2E/R6_DISJOINT_ALLOCATION.mqh",
+      "mutationId": "R6M010",
+      "negativeVector": "R6_DISJOINT_ALLOCATION_NEG",
+      "positiveVector": "R6_DISJOINT_ALLOCATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_CERTIFICATE_LEDGER_BINDING",
+      "futureOwner": "Include/HSB2E/R6_CERTIFICATE_LEDGER_BINDING.mqh",
+      "mutationId": "R6M011",
+      "negativeVector": "R6_CERTIFICATE_LEDGER_BINDING_NEG",
+      "positiveVector": "R6_CERTIFICATE_LEDGER_BINDING_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_CERTIFICATE_ECONOMIC_BINDING",
+      "futureOwner": "Include/HSB2E/R6_CERTIFICATE_ECONOMIC_BINDING.mqh",
+      "mutationId": "R6M012",
+      "negativeVector": "R6_CERTIFICATE_ECONOMIC_BINDING_NEG",
+      "positiveVector": "R6_CERTIFICATE_ECONOMIC_BINDING_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_CERTIFICATE_PERSISTENCE_BINDING",
+      "futureOwner": "Include/HSB2E/R6_CERTIFICATE_PERSISTENCE_BINDING.mqh",
+      "mutationId": "R6M013",
+      "negativeVector": "R6_CERTIFICATE_PERSISTENCE_BINDING_NEG",
+      "positiveVector": "R6_CERTIFICATE_PERSISTENCE_BINDING_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_INITIAL_POSITIVE_PROFIT_EXCLUDED",
+      "futureOwner": "Include/HSB2E/R6_INITIAL_POSITIVE_PROFIT_EXCLUDED.mqh",
+      "mutationId": "R6M014",
+      "negativeVector": "R6_INITIAL_POSITIVE_PROFIT_EXCLUDED_NEG",
+      "positiveVector": "R6_INITIAL_POSITIVE_PROFIT_EXCLUDED_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_BIG_FULL_FILL_ELIGIBILITY",
+      "futureOwner": "Include/HSB2E/R6_BIG_FULL_FILL_ELIGIBILITY.mqh",
+      "mutationId": "R6M015",
+      "negativeVector": "R6_BIG_FULL_FILL_ELIGIBILITY_NEG",
+      "positiveVector": "R6_BIG_FULL_FILL_ELIGIBILITY_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_PARTIAL_FAR_CALCULATION",
+      "futureOwner": "Include/HSB2E/R6_PARTIAL_FAR_CALCULATION.mqh",
+      "mutationId": "R6M016",
+      "negativeVector": "R6_PARTIAL_FAR_CALCULATION_NEG",
+      "positiveVector": "R6_PARTIAL_FAR_CALCULATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_RESERVE_PARTIAL_ISOLATION",
+      "futureOwner": "Include/HSB2E/R6_RESERVE_PARTIAL_ISOLATION.mqh",
+      "mutationId": "R6M017",
+      "negativeVector": "R6_RESERVE_PARTIAL_ISOLATION_NEG",
+      "positiveVector": "R6_RESERVE_PARTIAL_ISOLATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_SMALL_MANDATORY_LEGS",
+      "futureOwner": "Include/HSB2E/R6_SMALL_MANDATORY_LEGS.mqh",
+      "mutationId": "R6M018",
+      "negativeVector": "R6_SMALL_MANDATORY_LEGS_NEG",
+      "positiveVector": "R6_SMALL_MANDATORY_LEGS_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_NEW_FAR_DERIVATION",
+      "futureOwner": "Include/HSB2E/R6_NEW_FAR_DERIVATION.mqh",
+      "mutationId": "R6M019",
+      "negativeVector": "R6_NEW_FAR_DERIVATION_NEG",
+      "positiveVector": "R6_NEW_FAR_DERIVATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_CATCH_UP_PROOF",
+      "futureOwner": "Include/HSB2E/R6_CATCH_UP_PROOF.mqh",
+      "mutationId": "R6M020",
+      "negativeVector": "R6_CATCH_UP_PROOF_NEG",
+      "positiveVector": "R6_CATCH_UP_PROOF_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_DUAL_TAIL_BLOCK",
+      "futureOwner": "Include/HSB2E/R6_DUAL_TAIL_BLOCK.mqh",
+      "mutationId": "R6M021",
+      "negativeVector": "R6_DUAL_TAIL_BLOCK_NEG",
+      "positiveVector": "R6_DUAL_TAIL_BLOCK_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_FINAL_FULL_CLOSE",
+      "futureOwner": "Include/HSB2E/R6_FINAL_FULL_CLOSE.mqh",
+      "mutationId": "R6M022",
+      "negativeVector": "R6_FINAL_FULL_CLOSE_NEG",
+      "positiveVector": "R6_FINAL_FULL_CLOSE_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_FINAL_RESERVE_CONSUMPTION",
+      "futureOwner": "Include/HSB2E/R6_FINAL_RESERVE_CONSUMPTION.mqh",
+      "mutationId": "R6M023",
+      "negativeVector": "R6_FINAL_RESERVE_CONSUMPTION_NEG",
+      "positiveVector": "R6_FINAL_RESERVE_CONSUMPTION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_RECOVERY_PL_TRANSITION",
+      "futureOwner": "Include/HSB2E/R6_RECOVERY_PL_TRANSITION.mqh",
+      "mutationId": "R6M024",
+      "negativeVector": "R6_RECOVERY_PL_TRANSITION_NEG",
+      "positiveVector": "R6_RECOVERY_PL_TRANSITION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_EXACTLY_ONCE_REPLAY",
+      "futureOwner": "Include/HSB2E/R6_EXACTLY_ONCE_REPLAY.mqh",
+      "mutationId": "R6M025",
+      "negativeVector": "R6_EXACTLY_ONCE_REPLAY_NEG",
+      "positiveVector": "R6_EXACTLY_ONCE_REPLAY_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_PERSISTENCE_BEFORE_MUTATION",
+      "futureOwner": "Include/HSB2E/R6_PERSISTENCE_BEFORE_MUTATION.mqh",
+      "mutationId": "R6M026",
+      "negativeVector": "R6_PERSISTENCE_BEFORE_MUTATION_NEG",
+      "positiveVector": "R6_PERSISTENCE_BEFORE_MUTATION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_STATE_REVISION_PLUS_ONE",
+      "futureOwner": "Include/HSB2E/R6_STATE_REVISION_PLUS_ONE.mqh",
+      "mutationId": "R6M027",
+      "negativeVector": "R6_STATE_REVISION_PLUS_ONE_NEG",
+      "positiveVector": "R6_STATE_REVISION_PLUS_ONE_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_DETERMINISTIC_DIGEST",
+      "futureOwner": "Include/HSB2E/R6_DETERMINISTIC_DIGEST.mqh",
+      "mutationId": "R6M028",
+      "negativeVector": "R6_DETERMINISTIC_DIGEST_NEG",
+      "positiveVector": "R6_DETERMINISTIC_DIGEST_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_MALFORMED_COLLECTION_REJECTION",
+      "futureOwner": "Include/HSB2E/R6_MALFORMED_COLLECTION_REJECTION.mqh",
+      "mutationId": "R6M029",
+      "negativeVector": "R6_MALFORMED_COLLECTION_REJECTION_NEG",
+      "positiveVector": "R6_MALFORMED_COLLECTION_REJECTION_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "CHECK_ID": "R6_UNKNOWN_PROPERTY_FAIL_CLOSED",
+      "futureOwner": "Include/HSB2E/R6_UNKNOWN_PROPERTY_FAIL_CLOSED.mqh",
+      "mutationId": "R6M030",
+      "negativeVector": "R6_UNKNOWN_PROPERTY_FAIL_CLOSED_NEG",
+      "positiveVector": "R6_UNKNOWN_PROPERTY_FAIL_CLOSED_POS",
+      "predicateOwner": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    }
+  ]
+}
