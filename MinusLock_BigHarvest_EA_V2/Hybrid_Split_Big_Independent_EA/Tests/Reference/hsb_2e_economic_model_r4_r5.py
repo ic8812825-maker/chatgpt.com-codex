@@ -17,6 +17,7 @@ class HSBI_EconomicSettlementProposal:
 def build_economic_proposal(broker,policy):
     if type(broker) is not dict or broker.get("sealed") is not True or broker.get("brokerProposalDigest")!=digest({k:v for k,v in broker.items() if k!="brokerProposalDigest"}):return None,"BROKER_PROPOSAL_UNSEALED"
     scenario=broker["scenario"];by_ticket=broker["moneyByTicket"];by_role=broker["moneyByRole"];total=sum(map(D,by_ticket.values()),D(0))
+    if D(policy.get("reserveUsedForPartialFar",0))!=0:return None,"RESERVE_USED_FOR_PARTIAL_FAR"
     far_loss=D(policy["farLossBefore"]);far_volume=D(policy["farVolumeBefore"]);reserve=D(policy["reserveBefore"]);recovery=D(policy["recoveryPLBefore"])
     close_share=D(policy["closeFarShare"]);reserve_share=D(policy["reserveShare"]);small_share=D(policy["smallReserveShare"])
     close_budget=reserve_add=small_add=partial=D(0);far_after=far_volume;new_ticket=0;new_volume=D(0);dual=False;final=False
