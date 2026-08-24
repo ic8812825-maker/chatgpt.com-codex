@@ -1,0 +1,134 @@
+{
+  "tests": [
+    {
+      "TEST_ID": "R4T001",
+      "VECTOR_ID": "R4_VALID_BIG",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T002",
+      "VECTOR_ID": "R4_VALID_SMALL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T003",
+      "VECTOR_ID": "R4_VALID_INITIAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T004",
+      "VECTOR_ID": "R4_VALID_FINAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T005",
+      "VECTOR_ID": "R4_ZERO_POSITION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T006",
+      "VECTOR_ID": "R4_OFFGRID_VOLUME",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T007",
+      "VECTOR_ID": "R4_NEG_PRICE",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T008",
+      "VECTOR_ID": "R4_STRING_BOOL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T009",
+      "VECTOR_ID": "R4_MULTI_INTENT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T010",
+      "VECTOR_ID": "R4_NEG_REVISION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T011",
+      "VECTOR_ID": "R4_BAD_BINDING",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T012",
+      "VECTOR_ID": "R4_BAD_REGISTRY_TYPE",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T013",
+      "VECTOR_ID": "R4_ZERO_REQUEST",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T014",
+      "VECTOR_ID": "R4_ZERO_SNAPSHOT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T015",
+      "VECTOR_ID": "R4_BELOW_MIN",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T016",
+      "VECTOR_ID": "R4_NEG_POSITION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T017",
+      "VECTOR_ID": "R4_OFFGRID_PRICE",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T018",
+      "VECTOR_ID": "R4_DUP_DEAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T019",
+      "VECTOR_ID": "R4_DUP_EVENT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T020",
+      "VECTOR_ID": "R4_MISSING_SMALL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T021",
+      "VECTOR_ID": "R4_DUAL_TAIL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T022",
+      "VECTOR_ID": "R4_PARTIAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T023",
+      "VECTOR_ID": "R4_SLIPPAGE_UNPROVEN",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T024",
+      "VECTOR_ID": "R4_VOLUME_MISMATCH",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T025",
+      "VECTOR_ID": "R4_ORPHAN_DEAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R4T026",
+      "VECTOR_ID": "R4_NO_DEAL_ONE_LEG",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    }
+  ]
+}
