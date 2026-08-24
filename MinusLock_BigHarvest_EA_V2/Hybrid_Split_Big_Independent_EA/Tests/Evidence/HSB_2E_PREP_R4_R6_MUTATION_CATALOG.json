@@ -1,0 +1,244 @@
+{
+  "mutations": [
+    {
+      "class": "disable_orphan_deal",
+      "expectedCheckId": "R6_ORPHAN_DEAL_BLOCK",
+      "id": "R6M001",
+      "newFragment": " c['R6_ORPHAN_DEAL_BLOCK']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "disable_role_binding",
+      "expectedCheckId": "R6_DEAL_ROLE_BINDING",
+      "id": "R6M002",
+      "newFragment": " c['R6_DEAL_ROLE_BINDING']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "disable_direction_binding",
+      "expectedCheckId": "R6_DEAL_DIRECTION_BINDING",
+      "id": "R6M003",
+      "newFragment": " c['R6_DEAL_DIRECTION_BINDING']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "disable_intent_binding",
+      "expectedCheckId": "R6_DEAL_INTENT_BINDING",
+      "id": "R6M004",
+      "newFragment": " c['R6_DEAL_INTENT_BINDING']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "trust_input_price_bounds",
+      "expectedCheckId": "R6_TRUSTED_PRICE_DERIVATION",
+      "id": "R6M005",
+      "newFragment": " c['R6_TRUSTED_PRICE_DERIVATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "skip_persisted_digest",
+      "expectedCheckId": "R6_PERSISTED_RECORD_REVALIDATION",
+      "id": "R6M006",
+      "newFragment": " c['R6_PERSISTED_RECORD_REVALIDATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "skip_persisted_proof",
+      "expectedCheckId": "R6_DEAL_EVENT_BIJECTION",
+      "id": "R6M007",
+      "newFragment": " c['R6_DEAL_EVENT_BIJECTION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "break_bijection",
+      "expectedCheckId": "R6_VOLUME_CONSERVATION",
+      "id": "R6M008",
+      "newFragment": " c['R6_VOLUME_CONSERVATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "break_volume_conservation",
+      "expectedCheckId": "R6_MONEY_CONSERVATION",
+      "id": "R6M009",
+      "newFragment": " c['R6_MONEY_CONSERVATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "double_allocate_money",
+      "expectedCheckId": "R6_DISJOINT_ALLOCATION",
+      "id": "R6M010",
+      "newFragment": " c['R6_DISJOINT_ALLOCATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "accept_certificate_without_ledger",
+      "expectedCheckId": "R6_CERTIFICATE_LEDGER_BINDING",
+      "id": "R6M011",
+      "newFragment": " c['R6_CERTIFICATE_LEDGER_BINDING']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "remove_certificate_economic_binding",
+      "expectedCheckId": "R6_CERTIFICATE_ECONOMIC_BINDING",
+      "id": "R6M012",
+      "newFragment": " c['R6_CERTIFICATE_ECONOMIC_BINDING']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "remove_certificate_persistence_binding",
+      "expectedCheckId": "R6_CERTIFICATE_PERSISTENCE_BINDING",
+      "id": "R6M013",
+      "newFragment": " c['R6_CERTIFICATE_PERSISTENCE_BINDING']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "leak_initial_profit",
+      "expectedCheckId": "R6_INITIAL_POSITIVE_PROFIT_EXCLUDED",
+      "id": "R6M014",
+      "newFragment": " c['R6_INITIAL_POSITIVE_PROFIT_EXCLUDED']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "allow_big_partial_fill",
+      "expectedCheckId": "R6_BIG_FULL_FILL_ELIGIBILITY",
+      "id": "R6M015",
+      "newFragment": " c['R6_BIG_FULL_FILL_ELIGIBILITY']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "constant_partial_far_zero",
+      "expectedCheckId": "R6_PARTIAL_FAR_CALCULATION",
+      "id": "R6M016",
+      "newFragment": " c['R6_PARTIAL_FAR_CALCULATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "allow_reserve_partial_far",
+      "expectedCheckId": "R6_RESERVE_PARTIAL_ISOLATION",
+      "id": "R6M017",
+      "newFragment": " c['R6_RESERVE_PARTIAL_ISOLATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "skip_small_leg",
+      "expectedCheckId": "R6_SMALL_MANDATORY_LEGS",
+      "id": "R6M018",
+      "newFragment": " c['R6_SMALL_MANDATORY_LEGS']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "accept_policy_new_far",
+      "expectedCheckId": "R6_NEW_FAR_DERIVATION",
+      "id": "R6M019",
+      "newFragment": " c['R6_NEW_FAR_DERIVATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "skip_catch_up",
+      "expectedCheckId": "R6_CATCH_UP_PROOF",
+      "id": "R6M020",
+      "newFragment": " c['R6_CATCH_UP_PROOF']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "allow_dual_tail",
+      "expectedCheckId": "R6_DUAL_TAIL_BLOCK",
+      "id": "R6M021",
+      "newFragment": " c['R6_DUAL_TAIL_BLOCK']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "allow_final_partial",
+      "expectedCheckId": "R6_FINAL_FULL_CLOSE",
+      "id": "R6M022",
+      "newFragment": " c['R6_FINAL_FULL_CLOSE']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "final_no_reserve_consumption",
+      "expectedCheckId": "R6_FINAL_RESERVE_CONSUMPTION",
+      "id": "R6M023",
+      "newFragment": " c['R6_FINAL_RESERVE_CONSUMPTION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "remove_recovery_transition",
+      "expectedCheckId": "R6_RECOVERY_PL_TRANSITION",
+      "id": "R6M024",
+      "newFragment": " c['R6_RECOVERY_PL_TRANSITION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "duplicate_settlement",
+      "expectedCheckId": "R6_EXACTLY_ONCE_REPLAY",
+      "id": "R6M025",
+      "newFragment": " c['R6_EXACTLY_ONCE_REPLAY']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "apply_before_persist",
+      "expectedCheckId": "R6_PERSISTENCE_BEFORE_MUTATION",
+      "id": "R6M026",
+      "newFragment": " c['R6_PERSISTENCE_BEFORE_MUTATION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "revision_plus_two",
+      "expectedCheckId": "R6_STATE_REVISION_PLUS_ONE",
+      "id": "R6M027",
+      "newFragment": " c['R6_STATE_REVISION_PLUS_ONE']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "nondeterministic_digest",
+      "expectedCheckId": "R6_DETERMINISTIC_DIGEST",
+      "id": "R6M028",
+      "newFragment": " c['R6_DETERMINISTIC_DIGEST']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "accept_malformed_collection",
+      "expectedCheckId": "R6_MALFORMED_COLLECTION_REJECTION",
+      "id": "R6M029",
+      "newFragment": " c['R6_MALFORMED_COLLECTION_REJECTION']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    },
+    {
+      "class": "unknown_property_pass",
+      "expectedCheckId": "R6_UNKNOWN_PROPERTY_FAIL_CLOSED",
+      "id": "R6M030",
+      "newFragment": " c['R6_UNKNOWN_PROPERTY_FAIL_CLOSED']=False\n return c\n",
+      "oldFragment": " return c\n",
+      "target": "Tests/Reference/hsb_2e_invariants_r4_r6.py"
+    }
+  ]
+}

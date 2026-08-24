@@ -1,0 +1,11 @@
+{
+  "RESULT": "PASS",
+  "checks": {
+    "R6_BINDING_POSITIVE": true,
+    "R6_DEAL_INTENT_BINDING": true,
+    "R6_DEAL_ROLE_BINDING": true,
+    "R6_ORPHAN_DEAL_BLOCK": true,
+    "R6_PERSISTED_RECORD_REVALIDATION": true,
+    "R6_TRUSTED_PRICE_DERIVATION": true
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "EXACT_HISTORICAL_FALSE_PASS_INPUTS": 10,
+  "HEURISTIC_FALSE_PASS_RECONSTRUCTION": 0,
+  "R5_FALSE_PASSES_BLOCKED_BY_R6": 10,
+  "RESULT": "PASS",
+  "rows": [
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-001",
+      "checkId": "R6_ORPHAN_DEAL_BLOCK",
+      "exactHashVerified": true,
+      "r6Reason": "ORPHAN_DEAL",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-002",
+      "checkId": "R6_DEAL_ROLE_BINDING",
+      "exactHashVerified": true,
+      "r6Reason": "DEAL_ROLE_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-003",
+      "checkId": "R6_TRUSTED_PRICE_DERIVATION",
+      "exactHashVerified": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-004",
+      "checkId": "R6_PERSISTED_RECORD_REVALIDATION",
+      "exactHashVerified": true,
+      "r6Reason": "SOURCE_RECORD_DIGEST_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-005",
+      "checkId": "R6_CERTIFICATE_LEDGER_BINDING",
+      "exactHashVerified": true,
+      "r6Reason": "COMMIT_FULL_FILL_UNPROVEN",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-006",
+      "checkId": "R6_MONEY_CONSERVATION",
+      "exactHashVerified": true,
+      "r6Reason": "ALLOCATION_SHARE_SUM_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-007",
+      "checkId": "R6_INITIAL_POSITIVE_PROFIT_EXCLUDED",
+      "exactHashVerified": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-008",
+      "checkId": "R6_FINAL_RESERVE_CONSUMPTION",
+      "exactHashVerified": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-009",
+      "checkId": "R6_PARTIAL_FAR_CALCULATION",
+      "exactHashVerified": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "blocked": true,
+      "caseId": "FP-R6-010",
+      "checkId": "R6_NEW_FAR_DERIVATION",
+      "exactHashVerified": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6"
+    }
+  ]
+}

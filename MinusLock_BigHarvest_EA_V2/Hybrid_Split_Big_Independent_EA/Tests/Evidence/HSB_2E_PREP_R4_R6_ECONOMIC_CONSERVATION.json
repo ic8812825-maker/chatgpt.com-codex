@@ -1,0 +1,15 @@
+{
+  "RESULT": "PASS",
+  "checks": {
+    "R6_CATCH_UP_PROOF": true,
+    "R6_DISJOINT_ALLOCATION": true,
+    "R6_DUAL_TAIL_BLOCK": true,
+    "R6_FINAL_RESERVE_CONSUMPTION": true,
+    "R6_INITIAL_POSITIVE_PROFIT_EXCLUDED": true,
+    "R6_MONEY_CONSERVATION": true,
+    "R6_NEW_FAR_DERIVATION": true,
+    "R6_PARTIAL_FAR_CALCULATION": true,
+    "R6_RESERVE_PARTIAL_ISOLATION": true,
+    "R6_VOLUME_CONSERVATION": true
+  }
+}

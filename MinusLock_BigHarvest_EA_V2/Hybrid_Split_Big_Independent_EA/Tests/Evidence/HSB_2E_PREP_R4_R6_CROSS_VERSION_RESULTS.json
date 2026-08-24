@@ -1,0 +1,948 @@
+{
+  "CROSS_VERSION_AMBIGUOUS": 0,
+  "CROSS_VERSION_UNMAPPED": 0,
+  "HISTORICAL_MODELS_USED_AS_TEST_TARGET": 0,
+  "HISTORICAL_VECTORS_ADAPTED_TO_R6": 104,
+  "HISTORICAL_VECTORS_EXECUTED_ON_R6": 104,
+  "HISTORICAL_VECTORS_REQUIRED": 104,
+  "RESULT": "PASS",
+  "migrationCount": 98,
+  "rows": [
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FULL_ONE",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FULL_MULTI",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "PARTIAL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EMPTY_BATCH",
+      "r6Status": "UNAVAILABLE",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "NO_FILL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "OVERFILL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "NEGATIVE_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "ZERO_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "NAN_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "INF_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "OFFGRID_VOLUME",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "OFFGRID_PRICE",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_SYMBOL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "WRONG_DIRECTION",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "WRONG_TICKET",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "STALE_TX",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "STALE_REVISION",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUPLICATE_DEAL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "BIG_FULL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "BIG_PARTIAL_ONE_LEG",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "BIG_MONEY_MATCH_VOLUME_SHORT",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "INITIAL_FULL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "INITIAL_PARTIAL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "INITIAL_NET_NEGATIVE",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "SMALL_FULL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "SMALL_PARTIAL_SMALL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "SMALL_PARTIAL_FAR",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUAL_TAIL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "RESTART_PARTIAL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "RESTART_CONTINUE_FULL",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "RESTART_DUPLICATE",
+      "version": "R4_R2"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VALID_BIG",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VALID_SMALL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VALID_INITIAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VALID_FINAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_DEAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_EVENT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_PAIR_BATCH",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_BETWEEN_BATCH",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_AFTER_RESTART",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "BINDING_CONFLICT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_TIMESTAMP_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "STALE_DEAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "STALE_BEFORE_INTENT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_TIMESTAMP_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FUTURE_DEAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "WINDOW_UNPROVEN",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_INTENT_TX",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_INTENT_ACTION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_INTENT_CYCLE",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_INTENT_SYMBOL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_INTENT_MAGIC",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_INTENT_REVISION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_POSITION_SYMBOL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_POSITION_MAGIC",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_POSITION_CYCLE",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "FOREIGN_POSITION_REVISION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "MANDATORY_LEGS_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "MISSING_BIG",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "MISSING_SMALL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "MANDATORY_LEGS_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "MISSING_OLD_FAR",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_BIG",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_SMALL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_ROLE_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_TICKET",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_INTENT_BINDING_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "DUP_INTENT_ID",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "ORPHAN_POSITION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "ORPHAN_INTENT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "ORPHAN_DEAL",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "MANDATORY_LEGS_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "EXTRA_ROLE",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VOLUME_LOW",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VOLUME_HIGH",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "STALE_POSITION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "PARTIAL_REQUIRED",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "MALFORMED_POSITIONS",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "MALFORMED_INTENTS",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "MALFORMED_DEALS",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EMPTY_BATCH",
+      "r6Status": "UNAVAILABLE",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "EMPTY_MANDATORY",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "NULL_ELEMENT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "REORDERED_VALID",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VALID_PARTIAL_FAR",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VALID_RESTART_CONTINUATION",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "VALID_REPLAY_AFTER_COMMIT",
+      "version": "R4_R3"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_VALID_BIG",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_VALID_SMALL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_VALID_INITIAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_VALID_FINAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EMPTY_BATCH",
+      "r6Status": "UNAVAILABLE",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_ZERO_POSITION",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "VOLUME_GRID_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_OFFGRID_VOLUME",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "PRICE_GRID_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_NEG_PRICE",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_CONFIRMED_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_STRING_BOOL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_MULTI_INTENT",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "DEAL_IDENTITY_MISMATCH",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_NEG_REVISION",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_BAD_BINDING",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_BAD_REGISTRY_TYPE",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "FULL_CLOSE_REQUIRED",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_ZERO_REQUEST",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_ZERO_SNAPSHOT",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_BELOW_MIN",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "FULL_CLOSE_REQUIRED",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_NEG_POSITION",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "PRICE_GRID_INVALID",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_OFFGRID_PRICE",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "PARTIAL_FILL",
+      "r6Status": "UNAVAILABLE",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_DUP_DEAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "PARTIAL_FILL",
+      "r6Status": "UNAVAILABLE",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_DUP_EVENT",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_MISSING_SMALL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_DUAL_TAIL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "PARTIAL_FILL",
+      "r6Status": "UNAVAILABLE",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_PARTIAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_SLIPPAGE_UNPROVEN",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "FULL_CLOSE_REQUIRED",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_VOLUME_MISMATCH",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "OK",
+      "r6Status": "PASS",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_ORPHAN_DEAL",
+      "version": "R4_R4"
+    },
+    {
+      "adapterResult": "ADAPTED",
+      "executed": true,
+      "r6Reason": "EXECUTION_PRICE_OUTSIDE_TRUSTED_POLICY",
+      "r6Status": "REJECT",
+      "targetModel": "hsb_2e_reference_model_r4_r6",
+      "vectorId": "R4_NO_DEAL_ONE_LEG",
+      "version": "R4_R4"
+    }
+  ]
+}
