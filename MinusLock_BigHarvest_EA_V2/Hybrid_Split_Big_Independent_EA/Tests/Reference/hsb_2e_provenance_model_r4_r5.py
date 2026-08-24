@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Immutable broker evidence, structured price proofs and derived-state provenance."""
 import argparse, copy, hashlib, json
-from dataclasses import dataclass, asdict, field
+from dataclasses import dataclass, asdict, field, is_dataclass
 from decimal import Decimal, InvalidOperation
 from types import MappingProxyType
 from hsb_2e_primitive_validators_r4_r5 import D, on_grid, strict_revision
 from hsb_2e_identity_model_r4_r5 import same_identity
 
 def canon(x):
+    if is_dataclass(x): return canon(asdict(x))
     if isinstance(x,Decimal): return str(x)
     if isinstance(x,dict): return {str(k):canon(v) for k,v in sorted(x.items(),key=lambda i:str(i[0]))}
     if isinstance(x,(list,tuple,set)): return [canon(v) for v in x]
