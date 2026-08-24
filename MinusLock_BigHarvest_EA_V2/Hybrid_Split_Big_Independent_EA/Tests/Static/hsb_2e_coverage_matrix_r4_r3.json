@@ -1,0 +1,224 @@
+{
+  "requirements": [
+    {
+      "REQUIREMENT": "DEAL_EXACTLY_ONCE",
+      "CONTRACT": "R3_DEAL_EXACTLY_ONCE",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M001"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_DealExactlyOnce.mqh"
+    },
+    {
+      "REQUIREMENT": "EVENT_EXACTLY_ONCE",
+      "CONTRACT": "R3_EVENT_EXACTLY_ONCE",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M002"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_EventExactlyOnce.mqh"
+    },
+    {
+      "REQUIREMENT": "DEAL_EVENT_BINDING",
+      "CONTRACT": "R3_DEAL_EVENT_BINDING",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M003"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_DealEventBinding.mqh"
+    },
+    {
+      "REQUIREMENT": "TIMESTAMP_FRESHNESS",
+      "CONTRACT": "R3_TIMESTAMP_FRESHNESS",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M004"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_TimestampFreshness.mqh"
+    },
+    {
+      "REQUIREMENT": "INTENT_IDENTITY",
+      "CONTRACT": "R3_INTENT_IDENTITY",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M005"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_IntentIdentity.mqh"
+    },
+    {
+      "REQUIREMENT": "POSITION_OWNERSHIP",
+      "CONTRACT": "R3_POSITION_OWNERSHIP",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M006"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_PositionOwnership.mqh"
+    },
+    {
+      "REQUIREMENT": "MANDATORY_LEGS",
+      "CONTRACT": "R3_MANDATORY_LEGS",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M007"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_MandatoryLegs.mqh"
+    },
+    {
+      "REQUIREMENT": "POSITION_VOLUME_BINDING",
+      "CONTRACT": "R3_POSITION_VOLUME_BINDING",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M008"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_PositionVolumeBinding.mqh"
+    },
+    {
+      "REQUIREMENT": "TRANSACTION_BARRIER",
+      "CONTRACT": "R3_TRANSACTION_BARRIER",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M009"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_TransactionBarrier.mqh"
+    },
+    {
+      "REQUIREMENT": "RESTART_EXACTLY_ONCE",
+      "CONTRACT": "R3_RESTART_EXACTLY_ONCE",
+      "REFERENCE_FUNCTION": "settle",
+      "POSITIVE_VECTOR_IDS": [
+        "VALID_BIG"
+      ],
+      "NEGATIVE_VECTOR_IDS": [
+        "DUP_DEAL"
+      ],
+      "INVARIANT_IDS": [
+        "DEAL_ID_CONSUMED_AT_MOST_ONCE"
+      ],
+      "TEST_IDS": [
+        "R3T001"
+      ],
+      "MUTATION_IDS": [
+        "R3M010"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R3_VECTOR_RESULTS.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_RestartExactlyOnce.mqh"
+    }
+  ]
+}

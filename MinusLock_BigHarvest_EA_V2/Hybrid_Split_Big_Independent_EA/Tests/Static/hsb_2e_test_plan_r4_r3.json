@@ -1,0 +1,244 @@
+{
+  "tests": [
+    {
+      "TEST_ID": "R3T001",
+      "VECTOR_ID": "VALID_BIG",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T002",
+      "VECTOR_ID": "VALID_SMALL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T003",
+      "VECTOR_ID": "VALID_INITIAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T004",
+      "VECTOR_ID": "VALID_FINAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T005",
+      "VECTOR_ID": "DUP_DEAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T006",
+      "VECTOR_ID": "DUP_EVENT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T007",
+      "VECTOR_ID": "DUP_PAIR_BATCH",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T008",
+      "VECTOR_ID": "DUP_BETWEEN_BATCH",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T009",
+      "VECTOR_ID": "DUP_AFTER_RESTART",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T010",
+      "VECTOR_ID": "BINDING_CONFLICT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T011",
+      "VECTOR_ID": "STALE_DEAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T012",
+      "VECTOR_ID": "STALE_BEFORE_INTENT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T013",
+      "VECTOR_ID": "FUTURE_DEAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T014",
+      "VECTOR_ID": "WINDOW_UNPROVEN",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T015",
+      "VECTOR_ID": "FOREIGN_INTENT_TX",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T016",
+      "VECTOR_ID": "FOREIGN_INTENT_ACTION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T017",
+      "VECTOR_ID": "FOREIGN_INTENT_CYCLE",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T018",
+      "VECTOR_ID": "FOREIGN_INTENT_SYMBOL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T019",
+      "VECTOR_ID": "FOREIGN_INTENT_MAGIC",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T020",
+      "VECTOR_ID": "FOREIGN_INTENT_REVISION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T021",
+      "VECTOR_ID": "FOREIGN_POSITION_SYMBOL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T022",
+      "VECTOR_ID": "FOREIGN_POSITION_MAGIC",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T023",
+      "VECTOR_ID": "FOREIGN_POSITION_CYCLE",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T024",
+      "VECTOR_ID": "FOREIGN_POSITION_REVISION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T025",
+      "VECTOR_ID": "MISSING_BIG",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T026",
+      "VECTOR_ID": "MISSING_SMALL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T027",
+      "VECTOR_ID": "MISSING_OLD_FAR",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T028",
+      "VECTOR_ID": "DUP_BIG",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T029",
+      "VECTOR_ID": "DUP_SMALL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T030",
+      "VECTOR_ID": "DUP_TICKET",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T031",
+      "VECTOR_ID": "DUP_INTENT_ID",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T032",
+      "VECTOR_ID": "ORPHAN_POSITION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T033",
+      "VECTOR_ID": "ORPHAN_INTENT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T034",
+      "VECTOR_ID": "ORPHAN_DEAL",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T035",
+      "VECTOR_ID": "EXTRA_ROLE",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T036",
+      "VECTOR_ID": "VOLUME_LOW",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T037",
+      "VECTOR_ID": "VOLUME_HIGH",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T038",
+      "VECTOR_ID": "STALE_POSITION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T039",
+      "VECTOR_ID": "PARTIAL_REQUIRED",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T040",
+      "VECTOR_ID": "MALFORMED_POSITIONS",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T041",
+      "VECTOR_ID": "MALFORMED_INTENTS",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T042",
+      "VECTOR_ID": "MALFORMED_DEALS",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T043",
+      "VECTOR_ID": "EMPTY_MANDATORY",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T044",
+      "VECTOR_ID": "NULL_ELEMENT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T045",
+      "VECTOR_ID": "REORDERED_VALID",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T046",
+      "VECTOR_ID": "VALID_PARTIAL_FAR",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T047",
+      "VECTOR_ID": "VALID_RESTART_CONTINUATION",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    },
+    {
+      "TEST_ID": "R3T048",
+      "VECTOR_ID": "VALID_REPLAY_AFTER_COMMIT",
+      "ASSERTION": "FULL_RESULT_EQUAL"
+    }
+  ]
+}
