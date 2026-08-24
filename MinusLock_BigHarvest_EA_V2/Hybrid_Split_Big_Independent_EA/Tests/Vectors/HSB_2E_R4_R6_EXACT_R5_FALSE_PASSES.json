@@ -1,0 +1,2325 @@
+{
+  "R5_FALSE_PASSES_REPRODUCED": 10,
+  "R5_FALSE_PASSES_REQUIRED": 10,
+  "RESULT": "PASS",
+  "cases": [
+    {
+      "CASE_ID": "FP-R6-001",
+      "EXACT_INPUT_SHA256": "b7ef40a478c7641ff283221ee364b3e7737dcc1cb93518f39a89afeb57ad3141",
+      "EXPECTED_R6_CHECK_ID": "R6_ORPHAN_DEAL_BLOCK",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "BIG",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "1.10000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "6777d3357d0f43b8523609a063186265a42ee823f34e9b96b7984c5a04eb755e",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          },
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D102",
+            "dealTimestamp": 2000,
+            "direction": "SELL",
+            "eventId": "E102",
+            "executionPriceProofId": "P102",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O102",
+            "positionRole": "SMALL",
+            "positionTicket": 102,
+            "price": {
+              "__decimal__": "1.20000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 2,
+            "recordDigest": "86252d9d9384b2bca1245d461d85247240b39ee503a0d099bc617b84cd22dec0",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "0.5"
+            }
+          },
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D999",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E999",
+            "executionPriceProofId": "P999",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "100"
+            },
+            "orderId": "O999",
+            "positionRole": "UNKNOWN",
+            "positionTicket": 999,
+            "price": {
+              "__decimal__": "1.1"
+            },
+            "profit": {
+              "__decimal__": "100"
+            },
+            "receivedSequence": 99,
+            "recordDigest": "3b0b38193a1cfcf70d894342c2684c732fc79e165d532a43f761aa885e4950d2",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "10",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          },
+          {
+            "intentId": "I102",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 102,
+            "requestedVolume": ".5"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "BIG"
+          },
+          {
+            "direction": "SELL",
+            "positionTicket": 102,
+            "positionVolume": ".5",
+            "role": "SMALL"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "cac69d8a1012af43464b0b02870cb3c5abbdb9cb4e4e9aca3e781afa765c7c99",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          },
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "SELL",
+            "expectedCloseSide": "ASK",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 102,
+            "proofDigest": "9395c91659f0763ab199fced8a4f59177f8d90fd69325d598e4f3ae9ad7b14c6",
+            "proofId": "P102",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          },
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.1"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.1"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 999,
+            "proofDigest": "fd94af63c474e3fb0bd1b710a43ec4ad8352a92b9aa81347b4a57ce33bb8bb8b",
+            "proofId": "P999",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "BIG"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-002",
+      "EXACT_INPUT_SHA256": "5c5e7c00adca2f18b841da673aaf8a63e5bbc2a493c437e7d0d7b322843eefb5",
+      "EXPECTED_R6_CHECK_ID": "R6_DEAL_ROLE_BINDING",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "SMALL",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "1.10000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "38edc7b3fee4566be0f6a8d73ae9778fca139a41448cfd824542cce86ae75d4e",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          },
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D102",
+            "dealTimestamp": 2000,
+            "direction": "SELL",
+            "eventId": "E102",
+            "executionPriceProofId": "P102",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O102",
+            "positionRole": "SMALL",
+            "positionTicket": 102,
+            "price": {
+              "__decimal__": "1.20000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 2,
+            "recordDigest": "86252d9d9384b2bca1245d461d85247240b39ee503a0d099bc617b84cd22dec0",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "0.5"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "10",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          },
+          {
+            "intentId": "I102",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 102,
+            "requestedVolume": ".5"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "BIG"
+          },
+          {
+            "direction": "SELL",
+            "positionTicket": 102,
+            "positionVolume": ".5",
+            "role": "SMALL"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "cac69d8a1012af43464b0b02870cb3c5abbdb9cb4e4e9aca3e781afa765c7c99",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          },
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "SELL",
+            "expectedCloseSide": "ASK",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 102,
+            "proofDigest": "9395c91659f0763ab199fced8a4f59177f8d90fd69325d598e4f3ae9ad7b14c6",
+            "proofId": "P102",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "BIG"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-003",
+      "EXACT_INPUT_SHA256": "1b79e35b6e1c521d32f46909777fac6b37ad011e152289b8d2b331dff88fa3d9",
+      "EXPECTED_R6_CHECK_ID": "R6_TRUSTED_PRICE_DERIVATION",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "BIG",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "99999"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "3f8942728d2733c373f3ff426000ae5016955067795befde6d845f45b0d71252",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          },
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D102",
+            "dealTimestamp": 2000,
+            "direction": "SELL",
+            "eventId": "E102",
+            "executionPriceProofId": "P102",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O102",
+            "positionRole": "SMALL",
+            "positionTicket": 102,
+            "price": {
+              "__decimal__": "1.20000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 2,
+            "recordDigest": "86252d9d9384b2bca1245d461d85247240b39ee503a0d099bc617b84cd22dec0",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "0.5"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "10",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          },
+          {
+            "intentId": "I102",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 102,
+            "requestedVolume": ".5"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "BIG"
+          },
+          {
+            "direction": "SELL",
+            "positionTicket": 102,
+            "positionVolume": ".5",
+            "role": "SMALL"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "99999"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "99999"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "99d74090e4687b7f9fbbd73a12896b87d97aced14416b04f0550266cc06710e1",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          },
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "SELL",
+            "expectedCloseSide": "ASK",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 102,
+            "proofDigest": "9395c91659f0763ab199fced8a4f59177f8d90fd69325d598e4f3ae9ad7b14c6",
+            "proofId": "P102",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "BIG"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-004",
+      "EXACT_INPUT_SHA256": "d608ac0a424cd027024657e633b853588898f2ad0da9ef733f92efa5dd1e7ded",
+      "EXPECTED_R6_CHECK_ID": "R6_PERSISTED_RECORD_REVALIDATION",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "DNEW",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "ENEW",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "1.10000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "3625436d0a58aa561eccb50ff379e52a41d49f39f4caa9b0f3d108f17a77d238",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "0.5"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "10",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [
+            {
+              "__type__": "HSBI_DealEvidenceRecord",
+              "accountLogin": 1,
+              "actionId": "A",
+              "commission": {
+                "__decimal__": "0"
+              },
+              "confirmed": true,
+              "cycleId": "C",
+              "dealId": "D101",
+              "dealTimestamp": 2000,
+              "direction": "BUY",
+              "eventId": "E101",
+              "executionPriceProofId": "P101",
+              "fee": {
+                "__decimal__": "0"
+              },
+              "magic": 7,
+              "netMoney": {
+                "__decimal__": "9"
+              },
+              "orderId": "O101",
+              "positionRole": "WINNER",
+              "positionTicket": 101,
+              "price": {
+                "__decimal__": "1.10000"
+              },
+              "profit": {
+                "__decimal__": "9"
+              },
+              "receivedSequence": 1,
+              "recordDigest": "CORRUPTED",
+              "schemaVersion": 1,
+              "snapshotId": "S",
+              "snapshotVersion": 2,
+              "sourceDigest": "BROKER",
+              "stateRevision": 3,
+              "swap": {
+                "__decimal__": "0"
+              },
+              "symbol": "EURUSD",
+              "transactionId": "TX",
+              "volume": {
+                "__decimal__": "0.5"
+              }
+            }
+          ],
+          "consumedDealIds": [
+            "D101"
+          ],
+          "cumulativeFills": {
+            "101": {
+              "__decimal__": "0.5"
+            }
+          },
+          "dealEventBindings": {
+            "D101": "E101"
+          },
+          "evidenceRevision": 1,
+          "moneyByDeal": {
+            "D101": {
+              "__decimal__": "9"
+            }
+          },
+          "moneyByTicket": {
+            "101": {
+              "__decimal__": "9"
+            }
+          },
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [
+            "E101"
+          ],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "WINNER"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "cac69d8a1012af43464b0b02870cb3c5abbdb9cb4e4e9aca3e781afa765c7c99",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "INITIAL"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-005",
+      "EXACT_INPUT_SHA256": "a950f0925980115a00e55ee9b6392e127bfc0468337271d124f38136d430a622",
+      "EXPECTED_R6_CHECK_ID": "R6_CERTIFICATE_LEDGER_BINDING",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": false,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "ALREADY_COMMITTED",
+      "HISTORICAL_SETTLEMENT_APPLIED": false,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "10",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "commitCertificate": {
+            "__type__": "HSBI_SettlementCommitCertificate",
+            "accountLogin": 1,
+            "actionId": "A",
+            "allocationDigest": "A",
+            "certificateDigest": "a6b6760f21bd5cc8318c2e42a4f2ae6994f49b1bd11f82cbd6ab056c6c3c17d8",
+            "committedSequence": 1,
+            "cycleId": "C",
+            "dealLedgerDigest": "L",
+            "economicProposalDigest": "E",
+            "fsmTransitionId": "FSM",
+            "fullFillProofDigest": "F",
+            "inputStateRevision": 2,
+            "magic": 7,
+            "outputStateRevision": 3,
+            "persistenceDigest": "P",
+            "requiredPositionTickets": [
+              101
+            ],
+            "scenario": "INITIAL",
+            "schemaVersion": 1,
+            "settlementId": "FAKE",
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "symbol": "EURUSD",
+            "transactionId": "TX"
+          },
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": true,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "WINNER"
+          }
+        ],
+        "priceProofs": [],
+        "scenario": "INITIAL"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-006",
+      "EXACT_INPUT_SHA256": "8ec4f8ad26839ae5f3eab9909c0bc875a2e148e1571153bc0cd7751a84d00fc3",
+      "EXPECTED_R6_CHECK_ID": "R6_MONEY_CONSERVATION",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "BIG",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "1.10000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "6777d3357d0f43b8523609a063186265a42ee823f34e9b96b7984c5a04eb755e",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          },
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D102",
+            "dealTimestamp": 2000,
+            "direction": "SELL",
+            "eventId": "E102",
+            "executionPriceProofId": "P102",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O102",
+            "positionRole": "SMALL",
+            "positionTicket": 102,
+            "price": {
+              "__decimal__": "1.20000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 2,
+            "recordDigest": "86252d9d9384b2bca1245d461d85247240b39ee503a0d099bc617b84cd22dec0",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "0.5"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": "1",
+          "dualTail": false,
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": "1",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          },
+          {
+            "intentId": "I102",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 102,
+            "requestedVolume": ".5"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "BIG"
+          },
+          {
+            "direction": "SELL",
+            "positionTicket": 102,
+            "positionVolume": ".5",
+            "role": "SMALL"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "cac69d8a1012af43464b0b02870cb3c5abbdb9cb4e4e9aca3e781afa765c7c99",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          },
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "SELL",
+            "expectedCloseSide": "ASK",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 102,
+            "proofDigest": "9395c91659f0763ab199fced8a4f59177f8d90fd69325d598e4f3ae9ad7b14c6",
+            "proofId": "P102",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "BIG"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-007",
+      "EXACT_INPUT_SHA256": "525a813d53e701bc627137896e658429a327c249d518c32193a5d49484797264",
+      "EXPECTED_R6_CHECK_ID": "R6_INITIAL_POSITIVE_PROFIT_EXCLUDED",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "1.10000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "f18076b73a658d4efec4059de898cf3a3298df53f0a1257bdd31033e96a3e836",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "10",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "WINNER"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "cac69d8a1012af43464b0b02870cb3c5abbdb9cb4e4e9aca3e781afa765c7c99",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "INITIAL"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-008",
+      "EXACT_INPUT_SHA256": "15e8bb208cae92821632d54aa619635d5e56e4041cca991e0437172ef84244ec",
+      "EXPECTED_R6_CHECK_ID": "R6_FINAL_RESERVE_CONSUMPTION",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "SELL",
+            "eventId": "E101",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "FAR",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "1.20000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "ebd33bd64d97ad80de997c85f40b7ef0a955398420479f1825f83163df1a2b66",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "10",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "20",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "SELL",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "FAR"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "SELL",
+            "expectedCloseSide": "ASK",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "418269bbbfdc6a21540134a0d4c542bea7f43d752be9efc2b7f1b9a6646086ae",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "FINAL"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-009",
+      "EXACT_INPUT_SHA256": "21c028738eb404de79958cfa1351195b88a0ddc7e24fc79b852d39026b3940a8",
+      "EXPECTED_R6_CHECK_ID": "R6_PARTIAL_FAR_CALCULATION",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "BIG",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "1.10000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "6777d3357d0f43b8523609a063186265a42ee823f34e9b96b7984c5a04eb755e",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          },
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D102",
+            "dealTimestamp": 2000,
+            "direction": "SELL",
+            "eventId": "E102",
+            "executionPriceProofId": "P102",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O102",
+            "positionRole": "SMALL",
+            "positionTicket": 102,
+            "price": {
+              "__decimal__": "1.20000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 2,
+            "recordDigest": "86252d9d9384b2bca1245d461d85247240b39ee503a0d099bc617b84cd22dec0",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "0.5"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 103,
+          "newFarVolume": ".5",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          },
+          {
+            "intentId": "I102",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 102,
+            "requestedVolume": ".5"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": "1",
+            "role": "BIG"
+          },
+          {
+            "direction": "SELL",
+            "positionTicket": 102,
+            "positionVolume": ".5",
+            "role": "SMALL"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "cac69d8a1012af43464b0b02870cb3c5abbdb9cb4e4e9aca3e781afa765c7c99",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          },
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "SELL",
+            "expectedCloseSide": "ASK",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 102,
+            "proofDigest": "9395c91659f0763ab199fced8a4f59177f8d90fd69325d598e4f3ae9ad7b14c6",
+            "proofId": "P102",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "BIG"
+      }
+    },
+    {
+      "CASE_ID": "FP-R6-010",
+      "EXACT_INPUT_SHA256": "e6a0c9616a5cf5a4cabaef76d4b0d62f8f6ca2318782cadb072a552da4a011ac",
+      "EXPECTED_R6_CHECK_ID": "R6_NEW_FAR_DERIVATION",
+      "FALSE_PASS_REPRODUCED": true,
+      "HISTORICAL_ALLOCATION_APPLIED": true,
+      "HISTORICAL_MODEL": "hsb_2e_reference_model_r4_r5.execute_scenario",
+      "HISTORICAL_REASON": "OK",
+      "HISTORICAL_SETTLEMENT_APPLIED": true,
+      "HISTORICAL_STATUS": "PASS",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotVersion": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "tickSize": ".00001",
+          "transactionId": "TX",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "executionPriceProofId": "P101",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O101",
+            "positionRole": "SMALL",
+            "positionTicket": 101,
+            "price": {
+              "__decimal__": "1.10000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 1,
+            "recordDigest": "13df4898fce7e358c9729cc148f0c18e96f8c99fc74b14308c163215889d1d83",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "0.25"
+            }
+          },
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D102",
+            "dealTimestamp": 2000,
+            "direction": "SELL",
+            "eventId": "E102",
+            "executionPriceProofId": "P102",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O102",
+            "positionRole": "OLD_FAR",
+            "positionTicket": 102,
+            "price": {
+              "__decimal__": "1.20000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 2,
+            "recordDigest": "24ba3996bf900a13b0d80446258ef2a3743bd7a67a8cfdd0147e02a9e47e2b86",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "1"
+            }
+          },
+          {
+            "__type__": "HSBI_DealEvidenceRecord",
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": {
+              "__decimal__": "0"
+            },
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D103",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E103",
+            "executionPriceProofId": "P103",
+            "fee": {
+              "__decimal__": "0"
+            },
+            "magic": 7,
+            "netMoney": {
+              "__decimal__": "9"
+            },
+            "orderId": "O103",
+            "positionRole": "BIG",
+            "positionTicket": 103,
+            "price": {
+              "__decimal__": "1.10000"
+            },
+            "profit": {
+              "__decimal__": "9"
+            },
+            "receivedSequence": 3,
+            "recordDigest": "4ae1aaacd32c646d352200dde563e8379027721fb49098b11eb8f80358c7bf81",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceDigest": "BROKER",
+            "stateRevision": 3,
+            "swap": {
+              "__decimal__": "0"
+            },
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": {
+              "__decimal__": "0.5"
+            }
+          }
+        ],
+        "economicPolicy": {
+          "closeFarShare": ".1",
+          "dualTail": false,
+          "farLossBefore": "10",
+          "farVolumeBefore": "1",
+          "fullCloseProven": true,
+          "newFarTicketSource": 987654,
+          "newFarVolume": ".33",
+          "oldFarRemains": false,
+          "pendingReconciliation": false,
+          "recoveryPLBefore": "1",
+          "reserveBefore": "0",
+          "reserveShare": ".9",
+          "smallReserveShare": ".05"
+        },
+        "intents": [
+          {
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 101,
+            "requestedVolume": ".25"
+          },
+          {
+            "intentId": "I102",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 102,
+            "requestedVolume": "1"
+          },
+          {
+            "intentId": "I103",
+            "intentKind": "FULL_CLOSE",
+            "positionTicket": 103,
+            "requestedVolume": ".5"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementCommitted": false,
+          "settlementRevision": 0
+        },
+        "positions": [
+          {
+            "direction": "BUY",
+            "positionTicket": 101,
+            "positionVolume": ".25",
+            "role": "SMALL"
+          },
+          {
+            "direction": "SELL",
+            "positionTicket": 102,
+            "positionVolume": "1",
+            "role": "OLD_FAR"
+          },
+          {
+            "direction": "BUY",
+            "positionTicket": 103,
+            "positionVolume": ".5",
+            "role": "BIG"
+          }
+        ],
+        "priceProofs": [
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 101,
+            "proofDigest": "cac69d8a1012af43464b0b02870cb3c5abbdb9cb4e4e9aca3e781afa765c7c99",
+            "proofId": "P101",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          },
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "SELL",
+            "expectedCloseSide": "ASK",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.20000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 102,
+            "proofDigest": "9395c91659f0763ab199fced8a4f59177f8d90fd69325d598e4f3ae9ad7b14c6",
+            "proofId": "P102",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          },
+          {
+            "__type__": "HSBI_ExecutionPriceProof",
+            "accountLogin": 1,
+            "actionId": "A",
+            "cycleId": "C",
+            "direction": "BUY",
+            "expectedCloseSide": "BID",
+            "expiresTimestamp": 2200,
+            "magic": 7,
+            "maximumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "minimumAllowedPrice": {
+              "__decimal__": "1.10000"
+            },
+            "policyId": "EXACT_SIDE",
+            "positionTicket": 103,
+            "proofDigest": "9d40eff42864d9ecd73b43d61ab2d35d0a212a3f2753fe4197d69bf2bc151ab2",
+            "proofId": "P103",
+            "proofTimestamp": 1900,
+            "snapshotAsk": {
+              "__decimal__": "1.2"
+            },
+            "snapshotBid": {
+              "__decimal__": "1.1"
+            },
+            "snapshotId": "S",
+            "snapshotVersion": 2,
+            "sourceId": "SNAPSHOT",
+            "stateRevision": 3,
+            "symbol": "EURUSD",
+            "tickSize": {
+              "__decimal__": "0.00001"
+            },
+            "transactionId": "TX"
+          }
+        ],
+        "scenario": "SMALL"
+      }
+    }
+  ]
+}
