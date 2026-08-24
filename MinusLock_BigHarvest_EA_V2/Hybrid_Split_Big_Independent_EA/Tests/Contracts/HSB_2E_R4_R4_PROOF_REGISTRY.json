@@ -1,0 +1,238 @@
+{
+  "proofs": [
+    {
+      "PROOF_ID": "ZERO_VOLUME_SETTLEMENT_BLOCK",
+      "REQUIREMENT_IDS": [
+        "R2-NUMERIC"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_ZERO_POSITION"
+      ],
+      "EXPECTED_PREDICATE": "status == REJECT",
+      "ACTUAL_PREDICATE": "status == REJECT",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "POSITIVE_VOLUME_PROOF",
+      "REQUIREMENT_IDS": [
+        "R2-NUMERIC"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_NEG_POSITION"
+      ],
+      "EXPECTED_PREDICATE": "status == REJECT",
+      "ACTUAL_PREDICATE": "status == REJECT",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "VOLUME_MIN_MAX_PROOF",
+      "REQUIREMENT_IDS": [
+        "R2-VOLUME-GRID"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_ZERO_REQUEST"
+      ],
+      "EXPECTED_PREDICATE": "status == REJECT",
+      "ACTUAL_PREDICATE": "status == REJECT",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "VOLUME_GRID_PROOF",
+      "REQUIREMENT_IDS": [
+        "R2-VOLUME-GRID"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "EXPECTED_PREDICATE": "reason == POSITION_VOLUME_INVALID",
+      "ACTUAL_PREDICATE": "reason == POSITION_VOLUME_INVALID",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "PRICE_POSITIVITY_PROOF",
+      "REQUIREMENT_IDS": [
+        "R2-PRICE-GRID"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_NEG_PRICE"
+      ],
+      "EXPECTED_PREDICATE": "status == REJECT",
+      "ACTUAL_PREDICATE": "status == REJECT",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "PRICE_GRID_PROOF",
+      "REQUIREMENT_IDS": [
+        "R2-PRICE-GRID"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_OFFGRID_PRICE"
+      ],
+      "EXPECTED_PREDICATE": "status == REJECT",
+      "ACTUAL_PREDICATE": "status == REJECT",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "DIRECTIONAL_CLOSE_SIDE_PROOF",
+      "REQUIREMENT_IDS": [
+        "R2-DIRECTION"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_VALID_BIG"
+      ],
+      "EXPECTED_PREDICATE": "expected BUY=Bid SELL=Ask",
+      "ACTUAL_PREDICATE": "expected BUY=Bid SELL=Ask",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "DEAL_CONFIRMED_TYPE_PROOF",
+      "REQUIREMENT_IDS": [
+        "R4-BOOLEAN"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_STRING_BOOL"
+      ],
+      "EXPECTED_PREDICATE": "reason == DEAL_CONFIRMED_TYPE_INVALID",
+      "ACTUAL_PREDICATE": "reason == DEAL_CONFIRMED_TYPE_INVALID",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "REVISION_DOMAIN_PROOF",
+      "REQUIREMENT_IDS": [
+        "R4-BOOLEAN"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_NEG_REVISION"
+      ],
+      "EXPECTED_PREDICATE": "reason == STATE_REVISION_INVALID",
+      "ACTUAL_PREDICATE": "reason == STATE_REVISION_INVALID",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "SNAPSHOT_VERSION_DOMAIN_PROOF",
+      "REQUIREMENT_IDS": [
+        "R3-IDENTITY"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_VALID_BIG"
+      ],
+      "EXPECTED_PREDICATE": "snapshotVersion > 0",
+      "ACTUAL_PREDICATE": "snapshotVersion > 0",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "ONE_POSITION_ONE_INTENT_PROOF",
+      "REQUIREMENT_IDS": [
+        "R4-ONE-INTENT"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_MULTI_INTENT"
+      ],
+      "EXPECTED_PREDICATE": "reason == MULTIPLE_INTENTS_FOR_POSITION",
+      "ACTUAL_PREDICATE": "reason == MULTIPLE_INTENTS_FOR_POSITION",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "DEAL_ID_EXACTLY_ONCE",
+      "REQUIREMENT_IDS": [
+        "R3-DEAL-ONCE"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_DUP_DEAL"
+      ],
+      "EXPECTED_PREDICATE": "status != PASS",
+      "ACTUAL_PREDICATE": "status != PASS",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "EVENT_ID_EXACTLY_ONCE",
+      "REQUIREMENT_IDS": [
+        "R3-EVENT-ONCE"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_DUP_EVENT"
+      ],
+      "EXPECTED_PREDICATE": "status != PASS",
+      "ACTUAL_PREDICATE": "status != PASS",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "DEAL_EVENT_BINDING_BIJECTION",
+      "REQUIREMENT_IDS": [
+        "R4-REGISTRY"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_BAD_BINDING"
+      ],
+      "EXPECTED_PREDICATE": "reason == PERSISTED_BINDING_NOT_BIJECTIVE",
+      "ACTUAL_PREDICATE": "reason == PERSISTED_BINDING_NOT_BIJECTIVE",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "PERSISTED_REGISTRY_SCHEMA",
+      "REQUIREMENT_IDS": [
+        "R4-REGISTRY"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_BAD_REGISTRY_TYPE"
+      ],
+      "EXPECTED_PREDICATE": "reason == PERSISTED_REGISTRY_SCHEMA_INVALID",
+      "ACTUAL_PREDICATE": "reason == PERSISTED_REGISTRY_SCHEMA_INVALID",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "PARTIAL_FILL_LEDGER_PERSISTENCE",
+      "REQUIREMENT_IDS": [
+        "R2-PARTIAL"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_PARTIAL"
+      ],
+      "EXPECTED_PREDICATE": "consumedDealIds nonempty and PARTIAL_EVIDENCE persisted",
+      "ACTUAL_PREDICATE": "consumedDealIds nonempty and PARTIAL_EVIDENCE persisted",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "RESTART_CUMULATIVE_FILL_PROOF",
+      "REQUIREMENT_IDS": [
+        "R2-RESTART"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_PARTIAL"
+      ],
+      "EXPECTED_PREDICATE": "partial\u2192restart\u2192full",
+      "ACTUAL_PREDICATE": "partial\u2192restart\u2192full",
+      "RESULT": "PASS"
+    },
+    {
+      "PROOF_ID": "REPLAY_IDEMPOTENCE",
+      "REQUIREMENT_IDS": [
+        "R4-REPLAY-IDEMPOTENCE"
+      ],
+      "EXECUTED_FUNCTION": "execute_scenario/restart_reconcile",
+      "INPUT_VECTOR_IDS": [
+        "R4_VALID_BIG"
+      ],
+      "EXPECTED_PREDICATE": "second replay no settlement",
+      "ACTUAL_PREDICATE": "second replay no settlement",
+      "RESULT": "PASS"
+    }
+  ]
+}

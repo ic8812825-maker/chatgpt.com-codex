@@ -1,0 +1,1025 @@
+{
+  "PREVIOUS_REQUIREMENTS_REMOVED_ALLOWED": "NO",
+  "requirements": [
+    {
+      "REQUIREMENT_ID": "R2-NUMERIC",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "Числовые домены",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T001"
+      ],
+      "MUTATION_IDS": [
+        "R4M001"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_01.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R2-VOLUME-GRID",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "Volume grid/min/max",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T002"
+      ],
+      "MUTATION_IDS": [
+        "R4M002"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_02.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R2-PRICE-GRID",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "Price positivity/grid",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T003"
+      ],
+      "MUTATION_IDS": [
+        "R4M003"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_03.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R2-DIRECTION",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "Directional close side",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T004"
+      ],
+      "MUTATION_IDS": [
+        "R4M004"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_04.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R2-PARTIAL",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "Partial fill block/persistence",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T005"
+      ],
+      "MUTATION_IDS": [
+        "R4M005"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_05.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R2-CUMULATIVE",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "Cumulative per-ticket fill",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T006"
+      ],
+      "MUTATION_IDS": [
+        "R4M006"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_06.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R2-PERSISTENCE",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "Persistence before mutation",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T007"
+      ],
+      "MUTATION_IDS": [
+        "R4M007"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_07.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R2-RESTART",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "Restart replay",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T008"
+      ],
+      "MUTATION_IDS": [
+        "R4M008"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_08.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R2-DUAL-TAIL",
+      "ORIGIN_STAGE": "R4-R2",
+      "TITLE_RU": "DUAL_TAIL block",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T009"
+      ],
+      "MUTATION_IDS": [
+        "R4M009"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_09.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R3-DEAL-ONCE",
+      "ORIGIN_STAGE": "R4-R3",
+      "TITLE_RU": "Deal exactly once",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T010"
+      ],
+      "MUTATION_IDS": [
+        "R4M010"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_10.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R3-EVENT-ONCE",
+      "ORIGIN_STAGE": "R4-R3",
+      "TITLE_RU": "Event exactly once",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T011"
+      ],
+      "MUTATION_IDS": [
+        "R4M011"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_11.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R3-IDENTITY",
+      "ORIGIN_STAGE": "R4-R3",
+      "TITLE_RU": "Identity chain",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T012"
+      ],
+      "MUTATION_IDS": [
+        "R4M012"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_12.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R3-LEGS",
+      "ORIGIN_STAGE": "R4-R3",
+      "TITLE_RU": "Mandatory legs",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T013"
+      ],
+      "MUTATION_IDS": [
+        "R4M013"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_13.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R3-FULL-CLOSE",
+      "ORIGIN_STAGE": "R4-R3",
+      "TITLE_RU": "Full close authoritative binding",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T014"
+      ],
+      "MUTATION_IDS": [
+        "R4M014"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_14.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R4-BOOLEAN",
+      "ORIGIN_STAGE": "R4-R4",
+      "TITLE_RU": "Strict Boolean",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T015"
+      ],
+      "MUTATION_IDS": [
+        "R4M015"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_15.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R4-REGISTRY",
+      "ORIGIN_STAGE": "R4-R4",
+      "TITLE_RU": "Persisted registry bijection/schema",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T016"
+      ],
+      "MUTATION_IDS": [
+        "R4M016"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_16.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R4-ONE-INTENT",
+      "ORIGIN_STAGE": "R4-R4",
+      "TITLE_RU": "One position one intent",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T017"
+      ],
+      "MUTATION_IDS": [
+        "R4M017"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_17.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "R4-REPLAY-IDEMPOTENCE",
+      "ORIGIN_STAGE": "R4-R4",
+      "TITLE_RU": "Replay idempotence",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T018"
+      ],
+      "MUTATION_IDS": [
+        "R4M018"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_18.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "COMMON-NO-DISPATCH",
+      "ORIGIN_STAGE": "COMMON",
+      "TITLE_RU": "Broker dispatch prohibited",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T019"
+      ],
+      "MUTATION_IDS": [
+        "R4M019"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_19.mqh"
+    },
+    {
+      "REQUIREMENT_ID": "COMMON-NO-TRADING",
+      "ORIGIN_STAGE": "COMMON",
+      "TITLE_RU": "Real trading prohibited",
+      "NORMATIVE_RULE": "fail-closed; property must remain executable and monotonic",
+      "INPUT_FIELDS": [
+        "context",
+        "positions",
+        "intents",
+        "deals",
+        "persistedState"
+      ],
+      "EXPECTED_SUCCESS_CONDITION": "property-specific proof predicate true",
+      "EXPECTED_FAILURE_CONDITION": "property-specific counterexample rejected",
+      "STATUS_CODES": [
+        "PASS",
+        "REJECT",
+        "UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "REASON_CODES": [
+        "OK",
+        "VALIDATION_BLOCKED"
+      ],
+      "REFERENCE_FUNCTIONS": [
+        "execute_scenario"
+      ],
+      "POSITIVE_VECTORS": [
+        "R4_VALID_BIG"
+      ],
+      "NEGATIVE_VECTORS": [
+        "R4_ZERO_POSITION"
+      ],
+      "BOUNDARY_VECTORS": [
+        "R4_OFFGRID_VOLUME"
+      ],
+      "METAMORPHIC_PROPERTIES": [
+        "PERMUTATION"
+      ],
+      "INVARIANT_IDS": [
+        "NUMERIC_DOMAIN"
+      ],
+      "TEST_IDS": [
+        "R4T020"
+      ],
+      "MUTATION_IDS": [
+        "R4M020"
+      ],
+      "EVIDENCE_FILE": "Tests/Evidence/HSB_2E_PREP_R4_R4_PROOF_REGISTRY.json",
+      "FUTURE_OWNER_FILE": "Include/HSB2E/HSBI_R4_20.mqh"
+    }
+  ]
+}

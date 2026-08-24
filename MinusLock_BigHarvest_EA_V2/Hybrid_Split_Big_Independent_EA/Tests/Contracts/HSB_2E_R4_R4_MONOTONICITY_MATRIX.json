@@ -1,0 +1,140 @@
+{
+  "properties": [
+    {
+      "PROPERTY": "POSITIVE_VOLUME",
+      "R4_R2": "required",
+      "R4_R3": "lost",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_POSITIVE_VOLUME"
+    },
+    {
+      "PROPERTY": "VOLUME_MIN_MAX",
+      "R4_R2": "required",
+      "R4_R3": "lost",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_VOLUME_MIN_MAX"
+    },
+    {
+      "PROPERTY": "VOLUME_GRID",
+      "R4_R2": "required",
+      "R4_R3": "lost",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_VOLUME_GRID"
+    },
+    {
+      "PROPERTY": "PRICE_POSITIVE",
+      "R4_R2": "required",
+      "R4_R3": "lost",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_PRICE_POSITIVE"
+    },
+    {
+      "PROPERTY": "TICK_GRID",
+      "R4_R2": "required",
+      "R4_R3": "lost",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_TICK_GRID"
+    },
+    {
+      "PROPERTY": "DIRECTIONAL_CLOSE_SIDE",
+      "R4_R2": "required",
+      "R4_R3": "lost",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_DIRECTIONAL_CLOSE_SIDE"
+    },
+    {
+      "PROPERTY": "PARTIAL_FILL_BLOCK",
+      "R4_R2": "required",
+      "R4_R3": "partial",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_PARTIAL_FILL_BLOCK"
+    },
+    {
+      "PROPERTY": "CUMULATIVE_FILL",
+      "R4_R2": "required",
+      "R4_R3": "partial_restart",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_CUMULATIVE_FILL"
+    },
+    {
+      "PROPERTY": "DEAL_EXACTLY_ONCE",
+      "R4_R2": "insufficient",
+      "R4_R3": "strengthened",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_DEAL_EXACTLY_ONCE"
+    },
+    {
+      "PROPERTY": "EVENT_EXACTLY_ONCE",
+      "R4_R2": "absent",
+      "R4_R3": "added",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_EVENT_EXACTLY_ONCE"
+    },
+    {
+      "PROPERTY": "INTENT_IDENTITY",
+      "R4_R2": "insufficient",
+      "R4_R3": "added",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_INTENT_IDENTITY"
+    },
+    {
+      "PROPERTY": "POSITION_OWNERSHIP",
+      "R4_R2": "insufficient",
+      "R4_R3": "added",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_POSITION_OWNERSHIP"
+    },
+    {
+      "PROPERTY": "MANDATORY_LEGS",
+      "R4_R2": "insufficient",
+      "R4_R3": "added",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_MANDATORY_LEGS"
+    },
+    {
+      "PROPERTY": "FULL_CLOSE_BINDING",
+      "R4_R2": "insufficient",
+      "R4_R3": "partial",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_FULL_CLOSE_BINDING"
+    },
+    {
+      "PROPERTY": "PERSISTENCE_BEFORE_MUTATION",
+      "R4_R2": "required",
+      "R4_R3": "formal",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_PERSISTENCE_BEFORE_MUTATION"
+    },
+    {
+      "PROPERTY": "RESTART_REPLAY",
+      "R4_R2": "required",
+      "R4_R3": "incomplete",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_RESTART_REPLAY"
+    },
+    {
+      "PROPERTY": "DUAL_TAIL_BLOCK",
+      "R4_R2": "required",
+      "R4_R3": "formal",
+      "R4_R4": "required",
+      "REGRESSION_ALLOWED": false,
+      "PROOF_ID": "PROOF_DUAL_TAIL_BLOCK"
+    }
+  ]
+}
