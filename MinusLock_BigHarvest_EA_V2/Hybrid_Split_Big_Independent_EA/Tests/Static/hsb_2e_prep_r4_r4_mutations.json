@@ -1,0 +1,301 @@
+{
+  "mutations": [
+    {
+      "MUTATION_ID": "R4M001",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "ZERO_POSITION",
+      "SEMANTIC_PURPOSE": "zero position",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_primitive_validators_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "if x<lo or x>hi or positive and x<=0:",
+      "AFTER": "if x<0 or x>hi or positive and x<0:",
+      "EXPECTED_CHECK_ID": "ZERO_VOLUME_SETTLEMENT_BLOCK"
+    },
+    {
+      "MUTATION_ID": "R4M002",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "VOLUME_MIN_MAX",
+      "SEMANTIC_PURPOSE": "volume min max",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_primitive_validators_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "x<lo or x>hi",
+      "AFTER": "x<0 or x>hi",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_BELOW_MIN"
+    },
+    {
+      "MUTATION_ID": "R4M003",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "VOLUME_GRID",
+      "SEMANTIC_PURPOSE": "volume grid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_primitive_validators_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "return None if on_grid(x,s) else 'VOLUME_OFF_GRID'",
+      "AFTER": "return None",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_OFFGRID_VOLUME"
+    },
+    {
+      "MUTATION_ID": "R4M004",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "NEGATIVE_PRICE",
+      "SEMANTIC_PURPOSE": "negative price",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_primitive_validators_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "x<=0 or t<=0",
+      "AFTER": "x==0 or t<=0",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_NEG_PRICE"
+    },
+    {
+      "MUTATION_ID": "R4M005",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "PRICE_GRID",
+      "SEMANTIC_PURPOSE": "price grid",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_primitive_validators_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "return None if on_grid(x,t) else 'PRICE_OFF_GRID'",
+      "AFTER": "return None",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_OFFGRID_PRICE"
+    },
+    {
+      "MUTATION_ID": "R4M006",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "CONFIRMED_TRUTHINESS",
+      "SEMANTIC_PURPOSE": "confirmed truthiness",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_primitive_validators_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "type(v) is bool",
+      "AFTER": "bool(v)",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_STRING_BOOL"
+    },
+    {
+      "MUTATION_ID": "R4M007",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "NEGATIVE_REVISION",
+      "SEMANTIC_PURPOSE": "negative revision",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_primitive_validators_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "x>=(1 if positive else 0)",
+      "AFTER": "x>=(-999 if not positive else 1)",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_NEG_REVISION"
+    },
+    {
+      "MUTATION_ID": "R4M008",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "ZERO_SNAPSHOT_VERSION",
+      "SEMANTIC_PURPOSE": "zero snapshot version",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_identity_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "validate_revision(c.get('snapshotVersion'),True)",
+      "AFTER": "validate_revision(c.get('snapshotVersion'),False)",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_ZERO_SNAPSHOT"
+    },
+    {
+      "MUTATION_ID": "R4M009",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "REGISTRY_SCHEMA",
+      "SEMANTIC_PURPOSE": "registry schema",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_identity_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "type(cd) is not list or type(se) is not list or type(b) is not dict",
+      "AFTER": "False",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_BAD_REGISTRY_TYPE"
+    },
+    {
+      "MUTATION_ID": "R4M010",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "REGISTRY_BIJECTION",
+      "SEMANTIC_PURPOSE": "registry bijection",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_identity_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "len(set(b.values()))!=len(b)",
+      "AFTER": "False",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_BAD_BINDING"
+    },
+    {
+      "MUTATION_ID": "R4M011",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "DIRECTIONAL_SIDE",
+      "SEMANTIC_PURPOSE": "directional side",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_identity_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "c['bid'] if direction=='BUY' else c['ask'] if direction=='SELL'",
+      "AFTER": "c['ask'] if direction=='BUY' else c['bid'] if direction=='SELL'",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_VALID_BIG"
+    },
+    {
+      "MUTATION_ID": "R4M012",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "FULL_CLOSE_BINDING",
+      "SEMANTIC_PURPOSE": "full close binding",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_identity_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "i.get('intentKind')=='FULL_CLOSE' and D(i['requestedVolume'])!=D(p['positionVolume'])",
+      "AFTER": "False",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_VOLUME_MISMATCH"
+    },
+    {
+      "MUTATION_ID": "R4M013",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "MANDATORY_BIG",
+      "SEMANTIC_PURPOSE": "mandatory big",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "'BIG':{'BIG','SMALL'}",
+      "AFTER": "'BIG':{'BIG'}",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_VALID_BIG"
+    },
+    {
+      "MUTATION_ID": "R4M014",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "ROLE_COMPLETENESS",
+      "SEMANTIC_PURPOSE": "role completeness",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "if set(roles)!=req:",
+      "AFTER": "if False:",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_MISSING_SMALL"
+    },
+    {
+      "MUTATION_ID": "R4M015",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "DUPLICATE_INTENT_TICKET",
+      "SEMANTIC_PURPOSE": "duplicate intent ticket",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "if len(itickets)!=len(set(itickets)):",
+      "AFTER": "if False:",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_MULTI_INTENT"
+    },
+    {
+      "MUTATION_ID": "R4M016",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "EXECUTION_PRICE_WINDOW",
+      "SEMANTIC_PURPOSE": "disable execution price window proof",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "if D(d['price'])!=D(expected) and inp.get('executionPriceWindowProven') is not True:",
+      "AFTER": "if False:",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_SLIPPAGE_UNPROVEN"
+    },
+    {
+      "MUTATION_ID": "R4M017",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "DUAL_TAIL",
+      "SEMANTIC_PURPOSE": "dual tail",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "if inp.get('dualTail') is True:",
+      "AFTER": "if False:",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_DUAL_TAIL"
+    },
+    {
+      "MUTATION_ID": "R4M018",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "DEAL_REUSE_RESTART",
+      "SEMANTIC_PURPOSE": "deal reuse restart",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "if did in out['consumedDealIds']:",
+      "AFTER": "if False:",
+      "EXPECTED_CHECK_ID": "RESTART_EXACTLY_ONCE"
+    },
+    {
+      "MUTATION_ID": "R4M019",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "EVENT_REUSE_RESTART",
+      "SEMANTIC_PURPOSE": "event reuse restart",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "if eid in out['seenEventIds']:",
+      "AFTER": "if False:",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_DUP_EVENT"
+    },
+    {
+      "MUTATION_ID": "R4M020",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "PARTIAL_DEAL_PERSISTENCE",
+      "SEMANTIC_PURPOSE": "partial deal persistence",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "out['consumedDealIds'].append(did)",
+      "AFTER": "None",
+      "EXPECTED_CHECK_ID": "PARTIAL_FILL_LEDGER_PERSISTENCE"
+    },
+    {
+      "MUTATION_ID": "R4M021",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "PARTIAL_EVENT_PERSISTENCE",
+      "SEMANTIC_PURPOSE": "partial event persistence",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "out['seenEventIds'].append(eid)",
+      "AFTER": "None",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_VALID_BIG"
+    },
+    {
+      "MUTATION_ID": "R4M022",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "CUMULATIVE_PERSISTENCE",
+      "SEMANTIC_PURPOSE": "cumulative persistence",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "out['confirmedVolumeByTicket'][t]=D(out['confirmedVolumeByTicket'].get(t,'0'))+D(d['volume'])",
+      "AFTER": "out['confirmedVolumeByTicket'][t]=D(d['volume'])",
+      "EXPECTED_CHECK_ID": "RESTART_CUMULATIVE_FILL_PROOF"
+    },
+    {
+      "MUTATION_ID": "R4M023",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "SETTLEMENT_WITHOUT_DEALS",
+      "SEMANTIC_PURPOSE": "settlement without deals",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "fill='FULL_FILL' if confirmed==requested",
+      "AFTER": "fill='FULL_FILL' if confirmed==0 or confirmed==requested",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_NO_DEAL_ONE_LEG"
+    },
+    {
+      "MUTATION_ID": "R4M024",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "PER_TICKET_AGGREGATION",
+      "SEMANTIC_PURPOSE": "per ticket aggregation",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "for p in ps:\n  t=str(p['positionTicket']);i=intents[p['positionTicket']]",
+      "AFTER": "for p in ps:\n  t='ALL';i=intents[p['positionTicket']]",
+      "EXPECTED_CHECK_ID": "VECTOR_R4_VALID_BIG"
+    },
+    {
+      "MUTATION_ID": "R4M025",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "PERSISTENCE_ORDER",
+      "SEMANTIC_PURPOSE": "persistence order",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_reference_model_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "PERSIST_ORDER=['PARTIAL_EVIDENCE','DEAL_EVENT_REGISTRY','SETTLEMENT_DECISION','STATE_REVISION','FSM_COMMIT']",
+      "AFTER": "PERSIST_ORDER=['FSM_COMMIT','PARTIAL_EVIDENCE','DEAL_EVENT_REGISTRY','SETTLEMENT_DECISION','STATE_REVISION']",
+      "EXPECTED_CHECK_ID": "INV_PERSISTENCE_ORDER_R4_VALID_BIG"
+    },
+    {
+      "MUTATION_ID": "R4M026",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "UNKNOWN_INVARIANT",
+      "SEMANTIC_PURPOSE": "unknown invariant",
+      "TARGET_FILE": "Tests/Reference/hsb_2e_invariants_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "return {'RESULT':'FAIL','REASON':'UNKNOWN_INVARIANT'}",
+      "AFTER": "return {'RESULT':'PASS','REASON':'OK'}",
+      "EXPECTED_CHECK_ID": "UNKNOWN_INVARIANT_FAIL_CLOSED"
+    },
+    {
+      "MUTATION_ID": "R4M027",
+      "TYPE": "SEMANTIC",
+      "CATEGORY": "EXACT_PROOF",
+      "SEMANTIC_PURPOSE": "exact proof",
+      "TARGET_FILE": "Tests/Static/verify_hsb_2e_prep_r4_r4.py",
+      "OPERATION": "REPLACE",
+      "BEFORE": "actual['R4_ZERO_POSITION']['reason']=='POSITION_VOLUME_INVALID'",
+      "AFTER": "any(x['ACTUAL']['status']=='PASS' for x in vres)",
+      "EXPECTED_CHECK_ID": "EXACT_PROOF_ANY_PASS_ABSENT"
+    }
+  ]
+}
