@@ -1,0 +1,694 @@
+{
+  "requirements": [
+    {
+      "boundaryVectors": [
+        "R5_NUMERIC_DOMAIN_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_NUMERIC_DOMAIN_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_NumericDomain.mqh",
+      "invariantIds": [
+        "NUMERIC_DOMAIN"
+      ],
+      "negativeVectors": [
+        "R5_NUMERIC_DOMAIN_NEG"
+      ],
+      "positiveVectors": [
+        "R5_NUMERIC_DOMAIN_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(NUMERIC_DOMAIN)"
+      ],
+      "requirementId": "R5-01-NUMERIC_DOMAIN",
+      "semanticMutationIds": [
+        "R5M001"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_VOLUME_GRID_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_VOLUME_GRID_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_VolumeGrid.mqh",
+      "invariantIds": [
+        "VOLUME_GRID"
+      ],
+      "negativeVectors": [
+        "R5_VOLUME_GRID_NEG"
+      ],
+      "positiveVectors": [
+        "R5_VOLUME_GRID_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(VOLUME_GRID)"
+      ],
+      "requirementId": "R5-02-VOLUME_GRID",
+      "semanticMutationIds": [
+        "R5M002"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_PRICE_GRID_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_PRICE_GRID_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_PriceGrid.mqh",
+      "invariantIds": [
+        "PRICE_GRID"
+      ],
+      "negativeVectors": [
+        "R5_PRICE_GRID_NEG"
+      ],
+      "positiveVectors": [
+        "R5_PRICE_GRID_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(PRICE_GRID)"
+      ],
+      "requirementId": "R5-03-PRICE_GRID",
+      "semanticMutationIds": [
+        "R5M003"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_EXECUTION_PRICE_PROOF_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_EXECUTION_PRICE_PROOF_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_ExecutionPriceProof.mqh",
+      "invariantIds": [
+        "EXECUTION_PRICE_PROOF"
+      ],
+      "negativeVectors": [
+        "R5_EXECUTION_PRICE_PROOF_NEG"
+      ],
+      "positiveVectors": [
+        "R5_EXECUTION_PRICE_PROOF_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(EXECUTION_PRICE_PROOF)"
+      ],
+      "requirementId": "R5-04-EXECUTION_PRICE_PROOF",
+      "semanticMutationIds": [
+        "R5M004"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_BOOLEAN_TYPE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_BOOLEAN_TYPE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_BooleanType.mqh",
+      "invariantIds": [
+        "BOOLEAN_TYPE"
+      ],
+      "negativeVectors": [
+        "R5_BOOLEAN_TYPE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_BOOLEAN_TYPE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(BOOLEAN_TYPE)"
+      ],
+      "requirementId": "R5-05-BOOLEAN_TYPE",
+      "semanticMutationIds": [
+        "R5M005"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_IDENTITY_CHAIN_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_IDENTITY_CHAIN_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_IdentityChain.mqh",
+      "invariantIds": [
+        "IDENTITY_CHAIN"
+      ],
+      "negativeVectors": [
+        "R5_IDENTITY_CHAIN_NEG"
+      ],
+      "positiveVectors": [
+        "R5_IDENTITY_CHAIN_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(IDENTITY_CHAIN)"
+      ],
+      "requirementId": "R5-06-IDENTITY_CHAIN",
+      "semanticMutationIds": [
+        "R5M006"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_ONE_POSITION_ONE_INTENT_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_ONE_POSITION_ONE_INTENT_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_OnePositionOneIntent.mqh",
+      "invariantIds": [
+        "ONE_POSITION_ONE_INTENT"
+      ],
+      "negativeVectors": [
+        "R5_ONE_POSITION_ONE_INTENT_NEG"
+      ],
+      "positiveVectors": [
+        "R5_ONE_POSITION_ONE_INTENT_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(ONE_POSITION_ONE_INTENT)"
+      ],
+      "requirementId": "R5-07-ONE_POSITION_ONE_INTENT",
+      "semanticMutationIds": [
+        "R5M007"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_MANDATORY_LEGS_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_MANDATORY_LEGS_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_MandatoryLegs.mqh",
+      "invariantIds": [
+        "MANDATORY_LEGS"
+      ],
+      "negativeVectors": [
+        "R5_MANDATORY_LEGS_NEG"
+      ],
+      "positiveVectors": [
+        "R5_MANDATORY_LEGS_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(MANDATORY_LEGS)"
+      ],
+      "requirementId": "R5-08-MANDATORY_LEGS",
+      "semanticMutationIds": [
+        "R5M008"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_DEAL_EXACTLY_ONCE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_DEAL_EXACTLY_ONCE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_DealExactlyOnce.mqh",
+      "invariantIds": [
+        "DEAL_EXACTLY_ONCE"
+      ],
+      "negativeVectors": [
+        "R5_DEAL_EXACTLY_ONCE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_DEAL_EXACTLY_ONCE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(DEAL_EXACTLY_ONCE)"
+      ],
+      "requirementId": "R5-09-DEAL_EXACTLY_ONCE",
+      "semanticMutationIds": [
+        "R5M009"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_EVENT_EXACTLY_ONCE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_EVENT_EXACTLY_ONCE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_EventExactlyOnce.mqh",
+      "invariantIds": [
+        "EVENT_EXACTLY_ONCE"
+      ],
+      "negativeVectors": [
+        "R5_EVENT_EXACTLY_ONCE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_EVENT_EXACTLY_ONCE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(EVENT_EXACTLY_ONCE)"
+      ],
+      "requirementId": "R5-10-EVENT_EXACTLY_ONCE",
+      "semanticMutationIds": [
+        "R5M010"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_SOURCE_RECORD_DIGEST_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_SOURCE_RECORD_DIGEST_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_SourceRecordDigest.mqh",
+      "invariantIds": [
+        "SOURCE_RECORD_DIGEST"
+      ],
+      "negativeVectors": [
+        "R5_SOURCE_RECORD_DIGEST_NEG"
+      ],
+      "positiveVectors": [
+        "R5_SOURCE_RECORD_DIGEST_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(SOURCE_RECORD_DIGEST)"
+      ],
+      "requirementId": "R5-11-SOURCE_RECORD_DIGEST",
+      "semanticMutationIds": [
+        "R5M011"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_PERSISTED_VOLUME_PROVENANCE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_PERSISTED_VOLUME_PROVENANCE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_PersistedVolumeProvenance.mqh",
+      "invariantIds": [
+        "PERSISTED_VOLUME_PROVENANCE"
+      ],
+      "negativeVectors": [
+        "R5_PERSISTED_VOLUME_PROVENANCE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_PERSISTED_VOLUME_PROVENANCE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(PERSISTED_VOLUME_PROVENANCE)"
+      ],
+      "requirementId": "R5-12-PERSISTED_VOLUME_PROVENANCE",
+      "semanticMutationIds": [
+        "R5M012"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_PERSISTED_MONEY_PROVENANCE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_PERSISTED_MONEY_PROVENANCE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_PersistedMoneyProvenance.mqh",
+      "invariantIds": [
+        "PERSISTED_MONEY_PROVENANCE"
+      ],
+      "negativeVectors": [
+        "R5_PERSISTED_MONEY_PROVENANCE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_PERSISTED_MONEY_PROVENANCE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(PERSISTED_MONEY_PROVENANCE)"
+      ],
+      "requirementId": "R5-13-PERSISTED_MONEY_PROVENANCE",
+      "semanticMutationIds": [
+        "R5M013"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_BATCH_ATOMICITY_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_BATCH_ATOMICITY_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_BatchAtomicity.mqh",
+      "invariantIds": [
+        "BATCH_ATOMICITY"
+      ],
+      "negativeVectors": [
+        "R5_BATCH_ATOMICITY_NEG"
+      ],
+      "positiveVectors": [
+        "R5_BATCH_ATOMICITY_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(BATCH_ATOMICITY)"
+      ],
+      "requirementId": "R5-14-BATCH_ATOMICITY",
+      "semanticMutationIds": [
+        "R5M014"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_PARTIAL_PERSISTENCE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_PARTIAL_PERSISTENCE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_PartialPersistence.mqh",
+      "invariantIds": [
+        "PARTIAL_PERSISTENCE"
+      ],
+      "negativeVectors": [
+        "R5_PARTIAL_PERSISTENCE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_PARTIAL_PERSISTENCE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(PARTIAL_PERSISTENCE)"
+      ],
+      "requirementId": "R5-15-PARTIAL_PERSISTENCE",
+      "semanticMutationIds": [
+        "R5M015"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_RESTART_REPLAY_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_RESTART_REPLAY_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_RestartReplay.mqh",
+      "invariantIds": [
+        "RESTART_REPLAY"
+      ],
+      "negativeVectors": [
+        "R5_RESTART_REPLAY_NEG"
+      ],
+      "positiveVectors": [
+        "R5_RESTART_REPLAY_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(RESTART_REPLAY)"
+      ],
+      "requirementId": "R5-16-RESTART_REPLAY",
+      "semanticMutationIds": [
+        "R5M016"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_COMMIT_CERTIFICATE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_COMMIT_CERTIFICATE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_CommitCertificate.mqh",
+      "invariantIds": [
+        "COMMIT_CERTIFICATE"
+      ],
+      "negativeVectors": [
+        "R5_COMMIT_CERTIFICATE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_COMMIT_CERTIFICATE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(COMMIT_CERTIFICATE)"
+      ],
+      "requirementId": "R5-17-COMMIT_CERTIFICATE",
+      "semanticMutationIds": [
+        "R5M017"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_INITIAL_NET_PROFIT_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_INITIAL_NET_PROFIT_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_InitialNetProfit.mqh",
+      "invariantIds": [
+        "INITIAL_NET_PROFIT"
+      ],
+      "negativeVectors": [
+        "R5_INITIAL_NET_PROFIT_NEG"
+      ],
+      "positiveVectors": [
+        "R5_INITIAL_NET_PROFIT_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(INITIAL_NET_PROFIT)"
+      ],
+      "requirementId": "R5-18-INITIAL_NET_PROFIT",
+      "semanticMutationIds": [
+        "R5M018"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_BIG_ALLOCATION_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_BIG_ALLOCATION_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_BigAllocation.mqh",
+      "invariantIds": [
+        "BIG_ALLOCATION"
+      ],
+      "negativeVectors": [
+        "R5_BIG_ALLOCATION_NEG"
+      ],
+      "positiveVectors": [
+        "R5_BIG_ALLOCATION_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(BIG_ALLOCATION)"
+      ],
+      "requirementId": "R5-19-BIG_ALLOCATION",
+      "semanticMutationIds": [
+        "R5M019"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_SMALL_ALLOCATION_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_SMALL_ALLOCATION_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_SmallAllocation.mqh",
+      "invariantIds": [
+        "SMALL_ALLOCATION"
+      ],
+      "negativeVectors": [
+        "R5_SMALL_ALLOCATION_NEG"
+      ],
+      "positiveVectors": [
+        "R5_SMALL_ALLOCATION_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(SMALL_ALLOCATION)"
+      ],
+      "requirementId": "R5-20-SMALL_ALLOCATION",
+      "semanticMutationIds": [
+        "R5M020"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_FINAL_FULL_CLOSE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_FINAL_FULL_CLOSE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_FinalFullClose.mqh",
+      "invariantIds": [
+        "FINAL_FULL_CLOSE"
+      ],
+      "negativeVectors": [
+        "R5_FINAL_FULL_CLOSE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_FINAL_FULL_CLOSE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(FINAL_FULL_CLOSE)"
+      ],
+      "requirementId": "R5-21-FINAL_FULL_CLOSE",
+      "semanticMutationIds": [
+        "R5M021"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_RECOVERY_PL_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_RECOVERY_PL_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_RecoveryPl.mqh",
+      "invariantIds": [
+        "RECOVERY_PL"
+      ],
+      "negativeVectors": [
+        "R5_RECOVERY_PL_NEG"
+      ],
+      "positiveVectors": [
+        "R5_RECOVERY_PL_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(RECOVERY_PL)"
+      ],
+      "requirementId": "R5-22-RECOVERY_PL",
+      "semanticMutationIds": [
+        "R5M022"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_RESERVE_COVERAGE_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_RESERVE_COVERAGE_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_ReserveCoverage.mqh",
+      "invariantIds": [
+        "RESERVE_COVERAGE"
+      ],
+      "negativeVectors": [
+        "R5_RESERVE_COVERAGE_NEG"
+      ],
+      "positiveVectors": [
+        "R5_RESERVE_COVERAGE_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(RESERVE_COVERAGE)"
+      ],
+      "requirementId": "R5-23-RESERVE_COVERAGE",
+      "semanticMutationIds": [
+        "R5M023"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_RESERVE_NOT_USED_FOR_PARTIAL_FAR_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_RESERVE_NOT_USED_FOR_PARTIAL_FAR_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_ReserveNotUsedForPartialFar.mqh",
+      "invariantIds": [
+        "RESERVE_NOT_USED_FOR_PARTIAL_FAR"
+      ],
+      "negativeVectors": [
+        "R5_RESERVE_NOT_USED_FOR_PARTIAL_FAR_NEG"
+      ],
+      "positiveVectors": [
+        "R5_RESERVE_NOT_USED_FOR_PARTIAL_FAR_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(RESERVE_NOT_USED_FOR_PARTIAL_FAR)"
+      ],
+      "requirementId": "R5-24-RESERVE_NOT_USED_FOR_PARTIAL_FAR",
+      "semanticMutationIds": [
+        "R5M024"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_MONEY_CONSERVATION_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_MONEY_CONSERVATION_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_MoneyConservation.mqh",
+      "invariantIds": [
+        "MONEY_CONSERVATION"
+      ],
+      "negativeVectors": [
+        "R5_MONEY_CONSERVATION_NEG"
+      ],
+      "positiveVectors": [
+        "R5_MONEY_CONSERVATION_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(MONEY_CONSERVATION)"
+      ],
+      "requirementId": "R5-25-MONEY_CONSERVATION",
+      "semanticMutationIds": [
+        "R5M025"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_VOLUME_CONSERVATION_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_VOLUME_CONSERVATION_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_VolumeConservation.mqh",
+      "invariantIds": [
+        "VOLUME_CONSERVATION"
+      ],
+      "negativeVectors": [
+        "R5_VOLUME_CONSERVATION_NEG"
+      ],
+      "positiveVectors": [
+        "R5_VOLUME_CONSERVATION_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(VOLUME_CONSERVATION)"
+      ],
+      "requirementId": "R5-26-VOLUME_CONSERVATION",
+      "semanticMutationIds": [
+        "R5M026"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_STATE_REVISION_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_STATE_REVISION_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_StateRevision.mqh",
+      "invariantIds": [
+        "STATE_REVISION"
+      ],
+      "negativeVectors": [
+        "R5_STATE_REVISION_NEG"
+      ],
+      "positiveVectors": [
+        "R5_STATE_REVISION_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(STATE_REVISION)"
+      ],
+      "requirementId": "R5-27-STATE_REVISION",
+      "semanticMutationIds": [
+        "R5M001"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_PERSISTENCE_ORDER_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_PERSISTENCE_ORDER_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_PersistenceOrder.mqh",
+      "invariantIds": [
+        "PERSISTENCE_ORDER"
+      ],
+      "negativeVectors": [
+        "R5_PERSISTENCE_ORDER_NEG"
+      ],
+      "positiveVectors": [
+        "R5_PERSISTENCE_ORDER_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(PERSISTENCE_ORDER)"
+      ],
+      "requirementId": "R5-28-PERSISTENCE_ORDER",
+      "semanticMutationIds": [
+        "R5M002"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_DUAL_TAIL_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_DUAL_TAIL_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_DualTail.mqh",
+      "invariantIds": [
+        "DUAL_TAIL"
+      ],
+      "negativeVectors": [
+        "R5_DUAL_TAIL_NEG"
+      ],
+      "positiveVectors": [
+        "R5_DUAL_TAIL_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(DUAL_TAIL)"
+      ],
+      "requirementId": "R5-29-DUAL_TAIL",
+      "semanticMutationIds": [
+        "R5M003"
+      ]
+    },
+    {
+      "boundaryVectors": [
+        "R5_DETERMINISTIC_DIGEST_BOUNDARY"
+      ],
+      "evidence": "HSB_2E_PREP_R4_R5_DETERMINISTIC_DIGEST_RESULT",
+      "futureOwner": "Include/HSB2E/HSBI_DeterministicDigest.mqh",
+      "invariantIds": [
+        "DETERMINISTIC_DIGEST"
+      ],
+      "negativeVectors": [
+        "R5_DETERMINISTIC_DIGEST_NEG"
+      ],
+      "positiveVectors": [
+        "R5_DETERMINISTIC_DIGEST_POS"
+      ],
+      "proofPredicates": [
+        "evaluate(DETERMINISTIC_DIGEST)"
+      ],
+      "requirementId": "R5-30-DETERMINISTIC_DIGEST",
+      "semanticMutationIds": [
+        "R5M004"
+      ]
+    }
+  ]
+}

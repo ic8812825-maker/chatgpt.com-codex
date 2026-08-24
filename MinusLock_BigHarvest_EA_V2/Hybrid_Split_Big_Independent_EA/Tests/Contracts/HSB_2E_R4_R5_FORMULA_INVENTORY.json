@@ -1,0 +1,59 @@
+{
+  "FORMULA_CONFLICTS": 0,
+  "formulas": [
+    {
+      "FORMULA_ID": "DEAL_NET_ACTUAL",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_provenance_model_r4_r5.py",
+      "SOURCE_FUNCTION": "validate_record",
+      "STATUS": "ADAPTED_WITH_PROOF"
+    },
+    {
+      "FORMULA_ID": "DERIVED_VOLUME_BY_TICKET",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_provenance_model_r4_r5.py",
+      "SOURCE_FUNCTION": "derive",
+      "STATUS": "ADAPTED_WITH_PROOF"
+    },
+    {
+      "FORMULA_ID": "DERIVED_MONEY_BY_TICKET",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_provenance_model_r4_r5.py",
+      "SOURCE_FUNCTION": "derive",
+      "STATUS": "ADAPTED_WITH_PROOF"
+    },
+    {
+      "FORMULA_ID": "BIG_SMALL_NET",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_economic_model_r4_r5.py",
+      "SOURCE_FUNCTION": "build_economic_proposal",
+      "STATUS": "ADAPTED_WITH_PROOF"
+    },
+    {
+      "FORMULA_ID": "CLOSE_FAR_BUDGET",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_economic_model_r4_r5.py",
+      "SOURCE_FUNCTION": "build_economic_proposal",
+      "STATUS": "REUSED_AS_IS"
+    },
+    {
+      "FORMULA_ID": "RESERVE_ADDITION",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_economic_model_r4_r5.py",
+      "SOURCE_FUNCTION": "build_economic_proposal",
+      "STATUS": "REUSED_AS_IS"
+    },
+    {
+      "FORMULA_ID": "INITIAL_NET",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_economic_model_r4_r5.py",
+      "SOURCE_FUNCTION": "build_economic_proposal",
+      "STATUS": "ADAPTED_WITH_PROOF"
+    },
+    {
+      "FORMULA_ID": "RECOVERY_PL",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_economic_model_r4_r5.py",
+      "SOURCE_FUNCTION": "build_economic_proposal",
+      "STATUS": "REUSED_AS_IS"
+    },
+    {
+      "FORMULA_ID": "NEW_FAR_COMPRESSION",
+      "SOURCE_FILE": "Tests/Reference/hsb_2e_economic_model_r4_r5.py",
+      "SOURCE_FUNCTION": "build_economic_proposal",
+      "STATUS": "REUSED_AS_IS"
+    }
+  ]
+}
