@@ -7,7 +7,7 @@ def run_json(root,script):
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main(root):
  root=Path(root).resolve();sys.path.insert(0,str(root/'Tests/Reference'));ev=root/'Tests/Evidence';ev.mkdir(exist_ok=True)
- verifier=subprocess.run([sys.executable,str(root/'Tests/Static/verify_hsb_2e_prep_r4_r6.py'),'--root',str(root)],capture_output=True,text=True,check=True)
+ verifier=subprocess.run([sys.executable,str(root/'Tests/Static/verify_hsb_2e_prep_r4_r6.py'),'--root',str(root),'--mutation-fixture'],capture_output=True,text=True,check=True)
  payloads={'CLEAN_RESULT':{'stdout':verifier.stdout,'exitCode':0},'FALSE_PASS_REPRODUCTION':run_json(root,'run_hsb_2e_r4_r6_false_passes.py'),'EXACT_HISTORICAL_FIXTURES':run_json(root,'run_hsb_2e_r4_r6_exact_false_passes.py'),'CROSS_VERSION_RESULTS':run_json(root,'run_hsb_2e_r4_r6_cross_version.py'),'INVARIANT_RESULTS':{'checks':__import__('hsb_2e_invariants_r4_r6').run_checks()},'MUTATION_RESULTS':run_json(root,'run_hsb_2e_r4_r6_source_mutations.py'),'ECONOMIC_CONSERVATION':run_json(root,'run_hsb_2e_r4_r6_economic.py'),'PERSISTED_PROVENANCE':run_json(root,'run_hsb_2e_r4_r6_provenance.py')}
  payloads['ADAPTER_COVERAGE']={k:payloads['CROSS_VERSION_RESULTS'][k] for k in ('HISTORICAL_VECTORS_REQUIRED','HISTORICAL_VECTORS_ADAPTED_TO_R6','HISTORICAL_VECTORS_EXECUTED_ON_R6','HISTORICAL_MODELS_USED_AS_TEST_TARGET')};payloads['MUTATION_CATALOG']=json.loads((root/'Tests/Static/hsb_2e_r4_r6_source_mutations.json').read_text());payloads['CERTIFICATE_BINDING']={k:v for k,v in payloads['INVARIANT_RESULTS']['checks'].items() if 'CERTIFICATE' in k}
  for name in EVIDENCE:(ev/f'HSB_2E_PREP_R4_R6_{name}.json').write_text(json.dumps(payloads[name],indent=2,sort_keys=True,default=str)+'\n')
