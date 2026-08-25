@@ -1,0 +1,211 @@
+{
+  "cases": [
+    {
+      "ACTUAL_R4_R8_OUTCOME": "LEGACY_EXECUTION",
+      "CASE_ID": "FP-R9R2-001",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "sourceVersion": "R4_R2"
+      },
+      "INPUT_SHA256": "1b0d55188c46eace36151bad1fb1d1fe6f6dbc805c1b8d945ccc40291f3b408c",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_NO_LEGACY_EXECUTION",
+      "ROOT_CAUSE": "R8 _legacy_result imports legacy execute",
+      "TARGET": "cross-version"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "REJECT/UNKNOWN_OPERATION",
+      "CASE_ID": "FP-R9R2-002",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "operation": "INITIAL",
+        "schemaVersion": 8
+      },
+      "INPUT_SHA256": "6782334d584594f67cca98b547d053949ee04849a9b3ea3e4a6f7fa738ef19b6",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_NATIVE_INITIAL",
+      "ROOT_CAUSE": "native operation absent",
+      "TARGET": "native"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "REJECT/UNKNOWN_OPERATION",
+      "CASE_ID": "FP-R9R2-003",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "operation": "BIG",
+        "schemaVersion": 8
+      },
+      "INPUT_SHA256": "26559b25b1a92ce5f444ab5df1f167868e300b2e3a83beb82aef9d474b28bedb",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_NATIVE_BIG",
+      "ROOT_CAUSE": "native operation absent",
+      "TARGET": "native"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "REJECT/UNKNOWN_OPERATION",
+      "CASE_ID": "FP-R9R2-004",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "operation": "SMALL",
+        "schemaVersion": 8
+      },
+      "INPUT_SHA256": "0f323e9ad513cec11528bcff6df759e7808b3c7d5377af5c8634556674a93dc1",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_NATIVE_SMALL",
+      "ROOT_CAUSE": "native operation absent",
+      "TARGET": "native"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "REJECT/UNKNOWN_OPERATION",
+      "CASE_ID": "FP-R9R2-005",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "operation": "FINAL",
+        "schemaVersion": 8
+      },
+      "INPUT_SHA256": "4454d7a1f4b06b2f66886bd6ab0bfc7cb75ead49ad4243b2d1affdf78470b3a8",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_NATIVE_FINAL",
+      "ROOT_CAUSE": "native operation absent",
+      "TARGET": "native"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "ValueError/UNSUPPORTED_SOURCE_VERSION",
+      "CASE_ID": "FP-R9R2-006",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "source_version": "R4_R8"
+      },
+      "INPUT_SHA256": "27a4667731d79cde300f1037b99e939c6ed94aeb39dcdfb8be4c9c409e851781",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_TYPED_FAIL_CLOSED",
+      "ROOT_CAUSE": "typed native path routed to legacy selector",
+      "TARGET": "typed-input"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS/ALREADY_COMMITTED",
+      "CASE_ID": "FP-R9R2-007",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "mutuallyForged": "broker"
+      },
+      "INPUT_SHA256": "1502983ba5a6194702bfa32f8a7d4d811aa161a4e1339322d00077b965e4d424",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_CERT_BROKER_PROVENANCE",
+      "ROOT_CAUSE": "caller supplied duplicate source object",
+      "TARGET": "certificate"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS/ALREADY_COMMITTED",
+      "CASE_ID": "FP-R9R2-008",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "mutuallyForged": "economic"
+      },
+      "INPUT_SHA256": "7dcd917427f39d4640688a68aca85c296dd02ca38ae08e4288dd5df963c49ae0",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_CERT_ECONOMIC_PROVENANCE",
+      "ROOT_CAUSE": "caller supplied duplicate source object",
+      "TARGET": "certificate"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS/ALREADY_COMMITTED",
+      "CASE_ID": "FP-R9R2-009",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "mutuallyForged": "allocation"
+      },
+      "INPUT_SHA256": "fc59db1418f04ffbef411df37f56913c09bd75c19df1e0f51ed84e8c8f12877c",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_CERT_ALLOCATION_PROVENANCE",
+      "ROOT_CAUSE": "caller supplied duplicate source object",
+      "TARGET": "certificate"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS/ALREADY_COMMITTED",
+      "CASE_ID": "FP-R9R2-010",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "mutuallyForged": "persistence"
+      },
+      "INPUT_SHA256": "740dbb2040ff0782ddf125ce1fa085e268fbb32d49d05cab945dd8e65f974a1b",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_CERT_PERSISTENCE_PROVENANCE",
+      "ROOT_CAUSE": "caller supplied duplicate source object",
+      "TARGET": "certificate"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS/OK",
+      "CASE_ID": "FP-R9R2-011",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "timestamps": null
+      },
+      "INPUT_SHA256": "5d8ee4ffa25001c96a4edbbe36348e1409820cf36dd300e4c23f249f194ddccf",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_TIME_REQUIRED",
+      "ROOT_CAUSE": "timestamp fields absent",
+      "TARGET": "price"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS/OK",
+      "CASE_ID": "FP-R9R2-012",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "snapshotTimestamp": -999999999,
+        "validFrom": 999999999,
+        "validUntil": -999999999
+      },
+      "INPUT_SHA256": "fef90505873c80eeb03227884b574b66dd8fc05b534d5dbf63908bb35794c5be",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_TIME_WINDOW",
+      "ROOT_CAUSE": "temporal validation absent",
+      "TARGET": "price"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS/OK_NO_PROPOSAL",
+      "CASE_ID": "FP-R9R2-013",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "operation": "VALIDATE_ECONOMIC_POLICY"
+      },
+      "INPUT_SHA256": "13a6deaebf205fb374773f13ccf5ff1463a27b36cb995efe12f5c18c05ae8e45",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_FORMULA_EXECUTION",
+      "ROOT_CAUSE": "formula registry stores names only",
+      "TARGET": "economic"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS",
+      "CASE_ID": "FP-R9R2-014",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "calls": [
+          "build_valid_commit()",
+          "build_valid_commit()"
+        ]
+      },
+      "INPUT_SHA256": "d33dccf11e7bc481808556f1d9d6ac9e664556450c0bb2f108f71ce299f5d2fc",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_EXACT_REPLAY",
+      "ROOT_CAUSE": "two fresh fixtures",
+      "TARGET": "invariant"
+    },
+    {
+      "ACTUAL_R4_R8_OUTCOME": "PASS",
+      "CASE_ID": "FP-R9R2-015",
+      "EXPECTED_SAFE_OUTCOME": "FAIL_CLOSED",
+      "INPUT": {
+        "orderCheck": "declarative tuple"
+      },
+      "INPUT_SHA256": "2b1db1e2e87c841bc4b5416fbdb41562d9156c4916a56b5b3879a03c1adbb9ee",
+      "REPRODUCED": true,
+      "REQUIRED_R9_CHECK_ID": "R9_PERSISTENCE_ORDER",
+      "ROOT_CAUSE": "pipeline not executed",
+      "TARGET": "invariant"
+    }
+  ],
+  "reproduced": 15,
+  "required": 15,
+  "schemaVersion": 1
+}
