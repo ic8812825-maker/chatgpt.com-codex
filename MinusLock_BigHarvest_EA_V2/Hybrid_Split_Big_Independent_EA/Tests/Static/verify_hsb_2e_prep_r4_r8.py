@@ -43,6 +43,27 @@ def run(root: str) -> bool:
         checks["R8_PRODUCTION_DIFF"] = not any(path.endswith(".mq5") or ("/Include/" in path and path.endswith(".mqh")) for path in changed)
     print(f"R8_SCOPE_AUDIT|{'PASS' if checks['R8_SCOPE_AUDIT'] else 'FAIL'}")
     print(f"R8_PRODUCTION_DIFF|{'PASS' if checks['R8_PRODUCTION_DIFF'] else 'FAIL'}")
+    seal = subprocess.run(
+        ["python3", str(project / "Tests/Static/verify_hsb_2e_r4_r8_evidence_seal.py"), "--root", str(project)],
+        capture_output=True,
+        text=True,
+    )
+    if seal.stdout:
+        print(seal.stdout, end="")
+    checks["R8_MANIFEST_AND_SEAL"] = seal.returncode == 0
+    print(f"R8_MANIFEST_AND_SEAL|{'PASS' if checks['R8_MANIFEST_AND_SEAL'] else 'FAIL'}")
+    documents = (
+        "README_RU.md", "BUILD_INFO.md", "PROJECT_MAP_RU.md", "CHANGELOG_RU.md",
+        "Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+        "Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+        "Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    )
+    checks["R8_CANONICAL_STATUS"] = all(
+        (project / document).read_text().count("HSB_2E_PREP_R4_R8_CANONICAL_STATUS_BEGIN") == 1
+        and "TRADING_LOGIC_START_ALLOWED=YES" not in (project / document).read_text()
+        for document in documents
+    )
+    print(f"R8_CANONICAL_STATUS|{'PASS' if checks['R8_CANONICAL_STATUS'] else 'FAIL'}")
     failed = [check_id for check_id, passed in checks.items() if not passed]
     print(f"CHECKS_EXECUTED={len(checks)}")
     print("FAILURE_IDS=" + ",".join(failed))
