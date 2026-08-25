@@ -109,6 +109,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -241,6 +242,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -372,6 +374,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -503,6 +506,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -634,6 +638,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -765,6 +770,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -896,6 +902,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -1027,6 +1034,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -1158,6 +1166,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -1289,6 +1298,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -1421,6 +1431,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -1559,6 +1570,7 @@
         "scenario": "INITIAL",
         "schemaVersion": 9,
         "snapshot": {
+          "account": 10001,
           "ask": "1.10020",
           "bid": "1.10000",
           "magic": 8812825,
@@ -1680,6 +1692,7 @@
     "scenario": "INITIAL",
     "schemaVersion": 9,
     "snapshot": {
+      "account": 10001,
       "ask": "1.10020",
       "bid": "1.10000",
       "magic": 8812825,

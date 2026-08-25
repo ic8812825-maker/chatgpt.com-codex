@@ -288,10 +288,10 @@
     },
     {
       "actualChangedPaths": [
-        "fsm.outputRevision"
+        "fsm.inputRevision"
       ],
       "allowedChangedPaths": [
-        "fsm.outputRevision"
+        "fsm.inputRevision"
       ],
       "baseFixtureId": "VALID_BASE",
       "expectedCheckId": "R9_REVISION",
@@ -613,10 +613,10 @@
     },
     {
       "actualChangedPaths": [
-        "fsm.outputRevision"
+        "fsm.inputRevision"
       ],
       "allowedChangedPaths": [
-        "fsm.outputRevision"
+        "fsm.inputRevision"
       ],
       "baseFixtureId": "VALID_BASE",
       "expectedCheckId": "R9_REVISION",
@@ -938,10 +938,10 @@
     },
     {
       "actualChangedPaths": [
-        "fsm.outputRevision"
+        "fsm.inputRevision"
       ],
       "allowedChangedPaths": [
-        "fsm.outputRevision"
+        "fsm.inputRevision"
       ],
       "baseFixtureId": "VALID_BASE",
       "expectedCheckId": "R9_REVISION",
@@ -1263,10 +1263,10 @@
     },
     {
       "actualChangedPaths": [
-        "fsm.outputRevision"
+        "fsm.inputRevision"
       ],
       "allowedChangedPaths": [
-        "fsm.outputRevision"
+        "fsm.inputRevision"
       ],
       "baseFixtureId": "VALID_BASE",
       "expectedCheckId": "R9_REVISION",
