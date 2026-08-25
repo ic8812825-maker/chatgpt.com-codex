@@ -1,0 +1,1138 @@
+{
+  "pairs": [
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.account"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_IDENTITY_ACCOUNT",
+      "expectedReason": "IDENTITY_ACCOUNT",
+      "negativeFixtureId": "NEG_001_IDENTITY_ACCOUNT",
+      "targetProperty": "IDENTITY_ACCOUNT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.symbol"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_SYMBOL",
+      "expectedReason": "SYMBOL",
+      "negativeFixtureId": "NEG_002_SYMBOL",
+      "targetProperty": "SYMBOL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.magic"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MAGIC",
+      "expectedReason": "MAGIC",
+      "negativeFixtureId": "NEG_003_MAGIC",
+      "targetProperty": "MAGIC"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "time.deal"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_STALE",
+      "expectedReason": "STALE",
+      "negativeFixtureId": "NEG_004_STALE",
+      "targetProperty": "STALE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "policy.validUntil"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_WINDOW",
+      "expectedReason": "WINDOW",
+      "negativeFixtureId": "NEG_005_WINDOW",
+      "targetProperty": "WINDOW"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "policy.buySide"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_BUY_SIDE",
+      "expectedReason": "BUY_SIDE",
+      "negativeFixtureId": "NEG_006_BUY_SIDE",
+      "targetProperty": "BUY_SIDE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.price"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_TICK_GRID",
+      "expectedReason": "TICK_GRID",
+      "negativeFixtureId": "NEG_007_TICK_GRID",
+      "targetProperty": "TICK_GRID"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_VOLUME_GRID",
+      "expectedReason": "VOLUME_GRID",
+      "negativeFixtureId": "NEG_008_VOLUME_GRID",
+      "targetProperty": "VOLUME_GRID"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.intentId"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_INTENT_BINDING",
+      "expectedReason": "INTENT_BINDING",
+      "negativeFixtureId": "NEG_009_INTENT_BINDING",
+      "targetProperty": "INTENT_BINDING"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.ticket"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DEAL_TICKET",
+      "expectedReason": "DEAL_TICKET",
+      "negativeFixtureId": "NEG_010_DEAL_TICKET",
+      "targetProperty": "DEAL_TICKET"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUP_DEAL",
+      "expectedReason": "DUP_DEAL",
+      "negativeFixtureId": "NEG_011_DUP_DEAL",
+      "targetProperty": "DUP_DEAL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUP_EVENT",
+      "expectedReason": "DUP_EVENT",
+      "negativeFixtureId": "NEG_012_DUP_EVENT",
+      "targetProperty": "DUP_EVENT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MISSING_LEG",
+      "expectedReason": "MISSING_LEG",
+      "negativeFixtureId": "NEG_013_MISSING_LEG",
+      "targetProperty": "MISSING_LEG"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_PARTIAL_FILL",
+      "expectedReason": "PARTIAL_FILL",
+      "negativeFixtureId": "NEG_014_PARTIAL_FILL",
+      "targetProperty": "PARTIAL_FILL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_OVERFILL",
+      "expectedReason": "OVERFILL",
+      "negativeFixtureId": "NEG_015_OVERFILL",
+      "targetProperty": "OVERFILL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.remainingMoney"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MONEY_CONSERVATION",
+      "expectedReason": "MONEY_CONSERVATION",
+      "negativeFixtureId": "NEG_016_MONEY_CONSERVATION",
+      "targetProperty": "MONEY_CONSERVATION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "brokerProposal.totalVolume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_VOLUME_CONSERVATION",
+      "expectedReason": "VOLUME_CONSERVATION",
+      "negativeFixtureId": "NEG_017_VOLUME_CONSERVATION",
+      "targetProperty": "VOLUME_CONSERVATION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "allocation.reserveAddition"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_RESERVE_MISUSE",
+      "expectedReason": "RESERVE_MISUSE",
+      "negativeFixtureId": "NEG_018_RESERVE_MISUSE",
+      "targetProperty": "RESERVE_MISUSE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.dualTail"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUAL_TAIL",
+      "expectedReason": "DUAL_TAIL",
+      "negativeFixtureId": "NEG_019_DUAL_TAIL",
+      "targetProperty": "DUAL_TAIL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.recoveryPL"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_RECOVERY",
+      "expectedReason": "RECOVERY",
+      "negativeFixtureId": "NEG_020_RECOVERY",
+      "targetProperty": "RECOVERY"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.reserveCoverage"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_COVERAGE",
+      "expectedReason": "COVERAGE",
+      "negativeFixtureId": "NEG_021_COVERAGE",
+      "targetProperty": "COVERAGE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "persistence.stateRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_PERSISTENCE",
+      "expectedReason": "PERSISTENCE",
+      "negativeFixtureId": "NEG_022_PERSISTENCE",
+      "targetProperty": "PERSISTENCE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "fsm.outputRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_REVISION",
+      "expectedReason": "REVISION",
+      "negativeFixtureId": "NEG_023_REVISION",
+      "targetProperty": "REVISION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "certificate.body.outputRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_CERT_BODY",
+      "expectedReason": "CERT_BODY",
+      "negativeFixtureId": "NEG_024_CERT_BODY",
+      "targetProperty": "CERT_BODY"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "certificate.digest"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_CERT_DIGEST",
+      "expectedReason": "CERT_DIGEST",
+      "negativeFixtureId": "NEG_025_CERT_DIGEST",
+      "targetProperty": "CERT_DIGEST"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.account"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_IDENTITY_ACCOUNT",
+      "expectedReason": "IDENTITY_ACCOUNT",
+      "negativeFixtureId": "NEG_026_IDENTITY_ACCOUNT",
+      "targetProperty": "IDENTITY_ACCOUNT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.symbol"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_SYMBOL",
+      "expectedReason": "SYMBOL",
+      "negativeFixtureId": "NEG_027_SYMBOL",
+      "targetProperty": "SYMBOL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.magic"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MAGIC",
+      "expectedReason": "MAGIC",
+      "negativeFixtureId": "NEG_028_MAGIC",
+      "targetProperty": "MAGIC"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "time.deal"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_STALE",
+      "expectedReason": "STALE",
+      "negativeFixtureId": "NEG_029_STALE",
+      "targetProperty": "STALE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "policy.validUntil"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_WINDOW",
+      "expectedReason": "WINDOW",
+      "negativeFixtureId": "NEG_030_WINDOW",
+      "targetProperty": "WINDOW"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "policy.buySide"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_BUY_SIDE",
+      "expectedReason": "BUY_SIDE",
+      "negativeFixtureId": "NEG_031_BUY_SIDE",
+      "targetProperty": "BUY_SIDE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.price"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_TICK_GRID",
+      "expectedReason": "TICK_GRID",
+      "negativeFixtureId": "NEG_032_TICK_GRID",
+      "targetProperty": "TICK_GRID"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_VOLUME_GRID",
+      "expectedReason": "VOLUME_GRID",
+      "negativeFixtureId": "NEG_033_VOLUME_GRID",
+      "targetProperty": "VOLUME_GRID"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.intentId"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_INTENT_BINDING",
+      "expectedReason": "INTENT_BINDING",
+      "negativeFixtureId": "NEG_034_INTENT_BINDING",
+      "targetProperty": "INTENT_BINDING"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.ticket"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DEAL_TICKET",
+      "expectedReason": "DEAL_TICKET",
+      "negativeFixtureId": "NEG_035_DEAL_TICKET",
+      "targetProperty": "DEAL_TICKET"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUP_DEAL",
+      "expectedReason": "DUP_DEAL",
+      "negativeFixtureId": "NEG_036_DUP_DEAL",
+      "targetProperty": "DUP_DEAL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUP_EVENT",
+      "expectedReason": "DUP_EVENT",
+      "negativeFixtureId": "NEG_037_DUP_EVENT",
+      "targetProperty": "DUP_EVENT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MISSING_LEG",
+      "expectedReason": "MISSING_LEG",
+      "negativeFixtureId": "NEG_038_MISSING_LEG",
+      "targetProperty": "MISSING_LEG"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_PARTIAL_FILL",
+      "expectedReason": "PARTIAL_FILL",
+      "negativeFixtureId": "NEG_039_PARTIAL_FILL",
+      "targetProperty": "PARTIAL_FILL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_OVERFILL",
+      "expectedReason": "OVERFILL",
+      "negativeFixtureId": "NEG_040_OVERFILL",
+      "targetProperty": "OVERFILL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.remainingMoney"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MONEY_CONSERVATION",
+      "expectedReason": "MONEY_CONSERVATION",
+      "negativeFixtureId": "NEG_041_MONEY_CONSERVATION",
+      "targetProperty": "MONEY_CONSERVATION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "brokerProposal.totalVolume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_VOLUME_CONSERVATION",
+      "expectedReason": "VOLUME_CONSERVATION",
+      "negativeFixtureId": "NEG_042_VOLUME_CONSERVATION",
+      "targetProperty": "VOLUME_CONSERVATION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "allocation.reserveAddition"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_RESERVE_MISUSE",
+      "expectedReason": "RESERVE_MISUSE",
+      "negativeFixtureId": "NEG_043_RESERVE_MISUSE",
+      "targetProperty": "RESERVE_MISUSE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.dualTail"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUAL_TAIL",
+      "expectedReason": "DUAL_TAIL",
+      "negativeFixtureId": "NEG_044_DUAL_TAIL",
+      "targetProperty": "DUAL_TAIL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.recoveryPL"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_RECOVERY",
+      "expectedReason": "RECOVERY",
+      "negativeFixtureId": "NEG_045_RECOVERY",
+      "targetProperty": "RECOVERY"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.reserveCoverage"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_COVERAGE",
+      "expectedReason": "COVERAGE",
+      "negativeFixtureId": "NEG_046_COVERAGE",
+      "targetProperty": "COVERAGE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "persistence.stateRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_PERSISTENCE",
+      "expectedReason": "PERSISTENCE",
+      "negativeFixtureId": "NEG_047_PERSISTENCE",
+      "targetProperty": "PERSISTENCE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "fsm.outputRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_REVISION",
+      "expectedReason": "REVISION",
+      "negativeFixtureId": "NEG_048_REVISION",
+      "targetProperty": "REVISION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "certificate.body.outputRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_CERT_BODY",
+      "expectedReason": "CERT_BODY",
+      "negativeFixtureId": "NEG_049_CERT_BODY",
+      "targetProperty": "CERT_BODY"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "certificate.digest"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_CERT_DIGEST",
+      "expectedReason": "CERT_DIGEST",
+      "negativeFixtureId": "NEG_050_CERT_DIGEST",
+      "targetProperty": "CERT_DIGEST"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.account"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_IDENTITY_ACCOUNT",
+      "expectedReason": "IDENTITY_ACCOUNT",
+      "negativeFixtureId": "NEG_051_IDENTITY_ACCOUNT",
+      "targetProperty": "IDENTITY_ACCOUNT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.symbol"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_SYMBOL",
+      "expectedReason": "SYMBOL",
+      "negativeFixtureId": "NEG_052_SYMBOL",
+      "targetProperty": "SYMBOL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.magic"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MAGIC",
+      "expectedReason": "MAGIC",
+      "negativeFixtureId": "NEG_053_MAGIC",
+      "targetProperty": "MAGIC"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "time.deal"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_STALE",
+      "expectedReason": "STALE",
+      "negativeFixtureId": "NEG_054_STALE",
+      "targetProperty": "STALE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "policy.validUntil"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_WINDOW",
+      "expectedReason": "WINDOW",
+      "negativeFixtureId": "NEG_055_WINDOW",
+      "targetProperty": "WINDOW"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "policy.buySide"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_BUY_SIDE",
+      "expectedReason": "BUY_SIDE",
+      "negativeFixtureId": "NEG_056_BUY_SIDE",
+      "targetProperty": "BUY_SIDE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.price"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_TICK_GRID",
+      "expectedReason": "TICK_GRID",
+      "negativeFixtureId": "NEG_057_TICK_GRID",
+      "targetProperty": "TICK_GRID"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_VOLUME_GRID",
+      "expectedReason": "VOLUME_GRID",
+      "negativeFixtureId": "NEG_058_VOLUME_GRID",
+      "targetProperty": "VOLUME_GRID"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.intentId"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_INTENT_BINDING",
+      "expectedReason": "INTENT_BINDING",
+      "negativeFixtureId": "NEG_059_INTENT_BINDING",
+      "targetProperty": "INTENT_BINDING"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.ticket"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DEAL_TICKET",
+      "expectedReason": "DEAL_TICKET",
+      "negativeFixtureId": "NEG_060_DEAL_TICKET",
+      "targetProperty": "DEAL_TICKET"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUP_DEAL",
+      "expectedReason": "DUP_DEAL",
+      "negativeFixtureId": "NEG_061_DUP_DEAL",
+      "targetProperty": "DUP_DEAL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUP_EVENT",
+      "expectedReason": "DUP_EVENT",
+      "negativeFixtureId": "NEG_062_DUP_EVENT",
+      "targetProperty": "DUP_EVENT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MISSING_LEG",
+      "expectedReason": "MISSING_LEG",
+      "negativeFixtureId": "NEG_063_MISSING_LEG",
+      "targetProperty": "MISSING_LEG"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_PARTIAL_FILL",
+      "expectedReason": "PARTIAL_FILL",
+      "negativeFixtureId": "NEG_064_PARTIAL_FILL",
+      "targetProperty": "PARTIAL_FILL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_OVERFILL",
+      "expectedReason": "OVERFILL",
+      "negativeFixtureId": "NEG_065_OVERFILL",
+      "targetProperty": "OVERFILL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.remainingMoney"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MONEY_CONSERVATION",
+      "expectedReason": "MONEY_CONSERVATION",
+      "negativeFixtureId": "NEG_066_MONEY_CONSERVATION",
+      "targetProperty": "MONEY_CONSERVATION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "brokerProposal.totalVolume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_VOLUME_CONSERVATION",
+      "expectedReason": "VOLUME_CONSERVATION",
+      "negativeFixtureId": "NEG_067_VOLUME_CONSERVATION",
+      "targetProperty": "VOLUME_CONSERVATION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "allocation.reserveAddition"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_RESERVE_MISUSE",
+      "expectedReason": "RESERVE_MISUSE",
+      "negativeFixtureId": "NEG_068_RESERVE_MISUSE",
+      "targetProperty": "RESERVE_MISUSE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.dualTail"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUAL_TAIL",
+      "expectedReason": "DUAL_TAIL",
+      "negativeFixtureId": "NEG_069_DUAL_TAIL",
+      "targetProperty": "DUAL_TAIL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.recoveryPL"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_RECOVERY",
+      "expectedReason": "RECOVERY",
+      "negativeFixtureId": "NEG_070_RECOVERY",
+      "targetProperty": "RECOVERY"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.reserveCoverage"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_COVERAGE",
+      "expectedReason": "COVERAGE",
+      "negativeFixtureId": "NEG_071_COVERAGE",
+      "targetProperty": "COVERAGE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "persistence.stateRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_PERSISTENCE",
+      "expectedReason": "PERSISTENCE",
+      "negativeFixtureId": "NEG_072_PERSISTENCE",
+      "targetProperty": "PERSISTENCE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "fsm.outputRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_REVISION",
+      "expectedReason": "REVISION",
+      "negativeFixtureId": "NEG_073_REVISION",
+      "targetProperty": "REVISION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "certificate.body.outputRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_CERT_BODY",
+      "expectedReason": "CERT_BODY",
+      "negativeFixtureId": "NEG_074_CERT_BODY",
+      "targetProperty": "CERT_BODY"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "certificate.digest"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_CERT_DIGEST",
+      "expectedReason": "CERT_DIGEST",
+      "negativeFixtureId": "NEG_075_CERT_DIGEST",
+      "targetProperty": "CERT_DIGEST"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.account"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_IDENTITY_ACCOUNT",
+      "expectedReason": "IDENTITY_ACCOUNT",
+      "negativeFixtureId": "NEG_076_IDENTITY_ACCOUNT",
+      "targetProperty": "IDENTITY_ACCOUNT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.symbol"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_SYMBOL",
+      "expectedReason": "SYMBOL",
+      "negativeFixtureId": "NEG_077_SYMBOL",
+      "targetProperty": "SYMBOL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.magic"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MAGIC",
+      "expectedReason": "MAGIC",
+      "negativeFixtureId": "NEG_078_MAGIC",
+      "targetProperty": "MAGIC"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "time.deal"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_STALE",
+      "expectedReason": "STALE",
+      "negativeFixtureId": "NEG_079_STALE",
+      "targetProperty": "STALE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "policy.validUntil"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_WINDOW",
+      "expectedReason": "WINDOW",
+      "negativeFixtureId": "NEG_080_WINDOW",
+      "targetProperty": "WINDOW"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "policy.buySide"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_BUY_SIDE",
+      "expectedReason": "BUY_SIDE",
+      "negativeFixtureId": "NEG_081_BUY_SIDE",
+      "targetProperty": "BUY_SIDE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.price"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_TICK_GRID",
+      "expectedReason": "TICK_GRID",
+      "negativeFixtureId": "NEG_082_TICK_GRID",
+      "targetProperty": "TICK_GRID"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_VOLUME_GRID",
+      "expectedReason": "VOLUME_GRID",
+      "negativeFixtureId": "NEG_083_VOLUME_GRID",
+      "targetProperty": "VOLUME_GRID"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.intentId"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_INTENT_BINDING",
+      "expectedReason": "INTENT_BINDING",
+      "negativeFixtureId": "NEG_084_INTENT_BINDING",
+      "targetProperty": "INTENT_BINDING"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.ticket"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DEAL_TICKET",
+      "expectedReason": "DEAL_TICKET",
+      "negativeFixtureId": "NEG_085_DEAL_TICKET",
+      "targetProperty": "DEAL_TICKET"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUP_DEAL",
+      "expectedReason": "DUP_DEAL",
+      "negativeFixtureId": "NEG_086_DUP_DEAL",
+      "targetProperty": "DUP_DEAL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUP_EVENT",
+      "expectedReason": "DUP_EVENT",
+      "negativeFixtureId": "NEG_087_DUP_EVENT",
+      "targetProperty": "DUP_EVENT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MISSING_LEG",
+      "expectedReason": "MISSING_LEG",
+      "negativeFixtureId": "NEG_088_MISSING_LEG",
+      "targetProperty": "MISSING_LEG"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_PARTIAL_FILL",
+      "expectedReason": "PARTIAL_FILL",
+      "negativeFixtureId": "NEG_089_PARTIAL_FILL",
+      "targetProperty": "PARTIAL_FILL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "ledger.records.0.volume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_OVERFILL",
+      "expectedReason": "OVERFILL",
+      "negativeFixtureId": "NEG_090_OVERFILL",
+      "targetProperty": "OVERFILL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.remainingMoney"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MONEY_CONSERVATION",
+      "expectedReason": "MONEY_CONSERVATION",
+      "negativeFixtureId": "NEG_091_MONEY_CONSERVATION",
+      "targetProperty": "MONEY_CONSERVATION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "brokerProposal.totalVolume"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_VOLUME_CONSERVATION",
+      "expectedReason": "VOLUME_CONSERVATION",
+      "negativeFixtureId": "NEG_092_VOLUME_CONSERVATION",
+      "targetProperty": "VOLUME_CONSERVATION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "allocation.reserveAddition"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_RESERVE_MISUSE",
+      "expectedReason": "RESERVE_MISUSE",
+      "negativeFixtureId": "NEG_093_RESERVE_MISUSE",
+      "targetProperty": "RESERVE_MISUSE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.dualTail"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_DUAL_TAIL",
+      "expectedReason": "DUAL_TAIL",
+      "negativeFixtureId": "NEG_094_DUAL_TAIL",
+      "targetProperty": "DUAL_TAIL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.recoveryPL"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_RECOVERY",
+      "expectedReason": "RECOVERY",
+      "negativeFixtureId": "NEG_095_RECOVERY",
+      "targetProperty": "RECOVERY"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "economicProposal.reserveCoverage"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_COVERAGE",
+      "expectedReason": "COVERAGE",
+      "negativeFixtureId": "NEG_096_COVERAGE",
+      "targetProperty": "COVERAGE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "persistence.stateRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_PERSISTENCE",
+      "expectedReason": "PERSISTENCE",
+      "negativeFixtureId": "NEG_097_PERSISTENCE",
+      "targetProperty": "PERSISTENCE"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "fsm.outputRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_REVISION",
+      "expectedReason": "REVISION",
+      "negativeFixtureId": "NEG_098_REVISION",
+      "targetProperty": "REVISION"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "certificate.body.outputRevision"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_CERT_BODY",
+      "expectedReason": "CERT_BODY",
+      "negativeFixtureId": "NEG_099_CERT_BODY",
+      "targetProperty": "CERT_BODY"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "certificate.digest"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_CERT_DIGEST",
+      "expectedReason": "CERT_DIGEST",
+      "negativeFixtureId": "NEG_100_CERT_DIGEST",
+      "targetProperty": "CERT_DIGEST"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.account"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_IDENTITY_ACCOUNT",
+      "expectedReason": "IDENTITY_ACCOUNT",
+      "negativeFixtureId": "NEG_101_IDENTITY_ACCOUNT",
+      "targetProperty": "IDENTITY_ACCOUNT"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.symbol"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_SYMBOL",
+      "expectedReason": "SYMBOL",
+      "negativeFixtureId": "NEG_102_SYMBOL",
+      "targetProperty": "SYMBOL"
+    },
+    {
+      "actualChangedPaths": [],
+      "allowedChangedPaths": [
+        "identity.magic"
+      ],
+      "baseFixtureId": "VALID_BASE",
+      "expectedCheckId": "R9_MAGIC",
+      "expectedReason": "MAGIC",
+      "negativeFixtureId": "NEG_103_MAGIC",
+      "targetProperty": "MAGIC"
+    }
+  ],
+  "schemaVersion": 1
+}
