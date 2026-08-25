@@ -1,0 +1,8 @@
+{
+  "publicTargets": [
+    "hsb_2e_reference_model_r4_r8.execute_scenario"
+  ],
+  "result": "PASS",
+  "stubTargets": 0,
+  "targetCount": 1
+}

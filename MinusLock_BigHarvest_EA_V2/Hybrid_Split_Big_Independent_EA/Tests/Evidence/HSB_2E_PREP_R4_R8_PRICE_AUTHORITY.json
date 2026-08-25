@@ -1,0 +1,7 @@
+{
+  "BUY": "BID",
+  "SELL": "ASK",
+  "extremePriceBlocked": true,
+  "maximumDeviationTicks": 100,
+  "result": "PASS"
+}

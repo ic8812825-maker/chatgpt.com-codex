@@ -1,0 +1,14 @@
+{
+  "classes": [
+    "NO_FILL",
+    "PARTIAL_FILL",
+    "FULL_FILL",
+    "OVERFILL",
+    "INVALID_FILL",
+    "DUPLICATE_FILL",
+    "FOREIGN_FILL",
+    "STALE_FILL"
+  ],
+  "overfillPhase": "RECONCILIATION_REQUIRED",
+  "result": "PASS"
+}

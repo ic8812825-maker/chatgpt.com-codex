@@ -1,0 +1,8 @@
+{
+  "certificateVersion": 1,
+  "evidenceRevisionBound": true,
+  "independentCases": 18,
+  "result": "PASS",
+  "settlementRevisionBound": true,
+  "stateRevisionBound": true
+}
