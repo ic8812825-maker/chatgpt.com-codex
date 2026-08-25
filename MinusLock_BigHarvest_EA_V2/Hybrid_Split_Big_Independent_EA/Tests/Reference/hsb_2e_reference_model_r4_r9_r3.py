@@ -19,8 +19,8 @@ def _certificate_reason(v):
  if v['certificate']['body']['sourceDigests']!={k:_hash(x) for k,x in objects.items()}:return 'CERTIFICATE_PROVENANCE_MISMATCH'
  if v['persistence']['ledgerRoot']!=root or v['persistence']['previousStateDigest']!=v['authoritativeAnchor']['previousStateDigest']:return 'CERTIFICATE_PROVENANCE_MISMATCH'
  if v['certificate']['body']['ledgerRoot']!=root or v['certificate']['body']['previousStateDigest']!=v['authoritativeAnchor']['previousStateDigest']:return 'CERTIFICATE_PROVENANCE_MISMATCH'
- if v['certificate']['body']['inputRevision']!=v['fsm']['inputRevision'] or v['certificate']['body']['outputRevision']!=v['fsm']['outputRevision']:return 'CERTIFICATE_PROVENANCE_MISMATCH'
- if v['certificate']['digest']!=_hash(v['certificate']['body']):return 'CERTIFICATE_PROVENANCE_MISMATCH'
+ if v['certificate']['body']['inputRevision']!=v['fsm']['inputRevision'] or v['certificate']['body']['outputRevision']!=v['fsm']['outputRevision']:return 'CERT_BODY'
+ if v['certificate']['digest']!=_hash(v['certificate']['body']):return 'CERT_DIGEST'
  return ''
 def execute_scenario(scenario_input):
  """Validate all input, compute economics, persist, and commit atomically."""
