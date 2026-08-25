@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "brokerGridBindings": ["volumeStep", "volumeMin", "volumeMax", "tickSize"],
+  "formulas": {
+    "INITIAL_NET_ACTUAL": {"scenario": "INITIAL", "normativeSourceId": "HSBI-ECON-INITIAL-R8"},
+    "BIG_ALLOCATION_DISJOINT": {"scenario": "BIG", "normativeSourceId": "HSBI-ECON-BIG-R8"},
+    "SMALL_RESIDUAL_ACTUAL": {"scenario": "SMALL", "normativeSourceId": "HSBI-ECON-SMALL-R8"},
+    "FINAL_RESERVE_ACTUAL": {"scenario": "FINAL", "normativeSourceId": "HSBI-ECON-FINAL-R8"}
+  },
+  "units": "ACCOUNT_CURRENCY_AND_LOTS",
+  "roundingMode": "ROUND_DOWN"
+}
