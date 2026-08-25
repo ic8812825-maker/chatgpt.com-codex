@@ -1,0 +1,57 @@
+{
+  "files": [
+    {
+      "GIT_BLOB_SHA": "1a2a95a8b71c9e1cb5dee7bace3108ccbdedfab9",
+      "INTRODUCED_COMMIT": "5b34a19747a50a710f0b7b8689b9737926f73a5b",
+      "PATH": "Tests/Contracts/HSB_2E_R4_R9_R2_HISTORICAL_COMPATIBILITY_ORACLE.json",
+      "SHA256": "5b638d2c0cf010b794c129b9ce1eaa8f593287bfbd3588533514cc654d7470ea"
+    },
+    {
+      "GIT_BLOB_SHA": "8bd8eefd50e44ba603531e5d98b8bf754785d702",
+      "INTRODUCED_COMMIT": "b5ce89140a62c9160e07df6594607a705ebc8b81",
+      "PATH": "Tests/Contracts/HSB_2E_R4_R9_R2_NATIVE_ECONOMIC_ORACLE.json",
+      "SHA256": "b2330e1d813cea7d110373116f67ecc8e8e13442aaafcf048c66f9ba0198f9ee"
+    },
+    {
+      "GIT_BLOB_SHA": "775008b467e4a4e94a02e3199a6d70c9a6ae922b",
+      "INTRODUCED_COMMIT": "d3af79ca9233c4808ad9d8b9005a182e56234dbb",
+      "PATH": "Tests/Vectors/HSB_2E_R4_R9_R2_NATIVE_FIXTURES.json",
+      "SHA256": "7a7b0e2701c24680599b94624db144fcbc23dbf2430ddca0e5a3859dfeda9c77"
+    },
+    {
+      "GIT_BLOB_SHA": "c35dba1017fe94bc24faaa4718cf2b4f4d118974",
+      "INTRODUCED_COMMIT": "b5ce89140a62c9160e07df6594607a705ebc8b81",
+      "PATH": "Tests/Static/build_hsb_2e_r4_r9_r2_native_oracle.py",
+      "SHA256": "c73a5500bb64f255bf8399b11b78123ea276634dd85db47f7566f7dfd245df3c"
+    },
+    {
+      "GIT_BLOB_SHA": "c1ab00e79796faf20b5113767a75bcfc599b7cac",
+      "INTRODUCED_COMMIT": "b5ce89140a62c9160e07df6594607a705ebc8b81",
+      "PATH": "Tests/Evidence/HSB_2E_R4_R9_R2_NATIVE_DERIVATION_TRACES.json",
+      "SHA256": "673758a6cbf8959b7f77b3e2d51ba5e725e519c7a2823dad176a1353f3575bee"
+    },
+    {
+      "GIT_BLOB_SHA": "72e7289e8e11d990f7483f6cb17b2ad2f5b8b827",
+      "INTRODUCED_COMMIT": "1b0353b0a79f0de3a21c8be37dab16526a5a15c8",
+      "PATH": "Tests/Reference/hsb_2e_contracts_r4_r9_r2.py",
+      "SHA256": "69434f9d4131eac48ab1e46582864ed4f5025180b6bfb99eeebfbbecfeb184c0"
+    },
+    {
+      "GIT_BLOB_SHA": "f53cac06f3dc9407572bd9c42f762d45c1407092",
+      "INTRODUCED_COMMIT": "5be284ac2938b2d47d8cb4b14de4f5b351045eed",
+      "PATH": "Tests/Vectors/HSB_2E_R4_R9_R2_R8_FALSE_PASSES.json",
+      "SHA256": "e1b0930b91fa9daa714cb2725d7655baf0c09248ae0bb36cd922c4e283cbc258"
+    },
+    {
+      "GIT_BLOB_SHA": "fdfac7affc50d858df44b73c73bf172f808d7caf",
+      "INTRODUCED_COMMIT": "ed3000ecc97580edd3fb65c3f6d3cac3cf56f991",
+      "PATH": "Reports/HSB_2E_PREP_R4_R9_R2_BLOCKED_ORACLE_REVIEW_RU.md",
+      "SHA256": "25137dfefaaadc0fe51e05c88542168c0886559dac28eedfa2d09bd800e4d599"
+    }
+  ],
+  "schemaVersion": 1,
+  "status": {
+    "R9_R2_NATIVE_ECONOMIC_ORACLE_V1": "HISTORICAL_SUPERSEDED",
+    "SUPERSEDED_REASON": "CERTIFICATE_FORGERY_WAS_METADATA_ONLY"
+  }
+}
