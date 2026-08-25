@@ -29,6 +29,9 @@ def execute_scenario(scenario_input):
   if v.get('schemaVersion')!=9:return _reject('SCHEMA',state,values)
   if v.get('scenario') not in SUPPORTED:return _reject('UNKNOWN_SCENARIO',state,values)
   i=v['identity'];s=v['snapshot'];p=v['policy'];t=v['time'];bp=v['brokerProperties'];intent=v['intent'];records=v['ledger']['records']
+  deal_ids={x['dealId'] for x in records};event_ids={x['eventId'] for x in records}
+  if records and deal_ids.issubset(set(state.get('consumedDealIds',[]))) and event_ids.issubset(set(state.get('seenEventIds',[]))):
+   return {'status':'PASS','reason':'ALREADY_COMMITTED','phase':'COMMITTED','values':values,'settlementApplied':False,'allocationApplied':False,'persistedState':state,'certificateDigest':v['certificate']['digest']}
   if i['account']!=s['account']:return _reject('IDENTITY_ACCOUNT',state,values)
   if i['symbol']!=s['symbol'] or intent['symbol']!=s['symbol']:return _reject('SYMBOL',state,values)
   if i['magic']!=s['magic'] or intent['magic']!=s['magic']:return _reject('MAGIC',state,values)
@@ -56,5 +59,5 @@ def execute_scenario(scenario_input):
   if v['fsm']['outputRevision']!=v['fsm']['inputRevision']+1:return _reject('REVISION',state,values)
   cert_reason=_certificate_reason(v)
   if cert_reason:return _reject(cert_reason,state,values)
-  values=_values(v,True);return {'status':'PASS','reason':'COMMITTED','phase':'COMMITTED','values':values,'settlementApplied':True,'allocationApplied':True,'persistedState':state,'certificateDigest':v['certificate']['digest']}
+  committed=deepcopy(state);committed['consumedDealIds']=sorted(deal_ids);committed['seenEventIds']=sorted(event_ids);committed['dealEventBindings']=sorted([[x['dealId'],x['eventId']] for x in records]);values=_values(v,True);return {'status':'PASS','reason':'COMMITTED','phase':'COMMITTED','values':values,'settlementApplied':True,'allocationApplied':True,'persistedState':committed,'certificateDigest':v['certificate']['digest']}
  except (KeyError,TypeError,ValueError,ArithmeticError):return _reject('MALFORMED_INPUT',{}, {})
