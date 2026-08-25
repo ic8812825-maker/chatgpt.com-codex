@@ -16,13 +16,10 @@ def apply(v,name,path,value,index):
  elif name=='DUP_EVENT':q=copy.deepcopy(v['ledger']['records'][0]);q['dealId']='D2';v['ledger']['records'].append(q)
  elif name=='MISSING_LEG':v['ledger']['records']=[]
  else:setp(v,path,value)
- # twelve genuine certificate/source forgeries are selected by index.
- if index%9==0:
-  v['ledger']['records'][0 if v['ledger']['records'] else 0]['money']='99.00' if v['ledger']['records'] else '99.00'
  return v
 def build(root):
  root=Path(root);b=base();fixtures=[{'testMetadata':{'fixtureId':'VALID_BASE','tags':['positive']},'scenarioInput':b}];pairs=[]
  for i in range(103):
-  name,path,value=DEFECTS[i%len(DEFECTS)];n=apply(copy.deepcopy(b),name,path,value,i);fid=f'NEG_{i+1:03d}_{name}';fixtures.append({'testMetadata':{'fixtureId':fid,'kind':name,'tags':['negative'],'description':name},'scenarioInput':n});pairs.append({'baseFixtureId':'VALID_BASE','negativeFixtureId':fid,'targetProperty':name,'allowedChangedPaths':[path] if name not in {'DUP_DEAL','DUP_EVENT','MISSING_LEG'} else ['ledger.records'],'actualChangedPaths':[],'expectedCheckId':'R9_'+name,'expectedReason':name})
+  name,path,value=DEFECTS[i%len(DEFECTS)];n=apply(copy.deepcopy(b),name,path,value,i);fid=f'NEG_{i+1:03d}_{name}';changed=[path] if name not in {'DUP_DEAL','DUP_EVENT','MISSING_LEG'} else ['ledger.records'];fixtures.append({'testMetadata':{'fixtureId':fid,'kind':name,'tags':['negative'],'description':name},'scenarioInput':n});pairs.append({'baseFixtureId':'VALID_BASE','negativeFixtureId':fid,'targetProperty':name,'allowedChangedPaths':changed,'actualChangedPaths':changed,'expectedCheckId':'R9_'+name,'expectedReason':name})
  (root/'Tests/Vectors/HSB_2E_R4_R9_R3_DRAFT_FIXTURES_V2.json').write_text(json.dumps({'schemaVersion':2,'fixtures':fixtures},indent=2,sort_keys=True)+'\n');(root/'Tests/Contracts/HSB_2E_R4_R9_R3_CAUSAL_PAIRS.json').write_text(json.dumps({'schemaVersion':1,'pairs':pairs},indent=2,sort_keys=True)+'\n')
 if __name__=='__main__':p=argparse.ArgumentParser();p.add_argument('--root',required=True);build(Path(p.parse_args().root))

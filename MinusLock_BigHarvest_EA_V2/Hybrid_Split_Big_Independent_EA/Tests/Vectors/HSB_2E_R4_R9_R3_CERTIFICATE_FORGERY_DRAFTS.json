@@ -1,0 +1,1696 @@
+{
+  "cases": [
+    {
+      "allowedChangedPaths": [
+        "ledger.records.0.money"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_BROKER_RECORD",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "99.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "BROKER_RECORD",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_BROKER_RECORD",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "ledger.records.0.money",
+        "brokerProposal.ledgerRoot"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_BROKER_RECORD_REHASHED",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "dd8938378c6700a4b717961c36d53d9d86d54dd8b7ee1564feb250b2be0286f8",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "99.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "BROKER_RECORD_REHASHED",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_BROKER_RECORD_REHASHED",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "brokerProposal.totalMoney"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_BROKER_PROPOSAL",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "99.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "BROKER_PROPOSAL",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_BROKER_PROPOSAL",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "economicProposal.availableMoney"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_ECONOMIC_PROPOSAL",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "99.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "ECONOMIC_PROPOSAL",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_ECONOMIC_PROPOSAL",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "allocation.reserveAddition"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_ALLOCATION",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "99.00"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "ALLOCATION",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_ALLOCATION",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "persistence.stateRevision"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_PERSISTENCE",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 9
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "PERSISTENCE",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_PERSISTENCE",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "fsm.outputRevision"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_FSM",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 9,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "FSM",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_FSM",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "persistence.previousStateDigest"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_OUTPUT_STATE",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "FORGED_STATE",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "OUTPUT_STATE",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_OUTPUT_STATE",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "certificate.body.outputRevision"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_REVISION",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 9,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "REVISION",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_REVISION",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "certificate.body.inputRevision"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_CERT_BODY",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 9,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "CERT_BODY",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_CERT_BODY",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "certificate.body.inputRevision",
+        "certificate.digest"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_CERT_BODY_REHASHED",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "2.50"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "10.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 9,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 1,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "REHASHED_CERT_BODY_REHASHED"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 1,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "10.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 1
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "CERT_BODY_REHASHED",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_CERT_BODY_REHASHED",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    },
+    {
+      "allowedChangedPaths": [
+        "ledger.records.0.money",
+        "brokerProposal.totalMoney",
+        "economicProposal.availableMoney",
+        "allocation.reserveAddition",
+        "persistence.stateRevision",
+        "fsm.outputRevision",
+        "certificate.body.outputRevision",
+        "certificate.digest"
+      ],
+      "authoritativeAnchor": {
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "revision": 1
+      },
+      "baseFixtureId": "VALID_COMMITTED_S1",
+      "expectedCheckId": "R9_CERT_MUTUAL_ALL",
+      "expectedReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "scenarioInput": {
+        "allocation": {
+          "closeFarBudget": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAddition": "99.00"
+        },
+        "authoritativeAnchor": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "revision": 1
+        },
+        "brokerProperties": {
+          "tickSize": "0.00001",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "totalMoney": "99.00",
+          "totalVolume": "1.00"
+        },
+        "certificate": {
+          "body": {
+            "inputRevision": 0,
+            "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+            "outputRevision": 9,
+            "previousStateDigest": "PREVIOUS_ANCHOR",
+            "sourceDigests": {
+              "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+              "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+              "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+              "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+            }
+          },
+          "digest": "REHASHED_MUTUAL_ALL"
+        },
+        "economicProposal": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "99.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "fsm": {
+          "inputRevision": 0,
+          "outputRevision": 9,
+          "phase": "COMMITTED"
+        },
+        "identity": {
+          "account": 10001,
+          "actionId": "A1",
+          "cycleId": "C1",
+          "magic": 8812825,
+          "snapshotRevision": 1,
+          "stateRevision": 0,
+          "symbol": "EURUSD",
+          "transactionId": "T1"
+        },
+        "intent": {
+          "created": 95,
+          "expires": 115,
+          "intentId": "I1",
+          "magic": 8812825,
+          "requestedVolume": "1.00",
+          "symbol": "EURUSD",
+          "ticket": 101
+        },
+        "ledger": {
+          "records": [
+            {
+              "dealId": "D1",
+              "eventId": "E1",
+              "intentId": "I1",
+              "magic": 8812825,
+              "money": "99.00",
+              "price": "1.10000",
+              "symbol": "EURUSD",
+              "ticket": 101,
+              "volume": "1.00"
+            }
+          ]
+        },
+        "persistence": {
+          "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+          "previousStateDigest": "PREVIOUS_ANCHOR",
+          "stateRevision": 9
+        },
+        "policy": {
+          "buySide": "BID",
+          "sellSide": "ASK",
+          "validFrom": 90,
+          "validUntil": 120
+        },
+        "scenario": "INITIAL",
+        "schemaVersion": 9,
+        "snapshot": {
+          "ask": "1.10020",
+          "bid": "1.10000",
+          "magic": 8812825,
+          "symbol": "EURUSD",
+          "timestamp": 100
+        },
+        "time": {
+          "deal": 105,
+          "event": 105,
+          "maximum": 120,
+          "minimum": 90
+        }
+      },
+      "targetProperty": "MUTUAL_ALL",
+      "testMetadata": {
+        "fixtureId": "CERT_FORGERY_MUTUAL_ALL",
+        "tags": [
+          "certificate",
+          "negative"
+        ]
+      }
+    }
+  ],
+  "schemaVersion": 1,
+  "validBase": {
+    "allocation": {
+      "closeFarBudget": "5.00",
+      "remainingMoney": "2.50",
+      "reserveAddition": "2.50"
+    },
+    "authoritativeAnchor": {
+      "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+      "previousStateDigest": "PREVIOUS_ANCHOR",
+      "revision": 1
+    },
+    "brokerProperties": {
+      "tickSize": "0.00001",
+      "volumeMax": "100.00",
+      "volumeMin": "0.01",
+      "volumeStep": "0.01"
+    },
+    "brokerProposal": {
+      "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+      "totalMoney": "10.00",
+      "totalVolume": "1.00"
+    },
+    "certificate": {
+      "body": {
+        "inputRevision": 0,
+        "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+        "outputRevision": 1,
+        "previousStateDigest": "PREVIOUS_ANCHOR",
+        "sourceDigests": {
+          "allocation": "c96ab8b1a5dc2c111ae3c6d4dfd9792f59423b2a0e916ce1a9c253222985d5aa",
+          "broker": "8abb3091adb54e69d869bcd935b0b6016148a806c4f425fec0aca9f624a7784a",
+          "economic": "4f44e38ef6663b505b842d1f2720eea5b963d9e2ae7f3b1de094e0bed3a16b79",
+          "fsm": "0a9f7a5666ea4c91b7d8663b049d574e44aaa655db3eae2c9063167233cc2bd7"
+        }
+      },
+      "digest": "8cef5e11536126dea93579b430f7a3e6f0ea22e69414c267f2e7c0f15da16a64"
+    },
+    "economicProposal": {
+      "allocatedMoney": "7.50",
+      "availableMoney": "10.00",
+      "recoveryPL": "5.00",
+      "remainingMoney": "2.50",
+      "reserveAfter": "7.50"
+    },
+    "fsm": {
+      "inputRevision": 0,
+      "outputRevision": 1,
+      "phase": "COMMITTED"
+    },
+    "identity": {
+      "account": 10001,
+      "actionId": "A1",
+      "cycleId": "C1",
+      "magic": 8812825,
+      "snapshotRevision": 1,
+      "stateRevision": 0,
+      "symbol": "EURUSD",
+      "transactionId": "T1"
+    },
+    "intent": {
+      "created": 95,
+      "expires": 115,
+      "intentId": "I1",
+      "magic": 8812825,
+      "requestedVolume": "1.00",
+      "symbol": "EURUSD",
+      "ticket": 101
+    },
+    "ledger": {
+      "records": [
+        {
+          "dealId": "D1",
+          "eventId": "E1",
+          "intentId": "I1",
+          "magic": 8812825,
+          "money": "10.00",
+          "price": "1.10000",
+          "symbol": "EURUSD",
+          "ticket": 101,
+          "volume": "1.00"
+        }
+      ]
+    },
+    "persistence": {
+      "ledgerRoot": "c6aa96a08ea517b61701523480837d0b406fdbbf57e088be8108b29fe65bb6ec",
+      "previousStateDigest": "PREVIOUS_ANCHOR",
+      "stateRevision": 1
+    },
+    "policy": {
+      "buySide": "BID",
+      "sellSide": "ASK",
+      "validFrom": 90,
+      "validUntil": 120
+    },
+    "scenario": "INITIAL",
+    "schemaVersion": 9,
+    "snapshot": {
+      "ask": "1.10020",
+      "bid": "1.10000",
+      "magic": 8812825,
+      "symbol": "EURUSD",
+      "timestamp": 100
+    },
+    "time": {
+      "deal": 105,
+      "event": 105,
+      "maximum": 120,
+      "minimum": 90
+    }
+  }
+}
