@@ -1,0 +1,1844 @@
+{
+  "cases": [
+    {
+      "caseId": "FP-R8-001",
+      "exactInput": {
+        "source": "#!/usr/bin/env python3\n\"\"\"Lossless 104-vector execution and field-by-field normative comparison.\"\"\"\nimport argparse,importlib,json,sys\nfrom pathlib import Path\nVERSIONS={'R4_R2':'HSB_2E_R4_R2_VECTORS.json','R4_R3':'HSB_2E_R4_R3_VECTORS.json','R4_R4':'HSB_2E_R4_R4_VECTORS.json'}\nFIELDS=('status','reason','phase','settlementApplied','allocationApplied','stateMutated','revisionDelta','moneyRelation','volumeRelation','certificatePresent','finalAllowed','partialAllowed','reserveRelation','recoveryPLRelation','farRelation')\ndef run(root,write=False):\n root=Path(root).resolve();sys.path.insert(0,str(root/'Tests/Reference'));from hsb_2e_historical_model_r4_r7 import execute_historical\n oracle_path=root/'Tests/Contracts/HSB_2E_R4_R7_SEMANTIC_ORACLE.json';oracle={}\n if oracle_path.exists():oracle={(x['version'],x['vectorId']):x for x in json.loads(oracle_path.read_text())['vectors']}\n rows=[];loss=[]\n for version,file in VERSIONS.items():\n  adapter=importlib.import_module(f'hsb_2e_{version.lower()}_to_r4_r7_adapter')\n  for v in json.loads((root/'Tests/Vectors'/file).read_text())['vectors']:\n   a=adapter.adapt(v);actual=execute_historical(a['canonicalInput']);key=(version,v['VECTOR_ID']);expected=oracle.get(key)\n   if write and expected is None:\n    expected={'version':version,'vectorId':v['VECTOR_ID'],'inputSHA256':a['sourceInputSHA256'],**{f'expected{f[0].upper()+f[1:]}':actual[f] for f in FIELDS},'normativeSourceId':f'HSBI-R7-{version}-{v[\"VECTOR_ID\"]}','classification':'UNCHANGED_VALID' if actual['status']=='PASS' else 'UNCHANGED_INVALID'}\n    oracle[key]=expected\n   compared=expected is not None and expected['inputSHA256']==a['sourceInputSHA256'] and all(actual[f]==expected[f'expected{f[0].upper()+f[1:]}'] for f in FIELDS)\n   rows.append({'version':version,'vectorId':v['VECTOR_ID'],'adapterResult':a['adapterResult'],'targetModel':'hsb_2e_historical_model_r4_r7','lossless':not any((a['silentlyDroppedFields'],a['silentlyDroppedElements'],a['selfHealedDefects'],a['unjustifiedDefaults'])),'executed':True,'semanticallyCompared':compared,'actual':actual});loss.extend({'version':version,'vectorId':v['VECTOR_ID'],**m} for m in a['lossMap'])\n if write:\n  ordered=[oracle[k] for k in sorted(oracle)];oracle_path.write_text(json.dumps({'schemaVersion':1,'vectors':ordered},indent=2,sort_keys=True)+'\\n');(root/'Tests/Evidence/HSB_2E_PREP_R4_R7_LOSSLESS_ADAPTER_MAPS.json').write_text(json.dumps({'schemaVersion':1,'maps':loss},indent=2,sort_keys=True)+'\\n')\n required=len(rows);good=sum(r['semanticallyCompared'] for r in rows);out={'HISTORICAL_VECTORS_REQUIRED':required,'HISTORICAL_VECTORS_LOSSLESSLY_ADAPTED':sum(r['lossless'] for r in rows),'HISTORICAL_VECTORS_EXECUTED_ON_R7':len(rows),'HISTORICAL_VECTORS_SEMANTICALLY_COMPARED':good,'HISTORICAL_VECTOR_SEMANTIC_FAILURES':required-good,'SILENTLY_DROPPED_FIELDS':0,'SILENTLY_DROPPED_ELEMENTS':0,'SELF_HEALED_DEFECTS':0,'UNJUSTIFIED_DEFAULTS':0,'UNRESOLVED':0,'UNMAPPED':0,'AMBIGUOUS':0,'rows':rows,'RESULT':'PASS' if required==good==104 else 'FAIL'}\n if write:(root/'Tests/Evidence/HSB_2E_PREP_R4_R7_CROSS_VERSION_RESULTS.json').write_text(json.dumps(out,indent=2,sort_keys=True)+'\\n')\n print(json.dumps({k:v for k,v in out.items() if k!='rows'},sort_keys=True,separators=(',',':')));return out['RESULT']=='PASS'\nif __name__=='__main__':p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--write',action='store_true');a=p.parse_args();raise SystemExit(0 if run(a.root,a.write) else 1)\n"
+      },
+      "exactInputSHA256": "daad7da542f2b5e2828b4a0be52d379d07df06c9b5ea86e395f566d758265c6b",
+      "falsePassReproduced": true,
+      "historicalReason": "STUB_HISTORICAL_TARGET",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-002",
+      "exactInput": {
+        "source": "#!/usr/bin/env python3\n\"\"\"Lossless 104-vector execution and field-by-field normative comparison.\"\"\"\nimport argparse,importlib,json,sys\nfrom pathlib import Path\nVERSIONS={'R4_R2':'HSB_2E_R4_R2_VECTORS.json','R4_R3':'HSB_2E_R4_R3_VECTORS.json','R4_R4':'HSB_2E_R4_R4_VECTORS.json'}\nFIELDS=('status','reason','phase','settlementApplied','allocationApplied','stateMutated','revisionDelta','moneyRelation','volumeRelation','certificatePresent','finalAllowed','partialAllowed','reserveRelation','recoveryPLRelation','farRelation')\ndef run(root,write=False):\n root=Path(root).resolve();sys.path.insert(0,str(root/'Tests/Reference'));from hsb_2e_historical_model_r4_r7 import execute_historical\n oracle_path=root/'Tests/Contracts/HSB_2E_R4_R7_SEMANTIC_ORACLE.json';oracle={}\n if oracle_path.exists():oracle={(x['version'],x['vectorId']):x for x in json.loads(oracle_path.read_text())['vectors']}\n rows=[];loss=[]\n for version,file in VERSIONS.items():\n  adapter=importlib.import_module(f'hsb_2e_{version.lower()}_to_r4_r7_adapter')\n  for v in json.loads((root/'Tests/Vectors'/file).read_text())['vectors']:\n   a=adapter.adapt(v);actual=execute_historical(a['canonicalInput']);key=(version,v['VECTOR_ID']);expected=oracle.get(key)\n   if write and expected is None:\n    expected={'version':version,'vectorId':v['VECTOR_ID'],'inputSHA256':a['sourceInputSHA256'],**{f'expected{f[0].upper()+f[1:]}':actual[f] for f in FIELDS},'normativeSourceId':f'HSBI-R7-{version}-{v[\"VECTOR_ID\"]}','classification':'UNCHANGED_VALID' if actual['status']=='PASS' else 'UNCHANGED_INVALID'}\n    oracle[key]=expected\n   compared=expected is not None and expected['inputSHA256']==a['sourceInputSHA256'] and all(actual[f]==expected[f'expected{f[0].upper()+f[1:]}'] for f in FIELDS)\n   rows.append({'version':version,'vectorId':v['VECTOR_ID'],'adapterResult':a['adapterResult'],'targetModel':'hsb_2e_historical_model_r4_r7','lossless':not any((a['silentlyDroppedFields'],a['silentlyDroppedElements'],a['selfHealedDefects'],a['unjustifiedDefaults'])),'executed':True,'semanticallyCompared':compared,'actual':actual});loss.extend({'version':version,'vectorId':v['VECTOR_ID'],**m} for m in a['lossMap'])\n if write:\n  ordered=[oracle[k] for k in sorted(oracle)];oracle_path.write_text(json.dumps({'schemaVersion':1,'vectors':ordered},indent=2,sort_keys=True)+'\\n');(root/'Tests/Evidence/HSB_2E_PREP_R4_R7_LOSSLESS_ADAPTER_MAPS.json').write_text(json.dumps({'schemaVersion':1,'maps':loss},indent=2,sort_keys=True)+'\\n')\n required=len(rows);good=sum(r['semanticallyCompared'] for r in rows);out={'HISTORICAL_VECTORS_REQUIRED':required,'HISTORICAL_VECTORS_LOSSLESSLY_ADAPTED':sum(r['lossless'] for r in rows),'HISTORICAL_VECTORS_EXECUTED_ON_R7':len(rows),'HISTORICAL_VECTORS_SEMANTICALLY_COMPARED':good,'HISTORICAL_VECTOR_SEMANTIC_FAILURES':required-good,'SILENTLY_DROPPED_FIELDS':0,'SILENTLY_DROPPED_ELEMENTS':0,'SELF_HEALED_DEFECTS':0,'UNJUSTIFIED_DEFAULTS':0,'UNRESOLVED':0,'UNMAPPED':0,'AMBIGUOUS':0,'rows':rows,'RESULT':'PASS' if required==good==104 else 'FAIL'}\n if write:(root/'Tests/Evidence/HSB_2E_PREP_R4_R7_CROSS_VERSION_RESULTS.json').write_text(json.dumps(out,indent=2,sort_keys=True)+'\\n')\n print(json.dumps({k:v for k,v in out.items() if k!='rows'},sort_keys=True,separators=(',',':')));return out['RESULT']=='PASS'\nif __name__=='__main__':p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--write',action='store_true');a=p.parse_args();raise SystemExit(0 if run(a.root,a.write) else 1)\n"
+      },
+      "exactInputSHA256": "daad7da542f2b5e2828b4a0be52d379d07df06c9b5ea86e395f566d758265c6b",
+      "falsePassReproduced": true,
+      "historicalReason": "CIRCULAR_ORACLE",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-003",
+      "exactInput": {
+        "source": "#!/usr/bin/env python3\n\"\"\"Real source mutation runner: executable R7 code is changed in throw-away trees.\"\"\"\nimport argparse,hashlib,json,shutil,subprocess,tempfile\nfrom pathlib import Path\nBASE=[\n ('Tests/Reference/hsb_2e_provenance_model_r4_r7.py',\"if any(getattr(snapshot,a)!=context.get(b) for a,b in bindings.items()):return 'SNAPSHOT_CONTEXT_IDENTITY_MISMATCH'\",\"if False and any(getattr(snapshot,a)!=context.get(b) for a,b in bindings.items()):return 'SNAPSHOT_CONTEXT_IDENTITY_MISMATCH'\",'R7_SNAPSHOT_CONTEXT_BINDING','run_hsb_2e_r4_r7_price_adversarial.py'),\n ('Tests/Reference/hsb_2e_provenance_model_r4_r7.py',\"if policy.buyCloseSide!='BID' or policy.sellCloseSide!='ASK':raise ValueError('NORMATIVE_CLOSE_SIDE_MISMATCH')\",\"if False:raise ValueError('NORMATIVE_CLOSE_SIDE_MISMATCH')\",'R7_NORMATIVE_CLOSE_SIDES','run_hsb_2e_r4_r7_price_adversarial.py'),\n ('Tests/Reference/hsb_2e_reference_model_r4_r7.py',\"if state.get('committedOutputDigest')!=output_digest(state) or cert.outputStateDigest!=output_digest(state):return 'COMMIT_PIPELINE_RECOMPUTATION_MISMATCH'\",\"if False:return 'COMMIT_PIPELINE_RECOMPUTATION_MISMATCH'\",'R7_OUTPUT_STATE_RECOMPUTATION','run_hsb_2e_r4_r7_certificate_adversarial.py'),\n ('Tests/Reference/hsb_2e_economic_model_r4_r7.py',\"new_volume=down_volume(before-closed,p)\",\"new_volume=down_volume(big.get('residualVolume','0'),p)\",'R7_BIG_RESIDUAL_PROVENANCE','run_hsb_2e_r4_r7_new_far_adversarial.py'),\n ('Tests/Reference/hsb_2e_r4_r7_adapter_common.py',\"raw=copy.deepcopy(vector['INPUT'])\",\"raw={}\",'R7_LOSSLESS_ADAPTER','run_hsb_2e_r4_r7_cross_version.py'),\n ('Tests/Static/run_hsb_2e_r4_r7_cross_version.py',\"and all(actual[f]==expected[f'expected{f[0].upper()+f[1:]}'] for f in FIELDS)\",\"and False\",'R7_SEMANTIC_ORACLE','run_hsb_2e_r4_r7_cross_version.py'),\n]\nNAMES=['orphan deal','role binding','direction binding','intent binding','snapshot account','snapshot magic','snapshot cycle','snapshot revision','BUY Ask','SELL Bid','snapshot digest','policy digest','persisted validation','duplicate deal','duplicate event','derived caches','output digest','certificate equality','broker recompute','economic recompute','allocation recompute','persistence recompute','revision +1','broker fixture adapter','zip loss','ticket rewrite','role rewrite','automatic strengthening','count only','residualVolume New Far','Big conservation','DUAL_TAIL','missing Small','malformed registry','apply before persist']\ndef run(root):\n root=Path(root).resolve();rows=[]\n for n,name in enumerate(NAMES):\n  target,old,new,check,probe=BASE[n%len(BASE)];source=(root/target).read_text();applied=source.count(old)==1\n  if not applied:rows.append({'id':n+1,'class':name,'applied':False,'caught':False});continue\n  with tempfile.TemporaryDirectory(prefix='hsb-r7-mut-') as td:\n   fixture=Path(td)/'project';shutil.copytree(root,fixture);path=fixture/target;before=hashlib.sha256(path.read_bytes()).hexdigest();path.write_text(source.replace(old,new,1));after=hashlib.sha256(path.read_bytes()).hexdigest()\n   proc=subprocess.run(['python3',str(fixture/'Tests/Static'/probe),'--root',str(fixture)],capture_output=True,text=True,timeout=30)\n   caught=proc.returncode!=0 and before!=after;rows.append({'id':n+1,'class':name,'target':target,'expectedCheckId':check,'sourceChanged':before!=after,'applied':True,'caught':caught,'exitCode':proc.returncode})\n out={'REAL_SEMANTIC_SOURCE_MUTATIONS_REQUIRED':35,'REAL_SEMANTIC_SOURCE_MUTATIONS_EXECUTED':sum(r['applied'] for r in rows),'REAL_SEMANTIC_SOURCE_MUTATIONS_CAUGHT':sum(r['caught'] for r in rows),'ASSERTION_RESULT_MUTATIONS':0,'SELF_SABOTAGE_MUTATIONS':0,'SURVIVED':sum(r['applied'] and not r['caught'] for r in rows),'INVALID':0,'NOT_APPLIED':sum(not r['applied'] for r in rows),'WRONG_FAILURES':0,'INFRASTRUCTURE_FAILURES':0,'rows':rows};out['RESULT']='PASS' if out['REAL_SEMANTIC_SOURCE_MUTATIONS_EXECUTED']==out['REAL_SEMANTIC_SOURCE_MUTATIONS_CAUGHT']==35 else 'FAIL';print(json.dumps(out,sort_keys=True,separators=(',',':')));return out['RESULT']=='PASS'\nif __name__=='__main__':p=argparse.ArgumentParser();p.add_argument('--root',required=True);a=p.parse_args();raise SystemExit(0 if run(a.root) else 1)\n"
+      },
+      "exactInputSHA256": "a4ecbc7e68a933ae7bbfc787e28bc4b41210223e23a55c132b278806461047b6",
+      "falsePassReproduced": true,
+      "historicalReason": "SIX_TRANSFORMS_REUSED",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-004",
+      "exactInput": {
+        "source": "#!/usr/bin/env python3\n\"\"\"Real source mutation runner: executable R7 code is changed in throw-away trees.\"\"\"\nimport argparse,hashlib,json,shutil,subprocess,tempfile\nfrom pathlib import Path\nBASE=[\n ('Tests/Reference/hsb_2e_provenance_model_r4_r7.py',\"if any(getattr(snapshot,a)!=context.get(b) for a,b in bindings.items()):return 'SNAPSHOT_CONTEXT_IDENTITY_MISMATCH'\",\"if False and any(getattr(snapshot,a)!=context.get(b) for a,b in bindings.items()):return 'SNAPSHOT_CONTEXT_IDENTITY_MISMATCH'\",'R7_SNAPSHOT_CONTEXT_BINDING','run_hsb_2e_r4_r7_price_adversarial.py'),\n ('Tests/Reference/hsb_2e_provenance_model_r4_r7.py',\"if policy.buyCloseSide!='BID' or policy.sellCloseSide!='ASK':raise ValueError('NORMATIVE_CLOSE_SIDE_MISMATCH')\",\"if False:raise ValueError('NORMATIVE_CLOSE_SIDE_MISMATCH')\",'R7_NORMATIVE_CLOSE_SIDES','run_hsb_2e_r4_r7_price_adversarial.py'),\n ('Tests/Reference/hsb_2e_reference_model_r4_r7.py',\"if state.get('committedOutputDigest')!=output_digest(state) or cert.outputStateDigest!=output_digest(state):return 'COMMIT_PIPELINE_RECOMPUTATION_MISMATCH'\",\"if False:return 'COMMIT_PIPELINE_RECOMPUTATION_MISMATCH'\",'R7_OUTPUT_STATE_RECOMPUTATION','run_hsb_2e_r4_r7_certificate_adversarial.py'),\n ('Tests/Reference/hsb_2e_economic_model_r4_r7.py',\"new_volume=down_volume(before-closed,p)\",\"new_volume=down_volume(big.get('residualVolume','0'),p)\",'R7_BIG_RESIDUAL_PROVENANCE','run_hsb_2e_r4_r7_new_far_adversarial.py'),\n ('Tests/Reference/hsb_2e_r4_r7_adapter_common.py',\"raw=copy.deepcopy(vector['INPUT'])\",\"raw={}\",'R7_LOSSLESS_ADAPTER','run_hsb_2e_r4_r7_cross_version.py'),\n ('Tests/Static/run_hsb_2e_r4_r7_cross_version.py',\"and all(actual[f]==expected[f'expected{f[0].upper()+f[1:]}'] for f in FIELDS)\",\"and False\",'R7_SEMANTIC_ORACLE','run_hsb_2e_r4_r7_cross_version.py'),\n]\nNAMES=['orphan deal','role binding','direction binding','intent binding','snapshot account','snapshot magic','snapshot cycle','snapshot revision','BUY Ask','SELL Bid','snapshot digest','policy digest','persisted validation','duplicate deal','duplicate event','derived caches','output digest','certificate equality','broker recompute','economic recompute','allocation recompute','persistence recompute','revision +1','broker fixture adapter','zip loss','ticket rewrite','role rewrite','automatic strengthening','count only','residualVolume New Far','Big conservation','DUAL_TAIL','missing Small','malformed registry','apply before persist']\ndef run(root):\n root=Path(root).resolve();rows=[]\n for n,name in enumerate(NAMES):\n  target,old,new,check,probe=BASE[n%len(BASE)];source=(root/target).read_text();applied=source.count(old)==1\n  if not applied:rows.append({'id':n+1,'class':name,'applied':False,'caught':False});continue\n  with tempfile.TemporaryDirectory(prefix='hsb-r7-mut-') as td:\n   fixture=Path(td)/'project';shutil.copytree(root,fixture);path=fixture/target;before=hashlib.sha256(path.read_bytes()).hexdigest();path.write_text(source.replace(old,new,1));after=hashlib.sha256(path.read_bytes()).hexdigest()\n   proc=subprocess.run(['python3',str(fixture/'Tests/Static'/probe),'--root',str(fixture)],capture_output=True,text=True,timeout=30)\n   caught=proc.returncode!=0 and before!=after;rows.append({'id':n+1,'class':name,'target':target,'expectedCheckId':check,'sourceChanged':before!=after,'applied':True,'caught':caught,'exitCode':proc.returncode})\n out={'REAL_SEMANTIC_SOURCE_MUTATIONS_REQUIRED':35,'REAL_SEMANTIC_SOURCE_MUTATIONS_EXECUTED':sum(r['applied'] for r in rows),'REAL_SEMANTIC_SOURCE_MUTATIONS_CAUGHT':sum(r['caught'] for r in rows),'ASSERTION_RESULT_MUTATIONS':0,'SELF_SABOTAGE_MUTATIONS':0,'SURVIVED':sum(r['applied'] and not r['caught'] for r in rows),'INVALID':0,'NOT_APPLIED':sum(not r['applied'] for r in rows),'WRONG_FAILURES':0,'INFRASTRUCTURE_FAILURES':0,'rows':rows};out['RESULT']='PASS' if out['REAL_SEMANTIC_SOURCE_MUTATIONS_EXECUTED']==out['REAL_SEMANTIC_SOURCE_MUTATIONS_CAUGHT']==35 else 'FAIL';print(json.dumps(out,sort_keys=True,separators=(',',':')));return out['RESULT']=='PASS'\nif __name__=='__main__':p=argparse.ArgumentParser();p.add_argument('--root',required=True);a=p.parse_args();raise SystemExit(0 if run(a.root) else 1)\n"
+      },
+      "exactInputSHA256": "a4ecbc7e68a933ae7bbfc787e28bc4b41210223e23a55c132b278806461047b6",
+      "falsePassReproduced": true,
+      "historicalReason": "MUTATION_CLASS_TARGET_MISMATCH",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-005",
+      "exactInput": {
+        "source": "#!/usr/bin/env python3\n\"\"\"Independent R7 oracles over broker sources, not model result assignments.\"\"\"\nimport argparse\nfrom hsb_2e_provenance_model_r4_r7 import D,digest,validate_snapshot_context,price_bounds\nCHECK_IDS=('R7_LOSSLESS_ADAPTER','R7_NO_SELF_HEALING','R7_SEMANTIC_ORACLE','R7_SNAPSHOT_CONTEXT_BINDING','R7_NORMATIVE_CLOSE_SIDES','R7_OUTPUT_STATE_RECOMPUTATION','R7_CERTIFICATE_BROKER_RECOMPUTATION','R7_CERTIFICATE_ECONOMIC_RECOMPUTATION','R7_CERTIFICATE_ALLOCATION_RECOMPUTATION','R7_CERTIFICATE_PERSISTENCE_RECOMPUTATION','R7_BIG_RESIDUAL_PROVENANCE','R7_NEW_FAR_VOLUME_CONSERVATION','R7_REAL_MODEL_MUTATION_SENSITIVITY')\ndef big_residual(before,records,ticket):return D(before)-sum((r.volume for r in records if r.positionTicket==ticket),D(0))\ndef self_test():\n from hsb_2e_test_fixtures_r4_r7 import broker_fixture\n x=broker_fixture('SMALL');p=x['positions'][2];ok=big_residual('.8',x['dealRecords'],p['ticket'])==D('.3') and validate_snapshot_context(x['snapshot'],x['context']) is None and price_bounds(x['snapshot'],x['pricePolicy'],'BUY')[0]==x['snapshot'].bid\n checks={k:ok for k in CHECK_IDS};print('\\n'.join(f'{k}={\"PASS\" if v else \"FAIL\"}' for k,v in checks.items()));return all(checks.values())\nif __name__=='__main__':p=argparse.ArgumentParser();p.add_argument('--self-test',action='store_true');a=p.parse_args();raise SystemExit(0 if a.self_test and self_test() else 1)\n"
+      },
+      "exactInputSHA256": "d102d3e6daea368defd7e966cc7cfd01da63375b86fac1c59c2624c845419b88",
+      "falsePassReproduced": true,
+      "historicalReason": "SHARED_BOOLEAN_INVARIANTS",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-006",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "transactionId": "TX",
+          "volumeMax": "10",
+          "volumeMin": ".01",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": "0",
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "fee": "0",
+            "intentId": "I101",
+            "magic": 7,
+            "netMoney": "9",
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": "99999.00000",
+            "profit": "9",
+            "receivedSequence": 1,
+            "recordDigest": "f7a9351f171c9e68254e9d32e5e19182bc90e78cdc12005cbcb5603a87e04091",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotRevision": 2,
+            "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+            "stateRevision": 3,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": "1"
+          }
+        ],
+        "economicPolicy": {
+          "actionId": "A",
+          "closeFarShare": "0.1",
+          "cycleId": "C",
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "formulaIds": [
+            "DEAL_NET_ACTUAL",
+            "ALLOCATION_DISJOINT",
+            "RECOVERY_ACTUAL"
+          ],
+          "normativeSourceIds": [
+            "Docs/08",
+            "Docs/11",
+            "Docs/12",
+            "Docs/13"
+          ],
+          "policyDigest": "d3b9dc763b353c71b3a475ed3bb9eab67bccfafacf761e429f5ab0276aeb455f",
+          "recoveryPLBefore": "0",
+          "reserveBefore": "0",
+          "reserveShare": "0.9",
+          "roundingMode": "ROUND_DOWN",
+          "scenario": "INITIAL",
+          "schemaVersion": 1,
+          "smallReserveShare": "0.05",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "transactionId": "TX",
+          "units": "ACCOUNT_CURRENCY_AND_LOTS",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "intents": [
+          {
+            "direction": "BUY",
+            "executable": true,
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "commitCertificate": null,
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByRole": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementRevision": 0,
+          "stateRevision": 3,
+          "volumeByTicket": {}
+        },
+        "positions": [
+          {
+            "authoritativeVolume": "1",
+            "direction": "BUY",
+            "residualVolume": "0",
+            "role": "WINNER",
+            "ticket": 101
+          }
+        ],
+        "pricePolicy": {
+          "buyCloseSide": "BID",
+          "deviationTicks": 10000000000,
+          "digits": 5,
+          "normativeSourceId": "HSBI-PRICE-R7",
+          "policyDigest": "9ea04ef4e0fa2508ee361bbf2de435c01811c26e0969ddb3f3a0b18326501ce2",
+          "policyId": "EXACT_CLOSE_SIDE",
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "sellCloseSide": "ASK",
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "validFrom": 1900,
+          "validUntil": 2200
+        },
+        "scenario": "INITIAL",
+        "snapshot": {
+          "accountLogin": 1,
+          "ask": "1.2",
+          "bid": "1.1",
+          "cycleId": "C",
+          "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+          "magic": 7,
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "timestamp": 1900
+        }
+      },
+      "exactInputSHA256": "959857bc48afc4f22a405243a460fac77a315c7c563478eb414436bd9f017809",
+      "falsePassReproduced": true,
+      "historicalReason": "OK",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-007",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 4,
+          "symbol": "EURUSD",
+          "transactionId": "TX",
+          "volumeMax": "10",
+          "volumeMin": ".01",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": "0",
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "fee": "0",
+            "intentId": "I101",
+            "magic": 7,
+            "netMoney": "9",
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "9",
+            "receivedSequence": 1,
+            "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotRevision": 2,
+            "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+            "stateRevision": 3,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": "1"
+          }
+        ],
+        "economicPolicy": {
+          "actionId": "A",
+          "closeFarShare": "0.1",
+          "cycleId": "C",
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "formulaIds": [
+            "DEAL_NET_ACTUAL",
+            "ALLOCATION_DISJOINT",
+            "RECOVERY_ACTUAL"
+          ],
+          "normativeSourceIds": [
+            "Docs/08",
+            "Docs/11",
+            "Docs/12",
+            "Docs/13"
+          ],
+          "policyDigest": "d3b9dc763b353c71b3a475ed3bb9eab67bccfafacf761e429f5ab0276aeb455f",
+          "recoveryPLBefore": "0",
+          "reserveBefore": "0",
+          "reserveShare": "0.9",
+          "roundingMode": "ROUND_DOWN",
+          "scenario": "INITIAL",
+          "schemaVersion": 1,
+          "smallReserveShare": "0.05",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "transactionId": "TX",
+          "units": "ACCOUNT_CURRENCY_AND_LOTS",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "intents": [
+          {
+            "direction": "BUY",
+            "executable": true,
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [
+            {
+              "accountLogin": 1,
+              "actionId": "A",
+              "commission": "0",
+              "confirmed": true,
+              "cycleId": "C",
+              "dealId": "D101",
+              "dealTimestamp": 2000,
+              "direction": "BUY",
+              "eventId": "E101",
+              "fee": "0",
+              "intentId": "I101",
+              "magic": 7,
+              "netMoney": "9",
+              "orderId": "O101",
+              "positionRole": "WINNER",
+              "positionTicket": 101,
+              "price": "1.1",
+              "profit": "9",
+              "receivedSequence": 1,
+              "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+              "schemaVersion": 1,
+              "snapshotId": "S",
+              "snapshotRevision": 2,
+              "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+              "stateRevision": 3,
+              "swap": "0",
+              "symbol": "EURUSD",
+              "transactionId": "TX",
+              "volume": "1"
+            }
+          ],
+          "commitBundle": {
+            "allocation": {
+              "bodyValue": {},
+              "kind": "HSBI_AllocationResult",
+              "objectDigest": "1c449f146fe77c98c1f5b6a699ef0699b461acd1de459bc6df15dd05a8db1303"
+            },
+            "broker": {
+              "bodyValue": {
+                "acceptedDealIds": [
+                  "D101"
+                ],
+                "context": {
+                  "accountLogin": 1,
+                  "actionId": "A",
+                  "cycleId": "C",
+                  "magic": 7,
+                  "snapshotId": "S",
+                  "snapshotRevision": 2,
+                  "stateRevision": 3,
+                  "symbol": "EURUSD",
+                  "transactionId": "TX",
+                  "volumeMax": "10",
+                  "volumeMin": ".01",
+                  "volumeStep": ".01"
+                },
+                "fills": {
+                  "101": {
+                    "before": "1",
+                    "confirmed": "1",
+                    "full": true,
+                    "requested": "1"
+                  }
+                },
+                "moneyByRole": {
+                  "WINNER": "9"
+                },
+                "moneyByTicket": {
+                  "101": "9"
+                },
+                "snapshot": {
+                  "accountLogin": 1,
+                  "ask": "1.2",
+                  "bid": "1.1",
+                  "cycleId": "C",
+                  "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+                  "magic": 7,
+                  "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+                  "schemaVersion": 1,
+                  "snapshotId": "S",
+                  "snapshotRevision": 2,
+                  "stateRevision": 3,
+                  "symbol": "EURUSD",
+                  "timestamp": 1900
+                },
+                "volumeByTicket": {
+                  "101": "1"
+                }
+              },
+              "kind": "HSBI_BrokerProposal",
+              "objectDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9"
+            },
+            "economic": {
+              "bodyValue": {
+                "actualMoneyByRole": {
+                  "WINNER": "9"
+                },
+                "actualMoneyByTicket": {
+                  "101": "9"
+                },
+                "allocatedMoney": "0",
+                "allocationAttribution": {},
+                "availableMoney": "9",
+                "brokerProposalDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9",
+                "catchUpRatio": "0",
+                "closeFarBudget": "0",
+                "dualTail": false,
+                "farVolumeAfter": "1",
+                "finalCloseAllowed": false,
+                "newFarTicket": 0,
+                "newFarVolume": "0",
+                "partialFarVolume": "0",
+                "policyDigest": "d3b9dc763b353c71b3a475ed3bb9eab67bccfafacf761e429f5ab0276aeb455f",
+                "recoveryPLAfter": "0",
+                "remainingMoney": "9",
+                "reserveAddition": "0",
+                "reserveAfter": "0",
+                "reserveConsumed": "0",
+                "scenario": "INITIAL",
+                "smallReserveAddition": "0"
+              },
+              "kind": "HSBI_EconomicProposal",
+              "objectDigest": "6ab9df65ca2d9b215954964ceac20b08542d696e9f14d32a13afefddbd8e21bb"
+            },
+            "fsm": {
+              "bodyValue": {
+                "inputRevision": 3,
+                "outputRevision": 4,
+                "scenario": "INITIAL"
+              },
+              "kind": "HSBI_FSMTransitionRecord",
+              "objectDigest": "68c8505491666b700041e735aa9849be49a9808b41da07ec93d8a5755f7065c2"
+            },
+            "persistence": {
+              "bodyValue": {
+                "evidenceRevision": 1,
+                "ledgerDigest": "86b2db905eaef4d6c6c51e81aeb5fa024cc03bf9e12d379993121fee2f7d6cdd",
+                "order": [
+                  "BROKER",
+                  "ECONOMIC",
+                  "ALLOCATION",
+                  "PERSISTENCE",
+                  "FSM"
+                ]
+              },
+              "kind": "HSBI_PersistenceRecord",
+              "objectDigest": "f2db0811de3b42097e35c65d16c8cd314331a930728755746affff9033c5f9c6"
+            }
+          },
+          "commitCertificate": {
+            "allocationDigest": "1c449f146fe77c98c1f5b6a699ef0699b461acd1de459bc6df15dd05a8db1303",
+            "brokerDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9",
+            "certificateDigest": "bb556f5b6cc85071389be0c34b17bf24cee4de43fb82a6c2f5732f3978b9e770",
+            "certificateVersion": 999,
+            "economicDigest": "6ab9df65ca2d9b215954964ceac20b08542d696e9f14d32a13afefddbd8e21bb",
+            "fsmDigest": "68c8505491666b700041e735aa9849be49a9808b41da07ec93d8a5755f7065c2",
+            "inputRevision": 3,
+            "outputRevision": 4,
+            "outputStateDigest": "d7464744e28c9bacbb6b0e457a9b89c405069e079e0c5a4a35b3c860b243f38e",
+            "persistenceDigest": "f2db0811de3b42097e35c65d16c8cd314331a930728755746affff9033c5f9c6"
+          },
+          "committedOutputDigest": "d7464744e28c9bacbb6b0e457a9b89c405069e079e0c5a4a35b3c860b243f38e",
+          "consumedDealIds": [
+            "D101"
+          ],
+          "cumulativeFills": {
+            "101": "1"
+          },
+          "dealEventBindings": {
+            "D101": "E101"
+          },
+          "evidenceRevision": 1,
+          "moneyByDeal": {
+            "D101": "9"
+          },
+          "moneyByRole": {
+            "WINNER": "9"
+          },
+          "moneyByTicket": {
+            "101": "9"
+          },
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [
+            "E101"
+          ],
+          "settlementRevision": 1,
+          "stateRevision": 4,
+          "volumeByTicket": {
+            "101": "1"
+          }
+        },
+        "positions": [
+          {
+            "authoritativeVolume": "1",
+            "direction": "BUY",
+            "residualVolume": "0",
+            "role": "WINNER",
+            "ticket": 101
+          }
+        ],
+        "pricePolicy": {
+          "buyCloseSide": "BID",
+          "deviationTicks": 0,
+          "digits": 5,
+          "normativeSourceId": "HSBI-PRICE-R7",
+          "policyDigest": "7909da864c664f4c9c577be3d4b7985eb2cba9593738657948d0e3e348f120cf",
+          "policyId": "EXACT_CLOSE_SIDE",
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "sellCloseSide": "ASK",
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "validFrom": 1900,
+          "validUntil": 2200
+        },
+        "scenario": "INITIAL",
+        "snapshot": {
+          "accountLogin": 1,
+          "ask": "1.2",
+          "bid": "1.1",
+          "cycleId": "C",
+          "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+          "magic": 7,
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "timestamp": 1900
+        }
+      },
+      "exactInputSHA256": "e3558a66195a807a96bb3a2cf7616549c8a8a67a479304a6d6232b361500a98c",
+      "falsePassReproduced": true,
+      "historicalReason": "ALREADY_COMMITTED",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-008",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 999,
+          "symbol": "EURUSD",
+          "transactionId": "TX",
+          "volumeMax": "10",
+          "volumeMin": ".01",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": "0",
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "fee": "0",
+            "intentId": "I101",
+            "magic": 7,
+            "netMoney": "9",
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "9",
+            "receivedSequence": 1,
+            "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotRevision": 2,
+            "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+            "stateRevision": 3,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": "1"
+          }
+        ],
+        "economicPolicy": {
+          "actionId": "A",
+          "closeFarShare": "0.1",
+          "cycleId": "C",
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "formulaIds": [
+            "DEAL_NET_ACTUAL",
+            "ALLOCATION_DISJOINT",
+            "RECOVERY_ACTUAL"
+          ],
+          "normativeSourceIds": [
+            "Docs/08",
+            "Docs/11",
+            "Docs/12",
+            "Docs/13"
+          ],
+          "policyDigest": "d3b9dc763b353c71b3a475ed3bb9eab67bccfafacf761e429f5ab0276aeb455f",
+          "recoveryPLBefore": "0",
+          "reserveBefore": "0",
+          "reserveShare": "0.9",
+          "roundingMode": "ROUND_DOWN",
+          "scenario": "INITIAL",
+          "schemaVersion": 1,
+          "smallReserveShare": "0.05",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "transactionId": "TX",
+          "units": "ACCOUNT_CURRENCY_AND_LOTS",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "intents": [
+          {
+            "direction": "BUY",
+            "executable": true,
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [
+            {
+              "accountLogin": 1,
+              "actionId": "A",
+              "commission": "0",
+              "confirmed": true,
+              "cycleId": "C",
+              "dealId": "D101",
+              "dealTimestamp": 2000,
+              "direction": "BUY",
+              "eventId": "E101",
+              "fee": "0",
+              "intentId": "I101",
+              "magic": 7,
+              "netMoney": "9",
+              "orderId": "O101",
+              "positionRole": "WINNER",
+              "positionTicket": 101,
+              "price": "1.1",
+              "profit": "9",
+              "receivedSequence": 1,
+              "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+              "schemaVersion": 1,
+              "snapshotId": "S",
+              "snapshotRevision": 2,
+              "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+              "stateRevision": 3,
+              "swap": "0",
+              "symbol": "EURUSD",
+              "transactionId": "TX",
+              "volume": "1"
+            }
+          ],
+          "commitBundle": {
+            "allocation": {
+              "bodyValue": {},
+              "kind": "HSBI_AllocationResult",
+              "objectDigest": "1c449f146fe77c98c1f5b6a699ef0699b461acd1de459bc6df15dd05a8db1303"
+            },
+            "broker": {
+              "bodyValue": {
+                "acceptedDealIds": [
+                  "D101"
+                ],
+                "context": {
+                  "accountLogin": 1,
+                  "actionId": "A",
+                  "cycleId": "C",
+                  "magic": 7,
+                  "snapshotId": "S",
+                  "snapshotRevision": 2,
+                  "stateRevision": 3,
+                  "symbol": "EURUSD",
+                  "transactionId": "TX",
+                  "volumeMax": "10",
+                  "volumeMin": ".01",
+                  "volumeStep": ".01"
+                },
+                "fills": {
+                  "101": {
+                    "before": "1",
+                    "confirmed": "1",
+                    "full": true,
+                    "requested": "1"
+                  }
+                },
+                "moneyByRole": {
+                  "WINNER": "9"
+                },
+                "moneyByTicket": {
+                  "101": "9"
+                },
+                "snapshot": {
+                  "accountLogin": 1,
+                  "ask": "1.2",
+                  "bid": "1.1",
+                  "cycleId": "C",
+                  "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+                  "magic": 7,
+                  "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+                  "schemaVersion": 1,
+                  "snapshotId": "S",
+                  "snapshotRevision": 2,
+                  "stateRevision": 3,
+                  "symbol": "EURUSD",
+                  "timestamp": 1900
+                },
+                "volumeByTicket": {
+                  "101": "1"
+                }
+              },
+              "kind": "HSBI_BrokerProposal",
+              "objectDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9"
+            },
+            "economic": {
+              "bodyValue": {
+                "actualMoneyByRole": {
+                  "WINNER": "9"
+                },
+                "actualMoneyByTicket": {
+                  "101": "9"
+                },
+                "allocatedMoney": "0",
+                "allocationAttribution": {},
+                "availableMoney": "9",
+                "brokerProposalDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9",
+                "catchUpRatio": "0",
+                "closeFarBudget": "0",
+                "dualTail": false,
+                "farVolumeAfter": "1",
+                "finalCloseAllowed": false,
+                "newFarTicket": 0,
+                "newFarVolume": "0",
+                "partialFarVolume": "0",
+                "policyDigest": "d3b9dc763b353c71b3a475ed3bb9eab67bccfafacf761e429f5ab0276aeb455f",
+                "recoveryPLAfter": "0",
+                "remainingMoney": "9",
+                "reserveAddition": "0",
+                "reserveAfter": "0",
+                "reserveConsumed": "0",
+                "scenario": "INITIAL",
+                "smallReserveAddition": "0"
+              },
+              "kind": "HSBI_EconomicProposal",
+              "objectDigest": "6ab9df65ca2d9b215954964ceac20b08542d696e9f14d32a13afefddbd8e21bb"
+            },
+            "fsm": {
+              "bodyValue": {
+                "inputRevision": 3,
+                "outputRevision": 4,
+                "scenario": "INITIAL"
+              },
+              "kind": "HSBI_FSMTransitionRecord",
+              "objectDigest": "68c8505491666b700041e735aa9849be49a9808b41da07ec93d8a5755f7065c2"
+            },
+            "persistence": {
+              "bodyValue": {
+                "evidenceRevision": 1,
+                "ledgerDigest": "86b2db905eaef4d6c6c51e81aeb5fa024cc03bf9e12d379993121fee2f7d6cdd",
+                "order": [
+                  "BROKER",
+                  "ECONOMIC",
+                  "ALLOCATION",
+                  "PERSISTENCE",
+                  "FSM"
+                ]
+              },
+              "kind": "HSBI_PersistenceRecord",
+              "objectDigest": "f2db0811de3b42097e35c65d16c8cd314331a930728755746affff9033c5f9c6"
+            }
+          },
+          "commitCertificate": {
+            "allocationDigest": "1c449f146fe77c98c1f5b6a699ef0699b461acd1de459bc6df15dd05a8db1303",
+            "brokerDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9",
+            "certificateDigest": "f99d711c5423bb910c7b98b59ae3327b7dbac6330f5164462adc25553d72b3ed",
+            "certificateVersion": 1,
+            "economicDigest": "6ab9df65ca2d9b215954964ceac20b08542d696e9f14d32a13afefddbd8e21bb",
+            "fsmDigest": "68c8505491666b700041e735aa9849be49a9808b41da07ec93d8a5755f7065c2",
+            "inputRevision": 3,
+            "outputRevision": 4,
+            "outputStateDigest": "7b88b62126f7ac3a9d88b964956777c8697a39e74251635d52bde11c7cee9cf4",
+            "persistenceDigest": "f2db0811de3b42097e35c65d16c8cd314331a930728755746affff9033c5f9c6"
+          },
+          "committedOutputDigest": "7b88b62126f7ac3a9d88b964956777c8697a39e74251635d52bde11c7cee9cf4",
+          "consumedDealIds": [
+            "D101"
+          ],
+          "cumulativeFills": {
+            "101": "1"
+          },
+          "dealEventBindings": {
+            "D101": "E101"
+          },
+          "evidenceRevision": 1,
+          "moneyByDeal": {
+            "D101": "9"
+          },
+          "moneyByRole": {
+            "WINNER": "9"
+          },
+          "moneyByTicket": {
+            "101": "9"
+          },
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [
+            "E101"
+          ],
+          "settlementRevision": 1,
+          "stateRevision": 999,
+          "volumeByTicket": {
+            "101": "1"
+          }
+        },
+        "positions": [
+          {
+            "authoritativeVolume": "1",
+            "direction": "BUY",
+            "residualVolume": "0",
+            "role": "WINNER",
+            "ticket": 101
+          }
+        ],
+        "pricePolicy": {
+          "buyCloseSide": "BID",
+          "deviationTicks": 0,
+          "digits": 5,
+          "normativeSourceId": "HSBI-PRICE-R7",
+          "policyDigest": "7909da864c664f4c9c577be3d4b7985eb2cba9593738657948d0e3e348f120cf",
+          "policyId": "EXACT_CLOSE_SIDE",
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "sellCloseSide": "ASK",
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "validFrom": 1900,
+          "validUntil": 2200
+        },
+        "scenario": "INITIAL",
+        "snapshot": {
+          "accountLogin": 1,
+          "ask": "1.2",
+          "bid": "1.1",
+          "cycleId": "C",
+          "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+          "magic": 7,
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "timestamp": 1900
+        }
+      },
+      "exactInputSHA256": "a987af7e758f6311a3e737cf54ee35f3537a90cba445e004c18c1e0868676a50",
+      "falsePassReproduced": true,
+      "historicalReason": "ALREADY_COMMITTED",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-009",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 4,
+          "symbol": "EURUSD",
+          "transactionId": "TX",
+          "volumeMax": "10",
+          "volumeMin": ".01",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": "0",
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "fee": "0",
+            "intentId": "I101",
+            "magic": 7,
+            "netMoney": "9",
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "9",
+            "receivedSequence": 1,
+            "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotRevision": 2,
+            "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+            "stateRevision": 3,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": "1"
+          }
+        ],
+        "economicPolicy": {
+          "actionId": "A",
+          "closeFarShare": "0.1",
+          "cycleId": "C",
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "formulaIds": [
+            "DEAL_NET_ACTUAL",
+            "ALLOCATION_DISJOINT",
+            "RECOVERY_ACTUAL"
+          ],
+          "normativeSourceIds": [
+            "Docs/08",
+            "Docs/11",
+            "Docs/12",
+            "Docs/13"
+          ],
+          "policyDigest": "d3b9dc763b353c71b3a475ed3bb9eab67bccfafacf761e429f5ab0276aeb455f",
+          "recoveryPLBefore": "0",
+          "reserveBefore": "0",
+          "reserveShare": "0.9",
+          "roundingMode": "ROUND_DOWN",
+          "scenario": "INITIAL",
+          "schemaVersion": 1,
+          "smallReserveShare": "0.05",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "transactionId": "TX",
+          "units": "ACCOUNT_CURRENCY_AND_LOTS",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "intents": [
+          {
+            "direction": "BUY",
+            "executable": true,
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [
+            {
+              "accountLogin": 1,
+              "actionId": "A",
+              "commission": "0",
+              "confirmed": true,
+              "cycleId": "C",
+              "dealId": "D101",
+              "dealTimestamp": 2000,
+              "direction": "BUY",
+              "eventId": "E101",
+              "fee": "0",
+              "intentId": "I101",
+              "magic": 7,
+              "netMoney": "9",
+              "orderId": "O101",
+              "positionRole": "WINNER",
+              "positionTicket": 101,
+              "price": "1.1",
+              "profit": "9",
+              "receivedSequence": 1,
+              "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+              "schemaVersion": 1,
+              "snapshotId": "S",
+              "snapshotRevision": 2,
+              "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+              "stateRevision": 3,
+              "swap": "0",
+              "symbol": "EURUSD",
+              "transactionId": "TX",
+              "volume": "1"
+            }
+          ],
+          "commitBundle": {
+            "allocation": {
+              "bodyValue": {},
+              "kind": "HSBI_AllocationResult",
+              "objectDigest": "1c449f146fe77c98c1f5b6a699ef0699b461acd1de459bc6df15dd05a8db1303"
+            },
+            "broker": {
+              "bodyValue": {
+                "acceptedDealIds": [
+                  "D101"
+                ],
+                "context": {
+                  "accountLogin": 1,
+                  "actionId": "A",
+                  "cycleId": "C",
+                  "magic": 7,
+                  "snapshotId": "S",
+                  "snapshotRevision": 2,
+                  "stateRevision": 3,
+                  "symbol": "EURUSD",
+                  "transactionId": "TX",
+                  "volumeMax": "10",
+                  "volumeMin": ".01",
+                  "volumeStep": ".01"
+                },
+                "fills": {
+                  "101": {
+                    "before": "1",
+                    "confirmed": "1",
+                    "full": true,
+                    "requested": "1"
+                  }
+                },
+                "moneyByRole": {
+                  "WINNER": "9"
+                },
+                "moneyByTicket": {
+                  "101": "9"
+                },
+                "snapshot": {
+                  "accountLogin": 1,
+                  "ask": "1.2",
+                  "bid": "1.1",
+                  "cycleId": "C",
+                  "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+                  "magic": 7,
+                  "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+                  "schemaVersion": 1,
+                  "snapshotId": "S",
+                  "snapshotRevision": 2,
+                  "stateRevision": 3,
+                  "symbol": "EURUSD",
+                  "timestamp": 1900
+                },
+                "volumeByTicket": {
+                  "101": "1"
+                }
+              },
+              "kind": "HSBI_BrokerProposal",
+              "objectDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9"
+            },
+            "economic": {
+              "bodyValue": {
+                "actualMoneyByRole": {
+                  "WINNER": "9"
+                },
+                "actualMoneyByTicket": {
+                  "101": "9"
+                },
+                "allocatedMoney": "0",
+                "allocationAttribution": {},
+                "availableMoney": "9",
+                "brokerProposalDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9",
+                "catchUpRatio": "0",
+                "closeFarBudget": "0",
+                "dualTail": false,
+                "farVolumeAfter": "1",
+                "finalCloseAllowed": false,
+                "newFarTicket": 0,
+                "newFarVolume": "0",
+                "partialFarVolume": "0",
+                "policyDigest": "d3b9dc763b353c71b3a475ed3bb9eab67bccfafacf761e429f5ab0276aeb455f",
+                "recoveryPLAfter": "0",
+                "remainingMoney": "9",
+                "reserveAddition": "0",
+                "reserveAfter": "0",
+                "reserveConsumed": "0",
+                "scenario": "INITIAL",
+                "smallReserveAddition": "0"
+              },
+              "kind": "HSBI_EconomicProposal",
+              "objectDigest": "6ab9df65ca2d9b215954964ceac20b08542d696e9f14d32a13afefddbd8e21bb"
+            },
+            "fsm": {
+              "bodyValue": {
+                "inputRevision": 3,
+                "outputRevision": 4,
+                "scenario": "INITIAL"
+              },
+              "kind": "HSBI_FSMTransitionRecord",
+              "objectDigest": "68c8505491666b700041e735aa9849be49a9808b41da07ec93d8a5755f7065c2"
+            },
+            "persistence": {
+              "bodyValue": {
+                "evidenceRevision": 1,
+                "ledgerDigest": "86b2db905eaef4d6c6c51e81aeb5fa024cc03bf9e12d379993121fee2f7d6cdd",
+                "order": [
+                  "BROKER",
+                  "ECONOMIC",
+                  "ALLOCATION",
+                  "PERSISTENCE",
+                  "FSM"
+                ]
+              },
+              "kind": "HSBI_PersistenceRecord",
+              "objectDigest": "f2db0811de3b42097e35c65d16c8cd314331a930728755746affff9033c5f9c6"
+            }
+          },
+          "commitCertificate": {
+            "allocationDigest": "1c449f146fe77c98c1f5b6a699ef0699b461acd1de459bc6df15dd05a8db1303",
+            "brokerDigest": "03c37d7b397cf9a696128a29b3f205c35de5de82234fcdf33cf982971e9b0ec9",
+            "certificateDigest": "4ec3c1d88eec7aa525b1f12df1425589a2087247f08816242da75ccded4d93b8",
+            "certificateVersion": 1,
+            "economicDigest": "6ab9df65ca2d9b215954964ceac20b08542d696e9f14d32a13afefddbd8e21bb",
+            "fsmDigest": "68c8505491666b700041e735aa9849be49a9808b41da07ec93d8a5755f7065c2",
+            "inputRevision": 3,
+            "outputRevision": 4,
+            "outputStateDigest": "47e0f1bd5386dead485b407fe4db3537780fc735b4de7e89e25e4f58521edb16",
+            "persistenceDigest": "f2db0811de3b42097e35c65d16c8cd314331a930728755746affff9033c5f9c6"
+          },
+          "committedOutputDigest": "47e0f1bd5386dead485b407fe4db3537780fc735b4de7e89e25e4f58521edb16",
+          "consumedDealIds": [
+            "D101"
+          ],
+          "cumulativeFills": {
+            "101": "1"
+          },
+          "dealEventBindings": {
+            "D101": "E101"
+          },
+          "evidenceRevision": 1,
+          "moneyByDeal": {
+            "D101": "9"
+          },
+          "moneyByRole": {
+            "WINNER": "9"
+          },
+          "moneyByTicket": {
+            "101": "9"
+          },
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [
+            "E101"
+          ],
+          "settlementRevision": 999,
+          "stateRevision": 4,
+          "volumeByTicket": {
+            "101": "1"
+          }
+        },
+        "positions": [
+          {
+            "authoritativeVolume": "1",
+            "direction": "BUY",
+            "residualVolume": "0",
+            "role": "WINNER",
+            "ticket": 101
+          }
+        ],
+        "pricePolicy": {
+          "buyCloseSide": "BID",
+          "deviationTicks": 0,
+          "digits": 5,
+          "normativeSourceId": "HSBI-PRICE-R7",
+          "policyDigest": "7909da864c664f4c9c577be3d4b7985eb2cba9593738657948d0e3e348f120cf",
+          "policyId": "EXACT_CLOSE_SIDE",
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "sellCloseSide": "ASK",
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "validFrom": 1900,
+          "validUntil": 2200
+        },
+        "scenario": "INITIAL",
+        "snapshot": {
+          "accountLogin": 1,
+          "ask": "1.2",
+          "bid": "1.1",
+          "cycleId": "C",
+          "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+          "magic": 7,
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "timestamp": 1900
+        }
+      },
+      "exactInputSHA256": "24e8d9c661da183f36a88c472aabb7a082751819a859d1b9d89ddef4f4f8a301",
+      "falsePassReproduced": true,
+      "historicalReason": "ALREADY_COMMITTED",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-010",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "transactionId": "TX",
+          "volumeMax": "10",
+          "volumeMin": ".01",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": "0",
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "fee": "0",
+            "intentId": "I101",
+            "magic": 7,
+            "netMoney": "9",
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "9",
+            "receivedSequence": 1,
+            "recordDigest": "53fbe4cc6cac1cbe574918266ed3d5aa2f72eeac8e9f8d35986f4e17cd3e22f0",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotRevision": 2,
+            "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+            "stateRevision": 3,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": "1.10"
+          }
+        ],
+        "economicPolicy": {
+          "actionId": "A",
+          "closeFarShare": "0.1",
+          "cycleId": "C",
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "formulaIds": [
+            "DEAL_NET_ACTUAL",
+            "ALLOCATION_DISJOINT",
+            "RECOVERY_ACTUAL"
+          ],
+          "normativeSourceIds": [
+            "Docs/08",
+            "Docs/11",
+            "Docs/12",
+            "Docs/13"
+          ],
+          "policyDigest": "d3b9dc763b353c71b3a475ed3bb9eab67bccfafacf761e429f5ab0276aeb455f",
+          "recoveryPLBefore": "0",
+          "reserveBefore": "0",
+          "reserveShare": "0.9",
+          "roundingMode": "ROUND_DOWN",
+          "scenario": "INITIAL",
+          "schemaVersion": 1,
+          "smallReserveShare": "0.05",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "transactionId": "TX",
+          "units": "ACCOUNT_CURRENCY_AND_LOTS",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "intents": [
+          {
+            "direction": "BUY",
+            "executable": true,
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "commitCertificate": null,
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByRole": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementRevision": 0,
+          "stateRevision": 3,
+          "volumeByTicket": {}
+        },
+        "positions": [
+          {
+            "authoritativeVolume": "1",
+            "direction": "BUY",
+            "residualVolume": "0",
+            "role": "WINNER",
+            "ticket": 101
+          }
+        ],
+        "pricePolicy": {
+          "buyCloseSide": "BID",
+          "deviationTicks": 0,
+          "digits": 5,
+          "normativeSourceId": "HSBI-PRICE-R7",
+          "policyDigest": "7909da864c664f4c9c577be3d4b7985eb2cba9593738657948d0e3e348f120cf",
+          "policyId": "EXACT_CLOSE_SIDE",
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "sellCloseSide": "ASK",
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "validFrom": 1900,
+          "validUntil": 2200
+        },
+        "scenario": "INITIAL",
+        "snapshot": {
+          "accountLogin": 1,
+          "ask": "1.2",
+          "bid": "1.1",
+          "cycleId": "C",
+          "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+          "magic": 7,
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "timestamp": 1900
+        }
+      },
+      "exactInputSHA256": "35c5fc11000c72ca628ddaca68b736fe527c4e7014d85b94f87d80b8968b72c6",
+      "falsePassReproduced": true,
+      "historicalReason": "COMMIT_FULL_FILL_UNPROVEN",
+      "historicalStatus": "UNAVAILABLE"
+    },
+    {
+      "caseId": "FP-R8-011",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "transactionId": "TX",
+          "volumeMax": "10",
+          "volumeMin": ".01",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": "0",
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "fee": "0",
+            "intentId": "I101",
+            "magic": 7,
+            "netMoney": "9",
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "9",
+            "receivedSequence": 1,
+            "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotRevision": 2,
+            "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+            "stateRevision": 3,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": "1"
+          }
+        ],
+        "economicPolicy": {
+          "actionId": "A",
+          "closeFarShare": "0.1",
+          "cycleId": "C",
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "formulaIds": [],
+          "normativeSourceIds": [
+            "Docs/08",
+            "Docs/11",
+            "Docs/12",
+            "Docs/13"
+          ],
+          "policyDigest": "5e13c045d49f244d6207354680265a29d11146730f36cab1d3b98603d95be795",
+          "recoveryPLBefore": "0",
+          "reserveBefore": "0",
+          "reserveShare": "0.9",
+          "roundingMode": "ROUND_DOWN",
+          "scenario": "INITIAL",
+          "schemaVersion": 1,
+          "smallReserveShare": "0.05",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "transactionId": "TX",
+          "units": "ACCOUNT_CURRENCY_AND_LOTS",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "intents": [
+          {
+            "direction": "BUY",
+            "executable": true,
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "commitCertificate": null,
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByRole": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementRevision": 0,
+          "stateRevision": 3,
+          "volumeByTicket": {}
+        },
+        "positions": [
+          {
+            "authoritativeVolume": "1",
+            "direction": "BUY",
+            "residualVolume": "0",
+            "role": "WINNER",
+            "ticket": 101
+          }
+        ],
+        "pricePolicy": {
+          "buyCloseSide": "BID",
+          "deviationTicks": 0,
+          "digits": 5,
+          "normativeSourceId": "HSBI-PRICE-R7",
+          "policyDigest": "7909da864c664f4c9c577be3d4b7985eb2cba9593738657948d0e3e348f120cf",
+          "policyId": "EXACT_CLOSE_SIDE",
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "sellCloseSide": "ASK",
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "validFrom": 1900,
+          "validUntil": 2200
+        },
+        "scenario": "INITIAL",
+        "snapshot": {
+          "accountLogin": 1,
+          "ask": "1.2",
+          "bid": "1.1",
+          "cycleId": "C",
+          "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+          "magic": 7,
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "timestamp": 1900
+        }
+      },
+      "exactInputSHA256": "56b61b63e07a8c950a329b36fb0169cab828cc73cf53d066bade464cf8e1fff9",
+      "falsePassReproduced": true,
+      "historicalReason": "OK",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-012",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "transactionId": "TX",
+          "volumeMax": "10",
+          "volumeMin": ".01",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": "0",
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "fee": "0",
+            "intentId": "I101",
+            "magic": 7,
+            "netMoney": "9",
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "9",
+            "receivedSequence": 1,
+            "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotRevision": 2,
+            "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+            "stateRevision": 3,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": "1"
+          }
+        ],
+        "economicPolicy": {
+          "actionId": "A",
+          "closeFarShare": "0.1",
+          "cycleId": "C",
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "formulaIds": [
+            "DEAL_NET_ACTUAL",
+            "ALLOCATION_DISJOINT",
+            "RECOVERY_ACTUAL"
+          ],
+          "normativeSourceIds": [],
+          "policyDigest": "bb479400a923060025e7fbf5d5eeeb8ded9f5c25e4ef8e65c7b2c130b0b41613",
+          "recoveryPLBefore": "0",
+          "reserveBefore": "0",
+          "reserveShare": "0.9",
+          "roundingMode": "ROUND_DOWN",
+          "scenario": "INITIAL",
+          "schemaVersion": 1,
+          "smallReserveShare": "0.05",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "transactionId": "TX",
+          "units": "ACCOUNT_CURRENCY_AND_LOTS",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.01"
+        },
+        "intents": [
+          {
+            "direction": "BUY",
+            "executable": true,
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "commitCertificate": null,
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByRole": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementRevision": 0,
+          "stateRevision": 3,
+          "volumeByTicket": {}
+        },
+        "positions": [
+          {
+            "authoritativeVolume": "1",
+            "direction": "BUY",
+            "residualVolume": "0",
+            "role": "WINNER",
+            "ticket": 101
+          }
+        ],
+        "pricePolicy": {
+          "buyCloseSide": "BID",
+          "deviationTicks": 0,
+          "digits": 5,
+          "normativeSourceId": "HSBI-PRICE-R7",
+          "policyDigest": "7909da864c664f4c9c577be3d4b7985eb2cba9593738657948d0e3e348f120cf",
+          "policyId": "EXACT_CLOSE_SIDE",
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "sellCloseSide": "ASK",
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "validFrom": 1900,
+          "validUntil": 2200
+        },
+        "scenario": "INITIAL",
+        "snapshot": {
+          "accountLogin": 1,
+          "ask": "1.2",
+          "bid": "1.1",
+          "cycleId": "C",
+          "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+          "magic": 7,
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "timestamp": 1900
+        }
+      },
+      "exactInputSHA256": "6814a91f5b425692082f12b891a28010b42e8c53eb580b9d93eb989e9cbb6c93",
+      "falsePassReproduced": true,
+      "historicalReason": "OK",
+      "historicalStatus": "PASS"
+    },
+    {
+      "caseId": "FP-R8-013",
+      "exactInput": {
+        "context": {
+          "accountLogin": 1,
+          "actionId": "A",
+          "cycleId": "C",
+          "magic": 7,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "transactionId": "TX",
+          "volumeMax": "10",
+          "volumeMin": ".01",
+          "volumeStep": ".01"
+        },
+        "dealRecords": [
+          {
+            "accountLogin": 1,
+            "actionId": "A",
+            "commission": "0",
+            "confirmed": true,
+            "cycleId": "C",
+            "dealId": "D101",
+            "dealTimestamp": 2000,
+            "direction": "BUY",
+            "eventId": "E101",
+            "fee": "0",
+            "intentId": "I101",
+            "magic": 7,
+            "netMoney": "9",
+            "orderId": "O101",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "price": "1.1",
+            "profit": "9",
+            "receivedSequence": 1,
+            "recordDigest": "90c1cf8bb531ebed077b5aad35a990465d5a456b0795b25e857cc348725a447f",
+            "schemaVersion": 1,
+            "snapshotId": "S",
+            "snapshotRevision": 2,
+            "sourceDigest": "TRUSTED_TERMINAL_DEAL",
+            "stateRevision": 3,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "transactionId": "TX",
+            "volume": "1"
+          }
+        ],
+        "economicPolicy": {
+          "actionId": "A",
+          "closeFarShare": "0.1",
+          "cycleId": "C",
+          "farLossBefore": "100",
+          "farVolumeBefore": "1",
+          "formulaIds": [
+            "DEAL_NET_ACTUAL",
+            "ALLOCATION_DISJOINT",
+            "RECOVERY_ACTUAL"
+          ],
+          "normativeSourceIds": [
+            "Docs/08",
+            "Docs/11",
+            "Docs/12",
+            "Docs/13"
+          ],
+          "policyDigest": "d67a21c21580fcf1cf3d3d4eeec1dfa7f8bc33f563bb812ca4e64d07b7ad25cf",
+          "recoveryPLBefore": "0",
+          "reserveBefore": "0",
+          "reserveShare": "0.9",
+          "roundingMode": "ROUND_DOWN",
+          "scenario": "INITIAL",
+          "schemaVersion": 1,
+          "smallReserveShare": "0.05",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "transactionId": "TX",
+          "units": "ACCOUNT_CURRENCY_AND_LOTS",
+          "volumeMax": "10",
+          "volumeMin": "0.01",
+          "volumeStep": "0.02"
+        },
+        "intents": [
+          {
+            "direction": "BUY",
+            "executable": true,
+            "intentId": "I101",
+            "intentKind": "FULL_CLOSE",
+            "positionRole": "WINNER",
+            "positionTicket": 101,
+            "requestedVolume": "1"
+          }
+        ],
+        "persistedState": {
+          "acceptedDealRecords": [],
+          "commitCertificate": null,
+          "consumedDealIds": [],
+          "cumulativeFills": {},
+          "dealEventBindings": {},
+          "evidenceRevision": 0,
+          "moneyByDeal": {},
+          "moneyByRole": {},
+          "moneyByTicket": {},
+          "persistenceSchemaVersion": 1,
+          "seenEventIds": [],
+          "settlementRevision": 0,
+          "stateRevision": 3,
+          "volumeByTicket": {}
+        },
+        "positions": [
+          {
+            "authoritativeVolume": "1",
+            "direction": "BUY",
+            "residualVolume": "0",
+            "role": "WINNER",
+            "ticket": 101
+          }
+        ],
+        "pricePolicy": {
+          "buyCloseSide": "BID",
+          "deviationTicks": 0,
+          "digits": 5,
+          "normativeSourceId": "HSBI-PRICE-R7",
+          "policyDigest": "7909da864c664f4c9c577be3d4b7985eb2cba9593738657948d0e3e348f120cf",
+          "policyId": "EXACT_CLOSE_SIDE",
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "sellCloseSide": "ASK",
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "symbol": "EURUSD",
+          "tickSize": "0.00001",
+          "validFrom": 1900,
+          "validUntil": 2200
+        },
+        "scenario": "INITIAL",
+        "snapshot": {
+          "accountLogin": 1,
+          "ask": "1.2",
+          "bid": "1.1",
+          "cycleId": "C",
+          "digestValue": "f49e549c598b6b5c7a571969a19a61b334368e83aca43db897d3eae489fc6a9e",
+          "magic": 7,
+          "quoteSource": "TRUSTED_TERMINAL_SNAPSHOT",
+          "schemaVersion": 1,
+          "snapshotId": "S",
+          "snapshotRevision": 2,
+          "stateRevision": 3,
+          "symbol": "EURUSD",
+          "timestamp": 1900
+        }
+      },
+      "exactInputSHA256": "bd3065a1edbed28ca82019f8e3abe55edfa3e29fcb44e546c9da37351e8312e9",
+      "falsePassReproduced": true,
+      "historicalReason": "OK",
+      "historicalStatus": "PASS"
+    }
+  ],
+  "schemaVersion": 1
+}
