@@ -1,0 +1,365 @@
+{
+  "mutations": [
+    {
+      "expectedCheckId": "R8_CROSS_VERSION",
+      "expectedReason": "R8_CROSS_VERSION|FAIL",
+      "mutationClass": "adapter source preservation",
+      "mutationId": "ADAPTER_DROP_SOURCE",
+      "newFragment": "source_payload={},",
+      "oldFragment": "source_payload=source,",
+      "target": "Tests/Reference/hsb_2e_adapter_common_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CROSS_VERSION",
+      "expectedReason": "R8_CROSS_VERSION|FAIL",
+      "mutationClass": "adapter digest",
+      "mutationId": "ADAPTER_BAD_DIGEST",
+      "newFragment": "source_digest='forged',",
+      "oldFragment": "source_digest=value_sha(source),",
+      "target": "Tests/Reference/hsb_2e_adapter_common_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CROSS_VERSION",
+      "expectedReason": "R8_CROSS_VERSION|FAIL",
+      "mutationClass": "adapter leaf map",
+      "mutationId": "ADAPTER_DROP_MAP",
+      "newFragment": "mapping_records=(),",
+      "oldFragment": "mapping_records=tuple(records),",
+      "target": "Tests/Reference/hsb_2e_adapter_common_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CROSS_VERSION",
+      "expectedReason": "R8_CROSS_VERSION|FAIL",
+      "mutationClass": "adapter malformed deals",
+      "mutationId": "ADAPTER_HEAL_DEALS",
+      "newFragment": "[]",
+      "oldFragment": "source.get(\"deals\", [])",
+      "target": "Tests/Reference/hsb_2e_adapter_common_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CROSS_VERSION",
+      "expectedReason": "R8_CROSS_VERSION|FAIL",
+      "mutationClass": "adapter element identity",
+      "mutationId": "ADAPTER_REWRITE_ITEM",
+      "newFragment": "contract_type({})",
+      "oldFragment": "contract_type(copy.deepcopy(item))",
+      "target": "Tests/Reference/hsb_2e_adapter_common_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CROSS_VERSION",
+      "expectedReason": "R8_CROSS_VERSION|FAIL",
+      "mutationClass": "adapter completeness count",
+      "mutationId": "ADAPTER_FALSE_COUNT",
+      "newFragment": "\"mappedSourceLeaves\": 0",
+      "oldFragment": "\"mappedSourceLeaves\": len(records)",
+      "target": "Tests/Reference/hsb_2e_adapter_common_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_ORACLE_INDEPENDENCE",
+      "expectedReason": "R8_ORACLE_NO_MODEL_IMPORT|FAIL",
+      "mutationClass": "oracle model import",
+      "mutationId": "ORACLE_IMPORT_MODEL",
+      "newFragment": "import hsb_2e_reference_model_r4_r8\nimport argparse, hashlib, json",
+      "oldFragment": "import argparse, hashlib, json",
+      "target": "Tests/Static/build_hsb_2e_r4_r8_oracle.py"
+    },
+    {
+      "expectedCheckId": "R8_ORACLE_INDEPENDENCE",
+      "expectedReason": "R8_ORACLE_NO_MODEL_IMPORT|FAIL",
+      "mutationClass": "oracle target call",
+      "mutationId": "ORACLE_CALL_TARGET",
+      "newFragment": "\"\"\"execute_scenario dependency.\"\"\"",
+      "oldFragment": "\"\"\"Build the phase-A oracle only from immutable historical expectations.\"\"\"",
+      "target": "Tests/Static/build_hsb_2e_r4_r8_oracle.py"
+    },
+    {
+      "expectedCheckId": "R8_ORACLE_INDEPENDENCE",
+      "expectedReason": "R8_ORACLE_NO_MODEL_IMPORT|FAIL",
+      "mutationClass": "oracle actual alias",
+      "mutationId": "ORACLE_ACTUAL_ALIAS",
+      "newFragment": "expected = actual = None\nFILES = {",
+      "oldFragment": "FILES = {",
+      "target": "Tests/Static/build_hsb_2e_r4_r8_oracle.py"
+    },
+    {
+      "expectedCheckId": "R8_PRICE_AUTHORITY",
+      "expectedReason": "R8_PRICE_AUTHORITY|FAIL",
+      "mutationClass": "snapshot context",
+      "mutationId": "PRICE_FOREIGN_CONTEXT",
+      "newFragment": "return pass_result(\"SNAPSHOT_CONTEXT_IDENTITY_MISMATCH\")",
+      "oldFragment": "return reject(\"SNAPSHOT_CONTEXT_IDENTITY_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_PRICE_AUTHORITY",
+      "expectedReason": "R8_PRICE_AUTHORITY|FAIL",
+      "mutationClass": "normative close side",
+      "mutationId": "PRICE_REVERSE_SIDES",
+      "newFragment": "return pass_result(\"NORMATIVE_CLOSE_SIDE_MISMATCH\")",
+      "oldFragment": "return reject(\"NORMATIVE_CLOSE_SIDE_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_PRICE_AUTHORITY",
+      "expectedReason": "R8_PRICE_AUTHORITY|FAIL",
+      "mutationClass": "price authority",
+      "mutationId": "PRICE_UNKNOWN_POLICY",
+      "newFragment": "return pass_result(\"PRICE_POLICY_AUTHORITY_UNKNOWN\")",
+      "oldFragment": "return reject(\"PRICE_POLICY_AUTHORITY_UNKNOWN\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_PRICE_AUTHORITY",
+      "expectedReason": "R8_PRICE_AUTHORITY|FAIL",
+      "mutationClass": "price source authority",
+      "mutationId": "PRICE_SOURCE_MISMATCH",
+      "newFragment": "return pass_result(\"PRICE_POLICY_AUTHORITY_MISMATCH\")",
+      "oldFragment": "return reject(\"PRICE_POLICY_AUTHORITY_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_PRICE_AUTHORITY",
+      "expectedReason": "R8_PRICE_AUTHORITY|FAIL",
+      "mutationClass": "maximum deviation",
+      "mutationId": "PRICE_UNBOUNDED_DEVIATION",
+      "newFragment": "return pass_result(\"PRICE_DEVIATION_POLICY_EXCEEDED\")",
+      "oldFragment": "return reject(\"PRICE_DEVIATION_POLICY_EXCEEDED\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_PRICE_AUTHORITY",
+      "expectedReason": "R8_PRICE_AUTHORITY|FAIL",
+      "mutationClass": "price broker property",
+      "mutationId": "PRICE_GRID_UNBOUND",
+      "newFragment": "return pass_result(\"PRICE_POLICY_BROKER_PROPERTY_MISMATCH\")",
+      "oldFragment": "return reject(\"PRICE_POLICY_BROKER_PROPERTY_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_FILL_CLASSIFICATION",
+      "expectedReason": "R8_FILL_CLASSIFICATION|FAIL",
+      "mutationClass": "no fill",
+      "mutationId": "FILL_NO_AS_PARTIAL",
+      "newFragment": "return \"PARTIAL_FILL\"",
+      "oldFragment": "return \"NO_FILL\"",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_FILL_CLASSIFICATION",
+      "expectedReason": "R8_FILL_CLASSIFICATION|FAIL",
+      "mutationClass": "partial fill",
+      "mutationId": "FILL_PARTIAL_AS_FULL",
+      "newFragment": "return \"FULL_FILL\"",
+      "oldFragment": "return \"PARTIAL_FILL\"",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_FILL_CLASSIFICATION",
+      "expectedReason": "R8_FILL_CLASSIFICATION|FAIL",
+      "mutationClass": "full fill",
+      "mutationId": "FILL_FULL_AS_OVER",
+      "newFragment": "return \"OVERFILL\"",
+      "oldFragment": "return \"FULL_FILL\"",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_FILL_CLASSIFICATION",
+      "expectedReason": "R8_FILL_CLASSIFICATION|FAIL",
+      "mutationClass": "overfill",
+      "mutationId": "FILL_OVER_AS_PARTIAL",
+      "newFragment": "return \"PARTIAL_FILL\"",
+      "oldFragment": "return \"OVERFILL\"",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_FILL_CLASSIFICATION",
+      "expectedReason": "R8_FILL_CLASSIFICATION|FAIL",
+      "mutationClass": "invalid fill",
+      "mutationId": "FILL_INVALID_AS_NO",
+      "newFragment": "return \"NO_FILL\"",
+      "oldFragment": "return \"INVALID_FILL\"",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "certificate version",
+      "mutationId": "CERT_VERSION",
+      "newFragment": "return pass_result(\"COMMIT_CERTIFICATE_VERSION_UNSUPPORTED\")",
+      "oldFragment": "return reject(\"COMMIT_CERTIFICATE_VERSION_UNSUPPORTED\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "certificate missing source",
+      "mutationId": "CERT_MISSING_OBJECT",
+      "newFragment": "if COMMIT_OBJECT_KEYS - set(bundle):\n            return pass_result(\"COMMIT_SOURCE_OBJECT_MISSING\")",
+      "oldFragment": "if COMMIT_OBJECT_KEYS - set(bundle):\n            return reject(\"COMMIT_SOURCE_OBJECT_MISSING\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "certificate unknown source",
+      "mutationId": "CERT_UNKNOWN_OBJECT",
+      "newFragment": "return pass_result(\"COMMIT_SOURCE_OBJECT_UNKNOWN\")",
+      "oldFragment": "return reject(\"COMMIT_SOURCE_OBJECT_UNKNOWN\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "state revision delta",
+      "mutationId": "CERT_STATE_DELTA",
+      "newFragment": "return pass_result(\"COMMIT_STATE_REVISION_DELTA_INVALID\")",
+      "oldFragment": "return reject(\"COMMIT_STATE_REVISION_DELTA_INVALID\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "state revision binding",
+      "mutationId": "CERT_STATE_BIND",
+      "newFragment": "return pass_result(\"COMMIT_STATE_REVISION_MISMATCH\")",
+      "oldFragment": "return reject(\"COMMIT_STATE_REVISION_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "fsm revision binding",
+      "mutationId": "CERT_FSM_BIND",
+      "newFragment": "return pass_result(\"COMMIT_FSM_REVISION_MISMATCH\")",
+      "oldFragment": "return reject(\"COMMIT_FSM_REVISION_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "settlement revision delta",
+      "mutationId": "CERT_SETTLEMENT_DELTA",
+      "newFragment": "return pass_result(\"COMMIT_SETTLEMENT_REVISION_DELTA_INVALID\")",
+      "oldFragment": "return reject(\"COMMIT_SETTLEMENT_REVISION_DELTA_INVALID\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "settlement revision binding",
+      "mutationId": "CERT_SETTLEMENT_BIND",
+      "newFragment": "return pass_result(\"COMMIT_SETTLEMENT_REVISION_MISMATCH\")",
+      "oldFragment": "return reject(\"COMMIT_SETTLEMENT_REVISION_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "evidence revision delta",
+      "mutationId": "CERT_EVIDENCE_DELTA",
+      "newFragment": "return pass_result(\"COMMIT_EVIDENCE_REVISION_DELTA_INVALID\")",
+      "oldFragment": "return reject(\"COMMIT_EVIDENCE_REVISION_DELTA_INVALID\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "evidence revision binding",
+      "mutationId": "CERT_EVIDENCE_BIND",
+      "newFragment": "return pass_result(\"COMMIT_EVIDENCE_REVISION_MISMATCH\")",
+      "oldFragment": "return reject(\"COMMIT_EVIDENCE_REVISION_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "output state recomputation",
+      "mutationId": "CERT_OUTPUT_RECOMPUTE",
+      "newFragment": "return pass_result(\"COMMIT_OUTPUT_STATE_RECOMPUTATION_MISMATCH\")",
+      "oldFragment": "return reject(\"COMMIT_OUTPUT_STATE_RECOMPUTATION_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_CERTIFICATE_MATRIX",
+      "expectedReason": "R8_CERTIFICATE_MATRIX|FAIL",
+      "mutationClass": "certificate digest",
+      "mutationId": "CERT_DIGEST",
+      "newFragment": "return pass_result(\"COMMIT_CERTIFICATE_DIGEST_INVALID\")",
+      "oldFragment": "return reject(\"COMMIT_CERTIFICATE_DIGEST_INVALID\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_ECONOMIC_AUTHORITY",
+      "expectedReason": "R8_ECONOMIC_AUTHORITY|FAIL",
+      "mutationClass": "economic formula empty",
+      "mutationId": "ECON_EMPTY_FORMULA",
+      "newFragment": "return pass_result(\"ECONOMIC_FORMULA_REGISTRY_EMPTY\")",
+      "oldFragment": "return reject(\"ECONOMIC_FORMULA_REGISTRY_EMPTY\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_ECONOMIC_AUTHORITY",
+      "expectedReason": "R8_ECONOMIC_AUTHORITY|FAIL",
+      "mutationClass": "economic formula duplicate",
+      "mutationId": "ECON_DUP_FORMULA",
+      "newFragment": "return pass_result(\"ECONOMIC_FORMULA_DUPLICATE\")",
+      "oldFragment": "return reject(\"ECONOMIC_FORMULA_DUPLICATE\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_ECONOMIC_AUTHORITY",
+      "expectedReason": "R8_ECONOMIC_AUTHORITY|FAIL",
+      "mutationClass": "economic formula authority",
+      "mutationId": "ECON_FORMULA_AUTHORITY",
+      "newFragment": "return pass_result(\"ECONOMIC_FORMULA_AUTHORITY_MISMATCH\")",
+      "oldFragment": "return reject(\"ECONOMIC_FORMULA_AUTHORITY_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_ECONOMIC_AUTHORITY",
+      "expectedReason": "R8_ECONOMIC_AUTHORITY|FAIL",
+      "mutationClass": "economic source empty",
+      "mutationId": "ECON_EMPTY_SOURCE",
+      "newFragment": "return pass_result(\"ECONOMIC_NORMATIVE_SOURCE_REGISTRY_EMPTY\")",
+      "oldFragment": "return reject(\"ECONOMIC_NORMATIVE_SOURCE_REGISTRY_EMPTY\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_ECONOMIC_AUTHORITY",
+      "expectedReason": "R8_ECONOMIC_AUTHORITY|FAIL",
+      "mutationClass": "economic source authority",
+      "mutationId": "ECON_SOURCE_AUTHORITY",
+      "newFragment": "return pass_result(\"ECONOMIC_NORMATIVE_SOURCE_AUTHORITY_MISMATCH\")",
+      "oldFragment": "return reject(\"ECONOMIC_NORMATIVE_SOURCE_AUTHORITY_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_ECONOMIC_AUTHORITY",
+      "expectedReason": "R8_ECONOMIC_AUTHORITY|FAIL",
+      "mutationClass": "economic grid binding",
+      "mutationId": "ECON_GRID_BIND",
+      "newFragment": "return pass_result(\"ECONOMIC_BROKER_GRID_MISMATCH\")",
+      "oldFragment": "return reject(\"ECONOMIC_BROKER_GRID_MISMATCH\")",
+      "target": "Tests/Reference/hsb_2e_validation_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_INDEPENDENT_INVARIANTS",
+      "expectedReason": "R8_UNKNOWN_PROPERTY_FAIL_CLOSED=FAIL",
+      "mutationClass": "unknown operation fail closed",
+      "mutationId": "MODEL_UNKNOWN_PASS",
+      "newFragment": "return {\"status\": \"PASS\", \"reason\": \"UNKNOWN_OPERATION\"}",
+      "oldFragment": "return _reject(\"UNKNOWN_OPERATION\")",
+      "target": "Tests/Reference/hsb_2e_reference_model_r4_r8.py"
+    },
+    {
+      "expectedCheckId": "R8_INDEPENDENT_INVARIANTS",
+      "expectedReason": "R8_INDEPENDENT_INVARIANTS|FAIL",
+      "mutationClass": "schema fail closed",
+      "mutationId": "MODEL_SCHEMA_PASS",
+      "newFragment": "if canonical.get(\"schemaVersion\") != CURRENT_SCHEMA_VERSION:\n        return {\"status\": \"PASS\", \"reason\": \"SCHEMA_VERSION_UNSUPPORTED\"}",
+      "oldFragment": "if canonical.get(\"schemaVersion\") != CURRENT_SCHEMA_VERSION:\n        return _reject(\"SCHEMA_VERSION_UNSUPPORTED\")",
+      "target": "Tests/Reference/hsb_2e_reference_model_r4_r8.py"
+    }
+  ],
+  "schemaVersion": 1
+}

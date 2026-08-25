@@ -53,22 +53,31 @@ def run(root: str) -> bool:
     excessive["pricePolicy"]["deviationTicks"] = 10_000_000_000
     excessive["executionPrice"] = "99999.00000"
     excessive_result = execute_scenario(excessive)
-    cases.append(("R8_PRICE_MAXIMUM_DEVIATION", excessive_result["reason"] == "PRICE_DEVIATION_POLICY_EXCEEDED"))
+    cases.append(("R8_PRICE_MAXIMUM_DEVIATION", excessive_result["status"] == "REJECT" and excessive_result["reason"] == "PRICE_DEVIATION_POLICY_EXCEEDED"))
     foreign = valid_input()
     foreign["snapshot"]["accountLogin"] = 99
     foreign_result = execute_scenario(foreign)
-    cases.append(("R8_PRICE_SNAPSHOT_CONTEXT", foreign_result["reason"] == "SNAPSHOT_CONTEXT_IDENTITY_MISMATCH"))
+    cases.append(("R8_PRICE_SNAPSHOT_CONTEXT", foreign_result["status"] == "REJECT" and foreign_result["reason"] == "SNAPSHOT_CONTEXT_IDENTITY_MISMATCH"))
     sides = valid_input()
     sides["pricePolicy"]["buyCloseSide"] = "ASK"
     sides_result = execute_scenario(sides)
-    cases.append(("R8_PRICE_BUY_BID", sides_result["reason"] == "NORMATIVE_CLOSE_SIDE_MISMATCH"))
+    cases.append(("R8_PRICE_BUY_BID", sides_result["status"] == "REJECT" and sides_result["reason"] == "NORMATIVE_CLOSE_SIDE_MISMATCH"))
     sell = valid_input()
     sell["positionDirection"] = "SELL"
     sell["executionPrice"] = "1.10010"
     cases.append(("R8_PRICE_SELL_ASK", execute_scenario(sell)["status"] == "PASS"))
     unknown = valid_input()
     unknown["pricePolicy"]["policyId"] = "UNKNOWN"
-    cases.append(("R8_PRICE_POLICY_AUTHORITY", execute_scenario(unknown)["reason"] == "PRICE_POLICY_AUTHORITY_UNKNOWN"))
+    unknown_result = execute_scenario(unknown)
+    cases.append(("R8_PRICE_POLICY_AUTHORITY", unknown_result["status"] == "REJECT" and unknown_result["reason"] == "PRICE_POLICY_AUTHORITY_UNKNOWN"))
+    source = valid_input()
+    source["pricePolicy"]["normativeSourceId"] = "FOREIGN"
+    source_result = execute_scenario(source)
+    cases.append(("R8_PRICE_SOURCE_AUTHORITY", source_result["status"] == "REJECT" and source_result["reason"] == "PRICE_POLICY_AUTHORITY_MISMATCH"))
+    broker = valid_input()
+    broker["pricePolicy"]["tickSize"] = "0.1"
+    broker_result = execute_scenario(broker)
+    cases.append(("R8_PRICE_BROKER_PROPERTIES", broker_result["status"] == "REJECT" and broker_result["reason"] == "PRICE_POLICY_BROKER_PROPERTY_MISMATCH"))
     for check_id, passed in cases:
         print(f"{check_id}|{'PASS' if passed else 'FAIL'}")
     result = all(passed for _, passed in cases)

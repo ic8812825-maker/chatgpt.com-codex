@@ -6,6 +6,7 @@ import argparse
 import importlib
 import json
 import sys
+import hashlib
 from pathlib import Path
 from typing import Any
 
@@ -36,7 +37,15 @@ def run(root: str, write: bool = False) -> bool:
             adapted = adapter.adapt(vector)
             actual = execute_scenario(adapted["canonicalInput"])
             expected = oracle[(version, vector["VECTOR_ID"])]
-            compared = actual == expected["expected"]
+            canonical_input = adapted["canonicalInput"]
+            source_digest = hashlib.sha256(
+                json.dumps(vector["INPUT"], sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+            ).hexdigest()
+            contract_complete = canonical_input.source_digest == source_digest
+            contract_complete = contract_complete and len(canonical_input.mapping_records) == adapted["mappedSourceLeaves"]
+            if isinstance(vector["INPUT"].get("deals"), list):
+                contract_complete = contract_complete and [item.source_value for item in canonical_input.deals] == vector["INPUT"]["deals"]
+            compared = actual == expected["expected"] and contract_complete
             raw_leaves += adapted["rawSourceLeaves"]
             mapped_leaves += adapted["mappedSourceLeaves"]
             rows.append(

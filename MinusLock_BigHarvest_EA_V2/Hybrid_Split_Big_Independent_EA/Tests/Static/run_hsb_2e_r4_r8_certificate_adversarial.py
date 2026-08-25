@@ -67,6 +67,21 @@ def run(root: str) -> bool:
     relation["certificate"]["outputRevision"] = 5
     reseal(relation)
     cases.append(("R8_CERT_REVISION_RELATION", relation, "COMMIT_STATE_REVISION_DELTA_INVALID"))
+    fsm_relation = build_valid_commit()
+    fsm_relation["sourceObjects"]["fsm"]["outputRevision"] = 5
+    fsm_relation["commitBundle"]["fsm"]["body"]["outputRevision"] = 5
+    fsm_relation["commitBundle"]["fsm"]["digest"] = digest(fsm_relation["commitBundle"]["fsm"]["body"])
+    fsm_relation["certificate"]["fsmDigest"] = fsm_relation["commitBundle"]["fsm"]["digest"]
+    reseal(fsm_relation)
+    cases.append(("R8_CERT_FSM_RELATION", fsm_relation, "COMMIT_FSM_REVISION_MISMATCH"))
+    settlement_delta = build_valid_commit()
+    settlement_delta["certificate"]["outputSettlementRevision"] = 9
+    reseal(settlement_delta)
+    cases.append(("R8_CERT_SETTLEMENT_DELTA", settlement_delta, "COMMIT_SETTLEMENT_REVISION_DELTA_INVALID"))
+    evidence_delta = build_valid_commit()
+    evidence_delta["certificate"]["outputEvidenceRevision"] = 12
+    reseal(evidence_delta)
+    cases.append(("R8_CERT_EVIDENCE_DELTA", evidence_delta, "COMMIT_EVIDENCE_REVISION_DELTA_INVALID"))
     missing = build_valid_commit()
     del missing["commitBundle"]["economic"]
     cases.append(("R8_CERT_MISSING_SOURCE", missing, "COMMIT_SOURCE_OBJECT_MISSING"))
@@ -75,6 +90,9 @@ def run(root: str) -> bool:
     cases.append(("R8_CERT_EXTRA_SOURCE", extra, "COMMIT_SOURCE_OBJECT_UNKNOWN"))
     mutually_altered = object_case("economic")
     cases.append(("R8_CERT_MUTUALLY_ALTERED", mutually_altered, "COMMIT_ECONOMIC_RECOMPUTATION_MISMATCH"))
+    bad_digest = build_valid_commit()
+    bad_digest["certificate"]["certificateDigest"] = "f" * 64
+    cases.append(("R8_CERT_DIGEST", bad_digest, "COMMIT_CERTIFICATE_DIGEST_INVALID"))
 
     checks = []
     for check_id, case, expected_reason in cases:

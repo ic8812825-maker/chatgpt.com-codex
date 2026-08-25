@@ -161,7 +161,13 @@ def inv_exactly_once_replay() -> bool:
 
 def inv_unknown_property_fail_closed() -> bool:
     from hsb_2e_reference_model_r4_r8 import execute_scenario
-    return execute_scenario({"schemaVersion": 8, "operation": "UNKNOWN"})["reason"] == "UNKNOWN_OPERATION"
+    unknown_result = execute_scenario({"schemaVersion": 8, "operation": "UNKNOWN"})
+    schema_result = execute_scenario({"schemaVersion": 999, "operation": "UNKNOWN"})
+    malformed_result = execute_scenario(None)
+    unknown = unknown_result["status"] == "REJECT" and unknown_result["reason"] == "UNKNOWN_OPERATION"
+    schema = schema_result["status"] == "REJECT" and schema_result["reason"] == "SCHEMA_VERSION_UNSUPPORTED"
+    malformed = malformed_result["status"] == "REJECT" and malformed_result["reason"] == "MALFORMED_SCENARIO_INPUT"
+    return unknown and schema and malformed
 
 FUNCTIONS = [
     inv_adapter_completeness, inv_no_self_healing, inv_oracle_independence, inv_main_model_target,

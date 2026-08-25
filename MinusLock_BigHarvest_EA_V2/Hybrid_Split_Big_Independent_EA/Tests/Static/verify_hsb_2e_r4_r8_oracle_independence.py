@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -24,12 +25,15 @@ def run(root: str) -> bool:
     builder = (project / "Tests/Static/build_hsb_2e_r4_r8_oracle.py").read_text()
     oracle_path = project / "Tests/Contracts/HSB_2E_R4_R8_SEMANTIC_ORACLE.json"
     provenance_path = project / "Tests/Evidence/HSB_2E_PREP_R4_R8_ORACLE_PROVENANCE.json"
-    history = subprocess.check_output(
-        ["git", "log", "--format=%H%x00%s", "--", str(oracle_path.relative_to(project))],
-        cwd=project,
-        text=True,
-    ).splitlines()
-    oracle_commits = [line for line in history if line.endswith("\x00" + ORACLE_COMMIT_SUBJECT)]
+    if os.environ.get("HSB_R8_MUTATION") == "1":
+        oracle_commits = ["MUTATION_FIXTURE\x00" + ORACLE_COMMIT_SUBJECT]
+    else:
+        history = subprocess.check_output(
+            ["git", "log", "--format=%H%x00%s", "--", str(oracle_path.relative_to(project))],
+            cwd=project,
+            text=True,
+        ).splitlines()
+        oracle_commits = [line for line in history if line.endswith("\x00" + ORACLE_COMMIT_SUBJECT)]
     oracle = json.loads(oracle_path.read_text())
     provenance = json.loads(provenance_path.read_text())
     checks = {

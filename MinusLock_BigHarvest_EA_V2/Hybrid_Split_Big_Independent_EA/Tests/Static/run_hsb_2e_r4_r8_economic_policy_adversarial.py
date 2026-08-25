@@ -30,16 +30,28 @@ def run(root: str) -> bool:
     cases.append(("R8_ECONOMIC_VALID", execute_scenario(valid_input())["status"] == "PASS"))
     empty_formula = valid_input()
     empty_formula["economicPolicy"]["formulaIds"] = []
-    cases.append(("R8_ECONOMIC_FORMULA_AUTHORITY", execute_scenario(empty_formula)["reason"] == "ECONOMIC_FORMULA_REGISTRY_EMPTY"))
+    empty_formula_result = execute_scenario(empty_formula)
+    cases.append(("R8_ECONOMIC_FORMULA_AUTHORITY", empty_formula_result["status"] == "REJECT" and empty_formula_result["reason"] == "ECONOMIC_FORMULA_REGISTRY_EMPTY"))
     empty_source = valid_input()
     empty_source["economicPolicy"]["normativeSourceIds"] = []
-    cases.append(("R8_ECONOMIC_SOURCE_AUTHORITY", execute_scenario(empty_source)["reason"] == "ECONOMIC_NORMATIVE_SOURCE_REGISTRY_EMPTY"))
+    empty_source_result = execute_scenario(empty_source)
+    cases.append(("R8_ECONOMIC_SOURCE_AUTHORITY", empty_source_result["status"] == "REJECT" and empty_source_result["reason"] == "ECONOMIC_NORMATIVE_SOURCE_REGISTRY_EMPTY"))
     grid = valid_input()
     grid["economicPolicy"]["volumeStep"] = "0.02"
-    cases.append(("R8_ECONOMIC_BROKER_GRID", execute_scenario(grid)["reason"] == "ECONOMIC_BROKER_GRID_MISMATCH"))
+    grid_result = execute_scenario(grid)
+    cases.append(("R8_ECONOMIC_BROKER_GRID", grid_result["status"] == "REJECT" and grid_result["reason"] == "ECONOMIC_BROKER_GRID_MISMATCH"))
     duplicate = valid_input()
     duplicate["economicPolicy"]["formulaIds"] = ["INITIAL_NET_ACTUAL", "INITIAL_NET_ACTUAL"]
-    cases.append(("R8_ECONOMIC_DUPLICATE_FORMULA", execute_scenario(duplicate)["reason"] == "ECONOMIC_FORMULA_DUPLICATE"))
+    duplicate_result = execute_scenario(duplicate)
+    cases.append(("R8_ECONOMIC_DUPLICATE_FORMULA", duplicate_result["status"] == "REJECT" and duplicate_result["reason"] == "ECONOMIC_FORMULA_DUPLICATE"))
+    wrong_formula = valid_input()
+    wrong_formula["economicPolicy"]["formulaIds"] = ["FINAL_RESERVE_ACTUAL"]
+    wrong_formula_result = execute_scenario(wrong_formula)
+    cases.append(("R8_ECONOMIC_FORMULA_MISMATCH", wrong_formula_result["status"] == "REJECT" and wrong_formula_result["reason"] == "ECONOMIC_FORMULA_AUTHORITY_MISMATCH"))
+    wrong_source = valid_input()
+    wrong_source["economicPolicy"]["normativeSourceIds"] = ["FOREIGN"]
+    wrong_source_result = execute_scenario(wrong_source)
+    cases.append(("R8_ECONOMIC_SOURCE_MISMATCH", wrong_source_result["status"] == "REJECT" and wrong_source_result["reason"] == "ECONOMIC_NORMATIVE_SOURCE_AUTHORITY_MISMATCH"))
     for check_id, passed in cases:
         print(f"{check_id}|{'PASS' if passed else 'FAIL'}")
     result = all(passed for _, passed in cases)
