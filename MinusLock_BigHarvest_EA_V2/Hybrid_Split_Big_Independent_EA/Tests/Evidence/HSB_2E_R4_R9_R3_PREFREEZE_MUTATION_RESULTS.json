@@ -1,0 +1,162 @@
+{
+  "INFRASTRUCTURE_FAILURES": 0,
+  "INVALID": 0,
+  "NOT_APPLIED": 0,
+  "ORACLE_QUALIFICATION_MUTATIONS_CAUGHT": 30,
+  "ORACLE_QUALIFICATION_MUTATIONS_EXECUTED": 30,
+  "ORACLE_QUALIFICATION_MUTATIONS_REQUIRED": 30,
+  "SURVIVED": 0,
+  "WRONG_FAILURES": 0,
+  "catalog": [
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_01"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_02"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_03"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_04"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_05"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_06"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_07"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_08"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_09"
+    },
+    {
+      "caught": true,
+      "class": "REMOVE_CAUSAL_DEFECT",
+      "mutationId": "ORACLE_MUT_10"
+    },
+    {
+      "caught": true,
+      "class": "UNDECLARED_SECOND_DEFECT",
+      "mutationId": "ORACLE_MUT_11"
+    },
+    {
+      "caught": true,
+      "class": "UNDECLARED_SECOND_DEFECT",
+      "mutationId": "ORACLE_MUT_12"
+    },
+    {
+      "caught": true,
+      "class": "UNDECLARED_SECOND_DEFECT",
+      "mutationId": "ORACLE_MUT_13"
+    },
+    {
+      "caught": true,
+      "class": "UNDECLARED_SECOND_DEFECT",
+      "mutationId": "ORACLE_MUT_14"
+    },
+    {
+      "caught": true,
+      "class": "UNDECLARED_SECOND_DEFECT",
+      "mutationId": "ORACLE_MUT_15"
+    },
+    {
+      "caught": true,
+      "class": "EXPECTED_REASON",
+      "mutationId": "ORACLE_MUT_16"
+    },
+    {
+      "caught": true,
+      "class": "EXPECTED_REASON",
+      "mutationId": "ORACLE_MUT_17"
+    },
+    {
+      "caught": true,
+      "class": "EXPECTED_REASON",
+      "mutationId": "ORACLE_MUT_18"
+    },
+    {
+      "caught": true,
+      "class": "EXPECTED_REASON",
+      "mutationId": "ORACLE_MUT_19"
+    },
+    {
+      "caught": true,
+      "class": "EXPECTED_REASON",
+      "mutationId": "ORACLE_MUT_20"
+    },
+    {
+      "caught": true,
+      "class": "CERT_UNDECLARED_PATH",
+      "mutationId": "ORACLE_MUT_21"
+    },
+    {
+      "caught": true,
+      "class": "CERT_UNDECLARED_PATH",
+      "mutationId": "ORACLE_MUT_22"
+    },
+    {
+      "caught": true,
+      "class": "CERT_UNDECLARED_PATH",
+      "mutationId": "ORACLE_MUT_23"
+    },
+    {
+      "caught": true,
+      "class": "CERT_UNDECLARED_PATH",
+      "mutationId": "ORACLE_MUT_24"
+    },
+    {
+      "caught": true,
+      "class": "CERT_UNDECLARED_PATH",
+      "mutationId": "ORACLE_MUT_25"
+    },
+    {
+      "caught": true,
+      "class": "METADATA_ONLY",
+      "mutationId": "ORACLE_MUT_26"
+    },
+    {
+      "caught": true,
+      "class": "METADATA_ONLY",
+      "mutationId": "ORACLE_MUT_27"
+    },
+    {
+      "caught": true,
+      "class": "METADATA_ONLY",
+      "mutationId": "ORACLE_MUT_28"
+    },
+    {
+      "caught": true,
+      "class": "METADATA_ONLY",
+      "mutationId": "ORACLE_MUT_29"
+    },
+    {
+      "caught": true,
+      "class": "METADATA_ONLY",
+      "mutationId": "ORACLE_MUT_30"
+    }
+  ]
+}
