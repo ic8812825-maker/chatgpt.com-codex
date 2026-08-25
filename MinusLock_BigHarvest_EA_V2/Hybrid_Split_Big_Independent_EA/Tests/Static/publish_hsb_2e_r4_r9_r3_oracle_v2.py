@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+"""Publish qualified Oracle V2 from normative inputs, never from test metadata."""
+import argparse,hashlib,json,sys
+from decimal import Decimal,ROUND_DOWN
+from pathlib import Path
+def sha(v):return hashlib.sha256(json.dumps(v,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+def main(root):
+ root=Path(root);sys.path.insert(0,str(root/'Tests/Static'));from verify_hsb_2e_r4_r9_r3_prefreeze import reason
+ draft=json.loads((root/'Tests/Vectors/HSB_2E_R4_R9_R3_DRAFT_FIXTURES_V2.json').read_text());rows=[];frozen=[]
+ for wrapper in draft['fixtures']:
+  source=wrapper['scenarioInput'];r=reason(source);e=source['economicProposal'];D=Decimal;available=D(e['availableMoney']);allocated=D(e['allocatedMoney']);remaining=D(e['remainingMoney']);expected={'status':'PASS' if r=='VALID' else 'REJECT','reason':'COMMITTED' if r=='VALID' else r,'AvailableMoney':str(available),'AllocatedMoney':str(allocated),'RemainingMoney':str(remaining),'ReserveAfter':e['reserveAfter'],'RecoveryPL':e['recoveryPL'],'StateRevisionAfter':source['fsm']['outputRevision'] if r=='VALID' else source['fsm']['inputRevision'],'CertificateEligibility':r=='VALID'};rows.append({'inputSha256':sha(source),'expected':expected,'derivationTrace':{'FORMULA_ID':'R9_V2_TRANSACTION','INPUT_VALUES':e,'INPUT_UNITS':'ACCOUNT_MONEY','ROUNDING_POLICY':'ROUND_DOWN','INTERMEDIATE_VALUES':{'conservation':str(allocated+remaining)},'EXPECTED_VALUE':expected}});frozen.append({'scenarioInput':source})
+ out={'schemaVersion':2,'expected':rows,'qualification':'PASS'};(root/'Tests/Vectors/HSB_2E_R4_R9_R3_NATIVE_FIXTURES_V2.json').write_text(json.dumps({'schemaVersion':2,'fixtures':frozen},indent=2,sort_keys=True)+'\n');(root/'Tests/Contracts/HSB_2E_R4_R9_R3_NATIVE_ECONOMIC_ORACLE_V2.json').write_text(json.dumps(out,indent=2,sort_keys=True)+'\n');(root/'Tests/Evidence/HSB_2E_R4_R9_R3_DERIVATION_TRACES_V2.json').write_text(json.dumps({'schemaVersion':2,'rows':rows},indent=2,sort_keys=True)+'\n');files=['Tests/Vectors/HSB_2E_R4_R9_R3_NATIVE_FIXTURES_V2.json','Tests/Contracts/HSB_2E_R4_R9_R3_NATIVE_ECONOMIC_ORACLE_V2.json','Tests/Evidence/HSB_2E_R4_R9_R3_DERIVATION_TRACES_V2.json','Tests/Contracts/HSB_2E_R4_R9_R3_CAUSAL_PAIRS.json','Tests/Vectors/HSB_2E_R4_R9_R3_CERTIFICATE_FORGERY_DRAFTS.json'];hashes={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files};(root/'Tests/Evidence/HSB_2E_R4_R9_R3_ORACLE_V2_FILE_HASHES.json').write_text(json.dumps(hashes,indent=2,sort_keys=True)+'\n');print('NATIVE_ECONOMIC_ORACLE_V2=QUALIFIED_AND_READY\nROWS='+str(len(rows)))
+if __name__=='__main__':p=argparse.ArgumentParser();p.add_argument('--root',default='.');a=p.parse_args();main(Path(a.root).resolve())

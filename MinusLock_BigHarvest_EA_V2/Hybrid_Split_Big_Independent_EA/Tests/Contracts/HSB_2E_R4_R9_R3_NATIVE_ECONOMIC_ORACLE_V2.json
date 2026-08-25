@@ -1,0 +1,4174 @@
+{
+  "expected": [
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": true,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 1,
+          "reason": "COMMITTED",
+          "status": "PASS"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": true,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 1,
+        "reason": "COMMITTED",
+        "status": "PASS"
+      },
+      "inputSha256": "5be0619875eaaa89f1f016841b14a2f8af7f41874e1fc3464094decf105cc24c"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "IDENTITY_ACCOUNT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "IDENTITY_ACCOUNT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c45c12f595a6f2332448ec7578ee3a1f7e167a122246a4d521128e25245c51aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "SYMBOL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "SYMBOL",
+        "status": "REJECT"
+      },
+      "inputSha256": "72518fff33c80eb0fd817a64e25a92e99824bc6fa87b1c1af0328b7be4b7a9a8"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MAGIC",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MAGIC",
+        "status": "REJECT"
+      },
+      "inputSha256": "3b19136ef0a6e413a43b8068b3ec2f5504505919c860adc9d45b46cc3e9fb95f"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "STALE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "STALE",
+        "status": "REJECT"
+      },
+      "inputSha256": "1ddcc697e3080eb9bfe11e845d510b710076d80c950503d0083adaedc1b9f5dc"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "WINDOW",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "WINDOW",
+        "status": "REJECT"
+      },
+      "inputSha256": "8dd6f3c40c82ed168d32beaad49874ba10323201c2787f05b6f8144f91a9f806"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "BUY_SIDE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "BUY_SIDE",
+        "status": "REJECT"
+      },
+      "inputSha256": "38693c53ec1bcc41c8e3a9dcfb8dc634237941a87d4e7b58cf1afa1d68b41336"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "TICK_GRID",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "TICK_GRID",
+        "status": "REJECT"
+      },
+      "inputSha256": "e1659408892685d17b1c456c32dafc9d4b5cc1e165526324748c20218620b581"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "VOLUME_GRID",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "VOLUME_GRID",
+        "status": "REJECT"
+      },
+      "inputSha256": "efee93d79654645170b15d2ae640db4ce7e65e20fd25f35a3d5c9f4890b01fee"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "INTENT_BINDING",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "INTENT_BINDING",
+        "status": "REJECT"
+      },
+      "inputSha256": "c1fbfc64af31f34bb52a1664e4fe50b535aead0947841b43d9d5a86cb14433d0"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DEAL_TICKET",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DEAL_TICKET",
+        "status": "REJECT"
+      },
+      "inputSha256": "f23e269d152052a37b859b00b0743a19addb87f2b3365c28b3f4d115843443d9"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUP_DEAL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUP_DEAL",
+        "status": "REJECT"
+      },
+      "inputSha256": "0f3938c4a8af0a2d0e367029a856140e32ad90262e518a273616f3dbee8025df"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUP_EVENT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUP_EVENT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c5464727be4ead6e344b704a00f588c63071c7f4763bdc554f8913fd72a41aba"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MISSING_LEG",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MISSING_LEG",
+        "status": "REJECT"
+      },
+      "inputSha256": "0e574614e2b83d2fb501a0e9a0f5723950c9459dac7880b12cd9306560047e9d"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "PARTIAL_FILL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "PARTIAL_FILL",
+        "status": "REJECT"
+      },
+      "inputSha256": "ce7f5c8c219e97666e987833bf53d98e8336fa6c85572ceba737993d66563de6"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "OVERFILL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "OVERFILL",
+        "status": "REJECT"
+      },
+      "inputSha256": "46434cf55646ddad0db1458c051144cb3d5691e811963999f8c068be98b3acce"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "9.00",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MONEY_CONSERVATION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "9.00",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "16.50"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "9.00",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MONEY_CONSERVATION",
+        "status": "REJECT"
+      },
+      "inputSha256": "c0372098d6630d96e4b1222a489ebec28aaae9ea896a03aa6246b0e2d7316f53"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "VOLUME_CONSERVATION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "VOLUME_CONSERVATION",
+        "status": "REJECT"
+      },
+      "inputSha256": "0ee7cd277143a99224f0bc4f2c362e2d1380a668e6a24cc131bfe33891f71491"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "RESERVE_MISUSE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "RESERVE_MISUSE",
+        "status": "REJECT"
+      },
+      "inputSha256": "6b9d3e66668c789b9d094249305e2247bc8e1011161b0c35d53d9de5228bdc86"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUAL_TAIL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "dualTail": true,
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUAL_TAIL",
+        "status": "REJECT"
+      },
+      "inputSha256": "2af42ea9e82bf59fe97f9eab1c9a8386cabaf91c4bdac5bcdf7d14904f5c4b44"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "-1.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "RECOVERY",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "-1.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "-1.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "RECOVERY",
+        "status": "REJECT"
+      },
+      "inputSha256": "3ad70975dbf05c9a6633f3c4e25d18dc31047cf16dd89209b347707b68c6eeb1"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "COVERAGE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50",
+          "reserveCoverage": false
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "COVERAGE",
+        "status": "REJECT"
+      },
+      "inputSha256": "7cc207e0816cbeb9a2a4243773bd30e4620b792df2991c9ead3f318f783c5fec"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "PERSISTENCE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "PERSISTENCE",
+        "status": "REJECT"
+      },
+      "inputSha256": "1d6721d2400c24eb4b9c6c1330def8657948f38ebf3cf2825de42251182644aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 2,
+          "reason": "REVISION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 2,
+        "reason": "REVISION",
+        "status": "REJECT"
+      },
+      "inputSha256": "91d83d246f8cda403fc59c505df3fc30a1f8713ca6188b203a844c30100bf746"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "CERT_BODY",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "CERT_BODY",
+        "status": "REJECT"
+      },
+      "inputSha256": "752a49d9b7cf8d0dfd14bf788a7d96eaad3dccbc746920c016bb7ce95c06b73a"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "CERT_DIGEST",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "CERT_DIGEST",
+        "status": "REJECT"
+      },
+      "inputSha256": "6bf9df8504fbd29528602b0ce5f0c3f2f0b7f420aac648706a4cefb2122bc4f4"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "IDENTITY_ACCOUNT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "IDENTITY_ACCOUNT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c45c12f595a6f2332448ec7578ee3a1f7e167a122246a4d521128e25245c51aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "SYMBOL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "SYMBOL",
+        "status": "REJECT"
+      },
+      "inputSha256": "72518fff33c80eb0fd817a64e25a92e99824bc6fa87b1c1af0328b7be4b7a9a8"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MAGIC",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MAGIC",
+        "status": "REJECT"
+      },
+      "inputSha256": "3b19136ef0a6e413a43b8068b3ec2f5504505919c860adc9d45b46cc3e9fb95f"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "STALE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "STALE",
+        "status": "REJECT"
+      },
+      "inputSha256": "1ddcc697e3080eb9bfe11e845d510b710076d80c950503d0083adaedc1b9f5dc"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "WINDOW",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "WINDOW",
+        "status": "REJECT"
+      },
+      "inputSha256": "8dd6f3c40c82ed168d32beaad49874ba10323201c2787f05b6f8144f91a9f806"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "BUY_SIDE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "BUY_SIDE",
+        "status": "REJECT"
+      },
+      "inputSha256": "38693c53ec1bcc41c8e3a9dcfb8dc634237941a87d4e7b58cf1afa1d68b41336"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "TICK_GRID",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "TICK_GRID",
+        "status": "REJECT"
+      },
+      "inputSha256": "e1659408892685d17b1c456c32dafc9d4b5cc1e165526324748c20218620b581"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "VOLUME_GRID",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "VOLUME_GRID",
+        "status": "REJECT"
+      },
+      "inputSha256": "efee93d79654645170b15d2ae640db4ce7e65e20fd25f35a3d5c9f4890b01fee"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "INTENT_BINDING",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "INTENT_BINDING",
+        "status": "REJECT"
+      },
+      "inputSha256": "c1fbfc64af31f34bb52a1664e4fe50b535aead0947841b43d9d5a86cb14433d0"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DEAL_TICKET",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DEAL_TICKET",
+        "status": "REJECT"
+      },
+      "inputSha256": "f23e269d152052a37b859b00b0743a19addb87f2b3365c28b3f4d115843443d9"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUP_DEAL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUP_DEAL",
+        "status": "REJECT"
+      },
+      "inputSha256": "0f3938c4a8af0a2d0e367029a856140e32ad90262e518a273616f3dbee8025df"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUP_EVENT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUP_EVENT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c5464727be4ead6e344b704a00f588c63071c7f4763bdc554f8913fd72a41aba"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MISSING_LEG",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MISSING_LEG",
+        "status": "REJECT"
+      },
+      "inputSha256": "0e574614e2b83d2fb501a0e9a0f5723950c9459dac7880b12cd9306560047e9d"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "PARTIAL_FILL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "PARTIAL_FILL",
+        "status": "REJECT"
+      },
+      "inputSha256": "ce7f5c8c219e97666e987833bf53d98e8336fa6c85572ceba737993d66563de6"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "OVERFILL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "OVERFILL",
+        "status": "REJECT"
+      },
+      "inputSha256": "46434cf55646ddad0db1458c051144cb3d5691e811963999f8c068be98b3acce"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "9.00",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MONEY_CONSERVATION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "9.00",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "16.50"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "9.00",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MONEY_CONSERVATION",
+        "status": "REJECT"
+      },
+      "inputSha256": "c0372098d6630d96e4b1222a489ebec28aaae9ea896a03aa6246b0e2d7316f53"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "VOLUME_CONSERVATION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "VOLUME_CONSERVATION",
+        "status": "REJECT"
+      },
+      "inputSha256": "0ee7cd277143a99224f0bc4f2c362e2d1380a668e6a24cc131bfe33891f71491"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "RESERVE_MISUSE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "RESERVE_MISUSE",
+        "status": "REJECT"
+      },
+      "inputSha256": "6b9d3e66668c789b9d094249305e2247bc8e1011161b0c35d53d9de5228bdc86"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUAL_TAIL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "dualTail": true,
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUAL_TAIL",
+        "status": "REJECT"
+      },
+      "inputSha256": "2af42ea9e82bf59fe97f9eab1c9a8386cabaf91c4bdac5bcdf7d14904f5c4b44"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "-1.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "RECOVERY",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "-1.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "-1.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "RECOVERY",
+        "status": "REJECT"
+      },
+      "inputSha256": "3ad70975dbf05c9a6633f3c4e25d18dc31047cf16dd89209b347707b68c6eeb1"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "COVERAGE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50",
+          "reserveCoverage": false
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "COVERAGE",
+        "status": "REJECT"
+      },
+      "inputSha256": "7cc207e0816cbeb9a2a4243773bd30e4620b792df2991c9ead3f318f783c5fec"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "PERSISTENCE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "PERSISTENCE",
+        "status": "REJECT"
+      },
+      "inputSha256": "1d6721d2400c24eb4b9c6c1330def8657948f38ebf3cf2825de42251182644aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 2,
+          "reason": "REVISION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 2,
+        "reason": "REVISION",
+        "status": "REJECT"
+      },
+      "inputSha256": "91d83d246f8cda403fc59c505df3fc30a1f8713ca6188b203a844c30100bf746"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "CERT_BODY",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "CERT_BODY",
+        "status": "REJECT"
+      },
+      "inputSha256": "752a49d9b7cf8d0dfd14bf788a7d96eaad3dccbc746920c016bb7ce95c06b73a"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "CERT_DIGEST",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "CERT_DIGEST",
+        "status": "REJECT"
+      },
+      "inputSha256": "6bf9df8504fbd29528602b0ce5f0c3f2f0b7f420aac648706a4cefb2122bc4f4"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "IDENTITY_ACCOUNT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "IDENTITY_ACCOUNT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c45c12f595a6f2332448ec7578ee3a1f7e167a122246a4d521128e25245c51aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "SYMBOL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "SYMBOL",
+        "status": "REJECT"
+      },
+      "inputSha256": "72518fff33c80eb0fd817a64e25a92e99824bc6fa87b1c1af0328b7be4b7a9a8"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MAGIC",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MAGIC",
+        "status": "REJECT"
+      },
+      "inputSha256": "3b19136ef0a6e413a43b8068b3ec2f5504505919c860adc9d45b46cc3e9fb95f"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "STALE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "STALE",
+        "status": "REJECT"
+      },
+      "inputSha256": "1ddcc697e3080eb9bfe11e845d510b710076d80c950503d0083adaedc1b9f5dc"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "WINDOW",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "WINDOW",
+        "status": "REJECT"
+      },
+      "inputSha256": "8dd6f3c40c82ed168d32beaad49874ba10323201c2787f05b6f8144f91a9f806"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "BUY_SIDE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "BUY_SIDE",
+        "status": "REJECT"
+      },
+      "inputSha256": "38693c53ec1bcc41c8e3a9dcfb8dc634237941a87d4e7b58cf1afa1d68b41336"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "TICK_GRID",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "TICK_GRID",
+        "status": "REJECT"
+      },
+      "inputSha256": "e1659408892685d17b1c456c32dafc9d4b5cc1e165526324748c20218620b581"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "VOLUME_GRID",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "VOLUME_GRID",
+        "status": "REJECT"
+      },
+      "inputSha256": "efee93d79654645170b15d2ae640db4ce7e65e20fd25f35a3d5c9f4890b01fee"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "INTENT_BINDING",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "INTENT_BINDING",
+        "status": "REJECT"
+      },
+      "inputSha256": "c1fbfc64af31f34bb52a1664e4fe50b535aead0947841b43d9d5a86cb14433d0"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DEAL_TICKET",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DEAL_TICKET",
+        "status": "REJECT"
+      },
+      "inputSha256": "f23e269d152052a37b859b00b0743a19addb87f2b3365c28b3f4d115843443d9"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUP_DEAL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUP_DEAL",
+        "status": "REJECT"
+      },
+      "inputSha256": "0f3938c4a8af0a2d0e367029a856140e32ad90262e518a273616f3dbee8025df"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUP_EVENT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUP_EVENT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c5464727be4ead6e344b704a00f588c63071c7f4763bdc554f8913fd72a41aba"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MISSING_LEG",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MISSING_LEG",
+        "status": "REJECT"
+      },
+      "inputSha256": "0e574614e2b83d2fb501a0e9a0f5723950c9459dac7880b12cd9306560047e9d"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "PARTIAL_FILL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "PARTIAL_FILL",
+        "status": "REJECT"
+      },
+      "inputSha256": "ce7f5c8c219e97666e987833bf53d98e8336fa6c85572ceba737993d66563de6"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "OVERFILL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "OVERFILL",
+        "status": "REJECT"
+      },
+      "inputSha256": "46434cf55646ddad0db1458c051144cb3d5691e811963999f8c068be98b3acce"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "9.00",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MONEY_CONSERVATION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "9.00",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "16.50"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "9.00",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MONEY_CONSERVATION",
+        "status": "REJECT"
+      },
+      "inputSha256": "c0372098d6630d96e4b1222a489ebec28aaae9ea896a03aa6246b0e2d7316f53"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "VOLUME_CONSERVATION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "VOLUME_CONSERVATION",
+        "status": "REJECT"
+      },
+      "inputSha256": "0ee7cd277143a99224f0bc4f2c362e2d1380a668e6a24cc131bfe33891f71491"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "RESERVE_MISUSE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "RESERVE_MISUSE",
+        "status": "REJECT"
+      },
+      "inputSha256": "6b9d3e66668c789b9d094249305e2247bc8e1011161b0c35d53d9de5228bdc86"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUAL_TAIL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "dualTail": true,
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUAL_TAIL",
+        "status": "REJECT"
+      },
+      "inputSha256": "2af42ea9e82bf59fe97f9eab1c9a8386cabaf91c4bdac5bcdf7d14904f5c4b44"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "-1.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "RECOVERY",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "-1.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "-1.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "RECOVERY",
+        "status": "REJECT"
+      },
+      "inputSha256": "3ad70975dbf05c9a6633f3c4e25d18dc31047cf16dd89209b347707b68c6eeb1"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "COVERAGE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50",
+          "reserveCoverage": false
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "COVERAGE",
+        "status": "REJECT"
+      },
+      "inputSha256": "7cc207e0816cbeb9a2a4243773bd30e4620b792df2991c9ead3f318f783c5fec"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "PERSISTENCE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "PERSISTENCE",
+        "status": "REJECT"
+      },
+      "inputSha256": "1d6721d2400c24eb4b9c6c1330def8657948f38ebf3cf2825de42251182644aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 2,
+          "reason": "REVISION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 2,
+        "reason": "REVISION",
+        "status": "REJECT"
+      },
+      "inputSha256": "91d83d246f8cda403fc59c505df3fc30a1f8713ca6188b203a844c30100bf746"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "CERT_BODY",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "CERT_BODY",
+        "status": "REJECT"
+      },
+      "inputSha256": "752a49d9b7cf8d0dfd14bf788a7d96eaad3dccbc746920c016bb7ce95c06b73a"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "CERT_DIGEST",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "CERT_DIGEST",
+        "status": "REJECT"
+      },
+      "inputSha256": "6bf9df8504fbd29528602b0ce5f0c3f2f0b7f420aac648706a4cefb2122bc4f4"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "IDENTITY_ACCOUNT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "IDENTITY_ACCOUNT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c45c12f595a6f2332448ec7578ee3a1f7e167a122246a4d521128e25245c51aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "SYMBOL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "SYMBOL",
+        "status": "REJECT"
+      },
+      "inputSha256": "72518fff33c80eb0fd817a64e25a92e99824bc6fa87b1c1af0328b7be4b7a9a8"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MAGIC",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MAGIC",
+        "status": "REJECT"
+      },
+      "inputSha256": "3b19136ef0a6e413a43b8068b3ec2f5504505919c860adc9d45b46cc3e9fb95f"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "STALE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "STALE",
+        "status": "REJECT"
+      },
+      "inputSha256": "1ddcc697e3080eb9bfe11e845d510b710076d80c950503d0083adaedc1b9f5dc"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "WINDOW",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "WINDOW",
+        "status": "REJECT"
+      },
+      "inputSha256": "8dd6f3c40c82ed168d32beaad49874ba10323201c2787f05b6f8144f91a9f806"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "BUY_SIDE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "BUY_SIDE",
+        "status": "REJECT"
+      },
+      "inputSha256": "38693c53ec1bcc41c8e3a9dcfb8dc634237941a87d4e7b58cf1afa1d68b41336"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "TICK_GRID",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "TICK_GRID",
+        "status": "REJECT"
+      },
+      "inputSha256": "e1659408892685d17b1c456c32dafc9d4b5cc1e165526324748c20218620b581"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "VOLUME_GRID",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "VOLUME_GRID",
+        "status": "REJECT"
+      },
+      "inputSha256": "efee93d79654645170b15d2ae640db4ce7e65e20fd25f35a3d5c9f4890b01fee"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "INTENT_BINDING",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "INTENT_BINDING",
+        "status": "REJECT"
+      },
+      "inputSha256": "c1fbfc64af31f34bb52a1664e4fe50b535aead0947841b43d9d5a86cb14433d0"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DEAL_TICKET",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DEAL_TICKET",
+        "status": "REJECT"
+      },
+      "inputSha256": "f23e269d152052a37b859b00b0743a19addb87f2b3365c28b3f4d115843443d9"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUP_DEAL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUP_DEAL",
+        "status": "REJECT"
+      },
+      "inputSha256": "0f3938c4a8af0a2d0e367029a856140e32ad90262e518a273616f3dbee8025df"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUP_EVENT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUP_EVENT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c5464727be4ead6e344b704a00f588c63071c7f4763bdc554f8913fd72a41aba"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MISSING_LEG",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MISSING_LEG",
+        "status": "REJECT"
+      },
+      "inputSha256": "0e574614e2b83d2fb501a0e9a0f5723950c9459dac7880b12cd9306560047e9d"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "PARTIAL_FILL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "PARTIAL_FILL",
+        "status": "REJECT"
+      },
+      "inputSha256": "ce7f5c8c219e97666e987833bf53d98e8336fa6c85572ceba737993d66563de6"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "OVERFILL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "OVERFILL",
+        "status": "REJECT"
+      },
+      "inputSha256": "46434cf55646ddad0db1458c051144cb3d5691e811963999f8c068be98b3acce"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "9.00",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MONEY_CONSERVATION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "9.00",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "16.50"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "9.00",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MONEY_CONSERVATION",
+        "status": "REJECT"
+      },
+      "inputSha256": "c0372098d6630d96e4b1222a489ebec28aaae9ea896a03aa6246b0e2d7316f53"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "VOLUME_CONSERVATION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "VOLUME_CONSERVATION",
+        "status": "REJECT"
+      },
+      "inputSha256": "0ee7cd277143a99224f0bc4f2c362e2d1380a668e6a24cc131bfe33891f71491"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "RESERVE_MISUSE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "RESERVE_MISUSE",
+        "status": "REJECT"
+      },
+      "inputSha256": "6b9d3e66668c789b9d094249305e2247bc8e1011161b0c35d53d9de5228bdc86"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "DUAL_TAIL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "dualTail": true,
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "DUAL_TAIL",
+        "status": "REJECT"
+      },
+      "inputSha256": "2af42ea9e82bf59fe97f9eab1c9a8386cabaf91c4bdac5bcdf7d14904f5c4b44"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "-1.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "RECOVERY",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "-1.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "-1.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "RECOVERY",
+        "status": "REJECT"
+      },
+      "inputSha256": "3ad70975dbf05c9a6633f3c4e25d18dc31047cf16dd89209b347707b68c6eeb1"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "COVERAGE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50",
+          "reserveCoverage": false
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "COVERAGE",
+        "status": "REJECT"
+      },
+      "inputSha256": "7cc207e0816cbeb9a2a4243773bd30e4620b792df2991c9ead3f318f783c5fec"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "PERSISTENCE",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "PERSISTENCE",
+        "status": "REJECT"
+      },
+      "inputSha256": "1d6721d2400c24eb4b9c6c1330def8657948f38ebf3cf2825de42251182644aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 2,
+          "reason": "REVISION",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 2,
+        "reason": "REVISION",
+        "status": "REJECT"
+      },
+      "inputSha256": "91d83d246f8cda403fc59c505df3fc30a1f8713ca6188b203a844c30100bf746"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "CERT_BODY",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "CERT_BODY",
+        "status": "REJECT"
+      },
+      "inputSha256": "752a49d9b7cf8d0dfd14bf788a7d96eaad3dccbc746920c016bb7ce95c06b73a"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "CERT_DIGEST",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "CERT_DIGEST",
+        "status": "REJECT"
+      },
+      "inputSha256": "6bf9df8504fbd29528602b0ce5f0c3f2f0b7f420aac648706a4cefb2122bc4f4"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "IDENTITY_ACCOUNT",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "IDENTITY_ACCOUNT",
+        "status": "REJECT"
+      },
+      "inputSha256": "c45c12f595a6f2332448ec7578ee3a1f7e167a122246a4d521128e25245c51aa"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "SYMBOL",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "SYMBOL",
+        "status": "REJECT"
+      },
+      "inputSha256": "72518fff33c80eb0fd817a64e25a92e99824bc6fa87b1c1af0328b7be4b7a9a8"
+    },
+    {
+      "derivationTrace": {
+        "EXPECTED_VALUE": {
+          "AllocatedMoney": "7.50",
+          "AvailableMoney": "10.00",
+          "CertificateEligibility": false,
+          "RecoveryPL": "5.00",
+          "RemainingMoney": "2.50",
+          "ReserveAfter": "7.50",
+          "StateRevisionAfter": 0,
+          "reason": "MAGIC",
+          "status": "REJECT"
+        },
+        "FORMULA_ID": "R9_V2_TRANSACTION",
+        "INPUT_UNITS": "ACCOUNT_MONEY",
+        "INPUT_VALUES": {
+          "allocatedMoney": "7.50",
+          "availableMoney": "10.00",
+          "recoveryPL": "5.00",
+          "remainingMoney": "2.50",
+          "reserveAfter": "7.50"
+        },
+        "INTERMEDIATE_VALUES": {
+          "conservation": "10.00"
+        },
+        "ROUNDING_POLICY": "ROUND_DOWN"
+      },
+      "expected": {
+        "AllocatedMoney": "7.50",
+        "AvailableMoney": "10.00",
+        "CertificateEligibility": false,
+        "RecoveryPL": "5.00",
+        "RemainingMoney": "2.50",
+        "ReserveAfter": "7.50",
+        "StateRevisionAfter": 0,
+        "reason": "MAGIC",
+        "status": "REJECT"
+      },
+      "inputSha256": "3b19136ef0a6e413a43b8068b3ec2f5504505919c860adc9d45b46cc3e9fb95f"
+    }
+  ],
+  "qualification": "PASS",
+  "schemaVersion": 2
+}
