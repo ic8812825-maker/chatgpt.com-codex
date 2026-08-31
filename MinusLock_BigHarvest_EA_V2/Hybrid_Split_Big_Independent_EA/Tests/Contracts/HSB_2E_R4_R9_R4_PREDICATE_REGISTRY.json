@@ -344,14 +344,14 @@
         "LIFECYCLE"
       ],
       "dataDependencies": [
-        "scenarioInput.persistedStateState.acceptedDeals",
-        "scenarioInput.persistedStateState.authoritativeLedgerRoot"
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.authoritativeLedgerRoot"
       ],
       "evaluationOrder": 12,
       "evaluatorFunction": "evaluate_persisted_ledger_revalidation",
       "exactInputPaths": [
-        "scenarioInput.persistedStateState.acceptedDeals",
-        "scenarioInput.persistedStateState.authoritativeLedgerRoot"
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.authoritativeLedgerRoot"
       ],
       "failureCheckId": "R9_PERSISTED_LEDGER_REVALIDATION",
       "failureReason": "PERSISTED_LEDGER_REVALIDATION_MISMATCH",
@@ -513,15 +513,15 @@
       ],
       "dataDependencies": [
         "scenarioInput.economic.availableMoney",
-        "scenarioInput.allocationPolicyPolicy.allocatedMoney",
-        "scenarioInput.allocationPolicyPolicy.remainingMoney"
+        "scenarioInput.allocationPolicy.allocatedMoney",
+        "scenarioInput.allocationPolicy.remainingMoney"
       ],
       "evaluationOrder": 18,
       "evaluatorFunction": "evaluate_money_conservation",
       "exactInputPaths": [
         "scenarioInput.economic.availableMoney",
-        "scenarioInput.allocationPolicyPolicy.allocatedMoney",
-        "scenarioInput.allocationPolicyPolicy.remainingMoney"
+        "scenarioInput.allocationPolicy.allocatedMoney",
+        "scenarioInput.allocationPolicy.remainingMoney"
       ],
       "failureCheckId": "R9_MONEY_CONSERVATION",
       "failureReason": "MONEY_CONSERVATION_MISMATCH",
@@ -573,13 +573,13 @@
       ],
       "dataDependencies": [
         "scenarioInput.economic.reserveBefore",
-        "scenarioInput.allocationPolicyPolicy.reserveAddition"
+        "scenarioInput.allocationPolicy.reserveAddition"
       ],
       "evaluationOrder": 20,
       "evaluatorFunction": "evaluate_reserve_policy",
       "exactInputPaths": [
         "scenarioInput.economic.reserveBefore",
-        "scenarioInput.allocationPolicyPolicy.reserveAddition"
+        "scenarioInput.allocationPolicy.reserveAddition"
       ],
       "failureCheckId": "R9_RESERVE_POLICY",
       "failureReason": "RESERVE_POLICY_MISMATCH",
@@ -821,9 +821,9 @@
         "LIFECYCLE"
       ],
       "dataDependencies": [
-        "scenarioInput.persistedStateState.authoritativeLedgerRoot",
-        "scenarioInput.persistedStateState.previousStateDigest",
-        "scenarioInput.persistedStateState.transactionJournalRoot",
+        "scenarioInput.persistedState.authoritativeLedgerRoot",
+        "scenarioInput.persistedState.previousStateDigest",
+        "scenarioInput.persistedState.transactionJournalRoot",
         "scenarioInput.certificate.claimedBrokerDigest",
         "scenarioInput.certificate.claimedEconomicDigest",
         "scenarioInput.certificate.claimedAllocationDigest",
@@ -834,9 +834,9 @@
       "evaluationOrder": 29,
       "evaluatorFunction": "evaluate_certificate_provenance",
       "exactInputPaths": [
-        "scenarioInput.persistedStateState.authoritativeLedgerRoot",
-        "scenarioInput.persistedStateState.previousStateDigest",
-        "scenarioInput.persistedStateState.transactionJournalRoot",
+        "scenarioInput.persistedState.authoritativeLedgerRoot",
+        "scenarioInput.persistedState.previousStateDigest",
+        "scenarioInput.persistedState.transactionJournalRoot",
         "scenarioInput.certificate.claimedBrokerDigest",
         "scenarioInput.certificate.claimedEconomicDigest",
         "scenarioInput.certificate.claimedAllocationDigest",
@@ -893,14 +893,14 @@
         "LIFECYCLE"
       ],
       "dataDependencies": [
-        "scenarioInput.persistedStateState.consumedDealIds",
-        "scenarioInput.persistedStateState.seenEventIds"
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.seenEventIds"
       ],
       "evaluationOrder": 31,
       "evaluatorFunction": "evaluate_replay_exactly_once",
       "exactInputPaths": [
-        "scenarioInput.persistedStateState.consumedDealIds",
-        "scenarioInput.persistedStateState.seenEventIds"
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.seenEventIds"
       ],
       "failureCheckId": "R9_REPLAY_EXACTLY_ONCE",
       "failureReason": "REPLAY_EXACTLY_ONCE_MISMATCH",
