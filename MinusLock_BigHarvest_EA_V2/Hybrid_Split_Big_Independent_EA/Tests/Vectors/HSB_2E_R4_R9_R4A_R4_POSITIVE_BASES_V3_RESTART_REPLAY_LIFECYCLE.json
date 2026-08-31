@@ -1,0 +1,2729 @@
+{
+  "fixtures": [
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "61",
+          "policyId": "ALLOC-RESTART_CONTINUATION",
+          "remainingMoney": "56",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1172",
+          "bid": "1.1170",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "f88946406dc926935369d0259d9d98df157c6a8c8cd7bceda0fe4b8c166545d8",
+          "proposalId": "BP-17",
+          "requestedVolume": "0.11"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "414daabcff33ddc8a69e1170db4dcfa3de27e6a7149858842ff7ba7eec7a81aa",
+          "body": "25c3eb73b810982095fbd35269abcf0ef47ae83d385abd5927173aa0b2849c93",
+          "claimedAllocationDigest": "1019cdbd1aeb556a131b1f0d18e5e767bc0e4efef6542df4fedabe721409a816",
+          "claimedBrokerDigest": "f88946406dc926935369d0259d9d98df157c6a8c8cd7bceda0fe4b8c166545d8",
+          "claimedEconomicDigest": "b89e3e0c95dc7d2f33d4d5431fb50a4d355dd32636aadc5ccb371199b05a911f",
+          "claimedFsmDigest": "0a95d7f55b202def0a7c1fefc077ba9d4b68306b5e0eff1f3b51c24bf894f6a4",
+          "claimedOutputStateDigest": "79ac98c03f35712ca25cedf21c0d61de0d1d105034421494d2b0641211e6515b",
+          "claimedPersistenceDigest": "68c5776b17abfb22be57b5f7e8950d88e333e9bec9297f856fc8b7747536d556",
+          "digest": "7f006c91d7cd401aa9f517fab6f5c109952ea82a9f9e5996c8d842417a11d8b9",
+          "previousStateDigest": "386c8eab9956c18e019d1d5cd6f4489a14409024d35b0ba50c9674bead13293c",
+          "transactionJournalRoot": "0876ef27cfc7067736735f42b1a71a8778ed87bc605c0fa9680a54647413083e",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-2",
+          "actionId": "ACT-17",
+          "cycleId": "CYCLE-RESTART_CONTINUATION-1",
+          "magic": 8812826,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 27,
+          "stateRevision": 27,
+          "symbol": "EURUSD",
+          "transactionId": "TX-17"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-2",
+            "actionId": "ACT-17",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-RESTART_CONTINUATION-1",
+            "dealId": "DEAL-17",
+            "direction": "SELL",
+            "eventId": "EVENT-17",
+            "fee": "0",
+            "intentId": "INT-17",
+            "magic": 8812826,
+            "positionTicket": "TKT-RESTART_CONTINUATION-1",
+            "price": "1.1170",
+            "role": "BIG",
+            "snapshotRevision": 27,
+            "stateRevision": 27,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800001700,
+            "transactionId": "TX-17",
+            "volume": "0.11"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "61",
+          "availableMoney": "117",
+          "bigResidualVolume": "0.11",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "21",
+          "farActualLoss": "11",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "16",
+          "remainingMoney": "56",
+          "requiredCoverage": "11",
+          "reserveAddition": "5",
+          "reserveBefore": "31",
+          "reserveConsumption": "0",
+          "reserveCoverage": "31",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-2",
+            "actionId": "ACT-17",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-RESTART_CONTINUATION-1",
+            "dealId": "DEAL-17",
+            "direction": "SELL",
+            "eventId": "EVENT-17",
+            "fee": "0",
+            "intentId": "INT-17",
+            "magic": 8812826,
+            "positionTicket": "TKT-RESTART_CONTINUATION-1",
+            "price": "1.1170",
+            "role": "BIG",
+            "snapshotRevision": 27,
+            "stateRevision": 27,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800001700,
+            "transactionId": "TX-17",
+            "volume": "0.11"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 27,
+          "inputState": "BIG",
+          "outputRevision": 28,
+          "outputState": "SMALL"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-17",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800001690,
+            "direction": "SELL",
+            "expiresTimestamp": 1800001800,
+            "intentId": "INT-17",
+            "positionTicket": "TKT-RESTART_CONTINUATION-1",
+            "requestedVolume": "0.11",
+            "role": "BIG",
+            "snapshotRevision": 27,
+            "stateRevision": 27,
+            "transactionId": "TX-17"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "414daabcff33ddc8a69e1170db4dcfa3de27e6a7149858842ff7ba7eec7a81aa",
+          "consumedDealIds": [
+            "DEAL-17"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-RESTART_CONTINUATION-1",
+              "volume": "0.11"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-17",
+              "eventId": "EVENT-17"
+            }
+          ],
+          "farState": {
+            "loss": "11",
+            "ticket": "TKT-RESTART_CONTINUATION-1",
+            "volume": "0.11"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-17",
+              "value": "61"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-RESTART_CONTINUATION-1",
+              "value": "61"
+            }
+          ],
+          "previousStateDigest": "386c8eab9956c18e019d1d5cd6f4489a14409024d35b0ba50c9674bead13293c",
+          "recoveryPL": "16",
+          "reserve": "36",
+          "seenEventIds": [
+            "EVENT-17"
+          ],
+          "stateRevision": 27,
+          "transactionJournalRoot": "0876ef27cfc7067736735f42b1a71a8778ed87bc605c0fa9680a54647413083e"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-2",
+            "authoritativeVolume": "0.11",
+            "cycleId": "CYCLE-RESTART_CONTINUATION-1",
+            "direction": "BUY",
+            "magic": 8812826,
+            "openPrice": "1.1170",
+            "role": "BIG",
+            "snapshotRevision": 27,
+            "stateRevision": 27,
+            "symbol": "EURUSD",
+            "ticket": "TKT-RESTART_CONTINUATION-1",
+            "volume": "0.11"
+          }
+        ],
+        "scenario": "RESTART_CONTINUATION",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812826,
+          "revision": 27,
+          "symbol": "EURUSD",
+          "timestamp": 1800001700
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002000,
+          "minimumTimestamp": 1800001500,
+          "validFrom": 1800001600,
+          "validUntil": 1800001900
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-RESTART_CONTINUATION-1",
+        "scenario": "RESTART_CONTINUATION"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "62",
+          "policyId": "ALLOC-RESTART_CONTINUATION",
+          "remainingMoney": "56",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1182",
+          "bid": "1.1180",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "4a767583ae57cb930dcf9f9466fbb3481bb588e2740e3300050d73b8a2060f62",
+          "proposalId": "BP-18",
+          "requestedVolume": "0.12"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "e9a9886d45be02ec2b7a0d245af0779203bd33fa2c9462fb6fd2d16a0d555a81",
+          "body": "063f88edad084062652677c6eaf9d8849de583973b1e6a5b38729093f85b2901",
+          "claimedAllocationDigest": "9a1f117fed548875591bae8c0ca6521496a0d1feb31d3c82414828c52b40f11b",
+          "claimedBrokerDigest": "4a767583ae57cb930dcf9f9466fbb3481bb588e2740e3300050d73b8a2060f62",
+          "claimedEconomicDigest": "49cb23068fd0972079c46a391b2044be2649b19d8081c1dd219978eb53c2c963",
+          "claimedFsmDigest": "6b2827bf36e685726ceab3f08e11f74d39be13e6ef70ee22a5ef6f8e435783db",
+          "claimedOutputStateDigest": "79ac98c03f35712ca25cedf21c0d61de0d1d105034421494d2b0641211e6515b",
+          "claimedPersistenceDigest": "8b18aedc3d160f1247772f1a99edbb056423c3532c56dab7ace1d045e4d8f7b8",
+          "digest": "bbcc37456921b740f237bd065005df2f25ff5f794d3e01f8bcb04f6cb9002e60",
+          "previousStateDigest": "b7fc868d3861430625388be3dfaa862f916e405ac7e836583d52b52a620a2de9",
+          "transactionJournalRoot": "08f17ee9884b70bca860483fc822f683902e8b4836f4fed43552904e664fc33c",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-3",
+          "actionId": "ACT-18",
+          "cycleId": "CYCLE-RESTART_CONTINUATION-2",
+          "magic": 8812827,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 28,
+          "stateRevision": 28,
+          "symbol": "EURUSD",
+          "transactionId": "TX-18"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-3",
+            "actionId": "ACT-18",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-RESTART_CONTINUATION-2",
+            "dealId": "DEAL-18",
+            "direction": "BUY",
+            "eventId": "EVENT-18",
+            "fee": "0",
+            "intentId": "INT-18",
+            "magic": 8812827,
+            "positionTicket": "TKT-RESTART_CONTINUATION-2",
+            "price": "1.1180",
+            "role": "BIG",
+            "snapshotRevision": 28,
+            "stateRevision": 28,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800001800,
+            "transactionId": "TX-18",
+            "volume": "0.12"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "62",
+          "availableMoney": "118",
+          "bigResidualVolume": "0.12",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "22",
+          "farActualLoss": "12",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "17",
+          "remainingMoney": "56",
+          "requiredCoverage": "12",
+          "reserveAddition": "5",
+          "reserveBefore": "32",
+          "reserveConsumption": "0",
+          "reserveCoverage": "32",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-3",
+            "actionId": "ACT-18",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-RESTART_CONTINUATION-2",
+            "dealId": "DEAL-18",
+            "direction": "BUY",
+            "eventId": "EVENT-18",
+            "fee": "0",
+            "intentId": "INT-18",
+            "magic": 8812827,
+            "positionTicket": "TKT-RESTART_CONTINUATION-2",
+            "price": "1.1180",
+            "role": "BIG",
+            "snapshotRevision": 28,
+            "stateRevision": 28,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800001800,
+            "transactionId": "TX-18",
+            "volume": "0.12"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 28,
+          "inputState": "BIG",
+          "outputRevision": 29,
+          "outputState": "SMALL"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-18",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800001790,
+            "direction": "BUY",
+            "expiresTimestamp": 1800001900,
+            "intentId": "INT-18",
+            "positionTicket": "TKT-RESTART_CONTINUATION-2",
+            "requestedVolume": "0.12",
+            "role": "BIG",
+            "snapshotRevision": 28,
+            "stateRevision": 28,
+            "transactionId": "TX-18"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "e9a9886d45be02ec2b7a0d245af0779203bd33fa2c9462fb6fd2d16a0d555a81",
+          "consumedDealIds": [
+            "DEAL-18"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-RESTART_CONTINUATION-2",
+              "volume": "0.12"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-18",
+              "eventId": "EVENT-18"
+            }
+          ],
+          "farState": {
+            "loss": "12",
+            "ticket": "TKT-RESTART_CONTINUATION-2",
+            "volume": "0.12"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-18",
+              "value": "62"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-RESTART_CONTINUATION-2",
+              "value": "62"
+            }
+          ],
+          "previousStateDigest": "b7fc868d3861430625388be3dfaa862f916e405ac7e836583d52b52a620a2de9",
+          "recoveryPL": "17",
+          "reserve": "37",
+          "seenEventIds": [
+            "EVENT-18"
+          ],
+          "stateRevision": 28,
+          "transactionJournalRoot": "08f17ee9884b70bca860483fc822f683902e8b4836f4fed43552904e664fc33c"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-3",
+            "authoritativeVolume": "0.12",
+            "cycleId": "CYCLE-RESTART_CONTINUATION-2",
+            "direction": "SELL",
+            "magic": 8812827,
+            "openPrice": "1.1180",
+            "role": "BIG",
+            "snapshotRevision": 28,
+            "stateRevision": 28,
+            "symbol": "EURUSD",
+            "ticket": "TKT-RESTART_CONTINUATION-2",
+            "volume": "0.12"
+          }
+        ],
+        "scenario": "RESTART_CONTINUATION",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812827,
+          "revision": 28,
+          "symbol": "EURUSD",
+          "timestamp": 1800001800
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002100,
+          "minimumTimestamp": 1800001600,
+          "validFrom": 1800001700,
+          "validUntil": 1800002000
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-RESTART_CONTINUATION-2",
+        "scenario": "RESTART_CONTINUATION"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "63",
+          "policyId": "ALLOC-RESTART_CONTINUATION",
+          "remainingMoney": "56",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1192",
+          "bid": "1.1190",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "f1d27a8521e8aa5fae0aeeda5d6fe1977bb997b9d00810d2064a4afd74e33b97",
+          "proposalId": "BP-19",
+          "requestedVolume": "0.13"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "baf613578d611acb53ca8957c1cc4cf74f9bbef2e966ee287b0874d5f6defc97",
+          "body": "6a62fba163ee90dafa784453df6e2970ceae884e8810a5288b63019b4db54d3d",
+          "claimedAllocationDigest": "1a5bd2e12ef7089b1353b45cb9113be92728df6d1e7ffb02dda54d8247a7f318",
+          "claimedBrokerDigest": "f1d27a8521e8aa5fae0aeeda5d6fe1977bb997b9d00810d2064a4afd74e33b97",
+          "claimedEconomicDigest": "7c0ea7e8ed9da6daa3d1991dd26dc381aec218ac5dbc4ff6554bcb6e35ed4e42",
+          "claimedFsmDigest": "c012513091a75208b4e54e8720d523253a80f7e92eec6337c0f6381c48cc5e67",
+          "claimedOutputStateDigest": "79ac98c03f35712ca25cedf21c0d61de0d1d105034421494d2b0641211e6515b",
+          "claimedPersistenceDigest": "a4296c856c61b03f28a4b05e717b730a4f2d8d1cd01d00adb681348f1984eb24",
+          "digest": "44daefea1bf56464c7fd01e0a503fe7feb3e53ad8adaf8af1506485b83825fad",
+          "previousStateDigest": "3173d8bf60deb3581b629d2479eda38a4f3885a067d579d2407be69fa838c70b",
+          "transactionJournalRoot": "9af8eed13175099abeec3aa7da869b1fa434b4e310f50d6541f036f01bfff23e",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-4",
+          "actionId": "ACT-19",
+          "cycleId": "CYCLE-RESTART_CONTINUATION-3",
+          "magic": 8812828,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 29,
+          "stateRevision": 29,
+          "symbol": "EURUSD",
+          "transactionId": "TX-19"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-4",
+            "actionId": "ACT-19",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-RESTART_CONTINUATION-3",
+            "dealId": "DEAL-19",
+            "direction": "SELL",
+            "eventId": "EVENT-19",
+            "fee": "0",
+            "intentId": "INT-19",
+            "magic": 8812828,
+            "positionTicket": "TKT-RESTART_CONTINUATION-3",
+            "price": "1.1190",
+            "role": "BIG",
+            "snapshotRevision": 29,
+            "stateRevision": 29,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800001900,
+            "transactionId": "TX-19",
+            "volume": "0.13"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "63",
+          "availableMoney": "119",
+          "bigResidualVolume": "0.13",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "23",
+          "farActualLoss": "13",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "18",
+          "remainingMoney": "56",
+          "requiredCoverage": "13",
+          "reserveAddition": "5",
+          "reserveBefore": "33",
+          "reserveConsumption": "0",
+          "reserveCoverage": "33",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-4",
+            "actionId": "ACT-19",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-RESTART_CONTINUATION-3",
+            "dealId": "DEAL-19",
+            "direction": "SELL",
+            "eventId": "EVENT-19",
+            "fee": "0",
+            "intentId": "INT-19",
+            "magic": 8812828,
+            "positionTicket": "TKT-RESTART_CONTINUATION-3",
+            "price": "1.1190",
+            "role": "BIG",
+            "snapshotRevision": 29,
+            "stateRevision": 29,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800001900,
+            "transactionId": "TX-19",
+            "volume": "0.13"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 29,
+          "inputState": "BIG",
+          "outputRevision": 30,
+          "outputState": "SMALL"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-19",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800001890,
+            "direction": "SELL",
+            "expiresTimestamp": 1800002000,
+            "intentId": "INT-19",
+            "positionTicket": "TKT-RESTART_CONTINUATION-3",
+            "requestedVolume": "0.13",
+            "role": "BIG",
+            "snapshotRevision": 29,
+            "stateRevision": 29,
+            "transactionId": "TX-19"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "baf613578d611acb53ca8957c1cc4cf74f9bbef2e966ee287b0874d5f6defc97",
+          "consumedDealIds": [
+            "DEAL-19"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-RESTART_CONTINUATION-3",
+              "volume": "0.13"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-19",
+              "eventId": "EVENT-19"
+            }
+          ],
+          "farState": {
+            "loss": "13",
+            "ticket": "TKT-RESTART_CONTINUATION-3",
+            "volume": "0.13"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-19",
+              "value": "63"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-RESTART_CONTINUATION-3",
+              "value": "63"
+            }
+          ],
+          "previousStateDigest": "3173d8bf60deb3581b629d2479eda38a4f3885a067d579d2407be69fa838c70b",
+          "recoveryPL": "18",
+          "reserve": "38",
+          "seenEventIds": [
+            "EVENT-19"
+          ],
+          "stateRevision": 29,
+          "transactionJournalRoot": "9af8eed13175099abeec3aa7da869b1fa434b4e310f50d6541f036f01bfff23e"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-4",
+            "authoritativeVolume": "0.13",
+            "cycleId": "CYCLE-RESTART_CONTINUATION-3",
+            "direction": "BUY",
+            "magic": 8812828,
+            "openPrice": "1.1190",
+            "role": "BIG",
+            "snapshotRevision": 29,
+            "stateRevision": 29,
+            "symbol": "EURUSD",
+            "ticket": "TKT-RESTART_CONTINUATION-3",
+            "volume": "0.13"
+          }
+        ],
+        "scenario": "RESTART_CONTINUATION",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812828,
+          "revision": 29,
+          "symbol": "EURUSD",
+          "timestamp": 1800001900
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002200,
+          "minimumTimestamp": 1800001700,
+          "validFrom": 1800001800,
+          "validUntil": 1800002100
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-RESTART_CONTINUATION-3",
+        "scenario": "RESTART_CONTINUATION"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "64",
+          "policyId": "ALLOC-RESTART_CONTINUATION",
+          "remainingMoney": "56",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1202",
+          "bid": "1.1200",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "a94af46eb57e45c27731a196363f24745c16751a68878b9fc364f1ed0962138b",
+          "proposalId": "BP-20",
+          "requestedVolume": "0.14"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "a227b5bc3da7d03df277eb5225b864a7314a4c82e4089ba53d7ac231fbcd6557",
+          "body": "d96bcd5a545cb1260ab025ed3aeb3f3985f7410fd504703c80969a715ab9146e",
+          "claimedAllocationDigest": "838015139f34b8376324bda64b5d49c285c5d7b6cdf6f0b4621e4ad2b12f3363",
+          "claimedBrokerDigest": "a94af46eb57e45c27731a196363f24745c16751a68878b9fc364f1ed0962138b",
+          "claimedEconomicDigest": "aeb36208e275acf8a999535e5c852f0083e76645b27f42b6071edb213d18092c",
+          "claimedFsmDigest": "8307675a0359effc036f0c0934e4d0d6cb398a1c78343758e35b7d8a2cbd4b31",
+          "claimedOutputStateDigest": "79ac98c03f35712ca25cedf21c0d61de0d1d105034421494d2b0641211e6515b",
+          "claimedPersistenceDigest": "7626d382235a7f66765348f4a50a7fe36ddae8609647ce72e21c6dd6189c42d4",
+          "digest": "09c43ead7c0a314362285f8b9bed2c7ed30b49b5871a0f9d5bbddcd4b40eb33e",
+          "previousStateDigest": "9fe198c13ee501c75e398ff85248a063ea65afbfbe717f445441bc429fbff559",
+          "transactionJournalRoot": "317fa0e3a786c8d8b28f5585e7ea115a3cd0e9ef8af1853600552c6bb74c64a2",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-5",
+          "actionId": "ACT-20",
+          "cycleId": "CYCLE-RESTART_CONTINUATION-4",
+          "magic": 8812829,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 30,
+          "stateRevision": 30,
+          "symbol": "EURUSD",
+          "transactionId": "TX-20"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-5",
+            "actionId": "ACT-20",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-RESTART_CONTINUATION-4",
+            "dealId": "DEAL-20",
+            "direction": "BUY",
+            "eventId": "EVENT-20",
+            "fee": "0",
+            "intentId": "INT-20",
+            "magic": 8812829,
+            "positionTicket": "TKT-RESTART_CONTINUATION-4",
+            "price": "1.1200",
+            "role": "BIG",
+            "snapshotRevision": 30,
+            "stateRevision": 30,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002000,
+            "transactionId": "TX-20",
+            "volume": "0.14"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "64",
+          "availableMoney": "120",
+          "bigResidualVolume": "0.14",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "24",
+          "farActualLoss": "14",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "19",
+          "remainingMoney": "56",
+          "requiredCoverage": "14",
+          "reserveAddition": "5",
+          "reserveBefore": "34",
+          "reserveConsumption": "0",
+          "reserveCoverage": "34",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-5",
+            "actionId": "ACT-20",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-RESTART_CONTINUATION-4",
+            "dealId": "DEAL-20",
+            "direction": "BUY",
+            "eventId": "EVENT-20",
+            "fee": "0",
+            "intentId": "INT-20",
+            "magic": 8812829,
+            "positionTicket": "TKT-RESTART_CONTINUATION-4",
+            "price": "1.1200",
+            "role": "BIG",
+            "snapshotRevision": 30,
+            "stateRevision": 30,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002000,
+            "transactionId": "TX-20",
+            "volume": "0.14"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 30,
+          "inputState": "BIG",
+          "outputRevision": 31,
+          "outputState": "SMALL"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-20",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800001990,
+            "direction": "BUY",
+            "expiresTimestamp": 1800002100,
+            "intentId": "INT-20",
+            "positionTicket": "TKT-RESTART_CONTINUATION-4",
+            "requestedVolume": "0.14",
+            "role": "BIG",
+            "snapshotRevision": 30,
+            "stateRevision": 30,
+            "transactionId": "TX-20"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "a227b5bc3da7d03df277eb5225b864a7314a4c82e4089ba53d7ac231fbcd6557",
+          "consumedDealIds": [
+            "DEAL-20"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-RESTART_CONTINUATION-4",
+              "volume": "0.14"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-20",
+              "eventId": "EVENT-20"
+            }
+          ],
+          "farState": {
+            "loss": "14",
+            "ticket": "TKT-RESTART_CONTINUATION-4",
+            "volume": "0.14"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-20",
+              "value": "64"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-RESTART_CONTINUATION-4",
+              "value": "64"
+            }
+          ],
+          "previousStateDigest": "9fe198c13ee501c75e398ff85248a063ea65afbfbe717f445441bc429fbff559",
+          "recoveryPL": "19",
+          "reserve": "39",
+          "seenEventIds": [
+            "EVENT-20"
+          ],
+          "stateRevision": 30,
+          "transactionJournalRoot": "317fa0e3a786c8d8b28f5585e7ea115a3cd0e9ef8af1853600552c6bb74c64a2"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-5",
+            "authoritativeVolume": "0.14",
+            "cycleId": "CYCLE-RESTART_CONTINUATION-4",
+            "direction": "SELL",
+            "magic": 8812829,
+            "openPrice": "1.1200",
+            "role": "BIG",
+            "snapshotRevision": 30,
+            "stateRevision": 30,
+            "symbol": "EURUSD",
+            "ticket": "TKT-RESTART_CONTINUATION-4",
+            "volume": "0.14"
+          }
+        ],
+        "scenario": "RESTART_CONTINUATION",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812829,
+          "revision": 30,
+          "symbol": "EURUSD",
+          "timestamp": 1800002000
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002300,
+          "minimumTimestamp": 1800001800,
+          "validFrom": 1800001900,
+          "validUntil": 1800002200
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-RESTART_CONTINUATION-4",
+        "scenario": "RESTART_CONTINUATION"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "61",
+          "policyId": "ALLOC-REPLAY_COMMITTED",
+          "remainingMoney": "60",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1212",
+          "bid": "1.1210",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "30550806a2b29e2292290a34aa9080a23664179e6d52658b0dd2c1888c53bbc6",
+          "proposalId": "BP-21",
+          "requestedVolume": "0.11"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "815253a5ebefa01a8f7425953b183c33a6934a88308897070370a5a61920eef2",
+          "body": "07bb68e387d2b1c6f8d93aafeb2700b37208b1d701f97f890ddf47d64e96ce5c",
+          "claimedAllocationDigest": "05c8db9b2db3a080e79d60b5ecaada96c6969d95e0e9c872856b9125559227b7",
+          "claimedBrokerDigest": "30550806a2b29e2292290a34aa9080a23664179e6d52658b0dd2c1888c53bbc6",
+          "claimedEconomicDigest": "3221ce294efde695a101cef6ad4d6f3149b2e81a715e871a567f261d67752576",
+          "claimedFsmDigest": "8dac426c410572dfb04d6685dadcd66706655740a66997691b288b599edb0ef1",
+          "claimedOutputStateDigest": "ed5603b9588d38fb4b85a44fa5f66bfd67ae5d4dbe9b09a6c5422ce7b3ed8091",
+          "claimedPersistenceDigest": "227da9af1eac8e4d283196f130eb8976769f562093f660f55b495c9f8ecc2b24",
+          "digest": "f8a33e6cbb1a85ec05b2e5ebd5cec4c627dc5b0df83708678cd66500236055a4",
+          "previousStateDigest": "7dcea964efa4adb28927d433d8d4b613f74d7de9fd423ccdf07c411e0e3215c7",
+          "transactionJournalRoot": "3543c52b9c0fafd745ac15c493a3c82dcaa0b88efb4a0217d860cd3d4efd75ab",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-2",
+          "actionId": "ACT-21",
+          "cycleId": "CYCLE-REPLAY_COMMITTED-1",
+          "magic": 8812826,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 31,
+          "stateRevision": 31,
+          "symbol": "EURUSD",
+          "transactionId": "TX-21"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-2",
+            "actionId": "ACT-21",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-REPLAY_COMMITTED-1",
+            "dealId": "DEAL-21",
+            "direction": "SELL",
+            "eventId": "EVENT-21",
+            "fee": "0",
+            "intentId": "INT-21",
+            "magic": 8812826,
+            "positionTicket": "TKT-REPLAY_COMMITTED-1",
+            "price": "1.1210",
+            "role": "FAR",
+            "snapshotRevision": 31,
+            "stateRevision": 31,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002100,
+            "transactionId": "TX-21",
+            "volume": "0.11"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "61",
+          "availableMoney": "121",
+          "bigResidualVolume": "0.00",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "21",
+          "farActualLoss": "11",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "16",
+          "remainingMoney": "60",
+          "requiredCoverage": "11",
+          "reserveAddition": "5",
+          "reserveBefore": "31",
+          "reserveConsumption": "0",
+          "reserveCoverage": "31",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-2",
+            "actionId": "ACT-21",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-REPLAY_COMMITTED-1",
+            "dealId": "DEAL-21",
+            "direction": "SELL",
+            "eventId": "EVENT-21",
+            "fee": "0",
+            "intentId": "INT-21",
+            "magic": 8812826,
+            "positionTicket": "TKT-REPLAY_COMMITTED-1",
+            "price": "1.1210",
+            "role": "FAR",
+            "snapshotRevision": 31,
+            "stateRevision": 31,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002100,
+            "transactionId": "TX-21",
+            "volume": "0.11"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 31,
+          "inputState": "COMMITTED",
+          "outputRevision": 32,
+          "outputState": "COMMITTED"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-21",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800002090,
+            "direction": "SELL",
+            "expiresTimestamp": 1800002200,
+            "intentId": "INT-21",
+            "positionTicket": "TKT-REPLAY_COMMITTED-1",
+            "requestedVolume": "0.11",
+            "role": "FAR",
+            "snapshotRevision": 31,
+            "stateRevision": 31,
+            "transactionId": "TX-21"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "815253a5ebefa01a8f7425953b183c33a6934a88308897070370a5a61920eef2",
+          "consumedDealIds": [
+            "DEAL-21"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-REPLAY_COMMITTED-1",
+              "volume": "0.11"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-21",
+              "eventId": "EVENT-21"
+            }
+          ],
+          "farState": {
+            "loss": "11",
+            "ticket": "TKT-REPLAY_COMMITTED-1",
+            "volume": "0.11"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-21",
+              "value": "61"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-REPLAY_COMMITTED-1",
+              "value": "61"
+            }
+          ],
+          "previousStateDigest": "7dcea964efa4adb28927d433d8d4b613f74d7de9fd423ccdf07c411e0e3215c7",
+          "recoveryPL": "16",
+          "reserve": "36",
+          "seenEventIds": [
+            "EVENT-21"
+          ],
+          "stateRevision": 31,
+          "transactionJournalRoot": "3543c52b9c0fafd745ac15c493a3c82dcaa0b88efb4a0217d860cd3d4efd75ab"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-2",
+            "authoritativeVolume": "0.11",
+            "cycleId": "CYCLE-REPLAY_COMMITTED-1",
+            "direction": "BUY",
+            "magic": 8812826,
+            "openPrice": "1.1210",
+            "role": "FAR",
+            "snapshotRevision": 31,
+            "stateRevision": 31,
+            "symbol": "EURUSD",
+            "ticket": "TKT-REPLAY_COMMITTED-1",
+            "volume": "0.11"
+          }
+        ],
+        "scenario": "REPLAY_COMMITTED",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812826,
+          "revision": 31,
+          "symbol": "EURUSD",
+          "timestamp": 1800002100
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002400,
+          "minimumTimestamp": 1800001900,
+          "validFrom": 1800002000,
+          "validUntil": 1800002300
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-REPLAY_COMMITTED-1",
+        "scenario": "REPLAY_COMMITTED"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "62",
+          "policyId": "ALLOC-REPLAY_COMMITTED",
+          "remainingMoney": "60",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1222",
+          "bid": "1.1220",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "a86c8d436951a6cea4557ddea7284c6de3193e6fb3fc8c7792cdc539a7b8404d",
+          "proposalId": "BP-22",
+          "requestedVolume": "0.12"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "70e870531aa2dfb329cda31e7e694a65f2aff2f25274d3532a93dfcef09eb48c",
+          "body": "017dc82e56217d7ef697638879ad44e669b79f67bc64cac00bd393efe97a3127",
+          "claimedAllocationDigest": "07a5fbe25c8640bc1e993b10acbf45db87428f9a307771f0553295b273b577ed",
+          "claimedBrokerDigest": "a86c8d436951a6cea4557ddea7284c6de3193e6fb3fc8c7792cdc539a7b8404d",
+          "claimedEconomicDigest": "35b300749ec30acb30dd91b15e9ffc729f8e29178326d23869574388adbc3109",
+          "claimedFsmDigest": "5e8b7ecf48a3c45bc79baeb7bd13d5ee780726a91c2d6a58e1b4226c3a9ef959",
+          "claimedOutputStateDigest": "ed5603b9588d38fb4b85a44fa5f66bfd67ae5d4dbe9b09a6c5422ce7b3ed8091",
+          "claimedPersistenceDigest": "c5d7b903ffa3b725bd434e9983094ef5d6ba7bca2a0fb99dbad540bf19147683",
+          "digest": "1673e4b6c04fa7a98ddf304e3d931fca355d6a60a91977a78f506f0dd06fbabc",
+          "previousStateDigest": "ff8c01dc728513a0a05fb17b9b921a1cb0ac42b6352c97eff363f13b9c10bf53",
+          "transactionJournalRoot": "aaff53e0b64c96e2c824c287ca0138bab07b5ba00b4c6bc66c41a8ef08779743",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-3",
+          "actionId": "ACT-22",
+          "cycleId": "CYCLE-REPLAY_COMMITTED-2",
+          "magic": 8812827,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 32,
+          "stateRevision": 32,
+          "symbol": "EURUSD",
+          "transactionId": "TX-22"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-3",
+            "actionId": "ACT-22",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-REPLAY_COMMITTED-2",
+            "dealId": "DEAL-22",
+            "direction": "BUY",
+            "eventId": "EVENT-22",
+            "fee": "0",
+            "intentId": "INT-22",
+            "magic": 8812827,
+            "positionTicket": "TKT-REPLAY_COMMITTED-2",
+            "price": "1.1220",
+            "role": "FAR",
+            "snapshotRevision": 32,
+            "stateRevision": 32,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002200,
+            "transactionId": "TX-22",
+            "volume": "0.12"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "62",
+          "availableMoney": "122",
+          "bigResidualVolume": "0.00",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "22",
+          "farActualLoss": "12",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "17",
+          "remainingMoney": "60",
+          "requiredCoverage": "12",
+          "reserveAddition": "5",
+          "reserveBefore": "32",
+          "reserveConsumption": "0",
+          "reserveCoverage": "32",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-3",
+            "actionId": "ACT-22",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-REPLAY_COMMITTED-2",
+            "dealId": "DEAL-22",
+            "direction": "BUY",
+            "eventId": "EVENT-22",
+            "fee": "0",
+            "intentId": "INT-22",
+            "magic": 8812827,
+            "positionTicket": "TKT-REPLAY_COMMITTED-2",
+            "price": "1.1220",
+            "role": "FAR",
+            "snapshotRevision": 32,
+            "stateRevision": 32,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002200,
+            "transactionId": "TX-22",
+            "volume": "0.12"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 32,
+          "inputState": "COMMITTED",
+          "outputRevision": 33,
+          "outputState": "COMMITTED"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-22",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800002190,
+            "direction": "BUY",
+            "expiresTimestamp": 1800002300,
+            "intentId": "INT-22",
+            "positionTicket": "TKT-REPLAY_COMMITTED-2",
+            "requestedVolume": "0.12",
+            "role": "FAR",
+            "snapshotRevision": 32,
+            "stateRevision": 32,
+            "transactionId": "TX-22"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "70e870531aa2dfb329cda31e7e694a65f2aff2f25274d3532a93dfcef09eb48c",
+          "consumedDealIds": [
+            "DEAL-22"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-REPLAY_COMMITTED-2",
+              "volume": "0.12"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-22",
+              "eventId": "EVENT-22"
+            }
+          ],
+          "farState": {
+            "loss": "12",
+            "ticket": "TKT-REPLAY_COMMITTED-2",
+            "volume": "0.12"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-22",
+              "value": "62"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-REPLAY_COMMITTED-2",
+              "value": "62"
+            }
+          ],
+          "previousStateDigest": "ff8c01dc728513a0a05fb17b9b921a1cb0ac42b6352c97eff363f13b9c10bf53",
+          "recoveryPL": "17",
+          "reserve": "37",
+          "seenEventIds": [
+            "EVENT-22"
+          ],
+          "stateRevision": 32,
+          "transactionJournalRoot": "aaff53e0b64c96e2c824c287ca0138bab07b5ba00b4c6bc66c41a8ef08779743"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-3",
+            "authoritativeVolume": "0.12",
+            "cycleId": "CYCLE-REPLAY_COMMITTED-2",
+            "direction": "SELL",
+            "magic": 8812827,
+            "openPrice": "1.1220",
+            "role": "FAR",
+            "snapshotRevision": 32,
+            "stateRevision": 32,
+            "symbol": "EURUSD",
+            "ticket": "TKT-REPLAY_COMMITTED-2",
+            "volume": "0.12"
+          }
+        ],
+        "scenario": "REPLAY_COMMITTED",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812827,
+          "revision": 32,
+          "symbol": "EURUSD",
+          "timestamp": 1800002200
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002500,
+          "minimumTimestamp": 1800002000,
+          "validFrom": 1800002100,
+          "validUntil": 1800002400
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-REPLAY_COMMITTED-2",
+        "scenario": "REPLAY_COMMITTED"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "63",
+          "policyId": "ALLOC-REPLAY_COMMITTED",
+          "remainingMoney": "60",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1232",
+          "bid": "1.1230",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "feb86f8b978110af27d7f2480460a1396b58b376c4c28a46c16d1566c695c618",
+          "proposalId": "BP-23",
+          "requestedVolume": "0.13"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "98dc141f85460b0d7373c32cb42f3cf3c12da24bd300765381645c8a33964849",
+          "body": "203b384f9790f173c1fbf1075344e202f0f92988318ae1513724bab88a5a3593",
+          "claimedAllocationDigest": "77aec03710ae3e65888c04b30254a486d073b7e76185de7c82bbfc9b10f28f47",
+          "claimedBrokerDigest": "feb86f8b978110af27d7f2480460a1396b58b376c4c28a46c16d1566c695c618",
+          "claimedEconomicDigest": "a172715fd01f67475d833190fe7bc2d36504f680477f84d9417483f1b91a049d",
+          "claimedFsmDigest": "b00b7428409ca49cd78a0de536c682ce3aef6cf175e7fc9e1a19fb6efe6b506b",
+          "claimedOutputStateDigest": "ed5603b9588d38fb4b85a44fa5f66bfd67ae5d4dbe9b09a6c5422ce7b3ed8091",
+          "claimedPersistenceDigest": "abdb05801743229fbfe7bf9ff9c9a06aab8648fff830cb444b76827dac0eb4d2",
+          "digest": "31059404252e6fb5e27f8852913b6b37fc1939d8634cebc105cf6055ceea8380",
+          "previousStateDigest": "7f8c4db4f3cce27e39128a6f520a34d474819ca34299f9ffa504225014fda212",
+          "transactionJournalRoot": "81a77361df80836f93616acf010ac9490e27db36d8784e2ef60ce0d468637c11",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-4",
+          "actionId": "ACT-23",
+          "cycleId": "CYCLE-REPLAY_COMMITTED-3",
+          "magic": 8812828,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 33,
+          "stateRevision": 33,
+          "symbol": "EURUSD",
+          "transactionId": "TX-23"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-4",
+            "actionId": "ACT-23",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-REPLAY_COMMITTED-3",
+            "dealId": "DEAL-23",
+            "direction": "SELL",
+            "eventId": "EVENT-23",
+            "fee": "0",
+            "intentId": "INT-23",
+            "magic": 8812828,
+            "positionTicket": "TKT-REPLAY_COMMITTED-3",
+            "price": "1.1230",
+            "role": "FAR",
+            "snapshotRevision": 33,
+            "stateRevision": 33,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002300,
+            "transactionId": "TX-23",
+            "volume": "0.13"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "63",
+          "availableMoney": "123",
+          "bigResidualVolume": "0.00",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "23",
+          "farActualLoss": "13",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "18",
+          "remainingMoney": "60",
+          "requiredCoverage": "13",
+          "reserveAddition": "5",
+          "reserveBefore": "33",
+          "reserveConsumption": "0",
+          "reserveCoverage": "33",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-4",
+            "actionId": "ACT-23",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-REPLAY_COMMITTED-3",
+            "dealId": "DEAL-23",
+            "direction": "SELL",
+            "eventId": "EVENT-23",
+            "fee": "0",
+            "intentId": "INT-23",
+            "magic": 8812828,
+            "positionTicket": "TKT-REPLAY_COMMITTED-3",
+            "price": "1.1230",
+            "role": "FAR",
+            "snapshotRevision": 33,
+            "stateRevision": 33,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002300,
+            "transactionId": "TX-23",
+            "volume": "0.13"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 33,
+          "inputState": "COMMITTED",
+          "outputRevision": 34,
+          "outputState": "COMMITTED"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-23",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800002290,
+            "direction": "SELL",
+            "expiresTimestamp": 1800002400,
+            "intentId": "INT-23",
+            "positionTicket": "TKT-REPLAY_COMMITTED-3",
+            "requestedVolume": "0.13",
+            "role": "FAR",
+            "snapshotRevision": 33,
+            "stateRevision": 33,
+            "transactionId": "TX-23"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "98dc141f85460b0d7373c32cb42f3cf3c12da24bd300765381645c8a33964849",
+          "consumedDealIds": [
+            "DEAL-23"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-REPLAY_COMMITTED-3",
+              "volume": "0.13"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-23",
+              "eventId": "EVENT-23"
+            }
+          ],
+          "farState": {
+            "loss": "13",
+            "ticket": "TKT-REPLAY_COMMITTED-3",
+            "volume": "0.13"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-23",
+              "value": "63"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-REPLAY_COMMITTED-3",
+              "value": "63"
+            }
+          ],
+          "previousStateDigest": "7f8c4db4f3cce27e39128a6f520a34d474819ca34299f9ffa504225014fda212",
+          "recoveryPL": "18",
+          "reserve": "38",
+          "seenEventIds": [
+            "EVENT-23"
+          ],
+          "stateRevision": 33,
+          "transactionJournalRoot": "81a77361df80836f93616acf010ac9490e27db36d8784e2ef60ce0d468637c11"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-4",
+            "authoritativeVolume": "0.13",
+            "cycleId": "CYCLE-REPLAY_COMMITTED-3",
+            "direction": "BUY",
+            "magic": 8812828,
+            "openPrice": "1.1230",
+            "role": "FAR",
+            "snapshotRevision": 33,
+            "stateRevision": 33,
+            "symbol": "EURUSD",
+            "ticket": "TKT-REPLAY_COMMITTED-3",
+            "volume": "0.13"
+          }
+        ],
+        "scenario": "REPLAY_COMMITTED",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812828,
+          "revision": 33,
+          "symbol": "EURUSD",
+          "timestamp": 1800002300
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002600,
+          "minimumTimestamp": 1800002100,
+          "validFrom": 1800002200,
+          "validUntil": 1800002500
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-REPLAY_COMMITTED-3",
+        "scenario": "REPLAY_COMMITTED"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "64",
+          "policyId": "ALLOC-REPLAY_COMMITTED",
+          "remainingMoney": "60",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1242",
+          "bid": "1.1240",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "aa12e79c4985040f3189e7a28c6ecdafe38e05e8233c083d91dc9c6d98117287",
+          "proposalId": "BP-24",
+          "requestedVolume": "0.14"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "b33af25beed5db112b96e7f4d7635ca0987e4d6fbe2baa7ee501f29fc81ab4ef",
+          "body": "3ce3f1fde86fe47cd21242a55e16e9fefad5f52ca0e4216ab337da093f12c102",
+          "claimedAllocationDigest": "0cce760637be6b894c3bbc8f84b002bd0a2359504bc4d38ed2d9aaa3beaa0983",
+          "claimedBrokerDigest": "aa12e79c4985040f3189e7a28c6ecdafe38e05e8233c083d91dc9c6d98117287",
+          "claimedEconomicDigest": "66a2f27e45ee90b9b37d3c91499cc306efddaf786eb3e5702f571ca86fca5ac7",
+          "claimedFsmDigest": "6ebef667cedda2ea2bbcc2a43ec5fa44ee6cfd49f3e8ed76bc3b28b59f77d886",
+          "claimedOutputStateDigest": "ed5603b9588d38fb4b85a44fa5f66bfd67ae5d4dbe9b09a6c5422ce7b3ed8091",
+          "claimedPersistenceDigest": "3ed6c7edebd59b875cbf1d494c73f36929458c5fe86262ea98969b399879a934",
+          "digest": "33f971ad4656672b223b5365c852cce5512412742cfe57a105a8988814401970",
+          "previousStateDigest": "746e55f21c8681a6a9de74f1130e952394d2a01ecb47bcf4aac08f4b44835113",
+          "transactionJournalRoot": "fe0c847b2f858ef75acac6fd2ae6886e406f5282613c3f176751a547084f7266",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-5",
+          "actionId": "ACT-24",
+          "cycleId": "CYCLE-REPLAY_COMMITTED-4",
+          "magic": 8812829,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 34,
+          "stateRevision": 34,
+          "symbol": "EURUSD",
+          "transactionId": "TX-24"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-5",
+            "actionId": "ACT-24",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-REPLAY_COMMITTED-4",
+            "dealId": "DEAL-24",
+            "direction": "BUY",
+            "eventId": "EVENT-24",
+            "fee": "0",
+            "intentId": "INT-24",
+            "magic": 8812829,
+            "positionTicket": "TKT-REPLAY_COMMITTED-4",
+            "price": "1.1240",
+            "role": "FAR",
+            "snapshotRevision": 34,
+            "stateRevision": 34,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002400,
+            "transactionId": "TX-24",
+            "volume": "0.14"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "64",
+          "availableMoney": "124",
+          "bigResidualVolume": "0.00",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "24",
+          "farActualLoss": "14",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "19",
+          "remainingMoney": "60",
+          "requiredCoverage": "14",
+          "reserveAddition": "5",
+          "reserveBefore": "34",
+          "reserveConsumption": "0",
+          "reserveCoverage": "34",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-5",
+            "actionId": "ACT-24",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-REPLAY_COMMITTED-4",
+            "dealId": "DEAL-24",
+            "direction": "BUY",
+            "eventId": "EVENT-24",
+            "fee": "0",
+            "intentId": "INT-24",
+            "magic": 8812829,
+            "positionTicket": "TKT-REPLAY_COMMITTED-4",
+            "price": "1.1240",
+            "role": "FAR",
+            "snapshotRevision": 34,
+            "stateRevision": 34,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002400,
+            "transactionId": "TX-24",
+            "volume": "0.14"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 34,
+          "inputState": "COMMITTED",
+          "outputRevision": 35,
+          "outputState": "COMMITTED"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-24",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800002390,
+            "direction": "BUY",
+            "expiresTimestamp": 1800002500,
+            "intentId": "INT-24",
+            "positionTicket": "TKT-REPLAY_COMMITTED-4",
+            "requestedVolume": "0.14",
+            "role": "FAR",
+            "snapshotRevision": 34,
+            "stateRevision": 34,
+            "transactionId": "TX-24"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "b33af25beed5db112b96e7f4d7635ca0987e4d6fbe2baa7ee501f29fc81ab4ef",
+          "consumedDealIds": [
+            "DEAL-24"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-REPLAY_COMMITTED-4",
+              "volume": "0.14"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-24",
+              "eventId": "EVENT-24"
+            }
+          ],
+          "farState": {
+            "loss": "14",
+            "ticket": "TKT-REPLAY_COMMITTED-4",
+            "volume": "0.14"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-24",
+              "value": "64"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-REPLAY_COMMITTED-4",
+              "value": "64"
+            }
+          ],
+          "previousStateDigest": "746e55f21c8681a6a9de74f1130e952394d2a01ecb47bcf4aac08f4b44835113",
+          "recoveryPL": "19",
+          "reserve": "39",
+          "seenEventIds": [
+            "EVENT-24"
+          ],
+          "stateRevision": 34,
+          "transactionJournalRoot": "fe0c847b2f858ef75acac6fd2ae6886e406f5282613c3f176751a547084f7266"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-5",
+            "authoritativeVolume": "0.14",
+            "cycleId": "CYCLE-REPLAY_COMMITTED-4",
+            "direction": "SELL",
+            "magic": 8812829,
+            "openPrice": "1.1240",
+            "role": "FAR",
+            "snapshotRevision": 34,
+            "stateRevision": 34,
+            "symbol": "EURUSD",
+            "ticket": "TKT-REPLAY_COMMITTED-4",
+            "volume": "0.14"
+          }
+        ],
+        "scenario": "REPLAY_COMMITTED",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812829,
+          "revision": 34,
+          "symbol": "EURUSD",
+          "timestamp": 1800002400
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002700,
+          "minimumTimestamp": 1800002200,
+          "validFrom": 1800002300,
+          "validUntil": 1800002600
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-REPLAY_COMMITTED-4",
+        "scenario": "REPLAY_COMMITTED"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "61",
+          "policyId": "ALLOC-LIFECYCLE",
+          "remainingMoney": "64",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1252",
+          "bid": "1.1250",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "0462f4e58b9faf6cf91b64ba6ff7c161f1dc314c3eab2eb35f198769c22d4409",
+          "proposalId": "BP-25",
+          "requestedVolume": "0.11"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "834f7571a2564d3c461a78dd3accddd1d291a936d55351897a337a9a7486b759",
+          "body": "501db7c59987273b9b215ceb5be0dec18c7fbb8f58713bd3baabd637313ab806",
+          "claimedAllocationDigest": "1f83f75ea012ecd7ecfc596dda40468e940f3580befc449432b52542ac59cf37",
+          "claimedBrokerDigest": "0462f4e58b9faf6cf91b64ba6ff7c161f1dc314c3eab2eb35f198769c22d4409",
+          "claimedEconomicDigest": "b284b932de61862e137752c6a7755b5582fd9afdc59eeb041d11f9c7ad5e6e18",
+          "claimedFsmDigest": "4f377ad54e37ee79f5dbde6c1ee0b5e9bbda354c0a54335392b83848c19810d8",
+          "claimedOutputStateDigest": "17e6724f00038e6ed8974036c2ea4b94b72a942b57be1d2cd52ef25b08bb2198",
+          "claimedPersistenceDigest": "10a161eda70c8ae681460968982ff7d38e0bba1e6ccd7c4a65015e4412df0418",
+          "digest": "50c482b2828ec4295feae7feaffb2717eb35de998cb83b916c41ec794cd4e5dc",
+          "previousStateDigest": "59a4ed870c70d65e3bad9da0a40e21a7489f5e39fb1d7e49b7d45672e132e7a1",
+          "transactionJournalRoot": "25217680be73a9174999b6212a2535d5f2471fa746add8ec39fa9786482e3e73",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-2",
+          "actionId": "ACT-25",
+          "cycleId": "CYCLE-LIFECYCLE-1",
+          "magic": 8812826,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 35,
+          "stateRevision": 35,
+          "symbol": "EURUSD",
+          "transactionId": "TX-25"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-2",
+            "actionId": "ACT-25",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-LIFECYCLE-1",
+            "dealId": "DEAL-25",
+            "direction": "SELL",
+            "eventId": "EVENT-25",
+            "fee": "0",
+            "intentId": "INT-25",
+            "magic": 8812826,
+            "positionTicket": "TKT-LIFECYCLE-1",
+            "price": "1.1250",
+            "role": "SMALL",
+            "snapshotRevision": 35,
+            "stateRevision": 35,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002500,
+            "transactionId": "TX-25",
+            "volume": "0.11"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "61",
+          "availableMoney": "125",
+          "bigResidualVolume": "0.00",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "21",
+          "farActualLoss": "11",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "16",
+          "remainingMoney": "64",
+          "requiredCoverage": "11",
+          "reserveAddition": "5",
+          "reserveBefore": "31",
+          "reserveConsumption": "0",
+          "reserveCoverage": "31",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-2",
+            "actionId": "ACT-25",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-LIFECYCLE-1",
+            "dealId": "DEAL-25",
+            "direction": "SELL",
+            "eventId": "EVENT-25",
+            "fee": "0",
+            "intentId": "INT-25",
+            "magic": 8812826,
+            "positionTicket": "TKT-LIFECYCLE-1",
+            "price": "1.1250",
+            "role": "SMALL",
+            "snapshotRevision": 35,
+            "stateRevision": 35,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002500,
+            "transactionId": "TX-25",
+            "volume": "0.11"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 35,
+          "inputState": "SMALL",
+          "outputRevision": 36,
+          "outputState": "FINAL"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-25",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800002490,
+            "direction": "SELL",
+            "expiresTimestamp": 1800002600,
+            "intentId": "INT-25",
+            "positionTicket": "TKT-LIFECYCLE-1",
+            "requestedVolume": "0.11",
+            "role": "SMALL",
+            "snapshotRevision": 35,
+            "stateRevision": 35,
+            "transactionId": "TX-25"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "834f7571a2564d3c461a78dd3accddd1d291a936d55351897a337a9a7486b759",
+          "consumedDealIds": [
+            "DEAL-25"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-LIFECYCLE-1",
+              "volume": "0.11"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-25",
+              "eventId": "EVENT-25"
+            }
+          ],
+          "farState": {
+            "loss": "11",
+            "ticket": "TKT-LIFECYCLE-1",
+            "volume": "0.11"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-25",
+              "value": "61"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-LIFECYCLE-1",
+              "value": "61"
+            }
+          ],
+          "previousStateDigest": "59a4ed870c70d65e3bad9da0a40e21a7489f5e39fb1d7e49b7d45672e132e7a1",
+          "recoveryPL": "16",
+          "reserve": "36",
+          "seenEventIds": [
+            "EVENT-25"
+          ],
+          "stateRevision": 35,
+          "transactionJournalRoot": "25217680be73a9174999b6212a2535d5f2471fa746add8ec39fa9786482e3e73"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-2",
+            "authoritativeVolume": "0.11",
+            "cycleId": "CYCLE-LIFECYCLE-1",
+            "direction": "BUY",
+            "magic": 8812826,
+            "openPrice": "1.1250",
+            "role": "SMALL",
+            "snapshotRevision": 35,
+            "stateRevision": 35,
+            "symbol": "EURUSD",
+            "ticket": "TKT-LIFECYCLE-1",
+            "volume": "0.11"
+          }
+        ],
+        "scenario": "LIFECYCLE",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812826,
+          "revision": 35,
+          "symbol": "EURUSD",
+          "timestamp": 1800002500
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002800,
+          "minimumTimestamp": 1800002300,
+          "validFrom": 1800002400,
+          "validUntil": 1800002700
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-LIFECYCLE-1",
+        "scenario": "LIFECYCLE"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "62",
+          "policyId": "ALLOC-LIFECYCLE",
+          "remainingMoney": "64",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1262",
+          "bid": "1.1260",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "7e16072ae315e456ccdf9742a4835769b019638116cd53e31e005cb61f16918c",
+          "proposalId": "BP-26",
+          "requestedVolume": "0.12"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "5da19b4ac036c288143a03cdc360f7a1dd102505aa268ed0b0eae223800f60a7",
+          "body": "f2411f361721adc05ccfbc23aa3012974c4d4523d1fbb946d457205379e45059",
+          "claimedAllocationDigest": "16c294f2bc6b90005425a06617f901236ebbb79445e83d6845ab5a1c7c4a6ab0",
+          "claimedBrokerDigest": "7e16072ae315e456ccdf9742a4835769b019638116cd53e31e005cb61f16918c",
+          "claimedEconomicDigest": "81ef16fc0f0c896920d67d8cfde40bf63e8e475bf82129a325e5bed11b908365",
+          "claimedFsmDigest": "32d1927aca1679613999027fe350478a5611dc29d1bd3741f4a351110c94e897",
+          "claimedOutputStateDigest": "17e6724f00038e6ed8974036c2ea4b94b72a942b57be1d2cd52ef25b08bb2198",
+          "claimedPersistenceDigest": "e3f4366000f1f8d1cb50fde109a01c5058f1191ad80d3724ab7e6676d77595df",
+          "digest": "4af889deeb3f6ca64b42c7680f7a700ae00e585af1b7d5796cda51fc1ff588ca",
+          "previousStateDigest": "9a3fe60de195dd62a8b5c1d4714a9e98c6e4e14bfa4be71ba9572ad6f5cd5811",
+          "transactionJournalRoot": "c9ccb3dd61c466a07c71d55598845a9c25d120ab26ae1b55ca978ef19ea29526",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-3",
+          "actionId": "ACT-26",
+          "cycleId": "CYCLE-LIFECYCLE-2",
+          "magic": 8812827,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 36,
+          "stateRevision": 36,
+          "symbol": "EURUSD",
+          "transactionId": "TX-26"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-3",
+            "actionId": "ACT-26",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-LIFECYCLE-2",
+            "dealId": "DEAL-26",
+            "direction": "BUY",
+            "eventId": "EVENT-26",
+            "fee": "0",
+            "intentId": "INT-26",
+            "magic": 8812827,
+            "positionTicket": "TKT-LIFECYCLE-2",
+            "price": "1.1260",
+            "role": "SMALL",
+            "snapshotRevision": 36,
+            "stateRevision": 36,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002600,
+            "transactionId": "TX-26",
+            "volume": "0.12"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "62",
+          "availableMoney": "126",
+          "bigResidualVolume": "0.00",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "22",
+          "farActualLoss": "12",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "17",
+          "remainingMoney": "64",
+          "requiredCoverage": "12",
+          "reserveAddition": "5",
+          "reserveBefore": "32",
+          "reserveConsumption": "0",
+          "reserveCoverage": "32",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-3",
+            "actionId": "ACT-26",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-LIFECYCLE-2",
+            "dealId": "DEAL-26",
+            "direction": "BUY",
+            "eventId": "EVENT-26",
+            "fee": "0",
+            "intentId": "INT-26",
+            "magic": 8812827,
+            "positionTicket": "TKT-LIFECYCLE-2",
+            "price": "1.1260",
+            "role": "SMALL",
+            "snapshotRevision": 36,
+            "stateRevision": 36,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002600,
+            "transactionId": "TX-26",
+            "volume": "0.12"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 36,
+          "inputState": "SMALL",
+          "outputRevision": 37,
+          "outputState": "FINAL"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-26",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800002590,
+            "direction": "BUY",
+            "expiresTimestamp": 1800002700,
+            "intentId": "INT-26",
+            "positionTicket": "TKT-LIFECYCLE-2",
+            "requestedVolume": "0.12",
+            "role": "SMALL",
+            "snapshotRevision": 36,
+            "stateRevision": 36,
+            "transactionId": "TX-26"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "5da19b4ac036c288143a03cdc360f7a1dd102505aa268ed0b0eae223800f60a7",
+          "consumedDealIds": [
+            "DEAL-26"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-LIFECYCLE-2",
+              "volume": "0.12"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-26",
+              "eventId": "EVENT-26"
+            }
+          ],
+          "farState": {
+            "loss": "12",
+            "ticket": "TKT-LIFECYCLE-2",
+            "volume": "0.12"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-26",
+              "value": "62"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-LIFECYCLE-2",
+              "value": "62"
+            }
+          ],
+          "previousStateDigest": "9a3fe60de195dd62a8b5c1d4714a9e98c6e4e14bfa4be71ba9572ad6f5cd5811",
+          "recoveryPL": "17",
+          "reserve": "37",
+          "seenEventIds": [
+            "EVENT-26"
+          ],
+          "stateRevision": 36,
+          "transactionJournalRoot": "c9ccb3dd61c466a07c71d55598845a9c25d120ab26ae1b55ca978ef19ea29526"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-3",
+            "authoritativeVolume": "0.12",
+            "cycleId": "CYCLE-LIFECYCLE-2",
+            "direction": "SELL",
+            "magic": 8812827,
+            "openPrice": "1.1260",
+            "role": "SMALL",
+            "snapshotRevision": 36,
+            "stateRevision": 36,
+            "symbol": "EURUSD",
+            "ticket": "TKT-LIFECYCLE-2",
+            "volume": "0.12"
+          }
+        ],
+        "scenario": "LIFECYCLE",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812827,
+          "revision": 36,
+          "symbol": "EURUSD",
+          "timestamp": 1800002600
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800002900,
+          "minimumTimestamp": 1800002400,
+          "validFrom": 1800002500,
+          "validUntil": 1800002800
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-LIFECYCLE-2",
+        "scenario": "LIFECYCLE"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "63",
+          "policyId": "ALLOC-LIFECYCLE",
+          "remainingMoney": "64",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1272",
+          "bid": "1.1270",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "edd9a78dcb9434d89f619f1d675581c3b81b26e7095a44966c6748bb7895529a",
+          "proposalId": "BP-27",
+          "requestedVolume": "0.13"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "bcbdd6c550dafecbdcd380822891eb3b2aecc150ddf15cb6581eaffe08d86520",
+          "body": "02081384a52dedcc3402ed75afdc5362867d5ddebc4bdac11d21524db78dbd91",
+          "claimedAllocationDigest": "606612f15679620e62c9c4921cdebbd3a1b45de7545cf53730230e3a516f7dbf",
+          "claimedBrokerDigest": "edd9a78dcb9434d89f619f1d675581c3b81b26e7095a44966c6748bb7895529a",
+          "claimedEconomicDigest": "25a48c53d1891e7583e6304f35b5fd162c23b729b9f4ab2fe24a5cb97407935f",
+          "claimedFsmDigest": "09eb1c42dce98af86299187b90951cade6b70d4ff2ef66fb341af7d061cf4b1e",
+          "claimedOutputStateDigest": "17e6724f00038e6ed8974036c2ea4b94b72a942b57be1d2cd52ef25b08bb2198",
+          "claimedPersistenceDigest": "bc137de56e357e2e77ed8652fc175059dae53f1ba7529804484812dd4ac3ed68",
+          "digest": "21e57437b3791b363c0c12298bb4a660739b5fea2f763c52b2e871a62703171d",
+          "previousStateDigest": "69b50fde70108d76d2b4135a3ab9df591af82745858f97fb2d2e9aafd4140960",
+          "transactionJournalRoot": "c72d41bc8eb1a77cdb6ca8a62503a29c86a49e8616bde23096c5ab5815c8b10c",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-4",
+          "actionId": "ACT-27",
+          "cycleId": "CYCLE-LIFECYCLE-3",
+          "magic": 8812828,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 37,
+          "stateRevision": 37,
+          "symbol": "EURUSD",
+          "transactionId": "TX-27"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-4",
+            "actionId": "ACT-27",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-LIFECYCLE-3",
+            "dealId": "DEAL-27",
+            "direction": "SELL",
+            "eventId": "EVENT-27",
+            "fee": "0",
+            "intentId": "INT-27",
+            "magic": 8812828,
+            "positionTicket": "TKT-LIFECYCLE-3",
+            "price": "1.1270",
+            "role": "SMALL",
+            "snapshotRevision": 37,
+            "stateRevision": 37,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002700,
+            "transactionId": "TX-27",
+            "volume": "0.13"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "63",
+          "availableMoney": "127",
+          "bigResidualVolume": "0.00",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "23",
+          "farActualLoss": "13",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "18",
+          "remainingMoney": "64",
+          "requiredCoverage": "13",
+          "reserveAddition": "5",
+          "reserveBefore": "33",
+          "reserveConsumption": "0",
+          "reserveCoverage": "33",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-4",
+            "actionId": "ACT-27",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-LIFECYCLE-3",
+            "dealId": "DEAL-27",
+            "direction": "SELL",
+            "eventId": "EVENT-27",
+            "fee": "0",
+            "intentId": "INT-27",
+            "magic": 8812828,
+            "positionTicket": "TKT-LIFECYCLE-3",
+            "price": "1.1270",
+            "role": "SMALL",
+            "snapshotRevision": 37,
+            "stateRevision": 37,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002700,
+            "transactionId": "TX-27",
+            "volume": "0.13"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 37,
+          "inputState": "SMALL",
+          "outputRevision": 38,
+          "outputState": "FINAL"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-27",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800002690,
+            "direction": "SELL",
+            "expiresTimestamp": 1800002800,
+            "intentId": "INT-27",
+            "positionTicket": "TKT-LIFECYCLE-3",
+            "requestedVolume": "0.13",
+            "role": "SMALL",
+            "snapshotRevision": 37,
+            "stateRevision": 37,
+            "transactionId": "TX-27"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "bcbdd6c550dafecbdcd380822891eb3b2aecc150ddf15cb6581eaffe08d86520",
+          "consumedDealIds": [
+            "DEAL-27"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-LIFECYCLE-3",
+              "volume": "0.13"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-27",
+              "eventId": "EVENT-27"
+            }
+          ],
+          "farState": {
+            "loss": "13",
+            "ticket": "TKT-LIFECYCLE-3",
+            "volume": "0.13"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-27",
+              "value": "63"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-LIFECYCLE-3",
+              "value": "63"
+            }
+          ],
+          "previousStateDigest": "69b50fde70108d76d2b4135a3ab9df591af82745858f97fb2d2e9aafd4140960",
+          "recoveryPL": "18",
+          "reserve": "38",
+          "seenEventIds": [
+            "EVENT-27"
+          ],
+          "stateRevision": 37,
+          "transactionJournalRoot": "c72d41bc8eb1a77cdb6ca8a62503a29c86a49e8616bde23096c5ab5815c8b10c"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-4",
+            "authoritativeVolume": "0.13",
+            "cycleId": "CYCLE-LIFECYCLE-3",
+            "direction": "BUY",
+            "magic": 8812828,
+            "openPrice": "1.1270",
+            "role": "SMALL",
+            "snapshotRevision": 37,
+            "stateRevision": 37,
+            "symbol": "EURUSD",
+            "ticket": "TKT-LIFECYCLE-3",
+            "volume": "0.13"
+          }
+        ],
+        "scenario": "LIFECYCLE",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812828,
+          "revision": 37,
+          "symbol": "EURUSD",
+          "timestamp": 1800002700
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800003000,
+          "minimumTimestamp": 1800002500,
+          "validFrom": 1800002600,
+          "validUntil": 1800002900
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-LIFECYCLE-3",
+        "scenario": "LIFECYCLE"
+      }
+    },
+    {
+      "scenarioInput": {
+        "allocationPolicy": {
+          "allocatedMoney": "64",
+          "policyId": "ALLOC-LIFECYCLE",
+          "remainingMoney": "64",
+          "reserveAddition": "5"
+        },
+        "broker": {
+          "ask": "1.1282",
+          "bid": "1.1280",
+          "contractSize": "100000",
+          "digits": 4,
+          "maximumDeviation": 10,
+          "point": "0.0001",
+          "priceRoundingPolicy": "TICK_HALF_EVEN",
+          "tickSize": "0.0001",
+          "tickValue": "10",
+          "volumeMax": "100.00",
+          "volumeMin": "0.01",
+          "volumeRoundingPolicy": "STEP_FLOOR",
+          "volumeStep": "0.01"
+        },
+        "brokerProposal": {
+          "digest": "5b87a4e02704dd0e8e7d384dc116ff859f004148fe47e8d1a888324a154e0e7f",
+          "proposalId": "BP-28",
+          "requestedVolume": "0.14"
+        },
+        "certificate": {
+          "authoritativeLedgerRoot": "33b133e99354861bf4e144ccf051487acfdf8a660d32af6954e1c5f199359421",
+          "body": "78435ad0464ed7ad26e2e25157aa159ac903dc4db7498bd3328b1f5bf910d80b",
+          "claimedAllocationDigest": "12ddac4a926e65a2802e4a29c181fb22ebe3c46cd884e841b7a7f5bb421217f1",
+          "claimedBrokerDigest": "5b87a4e02704dd0e8e7d384dc116ff859f004148fe47e8d1a888324a154e0e7f",
+          "claimedEconomicDigest": "ea8456aa018c38bce8ef04e47f56ee91e477908cc531268b44b2194f811b89c3",
+          "claimedFsmDigest": "3460934ab3ba6fb3c2883630fc481a04df84e1a3f196242be20da760cf71f5d9",
+          "claimedOutputStateDigest": "17e6724f00038e6ed8974036c2ea4b94b72a942b57be1d2cd52ef25b08bb2198",
+          "claimedPersistenceDigest": "4326ef9ab0382c02fb143a4bce25df01dfd700e6f14d7e8cc04fdbfc61454b44",
+          "digest": "9e9a0977309c5c33848fbf4299b16c0849950d59b07ca24be605c4f1e0265f92",
+          "previousStateDigest": "f3e68b1846c22134c7a67cff457b703fa0bb675c09d0d50b0b0190c008ebfa2c",
+          "transactionJournalRoot": "a52eaef937e94baee0fabe8872d8aac9665c2ea899a28cc1cd12b321512598c4",
+          "version": 3
+        },
+        "context": {
+          "accountId": "ACC-5",
+          "actionId": "ACT-28",
+          "cycleId": "CYCLE-LIFECYCLE-4",
+          "magic": 8812829,
+          "moneyStateVersion": 3,
+          "snapshotRevision": 38,
+          "stateRevision": 38,
+          "symbol": "EURUSD",
+          "transactionId": "TX-28"
+        },
+        "deals": [
+          {
+            "accountId": "ACC-5",
+            "actionId": "ACT-28",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-LIFECYCLE-4",
+            "dealId": "DEAL-28",
+            "direction": "BUY",
+            "eventId": "EVENT-28",
+            "fee": "0",
+            "intentId": "INT-28",
+            "magic": 8812829,
+            "positionTicket": "TKT-LIFECYCLE-4",
+            "price": "1.1280",
+            "role": "SMALL",
+            "snapshotRevision": 38,
+            "stateRevision": 38,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002800,
+            "transactionId": "TX-28",
+            "volume": "0.14"
+          }
+        ],
+        "economic": {
+          "allocatedMoney": "64",
+          "availableMoney": "128",
+          "bigResidualVolume": "0.00",
+          "catchUpRatio": "1.00",
+          "closeFarBudget": "24",
+          "farActualLoss": "14",
+          "newFarVolume": "0.00",
+          "partialFarVolume": "0.00",
+          "recoveryPL": "19",
+          "remainingMoney": "64",
+          "requiredCoverage": "14",
+          "reserveAddition": "5",
+          "reserveBefore": "34",
+          "reserveConsumption": "0",
+          "reserveCoverage": "34",
+          "tailCount": 1
+        },
+        "events": [
+          {
+            "accountId": "ACC-5",
+            "actionId": "ACT-28",
+            "commission": "-1",
+            "confirmed": true,
+            "cycleId": "CYCLE-LIFECYCLE-4",
+            "dealId": "DEAL-28",
+            "direction": "BUY",
+            "eventId": "EVENT-28",
+            "fee": "0",
+            "intentId": "INT-28",
+            "magic": 8812829,
+            "positionTicket": "TKT-LIFECYCLE-4",
+            "price": "1.1280",
+            "role": "SMALL",
+            "snapshotRevision": 38,
+            "stateRevision": 38,
+            "swap": "0",
+            "symbol": "EURUSD",
+            "timestamp": 1800002800,
+            "transactionId": "TX-28",
+            "volume": "0.14"
+          }
+        ],
+        "fsm": {
+          "inputRevision": 38,
+          "inputState": "SMALL",
+          "outputRevision": 39,
+          "outputState": "FINAL"
+        },
+        "intents": [
+          {
+            "actionId": "ACT-28",
+            "closeMode": "FULL",
+            "createdTimestamp": 1800002790,
+            "direction": "BUY",
+            "expiresTimestamp": 1800002900,
+            "intentId": "INT-28",
+            "positionTicket": "TKT-LIFECYCLE-4",
+            "requestedVolume": "0.14",
+            "role": "SMALL",
+            "snapshotRevision": 38,
+            "stateRevision": 38,
+            "transactionId": "TX-28"
+          }
+        ],
+        "persistedState": {
+          "authoritativeLedgerRoot": "33b133e99354861bf4e144ccf051487acfdf8a660d32af6954e1c5f199359421",
+          "consumedDealIds": [
+            "DEAL-28"
+          ],
+          "cumulativeFills": [
+            {
+              "ticket": "TKT-LIFECYCLE-4",
+              "volume": "0.14"
+            }
+          ],
+          "dealEventBindings": [
+            {
+              "dealId": "DEAL-28",
+              "eventId": "EVENT-28"
+            }
+          ],
+          "farState": {
+            "loss": "14",
+            "ticket": "TKT-LIFECYCLE-4",
+            "volume": "0.14"
+          },
+          "moneyByDeal": [
+            {
+              "key": "DEAL-28",
+              "value": "64"
+            }
+          ],
+          "moneyByTicket": [
+            {
+              "key": "TKT-LIFECYCLE-4",
+              "value": "64"
+            }
+          ],
+          "previousStateDigest": "f3e68b1846c22134c7a67cff457b703fa0bb675c09d0d50b0b0190c008ebfa2c",
+          "recoveryPL": "19",
+          "reserve": "39",
+          "seenEventIds": [
+            "EVENT-28"
+          ],
+          "stateRevision": 38,
+          "transactionJournalRoot": "a52eaef937e94baee0fabe8872d8aac9665c2ea899a28cc1cd12b321512598c4"
+        },
+        "positions": [
+          {
+            "accountId": "ACC-5",
+            "authoritativeVolume": "0.14",
+            "cycleId": "CYCLE-LIFECYCLE-4",
+            "direction": "SELL",
+            "magic": 8812829,
+            "openPrice": "1.1280",
+            "role": "SMALL",
+            "snapshotRevision": 38,
+            "stateRevision": 38,
+            "symbol": "EURUSD",
+            "ticket": "TKT-LIFECYCLE-4",
+            "volume": "0.14"
+          }
+        ],
+        "scenario": "LIFECYCLE",
+        "schemaVersion": "3.0.0",
+        "snapshot": {
+          "magic": 8812829,
+          "revision": 38,
+          "symbol": "EURUSD",
+          "timestamp": 1800002800
+        },
+        "temporalPolicy": {
+          "allowedUpperBound": 1800003100,
+          "minimumTimestamp": 1800002600,
+          "validFrom": 1800002700,
+          "validUntil": 1800003000
+        }
+      },
+      "testContract": {
+        "classification": "POSITIVE_BASE",
+        "expectedApplicability": {
+          "NUMERIC_FINITE": true,
+          "SCHEMA": true
+        },
+        "fixtureId": "V3-LIFECYCLE-4",
+        "scenario": "LIFECYCLE"
+      }
+    }
+  ],
+  "schemaVersion": "3.0.0"
+}
