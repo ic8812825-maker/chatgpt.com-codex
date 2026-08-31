@@ -58,7 +58,12 @@ def main() -> int:
             details.append({"case": name, "result": "CAUGHT"})
         else:
             details.append({"case": name, "result": "SURVIVED"})
-    duplicate_caught = verifier.canonical_digest(original) == verifier.canonical_digest(copy.deepcopy(original))
+    try:
+        verifier.validate_unique_runtime_inputs([original, copy.deepcopy(original)])
+    except verifier.ValidationError:
+        duplicate_caught = True
+    else:
+        duplicate_caught = False
     details.append({"case": "duplicated_runtime_input", "result": "CAUGHT" if duplicate_caught else "SURVIVED"})
     if duplicate_caught:
         caught += 1

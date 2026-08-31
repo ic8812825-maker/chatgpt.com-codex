@@ -203,6 +203,16 @@ def load_fixtures() -> list[dict]:
     return fixtures
 
 
+def validate_unique_runtime_inputs(runtimes: list[dict]) -> set[str]:
+    digests: set[str] = set()
+    for runtime in runtimes:
+        runtime_digest = canonical_digest(runtime)
+        if runtime_digest in digests:
+            raise ValidationError("duplicate runtime input")
+        digests.add(runtime_digest)
+    return digests
+
+
 def audit_sources() -> list[str]:
     patterns = (r"\.get\([^\n]+,\s*(?:0|\"\"|False|\[\])\)", r"\bor\s+(?:0|\"\"|False)\b")
     violations = []
@@ -223,7 +233,8 @@ def execute() -> dict:
         for raw in predicate["exactInputPaths"]:
             spec = resolve_path(schema["root"], raw)
             path_rows.append({"predicateId": predicate["predicateId"], "path": raw, "type": spec["type"], "result": "PASS"})
-    inventory, digests = [], set()
+    inventory = []
+    digests = validate_unique_runtime_inputs([item["scenarioInput"] for item in fixtures])
     distribution = {scenario: 0 for scenario in sorted(SCENARIOS)}
     for item in fixtures:
         if set(item) != {"scenarioInput", "testContract"}:
@@ -233,9 +244,6 @@ def execute() -> dict:
         if contract["classification"] != "POSITIVE_BASE" or contract["scenario"] != runtime["scenario"]:
             raise ValidationError("positive test contract mismatch")
         runtime_digest = canonical_digest(runtime)
-        if runtime_digest in digests:
-            raise ValidationError("duplicate runtime input")
-        digests.add(runtime_digest)
         distribution[runtime["scenario"]] += 1
         inventory.append({"fixtureId": contract["fixtureId"], "scenario": runtime["scenario"],
                           "scenarioInputSha256": runtime_digest, "result": "PASS"})
