@@ -1,0 +1,293 @@
+{
+  "baseline": "f44b7e5cae314fced0f8d519e1e5d70f3c49c35d",
+  "files": [
+    {
+      "actualGitBlobSha": "fdfac7affc50d858df44b73c73bf172f808d7caf",
+      "actualLastChangedCommit": "ed3000ecc97580edd3fb65c3f6d3cac3cf56f991",
+      "actualSha256": "25137dfefaaadc0fe51e05c88542168c0886559dac28eedfa2d09bd800e4d599",
+      "expectedGitBlobSha": "fdfac7affc50d858df44b73c73bf172f808d7caf",
+      "expectedSha256": "25137dfefaaadc0fe51e05c88542168c0886559dac28eedfa2d09bd800e4d599",
+      "introducedCommit": "ed3000ecc97580edd3fb65c3f6d3cac3cf56f991",
+      "path": "Reports/HSB_2E_PREP_R4_R9_R2_BLOCKED_ORACLE_REVIEW_RU.md",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "1665ba1109cc9cb8de94a95599c3d6f0f42c67d1",
+      "actualLastChangedCommit": "e4ca5dbc0cdcccab8eb40e4edcacf146df8054a3",
+      "actualSha256": "b1e0174d2250436dfda050c85c0defefa476b133aa70b926a81c91e0451ef8c7",
+      "expectedGitBlobSha": "1665ba1109cc9cb8de94a95599c3d6f0f42c67d1",
+      "expectedSha256": "b1e0174d2250436dfda050c85c0defefa476b133aa70b926a81c91e0451ef8c7",
+      "introducedCommit": "e4ca5dbc0cdcccab8eb40e4edcacf146df8054a3",
+      "path": "Reports/HSB_2E_PREP_R4_R9_R3_BLOCKED_ORACLE_V2_CAUSALITY_RU.md",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "325aace9c70a098878060d24c36c894447e226f7",
+      "actualLastChangedCommit": "5be284ac2938b2d47d8cb4b14de4f5b351045eed",
+      "actualSha256": "c45dfa24d993fcc39f0ddbe11e720eb4134a4bd38d3b671a3fa30890cc23071d",
+      "expectedGitBlobSha": "325aace9c70a098878060d24c36c894447e226f7",
+      "expectedSha256": "c45dfa24d993fcc39f0ddbe11e720eb4134a4bd38d3b671a3fa30890cc23071d",
+      "introducedCommit": "5be284ac2938b2d47d8cb4b14de4f5b351045eed",
+      "path": "Reports/HSB_2E_PREP_R4_R9_R2_R8_FALSE_PASS_ANALYSIS_RU.md",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "0504c1aeb0fc7031b48ce13b0fafbf183e240e70",
+      "actualLastChangedCommit": "3f8f910f16d3cc9e7022b2fe0b1365007b906783",
+      "actualSha256": "749c7f396717b3bcfbdcd6f12e233c90057846f9f62d34f156d2c0da81e8b963",
+      "expectedGitBlobSha": "0504c1aeb0fc7031b48ce13b0fafbf183e240e70",
+      "expectedSha256": "749c7f396717b3bcfbdcd6f12e233c90057846f9f62d34f156d2c0da81e8b963",
+      "introducedCommit": "3f8f910f16d3cc9e7022b2fe0b1365007b906783",
+      "path": "Tests/Vectors/HSB_2E_R4_R9_R3_NATIVE_FIXTURES_V2.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "c6818f9fcd3070cadc860c2b32990fc0b2f0084d",
+      "actualLastChangedCommit": "e710ae7ea280774892a005ead1d75e54c33cf23c",
+      "actualSha256": "7dc0d521bcc0c0a409c543ded5b1d1aa190af3ca9b904b7380761709a292c851",
+      "expectedGitBlobSha": "c6818f9fcd3070cadc860c2b32990fc0b2f0084d",
+      "expectedSha256": "7dc0d521bcc0c0a409c543ded5b1d1aa190af3ca9b904b7380761709a292c851",
+      "introducedCommit": "4d903d78bafa164395c5d7f99478a00c39bb1bbd",
+      "path": "Tests/Vectors/HSB_2E_R4_R9_R3_DRAFT_FIXTURES_V2.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "b158a40ffeca0bdc9ab47f5394cf36b76529b9a9",
+      "actualLastChangedCommit": "e710ae7ea280774892a005ead1d75e54c33cf23c",
+      "actualSha256": "1b991244bf57f9a52b5940bf232f7b98d27ce51dac15aac290a8e40fbeb4180f",
+      "expectedGitBlobSha": "b158a40ffeca0bdc9ab47f5394cf36b76529b9a9",
+      "expectedSha256": "1b991244bf57f9a52b5940bf232f7b98d27ce51dac15aac290a8e40fbeb4180f",
+      "introducedCommit": "0f1c854f76aa159e87f44988e713fbfae1f459cf",
+      "path": "Tests/Vectors/HSB_2E_R4_R9_R3_CERTIFICATE_FORGERY_DRAFTS.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "775008b467e4a4e94a02e3199a6d70c9a6ae922b",
+      "actualLastChangedCommit": "d3af79ca9233c4808ad9d8b9005a182e56234dbb",
+      "actualSha256": "7a7b0e2701c24680599b94624db144fcbc23dbf2430ddca0e5a3859dfeda9c77",
+      "expectedGitBlobSha": "775008b467e4a4e94a02e3199a6d70c9a6ae922b",
+      "expectedSha256": "7a7b0e2701c24680599b94624db144fcbc23dbf2430ddca0e5a3859dfeda9c77",
+      "introducedCommit": "d3af79ca9233c4808ad9d8b9005a182e56234dbb",
+      "path": "Tests/Vectors/HSB_2E_R4_R9_R2_NATIVE_FIXTURES.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "f53cac06f3dc9407572bd9c42f762d45c1407092",
+      "actualLastChangedCommit": "5be284ac2938b2d47d8cb4b14de4f5b351045eed",
+      "actualSha256": "e1b0930b91fa9daa714cb2725d7655baf0c09248ae0bb36cd922c4e283cbc258",
+      "expectedGitBlobSha": "f53cac06f3dc9407572bd9c42f762d45c1407092",
+      "expectedSha256": "e1b0930b91fa9daa714cb2725d7655baf0c09248ae0bb36cd922c4e283cbc258",
+      "introducedCommit": "5be284ac2938b2d47d8cb4b14de4f5b351045eed",
+      "path": "Tests/Vectors/HSB_2E_R4_R9_R2_R8_FALSE_PASSES.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "892596ac6fdc2610f38a3dd93f1f2ee2420ab4a6",
+      "actualLastChangedCommit": "e40b66c2f0ea98d398b3b296dfa816c37f171215",
+      "actualSha256": "5ff5eb8862fe693f4e83b62ccc646e65c20063e9009a29084ea119ceab3b51bf",
+      "expectedGitBlobSha": "892596ac6fdc2610f38a3dd93f1f2ee2420ab4a6",
+      "expectedSha256": "5ff5eb8862fe693f4e83b62ccc646e65c20063e9009a29084ea119ceab3b51bf",
+      "introducedCommit": "b687702ab39efe4a2f526ebe399860105acaad2c",
+      "path": "Tests/Reference/hsb_2e_reference_model_r4_r9_r3.py",
+      "protectionClass": "MODEL_FROZEN_FOR_R4A",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "1a2a95a8b71c9e1cb5dee7bace3108ccbdedfab9",
+      "actualLastChangedCommit": "9165274619e229d2d010fde1e7561793d2fe2ff1",
+      "actualSha256": "5b638d2c0cf010b794c129b9ce1eaa8f593287bfbd3588533514cc654d7470ea",
+      "expectedGitBlobSha": "1a2a95a8b71c9e1cb5dee7bace3108ccbdedfab9",
+      "expectedSha256": "5b638d2c0cf010b794c129b9ce1eaa8f593287bfbd3588533514cc654d7470ea",
+      "introducedCommit": "9165274619e229d2d010fde1e7561793d2fe2ff1",
+      "path": "Tests/Contracts/HSB_2E_R4_R9_R2_HISTORICAL_PROVABILITY_MATRIX.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "8bd8eefd50e44ba603531e5d98b8bf754785d702",
+      "actualLastChangedCommit": "b5ce89140a62c9160e07df6594607a705ebc8b81",
+      "actualSha256": "b2330e1d813cea7d110373116f67ecc8e8e13442aaafcf048c66f9ba0198f9ee",
+      "expectedGitBlobSha": "8bd8eefd50e44ba603531e5d98b8bf754785d702",
+      "expectedSha256": "b2330e1d813cea7d110373116f67ecc8e8e13442aaafcf048c66f9ba0198f9ee",
+      "introducedCommit": "b5ce89140a62c9160e07df6594607a705ebc8b81",
+      "path": "Tests/Contracts/HSB_2E_R4_R9_R2_NATIVE_ECONOMIC_ORACLE.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "43436d7f4bd12293d69663a5d8bedf02095920ec",
+      "actualLastChangedCommit": "f8708d4a9fa49a6ac2109051e648ad0d771b1042",
+      "actualSha256": "555d6a1914f687d34da7e4e3465f5752d13b1483d3269c49c21f00c7b2b75514",
+      "expectedGitBlobSha": "43436d7f4bd12293d69663a5d8bedf02095920ec",
+      "expectedSha256": "555d6a1914f687d34da7e4e3465f5752d13b1483d3269c49c21f00c7b2b75514",
+      "introducedCommit": "f8708d4a9fa49a6ac2109051e648ad0d771b1042",
+      "path": "Tests/Contracts/HSB_2E_R4_R9_R3_R2_PROTECTED_FILES.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "fe830bff0c956a736777947ae014abcc224dfde8",
+      "actualLastChangedCommit": "e710ae7ea280774892a005ead1d75e54c33cf23c",
+      "actualSha256": "7f42dc8ac08c1efc4fecf1d6bcc3355922cf5fd018b417fa3f95b58c3e46d33a",
+      "expectedGitBlobSha": "fe830bff0c956a736777947ae014abcc224dfde8",
+      "expectedSha256": "7f42dc8ac08c1efc4fecf1d6bcc3355922cf5fd018b417fa3f95b58c3e46d33a",
+      "introducedCommit": "4d903d78bafa164395c5d7f99478a00c39bb1bbd",
+      "path": "Tests/Contracts/HSB_2E_R4_R9_R3_CAUSAL_PAIRS.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "1a2a95a8b71c9e1cb5dee7bace3108ccbdedfab9",
+      "actualLastChangedCommit": "5b34a19747a50a710f0b7b8689b9737926f73a5b",
+      "actualSha256": "5b638d2c0cf010b794c129b9ce1eaa8f593287bfbd3588533514cc654d7470ea",
+      "expectedGitBlobSha": "1a2a95a8b71c9e1cb5dee7bace3108ccbdedfab9",
+      "expectedSha256": "5b638d2c0cf010b794c129b9ce1eaa8f593287bfbd3588533514cc654d7470ea",
+      "introducedCommit": "5b34a19747a50a710f0b7b8689b9737926f73a5b",
+      "path": "Tests/Contracts/HSB_2E_R4_R9_R2_HISTORICAL_COMPATIBILITY_ORACLE.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "4e898e1a2977d5f26ef64e053da5b6870a2821ad",
+      "actualLastChangedCommit": "3f8f910f16d3cc9e7022b2fe0b1365007b906783",
+      "actualSha256": "5e3e093e74c6bc228a93999865682644e8e989b99d48e1ce1c4cdbec82ead32c",
+      "expectedGitBlobSha": "4e898e1a2977d5f26ef64e053da5b6870a2821ad",
+      "expectedSha256": "5e3e093e74c6bc228a93999865682644e8e989b99d48e1ce1c4cdbec82ead32c",
+      "introducedCommit": "3f8f910f16d3cc9e7022b2fe0b1365007b906783",
+      "path": "Tests/Contracts/HSB_2E_R4_R9_R3_NATIVE_ECONOMIC_ORACLE_V2.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "402ed1deaa2e99dc66446f425a30e76678492b4c",
+      "actualLastChangedCommit": "b7b8874739c6dad25083a893a00ff10ee8dcaaeb",
+      "actualSha256": "d6142d6fbe58f9dc3fe83a85eb78707f1bd23518751051acd2ea6c368162b9b0",
+      "expectedGitBlobSha": "402ed1deaa2e99dc66446f425a30e76678492b4c",
+      "expectedSha256": "d6142d6fbe58f9dc3fe83a85eb78707f1bd23518751051acd2ea6c368162b9b0",
+      "introducedCommit": "b7b8874739c6dad25083a893a00ff10ee8dcaaeb",
+      "path": "Tests/Static/run_hsb_2e_r4_r9_r3_native_economics.py",
+      "protectionClass": "MODEL_FROZEN_FOR_R4A",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "efa56f50389b1fc767c0ce5bb63d579366254d3f",
+      "actualLastChangedCommit": "e40b66c2f0ea98d398b3b296dfa816c37f171215",
+      "actualSha256": "9b6b3a9d53e612a0af8a2a820d3968c8d5fbd46a42098b29443ac627ea5feb74",
+      "expectedGitBlobSha": "efa56f50389b1fc767c0ce5bb63d579366254d3f",
+      "expectedSha256": "9b6b3a9d53e612a0af8a2a820d3968c8d5fbd46a42098b29443ac627ea5feb74",
+      "introducedCommit": "e40b66c2f0ea98d398b3b296dfa816c37f171215",
+      "path": "Tests/Static/run_hsb_2e_r4_r9_r3_lifecycle.py",
+      "protectionClass": "MODEL_FROZEN_FOR_R4A",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "8b1fe60a62c576ebe075795f0e5361db02c9e843",
+      "actualLastChangedCommit": "4efa372b2b7ebc1e340875d3464d5abdba3c4a94",
+      "actualSha256": "9460bb6d06a4a82d0c15bbc83dce688f92ee0287b698a188946a778c72140ada",
+      "expectedGitBlobSha": "8b1fe60a62c576ebe075795f0e5361db02c9e843",
+      "expectedSha256": "9460bb6d06a4a82d0c15bbc83dce688f92ee0287b698a188946a778c72140ada",
+      "introducedCommit": "4efa372b2b7ebc1e340875d3464d5abdba3c4a94",
+      "path": "Tests/Static/run_hsb_2e_r4_r9_r3_certificate_adversarial.py",
+      "protectionClass": "MODEL_FROZEN_FOR_R4A",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "55e172598cf3fcc756d5a618e7b959dd5d9b9a82",
+      "actualLastChangedCommit": "f8708d4a9fa49a6ac2109051e648ad0d771b1042",
+      "actualSha256": "292a9cc8309b5f2e4bc256cb7d32927016a9ff0ab43fd95b1355775ba620be0c",
+      "expectedGitBlobSha": "55e172598cf3fcc756d5a618e7b959dd5d9b9a82",
+      "expectedSha256": "292a9cc8309b5f2e4bc256cb7d32927016a9ff0ab43fd95b1355775ba620be0c",
+      "introducedCommit": "f8708d4a9fa49a6ac2109051e648ad0d771b1042",
+      "path": "Tests/Static/run_hsb_2e_r4_r9_r3_oracle_v1_false_expectation.py",
+      "protectionClass": "MODEL_FROZEN_FOR_R4A",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "5a3afd097ee4f373f2c574ca64511c9d708c9799",
+      "actualLastChangedCommit": "8a2c610452ce62b8522feec323404088af1267d1",
+      "actualSha256": "a50fe3826c1aa62b9ab2fe4788c38b5f0b744e0bc3fe9a2d27a225b04795156e",
+      "expectedGitBlobSha": "5a3afd097ee4f373f2c574ca64511c9d708c9799",
+      "expectedSha256": "a50fe3826c1aa62b9ab2fe4788c38b5f0b744e0bc3fe9a2d27a225b04795156e",
+      "introducedCommit": "8a2c610452ce62b8522feec323404088af1267d1",
+      "path": "Tests/Static/run_hsb_2e_r4_r9_r3_prefreeze_mutations.py",
+      "protectionClass": "MODEL_FROZEN_FOR_R4A",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "a4a80b9c48705d6ba300ed976955d575ff31d80d",
+      "actualLastChangedCommit": "8a2c610452ce62b8522feec323404088af1267d1",
+      "actualSha256": "03b5a92a2fd398ca7a96be50aed500d47dbe17127f99df2a51d1c57691780742",
+      "expectedGitBlobSha": "a4a80b9c48705d6ba300ed976955d575ff31d80d",
+      "expectedSha256": "03b5a92a2fd398ca7a96be50aed500d47dbe17127f99df2a51d1c57691780742",
+      "introducedCommit": "8a2c610452ce62b8522feec323404088af1267d1",
+      "path": "Tests/Evidence/HSB_2E_R4_R9_R3_PREFREEZE_MUTATION_RESULTS.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "c1ab00e79796faf20b5113767a75bcfc599b7cac",
+      "actualLastChangedCommit": "b5ce89140a62c9160e07df6594607a705ebc8b81",
+      "actualSha256": "673758a6cbf8959b7f77b3e2d51ba5e725e519c7a2823dad176a1353f3575bee",
+      "expectedGitBlobSha": "c1ab00e79796faf20b5113767a75bcfc599b7cac",
+      "expectedSha256": "673758a6cbf8959b7f77b3e2d51ba5e725e519c7a2823dad176a1353f3575bee",
+      "introducedCommit": "b5ce89140a62c9160e07df6594607a705ebc8b81",
+      "path": "Tests/Evidence/HSB_2E_R4_R9_R2_NATIVE_DERIVATION_TRACES.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "6b326ca4909dda97cf66e2d14be0d36cea61b7a7",
+      "actualLastChangedCommit": "3f8f910f16d3cc9e7022b2fe0b1365007b906783",
+      "actualSha256": "f3d74104b8668b9d043999e7e190012a026ec8625060a206063bacdcdd2fe155",
+      "expectedGitBlobSha": "6b326ca4909dda97cf66e2d14be0d36cea61b7a7",
+      "expectedSha256": "f3d74104b8668b9d043999e7e190012a026ec8625060a206063bacdcdd2fe155",
+      "introducedCommit": "3f8f910f16d3cc9e7022b2fe0b1365007b906783",
+      "path": "Tests/Evidence/HSB_2E_R4_R9_R3_DERIVATION_TRACES_V2.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    },
+    {
+      "actualGitBlobSha": "b8d4c0165e5c7f734df0f56b78c1ec1f8e8e570e",
+      "actualLastChangedCommit": "3f8f910f16d3cc9e7022b2fe0b1365007b906783",
+      "actualSha256": "7d6c4ea4f9dbef683721d19a523228c1c54582c62cdf3302698890d74bc6d520",
+      "expectedGitBlobSha": "b8d4c0165e5c7f734df0f56b78c1ec1f8e8e570e",
+      "expectedSha256": "7d6c4ea4f9dbef683721d19a523228c1c54582c62cdf3302698890d74bc6d520",
+      "introducedCommit": "3f8f910f16d3cc9e7022b2fe0b1365007b906783",
+      "path": "Tests/Evidence/HSB_2E_R4_R9_R3_ORACLE_V2_FILE_HASHES.json",
+      "protectionClass": "HISTORICAL_IMMUTABLE",
+      "result": "PASS"
+    }
+  ],
+  "historicalOraclesChanged": "NO",
+  "nativeModelChanged": "NO",
+  "production": {
+    "productionDiffPaths": [],
+    "productionMql5LogicChanged": "NO"
+  },
+  "protectedFileMismatches": 0,
+  "protectedFilesRequired": 24,
+  "protectedFilesVerified": 24,
+  "result": "PASS",
+  "scope": {
+    "changedPaths": [
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Contracts/HSB_2E_R4_R9_R4A_R4_SCENARIO_INPUT_SCHEMA_V3.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Contracts/HSB_2E_R4_R9_R4_PREDICATE_REGISTRY.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/build_hsb_2e_r4_r9_r4a_r4_assets.py",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsb_2e_r4_r9_r4a_r4_schema_self_tests.py",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_INITIAL_BIG.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_RESTART_REPLAY_LIFECYCLE.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_SMALL_FINAL.json"
+    ],
+    "externalPaths": [],
+    "scopeViolations": 0
+  }
+}

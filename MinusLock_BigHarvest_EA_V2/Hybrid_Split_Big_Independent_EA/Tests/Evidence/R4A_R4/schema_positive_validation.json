@@ -1,0 +1,618 @@
+{
+  "ambiguousInputPaths": 0,
+  "antiDefault": {
+    "autoCreatedRuntimeObjects": 0,
+    "emptyRequiredDigestsAccepted": 0,
+    "missingRequiredFieldsAccepted": 0,
+    "normativeNeutralDefaults": 0,
+    "result": "PASS",
+    "unknownFieldsAccepted": 0
+  },
+  "duplicateRuntimeInputs": 0,
+  "fixtureInventory": [
+    {
+      "fixtureId": "V3-INITIAL-1",
+      "result": "PASS",
+      "scenario": "INITIAL",
+      "scenarioInputSha256": "82f8a920e99ecb609db0257de2efb26d2d1a1227376032592b1f248daa9c948c"
+    },
+    {
+      "fixtureId": "V3-INITIAL-2",
+      "result": "PASS",
+      "scenario": "INITIAL",
+      "scenarioInputSha256": "1cc3f1ed12c62dcbecb9e598095eca2f36df7cc0e6f9c9464e879861f261ea8e"
+    },
+    {
+      "fixtureId": "V3-INITIAL-3",
+      "result": "PASS",
+      "scenario": "INITIAL",
+      "scenarioInputSha256": "db7003a519d0785b8357e90aee8ea108a3348992b9d3e309492d0f758eeb4184"
+    },
+    {
+      "fixtureId": "V3-INITIAL-4",
+      "result": "PASS",
+      "scenario": "INITIAL",
+      "scenarioInputSha256": "5352af988783d4b62081a3f37d59a77677ce9cd39ed3c14a8a2aa5248a4dcdda"
+    },
+    {
+      "fixtureId": "V3-BIG-1",
+      "result": "PASS",
+      "scenario": "BIG",
+      "scenarioInputSha256": "5aef867df0e4a402d8025e3bd2c28f7d9cbbeae785e13f5e4ed774f3b9fbe895"
+    },
+    {
+      "fixtureId": "V3-BIG-2",
+      "result": "PASS",
+      "scenario": "BIG",
+      "scenarioInputSha256": "bfb74ca06f6c4f965828c5c5de2254b987e44a6ce895937ee1bbb8d7edddc91b"
+    },
+    {
+      "fixtureId": "V3-BIG-3",
+      "result": "PASS",
+      "scenario": "BIG",
+      "scenarioInputSha256": "59dd2661b493c29129791ec6cf7e4011dd256ae1e3f9cbaf05d7d132a4cb516b"
+    },
+    {
+      "fixtureId": "V3-BIG-4",
+      "result": "PASS",
+      "scenario": "BIG",
+      "scenarioInputSha256": "5eab778372ba3e205ba0d9aa9a7fb825f1013ca7dec8dde88924d2a81c91c337"
+    },
+    {
+      "fixtureId": "V3-RESTART_CONTINUATION-1",
+      "result": "PASS",
+      "scenario": "RESTART_CONTINUATION",
+      "scenarioInputSha256": "1d0a808d57a3a75be9bc591aa08a3ef42f6caebe25305ed3be01dec0066e2d19"
+    },
+    {
+      "fixtureId": "V3-RESTART_CONTINUATION-2",
+      "result": "PASS",
+      "scenario": "RESTART_CONTINUATION",
+      "scenarioInputSha256": "e391f169a2e7e8f7c3560e13fe552fe86f54716e34b2794b1ebdac0c6bb881bd"
+    },
+    {
+      "fixtureId": "V3-RESTART_CONTINUATION-3",
+      "result": "PASS",
+      "scenario": "RESTART_CONTINUATION",
+      "scenarioInputSha256": "0476cbbb1731f8ed50d5f0d47f4fe8cfdb73cc1e4397cda9c66be05066ecb57c"
+    },
+    {
+      "fixtureId": "V3-RESTART_CONTINUATION-4",
+      "result": "PASS",
+      "scenario": "RESTART_CONTINUATION",
+      "scenarioInputSha256": "f8b1a01bc68ec69d8c0f25b72ef02b4cba959b9155f7aed97fb8d91eb0a9ea50"
+    },
+    {
+      "fixtureId": "V3-REPLAY_COMMITTED-1",
+      "result": "PASS",
+      "scenario": "REPLAY_COMMITTED",
+      "scenarioInputSha256": "0974c045ea438f6e5fc15e434d6161c1056f6165f8beb25329d7bf36d8762420"
+    },
+    {
+      "fixtureId": "V3-REPLAY_COMMITTED-2",
+      "result": "PASS",
+      "scenario": "REPLAY_COMMITTED",
+      "scenarioInputSha256": "c384ec77bb89e2058e9d1fa1bc3073185340fe0a26053c08052b14c0f344f864"
+    },
+    {
+      "fixtureId": "V3-REPLAY_COMMITTED-3",
+      "result": "PASS",
+      "scenario": "REPLAY_COMMITTED",
+      "scenarioInputSha256": "9efb47952790744606933b190acf3d32a0db0d0fbe4be2b7b8c68b6c1f6ada62"
+    },
+    {
+      "fixtureId": "V3-REPLAY_COMMITTED-4",
+      "result": "PASS",
+      "scenario": "REPLAY_COMMITTED",
+      "scenarioInputSha256": "7cd1c3f1a27847af0d522665fc3d5ab5ceb6f6a3267d7e5a8b6d1ad37cad12dc"
+    },
+    {
+      "fixtureId": "V3-LIFECYCLE-1",
+      "result": "PASS",
+      "scenario": "LIFECYCLE",
+      "scenarioInputSha256": "e8566fc39898f6029ba1d6c20b67e50d1eea88ad85b647cf54bd764fb3ee9b6b"
+    },
+    {
+      "fixtureId": "V3-LIFECYCLE-2",
+      "result": "PASS",
+      "scenario": "LIFECYCLE",
+      "scenarioInputSha256": "df065e13abbba4d82724d38d72aba2d8b3e74c51a0b78ed3937b50b23803844d"
+    },
+    {
+      "fixtureId": "V3-LIFECYCLE-3",
+      "result": "PASS",
+      "scenario": "LIFECYCLE",
+      "scenarioInputSha256": "39fe0513bf4357190b0e52e7e7444931c28f911d51e2d6adc2025b8245a5a70f"
+    },
+    {
+      "fixtureId": "V3-LIFECYCLE-4",
+      "result": "PASS",
+      "scenario": "LIFECYCLE",
+      "scenarioInputSha256": "b8dd17020591809c0dee20094c3584fe4531e97e1473f723fcb768c442cbf710"
+    },
+    {
+      "fixtureId": "V3-SMALL-1",
+      "result": "PASS",
+      "scenario": "SMALL",
+      "scenarioInputSha256": "4e96ed8a08e032a7b92efb3ce4277c97725a75f588016bf93f7c55f1e47b4f71"
+    },
+    {
+      "fixtureId": "V3-SMALL-2",
+      "result": "PASS",
+      "scenario": "SMALL",
+      "scenarioInputSha256": "08be9dc9ad6e7c318acb5d5083cd267a25e53a615a34b9a77ce44bd72fa1352c"
+    },
+    {
+      "fixtureId": "V3-SMALL-3",
+      "result": "PASS",
+      "scenario": "SMALL",
+      "scenarioInputSha256": "209bc6a6ffde040ef45bf69715c2971bd86d9c330a0d3dfb3f6738c9eb9a8a07"
+    },
+    {
+      "fixtureId": "V3-SMALL-4",
+      "result": "PASS",
+      "scenario": "SMALL",
+      "scenarioInputSha256": "062d1d60587e3c90f65acf9ead0ac04befe483b0d447c8e8b23f8aa8362dd0a2"
+    },
+    {
+      "fixtureId": "V3-FINAL-1",
+      "result": "PASS",
+      "scenario": "FINAL",
+      "scenarioInputSha256": "17be34402be481be448ef1588453a8ba2471552e1038e9e58ecceac64a02717d"
+    },
+    {
+      "fixtureId": "V3-FINAL-2",
+      "result": "PASS",
+      "scenario": "FINAL",
+      "scenarioInputSha256": "27fd069aa849d4060e4778c05f9cef610cb3ddc37b37fbed372256c27ec494ef"
+    },
+    {
+      "fixtureId": "V3-FINAL-3",
+      "result": "PASS",
+      "scenario": "FINAL",
+      "scenarioInputSha256": "6f20983a9b86b3e533f1d3fbbe3fe5350fbf612cebfeb2b2368a7cfb201f4aba"
+    },
+    {
+      "fixtureId": "V3-FINAL-4",
+      "result": "PASS",
+      "scenario": "FINAL",
+      "scenarioInputSha256": "41105cf75d697a52e1b14442a03961328599e2d5eba3f7a3ea646afc5419e641"
+    }
+  ],
+  "metadataInputPaths": 0,
+  "pathResolution": [
+    {
+      "path": "scenarioInput.schemaVersion",
+      "predicateId": "SCHEMA",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.broker.tickSize",
+      "predicateId": "NUMERIC_FINITE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.economic.availableMoney",
+      "predicateId": "NUMERIC_FINITE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.context.accountId",
+      "predicateId": "RUNTIME_IDENTITY",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.context.cycleId",
+      "predicateId": "RUNTIME_IDENTITY",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.context.transactionId",
+      "predicateId": "RUNTIME_IDENTITY",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.context.actionId",
+      "predicateId": "RUNTIME_IDENTITY",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.context.symbol",
+      "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.context.magic",
+      "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.positions[*].symbol",
+      "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.positions[*].magic",
+      "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.broker.tickSize",
+      "predicateId": "BROKER_PROPERTIES",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.broker.tickValue",
+      "predicateId": "BROKER_PROPERTIES",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.broker.contractSize",
+      "predicateId": "BROKER_PROPERTIES",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.broker.volumeStep",
+      "predicateId": "BROKER_PROPERTIES",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.snapshot.symbol",
+      "predicateId": "SNAPSHOT_CONTEXT",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.snapshot.magic",
+      "predicateId": "SNAPSHOT_CONTEXT",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.snapshot.revision",
+      "predicateId": "SNAPSHOT_CONTEXT",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.snapshot.timestamp",
+      "predicateId": "TEMPORAL_WINDOW",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.temporalPolicy.validFrom",
+      "predicateId": "TEMPORAL_WINDOW",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.temporalPolicy.validUntil",
+      "predicateId": "TEMPORAL_WINDOW",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.intents[*].createdTimestamp",
+      "predicateId": "TEMPORAL_WINDOW",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.intents[*].expiresTimestamp",
+      "predicateId": "TEMPORAL_WINDOW",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.deals[*].timestamp",
+      "predicateId": "TEMPORAL_WINDOW",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.positions[*]",
+      "predicateId": "POSITION_VALIDATION",
+      "result": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "scenarioInput.intents[*]",
+      "predicateId": "INTENT_VALIDATION",
+      "result": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "scenarioInput.deals[*].dealId",
+      "predicateId": "DEAL_EVENT_UNIQUENESS",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.deals[*].eventId",
+      "predicateId": "DEAL_EVENT_UNIQUENESS",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.deals[*].positionTicket",
+      "predicateId": "DEAL_POSITION_INTENT_BINDING",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.deals[*].intentId",
+      "predicateId": "DEAL_POSITION_INTENT_BINDING",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.persistedState.consumedDealIds",
+      "predicateId": "PERSISTED_LEDGER_REVALIDATION",
+      "result": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "scenarioInput.persistedState.authoritativeLedgerRoot",
+      "predicateId": "PERSISTED_LEDGER_REVALIDATION",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.deals[*]",
+      "predicateId": "BATCH_ATOMICITY",
+      "result": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "scenarioInput.intents[*].requestedVolume",
+      "predicateId": "PER_TICKET_FILL",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.deals[*].volume",
+      "predicateId": "PER_TICKET_FILL",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.scenario",
+      "predicateId": "MANDATORY_LEGS",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.positions[*].role",
+      "predicateId": "MANDATORY_LEGS",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.brokerProposal",
+      "predicateId": "BROKER_PROPOSAL",
+      "result": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "scenarioInput.economic",
+      "predicateId": "ECONOMIC_FORMULAS",
+      "result": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "scenarioInput.economic.availableMoney",
+      "predicateId": "MONEY_CONSERVATION",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.allocationPolicy.allocatedMoney",
+      "predicateId": "MONEY_CONSERVATION",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.allocationPolicy.remainingMoney",
+      "predicateId": "MONEY_CONSERVATION",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.positions[*].volume",
+      "predicateId": "VOLUME_CONSERVATION",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.deals[*].volume",
+      "predicateId": "VOLUME_CONSERVATION",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.economic.reserveBefore",
+      "predicateId": "RESERVE_POLICY",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.allocationPolicy.reserveAddition",
+      "predicateId": "RESERVE_POLICY",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.economic.recoveryPL",
+      "predicateId": "RECOVERY_PL",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.economic.requiredCoverage",
+      "predicateId": "RESERVE_COVERAGE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.economic.tailCount",
+      "predicateId": "DUAL_TAIL",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.allocationPolicy",
+      "predicateId": "ALLOCATION",
+      "result": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "scenarioInput.persistedState",
+      "predicateId": "PERSISTENCE",
+      "result": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "scenarioInput.fsm",
+      "predicateId": "FSM_TRANSITION",
+      "result": "PASS",
+      "type": "object"
+    },
+    {
+      "path": "scenarioInput.fsm.inputRevision",
+      "predicateId": "REVISION_CHAIN",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.fsm.outputRevision",
+      "predicateId": "REVISION_CHAIN",
+      "result": "PASS",
+      "type": "integer"
+    },
+    {
+      "path": "scenarioInput.certificate.body",
+      "predicateId": "CERTIFICATE_STRUCTURE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.digest",
+      "predicateId": "CERTIFICATE_STRUCTURE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.persistedState.authoritativeLedgerRoot",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.persistedState.previousStateDigest",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.persistedState.transactionJournalRoot",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.claimedBrokerDigest",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.claimedEconomicDigest",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.claimedAllocationDigest",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.claimedPersistenceDigest",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.claimedFsmDigest",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.claimedOutputStateDigest",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.body",
+      "predicateId": "CERTIFICATE_DIGEST",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.certificate.digest",
+      "predicateId": "CERTIFICATE_DIGEST",
+      "result": "PASS",
+      "type": "string"
+    },
+    {
+      "path": "scenarioInput.persistedState.consumedDealIds",
+      "predicateId": "REPLAY_EXACTLY_ONCE",
+      "result": "PASS",
+      "type": "array"
+    },
+    {
+      "path": "scenarioInput.persistedState.seenEventIds",
+      "predicateId": "REPLAY_EXACTLY_ONCE",
+      "result": "PASS",
+      "type": "array"
+    }
+  ],
+  "positiveFixturesCreated": 28,
+  "positiveFixturesRequired": 28,
+  "registryExactPathsRequired": 69,
+  "registryExactPathsResolved": 69,
+  "registryPredicateCount": 31,
+  "result": "PASS",
+  "scenarioDistribution": {
+    "BIG": 4,
+    "FINAL": 4,
+    "INITIAL": 4,
+    "LIFECYCLE": 4,
+    "REPLAY_COMMITTED": 4,
+    "RESTART_CONTINUATION": 4,
+    "SMALL": 4
+  },
+  "schemaId": "HSBI_ScenarioInput_V3",
+  "typelessInputPaths": 0,
+  "uniqueScenarioInputDigests": 28,
+  "unknownInputPaths": 0
+}

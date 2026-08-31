@@ -1,0 +1,133 @@
+{
+  "cases": [
+    {
+      "case": "missing_required",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "unknown_field",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "wrong_type",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "nan",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "infinity",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "empty_id",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "float_identifier",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "negative_volume",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "off_grid_volume",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "off_grid_price",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "ask_below_bid",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "timestamp_window",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "duplicate_deal",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "duplicate_event",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "missing_position",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "missing_intent",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "orphan_deal",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "wrong_symbol",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "wrong_magic",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "wrong_ticket",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "wrong_direction",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "revision_mismatch",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "money_conservation",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "volume_conservation",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "reserve_misuse",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "dual_tail",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "invalid_fsm_revision",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "empty_digest",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "metadata_in_runtime",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "invalid_enum",
+      "result": "CAUGHT"
+    },
+    {
+      "case": "duplicated_runtime_input",
+      "result": "CAUGHT"
+    }
+  ],
+  "result": "PASS",
+  "schemaSelfTestsCaught": 31,
+  "schemaSelfTestsExecuted": 31,
+  "schemaSelfTestsFailed": 0,
+  "schemaSelfTestsRequired": 30
+}
