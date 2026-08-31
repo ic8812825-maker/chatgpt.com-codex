@@ -7,7 +7,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.schemaVersion"
@@ -31,7 +32,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.broker.tickSize",
@@ -59,7 +61,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.context.accountId",
@@ -91,7 +94,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.context.symbol",
@@ -123,7 +127,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.broker.tickSize",
@@ -155,7 +160,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.snapshot.symbol",
@@ -185,12 +191,13 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.snapshot.timestamp",
-        "scenarioInput.policy.validFrom",
-        "scenarioInput.policy.validUntil",
+        "scenarioInput.temporalPolicy.validFrom",
+        "scenarioInput.temporalPolicy.validUntil",
         "scenarioInput.intents[*].createdTimestamp",
         "scenarioInput.intents[*].expiresTimestamp",
         "scenarioInput.deals[*].timestamp"
@@ -199,8 +206,8 @@
       "evaluatorFunction": "evaluate_temporal_window",
       "exactInputPaths": [
         "scenarioInput.snapshot.timestamp",
-        "scenarioInput.policy.validFrom",
-        "scenarioInput.policy.validUntil",
+        "scenarioInput.temporalPolicy.validFrom",
+        "scenarioInput.temporalPolicy.validUntil",
         "scenarioInput.intents[*].createdTimestamp",
         "scenarioInput.intents[*].expiresTimestamp",
         "scenarioInput.deals[*].timestamp"
@@ -221,7 +228,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.positions[*]"
@@ -247,7 +255,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.intents[*]"
@@ -273,7 +282,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.deals[*].dealId",
@@ -301,7 +311,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.deals[*].positionTicket",
@@ -329,17 +340,18 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
-        "scenarioInput.persisted.acceptedDeals",
-        "scenarioInput.persisted.authoritativeLedgerRoot"
+        "scenarioInput.persistedStateState.acceptedDeals",
+        "scenarioInput.persistedStateState.authoritativeLedgerRoot"
       ],
       "evaluationOrder": 12,
       "evaluatorFunction": "evaluate_persisted_ledger_revalidation",
       "exactInputPaths": [
-        "scenarioInput.persisted.acceptedDeals",
-        "scenarioInput.persisted.authoritativeLedgerRoot"
+        "scenarioInput.persistedStateState.acceptedDeals",
+        "scenarioInput.persistedStateState.authoritativeLedgerRoot"
       ],
       "failureCheckId": "R9_PERSISTED_LEDGER_REVALIDATION",
       "failureReason": "PERSISTED_LEDGER_REVALIDATION_MISMATCH",
@@ -357,7 +369,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.deals[*]"
@@ -383,7 +396,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.intents[*].requestedVolume",
@@ -411,7 +425,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.scenario",
@@ -439,7 +454,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.brokerProposal"
@@ -465,7 +481,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.economic"
@@ -491,19 +508,20 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.economic.availableMoney",
-        "scenarioInput.allocation.allocatedMoney",
-        "scenarioInput.allocation.remainingMoney"
+        "scenarioInput.allocationPolicyPolicy.allocatedMoney",
+        "scenarioInput.allocationPolicyPolicy.remainingMoney"
       ],
       "evaluationOrder": 18,
       "evaluatorFunction": "evaluate_money_conservation",
       "exactInputPaths": [
         "scenarioInput.economic.availableMoney",
-        "scenarioInput.allocation.allocatedMoney",
-        "scenarioInput.allocation.remainingMoney"
+        "scenarioInput.allocationPolicyPolicy.allocatedMoney",
+        "scenarioInput.allocationPolicyPolicy.remainingMoney"
       ],
       "failureCheckId": "R9_MONEY_CONSERVATION",
       "failureReason": "MONEY_CONSERVATION_MISMATCH",
@@ -521,7 +539,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.positions[*].volume",
@@ -549,17 +568,18 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.economic.reserveBefore",
-        "scenarioInput.allocation.reserveAddition"
+        "scenarioInput.allocationPolicyPolicy.reserveAddition"
       ],
       "evaluationOrder": 20,
       "evaluatorFunction": "evaluate_reserve_policy",
       "exactInputPaths": [
         "scenarioInput.economic.reserveBefore",
-        "scenarioInput.allocation.reserveAddition"
+        "scenarioInput.allocationPolicyPolicy.reserveAddition"
       ],
       "failureCheckId": "R9_RESERVE_POLICY",
       "failureReason": "RESERVE_POLICY_MISMATCH",
@@ -577,7 +597,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.economic.recoveryPL"
@@ -603,7 +624,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.economic.requiredCoverage"
@@ -629,7 +651,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.economic.tailCount"
@@ -655,15 +678,16 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
-        "scenarioInput.allocation"
+        "scenarioInput.allocationPolicy"
       ],
       "evaluationOrder": 24,
       "evaluatorFunction": "evaluate_allocation",
       "exactInputPaths": [
-        "scenarioInput.allocation"
+        "scenarioInput.allocationPolicy"
       ],
       "failureCheckId": "R9_ALLOCATION",
       "failureReason": "ALLOCATION_MISMATCH",
@@ -681,15 +705,16 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
-        "scenarioInput.persisted"
+        "scenarioInput.persistedState"
       ],
       "evaluationOrder": 25,
       "evaluatorFunction": "evaluate_persistence",
       "exactInputPaths": [
-        "scenarioInput.persisted"
+        "scenarioInput.persistedState"
       ],
       "failureCheckId": "R9_PERSISTENCE",
       "failureReason": "PERSISTENCE_MISMATCH",
@@ -707,7 +732,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.fsm"
@@ -733,7 +759,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.fsm.inputRevision",
@@ -761,7 +788,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.certificate.body",
@@ -789,12 +817,13 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
-        "scenarioInput.persisted.authoritativeLedgerRoot",
-        "scenarioInput.persisted.previousStateDigest",
-        "scenarioInput.persisted.transactionJournalRoot",
+        "scenarioInput.persistedStateState.authoritativeLedgerRoot",
+        "scenarioInput.persistedStateState.previousStateDigest",
+        "scenarioInput.persistedStateState.transactionJournalRoot",
         "scenarioInput.certificate.claimedBrokerDigest",
         "scenarioInput.certificate.claimedEconomicDigest",
         "scenarioInput.certificate.claimedAllocationDigest",
@@ -805,9 +834,9 @@
       "evaluationOrder": 29,
       "evaluatorFunction": "evaluate_certificate_provenance",
       "exactInputPaths": [
-        "scenarioInput.persisted.authoritativeLedgerRoot",
-        "scenarioInput.persisted.previousStateDigest",
-        "scenarioInput.persisted.transactionJournalRoot",
+        "scenarioInput.persistedStateState.authoritativeLedgerRoot",
+        "scenarioInput.persistedStateState.previousStateDigest",
+        "scenarioInput.persistedStateState.transactionJournalRoot",
         "scenarioInput.certificate.claimedBrokerDigest",
         "scenarioInput.certificate.claimedEconomicDigest",
         "scenarioInput.certificate.claimedAllocationDigest",
@@ -831,7 +860,8 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
         "scenarioInput.certificate.body",
@@ -859,17 +889,18 @@
         "SMALL",
         "FINAL",
         "RESTART_CONTINUATION",
-        "REPLAY_COMMITTED"
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
       ],
       "dataDependencies": [
-        "scenarioInput.persisted.consumedDealIds",
-        "scenarioInput.persisted.seenEventIds"
+        "scenarioInput.persistedStateState.consumedDealIds",
+        "scenarioInput.persistedStateState.seenEventIds"
       ],
       "evaluationOrder": 31,
       "evaluatorFunction": "evaluate_replay_exactly_once",
       "exactInputPaths": [
-        "scenarioInput.persisted.consumedDealIds",
-        "scenarioInput.persisted.seenEventIds"
+        "scenarioInput.persistedStateState.consumedDealIds",
+        "scenarioInput.persistedStateState.seenEventIds"
       ],
       "failureCheckId": "R9_REPLAY_EXACTLY_ONCE",
       "failureReason": "REPLAY_EXACTLY_ONCE_MISMATCH",
