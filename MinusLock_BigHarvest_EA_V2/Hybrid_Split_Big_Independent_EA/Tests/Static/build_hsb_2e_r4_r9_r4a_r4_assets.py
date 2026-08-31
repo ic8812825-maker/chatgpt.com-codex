@@ -8,7 +8,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "Tests/Contracts/HSB_2E_R4_R9_R4A_R4_SCENARIO_INPUT_SCHEMA_V3.json"
-FIXTURES = ROOT / "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3.json"
+FIXTURE_GROUPS = {
+    "INITIAL_BIG": ("INITIAL", "BIG"),
+    "SMALL_FINAL": ("SMALL", "FINAL"),
+    "RESTART_REPLAY_LIFECYCLE": ("RESTART_CONTINUATION", "REPLAY_COMMITTED", "LIFECYCLE"),
+}
 SCENARIOS = ("INITIAL", "BIG", "SMALL", "FINAL", "RESTART_CONTINUATION", "REPLAY_COMMITTED", "LIFECYCLE")
 
 
@@ -247,7 +251,10 @@ def fixture(scenario: str, variant: int, serial: int) -> dict:
 def main() -> None:
     SCHEMA.write_text(json.dumps(schema(), indent=2, sort_keys=True) + "\n", encoding="utf-8")
     fixtures = [fixture(s, v, i * 4 + v) for i, s in enumerate(SCENARIOS) for v in range(1, 5)]
-    FIXTURES.write_text(json.dumps({"schemaVersion": "3.0.0", "fixtures": fixtures}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    for label, scenarios in FIXTURE_GROUPS.items():
+        path = ROOT / f"Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_{label}.json"
+        selected = [item for item in fixtures if item["scenarioInput"]["scenario"] in scenarios]
+        path.write_text(json.dumps({"schemaVersion": "3.0.0", "fixtures": selected}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
