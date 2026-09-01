@@ -971,6 +971,7 @@
         "unit": "NONE"
       },
       "deals": {
+        "applicabilityRuleId": "EXECUTION_EVIDENCE_BY_PHASE",
         "applicableScenarios": [
           "INITIAL",
           "BIG",
@@ -980,6 +981,7 @@
           "REPLAY_COMMITTED",
           "LIFECYCLE"
         ],
+        "forbiddenWhen": "phase == 'PRE_COMMIT'",
         "items": {
           "additionalProperties": false,
           "applicableScenarios": [
@@ -1382,8 +1384,10 @@
         },
         "minimum": 0,
         "nullable": false,
-        "required": true,
-        "requiredState": "REQUIRED",
+        "optionalWhen": "NEVER",
+        "required": false,
+        "requiredState": "OPTIONAL_WITH_RULE",
+        "requiredWhen": "phase IN ['COMMITTED','REPLAY']",
         "type": "array",
         "unit": "NONE"
       },
@@ -1687,6 +1691,7 @@
         "unit": "NONE"
       },
       "events": {
+        "applicabilityRuleId": "EXECUTION_EVIDENCE_BY_PHASE",
         "applicableScenarios": [
           "INITIAL",
           "BIG",
@@ -1696,6 +1701,7 @@
           "REPLAY_COMMITTED",
           "LIFECYCLE"
         ],
+        "forbiddenWhen": "phase == 'PRE_COMMIT'",
         "items": {
           "additionalProperties": false,
           "applicableScenarios": [
@@ -2098,8 +2104,10 @@
         },
         "minimum": 0,
         "nullable": false,
-        "required": true,
-        "requiredState": "REQUIRED",
+        "optionalWhen": "NEVER",
+        "required": false,
+        "requiredState": "OPTIONAL_WITH_RULE",
+        "requiredWhen": "phase IN ['COMMITTED','REPLAY']",
         "type": "array",
         "unit": "NONE"
       },
@@ -2497,6 +2505,7 @@
             "unit": "NONE"
           },
           "consumedDealIds": {
+            "applicabilityRuleId": "PERSISTED_EVIDENCE_BY_PHASE",
             "applicableScenarios": [
               "INITIAL",
               "BIG",
@@ -2506,6 +2515,7 @@
               "REPLAY_COMMITTED",
               "LIFECYCLE"
             ],
+            "forbiddenWhen": "phase == 'PRE_COMMIT'",
             "items": {
               "applicableScenarios": [
                 "INITIAL",
@@ -2526,8 +2536,10 @@
             },
             "minimum": 0,
             "nullable": false,
-            "required": true,
-            "requiredState": "REQUIRED",
+            "optionalWhen": "phase == 'COMMITTED'",
+            "required": false,
+            "requiredState": "OPTIONAL_WITH_RULE",
+            "requiredWhen": "phase == 'REPLAY'",
             "type": "array",
             "unit": "NONE"
           },
@@ -2605,6 +2617,7 @@
             "unit": "NONE"
           },
           "dealEventBindings": {
+            "applicabilityRuleId": "PERSISTED_EVIDENCE_BY_PHASE",
             "applicableScenarios": [
               "INITIAL",
               "BIG",
@@ -2614,6 +2627,7 @@
               "REPLAY_COMMITTED",
               "LIFECYCLE"
             ],
+            "forbiddenWhen": "phase == 'PRE_COMMIT'",
             "items": {
               "additionalProperties": false,
               "applicableScenarios": [
@@ -2671,8 +2685,10 @@
             },
             "minimum": 0,
             "nullable": false,
-            "required": true,
-            "requiredState": "REQUIRED",
+            "optionalWhen": "phase == 'COMMITTED'",
+            "required": false,
+            "requiredState": "OPTIONAL_WITH_RULE",
+            "requiredWhen": "phase == 'REPLAY'",
             "type": "array",
             "unit": "NONE"
           },
@@ -2995,6 +3011,7 @@
             "unit": "ACCOUNT_MONEY"
           },
           "seenEventIds": {
+            "applicabilityRuleId": "PERSISTED_EVIDENCE_BY_PHASE",
             "applicableScenarios": [
               "INITIAL",
               "BIG",
@@ -3004,6 +3021,7 @@
               "REPLAY_COMMITTED",
               "LIFECYCLE"
             ],
+            "forbiddenWhen": "phase == 'PRE_COMMIT'",
             "items": {
               "applicableScenarios": [
                 "INITIAL",
@@ -3024,8 +3042,10 @@
             },
             "minimum": 0,
             "nullable": false,
-            "required": true,
-            "requiredState": "REQUIRED",
+            "optionalWhen": "phase == 'COMMITTED'",
+            "required": false,
+            "requiredState": "OPTIONAL_WITH_RULE",
+            "requiredWhen": "phase == 'REPLAY'",
             "type": "array",
             "unit": "NONE"
           },

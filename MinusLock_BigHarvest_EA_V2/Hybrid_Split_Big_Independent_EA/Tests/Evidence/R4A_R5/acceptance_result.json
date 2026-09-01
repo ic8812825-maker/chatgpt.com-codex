@@ -653,7 +653,7 @@
       "scenario": "REPLAY_COMMITTED"
     }
   ],
-  "executedChecks": 8,
+  "executedChecks": 9,
   "farRoleMismatches": 0,
   "findings": [],
   "fixtureCount": 28,
@@ -670,6 +670,7 @@
   "productionDiffPaths": [],
   "protectedFileMismatches": 0,
   "protectedFilesRequired": 6,
+  "registryPathsResolved": 74,
   "regression": {
     "executed": 28,
     "normativeRejections": 22,
@@ -677,7 +678,7 @@
     "unexpectedInfrastructureErrors": 0,
     "wrongFailures": 0
   },
-  "requiredChecks": 8,
+  "requiredChecks": 9,
   "result": "PASS",
   "scopeViolations": 0
 }

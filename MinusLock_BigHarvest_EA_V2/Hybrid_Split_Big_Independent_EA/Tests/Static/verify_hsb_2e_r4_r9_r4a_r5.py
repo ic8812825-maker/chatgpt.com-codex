@@ -70,10 +70,10 @@ def phase(r):
  if sc=='REPLAY_COMMITTED' and p!='REPLAY':reject('R5_PHASE','REPLAY_PHASE_REQUIRED','scenarioInput.phase')
  if p=='REPLAY' and sc!='REPLAY_COMMITTED':reject('R5_PHASE','REPLAY_SCENARIO_REQUIRED','scenarioInput.scenario')
  if p=='PRE_COMMIT':
-  if r['deals'] or r['events'] or r['persistedState']['consumedDealIds'] or r['persistedState']['seenEventIds']:reject('R5_PHASE','PRE_COMMIT_EVIDENCE_FORBIDDEN','scenarioInput.phase')
+  if 'deals' in r or 'events' in r or any(k in r['persistedState'] for k in ('consumedDealIds','seenEventIds','dealEventBindings')):reject('R5_PHASE','PRE_COMMIT_EVIDENCE_FORBIDDEN','scenarioInput.phase')
  else:
-  if not r['deals'] or not r['events']:reject('R5_PHASE','COMMITTED_EVIDENCE_REQUIRED','scenarioInput.deals')
-  if p=='REPLAY' and (not r['persistedState']['consumedDealIds'] or not r['persistedState']['seenEventIds']):reject('R5_PHASE','REPLAY_REGISTRY_REQUIRED','scenarioInput.persistedState')
+  if 'deals' not in r or 'events' not in r or not r['deals'] or not r['events']:reject('R5_PHASE','COMMITTED_EVIDENCE_REQUIRED','scenarioInput.deals')
+  if p=='REPLAY' and ('consumedDealIds' not in r['persistedState'] or 'seenEventIds' not in r['persistedState'] or not r['persistedState']['consumedDealIds'] or not r['persistedState']['seenEventIds']):reject('R5_PHASE','REPLAY_REGISTRY_REQUIRED','scenarioInput.persistedState')
 def far(r):
  f=r['persistedState']['farState'];active=f['active'];allowed=r['scenario'] in ('BIG','SMALL','RESTART_CONTINUATION')
  if active!=allowed:reject('R5_FAR','FAR_APPLICABILITY_MISMATCH','scenarioInput.persistedState.farState.active')
@@ -87,7 +87,7 @@ def far(r):
  p=matches[0]
  if p['role']!='FAR' or p['volume']!=f['volume'] or p['direction']!=f['direction']:reject('R5_FAR','ACTIVE_FAR_ROLE_VOLUME_DIRECTION_MISMATCH','scenarioInput.persistedState.farState')
 def internal(r):
- c,b=r['context'],r['broker'];phase(r);tick,step=dec(b['tickSize'],'broker.tickSize'),dec(b['volumeStep'],'broker.volumeStep')
+ c,b=r['context'],r['broker'];phase(r);deals=r['deals'] if 'deals' in r else [];events=r['events'] if 'events' in r else [];tick,step=dec(b['tickSize'],'broker.tickSize'),dec(b['volumeStep'],'broker.volumeStep')
  if dec(b['ask'],'broker.ask')<dec(b['bid'],'broker.bid'):reject('R5_BROKER','ASK_BELOW_BID','scenarioInput.broker.ask')
  ids=set()
  tickets={p['ticket']:p for p in r['positions']}
@@ -96,19 +96,19 @@ def internal(r):
   if any(p[k]!=c[k] for k in ('accountId','symbol','magic','cycleId')):reject('R5_OWNERSHIP','POSITION_OWNERSHIP_MISMATCH','scenarioInput.positions')
   if not multiple(dec(p['volume'],'position.volume'),step) or not multiple(dec(p['openPrice'],'position.openPrice'),tick):reject('R5_GRID','POSITION_OFF_GRID','scenarioInput.positions')
  intents={i['intentId']:i for i in r['intents']}
- for d in r['deals']:
+ for d in deals:
   if d['dealId'] in ids:reject('R5_DEAL','DUPLICATE_DEAL','scenarioInput.deals')
   ids.add(d['dealId'])
   if d['positionTicket'] not in tickets or d['intentId'] not in intents:reject('R5_BINDING','ORPHAN_DEAL','scenarioInput.deals')
   if not multiple(dec(d['volume'],'deal.volume'),step) or not multiple(dec(d['price'],'deal.price'),tick):reject('R5_GRID','DEAL_OFF_GRID','scenarioInput.deals')
  eventids=set()
- for e in r['events']:
+ for e in events:
   if e['eventId'] in eventids:reject('R5_EVENT','DUPLICATE_EVENT','scenarioInput.events')
   eventids.add(e['eventId'])
-  match=[d for d in r['deals'] if d['dealId']==e['dealId']]
+  match=[d for d in deals if d['dealId']==e['dealId']]
   if len(match)!=1 or any(e[k]!=match[0][k] for k in ('intentId','positionTicket','accountId','symbol','magic','cycleId','transactionId','actionId','role','direction','volume','price')):reject('R5_EVENT','EVENT_DEAL_BINDING_MISMATCH','scenarioInput.events')
  if r['phase']!='PRE_COMMIT':
-  requested=sum((dec(i['requestedVolume'],'intent.volume') for i in r['intents']),Decimal(0));filled=sum((dec(d['volume'],'deal.volume') for d in r['deals']),Decimal(0))
+  requested=sum((dec(i['requestedVolume'],'intent.volume') for i in r['intents']),Decimal(0));filled=sum((dec(d['volume'],'deal.volume') for d in deals),Decimal(0))
   if requested!=filled:reject('R5_VOLUME','VOLUME_CONSERVATION_MISMATCH','scenarioInput.deals')
  e,a=r['economic'],r['allocationPolicy']
  if dec(e['availableMoney'],'economic.available')!=dec(a['allocatedMoney'],'allocation.allocated')+dec(a['remainingMoney'],'allocation.remaining'):reject('R5_MONEY','MONEY_CONSERVATION_MISMATCH','scenarioInput.allocationPolicy')

@@ -7,6 +7,16 @@ from pathlib import Path
 import verify_hsb_2e_r4_r9_r4a_r5 as v
 ROOT=v.ROOT;BASE='634f250beac05baed4d9ee42f851d2d13dd63208';OUT=ROOT/'Tests/Evidence/R4A_R5/acceptance_result.json'
 def git(*a):return subprocess.run(('git',*a),cwd=ROOT,check=True,text=True,stdout=subprocess.PIPE).stdout.strip()
+def resolve(root,path):
+ node=root
+ for token in path.removeprefix('scenarioInput.').split('.'):
+  wildcard=token.endswith('[*]');key=token[:-3] if wildcard else token
+  if node['type']!='object' or key not in node['properties']:raise KeyError(path)
+  node=node['properties'][key]
+  if wildcard:
+   if node['type']!='array':raise TypeError(path)
+   node=node['items']
+ return node
 def main():
  try:
   findings=[];fixtures=v.fixtures();results=[]
@@ -14,6 +24,10 @@ def main():
    try:res=v.lifecycle(f['lifecycleSequence']) if 'lifecycleSequence'in f else v.runtime(f['scenarioInput']);results.append(res)
    except v.NormativeError as e:findings.append({'check':'FIXTURE_VALIDATION','fixture':f['testContract']['fixtureId'],'detail':str(e)})
   if len(fixtures)!=28:findings.append({'check':'FIXTURE_COUNT','actual':len(fixtures)})
+  schema=json.loads(v.SCHEMA.read_text());registry=json.loads((ROOT/'Tests/Contracts/HSB_2E_R4_R9_R4A_R5_PREDICATE_REGISTRY.json').read_text());path_count=0
+  if registry.get('schemaRef')!='Tests/Contracts/HSB_2E_R4_R9_R4A_R5_SCENARIO_INPUT_SCHEMA_V3_1.json':findings.append({'check':'REGISTRY_SCHEMA_REF'})
+  for predicate in registry['predicates']:
+   for path in predicate['exactInputPaths']:resolve(schema['root'],path);path_count+=1
   groups=defaultdict(list);far_mismatch=0;phase_coverage=set();coverage=[];lifecycle_steps=0
   for f in fixtures:
    tc=f['testContract'];groups[tc['scenario']].append(f)
@@ -23,8 +37,8 @@ def main():
    if far['active']:
     matches=[p for p in r['positions'] if p['ticket']==far['ticket'] and p['role']=='FAR' and p['volume']==far['volume'] and p['direction']==far['direction']]
     far_mismatch+=len(matches)!=1
-   costs=[str(d['commission'])+','+str(d['swap'])+','+str(d['fee']) for d in r['deals']]
-   coverage.append({'fixtureId':tc['fixtureId'],'scenario':r['scenario'],'phase':r['phase'],'boundaryProperty':tc['boundaryProperty'],'actualBoundaryValues':{'tickSize':r['broker']['tickSize'],'volumeStep':r['broker']['volumeStep'],'volumes':[p['volume'] for p in r['positions']]},'recordCounts':{k:len(r[k]) for k in ('positions','intents','deals','events')},'positionRoles':[p['role'] for p in r['positions']],'costCase':costs,'persistenceCase':'ACCUMULATED' if r['persistedState']['consumedDealIds'] else 'FRESH'})
+   costs=[str(d['commission'])+','+str(d['swap'])+','+str(d['fee']) for d in (r['deals'] if 'deals' in r else [])]
+   coverage.append({'fixtureId':tc['fixtureId'],'scenario':r['scenario'],'phase':r['phase'],'boundaryProperty':tc['boundaryProperty'],'actualBoundaryValues':{'tickSize':r['broker']['tickSize'],'volumeStep':r['broker']['volumeStep'],'volumes':[p['volume'] for p in r['positions']]},'recordCounts':{k:(len(r[k]) if k in r else 0) for k in ('positions','intents','deals','events')},'positionRoles':[p['role'] for p in r['positions']],'costCase':costs,'persistenceCase':'ACCUMULATED' if ('consumedDealIds' in r['persistedState'] and r['persistedState']['consumedDealIds']) else 'FRESH'})
   if far_mismatch:findings.append({'check':'FAR_ROLE_CONSISTENCY','mismatches':far_mismatch})
   if phase_coverage!={'PRE_COMMIT','COMMITTED','REPLAY'}:findings.append({'check':'PHASE_COVERAGE','actual':sorted(phase_coverage)})
   if any(len(x)!=4 for x in groups.values()) or len(groups)!=7:findings.append({'check':'GROUP_DISTRIBUTION','actual':{k:len(z) for k,z in groups.items()}})
@@ -44,7 +58,7 @@ def main():
   if mismatches:findings.append({'check':'PROTECTED_FILES','mismatches':mismatches})
   changed=git('diff','--name-only',f'{BASE}..HEAD').splitlines();prefix='MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/';external=[x for x in changed if not x.startswith(prefix)];production=[x for x in changed if x.endswith('.mq5') or ('/Include/'in x and x.endswith('.mqh'))];native=[x for x in changed if 'hsb_2e_reference_model_r4_r9_r3.py'in x or 'run_hsb_2e_r4_r9_r3_'in x]
   if external or production or native:findings.append({'check':'SCOPE','external':external,'production':production,'native':native})
-  out={'requiredChecks':8,'executedChecks':8,'findings':findings,'fixtureCount':len(fixtures),'lifecycleSteps':lifecycle_steps,'phaseCoverage':sorted(phase_coverage),'farRoleMismatches':far_mismatch,'coverageTable':coverage,'regression':{'required':regress['required'],'executed':regress['executed'],'normativeRejections':regress['normativeRejections'],'wrongFailures':regress['wrongFailures'],'unexpectedInfrastructureErrors':regress['unexpectedInfrastructureErrors']},'protectedFilesRequired':len(protected),'protectedFileMismatches':len(mismatches),'scopeViolations':len(external),'productionDiffPaths':production,'nativeModelChanged':bool(native),'lifecycleDeclaredChainValidated':not any(x['check'].startswith('LIFECYCLE') for x in findings),'lifecycleExecutedByNativeModel':False,'fullEconomicCorrectness':'NOT_PROVEN','result':'PASS' if not findings else 'FAIL'}
+  out={'requiredChecks':9,'executedChecks':9,'findings':findings,'registryPathsResolved':path_count,'fixtureCount':len(fixtures),'lifecycleSteps':lifecycle_steps,'phaseCoverage':sorted(phase_coverage),'farRoleMismatches':far_mismatch,'coverageTable':coverage,'regression':{'required':regress['required'],'executed':regress['executed'],'normativeRejections':regress['normativeRejections'],'wrongFailures':regress['wrongFailures'],'unexpectedInfrastructureErrors':regress['unexpectedInfrastructureErrors']},'protectedFilesRequired':len(protected),'protectedFileMismatches':len(mismatches),'scopeViolations':len(external),'productionDiffPaths':production,'nativeModelChanged':bool(native),'lifecycleDeclaredChainValidated':not any(x['check'].startswith('LIFECYCLE') for x in findings),'lifecycleExecutedByNativeModel':False,'fullEconomicCorrectness':'NOT_PROVEN','result':'PASS' if not findings else 'FAIL'}
   OUT.parent.mkdir(parents=True,exist_ok=True);OUT.write_text(json.dumps(out,indent=2,sort_keys=True)+'\n');print(f"RESULT={out['result']} FINDINGS={len(findings)} FIXTURES={len(fixtures)} LIFECYCLE_STEPS={lifecycle_steps}");return 0 if not findings else 1
  except Exception as e:
   print(f'INFRASTRUCTURE_ERROR={type(e).__name__}:{e}');return 2

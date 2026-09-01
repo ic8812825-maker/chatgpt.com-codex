@@ -17,6 +17,10 @@ def digest(v): return hashlib.sha256(canon(v).encode()).hexdigest()
 def schema():
  s=json.loads(R4_SCHEMA.read_text());s['schemaId']='HSBI_ScenarioInput_V3_1_R5';s['schemaVersion']='3.1.0';p=s['root']['properties'];p['schemaVersion']['enum']=['3.1.0']
  p['phase']={'type':'string','requiredState':'REQUIRED','required':True,'nullable':False,'unit':'NONE','enum':['PRE_COMMIT','COMMITTED','REPLAY'],'applicableScenarios':list(SCENARIOS)}
+ for k in ('deals','events'):
+  p[k]['requiredState']='OPTIONAL_WITH_RULE';p[k]['required']=False;p[k]['applicabilityRuleId']='EXECUTION_EVIDENCE_BY_PHASE';p[k]['requiredWhen']="phase IN ['COMMITTED','REPLAY']";p[k]['forbiddenWhen']="phase == 'PRE_COMMIT'";p[k]['optionalWhen']='NEVER'
+ for k in ('consumedDealIds','seenEventIds','dealEventBindings'):
+  q=p['persistedState']['properties'][k];q['requiredState']='OPTIONAL_WITH_RULE';q['required']=False;q['applicabilityRuleId']='PERSISTED_EVIDENCE_BY_PHASE';q['requiredWhen']="phase == 'REPLAY'";q['forbiddenWhen']="phase == 'PRE_COMMIT'";q['optionalWhen']="phase == 'COMMITTED'"
  cert=p['certificate'];cert['requiredState']='OPTIONAL_WITH_RULE';cert['required']=False;cert['applicabilityRuleId']='CERTIFICATE_BY_PHASE';cert['requiredWhen']="phase IN ['COMMITTED','REPLAY']";cert['forbiddenWhen']="phase == 'PRE_COMMIT'";cert['optionalWhen']='NEVER'
  digest_spec=copy.deepcopy(cert['properties']['digest']); revision_spec=copy.deepcopy(p['fsm']['properties']['inputRevision'])
  cert['properties']['operationIdentityDigest']=copy.deepcopy(digest_spec);cert['properties']['inputRevision']=copy.deepcopy(revision_spec);cert['properties']['outputRevision']=copy.deepcopy(revision_spec)
@@ -42,8 +46,8 @@ def recert(r):
  c={'version':5,'body':digest(body),'previousStateDigest':p['previousStateDigest'],'authoritativeLedgerRoot':p['authoritativeLedgerRoot'],'transactionJournalRoot':p['transactionJournalRoot'],'claimedBrokerDigest':digest(bp),'claimedEconomicDigest':digest(e),'claimedAllocationDigest':digest(a),'claimedPersistenceDigest':digest(p),'claimedFsmDigest':digest(f),'claimedOutputStateDigest':digest(f['outputState']),'operationIdentityDigest':digest(r['context']),'inputRevision':f['inputRevision'],'outputRevision':f['outputRevision']}
  c['digest']=digest(c);r['certificate']=c
 def sync_event(r):
- for d in r['deals']:
-  for e in r['events']:
+ for d in (r['deals'] if 'deals' in r else []):
+  for e in (r['events'] if 'events' in r else []):
    if e['dealId']==d['dealId']:
     for k in ('intentId','positionTicket','accountId','symbol','magic','cycleId','transactionId','actionId','role','direction','volume','price','commission','swap','fee','timestamp','stateRevision','snapshotRevision','confirmed'):e[k]=d[k]
 def transform(item,variant):
@@ -56,13 +60,14 @@ def transform(item,variant):
   total=Decimal(r['intents'][0]['requestedVolume']);first=Decimal('0.05');second=total-first;r['deals'][0]['volume']=f'{first:.2f}';d2=copy.deepcopy(r['deals'][0]);d2['dealId']+='-B';d2['eventId']+='-B';d2['volume']=f'{second:.2f}';d2['commission']='-0.75';r['deals'].append(d2);e2=copy.deepcopy(r['events'][0]);e2['dealId']=d2['dealId'];e2['eventId']=d2['eventId'];r['events'].append(e2)
  if variant==4:
   r['economic']['recoveryPL']='0.01';r['persistedState']['recoveryPL']='0.01';r['deals'][0]['commission']='-3';r['deals'][0]['swap']='-0.25';r['deals'][0]['fee']='-0.10'
- if r['phase']=='PRE_COMMIT':r['deals']=[];r['events']=[];r['persistedState']['consumedDealIds']=[];r['persistedState']['seenEventIds']=[];r['persistedState']['dealEventBindings']=[]
+ if r['phase']=='PRE_COMMIT':
+  r.pop('deals');r.pop('events');r['persistedState'].pop('consumedDealIds');r['persistedState'].pop('seenEventIds');r['persistedState'].pop('dealEventBindings')
  active=scenario in ('BIG','SMALL','RESTART_CONTINUATION')
  if active:
   main=r['positions'][0];far=copy.deepcopy(main);far['ticket']=main['ticket']+'-FAR';far['role']='FAR';far['direction']='SELL' if main['direction']=='BUY' else 'BUY';far['volume']='0.05';far['authoritativeVolume']='0.05';r['positions'].append(far);r['persistedState']['farState']={'active':True,'ticket':far['ticket'],'volume':far['volume'],'loss':r['economic']['farActualLoss'],'direction':far['direction']}
  else:r['persistedState']['farState']={'active':False}
  r['persistedState']['cumulativeFills']=[{'ticket':r['positions'][0]['ticket'],'volume':r['intents'][0]['requestedVolume']}]
- r['persistedState']['moneyByDeal']=[{'key':d['dealId'],'value':str(abs(Decimal(d['commission'])+Decimal(d['swap'])+Decimal(d['fee'])))} for d in r['deals']]
+ r['persistedState']['moneyByDeal']=[{'key':d['dealId'],'value':str(abs(Decimal(d['commission'])+Decimal(d['swap'])+Decimal(d['fee'])))} for d in (r['deals'] if 'deals' in r else [])]
  sync_event(r);recert(r);return r
 def state(r,label=None):
  return {'fsmState':label or r['fsm']['inputState'],'revision':r['fsm']['inputRevision'],'cycleId':r['context']['cycleId'],'stateDigest':digest({'state':label or r['fsm']['inputState'],'revision':r['fsm']['inputRevision'],'cycleId':r['context']['cycleId']})}
