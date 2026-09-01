@@ -40,6 +40,6 @@ def mutations():
  finally:
   if tmp.exists():shutil.rmtree(tmp)
 def main():
- f=format_probes();m=mutations();out={'formatProbes':f,'sourceMutants':m,'mainSourceUnchanged':all(h(ROOT/x[1])==xhash for x,xhash in [(z,h(ROOT/z[1])) for z in MUTANTS]),'result':'PASS' if all(x['caught'] for x in f+m) else 'FAIL'}
+ before={rel:h(ROOT/rel) for _,rel,_,_ in MUTANTS};f=format_probes();m=mutations();unchanged=all(h(ROOT/rel)==value for rel,value in before.items());out={'formatProbes':f,'sourceMutants':m,'mainSourceUnchanged':unchanged,'result':'PASS' if unchanged and all(x['caught'] for x in f+m) else 'FAIL'}
  print(json.dumps(out,indent=2,sort_keys=True));return 0 if out['result']=='PASS' else 1
 if __name__=='__main__':raise SystemExit(main())
