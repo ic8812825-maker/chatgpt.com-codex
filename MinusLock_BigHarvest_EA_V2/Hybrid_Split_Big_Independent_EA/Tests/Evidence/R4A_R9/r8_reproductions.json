@@ -1,0 +1,79 @@
+{
+  "cases": [
+    {
+      "caseId": "R8_UNCONFIRMED",
+      "changedPath": "deals/events[*].confirmed",
+      "mutatedSha256": "2706ae89f8fa83c175095e68550337768019eee3aaa743ac37bca947ae35ddb4",
+      "positiveSha256": "35f0a1b0d6e95ae9c9b9b87ee8b4ff09f86fc2603c6a4c529d0b046b43cb2896",
+      "r8Actual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "required": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R8_STATE_REVISION",
+      "changedPath": "deals/events[*].stateRevision",
+      "mutatedSha256": "8dbc710b28ac480281470e912864bd51e413438d2599308376ed5579b82b2e3d",
+      "positiveSha256": "35f0a1b0d6e95ae9c9b9b87ee8b4ff09f86fc2603c6a4c529d0b046b43cb2896",
+      "r8Actual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "required": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R8_SNAPSHOT_REVISION",
+      "changedPath": "deals/events[*].snapshotRevision",
+      "mutatedSha256": "80ce1d8c41c879e176a248c5d05441b54ca1b42dcf5a400439447ec492f01eb4",
+      "positiveSha256": "35f0a1b0d6e95ae9c9b9b87ee8b4ff09f86fc2603c6a4c529d0b046b43cb2896",
+      "r8Actual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "required": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R8_SCENARIO_PHASE",
+      "changedPath": "scenario",
+      "mutatedSha256": "c3567243b804fe911df3a7535271cad46df636cd36f0174b7fb0a688265c80d9",
+      "positiveSha256": "35f0a1b0d6e95ae9c9b9b87ee8b4ff09f86fc2603c6a4c529d0b046b43cb2896",
+      "r8Actual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "required": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R8_RESULT_ONLY_PASS",
+      "changedPath": "runner outcome rows",
+      "mutatedSha256": "6a9d84bf51f7a5f4f78251a81036b68a6b68445e4bf2ad73fdf84f501aef9e25",
+      "positiveSha256": "c5130d4d66b58a0be8838045bf8783e32157f0a50409d8a6712b11db5e2375a6",
+      "r8Actual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "required": "ACCEPTANCE_FAIL"
+    },
+    {
+      "caseId": "R8_CONTRADICTORY_PASS",
+      "changedPath": "runner outcome rows",
+      "mutatedSha256": "4bdbd4eed4e188c90584b15c378fd77bf7b793104b93a13175be02faa84e6c0b",
+      "positiveSha256": "c5130d4d66b58a0be8838045bf8783e32157f0a50409d8a6712b11db5e2375a6",
+      "r8Actual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "required": "ACCEPTANCE_FAIL"
+    }
+  ],
+  "r8SensitivityLimitation": "R8 sensitivity mutates completed rows; it does not mutate validator source.",
+  "reproduced": 6,
+  "target": "db47f2c091ac900323b14452b321e8e7581a30cc"
+}
