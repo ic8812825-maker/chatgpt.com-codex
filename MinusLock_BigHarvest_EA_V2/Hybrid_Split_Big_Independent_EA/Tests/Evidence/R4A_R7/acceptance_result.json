@@ -1,0 +1,464 @@
+{
+  "coverageTable": [
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": false,
+        "persistedEvidence": false,
+        "phase": "PRE_COMMIT"
+      },
+      "runtimeSha256": "38bf9d5dc25476be14633026f4012fa9ae5abbf4f532430a569a680119818e4b",
+      "scenario": "INITIAL",
+      "semanticShapeSha256": "f939a52a3ea31187f880027f2c70ffbb00408ce0b1e992255e3692b5b44ae20c"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "SELL"
+        ],
+        "minimumVolume": true,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "35f0a1b0d6e95ae9c9b9b87ee8b4ff09f86fc2603c6a4c529d0b046b43cb2896",
+      "scenario": "INITIAL",
+      "semanticShapeSha256": "24121d8548734ce06911c48d92fa3cb8285592308df53c4fead4be01f8e68dfc"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY"
+        ],
+        "minimumVolume": false,
+        "multiFill": true,
+        "nontrivialTick": true,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "c40e47199fbbd6df3af132657c7845fcddb043b8830a1a359436271bcf73319a",
+      "scenario": "INITIAL",
+      "semanticShapeSha256": "43a722dd4f4f27565882f7980cd065dcc2ff90ff0151c1dd0625cabe6e11ef96"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "f2495104eabb16402d7436e26fbf01a6660213391fc141c710d3e704de338b2f",
+      "scenario": "INITIAL",
+      "semanticShapeSha256": "fa65b88f880645a81f55f19feb0e8c92fc05705e12d15813fdf0de662c23cd24"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "1ff53c600a313ba65a302bca8e78f03eff937dd76c29feee16f2a6bf82e705de",
+      "scenario": "BIG",
+      "semanticShapeSha256": "e3d02d1633be3191bdc3ae17612ea593b8dd8338ff7bf36930b2eb1fa7af79b3"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": true,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "a339347e306cbea842f8ccffc98fda29bbb0e58145ded6e64305b1ff58f2a8e3",
+      "scenario": "BIG",
+      "semanticShapeSha256": "c164053515f1e81e9f69c9abe9fe646a262e8ce8842079254bfb40ec1c044e34"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": true,
+        "nontrivialTick": true,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "0f892e0ca5f66b56915aa344dc51b38d67595a9db4b5c8e1bf1daa5514e81773",
+      "scenario": "BIG",
+      "semanticShapeSha256": "05e9c5488ecd374a184f57feca66ffe4eb87c6cce875bf8c00da42384212b800"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "a97dd2263954197f31acecf96709872c7257d929a5a1d98cbd47690bc16df23e",
+      "scenario": "BIG",
+      "semanticShapeSha256": "ab57495abdff78a94120bb8d49579236a80e4213f5bda951ff745837f5e9838f"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "43f421e826fb75b07842c44f55c55ec67cb4dd6f65d448adaaf65a206705562a",
+      "scenario": "SMALL",
+      "semanticShapeSha256": "1e6a3f76e59503ec2eaf25ab2aae087295ff24f7cda1bd7cc9a8e81f55a8edc0"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": true,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "335565b79b270e6628277c2e90f6d81dc1ca37ca9916ccbd0a3bb7c386d1abcc",
+      "scenario": "SMALL",
+      "semanticShapeSha256": "d24f3143f54eb3249f6835937375a7555de6b59982dbc8060ff71bf8a56abd0e"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": true,
+        "nontrivialTick": true,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "d964d95867bdb850ce29abc11c6e75c9ad8211798ecadc471dd5a2a9b708ff97",
+      "scenario": "SMALL",
+      "semanticShapeSha256": "3769273bea2b4d7f36845c9cb614e51dffbb034b843dc0628ba6415ebdb60cf2"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "7c8e4c57824be982d4e1c2c05e877b917318c55660a084795d74b5936f656fac",
+      "scenario": "SMALL",
+      "semanticShapeSha256": "a0a1f0238914cab1eb948ac9aa19473bc1928350b7f3d65ee4799a51b507a77a"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "bf64699732334ca795df2670ebbd619775c7bb329bec30aa12fb574ddd9e94ac",
+      "scenario": "FINAL",
+      "semanticShapeSha256": "a99c995c2b9287c1adcc8fddc18fc86686fad984bf6c051c9e760f7fd2b9b7f0"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "SELL"
+        ],
+        "minimumVolume": true,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "8bab49ca11ecbbca742a9f008d29597c92fb4555394ea5360a7b97610cf70e51",
+      "scenario": "FINAL",
+      "semanticShapeSha256": "2fe52a2d7be067cee382bbe0b42ea9f829df1820db465720de2490de08772491"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY"
+        ],
+        "minimumVolume": false,
+        "multiFill": true,
+        "nontrivialTick": true,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "b7baa0e9b1b2dacd3b224c4cc79c8397243556254083f4d832b91d6c4ce1219d",
+      "scenario": "FINAL",
+      "semanticShapeSha256": "31348983f205dc435e257c9fd17146539fdd393ca5f0a47266b4247b76458245"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": false,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "73907bba2dcfcfecf09d2d3970a31e4cac0d306ec2ea8927c9c714dfd650743b",
+      "scenario": "FINAL",
+      "semanticShapeSha256": "6e737fb0ff946303b726b6be3a452c7cdb5d5b9f5dd0620fbc78189d719f3b21"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": true,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "64d248b899b7599c23019cb99e8d8bdb3006dff6419be0d8580f98e6b39e229d",
+      "scenario": "RESTART_CONTINUATION",
+      "semanticShapeSha256": "25af042f670c9e4a7333f4be0e5b2de51bf335c7ef0a46bc922ec36e5f31d220"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": true,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": true,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "9141ba9a5b202545176e64e2426466873324d5d24159f544030f21e4bc7026f9",
+      "scenario": "RESTART_CONTINUATION",
+      "semanticShapeSha256": "da3e9f0dcd25a2fffe8751651890f3fe7bc3d82a3b47ea126a763b0c03da216f"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": true,
+        "nontrivialTick": true,
+        "nonzeroCosts": true,
+        "persistedEvidence": true,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "1fd21c05c82befede7ff3b4c9b5af6d820b2a5b544dfcd4174a4007c4d30d6bc",
+      "scenario": "RESTART_CONTINUATION",
+      "semanticShapeSha256": "7521b66f735d7483f74f27e04c5415260f35fcc0789a891d03a8e66af31ef329"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY",
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": true,
+        "phase": "COMMITTED"
+      },
+      "runtimeSha256": "0a1cb33dfc04273dc36093fbceaa43ba8354be0fd2dda1b8abbaba0abf342d7c",
+      "scenario": "RESTART_CONTINUATION",
+      "semanticShapeSha256": "7fb050942c97fc837e1b950db17b78cb9f90a444694af79070d86b7f502702d5"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": true,
+        "phase": "REPLAY"
+      },
+      "runtimeSha256": "4ef2564ec802bab2a34d929a7ebb2554911ba88abd763dac07a023ca131adfe0",
+      "scenario": "REPLAY_COMMITTED",
+      "semanticShapeSha256": "503bbab12366cf6ce9c3abcea99039ab154b2d03da5a6b0a9a43a4eb28867032"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "SELL"
+        ],
+        "minimumVolume": true,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": true,
+        "phase": "REPLAY"
+      },
+      "runtimeSha256": "5b158bf4fe3698e171374cfd73ac8d4eac9d3cd64a36544c89ebdc6fd67a1f1e",
+      "scenario": "REPLAY_COMMITTED",
+      "semanticShapeSha256": "0bc6799a72ffd2cc098105c05c18ddccab305ed1ac8a52aee2bbdfc8da175b49"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "BUY"
+        ],
+        "minimumVolume": false,
+        "multiFill": true,
+        "nontrivialTick": true,
+        "nonzeroCosts": true,
+        "persistedEvidence": true,
+        "phase": "REPLAY"
+      },
+      "runtimeSha256": "808d4b4298ae97d77b13744730ca38d49a571a8776c2292f5c2faf22c99c9fd6",
+      "scenario": "REPLAY_COMMITTED",
+      "semanticShapeSha256": "5901714c13665db9dc809dae0ff4f8b631fb6fe794cb0af2ba22d9fdf403c59a"
+    },
+    {
+      "derivedProperties": {
+        "directions": [
+          "SELL"
+        ],
+        "minimumVolume": false,
+        "multiFill": false,
+        "nontrivialTick": false,
+        "nonzeroCosts": true,
+        "persistedEvidence": true,
+        "phase": "REPLAY"
+      },
+      "runtimeSha256": "a6428342a303f5fd8a7d28f6110612834c19cff9f622a2f25d55f617a094d12a",
+      "scenario": "REPLAY_COMMITTED",
+      "semanticShapeSha256": "44f8a98276954ffbf2f2dc33d441167a79fa0ab6c615a17947a85be1d63eab96"
+    },
+    {
+      "derivedProperties": {
+        "operations": [
+          "INITIAL",
+          "BIG",
+          "FINAL"
+        ],
+        "stepCount": 3
+      },
+      "runtimeSha256": "c3312169953dfece405d055efbe794e21ae6bfd7c587fc36d12dcacbaaf4a872",
+      "scenario": "LIFECYCLE",
+      "semanticShapeSha256": "5c60b100f59843998c236f471342fe9903f625bc423bce933955663e8f59ff3f"
+    },
+    {
+      "derivedProperties": {
+        "operations": [
+          "INITIAL",
+          "SMALL",
+          "FINAL"
+        ],
+        "stepCount": 3
+      },
+      "runtimeSha256": "9a65b7b9d07b357504dbfc5a70032332bb569b60a6d9be9ae67b85ce6f45b59c",
+      "scenario": "LIFECYCLE",
+      "semanticShapeSha256": "66b94f78b5164bf24bdca42c5ab035148393a704cc70bec9172735fefef6462c"
+    },
+    {
+      "derivedProperties": {
+        "operations": [
+          "INITIAL",
+          "RESTART",
+          "FINAL"
+        ],
+        "stepCount": 3
+      },
+      "runtimeSha256": "d1e47f64bd95f9a9236aea20c8009268c66b02509ef80d2e0e4193ac8ef62aab",
+      "scenario": "LIFECYCLE",
+      "semanticShapeSha256": "f229cd34d943b9581febc012c090f34e7f0c69423363cc89bfd5aa9e6b9a9149"
+    },
+    {
+      "derivedProperties": {
+        "operations": [
+          "FINAL",
+          "REPLAY"
+        ],
+        "stepCount": 2
+      },
+      "runtimeSha256": "d85c866c7b30da25ac78a18e24298f4afd8a3f1ad609f7edd13ffec11c519957",
+      "scenario": "LIFECYCLE",
+      "semanticShapeSha256": "65dbadd8569d5e641e61a342634eff50968b3a12128ae5df3fcbd882c52a966f"
+    }
+  ],
+  "findings": [],
+  "freshRegression": {
+    "executed": 38,
+    "required": 38,
+    "unexpectedInfrastructureErrors": 0,
+    "wrongFailures": 0
+  },
+  "nativeModelChanged": false,
+  "productionDiffPaths": [],
+  "protectedFiles": 47,
+  "protectedMismatches": 0,
+  "result": "PASS",
+  "scopeViolations": 0
+}
