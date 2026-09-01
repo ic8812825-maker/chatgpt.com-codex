@@ -1,0 +1,114 @@
+{
+  "cases": [
+    {
+      "caseId": "R4_FORGED_CERTIFICATE_DIGEST",
+      "historicalActualResult": {
+        "class": "ACCEPTED",
+        "detail": "returned normally"
+      },
+      "historicalValidator": "/workspace/chatgpt.com-codex-hsb2e-r4-r9-r4a-r5/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py",
+      "inputSha256": "4b51adda8795c9b952f19000420b16ae234d2c53868ecea172c6b523b816fbec",
+      "requiredCorrectBehavior": "NORMATIVE_REJECTION:CERTIFICATE_INTERNAL_INTEGRITY"
+    },
+    {
+      "caseId": "R4_CERTIFICATE_PHASE_UNEXPRESSIBLE",
+      "historicalActualResult": {
+        "class": "NORMATIVE_REJECTION",
+        "detail": "scenarioInput: missing required fields ['certificate']"
+      },
+      "historicalValidator": "/workspace/chatgpt.com-codex-hsb2e-r4-r9-r4a-r5/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py",
+      "inputSha256": "16a685c4255cb33e3970a7df6e49f35039b2e2cc6eeb83647b0717805dc4d79b",
+      "requiredCorrectBehavior": "EXPLICIT_PHASE_DEPENDENT_APPLICABILITY"
+    },
+    {
+      "caseId": "R4_FAR_ROLE_MISMATCH",
+      "historicalActualResult": {
+        "class": "MISMATCHES",
+        "count": 20,
+        "fixtures": [
+          "V3-INITIAL-1",
+          "V3-INITIAL-2",
+          "V3-INITIAL-3",
+          "V3-INITIAL-4",
+          "V3-BIG-1",
+          "V3-BIG-2",
+          "V3-BIG-3",
+          "V3-BIG-4",
+          "V3-RESTART_CONTINUATION-1",
+          "V3-RESTART_CONTINUATION-2",
+          "V3-RESTART_CONTINUATION-3",
+          "V3-RESTART_CONTINUATION-4",
+          "V3-LIFECYCLE-1",
+          "V3-LIFECYCLE-2",
+          "V3-LIFECYCLE-3",
+          "V3-LIFECYCLE-4",
+          "V3-SMALL-1",
+          "V3-SMALL-2",
+          "V3-SMALL-3",
+          "V3-SMALL-4"
+        ]
+      },
+      "historicalValidator": "/workspace/chatgpt.com-codex-hsb2e-r4-r9-r4a-r5/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py",
+      "inputSha256": "065badc94f978316c69cff9f95131520aac2a510a2392f96b42821368dc2c9f1",
+      "requiredCorrectBehavior": "ACTIVE_FAR_RESOLVES_TO_ONE_OWNED_FAR_POSITION"
+    },
+    {
+      "caseId": "R4_LIFECYCLE_SINGLE_STEP",
+      "historicalActualResult": {
+        "class": "SINGLE_RUNTIME_OBJECTS",
+        "count": 4
+      },
+      "historicalValidator": "/workspace/chatgpt.com-codex-hsb2e-r4-r9-r4a-r5/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py",
+      "inputSha256": "a6413929a2fa290145cf4e93d72fcaa747f9d73f38904f60526862ad4c961a91",
+      "requiredCorrectBehavior": "CONNECTED_DECLARED_SEQUENCE"
+    },
+    {
+      "caseId": "R4_SELF_TEST_INFRASTRUCTURE_CAUGHT",
+      "historicalActualResult": {
+        "class": "KEYERROR_AND_TYPEERROR_COUNTED_AS_CAUGHT"
+      },
+      "historicalValidator": "R4 self-test harness",
+      "inputSha256": "f7bbca554ba237bb71afd99f8e2fe857621dcd6605e105fc8b93cfc7e2ddcd64",
+      "requiredCorrectBehavior": "INFRASTRUCTURE_ERROR"
+    },
+    {
+      "caseId": "R4_BOUNDARY_DIVERSITY_ABSENT",
+      "historicalActualResult": {
+        "class": "STANDARD_GRID_TEMPLATE",
+        "fixtureCount": 28
+      },
+      "historicalValidator": "independent data classification",
+      "inputSha256": "6a5cf9f79cea582b335a15f08f9a239ddd256985a9deb12d6c5ea4404a4e97b4",
+      "requiredCorrectBehavior": "COMPUTED_RUNTIME_BOUNDARY_COVERAGE"
+    }
+  ],
+  "executed": 6,
+  "protectedFiles": [
+    {
+      "path": "Reports/HSB_2E_PREP_R4_R9_R4A_R4_INDEPENDENT_AUDIT_RU.md",
+      "sha256": "c0773114abc910fdf12278cb01982c47a92c8efe967c8125476fd73216250892"
+    },
+    {
+      "path": "Reports/HSB_2E_PREP_R4_R9_R4A_R4_PROGRESS_HANDOFF_RU.md",
+      "sha256": "416c795012956ee70c25937662bcacab5892f339e53af4545780a1d73ae515b3"
+    },
+    {
+      "path": "Tests/Contracts/HSB_2E_R4_R9_R4A_R4_SCENARIO_INPUT_SCHEMA_V3.json",
+      "sha256": "65eef8af0b92fb6a85987323223f9696f37ffa5aa806ff4e7455e4a7467c9ac2"
+    },
+    {
+      "path": "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_INITIAL_BIG.json",
+      "sha256": "b37a524c459a6350d9fe3f0a8074b29dbcd337883acac7d48d0bb783aec96f04"
+    },
+    {
+      "path": "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_RESTART_REPLAY_LIFECYCLE.json",
+      "sha256": "a963890c8a4e55f43ef2fef9e480718eb0e858455bdd5443dafc9d746b9622f6"
+    },
+    {
+      "path": "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_SMALL_FINAL.json",
+      "sha256": "d3d2402659b6fb14a989c111a03426c58d1764d7dbf4542f3b5194c68a82e5d1"
+    }
+  ],
+  "required": 6,
+  "schemaVersion": "1.0"
+}
