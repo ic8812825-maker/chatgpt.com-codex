@@ -1,0 +1,234 @@
+{
+  "cases": [
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-INITIAL-1",
+      "positionRoles": [
+        "NEAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-INITIAL-2",
+      "positionRoles": [
+        "NEAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-INITIAL-3",
+      "positionRoles": [
+        "NEAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-INITIAL-4",
+      "positionRoles": [
+        "NEAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-BIG-1-FAR",
+      "fixtureId": "R5-BIG-1",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-BIG-2-FAR",
+      "fixtureId": "R5-BIG-2",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-BIG-3-FAR",
+      "fixtureId": "R5-BIG-3",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-BIG-4-FAR",
+      "fixtureId": "R5-BIG-4",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-SMALL-1-FAR",
+      "fixtureId": "R5-SMALL-1",
+      "positionRoles": [
+        "SMALL",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-SMALL-2-FAR",
+      "fixtureId": "R5-SMALL-2",
+      "positionRoles": [
+        "SMALL",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-SMALL-3-FAR",
+      "fixtureId": "R5-SMALL-3",
+      "positionRoles": [
+        "SMALL",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-SMALL-4-FAR",
+      "fixtureId": "R5-SMALL-4",
+      "positionRoles": [
+        "SMALL",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-FINAL-1",
+      "positionRoles": [
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-FINAL-2",
+      "positionRoles": [
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-FINAL-3",
+      "positionRoles": [
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-FINAL-4",
+      "positionRoles": [
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-RESTART_CONTINUATION-1-FAR",
+      "fixtureId": "R5-RESTART_CONTINUATION-1",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-RESTART_CONTINUATION-2-FAR",
+      "fixtureId": "R5-RESTART_CONTINUATION-2",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-RESTART_CONTINUATION-3-FAR",
+      "fixtureId": "R5-RESTART_CONTINUATION-3",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": true,
+      "farTicket": "TKT-RESTART_CONTINUATION-4-FAR",
+      "fixtureId": "R5-RESTART_CONTINUATION-4",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-REPLAY_COMMITTED-1",
+      "positionRoles": [
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-REPLAY_COMMITTED-2",
+      "positionRoles": [
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-REPLAY_COMMITTED-3",
+      "positionRoles": [
+        "FAR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "active": false,
+      "farTicket": null,
+      "fixtureId": "R5-REPLAY_COMMITTED-4",
+      "positionRoles": [
+        "FAR"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "mismatches": 0,
+  "result": "PASS"
+}
