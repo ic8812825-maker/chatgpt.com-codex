@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "caseId": "RUNTIME_DUPLICATES_METADATA_DISTINCT",
+      "result": "PASS"
+    },
+    {
+      "caseId": "METADATA_ERASURE",
+      "result": "PASS"
+    },
+    {
+      "caseId": "BROKEN_VALIDATOR_WITH_STALE_EVIDENCE",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_REPLAY",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_STATE_DIGEST",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_SCHEMA",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_CERTIFICATE",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_OUTPUT_BINDING",
+      "result": "PASS"
+    }
+  ],
+  "executed": 8,
+  "failed": 0,
+  "required": 8,
+  "result": "PASS"
+}
