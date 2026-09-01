@@ -1,0 +1,389 @@
+{
+  "cases": [
+    {
+      "actualCheckId": "",
+      "actualClass": "ACCEPTED",
+      "actualReason": "",
+      "caseId": "VALID",
+      "expectedCheckId": "",
+      "expectedClass": "ACCEPTED",
+      "expectedReason": "",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_TEMPORAL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CONTRADICTORY_WINDOW",
+      "caseId": "CONTRADICTORY_WINDOW",
+      "expectedCheckId": "R6_TEMPORAL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CONTRADICTORY_WINDOW",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_TEMPORAL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DEAL_OUTSIDE_WINDOW",
+      "caseId": "STALE_DEAL",
+      "expectedCheckId": "R6_TEMPORAL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DEAL_OUTSIDE_WINDOW",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_TEMPORAL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DEAL_OUTSIDE_WINDOW",
+      "caseId": "FUTURE_DEAL",
+      "expectedCheckId": "R6_TEMPORAL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DEAL_OUTSIDE_WINDOW",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_SCHEMA",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "MISSING_REQUIRED",
+      "caseId": "MISSING_TIME",
+      "expectedCheckId": "R5_SCHEMA",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "MISSING_REQUIRED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_DIRECTION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CLOSE_DIRECTION_OR_REVISION_MISMATCH",
+      "caseId": "SAME_CLOSE_DIRECTION",
+      "expectedCheckId": "R6_DIRECTION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CLOSE_DIRECTION_OR_REVISION_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_IDENTITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DEAL_CONTEXT_MISMATCH",
+      "caseId": "FOREIGN_MAGIC",
+      "expectedCheckId": "R6_IDENTITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DEAL_CONTEXT_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_DUAL_TAIL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "TAIL_COUNT_MISMATCH",
+      "caseId": "DUAL_TAIL",
+      "expectedCheckId": "R6_DUAL_TAIL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "TAIL_COUNT_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_FAR",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "MULTIPLE_ACTIVE_FAR",
+      "caseId": "SECOND_FAR",
+      "expectedCheckId": "R6_FAR",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "MULTIPLE_ACTIVE_FAR",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_REPLAY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "REGISTRY_MUTATION",
+      "caseId": "FOREIGN_REPLAY_IDS",
+      "expectedCheckId": "R7_REPLAY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "REGISTRY_MUTATION",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_REPLAY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CURRENT_REVISION_MUTATION",
+      "caseId": "REPLAY_REVISION_INCREMENT",
+      "expectedCheckId": "R7_REPLAY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CURRENT_REVISION_MUTATION",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "UNKNOWN_OPERATION",
+      "caseId": "UNKNOWN_OPERATION",
+      "expectedCheckId": "R7_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "UNKNOWN_OPERATION",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "STATE_DIGEST_MISMATCH",
+      "caseId": "BAD_STATE_DIGEST",
+      "expectedCheckId": "R7_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "STATE_DIGEST_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "INPUT_BINDING_MISMATCH",
+      "caseId": "LIFECYCLE_DISCONTINUITY",
+      "expectedCheckId": "R7_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "INPUT_BINDING_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "caseId": "CERT_ZERO",
+      "expectedCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_TYPE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "EXACT_INTEGER_REQUIRED",
+      "caseId": "BOOLEAN_ID",
+      "expectedCheckId": "R5_TYPE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "EXACT_INTEGER_REQUIRED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_NUMERIC",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "NONFINITE_DECIMAL",
+      "caseId": "NAN",
+      "expectedCheckId": "R5_NUMERIC",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "NONFINITE_DECIMAL",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_GRID",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "POSITION_OFF_GRID",
+      "caseId": "OFFGRID_VOLUME",
+      "expectedCheckId": "R5_GRID",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "POSITION_OFF_GRID",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "KeyError",
+      "actualClass": "INFRASTRUCTURE_ERROR",
+      "actualReason": "'missing'",
+      "caseId": "HARNESS_KEYERROR",
+      "expectedCheckId": "KeyError",
+      "expectedClass": "INFRASTRUCTURE_ERROR",
+      "expectedReason": "'missing'",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "TypeError",
+      "actualClass": "INFRASTRUCTURE_ERROR",
+      "actualReason": "unsupported operand type(s) for +: 'int' and 'str'",
+      "caseId": "HARNESS_TYPEERROR",
+      "expectedCheckId": "TypeError",
+      "expectedClass": "INFRASTRUCTURE_ERROR",
+      "expectedReason": "unsupported operand type(s) for +: 'int' and 'str'",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_ENUM",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "INVALID_ENUM",
+      "caseId": "INVALID_SCHEMA_VERSION",
+      "expectedCheckId": "R5_ENUM",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "INVALID_ENUM",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_CERTIFICATE_INTEGRITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "caseId": "REPLAY_ZERO_CERT",
+      "expectedCheckId": "R7_CERTIFICATE_INTEGRITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_REPLAY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "HISTORICAL_REVISION_MISMATCH",
+      "caseId": "HISTORICAL_REVISION_REVERSED",
+      "expectedCheckId": "R7_REPLAY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "HISTORICAL_REVISION_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_REPLAY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "AUTHORITATIVE_STATE_BINDING_MISMATCH",
+      "caseId": "REPLAY_FAKE_RESERVE",
+      "expectedCheckId": "R7_REPLAY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "AUTHORITATIVE_STATE_BINDING_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "SEQUENCE_TOO_SHORT",
+      "caseId": "EMPTY_LIFECYCLE",
+      "expectedCheckId": "R7_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "SEQUENCE_TOO_SHORT",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "UNKNOWN_FSM_STATE",
+      "caseId": "BAD_LAST_OUTPUT",
+      "expectedCheckId": "R7_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "UNKNOWN_FSM_STATE",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "caseId": "CERT_BODY_CHANGED",
+      "expectedCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_SOURCE_MISMATCH",
+      "caseId": "CERT_CLAIM_RESEALED",
+      "expectedCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_SOURCE_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_SOURCE_MISMATCH",
+      "caseId": "CERT_OTHER_OPERATION",
+      "expectedCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_SOURCE_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_STRUCTURE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_REQUIRED",
+      "caseId": "CERT_MISSING_COMMITTED",
+      "expectedCheckId": "CERTIFICATE_STRUCTURE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_REQUIRED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_STRUCTURE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_FORBIDDEN_PRE_COMMIT",
+      "caseId": "CERT_PROVIDED_PRECOMMIT",
+      "expectedCheckId": "CERTIFICATE_STRUCTURE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_FORBIDDEN_PRE_COMMIT",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_SCHEMA",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "UNKNOWN_FIELD",
+      "caseId": "UNKNOWN_NESTED",
+      "expectedCheckId": "R5_SCHEMA",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "UNKNOWN_FIELD",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_NUMERIC",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "NONFINITE_DECIMAL",
+      "caseId": "INFINITY",
+      "expectedCheckId": "R5_NUMERIC",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "NONFINITE_DECIMAL",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_GRID",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "POSITION_OFF_GRID",
+      "caseId": "OFFGRID_PRICE",
+      "expectedCheckId": "R5_GRID",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "POSITION_OFF_GRID",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_DEAL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DUPLICATE_DEAL",
+      "caseId": "DUPLICATE_DEAL",
+      "expectedCheckId": "R5_DEAL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DUPLICATE_DEAL",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_MONEY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "MONEY_CONSERVATION_MISMATCH",
+      "caseId": "MONEY_CONSERVATION",
+      "expectedCheckId": "R5_MONEY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "MONEY_CONSERVATION_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_VOLUME",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "VOLUME_CONSERVATION_MISMATCH",
+      "caseId": "VOLUME_CONSERVATION",
+      "expectedCheckId": "R5_VOLUME",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "VOLUME_CONSERVATION_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_RESERVE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "RESERVE_PARTIAL_FAR_FORBIDDEN",
+      "caseId": "RESERVE_PARTIAL_FAR",
+      "expectedCheckId": "R5_RESERVE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "RESERVE_PARTIAL_FAR_FORBIDDEN",
+      "result": "PASS"
+    }
+  ],
+  "executed": 38,
+  "required": 38,
+  "result": "PASS",
+  "unexpectedInfrastructureErrors": 0,
+  "wrongFailures": 0
+}

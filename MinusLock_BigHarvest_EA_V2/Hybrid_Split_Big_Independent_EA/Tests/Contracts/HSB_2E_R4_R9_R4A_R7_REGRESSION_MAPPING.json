@@ -1,0 +1,344 @@
+{
+  "lostRequirements": 0,
+  "mapped": 48,
+  "mapping": [
+    {
+      "explanation": "property retained by executable VALID",
+      "r7CaseId": "VALID",
+      "source": "R5",
+      "sourceCaseId": "VALID_COMMITTED",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "property retained by executable VALID",
+      "r7CaseId": "VALID",
+      "source": "R5",
+      "sourceCaseId": "VALID_PRECOMMIT_NO_CERT",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "property retained by executable CERT_ZERO",
+      "r7CaseId": "CERT_ZERO",
+      "source": "R5",
+      "sourceCaseId": "CERT_ZERO_DIGEST",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "CERT_BODY_CHANGED",
+      "source": "R5",
+      "sourceCaseId": "CERT_BODY_CHANGED",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "CERT_CLAIM_RESEALED",
+      "source": "R5",
+      "sourceCaseId": "CERT_CLAIM_RESEALED",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "CERT_OTHER_OPERATION",
+      "source": "R5",
+      "sourceCaseId": "CERT_OTHER_OPERATION",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "CERT_MISSING_COMMITTED",
+      "source": "R5",
+      "sourceCaseId": "CERT_MISSING_COMMITTED",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "CERT_PROVIDED_PRECOMMIT",
+      "source": "R5",
+      "sourceCaseId": "CERT_PROVIDED_PRECOMMIT",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "property retained by executable CERT_PROVIDED_PRECOMMIT",
+      "r7CaseId": "CERT_PROVIDED_PRECOMMIT",
+      "source": "R5",
+      "sourceCaseId": "PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "property retained by executable MISSING_TIME",
+      "r7CaseId": "MISSING_TIME",
+      "source": "R5",
+      "sourceCaseId": "MISSING_NESTED",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "UNKNOWN_NESTED",
+      "source": "R5",
+      "sourceCaseId": "UNKNOWN_NESTED",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "property retained by executable BOOLEAN_ID",
+      "r7CaseId": "BOOLEAN_ID",
+      "source": "R5",
+      "sourceCaseId": "BOOLEAN_INTEGER",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "NAN",
+      "source": "R5",
+      "sourceCaseId": "NAN",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "INFINITY",
+      "source": "R5",
+      "sourceCaseId": "INFINITY",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "OFFGRID_PRICE",
+      "source": "R5",
+      "sourceCaseId": "OFFGRID_PRICE",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "OFFGRID_VOLUME",
+      "source": "R5",
+      "sourceCaseId": "OFFGRID_VOLUME",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "DUPLICATE_DEAL",
+      "source": "R5",
+      "sourceCaseId": "DUPLICATE_DEAL",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "property retained by executable FOREIGN_MAGIC",
+      "r7CaseId": "FOREIGN_MAGIC",
+      "source": "R5",
+      "sourceCaseId": "ORPHAN_DEAL",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "property retained by executable FOREIGN_MAGIC",
+      "r7CaseId": "FOREIGN_MAGIC",
+      "source": "R5",
+      "sourceCaseId": "OWNERSHIP",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "MONEY_CONSERVATION",
+      "source": "R5",
+      "sourceCaseId": "MONEY_CONSERVATION",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "VOLUME_CONSERVATION",
+      "source": "R5",
+      "sourceCaseId": "VOLUME_CONSERVATION",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "RESERVE_PARTIAL_FAR",
+      "source": "R5",
+      "sourceCaseId": "RESERVE_PARTIAL_FAR",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "property retained by executable SECOND_FAR",
+      "r7CaseId": "SECOND_FAR",
+      "source": "R5",
+      "sourceCaseId": "FAR_FOREIGN",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "property retained by executable SECOND_FAR",
+      "r7CaseId": "SECOND_FAR",
+      "source": "R5",
+      "sourceCaseId": "FAR_DUPLICATE",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "property retained by executable VALID",
+      "r7CaseId": "VALID",
+      "source": "R5",
+      "sourceCaseId": "LARGE_EXACT_IDENTIFIER",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "property retained by executable VALID",
+      "r7CaseId": "VALID",
+      "source": "R5",
+      "sourceCaseId": "METADATA_ISOLATION",
+      "status": "MERGED_EQUIVALENT"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "HARNESS_KEYERROR",
+      "source": "R5",
+      "sourceCaseId": "HARNESS_KEYERROR",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "HARNESS_TYPEERROR",
+      "source": "R5",
+      "sourceCaseId": "HARNESS_TYPEERROR",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "VALID",
+      "source": "R6",
+      "sourceCaseId": "VALID",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "CONTRADICTORY_WINDOW",
+      "source": "R6",
+      "sourceCaseId": "CONTRADICTORY_WINDOW",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "STALE_DEAL",
+      "source": "R6",
+      "sourceCaseId": "STALE_DEAL",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "FUTURE_DEAL",
+      "source": "R6",
+      "sourceCaseId": "FUTURE_DEAL",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "MISSING_TIME",
+      "source": "R6",
+      "sourceCaseId": "MISSING_TIME",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "SAME_CLOSE_DIRECTION",
+      "source": "R6",
+      "sourceCaseId": "SAME_CLOSE_DIRECTION",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "FOREIGN_MAGIC",
+      "source": "R6",
+      "sourceCaseId": "FOREIGN_MAGIC",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "DUAL_TAIL",
+      "source": "R6",
+      "sourceCaseId": "DUAL_TAIL",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "SECOND_FAR",
+      "source": "R6",
+      "sourceCaseId": "SECOND_FAR",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "FOREIGN_REPLAY_IDS",
+      "source": "R6",
+      "sourceCaseId": "FOREIGN_REPLAY_IDS",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "REPLAY_REVISION_INCREMENT",
+      "source": "R6",
+      "sourceCaseId": "REPLAY_REVISION_INCREMENT",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "UNKNOWN_OPERATION",
+      "source": "R6",
+      "sourceCaseId": "UNKNOWN_OPERATION",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "BAD_STATE_DIGEST",
+      "source": "R6",
+      "sourceCaseId": "BAD_STATE_DIGEST",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "LIFECYCLE_DISCONTINUITY",
+      "source": "R6",
+      "sourceCaseId": "LIFECYCLE_DISCONTINUITY",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "CERT_ZERO",
+      "source": "R6",
+      "sourceCaseId": "CERT_ZERO",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "BOOLEAN_ID",
+      "source": "R6",
+      "sourceCaseId": "BOOLEAN_ID",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "NAN",
+      "source": "R6",
+      "sourceCaseId": "NAN",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "OFFGRID_VOLUME",
+      "source": "R6",
+      "sourceCaseId": "OFFGRID_VOLUME",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "HARNESS_KEYERROR",
+      "source": "R6",
+      "sourceCaseId": "HARNESS_KEYERROR",
+      "status": "RETAINED"
+    },
+    {
+      "explanation": "same exact case",
+      "r7CaseId": "HARNESS_TYPEERROR",
+      "source": "R6",
+      "sourceCaseId": "HARNESS_TYPEERROR",
+      "status": "RETAINED"
+    }
+  ],
+  "r5Required": 28,
+  "r6Required": 20
+}
