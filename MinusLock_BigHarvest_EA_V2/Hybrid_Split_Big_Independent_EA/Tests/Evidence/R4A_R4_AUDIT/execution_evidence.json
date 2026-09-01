@@ -1,0 +1,70 @@
+{
+  "executions": [
+    {
+      "command": "python3 Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py",
+      "cwd": ".",
+      "exitCode": 0,
+      "stderr": "",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "SCENARIO_INPUT_SCHEMA_V3=PASS\nREGISTRY_EXACT_PATH_RESOLUTION=PASS\nREGISTRY_EXACT_PATHS_RESOLVED=69\nPOSITIVE_BASE_FIXTURES=28\nUNIQUE_SCENARIO_INPUT_DIGESTS=28\nNORMATIVE_NEUTRAL_DEFAULTS=0\nRESULT=PASS\n",
+      "stdoutSha256": "21e8c3a3f006d7c8b80b4861aa3917bcdcdc517daec744392d71185f81b7406d"
+    },
+    {
+      "command": "python3 Tests/Static/run_hsb_2e_r4_r9_r4a_r4_schema_self_tests.py",
+      "cwd": ".",
+      "exitCode": 0,
+      "stderr": "",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "SCHEMA_SELF_TESTS_REQUIRED=30\nSCHEMA_SELF_TESTS_EXECUTED=31\nSCHEMA_SELF_TESTS_CAUGHT=31\nSCHEMA_SELF_TESTS_FAILED=0\nRESULT=PASS\n",
+      "stdoutSha256": "2748c1ae6fe52592982df556805d6bb1dddacdd92e1be6024b39b6386bbf2b01"
+    },
+    {
+      "command": "python3 verify_hsb_2e_r4_r9_r4a_r4_schema.py",
+      "cwd": "Tests/Static",
+      "exitCode": 0,
+      "stderr": "",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "SCENARIO_INPUT_SCHEMA_V3=PASS\nREGISTRY_EXACT_PATH_RESOLUTION=PASS\nREGISTRY_EXACT_PATHS_RESOLVED=69\nPOSITIVE_BASE_FIXTURES=28\nUNIQUE_SCENARIO_INPUT_DIGESTS=28\nNORMATIVE_NEUTRAL_DEFAULTS=0\nRESULT=PASS\n",
+      "stdoutSha256": "21e8c3a3f006d7c8b80b4861aa3917bcdcdc517daec744392d71185f81b7406d"
+    },
+    {
+      "command": "python3 run_hsb_2e_r4_r9_r4a_r4_schema_self_tests.py",
+      "cwd": "Tests/Static",
+      "exitCode": 0,
+      "stderr": "",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "SCHEMA_SELF_TESTS_REQUIRED=30\nSCHEMA_SELF_TESTS_EXECUTED=31\nSCHEMA_SELF_TESTS_CAUGHT=31\nSCHEMA_SELF_TESTS_FAILED=0\nRESULT=PASS\n",
+      "stdoutSha256": "2748c1ae6fe52592982df556805d6bb1dddacdd92e1be6024b39b6386bbf2b01"
+    },
+    {
+      "command": "python3 Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py --publish-evidence",
+      "cwd": ".r4a_r4_audit_tmp (isolated copy, removed)",
+      "exitCode": 0,
+      "outputHashes": {
+        "schema_positive_validation.json": "4e04dfc3d303f9163b7b83ddab8c4edfb1f78a23b232d2a05776ebf7de8f6cc8"
+      },
+      "stderr": "",
+      "stdout": "SCENARIO_INPUT_SCHEMA_V3=PASS\nREGISTRY_EXACT_PATH_RESOLUTION=PASS\nREGISTRY_EXACT_PATHS_RESOLVED=69\nPOSITIVE_BASE_FIXTURES=28\nUNIQUE_SCENARIO_INPUT_DIGESTS=28\nNORMATIVE_NEUTRAL_DEFAULTS=0\nRESULT=PASS\n"
+    }
+  ],
+  "inputHashesAfter": {
+    "Tests/Contracts/HSB_2E_R4_R9_R4A_R4_SCENARIO_INPUT_SCHEMA_V3.json": "65eef8af0b92fb6a85987323223f9696f37ffa5aa806ff4e7455e4a7467c9ac2",
+    "Tests/Contracts/HSB_2E_R4_R9_R4_PREDICATE_REGISTRY.json": "86b0a7fd0466d7475cd9de7e13f2ef5f7de0c0788df173294f5e9cbef953f978",
+    "Tests/Static/run_hsb_2e_r4_r9_r4a_r4_schema_self_tests.py": "b24bfc23588e4c1d6ad8a3efa8bb6911a8e1e0eaa22aca1860211711ecdf26aa",
+    "Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py": "ed309497b8a82bd00a5f77c844135bd17cbceec6fef28cd14e8694742f98215d",
+    "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_INITIAL_BIG.json": "b37a524c459a6350d9fe3f0a8074b29dbcd337883acac7d48d0bb783aec96f04",
+    "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_RESTART_REPLAY_LIFECYCLE.json": "a963890c8a4e55f43ef2fef9e480718eb0e858455bdd5443dafc9d746b9622f6",
+    "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_SMALL_FINAL.json": "d3d2402659b6fb14a989c111a03426c58d1764d7dbf4542f3b5194c68a82e5d1"
+  },
+  "inputHashesBefore": {
+    "Tests/Contracts/HSB_2E_R4_R9_R4A_R4_SCENARIO_INPUT_SCHEMA_V3.json": "65eef8af0b92fb6a85987323223f9696f37ffa5aa806ff4e7455e4a7467c9ac2",
+    "Tests/Contracts/HSB_2E_R4_R9_R4_PREDICATE_REGISTRY.json": "86b0a7fd0466d7475cd9de7e13f2ef5f7de0c0788df173294f5e9cbef953f978",
+    "Tests/Static/run_hsb_2e_r4_r9_r4a_r4_schema_self_tests.py": "b24bfc23588e4c1d6ad8a3efa8bb6911a8e1e0eaa22aca1860211711ecdf26aa",
+    "Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py": "ed309497b8a82bd00a5f77c844135bd17cbceec6fef28cd14e8694742f98215d",
+    "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_INITIAL_BIG.json": "b37a524c459a6350d9fe3f0a8074b29dbcd337883acac7d48d0bb783aec96f04",
+    "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_RESTART_REPLAY_LIFECYCLE.json": "a963890c8a4e55f43ef2fef9e480718eb0e858455bdd5443dafc9d746b9622f6",
+    "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_SMALL_FINAL.json": "d3d2402659b6fb14a989c111a03426c58d1764d7dbf4542f3b5194c68a82e5d1"
+  },
+  "rootAndStaticResultsEqual": true,
+  "trackedInputsUnchanged": true
+}

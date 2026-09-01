@@ -1,0 +1,1404 @@
+{
+  "auditTargetSha": "77743d39fc572eefcceaa65b129d9d6cfcb8b098",
+  "failedProbes": 2,
+  "findings": [
+    {
+      "evidence": "64-zero forged certificate digest is accepted by published validator",
+      "id": "CERTIFICATE_DIGEST_NOT_VALIDATED",
+      "severity": "HIGH"
+    },
+    {
+      "evidence": "all 186 schema nodes are REQUIRED; pre-commit certificate absence is rejected",
+      "id": "CERTIFICATE_PHASE_APPLICABILITY_ABSENT",
+      "severity": "HIGH"
+    },
+    {
+      "evidence": "each LIFECYCLE fixture contains one SMALL->FINAL transition, not a state/operation sequence",
+      "id": "LIFECYCLE_NOT_A_SEQUENCE",
+      "severity": "HIGH"
+    },
+    {
+      "evidence": "persisted farState points to a non-FAR position in 20 fixtures",
+      "id": "FAR_STATE_ROLE_MISMATCH",
+      "severity": "HIGH"
+    },
+    {
+      "evidence": "published self-test counts KeyError and TypeError as successful CAUGHT outcomes",
+      "id": "SELF_TEST_INFRA_EXCEPTIONS_COUNTED_AS_CAUGHT",
+      "severity": "MEDIUM"
+    },
+    {
+      "evidence": "within each group variants share structure/grid/economic formula and vary direction, scalar volume/price, identifiers and timestamps",
+      "id": "MEANINGFUL_VARIATION_INSUFFICIENT",
+      "severity": "MEDIUM"
+    },
+    {
+      "evidence": "validator checks two conservation equalities but does not independently derive economic fields",
+      "id": "FULL_ECONOMIC_CORRECTNESS_NOT_PROVEN",
+      "severity": "EXPECTED_LIMIT"
+    }
+  ],
+  "fixtures": {
+    "certificateIndependentReconstruction": [
+      {
+        "fixtureId": "V3-INITIAL-1",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-INITIAL-2",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-INITIAL-3",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-INITIAL-4",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-BIG-1",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-BIG-2",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-BIG-3",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-BIG-4",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-RESTART_CONTINUATION-1",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-RESTART_CONTINUATION-2",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-RESTART_CONTINUATION-3",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-RESTART_CONTINUATION-4",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-REPLAY_COMMITTED-1",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-REPLAY_COMMITTED-2",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-REPLAY_COMMITTED-3",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-REPLAY_COMMITTED-4",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-LIFECYCLE-1",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-LIFECYCLE-2",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-LIFECYCLE-3",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-LIFECYCLE-4",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-SMALL-1",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-SMALL-2",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-SMALL-3",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-SMALL-4",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-FINAL-1",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-FINAL-2",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-FINAL-3",
+        "independentReconstructionValid": true
+      },
+      {
+        "fixtureId": "V3-FINAL-4",
+        "independentReconstructionValid": true
+      }
+    ],
+    "count": 28,
+    "farStateRoleMismatchFixtures": [
+      "V3-INITIAL-1",
+      "V3-INITIAL-2",
+      "V3-INITIAL-3",
+      "V3-INITIAL-4",
+      "V3-BIG-1",
+      "V3-BIG-2",
+      "V3-BIG-3",
+      "V3-BIG-4",
+      "V3-RESTART_CONTINUATION-1",
+      "V3-RESTART_CONTINUATION-2",
+      "V3-RESTART_CONTINUATION-3",
+      "V3-RESTART_CONTINUATION-4",
+      "V3-LIFECYCLE-1",
+      "V3-LIFECYCLE-2",
+      "V3-LIFECYCLE-3",
+      "V3-LIFECYCLE-4",
+      "V3-SMALL-1",
+      "V3-SMALL-2",
+      "V3-SMALL-3",
+      "V3-SMALL-4"
+    ],
+    "fixtureInternalConsistencyValid": false,
+    "fixtureSchemaValid": true,
+    "fullEconomicCorrectness": "NOT_PROVEN",
+    "groups": {
+      "BIG": 4,
+      "FINAL": 4,
+      "INITIAL": 4,
+      "LIFECYCLE": 4,
+      "REPLAY_COMMITTED": 4,
+      "RESTART_CONTINUATION": 4,
+      "SMALL": 4
+    },
+    "inventory": [
+      {
+        "economicCase": {
+          "allocated": "61",
+          "available": "101",
+          "remaining": "40"
+        },
+        "fixtureId": "V3-INITIAL-1",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "INITIAL",
+        "scenarioInputSha256": "82f8a920e99ecb609db0257de2efb26d2d1a1227376032592b1f248daa9c948c",
+        "statePhase": "INITIAL->BIG",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "62",
+          "available": "102",
+          "remaining": "40"
+        },
+        "fixtureId": "V3-INITIAL-2",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "INITIAL",
+        "scenarioInputSha256": "1cc3f1ed12c62dcbecb9e598095eca2f36df7cc0e6f9c9464e879861f261ea8e",
+        "statePhase": "INITIAL->BIG",
+        "volumes": [
+          "0.12"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "63",
+          "available": "103",
+          "remaining": "40"
+        },
+        "fixtureId": "V3-INITIAL-3",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "INITIAL",
+        "scenarioInputSha256": "db7003a519d0785b8357e90aee8ea108a3348992b9d3e309492d0f758eeb4184",
+        "statePhase": "INITIAL->BIG",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "64",
+          "available": "104",
+          "remaining": "40"
+        },
+        "fixtureId": "V3-INITIAL-4",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "INITIAL",
+        "scenarioInputSha256": "5352af988783d4b62081a3f37d59a77677ce9cd39ed3c14a8a2aa5248a4dcdda",
+        "statePhase": "INITIAL->BIG",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "61",
+          "available": "105",
+          "remaining": "44"
+        },
+        "fixtureId": "V3-BIG-1",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "BIG",
+        "scenarioInputSha256": "5aef867df0e4a402d8025e3bd2c28f7d9cbbeae785e13f5e4ed774f3b9fbe895",
+        "statePhase": "BIG->SMALL",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "62",
+          "available": "106",
+          "remaining": "44"
+        },
+        "fixtureId": "V3-BIG-2",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "BIG",
+        "scenarioInputSha256": "bfb74ca06f6c4f965828c5c5de2254b987e44a6ce895937ee1bbb8d7edddc91b",
+        "statePhase": "BIG->SMALL",
+        "volumes": [
+          "0.12"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "63",
+          "available": "107",
+          "remaining": "44"
+        },
+        "fixtureId": "V3-BIG-3",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "BIG",
+        "scenarioInputSha256": "59dd2661b493c29129791ec6cf7e4011dd256ae1e3f9cbaf05d7d132a4cb516b",
+        "statePhase": "BIG->SMALL",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "64",
+          "available": "108",
+          "remaining": "44"
+        },
+        "fixtureId": "V3-BIG-4",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "BIG",
+        "scenarioInputSha256": "5eab778372ba3e205ba0d9aa9a7fb825f1013ca7dec8dde88924d2a81c91c337",
+        "statePhase": "BIG->SMALL",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "61",
+          "available": "117",
+          "remaining": "56"
+        },
+        "fixtureId": "V3-RESTART_CONTINUATION-1",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "RESTART_CONTINUATION",
+        "scenarioInputSha256": "1d0a808d57a3a75be9bc591aa08a3ef42f6caebe25305ed3be01dec0066e2d19",
+        "statePhase": "BIG->SMALL",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "62",
+          "available": "118",
+          "remaining": "56"
+        },
+        "fixtureId": "V3-RESTART_CONTINUATION-2",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "RESTART_CONTINUATION",
+        "scenarioInputSha256": "e391f169a2e7e8f7c3560e13fe552fe86f54716e34b2794b1ebdac0c6bb881bd",
+        "statePhase": "BIG->SMALL",
+        "volumes": [
+          "0.12"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "63",
+          "available": "119",
+          "remaining": "56"
+        },
+        "fixtureId": "V3-RESTART_CONTINUATION-3",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "RESTART_CONTINUATION",
+        "scenarioInputSha256": "0476cbbb1731f8ed50d5f0d47f4fe8cfdb73cc1e4397cda9c66be05066ecb57c",
+        "statePhase": "BIG->SMALL",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "64",
+          "available": "120",
+          "remaining": "56"
+        },
+        "fixtureId": "V3-RESTART_CONTINUATION-4",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "RESTART_CONTINUATION",
+        "scenarioInputSha256": "f8b1a01bc68ec69d8c0f25b72ef02b4cba959b9155f7aed97fb8d91eb0a9ea50",
+        "statePhase": "BIG->SMALL",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "61",
+          "available": "121",
+          "remaining": "60"
+        },
+        "fixtureId": "V3-REPLAY_COMMITTED-1",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "REPLAY_COMMITTED",
+        "scenarioInputSha256": "0974c045ea438f6e5fc15e434d6161c1056f6165f8beb25329d7bf36d8762420",
+        "statePhase": "COMMITTED->COMMITTED",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "62",
+          "available": "122",
+          "remaining": "60"
+        },
+        "fixtureId": "V3-REPLAY_COMMITTED-2",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "REPLAY_COMMITTED",
+        "scenarioInputSha256": "c384ec77bb89e2058e9d1fa1bc3073185340fe0a26053c08052b14c0f344f864",
+        "statePhase": "COMMITTED->COMMITTED",
+        "volumes": [
+          "0.12"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "63",
+          "available": "123",
+          "remaining": "60"
+        },
+        "fixtureId": "V3-REPLAY_COMMITTED-3",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "REPLAY_COMMITTED",
+        "scenarioInputSha256": "9efb47952790744606933b190acf3d32a0db0d0fbe4be2b7b8c68b6c1f6ada62",
+        "statePhase": "COMMITTED->COMMITTED",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "64",
+          "available": "124",
+          "remaining": "60"
+        },
+        "fixtureId": "V3-REPLAY_COMMITTED-4",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "REPLAY_COMMITTED",
+        "scenarioInputSha256": "7cd1c3f1a27847af0d522665fc3d5ab5ceb6f6a3267d7e5a8b6d1ad37cad12dc",
+        "statePhase": "COMMITTED->COMMITTED",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "61",
+          "available": "125",
+          "remaining": "64"
+        },
+        "fixtureId": "V3-LIFECYCLE-1",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "LIFECYCLE",
+        "scenarioInputSha256": "e8566fc39898f6029ba1d6c20b67e50d1eea88ad85b647cf54bd764fb3ee9b6b",
+        "statePhase": "SMALL->FINAL",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "62",
+          "available": "126",
+          "remaining": "64"
+        },
+        "fixtureId": "V3-LIFECYCLE-2",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "LIFECYCLE",
+        "scenarioInputSha256": "df065e13abbba4d82724d38d72aba2d8b3e74c51a0b78ed3937b50b23803844d",
+        "statePhase": "SMALL->FINAL",
+        "volumes": [
+          "0.12"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "63",
+          "available": "127",
+          "remaining": "64"
+        },
+        "fixtureId": "V3-LIFECYCLE-3",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "LIFECYCLE",
+        "scenarioInputSha256": "39fe0513bf4357190b0e52e7e7444931c28f911d51e2d6adc2025b8245a5a70f",
+        "statePhase": "SMALL->FINAL",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "64",
+          "available": "128",
+          "remaining": "64"
+        },
+        "fixtureId": "V3-LIFECYCLE-4",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "NONEMPTY_REPLAY_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "LIFECYCLE",
+        "scenarioInputSha256": "b8dd17020591809c0dee20094c3584fe4531e97e1473f723fcb768c442cbf710",
+        "statePhase": "SMALL->FINAL",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "61",
+          "available": "109",
+          "remaining": "48"
+        },
+        "fixtureId": "V3-SMALL-1",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "SMALL",
+        "scenarioInputSha256": "4e96ed8a08e032a7b92efb3ce4277c97725a75f588016bf93f7c55f1e47b4f71",
+        "statePhase": "SMALL->FINAL",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "62",
+          "available": "110",
+          "remaining": "48"
+        },
+        "fixtureId": "V3-SMALL-2",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "SMALL",
+        "scenarioInputSha256": "08be9dc9ad6e7c318acb5d5083cd267a25e53a615a34b9a77ce44bd72fa1352c",
+        "statePhase": "SMALL->FINAL",
+        "volumes": [
+          "0.12"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "63",
+          "available": "111",
+          "remaining": "48"
+        },
+        "fixtureId": "V3-SMALL-3",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "SMALL",
+        "scenarioInputSha256": "209bc6a6ffde040ef45bf69715c2971bd86d9c330a0d3dfb3f6738c9eb9a8a07",
+        "statePhase": "SMALL->FINAL",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "64",
+          "available": "112",
+          "remaining": "48"
+        },
+        "fixtureId": "V3-SMALL-4",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "SMALL",
+        "scenarioInputSha256": "062d1d60587e3c90f65acf9ead0ac04befe483b0d447c8e8b23f8aa8362dd0a2",
+        "statePhase": "SMALL->FINAL",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "61",
+          "available": "113",
+          "remaining": "52"
+        },
+        "fixtureId": "V3-FINAL-1",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "FINAL",
+        "scenarioInputSha256": "17be34402be481be448ef1588453a8ba2471552e1038e9e58ecceac64a02717d",
+        "statePhase": "FINAL->COMMITTED",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "62",
+          "available": "114",
+          "remaining": "52"
+        },
+        "fixtureId": "V3-FINAL-2",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "FINAL",
+        "scenarioInputSha256": "27fd069aa849d4060e4778c05f9cef610cb3ddc37b37fbed372256c27ec494ef",
+        "statePhase": "FINAL->COMMITTED",
+        "volumes": [
+          "0.12"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "63",
+          "available": "115",
+          "remaining": "52"
+        },
+        "fixtureId": "V3-FINAL-3",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "BUY"
+        ],
+        "scenario": "FINAL",
+        "scenarioInputSha256": "6f20983a9b86b3e533f1d3fbbe3fe5350fbf612cebfeb2b2368a7cfb201f4aba",
+        "statePhase": "FINAL->COMMITTED",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      {
+        "economicCase": {
+          "allocated": "64",
+          "available": "116",
+          "remaining": "52"
+        },
+        "fixtureId": "V3-FINAL-4",
+        "gridCase": "STANDARD_TICK_AND_STEP",
+        "meaningfulDifference": "DIRECTION_VOLUME_PRICE_AND_IDENTIFIERS_ONLY_WITHIN_GROUP",
+        "persistedStateCase": "EMPTY_FRESH_STATE",
+        "positionDirections": [
+          "SELL"
+        ],
+        "scenario": "FINAL",
+        "scenarioInputSha256": "41105cf75d697a52e1b14442a03961328599e2d5eba3f7a3ea646afc5419e641",
+        "statePhase": "FINAL->COMMITTED",
+        "volumes": [
+          "0.14"
+        ]
+      }
+    ],
+    "uniqueRuntimeDigests": 28
+  },
+  "implementationBaselineSha": "f44b7e5cae314fced0f8d519e1e5d70f3c49c35d",
+  "modelChangesAllowed": "NO",
+  "oracleV3FinalAcceptance": "NOT_GRANTED",
+  "probes": [
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "scenarioInput.context: missing required fields ['cycleId']",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "9305193db02f8d6507c2aac54d0577793fc0a90ce35def07db29d300ad11ac99",
+      "probe": "remove_nested_required",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "scenarioInput.context: unknown fields ['unknown']",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "73ab237df12ded746e1e3114f52074a348ece3aea64edbcde0a31500c4d306e6",
+      "probe": "unknown_nested",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "scenarioInput.context.magic: expected exact integer",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "d8046ba1dfafbe375784bdecd716cd7bcbffb4d7154b1345fec564f8df72323d",
+      "probe": "boolean_numeric_id",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "scenarioInput.economic.availableMoney: non-finite Decimal",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "7cba01fbcaedd89f27541aaf5d2a776c57371d415cf104fdea4623655c64d6f2",
+      "probe": "decimal_nan",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "scenarioInput.economic.availableMoney: non-finite Decimal",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "23a748c1123a38b5d2d004ab6be1ae602d583bdb314370927010b25c0875a919",
+      "probe": "decimal_infinity",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "runtime arrays required for positive bases",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "646c2110c5e7e0fdc81fef88ddc6108735c8bee3f5b0220cd18a9867b29341d3",
+      "probe": "empty_positions",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "runtime arrays required for positive bases",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "de63b5765ac9f89ba4aa946ea8598d1f4f42de852597b5e123adf74ebc9d10fc",
+      "probe": "empty_intents",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "runtime arrays required for positive bases",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "455e7006f390d3ae7f7033f0fb50a64ab6d6df70f41743aac370dcc97e1a27c7",
+      "probe": "empty_deals",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "off-grid open price",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "169e141799177de97c3868832d42a0a31a1b58d5ebea14cbd32a24a9373ccc72",
+      "probe": "off_grid_price",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "off-grid position volume",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "ad0f67656628ee063b66a638edbb773d15678396ebf3ab5c04ac0889537ea9ad",
+      "probe": "off_grid_volume",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "duplicate deal",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "faa7d7a360af30b0232de1d24f4bebedea867631ecdfce47738f660b89eb3a08",
+      "probe": "duplicate_deal_id",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "orphan deal",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "9cdd3cfe38ff7ea6b1996fe91a88a172f899c5105913462118d94b4f96fd6838",
+      "probe": "orphan_deal",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "position identity mismatch",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "179653312c79d45538e2144ed8a8a94dca63c35cb5e332b223560c19743ddb08",
+      "probe": "symbol_mismatch",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "invalid temporal window",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "904b8f4bc9f4ac0631a2e257caee4d2cbce45e935c02e3e5cc82bb5b0a398afb",
+      "probe": "invalid_time_window",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "money conservation mismatch",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "3af532da111157de8133959c09c72bb87231649f4064c1f2d6d36f61e91f3dfd",
+      "probe": "money_conservation",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "volume conservation mismatch",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "9e5cfb8d6f44703be09313e05e45e645c13d0256609005f0a5a03632c18ea1e4",
+      "probe": "volume_conservation",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "Reserve misuse",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "993fccc2cd9367ba60124ce7b549b48208fcb9c5a5525a5cc3c714bad0144c40",
+      "probe": "reserve_partial_far",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "scenarioInput: unknown fields ['fixtureId']",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "92c27d3e11d26d17586330d9f77dd40fad926483bace8552bb98ead4ba658fe2",
+      "probe": "metadata_in_runtime",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "ACCEPTED",
+      "detail": "validator returned normally",
+      "expectedClass": "ACCEPTED",
+      "inputSha256": "22ab542a9c4cdd6cdced5ea93e47add956e9d98755a1dbff9ebd9fac611c6305",
+      "probe": "large_exact_identifier",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "ACCEPTED",
+      "detail": "validator returned normally",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "inputSha256": "4b51adda8795c9b952f19000420b16ae234d2c53868ecea172c6b523b816fbec",
+      "probe": "forged_certificate_digest_same_length",
+      "result": "FAIL"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "detail": "scenarioInput: missing required fields ['certificate']",
+      "expectedClass": "ACCEPTED",
+      "inputSha256": "16a685c4255cb33e3970a7df6e49f35039b2e2cc6eeb83647b0717805dc4d79b",
+      "probe": "precommit_certificate_absent",
+      "result": "FAIL"
+    },
+    {
+      "actualClass": "UNCHANGED_RUNTIME",
+      "expectedClass": "UNCHANGED_RUNTIME",
+      "probe": "metadata_only_wrapper_change",
+      "result": "PASS"
+    }
+  ],
+  "publishedSelfTests": {
+    "countsInfrastructureExceptionsAsCaught": true,
+    "mutatesRuntime": true,
+    "usesPublishedValidator": true,
+    "verdict": "FALSE_PASS_RISK"
+  },
+  "qualificationCoreReady": "NO",
+  "realTradingAllowed": "NO",
+  "requirementMatrix": [
+    {
+      "executedCheck": "independent schema walk",
+      "implementingCommits": [
+        "98b957f"
+      ],
+      "implementingFiles": [
+        "Tests/Contracts/HSB_2E_R4_R9_R4A_R4_SCENARIO_INPUT_SCHEMA_V3.json"
+      ],
+      "observedResult": {
+        "NOT_APPLICABLE_WITH_RULE": 0,
+        "OPTIONAL_WITH_RULE": 0,
+        "REQUIRED": 186,
+        "nodes": 186,
+        "openOrUntypedObjects": 0,
+        "untypedArrays": 0
+      },
+      "requirement": "closed typed schema",
+      "verdict": "PARTIAL"
+    },
+    {
+      "executedCheck": "independent wildcard resolver",
+      "implementingCommits": [
+        "6ddaa95",
+        "d930576"
+      ],
+      "implementingFiles": [
+        "Tests/Contracts/HSB_2E_R4_R9_R4_PREDICATE_REGISTRY.json"
+      ],
+      "observedResult": "69/69",
+      "requirement": "exact Registry paths",
+      "verdict": "PASS"
+    },
+    {
+      "executedCheck": "inventory and semantic variation audit",
+      "implementingCommits": [
+        "da6bb22",
+        "034f95c",
+        "f89746d"
+      ],
+      "implementingFiles": [
+        "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_INITIAL_BIG.json",
+        "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_RESTART_REPLAY_LIFECYCLE.json",
+        "Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_SMALL_FINAL.json"
+      ],
+      "observedResult": {
+        "BIG": 4,
+        "FINAL": 4,
+        "INITIAL": 4,
+        "LIFECYCLE": 4,
+        "REPLAY_COMMITTED": 4,
+        "RESTART_CONTINUATION": 4,
+        "SMALL": 4
+      },
+      "requirement": "28 positive bases",
+      "verdict": "FAIL"
+    },
+    {
+      "executedCheck": "22 independent adversarial probes",
+      "implementingCommits": [
+        "6e171da",
+        "77743d3"
+      ],
+      "implementingFiles": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py"
+      ],
+      "observedResult": "failed=2",
+      "requirement": "fail-closed validator",
+      "verdict": "FAIL"
+    }
+  ],
+  "schema": {
+    "pathResolution": [
+      {
+        "path": "scenarioInput.schemaVersion",
+        "predicateId": "SCHEMA",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.broker.tickSize",
+        "predicateId": "NUMERIC_FINITE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.economic.availableMoney",
+        "predicateId": "NUMERIC_FINITE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.context.accountId",
+        "predicateId": "RUNTIME_IDENTITY",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.context.cycleId",
+        "predicateId": "RUNTIME_IDENTITY",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.context.transactionId",
+        "predicateId": "RUNTIME_IDENTITY",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.context.actionId",
+        "predicateId": "RUNTIME_IDENTITY",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.context.symbol",
+        "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.context.magic",
+        "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.positions[*].symbol",
+        "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.positions[*].magic",
+        "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.broker.tickSize",
+        "predicateId": "BROKER_PROPERTIES",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.broker.tickValue",
+        "predicateId": "BROKER_PROPERTIES",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.broker.contractSize",
+        "predicateId": "BROKER_PROPERTIES",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.broker.volumeStep",
+        "predicateId": "BROKER_PROPERTIES",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.snapshot.symbol",
+        "predicateId": "SNAPSHOT_CONTEXT",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.snapshot.magic",
+        "predicateId": "SNAPSHOT_CONTEXT",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.snapshot.revision",
+        "predicateId": "SNAPSHOT_CONTEXT",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.snapshot.timestamp",
+        "predicateId": "TEMPORAL_WINDOW",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.temporalPolicy.validFrom",
+        "predicateId": "TEMPORAL_WINDOW",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.temporalPolicy.validUntil",
+        "predicateId": "TEMPORAL_WINDOW",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.intents[*].createdTimestamp",
+        "predicateId": "TEMPORAL_WINDOW",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.intents[*].expiresTimestamp",
+        "predicateId": "TEMPORAL_WINDOW",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.deals[*].timestamp",
+        "predicateId": "TEMPORAL_WINDOW",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.positions[*]",
+        "predicateId": "POSITION_VALIDATION",
+        "resolvedType": "object"
+      },
+      {
+        "path": "scenarioInput.intents[*]",
+        "predicateId": "INTENT_VALIDATION",
+        "resolvedType": "object"
+      },
+      {
+        "path": "scenarioInput.deals[*].dealId",
+        "predicateId": "DEAL_EVENT_UNIQUENESS",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.deals[*].eventId",
+        "predicateId": "DEAL_EVENT_UNIQUENESS",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.deals[*].positionTicket",
+        "predicateId": "DEAL_POSITION_INTENT_BINDING",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.deals[*].intentId",
+        "predicateId": "DEAL_POSITION_INTENT_BINDING",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.persistedState.consumedDealIds",
+        "predicateId": "PERSISTED_LEDGER_REVALIDATION",
+        "resolvedType": "array"
+      },
+      {
+        "path": "scenarioInput.persistedState.authoritativeLedgerRoot",
+        "predicateId": "PERSISTED_LEDGER_REVALIDATION",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.deals[*]",
+        "predicateId": "BATCH_ATOMICITY",
+        "resolvedType": "object"
+      },
+      {
+        "path": "scenarioInput.intents[*].requestedVolume",
+        "predicateId": "PER_TICKET_FILL",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.deals[*].volume",
+        "predicateId": "PER_TICKET_FILL",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.scenario",
+        "predicateId": "MANDATORY_LEGS",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.positions[*].role",
+        "predicateId": "MANDATORY_LEGS",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.brokerProposal",
+        "predicateId": "BROKER_PROPOSAL",
+        "resolvedType": "object"
+      },
+      {
+        "path": "scenarioInput.economic",
+        "predicateId": "ECONOMIC_FORMULAS",
+        "resolvedType": "object"
+      },
+      {
+        "path": "scenarioInput.economic.availableMoney",
+        "predicateId": "MONEY_CONSERVATION",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.allocationPolicy.allocatedMoney",
+        "predicateId": "MONEY_CONSERVATION",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.allocationPolicy.remainingMoney",
+        "predicateId": "MONEY_CONSERVATION",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.positions[*].volume",
+        "predicateId": "VOLUME_CONSERVATION",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.deals[*].volume",
+        "predicateId": "VOLUME_CONSERVATION",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.economic.reserveBefore",
+        "predicateId": "RESERVE_POLICY",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.allocationPolicy.reserveAddition",
+        "predicateId": "RESERVE_POLICY",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.economic.recoveryPL",
+        "predicateId": "RECOVERY_PL",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.economic.requiredCoverage",
+        "predicateId": "RESERVE_COVERAGE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.economic.tailCount",
+        "predicateId": "DUAL_TAIL",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.allocationPolicy",
+        "predicateId": "ALLOCATION",
+        "resolvedType": "object"
+      },
+      {
+        "path": "scenarioInput.persistedState",
+        "predicateId": "PERSISTENCE",
+        "resolvedType": "object"
+      },
+      {
+        "path": "scenarioInput.fsm",
+        "predicateId": "FSM_TRANSITION",
+        "resolvedType": "object"
+      },
+      {
+        "path": "scenarioInput.fsm.inputRevision",
+        "predicateId": "REVISION_CHAIN",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.fsm.outputRevision",
+        "predicateId": "REVISION_CHAIN",
+        "resolvedType": "integer"
+      },
+      {
+        "path": "scenarioInput.certificate.body",
+        "predicateId": "CERTIFICATE_STRUCTURE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.digest",
+        "predicateId": "CERTIFICATE_STRUCTURE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.persistedState.authoritativeLedgerRoot",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.persistedState.previousStateDigest",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.persistedState.transactionJournalRoot",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.claimedBrokerDigest",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.claimedEconomicDigest",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.claimedAllocationDigest",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.claimedPersistenceDigest",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.claimedFsmDigest",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.claimedOutputStateDigest",
+        "predicateId": "CERTIFICATE_PROVENANCE",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.body",
+        "predicateId": "CERTIFICATE_DIGEST",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.certificate.digest",
+        "predicateId": "CERTIFICATE_DIGEST",
+        "resolvedType": "string"
+      },
+      {
+        "path": "scenarioInput.persistedState.consumedDealIds",
+        "predicateId": "REPLAY_EXACTLY_ONCE",
+        "resolvedType": "array"
+      },
+      {
+        "path": "scenarioInput.persistedState.seenEventIds",
+        "predicateId": "REPLAY_EXACTLY_ONCE",
+        "resolvedType": "array"
+      }
+    ],
+    "reason": "certificate phase applicability and optional/not-applicable rules are absent",
+    "registryExactPaths": 69,
+    "registryPathsResolved": 69,
+    "schemaStructureValid": false,
+    "stats": {
+      "NOT_APPLICABLE_WITH_RULE": 0,
+      "OPTIONAL_WITH_RULE": 0,
+      "REQUIRED": 186,
+      "nodes": 186,
+      "openOrUntypedObjects": 0,
+      "untypedArrays": 0
+    }
+  },
+  "scope": {
+    "changedPaths": [
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/BUILD_INFO.md",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/CHANGELOG_RU.md",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/PROJECT_MAP_RU.md",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/README_RU.md",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSB_2E_PREP_R4_R9_R4A_R4_PROGRESS_HANDOFF_RU.md",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Contracts/HSB_2E_R4_R9_R4A_R4_SCENARIO_INPUT_SCHEMA_V3.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Contracts/HSB_2E_R4_R9_R4_PREDICATE_REGISTRY.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Evidence/R4A_R4/protected_scope_production_audit.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Evidence/R4A_R4/schema_adversarial_self_tests.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Evidence/R4A_R4/schema_positive_validation.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/build_hsb_2e_r4_r9_r4a_r4_assets.py",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/publish_hsb_2e_r4_r9_r4a_r4_evidence.py",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsb_2e_r4_r9_r4a_r4_schema_self_tests.py",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r4_schema.py",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_INITIAL_BIG.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_RESTART_REPLAY_LIFECYCLE.json",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Vectors/HSB_2E_R4_R9_R4A_R4_POSITIVE_BASES_V3_SMALL_FINAL.json"
+    ],
+    "historicalOraclesChanged": false,
+    "nativeModelChanged": false,
+    "productionDiffPaths": [],
+    "scopeViolations": 0
+  },
+  "tradingLogicStartAllowed": "NO",
+  "verdict": "R4A_R4_AUDIT=FAIL"
+}

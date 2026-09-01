@@ -122,11 +122,35 @@ def main() -> int:
 
     groups: dict[str, int] = {}
     inventory = []
+    certificate_checks = []
+    far_role_mismatches = []
     for fixture in fixtures:
         runtime, contract = fixture["scenarioInput"], fixture["testContract"]
         scenario = runtime["scenario"]
         groups[scenario] = groups.setdefault(scenario, 0) + 1
         persisted_case = "NONEMPTY_REPLAY_STATE" if runtime["persistedState"]["consumedDealIds"] else "EMPTY_FRESH_STATE"
+        cert = runtime["certificate"]
+        cert_without_digest = {key: value for key, value in cert.items() if key != "digest"}
+        expected_body = digest({"broker": runtime["brokerProposal"], "economic": runtime["economic"],
+                                "allocation": runtime["allocationPolicy"], "persisted": runtime["persistedState"],
+                                "fsm": runtime["fsm"], "output": runtime["fsm"]["outputState"]})
+        certificate_valid = (
+            cert["digest"] == digest(cert_without_digest)
+            and cert["body"] == expected_body
+            and cert["claimedEconomicDigest"] == digest(runtime["economic"])
+            and cert["claimedAllocationDigest"] == digest(runtime["allocationPolicy"])
+            and cert["claimedPersistenceDigest"] == digest(runtime["persistedState"])
+            and cert["claimedFsmDigest"] == digest(runtime["fsm"])
+            and cert["claimedOutputStateDigest"] == digest(runtime["fsm"]["outputState"])
+            and cert["previousStateDigest"] == runtime["persistedState"]["previousStateDigest"]
+            and cert["authoritativeLedgerRoot"] == runtime["persistedState"]["authoritativeLedgerRoot"]
+            and cert["transactionJournalRoot"] == runtime["persistedState"]["transactionJournalRoot"]
+        )
+        certificate_checks.append({"fixtureId": contract["fixtureId"], "independentReconstructionValid": certificate_valid})
+        far_ticket = runtime["persistedState"]["farState"]["ticket"]
+        far_position = next((item for item in runtime["positions"] if item["ticket"] == far_ticket), None)
+        if far_position is None or far_position["role"] != "FAR":
+            far_role_mismatches.append(contract["fixtureId"])
         inventory.append({
             "fixtureId": contract["fixtureId"], "scenario": scenario,
             "statePhase": f"{runtime['fsm']['inputState']}->{runtime['fsm']['outputState']}",
@@ -207,6 +231,8 @@ def main() -> int:
          "evidence": "all 186 schema nodes are REQUIRED; pre-commit certificate absence is rejected"},
         {"id": "LIFECYCLE_NOT_A_SEQUENCE", "severity": "HIGH",
          "evidence": "each LIFECYCLE fixture contains one SMALL->FINAL transition, not a state/operation sequence"},
+        {"id": "FAR_STATE_ROLE_MISMATCH", "severity": "HIGH",
+         "evidence": f"persisted farState points to a non-FAR position in {len(far_role_mismatches)} fixtures"},
         {"id": "SELF_TEST_INFRA_EXCEPTIONS_COUNTED_AS_CAUGHT", "severity": "MEDIUM",
          "evidence": "published self-test counts KeyError and TypeError as successful CAUGHT outcomes"},
         {"id": "MEANINGFUL_VARIATION_INSUFFICIENT", "severity": "MEDIUM",
@@ -226,7 +252,9 @@ def main() -> int:
         "fixtures": {"count": len(fixtures), "groups": groups,
                      "uniqueRuntimeDigests": len({digest(x["scenarioInput"]) for x in fixtures}),
                      "inventory": inventory, "fixtureSchemaValid": True,
-                     "fixtureInternalConsistencyValid": "PARTIAL_PUBLISHED_CHECKS_PASS",
+                     "certificateIndependentReconstruction": certificate_checks,
+                     "farStateRoleMismatchFixtures": far_role_mismatches,
+                     "fixtureInternalConsistencyValid": False,
                      "fullEconomicCorrectness": "NOT_PROVEN"},
         "probes": probes, "failedProbes": len(failed_probes), "findings": findings,
         "publishedSelfTests": {"usesPublishedValidator": True, "mutatesRuntime": True,
