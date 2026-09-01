@@ -1,0 +1,922 @@
+{
+  "predicates": [
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.schemaVersion"
+      ],
+      "evaluationOrder": 1,
+      "evaluatorFunction": "evaluate_schema",
+      "exactInputPaths": [
+        "scenarioInput.schemaVersion",
+        "scenarioInput.phase"
+      ],
+      "failureCheckId": "R9_SCHEMA",
+      "failureReason": "SCHEMA_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "SCHEMA_VALID",
+      "predicateId": "SCHEMA",
+      "prerequisitePredicates": []
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.economic.availableMoney"
+      ],
+      "evaluationOrder": 2,
+      "evaluatorFunction": "evaluate_numeric_finite",
+      "exactInputPaths": [
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.economic.availableMoney"
+      ],
+      "failureCheckId": "R9_NUMERIC_FINITE",
+      "failureReason": "NUMERIC_FINITE_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "NUMERIC_FINITE_VALID",
+      "predicateId": "NUMERIC_FINITE",
+      "prerequisitePredicates": [
+        "SCHEMA"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.context.accountId",
+        "scenarioInput.context.cycleId",
+        "scenarioInput.context.transactionId",
+        "scenarioInput.context.actionId"
+      ],
+      "evaluationOrder": 3,
+      "evaluatorFunction": "evaluate_runtime_identity",
+      "exactInputPaths": [
+        "scenarioInput.context.accountId",
+        "scenarioInput.context.cycleId",
+        "scenarioInput.context.transactionId",
+        "scenarioInput.context.actionId"
+      ],
+      "failureCheckId": "R9_RUNTIME_IDENTITY",
+      "failureReason": "RUNTIME_IDENTITY_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "RUNTIME_IDENTITY_VALID",
+      "predicateId": "RUNTIME_IDENTITY",
+      "prerequisitePredicates": [
+        "NUMERIC_FINITE"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.context.symbol",
+        "scenarioInput.context.magic",
+        "scenarioInput.positions[*].symbol",
+        "scenarioInput.positions[*].magic"
+      ],
+      "evaluationOrder": 4,
+      "evaluatorFunction": "evaluate_symbol_magic_ownership",
+      "exactInputPaths": [
+        "scenarioInput.context.symbol",
+        "scenarioInput.context.magic",
+        "scenarioInput.positions[*].symbol",
+        "scenarioInput.positions[*].magic"
+      ],
+      "failureCheckId": "R9_SYMBOL_MAGIC_OWNERSHIP",
+      "failureReason": "SYMBOL_MAGIC_OWNERSHIP_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "SYMBOL_MAGIC_OWNERSHIP_VALID",
+      "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+      "prerequisitePredicates": [
+        "RUNTIME_IDENTITY"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.broker.tickValue",
+        "scenarioInput.broker.contractSize",
+        "scenarioInput.broker.volumeStep"
+      ],
+      "evaluationOrder": 5,
+      "evaluatorFunction": "evaluate_broker_properties",
+      "exactInputPaths": [
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.broker.tickValue",
+        "scenarioInput.broker.contractSize",
+        "scenarioInput.broker.volumeStep"
+      ],
+      "failureCheckId": "R9_BROKER_PROPERTIES",
+      "failureReason": "BROKER_PROPERTIES_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "BROKER_PROPERTIES_VALID",
+      "predicateId": "BROKER_PROPERTIES",
+      "prerequisitePredicates": [
+        "SYMBOL_MAGIC_OWNERSHIP"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.snapshot.symbol",
+        "scenarioInput.snapshot.magic",
+        "scenarioInput.snapshot.revision"
+      ],
+      "evaluationOrder": 6,
+      "evaluatorFunction": "evaluate_snapshot_context",
+      "exactInputPaths": [
+        "scenarioInput.snapshot.symbol",
+        "scenarioInput.snapshot.magic",
+        "scenarioInput.snapshot.revision"
+      ],
+      "failureCheckId": "R9_SNAPSHOT_CONTEXT",
+      "failureReason": "SNAPSHOT_CONTEXT_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "SNAPSHOT_CONTEXT_VALID",
+      "predicateId": "SNAPSHOT_CONTEXT",
+      "prerequisitePredicates": [
+        "BROKER_PROPERTIES"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.snapshot.timestamp",
+        "scenarioInput.temporalPolicy.validFrom",
+        "scenarioInput.temporalPolicy.validUntil",
+        "scenarioInput.intents[*].createdTimestamp",
+        "scenarioInput.intents[*].expiresTimestamp",
+        "scenarioInput.deals[*].timestamp"
+      ],
+      "evaluationOrder": 7,
+      "evaluatorFunction": "evaluate_temporal_window",
+      "exactInputPaths": [
+        "scenarioInput.snapshot.timestamp",
+        "scenarioInput.temporalPolicy.validFrom",
+        "scenarioInput.temporalPolicy.validUntil",
+        "scenarioInput.intents[*].createdTimestamp",
+        "scenarioInput.intents[*].expiresTimestamp",
+        "scenarioInput.deals[*].timestamp"
+      ],
+      "failureCheckId": "R9_TEMPORAL_WINDOW",
+      "failureReason": "TEMPORAL_WINDOW_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "TEMPORAL_WINDOW_VALID",
+      "predicateId": "TEMPORAL_WINDOW",
+      "prerequisitePredicates": [
+        "SNAPSHOT_CONTEXT"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.positions[*]"
+      ],
+      "evaluationOrder": 8,
+      "evaluatorFunction": "evaluate_position_validation",
+      "exactInputPaths": [
+        "scenarioInput.positions[*]"
+      ],
+      "failureCheckId": "R9_POSITION_VALIDATION",
+      "failureReason": "POSITION_VALIDATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "POSITION_VALIDATION_VALID",
+      "predicateId": "POSITION_VALIDATION",
+      "prerequisitePredicates": [
+        "TEMPORAL_WINDOW"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.intents[*]"
+      ],
+      "evaluationOrder": 9,
+      "evaluatorFunction": "evaluate_intent_validation",
+      "exactInputPaths": [
+        "scenarioInput.intents[*]"
+      ],
+      "failureCheckId": "R9_INTENT_VALIDATION",
+      "failureReason": "INTENT_VALIDATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "INTENT_VALIDATION_VALID",
+      "predicateId": "INTENT_VALIDATION",
+      "prerequisitePredicates": [
+        "POSITION_VALIDATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.deals[*].dealId",
+        "scenarioInput.deals[*].eventId"
+      ],
+      "evaluationOrder": 10,
+      "evaluatorFunction": "evaluate_deal_event_uniqueness",
+      "exactInputPaths": [
+        "scenarioInput.deals[*].dealId",
+        "scenarioInput.deals[*].eventId"
+      ],
+      "failureCheckId": "R9_DEAL_EVENT_UNIQUENESS",
+      "failureReason": "DEAL_EVENT_UNIQUENESS_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "DEAL_EVENT_UNIQUENESS_VALID",
+      "predicateId": "DEAL_EVENT_UNIQUENESS",
+      "prerequisitePredicates": [
+        "INTENT_VALIDATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.deals[*].positionTicket",
+        "scenarioInput.deals[*].intentId"
+      ],
+      "evaluationOrder": 11,
+      "evaluatorFunction": "evaluate_deal_position_intent_binding",
+      "exactInputPaths": [
+        "scenarioInput.deals[*].positionTicket",
+        "scenarioInput.deals[*].intentId"
+      ],
+      "failureCheckId": "R9_DEAL_POSITION_INTENT_BINDING",
+      "failureReason": "DEAL_POSITION_INTENT_BINDING_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "DEAL_POSITION_INTENT_BINDING_VALID",
+      "predicateId": "DEAL_POSITION_INTENT_BINDING",
+      "prerequisitePredicates": [
+        "DEAL_EVENT_UNIQUENESS"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.authoritativeLedgerRoot"
+      ],
+      "evaluationOrder": 12,
+      "evaluatorFunction": "evaluate_persisted_ledger_revalidation",
+      "exactInputPaths": [
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.authoritativeLedgerRoot"
+      ],
+      "failureCheckId": "R9_PERSISTED_LEDGER_REVALIDATION",
+      "failureReason": "PERSISTED_LEDGER_REVALIDATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "PERSISTED_LEDGER_REVALIDATION_VALID",
+      "predicateId": "PERSISTED_LEDGER_REVALIDATION",
+      "prerequisitePredicates": [
+        "DEAL_POSITION_INTENT_BINDING"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.deals[*]"
+      ],
+      "evaluationOrder": 13,
+      "evaluatorFunction": "evaluate_batch_atomicity",
+      "exactInputPaths": [
+        "scenarioInput.deals[*]"
+      ],
+      "failureCheckId": "R9_BATCH_ATOMICITY",
+      "failureReason": "BATCH_ATOMICITY_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "BATCH_ATOMICITY_VALID",
+      "predicateId": "BATCH_ATOMICITY",
+      "prerequisitePredicates": [
+        "PERSISTED_LEDGER_REVALIDATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.intents[*].requestedVolume",
+        "scenarioInput.deals[*].volume"
+      ],
+      "evaluationOrder": 14,
+      "evaluatorFunction": "evaluate_per_ticket_fill",
+      "exactInputPaths": [
+        "scenarioInput.intents[*].requestedVolume",
+        "scenarioInput.deals[*].volume"
+      ],
+      "failureCheckId": "R9_PER_TICKET_FILL",
+      "failureReason": "PER_TICKET_FILL_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "PER_TICKET_FILL_VALID",
+      "predicateId": "PER_TICKET_FILL",
+      "prerequisitePredicates": [
+        "BATCH_ATOMICITY"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.scenario",
+        "scenarioInput.positions[*].role"
+      ],
+      "evaluationOrder": 15,
+      "evaluatorFunction": "evaluate_mandatory_legs",
+      "exactInputPaths": [
+        "scenarioInput.scenario",
+        "scenarioInput.positions[*].role"
+      ],
+      "failureCheckId": "R9_MANDATORY_LEGS",
+      "failureReason": "MANDATORY_LEGS_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "MANDATORY_LEGS_VALID",
+      "predicateId": "MANDATORY_LEGS",
+      "prerequisitePredicates": [
+        "PER_TICKET_FILL"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.brokerProposal"
+      ],
+      "evaluationOrder": 16,
+      "evaluatorFunction": "evaluate_broker_proposal",
+      "exactInputPaths": [
+        "scenarioInput.brokerProposal"
+      ],
+      "failureCheckId": "R9_BROKER_PROPOSAL",
+      "failureReason": "BROKER_PROPOSAL_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "BROKER_PROPOSAL_VALID",
+      "predicateId": "BROKER_PROPOSAL",
+      "prerequisitePredicates": [
+        "MANDATORY_LEGS"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.economic"
+      ],
+      "evaluationOrder": 17,
+      "evaluatorFunction": "evaluate_economic_formulas",
+      "exactInputPaths": [
+        "scenarioInput.economic"
+      ],
+      "failureCheckId": "R9_ECONOMIC_FORMULAS",
+      "failureReason": "ECONOMIC_FORMULAS_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "ECONOMIC_FORMULAS_VALID",
+      "predicateId": "ECONOMIC_FORMULAS",
+      "prerequisitePredicates": [
+        "BROKER_PROPOSAL"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.economic.availableMoney",
+        "scenarioInput.allocationPolicy.allocatedMoney",
+        "scenarioInput.allocationPolicy.remainingMoney"
+      ],
+      "evaluationOrder": 18,
+      "evaluatorFunction": "evaluate_money_conservation",
+      "exactInputPaths": [
+        "scenarioInput.economic.availableMoney",
+        "scenarioInput.allocationPolicy.allocatedMoney",
+        "scenarioInput.allocationPolicy.remainingMoney"
+      ],
+      "failureCheckId": "R9_MONEY_CONSERVATION",
+      "failureReason": "MONEY_CONSERVATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "MONEY_CONSERVATION_VALID",
+      "predicateId": "MONEY_CONSERVATION",
+      "prerequisitePredicates": [
+        "ECONOMIC_FORMULAS"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.positions[*].volume",
+        "scenarioInput.deals[*].volume"
+      ],
+      "evaluationOrder": 19,
+      "evaluatorFunction": "evaluate_volume_conservation",
+      "exactInputPaths": [
+        "scenarioInput.positions[*].volume",
+        "scenarioInput.deals[*].volume"
+      ],
+      "failureCheckId": "R9_VOLUME_CONSERVATION",
+      "failureReason": "VOLUME_CONSERVATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "VOLUME_CONSERVATION_VALID",
+      "predicateId": "VOLUME_CONSERVATION",
+      "prerequisitePredicates": [
+        "MONEY_CONSERVATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.economic.reserveBefore",
+        "scenarioInput.allocationPolicy.reserveAddition"
+      ],
+      "evaluationOrder": 20,
+      "evaluatorFunction": "evaluate_reserve_policy",
+      "exactInputPaths": [
+        "scenarioInput.economic.reserveBefore",
+        "scenarioInput.allocationPolicy.reserveAddition"
+      ],
+      "failureCheckId": "R9_RESERVE_POLICY",
+      "failureReason": "RESERVE_POLICY_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "RESERVE_POLICY_VALID",
+      "predicateId": "RESERVE_POLICY",
+      "prerequisitePredicates": [
+        "VOLUME_CONSERVATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.economic.recoveryPL"
+      ],
+      "evaluationOrder": 21,
+      "evaluatorFunction": "evaluate_recovery_pl",
+      "exactInputPaths": [
+        "scenarioInput.economic.recoveryPL"
+      ],
+      "failureCheckId": "R9_RECOVERY_PL",
+      "failureReason": "RECOVERY_PL_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "RECOVERY_PL_VALID",
+      "predicateId": "RECOVERY_PL",
+      "prerequisitePredicates": [
+        "RESERVE_POLICY"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.economic.requiredCoverage"
+      ],
+      "evaluationOrder": 22,
+      "evaluatorFunction": "evaluate_reserve_coverage",
+      "exactInputPaths": [
+        "scenarioInput.economic.requiredCoverage"
+      ],
+      "failureCheckId": "R9_RESERVE_COVERAGE",
+      "failureReason": "RESERVE_COVERAGE_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "RESERVE_COVERAGE_VALID",
+      "predicateId": "RESERVE_COVERAGE",
+      "prerequisitePredicates": [
+        "RECOVERY_PL"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.economic.tailCount"
+      ],
+      "evaluationOrder": 23,
+      "evaluatorFunction": "evaluate_dual_tail",
+      "exactInputPaths": [
+        "scenarioInput.economic.tailCount"
+      ],
+      "failureCheckId": "R9_DUAL_TAIL",
+      "failureReason": "DUAL_TAIL_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "DUAL_TAIL_VALID",
+      "predicateId": "DUAL_TAIL",
+      "prerequisitePredicates": [
+        "RESERVE_COVERAGE"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.allocationPolicy"
+      ],
+      "evaluationOrder": 24,
+      "evaluatorFunction": "evaluate_allocation",
+      "exactInputPaths": [
+        "scenarioInput.allocationPolicy"
+      ],
+      "failureCheckId": "R9_ALLOCATION",
+      "failureReason": "ALLOCATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "ALLOCATION_VALID",
+      "predicateId": "ALLOCATION",
+      "prerequisitePredicates": [
+        "DUAL_TAIL"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.persistedState"
+      ],
+      "evaluationOrder": 25,
+      "evaluatorFunction": "evaluate_persistence",
+      "exactInputPaths": [
+        "scenarioInput.persistedState"
+      ],
+      "failureCheckId": "R9_PERSISTENCE",
+      "failureReason": "PERSISTENCE_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "PERSISTENCE_VALID",
+      "predicateId": "PERSISTENCE",
+      "prerequisitePredicates": [
+        "ALLOCATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.fsm"
+      ],
+      "evaluationOrder": 26,
+      "evaluatorFunction": "evaluate_fsm_transition",
+      "exactInputPaths": [
+        "scenarioInput.fsm"
+      ],
+      "failureCheckId": "R9_FSM_TRANSITION",
+      "failureReason": "FSM_TRANSITION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "FSM_TRANSITION_VALID",
+      "predicateId": "FSM_TRANSITION",
+      "prerequisitePredicates": [
+        "PERSISTENCE"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.fsm.inputRevision",
+        "scenarioInput.fsm.outputRevision"
+      ],
+      "evaluationOrder": 27,
+      "evaluatorFunction": "evaluate_revision_chain",
+      "exactInputPaths": [
+        "scenarioInput.fsm.inputRevision",
+        "scenarioInput.fsm.outputRevision"
+      ],
+      "failureCheckId": "R9_REVISION_CHAIN",
+      "failureReason": "REVISION_CHAIN_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "REVISION_CHAIN_VALID",
+      "predicateId": "REVISION_CHAIN",
+      "prerequisitePredicates": [
+        "FSM_TRANSITION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.certificate.body",
+        "scenarioInput.certificate.digest"
+      ],
+      "evaluationOrder": 28,
+      "evaluatorFunction": "evaluate_certificate_structure",
+      "exactInputPaths": [
+        "scenarioInput.certificate.body",
+        "scenarioInput.certificate.digest",
+        "scenarioInput.phase"
+      ],
+      "failureCheckId": "R9_CERTIFICATE_STRUCTURE",
+      "failureReason": "CERTIFICATE_STRUCTURE_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "CERTIFICATE_STRUCTURE_VALID",
+      "predicateId": "CERTIFICATE_STRUCTURE",
+      "prerequisitePredicates": [
+        "REVISION_CHAIN"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.persistedState.authoritativeLedgerRoot",
+        "scenarioInput.persistedState.previousStateDigest",
+        "scenarioInput.persistedState.transactionJournalRoot",
+        "scenarioInput.certificate.claimedBrokerDigest",
+        "scenarioInput.certificate.claimedEconomicDigest",
+        "scenarioInput.certificate.claimedAllocationDigest",
+        "scenarioInput.certificate.claimedPersistenceDigest",
+        "scenarioInput.certificate.claimedFsmDigest",
+        "scenarioInput.certificate.claimedOutputStateDigest"
+      ],
+      "evaluationOrder": 29,
+      "evaluatorFunction": "evaluate_certificate_provenance",
+      "exactInputPaths": [
+        "scenarioInput.persistedState.authoritativeLedgerRoot",
+        "scenarioInput.persistedState.previousStateDigest",
+        "scenarioInput.persistedState.transactionJournalRoot",
+        "scenarioInput.certificate.claimedBrokerDigest",
+        "scenarioInput.certificate.claimedEconomicDigest",
+        "scenarioInput.certificate.claimedAllocationDigest",
+        "scenarioInput.certificate.claimedPersistenceDigest",
+        "scenarioInput.certificate.claimedFsmDigest",
+        "scenarioInput.certificate.claimedOutputStateDigest",
+        "scenarioInput.phase"
+      ],
+      "failureCheckId": "R9_CERTIFICATE_PROVENANCE",
+      "failureReason": "CERTIFICATE_PROVENANCE_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "CERTIFICATE_PROVENANCE_VALID",
+      "predicateId": "CERTIFICATE_PROVENANCE",
+      "prerequisitePredicates": [
+        "CERTIFICATE_STRUCTURE"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.certificate.body",
+        "scenarioInput.certificate.digest"
+      ],
+      "evaluationOrder": 30,
+      "evaluatorFunction": "evaluate_certificate_digest",
+      "exactInputPaths": [
+        "scenarioInput.certificate.body",
+        "scenarioInput.certificate.digest",
+        "scenarioInput.phase"
+      ],
+      "failureCheckId": "R9_CERTIFICATE_DIGEST",
+      "failureReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "CERTIFICATE_DIGEST_VALID",
+      "predicateId": "CERTIFICATE_DIGEST",
+      "prerequisitePredicates": [
+        "CERTIFICATE_PROVENANCE"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.seenEventIds"
+      ],
+      "evaluationOrder": 31,
+      "evaluatorFunction": "evaluate_replay_exactly_once",
+      "exactInputPaths": [
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.seenEventIds",
+        "scenarioInput.phase"
+      ],
+      "failureCheckId": "R9_REPLAY_EXACTLY_ONCE",
+      "failureReason": "REPLAY_EXACTLY_ONCE_MISMATCH",
+      "notApplicableRule": "scenario not in RESTART_CONTINUATION,REPLAY_COMMITTED",
+      "passCondition": "REPLAY_EXACTLY_ONCE_VALID",
+      "predicateId": "REPLAY_EXACTLY_ONCE",
+      "prerequisitePredicates": [
+        "CERTIFICATE_DIGEST"
+      ]
+    }
+  ],
+  "schemaRef": "Tests/Contracts/HSB_2E_R4_R9_R4A_R5_SCENARIO_INPUT_SCHEMA_V3_1.json",
+  "schemaVersion": "3.1.0"
+}
