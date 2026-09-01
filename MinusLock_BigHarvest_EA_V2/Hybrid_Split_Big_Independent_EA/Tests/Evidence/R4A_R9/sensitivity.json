@@ -115,7 +115,7 @@
       "sourceChanged": true,
       "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py",
       "stderr": "",
-      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=4"
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=5"
     },
     {
       "afterSha256": "99bb9e8e5de236a06d7c61846e5b992e78f11d0ef86ad32ed0436a39c82e8f62",
@@ -126,7 +126,7 @@
       "sourceChanged": true,
       "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py",
       "stderr": "",
-      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=1"
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=2"
     },
     {
       "afterSha256": "e0632377cf82eb462a9f914cfd3073697dbda61a82664526138af137b80cfe3d",
@@ -137,7 +137,7 @@
       "sourceChanged": true,
       "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py",
       "stderr": "",
-      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=2"
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=3"
     },
     {
       "afterSha256": "ef9f6103154e7c8500e292cd93893dc1d15e970eaa1bfb8835d5c1651b769c06",
@@ -148,7 +148,7 @@
       "sourceChanged": true,
       "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py",
       "stderr": "",
-      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=1"
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=2"
     },
     {
       "afterSha256": "1cd3f86be8ea92f3f72f1afd42aba924b1a7aa2920f99abcc08cd4883689d17b",
@@ -159,7 +159,7 @@
       "sourceChanged": true,
       "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py",
       "stderr": "",
-      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=2"
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=3"
     },
     {
       "afterSha256": "f930508864b5098d620a6483eb379391af9a9188b25236aa6e6d4f09990dd024",
@@ -170,7 +170,7 @@
       "sourceChanged": true,
       "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py",
       "stderr": "",
-      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=3"
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=4"
     },
     {
       "afterSha256": "7a2da8f2393f6b611635e7a1a75614a0204a35d0c0b8bb6c9b543f01652d5717",
@@ -181,7 +181,7 @@
       "sourceChanged": true,
       "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py",
       "stderr": "",
-      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=4"
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=5"
     }
   ]
 }
