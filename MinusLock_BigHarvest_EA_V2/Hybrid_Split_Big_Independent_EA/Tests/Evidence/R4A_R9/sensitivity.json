@@ -1,0 +1,187 @@
+{
+  "formatProbes": [
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "FORMAT_RESULT_ONLY",
+      "caught": true,
+      "findings": [
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING",
+        "ACTUAL_FIELDS_MISSING"
+      ]
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "FORMAT_EMPTY_0_OF_0",
+      "caught": true,
+      "findings": [
+        "CASE_SET",
+        "SUMMARY_MISMATCH",
+        "HISTORICAL_VARIANT_MISSING"
+      ]
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "FORMAT_MISSING_ROW",
+      "caught": true,
+      "findings": [
+        "CASE_SET",
+        "SUMMARY_MISMATCH"
+      ]
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "FORMAT_DUPLICATE_ID",
+      "caught": true,
+      "findings": [
+        "CASE_SET",
+        "DUPLICATE_CASE_ID"
+      ]
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "FORMAT_CONTRADICTORY_PASS",
+      "caught": true,
+      "findings": [
+        "OUTCOME_MISMATCH",
+        "CONTRADICTORY_DIAGNOSTIC_RESULT"
+      ]
+    }
+  ],
+  "mainSourceUnchanged": true,
+  "result": "PASS",
+  "sourceMutants": [
+    {
+      "afterSha256": "2b95c6c1a90d63b107c9dc3250547e2974d2b0bf9021adb321b2405395dd8af0",
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "caseId": "MUT_POSITION_OWNERSHIP",
+      "caught": true,
+      "exitCode": 1,
+      "sourceChanged": true,
+      "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py",
+      "stderr": "",
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=4"
+    },
+    {
+      "afterSha256": "99bb9e8e5de236a06d7c61846e5b992e78f11d0ef86ad32ed0436a39c82e8f62",
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "caseId": "MUT_EVENT_DEAL_BINDING",
+      "caught": true,
+      "exitCode": 1,
+      "sourceChanged": true,
+      "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py",
+      "stderr": "",
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=1"
+    },
+    {
+      "afterSha256": "e0632377cf82eb462a9f914cfd3073697dbda61a82664526138af137b80cfe3d",
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "caseId": "MUT_FAR_TICKET",
+      "caught": true,
+      "exitCode": 1,
+      "sourceChanged": true,
+      "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py",
+      "stderr": "",
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=2"
+    },
+    {
+      "afterSha256": "ef9f6103154e7c8500e292cd93893dc1d15e970eaa1bfb8835d5c1651b769c06",
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "caseId": "MUT_COMMIT_REVISION",
+      "caught": true,
+      "exitCode": 1,
+      "sourceChanged": true,
+      "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py",
+      "stderr": "",
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=1"
+    },
+    {
+      "afterSha256": "1cd3f86be8ea92f3f72f1afd42aba924b1a7aa2920f99abcc08cd4883689d17b",
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "caseId": "MUT_CONFIRMED",
+      "caught": true,
+      "exitCode": 1,
+      "sourceChanged": true,
+      "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py",
+      "stderr": "",
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=2"
+    },
+    {
+      "afterSha256": "f930508864b5098d620a6483eb379391af9a9188b25236aa6e6d4f09990dd024",
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "caseId": "MUT_CONTEXT_REVISION",
+      "caught": true,
+      "exitCode": 1,
+      "sourceChanged": true,
+      "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py",
+      "stderr": "",
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=3"
+    },
+    {
+      "afterSha256": "7a2da8f2393f6b611635e7a1a75614a0204a35d0c0b8bb6c9b543f01652d5717",
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "caseId": "MUT_SCENARIO_PHASE",
+      "caught": true,
+      "exitCode": 1,
+      "sourceChanged": true,
+      "sourcePath": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py",
+      "stderr": "",
+      "stdout": "RESULT=FAIL EXPECTED=58 EXECUTED=58 FINDINGS=4"
+    }
+  ]
+}

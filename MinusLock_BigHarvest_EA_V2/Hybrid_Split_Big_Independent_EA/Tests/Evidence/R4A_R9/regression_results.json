@@ -1,0 +1,473 @@
+{
+  "cases": [
+    {
+      "actualCheckId": "",
+      "actualClass": "ACCEPTED",
+      "actualReason": "",
+      "caseId": "VALID",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_TEMPORAL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CONTRADICTORY_WINDOW",
+      "caseId": "CONTRADICTORY_WINDOW",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_TEMPORAL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DEAL_OUTSIDE_WINDOW",
+      "caseId": "STALE_DEAL",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_TEMPORAL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DEAL_OUTSIDE_WINDOW",
+      "caseId": "FUTURE_DEAL",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_SCHEMA",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "MISSING_REQUIRED",
+      "caseId": "MISSING_TIME",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_DIRECTION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CLOSE_DIRECTION_OR_REVISION_MISMATCH",
+      "caseId": "SAME_CLOSE_DIRECTION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_IDENTITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DEAL_CONTEXT_MISMATCH",
+      "caseId": "FOREIGN_MAGIC",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R6_DUAL_TAIL",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "TAIL_COUNT_MISMATCH",
+      "caseId": "DUAL_TAIL",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_FAR",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "MULTIPLE_ACTIVE_FAR",
+      "caseId": "SECOND_FAR",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_REPLAY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "REGISTRY_MUTATION",
+      "caseId": "FOREIGN_REPLAY_IDS",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_REVISION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "REPLAY_CURRENT_NOT_HISTORICAL_OUTPUT",
+      "caseId": "REPLAY_REVISION_INCREMENT",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "UNKNOWN_OPERATION",
+      "caseId": "UNKNOWN_OPERATION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "STATE_DIGEST_MISMATCH",
+      "caseId": "BAD_STATE_DIGEST",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "INPUT_BINDING_MISMATCH",
+      "caseId": "LIFECYCLE_DISCONTINUITY",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "caseId": "CERT_ZERO",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_TYPE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "EXACT_INTEGER_REQUIRED",
+      "caseId": "BOOLEAN_ID",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_NUMERIC",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "NONFINITE_DECIMAL",
+      "caseId": "NAN",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_GRID",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "POSITION_OFF_GRID",
+      "caseId": "OFFGRID_VOLUME",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "KeyError",
+      "actualClass": "INFRASTRUCTURE_ERROR",
+      "actualReason": "'missing'",
+      "caseId": "HARNESS_KEYERROR",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "TypeError",
+      "actualClass": "INFRASTRUCTURE_ERROR",
+      "actualReason": "unsupported operand type(s) for +: 'int' and 'str'",
+      "caseId": "HARNESS_TYPEERROR",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_ENUM",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "INVALID_ENUM",
+      "caseId": "INVALID_SCHEMA_VERSION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_CERTIFICATE_INTEGRITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "caseId": "REPLAY_ZERO_CERT",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_REVISION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "HISTORICAL_INCREMENT_REQUIRED",
+      "caseId": "HISTORICAL_REVISION_REVERSED",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_REPLAY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "AUTHORITATIVE_STATE_BINDING_MISMATCH",
+      "caseId": "REPLAY_FAKE_RESERVE",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "SEQUENCE_TOO_SHORT",
+      "caseId": "EMPTY_LIFECYCLE",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R7_LIFECYCLE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "UNKNOWN_FSM_STATE",
+      "caseId": "BAD_LAST_OUTPUT",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "caseId": "CERT_BODY_CHANGED",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_SOURCE_MISMATCH",
+      "caseId": "CERT_CLAIM_RESEALED",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "CERTIFICATE_SOURCE_MISMATCH",
+      "caseId": "CERT_OTHER_OPERATION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_PHASE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "COMMIT_EVIDENCE_REQUIRED",
+      "caseId": "CERT_MISSING_COMMITTED",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R9_SCENARIO_PHASE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN",
+      "caseId": "CERT_PROVIDED_PRECOMMIT",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_SCHEMA",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "UNKNOWN_FIELD",
+      "caseId": "UNKNOWN_NESTED",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_NUMERIC",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "NONFINITE_DECIMAL",
+      "caseId": "INFINITY",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_GRID",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "POSITION_OFF_GRID",
+      "caseId": "OFFGRID_PRICE",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_COLLECTION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DUPLICATE_IDENTIFIER",
+      "caseId": "DUPLICATE_DEAL",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_MONEY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "MONEY_CONSERVATION_MISMATCH",
+      "caseId": "MONEY_CONSERVATION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_VOLUME",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "VOLUME_CONSERVATION_MISMATCH",
+      "caseId": "VOLUME_CONSERVATION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_RESERVE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "RESERVE_PARTIAL_FAR_FORBIDDEN",
+      "caseId": "RESERVE_PARTIAL_FAR",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_IDENTITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "POSITION_CONTEXT_MISMATCH",
+      "caseId": "POSITION_FOREIGN_MAGIC",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_IDENTITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "EVENT_DEAL_MISMATCH",
+      "caseId": "EVENT_FOREIGN_MAGIC",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_FAR",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "ACTIVE_FAR_TICKET_NOT_FOUND",
+      "caseId": "FAR_TICKET_NOT_FOUND",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_REVISION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "COMMIT_INCREMENT_REQUIRED",
+      "caseId": "COMMIT_REVISION_JUMP",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R9_SCENARIO_PHASE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN",
+      "caseId": "PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_REFERENCE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DEAL_INTENT_NOT_FOUND",
+      "caseId": "ORPHAN_DEAL",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_REVISION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "REPLAY_CURRENT_NOT_HISTORICAL_OUTPUT",
+      "caseId": "REPLAY_ARBITRARY_CURRENT_REVISION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_COLLECTION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "DUPLICATE_IDENTIFIER",
+      "caseId": "DUPLICATE_TICKET",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R8_IDENTITY",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "POSITION_CONTEXT_MISMATCH",
+      "caseId": "FAR_FOREIGN_OWNERSHIP",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "",
+      "actualClass": "ACCEPTED",
+      "actualReason": "",
+      "caseId": "VALID_PRECOMMIT",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R9_EXECUTION_CONFIRMATION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "EXECUTION_NOT_CONFIRMED",
+      "caseId": "UNCONFIRMED_RECORDS",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R9_EXECUTION_REVISION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "STATE_REVISION_CONTEXT_MISMATCH",
+      "caseId": "DEAL_STATE_REVISION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R9_EXECUTION_REVISION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "STATE_REVISION_CONTEXT_MISMATCH",
+      "caseId": "EVENT_STATE_REVISION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R9_EXECUTION_REVISION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "SNAPSHOT_REVISION_CONTEXT_MISMATCH",
+      "caseId": "DEAL_SNAPSHOT_REVISION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R9_EXECUTION_REVISION",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "SNAPSHOT_REVISION_CONTEXT_MISMATCH",
+      "caseId": "EVENT_SNAPSHOT_REVISION",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R9_SCENARIO_PHASE",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "REPLAY_SCENARIO_REQUIRES_REPLAY",
+      "caseId": "SCENARIO_PHASE_MISMATCH",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "R5_SCHEMA",
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualReason": "MISSING_REQUIRED",
+      "caseId": "MISSING_CONTEXT_ACCOUNT",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "",
+      "actualClass": "ACCEPTED",
+      "actualReason": "",
+      "caseId": "LARGE_EXACT_IDENTIFIER",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "",
+      "actualClass": "ACCEPTED",
+      "actualReason": "",
+      "caseId": "METADATA_MODIFIED",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    },
+    {
+      "actualCheckId": "",
+      "actualClass": "ACCEPTED",
+      "actualReason": "",
+      "caseId": "METADATA_REMOVED",
+      "executionStatus": "EXECUTED",
+      "result": "PASS"
+    }
+  ],
+  "executed": 58,
+  "required": 58,
+  "result": "PASS",
+  "unexpectedInfrastructureErrors": 0,
+  "wrongFailures": 0
+}
