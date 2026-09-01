@@ -1,0 +1,116 @@
+{
+  "cases": [
+    {
+      "caseId": "R5_CONTRADICTORY_WINDOW",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_CONTRADICTORY_WINDOW",
+      "inputSha256": "7a622605c5b6837c707c7a94434e6821636617a1cb20e70ede09317ed41b86a8",
+      "requiredCorrectBehavior": "R6_TEMPORAL_REJECTION"
+    },
+    {
+      "caseId": "R5_SAME_CLOSE_DIRECTION",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_SAME_CLOSE_DIRECTION",
+      "inputSha256": "9565f923b9ec853a6edec0110d5299bb9bd0d02ff4f4829de48b659c535cec0f",
+      "requiredCorrectBehavior": "R6_DIRECTION_REJECTION"
+    },
+    {
+      "caseId": "R5_DUAL_TAIL",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_DUAL_TAIL",
+      "inputSha256": "2258b499486fe68465e0eb02ad690ef35f33776f13d358d689f321cfe57855b7",
+      "requiredCorrectBehavior": "R6_DUAL_TAIL_REJECTION"
+    },
+    {
+      "caseId": "R5_FOREIGN_MAGIC_DEAL_EVENT",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_FOREIGN_MAGIC_DEAL_EVENT",
+      "inputSha256": "60db231aef20eb63cc66cf5a86dd24810946f1122a4d2b8e054d6f7e1c20dc6e",
+      "requiredCorrectBehavior": "R6_IDENTITY_REJECTION"
+    },
+    {
+      "caseId": "R5_SECOND_FAR",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_SECOND_FAR",
+      "inputSha256": "e6d6adc0ea3e5a39d151a485b3e5ede876a3c26dcb0a907fc4c775c5674e5bd5",
+      "requiredCorrectBehavior": "R6_FAR_UNIQUENESS_REJECTION"
+    },
+    {
+      "caseId": "R5_FOREIGN_REPLAY_IDS",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_FOREIGN_REPLAY_IDS",
+      "inputSha256": "d90c116a1964e3fb9fece98a7b3e16f7b4d3d05e518acfcd9bec301bb61ccf97",
+      "requiredCorrectBehavior": "R6_REPLAY_REGISTRY_REJECTION"
+    },
+    {
+      "caseId": "R5_UNKNOWN_LIFECYCLE_OPERATION",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_UNKNOWN_LIFECYCLE_OPERATION",
+      "inputSha256": "caa419a2a33f3784c32ea53397fa652cddd13aa3530d7facc7d10e97ac8ff3bc",
+      "requiredCorrectBehavior": "R6_LIFECYCLE_OPERATION_REJECTION"
+    },
+    {
+      "caseId": "R5_FALSE_STATE_DIGEST",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_FALSE_STATE_DIGEST",
+      "inputSha256": "ee4e43d25b3d2da99793cf7b7e8ea4c37bb012223fb1552314c8406451771da6",
+      "requiredCorrectBehavior": "R6_STATE_DIGEST_REJECTION"
+    },
+    {
+      "caseId": "R5_REPLAY_REVISION_INCREMENT",
+      "historicalActualResult": {
+        "class": "ACCEPTED"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "R5_REPLAY_REVISION_INCREMENT",
+      "inputSha256": "1019bf686a0a13aa4041c4a21aa6e7e6f85a9a5aab05b1cd64844d31f2abc745",
+      "requiredCorrectBehavior": "R6_REPLAY_REVISION_INVARIANCE"
+    },
+    {
+      "caseId": "R5_METADATA_DUPLICATE_FALSE_COVERAGE",
+      "historicalActualResult": {
+        "class": "ACCEPTANCE_SOURCE_USES_TESTCONTRACT_BOUNDARYPROPERTY"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "duplicate runtime per group, retain metadata",
+      "inputSha256": "7ef79687d8e61af70d9c51f18c7cf562cdee861cad4c0e5263a44e5574febff4",
+      "requiredCorrectBehavior": "RUNTIME_DUPLICATE_REJECTION"
+    },
+    {
+      "caseId": "R5_STALE_EVIDENCE_TRUST",
+      "historicalActualResult": {
+        "class": "ACCEPTANCE_READS_REGRESSION_RESULTS_JSON"
+      },
+      "historicalTargetSha": "c118d2e3d810d0708c3960f0ab78fbd891964eed",
+      "inputOrTransformation": "retain green evidence while validator changes",
+      "inputSha256": "d1fca0b64f78f2879bd553f1d857408f91a80456ee9e2141ed40878fe0435943",
+      "requiredCorrectBehavior": "FRESH_REGRESSION_EXECUTION"
+    }
+  ],
+  "executed": 11,
+  "required": 11
+}
