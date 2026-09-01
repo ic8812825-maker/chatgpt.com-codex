@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "caseId": "RUNTIME_DUPLICATES_METADATA_DISTINCT",
+      "result": "PASS"
+    },
+    {
+      "caseId": "METADATA_ERASURE_INDEPENDENT",
+      "result": "PASS"
+    },
+    {
+      "caseId": "STALE_EVIDENCE_NOT_TRUSTED",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_TEMPORAL",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_IDENTITY",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_FAR_DUAL",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_REPLAY",
+      "result": "PASS"
+    },
+    {
+      "caseId": "MUTANT_STATE_DIGEST",
+      "result": "PASS"
+    }
+  ],
+  "executed": 8,
+  "failed": 0,
+  "required": 8,
+  "result": "PASS"
+}
