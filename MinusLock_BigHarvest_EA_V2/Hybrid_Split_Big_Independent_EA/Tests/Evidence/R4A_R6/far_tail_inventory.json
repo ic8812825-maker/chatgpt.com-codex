@@ -1,0 +1,149 @@
+{
+  "rows": [
+    {
+      "fixtureId": "R5-INITIAL-1",
+      "farRoles": 0,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-INITIAL-2",
+      "farRoles": 0,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-INITIAL-3",
+      "farRoles": 0,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-INITIAL-4",
+      "farRoles": 0,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-BIG-1",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-BIG-2",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-BIG-3",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-BIG-4",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-SMALL-1",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-SMALL-2",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-SMALL-3",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-SMALL-4",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-FINAL-1",
+      "farRoles": 1,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-FINAL-2",
+      "farRoles": 1,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-FINAL-3",
+      "farRoles": 1,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-FINAL-4",
+      "farRoles": 1,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-RESTART_CONTINUATION-1",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-RESTART_CONTINUATION-2",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-RESTART_CONTINUATION-3",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-RESTART_CONTINUATION-4",
+      "farRoles": 1,
+      "declaredTailCount": 1,
+      "activeFar": true
+    },
+    {
+      "fixtureId": "R5-REPLAY_COMMITTED-1",
+      "farRoles": 1,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-REPLAY_COMMITTED-2",
+      "farRoles": 1,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-REPLAY_COMMITTED-3",
+      "farRoles": 1,
+      "declaredTailCount": 0,
+      "activeFar": false
+    },
+    {
+      "fixtureId": "R5-REPLAY_COMMITTED-4",
+      "farRoles": 1,
+      "declaredTailCount": 0,
+      "activeFar": false
+    }
+  ],
+  "result": "PASS"
+}
