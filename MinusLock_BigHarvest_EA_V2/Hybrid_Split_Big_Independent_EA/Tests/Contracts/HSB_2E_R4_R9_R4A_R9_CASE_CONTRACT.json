@@ -1,0 +1,995 @@
+{
+  "cases": [
+    {
+      "caseId": "VALID",
+      "expectedCheckId": "",
+      "expectedClass": "ACCEPTED",
+      "expectedReason": "",
+      "fixtureVariantId": "R9_VARIANT_VALID",
+      "requirementId": "REQ_VALID"
+    },
+    {
+      "caseId": "CONTRADICTORY_WINDOW",
+      "expectedCheckId": "R6_TEMPORAL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CONTRADICTORY_WINDOW",
+      "fixtureVariantId": "R9_VARIANT_CONTRADICTORY_WINDOW",
+      "requirementId": "REQ_CONTRADICTORY_WINDOW"
+    },
+    {
+      "caseId": "STALE_DEAL",
+      "expectedCheckId": "R6_TEMPORAL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DEAL_OUTSIDE_WINDOW",
+      "fixtureVariantId": "R9_VARIANT_STALE_DEAL",
+      "requirementId": "REQ_STALE_DEAL"
+    },
+    {
+      "caseId": "FUTURE_DEAL",
+      "expectedCheckId": "R6_TEMPORAL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DEAL_OUTSIDE_WINDOW",
+      "fixtureVariantId": "R9_VARIANT_FUTURE_DEAL",
+      "requirementId": "REQ_FUTURE_DEAL"
+    },
+    {
+      "caseId": "MISSING_TIME",
+      "expectedCheckId": "R5_SCHEMA",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "MISSING_REQUIRED",
+      "fixtureVariantId": "R9_VARIANT_MISSING_TIME",
+      "requirementId": "REQ_MISSING_TIME"
+    },
+    {
+      "caseId": "SAME_CLOSE_DIRECTION",
+      "expectedCheckId": "R6_DIRECTION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CLOSE_DIRECTION_OR_REVISION_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_SAME_CLOSE_DIRECTION",
+      "requirementId": "REQ_SAME_CLOSE_DIRECTION"
+    },
+    {
+      "caseId": "FOREIGN_MAGIC",
+      "expectedCheckId": "R8_IDENTITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DEAL_CONTEXT_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_FOREIGN_MAGIC",
+      "requirementId": "REQ_FOREIGN_MAGIC"
+    },
+    {
+      "caseId": "DUAL_TAIL",
+      "expectedCheckId": "R6_DUAL_TAIL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "TAIL_COUNT_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_DUAL_TAIL",
+      "requirementId": "REQ_DUAL_TAIL"
+    },
+    {
+      "caseId": "SECOND_FAR",
+      "expectedCheckId": "R8_FAR",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "MULTIPLE_ACTIVE_FAR",
+      "fixtureVariantId": "R9_VARIANT_SECOND_FAR",
+      "requirementId": "REQ_SECOND_FAR"
+    },
+    {
+      "caseId": "FOREIGN_REPLAY_IDS",
+      "expectedCheckId": "R7_REPLAY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "REGISTRY_MUTATION",
+      "fixtureVariantId": "R9_VARIANT_FOREIGN_REPLAY_IDS",
+      "requirementId": "REQ_FOREIGN_REPLAY_IDS"
+    },
+    {
+      "caseId": "REPLAY_REVISION_INCREMENT",
+      "expectedCheckId": "R8_REVISION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "REPLAY_CURRENT_NOT_HISTORICAL_OUTPUT",
+      "fixtureVariantId": "R9_VARIANT_REPLAY_REVISION_INCREMENT",
+      "requirementId": "REQ_REPLAY_REVISION_INCREMENT"
+    },
+    {
+      "caseId": "UNKNOWN_OPERATION",
+      "expectedCheckId": "R8_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "UNKNOWN_OPERATION",
+      "fixtureVariantId": "R9_VARIANT_UNKNOWN_OPERATION",
+      "requirementId": "REQ_UNKNOWN_OPERATION"
+    },
+    {
+      "caseId": "BAD_STATE_DIGEST",
+      "expectedCheckId": "R7_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "STATE_DIGEST_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_BAD_STATE_DIGEST",
+      "requirementId": "REQ_BAD_STATE_DIGEST"
+    },
+    {
+      "caseId": "LIFECYCLE_DISCONTINUITY",
+      "expectedCheckId": "R8_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "INPUT_BINDING_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_LIFECYCLE_DISCONTINUITY",
+      "requirementId": "REQ_LIFECYCLE_DISCONTINUITY"
+    },
+    {
+      "caseId": "CERT_ZERO",
+      "expectedCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_CERT_ZERO",
+      "requirementId": "REQ_CERT_ZERO"
+    },
+    {
+      "caseId": "BOOLEAN_ID",
+      "expectedCheckId": "R5_TYPE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "EXACT_INTEGER_REQUIRED",
+      "fixtureVariantId": "R9_VARIANT_BOOLEAN_ID",
+      "requirementId": "REQ_BOOLEAN_ID"
+    },
+    {
+      "caseId": "NAN",
+      "expectedCheckId": "R5_NUMERIC",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "NONFINITE_DECIMAL",
+      "fixtureVariantId": "R9_VARIANT_NAN",
+      "requirementId": "REQ_NAN"
+    },
+    {
+      "caseId": "OFFGRID_VOLUME",
+      "expectedCheckId": "R5_GRID",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "POSITION_OFF_GRID",
+      "fixtureVariantId": "R9_VARIANT_OFFGRID_VOLUME",
+      "requirementId": "REQ_OFFGRID_VOLUME"
+    },
+    {
+      "caseId": "HARNESS_KEYERROR",
+      "expectedCheckId": "KeyError",
+      "expectedClass": "INFRASTRUCTURE_ERROR",
+      "expectedReason": "'missing'",
+      "fixtureVariantId": "R9_VARIANT_HARNESS_KEYERROR",
+      "requirementId": "REQ_HARNESS_KEYERROR"
+    },
+    {
+      "caseId": "HARNESS_TYPEERROR",
+      "expectedCheckId": "TypeError",
+      "expectedClass": "INFRASTRUCTURE_ERROR",
+      "expectedReason": "unsupported operand type(s) for +: 'int' and 'str'",
+      "fixtureVariantId": "R9_VARIANT_HARNESS_TYPEERROR",
+      "requirementId": "REQ_HARNESS_TYPEERROR"
+    },
+    {
+      "caseId": "INVALID_SCHEMA_VERSION",
+      "expectedCheckId": "R5_ENUM",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "INVALID_ENUM",
+      "fixtureVariantId": "R9_VARIANT_INVALID_SCHEMA_VERSION",
+      "requirementId": "REQ_INVALID_SCHEMA_VERSION"
+    },
+    {
+      "caseId": "REPLAY_ZERO_CERT",
+      "expectedCheckId": "R7_CERTIFICATE_INTEGRITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_REPLAY_ZERO_CERT",
+      "requirementId": "REQ_REPLAY_ZERO_CERT"
+    },
+    {
+      "caseId": "HISTORICAL_REVISION_REVERSED",
+      "expectedCheckId": "R8_REVISION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "HISTORICAL_INCREMENT_REQUIRED",
+      "fixtureVariantId": "R9_VARIANT_HISTORICAL_REVISION_REVERSED",
+      "requirementId": "REQ_HISTORICAL_REVISION_REVERSED"
+    },
+    {
+      "caseId": "REPLAY_FAKE_RESERVE",
+      "expectedCheckId": "R7_REPLAY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "AUTHORITATIVE_STATE_BINDING_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_REPLAY_FAKE_RESERVE",
+      "requirementId": "REQ_REPLAY_FAKE_RESERVE"
+    },
+    {
+      "caseId": "EMPTY_LIFECYCLE",
+      "expectedCheckId": "R8_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "SEQUENCE_TOO_SHORT",
+      "fixtureVariantId": "R9_VARIANT_EMPTY_LIFECYCLE",
+      "requirementId": "REQ_EMPTY_LIFECYCLE"
+    },
+    {
+      "caseId": "BAD_LAST_OUTPUT",
+      "expectedCheckId": "R7_LIFECYCLE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "UNKNOWN_FSM_STATE",
+      "fixtureVariantId": "R9_VARIANT_BAD_LAST_OUTPUT",
+      "requirementId": "REQ_BAD_LAST_OUTPUT"
+    },
+    {
+      "caseId": "CERT_BODY_CHANGED",
+      "expectedCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_DIGEST_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_CERT_BODY_CHANGED",
+      "requirementId": "REQ_CERT_BODY_CHANGED"
+    },
+    {
+      "caseId": "CERT_CLAIM_RESEALED",
+      "expectedCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_SOURCE_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_CERT_CLAIM_RESEALED",
+      "requirementId": "REQ_CERT_CLAIM_RESEALED"
+    },
+    {
+      "caseId": "CERT_OTHER_OPERATION",
+      "expectedCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "CERTIFICATE_SOURCE_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_CERT_OTHER_OPERATION",
+      "requirementId": "REQ_CERT_OTHER_OPERATION"
+    },
+    {
+      "caseId": "CERT_MISSING_COMMITTED",
+      "expectedCheckId": "R8_PHASE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "COMMIT_EVIDENCE_REQUIRED",
+      "fixtureVariantId": "R9_VARIANT_CERT_MISSING_COMMITTED",
+      "requirementId": "REQ_CERT_MISSING_COMMITTED"
+    },
+    {
+      "caseId": "CERT_PROVIDED_PRECOMMIT",
+      "expectedCheckId": "R9_SCENARIO_PHASE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN",
+      "fixtureVariantId": "R9_VARIANT_CERT_PROVIDED_PRECOMMIT",
+      "requirementId": "REQ_CERT_PROVIDED_PRECOMMIT"
+    },
+    {
+      "caseId": "UNKNOWN_NESTED",
+      "expectedCheckId": "R5_SCHEMA",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "UNKNOWN_FIELD",
+      "fixtureVariantId": "R9_VARIANT_UNKNOWN_NESTED",
+      "requirementId": "REQ_UNKNOWN_NESTED"
+    },
+    {
+      "caseId": "INFINITY",
+      "expectedCheckId": "R5_NUMERIC",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "NONFINITE_DECIMAL",
+      "fixtureVariantId": "R9_VARIANT_INFINITY",
+      "requirementId": "REQ_INFINITY"
+    },
+    {
+      "caseId": "OFFGRID_PRICE",
+      "expectedCheckId": "R5_GRID",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "POSITION_OFF_GRID",
+      "fixtureVariantId": "R9_VARIANT_OFFGRID_PRICE",
+      "requirementId": "REQ_OFFGRID_PRICE"
+    },
+    {
+      "caseId": "DUPLICATE_DEAL",
+      "expectedCheckId": "R8_COLLECTION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DUPLICATE_IDENTIFIER",
+      "fixtureVariantId": "R9_VARIANT_DUPLICATE_DEAL",
+      "requirementId": "REQ_DUPLICATE_DEAL"
+    },
+    {
+      "caseId": "MONEY_CONSERVATION",
+      "expectedCheckId": "R5_MONEY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "MONEY_CONSERVATION_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_MONEY_CONSERVATION",
+      "requirementId": "REQ_MONEY_CONSERVATION"
+    },
+    {
+      "caseId": "VOLUME_CONSERVATION",
+      "expectedCheckId": "R5_VOLUME",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "VOLUME_CONSERVATION_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_VOLUME_CONSERVATION",
+      "requirementId": "REQ_VOLUME_CONSERVATION"
+    },
+    {
+      "caseId": "RESERVE_PARTIAL_FAR",
+      "expectedCheckId": "R5_RESERVE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "RESERVE_PARTIAL_FAR_FORBIDDEN",
+      "fixtureVariantId": "R9_VARIANT_RESERVE_PARTIAL_FAR",
+      "requirementId": "REQ_RESERVE_PARTIAL_FAR"
+    },
+    {
+      "caseId": "POSITION_FOREIGN_MAGIC",
+      "expectedCheckId": "R8_IDENTITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "POSITION_CONTEXT_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_POSITION_FOREIGN_MAGIC",
+      "requirementId": "REQ_POSITION_FOREIGN_MAGIC"
+    },
+    {
+      "caseId": "EVENT_FOREIGN_MAGIC",
+      "expectedCheckId": "R8_IDENTITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "EVENT_DEAL_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_EVENT_FOREIGN_MAGIC",
+      "requirementId": "REQ_EVENT_FOREIGN_MAGIC"
+    },
+    {
+      "caseId": "FAR_TICKET_NOT_FOUND",
+      "expectedCheckId": "R8_FAR",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "ACTIVE_FAR_TICKET_NOT_FOUND",
+      "fixtureVariantId": "R9_VARIANT_FAR_TICKET_NOT_FOUND",
+      "requirementId": "REQ_FAR_TICKET_NOT_FOUND"
+    },
+    {
+      "caseId": "COMMIT_REVISION_JUMP",
+      "expectedCheckId": "R8_REVISION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "COMMIT_INCREMENT_REQUIRED",
+      "fixtureVariantId": "R9_VARIANT_COMMIT_REVISION_JUMP",
+      "requirementId": "REQ_COMMIT_REVISION_JUMP"
+    },
+    {
+      "caseId": "PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "expectedCheckId": "R9_SCENARIO_PHASE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN",
+      "fixtureVariantId": "R9_VARIANT_PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "requirementId": "REQ_PHASE_DOWNGRADE_WITH_EVIDENCE"
+    },
+    {
+      "caseId": "ORPHAN_DEAL",
+      "expectedCheckId": "R8_REFERENCE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DEAL_INTENT_NOT_FOUND",
+      "fixtureVariantId": "R9_VARIANT_ORPHAN_DEAL",
+      "requirementId": "REQ_ORPHAN_DEAL"
+    },
+    {
+      "caseId": "REPLAY_ARBITRARY_CURRENT_REVISION",
+      "expectedCheckId": "R8_REVISION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "REPLAY_CURRENT_NOT_HISTORICAL_OUTPUT",
+      "fixtureVariantId": "R9_VARIANT_REPLAY_ARBITRARY_CURRENT_REVISION",
+      "requirementId": "REQ_REPLAY_ARBITRARY_CURRENT_REVISION"
+    },
+    {
+      "caseId": "DUPLICATE_TICKET",
+      "expectedCheckId": "R8_COLLECTION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "DUPLICATE_IDENTIFIER",
+      "fixtureVariantId": "R9_VARIANT_DUPLICATE_TICKET",
+      "requirementId": "REQ_DUPLICATE_TICKET"
+    },
+    {
+      "caseId": "FAR_FOREIGN_OWNERSHIP",
+      "expectedCheckId": "R8_IDENTITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "POSITION_CONTEXT_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_FAR_FOREIGN_OWNERSHIP",
+      "requirementId": "REQ_FAR_FOREIGN_OWNERSHIP"
+    },
+    {
+      "caseId": "VALID_PRECOMMIT",
+      "expectedCheckId": "",
+      "expectedClass": "ACCEPTED",
+      "expectedReason": "",
+      "fixtureVariantId": "R9_VARIANT_VALID_PRECOMMIT",
+      "requirementId": "REQ_VALID_PRECOMMIT"
+    },
+    {
+      "caseId": "UNCONFIRMED_RECORDS",
+      "expectedCheckId": "R9_EXECUTION_CONFIRMATION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "EXECUTION_NOT_CONFIRMED",
+      "fixtureVariantId": "R9_VARIANT_UNCONFIRMED_RECORDS",
+      "requirementId": "REQ_UNCONFIRMED_RECORDS"
+    },
+    {
+      "caseId": "DEAL_STATE_REVISION",
+      "expectedCheckId": "R9_EXECUTION_REVISION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "STATE_REVISION_CONTEXT_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_DEAL_STATE_REVISION",
+      "requirementId": "REQ_DEAL_STATE_REVISION"
+    },
+    {
+      "caseId": "EVENT_STATE_REVISION",
+      "expectedCheckId": "R9_EXECUTION_REVISION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "STATE_REVISION_CONTEXT_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_EVENT_STATE_REVISION",
+      "requirementId": "REQ_EVENT_STATE_REVISION"
+    },
+    {
+      "caseId": "DEAL_SNAPSHOT_REVISION",
+      "expectedCheckId": "R9_EXECUTION_REVISION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "SNAPSHOT_REVISION_CONTEXT_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_DEAL_SNAPSHOT_REVISION",
+      "requirementId": "REQ_DEAL_SNAPSHOT_REVISION"
+    },
+    {
+      "caseId": "EVENT_SNAPSHOT_REVISION",
+      "expectedCheckId": "R9_EXECUTION_REVISION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "SNAPSHOT_REVISION_CONTEXT_MISMATCH",
+      "fixtureVariantId": "R9_VARIANT_EVENT_SNAPSHOT_REVISION",
+      "requirementId": "REQ_EVENT_SNAPSHOT_REVISION"
+    },
+    {
+      "caseId": "SCENARIO_PHASE_MISMATCH",
+      "expectedCheckId": "R9_SCENARIO_PHASE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "REPLAY_SCENARIO_REQUIRES_REPLAY",
+      "fixtureVariantId": "R9_VARIANT_SCENARIO_PHASE_MISMATCH",
+      "requirementId": "REQ_SCENARIO_PHASE_MISMATCH"
+    },
+    {
+      "caseId": "MISSING_CONTEXT_ACCOUNT",
+      "expectedCheckId": "R5_SCHEMA",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "expectedReason": "MISSING_REQUIRED",
+      "fixtureVariantId": "R9_VARIANT_MISSING_CONTEXT_ACCOUNT",
+      "requirementId": "REQ_MISSING_CONTEXT_ACCOUNT"
+    },
+    {
+      "caseId": "LARGE_EXACT_IDENTIFIER",
+      "expectedCheckId": "",
+      "expectedClass": "ACCEPTED",
+      "expectedReason": "",
+      "fixtureVariantId": "R9_VARIANT_LARGE_EXACT_IDENTIFIER",
+      "requirementId": "REQ_LARGE_EXACT_IDENTIFIER"
+    },
+    {
+      "caseId": "METADATA_MODIFIED",
+      "expectedCheckId": "",
+      "expectedClass": "ACCEPTED",
+      "expectedReason": "",
+      "fixtureVariantId": "R9_VARIANT_METADATA_MODIFIED",
+      "requirementId": "REQ_METADATA_MODIFIED"
+    },
+    {
+      "caseId": "METADATA_REMOVED",
+      "expectedCheckId": "",
+      "expectedClass": "ACCEPTED",
+      "expectedReason": "",
+      "fixtureVariantId": "R9_VARIANT_METADATA_REMOVED",
+      "requirementId": "REQ_METADATA_REMOVED"
+    }
+  ],
+  "catalogVersion": "R4A_R9",
+  "executionStatusEnum": [
+    "EXECUTED"
+  ],
+  "historicalObligations": [
+    {
+      "caseId": "VALID",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_VALID",
+      "obligationId": "R5::VALID_COMMITTED"
+    },
+    {
+      "caseId": "VALID_PRECOMMIT",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_VALID_PRECOMMIT",
+      "obligationId": "R5::VALID_PRECOMMIT_NO_CERT"
+    },
+    {
+      "caseId": "CERT_ZERO",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_ZERO",
+      "obligationId": "R5::CERT_ZERO_DIGEST"
+    },
+    {
+      "caseId": "CERT_BODY_CHANGED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_BODY_CHANGED",
+      "obligationId": "R5::CERT_BODY_CHANGED"
+    },
+    {
+      "caseId": "CERT_CLAIM_RESEALED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_CLAIM_RESEALED",
+      "obligationId": "R5::CERT_CLAIM_RESEALED"
+    },
+    {
+      "caseId": "CERT_OTHER_OPERATION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_OTHER_OPERATION",
+      "obligationId": "R5::CERT_OTHER_OPERATION"
+    },
+    {
+      "caseId": "CERT_MISSING_COMMITTED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_MISSING_COMMITTED",
+      "obligationId": "R5::CERT_MISSING_COMMITTED"
+    },
+    {
+      "caseId": "CERT_PROVIDED_PRECOMMIT",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_PROVIDED_PRECOMMIT",
+      "obligationId": "R5::CERT_PROVIDED_PRECOMMIT"
+    },
+    {
+      "caseId": "PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "obligationId": "R5::PHASE_DOWNGRADE_WITH_EVIDENCE"
+    },
+    {
+      "caseId": "MISSING_CONTEXT_ACCOUNT",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_MISSING_CONTEXT_ACCOUNT",
+      "obligationId": "R5::MISSING_NESTED"
+    },
+    {
+      "caseId": "UNKNOWN_NESTED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_UNKNOWN_NESTED",
+      "obligationId": "R5::UNKNOWN_NESTED"
+    },
+    {
+      "caseId": "BOOLEAN_ID",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_BOOLEAN_ID",
+      "obligationId": "R5::BOOLEAN_INTEGER"
+    },
+    {
+      "caseId": "NAN",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_NAN",
+      "obligationId": "R5::NAN"
+    },
+    {
+      "caseId": "INFINITY",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_INFINITY",
+      "obligationId": "R5::INFINITY"
+    },
+    {
+      "caseId": "OFFGRID_PRICE",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_OFFGRID_PRICE",
+      "obligationId": "R5::OFFGRID_PRICE"
+    },
+    {
+      "caseId": "OFFGRID_VOLUME",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_OFFGRID_VOLUME",
+      "obligationId": "R5::OFFGRID_VOLUME"
+    },
+    {
+      "caseId": "DUPLICATE_DEAL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_DUPLICATE_DEAL",
+      "obligationId": "R5::DUPLICATE_DEAL"
+    },
+    {
+      "caseId": "ORPHAN_DEAL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_ORPHAN_DEAL",
+      "obligationId": "R5::ORPHAN_DEAL"
+    },
+    {
+      "caseId": "POSITION_FOREIGN_MAGIC",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_POSITION_FOREIGN_MAGIC",
+      "obligationId": "R5::OWNERSHIP"
+    },
+    {
+      "caseId": "MONEY_CONSERVATION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_MONEY_CONSERVATION",
+      "obligationId": "R5::MONEY_CONSERVATION"
+    },
+    {
+      "caseId": "VOLUME_CONSERVATION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_VOLUME_CONSERVATION",
+      "obligationId": "R5::VOLUME_CONSERVATION"
+    },
+    {
+      "caseId": "RESERVE_PARTIAL_FAR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_RESERVE_PARTIAL_FAR",
+      "obligationId": "R5::RESERVE_PARTIAL_FAR"
+    },
+    {
+      "caseId": "FAR_FOREIGN_OWNERSHIP",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_FAR_FOREIGN_OWNERSHIP",
+      "obligationId": "R5::FAR_FOREIGN"
+    },
+    {
+      "caseId": "SECOND_FAR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_SECOND_FAR",
+      "obligationId": "R5::FAR_DUPLICATE"
+    },
+    {
+      "caseId": "LARGE_EXACT_IDENTIFIER",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_LARGE_EXACT_IDENTIFIER",
+      "obligationId": "R5::LARGE_EXACT_IDENTIFIER"
+    },
+    {
+      "caseId": "METADATA_MODIFIED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_METADATA_MODIFIED",
+      "obligationId": "R5::METADATA_ISOLATION"
+    },
+    {
+      "caseId": "HARNESS_KEYERROR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_HARNESS_KEYERROR",
+      "obligationId": "R5::HARNESS_KEYERROR"
+    },
+    {
+      "caseId": "HARNESS_TYPEERROR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_HARNESS_TYPEERROR",
+      "obligationId": "R5::HARNESS_TYPEERROR"
+    },
+    {
+      "caseId": "VALID",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_VALID",
+      "obligationId": "R6::VALID"
+    },
+    {
+      "caseId": "CONTRADICTORY_WINDOW",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CONTRADICTORY_WINDOW",
+      "obligationId": "R6::CONTRADICTORY_WINDOW"
+    },
+    {
+      "caseId": "STALE_DEAL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_STALE_DEAL",
+      "obligationId": "R6::STALE_DEAL"
+    },
+    {
+      "caseId": "FUTURE_DEAL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_FUTURE_DEAL",
+      "obligationId": "R6::FUTURE_DEAL"
+    },
+    {
+      "caseId": "MISSING_TIME",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_MISSING_TIME",
+      "obligationId": "R6::MISSING_TIME"
+    },
+    {
+      "caseId": "SAME_CLOSE_DIRECTION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_SAME_CLOSE_DIRECTION",
+      "obligationId": "R6::SAME_CLOSE_DIRECTION"
+    },
+    {
+      "caseId": "FOREIGN_MAGIC",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_FOREIGN_MAGIC",
+      "obligationId": "R6::FOREIGN_MAGIC"
+    },
+    {
+      "caseId": "DUAL_TAIL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_DUAL_TAIL",
+      "obligationId": "R6::DUAL_TAIL"
+    },
+    {
+      "caseId": "SECOND_FAR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_SECOND_FAR",
+      "obligationId": "R6::SECOND_FAR"
+    },
+    {
+      "caseId": "FOREIGN_REPLAY_IDS",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_FOREIGN_REPLAY_IDS",
+      "obligationId": "R6::FOREIGN_REPLAY_IDS"
+    },
+    {
+      "caseId": "REPLAY_REVISION_INCREMENT",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_REPLAY_REVISION_INCREMENT",
+      "obligationId": "R6::REPLAY_REVISION_INCREMENT"
+    },
+    {
+      "caseId": "UNKNOWN_OPERATION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_UNKNOWN_OPERATION",
+      "obligationId": "R6::UNKNOWN_OPERATION"
+    },
+    {
+      "caseId": "BAD_STATE_DIGEST",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_BAD_STATE_DIGEST",
+      "obligationId": "R6::BAD_STATE_DIGEST"
+    },
+    {
+      "caseId": "LIFECYCLE_DISCONTINUITY",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_LIFECYCLE_DISCONTINUITY",
+      "obligationId": "R6::LIFECYCLE_DISCONTINUITY"
+    },
+    {
+      "caseId": "CERT_ZERO",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_ZERO",
+      "obligationId": "R6::CERT_ZERO"
+    },
+    {
+      "caseId": "BOOLEAN_ID",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_BOOLEAN_ID",
+      "obligationId": "R6::BOOLEAN_ID"
+    },
+    {
+      "caseId": "NAN",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_NAN",
+      "obligationId": "R6::NAN"
+    },
+    {
+      "caseId": "OFFGRID_VOLUME",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_OFFGRID_VOLUME",
+      "obligationId": "R6::OFFGRID_VOLUME"
+    },
+    {
+      "caseId": "HARNESS_KEYERROR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_HARNESS_KEYERROR",
+      "obligationId": "R6::HARNESS_KEYERROR"
+    },
+    {
+      "caseId": "HARNESS_TYPEERROR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_HARNESS_TYPEERROR",
+      "obligationId": "R6::HARNESS_TYPEERROR"
+    },
+    {
+      "caseId": "VALID",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_VALID",
+      "obligationId": "R7::VALID"
+    },
+    {
+      "caseId": "CONTRADICTORY_WINDOW",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CONTRADICTORY_WINDOW",
+      "obligationId": "R7::CONTRADICTORY_WINDOW"
+    },
+    {
+      "caseId": "STALE_DEAL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_STALE_DEAL",
+      "obligationId": "R7::STALE_DEAL"
+    },
+    {
+      "caseId": "FUTURE_DEAL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_FUTURE_DEAL",
+      "obligationId": "R7::FUTURE_DEAL"
+    },
+    {
+      "caseId": "MISSING_TIME",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_MISSING_TIME",
+      "obligationId": "R7::MISSING_TIME"
+    },
+    {
+      "caseId": "SAME_CLOSE_DIRECTION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_SAME_CLOSE_DIRECTION",
+      "obligationId": "R7::SAME_CLOSE_DIRECTION"
+    },
+    {
+      "caseId": "FOREIGN_MAGIC",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_FOREIGN_MAGIC",
+      "obligationId": "R7::FOREIGN_MAGIC"
+    },
+    {
+      "caseId": "DUAL_TAIL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_DUAL_TAIL",
+      "obligationId": "R7::DUAL_TAIL"
+    },
+    {
+      "caseId": "SECOND_FAR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_SECOND_FAR",
+      "obligationId": "R7::SECOND_FAR"
+    },
+    {
+      "caseId": "FOREIGN_REPLAY_IDS",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_FOREIGN_REPLAY_IDS",
+      "obligationId": "R7::FOREIGN_REPLAY_IDS"
+    },
+    {
+      "caseId": "REPLAY_REVISION_INCREMENT",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_REPLAY_REVISION_INCREMENT",
+      "obligationId": "R7::REPLAY_REVISION_INCREMENT"
+    },
+    {
+      "caseId": "UNKNOWN_OPERATION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_UNKNOWN_OPERATION",
+      "obligationId": "R7::UNKNOWN_OPERATION"
+    },
+    {
+      "caseId": "BAD_STATE_DIGEST",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_BAD_STATE_DIGEST",
+      "obligationId": "R7::BAD_STATE_DIGEST"
+    },
+    {
+      "caseId": "LIFECYCLE_DISCONTINUITY",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_LIFECYCLE_DISCONTINUITY",
+      "obligationId": "R7::LIFECYCLE_DISCONTINUITY"
+    },
+    {
+      "caseId": "CERT_ZERO",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_ZERO",
+      "obligationId": "R7::CERT_ZERO"
+    },
+    {
+      "caseId": "BOOLEAN_ID",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_BOOLEAN_ID",
+      "obligationId": "R7::BOOLEAN_ID"
+    },
+    {
+      "caseId": "NAN",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_NAN",
+      "obligationId": "R7::NAN"
+    },
+    {
+      "caseId": "OFFGRID_VOLUME",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_OFFGRID_VOLUME",
+      "obligationId": "R7::OFFGRID_VOLUME"
+    },
+    {
+      "caseId": "HARNESS_KEYERROR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_HARNESS_KEYERROR",
+      "obligationId": "R7::HARNESS_KEYERROR"
+    },
+    {
+      "caseId": "HARNESS_TYPEERROR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_HARNESS_TYPEERROR",
+      "obligationId": "R7::HARNESS_TYPEERROR"
+    },
+    {
+      "caseId": "INVALID_SCHEMA_VERSION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_INVALID_SCHEMA_VERSION",
+      "obligationId": "R7::INVALID_SCHEMA_VERSION"
+    },
+    {
+      "caseId": "REPLAY_ZERO_CERT",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_REPLAY_ZERO_CERT",
+      "obligationId": "R7::REPLAY_ZERO_CERT"
+    },
+    {
+      "caseId": "HISTORICAL_REVISION_REVERSED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_HISTORICAL_REVISION_REVERSED",
+      "obligationId": "R7::HISTORICAL_REVISION_REVERSED"
+    },
+    {
+      "caseId": "REPLAY_FAKE_RESERVE",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_REPLAY_FAKE_RESERVE",
+      "obligationId": "R7::REPLAY_FAKE_RESERVE"
+    },
+    {
+      "caseId": "EMPTY_LIFECYCLE",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_EMPTY_LIFECYCLE",
+      "obligationId": "R7::EMPTY_LIFECYCLE"
+    },
+    {
+      "caseId": "BAD_LAST_OUTPUT",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_BAD_LAST_OUTPUT",
+      "obligationId": "R7::BAD_LAST_OUTPUT"
+    },
+    {
+      "caseId": "CERT_BODY_CHANGED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_BODY_CHANGED",
+      "obligationId": "R7::CERT_BODY_CHANGED"
+    },
+    {
+      "caseId": "CERT_CLAIM_RESEALED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_CLAIM_RESEALED",
+      "obligationId": "R7::CERT_CLAIM_RESEALED"
+    },
+    {
+      "caseId": "CERT_OTHER_OPERATION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_OTHER_OPERATION",
+      "obligationId": "R7::CERT_OTHER_OPERATION"
+    },
+    {
+      "caseId": "CERT_MISSING_COMMITTED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_MISSING_COMMITTED",
+      "obligationId": "R7::CERT_MISSING_COMMITTED"
+    },
+    {
+      "caseId": "CERT_PROVIDED_PRECOMMIT",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_CERT_PROVIDED_PRECOMMIT",
+      "obligationId": "R7::CERT_PROVIDED_PRECOMMIT"
+    },
+    {
+      "caseId": "UNKNOWN_NESTED",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_UNKNOWN_NESTED",
+      "obligationId": "R7::UNKNOWN_NESTED"
+    },
+    {
+      "caseId": "INFINITY",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_INFINITY",
+      "obligationId": "R7::INFINITY"
+    },
+    {
+      "caseId": "OFFGRID_PRICE",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_OFFGRID_PRICE",
+      "obligationId": "R7::OFFGRID_PRICE"
+    },
+    {
+      "caseId": "DUPLICATE_DEAL",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_DUPLICATE_DEAL",
+      "obligationId": "R7::DUPLICATE_DEAL"
+    },
+    {
+      "caseId": "MONEY_CONSERVATION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_MONEY_CONSERVATION",
+      "obligationId": "R7::MONEY_CONSERVATION"
+    },
+    {
+      "caseId": "VOLUME_CONSERVATION",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_VOLUME_CONSERVATION",
+      "obligationId": "R7::VOLUME_CONSERVATION"
+    },
+    {
+      "caseId": "RESERVE_PARTIAL_FAR",
+      "executionProof": "case is freshly executed by R9 runner",
+      "fixtureVariantId": "R9_VARIANT_RESERVE_PARTIAL_FAR",
+      "obligationId": "R7::RESERVE_PARTIAL_FAR"
+    }
+  ],
+  "outcomeEnums": [
+    "ACCEPTED",
+    "NORMATIVE_REJECTION",
+    "INFRASTRUCTURE_ERROR"
+  ]
+}

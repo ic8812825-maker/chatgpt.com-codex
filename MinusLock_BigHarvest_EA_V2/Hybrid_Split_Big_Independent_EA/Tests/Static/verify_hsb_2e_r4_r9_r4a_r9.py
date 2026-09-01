@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'Tests/Static'))
 import verify_hsb_2e_r4_r9_r4a_r8 as v8
 import verify_hsb_2e_r4_r9_r4a_r5 as v5
-SCHEMA=ROOT/'Tests/Contracts/HSB_2E_R4_R9_R4A_R9_SCHEMA.json';VECTORS=ROOT/'Tests/Vectors/HSB_2E_R4_R9_R4A_R9_POSITIVE_BASES.json';NormativeError=v8.NormativeError
+SCHEMA=ROOT/'Tests/Contracts/HSB_2E_R4_R9_R4A_R9_SCHEMA.json';VECTORS=ROOT/'Tests/Vectors/HSB_2E_R4_R9_R4A_R9_POSITIVE_BASES.json';NormativeError=v8.NormativeError;digest=v8.digest
 def reject(c,r,p):raise NormativeError(c,r,p)
 def scenario_phase(r):
  s,p=r['scenario'],r['phase']
