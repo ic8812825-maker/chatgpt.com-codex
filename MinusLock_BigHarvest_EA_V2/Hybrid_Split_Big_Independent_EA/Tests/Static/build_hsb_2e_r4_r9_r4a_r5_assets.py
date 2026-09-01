@@ -69,7 +69,10 @@ def state(r,label=None):
 def lifecycle(sequence_id,runtimes,ops):
  steps=[];current=state(runtimes[0])
  for i,(r,op) in enumerate(zip(runtimes,ops)):
-  r=copy.deepcopy(r);r['context']['cycleId']=current['cycleId'];r['fsm']['inputState']=current['fsmState'];r['fsm']['inputRevision']=current['revision'];r['fsm']['outputRevision']=current['revision']+1;recert(r)
+  r=copy.deepcopy(r);r['context']['cycleId']=current['cycleId']
+  for collection in ('positions','deals','events'):
+   for item in r[collection]:item['cycleId']=current['cycleId']
+  r['fsm']['inputState']=current['fsmState'];r['fsm']['inputRevision']=current['revision'];r['fsm']['outputRevision']=current['revision']+1;recert(r)
   out={'fsmState':r['fsm']['outputState'],'revision':r['fsm']['outputRevision'],'cycleId':current['cycleId'],'stateDigest':digest({'state':r['fsm']['outputState'],'revision':r['fsm']['outputRevision'],'cycleId':current['cycleId']})}
   steps.append({'operation':op,'inputState':current,'operationInput':r,'declaredOutputState':out});current=copy.deepcopy(out)
  return {'lifecycleSequence':{'sequenceId':sequence_id,'steps':steps},'testContract':{'fixtureId':sequence_id,'classification':'POSITIVE_BASE','scenario':'LIFECYCLE','expectedApplicability':{'DECLARED_CHAIN':True}}}
