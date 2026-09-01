@@ -1,0 +1,683 @@
+{
+  "coverageTable": [
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      "boundaryProperty": "PRE_COMMIT_PHASE",
+      "costCase": [],
+      "fixtureId": "R5-INITIAL-1",
+      "persistenceCase": "FRESH",
+      "phase": "PRE_COMMIT",
+      "positionRoles": [
+        "NEAR"
+      ],
+      "recordCounts": {
+        "deals": 0,
+        "events": 0,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "INITIAL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.01"
+        ]
+      },
+      "boundaryProperty": "MIN_VOLUME_COSTS",
+      "costCase": [
+        "-2,-1,-0.5"
+      ],
+      "fixtureId": "R5-INITIAL-2",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "NEAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "INITIAL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0005",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      "boundaryProperty": "NONTRIVIAL_TICK_MULTI_FILL",
+      "costCase": [
+        "-1,0,0",
+        "-0.75,0,0"
+      ],
+      "fixtureId": "R5-INITIAL-3",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "NEAR"
+      ],
+      "recordCounts": {
+        "deals": 2,
+        "events": 2,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "INITIAL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      "boundaryProperty": "POSITIVE_RECOVERY_EDGE",
+      "costCase": [
+        "-3,-0.25,-0.10"
+      ],
+      "fixtureId": "R5-INITIAL-4",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "NEAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "INITIAL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.11",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "STANDARD_BUY",
+      "costCase": [
+        "-1,0,0"
+      ],
+      "fixtureId": "R5-BIG-1",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "BIG"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.01",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "MIN_VOLUME_COSTS",
+      "costCase": [
+        "-2,-1,-0.5"
+      ],
+      "fixtureId": "R5-BIG-2",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "BIG"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0005",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.13",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "NONTRIVIAL_TICK_MULTI_FILL",
+      "costCase": [
+        "-1,0,0",
+        "-0.75,0,0"
+      ],
+      "fixtureId": "R5-BIG-3",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 2,
+        "events": 2,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "BIG"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.14",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "POSITIVE_RECOVERY_EDGE",
+      "costCase": [
+        "-3,-0.25,-0.10"
+      ],
+      "fixtureId": "R5-BIG-4",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "BIG"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.11",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "STANDARD_BUY",
+      "costCase": [
+        "-1,0,0"
+      ],
+      "fixtureId": "R5-SMALL-1",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "SMALL",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "SMALL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.01",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "MIN_VOLUME_COSTS",
+      "costCase": [
+        "-2,-1,-0.5"
+      ],
+      "fixtureId": "R5-SMALL-2",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "SMALL",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "SMALL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0005",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.13",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "NONTRIVIAL_TICK_MULTI_FILL",
+      "costCase": [
+        "-1,0,0",
+        "-0.75,0,0"
+      ],
+      "fixtureId": "R5-SMALL-3",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "SMALL",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 2,
+        "events": 2,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "SMALL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.14",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "POSITIVE_RECOVERY_EDGE",
+      "costCase": [
+        "-3,-0.25,-0.10"
+      ],
+      "fixtureId": "R5-SMALL-4",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "SMALL",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "SMALL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      "boundaryProperty": "STANDARD_BUY",
+      "costCase": [
+        "-1,0,0"
+      ],
+      "fixtureId": "R5-FINAL-1",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "FINAL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.01"
+        ]
+      },
+      "boundaryProperty": "MIN_VOLUME_COSTS",
+      "costCase": [
+        "-2,-1,-0.5"
+      ],
+      "fixtureId": "R5-FINAL-2",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "FINAL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0005",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      "boundaryProperty": "NONTRIVIAL_TICK_MULTI_FILL",
+      "costCase": [
+        "-1,0,0",
+        "-0.75,0,0"
+      ],
+      "fixtureId": "R5-FINAL-3",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 2,
+        "events": 2,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "FINAL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      "boundaryProperty": "POSITIVE_RECOVERY_EDGE",
+      "costCase": [
+        "-3,-0.25,-0.10"
+      ],
+      "fixtureId": "R5-FINAL-4",
+      "persistenceCase": "FRESH",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "FINAL"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.11",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "STANDARD_BUY",
+      "costCase": [
+        "-1,0,0"
+      ],
+      "fixtureId": "R5-RESTART_CONTINUATION-1",
+      "persistenceCase": "ACCUMULATED",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "RESTART_CONTINUATION"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.01",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "MIN_VOLUME_COSTS",
+      "costCase": [
+        "-2,-1,-0.5"
+      ],
+      "fixtureId": "R5-RESTART_CONTINUATION-2",
+      "persistenceCase": "ACCUMULATED",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "RESTART_CONTINUATION"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0005",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.13",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "NONTRIVIAL_TICK_MULTI_FILL",
+      "costCase": [
+        "-1,0,0",
+        "-0.75,0,0"
+      ],
+      "fixtureId": "R5-RESTART_CONTINUATION-3",
+      "persistenceCase": "ACCUMULATED",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 2,
+        "events": 2,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "RESTART_CONTINUATION"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.14",
+          "0.05"
+        ]
+      },
+      "boundaryProperty": "POSITIVE_RECOVERY_EDGE",
+      "costCase": [
+        "-3,-0.25,-0.10"
+      ],
+      "fixtureId": "R5-RESTART_CONTINUATION-4",
+      "persistenceCase": "ACCUMULATED",
+      "phase": "COMMITTED",
+      "positionRoles": [
+        "BIG",
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 2
+      },
+      "scenario": "RESTART_CONTINUATION"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.11"
+        ]
+      },
+      "boundaryProperty": "STANDARD_BUY",
+      "costCase": [
+        "-1,0,0"
+      ],
+      "fixtureId": "R5-REPLAY_COMMITTED-1",
+      "persistenceCase": "ACCUMULATED",
+      "phase": "REPLAY",
+      "positionRoles": [
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "REPLAY_COMMITTED"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.01"
+        ]
+      },
+      "boundaryProperty": "MIN_VOLUME_COSTS",
+      "costCase": [
+        "-2,-1,-0.5"
+      ],
+      "fixtureId": "R5-REPLAY_COMMITTED-2",
+      "persistenceCase": "ACCUMULATED",
+      "phase": "REPLAY",
+      "positionRoles": [
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "REPLAY_COMMITTED"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0005",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.13"
+        ]
+      },
+      "boundaryProperty": "NONTRIVIAL_TICK_MULTI_FILL",
+      "costCase": [
+        "-1,0,0",
+        "-0.75,0,0"
+      ],
+      "fixtureId": "R5-REPLAY_COMMITTED-3",
+      "persistenceCase": "ACCUMULATED",
+      "phase": "REPLAY",
+      "positionRoles": [
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 2,
+        "events": 2,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "REPLAY_COMMITTED"
+    },
+    {
+      "actualBoundaryValues": {
+        "tickSize": "0.0001",
+        "volumeStep": "0.01",
+        "volumes": [
+          "0.14"
+        ]
+      },
+      "boundaryProperty": "POSITIVE_RECOVERY_EDGE",
+      "costCase": [
+        "-3,-0.25,-0.10"
+      ],
+      "fixtureId": "R5-REPLAY_COMMITTED-4",
+      "persistenceCase": "ACCUMULATED",
+      "phase": "REPLAY",
+      "positionRoles": [
+        "FAR"
+      ],
+      "recordCounts": {
+        "deals": 1,
+        "events": 1,
+        "intents": 1,
+        "positions": 1
+      },
+      "scenario": "REPLAY_COMMITTED"
+    }
+  ],
+  "executedChecks": 8,
+  "farRoleMismatches": 0,
+  "findings": [],
+  "fixtureCount": 28,
+  "fullEconomicCorrectness": "NOT_PROVEN",
+  "lifecycleDeclaredChainValidated": true,
+  "lifecycleExecutedByNativeModel": false,
+  "lifecycleSteps": 11,
+  "nativeModelChanged": false,
+  "phaseCoverage": [
+    "COMMITTED",
+    "PRE_COMMIT",
+    "REPLAY"
+  ],
+  "productionDiffPaths": [],
+  "protectedFileMismatches": 0,
+  "protectedFilesRequired": 6,
+  "regression": {
+    "executed": 28,
+    "normativeRejections": 22,
+    "required": 28,
+    "unexpectedInfrastructureErrors": 0,
+    "wrongFailures": 0
+  },
+  "requiredChecks": 8,
+  "result": "PASS",
+  "scopeViolations": 0
+}

@@ -75,7 +75,7 @@ def lifecycle(sequence_id,runtimes,ops):
   r['fsm']['inputState']=current['fsmState'];r['fsm']['inputRevision']=current['revision'];r['fsm']['outputRevision']=current['revision']+1;recert(r)
   out={'fsmState':r['fsm']['outputState'],'revision':r['fsm']['outputRevision'],'cycleId':current['cycleId'],'stateDigest':digest({'state':r['fsm']['outputState'],'revision':r['fsm']['outputRevision'],'cycleId':current['cycleId']})}
   steps.append({'operation':op,'inputState':current,'operationInput':r,'declaredOutputState':out});current=copy.deepcopy(out)
- return {'lifecycleSequence':{'sequenceId':sequence_id,'steps':steps},'testContract':{'fixtureId':sequence_id,'classification':'POSITIVE_BASE','scenario':'LIFECYCLE','expectedApplicability':{'DECLARED_CHAIN':True}}}
+ return {'lifecycleSequence':{'sequenceId':sequence_id,'steps':steps},'testContract':{'fixtureId':sequence_id,'classification':'POSITIVE_BASE','scenario':'LIFECYCLE','boundaryProperty':'CHAIN_'+'_'.join(ops),'expectedApplicability':{'DECLARED_CHAIN':True}}}
 def main():
  s=schema();SCHEMA.write_text(json.dumps(s,indent=2,sort_keys=True)+'\n')
  reg=json.loads(R4_REGISTRY.read_text());reg['schemaVersion']='3.1.0';reg['schemaRef']=str(SCHEMA.relative_to(ROOT));
