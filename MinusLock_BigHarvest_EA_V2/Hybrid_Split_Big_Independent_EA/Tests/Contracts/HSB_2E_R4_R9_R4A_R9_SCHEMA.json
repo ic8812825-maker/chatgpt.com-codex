@@ -1,0 +1,4603 @@
+{
+  "additionalProperties": false,
+  "lifecycleContainer": {
+    "continuityRule": "next.inputState == previous.declaredOutputState",
+    "nativeModelExecution": false,
+    "requiredFields": [
+      "sequenceId",
+      "steps"
+    ],
+    "stateRequiredFields": [
+      "fsmState",
+      "revision",
+      "cycleId",
+      "stateDigest"
+    ],
+    "stepRequiredFields": [
+      "operation",
+      "inputState",
+      "operationInput",
+      "declaredOutputState"
+    ]
+  },
+  "phaseContract": {
+    "COMMITTED": {
+      "activeFar": "STATE_DEPENDENT",
+      "certificate": "REQUIRED",
+      "consumedRegistries": "OPTIONAL",
+      "currentAndNextState": "REQUIRED",
+      "executionEvidence": "REQUIRED",
+      "revisions": "REQUIRED"
+    },
+    "PRE_COMMIT": {
+      "activeFar": "STATE_DEPENDENT",
+      "certificate": "FORBIDDEN",
+      "consumedRegistries": "FORBIDDEN",
+      "currentAndNextState": "REQUIRED",
+      "executionEvidence": "FORBIDDEN",
+      "revisions": "REQUIRED"
+    },
+    "REPLAY": {
+      "activeFar": "STATE_DEPENDENT",
+      "certificate": "REQUIRED",
+      "consumedRegistries": "REQUIRED",
+      "currentAndNextState": "REQUIRED",
+      "executionEvidence": "REQUIRED",
+      "revisions": "REQUIRED"
+    }
+  },
+  "root": {
+    "additionalProperties": false,
+    "applicableScenarios": [
+      "INITIAL",
+      "BIG",
+      "SMALL",
+      "FINAL",
+      "RESTART_CONTINUATION",
+      "REPLAY_COMMITTED",
+      "LIFECYCLE"
+    ],
+    "nullable": false,
+    "properties": {
+      "allocationPolicy": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "allocatedMoney": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "policyId": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "IDENTIFIER",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "remainingMoney": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "reserveAddition": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "broker": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "ask": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.tickSize",
+            "minimum": "0",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "PRICE"
+          },
+          "bid": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.tickSize",
+            "minimum": "0",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "PRICE"
+          },
+          "contractSize": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": "0.00000001",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "UNITS"
+          },
+          "digits": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "maximumDeviation": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "point": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.tickSize",
+            "minimum": "0",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "PRICE"
+          },
+          "priceRoundingPolicy": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "enum": [
+              "TICK_HALF_EVEN"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "tickSize": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.tickSize",
+            "minimum": "0",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "PRICE"
+          },
+          "tickValue": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": "0.00000001",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "volumeMax": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.volumeStep",
+            "minimum": "0.01",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "LOTS"
+          },
+          "volumeMin": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.volumeStep",
+            "minimum": "0.01",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "LOTS"
+          },
+          "volumeRoundingPolicy": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "enum": [
+              "STEP_FLOOR"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "volumeStep": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.volumeStep",
+            "minimum": "0.01",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "LOTS"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "brokerProposal": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "digest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "proposalId": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "IDENTIFIER",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "requestedVolume": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.volumeStep",
+            "minimum": "0.01",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "LOTS"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "certificate": {
+        "additionalProperties": false,
+        "applicabilityRuleId": "CERTIFICATE_BY_PHASE",
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "forbiddenWhen": "phase == 'PRE_COMMIT'",
+        "nullable": false,
+        "optionalWhen": "NEVER",
+        "properties": {
+          "authoritativeLedgerRoot": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "body": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "claimedAllocationDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "claimedBrokerDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "claimedEconomicDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "claimedFsmDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "claimedOutputStateDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "claimedPersistenceDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "digest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "inputRevision": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "operationIdentityDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "outputRevision": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "previousStateDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "transactionJournalRoot": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "version": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          }
+        },
+        "required": false,
+        "requiredState": "OPTIONAL_WITH_RULE",
+        "requiredWhen": "phase IN ['COMMITTED','REPLAY']",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "context": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "accountId": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "IDENTIFIER",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "actionId": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "IDENTIFIER",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "cycleId": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "IDENTIFIER",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "magic": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "moneyStateVersion": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "snapshotRevision": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "stateRevision": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "symbol": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "IDENTIFIER",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "transactionId": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "IDENTIFIER",
+            "type": "string",
+            "unit": "NONE"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "deals": {
+        "applicabilityRuleId": "EXECUTION_EVIDENCE_BY_PHASE",
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "forbiddenWhen": "phase == 'PRE_COMMIT'",
+        "items": {
+          "additionalProperties": false,
+          "applicableScenarios": [
+            "INITIAL",
+            "BIG",
+            "SMALL",
+            "FINAL",
+            "RESTART_CONTINUATION",
+            "REPLAY_COMMITTED",
+            "LIFECYCLE"
+          ],
+          "nullable": false,
+          "properties": {
+            "accountId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "actionId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "commission": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "ACCOUNT_MONEY"
+            },
+            "confirmed": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "boolean",
+              "unit": "NONE"
+            },
+            "cycleId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "dealId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "direction": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "BUY",
+                "SELL"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "eventId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "fee": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "ACCOUNT_MONEY"
+            },
+            "intentId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "magic": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "positionTicket": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "price": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "gridSource": "scenarioInput.broker.tickSize",
+              "minimum": "0",
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "PRICE"
+            },
+            "role": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "NEAR",
+                "BIG",
+                "SMALL",
+                "FAR"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "snapshotRevision": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 0,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "stateRevision": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 0,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "swap": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "ACCOUNT_MONEY"
+            },
+            "symbol": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "timestamp": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "UNIX_TIME_SECONDS",
+              "type": "integer",
+              "unit": "SECONDS"
+            },
+            "transactionId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "volume": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "gridSource": "scenarioInput.broker.volumeStep",
+              "minimum": "0.01",
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "LOTS"
+            }
+          },
+          "required": true,
+          "requiredState": "REQUIRED",
+          "type": "object",
+          "unit": "NONE"
+        },
+        "minimum": 0,
+        "nullable": false,
+        "optionalWhen": "NEVER",
+        "required": false,
+        "requiredState": "OPTIONAL_WITH_RULE",
+        "requiredWhen": "phase IN ['COMMITTED','REPLAY']",
+        "type": "array",
+        "unit": "NONE"
+      },
+      "economic": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "allocatedMoney": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "availableMoney": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "bigResidualVolume": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.volumeStep",
+            "minimum": "0",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "LOTS"
+          },
+          "catchUpRatio": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": "0",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "RATIO"
+          },
+          "closeFarBudget": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "farActualLoss": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "newFarVolume": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.volumeStep",
+            "minimum": "0",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "LOTS"
+          },
+          "partialFarVolume": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "gridSource": "scenarioInput.broker.volumeStep",
+            "minimum": "0",
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "LOTS"
+          },
+          "recoveryPL": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "remainingMoney": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "requiredCoverage": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "reserveAddition": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "reserveBefore": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "reserveConsumption": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "reserveCoverage": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "tailCount": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "events": {
+        "applicabilityRuleId": "EXECUTION_EVIDENCE_BY_PHASE",
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "forbiddenWhen": "phase == 'PRE_COMMIT'",
+        "items": {
+          "additionalProperties": false,
+          "applicableScenarios": [
+            "INITIAL",
+            "BIG",
+            "SMALL",
+            "FINAL",
+            "RESTART_CONTINUATION",
+            "REPLAY_COMMITTED",
+            "LIFECYCLE"
+          ],
+          "nullable": false,
+          "properties": {
+            "accountId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "actionId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "commission": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "ACCOUNT_MONEY"
+            },
+            "confirmed": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "boolean",
+              "unit": "NONE"
+            },
+            "cycleId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "dealId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "direction": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "BUY",
+                "SELL"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "eventId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "fee": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "ACCOUNT_MONEY"
+            },
+            "intentId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "magic": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "positionTicket": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "price": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "gridSource": "scenarioInput.broker.tickSize",
+              "minimum": "0",
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "PRICE"
+            },
+            "role": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "NEAR",
+                "BIG",
+                "SMALL",
+                "FAR"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "snapshotRevision": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 0,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "stateRevision": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 0,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "swap": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "ACCOUNT_MONEY"
+            },
+            "symbol": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "timestamp": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "UNIX_TIME_SECONDS",
+              "type": "integer",
+              "unit": "SECONDS"
+            },
+            "transactionId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "volume": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "gridSource": "scenarioInput.broker.volumeStep",
+              "minimum": "0.01",
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "LOTS"
+            }
+          },
+          "required": true,
+          "requiredState": "REQUIRED",
+          "type": "object",
+          "unit": "NONE"
+        },
+        "minimum": 0,
+        "nullable": false,
+        "optionalWhen": "NEVER",
+        "required": false,
+        "requiredState": "OPTIONAL_WITH_RULE",
+        "requiredWhen": "phase IN ['COMMITTED','REPLAY']",
+        "type": "array",
+        "unit": "NONE"
+      },
+      "fsm": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "inputRevision": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "inputState": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "enum": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "COMMITTED"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "outputRevision": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "outputState": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "enum": [
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "COMMITTED"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "string",
+            "unit": "NONE"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "intents": {
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "items": {
+          "additionalProperties": false,
+          "applicableScenarios": [
+            "INITIAL",
+            "BIG",
+            "SMALL",
+            "FINAL",
+            "RESTART_CONTINUATION",
+            "REPLAY_COMMITTED",
+            "LIFECYCLE"
+          ],
+          "nullable": false,
+          "properties": {
+            "actionId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "closeMode": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "PARTIAL",
+                "FULL"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "createdTimestamp": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "UNIX_TIME_SECONDS",
+              "type": "integer",
+              "unit": "SECONDS"
+            },
+            "direction": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "BUY",
+                "SELL"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "expiresTimestamp": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "UNIX_TIME_SECONDS",
+              "type": "integer",
+              "unit": "SECONDS"
+            },
+            "intentId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "positionTicket": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "requestedVolume": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "gridSource": "scenarioInput.broker.volumeStep",
+              "minimum": "0.01",
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "LOTS"
+            },
+            "role": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "NEAR",
+                "BIG",
+                "SMALL",
+                "FAR"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "snapshotRevision": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 0,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "stateRevision": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 0,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "transactionId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            }
+          },
+          "required": true,
+          "requiredState": "REQUIRED",
+          "type": "object",
+          "unit": "NONE"
+        },
+        "minimum": 0,
+        "nullable": false,
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "array",
+        "unit": "NONE"
+      },
+      "persistedState": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "authoritativeLedgerRoot": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "consumedDealIds": {
+            "applicabilityRuleId": "PERSISTED_EVIDENCE_BY_PHASE",
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "forbiddenWhen": "phase == 'PRE_COMMIT'",
+            "items": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "minimum": 0,
+            "nullable": false,
+            "optionalWhen": "phase == 'COMMITTED'",
+            "required": false,
+            "requiredState": "OPTIONAL_WITH_RULE",
+            "requiredWhen": "phase == 'REPLAY'",
+            "type": "array",
+            "unit": "NONE"
+          },
+          "cumulativeFills": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "items": {
+              "additionalProperties": false,
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "properties": {
+                "ticket": {
+                  "applicableScenarios": [
+                    "INITIAL",
+                    "BIG",
+                    "SMALL",
+                    "FINAL",
+                    "RESTART_CONTINUATION",
+                    "REPLAY_COMMITTED",
+                    "LIFECYCLE"
+                  ],
+                  "minimum": 1,
+                  "nullable": false,
+                  "required": true,
+                  "requiredState": "REQUIRED",
+                  "semanticType": "IDENTIFIER",
+                  "type": "string",
+                  "unit": "NONE"
+                },
+                "volume": {
+                  "applicableScenarios": [
+                    "INITIAL",
+                    "BIG",
+                    "SMALL",
+                    "FINAL",
+                    "RESTART_CONTINUATION",
+                    "REPLAY_COMMITTED",
+                    "LIFECYCLE"
+                  ],
+                  "gridSource": "scenarioInput.broker.volumeStep",
+                  "minimum": "0",
+                  "nullable": false,
+                  "required": true,
+                  "requiredState": "REQUIRED",
+                  "semanticType": "DECIMAL",
+                  "type": "string",
+                  "unit": "LOTS"
+                }
+              },
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "object",
+              "unit": "NONE"
+            },
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "array",
+            "unit": "NONE"
+          },
+          "dealEventBindings": {
+            "applicabilityRuleId": "PERSISTED_EVIDENCE_BY_PHASE",
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "forbiddenWhen": "phase == 'PRE_COMMIT'",
+            "items": {
+              "additionalProperties": false,
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "properties": {
+                "dealId": {
+                  "applicableScenarios": [
+                    "INITIAL",
+                    "BIG",
+                    "SMALL",
+                    "FINAL",
+                    "RESTART_CONTINUATION",
+                    "REPLAY_COMMITTED",
+                    "LIFECYCLE"
+                  ],
+                  "minimum": 1,
+                  "nullable": false,
+                  "required": true,
+                  "requiredState": "REQUIRED",
+                  "semanticType": "IDENTIFIER",
+                  "type": "string",
+                  "unit": "NONE"
+                },
+                "eventId": {
+                  "applicableScenarios": [
+                    "INITIAL",
+                    "BIG",
+                    "SMALL",
+                    "FINAL",
+                    "RESTART_CONTINUATION",
+                    "REPLAY_COMMITTED",
+                    "LIFECYCLE"
+                  ],
+                  "minimum": 1,
+                  "nullable": false,
+                  "required": true,
+                  "requiredState": "REQUIRED",
+                  "semanticType": "IDENTIFIER",
+                  "type": "string",
+                  "unit": "NONE"
+                }
+              },
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "object",
+              "unit": "NONE"
+            },
+            "minimum": 0,
+            "nullable": false,
+            "optionalWhen": "phase == 'COMMITTED'",
+            "required": false,
+            "requiredState": "OPTIONAL_WITH_RULE",
+            "requiredWhen": "phase == 'REPLAY'",
+            "type": "array",
+            "unit": "NONE"
+          },
+          "farState": {
+            "additionalProperties": false,
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "properties": {
+              "active": {
+                "applicableScenarios": [
+                  "INITIAL",
+                  "BIG",
+                  "SMALL",
+                  "FINAL",
+                  "RESTART_CONTINUATION",
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "boolean",
+                "unit": "NONE"
+              },
+              "direction": {
+                "applicabilityRuleId": "ACTIVE_FAR",
+                "applicableScenarios": [
+                  "INITIAL",
+                  "BIG",
+                  "SMALL",
+                  "FINAL",
+                  "RESTART_CONTINUATION",
+                  "REPLAY_COMMITTED"
+                ],
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "forbiddenWhen": "farState.active == false",
+                "nullable": false,
+                "optionalWhen": "NEVER",
+                "required": false,
+                "requiredState": "OPTIONAL_WITH_RULE",
+                "requiredWhen": "farState.active == true",
+                "type": "string",
+                "unit": "NONE"
+              },
+              "loss": {
+                "applicabilityRuleId": "ACTIVE_FAR",
+                "applicableScenarios": [
+                  "INITIAL",
+                  "BIG",
+                  "SMALL",
+                  "FINAL",
+                  "RESTART_CONTINUATION",
+                  "REPLAY_COMMITTED",
+                  "LIFECYCLE"
+                ],
+                "forbiddenWhen": "farState.active == false",
+                "nullable": false,
+                "optionalWhen": "NEVER",
+                "required": false,
+                "requiredState": "OPTIONAL_WITH_RULE",
+                "requiredWhen": "farState.active == true",
+                "semanticType": "DECIMAL",
+                "type": "string",
+                "unit": "ACCOUNT_MONEY"
+              },
+              "ticket": {
+                "applicabilityRuleId": "ACTIVE_FAR",
+                "applicableScenarios": [
+                  "INITIAL",
+                  "BIG",
+                  "SMALL",
+                  "FINAL",
+                  "RESTART_CONTINUATION",
+                  "REPLAY_COMMITTED",
+                  "LIFECYCLE"
+                ],
+                "forbiddenWhen": "farState.active == false",
+                "minimum": 1,
+                "nullable": false,
+                "optionalWhen": "NEVER",
+                "required": false,
+                "requiredState": "OPTIONAL_WITH_RULE",
+                "requiredWhen": "farState.active == true",
+                "semanticType": "IDENTIFIER",
+                "type": "string",
+                "unit": "NONE"
+              },
+              "volume": {
+                "applicabilityRuleId": "ACTIVE_FAR",
+                "applicableScenarios": [
+                  "INITIAL",
+                  "BIG",
+                  "SMALL",
+                  "FINAL",
+                  "RESTART_CONTINUATION",
+                  "REPLAY_COMMITTED",
+                  "LIFECYCLE"
+                ],
+                "forbiddenWhen": "farState.active == false",
+                "gridSource": "scenarioInput.broker.volumeStep",
+                "minimum": "0",
+                "nullable": false,
+                "optionalWhen": "NEVER",
+                "required": false,
+                "requiredState": "OPTIONAL_WITH_RULE",
+                "requiredWhen": "farState.active == true",
+                "semanticType": "DECIMAL",
+                "type": "string",
+                "unit": "LOTS"
+              }
+            },
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "object",
+            "unit": "NONE"
+          },
+          "moneyByDeal": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "items": {
+              "additionalProperties": false,
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "properties": {
+                "key": {
+                  "applicableScenarios": [
+                    "INITIAL",
+                    "BIG",
+                    "SMALL",
+                    "FINAL",
+                    "RESTART_CONTINUATION",
+                    "REPLAY_COMMITTED",
+                    "LIFECYCLE"
+                  ],
+                  "minimum": 1,
+                  "nullable": false,
+                  "required": true,
+                  "requiredState": "REQUIRED",
+                  "semanticType": "IDENTIFIER",
+                  "type": "string",
+                  "unit": "NONE"
+                },
+                "value": {
+                  "applicableScenarios": [
+                    "INITIAL",
+                    "BIG",
+                    "SMALL",
+                    "FINAL",
+                    "RESTART_CONTINUATION",
+                    "REPLAY_COMMITTED",
+                    "LIFECYCLE"
+                  ],
+                  "nullable": false,
+                  "required": true,
+                  "requiredState": "REQUIRED",
+                  "semanticType": "DECIMAL",
+                  "type": "string",
+                  "unit": "ACCOUNT_MONEY"
+                }
+              },
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "object",
+              "unit": "NONE"
+            },
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "array",
+            "unit": "NONE"
+          },
+          "moneyByTicket": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "items": {
+              "additionalProperties": false,
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "nullable": false,
+              "properties": {
+                "key": {
+                  "applicableScenarios": [
+                    "INITIAL",
+                    "BIG",
+                    "SMALL",
+                    "FINAL",
+                    "RESTART_CONTINUATION",
+                    "REPLAY_COMMITTED",
+                    "LIFECYCLE"
+                  ],
+                  "minimum": 1,
+                  "nullable": false,
+                  "required": true,
+                  "requiredState": "REQUIRED",
+                  "semanticType": "IDENTIFIER",
+                  "type": "string",
+                  "unit": "NONE"
+                },
+                "value": {
+                  "applicableScenarios": [
+                    "INITIAL",
+                    "BIG",
+                    "SMALL",
+                    "FINAL",
+                    "RESTART_CONTINUATION",
+                    "REPLAY_COMMITTED",
+                    "LIFECYCLE"
+                  ],
+                  "nullable": false,
+                  "required": true,
+                  "requiredState": "REQUIRED",
+                  "semanticType": "DECIMAL",
+                  "type": "string",
+                  "unit": "ACCOUNT_MONEY"
+                }
+              },
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "object",
+              "unit": "NONE"
+            },
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "array",
+            "unit": "NONE"
+          },
+          "previousStateDigest": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "recoveryPL": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "reserve": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "DECIMAL",
+            "type": "string",
+            "unit": "ACCOUNT_MONEY"
+          },
+          "seenEventIds": {
+            "applicabilityRuleId": "PERSISTED_EVIDENCE_BY_PHASE",
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "forbiddenWhen": "phase == 'PRE_COMMIT'",
+            "items": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "minimum": 0,
+            "nullable": false,
+            "optionalWhen": "phase == 'COMMITTED'",
+            "required": false,
+            "requiredState": "OPTIONAL_WITH_RULE",
+            "requiredWhen": "phase == 'REPLAY'",
+            "type": "array",
+            "unit": "NONE"
+          },
+          "stateRevision": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "transactionJournalRoot": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "maximum": 64,
+            "minimum": 64,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "SHA256",
+            "type": "string",
+            "unit": "NONE"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "phase": {
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED"
+        ],
+        "enum": [
+          "PRE_COMMIT",
+          "COMMITTED",
+          "REPLAY"
+        ],
+        "nullable": false,
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "string",
+        "unit": "NONE"
+      },
+      "positions": {
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "items": {
+          "additionalProperties": false,
+          "applicableScenarios": [
+            "INITIAL",
+            "BIG",
+            "SMALL",
+            "FINAL",
+            "RESTART_CONTINUATION",
+            "REPLAY_COMMITTED",
+            "LIFECYCLE"
+          ],
+          "nullable": false,
+          "properties": {
+            "accountId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "authoritativeVolume": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "gridSource": "scenarioInput.broker.volumeStep",
+              "minimum": "0.01",
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "LOTS"
+            },
+            "cycleId": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "direction": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "BUY",
+                "SELL"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "magic": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "openPrice": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "gridSource": "scenarioInput.broker.tickSize",
+              "minimum": "0",
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "PRICE"
+            },
+            "role": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "enum": [
+                "NEAR",
+                "BIG",
+                "SMALL",
+                "FAR"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "snapshotRevision": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 0,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "stateRevision": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 0,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "EXACT_INTEGER",
+              "type": "integer",
+              "unit": "NONE"
+            },
+            "symbol": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "ticket": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "minimum": 1,
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "IDENTIFIER",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "volume": {
+              "applicableScenarios": [
+                "INITIAL",
+                "BIG",
+                "SMALL",
+                "FINAL",
+                "RESTART_CONTINUATION",
+                "REPLAY_COMMITTED",
+                "LIFECYCLE"
+              ],
+              "gridSource": "scenarioInput.broker.volumeStep",
+              "minimum": "0.01",
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "semanticType": "DECIMAL",
+              "type": "string",
+              "unit": "LOTS"
+            }
+          },
+          "required": true,
+          "requiredState": "REQUIRED",
+          "type": "object",
+          "unit": "NONE"
+        },
+        "minimum": 0,
+        "nullable": false,
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "array",
+        "unit": "NONE"
+      },
+      "replayContract": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "REPLAY_COMMITTED"
+        ],
+        "forbiddenWhen": "phase != 'REPLAY'",
+        "nullable": false,
+        "properties": {
+          "consumedDealIdsAfter": {
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "items": {
+              "applicableScenarios": [
+                "REPLAY_COMMITTED"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "array",
+            "unit": "NONE"
+          },
+          "consumedDealIdsBefore": {
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "items": {
+              "applicableScenarios": [
+                "REPLAY_COMMITTED"
+              ],
+              "nullable": false,
+              "required": true,
+              "requiredState": "REQUIRED",
+              "type": "string",
+              "unit": "NONE"
+            },
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "array",
+            "unit": "NONE"
+          },
+          "currentRevisionAfter": {
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "currentRevisionBefore": {
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "farAfter": {
+            "additionalProperties": false,
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "properties": {
+              "active": {
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "boolean",
+                "unit": "NONE"
+              }
+            },
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "object",
+            "unit": "NONE"
+          },
+          "farBefore": {
+            "additionalProperties": false,
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "properties": {
+              "active": {
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "boolean",
+                "unit": "NONE"
+              }
+            },
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "object",
+            "unit": "NONE"
+          },
+          "historicalRevisionAfter": {
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "historicalRevisionBefore": {
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "historicalSourceObjects": {
+            "additionalProperties": false,
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "properties": {
+              "allocationPolicy": {
+                "additionalProperties": false,
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "properties": {
+                  "allocatedMoney": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "policyId": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "remainingMoney": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "reserveAddition": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  }
+                },
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "object",
+                "unit": "NONE"
+              },
+              "brokerProposal": {
+                "additionalProperties": false,
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "properties": {
+                  "digest": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "proposalId": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "requestedVolume": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  }
+                },
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "object",
+                "unit": "NONE"
+              },
+              "context": {
+                "additionalProperties": false,
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "properties": {
+                  "accountId": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "actionId": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "cycleId": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "magic": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "integer",
+                    "unit": "NONE"
+                  },
+                  "moneyStateVersion": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "integer",
+                    "unit": "NONE"
+                  },
+                  "snapshotRevision": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "integer",
+                    "unit": "NONE"
+                  },
+                  "stateRevision": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "integer",
+                    "unit": "NONE"
+                  },
+                  "symbol": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "transactionId": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  }
+                },
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "object",
+                "unit": "NONE"
+              },
+              "economic": {
+                "additionalProperties": false,
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "properties": {
+                  "allocatedMoney": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "availableMoney": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "bigResidualVolume": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "catchUpRatio": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "closeFarBudget": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "farActualLoss": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "newFarVolume": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "partialFarVolume": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "recoveryPL": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "remainingMoney": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "requiredCoverage": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "reserveAddition": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "reserveBefore": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "reserveConsumption": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "reserveCoverage": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "tailCount": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "integer",
+                    "unit": "NONE"
+                  }
+                },
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "object",
+                "unit": "NONE"
+              },
+              "fsm": {
+                "additionalProperties": false,
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "properties": {
+                  "inputRevision": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "integer",
+                    "unit": "NONE"
+                  },
+                  "inputState": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "outputRevision": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "integer",
+                    "unit": "NONE"
+                  },
+                  "outputState": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  }
+                },
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "object",
+                "unit": "NONE"
+              },
+              "persistedState": {
+                "additionalProperties": false,
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "properties": {
+                  "authoritativeLedgerRoot": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "consumedDealIds": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "items": {
+                      "applicableScenarios": [
+                        "REPLAY_COMMITTED"
+                      ],
+                      "nullable": false,
+                      "required": true,
+                      "requiredState": "REQUIRED",
+                      "type": "string",
+                      "unit": "NONE"
+                    },
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "array",
+                    "unit": "NONE"
+                  },
+                  "cumulativeFills": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "items": {
+                      "additionalProperties": false,
+                      "applicableScenarios": [
+                        "REPLAY_COMMITTED"
+                      ],
+                      "nullable": false,
+                      "properties": {
+                        "ticket": {
+                          "applicableScenarios": [
+                            "REPLAY_COMMITTED"
+                          ],
+                          "nullable": false,
+                          "required": true,
+                          "requiredState": "REQUIRED",
+                          "type": "string",
+                          "unit": "NONE"
+                        },
+                        "volume": {
+                          "applicableScenarios": [
+                            "REPLAY_COMMITTED"
+                          ],
+                          "nullable": false,
+                          "required": true,
+                          "requiredState": "REQUIRED",
+                          "type": "string",
+                          "unit": "NONE"
+                        }
+                      },
+                      "required": true,
+                      "requiredState": "REQUIRED",
+                      "type": "object",
+                      "unit": "NONE"
+                    },
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "array",
+                    "unit": "NONE"
+                  },
+                  "dealEventBindings": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "items": {
+                      "additionalProperties": false,
+                      "applicableScenarios": [
+                        "REPLAY_COMMITTED"
+                      ],
+                      "nullable": false,
+                      "properties": {
+                        "dealId": {
+                          "applicableScenarios": [
+                            "REPLAY_COMMITTED"
+                          ],
+                          "nullable": false,
+                          "required": true,
+                          "requiredState": "REQUIRED",
+                          "type": "string",
+                          "unit": "NONE"
+                        },
+                        "eventId": {
+                          "applicableScenarios": [
+                            "REPLAY_COMMITTED"
+                          ],
+                          "nullable": false,
+                          "required": true,
+                          "requiredState": "REQUIRED",
+                          "type": "string",
+                          "unit": "NONE"
+                        }
+                      },
+                      "required": true,
+                      "requiredState": "REQUIRED",
+                      "type": "object",
+                      "unit": "NONE"
+                    },
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "array",
+                    "unit": "NONE"
+                  },
+                  "farState": {
+                    "additionalProperties": false,
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "properties": {
+                      "active": {
+                        "applicableScenarios": [
+                          "REPLAY_COMMITTED"
+                        ],
+                        "nullable": false,
+                        "required": true,
+                        "requiredState": "REQUIRED",
+                        "type": "boolean",
+                        "unit": "NONE"
+                      }
+                    },
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "object",
+                    "unit": "NONE"
+                  },
+                  "moneyByDeal": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "items": {
+                      "additionalProperties": false,
+                      "applicableScenarios": [
+                        "REPLAY_COMMITTED"
+                      ],
+                      "nullable": false,
+                      "properties": {
+                        "key": {
+                          "applicableScenarios": [
+                            "REPLAY_COMMITTED"
+                          ],
+                          "nullable": false,
+                          "required": true,
+                          "requiredState": "REQUIRED",
+                          "type": "string",
+                          "unit": "NONE"
+                        },
+                        "value": {
+                          "applicableScenarios": [
+                            "REPLAY_COMMITTED"
+                          ],
+                          "nullable": false,
+                          "required": true,
+                          "requiredState": "REQUIRED",
+                          "type": "string",
+                          "unit": "NONE"
+                        }
+                      },
+                      "required": true,
+                      "requiredState": "REQUIRED",
+                      "type": "object",
+                      "unit": "NONE"
+                    },
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "array",
+                    "unit": "NONE"
+                  },
+                  "moneyByTicket": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "items": {
+                      "additionalProperties": false,
+                      "applicableScenarios": [
+                        "REPLAY_COMMITTED"
+                      ],
+                      "nullable": false,
+                      "properties": {
+                        "key": {
+                          "applicableScenarios": [
+                            "REPLAY_COMMITTED"
+                          ],
+                          "nullable": false,
+                          "required": true,
+                          "requiredState": "REQUIRED",
+                          "type": "string",
+                          "unit": "NONE"
+                        },
+                        "value": {
+                          "applicableScenarios": [
+                            "REPLAY_COMMITTED"
+                          ],
+                          "nullable": false,
+                          "required": true,
+                          "requiredState": "REQUIRED",
+                          "type": "string",
+                          "unit": "NONE"
+                        }
+                      },
+                      "required": true,
+                      "requiredState": "REQUIRED",
+                      "type": "object",
+                      "unit": "NONE"
+                    },
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "array",
+                    "unit": "NONE"
+                  },
+                  "previousStateDigest": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "recoveryPL": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "reserve": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  },
+                  "seenEventIds": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "items": {
+                      "applicableScenarios": [
+                        "REPLAY_COMMITTED"
+                      ],
+                      "nullable": false,
+                      "required": true,
+                      "requiredState": "REQUIRED",
+                      "type": "string",
+                      "unit": "NONE"
+                    },
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "array",
+                    "unit": "NONE"
+                  },
+                  "stateRevision": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "integer",
+                    "unit": "NONE"
+                  },
+                  "transactionJournalRoot": {
+                    "applicableScenarios": [
+                      "REPLAY_COMMITTED"
+                    ],
+                    "nullable": false,
+                    "required": true,
+                    "requiredState": "REQUIRED",
+                    "type": "string",
+                    "unit": "NONE"
+                  }
+                },
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "object",
+                "unit": "NONE"
+              }
+            },
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "object",
+            "unit": "NONE"
+          },
+          "ledgerAfter": {
+            "additionalProperties": false,
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "properties": {
+              "authoritativeLedgerRoot": {
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "string",
+                "unit": "NONE"
+              },
+              "previousStateDigest": {
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "string",
+                "unit": "NONE"
+              },
+              "transactionJournalRoot": {
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "string",
+                "unit": "NONE"
+              }
+            },
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "object",
+            "unit": "NONE"
+          },
+          "ledgerBefore": {
+            "additionalProperties": false,
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "properties": {
+              "authoritativeLedgerRoot": {
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "string",
+                "unit": "NONE"
+              },
+              "previousStateDigest": {
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "string",
+                "unit": "NONE"
+              },
+              "transactionJournalRoot": {
+                "applicableScenarios": [
+                  "REPLAY_COMMITTED"
+                ],
+                "nullable": false,
+                "required": true,
+                "requiredState": "REQUIRED",
+                "type": "string",
+                "unit": "NONE"
+              }
+            },
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "object",
+            "unit": "NONE"
+          },
+          "reserveAfter": {
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "reserveBefore": {
+            "applicableScenarios": [
+              "REPLAY_COMMITTED"
+            ],
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "type": "string",
+            "unit": "NONE"
+          }
+        },
+        "required": false,
+        "requiredState": "OPTIONAL_WITH_RULE",
+        "requiredWhen": "phase == 'REPLAY'",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "scenario": {
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "enum": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "string",
+        "unit": "NONE"
+      },
+      "schemaVersion": {
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "enum": [
+          "3.3.0"
+        ],
+        "nullable": false,
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "string",
+        "unit": "NONE"
+      },
+      "snapshot": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "magic": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "revision": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 0,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "EXACT_INTEGER",
+            "type": "integer",
+            "unit": "NONE"
+          },
+          "symbol": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "IDENTIFIER",
+            "type": "string",
+            "unit": "NONE"
+          },
+          "timestamp": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "UNIX_TIME_SECONDS",
+            "type": "integer",
+            "unit": "SECONDS"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      },
+      "temporalPolicy": {
+        "additionalProperties": false,
+        "applicableScenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ],
+        "nullable": false,
+        "properties": {
+          "allowedUpperBound": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "UNIX_TIME_SECONDS",
+            "type": "integer",
+            "unit": "SECONDS"
+          },
+          "minimumTimestamp": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "UNIX_TIME_SECONDS",
+            "type": "integer",
+            "unit": "SECONDS"
+          },
+          "validFrom": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "UNIX_TIME_SECONDS",
+            "type": "integer",
+            "unit": "SECONDS"
+          },
+          "validUntil": {
+            "applicableScenarios": [
+              "INITIAL",
+              "BIG",
+              "SMALL",
+              "FINAL",
+              "RESTART_CONTINUATION",
+              "REPLAY_COMMITTED",
+              "LIFECYCLE"
+            ],
+            "minimum": 1,
+            "nullable": false,
+            "required": true,
+            "requiredState": "REQUIRED",
+            "semanticType": "UNIX_TIME_SECONDS",
+            "type": "integer",
+            "unit": "SECONDS"
+          }
+        },
+        "required": true,
+        "requiredState": "REQUIRED",
+        "type": "object",
+        "unit": "NONE"
+      }
+    },
+    "required": true,
+    "requiredState": "REQUIRED",
+    "type": "object",
+    "unit": "NONE"
+  },
+  "schemaId": "HSBI_ScenarioInput_R9",
+  "schemaVersion": "3.3.0"
+}
