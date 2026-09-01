@@ -1,0 +1,96 @@
+{
+  "cases": [
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_RUNNER_ZERO_OF_ZERO",
+      "findings": [
+        "REQUIRED_CASE_SET",
+        "RUNNER_SUMMARY_NOT_AUTHORITATIVE",
+        "HISTORICAL_OBLIGATION_LOSS"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_REQUIRED_CASE_REMOVED",
+      "findings": [
+        "REQUIRED_CASE_SET",
+        "RUNNER_SUMMARY_NOT_AUTHORITATIVE",
+        "HISTORICAL_OBLIGATION_LOSS"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_CASE_DUPLICATED",
+      "findings": [
+        "REQUIRED_CASE_SET",
+        "EXECUTED_CASE_DUPLICATE",
+        "HISTORICAL_OBLIGATION_LOSS"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_SUMMARY_ONLY",
+      "findings": [
+        "REQUIRED_CASE_SET",
+        "RUNNER_SUMMARY_NOT_AUTHORITATIVE",
+        "HISTORICAL_OBLIGATION_LOSS"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_POSITION_OWNERSHIP_DISABLED",
+      "findings": [
+        "REGRESSION_OUTCOME"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_EVENT_BINDING_DISABLED",
+      "findings": [
+        "REGRESSION_OUTCOME"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_FAR_TICKET_DISABLED",
+      "findings": [
+        "REGRESSION_OUTCOME"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_REVISION_DISABLED",
+      "findings": [
+        "REGRESSION_OUTCOME"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_PHASE_DISABLED",
+      "findings": [
+        "REGRESSION_OUTCOME"
+      ],
+      "result": "PASS"
+    },
+    {
+      "acceptanceResult": "FAIL",
+      "caseId": "SENS_OUTPUT_BINDING_DISABLED",
+      "findings": [
+        "REGRESSION_OUTCOME"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "executed": 10,
+  "failed": 0,
+  "required": 10,
+  "result": "PASS"
+}
