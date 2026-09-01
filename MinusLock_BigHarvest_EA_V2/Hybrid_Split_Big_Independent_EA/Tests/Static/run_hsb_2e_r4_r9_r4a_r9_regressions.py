@@ -118,7 +118,7 @@ def run(fs=None):
  rows=[]
  for cid,ec,ck,rs,fn in cases:
   ac,ak,ar=classify(fn);rows.append({'caseId':cid,'actualClass':ac,'actualCheckId':ak,'actualReason':ar,'executionStatus':'EXECUTED','result':'PASS' if (ec,ck,rs)==(ac,ak,ar) else 'FAIL'})
- return {'required':len(cases),'executed':len(rows),'wrongFailures':sum(x['result']=='FAIL' for x in rows),'unexpectedInfrastructureErrors':sum(x['actualClass']=='INFRASTRUCTURE_ERROR' and x['expectedClass']!='INFRASTRUCTURE_ERROR' for x in rows),'cases':rows}
+ return {'required':len(cases),'executed':len(rows),'wrongFailures':sum(x['result']=='FAIL' for x in rows),'unexpectedInfrastructureErrors':sum(x['actualClass']=='INFRASTRUCTURE_ERROR' and x['result']=='FAIL' for x in rows),'cases':rows}
 def main():
  a=argparse.ArgumentParser();a.add_argument('--publish-evidence',action='store_true');args=a.parse_args();out=run();out['result']='PASS' if not out['wrongFailures'] and not out['unexpectedInfrastructureErrors'] else 'FAIL'
  if args.publish_evidence:OUT.parent.mkdir(parents=True,exist_ok=True);OUT.write_text(json.dumps(out,indent=2,sort_keys=True)+'\n')
