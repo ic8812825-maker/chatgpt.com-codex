@@ -51,6 +51,7 @@ def phase_revision(r):
   if r['fsm']['outputRevision']!=r['fsm']['inputRevision']+1:reject('R8_REVISION','COMMIT_INCREMENT_REQUIRED','fsm.outputRevision')
  else:
   q=r['replayContract'];h=q['historicalRevisionAfter']
+  if h!=q['historicalRevisionBefore']+1:reject('R8_REVISION','HISTORICAL_INCREMENT_REQUIRED','replayContract')
   if r['fsm']['inputRevision']!=h or r['fsm']['outputRevision']!=h or r['persistedState']['stateRevision']!=h or q['currentRevisionBefore']!=h or q['currentRevisionAfter']!=h:reject('R8_REVISION','REPLAY_CURRENT_NOT_HISTORICAL_OUTPUT','replayContract')
 def far(r,ps):
  f=r['persistedState']['farState'];owned=[p for p in r['positions'] if p['accountId']==r['context']['accountId'] and p['symbol']==r['context']['symbol'] and p['magic']==r['context']['magic'] and p['cycleId']==r['context']['cycleId']];fars=[p for p in owned if p['role']=='FAR']

@@ -1,0 +1,645 @@
+{
+  "catalogVersion": "R4A_R8",
+  "expectedCaseIds": [
+    "VALID",
+    "CONTRADICTORY_WINDOW",
+    "STALE_DEAL",
+    "FUTURE_DEAL",
+    "MISSING_TIME",
+    "SAME_CLOSE_DIRECTION",
+    "FOREIGN_MAGIC",
+    "DUAL_TAIL",
+    "SECOND_FAR",
+    "FOREIGN_REPLAY_IDS",
+    "REPLAY_REVISION_INCREMENT",
+    "UNKNOWN_OPERATION",
+    "BAD_STATE_DIGEST",
+    "LIFECYCLE_DISCONTINUITY",
+    "CERT_ZERO",
+    "BOOLEAN_ID",
+    "NAN",
+    "OFFGRID_VOLUME",
+    "HARNESS_KEYERROR",
+    "HARNESS_TYPEERROR",
+    "INVALID_SCHEMA_VERSION",
+    "REPLAY_ZERO_CERT",
+    "HISTORICAL_REVISION_REVERSED",
+    "REPLAY_FAKE_RESERVE",
+    "EMPTY_LIFECYCLE",
+    "BAD_LAST_OUTPUT",
+    "CERT_BODY_CHANGED",
+    "CERT_CLAIM_RESEALED",
+    "CERT_OTHER_OPERATION",
+    "CERT_MISSING_COMMITTED",
+    "CERT_PROVIDED_PRECOMMIT",
+    "UNKNOWN_NESTED",
+    "INFINITY",
+    "OFFGRID_PRICE",
+    "DUPLICATE_DEAL",
+    "MONEY_CONSERVATION",
+    "VOLUME_CONSERVATION",
+    "RESERVE_PARTIAL_FAR",
+    "POSITION_FOREIGN_MAGIC",
+    "EVENT_FOREIGN_MAGIC",
+    "FAR_TICKET_NOT_FOUND",
+    "COMMIT_REVISION_JUMP",
+    "PHASE_DOWNGRADE_WITH_EVIDENCE",
+    "ORPHAN_DEAL",
+    "REPLAY_ARBITRARY_CURRENT_REVISION",
+    "DUPLICATE_TICKET",
+    "FAR_FOREIGN_OWNERSHIP",
+    "VALID_PRECOMMIT"
+  ],
+  "historicalObligations": [
+    {
+      "executedCaseId": "VALID",
+      "obligationId": "R5::VALID_COMMITTED",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "VALID_PRECOMMIT",
+      "obligationId": "R5::VALID_PRECOMMIT_NO_CERT",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_ZERO",
+      "obligationId": "R5::CERT_ZERO_DIGEST",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_BODY_CHANGED",
+      "obligationId": "R5::CERT_BODY_CHANGED",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_CLAIM_RESEALED",
+      "obligationId": "R5::CERT_CLAIM_RESEALED",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_OTHER_OPERATION",
+      "obligationId": "R5::CERT_OTHER_OPERATION",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_MISSING_COMMITTED",
+      "obligationId": "R5::CERT_MISSING_COMMITTED",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_PROVIDED_PRECOMMIT",
+      "obligationId": "R5::CERT_PROVIDED_PRECOMMIT",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "obligationId": "R5::PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "MISSING_TIME",
+      "obligationId": "R5::MISSING_NESTED",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "UNKNOWN_NESTED",
+      "obligationId": "R5::UNKNOWN_NESTED",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "BOOLEAN_ID",
+      "obligationId": "R5::BOOLEAN_INTEGER",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "NAN",
+      "obligationId": "R5::NAN",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "INFINITY",
+      "obligationId": "R5::INFINITY",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "OFFGRID_PRICE",
+      "obligationId": "R5::OFFGRID_PRICE",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "OFFGRID_VOLUME",
+      "obligationId": "R5::OFFGRID_VOLUME",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "DUPLICATE_DEAL",
+      "obligationId": "R5::DUPLICATE_DEAL",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "ORPHAN_DEAL",
+      "obligationId": "R5::ORPHAN_DEAL",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "POSITION_FOREIGN_MAGIC",
+      "obligationId": "R5::OWNERSHIP",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "MONEY_CONSERVATION",
+      "obligationId": "R5::MONEY_CONSERVATION",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "VOLUME_CONSERVATION",
+      "obligationId": "R5::VOLUME_CONSERVATION",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "RESERVE_PARTIAL_FAR",
+      "obligationId": "R5::RESERVE_PARTIAL_FAR",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "FAR_FOREIGN_OWNERSHIP",
+      "obligationId": "R5::FAR_FOREIGN",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "SECOND_FAR",
+      "obligationId": "R5::FAR_DUPLICATE",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "VALID",
+      "obligationId": "R5::LARGE_EXACT_IDENTIFIER",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "VALID",
+      "obligationId": "R5::METADATA_ISOLATION",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "HARNESS_KEYERROR",
+      "obligationId": "R5::HARNESS_KEYERROR",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "HARNESS_TYPEERROR",
+      "obligationId": "R5::HARNESS_TYPEERROR",
+      "sourceVersion": "R5",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "VALID",
+      "obligationId": "R6::VALID",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CONTRADICTORY_WINDOW",
+      "obligationId": "R6::CONTRADICTORY_WINDOW",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "STALE_DEAL",
+      "obligationId": "R6::STALE_DEAL",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "FUTURE_DEAL",
+      "obligationId": "R6::FUTURE_DEAL",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "MISSING_TIME",
+      "obligationId": "R6::MISSING_TIME",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "SAME_CLOSE_DIRECTION",
+      "obligationId": "R6::SAME_CLOSE_DIRECTION",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "FOREIGN_MAGIC",
+      "obligationId": "R6::FOREIGN_MAGIC",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "DUAL_TAIL",
+      "obligationId": "R6::DUAL_TAIL",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "SECOND_FAR",
+      "obligationId": "R6::SECOND_FAR",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "FOREIGN_REPLAY_IDS",
+      "obligationId": "R6::FOREIGN_REPLAY_IDS",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "REPLAY_REVISION_INCREMENT",
+      "obligationId": "R6::REPLAY_REVISION_INCREMENT",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "UNKNOWN_OPERATION",
+      "obligationId": "R6::UNKNOWN_OPERATION",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "BAD_STATE_DIGEST",
+      "obligationId": "R6::BAD_STATE_DIGEST",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "LIFECYCLE_DISCONTINUITY",
+      "obligationId": "R6::LIFECYCLE_DISCONTINUITY",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_ZERO",
+      "obligationId": "R6::CERT_ZERO",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "BOOLEAN_ID",
+      "obligationId": "R6::BOOLEAN_ID",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "NAN",
+      "obligationId": "R6::NAN",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "OFFGRID_VOLUME",
+      "obligationId": "R6::OFFGRID_VOLUME",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "HARNESS_KEYERROR",
+      "obligationId": "R6::HARNESS_KEYERROR",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "HARNESS_TYPEERROR",
+      "obligationId": "R6::HARNESS_TYPEERROR",
+      "sourceVersion": "R6",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "VALID",
+      "obligationId": "R7::VALID",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CONTRADICTORY_WINDOW",
+      "obligationId": "R7::CONTRADICTORY_WINDOW",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "STALE_DEAL",
+      "obligationId": "R7::STALE_DEAL",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "FUTURE_DEAL",
+      "obligationId": "R7::FUTURE_DEAL",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "MISSING_TIME",
+      "obligationId": "R7::MISSING_TIME",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "SAME_CLOSE_DIRECTION",
+      "obligationId": "R7::SAME_CLOSE_DIRECTION",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "FOREIGN_MAGIC",
+      "obligationId": "R7::FOREIGN_MAGIC",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "DUAL_TAIL",
+      "obligationId": "R7::DUAL_TAIL",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "SECOND_FAR",
+      "obligationId": "R7::SECOND_FAR",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "FOREIGN_REPLAY_IDS",
+      "obligationId": "R7::FOREIGN_REPLAY_IDS",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "REPLAY_REVISION_INCREMENT",
+      "obligationId": "R7::REPLAY_REVISION_INCREMENT",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "UNKNOWN_OPERATION",
+      "obligationId": "R7::UNKNOWN_OPERATION",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "BAD_STATE_DIGEST",
+      "obligationId": "R7::BAD_STATE_DIGEST",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "LIFECYCLE_DISCONTINUITY",
+      "obligationId": "R7::LIFECYCLE_DISCONTINUITY",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_ZERO",
+      "obligationId": "R7::CERT_ZERO",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "BOOLEAN_ID",
+      "obligationId": "R7::BOOLEAN_ID",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "NAN",
+      "obligationId": "R7::NAN",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "OFFGRID_VOLUME",
+      "obligationId": "R7::OFFGRID_VOLUME",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "HARNESS_KEYERROR",
+      "obligationId": "R7::HARNESS_KEYERROR",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "HARNESS_TYPEERROR",
+      "obligationId": "R7::HARNESS_TYPEERROR",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "INVALID_SCHEMA_VERSION",
+      "obligationId": "R7::INVALID_SCHEMA_VERSION",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "REPLAY_ZERO_CERT",
+      "obligationId": "R7::REPLAY_ZERO_CERT",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "HISTORICAL_REVISION_REVERSED",
+      "obligationId": "R7::HISTORICAL_REVISION_REVERSED",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "REPLAY_FAKE_RESERVE",
+      "obligationId": "R7::REPLAY_FAKE_RESERVE",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "EMPTY_LIFECYCLE",
+      "obligationId": "R7::EMPTY_LIFECYCLE",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "BAD_LAST_OUTPUT",
+      "obligationId": "R7::BAD_LAST_OUTPUT",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_BODY_CHANGED",
+      "obligationId": "R7::CERT_BODY_CHANGED",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_CLAIM_RESEALED",
+      "obligationId": "R7::CERT_CLAIM_RESEALED",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_OTHER_OPERATION",
+      "obligationId": "R7::CERT_OTHER_OPERATION",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_MISSING_COMMITTED",
+      "obligationId": "R7::CERT_MISSING_COMMITTED",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "CERT_PROVIDED_PRECOMMIT",
+      "obligationId": "R7::CERT_PROVIDED_PRECOMMIT",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "UNKNOWN_NESTED",
+      "obligationId": "R7::UNKNOWN_NESTED",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "INFINITY",
+      "obligationId": "R7::INFINITY",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "OFFGRID_PRICE",
+      "obligationId": "R7::OFFGRID_PRICE",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "DUPLICATE_DEAL",
+      "obligationId": "R7::DUPLICATE_DEAL",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "MONEY_CONSERVATION",
+      "obligationId": "R7::MONEY_CONSERVATION",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "VOLUME_CONSERVATION",
+      "obligationId": "R7::VOLUME_CONSERVATION",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    },
+    {
+      "executedCaseId": "RESERVE_PARTIAL_FAR",
+      "obligationId": "R7::RESERVE_PARTIAL_FAR",
+      "sourceVersion": "R7",
+      "status": "RETAINED_EXECUTABLE"
+    }
+  ],
+  "requirements": [
+    {
+      "applicability": "ALL",
+      "checkId": "R5_SCHEMA",
+      "inputPaths": [
+        "scenarioInput"
+      ],
+      "negativeCaseId": "UNKNOWN_NESTED",
+      "positiveCaseId": "VALID",
+      "requirementId": "PIPELINE_SCHEMA",
+      "sensitivityCaseId": "SENS_REQUIRED_CASE_REMOVED"
+    },
+    {
+      "applicability": "COMMITTED,REPLAY",
+      "checkId": "R8_REFERENCE",
+      "inputPaths": [
+        "deals[*].intentId"
+      ],
+      "negativeCaseId": "ORPHAN_DEAL",
+      "positiveCaseId": "VALID",
+      "requirementId": "REFERENCE_RESOLUTION",
+      "sensitivityCaseId": "SENS_EVENT_BINDING_DISABLED"
+    },
+    {
+      "applicability": "ALL",
+      "checkId": "R8_IDENTITY",
+      "inputPaths": [
+        "positions[*]",
+        "events[*]"
+      ],
+      "negativeCaseId": "POSITION_FOREIGN_MAGIC",
+      "positiveCaseId": "VALID",
+      "requirementId": "IDENTITY_OWNERSHIP",
+      "sensitivityCaseId": "SENS_POSITION_OWNERSHIP_DISABLED"
+    },
+    {
+      "applicability": "ACTIVE_FAR",
+      "checkId": "R8_FAR",
+      "inputPaths": [
+        "persistedState.farState",
+        "positions[*]"
+      ],
+      "negativeCaseId": "FAR_TICKET_NOT_FOUND",
+      "positiveCaseId": "VALID",
+      "requirementId": "FAR_BINDING",
+      "sensitivityCaseId": "SENS_FAR_TICKET_DISABLED"
+    },
+    {
+      "applicability": "ALL",
+      "checkId": "R8_PHASE/R8_REVISION",
+      "inputPaths": [
+        "phase",
+        "fsm",
+        "certificate",
+        "deals",
+        "events"
+      ],
+      "negativeCaseId": "PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "positiveCaseId": "VALID_PRECOMMIT",
+      "requirementId": "PHASE_REVISION",
+      "sensitivityCaseId": "SENS_PHASE_DISABLED"
+    },
+    {
+      "applicability": "LIFECYCLE",
+      "checkId": "R8_LIFECYCLE",
+      "inputPaths": [
+        "lifecycleSequence.steps[*]"
+      ],
+      "negativeCaseId": "LIFECYCLE_DISCONTINUITY",
+      "positiveCaseId": "VALID",
+      "requirementId": "LIFECYCLE_CAUSALITY",
+      "sensitivityCaseId": "SENS_OUTPUT_BINDING_DISABLED"
+    }
+  ]
+}
