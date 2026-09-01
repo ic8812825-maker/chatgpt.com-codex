@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'Tests/Static'))
 import verify_hsb_2e_r4_r9_r4a_r9 as v
 import run_hsb_2e_r4_r9_r4a_r9_regressions as regress
+import accept_hsb_2e_r4_r9_r4a_r7 as coverage7
 CAT=ROOT/'Tests/Contracts/HSB_2E_R4_R9_R4A_R9_CASE_CONTRACT.json';PROTECTED=ROOT/'Tests/Contracts/HSB_2E_R4_R9_R4A_R9_PROTECTED_FILES.json';OUT=ROOT/'Tests/Evidence/R4A_R9/acceptance_result.json';BASE='db47f2c091ac900323b14452b321e8e7581a30cc'
 def fresh_result(fs=None):return regress.run(fs)
 def assess(fresh,fs=None,skip_scope=False):
@@ -27,6 +28,8 @@ def assess(fresh,fs=None,skip_scope=False):
  if fresh.get('required')!=len(expected) or fresh.get('executed')!=len(rows):findings.append({'check':'SUMMARY_MISMATCH'})
  obligations=cat['historicalObligations']
  if len(obligations)!=86 or any(x['caseId'] not in ids for x in obligations):findings.append({'check':'HISTORICAL_VARIANT_MISSING'})
+ cf,_=coverage7.coverage(copy.deepcopy(fs or v.fixtures()))
+ if cf:findings.append({'check':'RUNTIME_DERIVED_COVERAGE','details':cf})
  try:v.execute(copy.deepcopy(fs or v.fixtures()))
  except v.NormativeError as e:findings.append({'check':'POSITIVE_FIXTURE','detail':str(e)})
  reg=json.loads(PROTECTED.read_text())['files'];badfiles=[x['path'] for x in reg if not (ROOT/x['path']).is_file() or hashlib.sha256((ROOT/x['path']).read_bytes()).hexdigest()!=x['sha256']]
