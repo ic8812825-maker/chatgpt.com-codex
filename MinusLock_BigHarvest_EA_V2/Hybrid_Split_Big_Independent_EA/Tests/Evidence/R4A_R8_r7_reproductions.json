@@ -1,0 +1,102 @@
+{
+  "cases": [
+    {
+      "caseId": "R7_POSITION_FOREIGN_MAGIC",
+      "changedPath": "positions[0].magic",
+      "historicalActual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "mutatedInputSha256": "5d9228bf51b981f8af1066886d36aca0e88be2425c7b218f3b0aeeea1cb6add9",
+      "positiveSourceSha256": "1ff53c600a313ba65a302bca8e78f03eff937dd76c29feee16f2a6bf82e705de",
+      "requiredCorrectBehavior": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R7_EVENT_FOREIGN_MAGIC",
+      "changedPath": "events[0].magic",
+      "historicalActual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "mutatedInputSha256": "3fd2f3ba929e3166c8deca52b58b6dbae805eca86178f2a6489b00361968059a",
+      "positiveSourceSha256": "1ff53c600a313ba65a302bca8e78f03eff937dd76c29feee16f2a6bf82e705de",
+      "requiredCorrectBehavior": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R7_FAR_UNKNOWN_TICKET",
+      "changedPath": "persistedState.farState.ticket",
+      "historicalActual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "mutatedInputSha256": "90a608bf4f8ba15222fdd3060624149fa60cabb9499646a8b93fff9ac6ea44c8",
+      "positiveSourceSha256": "1ff53c600a313ba65a302bca8e78f03eff937dd76c29feee16f2a6bf82e705de",
+      "requiredCorrectBehavior": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R7_COMMIT_REVISION_JUMP",
+      "changedPath": "fsm.outputRevision",
+      "historicalActual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "mutatedInputSha256": "6560e9cf2713c1eb19d2399af43a391612e7b27355a90b42d1d48ef38b63c15d",
+      "positiveSourceSha256": "1ff53c600a313ba65a302bca8e78f03eff937dd76c29feee16f2a6bf82e705de",
+      "requiredCorrectBehavior": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R7_PHASE_DOWNGRADE_EVIDENCE",
+      "changedPath": "phase/certificate",
+      "historicalActual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "mutatedInputSha256": "2563356d4ff7b7d5b520426a4a009b6443da3bfc671c58f6fefd9ccd7ae313f9",
+      "positiveSourceSha256": "1ff53c600a313ba65a302bca8e78f03eff937dd76c29feee16f2a6bf82e705de",
+      "requiredCorrectBehavior": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R7_ORPHAN_DEAL_INTENT",
+      "changedPath": "deals[0].intentId",
+      "historicalActual": {
+        "checkId": "KeyError",
+        "class": "INFRASTRUCTURE_ERROR",
+        "reason": "'NO-SUCH-INTENT'"
+      },
+      "mutatedInputSha256": "13dd2a14155592de2849cc6fe10229ef540b8f063f2e9e4d27caa43d334dd00f",
+      "positiveSourceSha256": "1ff53c600a313ba65a302bca8e78f03eff937dd76c29feee16f2a6bf82e705de",
+      "requiredCorrectBehavior": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R7_REPLAY_ARBITRARY_CURRENT_REVISION",
+      "changedPath": "fsm/replayContract.currentRevision",
+      "historicalActual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": ""
+      },
+      "mutatedInputSha256": "051b31df115d6cb131a3ee254e581a4ddf7db7feb27b2678b48cc25d2eed58c3",
+      "positiveSourceSha256": "4ef2564ec802bab2a34d929a7ebb2554911ba88abd763dac07a023ca131adfe0",
+      "requiredCorrectBehavior": "NORMATIVE_REJECTION"
+    },
+    {
+      "caseId": "R7_ACCEPTANCE_EMPTY_0_OF_0",
+      "changedPath": "regression runner return value",
+      "historicalActual": {
+        "checkId": "",
+        "class": "ACCEPTED",
+        "reason": "PASS"
+      },
+      "mutatedInputSha256": "f8e26c564a7dd8699a555695152ccda7082da9f1f72ab82c835b058edc57535d",
+      "positiveSourceSha256": "ca58984a45c5a06d927ff07002102ec3df261eab0c69414f6fd2fd8916b99777",
+      "requiredCorrectBehavior": "INFRASTRUCTURE_REJECTION"
+    }
+  ],
+  "historicalTargetSha": "4a4bd1fd4d41d0b8394e48d34dfb28316351c04d",
+  "reproduced": 8
+}
