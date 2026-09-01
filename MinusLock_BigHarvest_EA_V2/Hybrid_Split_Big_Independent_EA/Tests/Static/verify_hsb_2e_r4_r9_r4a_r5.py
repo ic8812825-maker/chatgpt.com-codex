@@ -97,12 +97,14 @@ def internal(r):
   if not multiple(dec(p['volume'],'position.volume'),step) or not multiple(dec(p['openPrice'],'position.openPrice'),tick):reject('R5_GRID','POSITION_OFF_GRID','scenarioInput.positions')
  intents={i['intentId']:i for i in r['intents']}
  for d in r['deals']:
-  if d['dealId'] in ids:reject('R5_DEAL','DUPLICATE_DEAL','scenarioInput.deals');ids.add(d['dealId'])
+  if d['dealId'] in ids:reject('R5_DEAL','DUPLICATE_DEAL','scenarioInput.deals')
+  ids.add(d['dealId'])
   if d['positionTicket'] not in tickets or d['intentId'] not in intents:reject('R5_BINDING','ORPHAN_DEAL','scenarioInput.deals')
   if not multiple(dec(d['volume'],'deal.volume'),step) or not multiple(dec(d['price'],'deal.price'),tick):reject('R5_GRID','DEAL_OFF_GRID','scenarioInput.deals')
  eventids=set()
  for e in r['events']:
-  if e['eventId'] in eventids:reject('R5_EVENT','DUPLICATE_EVENT','scenarioInput.events');eventids.add(e['eventId'])
+  if e['eventId'] in eventids:reject('R5_EVENT','DUPLICATE_EVENT','scenarioInput.events')
+  eventids.add(e['eventId'])
   match=[d for d in r['deals'] if d['dealId']==e['dealId']]
   if len(match)!=1 or any(e[k]!=match[0][k] for k in ('intentId','positionTicket','accountId','symbol','magic','cycleId','transactionId','actionId','role','direction','volume','price')):reject('R5_EVENT','EVENT_DEAL_BINDING_MISMATCH','scenarioInput.events')
  if r['phase']!='PRE_COMMIT':

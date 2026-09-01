@@ -1,0 +1,329 @@
+{
+  "cases": [
+    {
+      "actualClass": "ACCEPTED",
+      "actualDetail": {},
+      "caseId": "VALID_COMMITTED",
+      "expectedCheckId": null,
+      "expectedClass": "ACCEPTED",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "ACCEPTED",
+      "actualDetail": {},
+      "caseId": "VALID_PRECOMMIT_NO_CERT",
+      "expectedCheckId": null,
+      "expectedClass": "ACCEPTED",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "CERTIFICATE_INTERNAL_INTEGRITY",
+        "inputPath": "scenarioInput.certificate.digest",
+        "reason": "CERTIFICATE_DIGEST_MISMATCH"
+      },
+      "caseId": "CERT_ZERO_DIGEST",
+      "expectedCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "CERTIFICATE_INTERNAL_INTEGRITY",
+        "inputPath": "scenarioInput.certificate.digest",
+        "reason": "CERTIFICATE_DIGEST_MISMATCH"
+      },
+      "caseId": "CERT_BODY_CHANGED",
+      "expectedCheckId": "CERTIFICATE_INTERNAL_INTEGRITY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "CERTIFICATE_SOURCE_BINDING",
+        "inputPath": "scenarioInput.certificate.claimedEconomicDigest",
+        "reason": "CERTIFICATE_SOURCE_MISMATCH"
+      },
+      "caseId": "CERT_CLAIM_RESEALED",
+      "expectedCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "CERTIFICATE_SOURCE_BINDING",
+        "inputPath": "scenarioInput.certificate.body",
+        "reason": "CERTIFICATE_SOURCE_MISMATCH"
+      },
+      "caseId": "CERT_OTHER_OPERATION",
+      "expectedCheckId": "CERTIFICATE_SOURCE_BINDING",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "CERTIFICATE_STRUCTURE",
+        "inputPath": "scenarioInput.certificate",
+        "reason": "CERTIFICATE_REQUIRED"
+      },
+      "caseId": "CERT_MISSING_COMMITTED",
+      "expectedCheckId": "CERTIFICATE_STRUCTURE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "CERTIFICATE_STRUCTURE",
+        "inputPath": "scenarioInput.certificate",
+        "reason": "CERTIFICATE_FORBIDDEN_PRE_COMMIT"
+      },
+      "caseId": "CERT_PROVIDED_PRECOMMIT",
+      "expectedCheckId": "CERTIFICATE_STRUCTURE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_PHASE",
+        "inputPath": "scenarioInput.phase",
+        "reason": "PRE_COMMIT_EVIDENCE_FORBIDDEN"
+      },
+      "caseId": "PHASE_DOWNGRADE_WITH_EVIDENCE",
+      "expectedCheckId": "R5_PHASE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_SCHEMA",
+        "inputPath": "scenarioInput.context.cycleId",
+        "reason": "MISSING_REQUIRED"
+      },
+      "caseId": "MISSING_NESTED",
+      "expectedCheckId": "R5_SCHEMA",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_SCHEMA",
+        "inputPath": "scenarioInput.context.unknown",
+        "reason": "UNKNOWN_FIELD"
+      },
+      "caseId": "UNKNOWN_NESTED",
+      "expectedCheckId": "R5_SCHEMA",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_TYPE",
+        "inputPath": "scenarioInput.context.magic",
+        "reason": "EXACT_INTEGER_REQUIRED"
+      },
+      "caseId": "BOOLEAN_INTEGER",
+      "expectedCheckId": "R5_TYPE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_NUMERIC",
+        "inputPath": "scenarioInput.economic.availableMoney",
+        "reason": "NONFINITE_DECIMAL"
+      },
+      "caseId": "NAN",
+      "expectedCheckId": "R5_NUMERIC",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_NUMERIC",
+        "inputPath": "scenarioInput.economic.availableMoney",
+        "reason": "NONFINITE_DECIMAL"
+      },
+      "caseId": "INFINITY",
+      "expectedCheckId": "R5_NUMERIC",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_GRID",
+        "inputPath": "scenarioInput.positions",
+        "reason": "POSITION_OFF_GRID"
+      },
+      "caseId": "OFFGRID_PRICE",
+      "expectedCheckId": "R5_GRID",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_GRID",
+        "inputPath": "scenarioInput.positions",
+        "reason": "POSITION_OFF_GRID"
+      },
+      "caseId": "OFFGRID_VOLUME",
+      "expectedCheckId": "R5_GRID",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_DEAL",
+        "inputPath": "scenarioInput.deals",
+        "reason": "DUPLICATE_DEAL"
+      },
+      "caseId": "DUPLICATE_DEAL",
+      "expectedCheckId": "R5_DEAL",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_BINDING",
+        "inputPath": "scenarioInput.deals",
+        "reason": "ORPHAN_DEAL"
+      },
+      "caseId": "ORPHAN_DEAL",
+      "expectedCheckId": "R5_BINDING",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_OWNERSHIP",
+        "inputPath": "scenarioInput.positions",
+        "reason": "POSITION_OWNERSHIP_MISMATCH"
+      },
+      "caseId": "OWNERSHIP",
+      "expectedCheckId": "R5_OWNERSHIP",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_MONEY",
+        "inputPath": "scenarioInput.allocationPolicy",
+        "reason": "MONEY_CONSERVATION_MISMATCH"
+      },
+      "caseId": "MONEY_CONSERVATION",
+      "expectedCheckId": "R5_MONEY",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_VOLUME",
+        "inputPath": "scenarioInput.deals",
+        "reason": "VOLUME_CONSERVATION_MISMATCH"
+      },
+      "caseId": "VOLUME_CONSERVATION",
+      "expectedCheckId": "R5_VOLUME",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_RESERVE",
+        "inputPath": "scenarioInput.economic.reserveConsumption",
+        "reason": "RESERVE_PARTIAL_FAR_FORBIDDEN"
+      },
+      "caseId": "RESERVE_PARTIAL_FAR",
+      "expectedCheckId": "R5_RESERVE",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_OWNERSHIP",
+        "inputPath": "scenarioInput.positions",
+        "reason": "POSITION_OWNERSHIP_MISMATCH"
+      },
+      "caseId": "FAR_FOREIGN",
+      "expectedCheckId": "R5_OWNERSHIP",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "NORMATIVE_REJECTION",
+      "actualDetail": {
+        "checkId": "R5_POSITION",
+        "inputPath": "scenarioInput.positions",
+        "reason": "DUPLICATE_TICKET"
+      },
+      "caseId": "FAR_DUPLICATE",
+      "expectedCheckId": "R5_POSITION",
+      "expectedClass": "NORMATIVE_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "ACCEPTED",
+      "actualDetail": {},
+      "caseId": "LARGE_EXACT_IDENTIFIER",
+      "expectedCheckId": null,
+      "expectedClass": "ACCEPTED",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "ACCEPTED",
+      "actualDetail": {},
+      "caseId": "METADATA_ISOLATION",
+      "expectedCheckId": null,
+      "expectedClass": "ACCEPTED",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "INFRASTRUCTURE_ERROR",
+      "actualDetail": {
+        "detail": "'missing'",
+        "type": "KeyError"
+      },
+      "caseId": "HARNESS_KEYERROR",
+      "expectedCheckId": null,
+      "expectedClass": "INFRASTRUCTURE_ERROR",
+      "result": "PASS"
+    },
+    {
+      "actualClass": "INFRASTRUCTURE_ERROR",
+      "actualDetail": {
+        "detail": "unsupported operand type(s) for +: 'int' and 'str'",
+        "type": "TypeError"
+      },
+      "caseId": "HARNESS_TYPEERROR",
+      "expectedCheckId": null,
+      "expectedClass": "INFRASTRUCTURE_ERROR",
+      "result": "PASS"
+    }
+  ],
+  "executed": 28,
+  "expectedInfrastructureClassifications": 2,
+  "normativeRejections": 22,
+  "required": 28,
+  "result": "PASS",
+  "unexpectedInfrastructureErrors": 0,
+  "wrongFailures": 0
+}
