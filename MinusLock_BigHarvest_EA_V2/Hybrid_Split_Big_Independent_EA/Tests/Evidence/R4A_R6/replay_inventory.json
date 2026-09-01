@@ -1,0 +1,38 @@
+{
+  "rows": [
+    {
+      "fixtureId": "R5-REPLAY_COMMITTED-1",
+      "inputRevision": 32,
+      "outputRevision": 32,
+      "consumedDealIds": [
+        "DEAL-21"
+      ]
+    },
+    {
+      "fixtureId": "R5-REPLAY_COMMITTED-2",
+      "inputRevision": 33,
+      "outputRevision": 33,
+      "consumedDealIds": [
+        "DEAL-22"
+      ]
+    },
+    {
+      "fixtureId": "R5-REPLAY_COMMITTED-3",
+      "inputRevision": 34,
+      "outputRevision": 34,
+      "consumedDealIds": [
+        "DEAL-23",
+        "DEAL-23-B"
+      ]
+    },
+    {
+      "fixtureId": "R5-REPLAY_COMMITTED-4",
+      "inputRevision": 35,
+      "outputRevision": 35,
+      "consumedDealIds": [
+        "DEAL-24"
+      ]
+    }
+  ],
+  "result": "PASS"
+}
