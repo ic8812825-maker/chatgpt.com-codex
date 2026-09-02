@@ -1,0 +1,52 @@
+{
+  "causalFixtures": 15,
+  "evaluatorSensitivity": [
+    {
+      "caught": true,
+      "predicateId": "SCHEMA",
+      "targetStatusAfterDisable": "PASS"
+    },
+    {
+      "caught": true,
+      "predicateId": "NUMERIC_FINITE",
+      "targetStatusAfterDisable": "PASS"
+    },
+    {
+      "caught": true,
+      "predicateId": "RUNTIME_IDENTITY",
+      "targetStatusAfterDisable": "PASS"
+    },
+    {
+      "caught": true,
+      "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+      "targetStatusAfterDisable": "PASS"
+    },
+    {
+      "caught": true,
+      "predicateId": "BROKER_PROPERTIES",
+      "targetStatusAfterDisable": "PASS"
+    },
+    {
+      "caught": true,
+      "predicateId": "SNAPSHOT_CONTEXT",
+      "targetStatusAfterDisable": "PASS"
+    },
+    {
+      "caught": true,
+      "predicateId": "TEMPORAL_WINDOW",
+      "targetStatusAfterDisable": "PASS"
+    }
+  ],
+  "findings": [],
+  "independence": {
+    "expectedMetadataChanged": true,
+    "identicalRuntime": true,
+    "jsonKeyOrder": true,
+    "metadataRemoved": true
+  },
+  "mutationResult": "PASS",
+  "predicateCount": 7,
+  "r10Cases": 67,
+  "result": "PASS",
+  "revisionPairs": 2
+}
