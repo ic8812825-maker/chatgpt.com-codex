@@ -13,10 +13,24 @@ def result(pid,status,paths,dependencies,check='',reason=''):
 def fail(pid,paths,deps,reason=None):
  c=BY_ID[pid];return result(pid,'FAIL',paths,deps,c['failureCheckId'],reason or c['failureReason'])
 def passed(pid,paths,deps):return result(pid,'PASS',paths,deps)
+def shape(value,node,path,paths):
+ paths.append(path);typ=node['type']
+ if typ=='object':
+  if not isinstance(value,dict):return False
+  required={k for k,v in node['properties'].items() if v.get('required')}
+  if not required<=set(value) or not set(value)<=set(node['properties']):return False
+  return all(shape(value[k],node['properties'][k],f'{path}.{k}',paths) for k in value)
+ if typ=='array':return isinstance(value,list) and all(shape(x,node['items'],f'{path}[{i}]',paths) for i,x in enumerate(value))
+ if typ=='integer':ok=isinstance(value,int) and not isinstance(value,bool)
+ elif typ=='number':ok=isinstance(value,(int,float)) and not isinstance(value,bool)
+ elif typ=='string':ok=isinstance(value,str)
+ elif typ=='boolean':ok=isinstance(value,bool)
+ else:ok=False
+ return ok and ('enum' not in node or value in node['enum'])
 def evaluate_schema(r,deps):
- try:schema_primitives.node(r,SCHEMA,'scenarioInput')
- except schema_primitives.NormativeError:return fail('SCHEMA',['scenarioInput'],deps)
- return passed('SCHEMA',['scenarioInput'],deps)
+ paths=[]
+ if not shape(r,SCHEMA,'scenarioInput',paths):return fail('SCHEMA',paths,deps)
+ return passed('SCHEMA',paths,deps)
 def numeric_nodes(value,node,path,out):
  typ=node['type']
  if typ=='object':
