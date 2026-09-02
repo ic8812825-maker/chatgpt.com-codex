@@ -1,0 +1,242 @@
+{
+  "predicateCount": 7,
+  "predicates": [
+    {
+      "applicability": {
+        "rule": "ALWAYS_FOR_SCENARIO_INPUT",
+        "scenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ]
+      },
+      "dataDependencies": [
+        "scenarioInput.schemaVersion"
+      ],
+      "evaluationOrder": 1,
+      "exactInputPaths": [
+        "scenarioInput.schemaVersion",
+        "scenarioInput.phase"
+      ],
+      "failureCheckId": "R9_SCHEMA",
+      "failureReason": "SCHEMA_MISMATCH",
+      "normativeSource": "R10 schema root: closed objects, required fields, exact primitive types and enums.",
+      "passCondition": "SCHEMA_VALID",
+      "predicateId": "SCHEMA",
+      "prerequisitePredicates": []
+    },
+    {
+      "applicability": {
+        "rule": "ALWAYS_FOR_SCENARIO_INPUT",
+        "scenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ]
+      },
+      "dataDependencies": [
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.economic.availableMoney"
+      ],
+      "evaluationOrder": 2,
+      "exactInputPaths": [
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.economic.availableMoney"
+      ],
+      "failureCheckId": "R9_NUMERIC_FINITE",
+      "failureReason": "NUMERIC_FINITE_MISMATCH",
+      "normativeSource": "All integer and DECIMAL semantic fields resolved recursively from R10 schema must be finite; Boolean is never integer.",
+      "passCondition": "NUMERIC_FINITE_VALID",
+      "predicateId": "NUMERIC_FINITE",
+      "prerequisitePredicates": [
+        "SCHEMA"
+      ]
+    },
+    {
+      "applicability": {
+        "rule": "ALWAYS_FOR_SCENARIO_INPUT",
+        "scenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ]
+      },
+      "dataDependencies": [
+        "scenarioInput.context.accountId",
+        "scenarioInput.context.cycleId",
+        "scenarioInput.context.transactionId",
+        "scenarioInput.context.actionId"
+      ],
+      "evaluationOrder": 3,
+      "exactInputPaths": [
+        "scenarioInput.context.accountId",
+        "scenarioInput.context.cycleId",
+        "scenarioInput.context.transactionId",
+        "scenarioInput.context.actionId"
+      ],
+      "failureCheckId": "R9_RUNTIME_IDENTITY",
+      "failureReason": "RUNTIME_IDENTITY_MISMATCH",
+      "normativeSource": "Non-empty context account/cycle/transaction/action and their applicable bindings in intents/deals/events.",
+      "passCondition": "RUNTIME_IDENTITY_VALID",
+      "predicateId": "RUNTIME_IDENTITY",
+      "prerequisitePredicates": [
+        "NUMERIC_FINITE"
+      ]
+    },
+    {
+      "applicability": {
+        "rule": "ALWAYS_FOR_SCENARIO_INPUT",
+        "scenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ]
+      },
+      "dataDependencies": [
+        "scenarioInput.context.symbol",
+        "scenarioInput.context.magic",
+        "scenarioInput.positions[*].symbol",
+        "scenarioInput.positions[*].magic"
+      ],
+      "evaluationOrder": 4,
+      "exactInputPaths": [
+        "scenarioInput.context.symbol",
+        "scenarioInput.context.magic",
+        "scenarioInput.positions[*].symbol",
+        "scenarioInput.positions[*].magic"
+      ],
+      "failureCheckId": "R9_SYMBOL_MAGIC_OWNERSHIP",
+      "failureReason": "SYMBOL_MAGIC_OWNERSHIP_MISMATCH",
+      "normativeSource": "Context account/symbol/magic/cycle own every position/deal/event; snapshot symbol/magic ownership is evaluated separately.",
+      "passCondition": "SYMBOL_MAGIC_OWNERSHIP_VALID",
+      "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+      "prerequisitePredicates": [
+        "RUNTIME_IDENTITY"
+      ]
+    },
+    {
+      "applicability": {
+        "rule": "ALWAYS_FOR_SCENARIO_INPUT",
+        "scenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ]
+      },
+      "dataDependencies": [
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.broker.tickValue",
+        "scenarioInput.broker.contractSize",
+        "scenarioInput.broker.volumeStep"
+      ],
+      "evaluationOrder": 5,
+      "exactInputPaths": [
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.broker.tickValue",
+        "scenarioInput.broker.contractSize",
+        "scenarioInput.broker.volumeStep"
+      ],
+      "failureCheckId": "R9_BROKER_PROPERTIES",
+      "failureReason": "BROKER_PROPERTIES_MISMATCH",
+      "normativeSource": "digits nonnegative; point/tickSize/tickValue/contractSize/volumeMin/volumeMax/volumeStep positive; min<=max; bid<=ask; deviation nonnegative.",
+      "passCondition": "BROKER_PROPERTIES_VALID",
+      "predicateId": "BROKER_PROPERTIES",
+      "prerequisitePredicates": [
+        "SYMBOL_MAGIC_OWNERSHIP"
+      ]
+    },
+    {
+      "applicability": {
+        "rule": "ALWAYS_FOR_SCENARIO_INPUT",
+        "scenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ]
+      },
+      "dataDependencies": [
+        "scenarioInput.snapshot.symbol",
+        "scenarioInput.snapshot.magic",
+        "scenarioInput.snapshot.revision"
+      ],
+      "evaluationOrder": 6,
+      "exactInputPaths": [
+        "scenarioInput.snapshot.symbol",
+        "scenarioInput.snapshot.magic",
+        "scenarioInput.snapshot.revision"
+      ],
+      "failureCheckId": "R9_SNAPSHOT_CONTEXT",
+      "failureReason": "SNAPSHOT_CONTEXT_MISMATCH",
+      "normativeSource": "snapshot symbol/magic equal context; snapshot revision equals context.snapshotRevision.",
+      "passCondition": "SNAPSHOT_CONTEXT_VALID",
+      "predicateId": "SNAPSHOT_CONTEXT",
+      "prerequisitePredicates": [
+        "BROKER_PROPERTIES"
+      ]
+    },
+    {
+      "applicability": {
+        "rule": "ALWAYS_FOR_SCENARIO_INPUT",
+        "scenarios": [
+          "INITIAL",
+          "BIG",
+          "SMALL",
+          "FINAL",
+          "RESTART_CONTINUATION",
+          "REPLAY_COMMITTED",
+          "LIFECYCLE"
+        ]
+      },
+      "dataDependencies": [
+        "scenarioInput.snapshot.timestamp",
+        "scenarioInput.temporalPolicy.validFrom",
+        "scenarioInput.temporalPolicy.validUntil",
+        "scenarioInput.intents[*].createdTimestamp",
+        "scenarioInput.intents[*].expiresTimestamp",
+        "scenarioInput.deals[*].timestamp"
+      ],
+      "evaluationOrder": 7,
+      "exactInputPaths": [
+        "scenarioInput.snapshot.timestamp",
+        "scenarioInput.temporalPolicy.validFrom",
+        "scenarioInput.temporalPolicy.validUntil",
+        "scenarioInput.intents[*].createdTimestamp",
+        "scenarioInput.intents[*].expiresTimestamp",
+        "scenarioInput.deals[*].timestamp"
+      ],
+      "failureCheckId": "R9_TEMPORAL_WINDOW",
+      "failureReason": "TEMPORAL_WINDOW_MISMATCH",
+      "normativeSource": "lower=max(snapshot, validFrom, intent.created, minimum); upper=min(validUntil, intent.expires, allowedUpper); lower<=upper and deal/event timestamps within inclusive bounds.",
+      "passCondition": "TEMPORAL_WINDOW_VALID",
+      "predicateId": "TEMPORAL_WINDOW",
+      "prerequisitePredicates": [
+        "SNAPSHOT_CONTEXT"
+      ]
+    }
+  ],
+  "registrySource": "HSB_2E_R4_R9_R4A_R6_PREDICATE_REGISTRY.json"
+}
