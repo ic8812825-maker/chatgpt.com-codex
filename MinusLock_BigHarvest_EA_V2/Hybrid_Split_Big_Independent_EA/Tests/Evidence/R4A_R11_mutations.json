@@ -1,0 +1,909 @@
+{
+  "forward": [
+    {
+      "affectedCaseIds": [
+        "FAR_FOREIGN_OWNERSHIP",
+        "POSITION_FOREIGN_MAGIC"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "POSITION_FOREIGN_MAGIC",
+        "FAR_FOREIGN_OWNERSHIP"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "f4421c88ab723d14b5ff569983cf19d77c85eef4f3588f2ab98a81da00eb45b2",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "mutantId": "POSITION_OWNERSHIP",
+      "outcomes": {
+        "FAR_FOREIGN_OWNERSHIP": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_FAR",
+            "ACTIVE_FAR_POSITION_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "POSITION_CONTEXT_MISMATCH"
+          ]
+        },
+        "POSITION_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "POSITION_CONTEXT_MISMATCH"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "EVENT_FOREIGN_MAGIC"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "EVENT_FOREIGN_MAGIC"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "926ea93c14d8c0a81b19016e04041df819ab7377d9347f5d912221f66145aaf1",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "mutantId": "EVENT_DEAL_BINDING",
+      "outcomes": {
+        "EVENT_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "FAR_TICKET_NOT_FOUND"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "FAR_TICKET_NOT_FOUND"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "62da8d39b57a63ee93337b73ae67c7cc5484614155772f08ebbcb3f3070346bc",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "mutantId": "FAR_TICKET",
+      "outcomes": {
+        "FAR_TICKET_NOT_FOUND": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_FAR",
+            "ACTIVE_FAR_TICKET_NOT_FOUND"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "COMMIT_REVISION_JUMP"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "COMMIT_REVISION_JUMP"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "ced3c997d9289759b8c86d2b7e86aa01ff0248618b39664a4e8c0b8ffed21140",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "mutantId": "COMMIT_REVISION",
+      "outcomes": {
+        "COMMIT_REVISION_JUMP": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_REVISION",
+            "COMMIT_INCREMENT_REQUIRED"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "UNCONFIRMED_RECORDS"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "UNCONFIRMED_RECORDS"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "d40bc99b6cf03c7ba3a360dc25528e0ca8d929922d6c2fb2f6e74147d5c7d694",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "mutantId": "CONFIRMED",
+      "outcomes": {
+        "UNCONFIRMED_RECORDS": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_CONFIRMATION",
+            "EXECUTION_NOT_CONFIRMED"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "DEAL_STATE_REVISION",
+        "EVENT_STATE_REVISION",
+        "R11_STATE_REVISION_CONTEXT"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "R11_STATE_REVISION_CONTEXT"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "b7e882cd18fb447ae466bf24677ba685699ff9464f69ab703d30610b2b62cf81",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "mutantId": "CONTEXT_REVISION",
+      "outcomes": {
+        "DEAL_STATE_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH"
+          ]
+        },
+        "EVENT_STATE_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH"
+          ]
+        },
+        "R11_STATE_REVISION_CONTEXT": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "DEAL_SNAPSHOT_REVISION",
+        "EVENT_SNAPSHOT_REVISION",
+        "R11_SNAPSHOT_REVISION_CONTEXT"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "R11_SNAPSHOT_REVISION_CONTEXT"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "edc65f6fa6e9bd45347c8caad2f18e372bb6ac4b6ceec3b98ccb8ace821f696a",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "mutantId": "SNAPSHOT_REVISION",
+      "outcomes": {
+        "DEAL_SNAPSHOT_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "SNAPSHOT_REVISION_CONTEXT_MISMATCH"
+          ]
+        },
+        "EVENT_SNAPSHOT_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "SNAPSHOT_REVISION_CONTEXT_MISMATCH"
+          ]
+        },
+        "R11_SNAPSHOT_REVISION_CONTEXT": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "SNAPSHOT_REVISION_CONTEXT_MISMATCH"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "CERT_PROVIDED_PRECOMMIT",
+        "PHASE_DOWNGRADE_WITH_EVIDENCE",
+        "SCENARIO_PHASE_MISMATCH"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "SCENARIO_PHASE_MISMATCH"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "8cda56475494c1293f280e94258a505bf34a7cc52cf173d397e1c288a70e0083",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "mutantId": "SCENARIO_PHASE",
+      "outcomes": {
+        "CERT_PROVIDED_PRECOMMIT": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_PHASE",
+            "CURRENT_EXECUTION_EVIDENCE_FORBIDDEN"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN"
+          ]
+        },
+        "PHASE_DOWNGRADE_WITH_EVIDENCE": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_PHASE",
+            "CURRENT_EXECUTION_EVIDENCE_FORBIDDEN"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN"
+          ]
+        },
+        "SCENARIO_PHASE_MISMATCH": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "REPLAY_SCENARIO_REQUIRES_REPLAY"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "REPLAY_FOREIGN_ACCOUNT",
+        "REPLAY_FOREIGN_ACTION",
+        "REPLAY_FOREIGN_CYCLE",
+        "REPLAY_FOREIGN_MAGIC",
+        "REPLAY_FOREIGN_SYMBOL",
+        "REPLAY_FOREIGN_TRANSACTION"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "REPLAY_FOREIGN_ACCOUNT",
+        "REPLAY_FOREIGN_SYMBOL",
+        "REPLAY_FOREIGN_MAGIC",
+        "REPLAY_FOREIGN_CYCLE",
+        "REPLAY_FOREIGN_TRANSACTION",
+        "REPLAY_FOREIGN_ACTION"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "ca8214ee3ad0ed6c02a6c6793ca19f38728dcfb9bc75c4932319abbe4eae2114",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r10.py"
+      ],
+      "mutantId": "REPLAY_BINDING",
+      "outcomes": {
+        "REPLAY_FOREIGN_ACCOUNT": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_ACTION": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_CYCLE": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_SYMBOL": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_TRANSACTION": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        }
+      }
+    }
+  ],
+  "mainInventoryUnchanged": true,
+  "orderIndependentFullOutcomeSignature": true,
+  "result": "PASS",
+  "reverse": [
+    {
+      "affectedCaseIds": [
+        "REPLAY_FOREIGN_ACCOUNT",
+        "REPLAY_FOREIGN_ACTION",
+        "REPLAY_FOREIGN_CYCLE",
+        "REPLAY_FOREIGN_MAGIC",
+        "REPLAY_FOREIGN_SYMBOL",
+        "REPLAY_FOREIGN_TRANSACTION"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "REPLAY_FOREIGN_ACCOUNT",
+        "REPLAY_FOREIGN_SYMBOL",
+        "REPLAY_FOREIGN_MAGIC",
+        "REPLAY_FOREIGN_CYCLE",
+        "REPLAY_FOREIGN_TRANSACTION",
+        "REPLAY_FOREIGN_ACTION"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "ca8214ee3ad0ed6c02a6c6793ca19f38728dcfb9bc75c4932319abbe4eae2114",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r10.py"
+      ],
+      "mutantId": "REPLAY_BINDING",
+      "outcomes": {
+        "REPLAY_FOREIGN_ACCOUNT": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_ACTION": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_CYCLE": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_SYMBOL": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        },
+        "REPLAY_FOREIGN_TRANSACTION": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "CERT_PROVIDED_PRECOMMIT",
+        "PHASE_DOWNGRADE_WITH_EVIDENCE",
+        "SCENARIO_PHASE_MISMATCH"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "SCENARIO_PHASE_MISMATCH"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "8cda56475494c1293f280e94258a505bf34a7cc52cf173d397e1c288a70e0083",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "mutantId": "SCENARIO_PHASE",
+      "outcomes": {
+        "CERT_PROVIDED_PRECOMMIT": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_PHASE",
+            "CURRENT_EXECUTION_EVIDENCE_FORBIDDEN"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN"
+          ]
+        },
+        "PHASE_DOWNGRADE_WITH_EVIDENCE": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_PHASE",
+            "CURRENT_EXECUTION_EVIDENCE_FORBIDDEN"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN"
+          ]
+        },
+        "SCENARIO_PHASE_MISMATCH": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "REPLAY_SCENARIO_REQUIRES_REPLAY"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "DEAL_SNAPSHOT_REVISION",
+        "EVENT_SNAPSHOT_REVISION",
+        "R11_SNAPSHOT_REVISION_CONTEXT"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "R11_SNAPSHOT_REVISION_CONTEXT"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "edc65f6fa6e9bd45347c8caad2f18e372bb6ac4b6ceec3b98ccb8ace821f696a",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "mutantId": "SNAPSHOT_REVISION",
+      "outcomes": {
+        "DEAL_SNAPSHOT_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "SNAPSHOT_REVISION_CONTEXT_MISMATCH"
+          ]
+        },
+        "EVENT_SNAPSHOT_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "SNAPSHOT_REVISION_CONTEXT_MISMATCH"
+          ]
+        },
+        "R11_SNAPSHOT_REVISION_CONTEXT": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "SNAPSHOT_REVISION_CONTEXT_MISMATCH"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "DEAL_STATE_REVISION",
+        "EVENT_STATE_REVISION",
+        "R11_STATE_REVISION_CONTEXT"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "R11_STATE_REVISION_CONTEXT"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "b7e882cd18fb447ae466bf24677ba685699ff9464f69ab703d30610b2b62cf81",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "mutantId": "CONTEXT_REVISION",
+      "outcomes": {
+        "DEAL_STATE_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH"
+          ]
+        },
+        "EVENT_STATE_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH"
+          ]
+        },
+        "R11_STATE_REVISION_CONTEXT": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "UNCONFIRMED_RECORDS"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "UNCONFIRMED_RECORDS"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "d40bc99b6cf03c7ba3a360dc25528e0ca8d929922d6c2fb2f6e74147d5c7d694",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "mutantId": "CONFIRMED",
+      "outcomes": {
+        "UNCONFIRMED_RECORDS": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_CONFIRMATION",
+            "EXECUTION_NOT_CONFIRMED"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "COMMIT_REVISION_JUMP"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "COMMIT_REVISION_JUMP"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "ced3c997d9289759b8c86d2b7e86aa01ff0248618b39664a4e8c0b8ffed21140",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "mutantId": "COMMIT_REVISION",
+      "outcomes": {
+        "COMMIT_REVISION_JUMP": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_REVISION",
+            "COMMIT_INCREMENT_REQUIRED"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "FAR_TICKET_NOT_FOUND"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "FAR_TICKET_NOT_FOUND"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "62da8d39b57a63ee93337b73ae67c7cc5484614155772f08ebbcb3f3070346bc",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "mutantId": "FAR_TICKET",
+      "outcomes": {
+        "FAR_TICKET_NOT_FOUND": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_FAR",
+            "ACTIVE_FAR_TICKET_NOT_FOUND"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "EVENT_FOREIGN_MAGIC"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "EVENT_FOREIGN_MAGIC"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "926ea93c14d8c0a81b19016e04041df819ab7377d9347f5d912221f66145aaf1",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "mutantId": "EVENT_DEAL_BINDING",
+      "outcomes": {
+        "EVENT_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH"
+          ]
+        }
+      }
+    },
+    {
+      "affectedCaseIds": [
+        "FAR_FOREIGN_OWNERSHIP",
+        "POSITION_FOREIGN_MAGIC"
+      ],
+      "anchorMatches": 1,
+      "classification": "UNSAFE_ACCEPTANCE_EXPOSED",
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "POSITION_FOREIGN_MAGIC",
+        "FAR_FOREIGN_OWNERSHIP"
+      ],
+      "integrityVerdict": "SEPARATE_NOT_USED_FOR_CLASSIFICATION",
+      "inventoryAfterSha256": "f4421c88ab723d14b5ff569983cf19d77c85eef4f3588f2ab98a81da00eb45b2",
+      "inventoryBeforeSha256": "7e0ca7f9f192e00e93bca24d535d14b21627dcad9d13301c4cd5976f08187b08",
+      "inventoryDiff": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "mutantId": "POSITION_OWNERSHIP",
+      "outcomes": {
+        "FAR_FOREIGN_OWNERSHIP": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_FAR",
+            "ACTIVE_FAR_POSITION_MISMATCH"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "POSITION_CONTEXT_MISMATCH"
+          ]
+        },
+        "POSITION_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            ""
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "POSITION_CONTEXT_MISMATCH"
+          ]
+        }
+      }
+    }
+  ]
+}
