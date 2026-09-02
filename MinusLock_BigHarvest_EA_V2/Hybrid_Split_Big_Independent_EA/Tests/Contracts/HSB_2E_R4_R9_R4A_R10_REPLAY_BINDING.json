@@ -1,0 +1,70 @@
+{
+  "contractId": "R4A_R10_REPLAY_BINDING",
+  "proofBoundary": "Internal integrity and ownership of presented sources; not external broker authenticity.",
+  "rules": [
+    {
+      "applicability": "phase == REPLAY",
+      "comparisonRule": "EXACT_EQUAL",
+      "currentPath": "context.accountId",
+      "failureCheckId": "R10_REPLAY_SOURCE_BINDING",
+      "failureReason": "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+      "historicalPath": "replayContract.historicalSourceObjects.context.accountId"
+    },
+    {
+      "applicability": "phase == REPLAY",
+      "comparisonRule": "EXACT_EQUAL",
+      "currentPath": "context.symbol",
+      "failureCheckId": "R10_REPLAY_SOURCE_BINDING",
+      "failureReason": "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+      "historicalPath": "replayContract.historicalSourceObjects.context.symbol"
+    },
+    {
+      "applicability": "phase == REPLAY",
+      "comparisonRule": "EXACT_EQUAL",
+      "currentPath": "context.magic",
+      "failureCheckId": "R10_REPLAY_SOURCE_BINDING",
+      "failureReason": "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+      "historicalPath": "replayContract.historicalSourceObjects.context.magic"
+    },
+    {
+      "applicability": "phase == REPLAY",
+      "comparisonRule": "EXACT_EQUAL",
+      "currentPath": "context.cycleId",
+      "failureCheckId": "R10_REPLAY_SOURCE_BINDING",
+      "failureReason": "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+      "historicalPath": "replayContract.historicalSourceObjects.context.cycleId"
+    },
+    {
+      "applicability": "phase == REPLAY",
+      "comparisonRule": "EXACT_EQUAL",
+      "currentPath": "context.transactionId",
+      "failureCheckId": "R10_REPLAY_SOURCE_BINDING",
+      "failureReason": "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+      "historicalPath": "replayContract.historicalSourceObjects.context.transactionId"
+    },
+    {
+      "applicability": "phase == REPLAY",
+      "comparisonRule": "EXACT_EQUAL",
+      "currentPath": "context.actionId",
+      "failureCheckId": "R10_REPLAY_SOURCE_BINDING",
+      "failureReason": "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+      "historicalPath": "replayContract.historicalSourceObjects.context.actionId"
+    },
+    {
+      "applicability": "phase == REPLAY",
+      "comparisonRule": "EXACT_EQUAL",
+      "currentPath": "persistedState.stateRevision",
+      "failureCheckId": "R10_REPLAY_REVISION_BINDING",
+      "failureReason": "HISTORICAL_OUTPUT_CURRENT_REVISION_MISMATCH",
+      "historicalPath": "replayContract.historicalSourceObjects.fsm.outputRevision"
+    },
+    {
+      "applicability": "phase == REPLAY",
+      "comparisonRule": "CANONICAL_OBJECT_EQUAL",
+      "currentPath": "persistedState",
+      "failureCheckId": "R10_REPLAY_STATE_BINDING",
+      "failureReason": "HISTORICAL_OUTPUT_PERSISTED_STATE_MISMATCH",
+      "historicalPath": "replayContract.historicalSourceObjects.persistedState"
+    }
+  ]
+}
