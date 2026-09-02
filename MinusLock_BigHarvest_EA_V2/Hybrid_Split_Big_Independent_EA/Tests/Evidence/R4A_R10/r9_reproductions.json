@@ -1,0 +1,36 @@
+{
+  "foreignHistoricalContext": {
+    "actual": {
+      "checkId": "",
+      "class": "ACCEPTED",
+      "reason": ""
+    },
+    "caseId": "R9_FOREIGN_HISTORICAL_MAGIC_RESEALED",
+    "diff": {
+      "after": 8812926,
+      "before": 8812826,
+      "certificateResealedInFixture": true,
+      "path": "replayContract.historicalSourceObjects.context.magic"
+    },
+    "expected": "NORMATIVE_REJECTION",
+    "mutatedSha256": "3e846c2e39f71a19a670e4e666ee76c987e42c685cb1b07f2a3a1c81dff822e6",
+    "positiveSha256": "4ef2564ec802bab2a34d929a7ebb2554911ba88abd763dac07a023ca131adfe0"
+  },
+  "hashOnlyDetection": {
+    "note": "R9 harness counted exit 1 without requiring affected outcome IDs; protected mismatch can therefore masquerade as semantic catch.",
+    "protectedHashCanIndependentlyFailAcceptance": true,
+    "semanticFindings": []
+  },
+  "mutationContamination": {
+    "afterB": {
+      "r8": "ffa0253df38c3277d4b6d77e137112cb2d9def820a57cbfca8afa3a59cdd63c9",
+      "r9": "b13caca45f7917e1ca5686e55839f6336bf818ddfde39fdf7e3220864ad134c7"
+    },
+    "beforeB": {
+      "r8": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "r9": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29"
+    },
+    "priorMutationPersisted": true
+  },
+  "targetSha": "8237e52bbbd3c7a4822c5189ee72969a43a4df5a"
+}
