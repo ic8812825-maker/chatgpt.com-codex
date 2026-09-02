@@ -1,0 +1,928 @@
+{
+  "forward": [
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "FAR_FOREIGN_OWNERSHIP",
+        "POSITION_FOREIGN_MAGIC"
+      ],
+      "actualOutcomes": {
+        "FAR_FOREIGN_OWNERSHIP": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_FAR",
+            "ACTIVE_FAR_POSITION_MISMATCH",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "POSITION_CONTEXT_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "POSITION_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "POSITION_CONTEXT_MISMATCH",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "a2fb9b13c9ae185d290bde0133e04cb44147ed5dd049d97318caa4745f52db56",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "POSITION_FOREIGN_MAGIC",
+        "FAR_FOREIGN_OWNERSHIP"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "POSITION_OWNERSHIP",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "EVENT_FOREIGN_MAGIC"
+      ],
+      "actualOutcomes": {
+        "EVENT_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "99bb9e8e5de236a06d7c61846e5b992e78f11d0ef86ad32ed0436a39c82e8f62",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "EVENT_FOREIGN_MAGIC"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "EVENT_DEAL_BINDING",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "FAR_TICKET_NOT_FOUND"
+      ],
+      "actualOutcomes": {
+        "FAR_TICKET_NOT_FOUND": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_FAR",
+            "ACTIVE_FAR_TICKET_NOT_FOUND",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "88ea4f68801a59dbf2b47566cb0f842fba72c635decdf8973d0b89b4dc3a2c63",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "FAR_TICKET_NOT_FOUND"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "FAR_TICKET_BINDING",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "COMMIT_REVISION_JUMP"
+      ],
+      "actualOutcomes": {
+        "COMMIT_REVISION_JUMP": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_REVISION",
+            "COMMIT_INCREMENT_REQUIRED",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "ef9f6103154e7c8500e292cd93893dc1d15e970eaa1bfb8835d5c1651b769c06",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "COMMIT_REVISION_JUMP"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "COMMIT_REVISION",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "UNCONFIRMED_RECORDS"
+      ],
+      "actualOutcomes": {
+        "UNCONFIRMED_RECORDS": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_CONFIRMATION",
+            "EXECUTION_NOT_CONFIRMED",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "1cd3f86be8ea92f3f72f1afd42aba924b1a7aa2920f99abcc08cd4883689d17b",
+      "anchorMatches": 1,
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "UNCONFIRMED_RECORDS"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "CONFIRMED",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "DEAL_STATE_REVISION",
+        "EVENT_STATE_REVISION"
+      ],
+      "actualOutcomes": {
+        "DEAL_STATE_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "EVENT_STATE_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "f930508864b5098d620a6483eb379391af9a9188b25236aa6e6d4f09990dd024",
+      "anchorMatches": 1,
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "DEAL_STATE_REVISION",
+        "EVENT_STATE_REVISION"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "CONTEXT_REVISION",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "CERT_PROVIDED_PRECOMMIT",
+        "PHASE_DOWNGRADE_WITH_EVIDENCE",
+        "SCENARIO_PHASE_MISMATCH"
+      ],
+      "actualOutcomes": {
+        "CERT_PROVIDED_PRECOMMIT": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_PHASE",
+            "CURRENT_EXECUTION_EVIDENCE_FORBIDDEN",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN",
+            "EXECUTED"
+          ]
+        },
+        "PHASE_DOWNGRADE_WITH_EVIDENCE": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_PHASE",
+            "CURRENT_EXECUTION_EVIDENCE_FORBIDDEN",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN",
+            "EXECUTED"
+          ]
+        },
+        "SCENARIO_PHASE_MISMATCH": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "REPLAY_SCENARIO_REQUIRES_REPLAY",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "7a2da8f2393f6b611635e7a1a75614a0204a35d0c0b8bb6c9b543f01652d5717",
+      "anchorMatches": 1,
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "SCENARIO_PHASE_MISMATCH"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "SCENARIO_PHASE",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "NOT_PROTECTED_R10_SOURCE",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "REPLAY_FOREIGN_ACCOUNT",
+        "REPLAY_FOREIGN_ACTION",
+        "REPLAY_FOREIGN_CYCLE",
+        "REPLAY_FOREIGN_MAGIC",
+        "REPLAY_FOREIGN_SYMBOL",
+        "REPLAY_FOREIGN_TRANSACTION"
+      ],
+      "actualOutcomes": {
+        "REPLAY_FOREIGN_ACCOUNT": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_ACTION": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_CYCLE": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_SYMBOL": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_TRANSACTION": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "6c9f00afe86430c67ff319dedc426bed1a3854f6332cb3a76780c75a37d958d7",
+      "anchorMatches": 1,
+      "beforeSha256": "0ea8ee3763e95b8638bb5b82d8822a2177ea71ead60e473a80dbd104a54c176d",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r10.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "REPLAY_FOREIGN_ACCOUNT",
+        "REPLAY_FOREIGN_SYMBOL",
+        "REPLAY_FOREIGN_MAGIC",
+        "REPLAY_FOREIGN_CYCLE",
+        "REPLAY_FOREIGN_TRANSACTION",
+        "REPLAY_FOREIGN_ACTION"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "REPLAY_HISTORICAL_BINDING",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r10.py"
+    }
+  ],
+  "harness": {
+    "cleanMainBaseline": true,
+    "hashOnlyNotSemantic": true,
+    "mainSourceUnchanged": true,
+    "notAppliedIsNotCaught": true,
+    "orderIndependent": true,
+    "publishedEvidenceIgnoredBySemanticRunner": true,
+    "separateTemporaryCopyPerMutant": true,
+    "unrelatedExitOneIsNotCaught": true
+  },
+  "mechanismProbes": {
+    "hashOnly": {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "SURVIVED",
+      "actualAffectedCaseIds": [],
+      "actualOutcomes": {},
+      "afterSha256": "55c10691e95567a4b0b2dd2db8a8cf0d551b73d11084fbb42aa50eeb9c15e1d4",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "__NO_SEMANTIC_CASE__"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [
+        "__NO_SEMANTIC_CASE__"
+      ],
+      "mutantId": "HASH_ONLY",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    },
+    "notApplied": {
+      "anchorMatches": 0,
+      "classification": "NOT_APPLIED",
+      "mutantId": "NOT_APPLIED_PROBE"
+    },
+    "unrelatedFailure": {
+      "classification": "INFRASTRUCTURE_ERROR",
+      "mutantId": "UNRELATED_SYNTAX_ERROR",
+      "postStderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n    import json,sys;sys.path.insert(0,'Tests/Static');import run_hsb_2e_r4_r9_r4a_r10_regressions as r;print(json.dumps(r.run(),sort_keys=True))\n                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/chatgpt.com-codex-hsb2e-r4-r9-r4a-r10/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/.r10_mutant_UNRELATED_SYNTAX_ERROR_hv8kkr7v/project/Tests/Static/run_hsb_2e_r4_r9_r4a_r10_regressions.py\", line 5, in <module>\n    import verify_hsb_2e_r4_r9_r4a_r10 as v\n  File \"/workspace/chatgpt.com-codex-hsb2e-r4-r9-r4a-r10/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/.r10_mutant_UNRELATED_SYNTAX_ERROR_hv8kkr7v/project/Tests/Static/verify_hsb_2e_r4_r9_r4a_r10.py\", line 6, in <module>\n    import verify_hsb_2e_r4_r9_r4a_r9 as v9\n  File \"/workspace/chatgpt.com-codex-hsb2e-r4-r9-r4a-r10/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/.r10_mutant_UNRELATED_SYNTAX_ERROR_hv8kkr7v/project/Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py\", line 6, in <module>\n    import verify_hsb_2e_r4_r9_r4a_r8 as v8\n  File \"/workspace/chatgpt.com-codex-hsb2e-r4-r9-r4a-r10/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/.r10_mutant_UNRELATED_SYNTAX_ERROR_hv8kkr7v/project/Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py\", line 1\n    this is invalid python syntax\n                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "preStderr": ""
+    }
+  },
+  "result": "PASS",
+  "reverse": [
+    {
+      "INTEGRITY_VERDICT": "NOT_PROTECTED_R10_SOURCE",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "REPLAY_FOREIGN_ACCOUNT",
+        "REPLAY_FOREIGN_ACTION",
+        "REPLAY_FOREIGN_CYCLE",
+        "REPLAY_FOREIGN_MAGIC",
+        "REPLAY_FOREIGN_SYMBOL",
+        "REPLAY_FOREIGN_TRANSACTION"
+      ],
+      "actualOutcomes": {
+        "REPLAY_FOREIGN_ACCOUNT": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_ACTION": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_CYCLE": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_SYMBOL": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "REPLAY_FOREIGN_TRANSACTION": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R10_REPLAY_SOURCE_BINDING",
+            "HISTORICAL_CURRENT_IDENTITY_MISMATCH",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "6c9f00afe86430c67ff319dedc426bed1a3854f6332cb3a76780c75a37d958d7",
+      "anchorMatches": 1,
+      "beforeSha256": "0ea8ee3763e95b8638bb5b82d8822a2177ea71ead60e473a80dbd104a54c176d",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r10.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "REPLAY_FOREIGN_ACCOUNT",
+        "REPLAY_FOREIGN_SYMBOL",
+        "REPLAY_FOREIGN_MAGIC",
+        "REPLAY_FOREIGN_CYCLE",
+        "REPLAY_FOREIGN_TRANSACTION",
+        "REPLAY_FOREIGN_ACTION"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "REPLAY_HISTORICAL_BINDING",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r10.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "CERT_PROVIDED_PRECOMMIT",
+        "PHASE_DOWNGRADE_WITH_EVIDENCE",
+        "SCENARIO_PHASE_MISMATCH"
+      ],
+      "actualOutcomes": {
+        "CERT_PROVIDED_PRECOMMIT": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_PHASE",
+            "CURRENT_EXECUTION_EVIDENCE_FORBIDDEN",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN",
+            "EXECUTED"
+          ]
+        },
+        "PHASE_DOWNGRADE_WITH_EVIDENCE": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_PHASE",
+            "CURRENT_EXECUTION_EVIDENCE_FORBIDDEN",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "PRE_COMMIT_CURRENT_EVIDENCE_FORBIDDEN",
+            "EXECUTED"
+          ]
+        },
+        "SCENARIO_PHASE_MISMATCH": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_SCENARIO_PHASE",
+            "REPLAY_SCENARIO_REQUIRES_REPLAY",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "7a2da8f2393f6b611635e7a1a75614a0204a35d0c0b8bb6c9b543f01652d5717",
+      "anchorMatches": 1,
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "SCENARIO_PHASE_MISMATCH"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "SCENARIO_PHASE",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "DEAL_STATE_REVISION",
+        "EVENT_STATE_REVISION"
+      ],
+      "actualOutcomes": {
+        "DEAL_STATE_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "EVENT_STATE_REVISION": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_REVISION",
+            "STATE_REVISION_CONTEXT_MISMATCH",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "f930508864b5098d620a6483eb379391af9a9188b25236aa6e6d4f09990dd024",
+      "anchorMatches": 1,
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "DEAL_STATE_REVISION",
+        "EVENT_STATE_REVISION"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "CONTEXT_REVISION",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "UNCONFIRMED_RECORDS"
+      ],
+      "actualOutcomes": {
+        "UNCONFIRMED_RECORDS": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R9_EXECUTION_CONFIRMATION",
+            "EXECUTION_NOT_CONFIRMED",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "1cd3f86be8ea92f3f72f1afd42aba924b1a7aa2920f99abcc08cd4883689d17b",
+      "anchorMatches": 1,
+      "beforeSha256": "a0299f0f6a2cd674af1964e80c1d43bc5870fc98baed061089cf66e0ad18ae29",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "UNCONFIRMED_RECORDS"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "CONFIRMED",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r9.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "COMMIT_REVISION_JUMP"
+      ],
+      "actualOutcomes": {
+        "COMMIT_REVISION_JUMP": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_REVISION",
+            "COMMIT_INCREMENT_REQUIRED",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "ef9f6103154e7c8500e292cd93893dc1d15e970eaa1bfb8835d5c1651b769c06",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "COMMIT_REVISION_JUMP"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "COMMIT_REVISION",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "FAR_TICKET_NOT_FOUND"
+      ],
+      "actualOutcomes": {
+        "FAR_TICKET_NOT_FOUND": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_FAR",
+            "ACTIVE_FAR_TICKET_NOT_FOUND",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "88ea4f68801a59dbf2b47566cb0f842fba72c635decdf8973d0b89b4dc3a2c63",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "FAR_TICKET_NOT_FOUND"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "FAR_TICKET_BINDING",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "EVENT_FOREIGN_MAGIC"
+      ],
+      "actualOutcomes": {
+        "EVENT_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "EVENT_DEAL_MISMATCH",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "99bb9e8e5de236a06d7c61846e5b992e78f11d0ef86ad32ed0436a39c82e8f62",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "EVENT_FOREIGN_MAGIC"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "EVENT_DEAL_BINDING",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    },
+    {
+      "INTEGRITY_VERDICT": "PROTECTED_HASH_MISMATCH",
+      "SEMANTIC_MUTATION_VERDICT": "CAUGHT_SEMANTIC",
+      "actualAffectedCaseIds": [
+        "FAR_FOREIGN_OWNERSHIP",
+        "POSITION_FOREIGN_MAGIC"
+      ],
+      "actualOutcomes": {
+        "FAR_FOREIGN_OWNERSHIP": {
+          "after": [
+            "NORMATIVE_REJECTION",
+            "R8_FAR",
+            "ACTIVE_FAR_POSITION_MISMATCH",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "POSITION_CONTEXT_MISMATCH",
+            "EXECUTED"
+          ]
+        },
+        "POSITION_FOREIGN_MAGIC": {
+          "after": [
+            "ACCEPTED",
+            "",
+            "",
+            "EXECUTED"
+          ],
+          "before": [
+            "NORMATIVE_REJECTION",
+            "R8_IDENTITY",
+            "POSITION_CONTEXT_MISMATCH",
+            "EXECUTED"
+          ]
+        }
+      },
+      "afterSha256": "a2fb9b13c9ae185d290bde0133e04cb44147ed5dd049d97318caa4745f52db56",
+      "anchorMatches": 1,
+      "beforeSha256": "6e5da6e77a916d996225910a2efaef9b69fd2adb246b6cb40f902aaebe8bebba",
+      "changedPaths": [
+        "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "cleanBaselineWrong": 0,
+      "expectedAffectedCaseIds": [
+        "POSITION_FOREIGN_MAGIC",
+        "FAR_FOREIGN_OWNERSHIP"
+      ],
+      "hashFailureCountedAsSemantic": false,
+      "missingExpectedAffected": [],
+      "mutantId": "POSITION_OWNERSHIP",
+      "target": "Tests/Static/verify_hsb_2e_r4_r9_r4a_r8.py"
+    }
+  ]
+}
