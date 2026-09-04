@@ -1,0 +1,20 @@
+{
+  "version": "R12A-1",
+  "ledger": {
+    "canonicalizationVersion": "R12A-LEDGER-1",
+    "hashAlgorithm": "SHA-256",
+    "rootInput": "UTF-8 canonical JSON object {version,entries}",
+    "entryFields": ["dealId","eventId","positionTicket","intentId","volume","price","direction","symbol","magic","timestamp","transactionId","actionId","stateRevision","snapshotRevision","confirmed"],
+    "canonicalOrder": [{"field":"dealId","direction":"ASC","comparison":"Unicode code-point"}],
+    "serialization": {"encoding":"UTF-8","jsonKeys":"lexicographic","whitespace":"none","integers":"base10 canonical","timestamps":"base10 integer","decimals":"plain normalized; trailing zeroes removed; -0=0","booleans":"true/false","strings":"Unicode NFC","identityNullOrEmpty":"forbidden"},
+    "uniqueness": ["dealId","eventId"],
+    "independentOracle": true
+  },
+  "batch": {
+    "identity": ["transactionId","actionId"],
+    "phases": {"PRE_COMMIT":"NOT_APPLICABLE_IF_NO_DEALS_OR_EVENTS","COMMITTING":"VALIDATE_BATCH","COMMITTED":"VALIDATE_BATCH","ROLLED_BACK":"NO_SETTLED_RECORDS","FAILED":"NO_SETTLED_RECORDS","PARTIAL":"FAIL_NOT_ATOMIC"},
+    "atomicRule": "expected intentId set == observed deal intentId set; unique deals/events; all records share batch identity; all confirmed",
+    "replay": "not a new batch; observed deal IDs must already be consumed"
+  },
+  "fill": {"partialFill":"PARTIAL_FILL_ALLOWED","multipleDealsPerIntent":true,"toleranceLots":"0","formula":"filledVolume=sum(unique valid deal volumes for intentId and positionTicket); remainingVolume=requestedVolume-filledVolume","constraints":["0 <= filledVolume <= requestedVolume","positive grid-aligned fills","no duplicate deal/event","bound intent and ticket required"],"fullCommit":"exact settlement required only by batch atomicity"}
+}
