@@ -1,0 +1,565 @@
+{
+  "coverage": {
+    "BATCH_ATOMICITY": [
+      "scenarioInput.deals[*]"
+    ],
+    "BROKER_PROPERTIES": [
+      "scenarioInput.broker.digits",
+      "scenarioInput.broker.point",
+      "scenarioInput.broker.tickSize",
+      "scenarioInput.broker.tickValue",
+      "scenarioInput.broker.contractSize",
+      "scenarioInput.broker.volumeMin",
+      "scenarioInput.broker.volumeMax",
+      "scenarioInput.broker.volumeStep",
+      "scenarioInput.broker.bid",
+      "scenarioInput.broker.ask",
+      "scenarioInput.broker.maximumDeviation"
+    ],
+    "DEAL_EVENT_UNIQUENESS": [
+      "scenarioInput.deals[*].dealId",
+      "scenarioInput.deals[*].eventId"
+    ],
+    "DEAL_POSITION_INTENT_BINDING": [
+      "scenarioInput.deals[*].positionTicket",
+      "scenarioInput.deals[*].intentId"
+    ],
+    "INTENT_VALIDATION": [
+      "scenarioInput.intents[*]"
+    ],
+    "NUMERIC_FINITE": [
+      "ALL_SCHEMA_NUMERIC_NODES"
+    ],
+    "PERSISTED_LEDGER_REVALIDATION": [
+      "scenarioInput.persistedState.consumedDealIds",
+      "scenarioInput.persistedState.authoritativeLedgerRoot"
+    ],
+    "PER_TICKET_FILL": [
+      "scenarioInput.intents[*].requestedVolume",
+      "scenarioInput.deals[*].volume"
+    ],
+    "POSITION_VALIDATION": [
+      "scenarioInput.positions[*]"
+    ],
+    "RUNTIME_IDENTITY": [
+      "scenarioInput.context.accountId",
+      "scenarioInput.context.cycleId",
+      "scenarioInput.context.transactionId",
+      "scenarioInput.context.actionId",
+      "scenarioInput.intents[*].transactionId",
+      "scenarioInput.intents[*].actionId",
+      "scenarioInput.deals[*].accountId",
+      "scenarioInput.deals[*].cycleId",
+      "scenarioInput.deals[*].transactionId",
+      "scenarioInput.deals[*].actionId",
+      "scenarioInput.events[*].accountId",
+      "scenarioInput.events[*].cycleId",
+      "scenarioInput.events[*].transactionId",
+      "scenarioInput.events[*].actionId"
+    ],
+    "SCHEMA": [
+      "scenarioInput.schemaVersion",
+      "scenarioInput.phase"
+    ],
+    "SNAPSHOT_CONTEXT": [
+      "scenarioInput.snapshot.symbol",
+      "scenarioInput.snapshot.magic",
+      "scenarioInput.snapshot.revision",
+      "scenarioInput.context.symbol",
+      "scenarioInput.context.magic",
+      "scenarioInput.context.snapshotRevision"
+    ],
+    "SYMBOL_MAGIC_OWNERSHIP": [
+      "scenarioInput.context.symbol",
+      "scenarioInput.context.magic",
+      "scenarioInput.positions[*].symbol",
+      "scenarioInput.positions[*].magic",
+      "scenarioInput.deals[*].symbol",
+      "scenarioInput.deals[*].magic",
+      "scenarioInput.events[*].symbol",
+      "scenarioInput.events[*].magic"
+    ],
+    "TEMPORAL_WINDOW": [
+      "scenarioInput.snapshot.timestamp",
+      "scenarioInput.temporalPolicy.validFrom",
+      "scenarioInput.temporalPolicy.validUntil",
+      "scenarioInput.temporalPolicy.minimumTimestamp",
+      "scenarioInput.temporalPolicy.allowedUpperBound",
+      "scenarioInput.intents[*].createdTimestamp",
+      "scenarioInput.intents[*].expiresTimestamp",
+      "scenarioInput.deals[*].timestamp"
+    ]
+  },
+  "predicates": [
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.schemaVersion",
+        "scenarioInput.phase"
+      ],
+      "evaluationOrder": 1,
+      "evaluatorFunction": "evaluate_schema",
+      "exactInputPaths": [
+        "scenarioInput.schemaVersion",
+        "scenarioInput.phase"
+      ],
+      "failureCheckId": "R9_SCHEMA",
+      "failureReason": "SCHEMA_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "SCHEMA_VALID",
+      "predicateId": "SCHEMA",
+      "prerequisitePredicates": []
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "ALL_SCHEMA_NUMERIC_NODES"
+      ],
+      "evaluationOrder": 2,
+      "evaluatorFunction": "evaluate_numeric_finite",
+      "exactInputPaths": [
+        "ALL_SCHEMA_NUMERIC_NODES"
+      ],
+      "failureCheckId": "R9_NUMERIC_FINITE",
+      "failureReason": "NUMERIC_FINITE_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "NUMERIC_FINITE_VALID",
+      "predicateId": "NUMERIC_FINITE",
+      "prerequisitePredicates": [
+        "SCHEMA"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.context.accountId",
+        "scenarioInput.context.cycleId",
+        "scenarioInput.context.transactionId",
+        "scenarioInput.context.actionId",
+        "scenarioInput.intents[*].transactionId",
+        "scenarioInput.intents[*].actionId",
+        "scenarioInput.deals[*].accountId",
+        "scenarioInput.deals[*].cycleId",
+        "scenarioInput.deals[*].transactionId",
+        "scenarioInput.deals[*].actionId",
+        "scenarioInput.events[*].accountId",
+        "scenarioInput.events[*].cycleId",
+        "scenarioInput.events[*].transactionId",
+        "scenarioInput.events[*].actionId"
+      ],
+      "evaluationOrder": 3,
+      "evaluatorFunction": "evaluate_runtime_identity",
+      "exactInputPaths": [
+        "scenarioInput.context.accountId",
+        "scenarioInput.context.cycleId",
+        "scenarioInput.context.transactionId",
+        "scenarioInput.context.actionId",
+        "scenarioInput.intents[*].transactionId",
+        "scenarioInput.intents[*].actionId",
+        "scenarioInput.deals[*].accountId",
+        "scenarioInput.deals[*].cycleId",
+        "scenarioInput.deals[*].transactionId",
+        "scenarioInput.deals[*].actionId",
+        "scenarioInput.events[*].accountId",
+        "scenarioInput.events[*].cycleId",
+        "scenarioInput.events[*].transactionId",
+        "scenarioInput.events[*].actionId"
+      ],
+      "failureCheckId": "R9_RUNTIME_IDENTITY",
+      "failureReason": "RUNTIME_IDENTITY_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "RUNTIME_IDENTITY_VALID",
+      "predicateId": "RUNTIME_IDENTITY",
+      "prerequisitePredicates": [
+        "NUMERIC_FINITE"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.context.symbol",
+        "scenarioInput.context.magic",
+        "scenarioInput.positions[*].symbol",
+        "scenarioInput.positions[*].magic",
+        "scenarioInput.deals[*].symbol",
+        "scenarioInput.deals[*].magic",
+        "scenarioInput.events[*].symbol",
+        "scenarioInput.events[*].magic"
+      ],
+      "evaluationOrder": 4,
+      "evaluatorFunction": "evaluate_symbol_magic_ownership",
+      "exactInputPaths": [
+        "scenarioInput.context.symbol",
+        "scenarioInput.context.magic",
+        "scenarioInput.positions[*].symbol",
+        "scenarioInput.positions[*].magic",
+        "scenarioInput.deals[*].symbol",
+        "scenarioInput.deals[*].magic",
+        "scenarioInput.events[*].symbol",
+        "scenarioInput.events[*].magic"
+      ],
+      "failureCheckId": "R9_SYMBOL_MAGIC_OWNERSHIP",
+      "failureReason": "SYMBOL_MAGIC_OWNERSHIP_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "SYMBOL_MAGIC_OWNERSHIP_VALID",
+      "predicateId": "SYMBOL_MAGIC_OWNERSHIP",
+      "prerequisitePredicates": [
+        "RUNTIME_IDENTITY"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.broker.digits",
+        "scenarioInput.broker.point",
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.broker.tickValue",
+        "scenarioInput.broker.contractSize",
+        "scenarioInput.broker.volumeMin",
+        "scenarioInput.broker.volumeMax",
+        "scenarioInput.broker.volumeStep",
+        "scenarioInput.broker.bid",
+        "scenarioInput.broker.ask",
+        "scenarioInput.broker.maximumDeviation"
+      ],
+      "evaluationOrder": 5,
+      "evaluatorFunction": "evaluate_broker_properties",
+      "exactInputPaths": [
+        "scenarioInput.broker.digits",
+        "scenarioInput.broker.point",
+        "scenarioInput.broker.tickSize",
+        "scenarioInput.broker.tickValue",
+        "scenarioInput.broker.contractSize",
+        "scenarioInput.broker.volumeMin",
+        "scenarioInput.broker.volumeMax",
+        "scenarioInput.broker.volumeStep",
+        "scenarioInput.broker.bid",
+        "scenarioInput.broker.ask",
+        "scenarioInput.broker.maximumDeviation"
+      ],
+      "failureCheckId": "R9_BROKER_PROPERTIES",
+      "failureReason": "BROKER_PROPERTIES_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "BROKER_PROPERTIES_VALID",
+      "predicateId": "BROKER_PROPERTIES",
+      "prerequisitePredicates": [
+        "SYMBOL_MAGIC_OWNERSHIP"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.snapshot.symbol",
+        "scenarioInput.snapshot.magic",
+        "scenarioInput.snapshot.revision",
+        "scenarioInput.context.symbol",
+        "scenarioInput.context.magic",
+        "scenarioInput.context.snapshotRevision"
+      ],
+      "evaluationOrder": 6,
+      "evaluatorFunction": "evaluate_snapshot_context",
+      "exactInputPaths": [
+        "scenarioInput.snapshot.symbol",
+        "scenarioInput.snapshot.magic",
+        "scenarioInput.snapshot.revision",
+        "scenarioInput.context.symbol",
+        "scenarioInput.context.magic",
+        "scenarioInput.context.snapshotRevision"
+      ],
+      "failureCheckId": "R9_SNAPSHOT_CONTEXT",
+      "failureReason": "SNAPSHOT_CONTEXT_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "SNAPSHOT_CONTEXT_VALID",
+      "predicateId": "SNAPSHOT_CONTEXT",
+      "prerequisitePredicates": [
+        "BROKER_PROPERTIES"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.snapshot.timestamp",
+        "scenarioInput.temporalPolicy.validFrom",
+        "scenarioInput.temporalPolicy.validUntil",
+        "scenarioInput.temporalPolicy.minimumTimestamp",
+        "scenarioInput.temporalPolicy.allowedUpperBound",
+        "scenarioInput.intents[*].createdTimestamp",
+        "scenarioInput.intents[*].expiresTimestamp",
+        "scenarioInput.deals[*].timestamp"
+      ],
+      "evaluationOrder": 7,
+      "evaluatorFunction": "evaluate_temporal_window",
+      "exactInputPaths": [
+        "scenarioInput.snapshot.timestamp",
+        "scenarioInput.temporalPolicy.validFrom",
+        "scenarioInput.temporalPolicy.validUntil",
+        "scenarioInput.temporalPolicy.minimumTimestamp",
+        "scenarioInput.temporalPolicy.allowedUpperBound",
+        "scenarioInput.intents[*].createdTimestamp",
+        "scenarioInput.intents[*].expiresTimestamp",
+        "scenarioInput.deals[*].timestamp"
+      ],
+      "failureCheckId": "R9_TEMPORAL_WINDOW",
+      "failureReason": "TEMPORAL_WINDOW_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "TEMPORAL_WINDOW_VALID",
+      "predicateId": "TEMPORAL_WINDOW",
+      "prerequisitePredicates": [
+        "SNAPSHOT_CONTEXT"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.positions[*]"
+      ],
+      "evaluationOrder": 8,
+      "evaluatorFunction": "evaluate_position_validation",
+      "exactInputPaths": [
+        "scenarioInput.positions[*]"
+      ],
+      "failureCheckId": "R9_POSITION_VALIDATION",
+      "failureReason": "POSITION_VALIDATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "POSITION_VALIDATION_VALID",
+      "predicateId": "POSITION_VALIDATION",
+      "prerequisitePredicates": [
+        "TEMPORAL_WINDOW"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.intents[*]"
+      ],
+      "evaluationOrder": 9,
+      "evaluatorFunction": "evaluate_intent_validation",
+      "exactInputPaths": [
+        "scenarioInput.intents[*]"
+      ],
+      "failureCheckId": "R9_INTENT_VALIDATION",
+      "failureReason": "INTENT_VALIDATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "INTENT_VALIDATION_VALID",
+      "predicateId": "INTENT_VALIDATION",
+      "prerequisitePredicates": [
+        "POSITION_VALIDATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.deals[*].dealId",
+        "scenarioInput.deals[*].eventId"
+      ],
+      "evaluationOrder": 10,
+      "evaluatorFunction": "evaluate_deal_event_uniqueness",
+      "exactInputPaths": [
+        "scenarioInput.deals[*].dealId",
+        "scenarioInput.deals[*].eventId"
+      ],
+      "failureCheckId": "R9_DEAL_EVENT_UNIQUENESS",
+      "failureReason": "DEAL_EVENT_UNIQUENESS_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "DEAL_EVENT_UNIQUENESS_VALID",
+      "predicateId": "DEAL_EVENT_UNIQUENESS",
+      "prerequisitePredicates": [
+        "INTENT_VALIDATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.deals[*].positionTicket",
+        "scenarioInput.deals[*].intentId"
+      ],
+      "evaluationOrder": 11,
+      "evaluatorFunction": "evaluate_deal_position_intent_binding",
+      "exactInputPaths": [
+        "scenarioInput.deals[*].positionTicket",
+        "scenarioInput.deals[*].intentId"
+      ],
+      "failureCheckId": "R9_DEAL_POSITION_INTENT_BINDING",
+      "failureReason": "DEAL_POSITION_INTENT_BINDING_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "DEAL_POSITION_INTENT_BINDING_VALID",
+      "predicateId": "DEAL_POSITION_INTENT_BINDING",
+      "prerequisitePredicates": [
+        "DEAL_EVENT_UNIQUENESS"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.authoritativeLedgerRoot"
+      ],
+      "evaluationOrder": 12,
+      "evaluatorFunction": "evaluate_persisted_ledger_revalidation",
+      "exactInputPaths": [
+        "scenarioInput.persistedState.consumedDealIds",
+        "scenarioInput.persistedState.authoritativeLedgerRoot"
+      ],
+      "failureCheckId": "R9_PERSISTED_LEDGER_REVALIDATION",
+      "failureReason": "PERSISTED_LEDGER_REVALIDATION_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "PERSISTED_LEDGER_REVALIDATION_VALID",
+      "predicateId": "PERSISTED_LEDGER_REVALIDATION",
+      "prerequisitePredicates": [
+        "DEAL_POSITION_INTENT_BINDING"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.deals[*]"
+      ],
+      "evaluationOrder": 13,
+      "evaluatorFunction": "evaluate_batch_atomicity",
+      "exactInputPaths": [
+        "scenarioInput.deals[*]"
+      ],
+      "failureCheckId": "R9_BATCH_ATOMICITY",
+      "failureReason": "BATCH_ATOMICITY_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "BATCH_ATOMICITY_VALID",
+      "predicateId": "BATCH_ATOMICITY",
+      "prerequisitePredicates": [
+        "PERSISTED_LEDGER_REVALIDATION"
+      ]
+    },
+    {
+      "applicableScenarios": [
+        "INITIAL",
+        "BIG",
+        "SMALL",
+        "FINAL",
+        "RESTART_CONTINUATION",
+        "REPLAY_COMMITTED",
+        "LIFECYCLE"
+      ],
+      "dataDependencies": [
+        "scenarioInput.intents[*].requestedVolume",
+        "scenarioInput.deals[*].volume"
+      ],
+      "evaluationOrder": 14,
+      "evaluatorFunction": "evaluate_per_ticket_fill",
+      "exactInputPaths": [
+        "scenarioInput.intents[*].requestedVolume",
+        "scenarioInput.deals[*].volume"
+      ],
+      "failureCheckId": "R9_PER_TICKET_FILL",
+      "failureReason": "PER_TICKET_FILL_MISMATCH",
+      "notApplicableRule": "NEVER",
+      "passCondition": "PER_TICKET_FILL_VALID",
+      "predicateId": "PER_TICKET_FILL",
+      "prerequisitePredicates": [
+        "BATCH_ATOMICITY"
+      ]
+    }
+  ]
+}
