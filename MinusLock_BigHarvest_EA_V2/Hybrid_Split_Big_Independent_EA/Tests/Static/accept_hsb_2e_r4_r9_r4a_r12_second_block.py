@@ -7,7 +7,7 @@ import run_hsb_2e_r4_r9_r4a_r11_first_block as first
 import run_hsb_2e_r4_r9_r4a_r12_second_block as second
 OUT=ROOT/'Tests/Evidence/R4A_R12/acceptance.json'
 def main():
- a=argparse.ArgumentParser();a.add_argument('--publish-evidence',action='store_true');q=a.parse_args();find=[];old=r10.run();f=first.run();s=second.run();
+ a=argparse.ArgumentParser();a.add_argument('--publish-evidence',action='store_true');q=a.parse_args();find=[];old=r10.run();f=first.run();s=second.run();s['sensitivity']=second.sensitivity();
  if old['required']!=67 or old['wrongFailures'] or old['unexpectedInfrastructureErrors']:find.append('R10_REGRESSION')
  try:v10.execute()
  except Exception:find.append('R10_POSITIVE')

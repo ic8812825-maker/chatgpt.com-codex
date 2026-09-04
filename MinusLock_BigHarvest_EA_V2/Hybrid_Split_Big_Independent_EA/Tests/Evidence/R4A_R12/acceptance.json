@@ -1,0 +1,8 @@
+{
+  "R10": 67,
+  "findings": [],
+  "firstBlockFixtures": 15,
+  "result": "PASS",
+  "secondBlockFixtures": 15,
+  "secondBlockSensitivity": 7
+}
