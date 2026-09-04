@@ -1,0 +1,8 @@
+{
+  "fixtureId": "R10 committed positive",
+  "consumedDealIds": [],
+  "authoritativeLedgerRoot": "19b235d13f3e1207b1840e3f831c51b5d4a8e2ec871376be6bfe593e395c9e23",
+  "candidateCanonicalConsumedIdsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "candidateMatchesPublishedRoot": false,
+  "verdict": "NORMATIVE_CONTRACT_CONFLICT"
+}
