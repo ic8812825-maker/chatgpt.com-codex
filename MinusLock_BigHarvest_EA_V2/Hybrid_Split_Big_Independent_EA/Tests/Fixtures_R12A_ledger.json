@@ -1,0 +1,112 @@
+{
+  "cases": [
+    {
+      "caseId": "EMPTY",
+      "entries": [],
+      "root": "d79487fcccdf93d246cd1e74600f5747bf1e3d8244d0b0f54d80f0186f93f7b6"
+    },
+    {
+      "caseId": "ONE",
+      "entries": [
+        {
+          "dealId": "D1",
+          "eventId": "E1",
+          "positionTicket": "T1",
+          "intentId": "I1",
+          "volume": "0.10",
+          "price": "1.1000",
+          "direction": "BUY",
+          "symbol": "EURUSD",
+          "magic": 1,
+          "timestamp": 1,
+          "transactionId": "TX",
+          "actionId": "ACT",
+          "stateRevision": 1,
+          "snapshotRevision": 1,
+          "confirmed": true
+        }
+      ],
+      "root": "53bc174bd8a8e1848e125dcd576015bea99a73484d0d5e93d596c650440adc8a"
+    },
+    {
+      "caseId": "MULTIPLE",
+      "entries": [
+        {
+          "dealId": "D1",
+          "eventId": "E1",
+          "positionTicket": "T1",
+          "intentId": "I1",
+          "volume": "0.10",
+          "price": "1.1000",
+          "direction": "BUY",
+          "symbol": "EURUSD",
+          "magic": 1,
+          "timestamp": 1,
+          "transactionId": "TX",
+          "actionId": "ACT",
+          "stateRevision": 1,
+          "snapshotRevision": 1,
+          "confirmed": true
+        },
+        {
+          "dealId": "D2",
+          "eventId": "E2",
+          "positionTicket": "T1",
+          "intentId": "I1",
+          "volume": "0.10",
+          "price": "1.1000",
+          "direction": "BUY",
+          "symbol": "EURUSD",
+          "magic": 1,
+          "timestamp": 1,
+          "transactionId": "TX",
+          "actionId": "ACT",
+          "stateRevision": 1,
+          "snapshotRevision": 1,
+          "confirmed": true
+        }
+      ],
+      "root": "6ff0ffcb0a4a927d8df58b29f485716b6af20f917d16d7aa307b0bf117bd7022"
+    },
+    {
+      "caseId": "UNORDERED",
+      "entries": [
+        {
+          "dealId": "D2",
+          "eventId": "E2",
+          "positionTicket": "T1",
+          "intentId": "I1",
+          "volume": "0.10",
+          "price": "1.1000",
+          "direction": "BUY",
+          "symbol": "EURUSD",
+          "magic": 1,
+          "timestamp": 1,
+          "transactionId": "TX",
+          "actionId": "ACT",
+          "stateRevision": 1,
+          "snapshotRevision": 1,
+          "confirmed": true
+        },
+        {
+          "dealId": "D1",
+          "eventId": "E1",
+          "positionTicket": "T1",
+          "intentId": "I1",
+          "volume": "0.10",
+          "price": "1.1000",
+          "direction": "BUY",
+          "symbol": "EURUSD",
+          "magic": 1,
+          "timestamp": 1,
+          "transactionId": "TX",
+          "actionId": "ACT",
+          "stateRevision": 1,
+          "snapshotRevision": 1,
+          "confirmed": true
+        }
+      ],
+      "root": "6ff0ffcb0a4a927d8df58b29f485716b6af20f917d16d7aa307b0bf117bd7022"
+    }
+  ]
+}
