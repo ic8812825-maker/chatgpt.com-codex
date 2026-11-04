@@ -1,0 +1,184 @@
+{
+  "baseSha": "4e7d911002824a4a92e49b54f0f964afcf8cf703",
+  "runs": [
+    {
+      "id": "R8",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_prep_r4_r8.py",
+        "--root",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R8.log",
+      "logSha256": "fabd0bf908d9b84c27a9fe6eeb5d654e7c4b6e331af6a42d465a4e3a5f6d76e2"
+    },
+    {
+      "id": "R8_current",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsb_2e_r4_r9_r4a_r8_regressions.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R8_current.log",
+      "logSha256": "2dc4606382a385a635609c0680c0344efb01d43efd0e89c2cae65ef45e4028c5"
+    },
+    {
+      "id": "R10",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r10.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R10.log",
+      "logSha256": "8e6d5c5ca28df8a8c28ce36697749d28008d7402204933b7db50fadea6994c05"
+    },
+    {
+      "id": "R10_regressions",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsb_2e_r4_r9_r4a_r10_regressions.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R10_regressions.log",
+      "logSha256": "4dc30d83643586f3a0000ca44310b53286bd2276d26e76e8db3413be670cebb8"
+    },
+    {
+      "id": "R12_alignment",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r12_alignment.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R12_alignment.log",
+      "logSha256": "880d36cbd63ca7a9215d882b07897d5b65b324c0eccc18bd80de5cc6e8e05a23"
+    },
+    {
+      "id": "R12_acceptance",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/accept_hsb_2e_r4_r9_r4a_r12_second_block.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R12_acceptance.log",
+      "logSha256": "78bfa92f14e1e885f0a06f3d79ebf3fe54d78f11a90e50ddf7a9e7599ba1aa65"
+    },
+    {
+      "id": "R12A_coverage",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/audit_hsb_2e_r4_r9_r4a_r12a_actual_coverage.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R12A_coverage.log",
+      "logSha256": "0603277a85ac416151472e954dc41a6c1b1654b8c5ca4016f7bf1e4514d66ba3"
+    },
+    {
+      "id": "R12A_causal",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsb_2e_r4_r9_r4a_r12a_fix_01.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R12A_causal.log",
+      "logSha256": "3a9a1e7aa63749d8fd686bcfb58c7d6c351e97e526d13c5f729f55c4e1ab2239"
+    },
+    {
+      "id": "R12A_contract",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2e_r4_r9_r4a_r12a_normative_contract.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R12A_contract.log",
+      "logSha256": "76d65a45cfc9d4eaf592eb1dfb6727031dec652f16ab58e0e03ae5c6eacaf5c5"
+    },
+    {
+      "id": "R7_frozen",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/verify_hsb_2d_v1_r7.py",
+        "--root",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA",
+        "--skip-seal"
+      ],
+      "exit": 1,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R7_frozen.log",
+      "logSha256": "b9e6683f33c89241e35d91a40b48ce068c376799c6be4199624151530f4c5214"
+    },
+    {
+      "id": "R8_acceptance",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/accept_hsb_2e_r4_r9_r4a_r8.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R8_acceptance.log",
+      "logSha256": "c61bdbb4540c70c586eed9711ffacbb443156f7fac778e19240d4608a2abb1cb"
+    },
+    {
+      "id": "R8_properties",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsb_2e_r4_r9_r4a_r8_properties.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R8_properties.log",
+      "logSha256": "040491c88262ec20b211a347c79a78d036e63856f25574c2397cb586fdec4705"
+    },
+    {
+      "id": "R8_sensitivity",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsb_2e_r4_r9_r4a_r8_acceptance_sensitivity.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R8_sensitivity.log",
+      "logSha256": "222f05d57decd7d219945fd8b5f7061fd1098663af2825483f0f3debffe182a7"
+    },
+    {
+      "id": "R10_acceptance",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/accept_hsb_2e_r4_r9_r4a_r10.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R10_acceptance.log",
+      "logSha256": "698d6826d331e3b5d5bfa7f17c9fcba7666537db89096fd18c8b15415b6a3267"
+    },
+    {
+      "id": "R10_properties",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsb_2e_r4_r9_r4a_r10_properties.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R10_properties.log",
+      "logSha256": "040491c88262ec20b211a347c79a78d036e63856f25574c2397cb586fdec4705"
+    },
+    {
+      "id": "R10_mutations",
+      "command": [
+        "python3",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsb_2e_r4_r9_r4a_r10_mutation_sensitivity.py"
+      ],
+      "exit": 0,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R10_mutations.log",
+      "logSha256": "cb83358c13b0fd553b2586aed34e62836ee6533ce5ec62ef550e412bf7a5f643"
+    },
+    {
+      "id": "R0_adversarial_contract_gate",
+      "command": [
+        "python3",
+        "Tests/Static/check_hsbi_02b_r0_ledger_integrity.py",
+        "--enforce-contract",
+        "--output",
+        "Tests/Evidence/NEXT_STAGE_02B_R0_RESULTS.json"
+      ],
+      "exit": 1,
+      "log": "Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/adversarial.log",
+      "meaning": "Evidence execution PASS; normative contract gate FAIL with 46 known mismatches",
+      "logSha256": "55b1b7bdb3112141260d3277190e0fb9b6f4e992568ae097ae7091ba7f9a3962"
+    }
+  ]
+}

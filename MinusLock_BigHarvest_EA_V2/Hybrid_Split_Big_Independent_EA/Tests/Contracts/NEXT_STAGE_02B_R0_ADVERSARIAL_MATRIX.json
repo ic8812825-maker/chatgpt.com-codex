@@ -1,0 +1,1067 @@
+{
+  "schema": "HSBI.NEXT_STAGE_02B_R0.ADVERSARIAL_MATRIX/1",
+  "baseSha": "4e7d911002824a4a92e49b54f0f964afcf8cf703",
+  "approval": "AWAITING_ADMIN_APPROVAL",
+  "outcomeVocabulary": [
+    "ALLOW",
+    "NO_OP",
+    "CONFLICT",
+    "REJECT",
+    "UNAVAILABLE",
+    "DECISION_REQUIRED",
+    "NOT_RUN",
+    "UNPROVEN"
+  ],
+  "expectedAuthority": "Independent proposed oracle CR-01..10; NOT current admin-approved economic model",
+  "productionSources": {
+    "economic": "`Include/Money/HSBI_EconomicLedgerTypes.mqh:9` — `HSBI_SameEconomicRecord`",
+    "economicDup": "`Include/Money/HSBI_EconomicLedgerTypes.mqh:10` — `HSBI_ClassifyEconomicDuplicate`",
+    "sourceKey": "`Include/Money/HSBI_EconomicLedgerTypes.mqh:7` — `HSBI_BuildSourceDealKey`",
+    "allocation": "`Include/Money/HSBI_AllocationLedgerTypes.mqh:8` — `HSBI_ClassifyAllocationDuplicate`",
+    "conservation": "`Include/Money/HSBI_AllocationLedgerTypes.mqh:7` — `HSBI_ValidateAllocationConservation`",
+    "bucket": "`Include/Money/HSBI_AllocationLedgerTypes.mqh:9` — `HSBI_CanConsumeBucket`",
+    "amount": "`Include/Money/HSBI_AllocationLedgerTypes.mqh:10` — `HSBI_CanConsumeAmount`",
+    "state": "`Include/Money/HSBI_MoneyState.mqh:5` — `HSBI_ValidateMoneyState`",
+    "consumption": "`Include/Money/HSBI_ReserveAllocationTypes.mqh:25` — `HSBI_ValidateReserveConsumption`",
+    "catchup": "`Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:35` — `HSBI_EvaluateReserveCatchUp`",
+    "identity": "`Include/Money/HSBI_MoneyProofIdentity.mqh:16` — `HSBI_IsSameMoneyProofIdentity`",
+    "newfar": "`Include/Planning/HSBI_NewFarSolver.mqh:94` — `HSBI_SolveNewFar`",
+    "geometry": "`Include/Planning/HSBI_GeometrySolver.mqh:21` — `HSBI_SolveBigGeometry`",
+    "basket": "`Include/Money/HSBI_BasketMoneyEvaluator.mqh:11` — `HSBI_EvaluateBasketMoney`",
+    "aggregate": "`Include/Planning/HSBI_FutureSmallProofAggregator.mqh:23` — `HSBI_AggregateFutureSmallProof`",
+    "persistence": "`Include/Persistence/HSBI_PersistenceInterface.mqh:7` — `HSBI_PersistSnapshotStub`"
+  },
+  "vectors": [
+    {
+      "id": "M01-control",
+      "contract": "CR-01/07/08",
+      "expected": "ALLOW",
+      "code": "auto x=base();std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-foreign-deal",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "code": "auto x=base();x.consumptionKey.sourceDealKey=\"D2\";std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-foreign-allocation",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "code": "auto x=base();x.consumptionKey.sourceAllocationKey=\"A2\";std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-foreign-cycle-in-key",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "code": "auto x=base();x.consumptionKey.sourceDealKey=\"EUR|7|99|11\";std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-foreign-allocation-event",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveAllocationSource.allocationEventId=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-exact-replay",
+      "contract": "CR-01/07/08",
+      "expected": "NO_OP",
+      "code": "auto x=base();x.hasPriorConsumption=true;x.priorConsumptionKey=x.consumptionKey;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-altered-replay",
+      "contract": "CR-01/07/08",
+      "expected": "CONFLICT",
+      "code": "auto x=base();x.hasPriorConsumption=true;x.priorConsumptionKey=x.consumptionKey;x.priorConsumptionKey.consumer=\"PartialFar\";std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-restart-unknown-registry",
+      "contract": "CR-01/07/08",
+      "expected": "UNAVAILABLE",
+      "code": "auto x=base();x.hasPriorConsumption=false;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-spent-bucket",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveAllocationSource.residualAllocated=40;x.reserveAllocationSource.alreadyConsumed=10;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-spent-unallocated-path",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveAllocationSource.residualAllocated=40;x.reserveAllocationSource.alreadyConsumed=10;x.reserveEligibleMoneyAlreadyAllocated=false;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M01-invalid-source-control",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveAllocationSource.valid=false;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-accountLogin",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.accountLogin=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-accountLogin",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.accountLogin=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-magic",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.magic=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-magic",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.magic=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-cycleId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.cycleId=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-cycleId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.cycleId=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-positionIdentifier",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.positionIdentifier=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-positionIdentifier",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.positionIdentifier=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-sourceDealId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.sourceDealId=999;x.reserveAllocationSource.sourceDealId=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-sourceDealId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.sourceDealId=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-sourceEventId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.sourceEventId=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-sourceEventId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.sourceEventId=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-planId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.planId=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-planId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.planId=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-stateRevision",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.stateRevision=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-stateRevision",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.stateRevision=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-self-copy-snapshotId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.snapshotId=999;AssembleExpected(x,x);std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN"
+    },
+    {
+      "id": "M02-independent-snapshotId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.snapshotId=999;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-control",
+      "contract": "CR-02",
+      "expected": "ALLOW",
+      "code": "auto x=base();std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-zero-deal",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.sourceDealId=0;x.expectedReserveIdentity=x.reserveSourceProof.identity;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-zero-event",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "code": "auto x=base();x.reserveSourceProof.identity.sourceEventId=0;x.expectedReserveIdentity=x.reserveSourceProof.identity;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "M02-stale-flag-control",
+      "contract": "CR-02",
+      "expected": "UNAVAILABLE",
+      "code": "auto x=base();x.fresh=false;std::cout<<outcome(HSBI_EvaluateReserveCatchUp(x));",
+      "note": ""
+    },
+    {
+      "id": "L01-control",
+      "contract": "CR-03",
+      "expected": "NO_OP",
+      "code": "HSBI_EconomicLedgerRecord a{};a.sourceDealKey=\"D1\";a.volume=1;a.price=100;a.dealNet=50;a.profit=55;a.commission=-5;auto b=a;std::cout<<dup(HSBI_ClassifyEconomicDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L01-components",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "code": "HSBI_EconomicLedgerRecord a{};a.sourceDealKey=\"D1\";a.volume=1;a.price=100;a.dealNet=50;a.profit=55;a.commission=-5;auto b=a;b.profit=60;b.commission=-10;std::cout<<dup(HSBI_ClassifyEconomicDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L01-event",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "code": "HSBI_EconomicLedgerRecord a{};a.sourceDealKey=\"D1\";a.volume=1;a.price=100;a.dealNet=50;a.profit=55;a.commission=-5;auto b=a;b.eventId=99;std::cout<<dup(HSBI_ClassifyEconomicDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L01-position",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "code": "HSBI_EconomicLedgerRecord a{};a.sourceDealKey=\"D1\";a.volume=1;a.price=100;a.dealNet=50;a.profit=55;a.commission=-5;auto b=a;b.positionIdentifier=99;std::cout<<dup(HSBI_ClassifyEconomicDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L01-role",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "code": "HSBI_EconomicLedgerRecord a{};a.sourceDealKey=\"D1\";a.volume=1;a.price=100;a.dealNet=50;a.profit=55;a.commission=-5;auto b=a;b.role=HSBI_ROLE_FAR;std::cout<<dup(HSBI_ClassifyEconomicDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L01-timestamp",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "code": "HSBI_EconomicLedgerRecord a{};a.sourceDealKey=\"D1\";a.volume=1;a.price=100;a.dealNet=50;a.profit=55;a.commission=-5;auto b=a;b.timestamp=99;std::cout<<dup(HSBI_ClassifyEconomicDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L01-swap-fee",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "code": "HSBI_EconomicLedgerRecord a{};a.sourceDealKey=\"D1\";a.volume=1;a.price=100;a.dealNet=50;a.profit=55;a.commission=-5;auto b=a;b.swap=2;b.fee=-2;std::cout<<dup(HSBI_ClassifyEconomicDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-control",
+      "contract": "CR-04",
+      "expected": "NO_OP",
+      "code": "auto a=allocation();auto b=a;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-bucket-permutation",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "code": "auto a=allocation();auto b=a;b.finalReserveAllocated=0;b.partialFarAllocated=50;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-consumed",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "code": "auto a=allocation();auto b=a;b.consumed=10;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-available",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "code": "auto a=allocation();auto b=a;b.available=40;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-residual",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "code": "auto a=allocation();auto b=a;b.finalReserveAllocated=40;b.residual=10;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-source-net",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "code": "auto a=allocation();auto b=a;b.sourceDealNet=60;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-status",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "code": "auto a=allocation();auto b=a;b.status=HSBI_STATUS_CONFLICT;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-negative-offset",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "code": "auto a=allocation();auto b=a;b.finalReserveAllocated=-10;b.partialFarAllocated=60;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "L02-nan",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "code": "auto a=allocation();auto b=a;b.finalReserveAllocated=NAN;std::cout<<dup(HSBI_ClassifyAllocationDuplicate(a,b));",
+      "note": ""
+    },
+    {
+      "id": "E-allocation-control",
+      "contract": "CR-04",
+      "expected": "ALLOW",
+      "code": "auto a=allocation();std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-invalid",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.valid=false;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-negative-bucket",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.finalReserveAllocated=-10;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-offset-negative",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.finalReserveAllocated=-10;a.partialFarAllocated=60;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-infinity",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.sourceDealNet=INFINITY;a.finalReserveAllocated=INFINITY;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-nan",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.finalReserveAllocated=NAN;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-negative-consumed",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.consumed=-1;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-over-consumed",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.consumed=51;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-unassigned",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.finalReserveAllocated=40;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-invalid-status",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.status=HSBI_STATUS_CONFLICT;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-foreign-source",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.sourceDealKey=\"FOREIGN\";std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-allocation-negative-net-offset",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.sourceDealNet=-10;a.finalReserveAllocated=-1;std::cout<<allow(HSBI_ValidateAllocationConservation(a));",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller"
+    },
+    {
+      "id": "E-state-control",
+      "contract": "CR-05",
+      "expected": "ALLOW",
+      "code": "HSBI_MoneyState s{};s.valid=true;s.revision=1;std::cout<<allow(HSBI_ValidateMoneyState(s));",
+      "note": ""
+    },
+    {
+      "id": "E-state-invalid",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "HSBI_MoneyState s{};s.valid=true;s.revision=1;s.valid=false;std::cout<<allow(HSBI_ValidateMoneyState(s));",
+      "note": ""
+    },
+    {
+      "id": "E-state-zero-revision",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "HSBI_MoneyState s{};s.valid=true;s.revision=1;s.revision=0;std::cout<<allow(HSBI_ValidateMoneyState(s));",
+      "note": ""
+    },
+    {
+      "id": "E-state-unknown-revision",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "HSBI_MoneyState s{};s.valid=true;s.revision=1;s.revision=999;std::cout<<allow(HSBI_ValidateMoneyState(s));",
+      "note": ""
+    },
+    {
+      "id": "E-state-negative",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "HSBI_MoneyState s{};s.valid=true;s.revision=1;s.finalReserve=-1;std::cout<<allow(HSBI_ValidateMoneyState(s));",
+      "note": ""
+    },
+    {
+      "id": "E-state-infinity",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "HSBI_MoneyState s{};s.valid=true;s.revision=1;s.finalReserve=INFINITY;std::cout<<allow(HSBI_ValidateMoneyState(s));",
+      "note": ""
+    },
+    {
+      "id": "E-state-nan",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "HSBI_MoneyState s{};s.valid=true;s.revision=1;s.realizedCycleNet=NAN;std::cout<<allow(HSBI_ValidateMoneyState(s));",
+      "note": ""
+    },
+    {
+      "id": "E-bucket-control",
+      "contract": "CR-05",
+      "expected": "ALLOW",
+      "code": "std::cout<<allow(HSBI_CanConsumeBucket(HSBI_BUCKET_PARTIAL_FAR_BUDGET,true));",
+      "note": ""
+    },
+    {
+      "id": "E-bucket-final-for-partial",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "std::cout<<allow(HSBI_CanConsumeBucket(HSBI_BUCKET_FINAL_RESERVE,true));",
+      "note": ""
+    },
+    {
+      "id": "E-bucket-unknown",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "std::cout<<allow(HSBI_CanConsumeBucket((HSBI_MoneyBucket)999,false));",
+      "note": ""
+    },
+    {
+      "id": "E-amount-over",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "auto a=allocation();std::cout<<allow(HSBI_CanConsumeAmount(a,51));",
+      "note": ""
+    },
+    {
+      "id": "E-amount-control",
+      "contract": "CR-05",
+      "expected": "ALLOW",
+      "code": "auto a=allocation();std::cout<<allow(HSBI_CanConsumeAmount(a,10));",
+      "note": ""
+    },
+    {
+      "id": "E-amount-invalid-state",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "code": "auto a=allocation();a.valid=false;std::cout<<allow(HSBI_CanConsumeAmount(a,10));",
+      "note": ""
+    },
+    {
+      "id": "F-zero-core",
+      "contract": "CR-06",
+      "expected": "REJECT",
+      "code": "auto p=broker();auto r=HSBI_SolveBigGeometry(0.1,0.01,3.0,0.1,p,true,true);std::cout<<allow(r.valid);",
+      "note": ""
+    },
+    {
+      "id": "F-geometry-control",
+      "contract": "CR-06",
+      "expected": "ALLOW",
+      "code": "auto p=broker();auto r=HSBI_SolveBigGeometry(0.1,2.0,1.0,0.5,p,true,true);std::cout<<allow(r.valid);",
+      "note": ""
+    },
+    {
+      "id": "G-worst-contradictory-extrema",
+      "contract": "CR-09",
+      "expected": "2",
+      "code": "auto p=levels();auto r=HSBI_AggregateFutureSmallProof(p,HSBI_PROOF_POLICY_WORST_CASE,0);std::cout<<r.catchUpControlLevel;",
+      "note": "DECISION_REQUIRED: expected 2 only under minimum Catch-Up margin proposal"
+    },
+    {
+      "id": "G-final-control",
+      "contract": "CR-09",
+      "expected": "2",
+      "code": "auto p=levels();auto r=HSBI_AggregateFutureSmallProof(p,HSBI_PROOF_POLICY_FINAL_LEVEL,0);std::cout<<r.catchUpControlLevel;",
+      "note": ""
+    },
+    {
+      "id": "G-incomplete-control",
+      "contract": "CR-09",
+      "expected": "REJECT",
+      "code": "auto p=levels();p.levels[1].moneyIncluded=false;std::cout<<allow(HSBI_AggregateFutureSmallProof(p,HSBI_PROOF_POLICY_WORST_CASE,0).valid);",
+      "note": ""
+    },
+    {
+      "id": "M05-small-only",
+      "contract": "CR-10",
+      "expected": "0",
+      "code": "std::cout<<ExtractedReserveMetric(0,0,10);",
+      "note": ""
+    },
+    {
+      "id": "M05-core-control",
+      "contract": "CR-10",
+      "expected": "10",
+      "code": "std::cout<<ExtractedReserveMetric(10,0,0);",
+      "note": ""
+    }
+  ],
+  "independentReferenceCases": [
+    {
+      "id": "O-consumption-control",
+      "actual": "ALLOW",
+      "expected": "ALLOW",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-account",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-symbol",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-magic",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-cycle",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-deal",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-allocation",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-allocationEvent",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-policy",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-exact-replay",
+      "actual": "NO_OP",
+      "expected": "NO_OP",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-changed-amount-replay",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-restart-unknown",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-spent-bucket",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-amount-51",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-amount--1",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-amount-nan",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-bucket-PartialFar",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-purpose-PartialFar",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-control",
+      "actual": "ALLOW",
+      "expected": "ALLOW",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-account",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-symbol",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-magic",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-cycle",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-position",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-role",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-direction",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-deal",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-event",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-plan",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-revision",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-snapshot",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-fresh",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-digest",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-dealNet",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-missing-deal",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-missing-event",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-reuse",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-history-unavailable",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-control",
+      "actual": "NO_OP",
+      "expected": "NO_OP",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-profit",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-swap",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-commission",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-fee",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-account",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-event",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-policy",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-available",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-consumed",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-residual",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-conservation-control",
+      "actual": "ALLOW",
+      "expected": "ALLOW",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-conservation-double-count",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-conservation-unallocated",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consume-first",
+      "actual": "ALLOW",
+      "expected": "ALLOW",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consume-over-remaining",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-infinite-balance",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-history-nonfinite-profit",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-history-nonfinite-commission",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-history-nonfinite-dealNet",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    }
+  ],
+  "runtimeGaps": [
+    {
+      "id": "M01-amount-identity",
+      "status": "UNREPRESENTABLE_IN_CURRENT_DTO",
+      "reason": "ConsumptionKey lacks amount, bucket, owner, allocationEvent and policy fields; reference oracle includes them"
+    },
+    {
+      "id": "L02-policy-version",
+      "status": "UNREPRESENTABLE_IN_ALLOCATION_LEDGER_DTO",
+      "reason": "AllocationLedgerRecord lacks policyVersion; ReserveAllocationSource has it; oracle change policy -> CONFLICT"
+    },
+    {
+      "id": "ACCOUNT-economic",
+      "status": "MISSING_FIELD",
+      "reason": "AccountLogin and PlanID missing from EconomicLedgerRecord, broker/server namespace absent"
+    },
+    {
+      "id": "M02-proof-digest-net",
+      "status": "UNPROVEN_PRODUCTION_BOUNDARY",
+      "reason": "Independent reference tests reject wrong digest/DealNet; CatchUp only serializes identity and has no authoritative ledger digest lookup"
+    },
+    {
+      "id": "MQL5-compile-main-harness",
+      "status": "NOT_RUN",
+      "reason": "MetaEditor unavailable"
+    },
+    {
+      "id": "MQL5-runtime",
+      "status": "NOT_RUN",
+      "reason": "MT5 terminal unavailable"
+    },
+    {
+      "id": "BROKER-money",
+      "status": "NOT_RUN",
+      "reason": "No terminal/account/symbol runtime"
+    },
+    {
+      "id": "NEWFAR-end-to-end",
+      "status": "NOT_RUN",
+      "reason": "Only extracted assembly/CatchUp boundary tested; no broker proof provider"
+    },
+    {
+      "id": "DURABLE-restart",
+      "status": "UNPROVEN",
+      "reason": "Persistence stub; oracle in-memory recovery cannot prove durable IO"
+    },
+    {
+      "id": "G-WORST_CASE",
+      "status": "DECISION_REQUIRED",
+      "reason": "Minimum Catch-Up margin expectation is proposal; current docs do not define that criterion"
+    }
+  ],
+  "executionCommand": "PYTHONDONTWRITEBYTECODE=1 python3 Tests/Static/check_hsbi_02b_r0_ledger_integrity.py --enforce-contract --output Tests/Evidence/NEXT_STAGE_02B_R0_RESULTS.json",
+  "mqlHarness": "Tests/MQL5/HSBI_02B_R0_MoneyContracts.mq5.in",
+  "sourceMutationScope": "Disposable Include copies under project/Tests; C++ subset only, NOT MQL5 compilation",
+  "runnerSha256": "608036f56f9ca2fac39359bf7bb9564a8a870cdd532887323a349f6320ce6b62"
+}

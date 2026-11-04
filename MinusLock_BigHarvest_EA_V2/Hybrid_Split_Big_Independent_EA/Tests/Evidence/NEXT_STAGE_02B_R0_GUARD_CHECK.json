@@ -1,0 +1,7 @@
+{
+  "productionFiles": 74,
+  "forbiddenTradeTokens": [],
+  "productionManifestMismatches": [],
+  "baseSha": "4e7d911002824a4a92e49b54f0f964afcf8cf703",
+  "brokerDispatchGuard": "HSBI_IsBrokerDispatchAllowed returns false"
+}

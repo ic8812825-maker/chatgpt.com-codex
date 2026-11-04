@@ -1,0 +1,81 @@
+#property strict
+#property script_show_inputs
+// Test-only. No trade dispatch. Proposed contracts are NOT administrator approval.
+#include "../../Include/Money/HSBI_EconomicLedgerTypes.mqh"
+#include "../../Include/Money/HSBI_AllocationLedgerTypes.mqh"
+#include "../../Include/Money/HSBI_MoneyState.mqh"
+#include "../../Include/Money/HSBI_ReserveCatchUpEvaluator.mqh"
+#include "../../Include/Planning/HSBI_GeometrySolver.mqh"
+int checks=0,failures=0;
+void Check(const string id,const bool ok)
+{checks++;if(!ok)failures++;Print(id,"|",ok?"PASS":"FAIL");}
+HSBI_ReserveCatchUpInput Base()
+{
+   HSBI_ReserveCatchUpInput x;ZeroMemory(x);x.runtimeMode=HSBI_RUNTIME_ADMIN_VERIFICATION;
+   x.allocationPolicy.reserveShare=0.5;x.allocationPolicy.policyVersion=1;x.allocationPolicy.snapshotId=1;
+   x.allocationPolicy.valid=true;x.allocationPolicy.fresh=true;
+   x.reserveEligibleMoney=100;x.reserveEligibleMoneyAlreadyAllocated=true;
+   x.farLossIncreaseMoney=10;x.executionSafetyBuffer=1;x.netBigVolume=4;x.farVolume=1;
+   x.farDirection=HSBI_DIRECTION_SELL;
+   x.reserveSourceProof.valid=true;x.reserveSourceProof.status=HSBI_CALC_PASS;
+   x.reserveSourceProof.projected=true;x.reserveSourceProof.runtimeConfirmed=true;x.reserveSourceProof.netMoney=100;
+   HSBI_MoneyProofIdentity i;ZeroMemory(i);i.accountLogin=1;i.symbol="EUR";i.magic=7;i.cycleId=1;
+   i.positionIdentifier=1;i.role=HSBI_ROLE_BIG_CORE;i.direction=HSBI_DIRECTION_BUY;
+   i.sourceDealId=11;i.sourceEventId=21;i.snapshotId=1;i.planId=1;i.stateRevision=1;
+   x.reserveSourceProof.identity=i;x.expectedReserveIdentity=i;
+   x.farLossProof=x.reserveSourceProof;x.farLossProof.netMoney=-10;
+   x.farLossProof.identity.role=HSBI_ROLE_FAR;x.farLossProof.identity.direction=HSBI_DIRECTION_SELL;
+   x.expectedFarIdentity=x.farLossProof.identity;
+   x.reserveAllocationSource.sourceDealKey="D1";x.reserveAllocationSource.sourceAllocationKey="A1";
+   x.reserveAllocationSource.sourceDealId=11;x.reserveAllocationSource.allocationEventId=31;
+   x.reserveAllocationSource.allocationPolicyVersion=1;x.reserveAllocationSource.allocatableNet=100;
+   x.reserveAllocationSource.reserveAllocated=50;x.reserveAllocationSource.allocationConfirmed=true;
+   x.reserveAllocationSource.residualAllocated=50;
+   x.reserveAllocationSource.sourceReconciled=true;x.reserveAllocationSource.valid=true;
+   x.consumptionKey.sourceDealKey="D1";x.consumptionKey.sourceAllocationKey="A1";
+   x.consumptionKey.planId=1;x.consumptionKey.stateRevision=1;x.consumptionKey.consumptionEventId=41;
+   x.consumptionKey.consumer="CatchUp";x.sourceDealId=11;x.sourceEventId=21;
+   x.planId=1;x.stateRevision=1;x.snapshotId=1;x.projected=true;x.moneyAvailable=true;x.fresh=true;
+   return x;
+}
+void OnStart()
+{
+   Print("BASE_SHA=4e7d911002824a4a92e49b54f0f964afcf8cf703; PROPOSED_CONTRACTS; NO_TRADE");
+   HSBI_ReserveCatchUpInput x=Base();HSBI_ReserveCatchUpResult r=HSBI_EvaluateReserveCatchUp(x);
+   Check("CR-01-control",r.valid);
+   x=Base();x.consumptionKey.sourceDealKey="FOREIGN";r=HSBI_EvaluateReserveCatchUp(x);
+   Check("CR-01-foreign-source",!r.valid);
+   x=Base();x.consumptionKey.sourceAllocationKey="FOREIGN";r=HSBI_EvaluateReserveCatchUp(x);
+   Check("CR-01-foreign-allocation",!r.valid);
+   x=Base();x.hasPriorConsumption=true;x.priorConsumptionKey=x.consumptionKey;
+   r=HSBI_EvaluateReserveCatchUp(x);Check("CR-07-exact-replay-blocked",!r.valid&&r.details=="DUPLICATE_CONSUMPTION_NOOP");
+   x=Base();x.hasPriorConsumption=true;x.priorConsumptionKey=x.consumptionKey;
+   x.priorConsumptionKey.consumer="FOREIGN";r=HSBI_EvaluateReserveCatchUp(x);
+   Check("CR-07-altered-replay-blocked",!r.valid&&r.details=="CONSUMPTION_CONFLICT");
+   x=Base();x.reserveSourceProof.identity.accountLogin=999;r=HSBI_EvaluateReserveCatchUp(x);
+   Check("CR-02-independent-identity-control",!r.valid);
+   x.expectedReserveIdentity=x.reserveSourceProof.identity;r=HSBI_EvaluateReserveCatchUp(x);
+   Check("CR-02-self-copy-must-not-authorize",!r.valid);
+   HSBI_EconomicLedgerRecord a;ZeroMemory(a);a.sourceDealKey="D1";a.volume=1;a.price=100;
+   a.profit=55;a.commission=-5;a.dealNet=50;HSBI_EconomicLedgerRecord b=a;
+   Check("CR-03-identical-control",HSBI_ClassifyEconomicDuplicate(a,b)==1);
+   b.profit=60;b.commission=-10;Check("CR-03-components-conflict",HSBI_ClassifyEconomicDuplicate(a,b)==2);
+   HSBI_AllocationLedgerRecord aa;ZeroMemory(aa);aa.sourceDealKey="D1";aa.allocationEventId=31;
+   aa.sourceDealNet=50;aa.finalReserveAllocated=50;aa.available=50;aa.valid=true;
+   HSBI_AllocationLedgerRecord bb=aa;
+   Check("CR-04-identical-control",HSBI_ClassifyAllocationDuplicate(aa,bb)==1);
+   bb.finalReserveAllocated=0;bb.partialFarAllocated=50;
+   Check("CR-04-bucket-permutation-conflict",HSBI_ClassifyAllocationDuplicate(aa,bb)==2);
+   Check("CR-05-final-reserve-isolation",!HSBI_CanConsumeBucket(HSBI_BUCKET_FINAL_RESERVE,true));
+   HSBI_MoneyState s;ZeroMemory(s);s.valid=false;
+   Check("CR-05-invalid-state",!HSBI_ValidateMoneyState(s));
+   HSBI_BrokerProperties p;ZeroMemory(p);p.symbol="EUR";p.point=0.01;p.tickSize=0.01;p.digits=2;
+   p.volumeMin=0.01;p.volumeStep=0.01;p.volumeMax=100;p.tickValueProfit=1;p.tickValueLoss=1;
+   p.valid=true;p.fresh=true;p.snapshotId=1;p.timestamp=1;
+   HSBI_GeometryResult g=HSBI_SolveBigGeometry(0.1,2,1,0.5,p,true,true);
+   Check("CR-06-positive-control",g.valid);
+   g=HSBI_SolveBigGeometry(0.1,0.01,3,0.1,p,true,true);
+   Check("CR-06-zero-core-reject",!g.valid);
+   Print("CHECKS=",checks," CONTRACT_FAILURES=",failures," RESULT=",failures==0?"PASS":"FAIL");
+   Print("BROKER_PROVENANCE=UNPROVEN; DURABLE_RESTART=UNPROVEN; REAL_TRADING_ALLOWED=NO");
+}
