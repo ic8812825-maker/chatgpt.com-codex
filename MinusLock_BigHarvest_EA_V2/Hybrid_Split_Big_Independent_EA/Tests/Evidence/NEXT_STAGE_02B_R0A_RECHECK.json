@@ -1,0 +1,1328 @@
+{
+  "schema": "HSBI.02B_R0/1",
+  "baseSha": "4e7d911002824a4a92e49b54f0f964afcf8cf703",
+  "testedHead": "cb5e55cb38aa4f2eb5b58e5218462c6738f3097a",
+  "executedUtc": "2026-11-04T01:19:41.802030+00:00",
+  "runnerSha256": "608036f56f9ca2fac39359bf7bb9564a8a870cdd532887323a349f6320ce6b62",
+  "scope": "test-only; proposed contracts unapproved",
+  "nativeCases": [
+    {
+      "id": "M01-control",
+      "contract": "CR-01/07/08",
+      "expected": "ALLOW",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-foreign-deal",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-foreign-allocation",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-foreign-cycle-in-key",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-foreign-allocation-event",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-exact-replay",
+      "contract": "CR-01/07/08",
+      "expected": "NO_OP",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-altered-replay",
+      "contract": "CR-01/07/08",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "CONFLICT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-restart-unknown-registry",
+      "contract": "CR-01/07/08",
+      "expected": "UNAVAILABLE",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-spent-bucket",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-spent-unallocated-path",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M01-invalid-source-control",
+      "contract": "CR-01/07/08",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-accountLogin",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-accountLogin",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-magic",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-magic",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-cycleId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-cycleId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-positionIdentifier",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-positionIdentifier",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-sourceDealId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-sourceDealId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-sourceEventId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-sourceEventId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-planId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-planId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-stateRevision",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-stateRevision",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-self-copy-snapshotId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "Isolated Catch-Up identity-boundary experiment; full NewFar selection NOT_RUN",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-independent-snapshotId",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-control",
+      "contract": "CR-02",
+      "expected": "ALLOW",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-zero-deal",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-zero-event",
+      "contract": "CR-02",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M02-stale-flag-control",
+      "contract": "CR-02",
+      "expected": "UNAVAILABLE",
+      "note": "",
+      "actual": "UNAVAILABLE",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L01-control",
+      "contract": "CR-03",
+      "expected": "NO_OP",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L01-components",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L01-event",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L01-position",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L01-role",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L01-timestamp",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L01-swap-fee",
+      "contract": "CR-03",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-control",
+      "contract": "CR-04",
+      "expected": "NO_OP",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-bucket-permutation",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-consumed",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-available",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-residual",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-source-net",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-status",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-negative-offset",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "NO_OP",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "L02-nan",
+      "contract": "CR-04",
+      "expected": "CONFLICT",
+      "note": "",
+      "actual": "CONFLICT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-control",
+      "contract": "CR-04",
+      "expected": "ALLOW",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-invalid",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-negative-bucket",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-offset-negative",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-infinity",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-nan",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-negative-consumed",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-over-consumed",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-unassigned",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-invalid-status",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-foreign-source",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-allocation-negative-net-offset",
+      "contract": "CR-04",
+      "expected": "REJECT",
+      "note": "unassigned uses proposed D-01; foreign-source requires mandatory authoritative caller",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-state-control",
+      "contract": "CR-05",
+      "expected": "ALLOW",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-state-invalid",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-state-zero-revision",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-state-unknown-revision",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-state-negative",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-state-infinity",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-state-nan",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-bucket-control",
+      "contract": "CR-05",
+      "expected": "ALLOW",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-bucket-final-for-partial",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-bucket-unknown",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-amount-over",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-amount-control",
+      "contract": "CR-05",
+      "expected": "ALLOW",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "E-amount-invalid-state",
+      "contract": "CR-05",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "F-zero-core",
+      "contract": "CR-06",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "F-geometry-control",
+      "contract": "CR-06",
+      "expected": "ALLOW",
+      "note": "",
+      "actual": "ALLOW",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "G-worst-contradictory-extrema",
+      "contract": "CR-09",
+      "expected": "2",
+      "note": "DECISION_REQUIRED: expected 2 only under minimum Catch-Up margin proposal",
+      "actual": "1",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "G-final-control",
+      "contract": "CR-09",
+      "expected": "2",
+      "note": "",
+      "actual": "2",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "G-incomplete-control",
+      "contract": "CR-09",
+      "expected": "REJECT",
+      "note": "",
+      "actual": "REJECT",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M05-small-only",
+      "contract": "CR-10",
+      "expected": "0",
+      "note": "",
+      "actual": "10",
+      "contractPass": false,
+      "layer": "extracted production C++ subset"
+    },
+    {
+      "id": "M05-core-control",
+      "contract": "CR-10",
+      "expected": "10",
+      "note": "",
+      "actual": "10",
+      "contractPass": true,
+      "layer": "extracted production C++ subset"
+    }
+  ],
+  "referenceCases": [
+    {
+      "id": "O-consumption-control",
+      "actual": "ALLOW",
+      "expected": "ALLOW",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-account",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-symbol",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-magic",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-cycle",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-deal",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-allocation",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-allocationEvent",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-foreign-policy",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-exact-replay",
+      "actual": "NO_OP",
+      "expected": "NO_OP",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-changed-amount-replay",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-restart-unknown",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-spent-bucket",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-amount-51",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-amount--1",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-amount-nan",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-bucket-PartialFar",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consumption-purpose-PartialFar",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-control",
+      "actual": "ALLOW",
+      "expected": "ALLOW",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-account",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-symbol",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-magic",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-cycle",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-position",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-role",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-direction",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-deal",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-event",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-plan",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-revision",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-snapshot",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-fresh",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-digest",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-proof-dealNet",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-missing-deal",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-missing-event",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-reuse",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-history-unavailable",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-control",
+      "actual": "NO_OP",
+      "expected": "NO_OP",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-profit",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-swap",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-commission",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-fee",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-account",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-ledger-event",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-policy",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-available",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-consumed",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-residual",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-conservation-control",
+      "actual": "ALLOW",
+      "expected": "ALLOW",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-conservation-double-count",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-conservation-unallocated",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consume-first",
+      "actual": "ALLOW",
+      "expected": "ALLOW",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-consume-over-remaining",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-allocation-infinite-balance",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-history-nonfinite-profit",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-history-nonfinite-commission",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    },
+    {
+      "id": "O-history-nonfinite-dealNet",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "layer": "independent proposed oracle"
+    }
+  ],
+  "mutations": [
+    {
+      "id": "reject-positive-source",
+      "target": "M01-control",
+      "baseline": "ALLOW",
+      "mutant": "REJECT",
+      "detected": true,
+      "kind": "regression mutation",
+      "sourceFile": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "rawOriginalSha256": "18a3318d954d2f2426ec715441fc159fca364cdb1b65011b449e94d0671dd00f",
+      "rawMutantSha256": "912d20af6bf00e34e2e7e82c964cad8e4e4b15d01e89a7c378b8284493c71246",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "7b6ac6648768c9f689a721f04becfc2921136da6385f1dbbf9cb10f8f09fe409"
+    },
+    {
+      "id": "remove-partial-isolation",
+      "target": "E-bucket-final-for-partial",
+      "baseline": "REJECT",
+      "mutant": "ALLOW",
+      "detected": true,
+      "kind": "regression mutation",
+      "sourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "rawOriginalSha256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+      "rawMutantSha256": "090e4473b2122749c549a39f49f2b9b4ea224ba54f7bcde4a951ad95cf5ad7a7",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "b43d60bc31d3359d03487090c0f474f922211cddbaec1bf409b2f0f6123ed9ca"
+    },
+    {
+      "id": "remove-identity-account",
+      "target": "M02-independent-accountLogin",
+      "baseline": "REJECT",
+      "mutant": "ALLOW",
+      "detected": true,
+      "kind": "regression mutation",
+      "sourceFile": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+      "rawOriginalSha256": "f36029a3f62cf3d245962ea18d408555d507851e9a5e9e1e9d11c5868a28f17d",
+      "rawMutantSha256": "bf77ed69d227d9cf1238e7ba32e33531630833bd1b73dc2747954c2674f109dd",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "3df07ee7be830305ab5f8520d4d83fd2d7b8441a9eb6d62306d68a8fc00d7fd5"
+    },
+    {
+      "id": "remove-consumption-history",
+      "target": "M01-exact-replay",
+      "baseline": "NO_OP",
+      "mutant": "ALLOW",
+      "detected": true,
+      "kind": "regression mutation",
+      "sourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "rawOriginalSha256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d",
+      "rawMutantSha256": "f771f938b1756ad7910d2ecf97d208322d56a824353566760b4fb192d6ca5f62",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "b2106052e1a4cfff22313a6a9a2b16693f4f1c9c1502dea8b1206fe6b2c75f6b"
+    },
+    {
+      "id": "disable-economic-duplicate",
+      "target": "L01-control",
+      "baseline": "NO_OP",
+      "mutant": "CONFLICT",
+      "detected": true,
+      "kind": "regression mutation",
+      "sourceFile": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "rawOriginalSha256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4",
+      "rawMutantSha256": "32df9a4b7423b2310ca5a170c853d85f023f507c746530921a6302dfb037555f",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "38c3a8fad0f0f5326cbcbeb8074773fbed578478760ffde71434fec9c0f8e644"
+    },
+    {
+      "id": "disable-allocation-duplicate",
+      "target": "L02-control",
+      "baseline": "NO_OP",
+      "mutant": "CONFLICT",
+      "detected": true,
+      "kind": "regression mutation",
+      "sourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "rawOriginalSha256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+      "rawMutantSha256": "c45c43da0a6fc0f5a40d11b512e77d3e756ea8bd6ed5adc209ed4613ac262243",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "127d6bd9bac0995d630f75721ae64b8c130d3e291f1b961b6b06867eb592dd2a"
+    },
+    {
+      "id": "repair-m01-cross-binding",
+      "target": "M01-foreign-deal",
+      "baseline": "ALLOW",
+      "mutant": "REJECT",
+      "detected": true,
+      "kind": "repair sensitivity",
+      "sourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "rawOriginalSha256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d",
+      "rawMutantSha256": "702ec3578190ed00ddcfa678095a2b9b31561a2485f22b8e1d5618643db4155f",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "659e144a4423d9f11cec91c6b82b2321687de950d4a3f1aeac00c4c1577221ef"
+    },
+    {
+      "id": "repair-l01-components",
+      "target": "L01-components",
+      "baseline": "NO_OP",
+      "mutant": "CONFLICT",
+      "detected": true,
+      "kind": "repair sensitivity",
+      "sourceFile": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "rawOriginalSha256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4",
+      "rawMutantSha256": "0d4070a47f12f022858bbe89e584b62908ef045b939590f311c534d5c73c19dd",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "01593d611fdcc10ee4a1499520151c460b09f608b5128493c460ae6d8b2453dd"
+    },
+    {
+      "id": "repair-l02-buckets",
+      "target": "L02-bucket-permutation",
+      "baseline": "NO_OP",
+      "mutant": "CONFLICT",
+      "detected": true,
+      "kind": "repair sensitivity",
+      "sourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "rawOriginalSha256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+      "rawMutantSha256": "8118f90413d405f8c8f32a833d8ee78ff262863f5b7d559bc17f2a0c7fee9dbb",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "9fe977de1d553145203330cd1d71a6d4121430d3c3b7e27837779bd541d653c7"
+    },
+    {
+      "id": "repair-zero-core",
+      "target": "F-zero-core",
+      "baseline": "ALLOW",
+      "mutant": "REJECT",
+      "detected": true,
+      "kind": "repair sensitivity",
+      "sourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "rawOriginalSha256": "62b3b4a8d7a374e15b96b46a380e3c2f8f0e74aa57ae8749c0261ebab27a11f9",
+      "rawMutantSha256": "578887ef277ca6d2c817691e0d2a441326e0e8186310eabbda29661d5fcbb7b7",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "b0d9ec1fe8b1b18766ad0b991c8317092622276535e63a9aac66a03ef31fc7cf"
+    },
+    {
+      "id": "repair-m02-independent-expected",
+      "target": "M02-self-copy-accountLogin",
+      "baseline": "ALLOW",
+      "mutant": "REJECT",
+      "detected": true,
+      "kind": "repair sensitivity",
+      "sourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "rawOriginalSha256": "9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2",
+      "rawMutantSha256": "ccffce697063ede7364b7b118412ed7393055e42dfcf2f7e9c36d21f309ff671",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "52cb5c76058e3ce62a2039bb7ddaea50b6e86125e729cf4a82adacf18188182d"
+    },
+    {
+      "id": "m05-small-term-sensitivity",
+      "target": "M05-small-only",
+      "baseline": "10",
+      "mutant": "0",
+      "detected": true,
+      "kind": "diagnostic sensitivity",
+      "sourceFile": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "rawOriginalSha256": "f2038e34a8cc22d2e98cf870e479e6a3cbfe3d6edee64855ffb8784d1e5007fb",
+      "rawMutantSha256": "16d17fce0a6de116d1ac345a06f01e93ee1cd9b4de6f9ac1ca849033abf6b793",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "b4dd4a6dab28112ece588ee8995e21aef5f3c4e04c7da8bb229df7b6d585d5b0"
+    },
+    {
+      "id": "worst-policy-selection-sensitivity",
+      "target": "G-worst-contradictory-extrema",
+      "baseline": "1",
+      "mutant": "2",
+      "detected": true,
+      "kind": "diagnostic sensitivity",
+      "sourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "rawOriginalSha256": "7bea2c75eec23825d5cbcca82fa72022b73f8c1626f5ffbce30ac79d722b03a0",
+      "rawMutantSha256": "99f244cd8c6d42ef7fd5a9cd6438d37fb01287a42b50d5d75277dabe2f7f4a5c",
+      "originalSha256": "98124bf7c4db81a5ae2344c97b99d46c375abb31fb885fca38015fc852b953f0",
+      "mutantSha256": "78988cbf1e81ec74bfb15f94260e7d66ef01583fe0fea18b931acfa0f5e46e45"
+    }
+  ],
+  "normativeMismatchCount": 46,
+  "mql5Compile": "NOT_RUN",
+  "mql5Tests": "NOT_RUN",
+  "strategyTester": "NOT_RUN",
+  "brokerProof": "NOT_RUN",
+  "fullNewFarSelection": "NOT_RUN",
+  "durableRestart": "UNPROVEN",
+  "evidenceExecution": "PASS",
+  "moneyIntegrity": "FAIL",
+  "decisionStatus": "AWAITING_ADMIN_APPROVAL"
+}
