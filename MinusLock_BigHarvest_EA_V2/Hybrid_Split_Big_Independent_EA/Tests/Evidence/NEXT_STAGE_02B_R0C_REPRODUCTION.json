@@ -1,0 +1,1577 @@
+{
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0c_mutations.py",
+    "--reproduce",
+    "--output",
+    "Tests/Evidence/NEXT_STAGE_02B_R0C_REPRODUCTION.json"
+  ],
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-04T13:52:48.915117+00:00",
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_TESTS": "NOT_RUN",
+  "STRATEGY_TESTER": "NOT_RUN",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0c_contracts.py": "a7460581dadf86611571618191d775f3f580e00b41c9f76dc6f2812a4e4ea7d2",
+    "Tests/Static/check_hsbi_02b_r0c_mutations.py": "8c958458df69cebccfebc01b28f9a73959bc7bb2b1c5b7c86f3a7ad215dd372a"
+  },
+  "StartedUtc": "2026-11-04T13:52:48.549119+00:00",
+  "allFourConfirmed": true,
+  "brokerEvidence": "NOT_RUN",
+  "contractStatus": "PROPOSED",
+  "durableRestart": "UNPROVEN",
+  "eventBoolCollision": {
+    "first": "COMMITTED_IN_MEMORY",
+    "keys": [
+      "('B1', 'S1', 1, True)"
+    ],
+    "second": "CONFLICT"
+  },
+  "executedUtc": "2026-11-04T13:52:48.909924+00:00",
+  "fourMutations": [
+    {
+      "CausalTestID": "DIGEST-forged",
+      "ExactEdit": {
+        "after": "    pass",
+        "before": "    if request['proofDigest']!=digest(proof_bundle(record,allocation,expected)):return 'REJECT'"
+      },
+      "ExpectedMutant": "COMMITTED_IN_MEMORY",
+      "ExpectedOriginal": "REJECT",
+      "FindingID": "R0C-01",
+      "MutantNegative": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantPositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "3ead9621ffa2fd84024a98e1c81eacc869bf7ff27c0e1d996a85adbd1e6f48dd",
+      "MutationID": "proof-digest",
+      "OldSuiteFailed": 0,
+      "OldSuitePassed": 141,
+      "OriginalNegative": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalSourceHash": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "classification": "CONFIRMED",
+      "scope": "disposable R0B Python copy, no production mutation"
+    },
+    {
+      "CausalTestID": "RAW-net-mismatch",
+      "ExactEdit": {
+        "after": "    pass",
+        "before": "    if raw!=number(record['rawNet']):return 'CONFLICT'"
+      },
+      "ExpectedMutant": "COMMITTED_IN_MEMORY",
+      "ExpectedOriginal": "CONFLICT",
+      "FindingID": "R0C-01",
+      "MutantNegative": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantPositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "15b1aa3128fc900d91dcb5540fe4a2a7e1980a37464001b6f011e7d20425f263",
+      "MutationID": "raw-sum",
+      "OldSuiteFailed": 0,
+      "OldSuitePassed": 141,
+      "OriginalNegative": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalSourceHash": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "classification": "CONFIRMED",
+      "scope": "disposable R0B Python copy, no production mutation"
+    },
+    {
+      "CausalTestID": "POSTED-net-mismatch",
+      "ExactEdit": {
+        "after": "    pass",
+        "before": "    if max(Decimal(0),actual)!=state['net']:return 'CONFLICT'"
+      },
+      "ExpectedMutant": "COMMITTED_IN_MEMORY",
+      "ExpectedOriginal": "CONFLICT",
+      "FindingID": "R0C-01",
+      "MutantNegative": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantPositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "533bafc7608402532a3ba72faf51a9ea1cfe10880675631aab5df4096b5126e7",
+      "MutationID": "posted-net",
+      "OldSuiteFailed": 0,
+      "OldSuitePassed": 141,
+      "OriginalNegative": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalSourceHash": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "classification": "CONFIRMED",
+      "scope": "disposable R0B Python copy, no production mutation"
+    },
+    {
+      "CausalTestID": "RECORD-Magic",
+      "ExactEdit": {
+        "after": "    pass",
+        "before": "    if any(record['identity'][k]!=expected[k] for k in ('Broker','Server','Account','Symbol','Magic','Deal','Order','Position','Cycle')):\n        return 'REJECT'"
+      },
+      "ExpectedMutant": "COMMITTED_IN_MEMORY",
+      "ExpectedOriginal": "REJECT",
+      "FindingID": "R0C-01",
+      "MutantNegative": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantPositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "21cbeec04e674951a6591028ac1ed8d2004eebe2001816da5b2ccf0102bc19e8",
+      "MutationID": "record-identity",
+      "OldSuiteFailed": 0,
+      "OldSuitePassed": 141,
+      "OriginalNegative": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalSourceHash": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "classification": "CONFIRMED",
+      "scope": "disposable R0B Python copy, no production mutation"
+    }
+  ],
+  "harnessRegression": {
+    "alias": {
+      "correctTestCapturesBeforeFirstCall": true,
+      "exactEdit": "deep copies -> aliases",
+      "oldPatternFalsePass": true,
+      "oldPatternSecondStatus": "NO_OP",
+      "originalInputsChangedOnFirstCall": true
+    },
+    "eventType": {
+      "fullSuiteOutcome": "INFRASTRUCTURE_ERROR:TypeError",
+      "interpretation": "full-suite exception is never a kill; isolated causal True-vector permits semantic detection",
+      "isolatedTrueOutcome": "COMMITTED_IN_MEMORY"
+    }
+  },
+  "observations": [
+    {
+      "FindingID": "R0C-02",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "snapshot-id",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-02",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "snapshot-missing",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-02",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "snapshot-zero",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-02",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "snapshot-bool",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-02",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "snapshot-content",
+      "classification": "UNPROVEN",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-02",
+      "MathematicalExpected": "UNAVAILABLE",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "case": "snapshot-expired",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-05",
+      "MathematicalExpected": "UNAVAILABLE",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "history-future",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "event-True",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "case": "event-False",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "case": "event-0",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "case": "event--1",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "ValueError",
+        "inputsUnchanged": true,
+        "message": "float in payload",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "event-1.5",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "TypeError",
+        "inputsUnchanged": true,
+        "message": "'<=' not supported between instances of 'str' and 'int'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "event-'41'",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "TypeError",
+        "inputsUnchanged": true,
+        "message": "'<=' not supported between instances of 'NoneType' and 'int'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "event-None",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "event-18446744073709551616",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "COMMITTED_IN_MEMORY",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "event-1",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-03",
+      "MathematicalExpected": "COMMITTED_IN_MEMORY",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "event-18446744073709551615",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "KeyError",
+        "inputsUnchanged": true,
+        "message": "'event'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "missing-event",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "KeyError",
+        "inputsUnchanged": true,
+        "message": "'identity'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "missing-identity",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "KeyError",
+        "inputsUnchanged": true,
+        "message": "'Plan'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "missing-plan",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "KeyError",
+        "inputsUnchanged": true,
+        "message": "'receipt'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "missing-receipt",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "KeyError",
+        "inputsUnchanged": true,
+        "message": "'posted'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "missing-posted",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "case": "missing-allocation",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "KeyError",
+        "inputsUnchanged": true,
+        "message": "'revision'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "state-type",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "AttributeError",
+        "inputsUnchanged": true,
+        "message": "'list' object has no attribute 'get'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "history-type",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "journal-type",
+      "classification": "UNPROVEN",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "case": "money-nan",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "InvalidOperation",
+        "inputsUnchanged": true,
+        "message": "[<class 'decimal.ConversionSyntax'>]",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "money-invalid",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-05",
+      "MathematicalExpected": "COMMITTED_IN_MEMORY",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "history-max-age",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-05",
+      "MathematicalExpected": "UNAVAILABLE",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "50",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "case": "history-too-old",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-05",
+      "MathematicalExpected": "REJECT",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "errorType": "KeyError",
+        "inputsUnchanged": true,
+        "message": "'historyObservedAt'",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "history-missing-time",
+      "classification": "CONFIRMED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-05",
+      "MathematicalExpected": "COMMITTED_IN_MEMORY",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "snapshot-end",
+      "classification": "NOT_REPRODUCED",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-05",
+      "MathematicalExpected": "UNAVAILABLE",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "unknown-clock-domain",
+      "classification": "UNPROVEN",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-05",
+      "MathematicalExpected": "UNAVAILABLE",
+      "PositiveControl": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "actual": {
+        "authorityUnchanged": false,
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": {
+          "Carry": "0",
+          "FinalReserve": "40",
+          "PartialFar": "0",
+          "ResidualHeld": "0",
+          "Transition": "0"
+        },
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "case": "unknown-time-unit",
+      "classification": "UNPROVEN",
+      "interpretation": "CONFIRMED denotes a counterexample; NOT_REPRODUCED denotes correct rejection/control for this input, not dismissal of whole finding",
+      "proofBoundary": "R0B fixture API only; unsupported content/clock metadata has no independent contract in frozen schema"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "actual": {
+        "errorType": "TypeError",
+        "inputsUnchanged": true,
+        "message": "list indices must be integers or slices, not str",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "wrong-type-state",
+      "classification": "CONFIRMED",
+      "proofBoundary": "R0B malformed DTO boundary"
+    },
+    {
+      "FindingID": "R0C-04",
+      "MathematicalExpected": "REJECT",
+      "actual": {
+        "errorType": "TypeError",
+        "inputsUnchanged": true,
+        "message": "list indices must be integers or slices, not tuple",
+        "status": "UNHANDLED_INPUT_ERROR"
+      },
+      "case": "wrong-type-journal",
+      "classification": "CONFIRMED",
+      "proofBoundary": "R0B malformed DTO boundary"
+    }
+  ],
+  "scannerReview": {
+    "check": "SCAN-ESCAPING-HYPOTHESIS",
+    "classification": "NOT_REPRODUCED",
+    "interpretation": "AST-literal проверка: предположение о неверном escaping опровергнуто, если oldScannerMatches=True. Новый R0C scan дополнительно имеет 7 positive/3 negative controls.",
+    "oldPattern": "\\b(OrderSend|OrderSendAsync|CTrade|PositionOpen|PositionClose|TRADE_ACTION_\\w*|OnTradeTransaction)\\b",
+    "oldScannerMatches": true,
+    "positivePayload": "OrderSend(request,result);"
+  },
+  "snapshotContentR0B": "UNPROVEN: no content receipt in frozen schema",
+  "testedSHA": "8903f7ba5d376dc642024ac8ab4400b884466c55"
+}

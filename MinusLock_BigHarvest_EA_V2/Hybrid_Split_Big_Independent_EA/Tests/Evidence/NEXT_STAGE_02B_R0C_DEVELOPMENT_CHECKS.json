@@ -1,0 +1,6633 @@
+{
+  "initialTests": {
+    "MQL5_COMPILE": "NOT_RUN",
+    "MQL5_TESTS": "NOT_RUN",
+    "STRATEGY_TESTER": "NOT_RUN",
+    "assertions": 551,
+    "brokerEvidence": "NOT_RUN",
+    "contractStatus": "PROPOSED",
+    "durableRestart": "UNPROVEN",
+    "executedUtc": "2026-11-04T13:33:41.194565+00:00",
+    "failed": 4,
+    "passed": 132,
+    "scenarios": 136,
+    "sourceHashes": {
+      "Tests/Reference/hsbi_02b_r0c_independent_oracle.py": "e56743a9e28a18fda97abb18ddfc725b160543112e31d1e9949f0f463ff9c331"
+    },
+    "testedSHA": "8903f7ba5d376dc642024ac8ab4400b884466c55",
+    "tests": [
+      {
+        "actual": [
+          "COMMITTED_IN_MEMORY",
+          {
+            "allocation": "A1",
+            "consumed": {
+              "Carry": "0",
+              "FinalReserve": "10",
+              "PartialFar": "0",
+              "ResidualHeld": "0",
+              "Transition": "0"
+            },
+            "currency": "USD",
+            "digits": 2,
+            "grant": {
+              "Carry": "0",
+              "FinalReserve": "50",
+              "PartialFar": "0",
+              "ResidualHeld": "0",
+              "Transition": "0"
+            },
+            "net": "50",
+            "phase": "COMMITTED",
+            "remaining": {
+              "Carry": "0",
+              "FinalReserve": "40",
+              "PartialFar": "0",
+              "ResidualHeld": "0",
+              "Transition": "0"
+            },
+            "reserved": {
+              "Carry": "0",
+              "FinalReserve": "0",
+              "PartialFar": "0",
+              "ResidualHeld": "0",
+              "Transition": "0"
+            },
+            "revision": 2,
+            "source": [
+              "B1",
+              "S1",
+              1,
+              11
+            ],
+            "unallocated": "0"
+          }
+        ],
+        "assertions": 1,
+        "expected": [
+          "COMMITTED_IN_MEMORY",
+          {
+            "allocation": "A1",
+            "consumed": {
+              "Carry": "0",
+              "FinalReserve": "10",
+              "PartialFar": "0",
+              "ResidualHeld": "0",
+              "Transition": "0"
+            },
+            "currency": "USD",
+            "digits": 2,
+            "grant": {
+              "Carry": "0",
+              "FinalReserve": "50",
+              "PartialFar": "0",
+              "ResidualHeld": "0",
+              "Transition": "0"
+            },
+            "net": "50",
+            "phase": "COMMITTED",
+            "remaining": {
+              "Carry": "0",
+              "FinalReserve": "40",
+              "PartialFar": "0",
+              "ResidualHeld": "0",
+              "Transition": "0"
+            },
+            "reserved": {
+              "Carry": "0",
+              "FinalReserve": "0",
+              "PartialFar": "0",
+              "ResidualHeld": "0",
+              "Transition": "0"
+            },
+            "revision": 2,
+            "source": [
+              "B1",
+              "S1",
+              1,
+              11
+            ],
+            "unallocated": "0"
+          }
+        ],
+        "group": "CONTROL",
+        "id": "CONTROL-commit",
+        "result": "PASS"
+      },
+      {
+        "actual": "ELIGIBLE_FOR_COMMIT",
+        "assertions": 1,
+        "expected": "ELIGIBLE_FOR_COMMIT",
+        "group": "CONTROL",
+        "id": "CONTROL-eligibility",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Broker",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Server",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Account",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Symbol",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Magic",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Deal",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Order",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Position",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Cycle",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-Plan",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-StateRevision",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-AllocationEvent",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-PolicyVersion",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "IDENTITY-SnapshotID",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Broker",
+        "result": "FAIL"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Server",
+        "result": "FAIL"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Account",
+        "result": "FAIL"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Symbol",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Magic",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Deal",
+        "result": "FAIL"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Order",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Position",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RECORD-Cycle",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "DIGEST-forged",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "RAW-net-mismatch",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "POSTED-net-mismatch",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "COMPONENT-profit",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "COMPONENT-swap",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "COMPONENT-commission",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "COMPONENT-fee",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SNAPSHOT-id",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SNAPSHOT-invalid-0",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SNAPSHOT-invalid-True",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SNAPSHOT-invalid-None",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SNAPSHOT-missing-id",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SNAPSHOT-unknown",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SNAPSHOT-content",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SNAPSHOT-expired",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "EVENT-invalid-True",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "EVENT-invalid-False",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "EVENT-invalid-0",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "EVENT-invalid--1",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "EVENT-invalid-1.5",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "EVENT-invalid-'41'",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "EVENT-invalid-None",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "EVENT-invalid-18446744073709551616",
+        "result": "PASS"
+      },
+      {
+        "actual": "COMMITTED_IN_MEMORY",
+        "assertions": 1,
+        "expected": "COMMITTED_IN_MEMORY",
+        "group": "EVENT",
+        "id": "EVENT-boundary-1",
+        "result": "PASS"
+      },
+      {
+        "actual": "COMMITTED_IN_MEMORY",
+        "assertions": 1,
+        "expected": "COMMITTED_IN_MEMORY",
+        "group": "EVENT",
+        "id": "EVENT-boundary-18446744073709551615",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ID-domain-Account-9223372036854775808",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ID-domain-Account-True",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ID-domain-Magic-0",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ID-domain-Magic-9223372036854775808",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ID-domain-Deal-18446744073709551616",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ID-domain-Plan-True",
+        "result": "PASS"
+      },
+      {
+        "actual": "ELIGIBLE_FOR_COMMIT",
+        "assertions": 1,
+        "expected": "ELIGIBLE_FOR_COMMIT",
+        "group": "DOMAIN",
+        "id": "ID-negative-magic",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MISSING-event",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MISSING-identity",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MISSING-identity.Plan",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MISSING-receipt",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MISSING-posted",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MISSING-allocation",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MONEY-invalid-Decimal('NaN')",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MONEY-invalid-Decimal('Infinity')",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MONEY-invalid-'bad'",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MONEY-invalid-None",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MONEY-invalid-True",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "MONEY-invalid-1.5",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "DTO-type-state",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "DTO-type-journal",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "DTO-type-history",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "AUTHORITY-none",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "JOURNAL-none",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "HISTORY-none",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "HISTORY-empty",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "AUTHORITY-incomplete",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "JOURNAL-incomplete",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "TIME-future",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "TIME-too-old",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "TIME-missing",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "TIME-domain",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "TIME-unit",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "UNAVAILABLE",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "TIME-snapshot-domain",
+        "result": "PASS"
+      },
+      {
+        "actual": "ELIGIBLE_FOR_COMMIT",
+        "assertions": 1,
+        "expected": "ELIGIBLE_FOR_COMMIT",
+        "group": "TIME",
+        "id": "TIME-control-max-age",
+        "result": "PASS"
+      },
+      {
+        "actual": "ELIGIBLE_FOR_COMMIT",
+        "assertions": 1,
+        "expected": "ELIGIBLE_FOR_COMMIT",
+        "group": "TIME",
+        "id": "TIME-control-snapshot-end",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ALLOCATION-internal",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ALLOCATION-state",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ALLOCATION-source",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ALLOCATION-event",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ALLOCATION-policy",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "ALLOCATION-vector",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "BALANCE-sum",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "BALANCE-consumed",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "BALANCE-reserved",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "BALANCE-negative",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "BALANCE-prepared",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "AMOUNT-precision",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "AMOUNT-exceeds",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SOURCE-unconfirmed",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SOURCE-role",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "CURRENCY",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "PRECISION-metadata",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "BUCKET-forbidden",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "PURPOSE-forbidden",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "NO_OP",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "NO_OP",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "REPLAY-exact",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "NO_OP",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "NO_OP",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "REPLAY-revision-policy-snapshot",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "CONFLICT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "REPLAY-changed",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "COMMITTED_IN_MEMORY",
+          "0",
+          "50",
+          3
+        ],
+        "assertions": 4,
+        "expected": [
+          "COMMITTED_IN_MEMORY",
+          "0",
+          "50",
+          3
+        ],
+        "group": "SPEND",
+        "id": "SPEND-full",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "NO_OP",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "NO_OP",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SPEND-full-replay",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "assertions": 5,
+        "expected": [
+          "REJECT",
+          true,
+          true,
+          true,
+          true
+        ],
+        "group": "BOUNDARY",
+        "id": "SPEND-no-reuse",
+        "result": "PASS"
+      },
+      {
+        "actual": true,
+        "assertions": 1,
+        "expected": true,
+        "group": "ATOMICITY",
+        "id": "APPLY-input-unchanged",
+        "result": "PASS"
+      },
+      {
+        "actual": "0",
+        "assertions": 1,
+        "expected": "0",
+        "group": "MONEY",
+        "id": "ALLOC-0",
+        "result": "PASS"
+      },
+      {
+        "actual": "0",
+        "assertions": 1,
+        "expected": "0",
+        "group": "MONEY",
+        "id": "ALLOC--15",
+        "result": "PASS"
+      },
+      {
+        "actual": "50",
+        "assertions": 1,
+        "expected": "50",
+        "group": "MONEY",
+        "id": "ALLOC-50",
+        "result": "PASS"
+      },
+      {
+        "actual": "0.01",
+        "assertions": 1,
+        "expected": "0.01",
+        "group": "MONEY",
+        "id": "ALLOC-residual",
+        "result": "PASS"
+      },
+      {
+        "actual": "1",
+        "assertions": 1,
+        "expected": "1",
+        "group": "MONEY",
+        "id": "ROUND-1.005",
+        "result": "PASS"
+      },
+      {
+        "actual": "1.02",
+        "assertions": 1,
+        "expected": "1.02",
+        "group": "MONEY",
+        "id": "ROUND-1.015",
+        "result": "PASS"
+      },
+      {
+        "actual": "-1.02",
+        "assertions": 1,
+        "expected": "-1.02",
+        "group": "MONEY",
+        "id": "ROUND--1.015",
+        "result": "PASS"
+      },
+      {
+        "actual": "2",
+        "assertions": 1,
+        "expected": "2",
+        "group": "MONEY",
+        "id": "ROUND-1.5",
+        "result": "PASS"
+      },
+      {
+        "actual": "1.002",
+        "assertions": 1,
+        "expected": "1.002",
+        "group": "MONEY",
+        "id": "ROUND-1.0015",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "POSTED",
+          "1.01"
+        ],
+        "assertions": 1,
+        "expected": [
+          "POSTED",
+          "1.01"
+        ],
+        "group": "MONEY",
+        "id": "POSTING-A",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          null
+        ],
+        "assertions": 1,
+        "expected": [
+          "UNAVAILABLE",
+          null
+        ],
+        "group": "MONEY",
+        "id": "POSTING-B",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "UNAVAILABLE",
+          null
+        ],
+        "assertions": 1,
+        "expected": [
+          "UNAVAILABLE",
+          null
+        ],
+        "group": "MONEY",
+        "id": "POSTING-C",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "REJECT",
+          2,
+          "-16"
+        ],
+        "assertions": 1,
+        "expected": [
+          "REJECT",
+          2,
+          "-16"
+        ],
+        "group": "CR09",
+        "id": "CR09-A",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "SINGLE_LEVEL_POSITIVE",
+          1,
+          "29"
+        ],
+        "assertions": 1,
+        "expected": [
+          "SINGLE_LEVEL_POSITIVE",
+          1,
+          "29"
+        ],
+        "group": "CR09",
+        "id": "CR09-B",
+        "result": "PASS"
+      },
+      {
+        "actual": [
+          "ALL_LEVEL_POSITIVE",
+          2,
+          "19"
+        ],
+        "assertions": 1,
+        "expected": [
+          "ALL_LEVEL_POSITIVE",
+          2,
+          "19"
+        ],
+        "group": "CR09",
+        "id": "CR09-all-positive",
+        "result": "PASS"
+      },
+      {
+        "actual": "UNPROVEN",
+        "assertions": 1,
+        "expected": "UNPROVEN",
+        "group": "CR09",
+        "id": "CR09-missing",
+        "result": "PASS"
+      },
+      {
+        "actual": "0",
+        "assertions": 1,
+        "expected": "0",
+        "group": "CR09",
+        "id": "SEQUENTIAL-exhaust",
+        "result": "PASS"
+      },
+      {
+        "actual": "REJECT",
+        "assertions": 1,
+        "expected": "REJECT",
+        "group": "CR09",
+        "id": "SEQUENTIAL-no-reuse",
+        "result": "PASS"
+      },
+      {
+        "actual": "UNPROVEN",
+        "assertions": 1,
+        "expected": "UNPROVEN",
+        "group": "CR09",
+        "id": "SEQUENTIAL-unknown",
+        "result": "PASS"
+      },
+      {
+        "actual": "REJECT",
+        "assertions": 1,
+        "expected": "REJECT",
+        "group": "GEOMETRY",
+        "id": "CORE-zero",
+        "result": "PASS"
+      },
+      {
+        "actual": "GEOMETRY_ONLY",
+        "assertions": 1,
+        "expected": "GEOMETRY_ONLY",
+        "group": "GEOMETRY",
+        "id": "CORE-min",
+        "result": "PASS"
+      },
+      {
+        "actual": "UNPROVEN",
+        "assertions": 1,
+        "expected": "UNPROVEN",
+        "group": "GEOMETRY",
+        "id": "CORE-unknown-grid",
+        "result": "PASS"
+      },
+      {
+        "actual": "VISIBLE_INTERNAL_ERROR",
+        "assertions": 1,
+        "expected": "VISIBLE_INTERNAL_ERROR",
+        "group": "ATOMICITY",
+        "id": "INTERNAL-error-visible",
+        "result": "PASS"
+      },
+      {
+        "actual": true,
+        "assertions": 1,
+        "expected": true,
+        "group": "ATOMICITY",
+        "id": "INTERNAL-error-inputs-unchanged",
+        "result": "PASS"
+      }
+    ]
+  },
+  "reason": "Четыре ожидаемых REJECT уточнены до CONFLICT: namespace/deal payload против lookup key. Модель не подгонялась под неверные expected.",
+  "initialMutationRun": {
+    "MQL5_COMPILE": "NOT_RUN",
+    "MQL5_TESTS": "NOT_RUN",
+    "STRATEGY_TESTER": "NOT_RUN",
+    "brokerEvidence": "NOT_RUN",
+    "catalogSize": 28,
+    "contractStatus": "PROPOSED",
+    "durableRestart": "UNPROVEN",
+    "executedUtc": "2026-11-04T13:36:47.783910+00:00",
+    "infrastructureErrors": 1,
+    "killed": 26,
+    "mutations": [
+      {
+        "CausalTestID": "IDENTITY-Account",
+        "ExactEdit": [
+          {
+            "after": "if any(request['identity'][k]!=expected[k] for k in ('Broker','Server')):return 'REJECT'",
+            "before": "if any(request['identity'][k]!=expected[k] for k in ('Broker','Server','Account')):return 'REJECT'"
+          },
+          {
+            "after": "if any(request['identity'][k]!=expected[k] for k in ID_FIELDS if k!='Account'):return 'REJECT'",
+            "before": "if any(request['identity'][k]!=expected[k] for k in ID_FIELDS):return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "IDENTITY-Account",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "f335b033f036a14dce0d3ea6debeb4ff97207b8a50ee3ed728f3d9227b13157b",
+        "MutationID": "account",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "IDENTITY-Account",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "IDENTITY-Plan",
+        "ExactEdit": [
+          {
+            "after": "for k in ID_FIELDS if k!='Plan'):return 'REJECT'",
+            "before": "for k in ID_FIELDS):return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "IDENTITY-Plan",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "9cb24072806f7b9f1c58938beb253b01ea76b55eddbaf411a3876f1ef5394c13",
+        "MutationID": "plan",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "IDENTITY-Plan",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "REVISION-state",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if request['identity']['StateRevision']!=state['revision']:return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "REVISION-state",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "8b93632b0dbdc8ac85af1b3e6d6e48870009b84d2ebda5ed456ffe8ad89980e7",
+        "MutationID": "revision",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "REVISION-state",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "ALLOCATION-source",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if state['source']!=allocation['source']:return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "ALLOCATION-source",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "e6c4980dbb9e9b39c3020db9f42cf2a49f6ee234d054dc463280b682a5cbb6e6",
+        "MutationID": "source",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "ALLOCATION-source",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "ALLOCATION-state",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if state['allocation']!=request['allocation']:return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "ALLOCATION-state",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "648ad649b5408a91e391c30469d11c29b142193a17ca727a6d6d56ea4dbc458e",
+        "MutationID": "allocation",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "ALLOCATION-state",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "ALLOCATION-vector",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'CONFLICT'",
+            "before": "if state['grant']!=allocation['grant']:return 'CONFLICT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "ALLOCATION-vector",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "8023782c1fd3f52248f362a5caaf4f7aca166aa38c7a48822e926da2c5e1fa36",
+        "MutationID": "bucket-vector",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "ALLOCATION-vector",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "AMOUNT-precision",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if amount.quantize(unit(state['digits']))!=amount:return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "AMOUNT-precision",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "e85a84f4997bdefdeffdbf98bab99af744ebec39d59f4b4aed3d39f9a422c659",
+        "MutationID": "precision",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "AMOUNT-precision",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "BALANCE-sum",
+        "ExactEdit": [
+          {
+            "after": "if False:return False",
+            "before": "if sum(g.values())+state['unallocated']!=state['net']:return False"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "BALANCE-sum",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "7f784bf210871dd234cbaa26021c8024b6fd17e3e36cf583bb7b3f4ad0c3af02",
+        "MutationID": "grant-sum",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "BALANCE-sum",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "BALANCE-reserved",
+        "ExactEdit": [
+          {
+            "after": "if False:return False",
+            "before": "if v[b]>r[b]:return False"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "BALANCE-reserved",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "6dec12090a8704fda903245f2b480b65276ed137c5f7dadd56af5ab1df14b7ad",
+        "MutationID": "reserved",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "BALANCE-reserved",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "BALANCE-consumed",
+        "ExactEdit": [
+          {
+            "after": "if False:return False",
+            "before": "if r[b]+c[b]!=g[b]:return False"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "BALANCE-consumed",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "62ff362770a1e62e2a5de96bef9b4cbc263a3a1b5c9aa5bb3cd4d386e2646c70",
+        "MutationID": "consumed",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "BALANCE-consumed",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "REPLAY-changed",
+        "ExactEdit": [
+          {
+            "after": "return 'NO_OP'",
+            "before": "return 'NO_OP' if journal[ek]==canonical(request) else 'CONFLICT'  # GUARD:replay"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "NO_OP",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "REPLAY-changed",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "136ba442fc1f26e26e6d931deefbe836dfc73ecb2b9548379c7cacb90bc445f5",
+        "MutationID": "replay",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "REPLAY-changed",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "HISTORY-empty",
+        "ExactEdit": [
+          {
+            "after": "if record is None:return 'ELIGIBLE_FOR_COMMIT'",
+            "before": "if record is None:return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "HISTORY-empty",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "476bc4fd05d6a540b839cf90474b9dbdfc4568de47eab5597083afc0376eaf77",
+        "MutationID": "history",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "HISTORY-empty",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "SOURCE-unconfirmed",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if not record['closingConfirmed']:return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SOURCE-unconfirmed",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "91b1354dd267c38fbe725fc48bc525267a30a9a8bde6a77d1b5873a002a49a81",
+        "MutationID": "confirmed",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SOURCE-unconfirmed",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "SNAPSHOT-expired",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'UNAVAILABLE'",
+            "before": "if now>snapshot['validUntil']:return 'UNAVAILABLE'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SNAPSHOT-expired",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "53fc74f9487f0163dc777f43ea6ee56b23b2b6592ef294418867b9c02047f529",
+        "MutationID": "freshness",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SNAPSHOT-expired",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "SOURCE-role",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if record['role'] not in ('BigCore','BigTrend'):return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SOURCE-role",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "7252809acaebbeddae9d46792f357aabc3af6ed3b019aff75c823a97d01c7a40",
+        "MutationID": "role",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SOURCE-role",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "DIGEST-forged",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if request['proofDigest']!=digest(proof_bundle(record,allocation,expected)):return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "DIGEST-forged",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "e21932e29cd4c2f4c50e455d26b8994f18e4c8d0e8b8d376588d02e4f4f99404",
+        "MutationID": "proof-digest",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "DIGEST-forged",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "RAW-net-mismatch",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'CONFLICT'",
+            "before": "if raw!=number(record['rawNet']):return 'CONFLICT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "RAW-net-mismatch",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "bfcb019b81933af7dfa47d55b1b5207fa950a074bc8cd1e4bdc9c88103487b3a",
+        "MutationID": "raw-sum",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "RAW-net-mismatch",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "POSTED-net-mismatch",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'CONFLICT'",
+            "before": "if max(Decimal(0),actual)!=state['net']:return 'CONFLICT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "POSTED-net-mismatch",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "c061a60b8f118500a9f7cac187c2018399cf9638b5ed98acd44da732c7270ba8",
+        "MutationID": "posted-net",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "POSTED-net-mismatch",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "RECORD-Magic",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if any(record['identity'][k]!=expected[k] for k in ('Broker','Server','Account','Symbol','Magic','Deal','Order','Position','Cycle')):return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "RECORD-Magic",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "192da7139ed1c7bad61372d574b9eb6eb2d054ea213a0c50b7bba2123c4f4a21",
+        "MutationID": "record-identity",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "RECORD-Magic",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "SNAPSHOT-id",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if snapshot['id']!=expected['SnapshotID']:return 'REJECT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SNAPSHOT-id",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "cd7166de5dd865cebec91c4690dd820f1e9000fb64a1514784f752d36a3a93db",
+        "MutationID": "snapshot-id",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SNAPSHOT-id",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "SNAPSHOT-content",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'CONFLICT'",
+            "before": "if canonical(snapshot)!=receipt:return 'CONFLICT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SNAPSHOT-content",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "eff138b6ce0d14a81d5ac01f8f13dbe10ad30fb44e008f7feabec98f8fc47694",
+        "MutationID": "snapshot-content",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "SNAPSHOT-content",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "EVENT-invalid-True",
+        "ExactEdit": [
+          {
+            "after": "require(True)",
+            "before": "require(type(request['event']) is int)"
+          }
+        ],
+        "MutantSourceHash": "68278ecc8bff5a10371b07dfdb4d56be8281224b7cd09e53b7ced6e6fdb71304",
+        "MutationID": "event-type",
+        "MutationVerdict": "INFRASTRUCTURE_ERROR",
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape",
+        "errorType": "TypeError",
+        "message": "'<=' not supported between instances of 'int' and 'str'"
+      },
+      {
+        "CausalTestID": "EVENT-invalid-18446744073709551616",
+        "ExactEdit": [
+          {
+            "after": "require(True)",
+            "before": "require(1<=request['event']<=2**64-1)"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "EVENT-invalid-18446744073709551616",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "822b9eb862e0857df9901ce3e94c165485b1f3d87a6ea294179f297d9dbc2958",
+        "MutationID": "event-range",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "EVENT-invalid-18446744073709551616",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "TIME-future",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'UNAVAILABLE'",
+            "before": "if authority['historyObservedAt']>now:return 'UNAVAILABLE'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "TIME-future",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "04063f2e5cafd4ab8e1c1f1a2d3f0c7871469207c2bc507f228d7e7fc1c01d69",
+        "MutationID": "future",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "TIME-future",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "MISSING-event",
+        "ExactEdit": [
+          {
+            "after": "    if type(request) is dict and 'event' not in request:request['event']=41\n    request_shape(request)  # GUARD:request-shape",
+            "before": "    request_shape(request)  # GUARD:request-shape"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            false
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "MISSING-event",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "333d8abaaaf1bd624afdecd256a2be78893f467d864a7ee936a186cb19f6468f",
+        "MutationID": "missing-field-default",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "REJECT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "MISSING-event",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "APPLY-input-unchanged",
+        "ExactEdit": [
+          {
+            "after": "s,j,a=state,journal,authority",
+            "before": "s,j,a=copy.deepcopy(state),copy.deepcopy(journal),copy.deepcopy(authority)"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": true,
+          "assertions": 1,
+          "expected": true,
+          "group": "ATOMICITY",
+          "id": "APPLY-input-unchanged",
+          "result": "PASS"
+        },
+        "MutantSourceHash": "a3c9f8769fd92341194681c3e8b8ad19fd6c39cf023ccf290cc63ceb4aac21c3",
+        "MutationID": "atomic-input",
+        "MutationVerdict": "MUTATION_SURVIVED",
+        "OriginalNegativeResult": {
+          "actual": true,
+          "assertions": 1,
+          "expected": true,
+          "group": "ATOMICITY",
+          "id": "APPLY-input-unchanged",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "apply_for_test"
+      },
+      {
+        "CausalTestID": "ALLOCATION-internal",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'CONFLICT'",
+            "before": "if allocation['allocation']!=request['allocation']:return 'CONFLICT'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "ALLOCATION-internal",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "dfbd3ccf67492bb7ecbc54994acf56de34c5d409ffa499e211ac2ce77bb82563",
+        "MutationID": "allocation-internal",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "CONFLICT",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "ALLOCATION-internal",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      },
+      {
+        "CausalTestID": "TIME-domain",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'UNAVAILABLE'",
+            "before": "if authority['clockDomain']!='FIXTURE_MONOTONIC' or authority['timeUnit']!='tick':return 'UNAVAILABLE'"
+          }
+        ],
+        "MutantNegativeResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            false,
+            false,
+            false,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "TIME-domain",
+          "result": "FAIL"
+        },
+        "MutantSourceHash": "78b87d1445521aaabefb1471358964219d85e3908a83907379ddcce6454d4715",
+        "MutationID": "time-domain",
+        "MutationVerdict": "MUTATION_KILLED",
+        "OriginalNegativeResult": {
+          "actual": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "assertions": 5,
+          "expected": [
+            "UNAVAILABLE",
+            true,
+            true,
+            true,
+            true
+          ],
+          "group": "BOUNDARY",
+          "id": "TIME-domain",
+          "result": "PASS"
+        },
+        "OriginalSourceHash": "9af36a1e8332192581c40d8803e2da5ae396e6b3840cc20d0ed2486df3f2b2ef",
+        "PositiveControlResult": {
+          "actual": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "assertions": 1,
+          "expected": [
+            "COMMITTED_IN_MEMORY",
+            {
+              "allocation": "A1",
+              "consumed": {
+                "Carry": "0",
+                "FinalReserve": "10",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "currency": "USD",
+              "digits": 2,
+              "grant": {
+                "Carry": "0",
+                "FinalReserve": "50",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "net": "50",
+              "phase": "COMMITTED",
+              "remaining": {
+                "Carry": "0",
+                "FinalReserve": "40",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "reserved": {
+                "Carry": "0",
+                "FinalReserve": "0",
+                "PartialFar": "0",
+                "ResidualHeld": "0",
+                "Transition": "0"
+              },
+              "revision": 2,
+              "source": [
+                "B1",
+                "S1",
+                1,
+                11
+              ],
+              "unallocated": "0"
+            }
+          ],
+          "group": "CONTROL",
+          "id": "CONTROL-commit",
+          "result": "PASS"
+        },
+        "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+        "TargetFunction": "authorize/balance/shape"
+      }
+    ],
+    "survived": 1,
+    "testedSHA": "8903f7ba5d376dc642024ac8ab4400b884466c55"
+  },
+  "mutationAdjustment": "event-type: full-suite executed other non-integer event variants after weakening and raised TypeError; now isolate causal True-vector. Alias assertion saved already mutated shared fixture. Current executable harnessRegression in REPRODUCTION proves false pass then fresh-fixture failure. Initial survivor/error retained."
+}
