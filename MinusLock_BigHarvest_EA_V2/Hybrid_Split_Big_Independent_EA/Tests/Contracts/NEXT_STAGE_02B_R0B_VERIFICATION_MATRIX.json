@@ -1,0 +1,2307 @@
+{
+  "schema": "HSBI.02B_R0B.VERIFICATION/1",
+  "baseSha": "9b43c38afdb89c6b3b514b654c7fb9a936f9bf2b",
+  "decisions": [
+    {
+      "DecisionID": "D-01",
+      "CurrentProductionBehavior": "AllocationLedger conservation использует <= и consumed<=available; ReserveAllocationSource имеет finite/nonnegative guard, но original/remaining semantics не разделены.",
+      "ExistingNormativeSources": [
+        "Docs/04:Allocation conservation",
+        "Docs/08:Allocation Ledger",
+        "Docs/32",
+        "CR-01/04/07/08"
+      ],
+      "ProposedContract": "ActualDealNetRaw=Profit+Swap+Commission+Fee с исходными знаками и без повторного вычитания costs. PostedActualDealNet — независимо подтверждённая posted сумма/сумма posted компонентов данного источника. Если брокерский posted факт неизвестен, локальный HALF_EVEN не создаёт actual resource. AllocatableActualDealNet=max(0,PostedActualDealNet) только для подтверждённого reconciled eligible closing source. Отрицательный/нулевой net даёт zero grant, сохраняя signed economic result. Для COMMITTED: Σ OriginalBucketGrant=AllocatableActualDealNet, Unallocated=0; для PREPARED: Σ Grant+Unallocated=AllocatableActualDealNet, расход запрещён. Для каждого bucket Remaining+Consumed=Grant, 0<=Reserved<=Remaining, Available=Remaining-Reserved. Consumed не является источником. Все суммы конечны, одной валюты и precision. Вариант B (не default), candidate PrecisionPolicy R0A-MONEY-1: decimal minor units, ROUND_HALF_EVEN один раз после суммы raw components; первые четыре shares округляются вниз, весь остаток — ResidualHeld. Policy должна быть утверждена и сверена с broker posting; несовпадение/неизвестная точность => UNAVAILABLE. ResidualHeld входит в сохранение денег, но не доступен потребителю; это не промежуточный Unallocated. Replay immutable grant сравнивает весь per-bucket vector, source, policy и schema. Balance меняется только отдельным consumption/reservation/release event. R0B рекомендует первичными broker-posted данные; local precision policy допустима только versioned, после source/account/currency-specific сверки с receipt. При mismatch либо неизвестной precision — UNAVAILABLE. Неатрибутированный actual debit/убыток требует независимой funding reconciliation: нельзя ни восстановить Consumed, ни списать случайный bucket; aggregate availability до сверки UNPROVEN/UNAVAILABLE.",
+      "Contradictions": "Docs/04,08 требуют equality; Docs/32 допускает <= и складывает consumed с неуточнёнными grants. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "При debit x: Remaining-=x, Consumed+=x, поэтому их сумма сохраняется. Reservation отдельно уменьшает Available, не Grant. Equality по каждому source не доказывает общесчётную solvency.",
+      "Counterexample": "Grant50, remaining40, consumed10; reserved5 => available35. Нераспределённые10 допустимы PREPARED, не COMMITTED.",
+      "MigrationImpact": "Новая schema: OriginalGrant/Consumed/Reserved/Remaining различаются. Старое reserveAllocated нельзя автоматически объявить original/remaining. Legacy с неизвестной полнотой => reconciliation, без spend.",
+      "TestCoverage": [
+        "EVENT-first",
+        "EVENT-full-consumed",
+        "GRANT-replay",
+        "GRANT-bucket-permutation",
+        "GRANT-altered-event",
+        "GRANT-altered-policyVersion",
+        "ALLOC-net-0",
+        "ALLOC-net--15",
+        "ALLOC-net-50",
+        "ALLOC-residual-cent",
+        "BALANCE-prepared",
+        "BALANCE-committed-unallocated"
+      ],
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "Broker-posted первично; approved local policy only after verification, otherwise UNAVAILABLE. Полные immutable grants; отдельные balances; промежуточный Unallocated недоступен.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "SourceFunction": "HSBI_ValidateAllocationConservation",
+      "SourceLine": 7,
+      "Alternatives": [
+        "Allocation F: full COMMITTED equality, partial only PREPARED (recommended)",
+        "Permanent partial COMMITTED: not supported without separate exact schema decision",
+        "A: broker-posted amounts/posted components with independent source receipt",
+        "B: versioned local precision policy after broker validation",
+        "C: UNAVAILABLE without sufficient data"
+      ]
+    },
+    {
+      "DecisionID": "D-02",
+      "CurrentProductionBehavior": "Basket.recoveryMoney=basketNetMoney — projected; MoneyState.valid/revision не проверяются локальным validator. Полного actual→authority pipeline нет.",
+      "ExistingNormativeSources": [
+        "Docs/04:RecoveryPL",
+        "Docs/24",
+        "Docs/27",
+        "Docs/31",
+        "CR-02/05/10"
+      ],
+      "ProposedContract": "Ввести ProjectedBasketNet, ProjectedCloseNowNet, ActualRealizedDealNet, ReconciledEconomicNet, AllocationGrant, AvailableReserve. Все имеют amount/currency/precision/schema и provenance reference; projected имеют market/cost/position snapshots, actual — confirmed history source, reconciled — independent reconciliation receipt, grant — committed allocation, available — текущий balance revision. ProjectedBasketNet/ProjectedCloseNowNet никогда не конвертируются напрямую в actual/grant/available. Источником actual является независимо прочитанное экономическое событие broker history; opening commissions/fees учитываются в economic result один раз, но harvest conversion требует eligible closing deal; actual→reconciled требует сравнения signed components и ownership; reconciled→grant — утверждённой role/allocation policy; grant→available — проверенного остатка с reservations. ProjectedCatchUpMargin — только прогнозная проверка, не authorization. AuthorizedCatchUpMargin использует подтверждённый AvailableReserve и выбранную D-04 loss metric. Ни один planning PASS не создаёт settled ресурс и не означает commit.",
+      "Contradictions": "Общее recoveryMoney может смешивать прогноз и доступный ресурс. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "Нет разрешённого перехода Projected→Grant: обязательное actual event/reconciliation отсутствует. Поэтому projected100 и actual0 не дают Available100.",
+      "Counterexample": "ProjectedBasketNet100, confirmed sources0 => allocated0/available0.",
+      "MigrationImpact": "Legacy projected без source receipt остаётся projected или UNAVAILABLE; никакой миграции через actual=true.",
+      "TestCoverage": [
+        "ID-control-Broker",
+        "ID-foreign-Broker",
+        "ID-control-Server",
+        "ID-foreign-Server",
+        "ID-control-Account",
+        "ID-foreign-Account",
+        "ID-control-Symbol",
+        "ID-foreign-Symbol",
+        "ID-control-Magic",
+        "ID-foreign-Magic",
+        "ID-control-Deal",
+        "ID-foreign-Deal",
+        "ID-control-Order",
+        "ID-foreign-Order",
+        "ID-control-Position",
+        "ID-foreign-Position",
+        "ID-control-Cycle",
+        "ID-foreign-Cycle",
+        "ID-control-Plan",
+        "ID-foreign-Plan",
+        "ID-control-StateRevision",
+        "ID-foreign-StateRevision",
+        "ID-control-AllocationEvent",
+        "ID-foreign-AllocationEvent",
+        "ID-control-PolicyVersion",
+        "ID-foreign-PolicyVersion",
+        "ID-control-SnapshotID",
+        "ID-foreign-SnapshotID",
+        "ID-bool-Account",
+        "ID-bool-Deal",
+        "ID-signed-Magic-control",
+        "EVENT-exact-revision-advanced",
+        "EVENT-altered-amount",
+        "EVENT-exact-policy-advanced",
+        "EVENT-altered-policy",
+        "EVENT-altered-Broker",
+        "EVENT-altered-Server",
+        "EVENT-altered-Account",
+        "EVENT-altered-Symbol",
+        "EVENT-altered-Magic",
+        "EVENT-altered-Deal",
+        "EVENT-altered-Order",
+        "EVENT-altered-Position",
+        "EVENT-altered-Cycle",
+        "EVENT-altered-Plan",
+        "EVENT-altered-StateRevision",
+        "EVENT-altered-AllocationEvent",
+        "EVENT-altered-PolicyVersion",
+        "EVENT-altered-SnapshotID",
+        "EVENT-full-replay",
+        "EVENT-spent-new",
+        "GUARD-state-revision",
+        "GUARD-state-source",
+        "GUARD-state-allocation",
+        "GUARD-amount-precision",
+        "GUARD-currency",
+        "GUARD-precision-metadata",
+        "GUARD-source-unconfirmed",
+        "GUARD-source-role",
+        "GUARD-snapshot-stale",
+        "GUARD-source-stale",
+        "GUARD-history-missing",
+        "GUARD-history-unavailable",
+        "GUARD-grant-vector",
+        "GUARD-reserved-other-bucket",
+        "GUARD-consumed-other-bucket",
+        "GUARD-sum-grants",
+        "GUARD-negative-remaining",
+        "GUARD-amount-NaN",
+        "GUARD-amount-Infinity",
+        "GUARD-incomplete-authority",
+        "GUARD-missing-registry",
+        "SOURCE-signed-components",
+        "GUARD-prepared-no-spend"
+      ],
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "Раздельные DTO, без неявного projected→actual/available.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "SourceFunction": "HSBI_EvaluateBasketMoney",
+      "SourceLine": 11,
+      "Alternatives": [
+        "Один double с флагами",
+        "Раздельные DTO и явные conversion gates"
+      ]
+    },
+    {
+      "DecisionID": "D-03",
+      "CurrentProductionBehavior": "Basket.reserveGainMoney=max(0,Core+Trend+Small); ReserveSourceProof отдельно разрешает Core/Trend. Actual Small funding через full NewFar не доказан.",
+      "ExistingNormativeSources": [
+        "Docs/08:Isolation",
+        "Docs/31",
+        "CR-10",
+        "M05-small-only"
+      ],
+      "ProposedContract": "Разделить AggregateBasketGain, ProjectedReserveCandidate, ActualEligibleReserveSource, CommittedReserveGrant и AvailableReserve. BigCore/BigTrend могут финансировать FinalReserve только положительным actual closing DealNet после reconciliation и утверждённой allocation policy. ProjectedReserveCandidate не является доступным ресурсом. Small участвует в actual economic ledger один раз; его положительный allocatable net по рекомендуемой политике целиком направляется в non-spendable ResidualHeld с исходным SourceDealKey/Role/Event. Negative Small net уменьшает actual economic result и не создаёт отрицательный grant. Распределение Small в иные buckets требует другого явного решения и versioned migration. Opening deals и InitialProfit не являются harvest sources. До утверждения production RHS не изменяется.",
+      "Contradictions": "Aggregate Core+Trend+Small ошибочно выглядит разрешённым Big Reserve. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "Small10 сохраняется как EconomicNet10 и ResidualHeld10; FinalReserve0. Повторно прибавить buckets к actual net нельзя.",
+      "Counterexample": "Core0 Trend0 Small10 => aggregate10, permitted BigReserve0.",
+      "MigrationImpact": "Исторические Small allocations не переклассифицировать без подтверждённого source/consumption history; отдельная policyVersion.",
+      "TestCoverage": [
+        "ID-control-Broker",
+        "ID-foreign-Broker",
+        "ID-control-Server",
+        "ID-foreign-Server",
+        "ID-control-Account",
+        "ID-foreign-Account",
+        "ID-control-Symbol",
+        "ID-foreign-Symbol",
+        "ID-control-Magic",
+        "ID-foreign-Magic",
+        "ID-control-Deal",
+        "ID-foreign-Deal",
+        "ID-control-Order",
+        "ID-foreign-Order",
+        "ID-control-Position",
+        "ID-foreign-Position",
+        "ID-control-Cycle",
+        "ID-foreign-Cycle",
+        "ID-control-Plan",
+        "ID-foreign-Plan",
+        "ID-control-StateRevision",
+        "ID-foreign-StateRevision",
+        "ID-control-AllocationEvent",
+        "ID-foreign-AllocationEvent",
+        "ID-control-PolicyVersion",
+        "ID-foreign-PolicyVersion",
+        "ID-control-SnapshotID",
+        "ID-foreign-SnapshotID",
+        "ID-bool-Account",
+        "ID-bool-Deal",
+        "ID-signed-Magic-control",
+        "EVENT-exact-revision-advanced",
+        "EVENT-altered-amount",
+        "EVENT-exact-policy-advanced",
+        "EVENT-altered-policy",
+        "EVENT-altered-Broker",
+        "EVENT-altered-Server",
+        "EVENT-altered-Account",
+        "EVENT-altered-Symbol",
+        "EVENT-altered-Magic",
+        "EVENT-altered-Deal",
+        "EVENT-altered-Order",
+        "EVENT-altered-Position",
+        "EVENT-altered-Cycle",
+        "EVENT-altered-Plan",
+        "EVENT-altered-StateRevision",
+        "EVENT-altered-AllocationEvent",
+        "EVENT-altered-PolicyVersion",
+        "EVENT-altered-SnapshotID",
+        "EVENT-full-replay",
+        "EVENT-spent-new",
+        "GUARD-state-revision",
+        "GUARD-state-source",
+        "GUARD-state-allocation",
+        "GUARD-amount-precision",
+        "GUARD-currency",
+        "GUARD-precision-metadata",
+        "GUARD-source-unconfirmed",
+        "GUARD-source-role",
+        "GUARD-snapshot-stale",
+        "GUARD-source-stale",
+        "GUARD-history-missing",
+        "GUARD-history-unavailable",
+        "GUARD-grant-vector",
+        "GUARD-reserved-other-bucket",
+        "GUARD-consumed-other-bucket",
+        "GUARD-sum-grants",
+        "GUARD-negative-remaining",
+        "GUARD-amount-NaN",
+        "GUARD-amount-Infinity",
+        "GUARD-incomplete-authority",
+        "GUARD-missing-registry",
+        "SOURCE-signed-components",
+        "GUARD-prepared-no-spend"
+      ],
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "Small positive net — ResidualHeld, не BigReserve; Core/Trend только confirmed eligible источники.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "SourceFunction": "HSBI_EvaluateBasketMoney",
+      "SourceLine": 11,
+      "Alternatives": [
+        "Small участвует в BigReserve по новому разрешению",
+        "Small отдельно в ResidualHeld",
+        "Small в отдельном утверждённом spending bucket"
+      ]
+    },
+    {
+      "DecisionID": "D-04",
+      "CurrentProductionBehavior": "Basket/NewFar используют absolute max(0,-FarNetCurrent); независимый baseline/incremental contract отсутствует.",
+      "ExistingNormativeSources": [
+        "Docs/04:Reserve Catch-Up",
+        "Docs/24",
+        "Docs/31",
+        "D-04 предыдущего пакета"
+      ],
+      "ProposedContract": "AbsoluteFarLoss=max(0,-FarNetCurrent). IncrementalFarLoss=max(0,AbsoluteFarLossCurrent-AbsoluteFarLossBaseline). Candidate GateMetric=ABSOLUTE, зафиксированная в immutable CatchUpPolicy; переключение ради PASS запрещено. FarNetCurrent — типизированный fresh close-now broker-money proof по действующей стороне BUY/Bid, SELL/Ask и согласованным costs; он не создаёт Reserve. Incremental недоступен без independently verified baseline. Baseline включает account namespace, symbol, position, direction, volume, CycleID, PlanID, origin StateRevision, snapshot/time и costPolicy; текущее состояние требует проверенной lineage. В минимальной версии новая revision/plan/cycle/side/volume/costVersion инвалидирует baseline до явной reconciliation; stale либо невосстановленный после restart baseline => incremental UNAVAILABLE. Отсутствие baseline не мешает вычислять ABSOLUTE по подтверждённому current proof; metric не выбирается fallback-эвристикой.",
+      "Contradictions": "Название increase не определяет baseline и может ослаблять gate. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "При loss50/baseline40/buffer5 margins R20: -35/+5; R60: +5/+45. Различие делает выбор метрики нормативным.",
+      "Counterexample": "Baseline40/current50/Reserve20/buffer5: absolute rejects, incremental passes.",
+      "MigrationImpact": "Сохранять lossMetric/version, baseline origin и lineage. Старый baseline не угадывать; current absolute semantics до реализации остаётся прежней.",
+      "TestCoverage": "R0A unchanged 128: D-04 numeric vectors; broker runtime NOT_RUN",
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "Хранить оба, для рекомендуемого рабочего gate выбрать ABSOLUTE; incremental — diagnostic до отдельного разрешения.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SourceFunction": "HSBI_SolveNewFar",
+      "SourceLine": 94,
+      "Alternatives": [
+        "AbsoluteFarLoss для gate",
+        "IncrementalFarLoss с независимым baseline",
+        "Оба значения раздельно, metric в immutable policy"
+      ]
+    },
+    {
+      "DecisionID": "D-05",
+      "CurrentProductionBehavior": "Future Small и NewFar используют projected transition metrics; actual closing deal reconciliation не реализована end-to-end.",
+      "ExistingNormativeSources": [
+        "Docs/04:Transition Loss",
+        "Docs/08",
+        "Docs/27",
+        "R12A per-ticket fill/batch atomicity"
+      ],
+      "ProposedContract": "До исполнения ProjectedTransitionRisk сравнивается с плановым cap и сохраняет snapshot/cost basis. После исполнения ActualTransitionLoss=max(0,-Σunique confirmed closing deal signed net). Partial fills учитываются по уникальным account-scoped DealTicket/EventID с remainingVolume; неполный batch не становится completed. Under-cap partial => PENDING; observed actual loss>cap даже до завершения => SAFE_BLOCKED/accounting reconciliation. Unconfirmed history => UNAVAILABLE; duplicate/changed fill => CONFLICT. Slippage=разница observed и planned outcomes записывается как diagnostic delta; actual signed DealNet не уменьшается повторно на этот delta. Превышение не переписывает факт на planned10 и не разрешает новый переход/торговлю.",
+      "Contradictions": "Одна семантическая область для плановой оценки и фактического accounting. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "Observed net -15 даёт loss15 независимо от plan10; partial status не уменьшает известное превышение cap12.",
+      "Counterexample": "Projected10/actual15/cap12: SAFE_BLOCKED; actual не переписывается на10.",
+      "MigrationImpact": "Хранить planned и actual separately, уникальные fills, remaining volume и over-cap reason; legacy с неизвестной completeness => UNAVAILABLE.",
+      "TestCoverage": "R0A unchanged 128: D-05 numeric vectors; broker runtime NOT_RUN",
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "Раздельные типы и обязательная post-fill reconciliation.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "SourceFunction": "HSBI_EvaluateFutureSmallLevel",
+      "SourceLine": 57,
+      "Alternatives": [
+        "Общий DTO с тегом",
+        "Раздельные projected/actual records"
+      ]
+    },
+    {
+      "DecisionID": "D-06",
+      "CurrentProductionBehavior": "ProjectedNet=gross+swap+commission+fee-spread-slippage-buffer; четыре leg buffer и отдельный Catch-Up buffer не имеют доказанной risk coverage карты.",
+      "ExistingNormativeSources": [
+        "Docs/24",
+        "Docs/04:Reserve Catch-Up",
+        "Include/Money/HSBI_CostModel.mqh:18",
+        "D-06 предыдущего пакета"
+      ],
+      "ProposedContract": "Каждый cost/buffer содержит Name,Currency,Source,Purpose,CalculationStage,AlreadyIncludedInNet,MayOverlapWith,PolicyVersion,Amount,RiskBasis,Window и EvidenceDigest. Profit/Swap/Commission/Fee в actual net сохраняют signed broker значения; spread и slippage не вычитаются повторно из actual DealNet. Projected costs используют явно доказанный price/cost basis: spread, уже отражённый в open/close Bid/Ask, не повторяется как дополнительный charge. AlreadyIncludedInNet устанавливается reconciliation расчётного basis, не caller boolean. Одно покрытие RiskBasis/Window допускается ровно один раз; duplicate coverage => CONFLICT, неизвестный overlap/валюта/policy => UNAVAILABLE. Leg execution uncertainty, transition safety и Catch-Up safety складываются только при доказанной независимости рисков. До утверждения нельзя удалять существующие buffers или менять production формулу.",
+      "Contradictions": "Не определено пересечение per-leg и Catch-Up deductions. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "Сумма5 корректна лишь для пяти независимых покрытий. При одном RiskBasis/Window два charge являются double deduction; удаление одного без evidence может недоучесть риск.",
+      "Counterexample": "Four leg1 + Catch-Up1: 5 при независимых risks; CONFLICT при повторе leg0 coverage.",
+      "MigrationImpact": "Новая cost coverage schema; старые combined buffers без basis требуют независимого rebuild projected proof, не изменения actual history.",
+      "TestCoverage": "R0A unchanged 128: D-06 numeric vectors; broker runtime NOT_RUN",
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "Charge-once по документированным riskBasis/window, отдельные независимые risk budgets; unresolved overlap блокирует proof.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Money/HSBI_CostModel.mqh",
+      "SourceFunction": "HSBI_TryProjectedNetMoney",
+      "SourceLine": 15,
+      "Alternatives": [
+        "Единый общий budget с распределением",
+        "Независимые бюджеты с непересекающимися risk basis"
+      ]
+    },
+    {
+      "DecisionID": "D-07",
+      "CurrentProductionBehavior": "Exact local duplicate блокируется как CALC_REJECT/NOOP reason; hasPrior=false обходит проверку knowledge прошлого; durable registry отсутствует.",
+      "ExistingNormativeSources": [
+        "Docs/08:Keys/exactly-once",
+        "Docs/16",
+        "Docs/32",
+        "R10 replay binding"
+      ],
+      "ProposedContract": "EventIdentity=(broker,server,AccountLogin,ConsumptionEventID) в versioned namespace. Canonical payload включает source/allocation event/policy, bucket, currency/precision, amount, consumer purpose, cycle/plan/action/revision и immutable intent. Прочитать проверенный полный journal/authority scope; затем SameEvent+SameCanonicalPayload => NO_OP с delta balances/revision/actions=0, даже если исходная revision историческая и available уже нулевой. SameEvent+different payload => CONFLICT без mutation. Для нового события проверить current owner/source/plan/cycle/revision, COMMITTED allocation, known schema/policy, finite positive amount и sufficient available: результат ELIGIBLE_FOR_COMMIT, не списание. State revision compare-and-set и journal commit выполняются атомарно отдельным commit protocol; только подтверждённый commit меняет Consumed/Remaining и revision один раз. Missing/incomplete/stale authority или registry => UNAVAILABLE. hasPriorConsumption=false не является доказательством отсутствия событий. In-memory oracle не доказывает durable commit/restart correctness. Разделить immutable AllocationPolicyVersion и current ConsumptionPolicyVersion. Exact historical event сравнивается с историческим canonical payload до текущей revision/policy проверки; изменённый payload — CONFLICT. Для own-reservation consumption одновременно Remaining-=x,Consumed+=x,Reserved-=x; для unreserved debit Reserved не меняется. Требуется независимый ReservationOwner/Intent binding; эта ветвь не реализована данным oracle.",
+      "Contradictions": "Bool prior и key без amount не доказывают exactly-once. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "После E1=10 из50 Remaining40; exact E1 не меняет state/revision. Changed payload не эквивалентен первому событию и даёт CONFLICT.",
+      "Counterexample": "E1=10 повторён с amount11 или policy2: CONFLICT, даже если текущая revision уже2.",
+      "MigrationImpact": "Старые events без amount/bucket/policy нельзя автоматически считать exact replay. Восстановить source payload или UNAVAILABLE/manual review.",
+      "TestCoverage": [
+        "EVENT-first",
+        "EVENT-full-consumed"
+      ],
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "Typed outcomes; eligibility отдельно от commit, durable registry как prerequisite.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "SourceFunction": "HSBI_EvaluateReserveCatchUp",
+      "SourceLine": 35,
+      "Alternatives": [
+        "Typed NO_OP",
+        "REJECT с доказанным NOOP reason"
+      ]
+    },
+    {
+      "DecisionID": "D-08",
+      "CurrentProductionBehavior": "SourceDealKey=Symbol|Magic|Cycle|Deal без account/server; NewFar копирует expected из проверяемого proof. Caller flags не подтверждены broker lookup.",
+      "ExistingNormativeSources": [
+        "Docs/08",
+        "Docs/16",
+        "Docs/31",
+        "Docs/32",
+        "R10 proofBoundary",
+        "R12A scope boundary"
+      ],
+      "ProposedContract": "SourceDealKey canonical namespace=(SchemaVersion,BrokerIdentity,ServerIdentity,AccountLogin,DealTicket); Symbol/Magic/Cycle/Plan/Action/Position/Order/Event/Role/Direction/EntryType и signed Profit/Swap/Commission/Fee/DealNet/Volume/Price/Time — immutable связанные поля Economic Record. Один DealTicket данного account namespace нельзя повторно легализовать изменением Magic/Cycle. Подтверждение — независимое чтение history и сверка journal/positions/immutable plan mapping, не valid/actual/fillsConfirmed/runtimeConfirmed и не comment. Reserve chain: BrokerHistory→ConfirmedDeal→EconomicReconciliation→ImmutableRecord→CommittedAllocation→ExpectedIdentity→ConsumptionAuthorization→CatchUp→NewFarEligibility. ExpectedIdentity строится из authority и immutable evaluation context; submitted proof/expected не являются источником. Проверяются canonical payload/digest, account/source/role, signed amounts, policy, available и revision. Полный history без сделки =>REJECT; недоступная/неполная authority =>UNAVAILABLE и все downstream authorizations NO. Far-loss отдельная ветвь: confirmed Far origin + observed owned position + fresh broker close-now calculation; отрицательный Far loss не требует фиктивного profit allocation и не становится ресурсом. Никакого auto-resume при unknown history/schema. R0B предлагает codec HSBI-ECON-RAW64-1: source raw finite binary64 значения сохраняются canonical big-endian hex16, -0 нормализуется в +0; денежные вычисления/posted minor units хранятся отдельно. IDs типизированы без bool coercion, Magic — signed nonzero configured long. SourcePlan/SourceAction/OriginRevision неизменны; текущие ConsumptionPlan/Action/Revision/Snapshot привязываются отдельным journal receipt. Codec/миграция требуют явного утверждения; пять Python golden vectors не являются MQL5 acceptance.",
+      "Contradictions": "Флаги и self-copy expected не подтверждают existence/provenance. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "Нет логического вывода existence из DealID>0 или proof==copiedExpected. Фиксированный independent history отсутствующий deal отвергает независимо от caller flags.",
+      "Counterexample": "Order/Position/Snapshot неизвестны authorize R0A; добавленный чужой атрибут может быть проигнорирован. Это gap локальной API, не доказательство обхода полного verify_proof pipeline.",
+      "MigrationImpact": "Legacy source без account/server/полного payload нельзя восстановить по строке Symbol|Magic|Cycle|Deal. Нужна проверяемая миграция из history, иначе блокировка.",
+      "TestCoverage": [
+        "ID-control-Broker",
+        "ID-foreign-Broker",
+        "ID-control-Server",
+        "ID-foreign-Server",
+        "ID-control-Account",
+        "ID-foreign-Account",
+        "ID-control-Symbol",
+        "ID-foreign-Symbol",
+        "ID-control-Magic",
+        "ID-foreign-Magic",
+        "ID-control-Deal",
+        "ID-foreign-Deal",
+        "ID-control-Order",
+        "ID-foreign-Order",
+        "ID-control-Position",
+        "ID-foreign-Position",
+        "ID-control-Cycle",
+        "ID-foreign-Cycle",
+        "ID-control-Plan",
+        "ID-foreign-Plan",
+        "ID-control-StateRevision",
+        "ID-foreign-StateRevision",
+        "ID-control-AllocationEvent",
+        "ID-foreign-AllocationEvent",
+        "ID-control-PolicyVersion",
+        "ID-foreign-PolicyVersion",
+        "ID-control-SnapshotID",
+        "ID-foreign-SnapshotID",
+        "ID-bool-Account",
+        "ID-bool-Deal",
+        "ID-signed-Magic-control",
+        "EVENT-exact-revision-advanced",
+        "EVENT-altered-amount",
+        "EVENT-exact-policy-advanced",
+        "EVENT-altered-policy",
+        "EVENT-altered-Broker",
+        "EVENT-altered-Server",
+        "EVENT-altered-Account",
+        "EVENT-altered-Symbol",
+        "EVENT-altered-Magic",
+        "EVENT-altered-Deal",
+        "EVENT-altered-Order",
+        "EVENT-altered-Position",
+        "EVENT-altered-Cycle",
+        "EVENT-altered-Plan",
+        "EVENT-altered-StateRevision",
+        "EVENT-altered-AllocationEvent",
+        "EVENT-altered-PolicyVersion",
+        "EVENT-altered-SnapshotID",
+        "EVENT-full-replay",
+        "EVENT-spent-new",
+        "GUARD-state-revision",
+        "GUARD-state-source",
+        "GUARD-state-allocation",
+        "GUARD-amount-precision",
+        "GUARD-currency",
+        "GUARD-precision-metadata",
+        "GUARD-source-unconfirmed",
+        "GUARD-source-role",
+        "GUARD-snapshot-stale",
+        "GUARD-source-stale",
+        "GUARD-history-missing",
+        "GUARD-history-unavailable",
+        "GUARD-grant-vector",
+        "GUARD-reserved-other-bucket",
+        "GUARD-consumed-other-bucket",
+        "GUARD-sum-grants",
+        "GUARD-negative-remaining",
+        "GUARD-amount-NaN",
+        "GUARD-amount-Infinity",
+        "GUARD-incomplete-authority",
+        "GUARD-missing-registry",
+        "SOURCE-signed-components",
+        "GUARD-prepared-no-spend",
+        "CODEC-raw64-0.0",
+        "CODEC-raw64--0.0",
+        "CODEC-raw64-1.0",
+        "CODEC-raw64--5.0",
+        "CODEC-raw64-0.1"
+      ],
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "История брокера плюс durable журнал и независимая reconciliation; fixture только для тестов.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SourceFunction": "HSBI_NewFarProofIdentity",
+      "SourceLine": 80,
+      "Alternatives": [
+        "Доверенные caller flags",
+        "Broker history + durable journal + independent reconciliation",
+        "Test-only fixture provider без production authorization"
+      ]
+    },
+    {
+      "DecisionID": "CR-09",
+      "CurrentProductionBehavior": "Aggregator WORST_CASE выбирает worstTransitionLossLevel, а не минимальный денежный margin. Сам production не менялся.",
+      "ExistingNormativeSources": [
+        "Docs/30",
+        "Docs/27",
+        "Include/Planning/HSBI_FutureSmallProofAggregator.mqh:50",
+        "CR-09 предыдущего пакета"
+      ],
+      "ProposedContract": "RequiredLevels определяется immutable proof depth/планом до расчёта margin и независимо от знака результата. EligibleLevels для all-level гарантии должен покрывать RequiredLevels полностью: отсутствие/неполнота/stale source, money, cost, risk, margin, Far projection или snapshot proof => UNAVAILABLE/UNPROVEN для всей гарантии, а не исключение неудобного уровня. Каждый обязательный уровень проходит lot gate Share*Bnet>F, независимый source/available proof и согласованную loss/buffer policy. Для варианта A WorstCatchUpMargin=min_i(AvailableReserve_i-FarLossMetric_i-SafetyBuffer_i); PASS только при строгом >0 и всех прочих gates. Tie-break — минимальный levelIndex среди минимумов; все уровни/metrics/proofs/policy входят в digest. Available_i не является суммой одинаковых средств по альтернативным сценариям; для последовательного пути нужен проверенный cumulative balance evolution. Projected future gain без source/available proof не даёт authority. Вариант B оценивает immutable выбранный control level и возвращает SINGLE_LEVEL_ONLY без all-level guarantee; maximum TransitionLoss не доказывает A. Политика и её scope требуют отдельного утверждения; production selector здесь не меняется.",
+      "Contradictions": "Maximum TransitionLoss не обязан совпадать с minimum Catch-Up margin. Дополнительные R0B gaps и пределы доказательств перечислены в Findings.",
+      "MathematicalProof": "T1=100>T2=10, но C1=29>C2=-16. Equivalence требует дополнительной antitone зависимости, например C=a-bT,b>0, с согласованными ties.",
+      "Counterexample": "A выбирает L2=-16 и reject; B выбирает L1=+29, но только SINGLE_LEVEL_ONLY.",
+      "MigrationImpact": "Хранить selectionPolicy/scope/version, RequiredLevels и все source proof references. Старый max-loss proof не повышать автоматически до all-level.",
+      "TestCoverage": [
+        "CR09-A-negative",
+        "CR09-B-positive-limited",
+        "CR09-all-positive",
+        "CR09-zero",
+        "CR09-missing-level",
+        "CR09-single-depth",
+        "CR09-duplicate-level",
+        "CR09-required-mismatch",
+        "CR09-sourceFresh",
+        "CR09-snapshotFresh",
+        "CR09-complete",
+        "CR09-currency",
+        "CR09-lot-gate",
+        "CR09-negative-loss-invalid",
+        "CR09-tie-different-loss",
+        "SEQUENTIAL-conserve",
+        "SEQUENTIAL-no-reuse",
+        "SEQUENTIAL-missing"
+      ],
+      "UnprovenDependencies": "Broker authenticity/precision, durable IO/CAS, mandatory full caller chain, MQL5 runtime; никакой PASS из fixtures не закрывает эти зависимости.",
+      "RecommendedDecision": "A; B допустим только явно ограниченным альтернативным решением.",
+      "AdministratorApproval": "AWAITING",
+      "AdministratorDecision": null,
+      "ApprovalDate": null,
+      "ApprovalIdentifier": null,
+      "SourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "SourceFunction": "HSBI_AggregateFutureSmallProof",
+      "SourceLine": 23,
+      "Alternatives": [
+        "A: все обязательные уровни",
+        "B: один выбранный уровень без all-level guarantee"
+      ]
+    }
+  ],
+  "evidenceMatrix": [
+    {
+      "NormativeID": "CONSERVATION",
+      "SourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "SourceFunction": "HSBI_ValidateAllocationConservation",
+      "SourceLine": 7,
+      "TestID": [
+        "BALANCE-prepared",
+        "BALANCE-committed-unallocated"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "BALANCE-prepared"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "BALANCE-committed-unallocated"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "grant_sum killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "CONFLICT",
+        "detail": "AllocationLedger conservation использует <= и consumed<=available; ReserveAllocationSource имеет finite/nonnegative guard, но original/remaining semantics не разделены."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "CONFLICT"
+    },
+    {
+      "NormativeID": "BUCKET_IDENTITY",
+      "SourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "SourceFunction": "HSBI_ValidateAllocationConservation",
+      "SourceLine": 7,
+      "TestID": [
+        "GRANT-replay",
+        "GRANT-bucket-permutation"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "GRANT-replay"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "GRANT-bucket-permutation"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "bucket_vector killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "FAIL",
+        "detail": "AllocationLedger conservation использует <= и consumed<=available; ReserveAllocationSource имеет finite/nonnegative guard, но original/remaining semantics не разделены."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "FAIL"
+    },
+    {
+      "NormativeID": "AUTHORITY_BINDING",
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SourceFunction": "HSBI_NewFarProofIdentity",
+      "SourceLine": 80,
+      "TestID": [
+        "ID-control-Account",
+        "ID-foreign-Account"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "ID-control-Account"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "ID-foreign-Account"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "account_namespace killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "FAIL",
+        "detail": "SourceDealKey=Symbol|Magic|Cycle|Deal без account/server; NewFar копирует expected из проверяемого proof. Caller flags не подтверждены broker lookup."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "FAIL"
+    },
+    {
+      "NormativeID": "EXPECTED_INDEPENDENCE",
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SourceFunction": "HSBI_NewFarProofIdentity",
+      "SourceLine": 80,
+      "TestID": [
+        "ID-control-Deal",
+        "GUARD-history-missing"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "ID-control-Deal"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "GUARD-history-missing"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "independent_history killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "FAIL",
+        "detail": "SourceDealKey=Symbol|Magic|Cycle|Deal без account/server; NewFar копирует expected из проверяемого proof. Caller flags не подтверждены broker lookup."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "FAIL"
+    },
+    {
+      "NormativeID": "SOURCE_CONFIRMED",
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SourceFunction": "HSBI_NewFarProofIdentity",
+      "SourceLine": 80,
+      "TestID": [
+        "ID-control-Deal",
+        "GUARD-source-unconfirmed"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "ID-control-Deal"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "GUARD-source-unconfirmed"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "confirmed_source killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "SourceDealKey=Symbol|Magic|Cycle|Deal без account/server; NewFar копирует expected из проверяемого proof. Caller flags не подтверждены broker lookup."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "PRECISION",
+      "SourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "SourceFunction": "HSBI_ValidateAllocationConservation",
+      "SourceLine": 7,
+      "TestID": [
+        "PREC-broker-posted",
+        "PREC-local-mismatch"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "PREC-broker-posted"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "PREC-local-mismatch"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "precision killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "NOT_RUN",
+        "detail": "AllocationLedger conservation использует <= и consumed<=available; ReserveAllocationSource имеет finite/nonnegative guard, но original/remaining semantics не разделены."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "NOT_RUN"
+    },
+    {
+      "NormativeID": "SIGNED_NET",
+      "SourceFile": "Include/Money/HSBI_CostModel.mqh",
+      "SourceFunction": "HSBI_TryActualDealNet",
+      "SourceLine": 11,
+      "TestID": [
+        "SOURCE-signed-components",
+        "GUARD-history-missing"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "SOURCE-signed-components"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "R0A D01-components-sum-mismatch; fixture only"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "PASS",
+        "detail": "Только локальная формула HSBI_TryActualDealNet; immutable identity и broker reconciliation отдельно"
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "PASS"
+    },
+    {
+      "NormativeID": "REPLAY",
+      "SourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "SourceFunction": "HSBI_EvaluateReserveCatchUp",
+      "SourceLine": 35,
+      "TestID": [
+        "EVENT-exact-revision-advanced",
+        "EVENT-altered-amount"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "EVENT-exact-revision-advanced"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "EVENT-altered-amount"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "replay_identity killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Exact local duplicate блокируется как CALC_REJECT/NOOP reason; hasPrior=false обходит проверку knowledge прошлого; durable registry отсутствует."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "DOUBLE_SPEND",
+      "SourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "SourceFunction": "HSBI_EvaluateReserveCatchUp",
+      "SourceLine": 35,
+      "TestID": [
+        "EVENT-full-consumed",
+        "EVENT-spent-new"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "EVENT-full-consumed"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "EVENT-spent-new"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "consumed killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Exact local duplicate блокируется как CALC_REJECT/NOOP reason; hasPrior=false обходит проверку knowledge прошлого; durable registry отсутствует."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "RESERVATION",
+      "SourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "SourceFunction": "HSBI_ValidateAllocationConservation",
+      "SourceLine": 7,
+      "TestID": [
+        "EVENT-first",
+        "GUARD-reserved-other-bucket"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "EVENT-first"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "GUARD-reserved-other-bucket"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "reserved killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "AllocationLedger conservation использует <= и consumed<=available; ReserveAllocationSource имеет finite/nonnegative guard, но original/remaining semantics не разделены."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "CR09_ALL_LEVEL",
+      "SourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "SourceFunction": "HSBI_AggregateFutureSmallProof",
+      "SourceLine": 23,
+      "TestID": [
+        "CR09-all-positive",
+        "CR09-A-negative"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "CR09-all-positive"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "CR09-A-negative"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "CONFLICT",
+        "detail": "Aggregator WORST_CASE выбирает worstTransitionLossLevel, а не минимальный денежный margin. Сам production не менялся."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "CONFLICT"
+    },
+    {
+      "NormativeID": "SEQUENTIAL_RESERVE",
+      "SourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "SourceFunction": "HSBI_AggregateFutureSmallProof",
+      "SourceLine": 23,
+      "TestID": [
+        "SEQUENTIAL-conserve",
+        "SEQUENTIAL-no-reuse"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "SEQUENTIAL-conserve"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "SEQUENTIAL-no-reuse"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Aggregator WORST_CASE выбирает worstTransitionLossLevel, а не минимальный денежный margin. Сам production не менялся."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "ZERO_CORE",
+      "SourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "SourceFunction": "HSBI_SolveBigGeometry",
+      "SourceLine": 21,
+      "TestID": [
+        "CORE-equal-minimum",
+        "CORE-zero"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "CORE-equal-minimum"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "CORE-zero"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "FAIL",
+        "detail": "HSBI_SolveBigGeometry permits coreVolume==0 with positive slope; R0 native F-zero-core counterexample"
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "FAIL"
+    },
+    {
+      "NormativeID": "DURABLE_RESTART",
+      "SourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "SourceFunction": "HSBI_EvaluateReserveCatchUp",
+      "SourceLine": 35,
+      "TestID": [
+        "EVENT-full-replay",
+        "GUARD-missing-registry"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "EVENT-full-replay"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "GUARD-missing-registry"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "UNPROVEN",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Exact local duplicate блокируется как CALC_REJECT/NOOP reason; hasPrior=false обходит проверку knowledge прошлого; durable registry отсутствует."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "PARTIAL_FILL",
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "SourceFunction": "HSBI_EvaluateFutureSmallLevel",
+      "SourceLine": 57,
+      "TestID": [],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "R0A D05-partial-under-cap, PENDING only, source fixture"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "R0A D05-partial-overcap, SAFE_BLOCKED only"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Future Small и NewFar используют projected transition metrics; actual closing deal reconciliation не реализована end-to-end."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "RECONCILIATION",
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SourceFunction": "HSBI_NewFarProofIdentity",
+      "SourceLine": 80,
+      "TestID": [
+        "ID-control-Deal",
+        "GUARD-history-unavailable"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "ID-control-Deal"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "GUARD-history-unavailable"
+      },
+      "MutationTest": {
+        "status": "PASS",
+        "detail": "independent_history killed on copied reference modules"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "SourceDealKey=Symbol|Magic|Cycle|Deal без account/server; NewFar копирует expected из проверяемого proof. Caller flags не подтверждены broker lookup."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "NEWFAR_INTEGRATION",
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SourceFunction": "HSBI_NewFarProofIdentity",
+      "SourceLine": 80,
+      "TestID": [],
+      "PositiveTest": {
+        "status": "NOT_RUN",
+        "detail": "Нет отдельного R0B runtime assertion; см. scope"
+      },
+      "NegativeTest": {
+        "status": "NOT_RUN",
+        "detail": "Недоступен соответствующий runtime"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "UNPROVEN",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "SourceDealKey=Symbol|Magic|Cycle|Deal без account/server; NewFar копирует expected из проверяемого proof. Caller flags не подтверждены broker lookup."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "BROKER_MARGIN",
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SourceFunction": "HSBI_NewFarProofIdentity",
+      "SourceLine": 80,
+      "TestID": [],
+      "PositiveTest": {
+        "status": "NOT_RUN",
+        "detail": "Нет отдельного R0B runtime assertion; см. scope"
+      },
+      "NegativeTest": {
+        "status": "NOT_RUN",
+        "detail": "Недоступен соответствующий runtime"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "UNPROVEN",
+        "detail": "Decimal/unreserved source budget, fixtures only; либо formal algebra, не IO"
+      },
+      "ProductionStaticEvidence": {
+        "status": "NOT_RUN",
+        "detail": "SourceDealKey=Symbol|Magic|Cycle|Deal без account/server; NewFar копирует expected из проверяемого proof. Caller flags не подтверждены broker lookup."
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "NOT_RUN"
+    },
+    {
+      "NormativeID": "NO_TRADE",
+      "SourceFile": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "SourceFunction": "HSBI_IsBrokerDispatchAllowed",
+      "SourceLine": 25,
+      "TestID": [],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "R0A guard-1, extracted C++ policy helper only"
+      },
+      "NegativeTest": {
+        "status": "PASS",
+        "detail": "R0A guard-4 legacy real mode stays false; NOT MQL5 runtime"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "Не является выполненной production/MQL5 mutation"
+      },
+      "MathematicalOracle": {
+        "status": "UNPROVEN",
+        "detail": "Не подменять runtime математикой"
+      },
+      "ProductionStaticEvidence": {
+        "status": "PASS",
+        "detail": "Безусловный false; unchanged production scan / R0A native policy checks"
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "MetaEditor/MT5 недоступны"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Нет broker/account evidence"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Нет durable backend/fault injection"
+      },
+      "CurrentStatus": "PASS"
+    },
+    {
+      "NormativeID": "OWN_RESERVATION_SETTLEMENT",
+      "SourceFile": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "SourceFunction": "HSBI_ValidateReserveConsumption",
+      "SourceLine": 25,
+      "TestID": [],
+      "PositiveTest": {
+        "status": "NOT_RUN",
+        "detail": "ReservationOwner/Intent settlement formalized, not implemented or executed"
+      },
+      "NegativeTest": {
+        "status": "NOT_RUN",
+        "detail": "No full runtime/backend test"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "No corresponding production mutation"
+      },
+      "MathematicalOracle": {
+        "status": "UNPROVEN",
+        "detail": "ReservationOwner/Intent settlement formalized, not implemented or executed"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "ReservationOwner/Intent settlement formalized, not implemented or executed"
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Unavailable"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "No real broker receipt"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "No backend"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "GLOBAL_DEBIT_ATTRIBUTION",
+      "SourceFile": "Include/Money/HSBI_MoneyState.mqh",
+      "SourceFunction": "HSBI_ValidateMoneyState",
+      "SourceLine": 5,
+      "TestID": [],
+      "PositiveTest": {
+        "status": "NOT_RUN",
+        "detail": "Per-source equality does not prove account availability after unmapped losses"
+      },
+      "NegativeTest": {
+        "status": "NOT_RUN",
+        "detail": "No full runtime/backend test"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "No corresponding production mutation"
+      },
+      "MathematicalOracle": {
+        "status": "UNPROVEN",
+        "detail": "Per-source equality does not prove account availability after unmapped losses"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Per-source equality does not prove account availability after unmapped losses"
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Unavailable"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "No real broker receipt"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "No backend"
+      },
+      "CurrentStatus": "UNPROVEN"
+    },
+    {
+      "NormativeID": "SOURCE_CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0b_independent_oracle.py",
+      "SourceFunction": "raw64",
+      "SourceLine": 48,
+      "TestID": [
+        "CODEC-raw64-1.0"
+      ],
+      "PositiveTest": {
+        "status": "PASS",
+        "detail": "Five IEEE754 golden vectors"
+      },
+      "NegativeTest": {
+        "status": "NOT_RUN",
+        "detail": "No full runtime/backend test"
+      },
+      "MutationTest": {
+        "status": "NOT_RUN",
+        "detail": "No corresponding production mutation"
+      },
+      "MathematicalOracle": {
+        "status": "PASS",
+        "detail": "Only five Python binary64 golden vectors; MQL5/NFC/full record codec not implemented"
+      },
+      "ProductionStaticEvidence": {
+        "status": "UNPROVEN",
+        "detail": "Only five Python binary64 golden vectors; MQL5/NFC/full record codec not implemented"
+      },
+      "MQL5RuntimeEvidence": {
+        "status": "NOT_RUN",
+        "detail": "Unavailable"
+      },
+      "BrokerEvidence": {
+        "status": "NOT_RUN",
+        "detail": "No real broker receipt"
+      },
+      "PersistenceEvidence": {
+        "status": "UNPROVEN",
+        "detail": "No backend"
+      },
+      "CurrentStatus": "UNPROVEN"
+    }
+  ],
+  "identityCases": [
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Broker",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Broker",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Server",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Server",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Account",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Account",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Symbol",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Symbol",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Magic",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Magic",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Deal",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Deal",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Order",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Order",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Position",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Position",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Cycle",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Cycle",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Plan",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Plan",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-StateRevision",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-StateRevision",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-AllocationEvent",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-AllocationEvent",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-PolicyVersion",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-PolicyVersion",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-SnapshotID",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-SnapshotID",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-amount",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-policy",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Broker",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Server",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Account",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Symbol",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Magic",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Deal",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Order",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Position",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Cycle",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Plan",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-StateRevision",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-AllocationEvent",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-PolicyVersion",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-SnapshotID",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    }
+  ],
+  "legacyBoundaryObservations": [
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Broker",
+      "id": "R0A-boundary-Broker",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Server",
+      "id": "R0A-boundary-Server",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Account",
+      "id": "R0A-boundary-Account",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Symbol",
+      "id": "R0A-boundary-Symbol",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Magic",
+      "id": "R0A-boundary-Magic",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Deal",
+      "id": "R0A-boundary-Deal",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Order",
+      "id": "R0A-boundary-Order",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Position",
+      "id": "R0A-boundary-Position",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Cycle",
+      "id": "R0A-boundary-Cycle",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Plan",
+      "id": "R0A-boundary-Plan",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "StateRevision",
+      "id": "R0A-boundary-StateRevision",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "AllocationEvent",
+      "id": "R0A-boundary-AllocationEvent",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "PolicyVersion",
+      "id": "R0A-boundary-PolicyVersion",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "SnapshotID",
+      "id": "R0A-boundary-SnapshotID",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "actual": "ALLOW",
+      "classification": "LEGACY_ORACLE_GAP",
+      "expected": "REJECT",
+      "id": "R0-legacy-plan",
+      "newOracleCase": "ID-foreign-Plan"
+    },
+    {
+      "actual": "ALLOW",
+      "classification": "LEGACY_ORACLE_GAP",
+      "expected": "REJECT",
+      "id": "R0-legacy-revision",
+      "newOracleCase": "ID-foreign-StateRevision"
+    },
+    {
+      "actualAmount": "1",
+      "actualStatus": "RECONCILED",
+      "classification": "POSTED_AMOUNT_NOT_PART_OF_R0A_API",
+      "id": "R0A-implicit-USD2-posting",
+      "independentlySpecifiedBrokerPosted": "1.01",
+      "scope": "Synthetic receipt counterexample, not observed broker behavior"
+    }
+  ],
+  "initialMutationSurvivors": 8,
+  "finalMutationSurvivors": 0,
+  "status": "PROPOSED_NOT_APPROVED",
+  "approval": "AWAITING",
+  "scope": "Read-only production; copied test/reference mutations only"
+}
