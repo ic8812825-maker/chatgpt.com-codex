@@ -1,0 +1,795 @@
+{
+  "baselineFrozenPassed": 128,
+  "baselineIndependentPassed": 141,
+  "baselineSupplementPassed": 15,
+  "executedUtc": "2026-11-04T15:37:06.038297+00:00",
+  "finalSurvivors": 0,
+  "infrastructureErrors": 0,
+  "initialSurvivors": 8,
+  "mutations": [
+    {
+      "edits": [
+        {
+          "after": "if False:",
+          "before": "if state['owner'] != authority['owner'] or request['owner'] != authority['owner']:"
+        }
+      ],
+      "explanation": "Если initial survived: frozen 128 не изолировали этот guard; новый причинный вектор раскрывает weakening. Исходные тесты не изменены.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "account_namespace",
+      "initialFailedTests": [],
+      "initialResult": "MUTATION_SURVIVED",
+      "model": "R0A",
+      "mutantSha256": "876d92273177a43fd29e1c42407b7a33194cae1caf0d980b1b45f30d583abf65",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-account",
+      "targetActual": "ELIGIBLE_FOR_COMMIT",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "if request['cycle'] != authority['cycle']:",
+          "before": "if request['plan'] != authority['plan'] or request['cycle'] != authority['cycle']:"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "plan",
+      "initialFailedTests": [
+        "D07-binding-plan"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0A",
+      "mutantSha256": "d3a4e555964e1df1fc71fe880cc7152db233ec54937df9c5e76d3787f324e214",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-plan",
+      "targetActual": "ELIGIBLE_FOR_COMMIT",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "if request['event'] == 0:",
+          "before": "if request['event'] == 0 or request['revision'] != authority['revision'] or state['revision'] != authority['revision']:"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "revision",
+      "initialFailedTests": [
+        "D07-binding-revision"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0A",
+      "mutantSha256": "5af53680f0b892270877330e9705f1c490d4d20c518ef4b44d9b324a79c5e582",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-revision",
+      "targetActual": "ELIGIBLE_FOR_COMMIT",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "('allocation', 'allocationEvent', 'policy', 'currency')",
+          "before": "('source', 'allocation', 'allocationEvent', 'policy', 'currency')"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "source_identity",
+      "initialFailedTests": [
+        "D07-binding-source"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0A",
+      "mutantSha256": "a1ce17906bd5ed16cc6458fcbb2efd923b94528e90d3f0a2194a369d08ffd983",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-source",
+      "targetActual": "ELIGIBLE_FOR_COMMIT",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "('source', 'allocationEvent', 'policy', 'currency')",
+          "before": "('source', 'allocation', 'allocationEvent', 'policy', 'currency')"
+        }
+      ],
+      "explanation": "Если initial survived: frozen 128 не изолировали этот guard; новый причинный вектор раскрывает weakening. Исходные тесты не изменены.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "allocation_identity",
+      "initialFailedTests": [],
+      "initialResult": "MUTATION_SURVIVED",
+      "model": "R0A",
+      "mutantSha256": "751833098b7027700d6ded5e519c3c77bfcd46f5aea0b6a7036d028f2950bd89",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-allocation",
+      "targetActual": "ELIGIBLE_FOR_COMMIT",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "sum(remaining.values()) + sum(consumed.values()) == sum(grant.values())",
+          "before": "remaining[k] + consumed[k] == grant[k]"
+        }
+      ],
+      "explanation": "Если initial survived: frozen 128 не изолировали этот guard; новый причинный вектор раскрывает weakening. Исходные тесты не изменены.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "bucket_vector",
+      "initialFailedTests": [],
+      "initialResult": "MUTATION_SURVIVED",
+      "model": "R0A",
+      "mutantSha256": "1e01180e0ff2cce60d62112f5c775c1bd889038cdc0e3b408f034b30040c5c2a",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-bucket-vector",
+      "targetActual": true,
+      "targetExpected": false
+    },
+    {
+      "edits": [
+        {
+          "after": "if amount <= 0:",
+          "before": "if amount <= 0 or amount.quantize(quantum(2)) != amount:"
+        }
+      ],
+      "explanation": "Если initial survived: frozen 128 не изолировали этот guard; новый причинный вектор раскрывает weakening. Исходные тесты не изменены.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "precision",
+      "initialFailedTests": [],
+      "initialResult": "MUTATION_SURVIVED",
+      "model": "R0A",
+      "mutantSha256": "0b4deab8cc5ced618dbd895118d4661ebb9085ea119c83f88a0318f8076d03eb",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-precision",
+      "targetActual": "ELIGIBLE_FOR_COMMIT",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:",
+          "before": "if sum(grant.values()) + u != n:"
+        }
+      ],
+      "explanation": "Если initial survived: frozen 128 не изолировали этот guard; новый причинный вектор раскрывает weakening. Исходные тесты не изменены.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "grant_sum",
+      "initialFailedTests": [],
+      "initialResult": "MUTATION_SURVIVED",
+      "model": "R0A",
+      "mutantSha256": "be599ff9cdb251953ab9f204caf03fe16e8a1ff3730f312a3a7b21fdaed2c503",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-sum-grants",
+      "targetActual": true,
+      "targetExpected": false
+    },
+    {
+      "edits": [
+        {
+          "after": "True",
+          "before": "reserved[k] <= remaining[k]"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "reserved",
+      "initialFailedTests": [
+        "D01-negative-available"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0A",
+      "mutantSha256": "9e8e17e70330aa3469e68b4d34449b12854f8267135e827106c4a9a31e718921",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-reserved",
+      "targetActual": true,
+      "targetExpected": false
+    },
+    {
+      "edits": [
+        {
+          "after": "",
+          "before": "remaining[k] + consumed[k] == grant[k] and "
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "consumed",
+      "initialFailedTests": [
+        "D01-no-double-count"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0A",
+      "mutantSha256": "a45159ebaf61c023f2d686fe84a073167f45297d678309a8b9a54d551bac98c2",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-consumed",
+      "targetActual": true,
+      "targetExpected": false
+    },
+    {
+      "edits": [
+        {
+          "after": "return 'NO_OP'",
+          "before": "return 'NO_OP' if canonical(registry[event]) == canonical(request) else 'CONFLICT'"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "replay_identity",
+      "initialFailedTests": [
+        "D07-altered11"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0A",
+      "mutantSha256": "3903829ee4902f9b54efc1be7f26e8e92ead660a7a22a062375c03e69c63055b",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-replay",
+      "targetActual": "NO_OP",
+      "targetExpected": "CONFLICT"
+    },
+    {
+      "edits": [
+        {
+          "after": "if record['owner'] != owner:",
+          "before": "if record['owner'] != owner or history.get(source_key(record)) != record:"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "independent_history",
+      "initialFailedTests": [
+        "D02-no-confirmed-closes",
+        "D08-invented-deal"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0A",
+      "mutantSha256": "81574d32294bab34d4f270011a7c0b5d33db56380a163763cce07778e5e7bf39",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-history",
+      "targetActual": "RECONCILED",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "if record['entry'] != 'CLOSE':",
+          "before": "if record['entry'] != 'CLOSE' or record['event'] == 0:"
+        }
+      ],
+      "explanation": "Если initial survived: frozen 128 не изолировали этот guard; новый причинный вектор раскрывает weakening. Исходные тесты не изменены.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "confirmed_source",
+      "initialFailedTests": [],
+      "initialResult": "MUTATION_SURVIVED",
+      "model": "R0A",
+      "mutantSha256": "e161cb345beee1b18f9d5a1aa4fbf86aeef2658d1ac9e9f16732dbc94f361511",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-confirmed-source",
+      "targetActual": "RECONCILED",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "if proof['identity'] != expected or dec(proof['net']) != money.value:",
+          "before": "if not context['fresh'] or proof['identity'] != expected or dec(proof['net']) != money.value:"
+        }
+      ],
+      "explanation": "Если initial survived: frozen 128 не изолировали этот guard; новый причинный вектор раскрывает weakening. Исходные тесты не изменены.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "snapshot_freshness",
+      "initialFailedTests": [],
+      "initialResult": "MUTATION_SURVIVED",
+      "model": "R0A",
+      "mutantSha256": "18fe1b34e53bf3116f1f89741dc7ee3880e80ad6fe2fa60fca67d5cbf0ec7c9f",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-snapshot",
+      "targetActual": "VERIFIED",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "",
+          "before": " or record['role'] not in ('BigCore','BigTrend')"
+        }
+      ],
+      "explanation": "Если initial survived: frozen 128 не изолировали этот guard; новый причинный вектор раскрывает weakening. Исходные тесты не изменены.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "source_role",
+      "initialFailedTests": [],
+      "initialResult": "MUTATION_SURVIVED",
+      "model": "R0A",
+      "mutantSha256": "c7b09c2e03937652cb26e1f5a3b17934fef9d489f54a5acc850f93d6d439020a",
+      "originalSha256": "d13fecd3fea8e7851390b6792d86f33e012d8fca3be2f81f3869c642324ba59f",
+      "target": "OLD-role",
+      "targetActual": "VERIFIED",
+      "targetExpected": "REJECT"
+    },
+    {
+      "edits": [
+        {
+          "after": "for k in ('Broker','Server')):",
+          "before": "for k in ('Broker','Server','Account')):"
+        },
+        {
+          "after": "for k in ID_FIELDS if k!='Account'):",
+          "before": "for k in ID_FIELDS):"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "account_namespace",
+      "initialFailedTests": [
+        "ID-foreign-Account"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "3ee1a9bc9d2305f478b8a56fe6cd21acf9341244b4982fb471c3e62f4b9995f7",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "ID-foreign-Account",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "for k in ID_FIELDS if k!='Plan'):",
+          "before": "for k in ID_FIELDS):"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "plan",
+      "initialFailedTests": [
+        "ID-foreign-Plan"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "e229afda832c7861b415b6461fa182df81181fc7a5699b8f0faec5d43c6d1fff",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "ID-foreign-Plan",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if request['event']<=0:",
+          "before": "if request['identity']['StateRevision']!=state['revision'] or request['event']<=0:"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "revision",
+      "initialFailedTests": [
+        "GUARD-state-revision"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "d2022362fb55489c8058f6df70e7390a8369fb3fd731c73c434e253aa2c25678",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-state-revision",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if state['source']!=allocation['source']:return 'REJECT'"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "source_identity",
+      "initialFailedTests": [
+        "GUARD-state-source"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "e212b7ab3df5d1cab4a369f1c744758bb80bc9861292ed46caf8a98d3cc94e53",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-state-source",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if state['allocation']!=request['allocation']:return 'REJECT'"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "allocation_identity",
+      "initialFailedTests": [
+        "GUARD-state-allocation"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "9e926745dcf6cb936cdab4b66add0b2a8e13990b0a3570ec8d9ff0579c54bf41",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-state-allocation",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return 'CONFLICT'",
+          "before": "if state['grant']!=allocation['grant']:return 'CONFLICT'"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "bucket_vector",
+      "initialFailedTests": [
+        "GUARD-grant-vector"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "2b2dc43114ed71687a94d2e7c5494ccfdf2400f6d403d280113884ae3ac8e444",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-grant-vector",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if amount.quantize(unit(state['digits']))!=amount:return 'REJECT'"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "precision",
+      "initialFailedTests": [
+        "GUARD-amount-precision"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "cc847f110039409ad1af3236ad457d6872a4b3728bf9045050f77e8bf733ad49",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-amount-precision",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return False",
+          "before": "if sum(g.values())+state['unallocated']!=state['net']:return False"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "grant_sum",
+      "initialFailedTests": [
+        "GUARD-sum-grants"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "ccde8a78909c2ffdb08978685b23eda7e1e5b439c572081db668bb3bca0cce7a",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-sum-grants",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return False",
+          "before": "if v[b]>r[b]:return False"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "reserved",
+      "initialFailedTests": [
+        "GUARD-reserved-other-bucket"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "71bb8fff1eaec72c71b5956ac38cd482419014fd880b5f4756bcb1144fb723bd",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-reserved-other-bucket",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return False",
+          "before": "if r[b]+c[b]!=g[b]:return False"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "consumed",
+      "initialFailedTests": [
+        "GUARD-consumed-other-bucket"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "5ab7195aab63519960473e669513b3daf46ba8f91ac4fb8d44c2ed4ef3986d1b",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-consumed-other-bucket",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "return 'NO_OP'",
+          "before": "return 'NO_OP' if journal[ek]==canonical(request) else 'CONFLICT'"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "replay_identity",
+      "initialFailedTests": [
+        "EVENT-altered-amount",
+        "EVENT-altered-policy",
+        "EVENT-altered-Symbol",
+        "EVENT-altered-Magic",
+        "EVENT-altered-Deal",
+        "EVENT-altered-Order",
+        "EVENT-altered-Position",
+        "EVENT-altered-Cycle",
+        "EVENT-altered-Plan",
+        "EVENT-altered-StateRevision",
+        "EVENT-altered-AllocationEvent",
+        "EVENT-altered-PolicyVersion",
+        "EVENT-altered-SnapshotID"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "c32031d61e49e565390e45cb83c504a8f7ac441df7f3e55e2dd298c37f20facd",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "EVENT-altered-amount",
+      "targetActual": [
+        "NO_OP",
+        true,
+        true,
+        true
+      ],
+      "targetExpected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "record=authority['history'].get(allocation['source']) or request['presentedRecord']",
+          "before": "record=authority['history'].get(allocation['source'])"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "independent_history",
+      "initialFailedTests": [
+        "GUARD-history-missing"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "a102ddbf7c7740863644533bbc367db9d308f22e33df24ff4ba0a295fe232905",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-history-missing",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if not record['closingConfirmed']:return 'REJECT'"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "confirmed_source",
+      "initialFailedTests": [
+        "GUARD-source-unconfirmed"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "c7158d32c106e9ece1c2bfd78a3af1fd90064fbcb7fd8d0c439f86074b7f4dca",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-source-unconfirmed",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:",
+          "before": "if now>snapshot['validUntil']:"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "snapshot_freshness",
+      "initialFailedTests": [
+        "GUARD-snapshot-stale"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "f0dd34a715355901a6532c2ddd40eb33968cb58b07504cd13872ca80347a9fd4",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-snapshot-stale",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "edits": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if record['role'] not in ('BigCore','BigTrend'):return 'REJECT'"
+        }
+      ],
+      "explanation": "Отрицательный outcome mutation обнаружен исполнимым тестом; исключение не считается kill.",
+      "finalResult": "MUTATION_KILLED",
+      "id": "source_role",
+      "initialFailedTests": [
+        "GUARD-source-role"
+      ],
+      "initialResult": "MUTATION_KILLED",
+      "model": "R0B",
+      "mutantSha256": "3033370653dd34250edd0c3d1b6b11015e528ef663c29427ad4a0d93d2415f21",
+      "originalSha256": "2a9594e4a35c1984a4833ee929ecb15d94454722370f1787d0b66f71d76e27b2",
+      "target": "GUARD-source-role",
+      "targetActual": [
+        "COMMITTED_IN_MEMORY",
+        false,
+        false,
+        false
+      ],
+      "targetExpected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ]
+    }
+  ],
+  "productionMutation": false,
+  "scope": "Only disposable copies of test/reference Python modules; NOT MQL5 production",
+  "testedHead": "ec7ae40fe22e1d6e5bed035450750502a1162ab5"
+}

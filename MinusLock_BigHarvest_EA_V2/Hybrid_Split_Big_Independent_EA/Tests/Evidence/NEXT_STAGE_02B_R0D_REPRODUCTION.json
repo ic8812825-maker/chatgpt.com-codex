@@ -1,0 +1,384 @@
+{
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0d_mutations.py",
+    "--reproduce",
+    "--output",
+    "Tests/Evidence/NEXT_STAGE_02B_R0D_REPRODUCTION.json"
+  ],
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-04T15:53:38.793648+00:00",
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_TESTS": "NOT_RUN",
+  "STRATEGY_TESTER": "NOT_RUN",
+  "SourceHashes": {
+    "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+    "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+    "Tests/Static/check_hsbi_02b_r0d_mutations.py": "268e60b45daa70417c6ae77883834ce144dc42142d36aeaeaaf962d5556045b3"
+  },
+  "StartedUtc": "2026-11-04T15:53:37.851183+00:00",
+  "executedUtc": "2026-11-04T15:53:38.789438+00:00",
+  "findings": [
+    {
+      "ActualOutcome": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "1",
+          "200"
+        ]
+      ],
+      "Classification": "CONFIRMED",
+      "ExactInputChange": {
+        "available": "1e28",
+        "bnet": "4",
+        "buffer": "9999999999999999999999999999.995",
+        "complete": true,
+        "currency": "KWD",
+        "digits": 3,
+        "far": "1",
+        "id": 1,
+        "loss": ".010",
+        "share": ".5",
+        "snapshotFresh": true,
+        "sourceFresh": true,
+        "transitionLoss": "1"
+      },
+      "ExpectedOutcome": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "200"
+        ]
+      ],
+      "FindingID": "R0D-01",
+      "HighPrecisionObservation": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "200"
+        ]
+      ],
+      "IndependentCalculation": "integer coefficient/scale common denominator; not higher-precision evaluator expected",
+      "PositiveControl": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "29",
+          "1"
+        ]
+      ],
+      "ProofBoundary": "R0C Python helper; inputs fit declared numerical domain",
+      "StateDelta": "no ledger mutation; incorrect proof classification"
+    },
+    {
+      "ActualOutcome": [
+        "CONSERVATION_ONLY",
+        [
+          {
+            "Consumption": [
+              "NUMBER",
+              "1",
+              "100"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "level": 1
+          },
+          {
+            "Consumption": [
+              "NUMBER",
+              "1",
+              "100"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "level": 2
+          }
+        ]
+      ],
+      "Classification": "CONFIRMED",
+      "ExactInputChange": {
+        "consumptions": [
+          ".01",
+          ".01"
+        ],
+        "reserve": "1e28"
+      },
+      "ExpectedOutcome": [
+        "NUMBER",
+        "499999999999999999999999999999",
+        "50"
+      ],
+      "FindingID": "R0D-02",
+      "IndependentCalculation": "integer hundredths: 10^30 - 2",
+      "PositiveControl": [
+        "CONSERVATION_ONLY",
+        [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          },
+          {
+            "Consumption": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "0",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "level": 2
+          }
+        ]
+      ],
+      "ProofBoundary": "local trace only",
+      "StateDelta": "reported positive consumption with zero actual reduction"
+    },
+    {
+      "ActualOutcome": {
+        "canonicalCollision": true,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "revision": 2,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "Classification": "CONFIRMED",
+      "ExactInputChange": "snapshot.marketFingerprint string1 -> Decimal1; frozen receipt unchanged",
+      "ExpectedOutcome": "type/schema decision required; distinct supported types must not collide",
+      "FindingID": "R0D-03",
+      "IndependentCalculation": "separately encoded original snapshot",
+      "PositiveControl": "COMMITTED_IN_MEMORY",
+      "ProofBoundary": "SCHEMA_DECISION_REQUIRED; not proof of broker provider bypass",
+      "StateDelta": "remaining50->40 revision1->2"
+    }
+  ],
+  "fourMutations": [
+    {
+      "Classification": "CONFIRMED",
+      "ExactEdit": {
+        "after": "if amount>state['remaining']['FinalReserve']-state['reserved']['FinalReserve']:return 'REJECT'",
+        "before": "if amount<=0 or amount>state['remaining']['FinalReserve']-state['reserved']['FinalReserve']:return 'REJECT'"
+      },
+      "FindingID": "R0D-04",
+      "MutantNegativeOutcome": {
+        "consumed": [
+          "NUMBER",
+          "-10",
+          "1"
+        ],
+        "remaining": [
+          "NUMBER",
+          "60",
+          "1"
+        ],
+        "reserved": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "3dc7e269ae6e13ec0dfea04743ab8808e80527beefc0084300cc39da65163580",
+      "MutationID": "positive-amount",
+      "OldSuiteFailed": 0,
+      "OldSuitePassed": 221,
+      "OriginalNegativeOutcome": "REJECT",
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControl": "COMMITTED_IN_MEMORY",
+      "ProofBoundary": "isolated frozen R0C copy; no production change"
+    },
+    {
+      "Classification": "CONFIRMED",
+      "ExactEdit": {
+        "after": "amount>state['remaining']['FinalReserve']",
+        "before": "amount>state['remaining']['FinalReserve']-state['reserved']['FinalReserve']"
+      },
+      "FindingID": "R0D-04",
+      "MutantNegativeOutcome": {
+        "consumed": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "reserved": [
+          "NUMBER",
+          "45",
+          "1"
+        ],
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "497a9a9abc7ec2d740eb902f7a89c2001f0f32b0c01d28e2ae33ffd77a132768",
+      "MutationID": "reserved-available",
+      "OldSuiteFailed": 0,
+      "OldSuitePassed": 221,
+      "OriginalNegativeOutcome": "REJECT",
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControl": "COMMITTED_IN_MEMORY",
+      "ProofBoundary": "isolated frozen R0C copy; no production change"
+    },
+    {
+      "Classification": "CONFIRMED",
+      "ExactEdit": {
+        "after": "if False:",
+        "before": "if value.quantize(q)!=value:"
+      },
+      "FindingID": "R0D-04",
+      "MutantNegativeOutcome": [
+        "POSTED",
+        [
+          "NUMBER",
+          "201",
+          "200"
+        ]
+      ],
+      "MutantSourceHash": "d999f0b9c8d2fc27a9fd4cd430ce435df6231be2fec3ec8e4e1d6386322404f0",
+      "MutationID": "posted-grid",
+      "OldSuiteFailed": 0,
+      "OldSuitePassed": 221,
+      "OriginalNegativeOutcome": [
+        "UNAVAILABLE",
+        null
+      ],
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControl": [
+        "POSTED",
+        [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      ],
+      "ProofBoundary": "isolated frozen R0C copy; no production change"
+    },
+    {
+      "Classification": "CONFIRMED",
+      "ExactEdit": {
+        "after": "mode=='LOCAL_VERIFIED' and candidate_round(raw,digits)==value",
+        "before": "mode=='LOCAL_VERIFIED' and verified_local_policy and candidate_round(raw,digits)==value"
+      },
+      "FindingID": "R0D-04",
+      "MutantNegativeOutcome": [
+        "POSTED",
+        [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      ],
+      "MutantSourceHash": "41d14111d19f9c8ed96c08e7f770985a41e9b0c6b8621968d123f499438df0d8",
+      "MutationID": "local-verified",
+      "OldSuiteFailed": 0,
+      "OldSuitePassed": 221,
+      "OriginalNegativeOutcome": [
+        "UNAVAILABLE",
+        null
+      ],
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControl": [
+        "POSTED",
+        [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      ],
+      "ProofBoundary": "isolated frozen R0C copy; no production change"
+    }
+  ],
+  "snapshotFieldObservations": [
+    {
+      "coherentFixtureReceiptOutcome": "COMMITTED_IN_MEMORY",
+      "frozenStringReceiptOutcome": "CONFLICT",
+      "normativeStatus": "SCHEMA_DECISION_REQUIRED",
+      "proofBoundary": "R0C lacks explicit fingerprint schema; not every accepted field type independently establishes a defect",
+      "type": "none",
+      "value": null
+    },
+    {
+      "coherentFixtureReceiptOutcome": "COMMITTED_IN_MEMORY",
+      "frozenStringReceiptOutcome": "CONFLICT",
+      "normativeStatus": "SCHEMA_DECISION_REQUIRED",
+      "proofBoundary": "R0C lacks explicit fingerprint schema; not every accepted field type independently establishes a defect",
+      "type": "empty",
+      "value": ""
+    },
+    {
+      "coherentFixtureReceiptOutcome": "COMMITTED_IN_MEMORY",
+      "frozenStringReceiptOutcome": "CONFLICT",
+      "normativeStatus": "SCHEMA_DECISION_REQUIRED",
+      "proofBoundary": "R0C lacks explicit fingerprint schema; not every accepted field type independently establishes a defect",
+      "type": "bool",
+      "value": true
+    },
+    {
+      "coherentFixtureReceiptOutcome": "COMMITTED_IN_MEMORY",
+      "frozenStringReceiptOutcome": "CONFLICT",
+      "normativeStatus": "SCHEMA_DECISION_REQUIRED",
+      "proofBoundary": "R0C lacks explicit fingerprint schema; not every accepted field type independently establishes a defect",
+      "type": "int",
+      "value": 1
+    },
+    {
+      "coherentFixtureReceiptOutcome": "COMMITTED_IN_MEMORY",
+      "frozenStringReceiptOutcome": "CONFLICT",
+      "normativeStatus": "SCHEMA_DECISION_REQUIRED",
+      "proofBoundary": "R0C lacks explicit fingerprint schema; not every accepted field type independently establishes a defect",
+      "type": "dict",
+      "value": {}
+    }
+  ],
+  "status": "PROPOSED",
+  "testedSHA": "ec7ae40fe22e1d6e5bed035450750502a1162ab5"
+}

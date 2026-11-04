@@ -1,0 +1,4061 @@
+{
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0c_contracts.py",
+    "--output",
+    "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Evidence/NEXT_STAGE_02B_R0D_R0C_reference_RECHECK.json"
+  ],
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-04T15:37:06.910041+00:00",
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_TESTS": "NOT_RUN",
+  "STRATEGY_TESTER": "NOT_RUN",
+  "StartedUtc": "2026-11-04T15:37:06.548088+00:00",
+  "assertions": 927,
+  "brokerEvidence": "NOT_RUN",
+  "contractStatus": "PROPOSED",
+  "durableRestart": "UNPROVEN",
+  "executedUtc": "2026-11-04T15:37:06.910010+00:00",
+  "failed": 0,
+  "passed": 221,
+  "scenarios": 221,
+  "sourceHashes": {
+    "Tests/Reference/hsbi_02b_r0c_independent_oracle.py": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+    "Tests/Static/check_hsbi_02b_r0c_contracts.py": "a7460581dadf86611571618191d775f3f580e00b41c9f76dc6f2812a4e4ea7d2"
+  },
+  "testedSHA": "ec7ae40fe22e1d6e5bed035450750502a1162ab5",
+  "tests": [
+    {
+      "actual": [
+        "COMMITTED_IN_MEMORY",
+        {
+          "allocation": "A1",
+          "consumed": {
+            "Carry": "0",
+            "FinalReserve": "10",
+            "PartialFar": "0",
+            "ResidualHeld": "0",
+            "Transition": "0"
+          },
+          "currency": "USD",
+          "digits": 2,
+          "grant": {
+            "Carry": "0",
+            "FinalReserve": "50",
+            "PartialFar": "0",
+            "ResidualHeld": "0",
+            "Transition": "0"
+          },
+          "net": "50",
+          "phase": "COMMITTED",
+          "remaining": {
+            "Carry": "0",
+            "FinalReserve": "40",
+            "PartialFar": "0",
+            "ResidualHeld": "0",
+            "Transition": "0"
+          },
+          "reserved": {
+            "Carry": "0",
+            "FinalReserve": "0",
+            "PartialFar": "0",
+            "ResidualHeld": "0",
+            "Transition": "0"
+          },
+          "revision": 2,
+          "source": [
+            "B1",
+            "S1",
+            1,
+            11
+          ],
+          "unallocated": "0"
+        }
+      ],
+      "assertions": 1,
+      "expected": [
+        "COMMITTED_IN_MEMORY",
+        {
+          "allocation": "A1",
+          "consumed": {
+            "Carry": "0",
+            "FinalReserve": "10",
+            "PartialFar": "0",
+            "ResidualHeld": "0",
+            "Transition": "0"
+          },
+          "currency": "USD",
+          "digits": 2,
+          "grant": {
+            "Carry": "0",
+            "FinalReserve": "50",
+            "PartialFar": "0",
+            "ResidualHeld": "0",
+            "Transition": "0"
+          },
+          "net": "50",
+          "phase": "COMMITTED",
+          "remaining": {
+            "Carry": "0",
+            "FinalReserve": "40",
+            "PartialFar": "0",
+            "ResidualHeld": "0",
+            "Transition": "0"
+          },
+          "reserved": {
+            "Carry": "0",
+            "FinalReserve": "0",
+            "PartialFar": "0",
+            "ResidualHeld": "0",
+            "Transition": "0"
+          },
+          "revision": 2,
+          "source": [
+            "B1",
+            "S1",
+            1,
+            11
+          ],
+          "unallocated": "0"
+        }
+      ],
+      "group": "CONTROL",
+      "id": "CONTROL-commit",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "assertions": 1,
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "CONTROL",
+      "id": "CONTROL-eligibility",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Broker",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Server",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Account",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Symbol",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Magic",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Deal",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Order",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Position",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Cycle",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-Plan",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-StateRevision",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-AllocationEvent",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-PolicyVersion",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "IDENTITY-SnapshotID",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Broker",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Server",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Account",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Symbol",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Magic",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Deal",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Order",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Position",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECORD-Cycle",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "DIGEST-forged",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RAW-net-mismatch",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "POSTED-net-mismatch",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "COMPONENT-profit",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "COMPONENT-swap",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "COMPONENT-commission",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "COMPONENT-fee",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SNAPSHOT-id",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SNAPSHOT-invalid-0",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SNAPSHOT-invalid-True",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SNAPSHOT-invalid-None",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SNAPSHOT-missing-id",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SNAPSHOT-unknown",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SNAPSHOT-content",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SNAPSHOT-expired",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "EVENT-invalid-True",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "EVENT-invalid-False",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "EVENT-invalid-0",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "EVENT-invalid--1",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "EVENT-invalid-1.5",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "EVENT-invalid-'41'",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "EVENT-invalid-None",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "EVENT-invalid-18446744073709551616",
+      "result": "PASS"
+    },
+    {
+      "actual": "COMMITTED_IN_MEMORY",
+      "assertions": 1,
+      "expected": "COMMITTED_IN_MEMORY",
+      "group": "EVENT",
+      "id": "EVENT-boundary-1",
+      "result": "PASS"
+    },
+    {
+      "actual": "COMMITTED_IN_MEMORY",
+      "assertions": 1,
+      "expected": "COMMITTED_IN_MEMORY",
+      "group": "EVENT",
+      "id": "EVENT-boundary-18446744073709551615",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ID-domain-Account-9223372036854775808",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ID-domain-Account-True",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ID-domain-Magic-0",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ID-domain-Magic-9223372036854775808",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ID-domain-Deal-18446744073709551616",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ID-domain-Plan-True",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "assertions": 1,
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "DOMAIN",
+      "id": "ID-negative-magic",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MISSING-event",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MISSING-identity",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MISSING-identity.Plan",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MISSING-receipt",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MISSING-posted",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MISSING-allocation",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MONEY-invalid-Decimal('NaN')",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MONEY-invalid-Decimal('Infinity')",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MONEY-invalid-'bad'",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MONEY-invalid-None",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MONEY-invalid-True",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MONEY-invalid-1.5",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "DTO-type-state",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "DTO-type-journal",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "DTO-type-history",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "AUTHORITY-none",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "JOURNAL-none",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "HISTORY-none",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "RECEIPT-unavailable",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "HISTORY-empty",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "AUTHORITY-incomplete",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "JOURNAL-incomplete",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "TIME-future",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "TIME-too-old",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "TIME-missing",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "TIME-domain",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "TIME-unit",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "TIME-negative",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "TIME-snapshot-domain",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "assertions": 1,
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "TIME",
+      "id": "TIME-control-max-age",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "assertions": 1,
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "TIME",
+      "id": "TIME-control-snapshot-end",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "assertions": 1,
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ORIGIN-context-distinct",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-internal",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "REVISION-exhausted",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "REVISION-state",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-state",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-source",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-event",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-policy",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-grant-type",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-grant-missing-bucket",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-grant-snan",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "ALLOCATION-vector",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "BALANCE-sum",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "BALANCE-consumed",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "BALANCE-reserved",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "BALANCE-negative",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "BALANCE-prepared",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "AMOUNT-precision",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "AMOUNT-exceeds",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SOURCE-unconfirmed",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SOURCE-role",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "CURRENCY",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "PRECISION-metadata",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "BUCKET-forbidden",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "PURPOSE-forbidden",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "NO_OP",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "NO_OP",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "REPLAY-exact",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "NO_OP",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "NO_OP",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "REPLAY-revision-policy-snapshot",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "REPLAY-changed",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "COMMITTED_IN_MEMORY",
+        "0",
+        "50",
+        3
+      ],
+      "assertions": 4,
+      "expected": [
+        "COMMITTED_IN_MEMORY",
+        "0",
+        "50",
+        3
+      ],
+      "group": "SPEND",
+      "id": "SPEND-full",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "NO_OP",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "NO_OP",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SPEND-full-replay",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SPEND-no-reuse",
+      "result": "PASS"
+    },
+    {
+      "actual": true,
+      "assertions": 1,
+      "expected": true,
+      "group": "ATOMICITY",
+      "id": "APPLY-input-unchanged",
+      "result": "PASS"
+    },
+    {
+      "actual": "0",
+      "assertions": 1,
+      "expected": "0",
+      "group": "MONEY",
+      "id": "ALLOC-0",
+      "result": "PASS"
+    },
+    {
+      "actual": "0",
+      "assertions": 1,
+      "expected": "0",
+      "group": "MONEY",
+      "id": "ALLOC--15",
+      "result": "PASS"
+    },
+    {
+      "actual": "50",
+      "assertions": 1,
+      "expected": "50",
+      "group": "MONEY",
+      "id": "ALLOC-50",
+      "result": "PASS"
+    },
+    {
+      "actual": "0.01",
+      "assertions": 1,
+      "expected": "0.01",
+      "group": "MONEY",
+      "id": "ALLOC-residual",
+      "result": "PASS"
+    },
+    {
+      "actual": "1",
+      "assertions": 1,
+      "expected": "1",
+      "group": "MONEY",
+      "id": "ROUND-1.005",
+      "result": "PASS"
+    },
+    {
+      "actual": "1.02",
+      "assertions": 1,
+      "expected": "1.02",
+      "group": "MONEY",
+      "id": "ROUND-1.015",
+      "result": "PASS"
+    },
+    {
+      "actual": "-1.02",
+      "assertions": 1,
+      "expected": "-1.02",
+      "group": "MONEY",
+      "id": "ROUND--1.015",
+      "result": "PASS"
+    },
+    {
+      "actual": "2",
+      "assertions": 1,
+      "expected": "2",
+      "group": "MONEY",
+      "id": "ROUND-1.5",
+      "result": "PASS"
+    },
+    {
+      "actual": "1.002",
+      "assertions": 1,
+      "expected": "1.002",
+      "group": "MONEY",
+      "id": "ROUND-1.0015",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "POSTED",
+        "1.01"
+      ],
+      "assertions": 1,
+      "expected": [
+        "POSTED",
+        "1.01"
+      ],
+      "group": "MONEY",
+      "id": "POSTING-A",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "assertions": 1,
+      "expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "group": "MONEY",
+      "id": "POSTING-B",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "assertions": 1,
+      "expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "group": "MONEY",
+      "id": "POSTING-C",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        2,
+        "-16"
+      ],
+      "assertions": 1,
+      "expected": [
+        "REJECT",
+        2,
+        "-16"
+      ],
+      "group": "CR09",
+      "id": "CR09-A",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "SINGLE_LEVEL_POSITIVE",
+        1,
+        "29"
+      ],
+      "assertions": 1,
+      "expected": [
+        "SINGLE_LEVEL_POSITIVE",
+        1,
+        "29"
+      ],
+      "group": "CR09",
+      "id": "CR09-B",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "ALL_LEVEL_POSITIVE",
+        2,
+        "19"
+      ],
+      "assertions": 1,
+      "expected": [
+        "ALL_LEVEL_POSITIVE",
+        2,
+        "19"
+      ],
+      "group": "CR09",
+      "id": "CR09-all-positive",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "assertions": 1,
+      "expected": "REJECT",
+      "group": "CR09",
+      "id": "CR09-zero",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "assertions": 1,
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-duplicate",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "assertions": 1,
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-stale-source",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "assertions": 1,
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-stale-snapshot",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNAVAILABLE",
+      "assertions": 1,
+      "expected": "UNAVAILABLE",
+      "group": "CR09",
+      "id": "CR09-currency",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "assertions": 1,
+      "expected": "REJECT",
+      "group": "CR09",
+      "id": "CR09-lot-gate",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "assertions": 1,
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-required-mismatch",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        "29"
+      ],
+      "assertions": 1,
+      "expected": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        "29"
+      ],
+      "group": "CR09",
+      "id": "CR09-tie",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "assertions": 1,
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-missing",
+      "result": "PASS"
+    },
+    {
+      "actual": "0",
+      "assertions": 1,
+      "expected": "0",
+      "group": "CR09",
+      "id": "SEQUENTIAL-exhaust",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "assertions": 1,
+      "expected": "REJECT",
+      "group": "CR09",
+      "id": "SEQUENTIAL-no-reuse",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "assertions": 1,
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "SEQUENTIAL-unknown",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "assertions": 1,
+      "expected": "REJECT",
+      "group": "GEOMETRY",
+      "id": "CORE-zero",
+      "result": "PASS"
+    },
+    {
+      "actual": "GEOMETRY_ONLY",
+      "assertions": 1,
+      "expected": "GEOMETRY_ONLY",
+      "group": "GEOMETRY",
+      "id": "CORE-min",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "assertions": 1,
+      "expected": "UNPROVEN",
+      "group": "GEOMETRY",
+      "id": "CORE-unknown-grid",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-identity",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-event",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-allocation",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-currency",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-digits",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-consumptionPolicy",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-bucket",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-purpose",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-amount",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-request-proofDigest",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-allocation",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-source",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-currency",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-digits",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-net",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-unallocated",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-grant",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-remaining",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-consumed",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-reserved",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-phase",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-state-revision",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-identity",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-complete",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-journalComplete",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-history",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-historyObservedAt",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-historyMaxAge",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-snapshot",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-snapshotReceipts",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-now",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-clockDomain",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-timeUnit",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-consumptionPolicy",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-approvedPolicies",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-authority-allocations",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-snapshot-id",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-snapshot-validUntil",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-snapshot-clockDomain",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-snapshot-timeUnit",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-snapshot-marketFingerprint",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-identity",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-closingConfirmed",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-role",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-profit",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-swap",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-commission",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-fee",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-rawNet",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-currency",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-digits",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-record-receipt",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-receipt-currency",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-receipt-digits",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-receipt-raw",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-receipt-posted",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-allocation-allocation",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-allocation-source",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-allocation-grant",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-allocation-policyVersion",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-allocation-event",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-unserializable-extra",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-invalid-source-key",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "SHAPE-journal-bool-key",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "assertions": 5,
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true,
+        true
+      ],
+      "group": "BOUNDARY",
+      "id": "MONEY-profile-limit",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "COMMITTED_IN_MEMORY",
+        "999999999999999999999999999999.99",
+        "0.01"
+      ],
+      "assertions": 3,
+      "expected": [
+        "COMMITTED_IN_MEMORY",
+        "999999999999999999999999999999.99",
+        "0.01"
+      ],
+      "group": "MONEY",
+      "id": "MONEY-exact-large",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "COMMITTED_IN_MEMORY",
+        "ELIGIBLE_FOR_COMMIT"
+      ],
+      "assertions": 2,
+      "expected": [
+        "COMMITTED_IN_MEMORY",
+        "ELIGIBLE_FOR_COMMIT"
+      ],
+      "group": "MONEY",
+      "id": "MONEY-domain-closure",
+      "result": "PASS"
+    },
+    {
+      "actual": "VISIBLE_INTERNAL_ERROR",
+      "assertions": 1,
+      "expected": "VISIBLE_INTERNAL_ERROR",
+      "group": "ATOMICITY",
+      "id": "INTERNAL-error-visible",
+      "result": "PASS"
+    },
+    {
+      "actual": true,
+      "assertions": 1,
+      "expected": true,
+      "group": "ATOMICITY",
+      "id": "INTERNAL-error-inputs-unchanged",
+      "result": "PASS"
+    },
+    {
+      "actual": "VISIBLE_INTERNAL_ERROR",
+      "assertions": 1,
+      "expected": "VISIBLE_INTERNAL_ERROR",
+      "group": "ATOMICITY",
+      "id": "INTERNAL-serialization-visible",
+      "result": "PASS"
+    },
+    {
+      "actual": true,
+      "assertions": 1,
+      "expected": true,
+      "group": "ATOMICITY",
+      "id": "INTERNAL-serialization-unchanged",
+      "result": "PASS"
+    }
+  ]
+}

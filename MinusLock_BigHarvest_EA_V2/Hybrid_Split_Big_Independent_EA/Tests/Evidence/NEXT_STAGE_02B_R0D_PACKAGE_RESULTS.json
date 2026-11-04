@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "positivePass": true,
+  "positiveFindings": [],
+  "negativeChecks": [
+    {
+      "id": "missing-inventory",
+      "expectedFinding": "BASELINE_INVENTORY",
+      "actualFindings": [
+        {
+          "code": "BASELINE_INVENTORY",
+          "path": ""
+        },
+        {
+          "code": "HISTORICAL_HASH",
+          "path": "BUILD_INFO.md"
+        }
+      ],
+      "detected": true
+    },
+    {
+      "id": "historical-content",
+      "expectedFinding": "HISTORICAL_GIT_BLOB",
+      "actualFindings": [
+        {
+          "code": "HISTORICAL_GIT_BLOB",
+          "path": "Include/Core/HSBI_Context.mqh"
+        },
+        {
+          "code": "HISTORICAL_HASH",
+          "path": "Include/Core/HSBI_Context.mqh"
+        }
+      ],
+      "detected": true
+    },
+    {
+      "id": "source-hash",
+      "expectedFinding": "SOURCE_HASH",
+      "actualFindings": [
+        {
+          "code": "SOURCE_HASH",
+          "path": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py"
+        }
+      ],
+      "detected": true
+    },
+    {
+      "id": "test-total",
+      "expectedFinding": "TEST_TOTAL",
+      "actualFindings": [
+        {
+          "code": "TEST_TOTAL",
+          "path": ""
+        }
+      ],
+      "detected": true
+    },
+    {
+      "id": "fail-row",
+      "expectedFinding": "TEST_ROW_VERDICT",
+      "actualFindings": [
+        {
+          "code": "TEST_AGGREGATES",
+          "path": ""
+        },
+        {
+          "code": "TEST_ROW_VERDICT",
+          "path": ""
+        }
+      ],
+      "detected": true
+    },
+    {
+      "id": "mandatory-artifact",
+      "expectedFinding": "MANDATORY_ARTIFACT",
+      "actualFindings": [
+        {
+          "code": "NEW_INVENTORY",
+          "path": ""
+        },
+        {
+          "code": "MANDATORY_ARTIFACT",
+          "path": "Docs/NEXT_STAGE_02B_R0D_NUMERIC_CONTRACT_RU.md"
+        },
+        {
+          "code": "NEW_HASH",
+          "path": "Docs/NEXT_STAGE_02B_R0D_NUMERIC_CONTRACT_RU.md"
+        }
+      ],
+      "detected": true
+    },
+    {
+      "id": "outside-scope",
+      "expectedFinding": "OUTSIDE_ALLOWED_SCOPE",
+      "actualFindings": [
+        {
+          "code": "NEW_INVENTORY",
+          "path": ""
+        },
+        {
+          "code": "OUTSIDE_ALLOWED_SCOPE",
+          "path": "UNAUTHORIZED.txt"
+        }
+      ],
+      "detected": true
+    }
+  ],
+  "baselineSHA": "ec7ae40fe22e1d6e5bed035450750502a1162ab5",
+  "executedUtc": "2026-11-04T15:54:25.779002+00:00",
+  "scope": "Independent Git inventory + disposable copies; own result and preservation self hashes deliberately excluded to avoid self reference",
+  "Command": [
+    "Tests/Static/check_hsbi_02b_r0d_package.py",
+    "--self-test"
+  ],
+  "StartedUtc": "2026-11-04T15:54:16.573776+00:00",
+  "FinishedUtc": "2026-11-04T15:54:25.780279+00:00",
+  "TestedSHA": "ec7ae40fe22e1d6e5bed035450750502a1162ab5",
+  "ExitCode": 0,
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0d_package.py": "4aad90c05bd0eb6776cbc6bccc9203119a821d4c4623b5d8fb86c0a2ebe0008e"
+  }
+}

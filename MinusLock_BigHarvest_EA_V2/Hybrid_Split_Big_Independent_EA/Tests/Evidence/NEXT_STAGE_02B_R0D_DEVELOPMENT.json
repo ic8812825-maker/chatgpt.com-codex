@@ -1,0 +1,2296 @@
+{
+  "initialRuns": [
+    {
+      "utc": "2026-11-04T15:33:19.174890+00:00",
+      "command": "check_hsbi_02b_r0d_mutations.py",
+      "exitCode": 1,
+      "status": "INFRASTRUCTURE_ERROR",
+      "error": "SyntaxError unmatched parenthesis before catalog execution; no mutation killed",
+      "sourceHash": "1157bcc8dd7b7b8af8ab040c306b832272738edc998ae593d53fc136b1425ddf",
+      "editBefore": "else 'semantic causal outcome, not exception'))",
+      "editAfter": "else 'semantic causal outcome, not exception')"
+    }
+  ],
+  "initialCatalog": {
+    "Command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "Tests/Static/check_hsbi_02b_r0d_mutations.py",
+      "--output",
+      "Tests/Evidence/NEXT_STAGE_02B_R0D_MUTATION_RESULTS.json"
+    ],
+    "ExitCode": 1,
+    "FinishedUtc": "2026-11-04T15:33:19.801082+00:00",
+    "MQL5_COMPILE": "NOT_RUN",
+    "MQL5_TESTS": "NOT_RUN",
+    "STRATEGY_TESTER": "NOT_RUN",
+    "SourceHashes": {
+      "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+      "Tests/Static/check_hsbi_02b_r0d_contracts.py": "188789153c392f92e3f51640a5020625b85cde08fa9c1ab4c819925db13ceb86",
+      "Tests/Static/check_hsbi_02b_r0d_mutations.py": "f8b7f1ce1242ccbf21136ee4d300537b7eee34bb1e51288fcccfa15a32bc8798"
+    },
+    "StartedUtc": "2026-11-04T15:33:19.339980+00:00",
+    "catalogSize": 22,
+    "catalogVersion": 1,
+    "executedUtc": "2026-11-04T15:33:19.796001+00:00",
+    "infrastructureErrors": 0,
+    "killed": 21,
+    "mutations": [
+      {
+        "CausalTestID": "amount-negative",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if amount<=0:return 'REJECT'"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "MutantSourceHash": "86041653a980dcb773b5b4da86ad578af10a4cda73a15d702ee9f5c7e5a0d2a3",
+        "MutationID": "amount-positive",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "For early amount/available guard, mandatory post-state balance blocks money mutation; changed typed outcome is still detected. Post-state fault vector separately proves its dominance.",
+        "StateDelta": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "reserved-available",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "amount>number(state['remaining']['FinalReserve'])",
+            "before": "amount>number(state['remaining']['FinalReserve'])-number(state['reserved']['FinalReserve'])"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "MutantSourceHash": "3d51f161dcc585d8b38f8e5777b2bb25e7bf492e76b3c50912209ee86c384195",
+        "MutationID": "available-reserved",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "For early amount/available guard, mandatory post-state balance blocks money mutation; changed typed outcome is still detected. Post-state fault vector separately proves its dominance.",
+        "StateDelta": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "posted-grid",
+        "ContractID": "NUM-POSTED",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'UNAVAILABLE',None",
+            "before": "if (value/q).denominator!=1:return 'UNAVAILABLE',None"
+          }
+        ],
+        "IndependentExpected": [
+          "UNAVAILABLE",
+          null
+        ],
+        "MutantNegativeOutcome": [
+          "POSTED",
+          [
+            "NUMBER",
+            "201",
+            "200"
+          ]
+        ],
+        "MutantSourceHash": "c51f9eda19e87c2dfadcfc938233d8ac271e364410d0f5a0254e9253258fb9e1",
+        "MutationID": "posted-grid",
+        "OriginalNegativeOutcome": [
+          "UNAVAILABLE",
+          null
+        ],
+        "OriginalNegativePass": true,
+        "OriginalPositive": [
+          "POSTED",
+          [
+            "NUMBER",
+            "101",
+            "100"
+          ]
+        ],
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": [
+          "POSTED",
+          [
+            "NUMBER",
+            "101",
+            "100"
+          ]
+        ],
+        "PositiveControlPass": true,
+        "PositiveTestID": "POSTED-USD",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": "direct helper outcome",
+        "TargetFunction": "posted",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "local-unverified",
+        "ContractID": "NUM-POSTED",
+        "ExactEdit": [
+          {
+            "after": "mode=='LOCAL_VERIFIED' and candidate_round(raw,digits)==value",
+            "before": "mode=='LOCAL_VERIFIED' and verified_local_policy and candidate_round(raw,digits)==value"
+          }
+        ],
+        "IndependentExpected": [
+          "UNAVAILABLE",
+          null
+        ],
+        "MutantNegativeOutcome": [
+          "POSTED",
+          [
+            "NUMBER",
+            "1",
+            "1"
+          ]
+        ],
+        "MutantSourceHash": "5bd14b2a73ce8af215384d140baa9ab1773f2c22c4d71d91ebc9e9a9fa3a23ba",
+        "MutationID": "local-verified",
+        "OriginalNegativeOutcome": [
+          "UNAVAILABLE",
+          null
+        ],
+        "OriginalNegativePass": true,
+        "OriginalPositive": [
+          "POSTED",
+          [
+            "NUMBER",
+            "1",
+            "1"
+          ]
+        ],
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": [
+          "POSTED",
+          [
+            "NUMBER",
+            "1",
+            "1"
+          ]
+        ],
+        "PositiveControlPass": true,
+        "PositiveTestID": "local-verified",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": "direct helper outcome",
+        "TargetFunction": "posted",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "WORST-cancellation",
+        "ContractID": "NUM-WORST",
+        "ExactEdit": [
+          {
+            "after": "checked(number(Decimal(str(r['available']))-Decimal(str(r['loss']))-Decimal(str(r['buffer']))))",
+            "before": "checked(av-loss-buf)"
+          }
+        ],
+        "IndependentExpected": [
+          "REJECT",
+          1,
+          [
+            "NUMBER",
+            "-1",
+            "200"
+          ]
+        ],
+        "MutantNegativeOutcome": [
+          "ALL_LEVEL_POSITIVE",
+          1,
+          [
+            "NUMBER",
+            "1",
+            "200"
+          ]
+        ],
+        "MutantSourceHash": "4cde7abbc4662ce8eb2f751cdbe59fd6c908d3f808cf33fdd866080377abc8dc",
+        "MutationID": "worst-ambient-context",
+        "OriginalNegativeOutcome": [
+          "REJECT",
+          1,
+          [
+            "NUMBER",
+            "-1",
+            "200"
+          ]
+        ],
+        "OriginalNegativePass": true,
+        "OriginalPositive": [
+          "ALL_LEVEL_POSITIVE",
+          1,
+          [
+            "NUMBER",
+            "29",
+            "1"
+          ]
+        ],
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": [
+          "ALL_LEVEL_POSITIVE",
+          1,
+          [
+            "NUMBER",
+            "29",
+            "1"
+          ]
+        ],
+        "PositiveControlPass": true,
+        "PositiveTestID": "WORST-control",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": "direct helper outcome",
+        "TargetFunction": "_worst",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "SEQUENTIAL-large",
+        "ContractID": "NUM-SEQUENTIAL",
+        "ExactEdit": [
+          {
+            "after": "after=number(Decimal(current.numerator)/Decimal(current.denominator)-Decimal(str(x)))",
+            "before": "after=checked(current-amount)"
+          }
+        ],
+        "IndependentExpected": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "499999999999999999999999999999",
+            "50"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "999999999999999999999999999999",
+                "100"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "499999999999999999999999999999",
+                "50"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "999999999999999999999999999999",
+                "100"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "MutantNegativeOutcome": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "10000000000000000000000000000",
+            "1"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "MutantSourceHash": "f7385c66445ec743de4c9e141743bfd06b5c1dd4487a7f39c3ddaced376bf5e4",
+        "MutationID": "sequential-ambient-context",
+        "OriginalNegativeOutcome": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "499999999999999999999999999999",
+            "50"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "999999999999999999999999999999",
+                "100"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "499999999999999999999999999999",
+                "50"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "999999999999999999999999999999",
+                "100"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "30",
+                "1"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "50",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "0",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "30",
+                "1"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "50",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "0",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "SEQUENTIAL-control",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "10000000000000000000000000000",
+            "1"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "TargetFunction": "sequential",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "SEQUENTIAL-large",
+        "ContractID": "NUM-SEQUENTIAL",
+        "ExactEdit": [
+          {
+            "after": "after=current if amount<1 else checked(current-amount)",
+            "before": "after=checked(current-amount)"
+          }
+        ],
+        "IndependentExpected": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "499999999999999999999999999999",
+            "50"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "999999999999999999999999999999",
+                "100"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "499999999999999999999999999999",
+                "50"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "999999999999999999999999999999",
+                "100"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "MutantNegativeOutcome": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "10000000000000000000000000000",
+            "1"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "MutantSourceHash": "33365e1e688f5025ce188833d58da3133db023a50c144b01cb531408fd0f35ae",
+        "MutationID": "lost-small-consumption",
+        "OriginalNegativeOutcome": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "499999999999999999999999999999",
+            "50"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "999999999999999999999999999999",
+                "100"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "499999999999999999999999999999",
+                "50"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "999999999999999999999999999999",
+                "100"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "30",
+                "1"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "50",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "0",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "30",
+                "1"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "50",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "0",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "20",
+                "1"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "SEQUENTIAL-control",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "appliedCount": 2,
+          "rejectedIndex": null,
+          "remaining": [
+            "NUMBER",
+            "10000000000000000000000000000",
+            "1"
+          ],
+          "status": "CONSERVATION_ONLY",
+          "trace": [
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 1
+            },
+            {
+              "Consumption": [
+                "NUMBER",
+                "1",
+                "100"
+              ],
+              "ReserveAfter": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "ReserveBefore": [
+                "NUMBER",
+                "10000000000000000000000000000",
+                "1"
+              ],
+              "level": 2
+            }
+          ]
+        },
+        "TargetFunction": "sequential",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "WORST-cancellation",
+        "ContractID": "NUM-WORST",
+        "ExactEdit": [
+          {
+            "after": "checked(abs(av-loss-buf))",
+            "before": "checked(av-loss-buf)"
+          }
+        ],
+        "IndependentExpected": [
+          "REJECT",
+          1,
+          [
+            "NUMBER",
+            "-1",
+            "200"
+          ]
+        ],
+        "MutantNegativeOutcome": [
+          "ALL_LEVEL_POSITIVE",
+          1,
+          [
+            "NUMBER",
+            "1",
+            "200"
+          ]
+        ],
+        "MutantSourceHash": "5f274f07703418885bb7cfcf8af11b384f64034f488fe8577b7af518bc46c735",
+        "MutationID": "margin-sign",
+        "OriginalNegativeOutcome": [
+          "REJECT",
+          1,
+          [
+            "NUMBER",
+            "-1",
+            "200"
+          ]
+        ],
+        "OriginalNegativePass": true,
+        "OriginalPositive": [
+          "ALL_LEVEL_POSITIVE",
+          1,
+          [
+            "NUMBER",
+            "29",
+            "1"
+          ]
+        ],
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": [
+          "ALL_LEVEL_POSITIVE",
+          1,
+          [
+            "NUMBER",
+            "29",
+            "1"
+          ]
+        ],
+        "PositiveControlPass": true,
+        "PositiveTestID": "WORST-control",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": "direct helper outcome",
+        "TargetFunction": "_worst",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "snapshot-type-decimal",
+        "ContractID": "SNAP-FIXTURE-1",
+        "ExactEdit": [
+          {
+            "after": "pass  # weakened type guard",
+            "before": "text(s['marketFingerprint'])  # MUT:snapshot-type"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "MutantSourceHash": "f3d8d8ded13b8ee88cfb20ef6157baaa920c21f691188609e4a6f521464f04ff",
+        "MutationID": "snapshot-type",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "TargetFunction": "snapshot_shape",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "CODEC-str-decimal",
+        "ContractID": "NUM-CODEC",
+        "ExactEdit": [
+          {
+            "after": "return ['str',str(n.numerator)] if n.denominator==1 else ['number',str(n.numerator),str(n.denominator)]",
+            "before": "return ['number',str(n.numerator),str(n.denominator)]"
+          }
+        ],
+        "IndependentExpected": true,
+        "MutantNegativeOutcome": false,
+        "MutantSourceHash": "d36f55017d6654a600dfa0f09e6e35dbb2e024245da355dd88e2e55959bd9a86",
+        "MutationID": "canonical-type-collision",
+        "OriginalNegativeOutcome": true,
+        "OriginalNegativePass": true,
+        "OriginalPositive": "[\"HSBI-R0D-TYPED-1\",[\"str\",\"1\"]]",
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": "[\"HSBI-R0D-TYPED-1\",[\"str\",\"1\"]]",
+        "PositiveControlPass": true,
+        "PositiveTestID": "CODEC-control",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": "direct helper outcome",
+        "TargetFunction": "canonical",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "snapshot-content",
+        "ContractID": "SNAP-FIXTURE-1",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'CONFLICT'",
+            "before": "if canonical(s)!=receipt:return 'CONFLICT'"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "87bcf7b7b8a060698dfe4aa0b126a380ff695e9da746d87f974c448f625ffa2f",
+        "MutationID": "snapshot-receipt",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "POSTSTATE-fault",
+        "ContractID": "NUM-APPLY",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'UNAVAILABLE',copy.deepcopy(state),copy.deepcopy(journal),copy.deepcopy(a)",
+            "before": "if not balance(s):return 'UNAVAILABLE',copy.deepcopy(state),copy.deepcopy(journal),copy.deepcopy(a)"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "f326dc42e96af29d9a7bbe610ddf987bfc73b364a441e9c9257ec4b7b7cb51b0",
+        "MutationID": "post-state-validation",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "apply_for_test",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "COMPOSITION-full",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "amount>number(state['grant']['FinalReserve'])-number(state['reserved']['FinalReserve'])",
+            "before": "amount>number(state['remaining']['FinalReserve'])-number(state['reserved']['FinalReserve'])"
+          }
+        ],
+        "IndependentExpected": {
+          "balance1": true,
+          "balance2": true,
+          "consumed": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "extra": "REJECT",
+          "first": "COMMITTED_IN_MEMORY",
+          "journalCount": 2,
+          "next": "ELIGIBLE_FOR_COMMIT",
+          "remaining": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "replay": "NO_OP",
+          "replayUnchanged": true,
+          "revision": 3,
+          "second": "COMMITTED_IN_MEMORY"
+        },
+        "MutantNegativeOutcome": {
+          "balance1": true,
+          "balance2": true,
+          "consumed": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "extra": "UNAVAILABLE",
+          "first": "COMMITTED_IN_MEMORY",
+          "journalCount": 2,
+          "next": "ELIGIBLE_FOR_COMMIT",
+          "remaining": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "replay": "NO_OP",
+          "replayUnchanged": true,
+          "revision": 3,
+          "second": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "937b7dccaf8c30a5b63c5d161f252a3f6a9a14f21940a1ae540cbed2e4bf2be8",
+        "MutationID": "consumed-reavailable",
+        "OriginalNegativeOutcome": {
+          "balance1": true,
+          "balance2": true,
+          "consumed": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "extra": "REJECT",
+          "first": "COMMITTED_IN_MEMORY",
+          "journalCount": 2,
+          "next": "ELIGIBLE_FOR_COMMIT",
+          "remaining": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "replay": "NO_OP",
+          "replayUnchanged": true,
+          "revision": 3,
+          "second": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "For early amount/available guard, mandatory post-state balance blocks money mutation; changed typed outcome is still detected. Post-state fault vector separately proves its dominance.",
+        "StateDelta": {
+          "balance1": true,
+          "balance2": true,
+          "consumed": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "extra": "UNAVAILABLE",
+          "first": "COMMITTED_IN_MEMORY",
+          "journalCount": 2,
+          "next": "ELIGIBLE_FOR_COMMIT",
+          "remaining": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "replay": "NO_OP",
+          "replayUnchanged": true,
+          "revision": 3,
+          "second": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "COMPOSITION-replay-conflict",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "return 'NO_OP'",
+            "before": "return 'NO_OP' if journal[key]==canonical(q) else 'CONFLICT'"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "NO_OP"
+        },
+        "MutantSourceHash": "0471e8e314851c220a8ddb0c4b98e31b28f9b8e44fe6479067103ce05688ec86",
+        "MutationID": "altered-replay",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "NO_OP"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "domain-overflow",
+        "ContractID": "NUM-DOMAIN-1",
+        "ExactEdit": [
+          {
+            "after": "if False:raise Unsupported('outside finite decimal fixture domain')",
+            "before": "if abs(x)>=LIMIT or (x*SCALE).denominator!=1:raise Unsupported('outside finite decimal fixture domain')"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "MutantSourceHash": "5b7ae870a0565a8e4e15c41f65c086dcc3129ac6178d845ecf21ef4ad05a461c",
+        "MutationID": "unsupported-domain",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": [
+          "NUMBER",
+          "201",
+          "200"
+        ],
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": [
+          "NUMBER",
+          "201",
+          "200"
+        ],
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-number",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "TargetFunction": "checked",
+        "Verdict": "MUTATION_SURVIVED"
+      },
+      {
+        "CausalTestID": "snapshot-schema",
+        "ContractID": "SNAP-FIXTURE-1",
+        "ExactEdit": [
+          {
+            "after": "if False:raise Unsupported('unknown snapshot schema')",
+            "before": "if s['schemaVersion']!='HSBI-SNAPSHOT-FIXTURE-1':raise Unsupported('unknown snapshot schema')"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "MutantSourceHash": "7e94a25827a2334a26c7ae19553ec2dfa839508988ff239d48ded24110f33021",
+        "MutationID": "snapshot-schema",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "UNAVAILABLE"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "TargetFunction": "snapshot_shape",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "raw-sum",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'CONFLICT'",
+            "before": "if raw!=number(record['rawNet']):return 'CONFLICT'"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "66f30981d9e27949bf01dfd153c92c7a5ef2058867ac04707d9dcf48cc809bc6",
+        "MutationID": "raw-net",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "digest-forged",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'REJECT'",
+            "before": "if q['proofDigest']!=digest(proof_bundle(record,allocation,expected)):return 'REJECT'"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "fa247bedb6b63c437175f8efceed448e13740e4aaa3ce8ef66712b9943f20615",
+        "MutationID": "proof-digest",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "source-role",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "if not record['closingConfirmed']:return 'REJECT'",
+            "before": "if not record['closingConfirmed'] or record['role'] not in ('BigCore','BigTrend'):return 'REJECT'"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "dcaa426d9e8df450914414afc49545e7cae37061c4fa879f281c3e84c0b04549",
+        "MutationID": "source-role",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "history-missing",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "record=a['history'].get(allocation['source']) or q['presentedRecord']",
+            "before": "record=a['history'].get(allocation['source'])"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "2532b6abb4c7316b7e5507b5313407df30e34419d4d4978fb9165124ec808c88",
+        "MutationID": "source-history",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "REJECT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "posted-net",
+        "ContractID": "NUM-AUTH",
+        "ExactEdit": [
+          {
+            "after": "if False:return 'CONFLICT'",
+            "before": "if max(Fraction(0),actual)!=number(state['net']):return 'CONFLICT'"
+          }
+        ],
+        "IndependentExpected": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "MutantNegativeOutcome": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "4d07ff82da50d37d988913d2a565601288c044c8ab74d22cdb4189c51dcaadf6",
+        "MutationID": "posted-net",
+        "OriginalNegativeOutcome": {
+          "authorityUnchanged": true,
+          "inputsUnchanged": true,
+          "journalUnchanged": true,
+          "stateUnchanged": true,
+          "status": "CONFLICT"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "PositiveControlPass": true,
+        "PositiveTestID": "CONTROL-apply",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "authorityUnchanged": false,
+          "inputsUnchanged": true,
+          "journalUnchanged": false,
+          "stateUnchanged": false,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "_authorize",
+        "Verdict": "MUTATION_KILLED"
+      },
+      {
+        "CausalTestID": "CONTROL-apply",
+        "ContractID": "NUM-APPLY",
+        "ExactEdit": [
+          {
+            "after": "s,j,aa=state,journal,a",
+            "before": "s,j,aa=copy.deepcopy(state),copy.deepcopy(journal),copy.deepcopy(a)"
+          }
+        ],
+        "IndependentExpected": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantNegativeOutcome": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": false,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "MutantSourceHash": "37cde677c0526169d4e1b5cb6346127a710f41fca8c5db4f921b9380520cf216",
+        "MutationID": "input-alias",
+        "OriginalNegativeOutcome": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": true,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "OriginalNegativePass": true,
+        "OriginalPositive": true,
+        "OriginalSourceHash": "ad09c038451106a67b99d43574ed905a1894048f553f27885ccff930b6a85d93",
+        "PositiveControl": true,
+        "PositiveControlPass": true,
+        "PositiveTestID": "BALANCE-direct",
+        "SafetyBoundary": "semantic causal outcome, not exception",
+        "StateDelta": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "inputsUnchanged": false,
+          "journalCount": 1,
+          "remaining": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2,
+          "status": "COMMITTED_IN_MEMORY"
+        },
+        "TargetFunction": "apply_for_test",
+        "Verdict": "MUTATION_KILLED"
+      }
+    ],
+    "status": "PROPOSED",
+    "survived": 1,
+    "testedSHA": "ec7ae40fe22e1d6e5bed035450750502a1162ab5"
+  },
+  "catalogRevisionReason": "unsupported-domain survived: Decimal DTO rejected by earlier mandatory Decimal domain check. Public number(decimal text) can reach checked directly. Add independent direct text vector, preserve same mutation edit; version2 adds coverage rather than disabling another guard."
+}

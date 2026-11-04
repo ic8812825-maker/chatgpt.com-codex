@@ -1,0 +1,4504 @@
+{
+  "schema": "HSBI.R0D.VERIFICATION/1",
+  "baseSHA": "ec7ae40fe22e1d6e5bed035450750502a1162ab5",
+  "status": "PROPOSED",
+  "approval": "AWAITING_ADMIN_APPROVAL",
+  "scenarioIDs": [
+    "CONTROL-authorize",
+    "CONTROL-apply",
+    "CODEC-cyclic",
+    "CODEC-control",
+    "DOMAIN-direct",
+    "CONTROL-number",
+    "ROUND-1.005",
+    "ROUND-1.015",
+    "ROUND--1.005",
+    "ROUND--1.015",
+    "POSTED-USD",
+    "POSTED-JPY",
+    "POSTED-KWD",
+    "posted-grid",
+    "local-unverified",
+    "local-verified",
+    "ALLOC-integer-units-0",
+    "ALLOC-integer-units-1",
+    "ALLOC-integer-units-2",
+    "ALLOC-integer-units-3",
+    "ALLOC-integer-units-49",
+    "ALLOC-integer-units-50",
+    "ALLOC-integer-units-99",
+    "ALLOC-integer-units-10001",
+    "ALLOC-integer-units-1000000000000000000000000000000",
+    "ALLOC-integer-units-1000000000000000000000000000000000000000000000000000000000000000000",
+    "ALLOC-full",
+    "ALLOC-residual",
+    "ALLOC-negative",
+    "ALLOC-small",
+    "BALANCE-direct",
+    "BALANCE-large",
+    "COMPOSITION-full",
+    "COMPOSITION-replay-conflict",
+    "CLOSURE-edge",
+    "APPLY-large",
+    "amount-negative",
+    "amount-zero",
+    "reserved-available",
+    "amount-exceeds",
+    "amount-offgrid",
+    "digest-forged",
+    "raw-sum",
+    "posted-net",
+    "record-magic",
+    "history-missing",
+    "history-unavailable",
+    "source-unconfirmed",
+    "source-role",
+    "bucket-vector",
+    "prepared",
+    "snapshot-content",
+    "snapshot-id",
+    "snapshot-unknown",
+    "snapshot-type-decimal",
+    "snapshot-type-int",
+    "snapshot-type-bool",
+    "snapshot-type-none",
+    "snapshot-type-empty",
+    "snapshot-type-dict",
+    "snapshot-type-list",
+    "snapshot-type-tuple",
+    "snapshot-missing",
+    "snapshot-schema",
+    "snapshot-extra",
+    "identity-Broker",
+    "identity-Server",
+    "identity-Account",
+    "identity-Symbol",
+    "identity-Magic",
+    "identity-Deal",
+    "identity-Order",
+    "identity-Position",
+    "identity-Cycle",
+    "identity-Plan",
+    "identity-StateRevision",
+    "identity-AllocationEvent",
+    "identity-PolicyVersion",
+    "identity-SnapshotID",
+    "event-bool",
+    "event-zero",
+    "event-negative",
+    "event-float",
+    "event-string",
+    "event-overflow",
+    "missing-event",
+    "money-nan",
+    "domain-overflow",
+    "domain-subgrid",
+    "future-history",
+    "stale-snapshot",
+    "WORST-control",
+    "WORST-cancellation",
+    "WORST-boundary--1",
+    "WORST-boundary-0",
+    "WORST-boundary-+1",
+    "WORST-scope-B",
+    "WORST-malformed-currency",
+    "WORST-required",
+    "SEQUENTIAL-control",
+    "SEQUENTIAL-large",
+    "SEQUENTIAL-prefix-reject",
+    "SEQUENTIAL-prefix-malformed",
+    "SEQUENTIAL-prefix-unsupported",
+    "SEQUENTIAL-unknown",
+    "GEOMETRY-positive",
+    "GEOMETRY-zero",
+    "GEOMETRY-grid-unknown",
+    "CODEC-str-decimal",
+    "CODEC-str-int",
+    "CODEC-int-bool",
+    "CODEC-null-missing",
+    "CODEC-empty-missing",
+    "CODEC-list-tuple",
+    "POSTSTATE-fault",
+    "INTERNAL-error-visible",
+    "POSTED-unknown-precision",
+    "POSTED-missing-receipt"
+  ],
+  "cases": [
+    {
+      "TestID": "CONTROL-authorize",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": "ELIGIBLE_FOR_COMMIT",
+      "ActualOutcome": "ELIGIBLE_FOR_COMMIT",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CONTROL-authorize"
+    },
+    {
+      "TestID": "CONTROL-apply",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "consumed": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "inputsUnchanged": true,
+        "journalCount": 1,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "reserved": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "revision": 2,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "ActualOutcome": {
+        "consumed": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "inputsUnchanged": true,
+        "journalCount": 1,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "reserved": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "revision": 2,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "input-alias"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CONTROL-apply"
+    },
+    {
+      "TestID": "CODEC-cyclic",
+      "ContractID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "IndependentExpected": "REJECT",
+      "ActualOutcome": "REJECT",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CODEC-cyclic"
+    },
+    {
+      "TestID": "CODEC-control",
+      "ContractID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "IndependentExpected": "[\"HSBI-R0D-TYPED-1\",[\"str\",\"1\"]]",
+      "ActualOutcome": "[\"HSBI-R0D-TYPED-1\",[\"str\",\"1\"]]",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CODEC-control"
+    },
+    {
+      "TestID": "DOMAIN-direct",
+      "ContractID": "NUM-DOMAIN-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "number",
+      "SourceLine": 40,
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "ActualOutcome": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "unsupported-domain"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#DOMAIN-direct"
+    },
+    {
+      "TestID": "CONTROL-number",
+      "ContractID": "NUM-PARSE",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "number",
+      "SourceLine": 40,
+      "IndependentExpected": [
+        "NUMBER",
+        "201",
+        "200"
+      ],
+      "ActualOutcome": [
+        "NUMBER",
+        "201",
+        "200"
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CONTROL-number"
+    },
+    {
+      "TestID": "ROUND-1.005",
+      "ContractID": "NUM-ROUND",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "candidate_round",
+      "SourceLine": 108,
+      "IndependentExpected": [
+        "NUMBER",
+        "1",
+        "1"
+      ],
+      "ActualOutcome": [
+        "NUMBER",
+        "1",
+        "1"
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ROUND-1.005"
+    },
+    {
+      "TestID": "ROUND-1.015",
+      "ContractID": "NUM-ROUND",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "candidate_round",
+      "SourceLine": 108,
+      "IndependentExpected": [
+        "NUMBER",
+        "51",
+        "50"
+      ],
+      "ActualOutcome": [
+        "NUMBER",
+        "51",
+        "50"
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ROUND-1.015"
+    },
+    {
+      "TestID": "ROUND--1.005",
+      "ContractID": "NUM-ROUND",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "candidate_round",
+      "SourceLine": 108,
+      "IndependentExpected": [
+        "NUMBER",
+        "-1",
+        "1"
+      ],
+      "ActualOutcome": [
+        "NUMBER",
+        "-1",
+        "1"
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ROUND--1.005"
+    },
+    {
+      "TestID": "ROUND--1.015",
+      "ContractID": "NUM-ROUND",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "candidate_round",
+      "SourceLine": 108,
+      "IndependentExpected": [
+        "NUMBER",
+        "-51",
+        "50"
+      ],
+      "ActualOutcome": [
+        "NUMBER",
+        "-51",
+        "50"
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ROUND--1.015"
+    },
+    {
+      "TestID": "POSTED-USD",
+      "ContractID": "NUM-POSTED",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "posted",
+      "SourceLine": 115,
+      "IndependentExpected": [
+        "POSTED",
+        [
+          "NUMBER",
+          "101",
+          "100"
+        ]
+      ],
+      "ActualOutcome": [
+        "POSTED",
+        [
+          "NUMBER",
+          "101",
+          "100"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#POSTED-USD"
+    },
+    {
+      "TestID": "POSTED-JPY",
+      "ContractID": "NUM-POSTED",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "posted",
+      "SourceLine": 115,
+      "IndependentExpected": [
+        "POSTED",
+        [
+          "NUMBER",
+          "2",
+          "1"
+        ]
+      ],
+      "ActualOutcome": [
+        "POSTED",
+        [
+          "NUMBER",
+          "2",
+          "1"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#POSTED-JPY"
+    },
+    {
+      "TestID": "POSTED-KWD",
+      "ContractID": "NUM-POSTED",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "posted",
+      "SourceLine": 115,
+      "IndependentExpected": [
+        "POSTED",
+        [
+          "NUMBER",
+          "501",
+          "500"
+        ]
+      ],
+      "ActualOutcome": [
+        "POSTED",
+        [
+          "NUMBER",
+          "501",
+          "500"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#POSTED-KWD"
+    },
+    {
+      "TestID": "posted-grid",
+      "ContractID": "NUM-POSTED",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "posted",
+      "SourceLine": 115,
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "ActualOutcome": [
+        "UNAVAILABLE",
+        null
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "posted-grid"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#posted-grid"
+    },
+    {
+      "TestID": "local-unverified",
+      "ContractID": "NUM-POSTED",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "posted",
+      "SourceLine": 115,
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "ActualOutcome": [
+        "UNAVAILABLE",
+        null
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "local-verified"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#local-unverified"
+    },
+    {
+      "TestID": "local-verified",
+      "ContractID": "NUM-POSTED",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "posted",
+      "SourceLine": 115,
+      "IndependentExpected": [
+        "POSTED",
+        [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      ],
+      "ActualOutcome": [
+        "POSTED",
+        [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#local-verified"
+    },
+    {
+      "TestID": "ALLOC-integer-units-0",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-0"
+    },
+    {
+      "TestID": "ALLOC-integer-units-1",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-1"
+    },
+    {
+      "TestID": "ALLOC-integer-units-2",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-2"
+    },
+    {
+      "TestID": "ALLOC-integer-units-3",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "50"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "50"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-3"
+    },
+    {
+      "TestID": "ALLOC-integer-units-49",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "1",
+          "25"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "6",
+          "25"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "3",
+          "25"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "20"
+        ],
+        "Transition": [
+          "NUMBER",
+          "1",
+          "25"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "1",
+          "25"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "6",
+          "25"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "3",
+          "25"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "20"
+        ],
+        "Transition": [
+          "NUMBER",
+          "1",
+          "25"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-49"
+    },
+    {
+      "TestID": "ALLOC-integer-units-50",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "1",
+          "20"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "1",
+          "4"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "3",
+          "25"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "3",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "1",
+          "20"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "1",
+          "20"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "1",
+          "4"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "3",
+          "25"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "3",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "1",
+          "20"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-50"
+    },
+    {
+      "TestID": "ALLOC-integer-units-99",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "9",
+          "100"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "49",
+          "100"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "6",
+          "25"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "2",
+          "25"
+        ],
+        "Transition": [
+          "NUMBER",
+          "9",
+          "100"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "9",
+          "100"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "49",
+          "100"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "6",
+          "25"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "2",
+          "25"
+        ],
+        "Transition": [
+          "NUMBER",
+          "9",
+          "100"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-99"
+    },
+    {
+      "TestID": "ALLOC-integer-units-10001",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "25",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "501",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "10",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "25",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "501",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "10",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-10001"
+    },
+    {
+      "TestID": "ALLOC-integer-units-1000000000000000000000000000000",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "1000000000000000000000000000",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "5000000000000000000000000000",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "2500000000000000000000000000",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "500000000000000000000000000",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "1000000000000000000000000000",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "1000000000000000000000000000",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "5000000000000000000000000000",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "2500000000000000000000000000",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "500000000000000000000000000",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "1000000000000000000000000000",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-1000000000000000000000000000000"
+    },
+    {
+      "TestID": "ALLOC-integer-units-1000000000000000000000000000000000000000000000000000000000000000000",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "1000000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "5000000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "2500000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "500000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "1000000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "1000000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "5000000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "2500000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "500000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "1000000000000000000000000000000000000000000000000000000000000000",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-integer-units-1000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "TestID": "ALLOC-full",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "5",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "25",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "25",
+          "2"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "5",
+          "2"
+        ],
+        "Transition": [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "5",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "25",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "25",
+          "2"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "5",
+          "2"
+        ],
+        "Transition": [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-full"
+    },
+    {
+      "TestID": "ALLOC-residual",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-residual"
+    },
+    {
+      "TestID": "ALLOC-negative",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-negative"
+    },
+    {
+      "TestID": "ALLOC-small",
+      "ContractID": "NUM-GRANT",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "allocate",
+      "SourceLine": 132,
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ActualOutcome": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#ALLOC-small"
+    },
+    {
+      "TestID": "BALANCE-direct",
+      "ContractID": "NUM-BALANCE",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "balance",
+      "SourceLine": 165,
+      "IndependentExpected": true,
+      "ActualOutcome": true,
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#BALANCE-direct"
+    },
+    {
+      "TestID": "BALANCE-large",
+      "ContractID": "NUM-BALANCE",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "balance",
+      "SourceLine": 165,
+      "IndependentExpected": true,
+      "ActualOutcome": true,
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#BALANCE-large"
+    },
+    {
+      "TestID": "COMPOSITION-full",
+      "ContractID": "NUM-APPLY",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 287,
+      "IndependentExpected": {
+        "balance1": true,
+        "balance2": true,
+        "consumed": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "extra": "REJECT",
+        "first": "COMMITTED_IN_MEMORY",
+        "journalCount": 2,
+        "next": "ELIGIBLE_FOR_COMMIT",
+        "remaining": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "replayUnchanged": true,
+        "revision": 3,
+        "second": "COMMITTED_IN_MEMORY"
+      },
+      "ActualOutcome": {
+        "balance1": true,
+        "balance2": true,
+        "consumed": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "extra": "REJECT",
+        "first": "COMMITTED_IN_MEMORY",
+        "journalCount": 2,
+        "next": "ELIGIBLE_FOR_COMMIT",
+        "remaining": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "replayUnchanged": true,
+        "revision": 3,
+        "second": "COMMITTED_IN_MEMORY"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "consumed-reavailable"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#COMPOSITION-full"
+    },
+    {
+      "TestID": "COMPOSITION-replay-conflict",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "altered-replay"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#COMPOSITION-replay-conflict"
+    },
+    {
+      "TestID": "CLOSURE-edge",
+      "ContractID": "NUM-APPLY",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 287,
+      "IndependentExpected": {
+        "balance": true,
+        "first": "COMMITTED_IN_MEMORY",
+        "next": "ELIGIBLE_FOR_COMMIT"
+      },
+      "ActualOutcome": {
+        "balance": true,
+        "first": "COMMITTED_IN_MEMORY",
+        "next": "ELIGIBLE_FOR_COMMIT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CLOSURE-edge"
+    },
+    {
+      "TestID": "APPLY-large",
+      "ContractID": "NUM-APPLY",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 287,
+      "IndependentExpected": {
+        "consumed": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "inputsUnchanged": true,
+        "journalCount": 1,
+        "remaining": [
+          "NUMBER",
+          "999999999999999999999999999999",
+          "100"
+        ],
+        "reserved": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "revision": 2,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "ActualOutcome": {
+        "consumed": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "inputsUnchanged": true,
+        "journalCount": 1,
+        "remaining": [
+          "NUMBER",
+          "999999999999999999999999999999",
+          "100"
+        ],
+        "reserved": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "revision": 2,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#APPLY-large"
+    },
+    {
+      "TestID": "amount-negative",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "amount-positive"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#amount-negative"
+    },
+    {
+      "TestID": "amount-zero",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#amount-zero"
+    },
+    {
+      "TestID": "reserved-available",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "available-reserved"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#reserved-available"
+    },
+    {
+      "TestID": "amount-exceeds",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#amount-exceeds"
+    },
+    {
+      "TestID": "amount-offgrid",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#amount-offgrid"
+    },
+    {
+      "TestID": "digest-forged",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "proof-digest"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#digest-forged"
+    },
+    {
+      "TestID": "raw-sum",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "raw-net"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#raw-sum"
+    },
+    {
+      "TestID": "posted-net",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "posted-net"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#posted-net"
+    },
+    {
+      "TestID": "record-magic",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#record-magic"
+    },
+    {
+      "TestID": "history-missing",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "source-history"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#history-missing"
+    },
+    {
+      "TestID": "history-unavailable",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#history-unavailable"
+    },
+    {
+      "TestID": "source-unconfirmed",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#source-unconfirmed"
+    },
+    {
+      "TestID": "source-role",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "source-role"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#source-role"
+    },
+    {
+      "TestID": "bucket-vector",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#bucket-vector"
+    },
+    {
+      "TestID": "prepared",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#prepared"
+    },
+    {
+      "TestID": "snapshot-content",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "snapshot-receipt"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-content"
+    },
+    {
+      "TestID": "snapshot-id",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-id"
+    },
+    {
+      "TestID": "snapshot-unknown",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-unknown"
+    },
+    {
+      "TestID": "snapshot-type-decimal",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "snapshot-type"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-type-decimal"
+    },
+    {
+      "TestID": "snapshot-type-int",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-type-int"
+    },
+    {
+      "TestID": "snapshot-type-bool",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-type-bool"
+    },
+    {
+      "TestID": "snapshot-type-none",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-type-none"
+    },
+    {
+      "TestID": "snapshot-type-empty",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-type-empty"
+    },
+    {
+      "TestID": "snapshot-type-dict",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-type-dict"
+    },
+    {
+      "TestID": "snapshot-type-list",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-type-list"
+    },
+    {
+      "TestID": "snapshot-type-tuple",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-type-tuple"
+    },
+    {
+      "TestID": "snapshot-missing",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-missing"
+    },
+    {
+      "TestID": "snapshot-schema",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "snapshot-schema"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-schema"
+    },
+    {
+      "TestID": "snapshot-extra",
+      "ContractID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "snapshot_shape",
+      "SourceLine": 189,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#snapshot-extra"
+    },
+    {
+      "TestID": "identity-Broker",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Broker"
+    },
+    {
+      "TestID": "identity-Server",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Server"
+    },
+    {
+      "TestID": "identity-Account",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Account"
+    },
+    {
+      "TestID": "identity-Symbol",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Symbol"
+    },
+    {
+      "TestID": "identity-Magic",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Magic"
+    },
+    {
+      "TestID": "identity-Deal",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Deal"
+    },
+    {
+      "TestID": "identity-Order",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Order"
+    },
+    {
+      "TestID": "identity-Position",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Position"
+    },
+    {
+      "TestID": "identity-Cycle",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Cycle"
+    },
+    {
+      "TestID": "identity-Plan",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-Plan"
+    },
+    {
+      "TestID": "identity-StateRevision",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-StateRevision"
+    },
+    {
+      "TestID": "identity-AllocationEvent",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-AllocationEvent"
+    },
+    {
+      "TestID": "identity-PolicyVersion",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-PolicyVersion"
+    },
+    {
+      "TestID": "identity-SnapshotID",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#identity-SnapshotID"
+    },
+    {
+      "TestID": "event-bool",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#event-bool"
+    },
+    {
+      "TestID": "event-zero",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#event-zero"
+    },
+    {
+      "TestID": "event-negative",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#event-negative"
+    },
+    {
+      "TestID": "event-float",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#event-float"
+    },
+    {
+      "TestID": "event-string",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#event-string"
+    },
+    {
+      "TestID": "event-overflow",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#event-overflow"
+    },
+    {
+      "TestID": "missing-event",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#missing-event"
+    },
+    {
+      "TestID": "money-nan",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#money-nan"
+    },
+    {
+      "TestID": "domain-overflow",
+      "ContractID": "NUM-DOMAIN-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "number",
+      "SourceLine": 40,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#domain-overflow"
+    },
+    {
+      "TestID": "domain-subgrid",
+      "ContractID": "NUM-DOMAIN-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "number",
+      "SourceLine": 40,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#domain-subgrid"
+    },
+    {
+      "TestID": "future-history",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#future-history"
+    },
+    {
+      "TestID": "stale-snapshot",
+      "ContractID": "NUM-AUTH",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "_authorize",
+      "SourceLine": 220,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#stale-snapshot"
+    },
+    {
+      "TestID": "WORST-control",
+      "ContractID": "NUM-WORST",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "worst",
+      "SourceLine": 304,
+      "IndependentExpected": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "29",
+          "1"
+        ]
+      ],
+      "ActualOutcome": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "29",
+          "1"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#WORST-control"
+    },
+    {
+      "TestID": "WORST-cancellation",
+      "ContractID": "NUM-WORST",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "worst",
+      "SourceLine": 304,
+      "IndependentExpected": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "200"
+        ]
+      ],
+      "ActualOutcome": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "200"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "worst-ambient-context",
+        "margin-sign"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#WORST-cancellation"
+    },
+    {
+      "TestID": "WORST-boundary--1",
+      "ContractID": "NUM-WORST",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "worst",
+      "SourceLine": 304,
+      "IndependentExpected": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "1000"
+        ]
+      ],
+      "ActualOutcome": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "1000"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#WORST-boundary--1"
+    },
+    {
+      "TestID": "WORST-boundary-0",
+      "ContractID": "NUM-WORST",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "worst",
+      "SourceLine": 304,
+      "IndependentExpected": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "ActualOutcome": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#WORST-boundary-0"
+    },
+    {
+      "TestID": "WORST-boundary-+1",
+      "ContractID": "NUM-WORST",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "worst",
+      "SourceLine": 304,
+      "IndependentExpected": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "1",
+          "1000"
+        ]
+      ],
+      "ActualOutcome": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "1",
+          "1000"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#WORST-boundary-+1"
+    },
+    {
+      "TestID": "WORST-scope-B",
+      "ContractID": "NUM-WORST",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "worst",
+      "SourceLine": 304,
+      "IndependentExpected": [
+        "SINGLE_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "29",
+          "1"
+        ]
+      ],
+      "ActualOutcome": [
+        "SINGLE_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "29",
+          "1"
+        ]
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#WORST-scope-B"
+    },
+    {
+      "TestID": "WORST-malformed-currency",
+      "ContractID": "NUM-WORST",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "worst",
+      "SourceLine": 304,
+      "IndependentExpected": "REJECT",
+      "ActualOutcome": "REJECT",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#WORST-malformed-currency"
+    },
+    {
+      "TestID": "WORST-required",
+      "ContractID": "NUM-WORST",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "worst",
+      "SourceLine": 304,
+      "IndependentExpected": "UNPROVEN",
+      "ActualOutcome": "UNPROVEN",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#WORST-required"
+    },
+    {
+      "TestID": "SEQUENTIAL-control",
+      "ContractID": "NUM-SEQUENTIAL",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "sequential",
+      "SourceLine": 334,
+      "IndependentExpected": {
+        "appliedCount": 2,
+        "rejectedIndex": null,
+        "remaining": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "status": "CONSERVATION_ONLY",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          },
+          {
+            "Consumption": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "0",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "level": 2
+          }
+        ]
+      },
+      "ActualOutcome": {
+        "appliedCount": 2,
+        "rejectedIndex": null,
+        "remaining": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "status": "CONSERVATION_ONLY",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          },
+          {
+            "Consumption": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "0",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "level": 2
+          }
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#SEQUENTIAL-control"
+    },
+    {
+      "TestID": "SEQUENTIAL-large",
+      "ContractID": "NUM-SEQUENTIAL",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "sequential",
+      "SourceLine": 334,
+      "IndependentExpected": {
+        "appliedCount": 2,
+        "rejectedIndex": null,
+        "remaining": [
+          "NUMBER",
+          "499999999999999999999999999999",
+          "50"
+        ],
+        "status": "CONSERVATION_ONLY",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "1",
+              "100"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "999999999999999999999999999999",
+              "100"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "level": 1
+          },
+          {
+            "Consumption": [
+              "NUMBER",
+              "1",
+              "100"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "499999999999999999999999999999",
+              "50"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "999999999999999999999999999999",
+              "100"
+            ],
+            "level": 2
+          }
+        ]
+      },
+      "ActualOutcome": {
+        "appliedCount": 2,
+        "rejectedIndex": null,
+        "remaining": [
+          "NUMBER",
+          "499999999999999999999999999999",
+          "50"
+        ],
+        "status": "CONSERVATION_ONLY",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "1",
+              "100"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "999999999999999999999999999999",
+              "100"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "level": 1
+          },
+          {
+            "Consumption": [
+              "NUMBER",
+              "1",
+              "100"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "499999999999999999999999999999",
+              "50"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "999999999999999999999999999999",
+              "100"
+            ],
+            "level": 2
+          }
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "sequential-ambient-context",
+        "lost-small-consumption"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#SEQUENTIAL-large"
+    },
+    {
+      "TestID": "SEQUENTIAL-prefix-reject",
+      "ContractID": "NUM-SEQUENTIAL",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "sequential",
+      "SourceLine": 334,
+      "IndependentExpected": {
+        "appliedCount": 1,
+        "rejectedIndex": 2,
+        "remaining": [
+          "NUMBER",
+          "20",
+          "1"
+        ],
+        "status": "REJECT",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          }
+        ]
+      },
+      "ActualOutcome": {
+        "appliedCount": 1,
+        "rejectedIndex": 2,
+        "remaining": [
+          "NUMBER",
+          "20",
+          "1"
+        ],
+        "status": "REJECT",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          }
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#SEQUENTIAL-prefix-reject"
+    },
+    {
+      "TestID": "SEQUENTIAL-prefix-malformed",
+      "ContractID": "NUM-SEQUENTIAL",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "sequential",
+      "SourceLine": 334,
+      "IndependentExpected": {
+        "appliedCount": 1,
+        "rejectedIndex": 2,
+        "remaining": [
+          "NUMBER",
+          "20",
+          "1"
+        ],
+        "status": "REJECT",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          }
+        ]
+      },
+      "ActualOutcome": {
+        "appliedCount": 1,
+        "rejectedIndex": 2,
+        "remaining": [
+          "NUMBER",
+          "20",
+          "1"
+        ],
+        "status": "REJECT",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          }
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#SEQUENTIAL-prefix-malformed"
+    },
+    {
+      "TestID": "SEQUENTIAL-prefix-unsupported",
+      "ContractID": "NUM-SEQUENTIAL",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "sequential",
+      "SourceLine": 334,
+      "IndependentExpected": {
+        "appliedCount": 1,
+        "rejectedIndex": 2,
+        "remaining": [
+          "NUMBER",
+          "20",
+          "1"
+        ],
+        "status": "UNAVAILABLE",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          }
+        ]
+      },
+      "ActualOutcome": {
+        "appliedCount": 1,
+        "rejectedIndex": 2,
+        "remaining": [
+          "NUMBER",
+          "20",
+          "1"
+        ],
+        "status": "UNAVAILABLE",
+        "trace": [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          }
+        ]
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#SEQUENTIAL-prefix-unsupported"
+    },
+    {
+      "TestID": "SEQUENTIAL-unknown",
+      "ContractID": "NUM-SEQUENTIAL",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "sequential",
+      "SourceLine": 334,
+      "IndependentExpected": "UNPROVEN",
+      "ActualOutcome": "UNPROVEN",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#SEQUENTIAL-unknown"
+    },
+    {
+      "TestID": "GEOMETRY-positive",
+      "ContractID": "NUM-GEOMETRY",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "geometry",
+      "SourceLine": 353,
+      "IndependentExpected": "GEOMETRY_ONLY",
+      "ActualOutcome": "GEOMETRY_ONLY",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#GEOMETRY-positive"
+    },
+    {
+      "TestID": "GEOMETRY-zero",
+      "ContractID": "NUM-GEOMETRY",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "geometry",
+      "SourceLine": 353,
+      "IndependentExpected": "REJECT",
+      "ActualOutcome": "REJECT",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#GEOMETRY-zero"
+    },
+    {
+      "TestID": "GEOMETRY-grid-unknown",
+      "ContractID": "NUM-GEOMETRY",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "geometry",
+      "SourceLine": 353,
+      "IndependentExpected": "UNPROVEN",
+      "ActualOutcome": "UNPROVEN",
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#GEOMETRY-grid-unknown"
+    },
+    {
+      "TestID": "CODEC-str-decimal",
+      "ContractID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "IndependentExpected": true,
+      "ActualOutcome": true,
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "canonical-type-collision"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CODEC-str-decimal"
+    },
+    {
+      "TestID": "CODEC-str-int",
+      "ContractID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "IndependentExpected": true,
+      "ActualOutcome": true,
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CODEC-str-int"
+    },
+    {
+      "TestID": "CODEC-int-bool",
+      "ContractID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "IndependentExpected": true,
+      "ActualOutcome": true,
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CODEC-int-bool"
+    },
+    {
+      "TestID": "CODEC-null-missing",
+      "ContractID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "IndependentExpected": true,
+      "ActualOutcome": true,
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CODEC-null-missing"
+    },
+    {
+      "TestID": "CODEC-empty-missing",
+      "ContractID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "IndependentExpected": true,
+      "ActualOutcome": true,
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CODEC-empty-missing"
+    },
+    {
+      "TestID": "CODEC-list-tuple",
+      "ContractID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "IndependentExpected": true,
+      "ActualOutcome": true,
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#CODEC-list-tuple"
+    },
+    {
+      "TestID": "POSTSTATE-fault",
+      "ContractID": "NUM-APPLY",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 287,
+      "IndependentExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ActualOutcome": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [
+        "post-state-validation"
+      ],
+      "MutationCoverage": "CAUSAL",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#POSTSTATE-fault"
+    },
+    {
+      "TestID": "INTERNAL-error-visible",
+      "ContractID": "NUM-APPLY",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 287,
+      "IndependentExpected": {
+        "errorVisible": true,
+        "inputsUnchanged": true
+      },
+      "ActualOutcome": {
+        "errorVisible": true,
+        "inputsUnchanged": true
+      },
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#INTERNAL-error-visible"
+    },
+    {
+      "TestID": "POSTED-unknown-precision",
+      "ContractID": "NUM-POSTED",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "posted",
+      "SourceLine": 115,
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "ActualOutcome": [
+        "UNAVAILABLE",
+        null
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#POSTED-unknown-precision"
+    },
+    {
+      "TestID": "POSTED-missing-receipt",
+      "ContractID": "NUM-POSTED",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "posted",
+      "SourceLine": 115,
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "ActualOutcome": [
+        "UNAVAILABLE",
+        null
+      ],
+      "ContextsVerified": 8,
+      "CurrentStatus": "PASS",
+      "EvidenceClass": "NEW_REFERENCE_FIXTURE",
+      "MutationIDs": [],
+      "MutationCoverage": "NOT_ASSIGNED_TO_THIS_VECTOR",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0D_TEST_RESULTS.json#POSTED-missing-receipt"
+    }
+  ],
+  "mutationPlan": [
+    {
+      "MutationID": "amount-positive",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "amount-negative",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "available-reserved",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "reserved-available",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "posted-grid",
+      "ContractID": "NUM-POSTED",
+      "TargetFunction": "posted",
+      "CausalTestID": "posted-grid",
+      "PositiveTestID": "POSTED-USD",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "local-verified",
+      "ContractID": "NUM-POSTED",
+      "TargetFunction": "posted",
+      "CausalTestID": "local-unverified",
+      "PositiveTestID": "local-verified",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "worst-ambient-context",
+      "ContractID": "NUM-WORST",
+      "TargetFunction": "_worst",
+      "CausalTestID": "WORST-cancellation",
+      "PositiveTestID": "WORST-control",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "sequential-ambient-context",
+      "ContractID": "NUM-SEQUENTIAL",
+      "TargetFunction": "sequential",
+      "CausalTestID": "SEQUENTIAL-large",
+      "PositiveTestID": "SEQUENTIAL-control",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "lost-small-consumption",
+      "ContractID": "NUM-SEQUENTIAL",
+      "TargetFunction": "sequential",
+      "CausalTestID": "SEQUENTIAL-large",
+      "PositiveTestID": "SEQUENTIAL-control",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "margin-sign",
+      "ContractID": "NUM-WORST",
+      "TargetFunction": "_worst",
+      "CausalTestID": "WORST-cancellation",
+      "PositiveTestID": "WORST-control",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "snapshot-type",
+      "ContractID": "SNAP-FIXTURE-1",
+      "TargetFunction": "snapshot_shape",
+      "CausalTestID": "snapshot-type-decimal",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "canonical-type-collision",
+      "ContractID": "NUM-CODEC",
+      "TargetFunction": "canonical",
+      "CausalTestID": "CODEC-str-decimal",
+      "PositiveTestID": "CODEC-control",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "snapshot-receipt",
+      "ContractID": "SNAP-FIXTURE-1",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "snapshot-content",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "post-state-validation",
+      "ContractID": "NUM-APPLY",
+      "TargetFunction": "apply_for_test",
+      "CausalTestID": "POSTSTATE-fault",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "consumed-reavailable",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "COMPOSITION-full",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "altered-replay",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "COMPOSITION-replay-conflict",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "unsupported-domain",
+      "ContractID": "NUM-DOMAIN-1",
+      "TargetFunction": "checked",
+      "CausalTestID": "DOMAIN-direct",
+      "PositiveTestID": "CONTROL-number",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "snapshot-schema",
+      "ContractID": "SNAP-FIXTURE-1",
+      "TargetFunction": "snapshot_shape",
+      "CausalTestID": "snapshot-schema",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "raw-net",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "raw-sum",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "proof-digest",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "digest-forged",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "source-role",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "source-role",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "source-history",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "history-missing",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "posted-net",
+      "ContractID": "NUM-AUTH",
+      "TargetFunction": "_authorize",
+      "CausalTestID": "posted-net",
+      "PositiveTestID": "CONTROL-apply",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "MutationID": "input-alias",
+      "ContractID": "NUM-APPLY",
+      "TargetFunction": "apply_for_test",
+      "CausalTestID": "CONTROL-apply",
+      "PositiveTestID": "BALANCE-direct",
+      "Verdict": "MUTATION_KILLED"
+    }
+  ],
+  "oldModelFindings": [
+    {
+      "ActualOutcome": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "1",
+          "200"
+        ]
+      ],
+      "Classification": "CONFIRMED",
+      "ExactInputChange": {
+        "available": "1e28",
+        "bnet": "4",
+        "buffer": "9999999999999999999999999999.995",
+        "complete": true,
+        "currency": "KWD",
+        "digits": 3,
+        "far": "1",
+        "id": 1,
+        "loss": ".010",
+        "share": ".5",
+        "snapshotFresh": true,
+        "sourceFresh": true,
+        "transitionLoss": "1"
+      },
+      "ExpectedOutcome": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "200"
+        ]
+      ],
+      "FindingID": "R0D-01",
+      "HighPrecisionObservation": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "200"
+        ]
+      ],
+      "IndependentCalculation": "integer coefficient/scale common denominator; not higher-precision evaluator expected",
+      "PositiveControl": [
+        "ALL_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "29",
+          "1"
+        ]
+      ],
+      "ProofBoundary": "R0C Python helper; inputs fit declared numerical domain",
+      "StateDelta": "no ledger mutation; incorrect proof classification"
+    },
+    {
+      "ActualOutcome": [
+        "CONSERVATION_ONLY",
+        [
+          {
+            "Consumption": [
+              "NUMBER",
+              "1",
+              "100"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "level": 1
+          },
+          {
+            "Consumption": [
+              "NUMBER",
+              "1",
+              "100"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "10000000000000000000000000000",
+              "1"
+            ],
+            "level": 2
+          }
+        ]
+      ],
+      "Classification": "CONFIRMED",
+      "ExactInputChange": {
+        "consumptions": [
+          ".01",
+          ".01"
+        ],
+        "reserve": "1e28"
+      },
+      "ExpectedOutcome": [
+        "NUMBER",
+        "499999999999999999999999999999",
+        "50"
+      ],
+      "FindingID": "R0D-02",
+      "IndependentCalculation": "integer hundredths: 10^30 - 2",
+      "PositiveControl": [
+        "CONSERVATION_ONLY",
+        [
+          {
+            "Consumption": [
+              "NUMBER",
+              "30",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "50",
+              "1"
+            ],
+            "level": 1
+          },
+          {
+            "Consumption": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "ReserveAfter": [
+              "NUMBER",
+              "0",
+              "1"
+            ],
+            "ReserveBefore": [
+              "NUMBER",
+              "20",
+              "1"
+            ],
+            "level": 2
+          }
+        ]
+      ],
+      "ProofBoundary": "local trace only",
+      "StateDelta": "reported positive consumption with zero actual reduction"
+    },
+    {
+      "ActualOutcome": {
+        "canonicalCollision": true,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "revision": 2,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "Classification": "CONFIRMED",
+      "ExactInputChange": "snapshot.marketFingerprint string1 -> Decimal1; frozen receipt unchanged",
+      "ExpectedOutcome": "type/schema decision required; distinct supported types must not collide",
+      "FindingID": "R0D-03",
+      "IndependentCalculation": "separately encoded original snapshot",
+      "PositiveControl": "COMMITTED_IN_MEMORY",
+      "ProofBoundary": "SCHEMA_DECISION_REQUIRED; not proof of broker provider bypass",
+      "StateDelta": "remaining50->40 revision1->2"
+    }
+  ],
+  "externalDependencies": [
+    {
+      "ContractID": "BROKER_RECEIPT_AUTHENTICITY",
+      "CurrentStatus": "NOT_RUN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "history/snapshot/posting are independent fixtures, not real broker receipts"
+    },
+    {
+      "ContractID": "DURABLE_RESTART",
+      "CurrentStatus": "UNPROVEN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "in-memory journal is not disk recovery/CAS"
+    },
+    {
+      "ContractID": "GLOBAL_SOURCE_FUNDING",
+      "CurrentStatus": "UNPROVEN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "one state does not prove source uniqueness across allocations"
+    },
+    {
+      "ContractID": "CONCURRENCY",
+      "CurrentStatus": "UNPROVEN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "no concurrent persistent backend"
+    },
+    {
+      "ContractID": "NEWFAR_INTEGRATION",
+      "CurrentStatus": "UNPROVEN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "production unchanged"
+    },
+    {
+      "ContractID": "OWN_RESERVATION",
+      "CurrentStatus": "UNPROVEN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "only unreserved debit implemented"
+    },
+    {
+      "ContractID": "MQL5_COMPILE",
+      "CurrentStatus": "NOT_RUN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "MetaEditor absent"
+    },
+    {
+      "ContractID": "MQL5_TESTS",
+      "CurrentStatus": "NOT_RUN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "MT5 absent"
+    },
+    {
+      "ContractID": "STRATEGY_TESTER",
+      "CurrentStatus": "NOT_RUN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "tester absent"
+    },
+    {
+      "ContractID": "BROKER_MARGIN_PRECISION",
+      "CurrentStatus": "NOT_RUN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "no terminal/account runtime"
+    },
+    {
+      "ContractID": "PRODUCTION_REMEDIATION",
+      "CurrentStatus": "NOT_RUN",
+      "EvidenceClass": "EXTERNAL_NOT_PROVEN",
+      "ProofBoundary": "Include/main mq5 unchanged"
+    }
+  ],
+  "unsupportedProfile": {
+    "numeric": "finite decimals, grid1e-64, abs<1e65; lexical limits in NUM contract",
+    "snapshot": "HSBI-SNAPSHOT-FIXTURE-1 only",
+    "scope": "test-only; unsupported yields explicit outcome/exception contract, never invented positive proof"
+  }
+}
