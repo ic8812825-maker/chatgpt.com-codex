@@ -1,0 +1,2033 @@
+{
+  "BaseSHA": "2d34c3378edc5f2df064282fa067bb4af2a1e3b0",
+  "requirements": [
+    {
+      "RequirementID": "D-01",
+      "ExistingRule": "R0D Remaining включает Reserved; простое трёхкомпонентное равенство с тем же полем повторно считает lock.",
+      "ProposedRule": "G=C+V+F; Gross=V+F; Available=F; COMMITTED ΣGrants=EligibleNet, PREPARED ΣGrants+Unallocated=EligibleNet и расход запрещён.",
+      "SourceAndApprovalEvidence": "Docs/08; Docs/32; R0D NUM-BALANCE; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "Сохранить Gross с отдельным Available либо перейти на Free. Рекомендуется явно версионированный Free-профиль, математический Gross-view для старых данных.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "D-02",
+      "ExistingRule": "Прогнозные proof допускаются историческим спецификационным слоем; они не доказывают фактический доступный ресурс.",
+      "ProposedRule": "Раздельные ProjectedBasketNet/ProjectedCloseNowNet/ActualRealizedDealNet/ReconciledEconomicNet/AllocationGrant/AvailableReserve. Только независимая reconciliation открывает путь к grant. Полная пустая history → известный0; неполная →UNAVAILABLE.",
+      "SourceAndApprovalEvidence": "Docs/04; Docs/08; Docs/31; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "Прогноз использовать для planning либо смешивать с actual; рекомендуется первый вариант с типизированными переходами.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "D-03",
+      "ExistingRule": "Basket evaluator включает Small в reserveGainMoney. Значение projected не равно фактическому reserve posting.",
+      "ProposedRule": "BigCore/BigTrend close sources после reconciliation и policy allocation; Small positive только ResidualHeld; opening costs в economic ledger без harvest grant; role/policy immutable.",
+      "SourceAndApprovalEvidence": "Docs/04; Docs/24; Docs/32; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "Оставить раздельный Small residual либо разрешить трансфер отдельным будущим решением; рекомендуется изоляция.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "D-04",
+      "ExistingRule": "Absolute и incremental имеют разный basis; прежняя ссылка на baseline не доказывает lineage.",
+      "ProposedRule": "Рабочий gate использует AbsoluteFarLoss=max(0,-CloseNowNet); incremental=max(0,Absolute-baselineAbsolute) только diagnostic при совпадающем полном basis и свежем baseline.",
+      "SourceAndApprovalEvidence": "Docs/04; Docs/24; Docs/27; Docs/31; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "ABSOLUTE либо independently reconciled incremental с отдельной моделью; рекомендуется ABSOLUTE.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "D-05",
+      "ExistingRule": "Projected loss не подтверждает actual partial executions.",
+      "ProposedRule": "ProjectedTransitionRisk отдельно; ActualTransitionLoss=max(0,-Σunique confirmed net). PENDING/CONFIRMED/OVER_CAP/CONFLICT/UNAVAILABLE. Cap применяется и к неполному batch.",
+      "SourceAndApprovalEvidence": "Docs/24; Docs/27; Docs/30; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "Плановый допуск без settlement контроля либо повторная actual reconciliation; рекомендуется второе.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "D-06",
+      "ExistingRule": "Имена safety buffers не доказывают независимость стоимостей; unknown overlap нельзя считать safe.",
+      "ProposedRule": "Каждая стоимость имеет CostID, Source, RiskBasis, Window, Currency, Amount, AlreadyIncluded, AdditionalDeduction, PolicyVersion, Evidence. Уже включённая стоимость не вычитается повторно; unknown overlap UNPROVEN.",
+      "SourceAndApprovalEvidence": "Docs/24; Docs/27; Docs/30; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "Общий buffer без basis либо отдельная cost coverage registry; рекомендуется registry с неизменным basis.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "D-07",
+      "ExistingRule": "Boolean отсутствия prior consumption и память процесса не доказывают exactly-once; duplicate reject в production не типизированный NO_OP.",
+      "ProposedRule": "Eligibility →owner reservation →durable commit →confirmation →recovery. Exact confirmed payload NO_OP с zero deltas; changed payload CONFLICT. Source cap учитывает immutable grants один раз.",
+      "SourceAndApprovalEvidence": "Docs/08; Docs/16; Docs/32; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "In-memory demo либо durable journal/CAS/provider protocol; production разрешён только после доказательства второго.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "D-08",
+      "ExistingRule": "NewFar копирует предъявленную identity в expected; nonzero DealID не доказывает сделку.",
+      "ProposedRule": "Broker/Server/Account/Symbol/Magic/Cycle/Position/Deal/Order/Event/Role — immutable source context; Plan/Revision/Snapshot — независимый текущий context; PolicyVersion/allocation event из authoritative allocation. Expected не создаётся из proof.",
+      "SourceAndApprovalEvidence": "Docs/24; Docs/31; Docs/32; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "Независимый provider либо self-consistency; рекомендуется provider с reconciliation.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "CR-09",
+      "ExistingRule": "Максимальный TransitionLoss не определяет минимальный Catch-Up margin.",
+      "ProposedRule": "ALL_LEVEL: min_i(EligibleReserve_i-AbsoluteFarLoss_i-Buffer_i)>0 при всех required gates; SINGLE_LEVEL отдельный scope. Required TransitionLoss конечен, >=0 и независимо подтверждён для обеих policies; unknown→UNAVAILABLE.",
+      "SourceAndApprovalEvidence": "Docs/27; Docs/30; FutureSmallProofAggregator; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "SEMANTIC_CONFLICT",
+      "RecommendedDecision": "A all-level minimum либо B single-level maxTransition; рекомендуется A для all-level, B исключительно диагностический/явно single.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "NUM-EXACT-1",
+      "ExistingRule": "Fraction тестовый, не production MQL5 численный тип.",
+      "ProposedRule": "Сохранить R0D exact arithmetic; settled на известной currency/grid; projected subunit loss не округлять к нулю; ROUND_HALF_EVEN лишь candidate verified policy.",
+      "SourceAndApprovalEvidence": "R0D NUM-EXACT-1; Docs/24; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "ARCHITECTURE_DECISION",
+      "RecommendedDecision": "Integer settled + отдельные projected types; Decimal только с доказанным domain; рекомендуется точный fixture oracle и checked MQL boundaries.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "NUM-DOMAIN-1",
+      "ExistingRule": "Reference domain шире MQL signed-long; currency precision неизвестна без provider.",
+      "ProposedRule": "Fixture values кратны10^-64, abs<10^65; digits0..8; malformed→REJECT, supported format outside domain→UNAVAILABLE. MQL domain отдельно утверждается, без truncation.",
+      "SourceAndApprovalEvidence": "R0D NUM-DOMAIN-1; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "ARCHITECTURE_DECISION",
+      "RecommendedDecision": "Расширить MQL checked representation либо ограничить домен с явным отказом; решение отдельно.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "NUM-CODEC",
+      "ExistingRule": "Canonical fixture encoding не является broker-authentication или универсальным MQL wire format.",
+      "ProposedRule": "Версионированное typed encoding; str/int/bool/number/tuple/list различаются; Decimal/Fraction одного numeric value эквивалентны. Digest не создаёт authority.",
+      "SourceAndApprovalEvidence": "R0D NUM-CODEC; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "ARCHITECTURE_DECISION",
+      "RecommendedDecision": "Typed codec либо документированный ограниченный schema codec; рекомендуется сохранить fixture typed codec, production codec отдельным выбором.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "SNAP-FIXTURE-1",
+      "ExistingRule": "Независимый fixture receipt не доказывает broker authenticity; snapshot ID без content binding недостаточен.",
+      "ProposedRule": "schema HSBI-SNAPSHOT-FIXTURE-1; id ulong; marketFingerprint nonempty opaque string; explicitNone unknown→UNAVAILABLE; missing malformed; independent content receipt; FIXTURE_MONOTONIC/tick.",
+      "SourceAndApprovalEvidence": "R0D SNAP-FIXTURE-1; R0C snapshot proposal; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "ARCHITECTURE_DECISION",
+      "RecommendedDecision": "Opaque string fixture либо новый broker schema; рекомендуется fixture только для tests, provider schema отдельно.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "FUNDING-GLOBAL-ATTRIBUTION",
+      "ExistingRule": "Per-source cap не решает attribution иных фактических debits и конкуренцию.",
+      "ProposedRule": "До отдельного ledger attribution contract +50 и -20 дают economic30, но ни доказанный available50, ни автоматический debit20 произвольного bucket; availability UNPROVEN, spending UNAVAILABLE.",
+      "SourceAndApprovalEvidence": "Docs/08; Docs/16; R0D unproven boundaries; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "ARCHITECTURE_DECISION",
+      "RecommendedDecision": "Account-wide pessimistic freeze; explicit debit waterfall; role/cycle funding pool. Рекомендуется freeze до отдельного утверждения attribution.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "MQL-DOMAIN",
+      "ExistingRule": "Нет утверждённого production представления exact projected values и scaling.",
+      "ProposedRule": "Settled signed64 minor units с prechecked operations; max positive money LONG_MAX/10^digits; projected отдельно; unsupported range UNAVAILABLE.",
+      "SourceAndApprovalEvidence": "MQL5 signed long; NUM-DOMAIN-1; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "ARCHITECTURE_DECISION",
+      "RecommendedDecision": "int64 minor + conservative intervals либо fixed/rational representation; рекомендуется сначала narrow settled domain, projected архитектура отдельно.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "BALANCE-SCHEMA-MAPPING",
+      "ExistingRule": "Переименование Remaining не переносит reservation ownership.",
+      "ProposedRule": "Версии Gross/Free различаются; Free=Gross-Reserved лишь проверяемый view; отсутствие owner provenance запрещает расход lock.",
+      "SourceAndApprovalEvidence": "R0D Gross; R0E Free; APPROVAL_UNPROVEN for historical administrative signature; new proposal AWAITING_ADMIN_APPROVAL",
+      "ConflictClass": "MIGRATION_DECISION",
+      "RecommendedDecision": "Read-only conversion view либо schema migration с полной evidence; рекомендуется view до утверждения migration.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "FUNDING-SOURCE-CAP",
+      "ProposedRule": "Σimmutable grants across allocations <= independently posted eligible source; source=(Broker,Server,Account,Deal)",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "PACKAGE-PROVENANCE",
+      "ProposedRule": "Git tree independent inventory; role-aware report baseline; errata preserves original",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "PACKAGE-MATRIX-CONTEXT",
+      "ProposedRule": "Case/scenario/execution bijection and complete declared context Cartesian product",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "RequirementID": "PACKAGE-MUTATION-APPROVAL",
+      "ProposedRule": "Reconstruct mutants from ExactEdit/hash; structural empty admin fields",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    }
+  ],
+  "scenarioIDs": [
+    "D01-equivalent-fields",
+    "D01-double-count",
+    "D01-zero-reserved",
+    "D01-control",
+    "D01-operations",
+    "D01-reservation-owner",
+    "D01-negative-consumption",
+    "D01-prepared-and-split",
+    "D07-overfund-prepared",
+    "D07-double-allocation",
+    "D07-exact-fund-replay",
+    "D07-altered-fund-replay",
+    "D07-exact-consume-replay",
+    "D07-altered-consume-replay",
+    "D02-known-zero",
+    "D02-unknown-history",
+    "D02-projected-not-source",
+    "D03-small-isolation",
+    "D03-opening-no-grant",
+    "D07-unattributed-debit",
+    "D04-absolute-baseline",
+    "D04-partial-volume",
+    "D04-stale",
+    "D04-restart",
+    "D04-buy-bid-sell-ask",
+    "D05-partial-pending",
+    "D05-over-cap",
+    "D05-exact-fill-replay",
+    "D05-changed-fill",
+    "D05-actual-history-unavailable",
+    "D06-once",
+    "D06-double-cost",
+    "D06-unknown-overlap",
+    "D08-independent-control",
+    "D08-foreign-Broker",
+    "D08-foreign-Server",
+    "D08-foreign-Account",
+    "D08-foreign-Symbol",
+    "D08-foreign-Magic",
+    "D08-foreign-Cycle",
+    "D08-foreign-Position",
+    "D08-foreign-Deal",
+    "D08-foreign-Order",
+    "D08-foreign-Event",
+    "D08-foreign-Role",
+    "D08-foreign-Plan",
+    "D08-foreign-PolicyVersion",
+    "D08-foreign-Revision",
+    "D08-foreign-Snapshot",
+    "D08-nonzero-deal-not-existence",
+    "D08-foreign-authoritative-allocation",
+    "D08-stale-snapshot",
+    "RESTART-before",
+    "RESTART-prepared",
+    "RESTART-committed",
+    "RESTART-incomplete",
+    "RESTART-history-missing",
+    "RESTART-torn",
+    "RESTART-fallback",
+    "RESTART-forged-consumed",
+    "CR09-A-negative",
+    "CR09-B-single",
+    "NUM-exact-cancellation",
+    "NUM-minor-remainder",
+    "NUM-double-round",
+    "NUM-domain-unsupported",
+    "MQL-add-ok",
+    "MQL-add-min",
+    "MQL-add-underflow",
+    "MQL-mul-ok",
+    "MQL-mul-overflow",
+    "MQL-mul-positive",
+    "MQL-operand-domain",
+    "CODEC-str-decimal",
+    "ZERO-core",
+    "SOURCE-changed-Magic",
+    "SOURCE-changed-Cycle",
+    "SOURCE-nonpositive-0",
+    "SOURCE-nonpositive--10",
+    "NUM-currency-mismatch",
+    "D01-finalreserve-purpose",
+    "D04-direction-unknown",
+    "CR09-missing",
+    "CR09-duplicate",
+    "CR09-unknown-transition",
+    "CR09-stale",
+    "CR09-zero",
+    "CR09-sequential-reuse",
+    "D08-independent-account-namespace",
+    "L01-same-net-changed-components",
+    "D05-unsupported-aggregate"
+  ],
+  "cases": [
+    {
+      "TestID": "D01-equivalent-fields",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "Available": [
+          "NUMBER",
+          "25",
+          "1"
+        ],
+        "Consumed": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "OriginalGrant": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "RemainingFree": [
+          "NUMBER",
+          "25",
+          "1"
+        ],
+        "RemainingGross": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "Reserved": [
+          "NUMBER",
+          "15",
+          "1"
+        ],
+        "SpendAuthorization": "UNAVAILABLE_WITHOUT_OWNER_PROVENANCE"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-equivalent-fields",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D01-double-count",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": false,
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-double-count",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-reserved-doublecount"
+      ]
+    },
+    {
+      "TestID": "D01-zero-reserved",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": true,
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-zero-reserved",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-reserved-doublecount"
+      ]
+    },
+    {
+      "TestID": "D01-control",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": true,
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-control",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D01-operations",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-operations",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-small-role",
+        "R0E-MUT-reservation-owner"
+      ]
+    },
+    {
+      "TestID": "D01-reservation-owner",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 3,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-reservation-owner",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-reservation-owner"
+      ]
+    },
+    {
+      "TestID": "D01-negative-consumption",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-negative-consumption",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D01-prepared-and-split",
+      "RequirementID": "FUNDING-SOURCE-CAP",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_fund",
+      "SourceLine": 88,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "first": "COMMITTED_IN_MEMORY",
+        "preparedBlocked": "REJECT",
+        "preparedUnchanged": true,
+        "second": "COMMITTED_IN_MEMORY",
+        "sourceGrant": [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-prepared-and-split",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-source-cap"
+      ]
+    },
+    {
+      "TestID": "D07-overfund-prepared",
+      "RequirementID": "FUNDING-SOURCE-CAP",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_fund",
+      "SourceLine": 88,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 2,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D07-overfund-prepared",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-source-cap"
+      ]
+    },
+    {
+      "TestID": "D07-double-allocation",
+      "RequirementID": "FUNDING-SOURCE-CAP",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_fund",
+      "SourceLine": 88,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 2,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D07-double-allocation",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D07-exact-fund-replay",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 2,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D07-exact-fund-replay",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-projected-authority"
+      ]
+    },
+    {
+      "TestID": "D07-altered-fund-replay",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 2,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D07-altered-fund-replay",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D07-exact-consume-replay",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D07-exact-consume-replay",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-replay-payload"
+      ]
+    },
+    {
+      "TestID": "D07-altered-consume-replay",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 3,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D07-altered-consume-replay",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-replay-payload"
+      ]
+    },
+    {
+      "TestID": "D02-known-zero",
+      "RequirementID": "D-02",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "reserve_available",
+      "SourceLine": 167,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D02-known-zero",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-unknown-history-zero"
+      ]
+    },
+    {
+      "TestID": "D02-unknown-history",
+      "RequirementID": "D-02",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "reserve_available",
+      "SourceLine": 167,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D02-unknown-history",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-unknown-history-zero"
+      ]
+    },
+    {
+      "TestID": "D02-projected-not-source",
+      "RequirementID": "D-02",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "reserve_available",
+      "SourceLine": 167,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "allocations": 0,
+        "status": "REJECT"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D02-projected-not-source",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-projected-authority"
+      ]
+    },
+    {
+      "TestID": "D03-small-isolation",
+      "RequirementID": "D-03",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_fund",
+      "SourceLine": 88,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "0",
+            "1"
+          ]
+        ],
+        "reserveAttempt": "REJECT",
+        "residualCommit": "COMMITTED_IN_MEMORY"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D03-small-isolation",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-small-role"
+      ]
+    },
+    {
+      "TestID": "D03-opening-no-grant",
+      "RequirementID": "D-03",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_fund",
+      "SourceLine": 88,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D03-opening-no-grant",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D07-unattributed-debit",
+      "RequirementID": "FUNDING-GLOBAL-ATTRIBUTION",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "funding_status",
+      "SourceLine": 122,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "available": [
+          "UNPROVEN",
+          null
+        ],
+        "spend": "UNAVAILABLE",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D07-unattributed-debit",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D04-absolute-baseline",
+      "RequirementID": "D-04",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "far_loss",
+      "SourceLine": 227,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "absolute": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "incremental": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "incrementalStatus": "DIAGNOSTIC_ONLY",
+        "workingMetric": "ABSOLUTE_PROPOSED"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D04-absolute-baseline",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D04-partial-volume",
+      "RequirementID": "D-04",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "far_loss",
+      "SourceLine": 227,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "absolute": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "incremental": null,
+        "incrementalStatus": "UNAVAILABLE",
+        "workingMetric": "ABSOLUTE_PROPOSED"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D04-partial-volume",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D04-stale",
+      "RequirementID": "D-04",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "far_loss",
+      "SourceLine": 227,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "absolute": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "incremental": null,
+        "incrementalStatus": "UNAVAILABLE",
+        "workingMetric": "ABSOLUTE_PROPOSED"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D04-stale",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D04-restart",
+      "RequirementID": "D-04",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "far_loss",
+      "SourceLine": 227,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "absolute": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "incremental": null,
+        "incrementalStatus": "UNAVAILABLE",
+        "workingMetric": "ABSOLUTE_PROPOSED"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D04-restart",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D04-buy-bid-sell-ask",
+      "RequirementID": "D-04",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "far_loss",
+      "SourceLine": 227,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "Bid",
+        "Ask"
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D04-buy-bid-sell-ask",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D05-partial-pending",
+      "RequirementID": "D-05",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "transition_status",
+      "SourceLine": 185,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "PENDING",
+        [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D05-partial-pending",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-actual-cap"
+      ]
+    },
+    {
+      "TestID": "D05-over-cap",
+      "RequirementID": "D-05",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "transition_status",
+      "SourceLine": 185,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "OVER_CAP",
+        [
+          "NUMBER",
+          "15",
+          "1"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D05-over-cap",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-actual-cap"
+      ]
+    },
+    {
+      "TestID": "D05-exact-fill-replay",
+      "RequirementID": "D-05",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "transition_status",
+      "SourceLine": 185,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "PENDING",
+        [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D05-exact-fill-replay",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D05-changed-fill",
+      "RequirementID": "D-05",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "transition_status",
+      "SourceLine": 185,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "CONFLICT",
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D05-changed-fill",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D05-actual-history-unavailable",
+      "RequirementID": "D-05",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "transition_status",
+      "SourceLine": 185,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D05-actual-history-unavailable",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D06-once",
+      "RequirementID": "D-06",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "costs_status",
+      "SourceLine": 233,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "PASS",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D06-once",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-cost-double"
+      ]
+    },
+    {
+      "TestID": "D06-double-cost",
+      "RequirementID": "D-06",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "costs_status",
+      "SourceLine": 233,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "CONFLICT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D06-double-cost",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-cost-double"
+      ]
+    },
+    {
+      "TestID": "D06-unknown-overlap",
+      "RequirementID": "D-06",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "costs_status",
+      "SourceLine": 233,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "UNPROVEN",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D06-unknown-overlap",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-independent-control",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "PASS",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-independent-control",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-expected-magic",
+        "R0E-MUT-snapshot-fresh"
+      ]
+    },
+    {
+      "TestID": "D08-foreign-Broker",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Broker",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Server",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Server",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Account",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Account",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Symbol",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Symbol",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Magic",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Magic",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-expected-magic"
+      ]
+    },
+    {
+      "TestID": "D08-foreign-Cycle",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Cycle",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Position",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Position",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Deal",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Deal",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Order",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Order",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Event",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Event",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Role",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Role",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Plan",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Plan",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-PolicyVersion",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-PolicyVersion",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Revision",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Revision",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-Snapshot",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-Snapshot",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-nonzero-deal-not-existence",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-nonzero-deal-not-existence",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-foreign-authoritative-allocation",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-foreign-authoritative-allocation",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-stale-snapshot",
+      "RequirementID": "SNAP-FIXTURE-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "UNAVAILABLE",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-stale-snapshot",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-snapshot-fresh"
+      ]
+    },
+    {
+      "TestID": "RESTART-before",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "replay": null,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#RESTART-before",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "RESTART-prepared",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "fallback": false,
+        "remaining": null,
+        "replay": null,
+        "status": "UNAVAILABLE"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#RESTART-prepared",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "RESTART-committed",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#RESTART-committed",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-recovery-rebuild"
+      ]
+    },
+    {
+      "TestID": "RESTART-incomplete",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "fallback": false,
+        "remaining": null,
+        "replay": null,
+        "status": "UNAVAILABLE"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#RESTART-incomplete",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "RESTART-history-missing",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "fallback": false,
+        "remaining": null,
+        "replay": null,
+        "status": "UNAVAILABLE"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#RESTART-history-missing",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "RESTART-torn",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "fallback": true,
+        "remaining": null,
+        "replay": null,
+        "status": "UNAVAILABLE"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#RESTART-torn",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "RESTART-fallback",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "fallback": true,
+        "remaining": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "replay": null,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#RESTART-fallback",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "RESTART-forged-consumed",
+      "RequirementID": "D-07",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_event",
+      "SourceLine": 75,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "fallback": false,
+        "remaining": null,
+        "replay": null,
+        "status": "CONFLICT"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#RESTART-forged-consumed",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-recovery-rebuild"
+      ]
+    },
+    {
+      "TestID": "CR09-A-negative",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "REJECT",
+        2,
+        [
+          "NUMBER",
+          "-16",
+          "1"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CR09-A-negative",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CR09-B-single",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "SINGLE_LEVEL_POSITIVE",
+        1,
+        [
+          "NUMBER",
+          "29",
+          "1"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CR09-B-single",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "NUM-exact-cancellation",
+      "RequirementID": "NUM-EXACT-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "number",
+      "SourceLine": 40,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "REJECT",
+        1,
+        [
+          "NUMBER",
+          "-1",
+          "200"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#NUM-exact-cancellation",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "NUM-minor-remainder",
+      "RequirementID": "NUM-EXACT-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "number",
+      "SourceLine": 40,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "Carry": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "FinalReserve": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "PartialFar": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "ResidualHeld": [
+          "NUMBER",
+          "1",
+          "100"
+        ],
+        "Transition": [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#NUM-minor-remainder",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "NUM-double-round",
+      "RequirementID": "NUM-EXACT-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "number",
+      "SourceLine": 40,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        [
+          "NUMBER",
+          "5",
+          "4"
+        ],
+        [
+          "NUMBER",
+          "31",
+          "25"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#NUM-double-round",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "NUM-domain-unsupported",
+      "RequirementID": "NUM-DOMAIN-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "reserve_available",
+      "SourceLine": 167,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#NUM-domain-unsupported",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-checked-overflow"
+      ]
+    },
+    {
+      "TestID": "MQL-add-ok",
+      "RequirementID": "MQL-DOMAIN",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "checked_add",
+      "SourceLine": 274,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "status": "VALUE",
+        "value": 9223372036854775807
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#MQL-add-ok",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": [
+        "R0E-MUT-checked-overflow"
+      ]
+    },
+    {
+      "TestID": "MQL-add-min",
+      "RequirementID": "MQL-DOMAIN",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "checked_add",
+      "SourceLine": 274,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "status": "VALUE",
+        "value": -9223372036854775808
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#MQL-add-min",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "MQL-add-underflow",
+      "RequirementID": "MQL-DOMAIN",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "checked_add",
+      "SourceLine": 274,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#MQL-add-underflow",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "MQL-mul-ok",
+      "RequirementID": "MQL-DOMAIN",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "checked_add",
+      "SourceLine": 274,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "status": "VALUE",
+        "value": -9223372036854775808
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#MQL-mul-ok",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "MQL-mul-overflow",
+      "RequirementID": "MQL-DOMAIN",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "checked_add",
+      "SourceLine": 274,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#MQL-mul-overflow",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "MQL-mul-positive",
+      "RequirementID": "MQL-DOMAIN",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "checked_add",
+      "SourceLine": 274,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#MQL-mul-positive",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "MQL-operand-domain",
+      "RequirementID": "MQL-DOMAIN",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "checked_add",
+      "SourceLine": 274,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#MQL-operand-domain",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-str-decimal",
+      "RequirementID": "NUM-CODEC",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+      "SourceFunction": "canonical",
+      "SourceLine": 83,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": true,
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CODEC-str-decimal",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ZERO-core",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#ZERO-core",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "SOURCE-changed-Magic",
+      "RequirementID": "FUNDING-SOURCE-CAP",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_fund",
+      "SourceLine": 88,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 2,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#SOURCE-changed-Magic",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "SOURCE-changed-Cycle",
+      "RequirementID": "FUNDING-SOURCE-CAP",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "_fund",
+      "SourceLine": 88,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 2,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#SOURCE-changed-Cycle",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "SOURCE-nonpositive-0",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 1,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#SOURCE-nonpositive-0",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "SOURCE-nonpositive--10",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 1,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#SOURCE-nonpositive--10",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "NUM-currency-mismatch",
+      "RequirementID": "NUM-DOMAIN-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "reserve_available",
+      "SourceLine": 167,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#NUM-currency-mismatch",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D01-finalreserve-purpose",
+      "RequirementID": "D-01",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D01-finalreserve-purpose",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D04-direction-unknown",
+      "RequirementID": "D-04",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "far_loss",
+      "SourceLine": 227,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": "REJECT",
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D04-direction-unknown",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CR09-missing",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "UNPROVEN",
+        null,
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CR09-missing",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CR09-duplicate",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "UNPROVEN",
+        null,
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CR09-duplicate",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CR09-unknown-transition",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null,
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CR09-unknown-transition",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CR09-stale",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "UNPROVEN",
+        null,
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CR09-stale",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CR09-zero",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "REJECT",
+        2,
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CR09-zero",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CR09-sequential-reuse",
+      "RequirementID": "CR-09",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "assess_levels",
+      "SourceLine": 301,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "appliedCount": 1,
+        "rejectedIndex": 2,
+        "remaining": [
+          "NUMBER",
+          "20",
+          "1"
+        ],
+        "status": "REJECT"
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#CR09-sequential-reuse",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D08-independent-account-namespace",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "one": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "sources": 2,
+        "status": "COMMITTED_IN_MEMORY",
+        "two": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ]
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D08-independent-account-namespace",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "L01-same-net-changed-components",
+      "RequirementID": "D-08",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "SourceLine": 211,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": {
+        "revision": 2,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#L01-same-net-changed-components",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "D05-unsupported-aggregate",
+      "RequirementID": "NUM-DOMAIN-1",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "reserve_available",
+      "SourceLine": 167,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "TestFunction": "cases",
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0E_VERIFICATION_SUMMARY.json#D05-unsupported-aggregate",
+      "ProofBoundary": "PROPOSED independent fixture model only; no broker/durable runtime",
+      "Status": "PASS",
+      "MutationIDs": []
+    }
+  ],
+  "packageRequirements": [
+    "PACKAGE-PROVENANCE",
+    "PACKAGE-MATRIX-CONTEXT",
+    "PACKAGE-MUTATION-APPROVAL"
+  ],
+  "externalEvidence": {
+    "BrokerAuthenticity": "UNPROVEN",
+    "DurableConcurrentCommit": "UNPROVEN",
+    "GlobalEconomicFunding": "UNPROVEN",
+    "PartialFillBrokerExecution": "NOT_RUN",
+    "NewFarIntegration": "UNPROVEN",
+    "MQL5Runtime": "NOT_RUN"
+  }
+}

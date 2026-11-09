@@ -1,0 +1,821 @@
+{
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "BaseSHA": "2d34c3378edc5f2df064282fa067bb4af2a1e3b0",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0e_mutations.py"
+  ],
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_TESTS": "NOT_RUN",
+  "STRATEGY_TESTER": "NOT_RUN",
+  "SourceHashes": {
+    "Tests/Reference/hsbi_02b_r0e_contract_model.py": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+    "Tests/Static/check_hsbi_02b_r0e_mutations.py": "0ced25a9e0f9bc5bd5eaf4b3faa478c1d10b02e2cf87c9cbd2a66fb459bca1b2"
+  },
+  "TestedSHA": "2d34c3378edc5f2df064282fa067bb4af2a1e3b0",
+  "UTC": "2026-11-09T20:46:28.170314+00:00",
+  "catalogSize": 13,
+  "infrastructureErrors": 0,
+  "killed": 13,
+  "mutations": [
+    {
+      "CausalTestID": "D07-overfund-prepared",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:return 'REJECT',copy.deepcopy(state)",
+          "old": "if total>net:return 'REJECT',copy.deepcopy(state)"
+        }
+      ],
+      "IndependentExpected": {
+        "revision": 2,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "MutantNegativeOutcome": {
+        "revision": 3,
+        "status": "COMMITTED_IN_MEMORY",
+        "unchanged": false
+      },
+      "MutantPositiveControl": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "first": "COMMITTED_IN_MEMORY",
+        "preparedBlocked": "REJECT",
+        "preparedUnchanged": true,
+        "second": "COMMITTED_IN_MEMORY",
+        "sourceGrant": [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      },
+      "MutantSourceHash": "06d3a39cb297f7a23268a7a320f42fbf5180c24730298cca7fd549b5abd996e5",
+      "MutationID": "R0E-MUT-source-cap",
+      "OriginalNegativeOutcome": {
+        "revision": 2,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "first": "COMMITTED_IN_MEMORY",
+        "preparedBlocked": "REJECT",
+        "preparedUnchanged": true,
+        "second": "COMMITTED_IN_MEMORY",
+        "sourceGrant": [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      },
+      "PositiveExpected": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "first": "COMMITTED_IN_MEMORY",
+        "preparedBlocked": "REJECT",
+        "preparedUnchanged": true,
+        "second": "COMMITTED_IN_MEMORY",
+        "sourceGrant": [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      },
+      "PositiveTestID": "D01-prepared-and-split",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "_fund",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D01-double-count",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "g!=c+f",
+          "old": "g!=c+v+f"
+        }
+      ],
+      "IndependentExpected": false,
+      "MutantNegativeOutcome": true,
+      "MutantPositiveControl": true,
+      "MutantSourceHash": "8eb52f987705e85e947b3aa1a675fb67b227ff092afe3132fe6637d56cc14c8b",
+      "MutationID": "R0E-MUT-reserved-doublecount",
+      "OriginalNegativeOutcome": false,
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": true,
+      "PositiveExpected": true,
+      "PositiveTestID": "D01-zero-reserved",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "balance",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D02-projected-not-source",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if r['kind']!='ReconciledEconomicNet':"
+        }
+      ],
+      "IndependentExpected": {
+        "allocations": 0,
+        "status": "REJECT"
+      },
+      "MutantNegativeOutcome": {
+        "allocations": 1,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantPositiveControl": {
+        "revision": 2,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "MutantSourceHash": "3cf8ecab1346a1b72d67c6b833bf9e5dab0294129dd061c458dc6e86f50e0bdf",
+      "MutationID": "R0E-MUT-projected-authority",
+      "OriginalNegativeOutcome": {
+        "allocations": 0,
+        "status": "REJECT"
+      },
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": {
+        "revision": 2,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "PositiveExpected": {
+        "revision": 2,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "PositiveTestID": "D07-exact-fund-replay",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "economic_record",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D03-small-isolation",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if role=='Small' and any(values[b]!=0 for b in BUCKETS if b!='ResidualHeld'):"
+        }
+      ],
+      "IndependentExpected": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "0",
+            "1"
+          ]
+        ],
+        "reserveAttempt": "REJECT",
+        "residualCommit": "COMMITTED_IN_MEMORY"
+      },
+      "MutantNegativeOutcome": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "0",
+            "1"
+          ]
+        ],
+        "reserveAttempt": "COMMITTED_IN_MEMORY",
+        "residualCommit": "COMMITTED_IN_MEMORY"
+      },
+      "MutantPositiveControl": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "MutantSourceHash": "4cb09962bcd92d410241159b3a18c3fcc15d012b169711056a101eb2eb01a8cf",
+      "MutationID": "R0E-MUT-small-role",
+      "OriginalNegativeOutcome": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "0",
+            "1"
+          ]
+        ],
+        "reserveAttempt": "REJECT",
+        "residualCommit": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "PositiveExpected": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "PositiveTestID": "D01-operations",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "_fund",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D07-altered-consume-replay",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "'NO_OP'",
+          "old": "('NO_OP' if canonical(prior['payload'])==canonical(payload) else 'CONFLICT')"
+        }
+      ],
+      "IndependentExpected": {
+        "revision": 3,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "MutantNegativeOutcome": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "MutantPositiveControl": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "MutantSourceHash": "eab28d943cd91597659c9b459ea676b1f31e565b7decce4ac417ce97a22f2dad",
+      "MutationID": "R0E-MUT-replay-payload",
+      "OriginalNegativeOutcome": {
+        "revision": 3,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "PositiveExpected": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "PositiveTestID": "D07-exact-consume-replay",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "_event",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D08-foreign-Magic",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Magic') else 'REJECT'",
+          "old": "for k in expected) else 'REJECT'"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegativeOutcome": "PASS",
+      "MutantPositiveControl": "PASS",
+      "MutantSourceHash": "dbc2c5982618b49a910e6b910054ab435bbe6d51f62d627364c192791ad77bdc",
+      "MutationID": "R0E-MUT-expected-magic",
+      "OriginalNegativeOutcome": "REJECT",
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": "PASS",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "D08-independent-control",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "verify_identity",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D05-over-cap",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if loss>number(cap):"
+        }
+      ],
+      "IndependentExpected": [
+        "OVER_CAP",
+        [
+          "NUMBER",
+          "15",
+          "1"
+        ]
+      ],
+      "MutantNegativeOutcome": [
+        "CONFIRMED",
+        [
+          "NUMBER",
+          "15",
+          "1"
+        ]
+      ],
+      "MutantPositiveControl": [
+        "PENDING",
+        [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      ],
+      "MutantSourceHash": "0c08e9aa89e126d6e9beccebc4654c73dd75789099f5f7f764dbd2b9eb96e80e",
+      "MutationID": "R0E-MUT-actual-cap",
+      "OriginalNegativeOutcome": [
+        "OVER_CAP",
+        [
+          "NUMBER",
+          "15",
+          "1"
+        ]
+      ],
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": [
+        "PENDING",
+        [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      ],
+      "PositiveExpected": [
+        "PENDING",
+        [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      ],
+      "PositiveTestID": "D05-partial-pending",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "_transition_status",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D06-double-cost",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if row['AlreadyIncluded'] and row['AdditionalDeduction']:"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegativeOutcome": "PASS",
+      "MutantPositiveControl": "PASS",
+      "MutantSourceHash": "d1ee27406a53b47f3047e42dc8a2dd741b3f5ef713c23c3a838c47abb4d00def",
+      "MutationID": "R0E-MUT-cost-double",
+      "OriginalNegativeOutcome": "CONFLICT",
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": "PASS",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "D06-once",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "costs_status",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D02-unknown-history",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "def reserve_available(state,history,account,complete=True):\n    if not complete:return 'UNAVAILABLE',None",
+          "old": "def reserve_available(state,history,account,complete=True):\n    if history is None or not complete:return 'UNAVAILABLE',None"
+        }
+      ],
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "MutantNegativeOutcome": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "MutantPositiveControl": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "MutantSourceHash": "c500b61acd20169875eaf7404add1c4a79650d480878310d077cd750226be840",
+      "MutationID": "R0E-MUT-unknown-history-zero",
+      "OriginalNegativeOutcome": [
+        "UNAVAILABLE",
+        null
+      ],
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "PositiveExpected": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "PositiveTestID": "D02-known-zero",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "reserve_available",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "RESTART-forged-consumed",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if canonical(rebuilt)!=canonical(chosen):"
+        }
+      ],
+      "IndependentExpected": {
+        "fallback": false,
+        "remaining": null,
+        "replay": null,
+        "status": "CONFLICT"
+      },
+      "MutantNegativeOutcome": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "replay": null,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutantPositiveControl": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutantSourceHash": "b2f31931f9bf8df942fb4ef9ab8edc5c85add399bde377dffe1df4dc4c490281",
+      "MutationID": "R0E-MUT-recovery-rebuild",
+      "OriginalNegativeOutcome": {
+        "fallback": false,
+        "remaining": null,
+        "replay": null,
+        "status": "CONFLICT"
+      },
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "PositiveExpected": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "PositiveTestID": "RESTART-committed",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "recover",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D08-stale-snapshot",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if not context['fresh']:"
+        }
+      ],
+      "IndependentExpected": "UNAVAILABLE",
+      "MutantNegativeOutcome": "PASS",
+      "MutantPositiveControl": "PASS",
+      "MutantSourceHash": "79c3891bf6f29c01c38a893e8ab67b4b92ffe0ed0f54e8841bce1c27e5fb5530",
+      "MutationID": "R0E-MUT-snapshot-fresh",
+      "OriginalNegativeOutcome": "UNAVAILABLE",
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": "PASS",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "D08-independent-control",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "verify_identity",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "NUM-domain-unsupported",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if b>0 and a>maximum-b or b<0 and a<minimum-b:"
+        },
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if not minimum<=result<=maximum:"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "MutantNegativeOutcome": {
+        "status": "VALUE",
+        "value": 9223372036854775808
+      },
+      "MutantPositiveControl": {
+        "status": "VALUE",
+        "value": 9223372036854775807
+      },
+      "MutantSourceHash": "5ac6c592e20da1930e9ed5498ff9fedb1af052248d37281a488f24f09f9dc9ef",
+      "MutationID": "R0E-MUT-checked-overflow",
+      "OriginalNegativeOutcome": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": {
+        "status": "VALUE",
+        "value": 9223372036854775807
+      },
+      "PositiveExpected": {
+        "status": "VALUE",
+        "value": 9223372036854775807
+      },
+      "PositiveTestID": "MQL-add-ok",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "checked_add",
+      "Verdict": "MUTATION_KILLED"
+    },
+    {
+      "CausalTestID": "D01-reservation-owner",
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "row['Reserved']",
+          "old": "row['Reservations'].get(intent,0)"
+        },
+        {
+          "count": 2,
+          "new": "b['Reservations'][intent if intent in b['Reservations'] else next(iter(b['Reservations']))]-=n",
+          "old": "b['Reservations'][intent]-=n"
+        }
+      ],
+      "IndependentExpected": {
+        "revision": 3,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "MutantNegativeOutcome": {
+        "revision": 4,
+        "status": "COMMITTED_IN_MEMORY",
+        "unchanged": false
+      },
+      "MutantPositiveControl": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "MutantSourceHash": "039f2236d62e62e9102784440050e20bec4b4d2fa308c3c356e3f6bef42c8951",
+      "MutationID": "R0E-MUT-reservation-owner",
+      "OriginalNegativeOutcome": {
+        "revision": 3,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "PositiveExpected": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "PositiveTestID": "D01-operations",
+      "StateDelta": "Included in causal outcome for stateful scenarios; identity/arithmetic functions pure",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "TargetFunction": "_operate",
+      "Verdict": "MUTATION_KILLED"
+    }
+  ],
+  "survived": 0
+}

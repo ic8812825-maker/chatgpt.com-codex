@@ -1,0 +1,346 @@
+{
+  "BaseSHA": "2d34c3378edc5f2df064282fa067bb4af2a1e3b0",
+  "Command": [
+    "python",
+    "Tests/Static/check_hsbi_02b_r0e_package.py",
+    "--seal",
+    "--self-test"
+  ],
+  "StartedUtc": "2026-11-09T20:50:55.952258+00:00",
+  "FinishedUtc": "2026-11-09T20:51:29.972352+00:00",
+  "positive": "PASS",
+  "errors": [],
+  "SourceHash": "c8c9f9e43f2194aa1786d83f2d571e5720cfb97c598933aed18c425d3e5cf776",
+  "negative": [
+    {
+      "ProbeID": "inventory-omission",
+      "ExpectedCode": "BASELINE_INVENTORY",
+      "ActualErrors": [
+        {
+          "code": "BASELINE_INVENTORY",
+          "path": ""
+        },
+        {
+          "code": "HISTORICAL_BYTES",
+          "path": "BUILD_INFO.md"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "historical-content",
+      "ExpectedCode": "HISTORICAL_BYTES",
+      "ActualErrors": [
+        {
+          "code": "HISTORICAL_BYTES",
+          "path": "BUILD_INFO.md"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "outside-scope",
+      "ExpectedCode": "OUTSIDE_SCOPE",
+      "ActualErrors": [
+        {
+          "code": "NEW_INVENTORY",
+          "path": ""
+        },
+        {
+          "code": "OUTSIDE_SCOPE",
+          "path": ""
+        },
+        {
+          "code": "NEW_HASH_INVENTORY",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "source-hash",
+      "ExpectedCode": "SOURCE_HASH",
+      "ActualErrors": [
+        {
+          "code": "SOURCE_HASH",
+          "path": "Tests/Reference/hsbi_02b_r0e_contract_model.py"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "test-total",
+      "ExpectedCode": "TEST_TOTALS",
+      "ActualErrors": [
+        {
+          "code": "TEST_TOTALS",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "fail-with-pass-total",
+      "ExpectedCode": "TEST_ROW_VERDICT",
+      "ActualErrors": [
+        {
+          "code": "TEST_TOTALS",
+          "path": ""
+        },
+        {
+          "code": "TEST_TOTALS",
+          "path": ""
+        },
+        {
+          "code": "TEST_ROW_VERDICT",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "mandatory-missing",
+      "ExpectedCode": "MANDATORY_ARTIFACT",
+      "ActualErrors": [
+        {
+          "code": "NEW_INVENTORY",
+          "path": ""
+        },
+        {
+          "code": "MANDATORY_ARTIFACT",
+          "path": "Docs/NEXT_STAGE_02B_R0E_NUMERIC_ARCHITECTURE_RU.md"
+        },
+        {
+          "code": "NEW_HASH_INVENTORY",
+          "path": ""
+        },
+        {
+          "code": "NEW_HASH",
+          "path": "Docs/NEXT_STAGE_02B_R0E_NUMERIC_ARCHITECTURE_RU.md"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "report-baseline",
+      "ExpectedCode": "REPORT_BASELINE",
+      "ActualErrors": [
+        {
+          "code": "REPORT_BASELINE",
+          "path": "Reports/NEXT_STAGE_02B_R0E_FINAL_VERDICT_RU.md"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "empty-cases",
+      "ExpectedCode": "MATRIX_BIJECTION",
+      "ActualErrors": [
+        {
+          "code": "MATRIX_BIJECTION",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "missing-case",
+      "ExpectedCode": "MATRIX_BIJECTION",
+      "ActualErrors": [
+        {
+          "code": "MATRIX_BIJECTION",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "duplicate-case",
+      "ExpectedCode": "MATRIX_BIJECTION",
+      "ActualErrors": [
+        {
+          "code": "MATRIX_BIJECTION",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "context-999",
+      "ExpectedCode": "CONTEXT_CARTESIAN",
+      "ActualErrors": [
+        {
+          "code": "CONTEXT_CARTESIAN",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "context-bool",
+      "ExpectedCode": "CONTEXT_CARTESIAN",
+      "ActualErrors": [
+        {
+          "code": "CONTEXT_CARTESIAN",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "context-missing",
+      "ExpectedCode": "CONTEXT_CARTESIAN",
+      "ActualErrors": [
+        {
+          "code": "CONTEXT_CARTESIAN",
+          "path": ""
+        },
+        {
+          "code": "TEST_TOTALS",
+          "path": ""
+        },
+        {
+          "code": "TEST_TOTALS",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "context-duplicate",
+      "ExpectedCode": "CONTEXT_CARTESIAN",
+      "ActualErrors": [
+        {
+          "code": "CONTEXT_CARTESIAN",
+          "path": ""
+        },
+        {
+          "code": "TEST_TOTALS",
+          "path": ""
+        },
+        {
+          "code": "TEST_TOTALS",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "context-metadata",
+      "ExpectedCode": "CONTEXT_METADATA",
+      "ActualErrors": [
+        {
+          "code": "CONTEXT_METADATA",
+          "path": ""
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "original-hash",
+      "ExpectedCode": "ORIGINAL_SOURCE_HASH",
+      "ActualErrors": [
+        {
+          "code": "ORIGINAL_SOURCE_HASH",
+          "path": "R0E-MUT-source-cap"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "mutant-hash",
+      "ExpectedCode": "MUTANT_SOURCE_HASH",
+      "ActualErrors": [
+        {
+          "code": "MUTANT_SOURCE_HASH",
+          "path": "R0E-MUT-source-cap"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "exact-edit",
+      "ExpectedCode": "EXACT_EDIT",
+      "ActualErrors": [
+        {
+          "code": "EXACT_EDIT",
+          "path": "R0E-MUT-source-cap"
+        },
+        {
+          "code": "MUTANT_SOURCE_HASH",
+          "path": "R0E-MUT-source-cap"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "approval-inline",
+      "ExpectedCode": "APPROVAL_NONEMPTY",
+      "ActualErrors": [
+        {
+          "code": "APPROVAL_NONEMPTY",
+          "path": "D-01:AdministratorDecision"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "approval-newline",
+      "ExpectedCode": "APPROVAL_NONEMPTY",
+      "ActualErrors": [
+        {
+          "code": "APPROVAL_NONEMPTY",
+          "path": "D-01:AdministratorDecision"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "approval-duplicate",
+      "ExpectedCode": "APPROVAL_DUPLICATE",
+      "ActualErrors": [
+        {
+          "code": "APPROVAL_DUPLICATE",
+          "path": "D-01:AdministratorDecision"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    },
+    {
+      "ProbeID": "verdict-policy",
+      "ExpectedCode": "VERDICT_POLICY",
+      "ActualErrors": [
+        {
+          "code": "VERDICT_POLICY",
+          "path": "ADMIN_APPROVAL_COMPLETE"
+        }
+      ],
+      "Result": "PASS",
+      "Boundary": "Disposable copy only; historical real bytes untouched"
+    }
+  ],
+  "negativePassed": 23,
+  "negativeFailed": 0
+}

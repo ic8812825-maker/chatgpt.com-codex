@@ -1,0 +1,56 @@
+{
+  "BaseSHA": "2d34c3378edc5f2df064282fa067bb4af2a1e3b0",
+  "Command": [
+    "python",
+    "Tests/Static/check_hsbi_02b_r0e_r0d_provenance.py"
+  ],
+  "StartedUtc": "2026-11-09T20:45:33.196756+00:00",
+  "FinishedUtc": "2026-11-09T20:45:35.751968+00:00",
+  "PositiveErrors": [],
+  "probes": [
+    {
+      "ProbeID": "empty-cases",
+      "Expected": "REJECT_TAMPERED_PACKAGE",
+      "Actual": "ACCEPT",
+      "Findings": [],
+      "Classification": "CONFIRMED",
+      "Boundary": "Frozen R0D checker; exact baseline archive; synthetic approval has no real administrative meaning"
+    },
+    {
+      "ProbeID": "context-999",
+      "Expected": "REJECT_TAMPERED_PACKAGE",
+      "Actual": "ACCEPT",
+      "Findings": [],
+      "Classification": "CONFIRMED",
+      "Boundary": "Frozen R0D checker; exact baseline archive; synthetic approval has no real administrative meaning"
+    },
+    {
+      "ProbeID": "false-original-source-hash",
+      "Expected": "REJECT_TAMPERED_PACKAGE",
+      "Actual": "ACCEPT",
+      "Findings": [],
+      "Classification": "CONFIRMED",
+      "Boundary": "Frozen R0D checker; exact baseline archive; synthetic approval has no real administrative meaning"
+    },
+    {
+      "ProbeID": "false-mutant-source-hash",
+      "Expected": "REJECT_TAMPERED_PACKAGE",
+      "Actual": "ACCEPT",
+      "Findings": [],
+      "Classification": "CONFIRMED",
+      "Boundary": "Frozen R0D checker; exact baseline archive; synthetic approval has no real administrative meaning"
+    },
+    {
+      "ProbeID": "approval-after-blank",
+      "Expected": "REJECT_TAMPERED_PACKAGE",
+      "Actual": "ACCEPT",
+      "Findings": [],
+      "Classification": "CONFIRMED",
+      "Boundary": "Frozen R0D checker; exact baseline archive; synthetic approval has no real administrative meaning"
+    }
+  ],
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0e_r0d_provenance.py": "8ec2fd2b77d4c0811ac58a85cba3a5ba7ac90c07ee8440685abcc73c4573f09b",
+    "Tests/Static/check_hsbi_02b_r0d_package.py": "4aad90c05bd0eb6776cbc6bccc9203119a821d4c4623b5d8fb86c0a2ebe0008e"
+  }
+}
