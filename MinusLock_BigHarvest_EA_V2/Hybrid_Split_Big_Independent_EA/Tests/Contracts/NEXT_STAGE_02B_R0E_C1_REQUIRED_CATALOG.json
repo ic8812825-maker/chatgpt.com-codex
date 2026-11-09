@@ -1,0 +1,4054 @@
+{
+  "BaseSHA": "074165b38f1b6d6253a9629c7d2def988e8e286a",
+  "CatalogVersion": "HSBI-C1-REQUIRED-V1",
+  "Guards": [
+    {
+      "ContractID": "C1-SOURCE-RAW",
+      "ExpectedScope": "SOURCE-RAW",
+      "GuardID": "C1-GUARD-raw-sum",
+      "MutationID": "C1-MUT-raw-sum",
+      "NegativeTestID": "SOURCE-raw",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "economic_record"
+    },
+    {
+      "ContractID": "C1-SOURCE-GRID",
+      "ExpectedScope": "SOURCE-GRID",
+      "GuardID": "C1-GUARD-posted-grid",
+      "MutationID": "C1-MUT-posted-grid",
+      "NegativeTestID": "RECORD-grid",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "economic_record"
+    },
+    {
+      "ContractID": "C1-SOURCE-NAMESPACE",
+      "ExpectedScope": "SOURCE-NAMESPACE",
+      "GuardID": "C1-GUARD-source-namespace",
+      "MutationID": "C1-MUT-source-namespace",
+      "NegativeTestID": "SOURCE-namespace",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "economic_record"
+    },
+    {
+      "ContractID": "C1-BALANCE",
+      "ExpectedScope": "BALANCE",
+      "GuardID": "C1-GUARD-balance-reserved",
+      "MutationID": "C1-MUT-balance-reserved",
+      "NegativeTestID": "BALANCE-doublecount",
+      "PositiveTestID": "BALANCE-no-reserve",
+      "RedundantAllowed": false,
+      "SubjectFunction": "balance"
+    },
+    {
+      "ContractID": "C1-SOURCE-CAP",
+      "ExpectedScope": "SOURCE-CAP",
+      "GuardID": "C1-GUARD-source-cap",
+      "MutationID": "C1-MUT-source-cap",
+      "NegativeTestID": "SOURCE-overfund",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_fund"
+    },
+    {
+      "ContractID": "C1-SOURCE-SMALL",
+      "ExpectedScope": "SOURCE-SMALL",
+      "GuardID": "C1-GUARD-small-role",
+      "MutationID": "C1-MUT-small-role",
+      "NegativeTestID": "SOURCE-small",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_fund"
+    },
+    {
+      "ContractID": "C1-SOURCE-PROJECTED",
+      "ExpectedScope": "SOURCE-PROJECTED",
+      "GuardID": "C1-GUARD-projected-source",
+      "MutationID": "C1-MUT-projected-source",
+      "NegativeTestID": "SOURCE-projected",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "economic_record"
+    },
+    {
+      "ContractID": "C1-FUND-REPLAY",
+      "ExpectedScope": "FUND-REPLAY",
+      "GuardID": "C1-GUARD-fund-replay",
+      "MutationID": "C1-MUT-fund-replay",
+      "NegativeTestID": "FUND-changed",
+      "PositiveTestID": "FUND-exact",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_event"
+    },
+    {
+      "ContractID": "C1-REPLAY-AUTHORITY",
+      "ExpectedScope": "REPLAY-AUTHORITY",
+      "GuardID": "C1-GUARD-fund-immutable-before-replay",
+      "MutationID": "C1-MUT-fund-immutable-before-replay",
+      "NegativeTestID": "FUND-authority-change",
+      "PositiveTestID": "FUND-exact",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_fund"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Broker",
+      "MutationID": "C1-MUT-identity-Broker",
+      "NegativeTestID": "IDENTITY-foreign-Broker",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Server",
+      "MutationID": "C1-MUT-identity-Server",
+      "NegativeTestID": "IDENTITY-foreign-Server",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Account",
+      "MutationID": "C1-MUT-identity-Account",
+      "NegativeTestID": "IDENTITY-foreign-Account",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Symbol",
+      "MutationID": "C1-MUT-identity-Symbol",
+      "NegativeTestID": "IDENTITY-foreign-Symbol",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Magic",
+      "MutationID": "C1-MUT-identity-Magic",
+      "NegativeTestID": "IDENTITY-foreign-Magic",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Cycle",
+      "MutationID": "C1-MUT-identity-Cycle",
+      "NegativeTestID": "IDENTITY-foreign-Cycle",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Position",
+      "MutationID": "C1-MUT-identity-Position",
+      "NegativeTestID": "IDENTITY-foreign-Position",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Deal",
+      "MutationID": "C1-MUT-identity-Deal",
+      "NegativeTestID": "IDENTITY-foreign-Deal",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Order",
+      "MutationID": "C1-MUT-identity-Order",
+      "NegativeTestID": "IDENTITY-foreign-Order",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Role",
+      "MutationID": "C1-MUT-identity-Role",
+      "NegativeTestID": "IDENTITY-foreign-Role",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-EconomicEventID",
+      "MutationID": "C1-MUT-identity-EconomicEventID",
+      "NegativeTestID": "IDENTITY-foreign-EconomicEventID",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-AllocationEventID",
+      "MutationID": "C1-MUT-identity-AllocationEventID",
+      "NegativeTestID": "IDENTITY-foreign-AllocationEventID",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-ConsumptionEventID",
+      "MutationID": "C1-MUT-identity-ConsumptionEventID",
+      "NegativeTestID": "IDENTITY-foreign-ConsumptionEventID",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-AllocationID",
+      "MutationID": "C1-MUT-identity-AllocationID",
+      "NegativeTestID": "IDENTITY-foreign-AllocationID",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-PolicyVersion",
+      "MutationID": "C1-MUT-identity-PolicyVersion",
+      "NegativeTestID": "IDENTITY-foreign-PolicyVersion",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Plan",
+      "MutationID": "C1-MUT-identity-Plan",
+      "NegativeTestID": "IDENTITY-foreign-Plan",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Revision",
+      "MutationID": "C1-MUT-identity-Revision",
+      "NegativeTestID": "IDENTITY-foreign-Revision",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-IDENTITY",
+      "ExpectedScope": "IDENTITY",
+      "GuardID": "C1-GUARD-identity-Snapshot",
+      "MutationID": "C1-MUT-identity-Snapshot",
+      "NegativeTestID": "IDENTITY-foreign-Snapshot",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-BATCH-NAMESPACE",
+      "ExpectedScope": "BATCH-NAMESPACE",
+      "GuardID": "C1-GUARD-batch-namespace",
+      "MutationID": "C1-MUT-batch-namespace",
+      "NegativeTestID": "BATCH-foreign-account",
+      "PositiveTestID": "BATCH-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "assess_batch"
+    },
+    {
+      "ContractID": "C1-BATCH-LINEAGE",
+      "ExpectedScope": "BATCH-LINEAGE",
+      "GuardID": "C1-GUARD-batch-lineage",
+      "MutationID": "C1-MUT-batch-lineage",
+      "NegativeTestID": "BATCH-foreign-Order",
+      "PositiveTestID": "BATCH-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "assess_batch"
+    },
+    {
+      "ContractID": "C1-BATCH-COMPLETE",
+      "ExpectedScope": "BATCH-COMPLETE",
+      "GuardID": "C1-GUARD-batch-completeness",
+      "MutationID": "C1-MUT-batch-completeness",
+      "NegativeTestID": "BATCH-pending",
+      "PositiveTestID": "BATCH-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "assess_batch"
+    },
+    {
+      "ContractID": "C1-COST-INVENTORY",
+      "ExpectedScope": "COST-INVENTORY",
+      "GuardID": "C1-GUARD-cost-inventory",
+      "MutationID": "C1-MUT-cost-inventory",
+      "NegativeTestID": "COST-missing",
+      "PositiveTestID": "COST-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "cost_coverage"
+    },
+    {
+      "ContractID": "C1-COST-ONCE",
+      "ExpectedScope": "COST-ONCE",
+      "GuardID": "C1-GUARD-cost-once",
+      "MutationID": "C1-MUT-cost-once",
+      "NegativeTestID": "COST-omitted",
+      "PositiveTestID": "COST-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "cost_coverage"
+    },
+    {
+      "ContractID": "C1-JOURNAL",
+      "ExpectedScope": "JOURNAL",
+      "GuardID": "C1-GUARD-available-journal-layer",
+      "MutationID": "C1-MUT-available-journal-layer",
+      "NegativeTestID": "AVAILABLE-external-missing",
+      "PositiveTestID": "AVAILABLE-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "available"
+    },
+    {
+      "ContractID": "C1-COMPOSITION-BATCH",
+      "ExpectedScope": "COMPOSITION-BATCH",
+      "GuardID": "C1-GUARD-composition-batch",
+      "MutationID": "C1-MUT-composition-batch",
+      "NegativeTestID": "APPLY-bypass-batch",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    },
+    {
+      "ContractID": "C1-COMPOSITION-COST",
+      "ExpectedScope": "COMPOSITION-COST",
+      "GuardID": "C1-GUARD-composition-cost",
+      "MutationID": "C1-MUT-composition-cost",
+      "NegativeTestID": "APPLY-bypass-cost",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    },
+    {
+      "ContractID": "C1-COMPOSITION-PLANNED",
+      "ExpectedScope": "COMPOSITION-PLANNED",
+      "GuardID": "C1-GUARD-planned-operation",
+      "MutationID": "C1-MUT-planned-operation",
+      "NegativeTestID": "APPLY-bypass-planned",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    },
+    {
+      "ContractID": "C1-REPLAY",
+      "ExpectedScope": "REPLAY",
+      "GuardID": "C1-GUARD-composed-replay",
+      "MutationID": "C1-MUT-composed-replay",
+      "NegativeTestID": "REPLAY-changed",
+      "PositiveTestID": "REPLAY-exact",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    },
+    {
+      "ContractID": "C1-REPLAY",
+      "ExpectedScope": "REPLAY",
+      "GuardID": "C1-GUARD-immutable-before-replay",
+      "MutationID": "C1-MUT-immutable-before-replay",
+      "NegativeTestID": "REPLAY-authority",
+      "PositiveTestID": "REPLAY-exact",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    },
+    {
+      "ContractID": "C1-COMPOSITION-IDENTITY",
+      "ExpectedScope": "COMPOSITION-IDENTITY",
+      "GuardID": "C1-GUARD-apply-revalidation",
+      "MutationID": "C1-MUT-apply-revalidation",
+      "NegativeTestID": "APPLY-bypass-identity",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "apply_for_test"
+    },
+    {
+      "ContractID": "C1-ALLOCATION-VECTOR",
+      "ExpectedScope": "ALLOCATION-VECTOR",
+      "GuardID": "C1-GUARD-outer-poststate",
+      "MutationID": "C1-MUT-outer-poststate",
+      "NegativeTestID": "APPLY-forged-allocation",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": true,
+      "SubjectFunction": "apply_for_test"
+    },
+    {
+      "ContractID": "C1-SNAPSHOT",
+      "ExpectedScope": "SNAPSHOT",
+      "GuardID": "C1-GUARD-snapshot-fresh",
+      "MutationID": "C1-MUT-snapshot-fresh",
+      "NegativeTestID": "IDENTITY-stale",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-BATCH",
+      "ExpectedScope": "BATCH",
+      "GuardID": "C1-GUARD-batch-policy",
+      "MutationID": "C1-MUT-batch-policy",
+      "NegativeTestID": "BATCH-unknown-policy",
+      "PositiveTestID": "BATCH-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "assess_batch"
+    },
+    {
+      "ContractID": "C1-COST",
+      "ExpectedScope": "COST",
+      "GuardID": "C1-GUARD-cost-provider-complete",
+      "MutationID": "C1-MUT-cost-provider-complete",
+      "NegativeTestID": "COST-provider-incomplete",
+      "PositiveTestID": "COST-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "cost_coverage"
+    },
+    {
+      "ContractID": "C1-COST-HEADROOM",
+      "ExpectedScope": "COST-HEADROOM",
+      "GuardID": "C1-GUARD-cost-headroom",
+      "MutationID": "C1-MUT-cost-headroom",
+      "NegativeTestID": "APPLY-insufficient-headroom",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    },
+    {
+      "ContractID": "C1-RECEIPTS",
+      "ExpectedScope": "RECEIPTS",
+      "GuardID": "C1-GUARD-receipt-inventory",
+      "MutationID": "C1-MUT-receipt-inventory",
+      "NegativeTestID": "RECOVER-no-receipt",
+      "PositiveTestID": "RECOVER-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_reconcile_store"
+    },
+    {
+      "ContractID": "C1-RECEIPTS",
+      "ExpectedScope": "RECEIPTS",
+      "GuardID": "C1-GUARD-receipt-source",
+      "MutationID": "C1-MUT-receipt-source",
+      "NegativeTestID": "RECOVER-bad-source-digest",
+      "PositiveTestID": "RECOVER-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_reconcile_store"
+    },
+    {
+      "ContractID": "C1-MALFORMED",
+      "ExpectedScope": "MALFORMED",
+      "GuardID": "C1-GUARD-malformed-default-identity",
+      "MutationID": "C1-MUT-malformed-default-identity",
+      "NegativeTestID": "IDENTITY-malformed-none",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "verify_allocation_identity"
+    },
+    {
+      "ContractID": "C1-MALFORMED",
+      "ExpectedScope": "MALFORMED",
+      "GuardID": "C1-GUARD-event-bool-coercion",
+      "MutationID": "C1-MUT-event-bool-coercion",
+      "NegativeTestID": "REQUEST-eventbool",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    },
+    {
+      "ContractID": "C1-MALFORMED",
+      "ExpectedScope": "MALFORMED",
+      "GuardID": "C1-GUARD-event-range-default",
+      "MutationID": "C1-MUT-event-range-default",
+      "NegativeTestID": "REQUEST-eventzero",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    },
+    {
+      "ContractID": "C1-HISTORICAL-RECEIPT",
+      "ExpectedScope": "HISTORICAL-RECEIPT",
+      "GuardID": "C1-GUARD-historical-allocation",
+      "MutationID": "C1-MUT-historical-allocation",
+      "NegativeTestID": "RECOVER-historical-allocation",
+      "PositiveTestID": "RECOVER-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_reconcile_store"
+    },
+    {
+      "ContractID": "C1-HISTORICAL-RECEIPT",
+      "ExpectedScope": "HISTORICAL-RECEIPT",
+      "GuardID": "C1-GUARD-historical-identity",
+      "MutationID": "C1-MUT-historical-identity",
+      "NegativeTestID": "RECOVER-historical-identity",
+      "PositiveTestID": "RECOVER-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_reconcile_store"
+    },
+    {
+      "ContractID": "C1-HISTORICAL-RECEIPT",
+      "ExpectedScope": "HISTORICAL-RECEIPT",
+      "GuardID": "C1-GUARD-historical-plan",
+      "MutationID": "C1-MUT-historical-plan",
+      "NegativeTestID": "RECOVER-historical-plan",
+      "PositiveTestID": "RECOVER-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_reconcile_store"
+    },
+    {
+      "ContractID": "C1-DIGEST-FORMAT",
+      "ExpectedScope": "DIGEST-FORMAT",
+      "GuardID": "C1-GUARD-digest-format",
+      "MutationID": "C1-MUT-digest-format",
+      "NegativeTestID": "RECOVER-digest-format",
+      "PositiveTestID": "RECOVER-control",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_reconcile_store"
+    },
+    {
+      "ContractID": "C1-MALFORMED-JOURNAL",
+      "ExpectedScope": "MALFORMED-JOURNAL",
+      "GuardID": "C1-GUARD-journal-self-repair",
+      "MutationID": "C1-MUT-journal-self-repair",
+      "NegativeTestID": "APPLY-bad-journal-entry",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_reconcile_store"
+    },
+    {
+      "ContractID": "C1-MALFORMED-STORE",
+      "ExpectedScope": "MALFORMED-STORE",
+      "GuardID": "C1-GUARD-malformed-source-ignore",
+      "MutationID": "C1-MUT-malformed-source-ignore",
+      "NegativeTestID": "APPLY-bad-store-source",
+      "PositiveTestID": "APPLY-positive",
+      "RedundantAllowed": false,
+      "SubjectFunction": "_authorize"
+    }
+  ],
+  "Mutations": [
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "",
+          "old": "raw==number(r['rawNet']) and "
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-raw-sum",
+      "MutationID": "C1-MUT-raw-sum",
+      "NegativeTestID": "SOURCE-raw",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "economic_record"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "",
+          "old": " and exact.grid(r['postedNet'],r['digits'])"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-posted-grid",
+      "MutationID": "C1-MUT-posted-grid",
+      "NegativeTestID": "RECORD-grid",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "economic_record"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(source_key(r)==tuple(source))"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-source-namespace",
+      "MutationID": "C1-MUT-source-namespace",
+      "NegativeTestID": "SOURCE-namespace",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "economic_record"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "g!=c+f",
+          "old": "g!=c+v+f"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-balance-reserved",
+      "MutationID": "C1-MUT-balance-reserved",
+      "NegativeTestID": "BALANCE-doublecount",
+      "PositiveTestID": "BALANCE-no-reserve",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "balance"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if total>net:"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-source-cap",
+      "MutationID": "C1-MUT-source-cap",
+      "NegativeTestID": "SOURCE-overfund",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_fund"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if role=='Small' and any(values[b]!=0 for b in BUCKETS if b!='ResidualHeld'):"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-small-role",
+      "MutationID": "C1-MUT-small-role",
+      "NegativeTestID": "SOURCE-small",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_fund"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if r['kind']!='ReconciledEconomicNet':"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-projected-source",
+      "MutationID": "C1-MUT-projected-source",
+      "NegativeTestID": "SOURCE-projected",
+      "PositiveTestID": "SOURCE-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "economic_record"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "'NO_OP'",
+          "old": "('NO_OP' if canonical(prior['payload'])==canonical(payload) else 'CONFLICT')"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-fund-replay",
+      "MutationID": "C1-MUT-fund-replay",
+      "NegativeTestID": "FUND-changed",
+      "PositiveTestID": "FUND-exact",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_event"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if old_source and old_source['recordDigest']!=digest(r):"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-fund-immutable-before-replay",
+      "MutationID": "C1-MUT-fund-immutable-before-replay",
+      "NegativeTestID": "FUND-authority-change",
+      "PositiveTestID": "FUND-exact",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_fund"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Broker') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Broker",
+      "MutationID": "C1-MUT-identity-Broker",
+      "NegativeTestID": "IDENTITY-foreign-Broker",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Server') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Server",
+      "MutationID": "C1-MUT-identity-Server",
+      "NegativeTestID": "IDENTITY-foreign-Server",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Account') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Account",
+      "MutationID": "C1-MUT-identity-Account",
+      "NegativeTestID": "IDENTITY-foreign-Account",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Symbol') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Symbol",
+      "MutationID": "C1-MUT-identity-Symbol",
+      "NegativeTestID": "IDENTITY-foreign-Symbol",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Magic') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Magic",
+      "MutationID": "C1-MUT-identity-Magic",
+      "NegativeTestID": "IDENTITY-foreign-Magic",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Cycle') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Cycle",
+      "MutationID": "C1-MUT-identity-Cycle",
+      "NegativeTestID": "IDENTITY-foreign-Cycle",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Position') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Position",
+      "MutationID": "C1-MUT-identity-Position",
+      "NegativeTestID": "IDENTITY-foreign-Position",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Deal') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Deal",
+      "MutationID": "C1-MUT-identity-Deal",
+      "NegativeTestID": "IDENTITY-foreign-Deal",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Order') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Order",
+      "MutationID": "C1-MUT-identity-Order",
+      "NegativeTestID": "IDENTITY-foreign-Order",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Role') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Role",
+      "MutationID": "C1-MUT-identity-Role",
+      "NegativeTestID": "IDENTITY-foreign-Role",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='EconomicEventID') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-EconomicEventID",
+      "MutationID": "C1-MUT-identity-EconomicEventID",
+      "NegativeTestID": "IDENTITY-foreign-EconomicEventID",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='AllocationEventID') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-AllocationEventID",
+      "MutationID": "C1-MUT-identity-AllocationEventID",
+      "NegativeTestID": "IDENTITY-foreign-AllocationEventID",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='ConsumptionEventID') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-ConsumptionEventID",
+      "MutationID": "C1-MUT-identity-ConsumptionEventID",
+      "NegativeTestID": "IDENTITY-foreign-ConsumptionEventID",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='AllocationID') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-AllocationID",
+      "MutationID": "C1-MUT-identity-AllocationID",
+      "NegativeTestID": "IDENTITY-foreign-AllocationID",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='PolicyVersion') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-PolicyVersion",
+      "MutationID": "C1-MUT-identity-PolicyVersion",
+      "NegativeTestID": "IDENTITY-foreign-PolicyVersion",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Plan') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Plan",
+      "MutationID": "C1-MUT-identity-Plan",
+      "NegativeTestID": "IDENTITY-foreign-Plan",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Revision') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Revision",
+      "MutationID": "C1-MUT-identity-Revision",
+      "NegativeTestID": "IDENTITY-foreign-Revision",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "for k in expected if k!='Snapshot') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-identity-Snapshot",
+      "MutationID": "C1-MUT-identity-Snapshot",
+      "NegativeTestID": "IDENTITY-foreign-Snapshot",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(k[:3]==(expected['Broker'],expected['Server'],expected['Account']))"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-batch-namespace",
+      "MutationID": "C1-MUT-batch-namespace",
+      "NegativeTestID": "BATCH-foreign-account",
+      "PositiveTestID": "BATCH-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "assess_batch"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(all(type(fill[f]) is type(expected[f]) and fill[f]==expected[f] for f in ('BatchID','Symbol','Cycle','Order','Position','currency','digits')))"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-batch-lineage",
+      "MutationID": "C1-MUT-batch-lineage",
+      "NegativeTestID": "BATCH-foreign-Order",
+      "PositiveTestID": "BATCH-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "assess_batch"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if unique!=set(required) or volume!=planned:"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-batch-completeness",
+      "MutationID": "C1-MUT-batch-completeness",
+      "NegativeTestID": "BATCH-pending",
+      "PositiveTestID": "BATCH-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "assess_batch"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(len(set(ids))==len(ids) and set(ids)==set(facts))"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-cost-inventory",
+      "MutationID": "C1-MUT-cost-inventory",
+      "NegativeTestID": "COST-missing",
+      "PositiveTestID": "COST-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "cost_coverage"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(row['AdditionalDeduction']==needed)"
+        }
+      ],
+      "ExpectedVerdict": "STATUS_CONTRACT_KILL",
+      "GuardID": "C1-GUARD-cost-once",
+      "MutationID": "C1-MUT-cost-once",
+      "NegativeTestID": "COST-omitted",
+      "PositiveTestID": "COST-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "cost_coverage"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "pass\n        return _arithmetic_reserve_balance",
+          "old": "_reconcile_store(store,authority)\n        return _arithmetic_reserve_balance"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-available-journal-layer",
+      "MutationID": "C1-MUT-available-journal-layer",
+      "NegativeTestID": "AVAILABLE-external-missing",
+      "PositiveTestID": "AVAILABLE-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "available"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if assessment['status']!='CONFIRMED':"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-composition-batch",
+      "MutationID": "C1-MUT-composition-batch",
+      "NegativeTestID": "APPLY-bypass-batch",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if costs['status']!='COVERED':costs=_answer('COVERED',AdditionalRisk=Fraction(0))",
+          "old": "if costs['status']!='COVERED':return _answer('REJECT' if costs['status']=='CONFLICT' else 'UNAVAILABLE')"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-composition-cost",
+      "MutationID": "C1-MUT-composition-cost",
+      "NegativeTestID": "APPLY-bypass-cost",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(number(context['PrincipalAmount'])==number(q['PrincipalAmount']) and all(context[k]==q[k] for k in ('bucket','purpose','intent')))"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-planned-operation",
+      "MutationID": "C1-MUT-planned-operation",
+      "NegativeTestID": "APPLY-bypass-planned",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "_answer('NO_OP')",
+          "old": "_answer('NO_OP' if canonical(prior['request'])==canonical(q) else 'CONFLICT')"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-composed-replay",
+      "MutationID": "C1-MUT-composed-replay",
+      "NegativeTestID": "REPLAY-changed",
+      "PositiveTestID": "REPLAY-exact",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if known is not None and known['recordDigest']!=digest(r):"
+        }
+      ],
+      "ExpectedVerdict": "STATUS_CONTRACT_KILL",
+      "GuardID": "C1-GUARD-immutable-before-replay",
+      "MutationID": "C1-MUT-immutable-before-replay",
+      "NegativeTestID": "REPLAY-authority",
+      "PositiveTestID": "REPLAY-exact",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "result=_answer('ELIGIBLE_FOR_COMMIT',DebitAmount=number(q['PrincipalAmount']),RequiredBalance=number(q['PrincipalAmount']),AdditionalRisk=Fraction(0),sourceDigest=digest(economic_record(authority['history'],q['source'])),allocationDigest=digest(authority['allocations'][q['allocation']]),batchDigest=digest(authority['batches'][q['BatchID']]),costDigest=digest(authority['costSets'][q['CostSetID']]))",
+          "old": "result=authorize(q,store,authority)"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-apply-revalidation",
+      "MutationID": "C1-MUT-apply-revalidation",
+      "NegativeTestID": "APPLY-bypass-identity",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "apply_for_test"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:return _answer('UNAVAILABLE'),copy.deepcopy(store)",
+          "old": "if not balance(b['OriginalGrant'],b['Consumed'],b['Reserved'],b['RemainingFree'],b['Reservations']):return _answer('UNAVAILABLE'),copy.deepcopy(store)"
+        }
+      ],
+      "ExpectedVerdict": "REDUNDANT_GUARD_SURVIVOR",
+      "GuardID": "C1-GUARD-outer-poststate",
+      "MutationID": "C1-MUT-outer-poststate",
+      "NegativeTestID": "APPLY-forged-allocation",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": "Public apply always authorizes: _reconcile_store reconstructs ALL pre-state rows from independent journal. _operate_for_registry_replay calls _apply_registry_delta, which validates selected row before and after exact delta and returns no commit on failure. apply checks returned status. Other rows unchanged. Thus outer repeat is redundant over the declared public input domain; mutation of mandatory private delta itself is outside this equivalence claim.",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "apply_for_test"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:return 'UNAVAILABLE'\n        require(context['AllocationID']",
+          "old": "if not context['fresh']:return 'UNAVAILABLE'\n        require(context['AllocationID']"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-snapshot-fresh",
+      "MutationID": "C1-MUT-snapshot-fresh",
+      "NegativeTestID": "IDENTITY-stale",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if not expected['historyComplete'] or expected['NettingPolicy']!='PROPOSED_SIGNED_BATCH_NET_V1':"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-batch-policy",
+      "MutationID": "C1-MUT-batch-policy",
+      "NegativeTestID": "BATCH-unknown-policy",
+      "PositiveTestID": "BATCH-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "assess_batch"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if False:",
+          "old": "if not expected['Complete']:"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-cost-provider-complete",
+      "MutationID": "C1-MUT-cost-provider-complete",
+      "NegativeTestID": "COST-provider-incomplete",
+      "PositiveTestID": "COST-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "cost_coverage"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "number(q['PrincipalAmount'])",
+          "old": "number(q['PrincipalAmount'])+costs['AdditionalRisk']"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-cost-headroom",
+      "MutationID": "C1-MUT-cost-headroom",
+      "NegativeTestID": "APPLY-insufficient-headroom",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(set(store['receipts'])==needed)"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-receipt-inventory",
+      "MutationID": "C1-MUT-receipt-inventory",
+      "NegativeTestID": "RECOVER-no-receipt",
+      "PositiveTestID": "RECOVER-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_reconcile_store"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(receipt['sourceDigest']==store['ledger']['sources'][key(q['source'])]['recordDigest'])"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-receipt-source",
+      "MutationID": "C1-MUT-receipt-source",
+      "NegativeTestID": "RECOVER-bad-source-digest",
+      "PositiveTestID": "RECOVER-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_reconcile_store"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(allocation['source']==source)",
+          "old": "require(type(presented) is dict and allocation['source']==source)"
+        },
+        {
+          "count": 1,
+          "new": "presented=copy.deepcopy(expected) if presented is None else presented\n        require(set(presented)==set(expected))",
+          "old": "require(set(presented)==set(expected))"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-malformed-default-identity",
+      "MutationID": "C1-MUT-malformed-default-identity",
+      "NegativeTestID": "IDENTITY-malformed-none",
+      "PositiveTestID": "IDENTITY-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "verify_allocation_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "def _authorize(q,store,a):\n    if type(q.get('consumptionEvent')) is bool:q['consumptionEvent']=2\n    request_shape(q)",
+          "old": "def _authorize(q,store,a):\n    request_shape(q)"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-event-bool-coercion",
+      "MutationID": "C1-MUT-event-bool-coercion",
+      "NegativeTestID": "REQUEST-eventbool",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "def _authorize(q,store,a):\n    if q.get('consumptionEvent')==0:q['consumptionEvent']=2\n    request_shape(q)",
+          "old": "def _authorize(q,store,a):\n    request_shape(q)"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-event-range-default",
+      "MutationID": "C1-MUT-event-range-default",
+      "NegativeTestID": "REQUEST-eventzero",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(q['allocationEvent']==historical['allocationEvent'] and receipt['allocationDigest']==digest(historical))"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-historical-allocation",
+      "MutationID": "C1-MUT-historical-allocation",
+      "NegativeTestID": "RECOVER-historical-allocation",
+      "PositiveTestID": "RECOVER-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_reconcile_store"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require(verify_allocation_identity(q['identity'],authority['history'],q['source'],ctx,historical)=='PASS')"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-historical-identity",
+      "MutationID": "C1-MUT-historical-identity",
+      "NegativeTestID": "RECOVER-historical-identity",
+      "PositiveTestID": "RECOVER-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_reconcile_store"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "require(True)",
+          "old": "require((ctx['ConsumptionEventID'],ctx['Revision'],number(ctx['PrincipalAmount']),ctx['bucket'],ctx['purpose'],ctx['intent'],ctx['BatchID'],ctx['CostSetID'])==(q['consumptionEvent'],q['revision'],number(q['PrincipalAmount']),q['bucket'],q['purpose'],q['intent'],q['BatchID'],q['CostSetID']))"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-historical-plan",
+      "MutationID": "C1-MUT-historical-plan",
+      "NegativeTestID": "RECOVER-historical-plan",
+      "PositiveTestID": "RECOVER-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_reconcile_store"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "",
+          "old": " and all(c in '0123456789abcdef' for c in receipt[field])"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-digest-format",
+      "MutationID": "C1-MUT-digest-format",
+      "NegativeTestID": "RECOVER-digest-format",
+      "PositiveTestID": "RECOVER-control",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_reconcile_store"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if any(type(e) is not dict for e in authority['coreJournal'].values()):authority['coreJournal']=copy.deepcopy(store['ledger']['events'])",
+          "old": "_validate_core_journal(authority['coreJournal'])"
+        }
+      ],
+      "ExpectedVerdict": "UNSAFE_ACCEPTANCE_KILL",
+      "GuardID": "C1-GUARD-journal-self-repair",
+      "MutationID": "C1-MUT-journal-self-repair",
+      "NegativeTestID": "APPLY-bad-journal-entry",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_reconcile_store"
+    },
+    {
+      "ExactEdit": [
+        {
+          "count": 1,
+          "new": "if type(known) is not dict:known=None",
+          "old": "if known is not None:\n        exact.fields(known,('source','recordDigest','granted','net','phase','unallocated'));require(type(known['recordDigest']) is str)"
+        }
+      ],
+      "ExpectedVerdict": "STATUS_CONTRACT_KILL",
+      "GuardID": "C1-GUARD-malformed-source-ignore",
+      "MutationID": "C1-MUT-malformed-source-ignore",
+      "NegativeTestID": "APPLY-bad-store-source",
+      "PositiveTestID": "APPLY-positive",
+      "RedundancyProof": null,
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "TargetFunction": "_authorize"
+    }
+  ],
+  "RequiredGuardIDs": [
+    "C1-GUARD-raw-sum",
+    "C1-GUARD-posted-grid",
+    "C1-GUARD-source-namespace",
+    "C1-GUARD-balance-reserved",
+    "C1-GUARD-source-cap",
+    "C1-GUARD-small-role",
+    "C1-GUARD-projected-source",
+    "C1-GUARD-fund-replay",
+    "C1-GUARD-fund-immutable-before-replay",
+    "C1-GUARD-identity-Broker",
+    "C1-GUARD-identity-Server",
+    "C1-GUARD-identity-Account",
+    "C1-GUARD-identity-Symbol",
+    "C1-GUARD-identity-Magic",
+    "C1-GUARD-identity-Cycle",
+    "C1-GUARD-identity-Position",
+    "C1-GUARD-identity-Deal",
+    "C1-GUARD-identity-Order",
+    "C1-GUARD-identity-Role",
+    "C1-GUARD-identity-EconomicEventID",
+    "C1-GUARD-identity-AllocationEventID",
+    "C1-GUARD-identity-ConsumptionEventID",
+    "C1-GUARD-identity-AllocationID",
+    "C1-GUARD-identity-PolicyVersion",
+    "C1-GUARD-identity-Plan",
+    "C1-GUARD-identity-Revision",
+    "C1-GUARD-identity-Snapshot",
+    "C1-GUARD-batch-namespace",
+    "C1-GUARD-batch-lineage",
+    "C1-GUARD-batch-completeness",
+    "C1-GUARD-cost-inventory",
+    "C1-GUARD-cost-once",
+    "C1-GUARD-available-journal-layer",
+    "C1-GUARD-composition-batch",
+    "C1-GUARD-composition-cost",
+    "C1-GUARD-planned-operation",
+    "C1-GUARD-composed-replay",
+    "C1-GUARD-immutable-before-replay",
+    "C1-GUARD-apply-revalidation",
+    "C1-GUARD-outer-poststate",
+    "C1-GUARD-snapshot-fresh",
+    "C1-GUARD-batch-policy",
+    "C1-GUARD-cost-provider-complete",
+    "C1-GUARD-cost-headroom",
+    "C1-GUARD-receipt-inventory",
+    "C1-GUARD-receipt-source",
+    "C1-GUARD-malformed-default-identity",
+    "C1-GUARD-event-bool-coercion",
+    "C1-GUARD-event-range-default",
+    "C1-GUARD-historical-allocation",
+    "C1-GUARD-historical-identity",
+    "C1-GUARD-historical-plan",
+    "C1-GUARD-digest-format",
+    "C1-GUARD-journal-self-repair",
+    "C1-GUARD-malformed-source-ignore"
+  ],
+  "RequiredMutationIDs": [
+    "C1-MUT-raw-sum",
+    "C1-MUT-posted-grid",
+    "C1-MUT-source-namespace",
+    "C1-MUT-balance-reserved",
+    "C1-MUT-source-cap",
+    "C1-MUT-small-role",
+    "C1-MUT-projected-source",
+    "C1-MUT-fund-replay",
+    "C1-MUT-fund-immutable-before-replay",
+    "C1-MUT-identity-Broker",
+    "C1-MUT-identity-Server",
+    "C1-MUT-identity-Account",
+    "C1-MUT-identity-Symbol",
+    "C1-MUT-identity-Magic",
+    "C1-MUT-identity-Cycle",
+    "C1-MUT-identity-Position",
+    "C1-MUT-identity-Deal",
+    "C1-MUT-identity-Order",
+    "C1-MUT-identity-Role",
+    "C1-MUT-identity-EconomicEventID",
+    "C1-MUT-identity-AllocationEventID",
+    "C1-MUT-identity-ConsumptionEventID",
+    "C1-MUT-identity-AllocationID",
+    "C1-MUT-identity-PolicyVersion",
+    "C1-MUT-identity-Plan",
+    "C1-MUT-identity-Revision",
+    "C1-MUT-identity-Snapshot",
+    "C1-MUT-batch-namespace",
+    "C1-MUT-batch-lineage",
+    "C1-MUT-batch-completeness",
+    "C1-MUT-cost-inventory",
+    "C1-MUT-cost-once",
+    "C1-MUT-available-journal-layer",
+    "C1-MUT-composition-batch",
+    "C1-MUT-composition-cost",
+    "C1-MUT-planned-operation",
+    "C1-MUT-composed-replay",
+    "C1-MUT-immutable-before-replay",
+    "C1-MUT-apply-revalidation",
+    "C1-MUT-outer-poststate",
+    "C1-MUT-snapshot-fresh",
+    "C1-MUT-batch-policy",
+    "C1-MUT-cost-provider-complete",
+    "C1-MUT-cost-headroom",
+    "C1-MUT-receipt-inventory",
+    "C1-MUT-receipt-source",
+    "C1-MUT-malformed-default-identity",
+    "C1-MUT-event-bool-coercion",
+    "C1-MUT-event-range-default",
+    "C1-MUT-historical-allocation",
+    "C1-MUT-historical-identity",
+    "C1-MUT-historical-plan",
+    "C1-MUT-digest-format",
+    "C1-MUT-journal-self-repair",
+    "C1-MUT-malformed-source-ignore"
+  ],
+  "RequiredTestIDs": [
+    "APPLY-positive",
+    "SOURCE-positive",
+    "SOURCE-raw",
+    "SOURCE-namespace",
+    "SOURCE-grid",
+    "RECORD-grid",
+    "BALANCE-control",
+    "BALANCE-doublecount",
+    "APPLY-no-journal",
+    "AVAILABLE-control",
+    "AVAILABLE-incomplete",
+    "APPLY-missing-authority",
+    "APPLY-forged-allocation",
+    "IDENTITY-control",
+    "IDENTITY-foreign-Broker",
+    "IDENTITY-foreign-Server",
+    "IDENTITY-foreign-Account",
+    "IDENTITY-foreign-Symbol",
+    "IDENTITY-foreign-Magic",
+    "IDENTITY-foreign-Cycle",
+    "IDENTITY-foreign-Position",
+    "IDENTITY-foreign-Deal",
+    "IDENTITY-foreign-Order",
+    "IDENTITY-foreign-Role",
+    "IDENTITY-foreign-EconomicEventID",
+    "IDENTITY-foreign-AllocationEventID",
+    "IDENTITY-foreign-ConsumptionEventID",
+    "IDENTITY-foreign-AllocationID",
+    "IDENTITY-foreign-PolicyVersion",
+    "IDENTITY-foreign-Plan",
+    "IDENTITY-foreign-Revision",
+    "IDENTITY-foreign-Snapshot",
+    "IDENTITY-allocation-event",
+    "IDENTITY-malformed-none",
+    "IDENTITY-malformed-bool",
+    "IDENTITY-malformed-missing",
+    "IDENTITY-stale",
+    "BATCH-control",
+    "BATCH-foreign-account",
+    "BATCH-foreign-BatchID",
+    "BATCH-foreign-Symbol",
+    "BATCH-foreign-Cycle",
+    "BATCH-foreign-Order",
+    "BATCH-foreign-Position",
+    "BATCH-foreign-currency",
+    "BATCH-foreign-digits",
+    "BATCH-pending",
+    "BATCH-overcap",
+    "BATCH-unknown-policy",
+    "COST-control",
+    "COST-missing",
+    "COST-omitted",
+    "COST-unknown",
+    "COST-duplicate",
+    "COST-knownzero",
+    "COST-knownempty",
+    "APPLY-bypass-batch",
+    "APPLY-bypass-cost",
+    "APPLY-bypass-identity",
+    "APPLY-bypass-planned",
+    "APPLY-negative-amount",
+    "APPLY-insufficient-headroom",
+    "APPLY-full",
+    "REPLAY-exact",
+    "REPLAY-changed",
+    "REPLAY-authority",
+    "REPLAY-current-context",
+    "RECOVER-control",
+    "RECOVER-forged",
+    "BALANCE-no-reserve",
+    "SOURCE-overfund",
+    "SOURCE-small",
+    "SOURCE-projected",
+    "FUND-exact",
+    "FUND-changed",
+    "FUND-authority-change",
+    "AVAILABLE-external-missing",
+    "APPLY-provider-missing-allocations",
+    "APPLY-provider-missing-context",
+    "APPLY-provider-missing-batches",
+    "APPLY-provider-missing-fillHistory",
+    "APPLY-provider-missing-costSets",
+    "APPLY-provider-missing-coreJournal",
+    "APPLY-provider-missing-receipts",
+    "AVAILABLE-knownzero",
+    "REQUEST-none",
+    "REQUEST-bool",
+    "REQUEST-schema",
+    "REQUEST-missing",
+    "REQUEST-eventbool",
+    "REQUEST-eventfloat",
+    "REQUEST-eventzero",
+    "APPLY-after-full",
+    "APPLY-token-not-authority",
+    "COST-not-applicable",
+    "BATCH-history-incomplete",
+    "COST-provider-incomplete",
+    "RECOVER-no-receipt",
+    "RECOVER-bad-source-digest",
+    "RECOVER-historical-identity",
+    "RECOVER-historical-allocation",
+    "RECOVER-historical-plan",
+    "RECOVER-digest-format",
+    "APPLY-bad-journal-entry",
+    "APPLY-bad-store-source"
+  ],
+  "SourcePins": {
+    "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+    "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py": "7a7c2be9374278887c2b288b24c923028698143e9c21c807130dadd7f164a83e",
+    "Tests/Static/build_hsbi_02b_r0e_c1_catalog.py": "59d1286fb325a63513fdac44c5a82b7b1a863cd312a3c3562109e872cef3479b",
+    "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+    "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+    "Tests/Static/check_hsbi_02b_r0e_c1_mutations.py": "5a822f7c7bfc6b42e09867cf5ccff12a8149d2cbb484319f599166685a96be33"
+  },
+  "Tests": [
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "COMPOSITION",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-positive",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "SOURCE",
+      "IndependentExpected": 2,
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "SOURCE-positive",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "SOURCE-RAW",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "SOURCE-raw",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "SOURCE-NAMESPACE",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "SOURCE-namespace",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "SOURCE-GRID",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "SOURCE-grid",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "SOURCE-GRID",
+      "IndependentExpected": "REJECT",
+      "Operation": "economic_record",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "economic_record",
+      "SourceLine": 43,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECORD-grid",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "BALANCE",
+      "IndependentExpected": true,
+      "Operation": "balance",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BALANCE-control",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BALANCE",
+      "IndependentExpected": false,
+      "Operation": "balance",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BALANCE-doublecount",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "JOURNAL",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-no-journal",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "JOURNAL",
+      "IndependentExpected": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      ],
+      "Operation": "available",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "available",
+      "SourceLine": 493,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "AVAILABLE-control",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "JOURNAL",
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Operation": "available",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "available",
+      "SourceLine": 493,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "AVAILABLE-incomplete",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "COMPOSITION",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-missing-authority",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "ALLOCATION-VECTOR",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-forged-allocation",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "PASS",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-control",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Broker",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Server",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Account",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Symbol",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Magic",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Cycle",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Position",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Deal",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Order",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Role",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-EconomicEventID",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-AllocationEventID",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-ConsumptionEventID",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-AllocationID",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-PolicyVersion",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Plan",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Revision",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Identity conflict"
+      ],
+      "GuardGroup": "IDENTITY",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-foreign-Snapshot",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "ALLOCATION-EVENT",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-allocation-event",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-malformed-none",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-malformed-bool",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": "REJECT",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-malformed-missing",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "SNAPSHOT",
+      "IndependentExpected": "UNAVAILABLE",
+      "Operation": "verify_allocation_identity",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "verify_allocation_identity",
+      "SourceLine": 343,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "IDENTITY-stale",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "BATCH",
+      "IndependentExpected": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-control",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-NAMESPACE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-foreign-account",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-LINEAGE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-foreign-BatchID",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-LINEAGE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-foreign-Symbol",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-LINEAGE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-foreign-Cycle",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-LINEAGE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-foreign-Order",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-LINEAGE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-foreign-Position",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-LINEAGE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-foreign-currency",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-LINEAGE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-foreign-digits",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Boundary"
+      ],
+      "GuardGroup": "BATCH-COMPLETE",
+      "IndependentExpected": {
+        "loss": [
+          "NUMBER",
+          "5",
+          "1"
+        ],
+        "status": "PENDING",
+        "volume": [
+          "NUMBER",
+          "2",
+          "5"
+        ]
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-pending",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH-CAP",
+      "IndependentExpected": {
+        "loss": [
+          "NUMBER",
+          "15",
+          "1"
+        ],
+        "status": "OVER_CAP",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-overcap",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-unknown-policy",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "COST",
+      "IndependentExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-control",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "COST-INVENTORY",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-missing",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "COST-ONCE",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-omitted",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "COST",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-unknown",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "COST-INVENTORY",
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-duplicate",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Boundary"
+      ],
+      "GuardGroup": "COST",
+      "IndependentExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-knownzero",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "COST",
+      "IndependentExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-knownempty",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "COMPOSITION-BATCH",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-bypass-batch",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "COMPOSITION-COST",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-bypass-cost",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "COMPOSITION-IDENTITY",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-bypass-identity",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "COMPOSITION-PLANNED",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-bypass-planned",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "POSITIVE-AMOUNT",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-negative-amount",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "COST-HEADROOM",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-insufficient-headroom",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Boundary",
+        "Conservation"
+      ],
+      "GuardGroup": "COMPOSITION",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-full",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Replay"
+      ],
+      "GuardGroup": "REPLAY",
+      "IndependentExpected": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REPLAY-exact",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Replay"
+      ],
+      "GuardGroup": "REPLAY",
+      "IndependentExpected": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REPLAY-changed",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Replay"
+      ],
+      "GuardGroup": "REPLAY",
+      "IndependentExpected": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REPLAY-authority",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Replay"
+      ],
+      "GuardGroup": "REPLAY",
+      "IndependentExpected": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REPLAY-current-context",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "RECOVERY",
+      "IndependentExpected": "RECONCILED_MODEL_ONLY",
+      "Operation": "recover_store",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "recover_store",
+      "SourceLine": 579,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECOVER-control",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "RECOVERY",
+      "IndependentExpected": "UNAVAILABLE",
+      "Operation": "recover_store",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "recover_store",
+      "SourceLine": 579,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECOVER-forged",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "BALANCE",
+      "IndependentExpected": true,
+      "Operation": "balance",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "balance",
+      "SourceLine": 58,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BALANCE-no-reserve",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "SOURCE-CAP",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "SOURCE-overfund",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "SOURCE-SMALL",
+      "IndependentExpected": "REJECT",
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "SOURCE-small",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "SOURCE-PROJECTED",
+      "IndependentExpected": "REJECT",
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "SOURCE-projected",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "FUND-REPLAY",
+      "IndependentExpected": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "FUND-exact",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "FUND-REPLAY",
+      "IndependentExpected": {
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "FUND-changed",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "REPLAY-AUTHORITY",
+      "IndependentExpected": {
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "Operation": "fund",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "fund",
+      "SourceLine": 118,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "FUND-authority-change",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "JOURNAL",
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Operation": "available",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "available",
+      "SourceLine": 493,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "AVAILABLE-external-missing",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "AUTHORITY",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-provider-missing-allocations",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "AUTHORITY",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-provider-missing-context",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "AUTHORITY",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-provider-missing-batches",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "AUTHORITY",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-provider-missing-fillHistory",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "AUTHORITY",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-provider-missing-costSets",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "AUTHORITY",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-provider-missing-coreJournal",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "AUTHORITY",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-provider-missing-receipts",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "JOURNAL",
+      "IndependentExpected": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "Operation": "available",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "available",
+      "SourceLine": 493,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "AVAILABLE-knownzero",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REQUEST-none",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REQUEST-bool",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REQUEST-schema",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REQUEST-missing",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REQUEST-eventbool",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REQUEST-eventfloat",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "REQUEST-eventzero",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Conservation"
+      ],
+      "GuardGroup": "COMPOSITION",
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-after-full",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative",
+        "Composition"
+      ],
+      "GuardGroup": "COMPOSITION",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-token-not-authority",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Positive"
+      ],
+      "GuardGroup": "COST",
+      "IndependentExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-not-applicable",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "BATCH",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE"
+      },
+      "Operation": "assess_batch",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "assess_batch",
+      "SourceLine": 363,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "BATCH-history-incomplete",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "COST",
+      "IndependentExpected": {
+        "status": "UNAVAILABLE"
+      },
+      "Operation": "cost_coverage",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "cost_coverage",
+      "SourceLine": 395,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "COST-provider-incomplete",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "RECEIPTS",
+      "IndependentExpected": "CONFLICT",
+      "Operation": "recover_store",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "recover_store",
+      "SourceLine": 579,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECOVER-no-receipt",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "RECEIPTS",
+      "IndependentExpected": "CONFLICT",
+      "Operation": "recover_store",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "recover_store",
+      "SourceLine": 579,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECOVER-bad-source-digest",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "HISTORICAL-RECEIPT",
+      "IndependentExpected": "CONFLICT",
+      "Operation": "recover_store",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "recover_store",
+      "SourceLine": 579,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECOVER-historical-identity",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "HISTORICAL-RECEIPT",
+      "IndependentExpected": "CONFLICT",
+      "Operation": "recover_store",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "recover_store",
+      "SourceLine": 579,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECOVER-historical-allocation",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "HISTORICAL-RECEIPT",
+      "IndependentExpected": "CONFLICT",
+      "Operation": "recover_store",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "recover_store",
+      "SourceLine": 579,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECOVER-historical-plan",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "DIGEST-FORMAT",
+      "IndependentExpected": "CONFLICT",
+      "Operation": "recover_store",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "recover_store",
+      "SourceLine": 579,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "RECOVER-digest-format",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED-JOURNAL",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-bad-journal-entry",
+      "TestImplementation": "cases"
+    },
+    {
+      "Classes": [
+        "Negative"
+      ],
+      "GuardGroup": "MALFORMED-STORE",
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "Operation": "apply_for_test",
+      "ProofBoundary": "C1 PROPOSED fixture API only; no broker/durable/global-economic/NewFar evidence",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py",
+      "SourceFunction": "apply_for_test",
+      "SourceLine": 563,
+      "TestFile": "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py",
+      "TestID": "APPLY-bad-store-source",
+      "TestImplementation": "cases"
+    }
+  ]
+}

@@ -1,0 +1,1953 @@
+{
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0c_mutations.py",
+    "--output",
+    "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Evidence/NEXT_STAGE_02B_R0E_C1_R0C_mutations_RECHECK.json"
+  ],
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-09T22:33:02.581251+00:00",
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_TESTS": "NOT_RUN",
+  "STRATEGY_TESTER": "NOT_RUN",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0c_contracts.py": "a7460581dadf86611571618191d775f3f580e00b41c9f76dc6f2812a4e4ea7d2",
+    "Tests/Static/check_hsbi_02b_r0c_mutations.py": "8c958458df69cebccfebc01b28f9a73959bc7bb2b1c5b7c86f3a7ad215dd372a"
+  },
+  "StartedUtc": "2026-11-09T22:33:02.298494+00:00",
+  "brokerEvidence": "NOT_RUN",
+  "catalogSize": 30,
+  "contractStatus": "PROPOSED",
+  "durableRestart": "UNPROVEN",
+  "executedUtc": "2026-11-09T22:33:02.578948+00:00",
+  "infrastructureErrors": 0,
+  "killed": 30,
+  "mutations": [
+    {
+      "CausalTestID": "IDENTITY-Account",
+      "ExactEdit": [
+        {
+          "after": "if any(request['identity'][k]!=expected[k] for k in ('Broker','Server')):return 'REJECT'",
+          "before": "if any(request['identity'][k]!=expected[k] for k in ('Broker','Server','Account')):return 'REJECT'"
+        },
+        {
+          "after": "if any(request['identity'][k]!=expected[k] for k in ID_FIELDS if k!='Account'):return 'REJECT'",
+          "before": "if any(request['identity'][k]!=expected[k] for k in ID_FIELDS):return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "f9f85ca8364114d5d60d37b3cfba93f6f69d13ea89e5a00178645ca5518c4d91",
+      "MutationID": "account",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "IDENTITY-Plan",
+      "ExactEdit": [
+        {
+          "after": "for k in ID_FIELDS if k!='Plan'):return 'REJECT'",
+          "before": "for k in ID_FIELDS):return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "e22ced1d2c84edb46452990c924cd995b9e1cb063ee8b62abe2cbf68af34b9ec",
+      "MutationID": "plan",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "REVISION-state",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if request['identity']['StateRevision']!=state['revision']:return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 1000,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "1afe7eaf4a921f907de63149c301eeb3f8d3c8e1f741659716ed4b1f661268f9",
+      "MutationID": "revision",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 999,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "REVISION-exhausted",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'UNAVAILABLE'",
+          "before": "if state['revision']==2**64-1:return 'UNAVAILABLE'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 18446744073709551616,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "541e3c4b17b4efc891de7a056e937f009eb2c0f2261ef1c8d9fdc651832d4840",
+      "MutationID": "revision-exhausted",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 18446744073709551615,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "ALLOCATION-source",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if state['source']!=allocation['source']:return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "2518e8db7ee7ef6609e1ee94805cd182ea7cc59946d449316831fa8cd47e2d2b",
+      "MutationID": "source",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "ALLOCATION-state",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if state['allocation']!=request['allocation']:return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "81176e8e722edcfe1b738823020a9a096769eeb36c14a83a2f68c3c62f258ae9",
+      "MutationID": "allocation",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "ALLOCATION-vector",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'CONFLICT'",
+          "before": "if state['grant']!=allocation['grant']:return 'CONFLICT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "30",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "f60e2f19572f62cb89f906df224a80a52f19e9d85932c0bcf17aa984e47a2104",
+      "MutationID": "bucket-vector",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "40",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "AMOUNT-precision",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if amount.quantize(unit(state['digits']))!=amount:return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "0.005",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "49.995",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "5d3dfdc56435ed5bba122c099f8b93e81c831a37c811b2b40a67e60974fef3c9",
+      "MutationID": "precision",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "BALANCE-sum",
+      "ExactEdit": [
+        {
+          "after": "if False:return False",
+          "before": "if sum(g.values())+state['unallocated']!=state['net']:return False"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "30",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "f382c48202e8a3d41bcb328957c7147e98761b8fd4b6859e01df8e7d6b07f2d7",
+      "MutationID": "grant-sum",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "40",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "BALANCE-reserved",
+      "ExactEdit": [
+        {
+          "after": "if False:return False",
+          "before": "if v[b]>r[b]:return False"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "43f091dfae8398f0798e2a9477382f588250f23d1eb8a87a43470c0fa400c4ad",
+      "MutationID": "reserved",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "BALANCE-consumed",
+      "ExactEdit": [
+        {
+          "after": "if False:return False",
+          "before": "if r[b]+c[b]!=g[b]:return False"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "6f83e92f60e6e71dcfed0a79116b9212babc732665bec218e051d6b8b939ff5d",
+      "MutationID": "consumed",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "REPLAY-changed",
+      "ExactEdit": [
+        {
+          "after": "return 'NO_OP'",
+          "before": "return 'NO_OP' if journal[ek]==canonical(request) else 'CONFLICT'  # GUARD:replay"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "NO_OP"
+      },
+      "MutantSourceHash": "bf7eda54f42a75439504965f67182ed512e16d6cf7ee48e7d092f8291ac061a1",
+      "MutationID": "replay",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "HISTORY-empty",
+      "ExactEdit": [
+        {
+          "after": "if record is None:return 'ELIGIBLE_FOR_COMMIT'",
+          "before": "if record is None:return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "dbdf4a0f68c7206d0449b58f75d11055102309ddb1a431d98a652af5e31f4a05",
+      "MutationID": "history",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "SOURCE-unconfirmed",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if not record['closingConfirmed']:return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "78438fc276e22946b0540112053f64c8963c9de70aae150f2b0ae7eb3b981a6d",
+      "MutationID": "confirmed",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "SNAPSHOT-expired",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'UNAVAILABLE'",
+          "before": "if now>snapshot['validUntil']:return 'UNAVAILABLE'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "e5d7f45fd8ba1379b62b55ec9462d218a15f9aad97d99abaa49d97862f4ef43f",
+      "MutationID": "freshness",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "SOURCE-role",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if record['role'] not in ('BigCore','BigTrend'):return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "3747e06ac6d512e8b6337d4362ab7fda12b5db0ba4232190ef5e6e614af4b2a5",
+      "MutationID": "role",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "DIGEST-forged",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if request['proofDigest']!=digest(proof_bundle(record,allocation,expected)):return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "3387ccc1226c4d62e113292d05341c81e6a94dadfd2525ca9fcbc344b558df88",
+      "MutationID": "proof-digest",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "RAW-net-mismatch",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'CONFLICT'",
+          "before": "if raw!=number(record['rawNet']):return 'CONFLICT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "5470fbceaeb696f12baa1d8b0f15a1199de709400fcaf85c8eb19a6079cb1347",
+      "MutationID": "raw-sum",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "POSTED-net-mismatch",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'CONFLICT'",
+          "before": "if max(Decimal(0),actual)!=state['net']:return 'CONFLICT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "ebd4283855f3e94593cf696bf52799dec5a81045dc0c72c8f25090b610a0cc53",
+      "MutationID": "posted-net",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "RECORD-Magic",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if any(record['identity'][k]!=expected[k] for k in ('Broker','Server','Account','Symbol','Magic','Deal','Order','Position','Cycle')):return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "b92e8f9f12a2926bf0d3d6835d0c4d7fa34adbf03e5f8409abdb294b45a57945",
+      "MutationID": "record-identity",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "SNAPSHOT-id",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'REJECT'",
+          "before": "if snapshot['id']!=expected['SnapshotID']:return 'REJECT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "86f2e884e6de924ed001343483bc02d1e39d2ef2b9fdda2efe8a1a871d18d0ef",
+      "MutationID": "snapshot-id",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "SNAPSHOT-content",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'CONFLICT'",
+          "before": "if canonical(snapshot)!=receipt:return 'CONFLICT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "122668fac1d8c054b2d7eda84121858076231f767749112c65a5a12900109af6",
+      "MutationID": "snapshot-content",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "EVENT-invalid-True",
+      "ExactEdit": [
+        {
+          "after": "require(True)",
+          "before": "require(type(request['event']) is int)"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "d16872ce592e9aff70c5d4241c3b2ce75d1994d25777503da07ec04df30e5db5",
+      "MutationID": "event-type",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "EVENT-invalid-18446744073709551616",
+      "ExactEdit": [
+        {
+          "after": "require(True)",
+          "before": "require(1<=request['event']<=2**64-1)"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "4ee75397988067b07f54b7d8fb8c7cfd124e9fdcf25b6ec9b08b66769325726d",
+      "MutationID": "event-range",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "TIME-future",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'UNAVAILABLE'",
+          "before": "if authority['historyObservedAt']>now:return 'UNAVAILABLE'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "69050a6dc96f141b940f8fe6af4531f8d139c5eb317debb2e1b505d79ddd1d28",
+      "MutationID": "future",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "MISSING-event",
+      "ExactEdit": [
+        {
+          "after": "    if type(request) is dict and 'event' not in request:request['event']=41\n    request_shape(request)  # GUARD:request-shape",
+          "before": "    request_shape(request)  # GUARD:request-shape"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": false,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "c55e4c9e9296d35052892d7890352514bcb2907bc8949dba5ef564e3a9361d8c",
+      "MutationID": "missing-field-default",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "DIGEST-forged",
+      "ExactEdit": [
+        {
+          "after": "    if status!='ELIGIBLE_FOR_COMMIT' and type(state) is dict:state['revision']+=1\n    s,j,a=copy.deepcopy(state),copy.deepcopy(journal),copy.deepcopy(authority)",
+          "before": "    s,j,a=copy.deepcopy(state),copy.deepcopy(journal),copy.deepcopy(authority)"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": false,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "REJECT"
+      },
+      "MutantSourceHash": "a92e7bc223ca7f5de31add0b7eaef7734132f21834c1997d5981e6da4eedade5",
+      "MutationID": "atomic-input",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "REJECT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "apply_for_test"
+    },
+    {
+      "CausalTestID": "APPLY-input-unchanged",
+      "ExactEdit": [
+        {
+          "after": "s,j,a=state,journal,authority",
+          "before": "s,j,a=copy.deepcopy(state),copy.deepcopy(journal),copy.deepcopy(authority)"
+        }
+      ],
+      "MathematicalExpected": {
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "remaining": "40",
+        "revision": 2,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": false,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "37bf0c4ea754c7a77ad6c1b5265cee45a571bdc21818ff4bc0dcba22d34aeb13",
+      "MutationID": "success-input-alias",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": false,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "ALLOCATION-internal",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'CONFLICT'",
+          "before": "if allocation['allocation']!=request['allocation']:return 'CONFLICT'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "eea1f00e47f3bfa50e3d74bb7fdd32355fe88106ebd9d8b35cb3f0da7be2f04e",
+      "MutationID": "allocation-internal",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    },
+    {
+      "CausalTestID": "TIME-domain",
+      "ExactEdit": [
+        {
+          "after": "if False:return 'UNAVAILABLE'",
+          "before": "if authority['clockDomain']!='FIXTURE_MONOTONIC' or authority['timeUnit']!='tick':return 'UNAVAILABLE'"
+        }
+      ],
+      "MathematicalExpected": {
+        "authorityUnchanged": true,
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "MutantNegativeResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantSourceHash": "88a29d7554998eb3f2517c9e6f483fee5d6d4fa7452c711ac45103ecb0805273",
+      "MutationID": "time-domain",
+      "MutationVerdict": "MUTATION_KILLED",
+      "OriginalNegativePass": true,
+      "OriginalNegativeResult": {
+        "authorityUnchanged": true,
+        "consumed": "0",
+        "inputsUnchanged": true,
+        "journalUnchanged": true,
+        "remaining": "50",
+        "revision": 1,
+        "stateUnchanged": true,
+        "status": "UNAVAILABLE"
+      },
+      "OriginalPositiveControl": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalSourceHash": "d54d019cb4dce6a3f028dde75b36f27f375e26ac08ef2114611a7e9e09a995e0",
+      "PositiveControlPass": true,
+      "PositiveControlResult": {
+        "authorityUnchanged": false,
+        "consumed": "10",
+        "inputsUnchanged": true,
+        "journalUnchanged": false,
+        "remaining": "40",
+        "revision": 2,
+        "stateUnchanged": false,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFile": "Tests/Reference/hsbi_02b_r0c_independent_oracle.py",
+      "TargetFunction": "authorize/balance/shape"
+    }
+  ],
+  "survived": 0,
+  "testedSHA": "074165b38f1b6d6253a9629c7d2def988e8e286a"
+}

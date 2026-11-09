@@ -1,0 +1,3466 @@
+{
+  "AdditionalMutations": [
+    {
+      "Classification": "CONFIRMED",
+      "ExactEdit": {
+        "new": "",
+        "old": "raw==number(r['rawNet']) and "
+      },
+      "FindingID": "C1-03-raw",
+      "IndependentExpected": "REJECT",
+      "MutantNegativeOutcome": "COMMITTED_IN_MEMORY",
+      "MutantSourceHash": "9cee38ff7c0aebe23a3396c8ca5cae7b236f9d2c8fde7d65f67b6154319bbfef",
+      "MutationID": "R0E-extra-raw",
+      "OriginalNegativeOutcome": "REJECT",
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": "Normal source50: stock positive scenario passes in original and mutant",
+      "ProofBoundary": "Old R0E validator/registry fixtures; no broker/durable proof",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "economic_record",
+      "StateDelta": "Grid direct API is pure; raw/namespace mutant produces a new in-memory funding while original rejects. Original/returned ledger differences covered by C1 causal cases.",
+      "Stock": {
+        "executions": 728,
+        "failed": 0,
+        "infrastructureErrors": 0,
+        "passed": 728,
+        "predicates": 1456,
+        "scenarios": 91
+      }
+    },
+    {
+      "Classification": "CONFIRMED",
+      "ExactEdit": {
+        "new": "",
+        "old": " and exact.grid(r['postedNet'],r['digits'])"
+      },
+      "FindingID": "C1-03-grid",
+      "IndependentExpected": "REJECT",
+      "MutantNegativeOutcome": "RECORD_ACCEPTED",
+      "MutantSourceHash": "ebe2145f6562fe6860fdc7c0bbf4d491925ab964d6efcb56c2cbb7c0ae386337",
+      "MutationID": "R0E-extra-grid",
+      "OriginalNegativeOutcome": "REJECT",
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": "Normal source50: stock positive scenario passes in original and mutant",
+      "ProofBoundary": "Old R0E validator/registry fixtures; no broker/durable proof",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "economic_record",
+      "StateDelta": "Grid direct API is pure; raw/namespace mutant produces a new in-memory funding while original rejects. Original/returned ledger differences covered by C1 causal cases.",
+      "Stock": {
+        "executions": 728,
+        "failed": 0,
+        "infrastructureErrors": 0,
+        "passed": 728,
+        "predicates": 1456,
+        "scenarios": 91
+      }
+    },
+    {
+      "Classification": "CONFIRMED",
+      "ExactEdit": {
+        "new": "require(True)",
+        "old": "require(source_key(r)==tuple(source))"
+      },
+      "FindingID": "C1-03-namespace",
+      "IndependentExpected": "REJECT",
+      "MutantNegativeOutcome": "COMMITTED_IN_MEMORY",
+      "MutantSourceHash": "89029e8436eae2749b36df7d665a7b7cc8c1999e22d4d75d26ecdcffd1621ed6",
+      "MutationID": "R0E-extra-namespace",
+      "OriginalNegativeOutcome": "REJECT",
+      "OriginalSourceHash": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+      "PositiveControl": "Normal source50: stock positive scenario passes in original and mutant",
+      "ProofBoundary": "Old R0E validator/registry fixtures; no broker/durable proof",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "economic_record",
+      "StateDelta": "Grid direct API is pure; raw/namespace mutant produces a new in-memory funding while original rejects. Original/returned ledger differences covered by C1 causal cases.",
+      "Stock": {
+        "executions": 728,
+        "failed": 0,
+        "infrastructureErrors": 0,
+        "passed": 728,
+        "predicates": 1456,
+        "scenarios": 91
+      }
+    }
+  ],
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "BaseSHA": "074165b38f1b6d6253a9629c7d2def988e8e286a",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0e_c1_reproduction.py"
+  ],
+  "ExitCode": 0,
+  "Findings": [
+    {
+      "ActualOutcome": {
+        "availability": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "spend": "UNAVAILABLE"
+      },
+      "Classification": "CONFIRMED",
+      "ExactInputOrSourceChange": "state.journalComplete=False",
+      "FindingID": "C1-04",
+      "IndependentExpected": "UNAVAILABLE availability",
+      "PositiveControl": "KNOWN_MODEL_AVAILABLE 50 with complete journal",
+      "ProofBoundary": "No double spend; spend remains blocked",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "reserve_available",
+      "StateDelta": true
+    },
+    {
+      "ActualOutcome": [
+        "CONFIRMED",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "Classification": "CONFIRMED",
+      "ExactInputOrSourceChange": [
+        {
+          "net": "-15",
+          "source": [
+            "B1",
+            "S1",
+            1,
+            101
+          ],
+          "volume": "0.4"
+        },
+        {
+          "net": "100",
+          "source": [
+            "B1",
+            "S1",
+            2,
+            102
+          ],
+          "volume": "0.6"
+        }
+      ],
+      "FindingID": "C1-05",
+      "IndependentExpected": "Must not confirm target-account batch with foreign fill",
+      "PositiveControl": [
+        "CONFIRMED",
+        [
+          "NUMBER",
+          "10",
+          "1"
+        ]
+      ],
+      "ProofBoundary": "Missing batch scope; not broker execution",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "transition_status",
+      "StateDelta": null
+    },
+    {
+      "ActualOutcome": {
+        "empty": "PASS",
+        "omitted": "PASS"
+      },
+      "Classification": "CONFIRMED",
+      "ExactInputOrSourceChange": {
+        "AdditionalDeduction": false,
+        "AlreadyIncluded": false,
+        "CostID": "EXEC",
+        "RiskBasis": "executionUncertainty",
+        "Window": "I1"
+      },
+      "FindingID": "C1-06",
+      "IndependentExpected": "Not complete cost proof",
+      "PositiveControl": "PASS",
+      "ProofBoundary": "Old helper checks supplied rows only",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "costs_status",
+      "StateDelta": null
+    },
+    {
+      "ActualOutcome": "PASS",
+      "Classification": "CONFIRMED",
+      "ExactInputOrSourceChange": "allocationEvent 1→999",
+      "FindingID": "C1-07",
+      "IndependentExpected": "Not allocation-event-bound PASS",
+      "PositiveControl": "PASS",
+      "ProofBoundary": "Source-context helper scope",
+      "SourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+      "SourceFunction": "verify_identity",
+      "StateDelta": null
+    },
+    {
+      "ActualOutcome": {
+        "DesignatedCases": [
+          {
+            "ActualOperation": "checked_mul",
+            "Classification": "CONFIRMED",
+            "Reported": "checked_add",
+            "SourceTest": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+            "TestID": "MQL-mul-overflow"
+          },
+          {
+            "ActualOperation": "transition_status",
+            "Classification": "CONFIRMED",
+            "Reported": "reserve_available",
+            "SourceTest": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+            "TestID": "D05-unsupported-aggregate"
+          }
+        ],
+        "FullMatrixReviewed": 91,
+        "ReportedFunctionNotCalled": 17
+      },
+      "Classification": "CONFIRMED",
+      "ExactInputOrSourceChange": "C1-09",
+      "FindingID": "C1-09",
+      "FullMatrixReview": [
+        {
+          "ObservedSubjectCalls": [
+            "checked",
+            "legacy_view",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "D01-equivalent-fields",
+          "TestImplementationLine": 109
+        },
+        {
+          "ObservedSubjectCalls": [
+            "balance",
+            "checked",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "D01-double-count",
+          "TestImplementationLine": 110
+        },
+        {
+          "ObservedSubjectCalls": [
+            "balance",
+            "checked",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "D01-zero-reserved",
+          "TestImplementationLine": 111
+        },
+        {
+          "ObservedSubjectCalls": [
+            "balance",
+            "checked",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "D01-control",
+          "TestImplementationLine": 112
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "D01-operations",
+          "TestImplementationLine": 55
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "D01-reservation-owner",
+          "TestImplementationLine": 114
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "D01-negative-consumption",
+          "TestImplementationLine": 117
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "require",
+            "reserve_available",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_fund",
+          "TestID": "D01-prepared-and-split",
+          "TestImplementationLine": 63
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_fund",
+          "TestID": "D07-overfund-prepared",
+          "TestImplementationLine": 71
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_fund",
+          "TestID": "D07-double-allocation",
+          "TestImplementationLine": 120
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "D07-exact-fund-replay",
+          "TestImplementationLine": 127
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "D07-altered-fund-replay",
+          "TestImplementationLine": 128
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "D07-exact-consume-replay",
+          "TestImplementationLine": 131
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "D07-altered-consume-replay",
+          "TestImplementationLine": 132
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked",
+            "funding_status",
+            "reserve_available"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "reserve_available",
+          "TestID": "D02-known-zero",
+          "TestImplementationLine": 133
+        },
+        {
+          "ObservedSubjectCalls": [
+            "reserve_available"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "reserve_available",
+          "TestID": "D02-unknown-history",
+          "TestImplementationLine": 134
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_fund",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "fund",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "reserve_available",
+          "TestID": "D02-projected-not-source",
+          "TestImplementationLine": 135
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "reserve_available",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_fund",
+          "TestID": "D03-small-isolation",
+          "TestImplementationLine": 139
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_fund",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "fund",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_fund",
+          "TestID": "D03-opening-no-grant",
+          "TestImplementationLine": 142
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "require",
+            "reserve_available",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "funding_status",
+          "TestID": "D07-unattributed-debit",
+          "TestImplementationLine": 145
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked",
+            "far_loss",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "far_loss",
+          "TestID": "D04-absolute-baseline",
+          "TestImplementationLine": 148
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked",
+            "far_loss",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "far_loss",
+          "TestID": "D04-partial-volume",
+          "TestImplementationLine": 150
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked",
+            "far_loss",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "far_loss",
+          "TestID": "D04-stale",
+          "TestImplementationLine": 150
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked",
+            "far_loss",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "far_loss",
+          "TestID": "D04-restart",
+          "TestImplementationLine": 150
+        },
+        {
+          "ObservedSubjectCalls": [
+            "close_side",
+            "require"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "far_loss",
+          "TestID": "D04-buy-bid-sell-ask",
+          "TestImplementationLine": 152
+        },
+        {
+          "ObservedSubjectCalls": [
+            "_transition_status",
+            "checked",
+            "fields",
+            "number",
+            "require",
+            "source_shape",
+            "text",
+            "transition_status",
+            "uid"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "transition_status",
+          "TestID": "D05-partial-pending",
+          "TestImplementationLine": 155
+        },
+        {
+          "ObservedSubjectCalls": [
+            "_transition_status",
+            "checked",
+            "fields",
+            "number",
+            "require",
+            "source_shape",
+            "text",
+            "transition_status",
+            "uid"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "transition_status",
+          "TestID": "D05-over-cap",
+          "TestImplementationLine": 156
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_transition_status",
+            "canonical",
+            "checked",
+            "fields",
+            "number",
+            "require",
+            "source_shape",
+            "text",
+            "token",
+            "transition_status",
+            "uid"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "transition_status",
+          "TestID": "D05-exact-fill-replay",
+          "TestImplementationLine": 157
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_transition_status",
+            "canonical",
+            "checked",
+            "fields",
+            "number",
+            "require",
+            "source_shape",
+            "text",
+            "token",
+            "transition_status",
+            "uid"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "transition_status",
+          "TestID": "D05-changed-fill",
+          "TestImplementationLine": 158
+        },
+        {
+          "ObservedSubjectCalls": [
+            "_transition_status",
+            "transition_status"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "transition_status",
+          "TestID": "D05-actual-history-unavailable",
+          "TestImplementationLine": 159
+        },
+        {
+          "ObservedSubjectCalls": [
+            "costs_status"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "costs_status",
+          "TestID": "D06-once",
+          "TestImplementationLine": 162
+        },
+        {
+          "ObservedSubjectCalls": [
+            "costs_status"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "costs_status",
+          "TestID": "D06-double-cost",
+          "TestImplementationLine": 163
+        },
+        {
+          "ObservedSubjectCalls": [
+            "costs_status"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "costs_status",
+          "TestID": "D06-unknown-overlap",
+          "TestImplementationLine": 164
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-independent-control",
+          "TestImplementationLine": 165
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Broker",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Server",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Account",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Symbol",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Magic",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Cycle",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Position",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Deal",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Order",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Event",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Role",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Plan",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-PolicyVersion",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Revision",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-Snapshot",
+          "TestImplementationLine": 170
+        },
+        {
+          "ObservedSubjectCalls": [
+            "canonical",
+            "economic_record",
+            "key",
+            "require",
+            "token",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-nonzero-deal-not-existence",
+          "TestImplementationLine": 171
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-foreign-authoritative-allocation",
+          "TestImplementationLine": 174
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "canonical",
+            "checked",
+            "economic_record",
+            "fields",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "text",
+            "token",
+            "uid",
+            "unit",
+            "verify_identity"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-stale-snapshot",
+          "TestImplementationLine": 177
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "<lambda>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "new_registry",
+            "number",
+            "operate",
+            "recover",
+            "require",
+            "snapshot",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "RESTART-before",
+          "TestImplementationLine": 181
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "recover",
+            "require",
+            "snapshot",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "RESTART-prepared",
+          "TestImplementationLine": 181
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "<lambda>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "new_registry",
+            "number",
+            "operate",
+            "recover",
+            "require",
+            "snapshot",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "RESTART-committed",
+          "TestImplementationLine": 181
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "recover",
+            "require",
+            "snapshot",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "RESTART-incomplete",
+          "TestImplementationLine": 181
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "recover",
+            "require",
+            "snapshot",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "RESTART-history-missing",
+          "TestImplementationLine": 181
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "recover",
+            "require",
+            "snapshot",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "RESTART-torn",
+          "TestImplementationLine": 181
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "<lambda>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "new_registry",
+            "number",
+            "operate",
+            "recover",
+            "require",
+            "snapshot",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "RESTART-fallback",
+          "TestImplementationLine": 181
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "<lambda>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "new_registry",
+            "number",
+            "operate",
+            "recover",
+            "require",
+            "snapshot",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_event",
+          "TestID": "RESTART-forged-consumed",
+          "TestImplementationLine": 181
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_worst",
+            "assess_levels",
+            "checked",
+            "fields",
+            "grid",
+            "number",
+            "require",
+            "text",
+            "uid",
+            "unit",
+            "worst"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "CR09-A-negative",
+          "TestImplementationLine": 183
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "<lambda>",
+            "_worst",
+            "assess_levels",
+            "checked",
+            "fields",
+            "grid",
+            "number",
+            "require",
+            "text",
+            "uid",
+            "unit",
+            "worst"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "CR09-B-single",
+          "TestImplementationLine": 184
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_worst",
+            "assess_levels",
+            "checked",
+            "fields",
+            "grid",
+            "number",
+            "require",
+            "text",
+            "uid",
+            "unit",
+            "worst"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+          "ReportedSourceFunction": "number",
+          "TestID": "NUM-exact-cancellation",
+          "TestImplementationLine": 185
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "allocate",
+            "checked",
+            "grid",
+            "number",
+            "require",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+          "ReportedSourceFunction": "number",
+          "TestID": "NUM-minor-remainder",
+          "TestImplementationLine": 186
+        },
+        {
+          "ObservedSubjectCalls": [
+            "candidate_round",
+            "checked",
+            "number",
+            "require",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+          "ReportedSourceFunction": "number",
+          "TestID": "NUM-double-round",
+          "TestImplementationLine": 187
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked_add",
+            "require"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "reserve_available",
+          "TestID": "NUM-domain-unsupported",
+          "TestImplementationLine": 188
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked_add",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "checked_add",
+          "TestID": "MQL-add-ok",
+          "TestImplementationLine": 190
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked_add",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "checked_add",
+          "TestID": "MQL-add-min",
+          "TestImplementationLine": 190
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked_add",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "checked_add",
+          "TestID": "MQL-add-underflow",
+          "TestImplementationLine": 190
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked_mul",
+            "require",
+            "trunc"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "checked_add",
+          "TestID": "MQL-mul-ok",
+          "TestImplementationLine": 190
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked_mul",
+            "require",
+            "trunc"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "checked_add",
+          "TestID": "MQL-mul-overflow",
+          "TestImplementationLine": 190
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked_mul",
+            "require",
+            "trunc"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "checked_add",
+          "TestID": "MQL-mul-positive",
+          "TestImplementationLine": 190
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked_add",
+            "require"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "checked_add",
+          "TestID": "MQL-operand-domain",
+          "TestImplementationLine": 190
+        },
+        {
+          "ObservedSubjectCalls": [
+            "canonical",
+            "checked",
+            "number",
+            "require",
+            "token"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0d_independent_oracle.py",
+          "ReportedSourceFunction": "canonical",
+          "TestID": "CODEC-str-decimal",
+          "TestImplementationLine": 191
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<lambda>",
+            "checked",
+            "geometry",
+            "number",
+            "require"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "ZERO-core",
+          "TestImplementationLine": 192
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_fund",
+          "TestID": "SOURCE-changed-Magic",
+          "TestImplementationLine": 198
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "_fund",
+          "TestID": "SOURCE-changed-Cycle",
+          "TestImplementationLine": 198
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "SOURCE-nonpositive-0",
+          "TestImplementationLine": 200
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "SOURCE-nonpositive--10",
+          "TestImplementationLine": 200
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "reserve_available",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "reserve_available",
+          "TestID": "NUM-currency-mismatch",
+          "TestImplementationLine": 204
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "_operate",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "operate",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "balance",
+          "TestID": "D01-finalreserve-purpose",
+          "TestImplementationLine": 208
+        },
+        {
+          "ObservedSubjectCalls": [
+            "close_side",
+            "require"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "far_loss",
+          "TestID": "D04-direction-unknown",
+          "TestImplementationLine": 209
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_worst",
+            "assess_levels",
+            "checked",
+            "number",
+            "require",
+            "uid",
+            "worst"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "CR09-missing",
+          "TestImplementationLine": 219
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_worst",
+            "assess_levels",
+            "checked",
+            "fields",
+            "number",
+            "require",
+            "text",
+            "uid",
+            "unit",
+            "worst"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "CR09-duplicate",
+          "TestImplementationLine": 219
+        },
+        {
+          "ObservedSubjectCalls": [
+            "assess_levels"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "CR09-unknown-transition",
+          "TestImplementationLine": 219
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_worst",
+            "assess_levels",
+            "checked",
+            "fields",
+            "number",
+            "require",
+            "text",
+            "uid",
+            "unit",
+            "worst"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "CR09-stale",
+          "TestImplementationLine": 219
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_worst",
+            "assess_levels",
+            "checked",
+            "fields",
+            "grid",
+            "number",
+            "require",
+            "text",
+            "uid",
+            "unit",
+            "worst"
+          ],
+          "ReferenceStatus": "OBSERVED_CALL_REFERENCE_NOT_EXACT_TARGET_PROOF",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "CR09-zero",
+          "TestImplementationLine": 219
+        },
+        {
+          "ObservedSubjectCalls": [
+            "checked",
+            "grid",
+            "number",
+            "require",
+            "sequential",
+            "text",
+            "unit"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "assess_levels",
+          "TestID": "CR09-sequential-reuse",
+          "TestImplementationLine": 220
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "balance",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "funding_status",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "reserve_available",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "D08-independent-account-namespace",
+          "TestImplementationLine": 223
+        },
+        {
+          "ObservedSubjectCalls": [
+            "<genexpr>",
+            "_event",
+            "_fund",
+            "allocation_key",
+            "canonical",
+            "checked",
+            "digest",
+            "economic_record",
+            "event_key",
+            "fields",
+            "fund",
+            "grid",
+            "identity_shape",
+            "key",
+            "number",
+            "require",
+            "source_key",
+            "source_shape",
+            "text",
+            "token",
+            "uid",
+            "unit"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "verify_identity",
+          "TestID": "L01-same-net-changed-components",
+          "TestImplementationLine": 227
+        },
+        {
+          "ObservedSubjectCalls": [
+            "_transition_status",
+            "checked",
+            "fields",
+            "number",
+            "require",
+            "source_shape",
+            "text",
+            "transition_status",
+            "uid"
+          ],
+          "ReferenceStatus": "REPORTED_FUNCTION_NOT_CALLED",
+          "ReportedSourceFile": "Tests/Reference/hsbi_02b_r0e_contract_model.py",
+          "ReportedSourceFunction": "reserve_available",
+          "TestID": "D05-unsupported-aggregate",
+          "TestImplementationLine": 231
+        }
+      ],
+      "IndependentExpected": "Exact subject operation mapping; observed presence alone is not exact target proof",
+      "PositiveControl": "Untampered independent fixture / baseline archive accepted",
+      "ProofBoundary": "Static source traceability, no production execution",
+      "SourceFile": "Tests/Static/check_hsbi_02b_r0e_contracts.py",
+      "SourceFunction": "cases",
+      "StateDelta": null,
+      "TraceProbeExecutions": 91
+    }
+  ],
+  "FinishedUtc": "2026-11-09T22:31:54.696633+00:00",
+  "PackageGaps": [
+    {
+      "ActualOutcome": "ACCEPT",
+      "Classification": "CONFIRMED",
+      "Errors": [],
+      "ExactInputOrSourceChange": "C1-01",
+      "FindingID": "C1-01",
+      "IndependentExpected": "REJECT_TAMPERED_PACKAGE",
+      "PositiveControl": true,
+      "ProofBoundary": "Old package checker semantic validation",
+      "SourceFile": "Tests/Static/check_hsbi_02b_r0e_package.py",
+      "SourceFunction": "verify",
+      "StateDelta": "Disposable candidate only; Git baseline unchanged"
+    },
+    {
+      "ActualOutcome": "ACCEPT",
+      "Classification": "CONFIRMED",
+      "Errors": [],
+      "ExactInputOrSourceChange": "C1-02-approval",
+      "FindingID": "C1-02-approval",
+      "IndependentExpected": "REJECT_TAMPERED_PACKAGE",
+      "PositiveControl": true,
+      "ProofBoundary": "Old package checker semantic validation",
+      "SourceFile": "Tests/Static/check_hsbi_02b_r0e_package.py",
+      "SourceFunction": "verify",
+      "StateDelta": "Disposable candidate only; Git baseline unchanged"
+    },
+    {
+      "ActualOutcome": "ACCEPT",
+      "Classification": "CONFIRMED",
+      "Errors": [],
+      "ExactInputOrSourceChange": "C1-02-admin",
+      "FindingID": "C1-02-admin",
+      "IndependentExpected": "REJECT_TAMPERED_PACKAGE",
+      "PositiveControl": true,
+      "ProofBoundary": "Old package checker semantic validation",
+      "SourceFile": "Tests/Static/check_hsbi_02b_r0e_package.py",
+      "SourceFunction": "verify",
+      "StateDelta": "Disposable candidate only; Git baseline unchanged"
+    },
+    {
+      "ActualOutcome": "ACCEPT",
+      "Classification": "CONFIRMED",
+      "Errors": [],
+      "ExactInputOrSourceChange": "C1-02-dispatch",
+      "FindingID": "C1-02-dispatch",
+      "IndependentExpected": "REJECT_TAMPERED_PACKAGE",
+      "PositiveControl": true,
+      "ProofBoundary": "Old package checker semantic validation",
+      "SourceFile": "Tests/Static/check_hsbi_02b_r0e_package.py",
+      "SourceFunction": "verify",
+      "StateDelta": "Disposable candidate only; Git baseline unchanged"
+    },
+    {
+      "ActualOutcome": "ACCEPT",
+      "Classification": "CONFIRMED",
+      "Errors": [],
+      "ExactInputOrSourceChange": "C1-08",
+      "FindingID": "C1-08",
+      "IndependentExpected": "REJECT_TAMPERED_PACKAGE",
+      "PositiveControl": true,
+      "ProofBoundary": "Old package checker semantic validation",
+      "SourceFile": "Tests/Static/check_hsbi_02b_r0e_package.py",
+      "SourceFunction": "verify",
+      "StateDelta": "Disposable candidate only; Git baseline unchanged"
+    }
+  ],
+  "SourceHashes": {
+    "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+    "Tests/Reference/hsbi_02b_r0e_c1_contract_model.py": "7a7c2be9374278887c2b288b24c923028698143e9c21c807130dadd7f164a83e",
+    "Tests/Reference/hsbi_02b_r0e_contract_model.py": "b987bd3c6c99dee5f4f3a3306c416d30afbe384c83dbbb8368cd8e4e9a8d7e66",
+    "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+    "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+    "Tests/Static/check_hsbi_02b_r0e_c1_reproduction.py": "e258ef093f83a4ba402de3110ee65ef8d5d0f9430fc8a7d7080676322c8a4a42",
+    "Tests/Static/check_hsbi_02b_r0e_contracts.py": "1dd9e00e805fb5bc561afcc6cea563cdb21398b7112e3234856898587334d2e3",
+    "Tests/Static/check_hsbi_02b_r0e_mutations.py": "0ced25a9e0f9bc5bd5eaf4b3faa478c1d10b02e2cf87c9cbd2a66fb459bca1b2",
+    "Tests/Static/check_hsbi_02b_r0e_package.py": "c8c9f9e43f2194aa1786d83f2d571e5720cfb97c598933aed18c425d3e5cf776"
+  },
+  "StartedUtc": "2026-11-09T22:31:09.008760+00:00",
+  "StockMutations": [
+    {
+      "ExactEdit": [
+        {
+          "new": "if False:return 'REJECT',copy.deepcopy(state)",
+          "old": "if total>net:return 'REJECT',copy.deepcopy(state)"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": {
+        "revision": 3,
+        "status": "COMMITTED_IN_MEMORY",
+        "unchanged": false
+      },
+      "MutantPositive": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "first": "COMMITTED_IN_MEMORY",
+        "preparedBlocked": "REJECT",
+        "preparedUnchanged": true,
+        "second": "COMMITTED_IN_MEMORY",
+        "sourceGrant": [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      },
+      "MutationID": "source-cap",
+      "NegativeTestID": "D07-overfund-prepared",
+      "OriginalNegative": {
+        "revision": 2,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "OriginalPositive": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "first": "COMMITTED_IN_MEMORY",
+        "preparedBlocked": "REJECT",
+        "preparedUnchanged": true,
+        "second": "COMMITTED_IN_MEMORY",
+        "sourceGrant": [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      },
+      "PositiveExpected": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "50",
+            "1"
+          ]
+        ],
+        "first": "COMMITTED_IN_MEMORY",
+        "preparedBlocked": "REJECT",
+        "preparedUnchanged": true,
+        "second": "COMMITTED_IN_MEMORY",
+        "sourceGrant": [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      },
+      "PositiveTestID": "D01-prepared-and-split",
+      "StockExpected": {
+        "revision": 2,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "TargetFunction": "_fund"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "g!=c+f",
+          "old": "g!=c+v+f"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": true,
+      "MutantPositive": true,
+      "MutationID": "reserved-doublecount",
+      "NegativeTestID": "D01-double-count",
+      "OriginalNegative": false,
+      "OriginalPositive": true,
+      "PositiveExpected": true,
+      "PositiveTestID": "D01-zero-reserved",
+      "StockExpected": false,
+      "TargetFunction": "balance"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if r['kind']!='ReconciledEconomicNet':"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": {
+        "allocations": 1,
+        "status": "COMMITTED_IN_MEMORY"
+      },
+      "MutantPositive": {
+        "revision": 2,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "MutationID": "projected-authority",
+      "NegativeTestID": "D02-projected-not-source",
+      "OriginalNegative": {
+        "allocations": 0,
+        "status": "REJECT"
+      },
+      "OriginalPositive": {
+        "revision": 2,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "PositiveExpected": {
+        "revision": 2,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "PositiveTestID": "D07-exact-fund-replay",
+      "StockExpected": {
+        "allocations": 0,
+        "status": "REJECT"
+      },
+      "TargetFunction": "economic_record"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if role=='Small' and any(values[b]!=0 for b in BUCKETS if b!='ResidualHeld'):"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "0",
+            "1"
+          ]
+        ],
+        "reserveAttempt": "COMMITTED_IN_MEMORY",
+        "residualCommit": "COMMITTED_IN_MEMORY"
+      },
+      "MutantPositive": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "MutationID": "small-role",
+      "NegativeTestID": "D03-small-isolation",
+      "OriginalNegative": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "0",
+            "1"
+          ]
+        ],
+        "reserveAttempt": "REJECT",
+        "residualCommit": "COMMITTED_IN_MEMORY"
+      },
+      "OriginalPositive": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "PositiveExpected": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "PositiveTestID": "D01-operations",
+      "StockExpected": {
+        "available": [
+          "KNOWN_MODEL_AVAILABLE",
+          [
+            "NUMBER",
+            "0",
+            "1"
+          ]
+        ],
+        "reserveAttempt": "REJECT",
+        "residualCommit": "COMMITTED_IN_MEMORY"
+      },
+      "TargetFunction": "_fund"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "'NO_OP'",
+          "old": "('NO_OP' if canonical(prior['payload'])==canonical(payload) else 'CONFLICT')"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "MutantPositive": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "MutationID": "replay-payload",
+      "NegativeTestID": "D07-altered-consume-replay",
+      "OriginalNegative": {
+        "revision": 3,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "OriginalPositive": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "PositiveExpected": {
+        "revision": 3,
+        "status": "NO_OP",
+        "unchanged": true
+      },
+      "PositiveTestID": "D07-exact-consume-replay",
+      "StockExpected": {
+        "revision": 3,
+        "status": "CONFLICT",
+        "unchanged": true
+      },
+      "TargetFunction": "_event"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Magic') else 'REJECT'",
+          "old": "for k in expected) else 'REJECT'"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutationID": "expected-magic",
+      "NegativeTestID": "D08-foreign-Magic",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "D08-independent-control",
+      "StockExpected": "REJECT",
+      "TargetFunction": "verify_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if loss>number(cap):"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": [
+        "CONFIRMED",
+        [
+          "NUMBER",
+          "15",
+          "1"
+        ]
+      ],
+      "MutantPositive": [
+        "PENDING",
+        [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      ],
+      "MutationID": "actual-cap",
+      "NegativeTestID": "D05-over-cap",
+      "OriginalNegative": [
+        "OVER_CAP",
+        [
+          "NUMBER",
+          "15",
+          "1"
+        ]
+      ],
+      "OriginalPositive": [
+        "PENDING",
+        [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      ],
+      "PositiveExpected": [
+        "PENDING",
+        [
+          "NUMBER",
+          "5",
+          "1"
+        ]
+      ],
+      "PositiveTestID": "D05-partial-pending",
+      "StockExpected": [
+        "OVER_CAP",
+        [
+          "NUMBER",
+          "15",
+          "1"
+        ]
+      ],
+      "TargetFunction": "_transition_status"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if row['AlreadyIncluded'] and row['AdditionalDeduction']:"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutationID": "cost-double",
+      "NegativeTestID": "D06-double-cost",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": "PASS",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "D06-once",
+      "StockExpected": "CONFLICT",
+      "TargetFunction": "costs_status"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "def reserve_available(state,history,account,complete=True):\n    if not complete:return 'UNAVAILABLE',None",
+          "old": "def reserve_available(state,history,account,complete=True):\n    if history is None or not complete:return 'UNAVAILABLE',None"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "MutantPositive": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "MutationID": "unknown-history-zero",
+      "NegativeTestID": "D02-unknown-history",
+      "OriginalNegative": [
+        "UNAVAILABLE",
+        null
+      ],
+      "OriginalPositive": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "PositiveExpected": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "0",
+          "1"
+        ]
+      ],
+      "PositiveTestID": "D02-known-zero",
+      "StockExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "TargetFunction": "reserve_available"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if canonical(rebuilt)!=canonical(chosen):"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "50",
+          "1"
+        ],
+        "replay": null,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutantPositive": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutationID": "recovery-rebuild",
+      "NegativeTestID": "RESTART-forged-consumed",
+      "OriginalNegative": {
+        "fallback": false,
+        "remaining": null,
+        "replay": null,
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "PositiveExpected": {
+        "fallback": false,
+        "remaining": [
+          "NUMBER",
+          "40",
+          "1"
+        ],
+        "replay": "NO_OP",
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "PositiveTestID": "RESTART-committed",
+      "StockExpected": {
+        "fallback": false,
+        "remaining": null,
+        "replay": null,
+        "status": "CONFLICT"
+      },
+      "TargetFunction": "recover"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if not context['fresh']:"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutationID": "snapshot-fresh",
+      "NegativeTestID": "D08-stale-snapshot",
+      "OriginalNegative": "UNAVAILABLE",
+      "OriginalPositive": "PASS",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "D08-independent-control",
+      "StockExpected": "UNAVAILABLE",
+      "TargetFunction": "verify_identity"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if b>0 and a>maximum-b or b<0 and a<minimum-b:"
+        },
+        {
+          "new": "if False:",
+          "old": "if not minimum<=result<=maximum:"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": {
+        "status": "VALUE",
+        "value": 9223372036854775808
+      },
+      "MutantPositive": {
+        "status": "VALUE",
+        "value": 9223372036854775807
+      },
+      "MutationID": "checked-overflow",
+      "NegativeTestID": "NUM-domain-unsupported",
+      "OriginalNegative": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "OriginalPositive": {
+        "status": "VALUE",
+        "value": 9223372036854775807
+      },
+      "PositiveExpected": {
+        "status": "VALUE",
+        "value": 9223372036854775807
+      },
+      "PositiveTestID": "MQL-add-ok",
+      "StockExpected": {
+        "status": "UNAVAILABLE",
+        "value": null
+      },
+      "TargetFunction": "checked_add"
+    },
+    {
+      "ExactEdit": [
+        {
+          "new": "row['Reserved']",
+          "old": "row['Reservations'].get(intent,0)"
+        },
+        {
+          "new": "b['Reservations'][intent if intent in b['Reservations'] else next(iter(b['Reservations']))]-=n",
+          "old": "b['Reservations'][intent]-=n"
+        }
+      ],
+      "Killed": true,
+      "MutantNegative": {
+        "revision": 4,
+        "status": "COMMITTED_IN_MEMORY",
+        "unchanged": false
+      },
+      "MutantPositive": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "MutationID": "reservation-owner",
+      "NegativeTestID": "D01-reservation-owner",
+      "OriginalNegative": {
+        "revision": 3,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "OriginalPositive": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "PositiveExpected": {
+        "balance": {
+          "consumed": [
+            "NUMBER",
+            "15",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "30",
+            "1"
+          ],
+          "grant": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "reserved": [
+            "NUMBER",
+            "5",
+            "1"
+          ],
+          "revision": 6
+        },
+        "statuses": [
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY",
+          "COMMITTED_IN_MEMORY"
+        ]
+      },
+      "PositiveTestID": "D01-operations",
+      "StockExpected": {
+        "revision": 3,
+        "status": "REJECT",
+        "unchanged": true
+      },
+      "TargetFunction": "_operate"
+    }
+  ],
+  "StockPackage": {
+    "negative": [
+      {
+        "ActualErrors": [
+          {
+            "code": "BASELINE_INVENTORY",
+            "path": ""
+          },
+          {
+            "code": "HISTORICAL_BYTES",
+            "path": "BUILD_INFO.md"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "BASELINE_INVENTORY",
+        "ProbeID": "inventory-omission",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "HISTORICAL_BYTES",
+            "path": "BUILD_INFO.md"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "HISTORICAL_BYTES",
+        "ProbeID": "historical-content",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "NEW_INVENTORY",
+            "path": ""
+          },
+          {
+            "code": "OUTSIDE_SCOPE",
+            "path": ""
+          },
+          {
+            "code": "NEW_HASH_INVENTORY",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "OUTSIDE_SCOPE",
+        "ProbeID": "outside-scope",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "SOURCE_HASH",
+            "path": "Tests/Reference/hsbi_02b_r0e_contract_model.py"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "SOURCE_HASH",
+        "ProbeID": "source-hash",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "TEST_TOTALS",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "TEST_TOTALS",
+        "ProbeID": "test-total",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "TEST_TOTALS",
+            "path": ""
+          },
+          {
+            "code": "TEST_TOTALS",
+            "path": ""
+          },
+          {
+            "code": "TEST_ROW_VERDICT",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "TEST_ROW_VERDICT",
+        "ProbeID": "fail-with-pass-total",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "NEW_INVENTORY",
+            "path": ""
+          },
+          {
+            "code": "MANDATORY_ARTIFACT",
+            "path": "Docs/NEXT_STAGE_02B_R0E_NUMERIC_ARCHITECTURE_RU.md"
+          },
+          {
+            "code": "NEW_HASH_INVENTORY",
+            "path": ""
+          },
+          {
+            "code": "NEW_HASH",
+            "path": "Docs/NEXT_STAGE_02B_R0E_NUMERIC_ARCHITECTURE_RU.md"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "MANDATORY_ARTIFACT",
+        "ProbeID": "mandatory-missing",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "REPORT_BASELINE",
+            "path": "Reports/NEXT_STAGE_02B_R0E_FINAL_VERDICT_RU.md"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "REPORT_BASELINE",
+        "ProbeID": "report-baseline",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "MATRIX_BIJECTION",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "MATRIX_BIJECTION",
+        "ProbeID": "empty-cases",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "MATRIX_BIJECTION",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "MATRIX_BIJECTION",
+        "ProbeID": "missing-case",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "MATRIX_BIJECTION",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "MATRIX_BIJECTION",
+        "ProbeID": "duplicate-case",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "CONTEXT_CARTESIAN",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "CONTEXT_CARTESIAN",
+        "ProbeID": "context-999",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "CONTEXT_CARTESIAN",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "CONTEXT_CARTESIAN",
+        "ProbeID": "context-bool",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "CONTEXT_CARTESIAN",
+            "path": ""
+          },
+          {
+            "code": "TEST_TOTALS",
+            "path": ""
+          },
+          {
+            "code": "TEST_TOTALS",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "CONTEXT_CARTESIAN",
+        "ProbeID": "context-missing",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "CONTEXT_CARTESIAN",
+            "path": ""
+          },
+          {
+            "code": "TEST_TOTALS",
+            "path": ""
+          },
+          {
+            "code": "TEST_TOTALS",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "CONTEXT_CARTESIAN",
+        "ProbeID": "context-duplicate",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "CONTEXT_METADATA",
+            "path": ""
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "CONTEXT_METADATA",
+        "ProbeID": "context-metadata",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "ORIGINAL_SOURCE_HASH",
+            "path": "R0E-MUT-source-cap"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "ORIGINAL_SOURCE_HASH",
+        "ProbeID": "original-hash",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "MUTANT_SOURCE_HASH",
+            "path": "R0E-MUT-source-cap"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "MUTANT_SOURCE_HASH",
+        "ProbeID": "mutant-hash",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "EXACT_EDIT",
+            "path": "R0E-MUT-source-cap"
+          },
+          {
+            "code": "MUTANT_SOURCE_HASH",
+            "path": "R0E-MUT-source-cap"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "EXACT_EDIT",
+        "ProbeID": "exact-edit",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "APPROVAL_NONEMPTY",
+            "path": "D-01:AdministratorDecision"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "APPROVAL_NONEMPTY",
+        "ProbeID": "approval-inline",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "APPROVAL_NONEMPTY",
+            "path": "D-01:AdministratorDecision"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "APPROVAL_NONEMPTY",
+        "ProbeID": "approval-newline",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "APPROVAL_DUPLICATE",
+            "path": "D-01:AdministratorDecision"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "APPROVAL_DUPLICATE",
+        "ProbeID": "approval-duplicate",
+        "Result": "PASS"
+      },
+      {
+        "ActualErrors": [
+          {
+            "code": "VERDICT_POLICY",
+            "path": "ADMIN_APPROVAL_COMPLETE"
+          }
+        ],
+        "Boundary": "Disposable copy only; historical real bytes untouched",
+        "ExpectedCode": "VERDICT_POLICY",
+        "ProbeID": "verdict-policy",
+        "Result": "PASS"
+      }
+    ],
+    "negativeFailed": 0,
+    "negativePassed": 23,
+    "positive": "PASS"
+  },
+  "StockReference": {
+    "executions": 728,
+    "failed": 0,
+    "infrastructureErrors": 0,
+    "passed": 728,
+    "predicates": 1456,
+    "scenarios": 91
+  },
+  "TestedSHA": "074165b38f1b6d6253a9629c7d2def988e8e286a",
+  "UTC": "2026-11-09T22:31:54.696616+00:00"
+}
