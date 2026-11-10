@@ -1,0 +1,908 @@
+{
+  "MoneyTypes": [
+    {
+      "Name": "ProjectedBasketNet",
+      "Projected": true,
+      "Unit": "account currency + explicit precision/basis",
+      "ImplicitConversionsAllowed": false,
+      "RequiredEvidence": "independent current price/cost/risk snapshot, planning only",
+      "Spendability": "NEVER_DIRECT"
+    },
+    {
+      "Name": "ProjectedCloseNowNet",
+      "Projected": true,
+      "Unit": "account currency + explicit precision/basis",
+      "ImplicitConversionsAllowed": false,
+      "RequiredEvidence": "independent current price/cost/risk snapshot, planning only",
+      "Spendability": "NEVER_DIRECT"
+    },
+    {
+      "Name": "ActualRealizedDealNet",
+      "Projected": false,
+      "Unit": "account currency + explicit precision/basis",
+      "ImplicitConversionsAllowed": false,
+      "RequiredEvidence": "confirmed independent closing history/raw components",
+      "Spendability": "NEVER_DIRECT"
+    },
+    {
+      "Name": "ReconciledEconomicNet",
+      "Projected": false,
+      "Unit": "account currency + explicit precision/basis",
+      "ImplicitConversionsAllowed": false,
+      "RequiredEvidence": "independent posted receipt + currency/precision/component reconciliation",
+      "Spendability": "NEVER_DIRECT"
+    },
+    {
+      "Name": "EligibleSourceGrant",
+      "Projected": false,
+      "Unit": "account currency + explicit precision/basis",
+      "ImplicitConversionsAllowed": false,
+      "RequiredEvidence": "reconciled eligible role + policy/allocation receipt",
+      "Spendability": "NEVER_DIRECT"
+    },
+    {
+      "Name": "AvailableReserve",
+      "Projected": false,
+      "Unit": "account currency + explicit precision/basis",
+      "ImplicitConversionsAllowed": false,
+      "RequiredEvidence": "committed allocation + complete reconciled journal + global attribution + available ownership",
+      "Spendability": "ONLY_AFTER_ALL_INDEPENDENT_AUTHORITY_GATES"
+    }
+  ],
+  "BaseSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "ContractVersion": "HSBI-R0F-PROPOSED-1",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Evidence": "Tests/Evidence/NEXT_STAGE_02B_R0F_TEST_RESULTS.json",
+  "Requirements": [
+    {
+      "RequirementID": "R0F-01",
+      "TestIDs": [
+        "R0F-BALANCE-TRACE",
+        "R0F-MIGRATE-known",
+        "R0F-MIGRATE-currency",
+        "R0F-MIGRATE-precision",
+        "R0F-MIGRATE-owner",
+        "R0F-MIGRATE-double-count",
+        "R0F-EXACT-REPLAY",
+        "R0F-ALTERED-REPLAY",
+        "R0F-STATE-history",
+        "R0F-STATE-prepared",
+        "R0F-STATE-currency",
+        "R0F-STATE-unknown-revision",
+        "R0F-CONSUME-negative",
+        "R0F-CONSUME-zero",
+        "R0F-CONSUME-excess",
+        "R0F-CONSUME-bool",
+        "R0F-CONSUME-event-bool"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-02",
+      "TestIDs": [
+        "R0F-PROJECTED-NOT-ACTUAL",
+        "R0F-RECONCILED-CONTROL",
+        "R0F-RECONCILE-components",
+        "R0F-RECONCILE-net",
+        "R0F-RECONCILE-account",
+        "R0F-POSTED-COMPONENTS-MISMATCH",
+        "R0F-NEGATIVE-SOURCE",
+        "R0F-RAW-SIGNED-SUM",
+        "R0F-RAW-NOT-POSTED"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-03",
+      "TestIDs": [
+        "R0F-SMALL-ONLY",
+        "R0F-OPENING-NO-GRANT"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-04",
+      "TestIDs": [
+        "R0F-ABSOLUTE-FAR",
+        "R0F-MARGIN-ZERO-REJECT",
+        "R0F-ALL-LEVEL-MARGIN"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-05",
+      "TestIDs": [
+        "R0F-TRANSITION-A",
+        "R0F-TRANSITION-B",
+        "R0F-TRANSITION-C",
+        "R0F-TRANSITION-CAP-EQUALITY",
+        "R0F-TRANSITION-NO-DEFAULT"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-06",
+      "TestIDs": [
+        "R0F-UNVERIFIED-PRECISION",
+        "R0F-CODEC-A-zero",
+        "R0F-CODEC-B-zero",
+        "R0F-INDEPENDENT-IEEE-zero",
+        "R0F-CODEC-A-negative-zero",
+        "R0F-CODEC-B-negative-zero",
+        "R0F-INDEPENDENT-IEEE-negative-zero",
+        "R0F-CODEC-A-one",
+        "R0F-CODEC-B-one",
+        "R0F-INDEPENDENT-IEEE-one",
+        "R0F-CODEC-A-negative-five",
+        "R0F-CODEC-B-negative-five",
+        "R0F-INDEPENDENT-IEEE-negative-five",
+        "R0F-CODEC-A-one-tenth",
+        "R0F-CODEC-B-one-tenth",
+        "R0F-INDEPENDENT-IEEE-one-tenth",
+        "R0F-CODEC-A-min-normal",
+        "R0F-CODEC-B-min-normal",
+        "R0F-INDEPENDENT-IEEE-min-normal",
+        "R0F-CODEC-A-min-subnormal",
+        "R0F-CODEC-B-min-subnormal",
+        "R0F-INDEPENDENT-IEEE-min-subnormal",
+        "R0F-CODEC-A-max-finite",
+        "R0F-CODEC-B-max-finite",
+        "R0F-INDEPENDENT-IEEE-max-finite",
+        "R0F-CODEC-RECORD-GOLDEN",
+        "R0F-CODEC-A-GOLDEN",
+        "R0F-CODEC-A-ROUNDTRIP",
+        "R0F-CODEC-B-ROUNDTRIP",
+        "R0F-CODEC-DELIMITER-A",
+        "R0F-CODEC-DELIMITER-B",
+        "R0F-CODEC-PROFILES-DISTINCT",
+        "R0F-RAW-NOT-POSTED",
+        "R0F-INT64-SMALL-DEBITS",
+        "R0F-OVERFLOW-max-plus-one",
+        "R0F-OVERFLOW-min-minus-one"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-07",
+      "TestIDs": [
+        "R0F-IDENTITY-SchemaVersion",
+        "R0F-IDENTITY-Symbol",
+        "R0F-IDENTITY-Magic",
+        "R0F-IDENTITY-CycleID",
+        "R0F-IDENTITY-OrderTicket",
+        "R0F-IDENTITY-PositionIdentifier",
+        "R0F-IDENTITY-ActionID",
+        "R0F-IDENTITY-EventID",
+        "R0F-IDENTITY-Role",
+        "R0F-IDENTITY-EntryType",
+        "R0F-IDENTITY-DealType",
+        "R0F-IDENTITY-TimestampMsc",
+        "R0F-IDENTITY-Volume",
+        "R0F-IDENTITY-Price",
+        "R0F-IDENTITY-Profit",
+        "R0F-IDENTITY-Swap",
+        "R0F-IDENTITY-Commission",
+        "R0F-IDENTITY-Fee",
+        "R0F-IDENTITY-DealNet",
+        "R0F-IDENTITY-Currency",
+        "R0F-IDENTITY-Precision",
+        "R0F-IDENTITY-SourcePlanApplicable",
+        "R0F-IDENTITY-SourcePlan",
+        "R0F-IDENTITY-SourcePolicyApplicable",
+        "R0F-IDENTITY-SourcePolicyVersion",
+        "R0F-NAMESPACE-Broker",
+        "R0F-NAMESPACE-Server",
+        "R0F-NAMESPACE-AccountLogin",
+        "R0F-NAMESPACE-DealTicket",
+        "R0F-ECONOMIC-EXACT",
+        "R0F-ECONOMIC-SAME-NET-ALTERED-COMPONENTS",
+        "R0F-SCHEMA-AccountLogin",
+        "R0F-SCHEMA-Magic",
+        "R0F-SCHEMA-Precision",
+        "R0F-SCHEMA-Currency",
+        "R0F-SCHEMA-SourcePlan",
+        "R0F-SCHEMA-Profit",
+        "R0F-SCHEMA-TimestampMsc"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-08",
+      "TestIDs": [
+        "R0F-BUCKET-PERMUTATION",
+        "R0F-ALLOCATION-EXACT",
+        "R0F-ALLOCATION-MALFORMED-SOURCE",
+        "R0F-PREPARED-CONSERVATION"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-09",
+      "TestIDs": [
+        "R0F-EXACT-REPLAY",
+        "R0F-ALTERED-REPLAY",
+        "R0F-RECONCILE-components",
+        "R0F-RECONCILE-net",
+        "R0F-RECONCILE-account"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-10",
+      "TestIDs": [
+        "R0F-COST-malformed",
+        "R0F-COST-unknown",
+        "R0F-COST-known"
+      ],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime"
+    },
+    {
+      "RequirementID": "R0F-11",
+      "TestIDs": [],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime",
+      "PreparationEvidence": "Tests/Evidence/NEXT_STAGE_02B_R0F_CONSISTENCY.json#ADMIN-16"
+    },
+    {
+      "RequirementID": "R0F-12",
+      "TestIDs": [],
+      "ProofBoundary": "Candidate fixture/math/encoding only; documents/admin tests cover decision preparation, not production runtime",
+      "PreparationEvidence": "Tests/Evidence/NEXT_STAGE_02B_R0F_CONSISTENCY.json#R1-SCOPE"
+    }
+  ],
+  "EconomicFields": [
+    {
+      "Field": "SchemaVersion",
+      "ExactType": "ulong, supported proposed version1; unknown version UNAVAILABLE",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Approved economic schema registry",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "Broker",
+      "ExactType": "exact nonempty UTF8/no NUL; closed enum where applicable; no NFC/casefold guessing",
+      "SourceKey": true,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker/account context",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Legacy key lacks account namespace; independent storage/history ownership receipt required; do not substitute current terminal account/server.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "Server",
+      "ExactType": "exact nonempty UTF8/no NUL; closed enum where applicable; no NFC/casefold guessing",
+      "SourceKey": true,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker/account context",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Legacy key lacks account namespace; independent storage/history ownership receipt required; do not substitute current terminal account/server.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "AccountLogin",
+      "ExactType": "long positive1..2^63-1",
+      "SourceKey": true,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker/account context",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Legacy key lacks account namespace; independent storage/history ownership receipt required; do not substitute current terminal account/server.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "Symbol",
+      "ExactType": "exact nonempty UTF8/no NUL; closed enum where applicable; no NFC/casefold guessing",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "Magic",
+      "ExactType": "long signed[-2^63,2^63-1], nonzero for this EA-attributed profile; external/manual deals remain economic facts outside this eligible profile",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "CycleID",
+      "ExactType": "ulong1..2^64-1",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent EA-origin journal association, never current consumption context/comment",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "DealTicket",
+      "ExactType": "ulong1..2^64-1",
+      "SourceKey": true,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "OrderTicket",
+      "ExactType": "ulong1..2^64-1",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "PositionIdentifier",
+      "ExactType": "ulong1..2^64-1",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "ActionID",
+      "ExactType": "ulong1..2^64-1",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent EA-origin journal association, never current consumption context/comment",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "EventID",
+      "ExactType": "ulong1..2^64-1",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent EA-origin journal association, never current consumption context/comment",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "Role",
+      "ExactType": "exact nonempty UTF8/no NUL; closed enum where applicable; no NFC/casefold guessing",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent EA-origin journal association, never current consumption context/comment",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "EntryType",
+      "ExactType": "exact nonempty UTF8/no NUL; closed enum where applicable; no NFC/casefold guessing",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "DealType",
+      "ExactType": "exact nonempty UTF8/no NUL; closed enum where applicable; no NFC/casefold guessing",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "TimestampMsc",
+      "ExactType": "long positive1..2^63-1",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Legacy seconds timestamp does not prove missing milliseconds; no automatic *1000 inference as exact original timestamp.",
+      "Units": "milliseconds"
+    },
+    {
+      "Field": "Volume",
+      "ExactType": "finite binary64 raw observation; no money rounding; Volume/Price>0",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "lots"
+    },
+    {
+      "Field": "Price",
+      "ExactType": "finite binary64 raw observation; no money rounding; Volume/Price>0",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "quote price"
+    },
+    {
+      "Field": "Profit",
+      "ExactType": "finite binary64 raw observation; no money rounding; Volume/Price>0",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "account currency raw observation"
+    },
+    {
+      "Field": "Swap",
+      "ExactType": "finite binary64 raw observation; no money rounding; Volume/Price>0",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "account currency raw observation"
+    },
+    {
+      "Field": "Commission",
+      "ExactType": "finite binary64 raw observation; no money rounding; Volume/Price>0",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "account currency raw observation"
+    },
+    {
+      "Field": "Fee",
+      "ExactType": "finite binary64 raw observation; no money rounding; Volume/Price>0",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "account currency raw observation"
+    },
+    {
+      "Field": "DealNet",
+      "ExactType": "finite binary64 raw observation; no money rounding; Volume/Price>0",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker history observation/receipt",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "account currency raw observation"
+    },
+    {
+      "Field": "Currency",
+      "ExactType": "exact nonempty UTF8/no NUL; closed enum where applicable; no NFC/casefold guessing",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker/account context",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "Precision",
+      "ExactType": "known money digits; fixture0..8; production currency policy separately approved; not SYMBOL_DIGITS",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent broker/account context",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "SourcePlanApplicable",
+      "ExactType": "exact bool from independent origin association; not user assertion",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent EA-origin journal association, never current consumption context/comment",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "SourcePlan",
+      "ExactType": "ulong1..2^64-1 when applicable; None only independently NOT_APPLICABLE; unknown applicable =>UNAVAILABLE",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent EA-origin journal association, never current consumption context/comment",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "SourcePolicyApplicable",
+      "ExactType": "exact bool from independent origin association; not user assertion",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent EA-origin journal association, never current consumption context/comment",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    },
+    {
+      "Field": "SourcePolicyVersion",
+      "ExactType": "ulong1..2^64-1 when applicable; None only independently NOT_APPLICABLE; unknown applicable =>UNAVAILABLE",
+      "SourceKey": false,
+      "ImmutableEquality": true,
+      "Required": true,
+      "MayChangeDuringReconciliation": false,
+      "ReconciliationRule": "Corrections are separate versioned linked events; never overwrite original payload or call changed record NO_OP",
+      "Authority": "Independent EA-origin journal association, never current consumption context/comment",
+      "Serialization": "A typed length-prefix UTF8/T17Z or B typed binary/F64Z in fixed field order; profile not selected",
+      "Migration": "Preserve captured legacy value only if provenance/type/precision complete; never invent missing fields. Unknown required facts=>UNAVAILABLE/quarantine.",
+      "Units": "schema-defined/identifier"
+    }
+  ],
+  "AllocationImmutableFields": [
+    "SourceLogicalKey",
+    "AllocationID",
+    "AllocationEventID",
+    "AllocationPolicyVersion",
+    "Currency",
+    "Precision",
+    "EligibleSourceReceiptRef",
+    "OriginalBucketGrants",
+    "Phase",
+    "Unallocated"
+  ],
+  "AllocationMutableState": [
+    "Consumed",
+    "Reserved",
+    "Free",
+    "ReservationOwners",
+    "StateRevision",
+    "JournalReferences"
+  ],
+  "CodecProfiles": [
+    "HSBI-T17Z-1",
+    "HSBI-F64Z-1"
+  ],
+  "CodecSelected": null,
+  "TransitionPolicySelected": null,
+  "RuntimeEvidenceEdges": [
+    [
+      "BrokerEvidence",
+      "CapturedDeal"
+    ],
+    [
+      "EconomicSchema",
+      "RawEconomicIdentity"
+    ],
+    [
+      "CapturedDeal",
+      "RawEconomicIdentity"
+    ],
+    [
+      "OriginAssociationEvidence",
+      "AttributedEconomicIdentity"
+    ],
+    [
+      "RawEconomicIdentity",
+      "AttributedEconomicIdentity"
+    ],
+    [
+      "AttributedEconomicIdentity",
+      "ReconciledEconomicNet"
+    ],
+    [
+      "PostedReceiptAndPrecision",
+      "ReconciledEconomicNet"
+    ],
+    [
+      "ReconciledEconomicNet",
+      "AllocationIdentity"
+    ],
+    [
+      "AllocationSchema",
+      "AllocationIdentity"
+    ],
+    [
+      "PriorCommittedFundingIndex_t",
+      "AllocationIdentity"
+    ],
+    [
+      "AllocationIdentity",
+      "ConservationCheck"
+    ],
+    [
+      "BalanceSchema",
+      "ConservationCheck"
+    ],
+    [
+      "ConservationCheck",
+      "MoneyConsumptionJournal"
+    ],
+    [
+      "DurableBackend",
+      "MoneyConsumptionJournal"
+    ],
+    [
+      "MoneyConsumptionJournal",
+      "NextFundingIndex_t1"
+    ],
+    [
+      "NextFundingIndex_t1",
+      "AvailableReserve"
+    ],
+    [
+      "MoneyConsumptionJournal",
+      "AvailableReserve"
+    ],
+    [
+      "GlobalAttribution",
+      "AvailableReserve"
+    ],
+    [
+      "ReconciledEconomicNet",
+      "GlobalAttribution"
+    ],
+    [
+      "AvailableReserve",
+      "CatchUp"
+    ],
+    [
+      "SnapshotContent",
+      "CatchUp"
+    ],
+    [
+      "BrokerRiskMarginGeometry",
+      "CatchUp"
+    ],
+    [
+      "CatchUp",
+      "NewFar"
+    ]
+  ],
+  "RuntimeTopologicalOrder": [
+    "AllocationSchema",
+    "BalanceSchema",
+    "BrokerEvidence",
+    "BrokerRiskMarginGeometry",
+    "DurableBackend",
+    "EconomicSchema",
+    "OriginAssociationEvidence",
+    "PostedReceiptAndPrecision",
+    "PriorCommittedFundingIndex_t",
+    "SnapshotContent",
+    "CapturedDeal",
+    "RawEconomicIdentity",
+    "AttributedEconomicIdentity",
+    "ReconciledEconomicNet",
+    "AllocationIdentity",
+    "GlobalAttribution",
+    "ConservationCheck",
+    "MoneyConsumptionJournal",
+    "NextFundingIndex_t1",
+    "AvailableReserve",
+    "CatchUp",
+    "NewFar"
+  ],
+  "ApprovalDefinitionEdges": [
+    [
+      "D-02",
+      "D-01"
+    ],
+    [
+      "D-08",
+      "D-02"
+    ],
+    [
+      "D-01",
+      "D-03"
+    ],
+    [
+      "D-08",
+      "D-03"
+    ],
+    [
+      "D-02",
+      "D-04"
+    ],
+    [
+      "D-02",
+      "D-05"
+    ],
+    [
+      "D-08",
+      "D-05"
+    ],
+    [
+      "D-02",
+      "D-06"
+    ],
+    [
+      "D-08",
+      "D-06"
+    ],
+    [
+      "D-08",
+      "D-07"
+    ],
+    [
+      "D-01",
+      "CR-09"
+    ],
+    [
+      "D-02",
+      "CR-09"
+    ],
+    [
+      "D-04",
+      "CR-09"
+    ],
+    [
+      "D-06",
+      "CR-09"
+    ],
+    [
+      "SNAP-FIXTURE-1",
+      "CR-09"
+    ],
+    [
+      "FUNDING-GLOBAL-ATTRIBUTION",
+      "CR-09"
+    ],
+    [
+      "D-02",
+      "NUM-EXACT-1"
+    ],
+    [
+      "NUM-EXACT-1",
+      "NUM-DOMAIN-1"
+    ],
+    [
+      "MQL-DOMAIN",
+      "NUM-DOMAIN-1"
+    ],
+    [
+      "NUM-EXACT-1",
+      "NUM-CODEC"
+    ],
+    [
+      "D-08",
+      "SNAP-FIXTURE-1"
+    ],
+    [
+      "D-01",
+      "FUNDING-GLOBAL-ATTRIBUTION"
+    ],
+    [
+      "D-02",
+      "FUNDING-GLOBAL-ATTRIBUTION"
+    ],
+    [
+      "D-07",
+      "FUNDING-GLOBAL-ATTRIBUTION"
+    ],
+    [
+      "D-08",
+      "FUNDING-GLOBAL-ATTRIBUTION"
+    ],
+    [
+      "D-01",
+      "BALANCE-SCHEMA-MAPPING"
+    ],
+    [
+      "D-02",
+      "BALANCE-SCHEMA-MAPPING"
+    ],
+    [
+      "D-08",
+      "BALANCE-SCHEMA-MAPPING"
+    ]
+  ],
+  "ApprovalTopologicalOrder": [
+    "D-08",
+    "MQL-DOMAIN",
+    "D-02",
+    "D-07",
+    "SNAP-FIXTURE-1",
+    "D-01",
+    "D-04",
+    "D-05",
+    "D-06",
+    "NUM-EXACT-1",
+    "BALANCE-SCHEMA-MAPPING",
+    "D-03",
+    "FUNDING-GLOBAL-ATTRIBUTION",
+    "NUM-CODEC",
+    "NUM-DOMAIN-1",
+    "CR-09"
+  ],
+  "Statement": "A/B/C are mutually exclusive execution policies; all are tested alternatives, none becomes approved automatically."
+}

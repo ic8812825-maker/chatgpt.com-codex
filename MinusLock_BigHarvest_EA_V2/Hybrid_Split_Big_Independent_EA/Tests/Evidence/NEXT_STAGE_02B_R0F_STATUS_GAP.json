@@ -1,0 +1,48 @@
+{
+  "Rows": [
+    {
+      "PositiveControl": "COVERED",
+      "Cost": "CONFLICT",
+      "Authorize": "REJECT",
+      "Apply": "REJECT",
+      "ZeroDelta": true,
+      "InputsUnchanged": true
+    },
+    {
+      "PositiveControl": "COVERED",
+      "Cost": "UNAVAILABLE",
+      "Authorize": "REJECT",
+      "Apply": "REJECT",
+      "ZeroDelta": true,
+      "InputsUnchanged": true
+    }
+  ],
+  "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+  "MutantSourceHash": "81153fda1fbae6f9bdd68a92b8bb854e80b0cade24df782f99dd0b2bb4907201",
+  "ExactEdit": {
+    "old": "if expected is not None:dto.validate(\"CostSet\",expected)",
+    "new": "pass"
+  },
+  "SourceFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+  "Classification": "STATUS_CONTRACT_GAP_NOT_GLOBAL_REDUNDANCY",
+  "ProductionRemediated": false,
+  "IndependentExpected": [
+    {
+      "PositiveControl": "COVERED",
+      "Cost": "CONFLICT",
+      "Authorize": "REJECT",
+      "Apply": "REJECT",
+      "ZeroDelta": true,
+      "InputsUnchanged": true
+    },
+    {
+      "PositiveControl": "COVERED",
+      "Cost": "UNAVAILABLE",
+      "Authorize": "REJECT",
+      "Apply": "REJECT",
+      "ZeroDelta": true,
+      "InputsUnchanged": true
+    }
+  ],
+  "Result": "PASS"
+}

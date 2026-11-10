@@ -1,0 +1,280 @@
+{
+  "BaseSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "TestedSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "UTC": "2026-11-10T21:16:17.752421+00:00",
+  "RunnerSourceHash": "031008d7e08cfe418e74d2e34570b2e894ba6f9b22294c985ae1c921eaa43025",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0f_consistency.py": "031008d7e08cfe418e74d2e34570b2e894ba6f9b22294c985ae1c921eaa43025",
+    "Tests/Static/check_hsbi_02b_r0f_common.py": "55c1a08700a12c66184ca58438dfda46a40890006e816e77c087625ca6f5e4e2"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0f_consistency.py"
+  ],
+  "StartedUtc": "2026-11-10T21:16:17.749586+00:00",
+  "FinishedUtc": "2026-11-10T21:16:17.752619+00:00",
+  "SourceInputs": {
+    "Tests/Reference/hsbi_02b_r0f_decisions.py": "9217abcdcea2c763a0e03f62f66cebf820d17e0da2d2f9996e0f55b6b0a7c066",
+    "Tests/Reference/hsbi_02b_r0f_independent_fixtures.py": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5"
+  },
+  "Rows": [
+    {
+      "TestID": "ADMIN-16",
+      "Expected": [
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "CR-09",
+        "NUM-EXACT-1",
+        "NUM-DOMAIN-1",
+        "NUM-CODEC",
+        "SNAP-FIXTURE-1",
+        "FUNDING-GLOBAL-ATTRIBUTION",
+        "MQL-DOMAIN",
+        "BALANCE-SCHEMA-MAPPING"
+      ],
+      "Actual": [
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "CR-09",
+        "NUM-EXACT-1",
+        "NUM-DOMAIN-1",
+        "NUM-CODEC",
+        "SNAP-FIXTURE-1",
+        "FUNDING-GLOBAL-ATTRIBUTION",
+        "MQL-DOMAIN",
+        "BALANCE-SCHEMA-MAPPING"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "ADMIN-COMPLETE-FIELDS",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "ADMIN-NO-APPROVAL",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "ADMIN-READINESS",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "APPROVAL-DAG",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "RUNTIME-DAG",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "CYCLE-NEGATIVE-CONTROL",
+      "Expected": false,
+      "Actual": false,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "DEPENDENCIES-KNOWN",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "D05-NOT-SELECTED",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "CODEC-NOT-SELECTED",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "FIELD-ORDER",
+      "Expected": [
+        "SchemaVersion",
+        "Broker",
+        "Server",
+        "AccountLogin",
+        "Symbol",
+        "Magic",
+        "CycleID",
+        "DealTicket",
+        "OrderTicket",
+        "PositionIdentifier",
+        "ActionID",
+        "EventID",
+        "Role",
+        "EntryType",
+        "DealType",
+        "TimestampMsc",
+        "Volume",
+        "Price",
+        "Profit",
+        "Swap",
+        "Commission",
+        "Fee",
+        "DealNet",
+        "Currency",
+        "Precision",
+        "SourcePlanApplicable",
+        "SourcePlan",
+        "SourcePolicyApplicable",
+        "SourcePolicyVersion"
+      ],
+      "Actual": [
+        "SchemaVersion",
+        "Broker",
+        "Server",
+        "AccountLogin",
+        "Symbol",
+        "Magic",
+        "CycleID",
+        "DealTicket",
+        "OrderTicket",
+        "PositionIdentifier",
+        "ActionID",
+        "EventID",
+        "Role",
+        "EntryType",
+        "DealType",
+        "TimestampMsc",
+        "Volume",
+        "Price",
+        "Profit",
+        "Swap",
+        "Commission",
+        "Fee",
+        "DealNet",
+        "Currency",
+        "Precision",
+        "SourcePlanApplicable",
+        "SourcePlan",
+        "SourcePolicyApplicable",
+        "SourcePolicyVersion"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "FIELD-IMMUTABLE",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "SOURCE-KEY-FIELDS",
+      "Expected": [
+        "Broker",
+        "Server",
+        "AccountLogin",
+        "DealTicket"
+      ],
+      "Actual": [
+        "Broker",
+        "Server",
+        "AccountLogin",
+        "DealTicket"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "TIMESTAMP-SIGNED",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "ALLOCATION-STATE-SEPARATED",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "MONEY-TYPE-REGISTRY",
+      "Expected": [
+        "ProjectedBasketNet",
+        "ProjectedCloseNowNet",
+        "ActualRealizedDealNet",
+        "ReconciledEconomicNet",
+        "EligibleSourceGrant",
+        "AvailableReserve"
+      ],
+      "Actual": [
+        "ProjectedBasketNet",
+        "ProjectedCloseNowNet",
+        "ActualRealizedDealNet",
+        "ReconciledEconomicNet",
+        "EligibleSourceGrant",
+        "AvailableReserve"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "NO-IMPLICIT-CONVERSION",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R1-SCOPE",
+      "Expected": [
+        "Include/Money/HSBI_EconomicLedgerTypes.mqh"
+      ],
+      "Actual": [
+        "Include/Money/HSBI_EconomicLedgerTypes.mqh"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R1-NO-AUTHORIZATION",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R1-CRITERIA",
+      "Expected": 20,
+      "Actual": 20,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "EXTENDED-JUSTIFIED",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "PROPOSED-DATA-MATCH",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    }
+  ],
+  "Pass": 22,
+  "Fail": 0,
+  "ExitCode": 0
+}

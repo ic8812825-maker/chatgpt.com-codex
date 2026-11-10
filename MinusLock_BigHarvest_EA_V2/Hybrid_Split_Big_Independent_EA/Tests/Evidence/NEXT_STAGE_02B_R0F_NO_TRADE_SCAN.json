@@ -1,0 +1,20 @@
+{
+  "BaseSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "TestedSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "UTC": "2026-11-10T21:20:07.652408+00:00",
+  "RunnerSourceHash": "c8c9f9e43f2194aa1786d83f2d571e5720cfb97c598933aed18c425d3e5cf776",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0e_package.py": "c8c9f9e43f2194aa1786d83f2d571e5720cfb97c598933aed18c425d3e5cf776",
+    "Tests/Static/check_hsbi_02b_r0f_common.py": "55c1a08700a12c66184ca58438dfda46a40890006e816e77c087625ca6f5e4e2"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "ActualScan": {
+    "files": 74,
+    "forbidden": [],
+    "controls": true,
+    "guard": true
+  },
+  "Scope": "STATIC_SOURCE_ONLY",
+  "MQL5Runtime": "NOT_RUN",
+  "ExitCode": 0
+}

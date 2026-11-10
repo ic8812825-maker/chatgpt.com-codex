@@ -1,0 +1,1726 @@
+{
+  "BaseSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "TestedSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "UTC": "2026-11-10T21:16:17.628902+00:00",
+  "RunnerSourceHash": "11ee9109e4d4e6a2a1e1ebde52ddf97a5fe518114a63496ae97ecb4722d93fec",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0f_contracts.py": "11ee9109e4d4e6a2a1e1ebde52ddf97a5fe518114a63496ae97ecb4722d93fec",
+    "Tests/Static/check_hsbi_02b_r0f_common.py": "55c1a08700a12c66184ca58438dfda46a40890006e816e77c087625ca6f5e4e2"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0f_contracts.py"
+  ],
+  "StartedUtc": "2026-11-10T21:16:17.557945+00:00",
+  "FinishedUtc": "2026-11-10T21:16:17.629102+00:00",
+  "FixtureSourceHash": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5",
+  "CandidateSourceHash": "5e45284d78dcc29e127a9a2946ee8bf6780bd5b525368eb0a96152b5785713a5",
+  "Scenarios": 116,
+  "Pass": 116,
+  "Fail": 0,
+  "InfrastructureErrors": 0,
+  "Rows": [
+    {
+      "TestID": "R0F-BALANCE-TRACE",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        [
+          "COMMITTED_IN_MEMORY",
+          [
+            5000,
+            0,
+            1500,
+            3500,
+            2
+          ],
+          true
+        ],
+        [
+          "REJECT",
+          [
+            5000,
+            0,
+            1500,
+            3500,
+            2
+          ],
+          true
+        ],
+        [
+          "COMMITTED_IN_MEMORY",
+          [
+            5000,
+            1000,
+            1500,
+            2500,
+            3
+          ],
+          true
+        ],
+        [
+          "COMMITTED_IN_MEMORY",
+          [
+            5000,
+            1000,
+            1000,
+            3000,
+            4
+          ],
+          true
+        ],
+        [
+          "COMMITTED_IN_MEMORY",
+          [
+            5000,
+            2000,
+            0,
+            3000,
+            5
+          ],
+          true
+        ]
+      ],
+      "Actual": [
+        [
+          "COMMITTED_IN_MEMORY",
+          [
+            5000,
+            0,
+            1500,
+            3500,
+            2
+          ],
+          true
+        ],
+        [
+          "REJECT",
+          [
+            5000,
+            0,
+            1500,
+            3500,
+            2
+          ],
+          true
+        ],
+        [
+          "COMMITTED_IN_MEMORY",
+          [
+            5000,
+            1000,
+            1500,
+            2500,
+            3
+          ],
+          true
+        ],
+        [
+          "COMMITTED_IN_MEMORY",
+          [
+            5000,
+            1000,
+            1000,
+            3000,
+            4
+          ],
+          true
+        ],
+        [
+          "COMMITTED_IN_MEMORY",
+          [
+            5000,
+            2000,
+            0,
+            3000,
+            5
+          ],
+          true
+        ]
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-MIGRATE-known",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "MAPPED_FIXTURE_ONLY",
+        {
+          "OriginalGrant": 5000,
+          "Consumed": 1000,
+          "Reserved": 1500,
+          "Free": 2500,
+          "RemainingGross": 4000
+        }
+      ],
+      "Actual": [
+        "MAPPED_FIXTURE_ONLY",
+        {
+          "OriginalGrant": 5000,
+          "Consumed": 1000,
+          "Reserved": 1500,
+          "Free": 2500,
+          "RemainingGross": 4000
+        }
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-MIGRATE-currency",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-MIGRATE-precision",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-MIGRATE-owner",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-MIGRATE-double-count",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "CONFLICT",
+        null
+      ],
+      "Actual": [
+        "CONFLICT",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-EXACT-REPLAY",
+      "RequirementID": "R0F-01/R0F-09",
+      "Expected": [
+        "NO_OP",
+        true,
+        true
+      ],
+      "Actual": [
+        "NO_OP",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-ALTERED-REPLAY",
+      "RequirementID": "R0F-01/R0F-09",
+      "Expected": [
+        "CONFLICT",
+        true,
+        true
+      ],
+      "Actual": [
+        "CONFLICT",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-STATE-history",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "UNAVAILABLE",
+        true,
+        true
+      ],
+      "Actual": [
+        "UNAVAILABLE",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-STATE-prepared",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Actual": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-STATE-currency",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "UNAVAILABLE",
+        true,
+        true
+      ],
+      "Actual": [
+        "UNAVAILABLE",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-STATE-unknown-revision",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Actual": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CONSUME-negative",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Actual": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CONSUME-zero",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Actual": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CONSUME-excess",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Actual": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CONSUME-bool",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Actual": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CONSUME-event-bool",
+      "RequirementID": "R0F-01",
+      "Expected": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Actual": [
+        "REJECT",
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-PROJECTED-NOT-ACTUAL",
+      "RequirementID": "R0F-02",
+      "Expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-RECONCILED-CONTROL",
+      "RequirementID": "R0F-02",
+      "Expected": [
+        "RECONCILED_FIXTURE_ONLY",
+        5000
+      ],
+      "Actual": [
+        "RECONCILED_FIXTURE_ONLY",
+        5000
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-RECONCILE-components",
+      "RequirementID": "R0F-02/R0F-09",
+      "Expected": [
+        "CONFLICT",
+        null
+      ],
+      "Actual": [
+        "CONFLICT",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-RECONCILE-net",
+      "RequirementID": "R0F-02/R0F-09",
+      "Expected": [
+        "CONFLICT",
+        null
+      ],
+      "Actual": [
+        "CONFLICT",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-RECONCILE-account",
+      "RequirementID": "R0F-02/R0F-09",
+      "Expected": [
+        "CONFLICT",
+        null
+      ],
+      "Actual": [
+        "CONFLICT",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-UNVERIFIED-PRECISION",
+      "RequirementID": "R0F-06",
+      "Expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-POSTED-COMPONENTS-MISMATCH",
+      "RequirementID": "R0F-02",
+      "Expected": [
+        "CONFLICT",
+        null
+      ],
+      "Actual": [
+        "CONFLICT",
+        null
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-SMALL-ONLY",
+      "RequirementID": "R0F-03",
+      "Expected": [
+        "ALLOCATABLE_FIXTURE_ONLY",
+        {
+          "BigReserve": 0,
+          "SmallResidualHeld": 1000
+        }
+      ],
+      "Actual": [
+        "ALLOCATABLE_FIXTURE_ONLY",
+        {
+          "BigReserve": 0,
+          "SmallResidualHeld": 1000
+        }
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-OPENING-NO-GRANT",
+      "RequirementID": "R0F-03",
+      "Expected": [
+        "NOT_HARVEST_SOURCE",
+        {
+          "BigReserve": 0,
+          "SmallResidualHeld": 0
+        }
+      ],
+      "Actual": [
+        "NOT_HARVEST_SOURCE",
+        {
+          "BigReserve": 0,
+          "SmallResidualHeld": 0
+        }
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-NEGATIVE-SOURCE",
+      "RequirementID": "R0F-02",
+      "Expected": [
+        "ALLOCATABLE_FIXTURE_ONLY",
+        {
+          "BigReserve": 0,
+          "SmallResidualHeld": 0
+        }
+      ],
+      "Actual": [
+        "ALLOCATABLE_FIXTURE_ONLY",
+        {
+          "BigReserve": 0,
+          "SmallResidualHeld": 0
+        }
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-ABSOLUTE-FAR",
+      "RequirementID": "R0F-04",
+      "Expected": {
+        "absolute": 5000,
+        "incremental": 1000,
+        "absoluteCovered": false,
+        "incrementCovered": true
+      },
+      "Actual": {
+        "absolute": 5000,
+        "incremental": 1000,
+        "absoluteCovered": false,
+        "incrementCovered": true
+      },
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-MARGIN-ZERO-REJECT",
+      "RequirementID": "R0F-04",
+      "Expected": false,
+      "Actual": false,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-ALL-LEVEL-MARGIN",
+      "RequirementID": "R0F-04",
+      "Expected": -600,
+      "Actual": -600,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-TRANSITION-A",
+      "RequirementID": "R0F-05",
+      "Expected": {
+        "status": "ASSESSED_FIXTURE_ONLY",
+        "policy": "A",
+        "trace": [
+          {
+            "Net": -1500,
+            "CurrentLoss": 1500,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          },
+          {
+            "Net": 8500,
+            "CurrentLoss": 0,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": true
+          }
+        ]
+      },
+      "Actual": {
+        "status": "ASSESSED_FIXTURE_ONLY",
+        "policy": "A",
+        "trace": [
+          {
+            "Net": -1500,
+            "CurrentLoss": 1500,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          },
+          {
+            "Net": 8500,
+            "CurrentLoss": 0,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": true
+          }
+        ]
+      },
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-TRANSITION-B",
+      "RequirementID": "R0F-05",
+      "Expected": {
+        "status": "ASSESSED_FIXTURE_ONLY",
+        "policy": "B",
+        "trace": [
+          {
+            "Net": -1500,
+            "CurrentLoss": 1500,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          },
+          {
+            "Net": 8500,
+            "CurrentLoss": 0,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          }
+        ]
+      },
+      "Actual": {
+        "status": "ASSESSED_FIXTURE_ONLY",
+        "policy": "B",
+        "trace": [
+          {
+            "Net": -1500,
+            "CurrentLoss": 1500,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          },
+          {
+            "Net": 8500,
+            "CurrentLoss": 0,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          }
+        ]
+      },
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-TRANSITION-C",
+      "RequirementID": "R0F-05",
+      "Expected": {
+        "status": "ASSESSED_FIXTURE_ONLY",
+        "policy": "C",
+        "trace": [
+          {
+            "Net": -1500,
+            "CurrentLoss": 1500,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          },
+          {
+            "Net": 8500,
+            "CurrentLoss": 0,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          }
+        ]
+      },
+      "Actual": {
+        "status": "ASSESSED_FIXTURE_ONLY",
+        "policy": "C",
+        "trace": [
+          {
+            "Net": -1500,
+            "CurrentLoss": 1500,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          },
+          {
+            "Net": 8500,
+            "CurrentLoss": 0,
+            "PeakLoss": 1500,
+            "StickyBreach": true,
+            "CapGate": false
+          }
+        ]
+      },
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-TRANSITION-CAP-EQUALITY",
+      "RequirementID": "R0F-05",
+      "Expected": [
+        true,
+        true,
+        true
+      ],
+      "Actual": [
+        true,
+        true,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-TRANSITION-NO-DEFAULT",
+      "RequirementID": "R0F-05",
+      "Expected": {
+        "status": "UNAVAILABLE",
+        "policy": null,
+        "trace": []
+      },
+      "Actual": {
+        "status": "UNAVAILABLE",
+        "policy": null,
+        "trace": []
+      },
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-zero",
+      "RequirementID": "R0F-06",
+      "Expected": "0.0000000000000000e+000",
+      "Actual": "0.0000000000000000e+000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-zero",
+      "RequirementID": "R0F-06",
+      "Expected": "0000000000000000",
+      "Actual": "0000000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INDEPENDENT-IEEE-zero",
+      "RequirementID": "R0F-06",
+      "Expected": "0000000000000000",
+      "Actual": "0000000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-negative-zero",
+      "RequirementID": "R0F-06",
+      "Expected": "0.0000000000000000e+000",
+      "Actual": "0.0000000000000000e+000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-negative-zero",
+      "RequirementID": "R0F-06",
+      "Expected": "0000000000000000",
+      "Actual": "0000000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INDEPENDENT-IEEE-negative-zero",
+      "RequirementID": "R0F-06",
+      "Expected": "0000000000000000",
+      "Actual": "0000000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-one",
+      "RequirementID": "R0F-06",
+      "Expected": "1.0000000000000000e+000",
+      "Actual": "1.0000000000000000e+000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-one",
+      "RequirementID": "R0F-06",
+      "Expected": "3ff0000000000000",
+      "Actual": "3ff0000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INDEPENDENT-IEEE-one",
+      "RequirementID": "R0F-06",
+      "Expected": "3ff0000000000000",
+      "Actual": "3ff0000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-negative-five",
+      "RequirementID": "R0F-06",
+      "Expected": "-5.0000000000000000e+000",
+      "Actual": "-5.0000000000000000e+000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-negative-five",
+      "RequirementID": "R0F-06",
+      "Expected": "c014000000000000",
+      "Actual": "c014000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INDEPENDENT-IEEE-negative-five",
+      "RequirementID": "R0F-06",
+      "Expected": "c014000000000000",
+      "Actual": "c014000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-one-tenth",
+      "RequirementID": "R0F-06",
+      "Expected": "1.0000000000000001e-001",
+      "Actual": "1.0000000000000001e-001",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-one-tenth",
+      "RequirementID": "R0F-06",
+      "Expected": "3fb999999999999a",
+      "Actual": "3fb999999999999a",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INDEPENDENT-IEEE-one-tenth",
+      "RequirementID": "R0F-06",
+      "Expected": "3fb999999999999a",
+      "Actual": "3fb999999999999a",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-min-normal",
+      "RequirementID": "R0F-06",
+      "Expected": "2.2250738585072014e-308",
+      "Actual": "2.2250738585072014e-308",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-min-normal",
+      "RequirementID": "R0F-06",
+      "Expected": "0010000000000000",
+      "Actual": "0010000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INDEPENDENT-IEEE-min-normal",
+      "RequirementID": "R0F-06",
+      "Expected": "0010000000000000",
+      "Actual": "0010000000000000",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-min-subnormal",
+      "RequirementID": "R0F-06",
+      "Expected": "4.9406564584124654e-324",
+      "Actual": "4.9406564584124654e-324",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-min-subnormal",
+      "RequirementID": "R0F-06",
+      "Expected": "0000000000000001",
+      "Actual": "0000000000000001",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INDEPENDENT-IEEE-min-subnormal",
+      "RequirementID": "R0F-06",
+      "Expected": "0000000000000001",
+      "Actual": "0000000000000001",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-max-finite",
+      "RequirementID": "R0F-06",
+      "Expected": "1.7976931348623157e+308",
+      "Actual": "1.7976931348623157e+308",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-max-finite",
+      "RequirementID": "R0F-06",
+      "Expected": "7fefffffffffffff",
+      "Actual": "7fefffffffffffff",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INDEPENDENT-IEEE-max-finite",
+      "RequirementID": "R0F-06",
+      "Expected": "7fefffffffffffff",
+      "Actual": "7fefffffffffffff",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-RECORD-GOLDEN",
+      "RequirementID": "R0F-06",
+      "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-GOLDEN",
+      "RequirementID": "R0F-06",
+      "Expected": "485342492d5431375a2d310a7331333a536368656d6156657273696f6e69313a3173363a42726f6b657273323a423173363a53657276657273323a53317331323a4163636f756e744c6f67696e69313a3173363a53796d626f6c73363a45555255534473353a4d6167696369313a3773373a4379636c65494469313a317331303a4465616c5469636b657469323a31317331313a4f726465725469636b657469323a31327331383a506f736974696f6e4964656e74696669657269323a313373383a416374696f6e494469313a3173373a4576656e74494469323a333173343a526f6c6573373a426967436f726573393a456e7472795479706573333a4f555473383a4465616c5479706573343a53454c4c7331323a54696d657374616d704d736369363a31303030303073363a566f6c756d656432333a312e30303030303030303030303030303030652b30303073353a50726963656432333a312e32353030303030303030303030303030652b30303073363a50726f6669746432333a362e30303030303030303030303030303030652b30303173343a537761706432343a2d322e30303030303030303030303030303030652b3030307331303a436f6d6d697373696f6e6432343a2d372e30303030303030303030303030303030652b30303073333a4665656432343a2d312e30303030303030303030303030303030652b30303073373a4465616c4e65746432333a352e30303030303030303030303030303030652b30303173383a43757272656e637973333a55534473393a507265636973696f6e69313a327332303a536f75726365506c616e4170706c696361626c6562317331303a536f75726365506c616e69313a317332323a536f75726365506f6c6963794170706c696361626c6562317331393a536f75726365506f6c69637956657273696f6e69313a31",
+      "Actual": "485342492d5431375a2d310a7331333a536368656d6156657273696f6e69313a3173363a42726f6b657273323a423173363a53657276657273323a53317331323a4163636f756e744c6f67696e69313a3173363a53796d626f6c73363a45555255534473353a4d6167696369313a3773373a4379636c65494469313a317331303a4465616c5469636b657469323a31317331313a4f726465725469636b657469323a31327331383a506f736974696f6e4964656e74696669657269323a313373383a416374696f6e494469313a3173373a4576656e74494469323a333173343a526f6c6573373a426967436f726573393a456e7472795479706573333a4f555473383a4465616c5479706573343a53454c4c7331323a54696d657374616d704d736369363a31303030303073363a566f6c756d656432333a312e30303030303030303030303030303030652b30303073353a50726963656432333a312e32353030303030303030303030303030652b30303073363a50726f6669746432333a362e30303030303030303030303030303030652b30303173343a537761706432343a2d322e30303030303030303030303030303030652b3030307331303a436f6d6d697373696f6e6432343a2d372e30303030303030303030303030303030652b30303073333a4665656432343a2d312e30303030303030303030303030303030652b30303073373a4465616c4e65746432333a352e30303030303030303030303030303030652b30303173383a43757272656e637973333a55534473393a507265636973696f6e69313a327332303a536f75726365506c616e4170706c696361626c6562317331303a536f75726365506c616e69313a317332323a536f75726365506f6c6963794170706c696361626c6562317331393a536f75726365506f6c69637956657273696f6e69313a31",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-A-ROUNDTRIP",
+      "RequirementID": "R0F-06",
+      "Expected": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Actual": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-B-ROUNDTRIP",
+      "RequirementID": "R0F-06",
+      "Expected": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Actual": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-DELIMITER-A",
+      "RequirementID": "R0F-06",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-DELIMITER-B",
+      "RequirementID": "R0F-06",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-CODEC-PROFILES-DISTINCT",
+      "RequirementID": "R0F-06",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-SchemaVersion",
+      "RequirementID": "R0F-07",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Symbol",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Magic",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-CycleID",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-OrderTicket",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-PositionIdentifier",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-ActionID",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-EventID",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Role",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-EntryType",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-DealType",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-TimestampMsc",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Volume",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Price",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Profit",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Swap",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Commission",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Fee",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-DealNet",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Currency",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-Precision",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-SourcePlanApplicable",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-SourcePlan",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-SourcePolicyApplicable",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-IDENTITY-SourcePolicyVersion",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-NAMESPACE-Broker",
+      "RequirementID": "R0F-07",
+      "Expected": "NEW_IDENTITY_ONLY",
+      "Actual": "NEW_IDENTITY_ONLY",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-NAMESPACE-Server",
+      "RequirementID": "R0F-07",
+      "Expected": "NEW_IDENTITY_ONLY",
+      "Actual": "NEW_IDENTITY_ONLY",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-NAMESPACE-AccountLogin",
+      "RequirementID": "R0F-07",
+      "Expected": "NEW_IDENTITY_ONLY",
+      "Actual": "NEW_IDENTITY_ONLY",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-NAMESPACE-DealTicket",
+      "RequirementID": "R0F-07",
+      "Expected": "NEW_IDENTITY_ONLY",
+      "Actual": "NEW_IDENTITY_ONLY",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-RAW-SIGNED-SUM",
+      "RequirementID": "R0F-02",
+      "Expected": [
+        50,
+        1
+      ],
+      "Actual": [
+        50,
+        1
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-RAW-NOT-POSTED",
+      "RequirementID": "R0F-02/R0F-06",
+      "Expected": [
+        10808639105689191,
+        36028797018963968
+      ],
+      "Actual": [
+        10808639105689191,
+        36028797018963968
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-ECONOMIC-EXACT",
+      "RequirementID": "R0F-07",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-ECONOMIC-SAME-NET-ALTERED-COMPONENTS",
+      "RequirementID": "R0F-07",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-SCHEMA-AccountLogin",
+      "RequirementID": "R0F-07",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-SCHEMA-Magic",
+      "RequirementID": "R0F-07",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-SCHEMA-Precision",
+      "RequirementID": "R0F-07",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-SCHEMA-Currency",
+      "RequirementID": "R0F-07",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-SCHEMA-SourcePlan",
+      "RequirementID": "R0F-07",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-SCHEMA-Profit",
+      "RequirementID": "R0F-07",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-SCHEMA-TimestampMsc",
+      "RequirementID": "R0F-07",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-BUCKET-PERMUTATION",
+      "RequirementID": "R0F-08",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-ALLOCATION-EXACT",
+      "RequirementID": "R0F-08",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-ALLOCATION-MALFORMED-SOURCE",
+      "RequirementID": "R0F-08",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-PREPARED-CONSERVATION",
+      "RequirementID": "R0F-08",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-COST-malformed",
+      "RequirementID": "R0F-10",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-COST-unknown",
+      "RequirementID": "R0F-10",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-COST-known",
+      "RequirementID": "R0F-10",
+      "Expected": "COVERED_FIXTURE_ONLY",
+      "Actual": "COVERED_FIXTURE_ONLY",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-INT64-SMALL-DEBITS",
+      "RequirementID": "R0F-06",
+      "Expected": [
+        9223372036854775805,
+        2,
+        true
+      ],
+      "Actual": [
+        9223372036854775805,
+        2,
+        true
+      ],
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-OVERFLOW-max-plus-one",
+      "RequirementID": "R0F-06",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "R0F-OVERFLOW-min-minus-one",
+      "RequirementID": "R0F-06",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS"
+    }
+  ],
+  "OperationTrace": [
+    {
+      "Before": {
+        "OriginalGrant": 5000,
+        "Consumed": 0,
+        "Reserved": 0,
+        "Free": 5000,
+        "Owners": {},
+        "Journal": {},
+        "Revision": 1,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "After": {
+        "OriginalGrant": 5000,
+        "Consumed": 0,
+        "Reserved": 1500,
+        "Free": 3500,
+        "Owners": {
+          "O1": 1500
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ]
+        },
+        "Revision": 2,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "Status": "COMMITTED_IN_MEMORY",
+      "InputUnchanged": true
+    },
+    {
+      "Before": {
+        "OriginalGrant": 5000,
+        "Consumed": 0,
+        "Reserved": 1500,
+        "Free": 3500,
+        "Owners": {
+          "O1": 1500
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ]
+        },
+        "Revision": 2,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "After": {
+        "OriginalGrant": 5000,
+        "Consumed": 0,
+        "Reserved": 1500,
+        "Free": 3500,
+        "Owners": {
+          "O1": 1500
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ]
+        },
+        "Revision": 2,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "Status": "REJECT",
+      "InputUnchanged": true
+    },
+    {
+      "Before": {
+        "OriginalGrant": 5000,
+        "Consumed": 0,
+        "Reserved": 1500,
+        "Free": 3500,
+        "Owners": {
+          "O1": 1500
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ]
+        },
+        "Revision": 2,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "After": {
+        "OriginalGrant": 5000,
+        "Consumed": 1000,
+        "Reserved": 1500,
+        "Free": 2500,
+        "Owners": {
+          "O1": 1500
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ],
+          "3": [
+            "CONSUME_FREE",
+            1000,
+            "O1",
+            2
+          ]
+        },
+        "Revision": 3,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "Status": "COMMITTED_IN_MEMORY",
+      "InputUnchanged": true
+    },
+    {
+      "Before": {
+        "OriginalGrant": 5000,
+        "Consumed": 1000,
+        "Reserved": 1500,
+        "Free": 2500,
+        "Owners": {
+          "O1": 1500
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ],
+          "3": [
+            "CONSUME_FREE",
+            1000,
+            "O1",
+            2
+          ]
+        },
+        "Revision": 3,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "After": {
+        "OriginalGrant": 5000,
+        "Consumed": 1000,
+        "Reserved": 1000,
+        "Free": 3000,
+        "Owners": {
+          "O1": 1000
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ],
+          "3": [
+            "CONSUME_FREE",
+            1000,
+            "O1",
+            2
+          ],
+          "4": [
+            "RELEASE",
+            500,
+            "O1",
+            3
+          ]
+        },
+        "Revision": 4,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "Status": "COMMITTED_IN_MEMORY",
+      "InputUnchanged": true
+    },
+    {
+      "Before": {
+        "OriginalGrant": 5000,
+        "Consumed": 1000,
+        "Reserved": 1000,
+        "Free": 3000,
+        "Owners": {
+          "O1": 1000
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ],
+          "3": [
+            "CONSUME_FREE",
+            1000,
+            "O1",
+            2
+          ],
+          "4": [
+            "RELEASE",
+            500,
+            "O1",
+            3
+          ]
+        },
+        "Revision": 4,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "After": {
+        "OriginalGrant": 5000,
+        "Consumed": 2000,
+        "Reserved": 0,
+        "Free": 3000,
+        "Owners": {
+          "O1": 0
+        },
+        "Journal": {
+          "1": [
+            "RESERVE",
+            1500,
+            "O1",
+            1
+          ],
+          "3": [
+            "CONSUME_FREE",
+            1000,
+            "O1",
+            2
+          ],
+          "4": [
+            "RELEASE",
+            500,
+            "O1",
+            3
+          ],
+          "5": [
+            "CONSUME_RESERVED",
+            1000,
+            "O1",
+            4
+          ]
+        },
+        "Revision": 5,
+        "Phase": "COMMITTED",
+        "Currency": "USD",
+        "Precision": 2,
+        "HistoryComplete": true
+      },
+      "Status": "COMMITTED_IN_MEMORY",
+      "InputUnchanged": true
+    }
+  ],
+  "StatusGapResult": "PASS",
+  "ExitCode": 0
+}

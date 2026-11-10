@@ -1,0 +1,48 @@
+{
+  "BaseSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "TestedSHA": "ad5ce78d74c53b34358cd7508982aa888976057a",
+  "UTC": "2026-11-10T21:20:09.409845+00:00",
+  "RunnerSourceHash": "44508f0dd96cf75dfab46ed4551ee05ebc4df92b665409a56ff539196cca214d",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0f_package.py": "44508f0dd96cf75dfab46ed4551ee05ebc4df92b665409a56ff539196cca214d",
+    "Tests/Static/check_hsbi_02b_r0f_common.py": "55c1a08700a12c66184ca58438dfda46a40890006e816e77c087625ca6f5e4e2"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Positive": "PASS",
+  "Errors": [],
+  "NegativeProbes": [
+    {
+      "ProbeID": "missing-baseline",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "bad-artifact",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "wrong-verifier",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "missing-production",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "strict-json-4",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "strict-json-5",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "strict-json-6",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "strict-json-7",
+      "Result": "PASS"
+    }
+  ],
+  "ExitCode": 0
+}

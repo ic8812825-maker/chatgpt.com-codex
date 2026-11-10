@@ -1,0 +1,12 @@
+{'Scenarios': 106, 'Pass': 106, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+{'Scenarios': 110, 'Pass': 110, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+{'Scenarios': 110, 'Pass': 110, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+{'Scenarios': 115, 'Pass': 115, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+{'Scenarios': 116, 'Pass': 116, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+
+Package development failure: initial checker compared descriptive C3FreshReferenceRerun with bare NOT_RUN; actual was NOT_RUN plus explicit scope. Exit1; corrected checker to require documented NOT_RUN prefix. No subject failure or historical edit.
