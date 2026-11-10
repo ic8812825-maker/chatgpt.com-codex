@@ -1,0 +1,2895 @@
+{
+  "Fields": [
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Broker",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Server",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "account",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Account",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "account",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Symbol",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "magic",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Magic",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "magic",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Cycle",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Position",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Deal",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Order",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Event",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Role",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Plan",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.PolicyVersion",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Revision",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicIdentity.Snapshot",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Broker",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Server",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "account",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Account",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "account",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Symbol",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "magic",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Magic",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "magic",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Cycle",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Position",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Deal",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Order",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Role",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Plan",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.PolicyVersion",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Revision",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.Snapshot",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.EconomicEventID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.AllocationEventID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.ConsumptionEventID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Identity.AllocationID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "EconomicIdentity",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.identity",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "EconomicIdentity",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.kind",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.entry",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.currency",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "digits",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.digits",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "digits",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.profit",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.swap",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.commission",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.fee",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.rawNet",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EconomicRecord.postedNet",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Allocation.AllocationID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "source",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Allocation.source",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "source",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Allocation.allocationEvent",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Allocation.PolicyVersion",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Allocation.currency",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "digits",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Allocation.digits",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "digits",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "Grants",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Allocation.grants",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "Grants",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.Plan",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.Revision",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.Snapshot",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.ConsumptionEventID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.AllocationID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.BatchID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.CostSetID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.bucket",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.purpose",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.intent",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.PrincipalAmount",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "EvaluationContext.fresh",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "HSBI-C1-REQUEST-1"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.schema",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "HSBI-C1-REQUEST-1"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "source",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.source",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "source",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.allocation",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.allocationEvent",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.consumptionEvent",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "Identity",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.identity",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "Identity",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.PrincipalAmount",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.bucket",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.purpose",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.intent",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.revision",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.BatchID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.CostSetID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "list": "CostClaim"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Request.costClaims",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "list": "CostClaim"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "HSBI-C1-BATCH-1"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.schema",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "HSBI-C1-BATCH-1"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.BatchID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.Broker",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.Server",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.Symbol",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.currency",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "account",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.Account",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "account",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.Cycle",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.Order",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.Position",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "digits",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.digits",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "digits",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.expectedVolume",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "lots"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "tuple": "source"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.RequiredDeals",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "tuple": "source"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.historyComplete",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": "text"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.NettingPolicy",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": "text"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BatchExpectedContext.cap",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "list": "source"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Batch.refs",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "list": "source"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": "BatchExpectedContext"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Batch.expected",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": "BatchExpectedContext"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "source",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.source",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "source",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.BatchID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.Symbol",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.currency",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.Cycle",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.Order",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.Position",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "digits",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.digits",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "digits",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.volume",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "lots"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FillRecord.net",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "HSBI-C1-COSTSET-1"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostSet.schema",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "HSBI-C1-COSTSET-1"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostSet.Complete",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostSet.currency",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "digits",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostSet.digits",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "digits",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostSet.PolicyVersion",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostSet.Authority",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "list": "CostFact"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostSet.items",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "list": "CostFact"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BucketState.OriginalGrant",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BucketState.Consumed",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BucketState.Reserved",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BucketState.RemainingFree",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "map": "money"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "BucketState.Reservations",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "map": "money"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "source",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerAllocation.source",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "source",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerAllocation.allocation",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerAllocation.allocationEvent",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerAllocation.policyVersion",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "object": {
+          "Carry": "BucketState",
+          "FinalReserve": "BucketState",
+          "PartialFar": "BucketState",
+          "ResidualHeld": "BucketState",
+          "Transition": "BucketState"
+        }
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerAllocation.buckets",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "object": {
+          "Carry": "BucketState",
+          "FinalReserve": "BucketState",
+          "PartialFar": "BucketState",
+          "ResidualHeld": "BucketState",
+          "Transition": "BucketState"
+        }
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "source",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerSource.source",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "source",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerSource.recordDigest",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerSource.granted",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerSource.net",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "enum": [
+          "COMMITTED",
+          "PREPARED"
+        ]
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerSource.phase",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "enum": [
+          "COMMITTED",
+          "PREPARED"
+        ]
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "LedgerSource.unallocated",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "FUND"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FundPayload.kind",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "FUND"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "source",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FundPayload.source",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "source",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FundPayload.allocation",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FundPayload.event",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "Grants",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FundPayload.grants",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "Grants",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "FundPayload.commit",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "CONSUME_FREE"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.kind",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "CONSUME_FREE"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "source",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.source",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "source",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.allocation",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.event",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.bucket",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.amount",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.intent",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.purpose",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "ConsumptionPayload.revision",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "JournalEntry.sequence",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "JournalPayload",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "JournalEntry.payload",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "JournalPayload",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "JournalEntry.digest",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "HSBI-R0E-FREE-1"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Ledger.schema",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "HSBI-R0E-FREE-1"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Ledger.revision",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "map": "LedgerSource"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Ledger.sources",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "map": "LedgerSource"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "map": "LedgerAllocation"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Ledger.allocations",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "map": "LedgerAllocation"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "map": "JournalEntry"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Ledger.events",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "map": "JournalEntry"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Ledger.journalComplete",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "Request",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.request",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "Request",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.digest",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.sourceDigest",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.allocationDigest",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.batchDigest",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.costDigest",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.DebitAmount",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.RequiredBalance",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.AdditionalRisk",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "EvaluationContext",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Receipt.evaluationContext",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "EvaluationContext",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "HSBI-C1-STORE-1"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Store.schema",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "HSBI-C1-STORE-1"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "Ledger",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Store.ledger",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "Ledger",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "map": "Receipt"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Store.receipts",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "map": "Receipt"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "HSBI-C1-STORE-SNAPSHOT-1"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "RecoverySnapshot.schema",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "HSBI-C1-STORE-SNAPSHOT-1"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "Store",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "RecoverySnapshot.payload",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "Store",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "RecoverySnapshot.checksum",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "literal": "HSBI-R0E-SNAPSHOT-1"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CoreSnapshot.schema",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "literal": "HSBI-R0E-SNAPSHOT-1"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "Ledger",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CoreSnapshot.payload",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "Ledger",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "hash",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CoreSnapshot.checksum",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "hash",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": {
+          "map": "EconomicRecord"
+        }
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.history",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": {
+          "map": "EconomicRecord"
+        }
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": {
+          "map": "JournalEntry"
+        }
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.coreJournal",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": {
+          "map": "JournalEntry"
+        }
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": {
+          "map": "Receipt"
+        }
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.receipts",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": {
+          "map": "Receipt"
+        }
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.complete",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": {
+          "map": "Allocation"
+        }
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.allocations",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": {
+          "map": "Allocation"
+        }
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": "EvaluationContext"
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.context",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": "EvaluationContext"
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": {
+          "map": "Batch"
+        }
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.batches",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": {
+          "map": "Batch"
+        }
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": {
+          "map": "FillRecord"
+        }
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.fillHistory",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": {
+          "map": "FillRecord"
+        }
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "nullable": {
+          "map": "CostSet"
+        }
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Authority.costSets",
+      "IdentityParticipation": false,
+      "Nullable": true,
+      "RangeOrEnum": {
+        "nullable": {
+          "map": "CostSet"
+        }
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Grants.FinalReserve",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Grants.PartialFar",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Grants.Transition",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Grants.Carry",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "Grants.ResidualHeld",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.CostID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "enum": [
+          "REQUIRED",
+          "NOT_APPLICABLE",
+          "KNOWN_ZERO",
+          "UNKNOWN"
+        ]
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.Applicability",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "enum": [
+          "REQUIRED",
+          "NOT_APPLICABLE",
+          "KNOWN_ZERO",
+          "UNKNOWN"
+        ]
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.Amount",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "enum": [
+          "SIGNED_COMPONENT",
+          "NONNEGATIVE_RISK"
+        ]
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.AmountBasis",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "enum": [
+          "SIGNED_COMPONENT",
+          "NONNEGATIVE_RISK"
+        ]
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.currency",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.RiskBasis",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.Window",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.AlreadyIncluded",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.PolicyVersion",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostFact.OverlapKnown",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.CostID",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "enum": [
+          "REQUIRED",
+          "NOT_APPLICABLE",
+          "KNOWN_ZERO",
+          "UNKNOWN"
+        ]
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.Applicability",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "enum": [
+          "REQUIRED",
+          "NOT_APPLICABLE",
+          "KNOWN_ZERO",
+          "UNKNOWN"
+        ]
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "money",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.Amount",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "money",
+      "Required": true,
+      "Units": "account currency"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": {
+        "enum": [
+          "SIGNED_COMPONENT",
+          "NONNEGATIVE_RISK"
+        ]
+      },
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.AmountBasis",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": {
+        "enum": [
+          "SIGNED_COMPONENT",
+          "NONNEGATIVE_RISK"
+        ]
+      },
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.currency",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.RiskBasis",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "text",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.Window",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "text",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.AlreadyIncluded",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "uid",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.PolicyVersion",
+      "IdentityParticipation": true,
+      "Nullable": false,
+      "RangeOrEnum": "uid",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    },
+    {
+      "AuthoritySource": "independent fixture provider or declared request/store boundary",
+      "ExactType": "bool",
+      "FailureOutcome": "REJECT/CONFLICT; unsupported schema/domain UNAVAILABLE",
+      "FieldPath": "CostClaim.AdditionalDeduction",
+      "IdentityParticipation": false,
+      "Nullable": false,
+      "RangeOrEnum": "bool",
+      "Required": true,
+      "Units": "dimensionless/schema-defined"
+    }
+  ],
+  "SchemaVersion": "HSBI-C2-SCHEMAS-1",
+  "Schemas": {
+    "Allocation": {
+      "object": {
+        "AllocationID": "text",
+        "PolicyVersion": "uid",
+        "allocationEvent": "uid",
+        "currency": "text",
+        "digits": "digits",
+        "grants": "Grants",
+        "source": "source"
+      }
+    },
+    "Authority": {
+      "object": {
+        "allocations": {
+          "nullable": {
+            "map": "Allocation"
+          }
+        },
+        "batches": {
+          "nullable": {
+            "map": "Batch"
+          }
+        },
+        "complete": "bool",
+        "context": {
+          "nullable": "EvaluationContext"
+        },
+        "coreJournal": {
+          "nullable": {
+            "map": "JournalEntry"
+          }
+        },
+        "costSets": {
+          "nullable": {
+            "map": "CostSet"
+          }
+        },
+        "fillHistory": {
+          "nullable": {
+            "map": "FillRecord"
+          }
+        },
+        "history": {
+          "nullable": {
+            "map": "EconomicRecord"
+          }
+        },
+        "receipts": {
+          "nullable": {
+            "map": "Receipt"
+          }
+        }
+      }
+    },
+    "Batch": {
+      "object": {
+        "expected": {
+          "nullable": "BatchExpectedContext"
+        },
+        "refs": {
+          "list": "source"
+        }
+      }
+    },
+    "BatchExpectedContext": {
+      "object": {
+        "Account": "account",
+        "BatchID": "text",
+        "Broker": "text",
+        "Cycle": "uid",
+        "NettingPolicy": {
+          "nullable": "text"
+        },
+        "Order": "uid",
+        "Position": "uid",
+        "RequiredDeals": {
+          "tuple": "source"
+        },
+        "Server": "text",
+        "Symbol": "text",
+        "cap": "money",
+        "currency": "text",
+        "digits": "digits",
+        "expectedVolume": "money",
+        "historyComplete": "bool",
+        "schema": {
+          "literal": "HSBI-C1-BATCH-1"
+        }
+      }
+    },
+    "BucketState": {
+      "object": {
+        "Consumed": "money",
+        "OriginalGrant": "money",
+        "RemainingFree": "money",
+        "Reservations": {
+          "map": "money"
+        },
+        "Reserved": "money"
+      }
+    },
+    "ConsumptionPayload": {
+      "object": {
+        "allocation": "text",
+        "amount": "money",
+        "bucket": "text",
+        "event": "uid",
+        "intent": "text",
+        "kind": {
+          "literal": "CONSUME_FREE"
+        },
+        "purpose": "text",
+        "revision": "uid",
+        "source": "source"
+      }
+    },
+    "CoreSnapshot": {
+      "object": {
+        "checksum": "hash",
+        "payload": "Ledger",
+        "schema": {
+          "literal": "HSBI-R0E-SNAPSHOT-1"
+        }
+      }
+    },
+    "CostClaim": {
+      "object": {
+        "AdditionalDeduction": "bool",
+        "AlreadyIncluded": "bool",
+        "Amount": "money",
+        "AmountBasis": {
+          "enum": [
+            "SIGNED_COMPONENT",
+            "NONNEGATIVE_RISK"
+          ]
+        },
+        "Applicability": {
+          "enum": [
+            "REQUIRED",
+            "NOT_APPLICABLE",
+            "KNOWN_ZERO",
+            "UNKNOWN"
+          ]
+        },
+        "CostID": "text",
+        "PolicyVersion": "uid",
+        "RiskBasis": "text",
+        "Window": "text",
+        "currency": "text"
+      }
+    },
+    "CostFact": {
+      "object": {
+        "AlreadyIncluded": "bool",
+        "Amount": "money",
+        "AmountBasis": {
+          "enum": [
+            "SIGNED_COMPONENT",
+            "NONNEGATIVE_RISK"
+          ]
+        },
+        "Applicability": {
+          "enum": [
+            "REQUIRED",
+            "NOT_APPLICABLE",
+            "KNOWN_ZERO",
+            "UNKNOWN"
+          ]
+        },
+        "CostID": "text",
+        "OverlapKnown": "bool",
+        "PolicyVersion": "uid",
+        "RiskBasis": "text",
+        "Window": "text",
+        "currency": "text"
+      }
+    },
+    "CostSet": {
+      "object": {
+        "Authority": "text",
+        "Complete": "bool",
+        "PolicyVersion": "uid",
+        "currency": "text",
+        "digits": "digits",
+        "items": {
+          "list": "CostFact"
+        },
+        "schema": {
+          "literal": "HSBI-C1-COSTSET-1"
+        }
+      }
+    },
+    "EconomicIdentity": {
+      "object": {
+        "Account": "account",
+        "Broker": "text",
+        "Cycle": "uid",
+        "Deal": "uid",
+        "Event": "uid",
+        "Magic": "magic",
+        "Order": "uid",
+        "Plan": "uid",
+        "PolicyVersion": "uid",
+        "Position": "uid",
+        "Revision": "uid",
+        "Role": "text",
+        "Server": "text",
+        "Snapshot": "uid",
+        "Symbol": "text"
+      }
+    },
+    "EconomicRecord": {
+      "object": {
+        "commission": "money",
+        "currency": "text",
+        "digits": "digits",
+        "entry": "text",
+        "fee": "money",
+        "identity": "EconomicIdentity",
+        "kind": "text",
+        "postedNet": "money",
+        "profit": "money",
+        "rawNet": "money",
+        "swap": "money"
+      }
+    },
+    "EvaluationContext": {
+      "object": {
+        "AllocationID": "text",
+        "BatchID": "text",
+        "ConsumptionEventID": "uid",
+        "CostSetID": "text",
+        "Plan": "uid",
+        "PrincipalAmount": "money",
+        "Revision": "uid",
+        "Snapshot": "uid",
+        "bucket": "text",
+        "fresh": "bool",
+        "intent": "text",
+        "purpose": "text"
+      }
+    },
+    "FillRecord": {
+      "object": {
+        "BatchID": "text",
+        "Cycle": "uid",
+        "Order": "uid",
+        "Position": "uid",
+        "Symbol": "text",
+        "currency": "text",
+        "digits": "digits",
+        "net": "money",
+        "source": "source",
+        "volume": "money"
+      }
+    },
+    "FundPayload": {
+      "object": {
+        "allocation": "text",
+        "commit": "bool",
+        "event": "uid",
+        "grants": "Grants",
+        "kind": {
+          "literal": "FUND"
+        },
+        "source": "source"
+      }
+    },
+    "Grants": {
+      "object": {
+        "Carry": "money",
+        "FinalReserve": "money",
+        "PartialFar": "money",
+        "ResidualHeld": "money",
+        "Transition": "money"
+      }
+    },
+    "Identity": {
+      "object": {
+        "Account": "account",
+        "AllocationEventID": "uid",
+        "AllocationID": "text",
+        "Broker": "text",
+        "ConsumptionEventID": "uid",
+        "Cycle": "uid",
+        "Deal": "uid",
+        "EconomicEventID": "uid",
+        "Magic": "magic",
+        "Order": "uid",
+        "Plan": "uid",
+        "PolicyVersion": "uid",
+        "Position": "uid",
+        "Revision": "uid",
+        "Role": "text",
+        "Server": "text",
+        "Snapshot": "uid",
+        "Symbol": "text"
+      }
+    },
+    "JournalEntry": {
+      "object": {
+        "digest": "hash",
+        "payload": "JournalPayload",
+        "sequence": "uid"
+      }
+    },
+    "JournalPayload": {
+      "variant": {
+        "CONSUME_FREE": "ConsumptionPayload",
+        "FUND": "FundPayload"
+      }
+    },
+    "Ledger": {
+      "object": {
+        "allocations": {
+          "map": "LedgerAllocation"
+        },
+        "events": {
+          "map": "JournalEntry"
+        },
+        "journalComplete": "bool",
+        "revision": "uid",
+        "schema": {
+          "literal": "HSBI-R0E-FREE-1"
+        },
+        "sources": {
+          "map": "LedgerSource"
+        }
+      }
+    },
+    "LedgerAllocation": {
+      "object": {
+        "allocation": "text",
+        "allocationEvent": "uid",
+        "buckets": {
+          "object": {
+            "Carry": "BucketState",
+            "FinalReserve": "BucketState",
+            "PartialFar": "BucketState",
+            "ResidualHeld": "BucketState",
+            "Transition": "BucketState"
+          }
+        },
+        "policyVersion": "uid",
+        "source": "source"
+      }
+    },
+    "LedgerSource": {
+      "object": {
+        "granted": "money",
+        "net": "money",
+        "phase": {
+          "enum": [
+            "COMMITTED",
+            "PREPARED"
+          ]
+        },
+        "recordDigest": "hash",
+        "source": "source",
+        "unallocated": "money"
+      }
+    },
+    "Receipt": {
+      "object": {
+        "AdditionalRisk": "money",
+        "DebitAmount": "money",
+        "RequiredBalance": "money",
+        "allocationDigest": "hash",
+        "batchDigest": "hash",
+        "costDigest": "hash",
+        "digest": "hash",
+        "evaluationContext": "EvaluationContext",
+        "request": "Request",
+        "sourceDigest": "hash"
+      }
+    },
+    "RecoverySnapshot": {
+      "object": {
+        "checksum": "hash",
+        "payload": "Store",
+        "schema": {
+          "literal": "HSBI-C1-STORE-SNAPSHOT-1"
+        }
+      }
+    },
+    "Request": {
+      "object": {
+        "BatchID": "text",
+        "CostSetID": "text",
+        "PrincipalAmount": "money",
+        "allocation": "text",
+        "allocationEvent": "uid",
+        "bucket": "text",
+        "consumptionEvent": "uid",
+        "costClaims": {
+          "list": "CostClaim"
+        },
+        "identity": "Identity",
+        "intent": "text",
+        "purpose": "text",
+        "revision": "uid",
+        "schema": {
+          "literal": "HSBI-C1-REQUEST-1"
+        },
+        "source": "source"
+      }
+    },
+    "Store": {
+      "object": {
+        "ledger": "Ledger",
+        "receipts": {
+          "map": "Receipt"
+        },
+        "schema": {
+          "literal": "HSBI-C1-STORE-1"
+        }
+      }
+    }
+  },
+  "UnknownFields": "REJECT"
+}

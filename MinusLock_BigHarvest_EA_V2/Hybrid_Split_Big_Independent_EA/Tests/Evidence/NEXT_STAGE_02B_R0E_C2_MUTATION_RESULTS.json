@@ -1,0 +1,4620 @@
+{
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "BaseSHA": "fae7dfc18ca2d61af2f3446826ef3031825bbfd8",
+  "CatalogSize": 70,
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py"
+  ],
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-10T18:32:52.505953+00:00",
+  "InfrastructureErrors": 0,
+  "Killed": 64,
+  "RedundantSurvivors": 6,
+  "Rows": [
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": "raw==number(r['rawNet']) and "
+        }
+      ],
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": 2,
+      "MutantSourceHash": "04f5a5862c9e86ceb632e95df3c43cd349d46c7c6f4f598db9658c9b7357daba",
+      "MutationID": "C2-C1-MUT-raw-sum",
+      "NegativeTestID": "C2-BASE-SOURCE-raw",
+      "OriginalNegative": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": 2,
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": 2,
+      "PositiveTestID": "C2-BASE-SOURCE-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "economic_record",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": " and exact.grid(r['postedNet'],r['digits'])"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "ACCEPTED",
+      "MutantPositive": 2,
+      "MutantSourceHash": "e430cc2e79cd6606c3d5ec21588422a4c10f00c27194be77cca8667af66ef2ff",
+      "MutationID": "C2-C1-MUT-posted-grid",
+      "NegativeTestID": "C2-BASE-RECORD-grid",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": 2,
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": 2,
+      "PositiveTestID": "C2-BASE-SOURCE-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "economic_record",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(source_key(r)==tuple(source))"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": 2,
+      "MutantSourceHash": "8238f352816abb7206bdea178014d97dd3bab56a1584485da057129ea2c60540",
+      "MutationID": "C2-C1-MUT-source-namespace",
+      "NegativeTestID": "C2-BASE-SOURCE-namespace",
+      "OriginalNegative": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": 2,
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": 2,
+      "PositiveTestID": "C2-BASE-SOURCE-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "economic_record",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "g!=c+f",
+          "old": "g!=c+v+f"
+        }
+      ],
+      "IndependentExpected": false,
+      "MutantNegative": true,
+      "MutantPositive": true,
+      "MutantSourceHash": "2a34404250302859c9c6e15f7ff7157e8e70ec366e5ed9ebe65413a982cf36aa",
+      "MutationID": "C2-C1-MUT-balance-reserved",
+      "NegativeTestID": "C2-BASE-BALANCE-doublecount",
+      "OriginalNegative": false,
+      "OriginalPositive": true,
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": true,
+      "PositiveTestID": "C2-BASE-BALANCE-no-reserve",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "balance",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if total>net:"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": 2,
+      "MutantSourceHash": "dcb74aa7f0322d9b6ccf6ac2da61638eb7d3497547850a9246012b684e97c2a0",
+      "MutationID": "C2-C1-MUT-source-cap",
+      "NegativeTestID": "C2-BASE-SOURCE-overfund",
+      "OriginalNegative": {
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": 2,
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": 2,
+      "PositiveTestID": "C2-BASE-SOURCE-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_fund",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if role=='Small' and any(values[b]!=0 for b in BUCKETS if b!='ResidualHeld'):"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "COMMITTED_IN_MEMORY",
+      "MutantPositive": 2,
+      "MutantSourceHash": "ef4a9a4a260cd80b5bdfef15d73d8f504a695945cbb83f673fc763d10853546d",
+      "MutationID": "C2-C1-MUT-small-role",
+      "NegativeTestID": "C2-BASE-SOURCE-small",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": 2,
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": 2,
+      "PositiveTestID": "C2-BASE-SOURCE-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_fund",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if r['kind']!='ReconciledEconomicNet':"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "COMMITTED_IN_MEMORY",
+      "MutantPositive": 2,
+      "MutantSourceHash": "5360ca2edf12681e882122f806f4e4ab898968a26c5d7e6bc81ec3e1e6cdf9b1",
+      "MutationID": "C2-C1-MUT-projected-source",
+      "NegativeTestID": "C2-BASE-SOURCE-projected",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": 2,
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": 2,
+      "PositiveTestID": "C2-BASE-SOURCE-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "economic_record",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "'NO_OP'",
+          "old": "('NO_OP' if canonical(prior['payload'])==canonical(payload) else 'CONFLICT')"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "MutantPositive": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "MutantSourceHash": "02c9d7c93184a76beba9c21f383d0ae5d9b38e310e2c823b480e035b8d085699",
+      "MutationID": "C2-C1-MUT-fund-replay",
+      "NegativeTestID": "C2-BASE-FUND-changed",
+      "OriginalNegative": {
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "PositiveTestID": "C2-BASE-FUND-exact",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_event",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if old_source and old_source['recordDigest']!=digest(r):"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "MutantPositive": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "MutantSourceHash": "6421c67d8e69f6ce342d9c08556e737eef2a4ed4c06e71f7a9ee2235b41d2d44",
+      "MutationID": "C2-C1-MUT-fund-immutable-before-replay",
+      "NegativeTestID": "C2-BASE-FUND-authority-change",
+      "OriginalNegative": {
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "PositiveTestID": "C2-BASE-FUND-exact",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_fund",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Broker') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "b7bf430a9e83c36bef31cc96bd1f27969f68ffa71a3ec58b075a3f1deecfdd90",
+      "MutationID": "C2-C1-MUT-identity-Broker",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Broker",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Server') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "322f6aca954de7f757cf4b0570e002dbf480b6fdbc6b3f1ffc17bc4f41202542",
+      "MutationID": "C2-C1-MUT-identity-Server",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Server",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Account') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "9f306d595f0a86262f9d08c69b0eb49bc478e4b8716f6fd6597f7fb46379e575",
+      "MutationID": "C2-C1-MUT-identity-Account",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Account",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Symbol') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "3390c40bf38d11992668c8fd7c88bbf45fad23cd991ed66b1cd9fecc1a11e96e",
+      "MutationID": "C2-C1-MUT-identity-Symbol",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Symbol",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Magic') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "b93c472e3d5ba9bcf5053a12cd92655e8cf00f85e17b5265bd35b6a05adb89af",
+      "MutationID": "C2-C1-MUT-identity-Magic",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Magic",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Cycle') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "b94893de3beac7c8616bb116f89a5a3b9fb031d16cace1b70a569e391b86cf9b",
+      "MutationID": "C2-C1-MUT-identity-Cycle",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Cycle",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Position') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "9276628c98186da315c2be3769b805e9d4bb87201406ee767c054f15976d6bed",
+      "MutationID": "C2-C1-MUT-identity-Position",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Position",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Deal') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "d0c00f48a484eb62d36c05137283f83239faf145a9f86e1f710ba923be69a647",
+      "MutationID": "C2-C1-MUT-identity-Deal",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Deal",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Order') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "b191bf5a40aedb4ea219f8803fd3fb7a5fabad3b7b6024eda13655b6b2a5942d",
+      "MutationID": "C2-C1-MUT-identity-Order",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Order",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Role') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "7e3526a29582088e98a65002bfea6e80b6121e0f6deb5a4afb45e0fb0a375ce0",
+      "MutationID": "C2-C1-MUT-identity-Role",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Role",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='EconomicEventID') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "b12503516d93efcf1358f69ff6e038c177ff4b4314a3f753553f90c3def42abd",
+      "MutationID": "C2-C1-MUT-identity-EconomicEventID",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-EconomicEventID",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='AllocationEventID') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "1ceee86bd7bbf9b26b1cfe675d36fe635e820b0261482186b89bc382e5cf126f",
+      "MutationID": "C2-C1-MUT-identity-AllocationEventID",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-AllocationEventID",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='ConsumptionEventID') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "7969268fb802efae155832c0b5ccf270d05da9acbb72c1e8f812cb6988c91562",
+      "MutationID": "C2-C1-MUT-identity-ConsumptionEventID",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-ConsumptionEventID",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='AllocationID') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "a9066296a67713fed425c04b1ad77a8c7a4046e3f7d1430f397877f5430753d1",
+      "MutationID": "C2-C1-MUT-identity-AllocationID",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-AllocationID",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='PolicyVersion') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "c71a8d82262a3571928c1be334f90bf266a88c03438e4827eeea2dcb739227be",
+      "MutationID": "C2-C1-MUT-identity-PolicyVersion",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-PolicyVersion",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Plan') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "2564bac4bd292d9cafcb73c303c9a045a475545096e398ab45ba6ac5eea5883a",
+      "MutationID": "C2-C1-MUT-identity-Plan",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Plan",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Revision') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "6c122e5ce6c0dd61bc0fb487de0fccc444cea7bd02b0cd5ff87bc4d683457b60",
+      "MutationID": "C2-C1-MUT-identity-Revision",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Revision",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in expected if k!='Snapshot') else 'REJECT'  # GUARD:C1-IDENTITY",
+          "old": "for k in expected) else 'REJECT'  # GUARD:C1-IDENTITY"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "147ca38cab6a00cfa8fbc36fdfaa91865e63ba99133be790ae8a51659a31f03b",
+      "MutationID": "C2-C1-MUT-identity-Snapshot",
+      "NegativeTestID": "C2-BASE-IDENTITY-foreign-Snapshot",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(k[:3]==(expected['Broker'],expected['Server'],expected['Account']))"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "loss": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "MutantPositive": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "MutantSourceHash": "6947d87f146e3e250532bac2e067e37ef40819c6832004b38b1459516cb957f4",
+      "MutationID": "C2-C1-MUT-batch-namespace",
+      "NegativeTestID": "C2-BASE-BATCH-foreign-account",
+      "OriginalNegative": {
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "PositiveTestID": "C2-BASE-BATCH-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "assess_batch",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(all(type(fill[f]) is type(expected[f]) and fill[f]==expected[f] for f in ('BatchID','Symbol','Cycle','Order','Position','currency','digits')))"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "MutantPositive": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "MutantSourceHash": "7c7a0f96c7c6b78b4307e103eda6f28241f7419b5caa064835b430d4a7663ad4",
+      "MutationID": "C2-C1-MUT-batch-lineage",
+      "NegativeTestID": "C2-BASE-BATCH-foreign-Order",
+      "OriginalNegative": {
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "PositiveTestID": "C2-BASE-BATCH-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "assess_batch",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if unique!=set(required) or volume!=planned:"
+        }
+      ],
+      "IndependentExpected": {
+        "loss": [
+          "NUMBER",
+          "5",
+          "1"
+        ],
+        "status": "PENDING",
+        "volume": [
+          "NUMBER",
+          "2",
+          "5"
+        ]
+      },
+      "MutantNegative": {
+        "loss": [
+          "NUMBER",
+          "5",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "2",
+          "5"
+        ]
+      },
+      "MutantPositive": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "MutantSourceHash": "fe6423d809dcbb5bc1fb33c3fe98c55ac1f2b8b2b179136a398f8c6091791dbd",
+      "MutationID": "C2-C1-MUT-batch-completeness",
+      "NegativeTestID": "C2-BASE-BATCH-pending",
+      "OriginalNegative": {
+        "loss": [
+          "NUMBER",
+          "5",
+          "1"
+        ],
+        "status": "PENDING",
+        "volume": [
+          "NUMBER",
+          "2",
+          "5"
+        ]
+      },
+      "OriginalPositive": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "PositiveTestID": "C2-BASE-BATCH-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "assess_batch",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(len(set(ids))==len(ids) and set(ids)==set(facts))"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "0",
+          "1"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantSourceHash": "4b665a11bd25b7c7a86a0b7e6e06ccd1565a1a4571a7cabdba893d98469ee339",
+      "MutationID": "C2-C1-MUT-cost-inventory",
+      "NegativeTestID": "C2-BASE-COST-missing",
+      "OriginalNegative": {
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "PositiveTestID": "C2-BASE-COST-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "cost_coverage",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(row['AdditionalDeduction']==needed)"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantSourceHash": "cd29307dae41f44d10aeace0ee654c6153721547f19bc4bd19fb08aa46be9ce0",
+      "MutationID": "C2-C1-MUT-cost-once",
+      "NegativeTestID": "C2-BASE-COST-omitted",
+      "OriginalNegative": {
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "PositiveTestID": "C2-BASE-COST-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "cost_coverage",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "pass\n        return _arithmetic_reserve_balance",
+          "old": "_reconcile_store(store,authority)\n        return _arithmetic_reserve_balance"
+        }
+      ],
+      "IndependentExpected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "MutantNegative": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      ],
+      "MutantPositive": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      ],
+      "MutantSourceHash": "98b8e9a73751271092ac485436bdf787d979e4821959a94981ed7ed5cdd2427d",
+      "MutationID": "C2-C1-MUT-available-journal-layer",
+      "NegativeTestID": "C2-BASE-AVAILABLE-external-missing",
+      "OriginalNegative": [
+        "UNAVAILABLE",
+        null
+      ],
+      "OriginalPositive": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      ],
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": [
+        "KNOWN_MODEL_AVAILABLE",
+        [
+          "NUMBER",
+          "50",
+          "1"
+        ]
+      ],
+      "PositiveTestID": "C2-BASE-AVAILABLE-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "available",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if assessment['status']!='CONFIRMED':"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "920c599c6815301d3f7f2ef0a044aaa293747c7ccf35d235e1b4273818dc0bdb",
+      "MutationID": "C2-C1-MUT-composition-batch",
+      "NegativeTestID": "C2-BASE-APPLY-bypass-batch",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if costs['status']!='COVERED':costs=_answer('COVERED',AdditionalRisk=Fraction(0))",
+          "old": "if costs['status']!='COVERED':return _answer('REJECT' if costs['status']=='CONFLICT' else 'UNAVAILABLE')"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "e67d925b1fff9ae4a262562d881c47b7c6b1fb69fc783986218877ba4d4d6f0a",
+      "MutationID": "C2-C1-MUT-composition-cost",
+      "NegativeTestID": "C2-BASE-APPLY-bypass-cost",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(number(context['PrincipalAmount'])==number(q['PrincipalAmount']) and all(context[k]==q[k] for k in ('bucket','purpose','intent')))"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "1",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "49",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "85c887e4d5eb64dc72d980cf33f059f468c4bf6f980f9e66567cfb0f340750db",
+      "MutationID": "C2-C1-MUT-planned-operation",
+      "NegativeTestID": "C2-BASE-APPLY-bypass-planned",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "_answer('NO_OP')",
+          "old": "_answer('NO_OP' if canonical(prior['request'])==canonical(q) else 'CONFLICT')"
+        }
+      ],
+      "IndependentExpected": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "MutantPositive": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "MutantSourceHash": "3a0abf5117c4cbb88f1c2102e683b6a88f5dd4560e670d81a3e8ed6b0ce9fa3b",
+      "MutationID": "C2-C1-MUT-composed-replay",
+      "NegativeTestID": "C2-BASE-REPLAY-changed",
+      "OriginalNegative": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "PositiveTestID": "C2-BASE-REPLAY-exact",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if known is not None and known['recordDigest']!=digest(r):"
+        }
+      ],
+      "IndependentExpected": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "UNAVAILABLE",
+        "zeroDelta": true
+      },
+      "MutantPositive": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "MutantSourceHash": "254cd0e842b3540ac7df61edce1299955d42a687a99d664da67012f1b926607f",
+      "MutationID": "C2-C1-MUT-immutable-before-replay",
+      "NegativeTestID": "C2-BASE-REPLAY-authority",
+      "OriginalNegative": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "CONFLICT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "NO_OP",
+        "zeroDelta": true
+      },
+      "PositiveTestID": "C2-BASE-REPLAY-exact",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "result=_answer('ELIGIBLE_FOR_COMMIT',DebitAmount=number(q['PrincipalAmount']),RequiredBalance=number(q['PrincipalAmount']),AdditionalRisk=Fraction(0),sourceDigest=digest(economic_record(authority['history'],q['source'])),allocationDigest=digest(authority['allocations'][q['allocation']]),batchDigest=digest(authority['batches'][q['BatchID']]),costDigest=digest(authority['costSets'][q['CostSetID']]))",
+          "old": "result=authorize(q,store,authority)"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "9de362e7587d0ee88deb3a5b4dd43ec01c0cf6b5811ed9cea954b8dde3fe1bb9",
+      "MutationID": "C2-C1-MUT-apply-revalidation",
+      "NegativeTestID": "C2-BASE-APPLY-bypass-identity",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "apply_for_test",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "DomainRegression": {
+        "Comparisons": 2528,
+        "Executions": 1264,
+        "Fail": 0,
+        "FinishedUtc": "2026-11-10T18:32:01.867240+00:00",
+        "InfrastructureErrors": 0,
+        "Pass": 1264,
+        "Scenarios": 158,
+        "SchemaProbes": 0,
+        "StartedUtc": "2026-11-10T18:31:52.706585+00:00"
+      },
+      "ExactEdit": [
+        {
+          "new": "if False:return _answer('UNAVAILABLE'),copy.deepcopy(store)",
+          "old": "if not balance(b['OriginalGrant'],b['Consumed'],b['Reserved'],b['RemainingFree'],b['Reservations']):return _answer('UNAVAILABLE'),copy.deepcopy(store)"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "959723ecff34e3adbcd7dbe13de5d2d3eeafc9dd74a5df59926a6c3744bcd8aa",
+      "MutationID": "C2-C1-MUT-outer-poststate",
+      "NegativeTestID": "C2-BASE-APPLY-forged-allocation",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": "Public apply always authorizes: _reconcile_store reconstructs ALL pre-state rows from independent journal. _operate_for_registry_replay calls _apply_registry_delta, which validates selected row before and after exact delta and returns no commit on failure. apply checks returned status. Other rows unchanged. Thus outer repeat is redundant over the declared public input domain; mutation of mandatory private delta itself is outside this equivalence claim.",
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "apply_for_test",
+      "Verdict": "REDUNDANT_GUARD_SURVIVOR"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:return 'UNAVAILABLE'\n        require(context['AllocationID']",
+          "old": "if not context['fresh']:return 'UNAVAILABLE'\n        require(context['AllocationID']"
+        }
+      ],
+      "IndependentExpected": "UNAVAILABLE",
+      "MutantNegative": "PASS",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "20f3de306bf4e4d1a21a14ec37046bcc3ecbd76c21661a497b45496ef09d76cc",
+      "MutationID": "C2-C1-MUT-snapshot-fresh",
+      "NegativeTestID": "C2-BASE-IDENTITY-stale",
+      "OriginalNegative": "UNAVAILABLE",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if not expected['historyComplete'] or expected['NettingPolicy']!='PROPOSED_SIGNED_BATCH_NET_V1':"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "UNAVAILABLE"
+      },
+      "MutantNegative": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "MutantPositive": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "MutantSourceHash": "40a7705015f6cb8be7a08582db72e633110e28e7afef2c9692be58046f0dba3c",
+      "MutationID": "C2-C1-MUT-batch-policy",
+      "NegativeTestID": "C2-BASE-BATCH-unknown-policy",
+      "OriginalNegative": {
+        "status": "UNAVAILABLE"
+      },
+      "OriginalPositive": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "loss": [
+          "NUMBER",
+          "10",
+          "1"
+        ],
+        "scope": "BATCH_MEMBERSHIP_VERIFIED_FIXTURE",
+        "status": "CONFIRMED",
+        "volume": [
+          "NUMBER",
+          "1",
+          "1"
+        ]
+      },
+      "PositiveTestID": "C2-BASE-BATCH-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "assess_batch",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:",
+          "old": "if not expected['Complete']:"
+        }
+      ],
+      "IndependentExpected": {
+        "status": "UNAVAILABLE"
+      },
+      "MutantNegative": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantSourceHash": "0239cbf40247f75fcc67d3c7d36c7a8315634fab25a61f3bc0a76366666a289f",
+      "MutationID": "C2-C1-MUT-cost-provider-complete",
+      "NegativeTestID": "C2-BASE-COST-provider-incomplete",
+      "OriginalNegative": {
+        "status": "UNAVAILABLE"
+      },
+      "OriginalPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "PositiveTestID": "C2-BASE-COST-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "cost_coverage",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "number(q['PrincipalAmount'])",
+          "old": "number(q['PrincipalAmount'])+costs['AdditionalRisk']"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "8edd91580bb5f49e8786b14ba9fd40d0f4bee7eab2cdb562297fd02109fc2ed7",
+      "MutationID": "C2-C1-MUT-cost-headroom",
+      "NegativeTestID": "C2-BASE-APPLY-insufficient-headroom",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(set(store['receipts'])==needed)"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegative": "RECONCILED_MODEL_ONLY",
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "c7afee0acbcf71fd73007dd9e2e8da7ebc367df3e3f1076908be108bf0bd1e12",
+      "MutationID": "C2-C1-MUT-receipt-inventory",
+      "NegativeTestID": "C2-BASE-RECOVER-no-receipt",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(receipt['sourceDigest']==store['ledger']['sources'][key(q['source'])]['recordDigest'])"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegative": "RECONCILED_MODEL_ONLY",
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "66644c852e64b16c5d558fc80f2f0a01326ff1f2daed48dd53f28d09ca9d5557",
+      "MutationID": "C2-C1-MUT-receipt-source",
+      "NegativeTestID": "C2-BASE-RECOVER-bad-source-digest",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "DomainRegression": {
+        "Comparisons": 2528,
+        "Executions": 1264,
+        "Fail": 0,
+        "FinishedUtc": "2026-11-10T18:32:11.460923+00:00",
+        "InfrastructureErrors": 0,
+        "Pass": 1264,
+        "Scenarios": 158,
+        "SchemaProbes": 0,
+        "StartedUtc": "2026-11-10T18:32:02.135972+00:00"
+      },
+      "ExactEdit": [
+        {
+          "new": "require(allocation['source']==source)",
+          "old": "require(type(presented) is dict and allocation['source']==source)"
+        },
+        {
+          "new": "presented=copy.deepcopy(expected) if presented is None else presented\n        require(set(presented)==set(expected))",
+          "old": "require(set(presented)==set(expected))"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "REJECT",
+      "MutantPositive": "PASS",
+      "MutantSourceHash": "ec76a748f070316a1dac56bd9661449db28bd20b4d4dbd76a022035657dd69e3",
+      "MutationID": "C2-C1-MUT-malformed-default-identity",
+      "NegativeTestID": "C2-BASE-IDENTITY-malformed-none",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "PASS",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "PASS",
+      "PositiveTestID": "C2-BASE-IDENTITY-control",
+      "RedundancyProof": "C2 public authorize/_reconcile_store/verify_allocation_identity validates nested schema before this old clause. Mandatory schema cannot be bypassed by public apply. Original and mutant preserve the typed rejection on this causal input; not an unsafe acceptance kill.",
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "verify_allocation_identity",
+      "Verdict": "REDUNDANT_GUARD_SURVIVOR"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(q['allocationEvent']==historical['allocationEvent'] and receipt['allocationDigest']==digest(historical))"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegative": "RECONCILED_MODEL_ONLY",
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "18150154d487aa63ac6cdfe8212e5808f3b06a891365d56f2a7ec88c4e37bd34",
+      "MutationID": "C2-C1-MUT-historical-allocation",
+      "NegativeTestID": "C2-BASE-RECOVER-historical-allocation",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(verify_allocation_identity(q['identity'],authority['history'],q['source'],ctx,historical)=='PASS')"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegative": "RECONCILED_MODEL_ONLY",
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "7a77dcbf78fe4d7b047ce8e8b1c85bcd4fcbdcfbcc335c9bc4a44bf9bbaeb65f",
+      "MutationID": "C2-C1-MUT-historical-identity",
+      "NegativeTestID": "C2-BASE-RECOVER-historical-identity",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require((ctx['ConsumptionEventID'],ctx['Revision'],number(ctx['PrincipalAmount']),ctx['bucket'],ctx['purpose'],ctx['intent'],ctx['BatchID'],ctx['CostSetID'])==(q['consumptionEvent'],q['revision'],number(q['PrincipalAmount']),q['bucket'],q['purpose'],q['intent'],q['BatchID'],q['CostSetID']))"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegative": "RECONCILED_MODEL_ONLY",
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "c8acb24e490722f4432bda407d7fb6481c93d2220d0d49748ce2bb3615e648f8",
+      "MutationID": "C2-C1-MUT-historical-plan",
+      "NegativeTestID": "C2-BASE-RECOVER-historical-plan",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "DomainRegression": {
+        "Comparisons": 2528,
+        "Executions": 1264,
+        "Fail": 0,
+        "FinishedUtc": "2026-11-10T18:32:20.747764+00:00",
+        "InfrastructureErrors": 0,
+        "Pass": 1264,
+        "Scenarios": 158,
+        "SchemaProbes": 0,
+        "StartedUtc": "2026-11-10T18:32:11.714436+00:00"
+      },
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": " and all(c in '0123456789abcdef' for c in receipt[field])"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegative": "CONFLICT",
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "c29e9dd67f765a240aafb43ec2535a4310b6edc83a9cd6251c30333ad012d6a7",
+      "MutationID": "C2-C1-MUT-digest-format",
+      "NegativeTestID": "C2-BASE-RECOVER-digest-format",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": "C2 public authorize/_reconcile_store/verify_allocation_identity validates nested schema before this old clause. Mandatory schema cannot be bypassed by public apply. Original and mutant preserve the typed rejection on this causal input; not an unsafe acceptance kill.",
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "REDUNDANT_GUARD_SURVIVOR"
+    },
+    {
+      "ControlsPass": true,
+      "DomainRegression": {
+        "Comparisons": 2528,
+        "Executions": 1264,
+        "Fail": 0,
+        "FinishedUtc": "2026-11-10T18:32:29.993726+00:00",
+        "InfrastructureErrors": 0,
+        "Pass": 1264,
+        "Scenarios": 158,
+        "SchemaProbes": 0,
+        "StartedUtc": "2026-11-10T18:32:20.786637+00:00"
+      },
+      "ExactEdit": [
+        {
+          "new": "if any(type(e) is not dict for e in authority['coreJournal'].values()):authority['coreJournal']=copy.deepcopy(store['ledger']['events'])",
+          "old": "_validate_core_journal(authority['coreJournal'])"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "f8aede83dbedccae033739faef2ff4c2120f584f1d2434df3ebe9d37effdcfe2",
+      "MutationID": "C2-C1-MUT-journal-self-repair",
+      "NegativeTestID": "C2-BASE-APPLY-bad-journal-entry",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": "C2 public authorize/_reconcile_store/verify_allocation_identity validates nested schema before this old clause. Mandatory schema cannot be bypassed by public apply. Original and mutant preserve the typed rejection on this causal input; not an unsafe acceptance kill.",
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "REDUNDANT_GUARD_SURVIVOR"
+    },
+    {
+      "ControlsPass": true,
+      "DomainRegression": {
+        "Comparisons": 2528,
+        "Executions": 1264,
+        "Fail": 0,
+        "FinishedUtc": "2026-11-10T18:32:40.324796+00:00",
+        "InfrastructureErrors": 0,
+        "Pass": 1264,
+        "Scenarios": 158,
+        "SchemaProbes": 0,
+        "StartedUtc": "2026-11-10T18:32:30.029987+00:00"
+      },
+      "ExactEdit": [
+        {
+          "new": "if type(known) is not dict:known=None",
+          "old": "if known is not None:\n        exact.fields(known,('source','recordDigest','granted','net','phase','unallocated'));require(type(known['recordDigest']) is str)"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "31f94a5223d07684f14320e068c1c3f8005d4982b538b17805dca6224bfa922c",
+      "MutationID": "C2-C1-MUT-malformed-source-ignore",
+      "NegativeTestID": "C2-BASE-APPLY-bad-store-source",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": "C2 public authorize/_reconcile_store/verify_allocation_identity validates nested schema before this old clause. Mandatory schema cannot be bypassed by public apply. Original and mutant preserve the typed rejection on this causal input; not an unsafe acceptance kill.",
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "REDUNDANT_GUARD_SURVIVOR"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": "receipt['digest']==digest(q) and "
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "4b7b26aea948164a2d5ad29aff9b8c504495411f77ef9f973e115458be3f1dd1",
+      "MutationID": "C2-MUT-receipt-digest",
+      "NegativeTestID": "C2-receipt-digest",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "require(True)",
+          "old": "require(number(receipt['AdditionalRisk'])>=0 and number(receipt['DebitAmount'])==number(q['PrincipalAmount']) and number(receipt['RequiredBalance'])==number(receipt['DebitAmount'])+number(receipt['AdditionalRisk']) and number(e['amount'])==number(receipt['DebitAmount']))"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "6d18b6004a6a9cc61aceb2126a8888d976b75a375839fb6f888bf25fa358b0f8",
+      "MutationID": "C2-MUT-receipt-equation",
+      "NegativeTestID": "C2-receipt-equation",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in ('bucket','intent')",
+          "old": "for k in ('bucket','purpose','intent')"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "e846ad6654f4d56b3e578e7448a6e3051c753c085886ad7cd2c1cb9acdf0655a",
+      "MutationID": "C2-MUT-planned-purpose",
+      "NegativeTestID": "C2-planned-purpose",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "for k in ('bucket','purpose')",
+          "old": "for k in ('bucket','purpose','intent')"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "17c00a987d71c0496a1f4fbe13301bc7bebf3a97bdeffb0b2c7a67172c90f24f",
+      "MutationID": "C2-MUT-planned-intent",
+      "NegativeTestID": "C2-planned-intent",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": " and ledger['allocationEvent']==record['allocationEvent']"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "df2ea0ca5a9b076b73f74b19a80b5308350f2fee639e0c7d255f5691c65ecaba",
+      "MutationID": "C2-MUT-ledger-event",
+      "NegativeTestID": "C2-ledger-allocationEvent",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_bind_allocation",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": " and ledger['policyVersion']==record['PolicyVersion']"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "7dea27b3fdbef54e02df9c6a98f5d597f350f0611ea36bb61fa957d279d34f4a",
+      "MutationID": "C2-MUT-ledger-policy",
+      "NegativeTestID": "C2-ledger-PolicyVersion",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_bind_allocation",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": "number(receipt['AdditionalRisk'])>=0 and "
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "083f06c818ff4898ea620ad278d146f5dfcd00663f0c88098ed751b4c782b2be",
+      "MutationID": "C2-MUT-receipt-risk-nonnegative",
+      "NegativeTestID": "C2-receipt-clause-nonnegative",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": "number(receipt['DebitAmount'])==number(q['PrincipalAmount']) and "
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "81aab67e5bb0f06827b2068e9ba4ed5f8d74e2532129772d0c0e45647a51ecf5",
+      "MutationID": "C2-MUT-receipt-principal",
+      "NegativeTestID": "C2-receipt-clause-principal",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "",
+          "old": " and number(e['amount'])==number(receipt['DebitAmount'])"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "status": "RECONCILED_MODEL_ONLY"
+      },
+      "MutantPositive": "RECONCILED_MODEL_ONLY",
+      "MutantSourceHash": "d7c94b9b8290fa552fda3533bb795f6c0f59e8b7c4064f867200c5d7995c5bd1",
+      "MutationID": "C2-MUT-receipt-core-debit",
+      "NegativeTestID": "C2-receipt-clause-core",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "status": "CONFLICT"
+      },
+      "OriginalPositive": "RECONCILED_MODEL_ONLY",
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": "RECONCILED_MODEL_ONLY",
+      "PositiveTestID": "C2-BASE-RECOVER-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_reconcile_store",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "DomainRegression": {
+        "Comparisons": 2528,
+        "Executions": 1264,
+        "Fail": 0,
+        "FinishedUtc": "2026-11-10T18:32:52.353580+00:00",
+        "InfrastructureErrors": 0,
+        "Pass": 1264,
+        "Scenarios": 158,
+        "SchemaProbes": 0,
+        "StartedUtc": "2026-11-10T18:32:40.844966+00:00"
+      },
+      "ExactEdit": [
+        {
+          "new": "pass",
+          "old": "if expected is not None:dto.validate(\"CostSet\",expected)"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegative": "CONFLICT",
+      "MutantPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantSourceHash": "81153fda1fbae6f9bdd68a92b8bb854e80b0cade24df782f99dd0b2bb4907201",
+      "MutationID": "C2-MUT-cost-shape-caller",
+      "NegativeTestID": "C2-cost-bool-direct",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "PositiveTestID": "C2-BASE-COST-control",
+      "RedundancyProof": "Mandatory CostClaim schema rejects the boolean claim before fact comparison; removing only the CostSet caller cannot bypass it. Direct cost_coverage and public apply both preserve rejection. Dual caller mutation separately demonstrates necessity of the complete layer.",
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "cost_coverage",
+      "Verdict": "REDUNDANT_GUARD_SURVIVOR"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "pass",
+          "old": "if expected is not None:dto.validate(\"CostSet\",expected)"
+        },
+        {
+          "new": "pass",
+          "old": "dto.validate({\"list\":\"CostClaim\"},rows)"
+        }
+      ],
+      "IndependentExpected": "CONFLICT",
+      "MutantNegative": "COVERED",
+      "MutantPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantSourceHash": "05533453e7c15831df63fdd48031fa80785a145fba5f0fd9a3eb618d6206f2b6",
+      "MutationID": "C2-MUT-cost-dual-shape-callers",
+      "NegativeTestID": "C2-cost-bool-direct",
+      "OriginalNegative": "CONFLICT",
+      "OriginalPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "PositiveTestID": "C2-BASE-COST-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "cost_coverage",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "elif spec=='uid':x.require(x.uid(value) or type(value) is bool)",
+          "old": "elif spec=='uid':x.require(x.uid(value))"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "09e658d03da869a629b5ed7465435b3a2b4b1e52936e10e0079d77760986be2d",
+      "MutationID": "C2-MUT-bool-id",
+      "NegativeTestID": "C2-bool-policy",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_schemas.py",
+      "TargetFunction": "validate",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "x.require(type(value) is dict and set(spec['object'])<=value.keys())",
+          "old": "x.fields(value,tuple(spec['object']))"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "VALID",
+      "MutantPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "MutantSourceHash": "f40340c78f6bb0a5caa782714f5068a7784c17e21710f09e839f57269448c5a8",
+      "MutationID": "C2-MUT-unknown-fields",
+      "NegativeTestID": "C2-schema-unknown-field",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "OriginalSourceHash": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+      "PositiveExpected": {
+        "AdditionalRisk": [
+          "NUMBER",
+          "1",
+          "2"
+        ],
+        "scope": "COMPLETE_APPLICABLE_FIXTURE_COSTSET",
+        "status": "COVERED"
+      },
+      "PositiveTestID": "C2-BASE-COST-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_schemas.py",
+      "TargetFunction": "validate",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "pass",
+          "old": "if a is not None:dto.validate(\"Authority\",a)"
+        },
+        {
+          "new": "pass",
+          "old": "if authority is not None:dto.validate(\"Authority\",authority)"
+        }
+      ],
+      "IndependentExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "MutantNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "MutantSourceHash": "989a36fa1ce202e1032b1764aaf1ad3742f8aec92ee92d9e0e9fad57354e0287",
+      "MutationID": "C2-MUT-mandatory-authority-caller",
+      "NegativeTestID": "C2-authority-unused-malformed",
+      "OriginalNegative": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "50",
+            "1"
+          ],
+          "receipts": 0,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 2
+        },
+        "status": "REJECT",
+        "zeroDelta": true
+      },
+      "OriginalPositive": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "OriginalSourceHash": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+      "PositiveExpected": {
+        "inputsUnchanged": true,
+        "state": {
+          "consumed": [
+            "NUMBER",
+            "10",
+            "1"
+          ],
+          "free": [
+            "NUMBER",
+            "40",
+            "1"
+          ],
+          "receipts": 1,
+          "reserved": [
+            "NUMBER",
+            "0",
+            "1"
+          ],
+          "revision": 3
+        },
+        "status": "COMMITTED_IN_MEMORY",
+        "zeroDelta": false
+      },
+      "PositiveTestID": "C2-BASE-APPLY-positive",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py",
+      "TargetFunction": "_authorize",
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if False:raise ValueError('duplicate JSON key: '+k)",
+          "old": "if k in out:raise ValueError('duplicate JSON key: '+k)"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "VALID",
+      "MutantPositive": "VALID",
+      "MutantSourceHash": "502f21f1e2c012606e64970d2d00391b92d71602bb6cbf0d5b9a23863b76923b",
+      "MutationID": "C2-MUT-json-last-wins",
+      "NegativeTestID": "C2-JSON-duplicate",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "VALID",
+      "OriginalSourceHash": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+      "PositiveExpected": "VALID",
+      "PositiveTestID": "C2-JSON-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_evidence.py",
+      "TargetFunction": "pairs",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "parse_constant=lambda x:None",
+          "old": "parse_constant=constant"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "VALID",
+      "MutantPositive": "VALID",
+      "MutantSourceHash": "79fd14267a7f095c581ef168c4875776d6cb30ca7acd12451914121d8031ebac",
+      "MutationID": "C2-MUT-json-constants",
+      "NegativeTestID": "C2-JSON-nan",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "VALID",
+      "OriginalSourceHash": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+      "PositiveExpected": "VALID",
+      "PositiveTestID": "C2-JSON-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_evidence.py",
+      "TargetFunction": "loads",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    },
+    {
+      "ControlsPass": true,
+      "ExactEdit": [
+        {
+          "new": "if not isinstance(value,int):",
+          "old": "if type(value) is not int:"
+        }
+      ],
+      "IndependentExpected": "REJECT",
+      "MutantNegative": "VALID",
+      "MutantPositive": "VALID",
+      "MutantSourceHash": "f3ce1fdf8db7a00d64b62209f60a74f4c9142e2288ca78cf6a474a7c49ea991f",
+      "MutationID": "C2-MUT-json-counter-bool",
+      "NegativeTestID": "C2-JSON-counter",
+      "OriginalNegative": "REJECT",
+      "OriginalPositive": "VALID",
+      "OriginalSourceHash": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+      "PositiveExpected": "VALID",
+      "PositiveTestID": "C2-JSON-control",
+      "RedundancyProof": null,
+      "StateDelta": "Explicit in stateful outcomes; pure scopes unchanged",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0e_c2_evidence.py",
+      "TargetFunction": "integer",
+      "Verdict": "STATUS_CONTRACT_KILL"
+    }
+  ],
+  "SourceHashes": {
+    "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+    "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+    "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+    "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+    "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+    "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+    "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+    "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885"
+  },
+  "StartedUtc": "2026-11-10T18:31:51.648841+00:00",
+  "TestedSHA": "fae7dfc18ca2d61af2f3446826ef3031825bbfd8",
+  "UTC": "2026-11-10T18:31:51.651497+00:00",
+  "UnexplainedSurvivors": 0
+}

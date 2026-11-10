@@ -1,0 +1,1352 @@
+{
+  "schema": "HSBI.R0A.PROPOSED_TESTS/1",
+  "testedHead": "fae7dfc18ca2d61af2f3446826ef3031825bbfd8",
+  "executedUtc": "2026-11-10T18:31:02.383359+00:00",
+  "tests": [
+    {
+      "id": "D01-signed-net",
+      "contract": "D-01",
+      "actual": "50.00",
+      "expected": "50",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-components-sum-mismatch",
+      "contract": "D-01",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D03-opening-no-grant-source",
+      "contract": "D-03",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-allocatable--15",
+      "contract": "D-01",
+      "actual": "0.00",
+      "expected": "0",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-allocatable-0",
+      "contract": "D-01",
+      "actual": "0.00",
+      "expected": "0",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-allocatable-1.005",
+      "contract": "D-01",
+      "actual": "1.00",
+      "expected": "1.00",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-allocatable-1.015",
+      "contract": "D-01",
+      "actual": "1.02",
+      "expected": "1.02",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-rounding-residual",
+      "contract": "D-01",
+      "actual": [
+        "0.00",
+        "0.00",
+        "0.00",
+        "0.00",
+        "0.01"
+      ],
+      "expected": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0.01"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-valid-balance",
+      "contract": "D-01",
+      "actual": true,
+      "expected": true,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-no-double-count",
+      "contract": "D-01",
+      "actual": false,
+      "expected": false,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-partial-committed",
+      "contract": "D-01",
+      "actual": false,
+      "expected": false,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-partial-prepared",
+      "contract": "D-01",
+      "actual": true,
+      "expected": true,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-prepared-no-consume",
+      "contract": "D-01",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-negative-available",
+      "contract": "D-01",
+      "actual": false,
+      "expected": false,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D01-missing-bucket",
+      "contract": "D-01",
+      "actual": false,
+      "expected": false,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D02-no-implicit-ProjectedBasketNet",
+      "contract": "D-02",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D02-no-implicit-ProjectedCloseNowNet",
+      "contract": "D-02",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D02-no-implicit-ActualRealizedDealNet",
+      "contract": "D-02",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D02-no-implicit-AllocationGrant",
+      "contract": "D-02",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D02-no-implicit-AvailableReserve",
+      "contract": "D-02",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D02-history-missing",
+      "contract": "D-02",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D02-no-confirmed-closes",
+      "contract": "D-02",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D02-projected100-available0",
+      "contract": "D-02",
+      "actual": "0.00",
+      "expected": "0",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D03-small-not-reserve",
+      "contract": "D-03",
+      "actual": "0",
+      "expected": "0",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D03-small-not-lost",
+      "contract": "D-03",
+      "actual": "10",
+      "expected": "10",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D03-role-BigCore",
+      "contract": "D-03",
+      "actual": "10.00",
+      "expected": "10",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D03-role-BigTrend",
+      "contract": "D-03",
+      "actual": "10.00",
+      "expected": "10",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "FINITE-nan",
+      "contract": "D-01",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "FINITE-inf",
+      "contract": "D-01",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "FINITE-NaN",
+      "contract": "D-01",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "FINITE-Infinity",
+      "contract": "D-01",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "FINITE-True",
+      "contract": "D-01",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-margins-20",
+      "contract": "D-04",
+      "actual": [
+        "-35",
+        "5"
+      ],
+      "expected": [
+        "-35",
+        "5"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-margins-60",
+      "contract": "D-04",
+      "actual": [
+        "5",
+        "45"
+      ],
+      "expected": [
+        "5",
+        "45"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-missing-baseline",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-stale-baseline",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-unneeded-absolute",
+      "contract": "D-04",
+      "actual": "50",
+      "expected": "50",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-loss-decrease",
+      "contract": "D-04",
+      "actual": [
+        "30",
+        "0"
+      ],
+      "expected": [
+        "30",
+        "0"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-BUY-Bid-cost",
+      "contract": "D-04",
+      "actual": "-12",
+      "expected": "-12",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-SELL-Ask-cost",
+      "contract": "D-04",
+      "actual": "-12",
+      "expected": "-12",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-control",
+      "contract": "D-04",
+      "actual": true,
+      "expected": true,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-binding-side",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-binding-volume",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-binding-cycle",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-binding-plan",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-binding-revision",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-binding-snapshot",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-baseline-binding-costVersion",
+      "contract": "D-04",
+      "actual": null,
+      "expected": null,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-restart-not-restored",
+      "contract": "D-04",
+      "actual": false,
+      "expected": false,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D04-partial-close-rebase",
+      "contract": "D-04",
+      "actual": [
+        "6.0",
+        null
+      ],
+      "expected": [
+        "6",
+        null
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D05-overcap",
+      "contract": "D-05",
+      "actual": [
+        "SAFE_BLOCKED",
+        "15"
+      ],
+      "expected": [
+        "SAFE_BLOCKED",
+        "15"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D05-slippage-diagnostic-only",
+      "contract": "D-05",
+      "actual": [
+        "15",
+        "5"
+      ],
+      "expected": [
+        "15",
+        "5"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D05-partial-overcap",
+      "contract": "D-05",
+      "actual": [
+        "SAFE_BLOCKED",
+        "15"
+      ],
+      "expected": [
+        "SAFE_BLOCKED",
+        "15"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D05-partial-under-cap",
+      "contract": "D-05",
+      "actual": [
+        "PENDING",
+        "10"
+      ],
+      "expected": [
+        "PENDING",
+        "10"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D05-complete-under-cap",
+      "contract": "D-05",
+      "actual": [
+        "RECONCILED",
+        "10"
+      ],
+      "expected": [
+        "RECONCILED",
+        "10"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D05-duplicate-fill",
+      "contract": "D-05",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D05-unconfirmed-fill",
+      "contract": "D-05",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D06-independent-five",
+      "contract": "D-06",
+      "actual": [
+        "VALID",
+        "5"
+      ],
+      "expected": [
+        "VALID",
+        "5"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D06-overlap-not-silent",
+      "contract": "D-06",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D06-already-in-net",
+      "contract": "D-06",
+      "actual": [
+        "VALID",
+        "0"
+      ],
+      "expected": [
+        "VALID",
+        "0"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D06-currency",
+      "contract": "D-06",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D06-negative",
+      "contract": "D-06",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-eligible-not-commit",
+      "contract": "D-07",
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-no-mutation-on-eligibility",
+      "contract": "D-07",
+      "actual": "50.00",
+      "expected": "50",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-first10",
+      "contract": "D-07",
+      "actual": [
+        "COMMITTED_IN_MEMORY",
+        "40.00"
+      ],
+      "expected": [
+        "COMMITTED_IN_MEMORY",
+        "40"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-exact-noop",
+      "contract": "D-07",
+      "actual": [
+        "NO_OP",
+        {
+          "owner": {
+            "broker": "B1",
+            "server": "S1",
+            "account": 1
+          },
+          "source": [
+            "B1",
+            "S1",
+            1,
+            11
+          ],
+          "allocation": "A1",
+          "allocationEvent": 31,
+          "policy": 1,
+          "currency": "USD",
+          "phase": "COMMITTED",
+          "net": "50",
+          "revision": 2,
+          "grant": {
+            "FinalReserve": "50.00",
+            "PartialFar": "0.00",
+            "Transition": "0.00",
+            "Carry": "0.00",
+            "ResidualHeld": "0.00"
+          },
+          "remaining": {
+            "FinalReserve": "40.00",
+            "PartialFar": "0.00",
+            "Transition": "0.00",
+            "Carry": "0.00",
+            "ResidualHeld": "0.00"
+          },
+          "consumed": {
+            "FinalReserve": "10",
+            "PartialFar": "0",
+            "Transition": "0",
+            "Carry": "0",
+            "ResidualHeld": "0"
+          },
+          "reserved": {
+            "FinalReserve": "0",
+            "PartialFar": "0",
+            "Transition": "0",
+            "Carry": "0",
+            "ResidualHeld": "0"
+          }
+        },
+        {
+          "('B1', 'S1', 1, 41)": {
+            "owner": {
+              "broker": "B1",
+              "server": "S1",
+              "account": 1
+            },
+            "source": [
+              "B1",
+              "S1",
+              1,
+              11
+            ],
+            "allocation": "A1",
+            "allocationEvent": 31,
+            "policy": 1,
+            "currency": "USD",
+            "event": 41,
+            "plan": 1,
+            "cycle": 1,
+            "revision": 1,
+            "bucket": "FinalReserve",
+            "purpose": "CatchUp",
+            "amount": "10"
+          }
+        },
+        {
+          "owner": {
+            "broker": "B1",
+            "server": "S1",
+            "account": 1
+          },
+          "complete": true,
+          "fresh": true,
+          "revision": 2,
+          "plan": 1,
+          "cycle": 1
+        }
+      ],
+      "expected": [
+        "NO_OP",
+        {
+          "owner": {
+            "broker": "B1",
+            "server": "S1",
+            "account": 1
+          },
+          "source": [
+            "B1",
+            "S1",
+            1,
+            11
+          ],
+          "allocation": "A1",
+          "allocationEvent": 31,
+          "policy": 1,
+          "currency": "USD",
+          "phase": "COMMITTED",
+          "net": "50",
+          "revision": 2,
+          "grant": {
+            "FinalReserve": "50.00",
+            "PartialFar": "0.00",
+            "Transition": "0.00",
+            "Carry": "0.00",
+            "ResidualHeld": "0.00"
+          },
+          "remaining": {
+            "FinalReserve": "40.00",
+            "PartialFar": "0.00",
+            "Transition": "0.00",
+            "Carry": "0.00",
+            "ResidualHeld": "0.00"
+          },
+          "consumed": {
+            "FinalReserve": "10",
+            "PartialFar": "0",
+            "Transition": "0",
+            "Carry": "0",
+            "ResidualHeld": "0"
+          },
+          "reserved": {
+            "FinalReserve": "0",
+            "PartialFar": "0",
+            "Transition": "0",
+            "Carry": "0",
+            "ResidualHeld": "0"
+          }
+        },
+        {
+          "('B1', 'S1', 1, 41)": {
+            "owner": {
+              "broker": "B1",
+              "server": "S1",
+              "account": 1
+            },
+            "source": [
+              "B1",
+              "S1",
+              1,
+              11
+            ],
+            "allocation": "A1",
+            "allocationEvent": 31,
+            "policy": 1,
+            "currency": "USD",
+            "event": 41,
+            "plan": 1,
+            "cycle": 1,
+            "revision": 1,
+            "bucket": "FinalReserve",
+            "purpose": "CatchUp",
+            "amount": "10"
+          }
+        },
+        {
+          "owner": {
+            "broker": "B1",
+            "server": "S1",
+            "account": 1
+          },
+          "complete": true,
+          "fresh": true,
+          "revision": 2,
+          "plan": 1,
+          "cycle": 1
+        }
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-altered11",
+      "contract": "D-07",
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-next41",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-full-consumption",
+      "contract": "D-07",
+      "actual": [
+        "COMMITTED_IN_MEMORY",
+        "0.00",
+        "50"
+      ],
+      "expected": [
+        "COMMITTED_IN_MEMORY",
+        "0",
+        "50"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-full-replay-noop",
+      "contract": "D-07",
+      "actual": "NO_OP",
+      "expected": "NO_OP",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-spent-bucket-new-event",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-missing-registry",
+      "contract": "D-07",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-reserved-not-available",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-binding-plan",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-binding-revision",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-binding-cycle",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-binding-policy",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-binding-allocationEvent",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D07-binding-source",
+      "contract": "D-07",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-proof-control",
+      "contract": "D-08",
+      "actual": "VERIFIED",
+      "expected": "VERIFIED",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-missing-history",
+      "contract": "D-08",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-authority-stale",
+      "contract": "D-08",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-authority-incomplete",
+      "contract": "D-08",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-invented-deal",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-namespace-broker",
+      "contract": "D-08",
+      "actual": true,
+      "expected": true,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-namespace-server",
+      "contract": "D-08",
+      "actual": true,
+      "expected": true,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-namespace-account",
+      "contract": "D-08",
+      "actual": true,
+      "expected": true,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-owner",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-symbol",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-magic",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-deal",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-event",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-position",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-role",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-direction",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-cycle",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-action",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-plan",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-revision",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-self-copy-snapshot",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-wrong-digest",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-stale",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-wrong-net",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-context-magic",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-context-symbol",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-forbidden-reserve-role",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-allocation-reused",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "D08-allocation-owner",
+      "contract": "D-08",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "L01-component-digest",
+      "contract": "D-08",
+      "actual": true,
+      "expected": true,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "L01-same-record-digest",
+      "contract": "D-08",
+      "actual": "64933082541ac4b2a84774a1900013760feeda7e6ea4597009852b790a2980cc",
+      "expected": "64933082541ac4b2a84774a1900013760feeda7e6ea4597009852b790a2980cc",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "L02-bucket-digest",
+      "contract": "D-01",
+      "actual": true,
+      "expected": true,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-A-negative-level",
+      "contract": "CR-09",
+      "actual": [
+        "REJECT",
+        2,
+        "-16"
+      ],
+      "expected": [
+        "REJECT",
+        2,
+        "-16"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-B-limited-positive",
+      "contract": "CR-09",
+      "actual": [
+        "POSITIVE",
+        1,
+        "29"
+      ],
+      "expected": [
+        "POSITIVE",
+        1,
+        "29"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-zero",
+      "contract": "CR-09",
+      "actual": [
+        "REJECT",
+        1,
+        "0"
+      ],
+      "expected": [
+        "REJECT",
+        1,
+        "0"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-tie",
+      "contract": "CR-09",
+      "actual": [
+        "POSITIVE",
+        1,
+        "29"
+      ],
+      "expected": [
+        "POSITIVE",
+        1,
+        "29"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-missing-complete",
+      "contract": "CR-09",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-missing-fresh",
+      "contract": "CR-09",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-missing-sourceProof",
+      "contract": "CR-09",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-no-filter-bad-level",
+      "contract": "CR-09",
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-lot-failure",
+      "contract": "CR-09",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "CR09-equivalence-sufficient",
+      "contract": "CR-09",
+      "actual": 1,
+      "expected": 1,
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "ZERO-raw-to-rounded",
+      "contract": "ZERO-CORE",
+      "actual": [
+        "0.00",
+        "0.19",
+        "REJECT"
+      ],
+      "expected": [
+        "0",
+        "0.19",
+        "REJECT"
+      ],
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "ZERO-positive-control",
+      "contract": "ZERO-CORE",
+      "actual": "GEOMETRY_ONLY",
+      "expected": "GEOMETRY_ONLY",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "guard-0",
+      "contract": "INV-16",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "guard-1",
+      "contract": "INV-16",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "guard-2",
+      "contract": "INV-16",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "guard-3",
+      "contract": "INV-16",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    },
+    {
+      "id": "guard-4",
+      "contract": "INV-16",
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "result": "PASS",
+      "normativeStatus": "PROPOSED_CONTRACT"
+    }
+  ],
+  "observations": [
+    {
+      "id": "LEGACY-ORACLE-plan-revision",
+      "actual": "ALLOW",
+      "completeProposedContractExpected": "REJECT",
+      "classification": "ORACLE_COVERAGE_GAP"
+    }
+  ],
+  "passed": 128,
+  "failed": 0,
+  "approval": "AWAITING_ADMIN_APPROVAL",
+  "mql5Compile": "NOT_RUN",
+  "brokerProof": "NOT_RUN"
+}
