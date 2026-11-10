@@ -1,0 +1,150 @@
+{
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "BaseSHA": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0e_c3_executions.py",
+    "--continue",
+    "native"
+  ],
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-10T20:06:16.714802+00:00",
+  "PriorExecutionCommand": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0e_c3_executions.py",
+    "--continue",
+    "independent"
+  ],
+  "PriorExecutionFinishedUtc": "2026-11-10T19:58:37.924305+00:00",
+  "ProofBoundary": "Audit/test-only; Python/reference/static, no broker or MQL5 runtime",
+  "Rows": [
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0e_c3_reproduction.py"
+      ],
+      "CountScope": "Parent CLI process. Role-specific counts in linked evidence; no invented independent subprocess for direct function roles.",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0E_C3_EXECUTIONS.json#reproduction",
+      "ExitCode": 0,
+      "FinishedUtc": "2026-11-10T19:45:15.069672+00:00",
+      "ID": "reproduction",
+      "RunnerSourceHash": "e6e52423e5194b9c53e6defdb44f79437991744b8abdcc2e5da985257aef82e5",
+      "SourceHashes": {
+        "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+        "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+        "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+        "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+        "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+        "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+        "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+        "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885",
+        "Tests/Static/check_hsbi_02b_r0e_c3_common.py": "8af418ad11aeb52d2ac3c903bb1b191284b271d96162f43dee9deff18fe7002d",
+        "Tests/Static/check_hsbi_02b_r0e_c3_reproduction.py": "e6e52423e5194b9c53e6defdb44f79437991744b8abdcc2e5da985257aef82e5"
+      },
+      "StartedUtc": "2026-11-10T19:40:35.648242+00:00",
+      "Stderr": "",
+      "Stdout": "C2-C1-MUT-raw-sum UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-posted-grid STATUS_CONTRACT_KILL\nC2-C1-MUT-source-namespace UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-balance-reserved STATUS_CONTRACT_KILL\nC2-C1-MUT-source-cap UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-small-role UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-projected-source UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-fund-replay STATUS_CONTRACT_KILL\nC2-C1-MUT-fund-immutable-before-replay STATUS_CONTRACT_KILL\nC2-C1-MUT-identity-Broker UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Server UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Account UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Symbol UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Magic UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Cycle UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Position UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Deal UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Order UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Role UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-EconomicEventID UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-AllocationEventID UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-ConsumptionEventID UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-AllocationID UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-PolicyVersion UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Plan UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Revision UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-identity-Snapshot UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-batch-namespace STATUS_CONTRACT_KILL\nC2-C1-MUT-batch-lineage STATUS_CONTRACT_KILL\nC2-C1-MUT-batch-completeness STATUS_CONTRACT_KILL\nC2-C1-MUT-cost-inventory UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-cost-once UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-available-journal-layer STATUS_CONTRACT_KILL\nC2-C1-MUT-composition-batch UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-composition-cost UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-planned-operation UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-composed-replay STATUS_CONTRACT_KILL\nC2-C1-MUT-immutable-before-replay STATUS_CONTRACT_KILL\nC2-C1-MUT-apply-revalidation UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-outer-poststate REDUNDANT_GUARD_SURVIVOR\nC2-C1-MUT-snapshot-fresh UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-batch-policy STATUS_CONTRACT_KILL\nC2-C1-MUT-cost-provider-complete UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-cost-headroom UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-receipt-inventory UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-receipt-source UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-malformed-default-identity REDUNDANT_GUARD_SURVIVOR\nC2-C1-MUT-historical-allocation UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-historical-identity UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-historical-plan UNSAFE_ACCEPTANCE_KILL\nC2-C1-MUT-digest-format REDUNDANT_GUARD_SURVIVOR\nC2-C1-MUT-journal-self-repair REDUNDANT_GUARD_SURVIVOR\nC2-C1-MUT-malformed-source-ignore REDUNDANT_GUARD_SURVIVOR\nC2-MUT-receipt-digest UNSAFE_ACCEPTANCE_KILL\nC2-MUT-receipt-equation UNSAFE_ACCEPTANCE_KILL\nC2-MUT-planned-purpose UNSAFE_ACCEPTANCE_KILL\nC2-MUT-planned-intent UNSAFE_ACCEPTANCE_KILL\nC2-MUT-ledger-event UNSAFE_ACCEPTANCE_KILL\nC2-MUT-ledger-policy UNSAFE_ACCEPTANCE_KILL\nC2-MUT-receipt-risk-nonnegative UNSAFE_ACCEPTANCE_KILL\nC2-MUT-receipt-principal UNSAFE_ACCEPTANCE_KILL\nC2-MUT-receipt-core-debit UNSAFE_ACCEPTANCE_KILL\nC2-MUT-cost-shape-caller REDUNDANT_GUARD_SURVIVOR\nC2-MUT-cost-dual-shape-callers UNSAFE_ACCEPTANCE_KILL\nC2-MUT-bool-id UNSAFE_ACCEPTANCE_KILL\nC2-MUT-unknown-fields STATUS_CONTRACT_KILL\nC2-MUT-mandatory-authority-caller UNSAFE_ACCEPTANCE_KILL\nC2-MUT-json-last-wins STATUS_CONTRACT_KILL\nC2-MUT-json-constants STATUS_CONTRACT_KILL\nC2-MUT-json-counter-bool STATUS_CONTRACT_KILL\ninventory-omission PASS\nhistorical-content PASS\noutside-scope PASS\nsource-hash PASS\ntest-total PASS\nfail-with-pass-total PASS\nmandatory-missing PASS\nreport-baseline PASS\nempty-cases PASS\nmissing-case PASS\nduplicate-case PASS\ncontext-999 PASS\ncontext-bool PASS\ncontext-missing PASS\ncontext-duplicate PASS\ncontext-metadata PASS\noriginal-hash PASS\nmutant-hash PASS\nexact-edit PASS\napproval-inline PASS\napproval-newline PASS\napproval-duplicate PASS\nverdict-policy PASS\nempty-mutation-catalog PASS\nmissing-mutation PASS\nunknown-mutation PASS\nduplicate-mutation PASS\nmissing-test-coherent-totals PASS\napproval-status-contradiction PASS\napproval-status-duplicate PASS\nadmin-policy-conflict PASS\ndispatch-policy-conflict PASS\nregression-source-hash PASS\nreproduction-source-hash PASS\nmatrix-function PASS\nmatrix-mutation-dangling PASS\ncatalog-version PASS\ncatalog-inventory PASS\ncatalog-source-pin PASS\nmutation-wrong-function PASS\ntest-missing-source-pin PASS\nstatus-wrong-section PASS\nhistorical-mode PASS\nstatus-field-case PASS\nverifier-source-identity PASS\ncounter-type PASS\njson-root PASS\njson-nested PASS\njson-reverse PASS\njson-same PASS\njson-regression PASS\njson-manifest PASS\njson-hash-map PASS\njson-nan PASS\njson-infinity PASS\njson-counter-bool PASS\nschema-probe-missing PASS\nclause-mapping PASS\nC2_REPRODUCTION 0\n",
+      "TestedSHA": "3737116bff6e2275d674b3dd7b816de93715f27c"
+    },
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/run_hsbi_02b_r0e_c3_regressions.py"
+      ],
+      "CountScope": "Parent CLI process. Role-specific counts in linked evidence; no invented independent subprocess for direct function roles.",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0E_C3_EXECUTIONS.json#regressions",
+      "ExitCode": 0,
+      "FinishedUtc": "2026-11-10T19:56:19.052939+00:00",
+      "ID": "regressions",
+      "RunnerSourceHash": "0211cf6a662a304029b558e1a3be6b771f319590391fe69e4e01479a79484d7a",
+      "SourceHashes": {
+        "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+        "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+        "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+        "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+        "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+        "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+        "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+        "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885",
+        "Tests/Static/check_hsbi_02b_r0e_c3_common.py": "8af418ad11aeb52d2ac3c903bb1b191284b271d96162f43dee9deff18fe7002d",
+        "Tests/Static/run_hsbi_02b_r0e_c3_regressions.py": "0211cf6a662a304029b558e1a3be6b771f319590391fe69e4e01479a79484d7a"
+      },
+      "StartedUtc": "2026-11-10T19:53:39.454887+00:00",
+      "Stderr": "",
+      "Stdout": "R8 0 48 0 True\nR8_legacy 0 13 0 True\nR8_properties 0 4 0 True\nR8_sensitivity 0 10 0 True\nR10 0 67 0 True\nR10_verify 0 28 0 True\nR10_properties 0 4 0 True\nR10_mutations 0 8 0 True\nR12 0 15 0 True\nR12_alignment 0 14 0 True\nR12A 0 13 0 True\nR12A_coverage 0 22 0 True\nR7_frozen 1 57 5 True\n02B_R0 1 35 46 True\n02B_R0A 0 128 0 True\nR12A_canonicalizer 0 0 0 True\nR0B_reference 0 141 0 True\nR0B_mutations 0 30 0 True\n02A_no_trade_scan 0 74 0 True\nR0C_reference 0 221 0 True\nR0C_mutations 0 30 0 True\nR0C_package 0 None None True\nR0D_reference 0 944 0 True\nR0D_mutations 0 22 0 True\nR0D_package_baseline 0 None None True\nR0E_reference 0 728 0 True\nR0E_package_baseline 0 None None True\nR0E_mutations 0 13 0 True\nC1_reference 0 840 0 True\nC1_mutations 0 54 0 True\nC1_package_baseline 0 None None True\nC2_reference 0 1264 0 True\nC2_mutations 0 64 0 True\nC2_package_baseline 0 None None True\n",
+      "TestedSHA": "3737116bff6e2275d674b3dd7b816de93715f27c"
+    },
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0e_c3_independent.py"
+      ],
+      "CountScope": "Parent CLI process. Role-specific counts in linked evidence; no invented independent subprocess for direct function roles.",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0E_C3_EXECUTIONS.json#independent",
+      "ExitCode": 0,
+      "FinishedUtc": "2026-11-10T19:58:37.920074+00:00",
+      "ID": "independent",
+      "RunnerSourceHash": "d023b7b5b4729da83d92b759caef3cc17dd4fd5eb1f5cd8ca8b10f2ace021057",
+      "SourceHashes": {
+        "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+        "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+        "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+        "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+        "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+        "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+        "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+        "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885",
+        "Tests/Static/check_hsbi_02b_r0e_c3_common.py": "8af418ad11aeb52d2ac3c903bb1b191284b271d96162f43dee9deff18fe7002d",
+        "Tests/Static/check_hsbi_02b_r0e_c3_independent.py": "d023b7b5b4729da83d92b759caef3cc17dd4fd5eb1f5cd8ca8b10f2ace021057"
+      },
+      "StartedUtc": "2026-11-10T19:58:35.486521+00:00",
+      "Stderr": "",
+      "Stdout": "{'Scenarios': 76, 'Pass': 76, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}\n[]\n",
+      "TestedSHA": "3737116bff6e2275d674b3dd7b816de93715f27c"
+    },
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0e_c3_native.py"
+      ],
+      "CountScope": "Parent CLI process. Role-specific counts in linked evidence; no invented independent subprocess for direct function roles.",
+      "EvidencePath": "Tests/Evidence/NEXT_STAGE_02B_R0E_C3_EXECUTIONS.json#native",
+      "ExitCode": 0,
+      "FinishedUtc": "2026-11-10T20:06:16.709074+00:00",
+      "ID": "native",
+      "RunnerSourceHash": "f2769fc0578c621181c3daacac47f8cf6ef47024191c5ebe2deb49f695d8b84b",
+      "SourceHashes": {
+        "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+        "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+        "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+        "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+        "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+        "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+        "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+        "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885",
+        "Tests/Static/check_hsbi_02b_r0e_c3_common.py": "8af418ad11aeb52d2ac3c903bb1b191284b271d96162f43dee9deff18fe7002d",
+        "Tests/Static/check_hsbi_02b_r0e_c3_native.py": "f2769fc0578c621181c3daacac47f8cf6ef47024191c5ebe2deb49f695d8b84b"
+      },
+      "StartedUtc": "2026-11-10T20:06:10.118753+00:00",
+      "Stderr": "",
+      "Stdout": "L01_L02_CONFIRMED FAIL\n",
+      "TestedSHA": "3737116bff6e2275d674b3dd7b816de93715f27c"
+    }
+  ],
+  "RunnerSourceHash": "b1947b3762801c518f9e4b900626310385a1c8d5cfe16375a72de4488b609be4",
+  "SourceHashes": {
+    "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+    "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+    "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+    "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+    "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+    "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+    "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+    "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885",
+    "Tests/Static/check_hsbi_02b_r0e_c3_common.py": "8af418ad11aeb52d2ac3c903bb1b191284b271d96162f43dee9deff18fe7002d",
+    "Tests/Static/check_hsbi_02b_r0e_c3_executions.py": "b1947b3762801c518f9e4b900626310385a1c8d5cfe16375a72de4488b609be4"
+  },
+  "StartedUtc": "2026-11-10T20:06:10.118515+00:00",
+  "TestedSHA": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "UTC": "2026-11-10T20:06:16.713757+00:00"
+}

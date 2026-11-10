@@ -1,0 +1,136 @@
+{
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "BaseSHA": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "Tests/Static/check_hsbi_02b_r0e_c3_package.py",
+    "--seal",
+    "--self-test"
+  ],
+  "Errors": [],
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-10T20:04:58.172779+00:00",
+  "NegativeFailed": 0,
+  "NegativePassed": 11,
+  "Positive": "PASS",
+  "ProofBoundary": "Audit/test-only; Python/reference/static, no broker or MQL5 runtime",
+  "Rows": [
+    {
+      "ActualErrors": [
+        "BASELINE_INVENTORY",
+        "BASELINE_OBJECTS"
+      ],
+      "ExpectedError": "BASELINE_INVENTORY",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "inventory",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "SOURCE_HASH"
+      ],
+      "ExpectedError": "SOURCE_HASH",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "source-hash",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "C2_REFERENCE_ROWS"
+      ],
+      "ExpectedError": "C2_REFERENCE_ROWS",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "reference-row",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "SURVIVOR_CLASSIFICATION"
+      ],
+      "ExpectedError": "SURVIVOR_CLASSIFICATION",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "survivor-whitewash",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "ADMIN_APPROVAL"
+      ],
+      "ExpectedError": "ADMIN_APPROVAL",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "admin-approval",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "POLICY"
+      ],
+      "ExpectedError": "POLICY",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "dispatch",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "SCHEMA:ValueError:duplicate JSON key: ExitCode"
+      ],
+      "ExpectedError": "SCHEMA",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "duplicate-json",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "GUARD_MATRIX"
+      ],
+      "ExpectedError": "GUARD_MATRIX",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "guard-omission",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "HISTORICAL_FAILURES",
+        "REGRESSION_ROW"
+      ],
+      "ExpectedError": "REGRESSION_ROW",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "regression-exit",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "C2_PACKAGE"
+      ],
+      "ExpectedError": "C2_PACKAGE",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "empty-package-catalog",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        "VERIFIER_SOURCE_IDENTITY"
+      ],
+      "ExpectedError": "VERIFIER_SOURCE_IDENTITY",
+      "PositiveControl": "unmodified frozen template passed",
+      "ProbeID": "verifier-source",
+      "Result": "PASS"
+    }
+  ],
+  "RunnerSourceHash": "d0f31b5100f846d31df3980970758f6d5ed38711a67568e2820da7c0cb3e91a4",
+  "SourceHashes": {
+    "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+    "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+    "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+    "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+    "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+    "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+    "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+    "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885",
+    "Tests/Static/check_hsbi_02b_r0e_c3_common.py": "8af418ad11aeb52d2ac3c903bb1b191284b271d96162f43dee9deff18fe7002d",
+    "Tests/Static/check_hsbi_02b_r0e_c3_package.py": "d0f31b5100f846d31df3980970758f6d5ed38711a67568e2820da7c0cb3e91a4"
+  },
+  "StartedUtc": "2026-11-10T20:04:46.450931+00:00",
+  "TestedSHA": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "UTC": "2026-11-10T20:04:58.172142+00:00"
+}

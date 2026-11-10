@@ -1,0 +1,844 @@
+{
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "BaseSHA": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0e_c3_reproduction.py"
+  ],
+  "DistinctScenarioWarning": "158 TestIDs are not158 unique mathematical inputs. Shared positive controls/direct shapes and contexts are not independent proofs. Exact groups above derive from actual operation-call arguments.",
+  "DuplicateContext0CallGroups": [],
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-10T19:45:15.041161+00:00",
+  "HistoricalArtifactsUntouched": true,
+  "MutationCounts": {
+    "CatalogSize": 70,
+    "InfrastructureErrors": 0,
+    "Killed": 64,
+    "RedundantSurvivors": 6,
+    "UnexplainedSurvivors": 0
+  },
+  "PackageCounts": {
+    "NegativeFailed": 0,
+    "NegativePassed": 58,
+    "Positive": "PASS"
+  },
+  "ProofBoundary": "Audit/test-only; Python/reference/static, no broker or MQL5 runtime",
+  "ReferenceCounts": {
+    "Comparisons": 9914,
+    "Executions": 1264,
+    "Fail": 0,
+    "InfrastructureErrors": 0,
+    "Pass": 1264,
+    "Scenarios": 158,
+    "SchemaProbes": 2462
+  },
+  "RunnerSourceHash": "e6e52423e5194b9c53e6defdb44f79437991744b8abdcc2e5da985257aef82e5",
+  "SourceHashes": {
+    "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+    "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+    "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+    "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+    "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+    "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+    "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+    "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885",
+    "Tests/Static/check_hsbi_02b_r0e_c3_common.py": "8af418ad11aeb52d2ac3c903bb1b191284b271d96162f43dee9deff18fe7002d",
+    "Tests/Static/check_hsbi_02b_r0e_c3_reproduction.py": "e6e52423e5194b9c53e6defdb44f79437991744b8abdcc2e5da985257aef82e5"
+  },
+  "StartedUtc": "2026-11-10T19:40:35.744979+00:00",
+  "TestedSHA": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "Traceability": [
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-positive"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-SOURCE-positive"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-SOURCE-raw"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-SOURCE-namespace"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-SOURCE-grid"
+    },
+    {
+      "Observed": true,
+      "Operation": "economic_record",
+      "TestID": "C2-BASE-RECORD-grid"
+    },
+    {
+      "Observed": true,
+      "Operation": "balance",
+      "TestID": "C2-BASE-BALANCE-control"
+    },
+    {
+      "Observed": true,
+      "Operation": "balance",
+      "TestID": "C2-BASE-BALANCE-doublecount"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-no-journal"
+    },
+    {
+      "Observed": true,
+      "Operation": "available",
+      "TestID": "C2-BASE-AVAILABLE-control"
+    },
+    {
+      "Observed": true,
+      "Operation": "available",
+      "TestID": "C2-BASE-AVAILABLE-incomplete"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-missing-authority"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-forged-allocation"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-control"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Broker"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Server"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Account"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Symbol"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Magic"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Cycle"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Position"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Deal"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Order"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Role"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-EconomicEventID"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-AllocationEventID"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-ConsumptionEventID"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-AllocationID"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-PolicyVersion"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Plan"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Revision"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-foreign-Snapshot"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-allocation-event"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-malformed-none"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-malformed-bool"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-malformed-missing"
+    },
+    {
+      "Observed": true,
+      "Operation": "verify_allocation_identity",
+      "TestID": "C2-BASE-IDENTITY-stale"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-control"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-foreign-account"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-foreign-BatchID"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-foreign-Symbol"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-foreign-Cycle"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-foreign-Order"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-foreign-Position"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-foreign-currency"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-foreign-digits"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-pending"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-overcap"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-unknown-policy"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-control"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-missing"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-omitted"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-unknown"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-duplicate"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-knownzero"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-knownempty"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-bypass-batch"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-bypass-cost"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-bypass-identity"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-bypass-planned"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-negative-amount"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-insufficient-headroom"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-full"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REPLAY-exact"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REPLAY-changed"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REPLAY-authority"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REPLAY-current-context"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-BASE-RECOVER-control"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-BASE-RECOVER-forged"
+    },
+    {
+      "Observed": true,
+      "Operation": "balance",
+      "TestID": "C2-BASE-BALANCE-no-reserve"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-SOURCE-overfund"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-SOURCE-small"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-SOURCE-projected"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-FUND-exact"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-FUND-changed"
+    },
+    {
+      "Observed": true,
+      "Operation": "fund",
+      "TestID": "C2-BASE-FUND-authority-change"
+    },
+    {
+      "Observed": true,
+      "Operation": "available",
+      "TestID": "C2-BASE-AVAILABLE-external-missing"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-provider-missing-allocations"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-provider-missing-context"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-provider-missing-batches"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-provider-missing-fillHistory"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-provider-missing-costSets"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-provider-missing-coreJournal"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-provider-missing-receipts"
+    },
+    {
+      "Observed": true,
+      "Operation": "available",
+      "TestID": "C2-BASE-AVAILABLE-knownzero"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REQUEST-none"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REQUEST-bool"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REQUEST-schema"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REQUEST-missing"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REQUEST-eventbool"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REQUEST-eventfloat"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-REQUEST-eventzero"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-after-full"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-token-not-authority"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-not-applicable"
+    },
+    {
+      "Observed": true,
+      "Operation": "assess_batch",
+      "TestID": "C2-BASE-BATCH-history-incomplete"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-BASE-COST-provider-incomplete"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-BASE-RECOVER-no-receipt"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-BASE-RECOVER-bad-source-digest"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-BASE-RECOVER-historical-identity"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-BASE-RECOVER-historical-allocation"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-BASE-RECOVER-historical-plan"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-BASE-RECOVER-digest-format"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-bad-journal-entry"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-BASE-APPLY-bad-store-source"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-bool-policy"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-batch-null"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-batch-empty"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-batch-bool"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-history-empty"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-snapshot-payload"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-receipt-digest"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-receipt-equation"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-planned-purpose"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-planned-intent"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-ledger-allocationEvent"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-ledger-PolicyVersion"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-receipt-clause-nonnegative"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-receipt-clause-principal"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-receipt-clause-core"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-chain"
+    },
+    {
+      "Observed": true,
+      "Operation": "recover_store",
+      "TestID": "C2-recovery-scope"
+    },
+    {
+      "Observed": true,
+      "Operation": "loads",
+      "TestID": "C2-JSON-control"
+    },
+    {
+      "Observed": true,
+      "Operation": "loads",
+      "TestID": "C2-JSON-duplicate"
+    },
+    {
+      "Observed": true,
+      "Operation": "loads",
+      "TestID": "C2-JSON-reverse"
+    },
+    {
+      "Observed": true,
+      "Operation": "loads",
+      "TestID": "C2-JSON-same"
+    },
+    {
+      "Observed": true,
+      "Operation": "loads",
+      "TestID": "C2-JSON-nested"
+    },
+    {
+      "Observed": true,
+      "Operation": "loads",
+      "TestID": "C2-JSON-nan"
+    },
+    {
+      "Observed": true,
+      "Operation": "loads",
+      "TestID": "C2-JSON-infinity"
+    },
+    {
+      "Observed": true,
+      "Operation": "loads",
+      "TestID": "C2-JSON-counter"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-uid-min"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-uid-max"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-uid-true"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-uid-false"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-uid-zero"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-uid-float"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-uid-text"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-uid-overflow"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-account-min"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-account-max"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-account-true"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-account-false"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-account-zero"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-account-float"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-account-text"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-account-overflow"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-magic-min"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-magic-max"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-magic-true"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-magic-false"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-magic-zero"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-magic-float"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-magic-text"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-ID-magic-overflow"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-cost-bool-direct"
+    },
+    {
+      "Observed": true,
+      "Operation": "cost_coverage",
+      "TestID": "C2-cost-unknown-field"
+    },
+    {
+      "Observed": true,
+      "Operation": "validate",
+      "TestID": "C2-schema-unknown-field"
+    },
+    {
+      "Observed": true,
+      "Operation": "apply_for_test",
+      "TestID": "C2-authority-unused-malformed"
+    }
+  ],
+  "UTC": "2026-11-10T19:45:15.038907+00:00",
+  "UniqueTestContextPairs": 1264
+}

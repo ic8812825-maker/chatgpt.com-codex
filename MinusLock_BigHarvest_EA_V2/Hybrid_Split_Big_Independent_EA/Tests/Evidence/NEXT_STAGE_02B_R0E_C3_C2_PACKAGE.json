@@ -1,0 +1,921 @@
+{
+  "Adapter": "Archive root/default arguments + relative path bookkeeping only; runner hash identifies exact adapter",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "BaseSHA": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0e_c3_reproduction.py"
+  ],
+  "Errors": [],
+  "ExecutionRole": "package",
+  "ExitCode": 0,
+  "ExitCodeScope": "computed role outcome within one CLI; parent returns final ExitCode",
+  "FinishedUtc": "2026-11-10T19:45:15.028360+00:00",
+  "Negative": [
+    {
+      "ActualErrors": [
+        {
+          "Code": "BASELINE_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "HISTORICAL_BYTES",
+          "Path": "BUILD_INFO.md"
+        }
+      ],
+      "ExpectedCode": "BASELINE_INVENTORY",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "inventory-omission",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "HISTORICAL_BYTES",
+          "Path": "BUILD_INFO.md"
+        }
+      ],
+      "ExpectedCode": "HISTORICAL_BYTES",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "historical-content",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "NEW_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "OUTSIDE_SCOPE",
+          "Path": ""
+        },
+        {
+          "Code": "ARTIFACT_HASH_INVENTORY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "OUTSIDE_SCOPE",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "outside-scope",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "SOURCE_HASH",
+          "Path": "reference:Tests/Reference/hsbi_02b_r0e_c2_contract_model.py"
+        }
+      ],
+      "ExpectedCode": "SOURCE_HASH",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "source-hash",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "TEST_TOTALS",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "test-total",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        },
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        },
+        {
+          "Code": "TEST_VERDICT",
+          "Path": "C2-BASE-APPLY-positive"
+        }
+      ],
+      "ExpectedCode": "TEST_VERDICT",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "fail-with-pass-total",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "NEW_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "ARTIFACT_HASH_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "ARTIFACT_HASH",
+          "Path": "Docs/NEXT_STAGE_02B_R0E_C2_DTO_SCHEMA_CONTRACT_RU.md"
+        },
+        {
+          "Code": "MANDATORY_ARTIFACT",
+          "Path": "Docs/NEXT_STAGE_02B_R0E_C2_DTO_SCHEMA_CONTRACT_RU.md"
+        }
+      ],
+      "ExpectedCode": "MANDATORY_ARTIFACT",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "mandatory-missing",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "REPORT_BASELINE",
+          "Path": "Reports/NEXT_STAGE_02B_R0E_C2_FINAL_VERDICT_RU.md"
+        }
+      ],
+      "ExpectedCode": "REPORT_BASELINE",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "report-baseline",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MATRIX_TRACEABILITY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MATRIX_TRACEABILITY",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "empty-cases",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MATRIX_TRACEABILITY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MATRIX_TRACEABILITY",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "missing-case",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MATRIX_TRACEABILITY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MATRIX_TRACEABILITY",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "duplicate-case",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "TEST_CONTEXT_INVENTORY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "TEST_CONTEXT_INVENTORY",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "context-999",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:counter must be exact integer"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "context-bool",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "TEST_CONTEXT_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        },
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "TEST_CONTEXT_INVENTORY",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "context-missing",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "TEST_CONTEXT_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        },
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "TEST_CONTEXT_INVENTORY",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "context-duplicate",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "CONTEXT_METADATA",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "CONTEXT_METADATA",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "context-metadata",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "ORIGINAL_SOURCE_HASH",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "ORIGINAL_SOURCE_HASH",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "original-hash",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MUTANT_SOURCE_HASH",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MUTANT_SOURCE_HASH",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "mutant-hash",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MUTATION_SPEC",
+          "Path": "C2-C1-MUT-raw-sum:ExactEdit"
+        }
+      ],
+      "ExpectedCode": "MUTATION_SPEC",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "exact-edit",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "APPROVAL_VALUE",
+          "Path": "D-01:AdministratorDecision"
+        }
+      ],
+      "ExpectedCode": "APPROVAL_VALUE",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "approval-inline",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "APPROVAL_VALUE",
+          "Path": "D-01:AdministratorDecision"
+        }
+      ],
+      "ExpectedCode": "APPROVAL_VALUE",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "approval-newline",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "STATUS_UNIQUENESS",
+          "Path": "D-01:AdministratorDecision"
+        }
+      ],
+      "ExpectedCode": "STATUS_UNIQUENESS",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "approval-duplicate",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "STATUS_UNIQUENESS",
+          "Path": "ADMIN_APPROVAL_COMPLETE"
+        }
+      ],
+      "ExpectedCode": "STATUS_UNIQUENESS",
+      "Group": "R0E_23_CLASS",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "verdict-policy",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MUTATION_INVENTORY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MUTATION_INVENTORY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "empty-mutation-catalog",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MUTATION_INVENTORY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MUTATION_INVENTORY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "missing-mutation",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MUTATION_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "UNKNOWN_MUTATION",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "UNKNOWN_MUTATION",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "unknown-mutation",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MUTATION_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "MUTATION_TOTALS",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MUTATION_INVENTORY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "duplicate-mutation",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MATRIX_TRACEABILITY",
+          "Path": ""
+        },
+        {
+          "Code": "TEST_CONTEXT_INVENTORY",
+          "Path": ""
+        },
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "TEST_CONTEXT_INVENTORY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "missing-test-coherent-totals",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "STATUS_UNIQUENESS",
+          "Path": "D-01:ApprovalStatus"
+        }
+      ],
+      "ExpectedCode": "STATUS_UNIQUENESS",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "approval-status-contradiction",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "STATUS_UNIQUENESS",
+          "Path": "D-01:ApprovalStatus"
+        }
+      ],
+      "ExpectedCode": "STATUS_UNIQUENESS",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "approval-status-duplicate",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "STATUS_UNIQUENESS",
+          "Path": "ADMIN_APPROVAL_COMPLETE"
+        }
+      ],
+      "ExpectedCode": "STATUS_UNIQUENESS",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "admin-policy-conflict",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "STATUS_UNIQUENESS",
+          "Path": "BROKER_DISPATCH_ALLOWED"
+        }
+      ],
+      "ExpectedCode": "STATUS_UNIQUENESS",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "dispatch-policy-conflict",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "SOURCE_HASH",
+          "Path": "regression:R8:Tests/Reference/hsbi_02b_r0d_independent_oracle.py"
+        }
+      ],
+      "ExpectedCode": "SOURCE_HASH",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "regression-source-hash",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "SOURCE_HASH",
+          "Path": "reproduction:Tests/Reference/hsbi_02b_r0d_independent_oracle.py"
+        }
+      ],
+      "ExpectedCode": "SOURCE_HASH",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "reproduction-source-hash",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MATRIX_TRACEABILITY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MATRIX_TRACEABILITY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "matrix-function",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MATRIX_TRACEABILITY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MATRIX_TRACEABILITY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "matrix-mutation-dangling",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "REQUIRED_CATALOG",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "REQUIRED_CATALOG",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "catalog-version",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "REQUIRED_CATALOG",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "REQUIRED_CATALOG",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "catalog-inventory",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "REQUIRED_CATALOG",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "REQUIRED_CATALOG",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "catalog-source-pin",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MUTATION_SPEC",
+          "Path": "C2-C1-MUT-raw-sum:TargetFunction"
+        }
+      ],
+      "ExpectedCode": "MUTATION_SPEC",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "mutation-wrong-function",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PROVENANCE_INVENTORY",
+          "Path": "reference"
+        }
+      ],
+      "ExpectedCode": "PROVENANCE_INVENTORY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "test-missing-source-pin",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "STATUS_SECTION",
+          "Path": ""
+        },
+        {
+          "Code": "STATUS_UNIQUENESS",
+          "Path": "BROKER_DISPATCH_ALLOWED"
+        }
+      ],
+      "ExpectedCode": "STATUS_UNIQUENESS",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "status-wrong-section",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "HISTORICAL_MODE",
+          "Path": "BUILD_INFO.md"
+        }
+      ],
+      "ExpectedCode": "HISTORICAL_MODE",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "historical-mode",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "STATUS_FIELD_NAME",
+          "Path": "broker_dispatch_allowed"
+        }
+      ],
+      "ExpectedCode": "STATUS_FIELD_NAME",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "status-field-case",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "VERIFIER_SOURCE",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "VERIFIER_SOURCE",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "verifier-source-identity",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:counter must be exact integer"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "counter-type",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:duplicate JSON key: ExitCode"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-root",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:duplicate JSON key: Result"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-nested",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:duplicate JSON key: Result"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-reverse",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:duplicate JSON key: Result"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-same",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:duplicate JSON key: ExitCode"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-regression",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:duplicate JSON key: BaseSHA"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-manifest",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:duplicate JSON key: Docs/NEXT_STAGE_02B_R0E_C2_DTO_SCHEMA_CONTRACT_RU.md"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-hash-map",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:invalid JSON constant: NaN"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-nan",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:invalid JSON constant: Infinity"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-infinity",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "PACKAGE_SCHEMA",
+          "Path": "ValueError:counter must be exact integer"
+        }
+      ],
+      "ExpectedCode": "PACKAGE_SCHEMA",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "json-counter-bool",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "TEST_TOTALS",
+          "Path": ""
+        },
+        {
+          "Code": "SCHEMA_INVENTORY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "SCHEMA_INVENTORY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "schema-probe-missing",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    },
+    {
+      "ActualErrors": [
+        {
+          "Code": "MATRIX_TRACEABILITY",
+          "Path": ""
+        }
+      ],
+      "ExpectedCode": "MATRIX_TRACEABILITY",
+      "Group": "C2_EXTENSION",
+      "PositiveControl": "PASS_FROZEN_TEMPLATE",
+      "ProbeID": "clause-mapping",
+      "ProofBoundary": "Disposable fixture; refreshed new-artifact hashes; real baseline untouched",
+      "Result": "PASS"
+    }
+  ],
+  "NegativeFailed": 0,
+  "NegativePassed": 58,
+  "OriginalCheckerHash": "5b2157989ecdcaaa768f079af564e76e4bf0a69b915e116bf3b52604723f128a",
+  "Positive": "PASS",
+  "ProofBoundary": "Audit/test-only; Python/reference/static, no broker or MQL5 runtime",
+  "RunnerSourceHash": "e6e52423e5194b9c53e6defdb44f79437991744b8abdcc2e5da985257aef82e5",
+  "SourceHashes": {
+    "Tests/Reference/hsbi_02b_r0d_independent_oracle.py": "ab3546751d8959058c0d8ea3965d08dd4345e1217f0c1a0d517ca34b554690c4",
+    "Tests/Reference/hsbi_02b_r0e_c2_contract_model.py": "cea97047d647ef44ee09d5942f4d16759460fe181b666244e932e263a0d6b223",
+    "Tests/Reference/hsbi_02b_r0e_c2_evidence.py": "5c8f2f7f24aa308c1bdeefe75831425898054d7f669e9afb12d0df5fb0c67330",
+    "Tests/Reference/hsbi_02b_r0e_c2_schemas.py": "ac97132f77772ce65cb991a64cf7280ab9ba3fe888446c9952513d31252588f6",
+    "Tests/Static/check_hsbi_02b_r0d_contracts.py": "299ad1fe55ec79341488a87104f6f6999452c78d33b8e780d592ca7a8da881f8",
+    "Tests/Static/check_hsbi_02b_r0e_c1_contracts.py": "005723bb29afc3617237708c87e8b992346e785d064837e99c9210b00648dffb",
+    "Tests/Static/check_hsbi_02b_r0e_c2_contracts.py": "49c535477a6e503baa4e541bd083d0f9fdf8c73b608fdaee6b416ce16d8556a5",
+    "Tests/Static/check_hsbi_02b_r0e_c2_mutations.py": "4c50ac653c5e09acef468ce5f45860a8937e2bb9c282fca948cf2d5637cbd885",
+    "Tests/Static/check_hsbi_02b_r0e_c3_common.py": "8af418ad11aeb52d2ac3c903bb1b191284b271d96162f43dee9deff18fe7002d",
+    "Tests/Static/check_hsbi_02b_r0e_c3_reproduction.py": "e6e52423e5194b9c53e6defdb44f79437991744b8abdcc2e5da985257aef82e5"
+  },
+  "StartedUtc": "2026-11-10T19:40:35.744979+00:00",
+  "TestedSHA": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "UTC": "2026-11-10T19:45:15.027546+00:00"
+}

@@ -1,0 +1,12 @@
+{'Scenarios': 62, 'Pass': 58, 'Fail': 0, 'InfrastructureErrors': 4, 'ExitCode': 1}
+[{'TestID': 'C3-LOT-min', 'RequirementID': 'ZERO-CORE', 'Expected': True, 'Kind': 'REFERENCE', 'ProofBoundary': 'INDEPENDENT_MATHEMATICAL_CRITERION_NOT_BROKER_EVIDENCE', 'Result': 'INFRASTRUCTURE_ERROR', 'ErrorType': 'AssertionError', 'Error': ''}, {'TestID': 'C3-LOT-off-origin', 'RequirementID': 'ZERO-CORE', 'Expected': False, 'Kind': 'REFERENCE', 'ProofBoundary': 'INDEPENDENT_MATHEMATICAL_CRITERION_NOT_BROKER_EVIDENCE', 'Result': 'INFRASTRUCTURE_ERROR', 'ErrorType': 'AssertionError', 'Error': ''}, {'TestID': 'C3-LOT-min-origin', 'RequirementID': 'ZERO-CORE', 'Expected': True, 'Kind': 'REFERENCE', 'ProofBoundary': 'INDEPENDENT_MATHEMATICAL_CRITERION_NOT_BROKER_EVIDENCE', 'Result': 'INFRASTRUCTURE_ERROR', 'ErrorType': 'AssertionError', 'Error': ''}, {'TestID': 'C3-LOT-too-large', 'RequirementID': 'ZERO-CORE', 'Expected': False, 'Kind': 'REFERENCE', 'ProofBoundary': 'INDEPENDENT_MATHEMATICAL_CRITERION_NOT_BROKER_EVIDENCE', 'Result': 'INFRASTRUCTURE_ERROR', 'ErrorType': 'AssertionError', 'Error': ''}]
+{'Scenarios': 62, 'Pass': 62, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+{'Scenarios': 70, 'Pass': 70, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+{'Scenarios': 71, 'Pass': 71, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+{'Scenarios': 72, 'Pass': 72, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]
+{'Scenarios': 72, 'Pass': 72, 'Fail': 0, 'InfrastructureErrors': 0, 'ExitCode': 0}
+[]

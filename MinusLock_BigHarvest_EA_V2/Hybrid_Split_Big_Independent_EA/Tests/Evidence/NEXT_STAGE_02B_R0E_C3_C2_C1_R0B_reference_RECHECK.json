@@ -1,0 +1,2032 @@
+{
+  "brokerEvidence": "NOT_RUN",
+  "executedUtc": "2026-11-10T19:54:37.513935+00:00",
+  "failed": 0,
+  "legacyObservations": [
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Broker",
+      "id": "R0A-boundary-Broker",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Server",
+      "id": "R0A-boundary-Server",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Account",
+      "id": "R0A-boundary-Account",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Symbol",
+      "id": "R0A-boundary-Symbol",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Magic",
+      "id": "R0A-boundary-Magic",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Deal",
+      "id": "R0A-boundary-Deal",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Order",
+      "id": "R0A-boundary-Order",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Position",
+      "id": "R0A-boundary-Position",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Cycle",
+      "id": "R0A-boundary-Cycle",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "Plan",
+      "id": "R0A-boundary-Plan",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "StateRevision",
+      "id": "R0A-boundary-StateRevision",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "AllocationEvent",
+      "id": "R0A-boundary-AllocationEvent",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": true,
+      "classification": "REJECTED_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "PolicyVersion",
+      "id": "R0A-boundary-PolicyVersion",
+      "negative": "REJECT",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": true,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "balanceUnchanged": false,
+      "classification": "BINDING_GAP_AT_THIS_BOUNDARY",
+      "completeContractExpected": "REJECT",
+      "field": "SnapshotID",
+      "id": "R0A-boundary-SnapshotID",
+      "negative": "COMMITTED_IN_MEMORY",
+      "positive": "ELIGIBLE_FOR_COMMIT",
+      "revisionUnchanged": false,
+      "scope": "authorize/apply_for_test only; unsupported extra fields do not establish full proof-chain behavior"
+    },
+    {
+      "actual": "ALLOW",
+      "classification": "LEGACY_ORACLE_GAP",
+      "expected": "REJECT",
+      "id": "R0-legacy-plan",
+      "newOracleCase": "ID-foreign-Plan"
+    },
+    {
+      "actual": "ALLOW",
+      "classification": "LEGACY_ORACLE_GAP",
+      "expected": "REJECT",
+      "id": "R0-legacy-revision",
+      "newOracleCase": "ID-foreign-StateRevision"
+    },
+    {
+      "actualAmount": "1",
+      "actualStatus": "RECONCILED",
+      "classification": "POSTED_AMOUNT_NOT_PART_OF_R0A_API",
+      "id": "R0A-implicit-USD2-posting",
+      "independentlySpecifiedBrokerPosted": "1.01",
+      "scope": "Synthetic receipt counterexample, not observed broker behavior"
+    }
+  ],
+  "mql5Runtime": "NOT_RUN",
+  "passed": 141,
+  "persistenceEvidence": "UNPROVEN",
+  "status": "PROPOSED_CONTRACT",
+  "testedHead": "3737116bff6e2275d674b3dd7b816de93715f27c",
+  "tests": [
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Broker",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Broker",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Server",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Server",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Account",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Account",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Symbol",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Symbol",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Magic",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Magic",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Deal",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Deal",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Order",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Order",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Position",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Position",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Cycle",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Cycle",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-Plan",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-Plan",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-StateRevision",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-StateRevision",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-AllocationEvent",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-AllocationEvent",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-PolicyVersion",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-PolicyVersion",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-control-SnapshotID",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-foreign-SnapshotID",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-bool-Account",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "ID-bool-Deal",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "ID-signed-Magic-control",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "COMMITTED_IN_MEMORY",
+        "40",
+        2
+      ],
+      "expected": [
+        "COMMITTED_IN_MEMORY",
+        "40",
+        2
+      ],
+      "group": "REPLAY",
+      "id": "EVENT-first",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "NO_OP",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "NO_OP",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-exact-revision-advanced",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-amount",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "NO_OP",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "NO_OP",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-exact-policy-advanced",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-policy",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Broker",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Server",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Account",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Symbol",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Magic",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Deal",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Order",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Position",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Cycle",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-Plan",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-StateRevision",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-AllocationEvent",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-PolicyVersion",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-altered-SnapshotID",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "COMMITTED_IN_MEMORY",
+        "0",
+        "50"
+      ],
+      "expected": [
+        "COMMITTED_IN_MEMORY",
+        "0",
+        "50"
+      ],
+      "group": "REPLAY",
+      "id": "EVENT-full-consumed",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "NO_OP",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "NO_OP",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-full-replay",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "EVENT-spent-new",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-state-revision",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-state-source",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-state-allocation",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-amount-precision",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-currency",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-precision-metadata",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-source-unconfirmed",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-source-role",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-snapshot-stale",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-source-stale",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-history-missing",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-history-unavailable",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "CONFLICT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-grant-vector",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-reserved-other-bucket",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-consumed-other-bucket",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-sum-grants",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-negative-remaining",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-amount-NaN",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-amount-Infinity",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-incomplete-authority",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-missing-registry",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "ELIGIBLE_FOR_COMMIT",
+      "expected": "ELIGIBLE_FOR_COMMIT",
+      "group": "AUTHORITY",
+      "id": "SOURCE-signed-components",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "NO_OP",
+      "expected": "NO_OP",
+      "group": "ALLOCATION",
+      "id": "GRANT-replay",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "group": "ALLOCATION",
+      "id": "GRANT-bucket-permutation",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "group": "ALLOCATION",
+      "id": "GRANT-altered-event",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "CONFLICT",
+      "expected": "CONFLICT",
+      "group": "ALLOCATION",
+      "id": "GRANT-altered-policyVersion",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "0",
+      "expected": "0",
+      "group": "ALLOCATION",
+      "id": "ALLOC-net-0",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "0",
+      "expected": "0",
+      "group": "ALLOCATION",
+      "id": "ALLOC-net--15",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "50",
+      "expected": "50",
+      "group": "ALLOCATION",
+      "id": "ALLOC-net-50",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "0.01",
+      "expected": "0.01",
+      "group": "ALLOCATION",
+      "id": "ALLOC-residual-cent",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": true,
+      "expected": true,
+      "group": "ALLOCATION",
+      "id": "BALANCE-prepared",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "expected": [
+        "REJECT",
+        true,
+        true,
+        true
+      ],
+      "group": "AUTHORITY",
+      "id": "GUARD-prepared-no-spend",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": false,
+      "expected": false,
+      "group": "ALLOCATION",
+      "id": "BALANCE-committed-unallocated",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "1",
+      "expected": "1",
+      "group": "PRECISION",
+      "id": "PREC-round-1.005-2",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "1.02",
+      "expected": "1.02",
+      "group": "PRECISION",
+      "id": "PREC-round-1.015-2",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "-1",
+      "expected": "-1",
+      "group": "PRECISION",
+      "id": "PREC-round--1.005-2",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "-1.02",
+      "expected": "-1.02",
+      "group": "PRECISION",
+      "id": "PREC-round--1.015-2",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "2",
+      "expected": "2",
+      "group": "PRECISION",
+      "id": "PREC-round-1.5-0",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "2",
+      "expected": "2",
+      "group": "PRECISION",
+      "id": "PREC-round-2.5-0",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "1",
+      "expected": "1",
+      "group": "PRECISION",
+      "id": "PREC-round-1.0005-3",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "1.002",
+      "expected": "1.002",
+      "group": "PRECISION",
+      "id": "PREC-round-1.0015-3",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "1",
+        "1.02"
+      ],
+      "expected": [
+        "1",
+        "1.02"
+      ],
+      "group": "PRECISION",
+      "id": "PREC-component-vs-once",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "1.25",
+        "1.24"
+      ],
+      "expected": [
+        "1.25",
+        "1.24"
+      ],
+      "group": "PRECISION",
+      "id": "PREC-double-round-boundary",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "POSTED",
+        "1.01"
+      ],
+      "expected": [
+        "POSTED",
+        "1.01"
+      ],
+      "group": "PRECISION",
+      "id": "PREC-broker-posted",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "group": "PRECISION",
+      "id": "PREC-local-mismatch",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "POSTED",
+        "1"
+      ],
+      "expected": [
+        "POSTED",
+        "1"
+      ],
+      "group": "PRECISION",
+      "id": "PREC-local-matched",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "group": "PRECISION",
+      "id": "PREC-unverified-local",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "group": "PRECISION",
+      "id": "PREC-unknown-digits",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "group": "PRECISION",
+      "id": "PREC-missing-post",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "POSTED",
+        "2"
+      ],
+      "expected": [
+        "POSTED",
+        "2"
+      ],
+      "group": "PRECISION",
+      "id": "PREC-currency-JPY",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "2",
+      "expected": "2",
+      "group": "PRECISION",
+      "id": "ALLOC-precision-JPY",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "POSTED",
+        "1.002"
+      ],
+      "expected": [
+        "POSTED",
+        "1.002"
+      ],
+      "group": "PRECISION",
+      "id": "PREC-currency-KWD",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "1.002",
+      "expected": "1.002",
+      "group": "PRECISION",
+      "id": "ALLOC-precision-KWD",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "UNAVAILABLE",
+        null
+      ],
+      "expected": [
+        "UNAVAILABLE",
+        null
+      ],
+      "group": "PRECISION",
+      "id": "PREC-posted-off-grid",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "PRECISION",
+      "id": "FINITE-NaN",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "PRECISION",
+      "id": "FINITE-Infinity",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "PRECISION",
+      "id": "FINITE--Infinity",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "0000000000000000",
+      "expected": "0000000000000000",
+      "group": "CODEC",
+      "id": "CODEC-raw64-0.0",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "0000000000000000",
+      "expected": "0000000000000000",
+      "group": "CODEC",
+      "id": "CODEC-raw64--0.0",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "3ff0000000000000",
+      "expected": "3ff0000000000000",
+      "group": "CODEC",
+      "id": "CODEC-raw64-1.0",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "c014000000000000",
+      "expected": "c014000000000000",
+      "group": "CODEC",
+      "id": "CODEC-raw64--5.0",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "3fb999999999999a",
+      "expected": "3fb999999999999a",
+      "group": "CODEC",
+      "id": "CODEC-raw64-0.1",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        2,
+        "-16"
+      ],
+      "expected": [
+        "REJECT",
+        2,
+        "-16"
+      ],
+      "group": "CR09",
+      "id": "CR09-A-negative",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "POSITIVE",
+        1,
+        "29"
+      ],
+      "expected": [
+        "POSITIVE",
+        1,
+        "29"
+      ],
+      "group": "CR09",
+      "id": "CR09-B-positive-limited",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "POSITIVE",
+        2,
+        "19"
+      ],
+      "expected": [
+        "POSITIVE",
+        2,
+        "19"
+      ],
+      "group": "CR09",
+      "id": "CR09-all-positive",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "REJECT",
+        2,
+        "0"
+      ],
+      "expected": [
+        "REJECT",
+        2,
+        "0"
+      ],
+      "group": "CR09",
+      "id": "CR09-zero",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-missing-level",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-single-depth",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-duplicate-level",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-required-mismatch",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-sourceFresh",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-snapshotFresh",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "CR09-complete",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNAVAILABLE",
+      "expected": "UNAVAILABLE",
+      "group": "CR09",
+      "id": "CR09-currency",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "CR09",
+      "id": "CR09-lot-gate",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "CR09",
+      "id": "CR09-negative-loss-invalid",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "POSITIVE",
+        1,
+        "29"
+      ],
+      "expected": [
+        "POSITIVE",
+        1,
+        "29"
+      ],
+      "group": "CR09",
+      "id": "CR09-tie-different-loss",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": [
+        "CONSERVATION_ONLY",
+        [
+          "20",
+          "0"
+        ]
+      ],
+      "expected": [
+        "CONSERVATION_ONLY",
+        [
+          "20",
+          "0"
+        ]
+      ],
+      "group": "CR09",
+      "id": "SEQUENTIAL-conserve",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "CR09",
+      "id": "SEQUENTIAL-no-reuse",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CR09",
+      "id": "SEQUENTIAL-missing",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "CORE",
+      "id": "CORE-zero",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "CORE",
+      "id": "CORE-subminimum",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "GEOMETRY_ONLY",
+      "expected": "GEOMETRY_ONLY",
+      "group": "CORE",
+      "id": "CORE-equal-minimum",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "GEOMETRY_ONLY",
+      "expected": "GEOMETRY_ONLY",
+      "group": "CORE",
+      "id": "CORE-above-minimum",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "UNPROVEN",
+      "expected": "UNPROVEN",
+      "group": "CORE",
+      "id": "CORE-min-not-on-grid",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "GEOMETRY_ONLY",
+      "expected": "GEOMETRY_ONLY",
+      "group": "CORE",
+      "id": "CORE-nonstandard-step",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "CORE",
+      "id": "CORE-core-over-max",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    },
+    {
+      "actual": "REJECT",
+      "expected": "REJECT",
+      "group": "CORE",
+      "id": "CORE-slope-negative",
+      "normativeStatus": "PROPOSED",
+      "result": "PASS"
+    }
+  ]
+}
