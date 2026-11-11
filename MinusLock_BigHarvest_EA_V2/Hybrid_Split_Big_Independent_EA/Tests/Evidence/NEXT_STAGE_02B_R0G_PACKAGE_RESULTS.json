@@ -1,0 +1,55 @@
+{
+  "BaseSHA": "bcaa766568b9fe7eec0781a8c6efbb288cf16dae",
+  "UTC": "2026-11-11T18:13:46.286828+00:00",
+  "VerifierHash": "81c846f7e385827384221d0e04c977b54d645edb23ac51b5ad554df80acee040",
+  "Errors": [],
+  "Positive": "PASS",
+  "NegativeProbes": [
+    {
+      "ProbeID": "omitted-baseline",
+      "Errors": [
+        "baseline inventory"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "altered-baseline-hash",
+      "Errors": [
+        "baseline inventory"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "missing-production",
+      "Errors": [
+        "production inventory"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "altered-artifact-hash",
+      "Errors": [
+        "artifact hash Reports/NEXT_STAGE_02B_R0G_APPROVAL_BALLOT_RU.md"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "duplicate-root",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "duplicate-nested",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "nan",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "infinity",
+      "Result": "PASS"
+    }
+  ],
+  "ExitCode": 0,
+  "Scope": "Read-only identity ballot/registry binding; no broker/native/durable evidence"
+}

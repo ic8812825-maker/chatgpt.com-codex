@@ -1,0 +1,132 @@
+{
+  "BaseSHA": "bcaa766568b9fe7eec0781a8c6efbb288cf16dae",
+  "TestedSHA": "bcaa766568b9fe7eec0781a8c6efbb288cf16dae",
+  "UTC": "2026-11-10T22:22:56.860208+00:00",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0g_contracts.py": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+    "Tests/Reference/hsbi_02b_r0g_identity_candidate.py": "886bc4747b00c08fa0e8689de9be5147a4bdce7f1e3dd3ca3eacc918736d6e0d",
+    "Tests/Reference/hsbi_02b_r0f_contract_candidate.py": "5e45284d78dcc29e127a9a2946ee8bf6780bd5b525368eb0a96152b5785713a5",
+    "Tests/Reference/hsbi_02b_r0f_independent_fixtures.py": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "DecisionID": "R1_1_MINIMAL_APPROVAL_BALLOT",
+  "ProductionBaseline": "bcaa766568b9fe7eec0781a8c6efbb288cf16dae",
+  "ProductionAllowlist": [
+    "Include/Money/HSBI_EconomicLedgerTypes.mqh"
+  ],
+  "IdentitySchemaCandidate": "HSBI-EA-ECON-1 (29-field strict)",
+  "StatusApiCandidate": "HSBI-ECON-CLASSIFY-2",
+  "CodecCandidate": "HSBI-F64Z-1",
+  "AlternativeCodec": "HSBI-T17Z-1",
+  "CandidateNotAdministratorSelection": true,
+  "RequiredDecisions": [
+    {
+      "DecisionID": "D-01",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует локальную equality: нет allocate/consume или денег на выходе. Conservation остаётся обязательной при future funding.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "D-02",
+      "Class": "DIRECT_BLOCKER",
+      "Reason": "Обязательно: raw captured/source identity не является projected profit, reconciled posted net или available money. Equality не создаёт grant.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "D-03",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует equality: Role immutable проверяется, но право harvest/перевода не определяется. IsHarvestSourceEntry нельзя использовать как полное разрешение funding.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "D-04",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует: FarLoss отсутствует в pure source identity API.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "D-05",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует: batch risk/reset не исполняются, A/B/C остаются невыбранными.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "D-06",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует: компоненты фиксируются отдельно, размеры/coverage costs и buffers не вычисляются.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "D-07",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует локальную classification: NO_OP является сравнением, не durable exactly-once. Backend/CAS отсутствуют.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "D-08",
+      "Class": "DIRECT_BLOCKER",
+      "Reason": "Обязательно: key/EA origin нельзя подтверждать предъявленным payload. Применяется только boundary independent provider inputs, не реализация брокерского provider.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "CR-09",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует: level/Catch-Up proof не вызывается и не создаётся.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "NUM-EXACT-1",
+      "Class": "NARROW_SUBSET_REQUIRED",
+      "Reason": "Ограниченно обязательно: exact immutable raw comparison/no epsilon. Полная арифметика settled/projected money не используется в локальной equality.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "NUM-DOMAIN-1",
+      "Class": "NARROW_SUBSET_REQUIRED",
+      "Reason": "Ограниченно обязательно: профиль raw binary64 и точные ID bounds; account balance domain/aggregation остаются позже.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "NUM-CODEC",
+      "Class": "DIRECT_BLOCKER",
+      "Reason": "Обязательно для authoritative serializer в данном candidate ballot. При отказе от codec нужен другой явно урезанный ballot equality-only; нельзя молча считать diagnostic string authoritative.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "SNAP-FIXTURE-1",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не требуется для pure equality/serialization: snapshot не часть economic body. Будущий provider receipt и current snapshot требуют отдельной интеграции.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "FUNDING-GLOBAL-ATTRIBUTION",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует pure equality; глобальная уникальность funding НЕ доказана. NEW не разрешение credit, integration требует source-level unique index/CAS позже.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "MQL-DOMAIN",
+      "Class": "DIRECT_BLOCKER",
+      "Reason": "Обязательно: типы long/ulong/double, finite/UTF8/resource bounds и exact equality должны быть заданы до native implementation.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    },
+    {
+      "DecisionID": "BALANCE-SCHEMA-MAPPING",
+      "Class": "DEFERRED_FOR_LOCAL_IDENTITY",
+      "Reason": "Не блокирует: balance state не читается/не мигрирует. Economic legacy migration отдельно ограничена quarantine.",
+      "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+    }
+  ],
+  "AdditionalRequiredContracts": [
+    "ECONOMIC-SCHEMA-1",
+    "LEGACY-COMPAT-1",
+    "NATIVE-ACCEPTANCE-1"
+  ],
+  "AdministratorDecision": "",
+  "AllowedDecisions": [
+    "APPROVE_MINIMAL_R1_1",
+    "REJECT_MINIMAL_R1_1",
+    "RETURN_FOR_REVISION"
+  ],
+  "R1_1_START_ALLOWED": false
+}

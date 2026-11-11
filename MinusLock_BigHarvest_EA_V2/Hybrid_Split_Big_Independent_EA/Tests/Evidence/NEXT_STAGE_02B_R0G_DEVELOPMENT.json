@@ -1,0 +1,14 @@
+{
+  "BaseSHA": "bcaa766568b9fe7eec0781a8c6efbb288cf16dae",
+  "InitialAttempt": {
+    "Command": "python Tests/Static/check_hsbi_02b_r0g_package.py --build-evidence",
+    "ExitCode": 1,
+    "Error": "FileNotFoundError: NEXT_STAGE_02B_R0G_PRESERVATION.json",
+    "ChildProcesses": "R0G reference128 PASS and read-only R0F package exit0; parent package check not completed",
+    "Classification": "INFRASTRUCTURE_ERROR_BUILD_ORDER",
+    "Published": false,
+    "Timestamp": "NOT_CAPTURED_FOR_PARENT; initial child timestamps not retained as separate development artifact; EXECUTIONS contains final fresh rerun"
+  },
+  "Resolution": "Complete verdict, then run --build-evidence --seal and default read-only validation. No historical or production edits.",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+}

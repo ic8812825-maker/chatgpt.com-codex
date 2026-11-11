@@ -1,0 +1,50 @@
+{
+  "BaseSHA": "bcaa766568b9fe7eec0781a8c6efbb288cf16dae",
+  "StartedUtc": "2026-11-11T18:13:24.411313+00:00",
+  "FinishedUtc": "2026-11-11T18:13:25.131590+00:00",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0g_package.py": "81c846f7e385827384221d0e04c977b54d645edb23ac51b5ad554df80acee040",
+    "Tests/Static/check_hsbi_02b_r0e_package.py": "c8c9f9e43f2194aa1786d83f2d571e5720cfb97c598933aed18c425d3e5cf776"
+  },
+  "Runs": [
+    {
+      "ID": "R0G_REFERENCE",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0g_contracts.py"
+      ],
+      "StartedUtc": "2026-11-11T18:13:24.411349+00:00",
+      "FinishedUtc": "2026-11-11T18:13:24.487962+00:00",
+      "TestedSHA": "bcaa766568b9fe7eec0781a8c6efbb288cf16dae",
+      "RunnerSourceHash": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+      "RunnerPath": "Tests/Static/check_hsbi_02b_r0g_contracts.py",
+      "ExitCode": 0,
+      "Stdout": "R0G 128 128 0 0\n[]\n",
+      "Stderr": ""
+    },
+    {
+      "ID": "R0F_READ_ONLY_PACKAGE",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0f_package.py"
+      ],
+      "StartedUtc": "2026-11-11T18:13:24.490304+00:00",
+      "FinishedUtc": "2026-11-11T18:13:25.113701+00:00",
+      "TestedSHA": "bcaa766568b9fe7eec0781a8c6efbb288cf16dae",
+      "RunnerSourceHash": "44508f0dd96cf75dfab46ed4551ee05ebc4df92b665409a56ff539196cca214d",
+      "RunnerPath": "Tests/Static/check_hsbi_02b_r0f_package.py",
+      "ExitCode": 0,
+      "Stdout": "PACKAGE []\n",
+      "Stderr": ""
+    }
+  ],
+  "StaticNoTrade": {
+    "files": 74,
+    "forbidden": [],
+    "controls": true,
+    "guard": true
+  },
+  "MQL5Native": "NOT_RUN",
+  "HistoricalRegressionR7R0": "NOT_RERUN; frozen R0F failures retained",
+  "ExitCode": 0
+}
